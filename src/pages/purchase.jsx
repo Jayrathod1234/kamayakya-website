@@ -9,7 +9,7 @@ import {
   Modal,
   Text,
 } from "@nextui-org/react";
-import { BILLING_URL, GET_PRODUCT, PAYMENT_URL } from "./api/URLs";
+import { BILLING_URL, GET_PRODUCT, PAYMENT_URL, SUBS_URL1 } from "./api/URLs";
 import { Box, IconButton } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
 import NavBar2 from "@/components/Navbar2";
@@ -86,6 +86,37 @@ export default function PreviewPage() {
 
   const handleReferralChange = (e) => {
     setReferralCode(e.target.value);
+  };
+
+  const handlePaymentSubmit = async () => {
+    const refreshToken = localStorage.getItem("refresh");
+    console.log(refreshToken);
+    setLoading(true);
+    try {
+      const res = await fetch(SUBS_URL1, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `token ${refreshToken}`,
+        },
+      });
+      if (res.ok) {
+        console.log(res);
+        const link = await res.text();
+        const linkFinal = link.replaceAll('"', "").trim();
+        console.log(linkFinal);
+        window.open(`${linkFinal}`, "_blank");
+        setLoading(false);
+      } else {
+        const errorData = await res.json();
+        console.error("Error:", errorData);
+        setLoading(false);
+      }
+      console.log(res);
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -355,71 +386,72 @@ export default function PreviewPage() {
       <NavBar2 />
 
       {/*<Elements stripe={stripePromise}>*/}
-      {/*	/!* <Box>*/}
-      {/*		User Name: if username ? show edit option for biling Name*/}
-      {/*		GST Number get from user */}
-      {/*		Referral Code non editable */}
+      {/* <Box>
+      		User Name: if username ? show edit option for biling Name
+      		GST Number get from user
+      		Referral Code non editable
 
-      {/*	</Box> *!/*/}
-      {/*	<form*/}
-      {/*	// onSubmit={handleCheckoutSubmit}*/}
-      {/*	>*/}
-      {/*		<Box*/}
-      {/*			sx={{*/}
-      {/*				display: "flex",*/}
-      {/*				flexDirection: "column",*/}
-      {/*				width: "500px",*/}
-      {/*				maxWidth: "80rem",*/}
-      {/*				// height: "300px",*/}
-      {/*				alignContent: "center",*/}
-      {/*				padding: "15px",*/}
-      {/*				marginTop: "30px",*/}
-      {/*			}}*/}
-      {/*			className="paymentsPage-box"*/}
-      {/*		>*/}
-      {/*			<img*/}
-      {/*				src={"Card UI.png"}*/}
-      {/*				style={{ width: "100%", height: "auto" }}*/}
-      {/*			/>*/}
-      {/*			/!*<Text b size={20} color="#fff" css={{ ml: "20px", mt: "10px" }}>*!/*/}
-      {/*			/!*  Pay via Debit/Credit Card*!/*/}
-      {/*			/!*</Text>*!/*/}
-      {/*			/!* <Button*/}
-      {/*				auto*/}
-      {/*				type="submit"*/}
-      {/*				css={{*/}
-      {/*					// width: "200px",*/}
-      {/*					height: "50px",*/}
-      {/*					fontSize: 23,*/}
-      {/*					// marginTop: "150px",*/}
-      {/*					// marginLeft: "20px",*/}
-      {/*					borderRadius: "7000.5px",*/}
-      {/*					border: "2.5px solid #440886",*/}
-      {/*					backgroundImage:*/}
-      {/*						"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",*/}
-      {/*				}}*/}
-      {/*			>*/}
-      {/*				Pay now*/}
-      {/*			</Button> *!/*/}
-      {/*			<Button*/}
-      {/*				auto*/}
-      {/*				onPress={handleOpenBillingModal}*/}
-      {/*				css={{*/}
-      {/*					// width: "100%",*/}
-      {/*					height: "50px",*/}
-      {/*					fontSize: 23,*/}
-      {/*					marginTop: "20px",*/}
-      {/*					// marginLeft: "20px",*/}
-      {/*					borderRadius: "7000.5px",*/}
-      {/*					// border: "2.5px solid #440886",*/}
-      {/*					backgroundImage:*/}
-      {/*						"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",*/}
-      {/*				}}*/}
-      {/*			>*/}
-      {/*				Subscribe Now*/}
-      {/*			</Button>*/}
-      {/*		</Box>*/}
-      {/*	</form>*/}
+      	</Box> */}
+      <form
+      // onSubmit={handleCheckoutSubmit}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "500px",
+            maxWidth: "80rem",
+            // height: "300px",
+            alignContent: "center",
+            padding: "15px",
+            marginTop: "30px",
+          }}
+          className="paymentsPage-box"
+        >
+          <img src={"Card UI.png"} style={{ width: "100%", height: "auto" }} />
+          {/*<Text b size={20} color="#fff" css={{ ml: "20px", mt: "10px" }}>*/}
+          {/*  Pay via Debit/Credit Card*/}
+          {/*</Text>*/}
+          {/* <Button
+      				auto
+      				type="submit"
+      				css={{
+      					// width: "200px",
+      					height: "50px",
+      					fontSize: 23,
+      					// marginTop: "150px",
+      					// marginLeft: "20px",
+      					borderRadius: "7000.5px",
+      					border: "2.5px solid #440886",
+      					backgroundImage:
+      						"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",
+      				}}
+      			>
+      				Pay now
+      			</Button> */}
+          <Button
+            auto
+            onPress={handleOpenBillingModal}
+            css={{
+              // width: "100%",
+              height: "50px",
+              fontSize: 23,
+              marginTop: "20px",
+              // marginLeft: "20px",
+              borderRadius: "7000.5px",
+              // border: "2.5px solid #440886",
+              backgroundImage:
+                "linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",
+            }}
+          >
+            {loading ? (
+              <Loading color={"white"} css={{ background: "transparent" }} />
+            ) : (
+              "Subscribe Now"
+            )}
+          </Button>
+        </Box>
+      </form>
       {/*</Elements>*/}
 
       <Modal

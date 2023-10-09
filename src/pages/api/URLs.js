@@ -1,7 +1,9 @@
 //AUTH BASE
 // console.log(process.env.NEXT_PUBLIC_STRIPE_KEY);
 // export const BASE_URL = "https://api-server.kamayakya.in";
-export const BASE_URL = process.env.NEXT_PUBLIC_BASEPATH;
+export const BASE_URL = "https://test-server.kamayakya.in";
+// export const BASE_URL = process.env.NEXT_PUBLIC_BASEPATH;
+// export const BASE_URL = "http://192.168.0.151:8000";
 // export const BASE_URL = "http://192.168.0.151:8000";
 // export const BASE_U       RL = process.env.NEXT_PUBLIC_BASEPATH;
 // console.log(process.env.NEXT_PUBLIC_BASEPATH);
@@ -60,3 +62,7 @@ export const INVOICE_UPLOAD = `${ADMIN_URL}/upload_invoice/`;
 //Stripe Key
 export const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
 // ||  'pk_test_51N3dAPSFPooNZtZaCwGwRUC1IHpC4HqARVbxMBia13Fqan4H6SoLZUhLz21xqqMhtDU5Kiurtzia2uznSEbGSADk00LRBh1V2p'
+
+// export const TEST_URL = "https://test-server.kamayakya.in";
+export const USER_URL1 = `${BASE_URL}/user`;
+export const SUBS_URL1 = `${USER_URL1}/subscribe/`;
