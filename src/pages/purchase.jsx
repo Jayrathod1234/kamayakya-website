@@ -395,62 +395,62 @@ export default function PreviewPage() {
       <form
       // onSubmit={handleCheckoutSubmit}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "500px",
-            maxWidth: "80rem",
-            // height: "300px",
-            alignContent: "center",
-            padding: "15px",
-            marginTop: "30px",
-          }}
-          className="paymentsPage-box"
-        >
-          <img src={"Card UI.png"} style={{ width: "100%", height: "auto" }} />
-          {/*<Text b size={20} color="#fff" css={{ ml: "20px", mt: "10px" }}>*/}
-          {/*  Pay via Debit/Credit Card*/}
-          {/*</Text>*/}
-          {/* <Button
-      				auto
-      				type="submit"
-      				css={{
-      					// width: "200px",
-      					height: "50px",
-      					fontSize: 23,
-      					// marginTop: "150px",
-      					// marginLeft: "20px",
-      					borderRadius: "7000.5px",
-      					border: "2.5px solid #440886",
-      					backgroundImage:
-      						"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",
-      				}}
-      			>
-      				Pay now
-      			</Button> */}
-          <Button
-            auto
-            onPress={handleOpenBillingModal}
-            css={{
-              // width: "100%",
-              height: "50px",
-              fontSize: 23,
-              marginTop: "20px",
-              // marginLeft: "20px",
-              borderRadius: "7000.5px",
-              // border: "2.5px solid #440886",
-              backgroundImage:
-                "linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",
-            }}
-          >
-            {loading ? (
-              <Loading color={"white"} css={{ background: "transparent" }} />
-            ) : (
-              "Subscribe Now"
-            )}
-          </Button>
-        </Box>
+        {/*<Box*/}
+        {/*  sx={{*/}
+        {/*    display: "flex",*/}
+        {/*    flexDirection: "column",*/}
+        {/*    width: "500px",*/}
+        {/*    maxWidth: "80rem",*/}
+        {/*    // height: "300px",*/}
+        {/*    alignContent: "center",*/}
+        {/*    padding: "15px",*/}
+        {/*    marginTop: "30px",*/}
+        {/*  }}*/}
+        {/*  className="paymentsPage-box"*/}
+        {/*>*/}
+        {/*  /!*<img src={"Card UI.png"} style={{ width: "100%", height: "auto" }} />*!/*/}
+        {/*  /!*<Text b size={20} color="#fff" css={{ ml: "20px", mt: "10px" }}>*!/*/}
+        {/*  /!*  Pay via Debit/Credit Card*!/*/}
+        {/*  /!*</Text>*!/*/}
+        {/*  /!* <Button*/}
+        {/*			auto*/}
+        {/*			type="submit"*/}
+        {/*			css={{*/}
+        {/*				// width: "200px",*/}
+        {/*				height: "50px",*/}
+        {/*				fontSize: 23,*/}
+        {/*				// marginTop: "150px",*/}
+        {/*				// marginLeft: "20px",*/}
+        {/*				borderRadius: "7000.5px",*/}
+        {/*				border: "2.5px solid #440886",*/}
+        {/*				backgroundImage:*/}
+        {/*					"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",*/}
+        {/*			}}*/}
+        {/*		>*/}
+        {/*			Pay now*/}
+        {/*		</Button> *!/*/}
+        {/*  <Button*/}
+        {/*    auto*/}
+        {/*    onPress={handleOpenBillingModal}*/}
+        {/*    css={{*/}
+        {/*      // width: "100%",*/}
+        {/*      height: "50px",*/}
+        {/*      fontSize: 23,*/}
+        {/*      marginTop: "20px",*/}
+        {/*      // marginLeft: "20px",*/}
+        {/*      borderRadius: "7000.5px",*/}
+        {/*      // border: "2.5px solid #440886",*/}
+        {/*      backgroundImage:*/}
+        {/*        "linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    {loading ? (*/}
+        {/*      <Loading color={"white"} css={{ background: "transparent" }} />*/}
+        {/*    ) : (*/}
+        {/*      "Subscribe Now"*/}
+        {/*    )}*/}
+        {/*  </Button>*/}
+        {/*</Box>*/}
       </form>
       {/*</Elements>*/}
 

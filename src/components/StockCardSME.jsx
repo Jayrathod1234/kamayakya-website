@@ -76,7 +76,7 @@ const StockCardSME = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
 
-  const staticNumbers = [69, 69, 69];
+  const staticNumbers = [77, 69, 69];
   const [showWhyModal, setShowWhyModal] = useState(false);
   const [showSMENote, setShowSMENote] = useState(false);
 
@@ -1380,7 +1380,7 @@ const StockCardSME = () => {
                           }}
                           size={22}
                         >
-                          {`${stock.live_price}` || <Loading /> || "-"}
+                          {`${stock.entry_price}` || <Loading /> || "-"}
                         </Text>
                       </div>
                       <Divider
