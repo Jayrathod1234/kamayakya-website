@@ -1016,7 +1016,7 @@ const WhyUs = () => {
                           },
                         }}
                       >
-                        RETURNS
+                        OVERALL RETURNS
                       </Text>
                       <Text
                         b
@@ -1890,7 +1890,7 @@ const WhyUs = () => {
                                       },
                                   }}
                                 >
-                                  ENTRY PRICE
+                                  1ST ENTRY PRICE
                                 </Text>
                                 <Text
                                   b

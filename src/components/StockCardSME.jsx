@@ -1071,7 +1071,7 @@ const StockCardSME = () => {
               <Card
                 isHoverable
                 css={{
-                  height: "580px",
+                  height: "680px",
                   width: "285px",
                   display: "flex",
                   flexDirection: "column",
@@ -1086,7 +1086,7 @@ const StockCardSME = () => {
                   "@media only screen and (max-width: 768px)": {
                     width: "92.5vw",
                     maxWidth: "620px",
-                    height: "635px",
+                    height: "765px",
                     borderRadius: "35px",
                   },
                 }}
@@ -1230,7 +1230,7 @@ const StockCardSME = () => {
                         },
                       }}
                     >
-                      Upside Potential
+                      Upside Left
                     </Text>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <ArrowCircleUp size={25} color="#fff" />
@@ -1354,6 +1354,63 @@ const StockCardSME = () => {
                             }}
                             size={15}
                           >
+                            MKT. CAP.
+                          </Text>
+                          <Text
+                            b
+                            size={15}
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 15,
+                              },
+                            }}
+                          >
+                            (IN Cr.)
+                          </Text>
+                        </div>
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                          {`${stock.market_cap}` || <Loading /> || "-"}
+                        </Text>
+                      </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <Text
+                            b
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 21,
+                              },
+                            }}
+                            size={15}
+                          >
                             ENTRY PRICE
                           </Text>
                           <Text
@@ -1381,6 +1438,63 @@ const StockCardSME = () => {
                           size={22}
                         >
                           {`${stock.entry_price}` || <Loading /> || "-"}
+                        </Text>
+                      </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <Text
+                            b
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 21,
+                              },
+                            }}
+                            size={15}
+                          >
+                            CMP
+                          </Text>
+                          <Text
+                            b
+                            size={15}
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 15,
+                              },
+                            }}
+                          >
+                            (in ₹)
+                          </Text>
+                        </div>
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                          {`${stock.live_price}` || <Loading /> || "-"}
                         </Text>
                       </div>
                       <Divider
