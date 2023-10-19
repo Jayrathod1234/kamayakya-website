@@ -1071,7 +1071,7 @@ const StockCardSME = () => {
               <Card
                 isHoverable
                 css={{
-                  height: "680px",
+                  height: "630px",
                   width: "285px",
                   display: "flex",
                   flexDirection: "column",
@@ -1086,7 +1086,7 @@ const StockCardSME = () => {
                   "@media only screen and (max-width: 768px)": {
                     width: "92.5vw",
                     maxWidth: "620px",
-                    height: "765px",
+                    height: "690px",
                     borderRadius: "35px",
                   },
                 }}
@@ -1391,63 +1391,63 @@ const StockCardSME = () => {
                           marginBottom: "10px",
                         }}
                       />
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
-                          <Text
-                            b
-                            css={{
-                              lineHeight: 1.1,
-                              "@media only screen and (max-width: 768px)": {
-                                fontSize: 21,
-                              },
-                            }}
-                            size={15}
-                          >
-                            ENTRY PRICE
-                          </Text>
-                          <Text
-                            b
-                            size={15}
-                            css={{
-                              lineHeight: 1.1,
-                              "@media only screen and (max-width: 768px)": {
-                                fontSize: 15,
-                              },
-                            }}
-                          >
-                            (IN ₹)
-                          </Text>
-                        </div>
-                        <Text
-                          b
-                          css={{
-                            flex: 1,
-                            textAlign: "right",
-                            "@media only screen and (max-width: 768px)": {
-                              fontSize: 30,
-                            },
-                          }}
-                          size={22}
-                        >
-                          {`${stock.entry_price}` || <Loading /> || "-"}
-                        </Text>
-                      </div>
-                      <Divider
-                        height={2}
-                        style={{
-                          backgroundColor: "#ffa12e",
-                          marginTop: "10px",
-                          marginBottom: "10px",
-                        }}
-                      />
+                      {/*<div*/}
+                      {/*  style={{*/}
+                      {/*    display: "flex",*/}
+                      {/*    justifyContent: "space-between",*/}
+                      {/*    alignItems: "center",*/}
+                      {/*  }}*/}
+                      {/*>*/}
+                      {/*  <div*/}
+                      {/*    style={{ display: "flex", flexDirection: "column" }}*/}
+                      {/*  >*/}
+                      {/*    <Text*/}
+                      {/*      b*/}
+                      {/*      css={{*/}
+                      {/*        lineHeight: 1.1,*/}
+                      {/*        "@media only screen and (max-width: 768px)": {*/}
+                      {/*          fontSize: 21,*/}
+                      {/*        },*/}
+                      {/*      }}*/}
+                      {/*      size={15}*/}
+                      {/*    >*/}
+                      {/*      ENTRY PRICE*/}
+                      {/*    </Text>*/}
+                      {/*    <Text*/}
+                      {/*      b*/}
+                      {/*      size={15}*/}
+                      {/*      css={{*/}
+                      {/*        lineHeight: 1.1,*/}
+                      {/*        "@media only screen and (max-width: 768px)": {*/}
+                      {/*          fontSize: 15,*/}
+                      {/*        },*/}
+                      {/*      }}*/}
+                      {/*    >*/}
+                      {/*      (IN ₹)*/}
+                      {/*    </Text>*/}
+                      {/*  </div>*/}
+                      {/*  <Text*/}
+                      {/*    b*/}
+                      {/*    css={{*/}
+                      {/*      flex: 1,*/}
+                      {/*      textAlign: "right",*/}
+                      {/*      "@media only screen and (max-width: 768px)": {*/}
+                      {/*        fontSize: 30,*/}
+                      {/*      },*/}
+                      {/*    }}*/}
+                      {/*    size={22}*/}
+                      {/*  >*/}
+                      {/*    {`${stock.entry_price}` || <Loading /> || "-"}*/}
+                      {/*  </Text>*/}
+                      {/*</div>*/}
+                      {/*<Divider*/}
+                      {/*  height={2}*/}
+                      {/*  style={{*/}
+                      {/*    backgroundColor: "#ffa12e",*/}
+                      {/*    marginTop: "10px",*/}
+                      {/*    marginBottom: "10px",*/}
+                      {/*  }}*/}
+                      {/*/>*/}
                       <div
                         style={{
                           display: "flex",

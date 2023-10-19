@@ -66,6 +66,7 @@ const WhyUs = () => {
         const data = await response.json();
         setRecord(data);
         // await delay(3);
+        console.log(data);
         setisLoadingTrackRecord(false);
       } else {
         // Handle API call error
@@ -809,7 +810,7 @@ const WhyUs = () => {
                           },
                         }}
                       >
-                        ENTRY PRICE
+                        FIRST ENTRY
                       </Text>
                       <Text
                         b
@@ -828,17 +829,17 @@ const WhyUs = () => {
                       >
                         <span style={{ fontSize: 16, opacity: 0.75 }}>₹</span>
                         {/* hard coding ion exchange price to 469, problem is that its giving buy rating for cmp<ep of target 2 */}
-                        {item?.id == "25bb9fba-5b3a-4156-bcae-b504f352d980" ? (
-                          "469"
-                        ) : (
-                          <>
-                            {item?.stock_targets.length > 0
-                              ? item?.stock_targets[
-                                  item?.stock_targets.length - 1
-                                ].entry_price
-                              : item?.entry_price}
-                          </>
-                        )}
+                        {/*{item?.id == "25bb9fba-5b3a-4156-bcae-b504f352d980" ? (*/}
+                        {/*  "469"*/}
+                        {/*) : (*/}
+                        <>
+                          {/*{item?.stock_targets.length > 0*/}
+                          {/*  ? item?.stock_targets[0].entry_price*/}
+                          {/*  : item?.entry_price}*/}
+                          {/*  changing entry price of main card to first entry and updating the value to the first entry to the stock */}
+                          {item?.entry_price}
+                        </>
+                        {/*)}*/}
                       </Text>
                       <Text
                         b
@@ -854,27 +855,33 @@ const WhyUs = () => {
                           },
                         }}
                       >
-                        {item?.stock_targets.length > 0
-                          ? `${new Date(
-                              item?.stock_targets[
-                                item?.stock_targets.length - 1
-                              ].created
-                            ).getDate()} ${new Date(
-                              item?.stock_targets[
-                                item?.stock_targets.length - 1
-                              ].created
-                            ).toLocaleString("default", {
-                              month: "short",
-                            })} ${new Date(
-                              item?.stock_targets[
-                                item?.stock_targets.length - 1
-                              ].created
-                            ).getFullYear()}`
-                          : `${new Date(item?.start_date).getDate()} ${new Date(
-                              item.start_date
-                            ).toLocaleString("default", {
-                              month: "short",
-                            })} ${new Date(item?.start_date).getFullYear()}`}
+                        {/*{item?.stock_targets.length > 0*/}
+                        {/*  ? `${new Date(*/}
+                        {/*      item?.stock_targets[*/}
+                        {/*        item?.stock_targets.length - 1*/}
+                        {/*      ].created*/}
+                        {/*    ).getDate()} ${new Date(*/}
+                        {/*      item?.stock_targets[*/}
+                        {/*        item?.stock_targets.length - 1*/}
+                        {/*      ].created*/}
+                        {/*    ).toLocaleString("default", {*/}
+                        {/*      month: "short",*/}
+                        {/*    })} ${new Date(*/}
+                        {/*      item?.stock_targets[*/}
+                        {/*        item?.stock_targets.length - 1*/}
+                        {/*      ].created*/}
+                        {/*    ).getFullYear()}`*/}
+                        {/*  : `${new Date(item?.start_date).getDate()} ${new Date(*/}
+                        {/*      item.start_date*/}
+                        {/*    ).toLocaleString("default", {*/}
+                        {/*      month: "short",*/}
+                        {/*    })} ${new Date(item?.start_date).getFullYear()}`}*/}
+                        {/*    changed entry date on main card to first entry date from latest target entry date */}
+                        {new Date(item?.start_date).getDate()}&nbsp;
+                        {new Date(item.start_date).toLocaleString("default", {
+                          month: "short",
+                        })}{" "}
+                        {new Date(item?.start_date).getFullYear()}
                       </Text>
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -1016,7 +1023,7 @@ const WhyUs = () => {
                           },
                         }}
                       >
-                        OVERALL RETURNS
+                        RETURNS
                       </Text>
                       <Text
                         b
@@ -1253,7 +1260,7 @@ const WhyUs = () => {
                         onPress={() => handleOpenReports(index)}
                         css={{
                           alignSelf: "center",
-                          borderRadius: "1000px",
+                          borderRadius: "11px",
                           width: "47.5%",
                           fontSize: 18,
                           backgroundImage:
@@ -1270,7 +1277,7 @@ const WhyUs = () => {
                         auto
                         onPress={() => handleOpenTargets(index)}
                         css={{
-                          borderRadius: "1000px",
+                          borderRadius: "11px 11px 1px 11px",
                           width: "47.5%",
                           fontSize: 18,
                           backgroundImage:
