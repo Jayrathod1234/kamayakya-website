@@ -604,11 +604,10 @@ const Section2 = () => {
                 },
               }}
             >
-              Nitya has cleared CFA Level 1, NISM Research Analyst exam and has
-              completed M.Com from Pune University. He has an investing
-              experience of 5 years and has worked for 2 years in product
-              development and investment research at an Investment Advisory in
-              the past.
+              Nitya has cleared CFA Level 1 and NISM Research Analyst exam. He
+              has an investing experience of 5 years and has worked for 2 years
+              in product development and investment research at an Investment
+              Advisory in the past.
             </Text>
           </Box>
           {/* Person 3 */}
