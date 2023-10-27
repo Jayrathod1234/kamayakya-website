@@ -344,7 +344,7 @@ const Section2 = () => {
           {/*  </Text>*/}
           {/*</Box>*/}
 
-          {/* Person 2 */}
+          {/* Person 1 */}
           <Box
             sx={{
               display: "flex",
@@ -451,8 +451,8 @@ const Section2 = () => {
           >
             <img
               // src="https://www.greenapplewellness.com.au/wp-content/uploads/image-placeholder-350x350-1.png"
-              src="56106010_864526223885470_7072335677806870528_n.jpg"
-              alt="Dhiren Shah | KamayaKya Wealth Management"
+              src="anandShah.jpg"
+              alt="Anand Shah | KamayaKya Wealth Management"
               // width="100%";
               className="pfpTeam-mobile"
               style={{
@@ -523,7 +523,7 @@ const Section2 = () => {
             </Text>
           </Box>
 
-          {/* Person 2 */}
+          {/* Person 3 */}
           <Box
             sx={{
               display: "flex",
