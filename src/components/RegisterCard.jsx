@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 import { BiLockAlt } from "react-icons/bi";
 import PhoneInput from "react-phone-input-2";
 import { blockInvalidChar } from "@/components/LoginCard";
-import Cookies from "js-cookie";
 
 const RegisterCard = () => {
   const router = useRouter();
@@ -49,8 +48,6 @@ const RegisterCard = () => {
     setMobile(e.target.value);
     setEmail("");
   };
-
-  var in30Minutes = 1 / 48;
 
   const showAlert = () => {
     setIsAlertVisible(true);
@@ -111,13 +108,8 @@ const RegisterCard = () => {
         const data = await response.json();
         localStorage.setItem("access", data.access);
         localStorage.setItem("refresh", data.refresh);
-        Cookies.set("refresh", data.refresh, { expires: in30Minutes });
-        if (router.pathname !== "/track-record") {
-          router.push("/stock-picks");
-        } else {
-          setShowOtpModal(false);
-          window.location.reload();
-        }
+        setShowOtpModal(false);
+        router.push("/stock-picks");
       } else {
         console.log("RESPONSE NOT OK");
         setError("Failed to verify OTP. Please try again.");

@@ -115,11 +115,16 @@ const LoginCard = () => {
         const data = await response.json();
         localStorage.setItem("access", data.access);
         localStorage.setItem("refresh", data.refresh);
-        Cookies.set("refresh", data.refresh, { expires: in30Minutes });
-        if (router.pathname !== "/track-record") {
-          router.push("/stock-picks");
-        } else {
-          setShowOtpModal(false);
+        const location = router.asPath;
+        // Cookies.set("location", location, {expires: in30Minutes});
+        // console.log( location, "login done from CArd" );
+        router.push(location);
+        // Cookies.set("refresh", data.refresh, { expires: in30Minutes });
+        // if (router.pathname !== "/track-record") {
+        //   router.push("/stock-picks");
+        // } else {
+        setShowOtpModal(false);
+        if (router.pathname === "/") {
           window.location.reload();
         }
       } else {

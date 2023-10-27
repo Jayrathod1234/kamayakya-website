@@ -892,7 +892,7 @@ const UserDetails = () => {
           </div>
         </div>
         <br></br>
-        <Divider></Divider>
+        {/* <Divider></Divider> */}
 
         <Box
           sx={{

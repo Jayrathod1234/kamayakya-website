@@ -75,7 +75,7 @@ const StockCard = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
 
-  const staticNumbers = [94, 49, 28];
+  const staticNumbers = [70, 68, 61];
   const [showWhyModal, setShowWhyModal] = useState(false);
 
   const [record, setRecord] = useState([]);
@@ -371,7 +371,6 @@ const StockCard = () => {
             },
           });
           setStocks(response.data);
-          console.log(response.data);
           setFlipStates(new Array(response.data.length).fill(false));
         } catch (error) {
           setError("Please Login First to see our stock picks!");
