@@ -7,32 +7,32 @@ import { pdf } from "@react-pdf/renderer";
 import InvoicePDF from "./UserDetails/InvoicePDF";
 
 const paymentsuccessful = () => {
-  // const { isLoggedIn } = useContext(AuthContext);
-  // const [user, setUser] = useState(null);
-  // const [UserDetails, setUserDetails] = useState(null);
-  const [countdown, setCountdown] = useState(5);
-  const [showMessage, setShowMessage] = useState(false);
-  const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
+	// const { isLoggedIn } = useContext(AuthContext);
+	// const [user, setUser] = useState(null);
+	// const [UserDetails, setUserDetails] = useState(null);
+	const [countdown, setCountdown] = useState(5);
+	const [showMessage, setShowMessage] = useState(false);
+	const [message, setMessage] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
+	const router = useRouter();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown((prevCountdown) => prevCountdown - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-  useEffect(() => {
-    if (countdown === -1) {
-      setShowMessage(true);
-      // console.log('window.history.previous.href', window.history.back)
-      const redirect = localStorage.getItem("location");
-      router.push(redirect ? redirect : "/");
-      // setMessage("Taking longer than usual please wait...");
-      setIsLoading(false);
-      localStorage.removeItem("location");
-    }
-  }, [countdown]);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCountdown((prevCountdown) => prevCountdown - 1);
+		}, 1000);
+		return () => clearInterval(interval);
+	}, []);
+	useEffect(() => {
+		if (countdown === -1) {
+			setShowMessage(true);
+			// console.log('window.history.previous.href', window.history.back)
+			const redirect = localStorage.getItem("location");
+			router.push(redirect ? redirect : "/");
+			// setMessage("Taking longer than usual please wait...");
+			setIsLoading(false);
+			localStorage.removeItem("location");
+		}
+	}, [countdown]);
 
   return (
     <div

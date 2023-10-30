@@ -76,7 +76,7 @@ const StockCardSME = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
 
-  const staticNumbers = [93, 87, 87];
+  const staticNumbers = [82, 82, 82];
   const [showWhyModal, setShowWhyModal] = useState(false);
   const [showSMENote, setShowSMENote] = useState(false);
 
@@ -2486,7 +2486,7 @@ const StockCardSME = () => {
                             lineHeight: 1.5,
                           }}
                         >
-                          Upside Potential
+                          Upside Left
                         </Text>
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <ArrowCircleUp size={25} color="#fff" />

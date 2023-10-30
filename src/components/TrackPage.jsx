@@ -15,10 +15,10 @@ import { Box, Grid, IconButton, LinearProgress } from "@mui/material";
 import ReactECharts from "echarts-for-react";
 import ReactCardFlip from "react-card-flip";
 import {
-  ArrowCircleRight,
-  ArrowCircleUp,
-  DocumentText,
-  LockCircle,
+	ArrowCircleRight,
+	ArrowCircleUp,
+	DocumentText,
+	LockCircle,
 } from "iconsax-react";
 import FaqsNew from "@/pages/screens/FaqsNew";
 import AuthContext from "@/components/AuthContext";
@@ -30,15 +30,15 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import packageJson from "../../package.json";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "@/components/Login";
-//
+
 const WhyUs = () => {
-  // const { setVisible, bindings } = useModal();
-  const [flipStates, setFlipStates] = useState(Array(8).fill(false));
-  const [record, setRecord] = useState([]);
-  const { isLoggedIn } = useContext(AuthContext);
-  const { isSubscribed } = useContext(AuthContext);
-  const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
-  const { setVisible, bindings } = useModal();
+	// const { setVisible, bindings } = useModal();
+	const [flipStates, setFlipStates] = useState(Array(8).fill(false));
+	const [record, setRecord] = useState([]);
+	const { isLoggedIn } = useContext(AuthContext);
+	const { isSubscribed } = useContext(AuthContext);
+	// const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
+	// const { setVisible, bindings } = useModal();
 
   const [isLoadingTrackRecord, setisLoadingTrackRecord] = useState(true);
 
@@ -53,20 +53,20 @@ const WhyUs = () => {
         "Content-Type": "application/json",
       };
 
-      if (isLoggedIn) {
-        headers.Authorization = `token ${refreshToken}`;
-      }
+			if (isLoggedIn) {
+				headers.Authorization = `token ${refreshToken}`;
+			}
 
-      const response = await fetch(url, {
-        method: "GET",
-        headers,
-      });
+			const response = await fetch(url, {
+				method: "GET",
+				headers,
+			});
 
       if (response.ok) {
         const data = await response.json();
         setRecord(data);
+        // console.log(data);
         // await delay(3);
-        console.log(data);
         setisLoadingTrackRecord(false);
       } else {
         // Handle API call error
@@ -83,360 +83,360 @@ const WhyUs = () => {
     handleTrackRecord().then((r) => console.log(record));
   }, [isLoggedIn]);
 
-  const handleClick = (index) => {
-    const newFlipStates = flipStates.map((state, i) =>
-      i == index ? !state : false
-    );
-    setFlipStates(newFlipStates);
-  };
-  const [showPDF, setShowPDF] = useState(false);
+	const handleClick = (index) => {
+		const newFlipStates = flipStates.map((state, i) =>
+			i == index ? !state : false
+		);
+		setFlipStates(newFlipStates);
+	};
+	const [showPDF, setShowPDF] = useState(false);
 
-  const handlePDF = () => {
-    setShowPDF(true);
-  };
+	const handlePDF = () => {
+		setShowPDF(true);
+	};
 
-  const handlePDFClose = () => {
-    setShowPDF(false);
-  };
+	const handlePDFClose = () => {
+		setShowPDF(false);
+	};
 
-  const [showCert, setShowCert] = useState(false);
+	const [showCert, setShowCert] = useState(false);
 
-  const handleCert = () => {
-    // setShowCert(true);
-    var win = window.open(
-      "Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-    // win.document.write('<PdfViewer pdf={PDF}/>');
-  };
+	const handleCert = () => {
+		// setShowCert(true);
+		var win = window.open(
+			"Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+		// win.document.write('<PdfViewer pdf={PDF}/>');
+	};
 
-  const handleCertClose = () => {
-    setShowCert(false);
-  };
+	const handleCertClose = () => {
+		setShowCert(false);
+	};
 
-  const [showTargets, setShowTargets] = useState(false);
-  const [showReports, setShowReports] = useState(false);
-  const [selectedCardIndex, setSelectedCardIndex] = useState([]);
-  const [selectedReportUrl, setSelectedReportUrl] = useState("");
-  const [showLoginModal, setShowLoginModal] = useState(false);
+	const [showTargets, setShowTargets] = useState(false);
+	const [showReports, setShowReports] = useState(false);
+	const [selectedCardIndex, setSelectedCardIndex] = useState([]);
+	const [selectedReportUrl, setSelectedReportUrl] = useState("");
+	const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const handleLogin = () => {
-    setShowLoginModal(true);
-  };
-  const handleCloseLoginModal = () => {
-    setShowLoginModal(false);
-  };
+	const handleLogin = () => {
+		setShowLoginModal(true);
+	};
+	const handleCloseLoginModal = () => {
+		setShowLoginModal(false);
+	};
 
-  const handleCloseTargets = () => {
-    setShowTargets(false);
-  };
-  const handleOpenTargets = (index) => {
-    setSelectedCardIndex(index);
-    setShowTargets(true);
-  };
+	const handleCloseTargets = () => {
+		setShowTargets(false);
+	};
+	const handleOpenTargets = (index) => {
+		setSelectedCardIndex(index);
+		setShowTargets(true);
+	};
 
-  const [selectedPDF, setSelectedPDF] = useState(new Set([""]));
+	const [selectedPDF, setSelectedPDF] = useState(new Set([""]));
 
-  const PdfValue = React.useMemo(
-    () => Array.from(selectedPDF)[0],
-    [selectedPDF]
-  );
+	const PdfValue = React.useMemo(
+		() => Array.from(selectedPDF)[0],
+		[selectedPDF]
+	);
 
-  const handleCloseReports = () => {
-    setShowReports(false);
-    setSelectedPDF("");
-  };
-  const handleOpenReports = (index) => {
-    setSelectedCardIndex(index);
-    setShowReports(true);
+	const handleCloseReports = () => {
+		setShowReports(false);
+		setSelectedPDF("");
+	};
+	const handleOpenReports = (index) => {
+		setSelectedCardIndex(index);
+		setShowReports(true);
 
-    if (record[index].stock_reports && record[index].stock_reports.length > 0) {
-      const firstReportUrl = record[index].stock_reports[0].document;
-      setSelectedReportUrl(firstReportUrl);
-      // setSelectedPDF(firstReportUrl);
-      // console.log(selectedPDF);
-      // console.log(selectedReportUrl);
-    }
-  };
+		if (record[index].stock_reports && record[index].stock_reports.length > 0) {
+			const firstReportUrl = record[index].stock_reports[0].document;
+			setSelectedReportUrl(firstReportUrl);
+			// setSelectedPDF(firstReportUrl);
+			// console.log(selectedPDF);
+			// console.log(selectedReportUrl);
+		}
+	};
 
-  // const PdfURL =
-  // 	selectedPDF === "" || selectedPDF === undefined
-  // 		? selectedReportUrl
-  // 		: PdfValue;
+	// const PdfURL =
+	// 	selectedPDF === "" || selectedPDF === undefined
+	// 		? selectedReportUrl
+	// 		: PdfValue;
 
-  const PdfURL =
-    selectedPDF === "" || selectedPDF === undefined
-      ? selectedReportUrl
-      : PdfValue;
+	const PdfURL =
+		selectedPDF === "" || selectedPDF === undefined
+			? selectedReportUrl
+			: PdfValue;
 
-  const handleAskPassword = (e) => {
-    e.verifyPassword("$420%69#kamayakya#69%420$");
-  };
+	const handleAskPassword = (e) => {
+		e.verifyPassword("$420%69#kamayakya#69%420$");
+	};
 
-  const outerData = [
-    { value: 60, name: "Hits" },
-    { value: 10, name: "Miss" },
-  ];
+	const outerData = [
+		{ value: 60, name: "Hits" },
+		{ value: 10, name: "Miss" },
+	];
 
-  const innerData = [
-    { value: 10, name: "Miss" },
-    { value: 60, name: "" },
-  ];
+	const innerData = [
+		{ value: 10, name: "Miss" },
+		{ value: 60, name: "" },
+	];
 
-  const options = {
-    //   title: {
-    // 	text: "Call History",
-    // 	x: "center",
-    //   },
-    //   tooltip: {
-    // 	trigger: "item",
-    //   },
-    //   legend: {
-    // 	orient: "vertical",
-    // 	left: "left",
-    // 	data: ["Outer", "Inner"],
-    //   },
-    series: [
-      {
-        name: "Hits",
-        type: "pie",
-        radius: ["50%", "65%"],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderWidth: 0, // Remove border
-          borderRadius: 20,
-          color: "#125a54",
-          // background:
-        },
-        label: {
-          show: false,
-          position: "center",
-        },
-        emphasis: {
-          label: {
-            show: false,
-            fontSize: "20",
-            fontWeight: "bold",
-          },
-        },
-        labelLine: {
-          show: false,
-        },
-        data: outerData.map((item) => ({
-          ...item,
-          itemStyle: {
-            color: item.name === "Miss" ? "rgba(255, 255, 255, 0.5)" : null,
-          },
-          label: {
-            show: true,
-            position: "center",
-            formatter: item.name === "Hits" ? "{d}%" : "",
-            textStyle: {
-              fontSize: 24,
-              fontWeight: "bold",
-              color: "#125a54", // Set the color of the percentage text
-            },
-          },
-        })),
-      },
-      {
-        name: "Miss",
-        type: "pie",
-        radius: ["35%", "47%"],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderWidth: 0, // Remove border
-          borderRadius: 20,
-          color: "#ffa12e",
-        },
-        label: {
-          show: false,
-          position: "center",
-        },
-        emphasis: {
-          label: {
-            show: false,
-            fontSize: "14",
-            fontWeight: "bold",
-          },
-        },
-        labelLine: {
-          show: false,
-        },
-        data: innerData.map((item) => ({
-          ...item,
-          itemStyle: {
-            color: item.name === "" ? "rgba(255,255,255, 0.5)" : null,
-          },
-        })),
-      },
-    ],
-  };
+	const options = {
+		//   title: {
+		// 	text: "Call History",
+		// 	x: "center",
+		//   },
+		//   tooltip: {
+		// 	trigger: "item",
+		//   },
+		//   legend: {
+		// 	orient: "vertical",
+		// 	left: "left",
+		// 	data: ["Outer", "Inner"],
+		//   },
+		series: [
+			{
+				name: "Hits",
+				type: "pie",
+				radius: ["50%", "65%"],
+				avoidLabelOverlap: false,
+				itemStyle: {
+					borderWidth: 0, // Remove border
+					borderRadius: 20,
+					color: "#125a54",
+					// background:
+				},
+				label: {
+					show: false,
+					position: "center",
+				},
+				emphasis: {
+					label: {
+						show: false,
+						fontSize: "20",
+						fontWeight: "bold",
+					},
+				},
+				labelLine: {
+					show: false,
+				},
+				data: outerData.map((item) => ({
+					...item,
+					itemStyle: {
+						color: item.name === "Miss" ? "rgba(255, 255, 255, 0.5)" : null,
+					},
+					label: {
+						show: true,
+						position: "center",
+						formatter: item.name === "Hits" ? "{d}%" : "",
+						textStyle: {
+							fontSize: 24,
+							fontWeight: "bold",
+							color: "#125a54", // Set the color of the percentage text
+						},
+					},
+				})),
+			},
+			{
+				name: "Miss",
+				type: "pie",
+				radius: ["35%", "47%"],
+				avoidLabelOverlap: false,
+				itemStyle: {
+					borderWidth: 0, // Remove border
+					borderRadius: 20,
+					color: "#ffa12e",
+				},
+				label: {
+					show: false,
+					position: "center",
+				},
+				emphasis: {
+					label: {
+						show: false,
+						fontSize: "14",
+						fontWeight: "bold",
+					},
+				},
+				labelLine: {
+					show: false,
+				},
+				data: innerData.map((item) => ({
+					...item,
+					itemStyle: {
+						color: item.name === "" ? "rgba(255,255,255, 0.5)" : null,
+					},
+				})),
+			},
+		],
+	};
 
-  return (
-    <section
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-        backgroundColor: "#fff",
-      }}
-    >
-      <Box
-        sx={{
-          width: "95%",
-          display: "flex",
-          flexDirection: "column",
-          flexWrap: "wrap",
-          alignItems: "center",
-          paddingTop: "5vh",
-          paddingBottom: "10vh",
-          "@media only screen and (max-width: 764px)": {
-            // maxHeight: "100vh",
-            marginTop: "0px",
-            paddingTop: "0px",
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-            paddingLeft: "5px",
-            paddingRight: "5px",
-          },
-        }}
-      >
-        <Box
-          sx={{
-            cursor: "pointer",
-            // paddingLeft: "40px",
-            // paddingRight: "40px",
-            // paddingTop: "15px",
-            // paddingBottom: "15px",
-            padding: "0",
-            // marginTop: "25px",
-            display: "flex",
-            flexDirection: "column",
-            // backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
-            // backgroundImage: "linear-gradient(to top , #fff, #fff)",
-            alignItems: "center",
-            // backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-            borderRadius: "1200.5px",
-            "@media only screen and (max-width: 764px)": {
-              paddingLeft: "5px",
-              paddingRight: "5px",
-              marginTop: "10px",
-              marginBottom: "10px",
-              borderRadius: "10px",
-              alignItems: "flex-start",
-              backgroundImage: "linear-gradient(to top , #fff, #fff)",
-            },
-          }}
-        >
-          <Text
-            b
-            size={18}
-            color="#FFF"
-            css={{
-              fontWeight: "bolder",
-              color: "#021C61",
-              "@media only screen and (max-width: 764px)": {
-                fontSize: 18,
-                width: "100%",
-                textAlign: "left",
-                color: "#021C61",
-              },
-            }}
-            onClick={handleCert}
-          >
-            SEBI Registered: INH000009843
-          </Text>
-        </Box>
-        <Modal
-          // width="790px"
-          blur
-          open={showCert}
-          onClose={handleCertClose}
-          css={{
-            width: "65vw",
-            maxWidth: "65vw",
-            alignSelf: "flex-end",
-            background: "transparent",
-            boxShadow: "none",
-            borderRadius: "15px",
-            "@media only screen and (max-width: 764px)": {
-              width: "95vw !important",
-              maxWidth: "95vw !important",
-            },
-          }}
-        >
-          <iframe
-            src="Kamayakya-SEBI-License.pdf#view=FitH&toolbar=0"
-            alt="SEBI Certificate"
-            style={{
-              width: "100%",
-              height: "75vh",
-              borderColor: "transparent",
-              borderRadius: "15px",
-              borderWidth: "0px",
-              zoom: "1",
-            }}
-            className="iframePdfMobile"
-          />
-          {/* <Modal.Footer justify="center"> */}
-          <Button
-            auto
-            onClick={handleCertClose}
-            css={{
-              // alignSelf: "end",
-              width: "100%",
-              backgroundColor: "#ffa12e",
-              color: "#fff",
-              fontSize: 19,
-              marginTop: "20px",
-              borderRadius: "10px",
-              height: "50px",
-              "@media only screen and (max-width: 768px)": {
-                width: "100%",
-                fontSize: 15,
-                height: "50px",
-                marginTop: "0px",
-                borderRadius: "0px 0px 10px",
-                "& span": {
-                  // display: "none",
-                },
-              },
-            }}
-          >
-            Close
-          </Button>
-          {/* </Modal.Footer> */}
-        </Modal>
-        <Text
-          b
-          size={70}
-          css={{
-            marginTop: "0px",
-            marginBottom: "0px",
-            // width: "90%",
-            maxWidth: "80rem" /* 1280px */,
-            textAlign: "center",
-            lineHeight: 1.2,
-            paddingLeft: "15px",
-            paddingRight: "15px",
-            "@media only screen and (max-width: 764px)": {
-              fontSize: 45,
-              lineHeight: 1.1,
-              paddingLeft: "5px",
-              paddingRight: "5px",
-              marginTop: "0px",
-              marginBottom: "10px",
-              maxWidth: "100%",
-              textAlign: "left",
-            },
-          }}
-        >
-          Track Record
-        </Text>
+	return (
+		<section
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+				alignItems: "center",
+				height: "100%",
+				backgroundColor: "#fff",
+			}}
+		>
+			<Box
+				sx={{
+					width: "95%",
+					display: "flex",
+					flexDirection: "column",
+					flexWrap: "wrap",
+					alignItems: "center",
+					paddingTop: "5vh",
+					paddingBottom: "10vh",
+					"@media only screen and (max-width: 764px)": {
+						// maxHeight: "100vh",
+						marginTop: "0px",
+						paddingTop: "0px",
+						justifyContent: "flex-start",
+						alignItems: "flex-start",
+						paddingLeft: "5px",
+						paddingRight: "5px",
+					},
+				}}
+			>
+				<Box
+					sx={{
+						cursor: "pointer",
+						// paddingLeft: "40px",
+						// paddingRight: "40px",
+						// paddingTop: "15px",
+						// paddingBottom: "15px",
+						padding: "0",
+						// marginTop: "25px",
+						display: "flex",
+						flexDirection: "column",
+						// backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
+						// backgroundImage: "linear-gradient(to top , #fff, #fff)",
+						alignItems: "center",
+						// backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
+						borderRadius: "1200.5px",
+						"@media only screen and (max-width: 764px)": {
+							paddingLeft: "5px",
+							paddingRight: "5px",
+							marginTop: "10px",
+							marginBottom: "10px",
+							borderRadius: "10px",
+							alignItems: "flex-start",
+							backgroundImage: "linear-gradient(to top , #fff, #fff)",
+						},
+					}}
+				>
+					<Text
+						b
+						size={18}
+						color="#FFF"
+						css={{
+							fontWeight: "bolder",
+							color: "#021C61",
+							"@media only screen and (max-width: 764px)": {
+								fontSize: 18,
+								width: "100%",
+								textAlign: "left",
+								color: "#021C61",
+							},
+						}}
+						onClick={handleCert}
+					>
+						SEBI Registered: INH000009843
+					</Text>
+				</Box>
+				<Modal
+					// width="790px"
+					blur
+					open={showCert}
+					onClose={handleCertClose}
+					css={{
+						width: "65vw",
+						maxWidth: "65vw",
+						alignSelf: "flex-end",
+						background: "transparent",
+						boxShadow: "none",
+						borderRadius: "15px",
+						"@media only screen and (max-width: 764px)": {
+							width: "95vw !important",
+							maxWidth: "95vw !important",
+						},
+					}}
+				>
+					<iframe
+						src="Kamayakya-SEBI-License.pdf#view=FitH&toolbar=0"
+						alt="SEBI Certificate"
+						style={{
+							width: "100%",
+							height: "75vh",
+							borderColor: "transparent",
+							borderRadius: "15px",
+							borderWidth: "0px",
+							zoom: "1",
+						}}
+						className="iframePdfMobile"
+					/>
+					{/* <Modal.Footer justify="center"> */}
+					<Button
+						auto
+						onClick={handleCertClose}
+						css={{
+							// alignSelf: "end",
+							width: "100%",
+							backgroundColor: "#ffa12e",
+							color: "#fff",
+							fontSize: 19,
+							marginTop: "20px",
+							borderRadius: "10px",
+							height: "50px",
+							"@media only screen and (max-width: 768px)": {
+								width: "100%",
+								fontSize: 15,
+								height: "50px",
+								marginTop: "0px",
+								borderRadius: "0px 0px 10px",
+								"& span": {
+									// display: "none",
+								},
+							},
+						}}
+					>
+						Close
+					</Button>
+					{/* </Modal.Footer> */}
+				</Modal>
+				<Text
+					b
+					size={70}
+					css={{
+						marginTop: "0px",
+						marginBottom: "0px",
+						// width: "90%",
+						maxWidth: "80rem" /* 1280px */,
+						textAlign: "center",
+						lineHeight: 1.2,
+						paddingLeft: "15px",
+						paddingRight: "15px",
+						"@media only screen and (max-width: 764px)": {
+							fontSize: 45,
+							lineHeight: 1.1,
+							paddingLeft: "5px",
+							paddingRight: "5px",
+							marginTop: "0px",
+							marginBottom: "10px",
+							maxWidth: "100%",
+							textAlign: "left",
+						},
+					}}
+				>
+					Track Record
+				</Text>
 
         <Text
           b
@@ -810,7 +810,7 @@ const WhyUs = () => {
                           },
                         }}
                       >
-                        FIRST ENTRY
+                        ENTRY PRICE
                       </Text>
                       <Text
                         b
@@ -829,17 +829,17 @@ const WhyUs = () => {
                       >
                         <span style={{ fontSize: 16, opacity: 0.75 }}>₹</span>
                         {/* hard coding ion exchange price to 469, problem is that its giving buy rating for cmp<ep of target 2 */}
-                        {/*{item?.id == "25bb9fba-5b3a-4156-bcae-b504f352d980" ? (*/}
-                        {/*  "469"*/}
-                        {/*) : (*/}
-                        <>
-                          {/*{item?.stock_targets.length > 0*/}
-                          {/*  ? item?.stock_targets[0].entry_price*/}
-                          {/*  : item?.entry_price}*/}
-                          {/*  changing entry price of main card to first entry and updating the value to the first entry to the stock */}
-                          {item?.entry_price}
-                        </>
-                        {/*)}*/}
+                        {item?.id == "25bb9fba-5b3a-4156-bcae-b504f352d980" ? (
+                          "469"
+                        ) : (
+                          <>
+                            {item?.stock_targets.length > 0
+                              ? item?.stock_targets[
+                                  item?.stock_targets.length - 1
+                                ].entry_price
+                              : item?.entry_price}
+                          </>
+                        )}
                       </Text>
                       <Text
                         b
@@ -855,33 +855,27 @@ const WhyUs = () => {
                           },
                         }}
                       >
-                        {/*{item?.stock_targets.length > 0*/}
-                        {/*  ? `${new Date(*/}
-                        {/*      item?.stock_targets[*/}
-                        {/*        item?.stock_targets.length - 1*/}
-                        {/*      ].created*/}
-                        {/*    ).getDate()} ${new Date(*/}
-                        {/*      item?.stock_targets[*/}
-                        {/*        item?.stock_targets.length - 1*/}
-                        {/*      ].created*/}
-                        {/*    ).toLocaleString("default", {*/}
-                        {/*      month: "short",*/}
-                        {/*    })} ${new Date(*/}
-                        {/*      item?.stock_targets[*/}
-                        {/*        item?.stock_targets.length - 1*/}
-                        {/*      ].created*/}
-                        {/*    ).getFullYear()}`*/}
-                        {/*  : `${new Date(item?.start_date).getDate()} ${new Date(*/}
-                        {/*      item.start_date*/}
-                        {/*    ).toLocaleString("default", {*/}
-                        {/*      month: "short",*/}
-                        {/*    })} ${new Date(item?.start_date).getFullYear()}`}*/}
-                        {/*    changed entry date on main card to first entry date from latest target entry date */}
-                        {new Date(item?.start_date).getDate()}&nbsp;
-                        {new Date(item.start_date).toLocaleString("default", {
-                          month: "short",
-                        })}{" "}
-                        {new Date(item?.start_date).getFullYear()}
+                        {item?.stock_targets.length > 0
+                          ? `${new Date(
+                              item?.stock_targets[
+                                item?.stock_targets.length - 1
+                              ].created
+                            ).getDate()} ${new Date(
+                              item?.stock_targets[
+                                item?.stock_targets.length - 1
+                              ].created
+                            ).toLocaleString("default", {
+                              month: "short",
+                            })} ${new Date(
+                              item?.stock_targets[
+                                item?.stock_targets.length - 1
+                              ].created
+                            ).getFullYear()}`
+                          : `${new Date(item?.start_date).getDate()} ${new Date(
+                              item.start_date
+                            ).toLocaleString("default", {
+                              month: "short",
+                            })} ${new Date(item?.start_date).getFullYear()}`}
                       </Text>
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -1116,7 +1110,7 @@ const WhyUs = () => {
                           <span>
                             Time left:{" "}
                             {item.stock_targets.length > 0
-                              ? `${Math.round(
+                              ? `${Math.max(0,(Math.round(
                                   (new Date(
                                     item.stock_targets[
                                       item.stock_targets.length - 1
@@ -1124,7 +1118,7 @@ const WhyUs = () => {
                                   ).getTime() -
                                     new Date().getTime()) /
                                     (1000 * 60 * 60 * 24)
-                                )}`
+                                )))}`
                               : item.time_left}{" "}
                             days
                           </span>
@@ -1177,7 +1171,7 @@ const WhyUs = () => {
 												"End Date",
 												item.end_date,
 											)} */}
-                      {/* {console.log(
+											{/* {console.log(
 												"Progress",
 												Math.floor(
 													(new Date() - new Date(item.start_date)) /
@@ -1260,7 +1254,7 @@ const WhyUs = () => {
                         onPress={() => handleOpenReports(index)}
                         css={{
                           alignSelf: "center",
-                          borderRadius: "11px",
+                          borderRadius: "1000px",
                           width: "47.5%",
                           fontSize: 18,
                           backgroundImage:
@@ -1277,7 +1271,7 @@ const WhyUs = () => {
                         auto
                         onPress={() => handleOpenTargets(index)}
                         css={{
-                          borderRadius: "11px 11px 1px 11px",
+                          borderRadius: "1000px",
                           width: "47.5%",
                           fontSize: 18,
                           backgroundImage:
@@ -1307,6 +1301,8 @@ const WhyUs = () => {
                   background: "transparent !important",
                   boxShadow: "none",
                   alignItems: "center",
+                  // gap: "15px",
+                  // flexWrap: "wrap",
                   "@media only screen and (max-width: 764px)": {
                     flexWrap: "wrap",
                     width: "100vw",
@@ -1324,7 +1320,9 @@ const WhyUs = () => {
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: "20px",
+                      gap: "15px",
+											flexWrap: 'wrap',
+											justifyContent: 'center',
                       "@media only screen and (max-width: 764px)": {
                         flexWrap: "wrap",
                       },
@@ -1333,7 +1331,7 @@ const WhyUs = () => {
                     <Card
                       key={record[selectedCardIndex].id}
                       css={{
-                        width: "475px",
+                        width: "450px",
                         // height: "218px",
                         paddingTop: "30px",
                         paddingBottom: "30px",
@@ -1507,7 +1505,7 @@ const WhyUs = () => {
                         />
                         <Box
                           sx={{
-                            width: "95%",
+                            width: "100%",
                             display: "flex",
                             flexDirection: "row",
                             marginTop: "15px",
@@ -1680,7 +1678,7 @@ const WhyUs = () => {
                                 },
                               }}
                             >
-                              CURRENT RETURNS
+                              RETURNS
                             </Text>
                             <Text
                               b
@@ -1713,16 +1711,27 @@ const WhyUs = () => {
                                 },
                               }}
                             >
-                              {`${
-                                new Date().getDate()
-                                // record[selectedCardIndex].created
-                              } ${new Date().toLocaleString("default", {
+                              {/* {console.log(record[selectedCardIndex].target_met ? record[selectedCardIndex].target_met : "NO DATE")} */}
+                              {/* {console.log(record[selectedCardIndex].target_met)} */}
+                              {/* {`${
+                                new Date().getDate(
+                                record[selectedCardIndex].target_met)
+                              } ${new Date(record[selectedCardIndex].target_met).toLocaleString("default", {
                                 // record[selectedCardIndex].created
                                 month: "short",
                               })} ${
-                                new Date().getFullYear()
+                                new Date(record[selectedCardIndex].target_met).getFullYear()
                                 // record[selectedCardIndex].created
-                              }`}
+                              }`} */}
+                              {`${new Date(
+                                record[selectedCardIndex].target_met
+                              ).getDate()} ${new Date(
+                                record[selectedCardIndex].target_met
+                              ).toLocaleString("default", {
+                                month: "short",
+                              })} ${new Date(
+                                record[selectedCardIndex].target_met
+                              ).getFullYear()}`}
                             </Text>
                           </Box>
                         </Box>
@@ -1863,11 +1872,11 @@ const WhyUs = () => {
                             />
                             <Box
                               sx={{
-                                width: "95%",
+                                width: "100%",
                                 display: "flex",
                                 flexDirection: "row",
                                 marginTop: "15px",
-                                gap: "20px",
+                                gap: "15px",
                                 "@media only screen and (max-width: 764px)": {
                                   gap: "15px",
                                   width: "100%",
@@ -1879,7 +1888,7 @@ const WhyUs = () => {
                                 sx={{
                                   display: "flex",
                                   flexDirection: "column",
-                                  // width: "30%"
+                                  width: "30%"
                                 }}
                               >
                                 <Text
@@ -1889,6 +1898,7 @@ const WhyUs = () => {
                                   css={{
                                     opacity: 1,
                                     lineHeight: 1,
+                                    width: '100%',
                                     "@media only screen and (max-width: 764px)":
                                       {
                                         paddingTop: "0px",
@@ -1897,7 +1907,7 @@ const WhyUs = () => {
                                       },
                                   }}
                                 >
-                                  1ST ENTRY PRICE
+                                  ENTRY PRICE
                                 </Text>
                                 <Text
                                   b
@@ -1936,13 +1946,13 @@ const WhyUs = () => {
                                   }}
                                 >
                                   {`${new Date(
-                                    target.start_date
+                                    target.target_date
                                   ).getDate()} ${new Date(
-                                    target.start_date
+                                    target.target_date
                                   ).toLocaleString("default", {
                                     month: "short",
                                   })} ${new Date(
-                                    target.start_date
+                                    target.target_date
                                   ).getFullYear()}`}
                                 </Text>
                               </Box>
@@ -1950,7 +1960,7 @@ const WhyUs = () => {
                                 sx={{
                                   display: "flex",
                                   flexDirection: "column",
-                                  // width: "30%"
+                                  width: "30%"
                                 }}
                               >
                                 <Text
@@ -2021,7 +2031,7 @@ const WhyUs = () => {
                                 sx={{
                                   display: "flex",
                                   flexDirection: "column",
-                                  // width: "30%",
+                                  // width: "40%",
                                   alignSelf: "flex-start",
                                 }}
                               >
@@ -2040,7 +2050,7 @@ const WhyUs = () => {
                                       },
                                   }}
                                 >
-                                  CURRENT RETURNS
+                                  RETURNS
                                 </Text>
                                 <Text
                                   b
@@ -2075,15 +2085,22 @@ const WhyUs = () => {
                                       },
                                   }}
                                 >
-                                  {`${new Date(
-                                    target.start_date
+                                  {/* {`${new Date(
+                                    target.target_met
                                   ).getDate()} ${new Date(
-                                    target.start_date
+                                    target.target_met
                                   ).toLocaleString("default", {
                                     month: "short",
                                   })} ${new Date(
-                                    target.start_date
-                                  ).getFullYear()}`}
+                                    target.target_met
+                                  ).getFullYear()}`} */}
+
+{
+  target.target_met
+    ? `${new Date(target.target_met).getDate()} ${new Date(target.target_met).toLocaleString("default", { month: "short" })} ${new Date(target.target_met).getFullYear()}`
+    : `${new Date().getDate()} ${new Date().toLocaleString("default", { month: "short" })} ${new Date().getFullYear()}`
+}
+
                                 </Text>
                               </Box>
                             </Box>
@@ -2107,59 +2124,59 @@ const WhyUs = () => {
                   </Box>
                 )}
 
-                <Button
-                  flat
-                  onPress={handleCloseTargets}
-                  css={{
-                    alignSelf: "center",
-                    // width: "100%",
-                    backgroundColor: "#ffa12e",
-                    color: "#fff",
-                    fontSize: 19,
-                    marginTop: "20px",
-                    borderRadius: "10px",
-                    height: "50px",
-                    "@media only screen and (max-width: 768px)": {
-                      width: "100%",
-                      fontSize: 15,
-                      height: "50px",
-                      marginTop: "20px",
-                      borderRadius: "0px 0px 10px",
-                      "& span": {
-                        // display: "none",
-                      },
-                    },
-                  }}
-                >
-                  Close
-                </Button>
-              </Modal>
+								<Button
+									flat
+									onPress={handleCloseTargets}
+									css={{
+										alignSelf: "center",
+										// width: "100%",
+										backgroundColor: "#ffa12e",
+										color: "#fff",
+										fontSize: 19,
+										marginTop: "20px",
+										borderRadius: "10px",
+										height: "50px",
+										"@media only screen and (max-width: 768px)": {
+											width: "100%",
+											fontSize: 15,
+											height: "50px",
+											marginTop: "20px",
+											borderRadius: "0px 0px 10px",
+											"& span": {
+												// display: "none",
+											},
+										},
+									}}
+								>
+									Close
+								</Button>
+							</Modal>
 
-              {/* Reports Modal */}
+							{/* Reports Modal */}
 
-              <Modal
-                // blur
-                open={showReports}
-                onClose={handleCloseReports}
-                css={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  // width: "800px",
-                  background: "transparent",
-                  boxShadow: "none",
-                  "@media only screen and (max-width: 764px)": {
-                    width: "100vw",
-                    height: "95vh",
-                    // paddingLeft: "15px",
-                    // paddingRight: "15px",
-                  },
-                }}
-              >
-                {record[selectedCardIndex] &&
-                record[selectedCardIndex].stock_reports &&
-                record[selectedCardIndex].stock_reports.length > 0 ? (
-                  <>
-                    {/* <Dropdown>
+							<Modal
+								// blur
+								open={showReports}
+								onClose={handleCloseReports}
+								css={{
+									justifyContent: "center",
+									alignItems: "center",
+									// width: "800px",
+									background: "transparent",
+									boxShadow: "none",
+									"@media only screen and (max-width: 764px)": {
+										width: "100vw",
+										height: "95vh",
+										// paddingLeft: "15px",
+										// paddingRight: "15px",
+									},
+								}}
+							>
+								{record[selectedCardIndex] &&
+								record[selectedCardIndex].stock_reports &&
+								record[selectedCardIndex].stock_reports.length > 0 ? (
+									<>
+										{/* <Dropdown>
 											<Dropdown.Button
 												flat
 												css={{
@@ -2183,73 +2200,73 @@ const WhyUs = () => {
 													},
 												}}
 											> */}
-                    {/* {selectedPDF === "" || selectedPDF === undefined
+										{/* {selectedPDF === "" || selectedPDF === undefined
 											? "Reports"
 											: record[selectedCardIndex].stock_reports.find(
 													(report) =>
 														report.document === Array.from(selectedPDF)[0]
 											  )?.report_name} */}
-                    <Card
-                      css={{
-                        width: "100%",
-                        // height: "218px",
-                        paddingTop: "50px",
-                        paddingBottom: "50px",
-                        background: "#fff",
-                        borderRadius: "30px",
-                        // borderBottomRightRadius: "5px",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        filter: "none",
-                        boxShadow: "none",
-                        "@media only screen and (max-width: 764px)": {
-                          width: "100vw",
-                          paddingTop: "30px",
-                          paddingBottom: "30px",
-                        },
-                      }}
-                    >
-                      <IconButton
-                        sx={{ position: "absolute", top: "5px", right: "5px" }}
-                        onClick={handleCloseReports}
-                      >
-                        <CloseIcon color="error" />
-                      </IconButton>
-                      <Text
-                        b
-                        size={27}
-                        css={{ color: "#000000", marginBottom: "20px" }}
-                      >
-                        {record[selectedCardIndex].stock_name}
-                      </Text>
-                      {record[selectedCardIndex].stock_reports.map((report) => (
-                        <IconButton
-                          key={report.document}
-                          sx={{
-                            color: "#000000",
-                            "&:hover": { background: "transparent" },
-                            borderRadius: "0px",
-                            paddingLeft: "0px",
-                            marginBottom: "20px",
-                          }}
-                          onClick={() =>
-                            window.open(
-                              `${report.document}#view=FitH&toolbar=0&password=$420%69#kamayakya#69%420$`,
-                              "_blank",
-                              "fullscreen=yes"
-                            )
-                          }
-                        >
-                          <DocumentText size={25} />
-                          <Text b size={18} css={{ color: "#000000" }}>
-                            {report.report_name}
-                          </Text>
-                        </IconButton>
-                      ))}
-                    </Card>
-                    {/* </Dropdown.Button> */}
-                    {/* <Dropdown.Menu
+										<Card
+											css={{
+												width: "100%",
+												// height: "218px",
+												paddingTop: "50px",
+												paddingBottom: "50px",
+												background: "#fff",
+												borderRadius: "30px",
+												// borderBottomRightRadius: "5px",
+												display: "flex",
+												flexDirection: "column",
+												alignItems: "center",
+												filter: "none",
+												boxShadow: "none",
+												"@media only screen and (max-width: 764px)": {
+													width: "100vw",
+													paddingTop: "30px",
+													paddingBottom: "30px",
+												},
+											}}
+										>
+											<IconButton
+												sx={{ position: "absolute", top: "5px", right: "5px" }}
+												onClick={handleCloseReports}
+											>
+												<CloseIcon color="error" />
+											</IconButton>
+											<Text
+												b
+												size={27}
+												css={{ color: "#000000", marginBottom: "20px" }}
+											>
+												{record[selectedCardIndex].stock_name}
+											</Text>
+											{record[selectedCardIndex].stock_reports.map((report) => (
+												<IconButton
+													key={report.document}
+													sx={{
+														color: "#000000",
+														"&:hover": { background: "transparent" },
+														borderRadius: "0px",
+														paddingLeft: "0px",
+														marginBottom: "20px",
+													}}
+													onClick={() =>
+														window.open(
+															`${report.document}#view=FitH&toolbar=0&password=$420%69#kamayakya#69%420$`,
+															"_blank",
+															"fullscreen=yes"
+														)
+													}
+												>
+													<DocumentText size={25} />
+													<Text b size={18} css={{ color: "#000000" }}>
+														{report.report_name}
+													</Text>
+												</IconButton>
+											))}
+										</Card>
+										{/* </Dropdown.Button> */}
+										{/* <Dropdown.Menu
 												// defaultSelectedKeys={'SampleReport.pdf'}
 												aria-label="TractReports"
 												selectionMode="single"
@@ -2258,18 +2275,18 @@ const WhyUs = () => {
 												// defaultSelectedKeys={[record[selectedCardIndex].stock_reports[0]?.document]}
 												style={{ width: "100%" }}
 											> */}
-                    {/* {record[selectedCardIndex].stock_reports.map(
+										{/* {record[selectedCardIndex].stock_reports.map(
 													(report) => (
 														<Dropdown.Item key={report.document}>
 															{report.report_name}
 														</Dropdown.Item>
 													)
 												)} */}
-                    {/* </Dropdown.Menu> */}
-                    {/* </Dropdown> */}
-                    {/* {console.log(PdfURL)}
+										{/* </Dropdown.Menu> */}
+										{/* </Dropdown> */}
+										{/* {console.log(PdfURL)}
 											{console.log(selectedReportUrl)} */}
-                    {/* <Worker
+										{/* <Worker
 											workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
 										>
 											<Box
@@ -2289,13 +2306,13 @@ const WhyUs = () => {
 												/>
 											</Box>
 										</Worker> */}
-                  </>
-                ) : (
-                  <Text b size={22} color="#fff">
-                    No Reports Available
-                  </Text>
-                )}
-                {/* <Button
+									</>
+								) : (
+									<Text b size={22} color="#fff">
+										No Reports Available
+									</Text>
+								)}
+								{/* <Button
 									flat
 									auto
 									onPress={handleCloseReports}
@@ -2319,16 +2336,16 @@ const WhyUs = () => {
 								>
 									Close
 								</Button> */}
-              </Modal>
-            </>
-          ))}
-        </Grid>
-        {/* </Grid> */}
-      </Box>
-      <FaqsNew />
-      <Footer />
-    </section>
-  );
+							</Modal>
+						</>
+					))}
+				</Grid>
+				{/* </Grid> */}
+			</Box>
+			<FaqsNew />
+			<Footer />
+		</section>
+	);
 };
 
 export default WhyUs;

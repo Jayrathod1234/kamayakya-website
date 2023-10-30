@@ -75,7 +75,7 @@ const Section3 = () => {
     // setSelectedPDF("Gravita India Ltd. (GIL) - Detailed Report.pdf");
     // setVisible(false);
     var win = window.open(
-      "Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+      "Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
       "_blank",
       "fullscreen=yes"
     );
