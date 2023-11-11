@@ -12,7 +12,6 @@ import {
 import Marquee from "react-fast-marquee";
 import React, { useState, useContext, useEffect } from "react";
 import { Box, Grid, IconButton, LinearProgress } from "@mui/material";
-import ReactECharts from "echarts-for-react";
 import ReactCardFlip from "react-card-flip";
 import {
   ArrowCircleRight,
