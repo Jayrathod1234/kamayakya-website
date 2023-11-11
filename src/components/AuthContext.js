@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
             },
           });
           const data = await response.json();
-          if (data.is_subscribed === true) {
+          if (data.active_subscription !== "Free") {
             setIsSubscribed(true);
           } else {
             setIsSubscribed(false);
