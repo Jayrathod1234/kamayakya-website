@@ -1755,402 +1755,9 @@ const WhyUs = () => {
                     {/*</Card>*/}
                     {/*) : (<></>)}*/}
                     {record[selectedCardIndex].stock_targets.length > 1 ? (
-                      record[selectedCardIndex].stock_targets.map((target) => (
-                        <Card
-                          key={target.id}
-                          css={{
-                            width: "450px",
-                            // height: "218px",
-                            paddingTop: "30px",
-                            paddingBottom: "30px",
-                            backgroundImage:
-                              "linear-gradient(to top , #0F734D, #0F734D, #105B54)",
-                            borderRadius: "30px",
-                            // borderBottomRightRadius: "5px",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            filter: "none",
-                            boxShadow: "none",
-                            "@media only screen and (max-width: 764px)": {
-                              width: "95vw",
-                              paddingTop: "30px",
-                              paddingBottom: "30px",
-                            },
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              padding: "5px",
-                              paddingTop: "0px",
-                              paddingLeft: "15px",
-                              display: "flex",
-                              flexDirection: "column",
-                              // alignItems: "center",
-                              // background: 'rgba(255, 255, 255, 0.15) url("LineChartGreen.png")',
-                              backgroundSize: "cover",
-                              height: "auto",
-                              width: "410px",
-                              "@media only screen and (max-width: 764px)": {
-                                width: "100%",
-                                paddingLeft: "20px",
-                                paddingRight: "20px",
-                              },
-                            }}
-                          >
-                            <div
-                              style={{
-                                width: "100%",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                flexDirection: "row",
-                                // paddingTop: "5%",
-                                paddingBottom: "5px",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                }}
-                              >
-                                <Text
-                                  b
-                                  size={22}
-                                  color="#fff"
-                                  css={{
-                                    lineHeight: 1.5,
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "5px",
-                                        fontSize: "22px",
-                                        lineHeight: 1.1,
-                                      },
-                                  }}
-                                >
-                                  {record[selectedCardIndex].stock_name.length >
-                                  28 ? (
-                                    <Marquee delay={5} speed={30}>
-                                      <span
-                                        style={{
-                                          paddingRight: "40px",
-                                          filter:
-                                            isSubscribed === false
-                                              ? "blur(8px)"
-                                              : "blur(0px)",
-                                        }}
-                                      >
-                                        {record[selectedCardIndex].stock_name}
-                                      </span>
-                                    </Marquee>
-                                  ) : (
-                                    <div
-                                      style={{
-                                        filter:
-                                          isSubscribed === false
-                                            ? "blur(8px)"
-                                            : "blur(0px)",
-                                      }}
-                                    >
-                                      {record[selectedCardIndex].stock_name}
-                                    </div>
-                                  )}
-                                </Text>
-                              </div>
-                              <img
-                                src={
-                                  record[selectedCardIndex].id ==
-                                  "97869e6c-52be-426a-8ca3-66c59cb12a5b"
-                                    ? "BuyBubbleBlue.png"
-                                    : record[selectedCardIndex].action ===
-                                      "HOLD"
-                                    ? "HoldBubbleYellow.png"
-                                    : record[selectedCardIndex].action ===
-                                      "SELL"
-                                    ? "SellBubbleRed.png"
-                                    : record[selectedCardIndex].action === "BUY"
-                                    ? "BuyBubbleBlue.png"
-                                    : "HoldBubbleYellow.png"
-                                }
-                                style={{
-                                  width: "55px",
-                                  height: "55px",
-                                  alignSelf: "start",
-                                }}
-                              />
-                            </div>
-                            <Divider
-                              css={{
-                                height: "3px",
-                                width: "100%",
-                                background: "#fff",
-                                borderRadius: "20px",
-                                opacity: 0.5,
-                                alignSelf: "start",
-                                // marginTop: "10px",
-                              }}
-                            />
-                            <Box
-                              sx={{
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "row",
-                                marginTop: "15px",
-                                gap: "15px",
-                                "@media only screen and (max-width: 764px)": {
-                                  gap: "15px",
-                                  width: "100%",
-                                  // justifyContent: 'space-evenly',
-                                },
-                              }}
-                            >
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  width: "30%",
-                                }}
-                              >
-                                <Text
-                                  b
-                                  size={16}
-                                  color="#fff"
-                                  css={{
-                                    opacity: 1,
-                                    lineHeight: 1,
-                                    width: "100%",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "14.5px",
-                                        width: "100%",
-                                      },
-                                  }}
-                                >
-                                  ENTRY PRICE
-                                </Text>
-                                <Text
-                                  b
-                                  size={22}
-                                  color="#fff"
-                                  css={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "20px",
-                                      },
-                                  }}
-                                >
-                                  <span style={{ fontSize: 16, opacity: 0.75 }}>
-                                    ₹
-                                  </span>
-                                  {/* {record[selectedCardIndex].entry_price} */}
-                                  {target.entry_price}
-                                </Text>
-                                <Text
-                                  b
-                                  size={16}
-                                  color="#fff"
-                                  css={{
-                                    opacity: 0.7,
-                                    lineHeight: 1,
-                                    alignSelf: "start",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "14.5px",
-                                      },
-                                  }}
-                                >
-                                  {`${new Date(
-                                    target.target_date
-                                  ).getDate()} ${new Date(
-                                    target.target_date
-                                  ).toLocaleString("default", {
-                                    month: "short",
-                                  })} ${new Date(
-                                    target.target_date
-                                  ).getFullYear()}`}
-                                </Text>
-                              </Box>
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  width: "30%",
-                                }}
-                              >
-                                <Text
-                                  b
-                                  size={16}
-                                  color="#fff"
-                                  css={{
-                                    opacity: 1,
-                                    lineHeight: 1,
-                                    alignSelf: "start",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "14.5px",
-                                      },
-                                  }}
-                                >
-                                  EXIT PRICE
-                                </Text>
-                                <Text
-                                  b
-                                  size={22}
-                                  color="#fff"
-                                  css={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    alignSelf: "start",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "20px",
-                                      },
-                                  }}
-                                >
-                                  <span style={{ fontSize: 16, opacity: 0.75 }}>
-                                    ₹
-                                  </span>
-                                  {target.target_price}
-                                </Text>
-                                <Text
-                                  b
-                                  size={16}
-                                  color="#fff"
-                                  css={{
-                                    opacity: 0.7,
-                                    lineHeight: 1,
-                                    alignSelf: "start",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "14.5px",
-                                      },
-                                  }}
-                                >
-                                  {`${new Date(
-                                    target.target_date
-                                  ).getDate()} ${new Date(
-                                    target.target_date
-                                  ).toLocaleString("default", {
-                                    month: "short",
-                                  })} ${new Date(
-                                    target.target_date
-                                  ).getFullYear()}`}
-                                </Text>
-                              </Box>
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  // width: "40%",
-                                  alignSelf: "flex-start",
-                                }}
-                              >
-                                <Text
-                                  b
-                                  size={16}
-                                  color="#fff"
-                                  css={{
-                                    opacity: 1,
-                                    lineHeight: 1,
-                                    alignSelf: "start",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "14.5px",
-                                      },
-                                  }}
-                                >
-                                  RETURNS
-                                </Text>
-                                <Text
-                                  b
-                                  size={22}
-                                  color="#fff"
-                                  css={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "20px",
-                                      },
-                                  }}
-                                >
-                                  {target.gain_loss}%
-                                </Text>
-                                <Text
-                                  b
-                                  size={16}
-                                  color="#fff"
-                                  css={{
-                                    // width: "120px",
-                                    opacity: 0.7,
-                                    lineHeight: 1,
-                                    alignSelf: "start",
-                                    "@media only screen and (max-width: 764px)":
-                                      {
-                                        paddingTop: "0px",
-                                        fontSize: "14.5px",
-                                      },
-                                  }}
-                                >
-                                  {/* {`${new Date(
-                                    target.target_met
-                                  ).getDate()} ${new Date(
-                                    target.target_met
-                                  ).toLocaleString("default", {
-                                    month: "short",
-                                  })} ${new Date(
-                                    target.target_met
-                                  ).getFullYear()}`} */}
-
-                                  {target.target_met
-                                    ? `${new Date(
-                                        target.target_met
-                                      ).getDate()} ${new Date(
-                                        target.target_met
-                                      ).toLocaleString("default", {
-                                        month: "short",
-                                      })} ${new Date(
-                                        target.target_met
-                                      ).getFullYear()}`
-                                    : `${new Date().getDate()} ${new Date().toLocaleString(
-                                        "default",
-                                        { month: "short" }
-                                      )} ${new Date().getFullYear()}`}
-                                </Text>
-                              </Box>
-                            </Box>
-                            {/* <Divider
-															css={{
-																height: "3px",
-																width: "40%",
-																background: "#fff",
-																borderRadius: "20px",
-																opacity: 0.5,
-																alignSelf: "start",
-																marginTop: "15px",
-															}}
-														/> */}
-                          </Box>
-                        </Card>
-                      ))
-                    ) : (
                       <>
                         <Card
-                          key={record[selectedCardIndex].id}
+                          key={record[selectedCardIndex].stock_targets[0].id}
                           css={{
                             width: "450px",
                             // height: "218px",
@@ -2410,13 +2017,19 @@ const WhyUs = () => {
                                   }}
                                 >
                                   {`${new Date(
-                                    record[selectedCardIndex].target_met
+                                    record[
+                                      selectedCardIndex
+                                    ].stock_targets[1].target_met
                                   ).getDate()} ${new Date(
-                                    record[selectedCardIndex].target_met
+                                    record[
+                                      selectedCardIndex
+                                    ].stock_targets[1].target_met
                                   ).toLocaleString("default", {
                                     month: "short",
                                   })} ${new Date(
-                                    record[selectedCardIndex].target_met
+                                    record[
+                                      selectedCardIndex
+                                    ].stock_targets[1].target_met
                                   ).getFullYear()}`}
                                 </Text>
                               </Box>
@@ -2547,6 +2160,860 @@ const WhyUs = () => {
                                     record[selectedCardIndex].stock_targets[0]
                                       .gain_loss
                                   }
+                                  %
+                                </Text>
+                                <Text
+                                  b
+                                  size={16}
+                                  color="#fff"
+                                  css={{
+                                    // width: "120px",
+                                    opacity: 0.7,
+                                    lineHeight: 1,
+                                    alignSelf: "start",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "14.5px",
+                                      },
+                                  }}
+                                >
+                                  {/* {console.log(record[selectedCardIndex].target_met ? record[selectedCardIndex].target_met : "NO DATE")} */}
+                                  {/* {console.log(record[selectedCardIndex].target_met)} */}
+                                  {/* {`${
+                                new Date().getDate(
+                                record[selectedCardIndex].target_met)
+                              } ${new Date(record[selectedCardIndex].target_met).toLocaleString("default", {
+                                // record[selectedCardIndex].created
+                                month: "short",
+                              })} ${
+                                new Date(record[selectedCardIndex].target_met).getFullYear()
+                                // record[selectedCardIndex].created
+                              }`} */}
+                                  {`${new Date().getDate()} ${new Date().toLocaleString(
+                                    "default",
+                                    {
+                                      month: "short",
+                                    }
+                                  )} ${new Date().getFullYear()}`}
+                                </Text>
+                              </Box>
+                            </Box>
+                          </Box>
+                        </Card>
+                        {record[selectedCardIndex].stock_targets.map(
+                          (target) => (
+                            <Card
+                              key={target.id}
+                              css={{
+                                width: "450px",
+                                // height: "218px",
+                                paddingTop: "30px",
+                                paddingBottom: "30px",
+                                backgroundImage:
+                                  "linear-gradient(to top , #0F734D, #0F734D, #105B54)",
+                                borderRadius: "30px",
+                                // borderBottomRightRadius: "5px",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                filter: "none",
+                                boxShadow: "none",
+                                "@media only screen and (max-width: 764px)": {
+                                  width: "95vw",
+                                  paddingTop: "30px",
+                                  paddingBottom: "30px",
+                                },
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  padding: "5px",
+                                  paddingTop: "0px",
+                                  paddingLeft: "15px",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  // alignItems: "center",
+                                  // background: 'rgba(255, 255, 255, 0.15) url("LineChartGreen.png")',
+                                  backgroundSize: "cover",
+                                  height: "auto",
+                                  width: "410px",
+                                  "@media only screen and (max-width: 764px)": {
+                                    width: "100%",
+                                    paddingLeft: "20px",
+                                    paddingRight: "20px",
+                                  },
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "100%",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    flexDirection: "row",
+                                    // paddingTop: "5%",
+                                    paddingBottom: "5px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <Text
+                                      b
+                                      size={22}
+                                      color="#fff"
+                                      css={{
+                                        lineHeight: 1.5,
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "5px",
+                                            fontSize: "22px",
+                                            lineHeight: 1.1,
+                                          },
+                                      }}
+                                    >
+                                      {record[selectedCardIndex].stock_name
+                                        .length > 28 ? (
+                                        <Marquee delay={5} speed={30}>
+                                          <span
+                                            style={{
+                                              paddingRight: "40px",
+                                              filter:
+                                                isSubscribed === false
+                                                  ? "blur(8px)"
+                                                  : "blur(0px)",
+                                            }}
+                                          >
+                                            {
+                                              record[selectedCardIndex]
+                                                .stock_name
+                                            }
+                                          </span>
+                                        </Marquee>
+                                      ) : (
+                                        <div
+                                          style={{
+                                            filter:
+                                              isSubscribed === false
+                                                ? "blur(8px)"
+                                                : "blur(0px)",
+                                          }}
+                                        >
+                                          {record[selectedCardIndex].stock_name}
+                                        </div>
+                                      )}
+                                    </Text>
+                                  </div>
+                                  <img
+                                    src={
+                                      record[selectedCardIndex].id ==
+                                      "97869e6c-52be-426a-8ca3-66c59cb12a5b"
+                                        ? "BuyBubbleBlue.png"
+                                        : record[selectedCardIndex].action ===
+                                          "HOLD"
+                                        ? "HoldBubbleYellow.png"
+                                        : record[selectedCardIndex].action ===
+                                          "SELL"
+                                        ? "SellBubbleRed.png"
+                                        : record[selectedCardIndex].action ===
+                                          "BUY"
+                                        ? "BuyBubbleBlue.png"
+                                        : "HoldBubbleYellow.png"
+                                    }
+                                    style={{
+                                      width: "55px",
+                                      height: "55px",
+                                      alignSelf: "start",
+                                    }}
+                                  />
+                                </div>
+                                <Divider
+                                  css={{
+                                    height: "3px",
+                                    width: "100%",
+                                    background: "#fff",
+                                    borderRadius: "20px",
+                                    opacity: 0.5,
+                                    alignSelf: "start",
+                                    // marginTop: "10px",
+                                  }}
+                                />
+                                <Box
+                                  sx={{
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    marginTop: "15px",
+                                    gap: "15px",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        gap: "15px",
+                                        width: "100%",
+                                        // justifyContent: 'space-evenly',
+                                      },
+                                  }}
+                                >
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      width: "30%",
+                                    }}
+                                  >
+                                    <Text
+                                      b
+                                      size={16}
+                                      color="#fff"
+                                      css={{
+                                        opacity: 1,
+                                        lineHeight: 1,
+                                        width: "100%",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "14.5px",
+                                            width: "100%",
+                                          },
+                                      }}
+                                    >
+                                      ENTRY PRICE
+                                    </Text>
+                                    <Text
+                                      b
+                                      size={22}
+                                      color="#fff"
+                                      css={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "20px",
+                                          },
+                                      }}
+                                    >
+                                      <span
+                                        style={{ fontSize: 16, opacity: 0.75 }}
+                                      >
+                                        ₹
+                                      </span>
+                                      {/* {record[selectedCardIndex].entry_price} */}
+                                      {target.entry_price}
+                                    </Text>
+                                    <Text
+                                      b
+                                      size={16}
+                                      color="#fff"
+                                      css={{
+                                        opacity: 0.7,
+                                        lineHeight: 1,
+                                        alignSelf: "start",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "14.5px",
+                                          },
+                                      }}
+                                    >
+                                      {`${new Date(
+                                        target.target_date
+                                      ).getDate()} ${new Date(
+                                        target.target_date
+                                      ).toLocaleString("default", {
+                                        month: "short",
+                                      })} ${new Date(
+                                        target.target_date
+                                      ).getFullYear()}`}
+                                    </Text>
+                                  </Box>
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      width: "30%",
+                                    }}
+                                  >
+                                    <Text
+                                      b
+                                      size={16}
+                                      color="#fff"
+                                      css={{
+                                        opacity: 1,
+                                        lineHeight: 1,
+                                        alignSelf: "start",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "14.5px",
+                                          },
+                                      }}
+                                    >
+                                      EXIT PRICE
+                                    </Text>
+                                    <Text
+                                      b
+                                      size={22}
+                                      color="#fff"
+                                      css={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        alignSelf: "start",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "20px",
+                                          },
+                                      }}
+                                    >
+                                      <span
+                                        style={{ fontSize: 16, opacity: 0.75 }}
+                                      >
+                                        ₹
+                                      </span>
+                                      {target.target_price}
+                                    </Text>
+                                    <Text
+                                      b
+                                      size={16}
+                                      color="#fff"
+                                      css={{
+                                        opacity: 0.7,
+                                        lineHeight: 1,
+                                        alignSelf: "start",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "14.5px",
+                                          },
+                                      }}
+                                    >
+                                      {`${new Date(
+                                        target.target_date
+                                      ).getDate()} ${new Date(
+                                        target.target_date
+                                      ).toLocaleString("default", {
+                                        month: "short",
+                                      })} ${new Date(
+                                        target.target_date
+                                      ).getFullYear()}`}
+                                    </Text>
+                                  </Box>
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      // width: "40%",
+                                      alignSelf: "flex-start",
+                                    }}
+                                  >
+                                    <Text
+                                      b
+                                      size={16}
+                                      color="#fff"
+                                      css={{
+                                        opacity: 1,
+                                        lineHeight: 1,
+                                        alignSelf: "start",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "14.5px",
+                                          },
+                                      }}
+                                    >
+                                      RETURNS
+                                    </Text>
+                                    <Text
+                                      b
+                                      size={22}
+                                      color="#fff"
+                                      css={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "20px",
+                                          },
+                                      }}
+                                    >
+                                      {target.gain_loss}%
+                                    </Text>
+                                    <Text
+                                      b
+                                      size={16}
+                                      color="#fff"
+                                      css={{
+                                        // width: "120px",
+                                        opacity: 0.7,
+                                        lineHeight: 1,
+                                        alignSelf: "start",
+                                        "@media only screen and (max-width: 764px)":
+                                          {
+                                            paddingTop: "0px",
+                                            fontSize: "14.5px",
+                                          },
+                                      }}
+                                    >
+                                      {/* {`${new Date(
+                                    target.target_met
+                                  ).getDate()} ${new Date(
+                                    target.target_met
+                                  ).toLocaleString("default", {
+                                    month: "short",
+                                  })} ${new Date(
+                                    target.target_met
+                                  ).getFullYear()}`} */}
+
+                                      {target.target_met
+                                        ? `${new Date(
+                                            target.target_met
+                                          ).getDate()} ${new Date(
+                                            target.target_met
+                                          ).toLocaleString("default", {
+                                            month: "short",
+                                          })} ${new Date(
+                                            target.target_met
+                                          ).getFullYear()}`
+                                        : `${new Date().getDate()} ${new Date().toLocaleString(
+                                            "default",
+                                            { month: "short" }
+                                          )} ${new Date().getFullYear()}`}
+                                    </Text>
+                                  </Box>
+                                </Box>
+                                {/* <Divider
+															css={{
+																height: "3px",
+																width: "40%",
+																background: "#fff",
+																borderRadius: "20px",
+																opacity: 0.5,
+																alignSelf: "start",
+																marginTop: "15px",
+															}}
+														/> */}
+                              </Box>
+                            </Card>
+                          )
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <Card
+                          key={record[selectedCardIndex].id}
+                          css={{
+                            width: "450px",
+                            // height: "218px",
+                            paddingTop: "30px",
+                            paddingBottom: "30px",
+                            backgroundImage:
+                              "linear-gradient(to top , #0F734D, #0F734D, #105B54)",
+                            borderRadius: "30px",
+                            // borderBottomRightRadius: "5px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            filter: "none",
+                            boxShadow: "none",
+                            border: "none",
+                            "@media only screen and (max-width: 764px)": {
+                              width: "95vw",
+                              paddingTop: "30px",
+                              paddingBottom: "30px",
+                            },
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              padding: "5px",
+                              paddingTop: "0px",
+                              paddingLeft: "25px",
+                              paddingRight: "15px",
+                              display: "flex",
+                              flexDirection: "column",
+                              // alignItems: "center",
+                              // background: 'rgba(255, 255, 255, 0.15) url("LineChartGreen.png")',
+                              backgroundSize: "cover",
+                              height: "auto",
+                              width: "100%",
+                              "@media only screen and (max-width: 764px)": {
+                                width: "100%",
+                                paddingLeft: "20px",
+                                paddingRight: "20px",
+                              },
+                            }}
+                          >
+                            <div
+                              style={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                flexDirection: "row",
+                                // paddingTop: "5%",
+                                paddingBottom: "5px",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={22}
+                                  color="#fff"
+                                  css={{
+                                    lineHeight: 1.5,
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "5px",
+                                        fontSize: "22px",
+                                        lineHeight: 1.1,
+                                      },
+                                  }}
+                                >
+                                  {record[selectedCardIndex].stock_name.length >
+                                  28 ? (
+                                    <Marquee delay={5} speed={30}>
+                                      <span
+                                        style={{
+                                          paddingRight: "40px",
+                                          filter:
+                                            isSubscribed === false
+                                              ? "blur(8px)"
+                                              : "blur(0px)",
+                                        }}
+                                      >
+                                        {record[selectedCardIndex].stock_name}
+                                      </span>
+                                    </Marquee>
+                                  ) : (
+                                    <div
+                                      style={{
+                                        filter:
+                                          isSubscribed === false
+                                            ? "blur(8px)"
+                                            : "blur(0px)",
+                                      }}
+                                    >
+                                      {record[selectedCardIndex].stock_name}
+                                    </div>
+                                  )}
+                                </Text>
+                                {/*<Text*/}
+                                {/*  b*/}
+                                {/*  size={22}*/}
+                                {/*  color="#fff"*/}
+                                {/*  css={{*/}
+                                {/*    lineHeight: 1.5,*/}
+                                {/*    "@media only screen and (max-width: 764px)": {*/}
+                                {/*      paddingTop: "5px",*/}
+                                {/*      fontSize: "22px",*/}
+                                {/*      lineHeight: 1.1,*/}
+                                {/*    },*/}
+                                {/*  }}*/}
+                                {/*>*/}
+                                {/*  {record[selectedCardIndex].stock_name.length >*/}
+                                {/*  28 ? (*/}
+                                {/*    <Marquee delay={5} speed={30}>*/}
+                                {/*      <span*/}
+                                {/*        style={{*/}
+                                {/*          paddingRight: "40px",*/}
+                                {/*          filter:*/}
+                                {/*            isSubscribed === false*/}
+                                {/*              ? "blur(8px)"*/}
+                                {/*              : "blur(0px)",*/}
+                                {/*        }}*/}
+                                {/*      >*/}
+                                {/*        {record[selectedCardIndex].stock_name}*/}
+                                {/*      </span>*/}
+                                {/*    </Marquee>*/}
+                                {/*  ) : (*/}
+                                {/*    <div*/}
+                                {/*      style={{*/}
+                                {/*        filter:*/}
+                                {/*          isSubscribed === false*/}
+                                {/*            ? "blur(8px)"*/}
+                                {/*            : "blur(0px)",*/}
+                                {/*      }}*/}
+                                {/*    >*/}
+                                {/*      {*/}
+                                {/*        record[selectedCardIndex].stock_targets*/}
+                                {/*          .length*/}
+                                {/*      }*/}
+                                {/*    </div>*/}
+                                {/*  )}*/}
+                                {/*</Text>*/}
+                              </div>
+                              <img
+                                src={
+                                  record[selectedCardIndex].id ==
+                                  "97869e6c-52be-426a-8ca3-66c59cb12a5b"
+                                    ? "BuyBubbleBlue.png"
+                                    : record[selectedCardIndex].action ===
+                                      "HOLD"
+                                    ? "HoldBubbleYellow.png"
+                                    : record[selectedCardIndex].action ===
+                                      "SELL"
+                                    ? "SellBubbleRed.png"
+                                    : record[selectedCardIndex].action === "BUY"
+                                    ? "BuyBubbleBlue.png"
+                                    : "HoldBubbleYellow.png"
+                                }
+                                style={{
+                                  width: "55px",
+                                  height: "55px",
+                                  alignSelf: "start",
+                                }}
+                              />
+                            </div>
+                            <Divider
+                              css={{
+                                height: "3px",
+                                width: "100%",
+                                background: "#fff",
+                                borderRadius: "20px",
+                                opacity: 0.5,
+                                alignSelf: "start",
+                                // marginTop: "10px",
+                              }}
+                            />
+                            <Box
+                              sx={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "row",
+                                marginTop: "15px",
+                                gap: "20px",
+                                "@media only screen and (max-width: 764px)": {
+                                  // gap: "15px",
+                                  width: "100%",
+                                  justifyContent: "space-between",
+                                  // alignContent: "space-between",
+                                },
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  // width: "30%"
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  color="#fff"
+                                  css={{
+                                    opacity: 1,
+                                    lineHeight: 1,
+                                    textAlign: "left",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "14.5px",
+                                        width: "100%",
+                                      },
+                                  }}
+                                >
+                                  ENTRY PRICE
+                                </Text>
+                                <Text
+                                  b
+                                  size={22}
+                                  color="#fff"
+                                  css={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "20px",
+                                      },
+                                  }}
+                                >
+                                  <span style={{ fontSize: 16, opacity: 0.75 }}>
+                                    ₹
+                                  </span>
+                                  {/*{record[selectedCardIndex].entry_price ?}*/}
+                                  {record[selectedCardIndex].stock_targets
+                                    .length > 0
+                                    ? record[selectedCardIndex].stock_targets[0]
+                                        .entry_price
+                                    : record[selectedCardIndex].entry_price}
+                                </Text>
+                                <Text
+                                  b
+                                  size={16}
+                                  color="#fff"
+                                  css={{
+                                    opacity: 0.7,
+                                    lineHeight: 1,
+                                    alignSelf: "start",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "14.5px",
+                                      },
+                                  }}
+                                >
+                                  {`${new Date(
+                                    record[selectedCardIndex].target_met
+                                  ).getDate()} ${new Date(
+                                    record[selectedCardIndex].target_met
+                                  ).toLocaleString("default", {
+                                    month: "short",
+                                  })} ${new Date(
+                                    record[selectedCardIndex].target_met
+                                  ).getFullYear()}`}
+                                </Text>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  // width: "30%"
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  color="#fff"
+                                  css={{
+                                    opacity: 1,
+                                    lineHeight: 1,
+                                    alignSelf: "start",
+                                    textAlign: "left",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "14.5px",
+                                      },
+                                  }}
+                                >
+                                  {/*{record[selectedCardIndex]..target_met != null ? EXIT PRICE : TARGET PRICE}*/}
+                                  TARGET PRICE
+                                </Text>
+                                <Text
+                                  b
+                                  size={22}
+                                  color="#fff"
+                                  css={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    alignSelf: "start",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "20px",
+                                      },
+                                  }}
+                                >
+                                  <span style={{ fontSize: 16, opacity: 0.75 }}>
+                                    ₹
+                                  </span>
+                                  {record[selectedCardIndex].stock_targets
+                                    .length > 0
+                                    ? record[selectedCardIndex].stock_targets[0]
+                                        .target_price
+                                    : record[selectedCardIndex].target_price}
+                                </Text>
+                                <Text
+                                  b
+                                  size={16}
+                                  color="#fff"
+                                  css={{
+                                    opacity: 0.7,
+                                    lineHeight: 1,
+                                    alignSelf: "start",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "14.5px",
+                                      },
+                                  }}
+                                >
+                                  {`${new Date(
+                                    record[selectedCardIndex].stock_targets
+                                      .length > 0
+                                      ? record[selectedCardIndex]
+                                          .stock_targets[0].target_date
+                                      : record[selectedCardIndex].target_date
+                                  ).getDate()} ${new Date(
+                                    record[selectedCardIndex].stock_targets
+                                      .length > 0
+                                      ? record[selectedCardIndex]
+                                          .stock_targets[0].target_date
+                                      : record[selectedCardIndex].target_date
+                                  ).toLocaleString("default", {
+                                    month: "short",
+                                  })} ${new Date(
+                                    record[selectedCardIndex].stock_targets
+                                      .length > 0
+                                      ? record[selectedCardIndex]
+                                          .stock_targets[0].target_date
+                                      : record[selectedCardIndex].target_date
+                                  ).getFullYear()}`}
+                                </Text>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  // width: "30%",
+                                  alignSelf: "flex-start",
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  color="#fff"
+                                  css={{
+                                    opacity: 1,
+                                    lineHeight: 1,
+                                    alignSelf: "start",
+                                    textAlign: "left",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "14.5px",
+                                      },
+                                  }}
+                                >
+                                  RETURNS
+                                </Text>
+                                <Text
+                                  b
+                                  size={22}
+                                  color="#fff"
+                                  css={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    "@media only screen and (max-width: 764px)":
+                                      {
+                                        paddingTop: "0px",
+                                        fontSize: "20px",
+                                      },
+                                  }}
+                                >
+                                  {record[selectedCardIndex].stock_targets
+                                    .length > 0
+                                    ? record[selectedCardIndex].stock_targets[0]
+                                        .gain_loss
+                                    : record[selectedCardIndex].gain_loss}
                                   %
                                 </Text>
                                 <Text
