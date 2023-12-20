@@ -275,11 +275,23 @@ const StockCard = () => {
         }
 
         if (searchQuery.trim() !== "") {
+          // passSearchFilter =
+          //   stock.stock_name
+          //     .toLowerCase()
+          //     .includes(searchQuery.toLowerCase()) ||
+          //   stock.stock_symbol.includes(searchQuery);
+
+          const lowercaseSearchQuery = searchQuery.toLowerCase();
+          const lowercaseStockName = stock.stock_name.toLowerCase();
+          const lowercaseStockSymbol = stock.stock_symbol
+            ? stock.stock_symbol.toLowerCase()
+            : null; // Ensure it's either a string in lowercase or null
+
           passSearchFilter =
-            stock.stock_name
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            stock.stock_symbol.includes(searchQuery);
+            lowercaseStockName.includes(lowercaseSearchQuery) ||
+            (lowercaseStockSymbol !== null &&
+              lowercaseStockSymbol.includes(lowercaseSearchQuery));
+
           // console.log(searchQuery)
         }
 

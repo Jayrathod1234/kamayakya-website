@@ -262,8 +262,8 @@ input::-webkit-inner-spin-button {
 .nextui-c-eXOOPO {
   border-radius: 10000px !important;
   background-color: white !important;
-  border: 1px solid lightgrey;
-  height: 55px !important;
+  /* border: 1px solid lightgrey; */
+  height: 45px !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
 }

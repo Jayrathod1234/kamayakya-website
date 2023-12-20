@@ -76,7 +76,7 @@ const StockCardSME = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
 
-  const staticNumbers = [82, 82, 82];
+  const staticNumbers = [93, 87, 87];
   const [showWhyModal, setShowWhyModal] = useState(false);
   const [showSMENote, setShowSMENote] = useState(false);
 
