@@ -707,10 +707,11 @@ const WhyUs = () => {
 														fontSize: "22px",
 														lineHeight: 1.1,
 													},
-													filter:
-														!isLoggedIn || !isSubscribed
-															? "blur(10px)"
-															: "none",
+													// filter:
+													// 	!isLoggedIn || !isSubscribed
+													// 		? "blur(10px)"
+													// 		: "none",
+													filter: ((!isLoggedIn || !isSubscribed) && item.action) === "BUY" ? "blur(10px)" : "none",
 												}}
 											>
 												{item.stock_name.length > 28 ? (

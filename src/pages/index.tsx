@@ -16,35 +16,40 @@ import SubscriptionNew from "../components/SubscriptionNew";
 import NavBar2 from "@/components/Navbar2";
 import AuthProvider from "@/components/AuthContext";
 import HomePage from "@/pages/screens/HomePage";
+import PageVisibility from "@/components/PageVisibility";
 
 const Home: NextPage = () => {
-  const { isLoggedIn } = useContext(AuthProvider);
+	const { isLoggedIn } = useContext(AuthProvider);
 
-  return (
-    <>
-      {/* <script id="google-analytics" data-nscript="afterInteractive">
+	return (
+		<PageVisibility>
+      {(isPageVisible: any) => (
+			<>
+				{/* <script id="google-analytics" data-nscript="afterInteractive">
           window.dataLayer = window.dataLayer || [];
           function gtag(){typeof window !== 'undefined' && window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-PBMR9CBK3J');
         </script> */}
-      {isLoggedIn ? <NavBar2 /> : <NavBar />}
-      <HomePage />
-      <SubscriptionNew />
-      {/*<SmallcaseCard />*/}
-      {/* <AboutUs /> */}
-      {/* <Process /> */}
-      {/* <Process2/> */}
-      {/*<WhyUs />*/}
-      {/* <Blogs2 /> */}
-      {/* <Testimonials /> */}
-      {/*<Solutions />*/}
-      <FaqsNew />
-      <Footer />
-      {/* <Footer /> */}
-    </>
-  );
+				{isLoggedIn ? <NavBar2 /> : <NavBar />}
+				<HomePage />
+				<SubscriptionNew />
+				{/* <SmallcaseCard /> */}
+				{/* <AboutUs /> */}
+				{/* <Process /> */}
+				{/* <Process2/> */}
+				{/*<WhyUs />*/}
+				{/* <Blogs2 /> */}
+				{/* <Testimonials /> */}
+				{/*<Solutions />*/}
+				<FaqsNew />
+				<Footer />
+				{/* <Footer /> */}
+			</>
+      )}
+		</PageVisibility>
+	);
 };
 
 export default Home;
