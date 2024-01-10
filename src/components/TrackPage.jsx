@@ -711,7 +711,11 @@ const WhyUs = () => {
 													// 	!isLoggedIn || !isSubscribed
 													// 		? "blur(10px)"
 													// 		: "none",
-													filter: ((!isLoggedIn || !isSubscribed) && item.action) === "BUY" ? "blur(10px)" : "none",
+													filter:
+														((!isLoggedIn || !isSubscribed) && item.action) ===
+														"BUY"
+															? "blur(10px)"
+															: "none",
 												}}
 											>
 												{item.stock_name.length > 28 ? (
@@ -1308,293 +1312,309 @@ const WhyUs = () => {
 									"& .nextui-c-iDzHRq": {
 										padding: "$0 !important",
 										// paddingLeft: "10px !important",
-									}
+									},
 								}}
 							>
-								<Modal.Body style={{ width: "100vw", justifyContent: "flex-start", alignItems: "center", marginTop: "0px" }}>
-								{record[selectedCardIndex] && (
-									<Box
-										sx={{
-											display: "flex",
-											flexDirection: "column", //change back to row
-											gap: "15px",
-											// flexWrap: "wrap",
-											// width: "100vw",
-											justifyContent: "center",
-											// overflowY: "scroll",
-											"@media only screen and (max-width: 764px)": {
+								<Modal.Body
+									style={{
+										width: "100vw",
+										justifyContent: "flex-start",
+										alignItems: "center",
+										marginTop: "0px",
+									}}
+								>
+									{record[selectedCardIndex] && (
+										<Box
+											sx={{
+												display: "flex",
+												flexDirection: "column", //change back to row
+												gap: "15px",
 												// flexWrap: "wrap",
+												// width: "100vw",
+												justifyContent: "center",
 												// overflowY: "scroll",
-											},
-										}}
-									>
-										{/* Main Target Card  */}
-										 <Card
-													key={record[selectedCardIndex].id}
-													css={{
-														width: "450px",
-														// height: "218px",
-														paddingTop: "20px",
-														paddingBottom: "20px",
-														backgroundImage:
-															"linear-gradient(to top , #0F734D, #0F734D, #105B54)",
-														borderRadius: "30px",
-														// borderBottomRightRadius: "5px",
-														// border: "4px solid #ffa230",
+												"@media only screen and (max-width: 764px)": {
+													// flexWrap: "wrap",
+													// overflowY: "scroll",
+												},
+											}}
+										>
+											{/* Main Target Card  */}
+											<Card
+												key={record[selectedCardIndex].id}
+												css={{
+													width: "450px",
+													// height: "218px",
+													paddingTop: "20px",
+													paddingBottom: "20px",
+													backgroundImage:
+														"linear-gradient(to top , #0F734D, #0F734D, #105B54)",
+													borderRadius: "30px",
+													// borderBottomRightRadius: "5px",
+													// border: "4px solid #ffa230",
+													display: "flex",
+													flexDirection: "column",
+													alignItems: "center",
+													filter: "none",
+													boxShadow: "none",
+													"@media only screen and (max-width: 764px)": {
+														width: "95vw",
+														paddingTop: "30px",
+														paddingBottom: "30px",
+													},
+												}}
+											>
+												<Box
+													sx={{
+														padding: "5px",
+														paddingTop: "0px",
+														paddingLeft: "15px",
 														display: "flex",
 														flexDirection: "column",
-														alignItems: "center",
-														filter: "none",
-														boxShadow: "none",
+														// alignItems: "center",
+														// background: 'rgba(255, 255, 255, 0.15) url("LineChartGreen.png")',
+														backgroundSize: "cover",
+														height: "auto",
+														width: "410px",
 														"@media only screen and (max-width: 764px)": {
-															width: "95vw",
-															paddingTop: "30px",
-															paddingBottom: "30px",
+															width: "100%",
+															paddingLeft: "20px",
+															paddingRight: "20px",
 														},
 													}}
 												>
-													<Box
-														sx={{
-															padding: "5px",
-															paddingTop: "0px",
-															paddingLeft: "15px",
+													<div
+														style={{
+															width: "100%",
 															display: "flex",
-															flexDirection: "column",
-															// alignItems: "center",
-															// background: 'rgba(255, 255, 255, 0.15) url("LineChartGreen.png")',
-															backgroundSize: "cover",
-															height: "auto",
-															width: "410px",
-															"@media only screen and (max-width: 764px)": {
-																width: "100%",
-																paddingLeft: "20px",
-																paddingRight: "20px",
-															},
+															justifyContent: "space-between",
+															alignItems: "center",
+															flexDirection: "row",
+															// paddingTop: "5%",
+															paddingBottom: "5px",
 														}}
 													>
 														<div
 															style={{
-																width: "100%",
 																display: "flex",
-																justifyContent: "space-between",
-																alignItems: "center",
-																flexDirection: "row",
-																// paddingTop: "5%",
-																paddingBottom: "5px",
+																flexDirection: "column",
 															}}
 														>
-															<div
-																style={{
-																	display: "flex",
-																	flexDirection: "column",
+															<Text
+																b
+																size={22}
+																color="#fff"
+																css={{
+																	lineHeight: 1.5,
+																	"@media only screen and (max-width: 764px)": {
+																		paddingTop: "5px",
+																		fontSize: "22px",
+																		lineHeight: 1.1,
+																	},
 																}}
 															>
-																<Text
-																	b
-																	size={22}
-																	color="#fff"
-																	css={{
-																		lineHeight: 1.5,
-																		"@media only screen and (max-width: 764px)":
-																			{
-																				paddingTop: "5px",
-																				fontSize: "22px",
-																				lineHeight: 1.1,
-																			},
-																	}}
-																>
-																	{record[selectedCardIndex].stock_name.length >
-																	28 ? (
-																		<Marquee delay={5} speed={30}>
-																			<span
-																				style={{
-																					paddingRight: "40px",
-																					filter:
-																						isSubscribed === false
-																							? "blur(8px)" //8px blur
-																							: "blur(0px)",
-																				}}
-																			>
-																				{record[selectedCardIndex].stock_name}
-																			</span>
-																		</Marquee>
-																	) : (
-																		<div
+																{record[selectedCardIndex].stock_name.length >
+																28 ? (
+																	<Marquee delay={5} speed={30}>
+																		<span
 																			style={{
+																				paddingRight: "40px",
+																				// filter:
+																				// 	isSubscribed === false
+																				// 		? "blur(8px)" //8px blur
+																				// 		: "blur(0px)",
 																				filter:
-																					isSubscribed === false
-																						? "blur(8px)" //8px Blur
-																						: "blur(0px)",
+																					((!isLoggedIn || !isSubscribed) &&
+																						record[selectedCardIndex]
+																							.action) === "BUY"
+																						? "blur(10px)"
+																						: "none",
 																			}}
 																		>
 																			{record[selectedCardIndex].stock_name}
-																		</div>
-																	)}
-																</Text>
-															</div>
-															<img
-																src={
-																	record[selectedCardIndex].action === "HOLD"
-																		? "HoldBubbleYellow.png"
-																		: record[selectedCardIndex].action ===
-																		  "SELL"
-																		? "SellBubbleRed.png"
-																		: record[selectedCardIndex].action === "BUY"
-																		? "BuyBubbleBlue.png"
-																		: "HoldBubbleYellow.png"
-																}
-																style={{
-																	width: "55px",
-																	height: "55px",
-																	alignSelf: "start",
-																}}
-															/>
+																		</span>
+																	</Marquee>
+																) : (
+																	<div
+																		style={{
+																			// filter:
+																			// 	isSubscribed === false
+																			// 		? "blur(8px)" //8px Blur
+																			// 		: "blur(0px)",
+																			filter:
+																				((!isLoggedIn || !isSubscribed) &&
+																					record[selectedCardIndex].action) ===
+																				"BUY"
+																					? "blur(10px)"
+																					: "none",
+																		}}
+																	>
+																		{record[selectedCardIndex].stock_name}
+																	</div>
+																)}
+															</Text>
 														</div>
-														<Divider
-															css={{
-																height: "3px",
-																width: "100%",
-																background: "#fff",
-																borderRadius: "20px",
-																opacity: 0.5,
+														<img
+															src={
+																record[selectedCardIndex].action === "HOLD"
+																	? "HoldBubbleYellow.png"
+																	: record[selectedCardIndex].action === "SELL"
+																	? "SellBubbleRed.png"
+																	: record[selectedCardIndex].action === "BUY"
+																	? "BuyBubbleBlue.png"
+																	: "HoldBubbleYellow.png"
+															}
+															style={{
+																width: "55px",
+																height: "55px",
 																alignSelf: "start",
-																// marginTop: "10px",
 															}}
 														/>
+													</div>
+													<Divider
+														css={{
+															height: "3px",
+															width: "100%",
+															background: "#fff",
+															borderRadius: "20px",
+															opacity: 0.5,
+															alignSelf: "start",
+															// marginTop: "10px",
+														}}
+													/>
+													<Box
+														sx={{
+															width: "100%",
+															display: "flex",
+															flexDirection: "row",
+															marginTop: "15px",
+															gap: "15px",
+															"@media only screen and (max-width: 764px)": {
+																gap: "15px",
+																width: "100%",
+																// justifyContent: 'space-evenly',
+															},
+														}}
+													>
 														<Box
 															sx={{
-																width: "100%",
 																display: "flex",
-																flexDirection: "row",
-																marginTop: "15px",
-																gap: "15px",
-																"@media only screen and (max-width: 764px)": {
-																	gap: "15px",
-																	width: "100%",
-																	// justifyContent: 'space-evenly',
-																},
+																flexDirection: "column",
+																width: "35%",
 															}}
 														>
-															<Box
-																sx={{
-																	display: "flex",
-																	flexDirection: "column",
-																	width: "35%",
+															<Text
+																b
+																size={16}
+																color="#fff"
+																css={{
+																	opacity: 1,
+																	lineHeight: 1,
+																	// width: "100%",
+																	alignSelf: "start",
+																	"@media only screen and (max-width: 764px)": {
+																		paddingTop: "0px",
+																		fontSize: "13.5px",
+																		width: "100%",
+																	},
 																}}
 															>
-																<Text
-																	b
-																	size={16}
-																	color="#fff"
-																	css={{
-																		opacity: 1,
-																		lineHeight: 1,
-																		// width: "100%",
-																		alignSelf: "start",
-																		"@media only screen and (max-width: 764px)":
-																			{
-																				paddingTop: "0px",
-																				fontSize: "13.5px",
-																				width: "100%",
-																			},
-																	}}
-																>
-																	ENTRY PRICE 1
-																</Text>
-																<Text
-																	b
-																	size={22}
-																	color="#fff"
-																	css={{
-																		display: "flex",
-																		flexDirection: "row",
-																		alignItems: "center",
-																		"@media only screen and (max-width: 764px)":
-																			{
-																				paddingTop: "0px",
-																				fontSize: "20px",
-																			},
-																	}}
-																>
-																	<span style={{ fontSize: 16, opacity: 0.75 }}>
-																		₹
-																	</span>
-																	{record[selectedCardIndex].stock_targets[record[selectedCardIndex].stock_targets.length - 1].entry_price}
-
-																</Text>
-																<Text
-																	b
-																	size={16}
-																	color="#fff"
-																	css={{
-																		opacity: 0.7,
-																		lineHeight: 1,
-																		alignSelf: "start",
-																		"@media only screen and (max-width: 764px)":
-																			{
-																				paddingTop: "0px",
-																				fontSize: "14.5px",
-																			},
-																	}}
-																>
-																	{`${new Date(
-																		record[selectedCardIndex].start_date
-																	).getDate()} ${new Date(
-																		record[selectedCardIndex].start_date
-																	).toLocaleString("default", {
-																		month: "short",
-																	})} ${new Date(
-																		record[selectedCardIndex].start_date
-																	).getFullYear()}`}
-																</Text>
-															</Box>
-															<Box
-																sx={{
+																ENTRY PRICE 1
+															</Text>
+															<Text
+																b
+																size={22}
+																color="#fff"
+																css={{
 																	display: "flex",
-																	flexDirection: "column",
-																	width: "30%",
+																	flexDirection: "row",
+																	alignItems: "center",
+																	"@media only screen and (max-width: 764px)": {
+																		paddingTop: "0px",
+																		fontSize: "20px",
+																	},
 																}}
 															>
+																<span style={{ fontSize: 16, opacity: 0.75 }}>
+																	₹
+																</span>
+																{
+																	record[selectedCardIndex].stock_targets[
+																		record[selectedCardIndex].stock_targets
+																			.length - 1
+																	].entry_price
+																}
+															</Text>
+															<Text
+																b
+																size={16}
+																color="#fff"
+																css={{
+																	opacity: 0.7,
+																	lineHeight: 1,
+																	alignSelf: "start",
+																	"@media only screen and (max-width: 764px)": {
+																		paddingTop: "0px",
+																		fontSize: "14.5px",
+																	},
+																}}
+															>
+																{`${new Date(
+																	record[selectedCardIndex].start_date
+																).getDate()} ${new Date(
+																	record[selectedCardIndex].start_date
+																).toLocaleString("default", {
+																	month: "short",
+																})} ${new Date(
+																	record[selectedCardIndex].start_date
+																).getFullYear()}`}
+															</Text>
+														</Box>
+														<Box
+															sx={{
+																display: "flex",
+																flexDirection: "column",
+																width: "30%",
+															}}
+														>
+															<Text
+																b
+																size={16}
+																color="#fff"
+																css={{
+																	opacity: 1,
+																	lineHeight: 1,
+																	alignSelf: "start",
+																	"@media only screen and (max-width: 764px)": {
+																		paddingTop: "0px",
+																		fontSize: "13.5px",
+																	},
+																}}
+															>
+																CMP
+															</Text>
+															<Text
+																b
+																size={22}
+																color="#fff"
+																css={{
+																	display: "flex",
+																	flexDirection: "row",
+																	alignItems: "center",
+																	alignSelf: "start",
+																	"@media only screen and (max-width: 764px)": {
+																		paddingTop: "0px",
+																		fontSize: "20px",
+																	},
+																}}
+															>
+																<span style={{ fontSize: 16, opacity: 0.75 }}>
+																	₹
+																</span>
+																{record[selectedCardIndex].live_price}
+															</Text>
+															{
 																<Text
-																	b
-																	size={16}
-																	color="#fff"
-																	css={{
-																		opacity: 1,
-																		lineHeight: 1,
-																		alignSelf: "start",
-																		"@media only screen and (max-width: 764px)":
-																			{
-																				paddingTop: "0px",
-																				fontSize: "13.5px",
-																			},
-																	}}
-																>
-
-																	CMP
-																</Text>
-																<Text
-																	b
-																	size={22}
-																	color="#fff"
-																	css={{
-																		display: "flex",
-																		flexDirection: "row",
-																		alignItems: "center",
-																		alignSelf: "start",
-																		"@media only screen and (max-width: 764px)":
-																			{
-																				paddingTop: "0px",
-																				fontSize: "20px",
-																			},
-																	}}
-																>
-																	<span style={{ fontSize: 16, opacity: 0.75 }}>
-																		₹
-																	</span>
-																	{record[selectedCardIndex].live_price}
-																</Text>
-																{<Text
 																	b
 																	size={16}
 																	color="#fff"
@@ -1860,8 +1880,6 @@ const WhyUs = () => {
 																			width: "30%",
 																		}}
 																	>
-
-
 																		<Text
 																			b
 																			size={16}
@@ -1879,14 +1897,17 @@ const WhyUs = () => {
 																					},
 																			}}
 																		>
-																			{target.target_action === "BUY" || index == record[selectedCardIndex].stock_targets.length - 1
+																			{target.target_action === "BUY" ||
+																			index ==
+																				record[selectedCardIndex].stock_targets
+																					.length -
+																					1
 																				? "ENTRY"
 																				: "HOLD"}{" "}
 																			{`PRICE ${
 																				record[selectedCardIndex].stock_targets
 																					.length - index
 																			}`}
-
 																		</Text>
 
 																		<Text
@@ -2095,7 +2116,7 @@ const WhyUs = () => {
                                     target.target_met
                                   ).getFullYear()}`} */}
 
-																	{/* {target.target_met
+																			{/* {target.target_met
 																		? `${new Date(
 																				target.target_met
 																		  ).getDate()} ${new Date(

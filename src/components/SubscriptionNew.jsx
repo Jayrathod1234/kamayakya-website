@@ -173,7 +173,7 @@ const SubscriptionNew = () => {
 				>
 					<Card
 						css={{
-							// height: "650px",
+							height: "450px",
 							width: "320px",
 							display: "flex",
 							flexDirection: "column",
@@ -183,8 +183,8 @@ const SubscriptionNew = () => {
 							filter: "none",
 							border: "4px solid #fda629",
 							justifyContent: "center",
-							paddingTop: "50px",
-							paddingBottom: "50px",
+							paddingTop: "48px",
+							paddingBottom: "0px",
 							paddingLeft: "15px",
 							paddingRight: "15px",
 							"@media only screen and (max-width: 768px)": {
@@ -657,13 +657,13 @@ const SubscriptionNew = () => {
 									Our strategy reflects our ethos that long-term commitment is
 									key to unlocking the true potential of your investments.
 								</Text>
-								
+
 							</Card>
 						</Modal>
 					</Card>
 					<Card
 						css={{
-							// height: "650px",
+							height: "450px",
 							width: "320px",
 							display: "flex",
 							flexDirection: "column",
@@ -804,19 +804,19 @@ const SubscriptionNew = () => {
 								Subscribe Now
 							</Text>
 						</Button>
-						<Text b size={20} css={{ marginTop: "10px" }}>
+						{/* <Text b size={20} css={{ marginTop: "10px" }}>
 							for ₹<span style={{ fontSize: 28 }}>11,800/year</span>
-						</Text>
+						</Text> */}
 
-						<Text
+						{/* <Text
 							b
 							size={17}
 							color="#000"
 							css={{ mt: "0px", opacity: 0.95, lineHeight: 1 }}
 						>
 							inclusive of taxes
-						</Text>
-						<Text
+						</Text> */}
+						{/* <Text
 							b
 							size={14}
 							color="#000000"
@@ -832,7 +832,7 @@ const SubscriptionNew = () => {
 							onClick={handleShowModal}
 						>
 							Why do we charge annually?
-						</Text>
+						</Text> */}
 					</Card>
 				</Box>
 			</section>
