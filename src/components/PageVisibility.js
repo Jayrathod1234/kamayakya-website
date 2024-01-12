@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import AuthContext from './AuthContext';
 
 const PageVisibility = ({ children }) => {
   const [isPageVisible, setIsPageVisible] = useState(true);
   const router = useRouter();
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleVisibilityChange = () => {
     const isVisible = !document.hidden;
     setIsPageVisible(isVisible);
 
-    if (isVisible) {
-      // Page is in focus, trigger a reload
+    if (isVisible && isLoggedIn) {
+      // Page is in focus and the user is logged in, trigger a reload
       window.location.reload();
     }
   };
