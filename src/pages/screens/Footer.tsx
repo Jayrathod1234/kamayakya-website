@@ -13,6 +13,8 @@ import { CiMail } from "react-icons/ci";
 import { Link } from "@nextui-org/react";
 import Head from "next/head";
 import { SocialIcon } from "react-social-icons";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import PhoneIcon from "@mui/icons-material/Phone";
 
 const Footer = () => {
   return (
@@ -132,6 +134,26 @@ const Footer = () => {
           predicted nor guaranteed.
         </Text>
       </div>
+      <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingLeft: "12px",
+            paddingRight: "12px",
+            paddingTop: "0px",
+            paddingBottom: "0px",
+          }}
+      >
+        <div>
+          <MailOutlineIcon style={{ height: "30px", width: "30px" }} /> :
+          contact@kamayakya.com
+        </div>
+        <div>
+          <PhoneIcon style={{ height: "28px", width: "30px" }} /> :
+          (+91)9175939641
+        </div>
+      </div>
       {/* Divider */}
       <div className="bottomNavbar-dividerSection padding-top-divider">
         <span className="bottomNavbar-divider" />
@@ -149,12 +171,13 @@ const Footer = () => {
           }
           style={{ cursor: "pointer" }}
         >
-          <div className="registrationLogosIndividualCard-row">
-            <img
-              className="registrationLogosIndividualCard-row-logo"
-              src="./SEBI.png"
-              alt="SEBI NUMBER INH000009843"
-            />
+          <div style={{ fontSize: 40, lineHeight: 1, marginRight: "2px" }}>
+            {/* <img
+							className="registrationLogosIndividualCard-row-logo"
+							src="./SEBI.png"
+							alt="SEBI NUMBER INH000009843"
+						/> */}
+            SEBI
           </div>
           <div className="registrationLogosIndividualCard-column">
             <Text className="registrationLogosIndividualCard-column-header">
@@ -176,7 +199,7 @@ const Footer = () => {
           }
           style={{ cursor: "pointer" }}
         >
-          <div className="registrationLogosIndividualCard-row">
+          <div className="registrationLogosIndividualCard-row" style={{ marginRight:"4px" }}>
             <img
               className="registrationLogosIndividualCard-row-logo"
               src="./MSME logo.png"
@@ -203,7 +226,7 @@ const Footer = () => {
           }
           style={{ cursor: "pointer" }}
         >
-          <div className="registrationLogosIndividualCard-row">
+          <div className="registrationLogosIndividualCard-row" style={{ marginRight:"1px" }}>
             <img
               className="registrationLogosIndividualCard-row-logo"
               src="./Startup India Logo.png"
