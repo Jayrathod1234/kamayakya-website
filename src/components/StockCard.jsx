@@ -1776,7 +1776,7 @@ const StockCard = () => {
               <Card
                 isHoverable
                 css={{
-                  height: "575px",
+                  height: "617px",
                   width: "285px",
                   display: "flex",
                   flexDirection: "column",
@@ -2116,7 +2116,7 @@ const StockCard = () => {
                   <Card
                     variant="flat"
                     css={{
-                      height: "575px",
+                      height: "617px",
                       width: "285px",
                       display: "flex",
                       flexDirection: "column",

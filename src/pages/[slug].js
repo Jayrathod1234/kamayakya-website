@@ -20,6 +20,7 @@ const BlogPage = () => {
   const { slug } = router.query;
   const [blog, setBlog] = useState(null);
   const { isLoggedIn } = useContext(AuthContext);
+  const decoder = new TextDecoder("utf-8");
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -30,14 +31,17 @@ const BlogPage = () => {
           //   `https://api-server.kamayakya.in/user/specificStock/${slug}`
           // );
 
-          const response = await axios.get(`${GET_SPECIFIC_BLOG}${slug}`, {
+          const response = await fetch(`${GET_SPECIFIC_BLOG}${slug}`, {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Token ${refresh}`,
+              // Authorization: `Token ${refresh}`,
             },
             next: { revalidate: 3600 },
           });
-          setBlog(response.data);
+          const data = await response.arrayBuffer();
+          const textData = decoder.decode(data);
+          const jsonData = JSON.parse(textData);
+          setBlog(jsonData);
         } catch (error) {
           console.error("Error fetching blog data:", error);
         }
@@ -132,7 +136,9 @@ const BlogPage = () => {
             },
           }}
         >
-          <Markdown>{blog.description}</Markdown>
+          {/* <Markdown> */}
+           <p dangerouslySetInnerHTML={{__html: `${blog.description}`}}></p>
+            {/* </Markdown> */}
         </div>
       </Box>
       <FaqsNew />

@@ -7,39 +7,37 @@ import { useRouter } from "next/router";
 import Markdown from "markdown-to-jsx";
 
 const BlogSection2 = () => {
-  const [blogs, setBlogs] = useState([]);
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
+	const [blogs, setBlogs] = useState([]);
+	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(true);
+	const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
 
-  const handleImageLoad = () => {
-    setIsLoading(false);
-  };
+	const handleImageLoad = () => {
+		setIsLoading(false);
+	};
 
-  const fetchBlogs = async () => {
-    try {
-      setIsLoadingBlogs(true);
-      // const refresh = localStorage.getItem("refresh");
-      // console.log("URL: ", GET_BLOGS);
-      const response = await fetch(`${GET_BLOGS}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `token ${refresh}`,
-        },
-      });
-      const data = await response.json();
-      setBlogs(data);
-      console.log(data);
-      setIsLoadingBlogs(false);
-    } catch (error) {
-      console.log("Error fetching blogs:", error);
-    }
-  };
+	const fetchBlogs = async () => {
+		try {
+			setIsLoadingBlogs(true);
+			const response = await fetch(`${GET_BLOGS}`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					// Authorization: `token ${refresh}`,
+				},
+			});
+			const data = await response.json();
+			setBlogs(data);
+			console.log(data);
+			setIsLoadingBlogs(false);
+		} catch (error) {
+			console.log("Error fetching blogs:", error);
+		}
+	};
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+	useEffect(() => {
+		fetchBlogs();
+	}, []);
 
   return (
     <main style={{ backgroundColor: "#fff" }}>
@@ -193,48 +191,52 @@ const BlogSection2 = () => {
                     {/*    : blog.description}*/}
                     {/*</Text>*/}
                     <span style={{ height: "10px" }} />
-                    <Markdown>
+                      {/* <Markdown>
                       {blog.description.length > 200
                         ? `${blog.description.substring(0, 100)}...`
                         : blog.description}
-                    </Markdown>
-                  </div>
-                </div>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    // alignItems: "flex-end",
-                    justifyContent: "flex-end",
-                  }}
-                >
-                  <Button
-                    css={{
-                      width: "100%",
-                      borderRadius: "2.5px",
-                      marginTop: "25px",
-                      backgroundColor: "#142d51",
-                    }}
-                    onClick={() => router.push(`${blog.slug}`)}
-                  >
-                    <Text b size={14} css={{ color: "white" }}>
-                      Read More
-                    </Text>
-                    <BiChevronRight
-                      color="#fff"
-                      size={20}
-                      style={{ marginLeft: "20px" }}
-                    />
-                  </Button>
-                </Box>
-              </Box>
-            ))}
-          </Box>
-        </Box>
-      </section>
-    </main>
-  );
+                    </Markdown> */}
+										<span
+											dangerouslySetInnerHTML={{
+												__html:
+													blog.description.length > 200
+														? `${blog.description.substring(0, 100)}...`
+														: blog.description,
+											}}
+										/>
+									</div>
+								</div>
+
+								<Button
+									css={{
+										width: "100%",
+										borderRadius: "5px",
+										// marginTop: "25px",
+										backgroundColor: "#125b54",
+										color: "#fff",
+									}}
+									onClick={() => router.push(`${blog.slug}`)}
+								>
+									Read More
+									<BiChevronRight
+										color="#fff"
+										size={20}
+										style={{ marginLeft: "20px" }}
+									/>
+								</Button>
+							</Box>
+						))}
+					</Box>
+				</Box>
+				{/* <iframe
+					src="https://docs.google.com/document/d/e/2PACX-1vRKruCKKwxPDEUaTzG6Noq-tB-HNb5YoFEwSgurv9jfOLfk9U3I04ncHGhpmxjKHw/pub?embedded=true"
+					allowFullScreen="true"
+          width={"100%"}
+          style={{ border: "none", overflowY: "scroll", height: "85vh"}}
+				></iframe> */}
+			</section>
+		</main>
+	);
 };
 
 export default BlogSection2;
