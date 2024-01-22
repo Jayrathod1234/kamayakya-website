@@ -22,33 +22,33 @@ const Home: NextPage = () => {
 	const { isLoggedIn } = useContext(AuthProvider);
 
 	return (
-		<PageVisibility>
-      {(isPageVisible: any) => (
-			<>
-				{/* <script id="google-analytics" data-nscript="afterInteractive">
+		// 	<PageVisibility>
+		//   {(isPageVisible: any) => (
+		<>
+			{/* <script id="google-analytics" data-nscript="afterInteractive">
           window.dataLayer = window.dataLayer || [];
           function gtag(){typeof window !== 'undefined' && window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-PBMR9CBK3J');
         </script> */}
-				{isLoggedIn ? <NavBar2 /> : <NavBar />}
-				<HomePage />
-				<SubscriptionNew />
-				{/* <SmallcaseCard /> */}
-				{/* <AboutUs /> */}
-				{/* <Process /> */}
-				{/* <Process2/> */}
-				{/*<WhyUs />*/}
-				{/* <Blogs2 /> */}
-				{/* <Testimonials /> */}
-				{/*<Solutions />*/}
-				<FaqsNew />
-				<Footer />
-				{/* <Footer /> */}
-			</>
-      )}
-		</PageVisibility>
+			{isLoggedIn ? <NavBar2 /> : <NavBar />}
+			<HomePage />
+			<SubscriptionNew />
+			{/* <SmallcaseCard /> */}
+			{/* <AboutUs /> */}
+			{/* <Process /> */}
+			{/* <Process2/> */}
+			{/*<WhyUs />*/}
+			{/* <Blogs2 /> */}
+			{/* <Testimonials /> */}
+			{/*<Solutions />*/}
+			<FaqsNew />
+			<Footer />
+			{/* <Footer /> */}
+		</>
+		//   )}
+		// 	</PageVisibility>
 	);
 };
 

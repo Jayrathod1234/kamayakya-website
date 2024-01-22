@@ -124,9 +124,10 @@ const LoginCard = () => {
         //   router.push("/stock-picks");
         // } else {
         setShowOtpModal(false);
-        if (router.pathname === "/") {
+        if(router.pathname === "/") {
           window.location.reload();
         }
+
       } else {
         setError("Failed to verify OTP. Please try again.");
         setShowOtpModal(true);
@@ -326,8 +327,11 @@ const LoginCard = () => {
           </Alert>
         )}
 
-        <Text b size={30} css={{ marginTop: "35px", marginBottom: "0px" }}>
+        <Text b size={30} css={{ marginTop: "35px", marginBottom: "0px", lineHeight: 1.1, textAlign: 'center' }}>
           Enter the OTP
+        </Text>
+        <Text b size={15} css={{ marginTop: "5px", lineHeight: 1.1, textAlign: 'center' }}>
+          sent to {mobile ? `+${mobile}` : email}
         </Text>
         <div
           style={{

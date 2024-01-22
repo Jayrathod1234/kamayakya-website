@@ -390,7 +390,7 @@ const StockCardSME = () => {
 			const fetchData = async () => {
 				try {
 					const response = await axios.get(GET_ALL_SME_URL, {
-						method: "POST",
+						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
 							Authorization: `token ${refresh}`,
@@ -1087,7 +1087,7 @@ const StockCardSME = () => {
               <Card
                 isHoverable
                 css={{
-                  height: "630px",
+                  // height: "630px",
                   width: "285px",
                   display: "flex",
                   flexDirection: "column",
@@ -1102,7 +1102,7 @@ const StockCardSME = () => {
                   "@media only screen and (max-width: 768px)": {
                     width: "92.5vw",
                     maxWidth: "620px",
-                    height: "690px",
+                    // height: "690px",
                     borderRadius: "35px",
                   },
                 }}
@@ -1115,14 +1115,14 @@ const StockCardSME = () => {
                     marginBottom: "20px",
                     minWidth: "90%",
                     maxWidth: "90%",
-                    height: "600px",
+                    // height: "600px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     "@media only screen and (max-width: 768px)": {
                       marginLeft: "5px",
                       marginRight: "5px",
-                      height: "auto",
+                    //   height: "auto",
                       marginBottom: "30px",
                     },
                   }}
@@ -1171,7 +1171,7 @@ const StockCardSME = () => {
                           },
                         }}
                       >
-                        {stock.stock_industry.length > 23 ? (
+                        {stock.stock_industry.length > 29 ? (
                           <Marquee
                             delay={2}
                             speed={30}
@@ -1201,7 +1201,7 @@ const StockCardSME = () => {
                         },
                       }}
                     >
-                      {stock.stock_name.length > 15 ? (
+                      {stock.stock_name.length > 18 ? (
                         <Marquee
                           delay={2}
                           speed={30}
@@ -1407,63 +1407,63 @@ const StockCardSME = () => {
                           marginBottom: "10px",
                         }}
                       />
-                      {/*<div*/}
-                      {/*  style={{*/}
-                      {/*    display: "flex",*/}
-                      {/*    justifyContent: "space-between",*/}
-                      {/*    alignItems: "center",*/}
-                      {/*  }}*/}
-                      {/*>*/}
-                      {/*  <div*/}
-                      {/*    style={{ display: "flex", flexDirection: "column" }}*/}
-                      {/*  >*/}
-                      {/*    <Text*/}
-                      {/*      b*/}
-                      {/*      css={{*/}
-                      {/*        lineHeight: 1.1,*/}
-                      {/*        "@media only screen and (max-width: 768px)": {*/}
-                      {/*          fontSize: 21,*/}
-                      {/*        },*/}
-                      {/*      }}*/}
-                      {/*      size={15}*/}
-                      {/*    >*/}
-                      {/*      ENTRY PRICE*/}
-                      {/*    </Text>*/}
-                      {/*    <Text*/}
-                      {/*      b*/}
-                      {/*      size={15}*/}
-                      {/*      css={{*/}
-                      {/*        lineHeight: 1.1,*/}
-                      {/*        "@media only screen and (max-width: 768px)": {*/}
-                      {/*          fontSize: 15,*/}
-                      {/*        },*/}
-                      {/*      }}*/}
-                      {/*    >*/}
-                      {/*      (IN ₹)*/}
-                      {/*    </Text>*/}
-                      {/*  </div>*/}
-                      {/*  <Text*/}
-                      {/*    b*/}
-                      {/*    css={{*/}
-                      {/*      flex: 1,*/}
-                      {/*      textAlign: "right",*/}
-                      {/*      "@media only screen and (max-width: 768px)": {*/}
-                      {/*        fontSize: 30,*/}
-                      {/*      },*/}
-                      {/*    }}*/}
-                      {/*    size={22}*/}
-                      {/*  >*/}
-                      {/*    {`${stock.entry_price}` || <Loading /> || "-"}*/}
-                      {/*  </Text>*/}
-                      {/*</div>*/}
-                      {/*<Divider*/}
-                      {/*  height={2}*/}
-                      {/*  style={{*/}
-                      {/*    backgroundColor: "#ffa12e",*/}
-                      {/*    marginTop: "10px",*/}
-                      {/*    marginBottom: "10px",*/}
-                      {/*  }}*/}
-                      {/*/>*/}
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <Text
+                            b
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 21,
+                              },
+                            }}
+                            size={15}
+                          >
+                            ENTRY PRICE
+                          </Text>
+                          <Text
+                            b
+                            size={15}
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 15,
+                              },
+                            }}
+                          >
+                            (IN ₹)
+                          </Text>
+                        </div>
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                          {`${stock.entry_price}` || <Loading /> || "-"}
+                        </Text>
+                      </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
                       <div
                         style={{
                           display: "flex",
@@ -1639,33 +1639,7 @@ const StockCardSME = () => {
                       </div>
                     </div>
                   </Box>
-                  <Button
-                    auto
-                    onPress={() => handleShowSMENoteForUser()}
-                    css={{
-                      top: "40px",
-                      // marginTop: "10%",
-                      color: "white",
-                      width: "95%",
-                      borderRadius: "10000px",
-                      // backgroundColor: "#fff",
-                      padding: "20px",
-                      // backgroundImage:
-                      //   "linear-gradient(to top , #106052, #0f734d)",
-                      backgroundColor: "#041C61",
-                      fontSize: 18,
-                      height: "20px",
-                      "@media only screen and (max-width: 768px)": {
-                        top: "20px",
-                        lineHeight: 1,
-                        height: "20px",
-                        fontSize: 18,
-                        width: "100%",
-                      },
-                    }}
-                  >
-                    SME - Note
-                  </Button>
+
                   <Modal
                     open={showSMENote}
                     onClose={handleCloseSMENoteForUser}
@@ -1763,11 +1737,39 @@ const StockCardSME = () => {
                     marginBottom: "25px",
                     "@media only screen and (max-width: 768px)": {
                       width: "90%",
-                      height: "50px",
+                    //   height: "50px",
                       justifyContent: "center",
                     },
                   }}
                 >
+                    <Button
+                        auto
+                        onPress={() => handleShowSMENoteForUser()}
+                        css={{
+                            // top: "40px",
+                            // marginTop: "10%",
+                            marginBottom: "5px",
+                            color: "white",
+                            width: "100%",
+                            borderRadius: "10000px",
+                            // backgroundColor: "#fff",
+                            padding: "20px",
+                            // backgroundImage:
+                            //   "linear-gradient(to top , #106052, #0f734d)",
+                            backgroundColor: "#041C61",
+                            fontSize: 18,
+                            height: "20px",
+                            "@media only screen and (max-width: 768px)": {
+                                // top: "20px",
+                                lineHeight: 1,
+                                height: "20px",
+                                fontSize: 18,
+                                width: "100%",
+                            },
+                        }}
+                    >
+                        SME - Note
+                    </Button>
                   <Button
                     auto
                     onPress={() => handleOpenReports(stock)}

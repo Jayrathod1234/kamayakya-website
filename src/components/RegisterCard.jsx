@@ -305,8 +305,14 @@ const RegisterCard = () => {
           </Alert>
         )}
 
-        <Text b size={30} css={{ marginTop: "35px", marginBottom: "0px" }}>
+        {/* <Text b size={30} css={{ marginTop: "35px", marginBottom: "0px" }}>
           Enter the OTP
+        </Text> */}
+        <Text b size={30} css={{ marginTop: "35px", marginBottom: "0px", lineHeight: 1.1, textAlign: 'center' }}>
+          Enter the OTP
+        </Text>
+        <Text b size={15} css={{ marginTop: "5px", lineHeight: 1.1, textAlign: 'center' }}>
+          sent to {mobile ? `+${mobile}` : email}
         </Text>
         <div
           style={{

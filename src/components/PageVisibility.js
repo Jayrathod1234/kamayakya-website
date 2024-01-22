@@ -31,21 +31,6 @@ const PageVisibility = ({ children }) => {
     };
   }, []);
 
-//   useEffect(() => {
-//     // If you want to do something specific when the route changes,
-//     // you can handle it here using the router events.
-
-//     const handleRouteChange = () => {
-//       // Your logic for route change
-//     };
-
-//     router.events.on('routeChangeStart', handleRouteChange);
-
-//     return () => {
-//       router.events.off('routeChangeStart', handleRouteChange);
-//     };
-//   }, [router]);
-
   return <>{children(isPageVisible)}</>;
 };
 

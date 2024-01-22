@@ -437,34 +437,37 @@ const WhyUs = () => {
 					Track Record
 				</Text>
 
-				<Text
-					b
-					size={18}
-					css={{
-						marginTop: 0,
-						marginBottom: "10px",
-						maxWidth: "50rem" /* 1280px */,
-						textAlign: "center",
-						color: "#000",
-						lineHeight: 1.2,
-						paddingLeft: "15px",
-						paddingRight: "15px",
-						"@media only screen and (max-width: 764px)": {
-							fontSize: 20,
-							maxWidth: "100%",
-							paddingLeft: "5px",
-							paddingRight: "5px",
-							marginTop: "0px",
+				{isLoggedIn && (
+					<Text
+						b
+						size={18}
+						css={{
+							marginTop: 0,
 							marginBottom: "10px",
-							textAlign: "left",
+							maxWidth: "50rem" /* 1280px */,
+							textAlign: "center",
 							color: "#000",
-						},
-					}}
-				>
-					We present our scorecard. Our victories, our misses - all in the open.
-					<br />
-					Your trust is earned, not assumed.
-				</Text>
+							lineHeight: 1.2,
+							paddingLeft: "15px",
+							paddingRight: "15px",
+							"@media only screen and (max-width: 764px)": {
+								fontSize: 20,
+								maxWidth: "100%",
+								paddingLeft: "5px",
+								paddingRight: "5px",
+								marginTop: "0px",
+								marginBottom: "10px",
+								textAlign: "left",
+								color: "#000",
+							},
+						}}
+					>
+						We present our scorecard. Our victories, our misses - all in the
+						open.
+						<br />
+						Your trust is earned, not assumed.
+					</Text>
+				)}
 				{!isLoggedIn ? (
 					<Text
 						b
@@ -718,6 +721,7 @@ const WhyUs = () => {
 															: "none",
 												}}
 											>
+												{/* {console.log((!isLoggedIn || !isSubscribed) && item.action === "BUY" ? true : false,)} */}
 												{item.stock_name.length > 28 ? (
 													<Marquee delay={5} speed={30}>
 														<span style={{ paddingRight: "40px" }}>
@@ -1713,85 +1717,86 @@ const WhyUs = () => {
 												}}
 											/>
 
-										{/* Mapping of Previous Targets  */}
-										{record[selectedCardIndex].stock_targets.length > 1 ? (
-											record[selectedCardIndex].stock_targets.map((target, index) => (
-												<Card
-													key={target.id}
-													css={{
-														width: "450px",
-														// height: "218px",
-														paddingTop: "20px",
-														paddingBottom: "20px",
-														backgroundImage:
-															"linear-gradient(to top , #0F734D, #0F734D, #105B54)",
-														borderRadius: "30px",
-														// borderBottomRightRadius: "5px",
-														display: "flex",
-														flexDirection: "column",
-														// overflowY: "scroll",
-														alignItems: "center",
-														filter: "none",
-														boxShadow: "none",
-														"@media only screen and (max-width: 764px)": {
-															width: "95vw",
-															paddingTop: "20px",
-															paddingBottom: "20px",
-															// overflowY: "scroll",
-														},
-													}}
-												>
-													<Box
-														sx={{
-															padding: "5px",
-															paddingTop: "0px",
-															paddingLeft: "15px",
-															display: "flex",
-															flexDirection: "column",
-															// alignItems: "center",
-															// background: 'rgba(255, 255, 255, 0.15) url("LineChartGreen.png")',
-															backgroundSize: "cover",
-															height: "auto",
-															width: "410px",
-															"@media only screen and (max-width: 764px)": {
-																width: "100%",
-																paddingLeft: "20px",
-																paddingRight: "20px",
-															},
-														}}
-													>
-														<div
-															style={{
-																width: "100%",
+											{/* Mapping of Previous Targets  */}
+											{record[selectedCardIndex].stock_targets.length > 1 ? (
+												record[selectedCardIndex].stock_targets.map(
+													(target, index) => (
+														<Card
+															key={target.id}
+															css={{
+																width: "450px",
+																// height: "218px",
+																paddingTop: "20px",
+																paddingBottom: "20px",
+																backgroundImage:
+																	"linear-gradient(to top , #0F734D, #0F734D, #105B54)",
+																borderRadius: "30px",
+																// borderBottomRightRadius: "5px",
 																display: "flex",
-																justifyContent: "space-between",
+																flexDirection: "column",
+																// overflowY: "scroll",
 																alignItems: "center",
-																flexDirection: "row",
-																// paddingTop: "5%",
-																paddingBottom: "5px",
+																filter: "none",
+																boxShadow: "none",
+																"@media only screen and (max-width: 764px)": {
+																	width: "95vw",
+																	paddingTop: "20px",
+																	paddingBottom: "20px",
+																	// overflowY: "scroll",
+																},
 															}}
 														>
-															<div
-																style={{
+															<Box
+																sx={{
+																	padding: "5px",
+																	paddingTop: "0px",
+																	paddingLeft: "15px",
 																	display: "flex",
 																	flexDirection: "column",
+																	// alignItems: "center",
+																	// background: 'rgba(255, 255, 255, 0.15) url("LineChartGreen.png")',
+																	backgroundSize: "cover",
+																	height: "auto",
+																	width: "410px",
+																	"@media only screen and (max-width: 764px)": {
+																		width: "100%",
+																		paddingLeft: "20px",
+																		paddingRight: "20px",
+																	},
 																}}
 															>
-																<Text
-																	b
-																	size={22}
-																	color="#fff"
-																	css={{
-																		lineHeight: 1.5,
-																		"@media only screen and (max-width: 764px)":
-																			{
-																				paddingTop: "5px",
-																				fontSize: "22px",
-																				lineHeight: 1.1,
-																			},
+																<div
+																	style={{
+																		width: "100%",
+																		display: "flex",
+																		justifyContent: "space-between",
+																		alignItems: "center",
+																		flexDirection: "row",
+																		// paddingTop: "5%",
+																		paddingBottom: "5px",
 																	}}
 																>
-																	{/* {record[selectedCardIndex].stock_name.length >
+																	<div
+																		style={{
+																			display: "flex",
+																			flexDirection: "column",
+																		}}
+																	>
+																		<Text
+																			b
+																			size={22}
+																			color="#fff"
+																			css={{
+																				lineHeight: 1.5,
+																				"@media only screen and (max-width: 764px)":
+																					{
+																						paddingTop: "5px",
+																						fontSize: "22px",
+																						lineHeight: 1.1,
+																					},
+																			}}
+																		>
+																			{/* {record[selectedCardIndex].stock_name.length >
 																	28 ? (
 																		<Marquee delay={5} speed={30}>
 																			<span
