@@ -338,6 +338,8 @@ const StockCard = () => {
 
   const handleLoginOrSubForSubscribeNow = () => {
     if (isLoggedIn === true && isSubscribed === false) {
+      const location = router.asPath;
+      localStorage.setItem("location", location);
       router.push("/purchase");
     }
     if (isLoggedIn === true && isSubscribed === true) {
@@ -350,6 +352,8 @@ const StockCard = () => {
 
   const handleFirstCard = () => {
     if (isLoggedIn) {
+      const location = router.asPath;
+      localStorage.setItem("location", location);
       router.push("/purchase");
     } else {
       handleLogin();
@@ -382,6 +386,7 @@ const StockCard = () => {
               Authorization: `token ${refresh}`,
             },
           });
+          // console.log(response.data);
           setStocks(response.data);
           setFlipStates(new Array(response.data.length).fill(false));
         } catch (error) {
@@ -1130,7 +1135,7 @@ const StockCard = () => {
                         },
                       }}
                     >
-                      {stock.stock_name.length > 18 ? (
+                      {stock.stock_name.length > 17 ? (
                         <Marquee
                           delay={2}
                           speed={30}

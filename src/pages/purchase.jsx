@@ -1,17 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+import { GET_USER } from "@/pages/api/URLs";
 import {
-  Button,
-  Card,
-  Divider,
-  Input,
-  Loading,
-  Modal,
-  Text,
+	Button,
+	Card,
+	Divider,
+	Input,
+	Loading,
+	Modal,
+	Text,
 } from "@nextui-org/react";
-import { BILLING_URL, GET_PRODUCT, PAYMENT_URL, SUBS_URL1 } from "./api/URLs";
 import { Box, IconButton } from "@mui/material";
-import { Elements } from "@stripe/react-stripe-js";
 import NavBar2 from "@/components/Navbar2";
 import FaqsNew from "../pages/screens/FaqsNew";
 import Footer from "../pages/screens/Footer";
@@ -19,926 +17,1067 @@ import AuthContext from "@/components/AuthContext";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "../components/Login";
 import PhoneInput from "react-phone-input-2";
-
-// const stripePromise = loadStripe(
-// 	"pk_test_51N3dAPSFPooNZtZaCwGwRUC1IHpC4HqARVbxMBia13Fqan4H6SoLZUhLz21xqqMhtDU5Kiurtzia2uznSEbGSADk00LRBh1V2p"
-// );
-// const Stripe_Key = process.env.NEXT_PUBLIC_STRIPE_KEY;
-
-// const stripePromise = loadStripe(Stripe_Key);
+import pincodeData from "../Data/pincode_db.json";
+import { ArrowBack, TaskAltOutlined } from "@mui/icons-material";
+import { useRouter } from "next/router";
+import Confetti from "react-confetti";
+import { CODE_VALID, SUBSCRIBE_URL } from "./api/URLs";
+import PageVisibility from "../components/PageVisibility";
 
 export default function PreviewPage() {
-  const [productID, setProductID] = useState("");
-  const { isLoggedIn } = useContext(AuthContext);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [openBillingModal, setOpenBillingModal] = useState(false);
-  const [billingName, setBillingName] = useState("");
-  const [billingEmail, setBillingEmail] = useState("");
-  const [billingNumber, setBillingNumber] = useState("");
-  const [gstNo, setGstNo] = useState("");
-  const [referralCode, setReferralCode] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
-  const refreshToken = localStorage.getItem("refresh");
+	// const [productID, setProductID] = useState("");
+	const router = useRouter();
+	const { isLoggedIn } = useContext(AuthContext);
+	const [showLoginModal, setShowLoginModal] = useState(false);
+	const [showDiscountConfirmation, setShowDiscountConfirmation] =
+		useState(false);
+	const [billingNumber, setBillingNumber] = useState("");
+	const [gstNo, setGstNo] = useState("");
+	const [referralCode, setReferralCode] = useState("");
+	const [userCity, setUserCity] = useState("");
+	const [userState, setUserState] = useState("");
+	const [userPincode, setUserPincode] = useState("");
+	const [discountCode, setDiscountCode] = useState("");
+	const [loading, setLoading] = useState(false);
+	const [isFormValid, setIsFormValid] = useState(false);
+	const [emailValid, setEmailValid] = useState(true);
+	const [validNumber, setValidNumber] = useState(true);
+	const [billingName, setBillingName] = useState("");
+	const [billingEmail, setBillingEmail] = useState("");
+	const refreshToken = localStorage.getItem("refresh");
+	const [step, setStep] = useState(1);
 
-  const handleOpenBillingModal = () => {
-    setOpenBillingModal(true);
-  };
-  const handleCloseBillingModal = () => {
-    setOpenBillingModal(false);
-  };
-  const handleLogin = () => {
-    setShowLoginModal(true);
-  };
+	const handleNextStep = () => {
+		setStep(step + 1);
+	};
 
-  const handleCloseLoginModal = () => {
-    setShowLoginModal(false);
-  };
+	const handlePrevStep = () => {
+		setStep(step - 1);
+	};
 
-  const handleInputChange = (value) => {
-    setBillingNumber(value);
-    setIsFormValid(billingNumber !== "" && value && billingEmail !== "");
-  };
+	const handleDiscountConfirmationOpen = () => {
+		setShowDiscountConfirmation(true);
+	};
 
-  const handleEmailChange = (e) => {
-    const email = e.target.value;
-    setBillingEmail(e.target.value);
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	const handleDiscountConfirmationClose = () => {
+		setShowDiscountConfirmation(false);
+	};
 
-    setIsFormValid(
-      billingNumber !== "" &&
-        billingNumber !== "" &&
-        e.target.value !== "" &&
-        emailPattern.test(email)
-    );
-  };
+	useEffect(() => {
+		const getUserDetails = async () => {
+			if (refreshToken) {
+				try {
+					const response = await fetch(GET_USER, {
+						method: "GET",
+						headers: {
+							Authorization: `Token ${refreshToken}`,
+						},
+					});
+					const data = await response.json();
+					// setUserInvoiceDetails(data);
+					setBillingName(data.username || "");
+					setBillingEmail(data.email || "");
+					setBillingNumber(data.mobile || "");
+					setReferralCode(data.admin_referral_code || "");
+				} catch (error) {
+					console.error("Error verifying tokens:", error);
+				}
+			}
+		};
 
-  const handleNameChange = (e) => {
-    setBillingName(e.target.value);
-    setIsFormValid(
-      e.target.value !== "" && billingNumber && billingEmail !== ""
-    );
-  };
+		getUserDetails();
+	}, []);
 
-  const handleGSTChange = (e) => {
-    setGstNo(e.target.value);
-  };
+	useEffect(() => {
+		updateFormValidity();
+	}, [billingNumber, billingEmail, billingName, userPincode]);
 
-  const handleReferralChange = (e) => {
-    setReferralCode(e.target.value);
-  };
+	// const handleOpenBillingModal = () => {
+	// 	setOpenBillingModal(true);
+	// };
+	// const handleCloseBillingModal = () => {
+	// 	setOpenBillingModal(false);
+	// };
+	const handleLogin = () => {
+		setShowLoginModal(true);
+	};
 
-  const handlePaymentSubmit = async () => {
-    const refreshToken = localStorage.getItem("refresh");
-    console.log(refreshToken);
-    setLoading(true);
-    try {
-      const res = await fetch(SUBS_URL1, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `token ${refreshToken}`,
-        },
-      });
-      if (res.ok) {
-        console.log(res);
-        const link = await res.text();
-        const linkFinal = link.replaceAll('"', "").trim();
-        console.log(linkFinal);
-        window.open(`${linkFinal}`, "_blank");
-        setLoading(false);
-      } else {
-        const errorData = await res.json();
-        console.error("Error:", errorData);
-        setLoading(false);
-      }
-      console.log(res);
-    } catch (error) {
-      console.error("An error occurred:", error);
-      setLoading(false);
-    }
-  };
+	const handleCloseLoginModal = () => {
+		setShowLoginModal(false);
+	};
 
-  useEffect(() => {
-    const handleGetProduct = async () => {
-      try {
-        const refreshToken = localStorage.getItem("refresh");
-        const response = await fetch(GET_PRODUCT, {
-          headers: {
-            Authorization: `token ${refreshToken}`,
-          },
-        });
-        const data = await response.json();
-        // console.log(data);
-        const kamayaKyaProduct = data.find(
-          (product) => product.name === "KamayaKya"
-        );
-        const kamayaKyaProductID = kamayaKyaProduct?.stripe_product_id || "";
-        setProductID(kamayaKyaProductID);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    handleGetProduct();
-  }, []);
+	const handleNameChange = (e) => {
+		const name = e.target.value;
+		// Use a regular expression to check if the name contains only letters and spaces
+		const isValidName = /^[A-Za-z\s]*$/.test(name);
+		setBillingName(name);
+		if (isValidName) {
+			updateFormValidity();
+		}
+	};
 
-  const handleSaveAndPay = async () => {
-    try {
-      setLoading(true);
+	const handleInputChange = (value) => {
+		const lengthNumber = value.length;
+		if (value !== "" && lengthNumber === 12) {
+			setValidNumber(true);
+		} else {
+			setValidNumber(false);
+		}
+		updateFormValidity();
+	};
 
-      const billingData = {
-        full_name: billingName,
-        phone: billingNumber,
-        email: billingEmail,
-        gst_no: gstNo ? gstNo : "",
-        referral: referralCode ? referralCode : "",
-      };
+	const handleEmailChange = (e) => {
+		const email = e.target.value;
+		setBillingEmail(email);
 
-      // Make API call to BILLING_URL
-      const billingResponse = await fetch(BILLING_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `token ${refreshToken}`,
-        },
-        body: JSON.stringify(billingData),
-      });
+		// Define a regular expression for email validation
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      if (billingResponse.ok) {
-        // Billing API call was successful
-        // Perform subsequent API call
-        try {
-          const response = await fetch(PAYMENT_URL, {
-            method: "POST",
-            headers: {
-              // "Content-Type": "application/x-www-form-urlencoded",
-              "Content-Type": "application/json",
-              Authorization: `token ${refreshToken}`, // Set the Authorization header with the refresh token
-            },
-            body: JSON.stringify({ product_id: productID }),
-          });
-          // Process the response
-          if (response.ok) {
-            console.log(response);
-            const data = await response.json();
-            console.log(data);
-            console.log(data.session_url);
-            window.location.href = data.session_url;
-          } else {
-            // Handle error response
-            console.log(response);
-          }
-        } catch (error) {
-          // Handle network or other errors
-          console.log(error);
-        }
-      } else {
-        // Subsequent API call failed
-        // Handle the error
-        console.log("After 1st Call");
-      }
-      // Billing API call failed
-      // console.log("Billing API call failed");
+		if (emailPattern.test(email)) {
+			// Email is valid, set the border color to light grey
+			setEmailValid(true);
+		} else {
+			// Email is not valid, set the border color to red
+			setEmailValid(false);
+		}
 
-      setLoading(false);
-    } catch (error) {
-      console.error("Error:", error);
-      setLoading(false);
-    }
-  };
+		updateFormValidity();
+	};
 
-  if (!isLoggedIn) {
-    return (
-      <section
-        style={{
-          // height: "35vh",
-          display: "flex",
-          justifyContent: "center",
-          backgroundColor: "#fff",
-          padding: "50px",
-        }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: "80rem",
-            display: "flex",
-            flexDirection: "column",
-            flexWrap: "wrap",
-            alignContent: "center",
-            justifyContent: "center",
-            alignItems: "center",
-            alignSelf: "center",
-            paddingLeft: "20px",
-            paddingRight: "20px",
-            "@media only screen and (max-width: 764px)": {
-              width: "100%",
-              paddingLeft: "15px",
-              paddingRight: "15px",
-              alignContent: "flex-start",
-              justifyContent: "flex-start",
-              alignItems: "flex-start",
-              alignSelf: "flex-start",
-              flexDirection: "column-reverse",
-            },
-          }}
-        >
-          <Box
-            sx={{ width: "50%", height: "auto" }}
-            className="aboutSectionGifAndText"
-          >
-            <video
-              muted
-              autoPlay
-              loop
-              src="https://kamayakya.com/In%20Depth%20Research%20-%20Why%20Us.mp4"
-              style={{ borderRadius: "30px", width: "100%", height: "100%" }}
-            />
-          </Box>
-          <Box
-            className="aboutSectionGifAndText mobileAboutText"
-            sx={{
-              width: "50%",
-              display: "flex",
-              flexDirection: "column",
-              alignSelf: "center",
-              paddingRight: "0px",
-            }}
-          >
-            <Button
-              auto
-              onPress={handleLogin}
-              css={{
-                borderRadius: "10000px",
-                marginTop: 30,
-                backgroundColor: "#ff9f24",
-                zIndex: 0,
-                paddingLeft: 50,
-                paddingRight: 50,
-                height: "50px",
-                width: "90px",
-                alignSelf: "center",
-                // marginBottom: "15px",
-                "@media only screen and (max-width: 764px)": {
-                  borderRadius: "15px",
-                  paddingLeft: 15,
-                  paddingRight: 15,
-                  marginLeft: 0,
-                  marginBottom: 0,
-                  marginTop: "10px",
-                  height: "55px",
-                  width: "250px",
-                },
-              }}
-            >
-              <Text
-                b
-                size={20}
-                color="White"
-                css={{
-                  "@media only screen and (max-width: 764px)": {
-                    fontSize: 18,
-                    // padding: "1px 5px",
-                    width: "auto",
-                  },
-                }}
-              >
-                Login
-              </Text>
-            </Button>
-          </Box>
-          <Modal
-            width="450px"
-            blur
-            open={showLoginModal}
-            onClose={handleCloseLoginModal}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-              <IconButton
-                sx={{
-                  width: "40px",
-                  "&:hover": { background: "#fff" },
-                  // alignSelf: "end",
-                  right: "20px",
-                }}
-                onClick={() => handleCloseLoginModal()}
-              >
-                <CloseIcon sx={{ color: "#e81123" }} />
-              </IconButton>
-            </Box>
-            <Modal.Body>
-              <Login />
-            </Modal.Body>
-          </Modal>
-        </Box>
-      </section>
-    );
-  }
+	const handlePincodeChange = (e) => {
+		const pincode = e.target.value;
+		setUserPincode(pincode);
+		// Check if the pincode is a 6-digit number
+		const isSixDigitPincode = /^\d{6}$/.test(pincode);
 
-  // const handleCheckoutSubmit = async (event) => {
-  // 	event.preventDefault();
-  // 	try {
-  // 		const response = await fetch(PAYMENT_URL, {
-  // 			method: "POST",
-  // 			headers: {
-  // 				// "Content-Type": "application/x-www-form-urlencoded",
-  // 				"Content-Type": "application/json",
-  // 				Authorization: `token ${refreshToken}`, // Set the Authorization header with the refresh token
-  // 			},
-  // 			body: JSON.stringify({ product_id: productID }),
-  // 		});
-  // 		// Process the response
-  // 		if (response.ok) {
-  // 			console.log(response);
-  // 			const data = await response.json();
-  // 			console.log(data);
-  // 			console.log(data.session_url);
-  // 			window.location.href = data.session_url;
-  // 		} else {
-  // 			// Handle error response
-  // 			console.log(response);
-  // 		}
-  // 	} catch (error) {
-  // 		// Handle network or other errors
-  // 		console.log(error);
-  // 	}
-  // };
+		if (isSixDigitPincode) {
+			updateFormValidity();
+			// Find the pincode entry in the pincodeData array
+			const result = pincodeData.find((entry) => entry.pincode === pincode);
+			if (result) {
+				setUserCity(result.city);
+				setUserState(result.state);
+			}
+		} else {
+			setUserCity("");
+			setUserState("");
+			// Handle invalid pincode input, e.g., display an error message.
+		}
+	};
 
-  return (
-    <section
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#fff",
-      }}
-    >
-      <NavBar2 />
+	const updateFormValidity = () => {
+		setIsFormValid(
+			billingNumber !== "" &&
+				billingEmail !== "" &&
+				billingName !== "" &&
+				userState !== "" &&
+				userCity !== "" &&
+				userPincode !== ""
+		);
+	};
 
-      {/*<Elements stripe={stripePromise}>*/}
-      {/* <Box>
-      		User Name: if username ? show edit option for biling Name
-      		GST Number get from user
-      		Referral Code non editable
+	const handleGSTChange = (e) => {
+		setGstNo(e.target.value.toUpperCase());
+	};
 
-      	</Box> */}
-      <form
-      // onSubmit={handleCheckoutSubmit}
-      >
-        {/*<Box*/}
-        {/*  sx={{*/}
-        {/*    display: "flex",*/}
-        {/*    flexDirection: "column",*/}
-        {/*    width: "500px",*/}
-        {/*    maxWidth: "80rem",*/}
-        {/*    // height: "300px",*/}
-        {/*    alignContent: "center",*/}
-        {/*    padding: "15px",*/}
-        {/*    marginTop: "30px",*/}
-        {/*  }}*/}
-        {/*  className="paymentsPage-box"*/}
-        {/*>*/}
-        {/*  /!*<img src={"Card UI.png"} style={{ width: "100%", height: "auto" }} />*!/*/}
-        {/*  /!*<Text b size={20} color="#fff" css={{ ml: "20px", mt: "10px" }}>*!/*/}
-        {/*  /!*  Pay via Debit/Credit Card*!/*/}
-        {/*  /!*</Text>*!/*/}
-        {/*  /!* <Button*/}
-        {/*			auto*/}
-        {/*			type="submit"*/}
-        {/*			css={{*/}
-        {/*				// width: "200px",*/}
-        {/*				height: "50px",*/}
-        {/*				fontSize: 23,*/}
-        {/*				// marginTop: "150px",*/}
-        {/*				// marginLeft: "20px",*/}
-        {/*				borderRadius: "7000.5px",*/}
-        {/*				border: "2.5px solid #440886",*/}
-        {/*				backgroundImage:*/}
-        {/*					"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",*/}
-        {/*			}}*/}
-        {/*		>*/}
-        {/*			Pay now*/}
-        {/*		</Button> *!/*/}
-        {/*  <Button*/}
-        {/*    auto*/}
-        {/*    onPress={handleOpenBillingModal}*/}
-        {/*    css={{*/}
-        {/*      // width: "100%",*/}
-        {/*      height: "50px",*/}
-        {/*      fontSize: 23,*/}
-        {/*      marginTop: "20px",*/}
-        {/*      // marginLeft: "20px",*/}
-        {/*      borderRadius: "7000.5px",*/}
-        {/*      // border: "2.5px solid #440886",*/}
-        {/*      backgroundImage:*/}
-        {/*        "linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",*/}
-        {/*    }}*/}
-        {/*  >*/}
-        {/*    {loading ? (*/}
-        {/*      <Loading color={"white"} css={{ background: "transparent" }} />*/}
-        {/*    ) : (*/}
-        {/*      "Subscribe Now"*/}
-        {/*    )}*/}
-        {/*  </Button>*/}
-        {/*</Box>*/}
-      </form>
-      {/*</Elements>*/}
+	const handleReferralChange = (e) => {
+		setReferralCode(e.target.value.toUpperCase());
+	};
 
-      <Modal
-        blur
-        open={openBillingModal}
-        onClose={handleCloseBillingModal}
-        css={{
-          alignSelf: "center",
-          background: "transparent",
-          boxShadow: "none",
-          borderRadius: "15px",
-          // width: '420px',
-          "@media only screen and (max-width: 764px)": {
-            width: "95vw !important",
-            maxWidth: "95vw !important",
-          },
-        }}
-      >
-        {/* <img src="kmk-k.png" style={{ width: "50px" }} /> */}
+	const handleDiscountChange = (e) => {
+		setDiscountCode(e.target.value.toUpperCase());
+	};
 
-        <Card
-          css={{
-            width: "380px",
-            height: "620px",
-            alignSelf: "center",
-            borderRadius: "24px",
-            "@media only screen and (max-width: 764px)": {
-              width: "95vw !important",
-              maxWidth: "95vw !important",
-            },
-          }}
-        >
-          <IconButton
-            sx={{
-              position: "absolute",
-              width: "40px",
-              "&:hover": { background: "#fff" },
-              top: "5px",
-              right: "0px",
-              paddingRight: "30px",
-              "@media only screen and (max-width: 764px)": {
-                top: "5px",
-                right: "0px",
-              },
-            }}
-            onClick={handleCloseBillingModal}
-          >
-            <CloseIcon sx={{ color: "#e81123" }} />
-          </IconButton>
-          <Text
-            b
-            color="#000"
-            css={{
-              fontSize: 40,
-              lineHeight: 1.2,
-              marginTop: "40px",
-              marginBottom: "0px",
-              "@media only screen and (max-width: 764px)": {
-                fontSize: 30,
-                width: "100%",
-              },
-            }}
-          >
-            Invoice Details
-          </Text>
-          <Text
-            b
-            color="#000"
-            css={{
-              fontSize: 15,
-              lineHeight: 1.2,
-              marginTop: "0px",
-              marginBottom: "25px",
-              "@media only screen and (max-width: 764px)": {
-                fontSize: 10,
-                width: "100%",
-              },
-            }}
-          >
-            You will receive your invoice via email
-          </Text>
-          <Text
-            b
-            css={{
-              alignSelf: "start",
-              marginLeft: "50px",
-              fontSize: 12,
-              color: "#125a54",
-            }}
-          >
-            NAME * required
-          </Text>
-          <Input
-            required
-            type="text"
-            placeholder="eg: Aniket Kulkarni"
-            clearable
-            size="lg"
-            value={billingName}
-            onChange={handleNameChange}
-            css={{
-              marginBottom: "10px",
-              alignSelf: "center",
-              width: "300px",
-              height: "50px",
-              borderRadius: "1000px",
-            }}
-            className="countryPhone"
-          />
-          <Text
-            b
-            css={{
-              alignSelf: "start",
-              marginLeft: "50px",
-              fontSize: 12,
-              color: "#125a54",
-            }}
-          >
-            WHATSAPP NUMBER * required
-          </Text>
-          <PhoneInput
-            containerStyle={{
-              marginBottom: "10px",
-              alignSelf: "center",
-              width: "300px",
-            }}
-            dropdownStyle={{ height: "250px", zIndex: 10 }}
-            countryCodeEditable={false}
-            country="in"
-            placeholder="eg: 9012345678"
-            value={billingNumber}
-            onChange={handleInputChange}
-            inputProps={{
-              required: true,
-              autoFocus: true,
-            }}
-            inputExtraProps={{
-              mask: "+(999) 999 9999",
-            }}
-            containerClass="countryPhone"
-          />
-          <Text
-            b
-            css={{
-              alignSelf: "start",
-              marginLeft: "50px",
-              fontSize: 12,
-              color: "#125a54",
-            }}
-          >
-            EMAIL ID * required
-          </Text>
-          <Input
-            required
-            type="email"
-            placeholder="eg: support@kamayakya.com"
-            clearable
-            size="lg"
-            value={billingEmail}
-            onChange={handleEmailChange}
-            css={{
-              marginBottom: "10px",
-              alignSelf: "center",
-              width: "300px",
-              height: "50px",
-              borderRadius: "1000px",
-            }}
-            className="countryPhone"
-          />
-          <Text
-            b
-            css={{
-              alignSelf: "start",
-              marginLeft: "50px",
-              fontSize: 12,
-              color: "grey",
-            }}
-          >
-            GSTIN (optional)
-          </Text>
-          <Input
-            placeholder="eg: 22AAAAA0000A1Z5"
-            clearable
-            size="lg"
-            value={gstNo}
-            maxLength={15}
-            minLength={15}
-            onChange={handleGSTChange}
-            css={{
-              marginBottom: "10px",
-              alignSelf: "center",
-              width: "300px",
-              height: "50px",
-              borderRadius: "1000px",
-            }}
-            className="countryPhone"
-          />
-          <Text
-            b
-            css={{
-              alignSelf: "start",
-              marginLeft: "50px",
-              fontSize: 12,
-              color: "grey",
-            }}
-          >
-            REFERRAL CODE (optional)
-          </Text>
-          <Input
-            placeholder="eg: KMK007"
-            clearable
-            size="lg"
-            maxLength={6}
-            minLength={6}
-            value={referralCode}
-            onChange={handleReferralChange}
-            css={{
-              marginBottom: "10px",
-              alignSelf: "center",
-              width: "300px",
-              height: "50px",
-              borderRadius: "1000px",
-            }}
-            className="countryPhone"
-          />
-          {/* <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              marginTop: "20px",
-            }}
-          > */}
-          <Button
-            auto
-            onPress={handleSaveAndPay}
-            css={{
-              width: "50%",
-              marginTop: "10px",
-              fontSize: 18,
-              borderRadius: "1000px",
-              alignSelf: "center",
-              background: "linear-gradient(to top , #fb7716,#fe9807)",
-            }}
-            disabled={!isFormValid}
-          >
-            {loading ? (
-              <Loading color={"white"} css={{ background: "transparent" }} />
-            ) : (
-              "Save & Pay "
-            )}
-          </Button>
-          <Text
-            b
-            css={{
-              alignSelf: "center",
-              // marginLeft: "50px",
-              fontSize: 12,
-              color: "grey",
-              opacity: isFormValid ? 0 : 1,
-            }}
-          >
-            fill required field/s to proceed
-          </Text>
-          {/* </Box> */}
-        </Card>
-      </Modal>
-      <br />
-      {/*<Divider*/}
-      {/*  css={{*/}
-      {/*    width: "500px",*/}
-      {/*    maxWidth: "80rem",*/}
-      {/*  }}*/}
-      {/*></Divider>*/}
-      {/*<br />*/}
-      <Text
-        size={21}
-        css={{
-          maxWidth: "65rem",
-          padding: "15px",
-          "@media only screen and (max-width: 764px)": {
-            fontSize: "17px",
-            padding: "15px",
-            lineHeight: "1.3",
-          },
-        }}
-      >
-        If you are transferring through <b>UPI/Cheque/DD/Direct</b> account then
-        please send an email to{" "}
-        <a href="mailto: contact@kamayakya.com">contact@kamayakya.com</a>{" "}
-        <b>
-          mentioning your name, email id, account number, bank name, transaction
-          number and the amount transferred
-        </b>
-        . We do not accept cash. Please do not deposit CASH. Payment can be
-        through UPI, Cheque, DD, or direct account transfer.
-      </Text>
-      <Box
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-          maxWidth: "80rem",
-          // height: "300px",
-          alignContent: "center",
-          justifyContent: "center",
-          padding: "15px",
-          gap: "15px",
-        }}
-        className="paymentsPage-box"
-      >
-        <img
-          src="upi.png"
-          style={{
-            width: "500px",
-            maxWidth: "80rem",
-            height: "auto",
-            marginTop: "10px",
-            marginBottom: "20px",
-            borderRadius: "20px",
-            alignSelf: "flex-start",
-          }}
-          className="paymentsPage-box-account"
-          alt="UPI"
-        />
-        {/*<br />*/}
-        {/*<Divider></Divider>*/}
-        {/*<br />*/}
-        {/*<Text*/}
-        {/*  b*/}
-        {/*  size={35}*/}
-        {/*  color="#000"*/}
-        {/*  css={{*/}
-        {/*    width: "100%",*/}
-        {/*    mt: "30px",*/}
-        {/*    alignSelf: "center",*/}
-        {/*    "@media only screen and (max-width: 764px)": {*/}
-        {/*      mt: "10px",*/}
-        {/*      padding: "0px 10px",*/}
-        {/*    },*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  Account Transfer:*/}
-        {/*</Text>*/}
-        {/*<Text*/}
-        {/*  size={21}*/}
-        {/*  css={{*/}
-        {/*    width: "100%",*/}
-        {/*    "@media only screen and (max-width: 764px)": {*/}
-        {/*      fontSize: "17px",*/}
-        {/*      lineHeight: "1.3",*/}
-        {/*      padding: "0px 10px",*/}
-        {/*    },*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  If you are transferring through <b>Cheque/DD/Direct</b> account then*/}
-        {/*  please send an email to{" "}*/}
-        {/*  <a href="mailto: contact@kamayakya.com">contact@kamayakya.com</a>{" "}*/}
-        {/*  <b>*/}
-        {/*    mentioning your name, email id, account number, bank name,*/}
-        {/*    transaction number and the amount transferred*/}
-        {/*  </b>*/}
-        {/*  . We do not accept cash. Please do not deposit CASH. Payment can be*/}
-        {/*  through Cheque, DD, or direct account transfer.*/}
-        {/*</Text>*/}
-        {/* <Box> */}
-        <Box
-          sx={{
-            width: "500px",
-            maxWidth: "80rem",
-            display: "flex",
-            background: "#f3f3f3",
-            // border: "2px solid",
-            borderRadius: "25px",
-            flexDirection: "column",
-            mt: "10px",
-            mb: "50px",
-            padding: "30px",
-          }}
-          className="paymentsPage-box-account"
-        >
-          <Text
-            b
-            size={35}
-            color="#000"
-            css={{
-              width: "100%",
-              mt: "30px",
-              alignSelf: "center",
-              "@media only screen and (max-width: 764px)": {
-                mt: "10px",
-                fontSize: "30px",
-                padding: "0px 0px",
-              },
-            }}
-          >
-            Account Details:
-          </Text>
-          <br />
-          <Text
-            size={18}
-            css={{
-              letterSpacing: "1.1",
-              "@media only screen and (max-width: 764px)": {
-                fontSize: "18px",
-                lineHeight: "1.3",
-              },
-            }}
-          >
-            Account Name: <br />
-            <b>KAMAYAKYA WEALTH MANAGEMENT PVT. LTD.</b>
-          </Text>
-          <br />
-          <Text size={18}>
-            PAN: <br />
-            <b>AAJCK1075B</b>
-          </Text>
-          <br />
+	const handleSaveAndPay = async () => {
+		try {
+			setLoading(true);
 
-          <Text size={18}>
-            Account Type: <br />
-            <b>Current Account</b>
-          </Text>
-          <br />
+			const billingData = {
+				name: billingName,
+				whatsapp_no: billingNumber,
+				email: billingEmail,
+				pincode: userPincode,
+				city: userCity,
+				state: userState,
+				gst_number: gstNo ? gstNo : "",
+				referral_code: referralCode ? referralCode : "",
+				discount_code: discountCode,
+			};
 
-          <Text size={18}>
-            Account Number: <br />
-            <b>50200063188457</b>
-          </Text>
-          <br />
+			// Make API call to BILLING_URL
+			const billingResponse = await fetch(SUBSCRIBE_URL, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `token ${refreshToken}`,
+				},
+				body: JSON.stringify(billingData),
+			});
+			console.log(billingResponse);
+			if (billingResponse.ok) {
+				const responseData = await billingResponse.json();
+				console.log(responseData);
+				window.open(responseData, "_self");
+			}
 
-          <Text size={18}>
-            Bank: <br />
-            <b>HDFC Bank</b>
-          </Text>
-          <br />
+			setLoading(false);
+		} catch (error) {
+			console.error("Error:", error);
+			setLoading(false);
+		}
+	};
 
-          <Text size={18}>
-            IFSC Code: <br />
-            <b>HDFC0000039</b>
-          </Text>
-          <br />
+	const [discountAmount, setDiscountAmount] = useState("");
+	const [totalAmount, setTotalAmount] = useState("");
+	const [discountApplied, setDiscountApplied] = useState(false);
 
-          <Text size={18}>
-            MICR Code: <br />
-            <b>411240004</b>
-          </Text>
-          <br />
+	const validateDiscountCode = async () => {
+		// console.log(discountCode);
+		setLoading(true);
+		try {
+			const discountCodeValidation = await fetch(CODE_VALID, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `token ${refreshToken}`,
+				},
+				body: JSON.stringify({
+					discount_code: discountCode,
+				}),
+			});
+			if (discountCodeValidation.ok) {
+				const responseData = await discountCodeValidation.json();
+				// console.log(responseData);
+				setLoading(false);
+				setDiscountAmount(responseData.discount);
+				setTotalAmount(responseData.total_amount);
+				setDiscountApplied(true);
+				handleDiscountConfirmationOpen();
+			} else if (discountCodeValidation.status === 400) {
+				setDiscountCode("");
+				alert("Code not applicable");
+				setLoading(false);
+			} else if (discountCodeValidation.status === 404) {
+				setDiscountCode("");
+				alert("Code not found");
+				setLoading(false);
+			} else if (!discountCodeValidation.ok) {
+				setDiscountCode("");
+				alert("Error applying the code");
+				setLoading(false);
+			}
+		} catch (error) {
+			console.error("Error:", error);
+			setLoading(false);
+		}
+		setLoading(false);
+	};
 
-          <Text size={18}>
-            Branch Location: <br />
-            <b>Boat Club, Pune</b>
-          </Text>
-        </Box>
+	const handleRemoveDiscount = () => {
+		setDiscountAmount("");
+		setDiscountCode("");
+		setDiscountApplied(false);
+	};
 
-        {/* <Box> */}
-        {/* </Box> */}
-        {/*<Text b size={16} css={{ width: "950px" }}>*/}
-        {/*  If you are transferring through Cheque/DD/Direct account then please*/}
-        {/*  send an email to info@aurumcapital.in mentioning your name, email id,*/}
-        {/*  account number, bank name, transaction number and the amount*/}
-        {/*  transferred. We do not accept cash. Please do not deposit CASH. Payment*/}
-        {/*  can be through Cheque, DD, or direct account transfer.*/}
-        {/*</Text>*/}
-        {/* </Box> */}
-        {/*<Box*/}
-        {/*  sx={{*/}
-        {/*    display: "flex",*/}
-        {/*    background: "#d3d3d3",*/}
-        {/*    border: "2px solid",*/}
-        {/*    flexDirection: "column",*/}
-        {/*    mt: "20px",*/}
-        {/*    mb: "50px",*/}
-        {/*    padding: "20px",*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <Text b>Account Name: AURUM CAPITAL</Text>*/}
-        {/*  <Text b>Account Type:Current Account</Text>*/}
-        {/*  <Text b> Account Number: 7212058645</Text>*/}
-        {/*  <Text b> Bank: Kotak Mahindra Bank</Text>*/}
-        {/*  <Text b>IFSC Code: KKBK0001771</Text>*/}
-        {/*  <Text b>Branch Code: 1771</Text>*/}
-        {/*  <Text b>Branch Location: Pune-Satara Road, Pune</Text>*/}
-        {/*</Box>*/}
-      </Box>
-      <FaqsNew />
-      <Footer />
-    </section>
-  );
+	if (!isLoggedIn) {
+		return (
+			<section
+				style={{
+					// height: "35vh",
+					display: "flex",
+					justifyContent: "center",
+					backgroundColor: "#fff",
+					padding: "50px",
+				}}
+			>
+				<Box
+					sx={{
+						width: "100%",
+						maxWidth: "80rem",
+						display: "flex",
+						flexDirection: "column",
+						flexWrap: "wrap",
+						alignContent: "center",
+						justifyContent: "center",
+						alignItems: "center",
+						alignSelf: "center",
+						paddingLeft: "20px",
+						paddingRight: "20px",
+						"@media only screen and (max-width: 764px)": {
+							width: "100%",
+							paddingLeft: "15px",
+							paddingRight: "15px",
+							alignContent: "flex-start",
+							justifyContent: "flex-start",
+							alignItems: "flex-start",
+							alignSelf: "flex-start",
+							flexDirection: "column-reverse",
+						},
+					}}
+				>
+					<Box
+						sx={{ width: "50%", height: "auto" }}
+						className="aboutSectionGifAndText"
+					>
+						<video
+							muted
+							autoPlay
+							loop
+							src="https://kamayakya.com/In%20Depth%20Research%20-%20Why%20Us.mp4"
+							style={{ borderRadius: "30px", width: "100%", height: "100%" }}
+						/>
+					</Box>
+					<Box
+						className="aboutSectionGifAndText mobileAboutText"
+						sx={{
+							width: "50%",
+							display: "flex",
+							flexDirection: "column",
+							alignSelf: "center",
+							paddingRight: "0px",
+						}}
+					>
+						<Button
+							auto
+							onPress={handleLogin}
+							css={{
+								borderRadius: "10000px",
+								marginTop: 30,
+								backgroundColor: "#ff9f24",
+								zIndex: 0,
+								paddingLeft: 50,
+								paddingRight: 50,
+								height: "50px",
+								width: "90px",
+								alignSelf: "center",
+								// marginBottom: "15px",
+								"@media only screen and (max-width: 764px)": {
+									borderRadius: "15px",
+									paddingLeft: 15,
+									paddingRight: 15,
+									marginLeft: 0,
+									marginBottom: 0,
+									marginTop: "10px",
+									height: "55px",
+									width: "250px",
+								},
+							}}
+						>
+							<Text
+								b
+								size={20}
+								color="White"
+								css={{
+									"@media only screen and (max-width: 764px)": {
+										fontSize: 18,
+										// padding: "1px 5px",
+										width: "auto",
+									},
+								}}
+							>
+								Login
+							</Text>
+						</Button>
+					</Box>
+					<Modal
+						width="450px"
+						blur
+						open={showLoginModal}
+						onClose={handleCloseLoginModal}
+					>
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								width: "100%",
+								justifyContent: "space-between",
+								alignItems: "center",
+							}}
+						>
+							<img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+							<IconButton
+								sx={{
+									width: "40px",
+									"&:hover": { background: "#fff" },
+									// alignSelf: "end",
+									right: "20px",
+								}}
+								onClick={() => handleCloseLoginModal()}
+							>
+								<CloseIcon sx={{ color: "#e81123" }} />
+							</IconButton>
+						</Box>
+						<Modal.Body>
+							<Login />
+						</Modal.Body>
+					</Modal>
+				</Box>
+			</section>
+		);
+	}
+
+	//Adding this comment line for backend script run test
+
+	return (
+		// <PageVisibility>
+		// 	{(isPageVisible) => (
+		<>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+					background: "#fff",
+					"@media only screen and (maxWidth: 764px)": {
+						// maxHeight: "100vh",
+						marginTop: "0px",
+						paddingTop: "0px",
+						justifyContent: "flex-start",
+						alignItems: "flex-start",
+						paddingLeft: "5px",
+						paddingRight: "5px",
+					},
+				}}
+			>
+				<NavBar2 />
+				<Text
+					b
+					color="#000"
+					css={{
+						fontSize: 70,
+						lineHeight: 1.2,
+						marginTop: "30px",
+						marginBottom: "0px",
+						textAlign: "center",
+						"@media only screen and (max-width: 764px)": {
+							fontSize: 45,
+							width: "100%",
+						},
+					}}
+				>
+					Invoice Details
+				</Text>
+				<Text
+					b
+					color="#000"
+					css={{
+						fontSize: 25,
+						lineHeight: 1.2,
+						marginTop: "0px",
+						marginBottom: "25px",
+						textAlign: "center",
+						"@media only screen and (max-width: 764px)": {
+							fontSize: 20,
+							width: "100%",
+						},
+					}}
+				>
+					You will receive your invoice via email
+				</Text>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						flexWrap: "wrap-reverse",
+						// width: "60%",
+						maxWidth: "80rem",
+						// justifyContent: "space-between",
+						justifyContent: "center",
+						gap: "15px",
+						// alignItems: "center",
+						// paddingBottom: "30px",
+						marginBottom: "100px",
+						marginTop: "15px",
+						"@media only screen and (max-width: 1269px)": {
+							justifyContent: "center",
+							gap: "10px",
+						},
+						"@media only screen and (max-width: 764px)": {
+							justifyContent: "center",
+							alignItems: "center",
+							width: "98vw !important",
+							maxWidth: "380px !important",
+							gap: "10px",
+						},
+					}}
+				>
+					<Card
+						variant="bordered"
+						css={{
+							shadow: "none",
+							width: "370px",
+							// background: "#f4f4f5",
+							background: "#fff",
+							borderRadius: "10px",
+							paddingTop: "25px",
+							"@media only screen and (max-width: 764px)": {
+								width: "98vw !important",
+								maxWidth: "380px !important",
+							},
+						}}
+					>
+						{step === 1 && (
+							<>
+								<Text
+									b
+									css={{
+										alignSelf: "start",
+										marginLeft: "50px",
+										marginBottom: "3px",
+										fontSize: 14,
+										color: "#125a54",
+										"@media only screen and (max-width: 764px)": {
+											fontSize: 13,
+											// width: "50%",
+										},
+									}}
+								>
+									FULL NAME *
+								</Text>
+								<Input
+									required
+									type="text"
+									placeholder="eg: Nitya Shah"
+									clearable
+									animated={false}
+									size="lg"
+									value={billingName}
+									onChange={handleNameChange}
+									css={{
+										marginBottom: "15px",
+										alignSelf: "center",
+										width: "300px",
+										height: "47px",
+										borderRadius: "10px",
+										border: "1px solid",
+										borderColor: billingName === "" ? "red" : "lightgrey",
+										// paddingRight: '10px'
+									}}
+								/>
+								<Text
+									b
+									css={{
+										alignSelf: "start",
+										marginLeft: "50px",
+										marginBottom: "1px",
+										fontSize: 14,
+										color: "#125a54",
+										"@media only screen and (max-width: 764px)": {
+											fontSize: 13,
+											// width: "50%",
+										},
+									}}
+								>
+									WHATSAPP NUMBER *
+								</Text>
+								<PhoneInput
+									containerStyle={{
+										marginBottom: "10px",
+										// marginRight: "5px",
+										alignSelf: "center",
+										width: "302px",
+										border: validNumber ? "" : "1px solid",
+										borderRadius: "10px",
+										borderColor: validNumber ? "lightgrey" : "red",
+									}}
+									disableDropdown={true}
+									dropdownStyle={{ height: "250px", zIndex: 10 }}
+									countryCodeEditable={false}
+									country="in"
+									onlyCountries={["in"]}
+									placeholder="9175939641"
+									value={billingNumber}
+									onChange={handleInputChange}
+									inputProps={{
+										required: true,
+										autoFocus: true,
+									}}
+									inputExtraProps={{
+										mask: "+(999) 999 9999",
+									}}
+									containerClass="billingForm"
+								/>
+							</>
+						)}
+						{step === 1 && (
+							<>
+								<Text
+									b
+									css={{
+										alignSelf: "start",
+										marginLeft: "50px",
+										marginBottom: "3px",
+										fontSize: 14,
+										color: "#125a54",
+										"@media only screen and (max-width: 764px)": {
+											fontSize: 13,
+											// width: "50%",
+										},
+									}}
+								>
+									EMAIL ID *
+								</Text>
+								<Input
+									required
+									type="email"
+									placeholder="eg: contact@kamayakya.com"
+									clearable
+									size="lg"
+									value={billingEmail}
+									onChange={handleEmailChange}
+									animated={false}
+									css={{
+										marginBottom: "15px",
+										alignSelf: "center",
+										width: "300px",
+										height: "47px",
+										border: "1px solid",
+										borderColor: emailValid ? "lightgrey" : "red",
+										borderRadius: "10px",
+									}}
+								/>
+								<Text
+									b
+									css={{
+										alignSelf: "start",
+										marginLeft: "50px",
+										marginBottom: "3px",
+										fontSize: 14,
+										color: "#125a54",
+										"@media only screen and (max-width: 764px)": {
+											fontSize: 13,
+											// width: "50%",
+										},
+									}}
+								>
+									PINCODE *
+								</Text>
+								<Input
+									required
+									type="text"
+									placeholder="eg: 411001"
+									clearable
+									animated={false}
+									size="lg"
+									value={userPincode}
+									onChange={handlePincodeChange}
+									css={{
+										marginBottom: "15px",
+										alignSelf: "center",
+										width: "300px",
+										height: "47px",
+										border: "1px solid",
+										borderColor:
+											userCity && userState !== "" ? "lightgrey" : "red",
+										borderRadius: "10px",
+									}}
+								/>
+							</>
+						)}
+						{step === 1 && (
+							<>
+								<Text
+									b
+									css={{
+										alignSelf: "start",
+										marginLeft: "50px",
+										marginBottom: "3px",
+										fontSize: 14,
+										color: "grey",
+										"@media only screen and (max-width: 764px)": {
+											fontSize: 13,
+											// width: "50%",
+										},
+									}}
+								>
+									GSTIN
+								</Text>
+								<Input
+									placeholder="eg: 27AAJCK1075B1ZS"
+									clearable
+									animated={false}
+									size="lg"
+									value={gstNo}
+									maxLength={15}
+									minLength={15}
+									onChange={handleGSTChange}
+									css={{
+										marginBottom: "15px",
+										alignSelf: "center",
+										width: "300px",
+										// height: "46px",
+										border: "1px solid lightgrey",
+										borderRadius: "10px",
+									}}
+								/>
+								{/*<Text
+									b
+									css={{
+										textAlign: "start",
+										marginLeft: "50px",
+										marginBottom: "3px",
+										fontSize: 14,
+										color: "grey",
+										"@media only screen and (max-width: 764px)": {
+											fontSize: 13,
+											// width: "50%",
+										},
+									}}
+								>
+									REFERRAL CODE
+								</Text> */}
+								{/* <Input
+									clearable
+									animated={false}
+									size="lg"
+									maxLength={6}
+									minLength={6}
+									value={referralCode}
+									onChange={handleReferralChange}
+									css={{
+										marginBottom: "10px",
+										alignSelf: "center",
+										width: "300px",
+										// height: "46px",
+										border: "1px solid lightgrey",
+										borderRadius: "10px",
+										// transition: "none !important",
+									}}
+								/> */}
+							</>
+						)}
+						{/* {step === 2 && (
+						<div style={{ display: 'flex', flexDirection: 'column', gap: "14px" }}>
+							<TextInput
+								label="NAME"
+								required
+								radius={"xl"}
+								size="md"
+								style={{ width: "300px", alignSelf: "center" }}
+								value={billingName}
+								onChange={handleNameChange}
+							/>
+							<TextInput
+								label="EMAIL ID"
+								required
+								radius={"xl"}
+								size="md"
+								style={{ width: "300px", alignSelf: "center" }}
+								error
+								// value={billingName}
+								// onChange={handleNameChange}
+							/>
+							<TextInput
+								label="PINCODE"
+								required
+								radius={"xl"}
+								size="md"
+								style={{ width: "300px", alignSelf: "center" }}
+								value={"411028"}
+								// onChange={handleNameChange}
+							/>
+							<TextInput
+								label="GSTIN"
+								required
+								radius={"xl"}
+								size="md"
+								style={{ width: "300px", alignSelf: "center" }}
+								// value={billingName}
+								// onChange={handleNameChange}
+							/>
+							<TextInput
+								label="REFERRAL CODE"
+								required
+								radius={"xl"}
+								size="md"
+								style={{ width: "300px", alignSelf: "center" }}
+								// value={billingName}
+								// onChange={handleNameChange}
+							/>
+						</div>
+					)} */}
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								justifyContent: "space-evenly",
+							}}
+						>
+							{/* {step > 1 && (
+										<Button
+											auto
+											onPress={handlePrevStep}
+											css={{
+												marginBottom: "20px",
+												marginTop: "10px",
+												width: "33%",
+												borderRadius: "10000px",
+											}}
+										>
+											Previous
+										</Button>
+									)} */}
+
+							{/* {step < 1 && (
+										<Button
+											auto
+											onPress={handleNextStep}
+											css={{
+												marginBottom: "20px",
+												marginTop: "10px",
+												width: "33%",
+												borderRadius: "10000px",
+											}}
+										>
+											Next
+										</Button>
+									)} */}
+
+							{step === 1 && (
+								<Button
+									auto
+									onPress={handleSaveAndPay}
+									disabled={!isFormValid}
+									css={{
+										background: "linear-gradient(to top , #fb7716,#fe9807)",
+										marginBottom: "20px",
+										borderRadius: "10px",
+										marginTop: "10px",
+										width: "33%",
+									}}
+								>
+									{loading ? <Loading color={"white"} /> : "Proceed"}
+								</Button>
+							)}
+						</Box>
+					</Card>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							width: "382px",
+							alignContent: "center",
+						}}
+						className="paymentsPage-box"
+					>
+						{discountApplied === false && (
+							<Box
+								sx={{
+									background: "#fff",
+									borderRadius: "5px",
+									display: "flex",
+									justifyContent: "center",
+									gap: "2px",
+									flexDirection: "row",
+								}}
+							>
+								<Input
+									placeholder="Have a discount code?"
+									clearable
+									animated={false}
+									size="lg"
+									value={discountCode}
+									onChange={handleDiscountChange}
+									css={{
+										alignSelf: "center",
+										height: "46px",
+										border: "1px solid lightgrey",
+										borderRadius: "10px",
+									}}
+								/>
+								<Button
+									auto
+									css={{
+										alignSelf: "center",
+										maxWidth: "262px",
+										borderRadius: "10px",
+										fontSize: 16,
+										// backgroundImage:
+										// 	"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",
+										backgroundColor: "#ff9f24",
+									}}
+									onClick={validateDiscountCode}
+									disabled={discountCode === "" || loading}
+								>
+									{loading ? <Loading color={"white"} /> : "Apply Code"}
+								</Button>
+							</Box>
+						)}
+						{discountApplied === true && (
+							<Box
+								sx={{
+									border: "1px dashed #bebfc5",
+									borderRadius: "5px",
+									marginTop: discountApplied ? "0px" : "15px",
+									padding: "15px",
+									display: "flex",
+									justifyContent: "space-between",
+									alignItems: "center",
+									textAlign: "center",
+								}}
+							>
+								<div
+									style={{
+										fontSize: "16px",
+										display: "flex",
+										flexDirection: "column",
+										alignItems: "start",
+									}}
+								>
+									<span style={{ color: "#3d4152", fontWeight: 500 }}>
+										Code : {discountCode}
+									</span>
+									<span
+										style={{
+											color: "#93959f",
+											fontSize: "14px",
+											lineHeight: 1,
+										}}
+									>
+										saved on base value ₹12711.86/-
+									</span>
+								</div>
+								<span
+									onClick={handleRemoveDiscount}
+									className="discount-remove"
+									style={{
+										"@media only screen and (maxWidth: 764px)": {
+											color: "#ff9e29 !important",
+										},
+									}}
+								>
+									Remove
+								</span>
+							</Box>
+						)}
+						<Box
+							sx={{
+								display: "flex",
+								paddingTop: "15px",
+								flexDirection: "column",
+								gap: "8px",
+							}}
+						>
+							<Box sx={{ textAlign: "center" }}>Billing Details</Box>
+							<Divider css={{ marginTop: "5px", marginBottom: "5px" }} />
+							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+								<Box>Subscription Plan</Box>
+								<Box>KamayaKya VIP+</Box>
+							</Box>
+							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+								<Box>Base Price</Box>
+								<Box>₹12711.86/-</Box>
+							</Box>
+							{discountApplied === true && (
+								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+									<Box
+										sx={{
+											display: "flex",
+											alignItems: "center",
+											color: "#37b24d",
+										}}
+									>
+										Discount
+										{/* <img src="discount-img.png" alt="discount-png" width={20} height={20} /> */}
+									</Box>
+									<Box sx={{ color: "#37b24d" }}> - ₹{discountAmount}/- </Box>
+								</Box>
+							)}
+							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+								<Box>Taxable Amount</Box>
+								<Box>₹{(12711.86 - discountAmount).toFixed(2)}/- </Box>
+							</Box>
+							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+								<Box>Tax</Box>
+								<Box>₹{((12711.86 - discountAmount) * 0.18).toFixed(2)}/- </Box>
+							</Box>
+							<hr
+								style={{
+									marginTop: "5px",
+									marginBottom: "5px",
+									border: "1px dashed #e7e7e8",
+								}}
+							/>
+							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+								<Box>Total Amount</Box>
+								<Box>
+									₹
+									{discountApplied === false
+										? `15000.00`
+										: ((12711.86 - discountAmount) * 1.18).toFixed(2)}
+									/-{" "}
+								</Box>
+							</Box>
+							<hr
+								style={{
+									marginTop: "5px",
+									marginBottom: "5px",
+									border: "1px dashed #e7e7e8",
+								}}
+							/>
+						</Box>
+					</Box>
+				</Box>
+				<Modal
+					open={showDiscountConfirmation}
+					onClose={handleDiscountConfirmationClose}
+					width="350px"
+				>
+					<Confetti width={"350px"} height={"300px"} numberOfPieces={50} />
+					<Modal.Header
+						css={{ textAlign: "center", color: "#ff9e29", fontSize: 28 }}
+					>
+						Discount Applied!
+					</Modal.Header>
+					<Modal.Body css={{ alignItems: "center" }}>
+						<TaskAltOutlined
+							sx={{
+								fontSize: 100,
+								color: "#37b24d",
+							}}
+						/>
+						<Box sx={{ fontSize: 24, color: "#282c3f" }}>
+							Code: {discountCode}
+						</Box>
+						<Box sx={{ fontSize: 20, marginTop: "-10px" }}>
+							Original Price:{" "}
+							<span
+								style={{
+									textDecoration: "2px line-through red",
+								}}
+							>
+								₹{totalAmount}/-
+							</span>
+						</Box>
+						<Box sx={{ fontSize: 20, marginTop: "-20px" }}>
+							Discounted Price: ₹
+							{((12711.86 - discountAmount) * 1.18).toFixed(2)}/-
+						</Box>
+
+						<Box sx={{ fontSize: 24, marginTop: "-10px", color: "#37b24d" }}>
+							You saved: ₹{discountAmount}/-
+						</Box>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							css={{
+								width: "100%",
+								backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
+								fontSize: 20,
+							}}
+							onClick={handleDiscountConfirmationClose}
+						>
+							Yay!
+						</Button>
+					</Modal.Footer>
+				</Modal>
+
+				<FaqsNew />
+				<Footer />
+			</Box>
+		</>
+		// 	)}
+		// </PageVisibility>
+	);
 }

@@ -56,6 +56,7 @@ const paymentfailed = () => {
 				minHeight: "50vh",
 				display: "flex",
 				flexDirection: "column",
+				background: "white",
 				justifyContent: "center",
 				textAlign: "center",
 				gap: "10px",

@@ -352,6 +352,8 @@ const StockCardSME = () => {
 
   const handleLoginOrSubForSubscribeNow = () => {
     if (isLoggedIn === true && isSubscribed === false) {
+      const location = router.asPath;
+      localStorage.setItem("location", location);
       router.push("/purchase");
     }
     if (isLoggedIn === true && isSubscribed === true) {
@@ -364,6 +366,8 @@ const StockCardSME = () => {
 
   const handleFirstCard = () => {
     if (isLoggedIn) {
+      const location = router.asPath;
+      localStorage.setItem("location", location);
       router.push("/purchase");
     } else {
       handleLogin();

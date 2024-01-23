@@ -228,6 +228,13 @@ input::-webkit-inner-spin-button {
   margin-right: 5px;
 }
 
+.billingForm .form-control {
+  padding-left: 62px !important;
+  font-size: 16px !important;
+  height: 45px !important;
+  border-radius: 10px !important;
+  font-weight: bold;
+}
 
 .form-control {
   padding-left: 62px !important;
@@ -235,6 +242,7 @@ input::-webkit-inner-spin-button {
   height: 50px !important;
   border-radius: 10000px !important;
   font-weight: bold;
+  /* width: 300px !important; */
 }
 
 .flag-dropdown {
@@ -260,9 +268,9 @@ input::-webkit-inner-spin-button {
 }
 
 .nextui-c-eXOOPO {
-  border-radius: 10000px !important;
+  border-radius: 10px !important;
   background-color: white !important;
-  /* border: 1px solid lightgrey; */
+  border: 1px solid lightgrey;
   height: 45px !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
@@ -924,8 +932,9 @@ header > div > div {
   }
 
   .form-control {
-    width: 95% !important;
-    margin-left: 2.5% !important;
+    /* width: 99% !important; */
+    /* margin-left: 0.5% !important; */
+    height: 45px !important;
   }
 
   .flag-dropdown {
@@ -1171,5 +1180,30 @@ header > div > div {
 @media print {
   .pdf-container {
     display: none;
+  }
+}
+
+.discount-remove {
+  text-transform: uppercase;
+  color: #282c3f;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.discount-remove:hover{
+  color: #ff9e29;
+}
+
+@media only screen and (max-width: 764px) {
+  .discount-remove {
+    color: #ff9e29;
+  }
+}
+
+@media only screen and (max-width: 764px) {
+  .custom-image {
+    /* Styles for mobile devices */
+    top: 55px;
+    right: 20px;
   }
 }

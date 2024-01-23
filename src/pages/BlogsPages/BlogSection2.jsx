@@ -11,6 +11,7 @@ const BlogSection2 = () => {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(true);
 	const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
+	const [noBlogs, setNoBlogs] = useState(false);
 
 	const handleImageLoad = () => {
 		setIsLoading(false);
@@ -28,7 +29,12 @@ const BlogSection2 = () => {
 			});
 			const data = await response.json();
 			setBlogs(data);
-			console.log(data);
+			// console.log(data);
+			if (data.length === 0) {
+				setNoBlogs(true);
+			} else {
+				setNoBlogs(false);
+			}
 			setIsLoadingBlogs(false);
 		} catch (error) {
 			console.log("Error fetching blogs:", error);
@@ -57,6 +63,12 @@ const BlogSection2 = () => {
         {isLoadingBlogs && (
           <Loading type={"gradient"} style={{ marginBottom: "50px" }} />
         )}
+          {noBlogs && (
+              <>
+                  <img src="no-data.svg" width={"300px"} height={"100%"} />
+                  <div style={{ fontSize: 30 }}>No Blogs yet!</div>
+              </>
+          )}
         <Box
           sx={{
             width: "100%",
@@ -212,7 +224,7 @@ const BlogSection2 = () => {
 										width: "100%",
 										borderRadius: "5px",
 										// marginTop: "25px",
-										backgroundColor: "#125b54",
+										backgroundColor: "#303d6a",
 										color: "#fff",
 									}}
 									onClick={() => router.push(`${blog.slug}`)}

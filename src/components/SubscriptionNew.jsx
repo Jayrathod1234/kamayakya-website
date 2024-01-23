@@ -48,6 +48,8 @@ const SubscriptionNew = () => {
 
 	const handleLoginOrSubForSubscribeNow = () => {
 		if (isLoggedIn === true && isSubscribed === false) {
+			const location = router.asPath;
+      localStorage.setItem("location", location);
 			router.push("/purchase");
 		}
 		if (isLoggedIn === true && isSubscribed === true) {

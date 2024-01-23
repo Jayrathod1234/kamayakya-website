@@ -1,4 +1,12 @@
-import { Text, Button, Input, Card, Modal, Divider } from "@nextui-org/react";
+import {
+	Text,
+	Button,
+	Input,
+	Card,
+	Modal,
+	Divider,
+	Loading,
+} from "@nextui-org/react";
 import React, { useEffect, useState, useContext } from "react";
 import {
 	GET_USER,
@@ -14,23 +22,24 @@ import Login from "@/components/Login";
 import PhoneInput from "react-phone-input-2";
 import InvoicePDF from "./InvoicePDF";
 import { pdf } from "@react-pdf/renderer";
-
+//
 const UserDetails = () => {
 	const [user, setUser] = useState(null);
-	const [editing, setEditing] = useState(false);
-	const [editingRef, setEditingREf] = useState(false);
 	const [newName, setNewName] = useState("");
-	const [saved, setSaved] = useState(false);
 	const { isLoggedIn } = useContext(AuthContext);
 	const [newReferralCode, setNewReferralCode] = useState("");
-	const [referralCodeSaved, setReferralCodeSaved] = useState(false);
 	const [subscription, setSubscription] = useState(null);
 	const [showLoginModal, setShowLoginModal] = useState(false);
-	const [billingName, setBillingName] = useState("");
 	const [billingEmail, setBillingEmail] = useState("");
-	const [billingNumber, setBillingNumber] = useState("");
 	const [gstNo, setGstNo] = useState("");
-	const [startDate, setStartDate] = useState(null);
+	const [loading, setLoading] = useState(false);
+	// const [startDate, setStartDate] = useState(null);
+	// const [billingNumber, setBillingNumber] = useState("");
+	// const [billingName, setBillingName] = useState("");
+	// const [referralCodeSaved, setReferralCodeSaved] = useState(false);
+	// const [editing, setEditing] = useState(false);
+	// const [editingRef, setEditingREf] = useState(false);
+	// const [saved, setSaved] = useState(false);
 
   const handleLogin = () => {
     setShowLoginModal(true);
@@ -48,13 +57,13 @@ const UserDetails = () => {
     setBillingEmail(e.target.value);
   };
 
-	const handleNameChange = (e) => {
-		setBillingName(e.target.value);
-	};
+  const handleNameChange = (e) => {
+    setBillingName(e.target.value);
+  };
 
-	const handleGSTChange = (e) => {
-		setGstNo(e.target.value);
-	};
+  const handleGSTChange = (e) => {
+    setGstNo(e.target.value);
+  };
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -98,137 +107,142 @@ const UserDetails = () => {
 		fetchSubscription();
 	}, []);
 
-	const handleEditProfile = () => {
-		setEditing(true);
-		setNewName(user?.name || "");
+	// const handleEditProfile = () => {
+	// 	setEditing(true);
+	// 	setNewName(user?.name || "");
+	// };
+
+	// const handCancel = () => {
+	// 	setEditing(false);
+	// };
+
+	const handleSaveProfile = async () => {
+		setLoading(true);
+		try {
+			const refreshToken = localStorage.getItem("refresh");
+			const response = await fetch(EDIT_USER, {
+				method: "PUT",
+				headers: {
+					Authorization: `Token ${refreshToken}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					name: newName.length < 1 ? user?.username : newName,
+					email: billingEmail,
+					gst_no: gstNo !== "" ? gstNo : "",
+					referral: newReferralCode !== "" ? newReferralCode : "",
+				}),
+			});
+			const data = await response.json();
+			// console.log(data);
+			setUser(data);
+			// setSaved(true);
+			// setEditing(false);
+			alert("Profile Updated Successfully");
+			setLoading(false);
+      window.location.reload();
+		} catch (error) {
+			alert("Failed to update profile. Please try again.");
+			console.error("Error updating user details:", error);
+		}
 	};
 
-	const handCancel = () => {
-		setEditing(false);
-	};
+	// const handleSaveReferralCode = async () => {
+	// 	try {
+	// 		const refreshToken = localStorage.getItem("refresh");
+	// 		const response = await fetch(EDIT_USER, {
+	// 			method: "PUT",
+	// 			headers: {
+	// 				Authorization: `Token ${refreshToken}`,
+	// 				"Content-Type": "application/json",
+	// 			},
+	// 			body: JSON.stringify({
+	// 				referral: newReferralCode,
+	// 				name: user.name ? user.name : newName,
+	// 			}),
+	// 		});
+	// 		const data = await response.json();
+	// 		setUser(data);
+	// 		setSaved(true);
+	// 		setEditing(false);
+	// 		setReferralCodeSaved(true); // Set referralCodeSaved to true
+	// 	} catch (error) {
+	// 		console.error("Error updating referral code:", error);
+	// 	}
+	// };
 
-  const handleSaveProfile = async () => {
-    try {
-      const refreshToken = localStorage.getItem("refresh");
-      const response = await fetch(EDIT_USER, {
-        method: "PUT",
-        headers: {
-          Authorization: `Token ${refreshToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: newName.length < 1 ? user?.username : newName,
-          email: billingEmail,
-          gst_no: gstNo !== "" ? gstNo : "",
-          referral: newReferralCode !== "" ? newReferralCode : "",
-        }),
-      });
-      const data = await response.json();
-      console.log(data);
-      setUser(data);
-      setSaved(true);
-      setEditing(false);
-    } catch (error) {
-      console.error("Error updating user details:", error);
-    }
-  };
+	// const handleEditReferralCode = () => {
+	// 	if (!user?.referral) {
+	// 		setEditingREf(true);
+	// 		setNewReferralCode(user?.referral || "");
+	// 	}
+	// };
 
-  // const handleSaveReferralCode = async () => {
-  // 	try {
-  // 		const refreshToken = localStorage.getItem("refresh");
-  // 		const response = await fetch(EDIT_USER, {
-  // 			method: "PUT",
-  // 			headers: {
-  // 				Authorization: `Token ${refreshToken}`,
-  // 				"Content-Type": "application/json",
-  // 			},
-  // 			body: JSON.stringify({
-  // 				referral: newReferralCode,
-  // 				name: user.name ? user.name : newName,
-  // 			}),
-  // 		});
-  // 		const data = await response.json();
-  // 		setUser(data);
-  // 		setSaved(true);
-  // 		setEditing(false);
-  // 		setReferralCodeSaved(true); // Set referralCodeSaved to true
-  // 	} catch (error) {
-  // 		console.error("Error updating referral code:", error);
-  // 	}
-  // };
+	// const handleCancelReferralCode = () => {
+	// 	setEditingREf(false);
+	// };
 
-  // const handleEditReferralCode = () => {
-  // 	if (!user?.referral) {
-  // 		setEditingREf(true);
-  // 		setNewReferralCode(user?.referral || "");
-  // 	}
-  // };
+	// const getInvoice = async () => {
+	//   const fullName = user?.name;
+	//   const gstin = gstNo ? gstNo : "";
+	//   const referralCode = user.referral_code ? user.referral_code : "";
+	//   // const currentDate = new Date().toLocaleDateString('en-GB');
+	//   console.log(
+	//     user?.name,
+	//     user?.active_subscription,
+	//     user.referral_code ? user.referral_code : ""
+	//   );
+	//   const blob = await pdf(
+	//     <InvoicePDF
+	//       fullName={fullName}
+	//       gstin={gstin}
+	//       referralCode={referralCode}
+	//       phone_number={user?.mobile}
+	//       startDate={startDate}
+	//     />
+	//   ).toBlob();
 
-  // const handleCancelReferralCode = () => {
-  // 	setEditingREf(false);
-  // };
+	//   const formData = new FormData();
+	//   formData.append("invoice", blob);
+	//   console.log(user?.active_subscription_id);
 
-  // const getInvoice = async () => {
-  //   const fullName = user?.name;
-  //   const gstin = gstNo ? gstNo : "";
-  //   const referralCode = user.referral_code ? user.referral_code : "";
-  //   // const currentDate = new Date().toLocaleDateString('en-GB');
-  //   console.log(
-  //     user?.name,
-  //     user?.active_subscription,
-  //     user.referral_code ? user.referral_code : ""
-  //   );
-  //   const blob = await pdf(
-  //     <InvoicePDF
-  //       fullName={fullName}
-  //       gstin={gstin}
-  //       referralCode={referralCode}
-  //       phone_number={user?.mobile}
-  //       startDate={startDate}
-  //     />
-  //   ).toBlob();
+	//   // Now you can make an API call to send the formData to the server
+	//   // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint URL
+	//   try {
+	//     const formData = new FormData();
+	//     formData.append("invoice", blob, "Invoice.pdf");
+	//     formData.append("subscription_id", user?.active_subscription_id);
 
-  //   const formData = new FormData();
-  //   formData.append("invoice", blob);
-  //   console.log(user?.active_subscription_id);
+	//     const response = await fetch(INVOICE_UPLOAD, {
+	//       method: "POST",
+	//       body: formData,
+	//     });
 
-  //   // Now you can make an API call to send the formData to the server
-  //   // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint URL
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("invoice", blob, "Invoice.pdf");
-  //     formData.append("subscription_id", user?.active_subscription_id);
+	//     // Handle the API response here if needed
+	//     // For example, check the response status and display a success message
+	//     if (response.ok) {
+	//       console.log(response);
+	//       console.log("Invoice sent successfully!");
+	//     } else {
+	//       console.log(response);
+	//       console.log("Failed to send invoice.");
+	//     }
+	//   } catch (error) {
+	//     console.error("Error sending the invoice:", error);
+	//   }
 
-  //     const response = await fetch(INVOICE_UPLOAD, {
-  //       method: "POST",
-  //       body: formData,
-  //     });
+	// Save the PDF
+	// saveAs(blob, "Invoice.pdf");
+	// const pdfUrl = URL.createObjectURL(blob);
 
-  //     // Handle the API response here if needed
-  //     // For example, check the response status and display a success message
-  //     if (response.ok) {
-  //       console.log(response);
-  //       console.log("Invoice sent successfully!");
-  //     } else {
-  //       console.log(response);
-  //       console.log("Failed to send invoice.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error sending the invoice:", error);
-  //   }
-
-    // Save the PDF
-    // saveAs(blob, "Invoice.pdf");
-    // const pdfUrl = URL.createObjectURL(blob);
-
-		// Create a hidden anchor element and click it programmatically to trigger download
-		// const anchor = document.createElement("a");
-		// anchor.href = pdfUrl;
-		// anchor.download = "Invoice.pdf";
-		// anchor.style.display = "none";
-		// document.body.appendChild(anchor);
-		// anchor.click();
-		// document.body.removeChild(anchor);
+	// Create a hidden anchor element and click it programmatically to trigger download
+	// const anchor = document.createElement("a");
+	// anchor.href = pdfUrl;
+	// anchor.download = "Invoice.pdf";
+	// anchor.style.display = "none";
+	// document.body.appendChild(anchor);
+	// anchor.click();
+	// document.body.removeChild(anchor);
 	// };
 
 	// const handleGenerateInvoice = async (startDate, subscription_id) => {
@@ -424,248 +438,248 @@ const UserDetails = () => {
 		);
 	}
 
-  return (
-    <section
-      style={{ paddingTop: "0px", paddingBottom: "100px", background: "#fff" }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          // maxWidth: '80rem',
-        }}
-      >
-        <Text
-          b
-          size={70}
-          css={{
-            marginTop: "50px",
-            marginBottom: "40px",
-            // width: "90%",
-            maxWidth: "80rem" /* 1280px */,
-            textAlign: "center",
-            lineHeight: 1.2,
-            paddingLeft: "15px",
-            paddingRight: "15px",
-            "@media only screen and (max-width: 764px)": {
-              fontSize: 45,
-              lineHeight: 1.1,
-              paddingLeft: "5px",
-              paddingRight: "5px",
-              marginTop: "20px",
-              marginBottom: "10px",
-              maxWidth: "100%",
-              textAlign: "left",
-            },
-          }}
-        >
-          Your profile
-        </Text>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "start",
-            flexDirection: "column",
-            gap: "0px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "space-between",
-              // border: "1px solid lightgrey",
-              borderRadius: "10000px",
-              padding: "0px 10px",
-              width: "100vw",
-              maxWidth: "600px",
-              height: "fit-content",
-            }}
-          >
-            {/*{editing ? (*/}
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-                padding: "5px",
-              }}
-            >
-              {/*<Text*/}
-              {/*  b*/}
-              {/*  size={18}*/}
-              {/*  style={{ paddingLeft: "20px", marginBottom: "5px" }}*/}
-              {/*>*/}
-              {/*  Full Name*/}
-              {/*</Text>*/}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  rowGap: "20px",
-                  columnGap: "20px",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  // border: "1px solid lightgrey",
-                }}
-              >
-                <Text
-                  b
-                  size={18}
-                  style={{ paddingLeft: "20px", marginBottom: "0px" }}
-                >
-                  Full Name
-                </Text>
-                <Input
-                  // underlined
-                  placeholder={user?.username}
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  css={{
-                    marginRight: "0px",
-                    width: "62.5%",
-                    "@media only screen and (max-width: 764px)": {
-                      width: "100vw",
-                      marginRight: "0px",
-                    },
-                  }}
-                />
-                <span style={{ width: "100%", height: "0px" }} />
-                <Text
-                  b
-                  size={18}
-                  style={{ paddingLeft: "20px", marginBottom: "0px" }}
-                >
-                  Email Address
-                </Text>
-                <Input
-                  // underlined
-                  placeholder={user?.email}
-                  value={billingEmail}
-                  onChange={(e) => setBillingEmail(e.target.value)}
-                  css={{
-                    marginRight: "0px",
-                    width: "62.5%",
-                    "@media only screen and (max-width: 764px)": {
-                      width: "100vw",
-                      marginRight: "0px",
-                    },
-                  }}
-                />
-                {/*<Button*/}
-                {/*  color="error"*/}
-                {/*  auto*/}
-                {/*  onClick={() => setNewName("")}*/}
-                {/*  css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
-                {/*  disabled={newName.length > 0 ? false : true}*/}
-                {/*>*/}
-                {/*  Undo*/}
-                {/*</Button>*/}
-              </div>
-              <br />
-              <Button
-                aria-label="Submit"
-                color="success"
-                auto
-                onPress={handleSaveProfile}
-                css={{
-                  marginRight: "0px",
-                  borderRadius: "10000px",
-                  alignSelf: "flex-end",
-                  width: "50%",
-                  height: "50px",
-                  fontSize: "18px",
-                  backgroundColor: "#135B54",
-                }}
-              >
-                Save
-              </Button>
-            </div>
-          </div>
-          <br />
-          {/*<div*/}
-          {/*  style={{*/}
-          {/*    display: "flex",*/}
-          {/*    flexDirection: "column",*/}
-          {/*    alignItems: "center",*/}
-          {/*    justifyContent: "space-between",*/}
-          {/*    // border: "1px solid lightgrey",*/}
-          {/*    borderRadius: "10000px",*/}
-          {/*    padding: "0px 10px",*/}
-          {/*    width: "100vw",*/}
-          {/*    maxWidth: "600px",*/}
-          {/*    height: "fit-content",*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  /!*{editing ? (*!/*/}
-          {/*  <div*/}
-          {/*    style={{*/}
-          {/*      width: "100%",*/}
-          {/*      display: "flex",*/}
-          {/*      flexDirection: "column",*/}
-          {/*      gap: "10px",*/}
-          {/*      padding: "5px",*/}
-          {/*    }}*/}
-          {/*  >*/}
-          {/*    <Text*/}
-          {/*      b*/}
-          {/*      size={18}*/}
-          {/*      style={{ paddingLeft: "20px", marginBottom: "5px" }}*/}
-          {/*    >*/}
-          {/*      Email Address*/}
-          {/*    </Text>*/}
-          {/*    <div*/}
-          {/*      style={{*/}
-          {/*        display: "flex",*/}
-          {/*        flexDirection: "row",*/}
-          {/*        flexWrap: "wrap",*/}
-          {/*        rowGap: "20px",*/}
-          {/*        columnGap: "20px",*/}
-          {/*        alignItems: "center",*/}
-          {/*        justifyContent: "flex-start",*/}
-          {/*        // border: "1px solid lightgrey",*/}
-          {/*      }}*/}
-          {/*    >*/}
-          {/*      <Input*/}
-          {/*        // underlined*/}
-          {/*        placeholder={user?.email}*/}
-          {/*        value={billingEmail}*/}
-          {/*        onChange={(e) => setBillingEmail(e.target.value)}*/}
-          {/*        css={{*/}
-          {/*          marginRight: "0px",*/}
-          {/*          width: "62.5%",*/}
-          {/*          "@media only screen and (max-width: 764px)": {*/}
-          {/*            width: "100vw",*/}
-          {/*            marginRight: "0px",*/}
-          {/*          },*/}
-          {/*        }}*/}
-          {/*      />*/}
-          {/*      <Button*/}
-          {/*        aria-label="Submit"*/}
-          {/*        color="success"*/}
-          {/*        auto*/}
-          {/*        onPress={handleSaveProfile}*/}
-          {/*        css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
-          {/*      >*/}
-          {/*        Save*/}
-          {/*      </Button>*/}
-          {/*      /!*<Button*!/*/}
-          {/*      /!*  color="error"*!/*/}
-          {/*      /!*  auto*!/*/}
-          {/*      /!*  onClick={() => setBillingEmail("")}*!/*/}
-          {/*      /!*  css={{ marginRight: "0px", borderRadius: "10000px" }}*!/*/}
-          {/*      /!*  disabled={billingEmail.length > 0 ? false : true}*!/*/}
-          {/*      /!*>*!/*/}
-          {/*      /!*  Undo*!/*/}
-          {/*      /!*</Button>*!/*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+	return (
+		<section
+			style={{ paddingTop: "0px", paddingBottom: "100px", background: "#fff" }}
+		>
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					flexDirection: "column",
+					// maxWidth: '80rem',
+				}}
+			>
+				<Text
+					b
+					size={70}
+					css={{
+						marginTop: "50px",
+						marginBottom: "40px",
+						// width: "90%",
+						maxWidth: "80rem" /* 1280px */,
+						textAlign: "center",
+						lineHeight: 1.2,
+						paddingLeft: "15px",
+						paddingRight: "15px",
+						"@media only screen and (max-width: 764px)": {
+							fontSize: 45,
+							lineHeight: 1.1,
+							paddingLeft: "5px",
+							paddingRight: "5px",
+							marginTop: "20px",
+							marginBottom: "10px",
+							maxWidth: "100%",
+							textAlign: "left",
+						},
+					}}
+				>
+					Your profile
+				</Text>
+				<div
+					style={{
+						display: "flex",
+						alignItems: "start",
+						flexDirection: "column",
+						gap: "0px",
+					}}
+				>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "space-between",
+							// border: "1px solid lightgrey",
+							// borderRadius: "10000px",
+							padding: "0px 10px",
+							width: "100vw",
+							maxWidth: "600px",
+							height: "fit-content",
+						}}
+					>
+						{/*{editing ? (*/}
+						<div
+							style={{
+								width: "100%",
+								display: "flex",
+								flexDirection: "column",
+								gap: "10px",
+								padding: "5px",
+							}}
+						>
+							{/*<Text*/}
+							{/*  b*/}
+							{/*  size={18}*/}
+							{/*  style={{ paddingLeft: "20px", marginBottom: "5px" }}*/}
+							{/*>*/}
+							{/*  Full Name*/}
+							{/*</Text>*/}
+							<div
+								style={{
+									display: "flex",
+									flexDirection: "row",
+									flexWrap: "wrap",
+									rowGap: "20px",
+									columnGap: "20px",
+									alignItems: "center",
+									justifyContent: "space-between",
+									// border: "1px solid lightgrey",
+								}}
+							>
+								<Text
+									b
+									size={18}
+									style={{ paddingLeft: "20px", marginBottom: "0px" }}
+								>
+									Full Name
+								</Text>
+								<Input
+									// underlined
+									placeholder={user?.username}
+									value={newName}
+									onChange={(e) => setNewName(e.target.value)}
+									css={{
+										marginRight: "0px",
+										width: "62.5%",
+										"@media only screen and (max-width: 764px)": {
+											width: "100vw",
+											marginRight: "0px",
+										},
+									}}
+								/>
+								<span style={{ width: "100%", height: "0px" }} />
+								<Text
+									b
+									size={18}
+									style={{ paddingLeft: "20px", marginBottom: "0px" }}
+								>
+									Email Address
+								</Text>
+								<Input
+									// underlined
+									placeholder={user?.email}
+									value={billingEmail}
+									onChange={(e) => setBillingEmail(e.target.value)}
+									css={{
+										marginRight: "0px",
+										width: "62.5%",
+										"@media only screen and (max-width: 764px)": {
+											width: "100vw",
+											marginRight: "0px",
+										},
+									}}
+								/>
+								{/*<Button*/}
+								{/*  color="error"*/}
+								{/*  auto*/}
+								{/*  onClick={() => setNewName("")}*/}
+								{/*  css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
+								{/*  disabled={newName.length > 0 ? false : true}*/}
+								{/*>*/}
+								{/*  Undo*/}
+								{/*</Button>*/}
+							</div>
+							<br />
+							<Button
+								aria-label="Submit"
+								color="success"
+								auto
+								onPress={handleSaveProfile}
+								css={{
+									marginRight: "0px",
+									borderRadius: "10000px",
+									alignSelf: "flex-end",
+									width: "50%",
+									height: "50px",
+									fontSize: "18px",
+									backgroundColor: "#135B54",
+								}}
+							>
+								{loading ? <Loading color={"white"} css={{ background: "transparent" }}/> : "Save"}
+							</Button>
+						</div>
+					</div>
+					<br />
+					{/*<div*/}
+					{/*  style={{*/}
+					{/*    display: "flex",*/}
+					{/*    flexDirection: "column",*/}
+					{/*    alignItems: "center",*/}
+					{/*    justifyContent: "space-between",*/}
+					{/*    // border: "1px solid lightgrey",*/}
+					{/*    borderRadius: "10000px",*/}
+					{/*    padding: "0px 10px",*/}
+					{/*    width: "100vw",*/}
+					{/*    maxWidth: "600px",*/}
+					{/*    height: "fit-content",*/}
+					{/*  }}*/}
+					{/*>*/}
+					{/*  /!*{editing ? (*!/*/}
+					{/*  <div*/}
+					{/*    style={{*/}
+					{/*      width: "100%",*/}
+					{/*      display: "flex",*/}
+					{/*      flexDirection: "column",*/}
+					{/*      gap: "10px",*/}
+					{/*      padding: "5px",*/}
+					{/*    }}*/}
+					{/*  >*/}
+					{/*    <Text*/}
+					{/*      b*/}
+					{/*      size={18}*/}
+					{/*      style={{ paddingLeft: "20px", marginBottom: "5px" }}*/}
+					{/*    >*/}
+					{/*      Email Address*/}
+					{/*    </Text>*/}
+					{/*    <div*/}
+					{/*      style={{*/}
+					{/*        display: "flex",*/}
+					{/*        flexDirection: "row",*/}
+					{/*        flexWrap: "wrap",*/}
+					{/*        rowGap: "20px",*/}
+					{/*        columnGap: "20px",*/}
+					{/*        alignItems: "center",*/}
+					{/*        justifyContent: "flex-start",*/}
+					{/*        // border: "1px solid lightgrey",*/}
+					{/*      }}*/}
+					{/*    >*/}
+					{/*      <Input*/}
+					{/*        // underlined*/}
+					{/*        placeholder={user?.email}*/}
+					{/*        value={billingEmail}*/}
+					{/*        onChange={(e) => setBillingEmail(e.target.value)}*/}
+					{/*        css={{*/}
+					{/*          marginRight: "0px",*/}
+					{/*          width: "62.5%",*/}
+					{/*          "@media only screen and (max-width: 764px)": {*/}
+					{/*            width: "100vw",*/}
+					{/*            marginRight: "0px",*/}
+					{/*          },*/}
+					{/*        }}*/}
+					{/*      />*/}
+					{/*      <Button*/}
+					{/*        aria-label="Submit"*/}
+					{/*        color="success"*/}
+					{/*        auto*/}
+					{/*        onPress={handleSaveProfile}*/}
+					{/*        css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
+					{/*      >*/}
+					{/*        Save*/}
+					{/*      </Button>*/}
+					{/*      /!*<Button*!/*/}
+					{/*      /!*  color="error"*!/*/}
+					{/*      /!*  auto*!/*/}
+					{/*      /!*  onClick={() => setBillingEmail("")}*!/*/}
+					{/*      /!*  css={{ marginRight: "0px", borderRadius: "10000px" }}*!/*/}
+					{/*      /!*  disabled={billingEmail.length > 0 ? false : true}*!/*/}
+					{/*      /!*>*!/*/}
+					{/*      /!*  Undo*!/*/}
+					{/*      /!*</Button>*!/*/}
+					{/*    </div>*/}
+					{/*  </div>*/}
+					{/*</div>*/}
 
 					{/* <div
 						style={{
@@ -741,223 +755,223 @@ const UserDetails = () => {
 						</div>
 					</div> */}
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "space-between",
-              // border: "1px solid lightgrey",
-              borderRadius: "10000px",
-              padding: "0px 10px",
-              width: "100vw",
-              maxWidth: "600px",
-              height: "fit-content",
-            }}
-          >
-            {/*{editing ? (*/}
-            {/*	<div*/}
-            {/*		style={{*/}
-            {/*			width: "100%",*/}
-            {/*			display: "flex",*/}
-            {/*			flexDirection: "column",*/}
-            {/*			gap: "10px",*/}
-            {/*			padding: "5px",*/}
-            {/*		}}*/}
-            {/*	>*/}
-            {/*		<Text b size={15} style={{ paddingLeft: "20px" }}>*/}
-            {/*			GSTIN*/}
-            {/*		</Text>*/}
-            {/*		<div*/}
-            {/*			style={{*/}
-            {/*				display: "flex",*/}
-            {/*				flexDirection: "row",*/}
-            {/*				flexWrap: "wrap",*/}
-            {/*				rowGap: "20px",*/}
-            {/*				columnGap: "20px",*/}
-            {/*				alignItems: "center",*/}
-            {/*				justifyContent: "flex-start",*/}
-            {/*				// border: "1px solid lightgrey",*/}
-            {/*			}}*/}
-            {/*		>*/}
-            {/*			<Input*/}
-            {/*				// underlined*/}
-            {/*				value={gstNo}*/}
-            {/*				placeholder={user?.gst_no}*/}
-            {/*				onChange={(e) => setGstNo(e.target.value)}*/}
-            {/*				css={{*/}
-            {/*					marginRight: "0px",*/}
-            {/*					width: "62.5%",*/}
-            {/*					border: "none",*/}
-            {/*					"@media only screen and (max-width: 764px)": {*/}
-            {/*						width: "100vw",*/}
-            {/*						marginRight: "0px",*/}
-            {/*					},*/}
-            {/*				}}*/}
-            {/*			/>*/}
-            {/*			<Button*/}
-            {/*				color="success"*/}
-            {/*				auto*/}
-            {/*				onClick={handleSaveProfile}*/}
-            {/*				css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
-            {/*			>*/}
-            {/*				Save*/}
-            {/*			</Button>*/}
-            {/*			<Button*/}
-            {/*				color="error"*/}
-            {/*				auto*/}
-            {/*				onClick={() => setGstNo("")}*/}
-            {/*				css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
-            {/*				disabled={gstNo.length > 0 ? false : true}*/}
-            {/*			>*/}
-            {/*				Undo*/}
-            {/*			</Button>*/}
-            {/*		</div>*/}
-            {/*	</div>*/}
-          </div>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "space-between",
+							// border: "1px solid lightgrey",
+							borderRadius: "10000px",
+							padding: "0px 10px",
+							width: "100vw",
+							maxWidth: "600px",
+							height: "fit-content",
+						}}
+					>
+						{/*{editing ? (*/}
+						{/*	<div*/}
+						{/*		style={{*/}
+						{/*			width: "100%",*/}
+						{/*			display: "flex",*/}
+						{/*			flexDirection: "column",*/}
+						{/*			gap: "10px",*/}
+						{/*			padding: "5px",*/}
+						{/*		}}*/}
+						{/*	>*/}
+						{/*		<Text b size={15} style={{ paddingLeft: "20px" }}>*/}
+						{/*			GSTIN*/}
+						{/*		</Text>*/}
+						{/*		<div*/}
+						{/*			style={{*/}
+						{/*				display: "flex",*/}
+						{/*				flexDirection: "row",*/}
+						{/*				flexWrap: "wrap",*/}
+						{/*				rowGap: "20px",*/}
+						{/*				columnGap: "20px",*/}
+						{/*				alignItems: "center",*/}
+						{/*				justifyContent: "flex-start",*/}
+						{/*				// border: "1px solid lightgrey",*/}
+						{/*			}}*/}
+						{/*		>*/}
+						{/*			<Input*/}
+						{/*				// underlined*/}
+						{/*				value={gstNo}*/}
+						{/*				placeholder={user?.gst_no}*/}
+						{/*				onChange={(e) => setGstNo(e.target.value)}*/}
+						{/*				css={{*/}
+						{/*					marginRight: "0px",*/}
+						{/*					width: "62.5%",*/}
+						{/*					border: "none",*/}
+						{/*					"@media only screen and (max-width: 764px)": {*/}
+						{/*						width: "100vw",*/}
+						{/*						marginRight: "0px",*/}
+						{/*					},*/}
+						{/*				}}*/}
+						{/*			/>*/}
+						{/*			<Button*/}
+						{/*				color="success"*/}
+						{/*				auto*/}
+						{/*				onClick={handleSaveProfile}*/}
+						{/*				css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
+						{/*			>*/}
+						{/*				Save*/}
+						{/*			</Button>*/}
+						{/*			<Button*/}
+						{/*				color="error"*/}
+						{/*				auto*/}
+						{/*				onClick={() => setGstNo("")}*/}
+						{/*				css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
+						{/*				disabled={gstNo.length > 0 ? false : true}*/}
+						{/*			>*/}
+						{/*				Undo*/}
+						{/*			</Button>*/}
+						{/*		</div>*/}
+						{/*	</div>*/}
+					</div>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "space-between",
-              // border: "1px solid lightgrey",
-              borderRadius: "10000px",
-              padding: "0px 10px",
-              width: "100vw",
-              maxWidth: "600px",
-              height: "fit-content",
-            }}
-          >
-            {/*{editing ? (*/}
-            {/*<div*/}
-            {/*  style={{*/}
-            {/*    width: "100%",*/}
-            {/*    display: "flex",*/}
-            {/*    flexDirection: "column",*/}
-            {/*    gap: "10px",*/}
-            {/*    padding: "5px",*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  <Text b size={15} style={{ paddingLeft: "20px" }}>*/}
-            {/*    Referral Code*/}
-            {/*  </Text>*/}
-            {/*  <div*/}
-            {/*    style={{*/}
-            {/*      display: "flex",*/}
-            {/*      flexDirection: "row",*/}
-            {/*      flexWrap: "wrap",*/}
-            {/*      rowGap: "20px",*/}
-            {/*      columnGap: "20px",*/}
-            {/*      alignItems: "center",*/}
-            {/*      justifyContent: "flex-start",*/}
-            {/*      // border: "1px solid lightgrey",*/}
-            {/*    }}*/}
-            {/*  >*/}
-            {/*    <Input*/}
-            {/*      // underlined*/}
-            {/*      value={*/}
-            {/*        user.referral_code ? user.referral_code : newReferralCode*/}
-            {/*      }*/}
-            {/*      onChange={(e) => setNewReferralCode(e.target.value)}*/}
-            {/*      css={{*/}
-            {/*        marginRight: "0px",*/}
-            {/*        width: "62.5%",*/}
-            {/*        border: "none",*/}
-            {/*        "@media only screen and (max-width: 764px)": {*/}
-            {/*          width: "100vw",*/}
-            {/*          marginRight: "0px",*/}
-            {/*        },*/}
-            {/*      }}*/}
-            {/*    />*/}
-            {/*    <Button*/}
-            {/*      color="success"*/}
-            {/*      auto*/}
-            {/*      onClick={handleSaveProfile}*/}
-            {/*      css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
-            {/*    >*/}
-            {/*      Save*/}
-            {/*    </Button>*/}
-            {/*    <Button*/}
-            {/*      color="error"*/}
-            {/*      auto*/}
-            {/*      onClick={() => setNewReferralCode("")}*/}
-            {/*      css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
-            {/*      disabled={newReferralCode.length > 0 ? false : true}*/}
-            {/*    >*/}
-            {/*      Undo*/}
-            {/*    </Button>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
-          </div>
-        </div>
-        <br></br>
-        {/* <Divider></Divider> */}
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "space-between",
+							// border: "1px solid lightgrey",
+							borderRadius: "10000px",
+							padding: "0px 10px",
+							width: "100vw",
+							maxWidth: "600px",
+							height: "fit-content",
+						}}
+					>
+						{/*{editing ? (*/}
+						{/*<div*/}
+						{/*  style={{*/}
+						{/*    width: "100%",*/}
+						{/*    display: "flex",*/}
+						{/*    flexDirection: "column",*/}
+						{/*    gap: "10px",*/}
+						{/*    padding: "5px",*/}
+						{/*  }}*/}
+						{/*>*/}
+						{/*  <Text b size={15} style={{ paddingLeft: "20px" }}>*/}
+						{/*    Referral Code*/}
+						{/*  </Text>*/}
+						{/*  <div*/}
+						{/*    style={{*/}
+						{/*      display: "flex",*/}
+						{/*      flexDirection: "row",*/}
+						{/*      flexWrap: "wrap",*/}
+						{/*      rowGap: "20px",*/}
+						{/*      columnGap: "20px",*/}
+						{/*      alignItems: "center",*/}
+						{/*      justifyContent: "flex-start",*/}
+						{/*      // border: "1px solid lightgrey",*/}
+						{/*    }}*/}
+						{/*  >*/}
+						{/*    <Input*/}
+						{/*      // underlined*/}
+						{/*      value={*/}
+						{/*        user.referral_code ? user.referral_code : newReferralCode*/}
+						{/*      }*/}
+						{/*      onChange={(e) => setNewReferralCode(e.target.value)}*/}
+						{/*      css={{*/}
+						{/*        marginRight: "0px",*/}
+						{/*        width: "62.5%",*/}
+						{/*        border: "none",*/}
+						{/*        "@media only screen and (max-width: 764px)": {*/}
+						{/*          width: "100vw",*/}
+						{/*          marginRight: "0px",*/}
+						{/*        },*/}
+						{/*      }}*/}
+						{/*    />*/}
+						{/*    <Button*/}
+						{/*      color="success"*/}
+						{/*      auto*/}
+						{/*      onClick={handleSaveProfile}*/}
+						{/*      css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
+						{/*    >*/}
+						{/*      Save*/}
+						{/*    </Button>*/}
+						{/*    <Button*/}
+						{/*      color="error"*/}
+						{/*      auto*/}
+						{/*      onClick={() => setNewReferralCode("")}*/}
+						{/*      css={{ marginRight: "0px", borderRadius: "10000px" }}*/}
+						{/*      disabled={newReferralCode.length > 0 ? false : true}*/}
+						{/*    >*/}
+						{/*      Undo*/}
+						{/*    </Button>*/}
+						{/*  </div>*/}
+						{/*</div>*/}
+					</div>
+				</div>
+				<br></br>
+				{/* <Divider></Divider> */}
 
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            flexDirection: "row",
-            width: "100%",
-            maxWidth: "600px",
-            justifyContent: "flex-start",
-            gap: "20px",
-            padding: "20px",
-          }}
-        >
-          {subscription ? (
-            subscription.map((sub, index) => (
-              <Box
-                key={index}
-                sx={{
-                  display: "flex",
-                  // flexWrap: 'wrap',
-                  flexDirection: "column",
-                  backgroundColor: "white",
-                  border: "3px solid #FF9D28",
-                  width: "48%",
-                  borderRadius: "20px",
-                  // mr: "5px",
-                  // mt: "10px",
-                  padding: "20px",
-                }}
-                className="subscriptionTypeBox-mobile"
-              >
-                <Text b style={{ color: "#FF9D28" }}>
-                  Subscription Type
-                  <br />
-                  <span style={{ fontSize: "25px", color: "#184D48" }}>
-                    {sub.plan == "KamayaKya"
-                      ? "KamayaKya VIP+"
-                      : "KamayaKya Free"}
-                  </span>
-                </Text>
-                <br />
-                <Divider
-                  style={{ height: "3px", backgroundColor: "#FF9D28" }}
-                ></Divider>
-                <br />
-                <Text b>
-                  Start Date:{" "}
-                  {`${new Date(sub.start_date).getDate()} ${new Date(
-                    sub.start_date
-                  ).toLocaleString("default", {
-                    month: "short",
-                  })} ${new Date(sub.start_date).getFullYear()}`}
-                </Text>
-                <Text b>
-                  End Date:{" "}
-                  {sub.end_date
-                    ? `${new Date(sub.end_date).getDate()} ${new Date(
-                        sub.end_date
-                      ).toLocaleString("default", {
-                        month: "short",
-                      })} ${new Date(sub.end_date).getFullYear()}`
-                    : "N/A"}
-                </Text>
-                {/* {sub.invoice ? (
+				<Box
+					sx={{
+						display: "flex",
+						flexWrap: "wrap",
+						flexDirection: "row",
+						width: "100%",
+						maxWidth: "600px",
+						justifyContent: "flex-start",
+						gap: "20px",
+						padding: "20px",
+					}}
+				>
+					{subscription ? (
+						subscription.map((sub, index) => (
+							<Box
+								key={index}
+								sx={{
+									display: "flex",
+									// flexWrap: 'wrap',
+									flexDirection: "column",
+									backgroundColor: "white",
+									border: "3px solid #FF9D28",
+									width: "48%",
+									borderRadius: "20px",
+									// mr: "5px",
+									// mt: "10px",
+									padding: "20px",
+								}}
+								className="subscriptionTypeBox-mobile"
+							>
+								<Text b style={{ color: "#FF9D28" }}>
+									Subscription Type
+									<br />
+									<span style={{ fontSize: "25px", color: "#184D48" }}>
+										{sub.plan == "KamayaKya"
+											? "KamayaKya VIP+"
+											: "KamayaKya Free"}
+									</span>
+								</Text>
+								<br />
+								<Divider
+									style={{ height: "3px", backgroundColor: "#FF9D28" }}
+								></Divider>
+								<br />
+								<Text b>
+									Start Date:{" "}
+									{`${new Date(sub.start_date).getDate()} ${new Date(
+										sub.start_date
+									).toLocaleString("default", {
+										month: "short",
+									})} ${new Date(sub.start_date).getFullYear()}`}
+								</Text>
+								<Text b>
+									End Date:{" "}
+									{sub.end_date
+										? `${new Date(sub.end_date).getDate()} ${new Date(
+												sub.end_date
+										  ).toLocaleString("default", {
+												month: "short",
+										  })} ${new Date(sub.end_date).getFullYear()}`
+										: "N/A"}
+								</Text>
+								{/* {sub.invoice ? (
 									<Button
 										auto
 										css={{ marginTop: "15px", background: "#fda629" }}

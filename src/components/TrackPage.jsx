@@ -64,7 +64,7 @@ const WhyUs = () => {
 			if (response.ok) {
 				const data = await response.json();
 				setRecord(data);
-				console.log(data);
+				// console.log(data);
 				// await delay(3);
 				setisLoadingTrackRecord(false);
 			} else {

@@ -17,11 +17,12 @@ import AuthContext from "@/components/AuthContext";
 import { TypeAnimation } from "react-type-animation";
 
 const HomePage = () => {
-  const { isLoggedIn } = useContext(AuthContext);
-  const { setVisible, bindings } = useModal();
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showCert, setShowCert] = useState(false);
-  const [showIframe, setShowIframe] = useState(false);
+	const { isLoggedIn } = useContext(AuthContext);
+	const { setVisible, bindings } = useModal();
+	const [showLoginModal, setShowLoginModal] = useState(false);
+	const [showCert, setShowCert] = useState(false);
+	const [showIframe, setShowIframe] = useState(false);
+  const router = useRouter();
 
   const handleCloseIframe = () => {
     setShowIframe(false);
@@ -44,18 +45,18 @@ const HomePage = () => {
     setShowLoginModal(true);
   };
 
-  const handleCloseLoginModal = () => {
-    setShowLoginModal(false);
-  };
-  const router = useRouter();
-  const handleRegestier = () => {
-    router.push("/registration");
-  };
-  const pictureUsers = [
-    "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    "https://i.pravatar.cc/150?u=a04258114e29026702d",
-  ];
+	const handleCloseLoginModal = () => {
+		setShowLoginModal(false);
+	};
+
+	const handleRegestier = () => {
+		router.push("/registration");
+	};
+	const pictureUsers = [
+		"https://i.pravatar.cc/150?u=a042581f4e29026024d",
+		"https://i.pravatar.cc/150?u=a042581f4e29026704d",
+		"https://i.pravatar.cc/150?u=a04258114e29026702d",
+	];
 
   const handleIonOnePage = () => {
     // setShowIframe(true);
