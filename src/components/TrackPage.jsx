@@ -1701,7 +1701,25 @@ const WhyUs = () => {
 																	},
 																}}
 															>
-																{`Target ${record[selectedCardIndex].stock_targets.length} Active`}
+																{/* {`Target ${record[selectedCardIndex].stock_targets.length} Active`} */}
+																{/* {`Target ${
+																	record[selectedCardIndex].stock_targets.length
+																} ${
+																	record[selectedCardIndex].action === "SELL"
+																		? "Met"
+																		: "Active"
+																}`} */}
+																{record[selectedCardIndex].action === "SELL"
+																	? `${new Date(
+																			record[selectedCardIndex].exit_date
+																	  ).getDate()} ${new Date(
+																			record[selectedCardIndex].exit_date
+																	  ).toLocaleString("default", {
+																			month: "short",
+																	  })} ${new Date(
+																			record[selectedCardIndex].exit_date
+																	  ).getFullYear()}`
+																	: `Target ${record[selectedCardIndex].stock_targets.length} Active`}
 															</Text>
 														</Box>
 													</Box>
@@ -1827,7 +1845,12 @@ const WhyUs = () => {
 																				? `Target ${
 																						record[selectedCardIndex]
 																							.stock_targets.length - index
-																				  } Active`
+																				  } ${
+																						record[selectedCardIndex].action ===
+																						"SELL"
+																							? "Met"
+																							: "Active"
+																				  }`
 																				: `Target ${
 																						record[selectedCardIndex]
 																							.stock_targets.length - index
