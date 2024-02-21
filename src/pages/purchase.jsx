@@ -92,12 +92,7 @@ export default function PreviewPage() {
 		updateFormValidity();
 	}, [billingNumber, billingEmail, billingName, userPincode]);
 
-	// const handleOpenBillingModal = () => {
-	// 	setOpenBillingModal(true);
-	// };
-	// const handleCloseBillingModal = () => {
-	// 	setOpenBillingModal(false);
-	// };
+
 	const handleLogin = () => {
 		setShowLoginModal(true);
 	};
@@ -120,6 +115,7 @@ export default function PreviewPage() {
 		const lengthNumber = value.length;
 		if (value !== "" && lengthNumber === 12) {
 			setValidNumber(true);
+			setBillingNumber(value);
 		} else {
 			setValidNumber(false);
 		}
