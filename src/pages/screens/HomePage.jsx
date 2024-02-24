@@ -337,11 +337,11 @@ const HomePage = () => {
             preRenderFirstString={true}
             sequence={[
               5000,
-              "Maximize the growth of your funds by investing in ideas with Big Potential", // initially rendered starting point
+              "Grow your money by investing in ideas with Big Potential", // initially rendered starting point
               3000,
-              "Maximize the growth of your funds by investing in SME, Microcap and Smallcap stocks",
+              "Grow your money by investing in SME, Microcap and Smallcap stocks",
               3000,
-              "Maximize the growth of your funds by investing in potential Multibaggers",
+              "Grow your money by investing in potential Multibaggers",
               // 1000,
               // 'We produce food for Guinea Pigs',
               // 1000,
