@@ -1260,23 +1260,23 @@ const WhyUs = () => {
 										) : (
 											""
 										)}
-										{item.stock_targets.length > 1 ? (
-											<Button
-												auto
-												onPress={() => handleOpenTargets(index)}
-												css={{
-													borderRadius: "11px 11px 1px 11px",
-													width: "47.5%",
-													fontSize: 18,
-													backgroundImage:
-														"linear-gradient(to top , #FF9D28, #ffa736)",
-												}}
-											>
-												Previous Targets
-											</Button>
-										) : (
-											""
-										)}
+										{/*{item.stock_targets.length > 1 ? (*/}
+										{/*	<Button*/}
+										{/*		auto*/}
+										{/*		onPress={() => handleOpenTargets(index)}*/}
+										{/*		css={{*/}
+										{/*			borderRadius: "11px 11px 1px 11px",*/}
+										{/*			width: "47.5%",*/}
+										{/*			fontSize: 18,*/}
+										{/*			backgroundImage:*/}
+										{/*				"linear-gradient(to top , #FF9D28, #ffa736)",*/}
+										{/*		}}*/}
+										{/*	>*/}
+										{/*		Previous Targets*/}
+										{/*	</Button>*/}
+										{/*) : (*/}
+										{/*	""*/}
+										{/*)}*/}
 									</Box>
 								</Box>
 							</Card>
