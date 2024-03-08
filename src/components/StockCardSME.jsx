@@ -57,6 +57,7 @@ import Login from "./Login";
 import { SearchNormal, Filter } from "iconsax-react";
 import Marquee from "react-fast-marquee";
 import LoginForSubsribe from "./LoginForSubsribe";
+import { BsFire } from "react-icons/bs";
 
 const StockCardSME = () => {
   const router = useRouter();
@@ -400,7 +401,12 @@ const StockCardSME = () => {
 							Authorization: `token ${refresh}`,
 						},
 					});
-					setStocks(response.data);
+                    const sortedStocks = response.data.sort((a, b) => {
+                        if (a.recommended_stock === b.recommended_stock) return 0;
+                        return a.recommended_stock ? -1 : 1;
+                    });
+
+                    setStocks(sortedStocks);
 					// console.log(response.data);
 					setFlipStates(new Array(response.data.length).fill(false));
 				} catch (error) {
@@ -447,6 +453,18 @@ const StockCardSME = () => {
     setUpsideSort("");
   };
 
+    const isNewStock = (createdDateString) => {
+        const createdDate = new Date(createdDateString);
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+
+        const today = new Date();
+        // console.log(
+        // 	createdDate,
+        // 	createdDate >= twoMonthsAgo && createdDate <= today
+        // );
+        return createdDate >= twoMonthsAgo && createdDate <= today;
+    };
   return (
     <div
       style={{
@@ -1088,6 +1106,36 @@ const StockCardSME = () => {
                 flipDirection="horizontal"
               > */}
               {/* Front face */}
+                {isSubscribed && stock.recommended_stock === true ? (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "100%",
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                zIndex: 99,
+                                padding: "2px 20px",
+                                borderRadius: "20px",
+                                background: "#fff",
+                                border: "4px solid #ff9702",
+                                alignSelf: "center",
+                                color: "#cc0000",
+                                display: "flex",
+                                alignItems: "center",
+                                fontSize: 18,
+                            }}
+                        >
+                            <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
+                            <BsFire style={{ marginLeft: "5px" }} />
+                        </Box>
+                    </Box>
+                ) : (
+                    ""
+                )}
               <Card
                 isHoverable
                 css={{
@@ -1245,6 +1293,36 @@ const StockCardSME = () => {
                       },
                     }}
                   >
+                      {isSubscribed && isNewStock(stock.created) ? (
+                          <Box
+                              sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  width: "100%",
+                              }}
+                          >
+                              <div
+                                  style={{
+                                      position: "absolute",
+                                      width: "80px",
+                                      marginTop: "-30px",
+                                      background: "#cc0000",
+                                      color: "#fff",
+                                      height: "20px",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      borderRadius: "10px",
+                                  }}
+                              >
+                                  {isNewStock(stock.created) && (
+                                      <div>NEW</div>
+                                  )}
+                              </div>
+                          </Box>
+                      ) : (
+                          ""
+                      )}
                     <Text
                       b
                       size={20}

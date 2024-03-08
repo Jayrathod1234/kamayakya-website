@@ -56,6 +56,7 @@ import Login from "./Login";
 import { SearchNormal, Filter } from "iconsax-react";
 import Marquee from "react-fast-marquee";
 import LoginForSubsribe from "./LoginForSubsribe";
+import { BsFire } from "react-icons/bs";
 
 const StockCard = () => {
   const router = useRouter();
@@ -373,32 +374,38 @@ const StockCard = () => {
     }
   }, [error]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      const refresh = localStorage.getItem("refresh");
-      setIsLoading(true);
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(GET_ALL_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `token ${refresh}`,
-            },
-          });
-          // console.log(response.data);
-          setStocks(response.data);
-          setFlipStates(new Array(response.data.length).fill(false));
-        } catch (error) {
-          setError("Please Login First to see our stock picks!");
-          showAlert();
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchData();
-    }
-  }, [isLoggedIn]);
+	useEffect(() => {
+		if (isLoggedIn) {
+			const refresh = localStorage.getItem("refresh");
+			setIsLoading(true);
+			const fetchData = async () => {
+				try {
+					const response = await axios.get(GET_ALL_URL, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `token ${refresh}`,
+						},
+					});
+					// console.log(response.data);
+					const sortedStocks = response.data.sort((a, b) => {
+						if (a.recommended_stock === b.recommended_stock) return 0;
+						return a.recommended_stock ? -1 : 1;
+					});
+
+					setStocks(sortedStocks);
+					// setStocks(response.data);
+					setFlipStates(new Array(response.data.length).fill(false));
+				} catch (error) {
+					setError("Please Login First to see our stock picks!");
+					showAlert();
+				} finally {
+					setIsLoading(false);
+				}
+			};
+			fetchData();
+		}
+	}, [isLoggedIn]);
 
   const handleClearSelection = () => {
     setSelectedIndustries([]);
@@ -406,236 +413,248 @@ const StockCard = () => {
     setUpsideSort("");
   };
 
-  return (
+	const isNewStock = (createdDateString) => {
+		const createdDate = new Date(createdDateString);
+		const twoMonthsAgo = new Date();
+		twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
-    <div
-      style={{
-        // maxWidth: "80rem",
-        width: "100vw",
-        display: "flex",
-        flexDirection: "column",
-        paddingBottom: 100,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        // backgroundImage: "url(coral_texture.svg)",
-        objectPosition: "center",
-        backgroundPositionY: "center",
-        backgroundPositionX: "center",
-        backgroundSize: "cover",
-        backgroundRepeat: "none",
-      }}
-    >
-      <Box
-        sx={{
-          width: "95%",
-          display: "flex",
-          flexDirection: "column",
-          flexWrap: "wrap",
-          alignItems: "center",
-          paddingTop: "5vh",
-          paddingBottom: "20px",
-          "@media only screen and (max-width: 764px)": {
-            // maxHeight: "100vh",
-            marginTop: "0px",
-            paddingTop: "0px",
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-            paddingLeft: "5px",
-            paddingRight: "5px",
-            paddingBottom: "10px",
-          },
-        }}
-      >
-        <Box
-          sx={{
-            cursor: "pointer",
-            // paddingLeft: "40px",
-            // paddingRight: "40px",
-            // paddingTop: "15px",
-            // paddingBottom: "15px",
-            padding: "0",
-            // marginTop: "25px",
-            display: "flex",
-            flexDirection: "column",
-            // backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
-            // backgroundImage: "linear-gradient(to top , #fff, #fff)",
-            alignItems: "center",
-            // backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-            borderRadius: "1200.5px",
-            "@media only screen and (max-width: 764px)": {
-              paddingLeft: "5px",
-              paddingRight: "5px",
-              marginTop: "10px",
-              marginBottom: "10px",
-              borderRadius: "10px",
-              alignItems: "flex-start",
-              backgroundImage: "linear-gradient(to top , #fff, #fff)",
-            },
-          }}
-        >
-          <Text
-            b
-            size={18}
-            color="#FFF"
-            css={{
-              fontWeight: "bolder",
-              color: "#021C61",
-              "@media only screen and (max-width: 764px)": {
-                fontSize: 18,
-                width: "100%",
-                textAlign: "left",
-                color: "#021C61",
-              },
-            }}
-            onClick={handleCert}
-          >
-            SEBI Registered: INH000009843
-          </Text>
-        </Box>
-        <Modal
-          // width="790px"
-          blur
-          open={showCert}
-          onClose={handleCertClose}
-          css={{
-            width: "65vw",
-            maxWidth: "65vw",
-            alignSelf: "flex-end",
-            background: "transparent",
-            boxShadow: "none",
-            borderRadius: "15px",
-            "@media only screen and (max-width: 764px)": {
-              width: "95vw !important",
-              maxWidth: "95vw !important",
-            },
-          }}
-        >
-          <iframe
-            src="Kamayakya-SEBI-License.pdf#view=FitH&toolbar=0"
-            alt="SEBI Certificate"
-            style={{
-              width: "100%",
-              height: "75vh",
-              borderColor: "transparent",
-              borderRadius: "15px",
-              borderWidth: "0px",
-              zoom: "1",
-            }}
-            className="iframePdfMobile"
-          />
-          {/* <Modal.Footer justify="center"> */}
-          <Button
-            auto
-            onClick={handleCertClose}
-            css={{
-              // alignSelf: "end",
-              width: "100%",
-              backgroundColor: "#ffa12e",
-              color: "#fff",
-              fontSize: 19,
-              marginTop: "20px",
-              borderRadius: "10px",
-              height: "50px",
-              "@media only screen and (max-width: 768px)": {
-                width: "100%",
-                fontSize: 15,
-                height: "50px",
-                marginTop: "0px",
-                borderRadius: "0px 0px 10px",
-                "& span": {
-                  // display: "none",
-                },
-              },
-            }}
-          >
-            Close
-          </Button>
-          {/* </Modal.Footer> */}
-        </Modal>
-        <Text
-          b
-          size={70}
-          css={{
-            marginTop: "0px",
-            marginBottom: "0px",
-            // width: "90%",
-            maxWidth: "80rem" /* 1280px */,
-            textAlign: "center",
-            lineHeight: 1.2,
-            paddingLeft: "15px",
-            paddingRight: "15px",
-            "@media only screen and (max-width: 764px)": {
-              fontSize: 45,
-              lineHeight: 1.1,
-              paddingLeft: "5px",
-              paddingRight: "5px",
-              marginTop: "0px",
-              marginBottom: "10px",
-              maxWidth: "100%",
-              textAlign: "left",
-            },
-          }}
-        >
-          Stocks To Buy
-        </Text>
-      </Box>
-      {isLoggedIn ? (
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            flexDirection: "row",
-            gap: "5px",
-            marginBottom: "40px",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          className="stockPicks-searchBar-box"
-        >
-          {/* Search Bar */}
-          <Box
-            sx={{
-              border: "1px solid #125a54",
-              borderRadius: "10000px",
-              padding: "0px 15px",
-              paddingTop: "2px",
-              display: "flex",
-              alignItems: "center",
-              // "@media only screen and (max-width: 768px)": {
-              //   padding: "0px 15px",
-              //   width: "500px",
-              // },
-            }}
-            className="stockPicks-searchBar"
-          >
-            <IconButton>
-              <SearchNormal size={25} color="#125a54" />
-            </IconButton>
-            <InputBase
-              placeholder="Ion Exchange (OR) IONEXCHANG"
-              variant="standard"
-              // size="large"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                fontSize: 18,
-                lineHeight: 1,
-                textAlign: "center",
-                width: "80vw",
-                maxWidth: "60rem",
-                padding: "10px 10px",
-                backgroundColor: "#fff",
-                borderRadius: "10000px",
-                "@media only screen and (max-width: 768px)": {
-                  width: "100vw",
-                  fontSize: 15,
-                  backgroundColor: "transparent",
-                },
-              }}
-            />
-          </Box>
+		const today = new Date();
+		// console.log(
+		// 	createdDate,
+		// 	createdDate >= twoMonthsAgo && createdDate <= today
+		// );
+		return createdDate >= twoMonthsAgo && createdDate <= today;
+	};
+
+	return (
+		<div
+			style={{
+				// maxWidth: "80rem",
+				width: "100vw",
+				display: "flex",
+				flexDirection: "column",
+				paddingBottom: 100,
+				backgroundColor: "#fff",
+				alignItems: "center",
+				// backgroundImage: "url(coral_texture.svg)",
+				objectPosition: "center",
+				backgroundPositionY: "center",
+				backgroundPositionX: "center",
+				backgroundSize: "cover",
+				backgroundRepeat: "none",
+			}}
+		>
+			<Box
+				sx={{
+					width: "95%",
+					display: "flex",
+					flexDirection: "column",
+					flexWrap: "wrap",
+					alignItems: "center",
+					paddingTop: "5vh",
+					paddingBottom: "20px",
+					"@media only screen and (max-width: 764px)": {
+						// maxHeight: "100vh",
+						marginTop: "0px",
+						paddingTop: "0px",
+						justifyContent: "flex-start",
+						alignItems: "flex-start",
+						paddingLeft: "5px",
+						paddingRight: "5px",
+						paddingBottom: "10px",
+					},
+				}}
+			>
+				<Box
+					sx={{
+						cursor: "pointer",
+						// paddingLeft: "40px",
+						// paddingRight: "40px",
+						// paddingTop: "15px",
+						// paddingBottom: "15px",
+						padding: "0",
+						// marginTop: "25px",
+						display: "flex",
+						flexDirection: "column",
+						// backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
+						// backgroundImage: "linear-gradient(to top , #fff, #fff)",
+						alignItems: "center",
+						// backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
+						borderRadius: "1200.5px",
+						"@media only screen and (max-width: 764px)": {
+							paddingLeft: "5px",
+							paddingRight: "5px",
+							marginTop: "10px",
+							marginBottom: "10px",
+							borderRadius: "10px",
+							alignItems: "flex-start",
+							backgroundImage: "linear-gradient(to top , #fff, #fff)",
+						},
+					}}
+				>
+					<Text
+						b
+						size={18}
+						color="#FFF"
+						css={{
+							fontWeight: "bolder",
+							color: "#021C61",
+							"@media only screen and (max-width: 764px)": {
+								fontSize: 18,
+								width: "100%",
+								textAlign: "left",
+								color: "#021C61",
+							},
+						}}
+						onClick={handleCert}
+					>
+						SEBI Registered: INH000009843
+					</Text>
+				</Box>
+				<Modal
+					// width="790px"
+					blur
+					open={showCert}
+					onClose={handleCertClose}
+					css={{
+						width: "65vw",
+						maxWidth: "65vw",
+						alignSelf: "flex-end",
+						background: "transparent",
+						boxShadow: "none",
+						borderRadius: "15px",
+						"@media only screen and (max-width: 764px)": {
+							width: "95vw !important",
+							maxWidth: "95vw !important",
+						},
+					}}
+				>
+					<iframe
+						src="Kamayakya-SEBI-License.pdf#view=FitH&toolbar=0"
+						alt="SEBI Certificate"
+						style={{
+							width: "100%",
+							height: "75vh",
+							borderColor: "transparent",
+							borderRadius: "15px",
+							borderWidth: "0px",
+							zoom: "1",
+						}}
+						className="iframePdfMobile"
+					/>
+					{/* <Modal.Footer justify="center"> */}
+					<Button
+						auto
+						onClick={handleCertClose}
+						css={{
+							// alignSelf: "end",
+							width: "100%",
+							backgroundColor: "#ffa12e",
+							color: "#fff",
+							fontSize: 19,
+							marginTop: "20px",
+							borderRadius: "10px",
+							height: "50px",
+							"@media only screen and (max-width: 768px)": {
+								width: "100%",
+								fontSize: 15,
+								height: "50px",
+								marginTop: "0px",
+								borderRadius: "0px 0px 10px",
+								"& span": {
+									// display: "none",
+								},
+							},
+						}}
+					>
+						Close
+					</Button>
+					{/* </Modal.Footer> */}
+				</Modal>
+				<Text
+					b
+					size={70}
+					css={{
+						marginTop: "0px",
+						marginBottom: "0px",
+						// width: "90%",
+						maxWidth: "80rem" /* 1280px */,
+						textAlign: "center",
+						lineHeight: 1.2,
+						paddingLeft: "15px",
+						paddingRight: "15px",
+						"@media only screen and (max-width: 764px)": {
+							fontSize: 45,
+							lineHeight: 1.1,
+							paddingLeft: "5px",
+							paddingRight: "5px",
+							marginTop: "0px",
+							marginBottom: "10px",
+							maxWidth: "100%",
+							textAlign: "left",
+						},
+					}}
+				>
+					Stocks To Buy
+				</Text>
+			</Box>
+			{isLoggedIn ? (
+				<Box
+					sx={{
+						display: "flex",
+						flexWrap: "wrap",
+						flexDirection: "row",
+						gap: "5px",
+						marginBottom: "40px",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+					className="stockPicks-searchBar-box"
+				>
+					{/* Search Bar */}
+					<Box
+						sx={{
+							border: "1px solid #125a54",
+							borderRadius: "10000px",
+							padding: "0px 15px",
+							paddingTop: "2px",
+							display: "flex",
+							alignItems: "center",
+							// "@media only screen and (max-width: 768px)": {
+							//   padding: "0px 15px",
+							//   width: "500px",
+							// },
+						}}
+						className="stockPicks-searchBar"
+					>
+						<IconButton>
+							<SearchNormal size={25} color="#125a54" />
+						</IconButton>
+						<InputBase
+							placeholder="Ion Exchange (OR) IONEXCHANG"
+							variant="standard"
+							// size="large"
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								fontSize: 18,
+								lineHeight: 1,
+								textAlign: "center",
+								width: "80vw",
+								maxWidth: "60rem",
+								padding: "10px 10px",
+								backgroundColor: "#fff",
+								borderRadius: "10000px",
+								"@media only screen and (max-width: 768px)": {
+									width: "100vw",
+									fontSize: 15,
+									backgroundColor: "transparent",
+								},
+							}}
+						/>
+					</Box>
 
           <IconButton
             onClick={toggleDrawer}
@@ -1016,11 +1035,36 @@ const StockCard = () => {
               md={"auto"}
               lg={"auto"}
             >
-              {/* <ReactCardFlip
-                isFlipped={flipStates[index]}
-                flipDirection="horizontal"
-              > */}
-              {/* Front face */}
+                {isSubscribed && stock.recommended_stock === true ? (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "100%",
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                zIndex: 99,
+                                padding: "2px 20px",
+                                borderRadius: "20px",
+                                background: "#fff",
+                                border: "4px solid #ff9702",
+                                alignSelf: "center",
+                                color: "#cc0000",
+                                display: "flex",
+                                alignItems: "center",
+                                fontSize: 18,
+                            }}
+                        >
+                            <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
+                            <BsFire style={{ marginLeft: "5px" }} />
+                        </Box>
+                    </Box>
+                ) : (
+                    ""
+                )}
               <Card
                 isHoverable
                 css={{
@@ -1169,6 +1213,36 @@ const StockCard = () => {
                       },
                     }}
                   >
+                      {isSubscribed && isNewStock(stock.created) ? (
+                          <Box
+                              sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  width: "100%",
+                              }}
+                          >
+                              <div
+                                  style={{
+                                      position: "absolute",
+                                      width: "80px",
+                                      marginTop: "-30px",
+                                      background: "#cc0000",
+                                      color: "#fff",
+                                      height: "20px",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      borderRadius: "10px",
+                                  }}
+                              >
+                                  {isNewStock(stock.created) && (
+                                      <div>NEW</div>
+                                  )}
+                              </div>
+                          </Box>
+                      ) : (
+                          ""
+                      )}
                     <Text
                       b
                       size={20}
