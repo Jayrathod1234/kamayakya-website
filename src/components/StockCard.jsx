@@ -389,10 +389,18 @@ const StockCard = () => {
 					});
 					// console.log(response.data);
 					const sortedStocks = response.data.sort((a, b) => {
-						if (a.recommended_stock === b.recommended_stock) return 0;
-						return a.recommended_stock ? -1 : 1;
-					});
+						// if (a.recommended_stock === b.recommended_stock) return 0;
+						// return a.recommended_stock ? -1 : 1;
 
+						if (a.recommended_stock && !b.recommended_stock) return -1;
+						if (!a.recommended_stock && b.recommended_stock) return 1;
+
+						// Then check for new stocks
+						const isNewStockA = isNewStock(a.created);
+						const isNewStockB = isNewStock(b.created);
+						if (isNewStockA && !isNewStockB) return -1;
+						if (!isNewStockA && isNewStockB) return 1;
+					});
 					setStocks(sortedStocks);
 					// setStocks(response.data);
 					setFlipStates(new Array(response.data.length).fill(false));
@@ -1235,9 +1243,7 @@ const StockCard = () => {
                                       borderRadius: "10px",
                                   }}
                               >
-                                  {isNewStock(stock.created) && (
-                                      <div>NEW</div>
-                                  )}
+                                  {isNewStock(stock.created) && <div>NEW</div>}
                               </div>
                           </Box>
                       ) : (
@@ -1557,7 +1563,7 @@ const StockCard = () => {
                             }}
                             size={15}
                           >
-                            TIME LEFT
+                            TIME TO
                           </Text>
                           <Text
                             b
@@ -1569,7 +1575,7 @@ const StockCard = () => {
                               },
                             }}
                           >
-                            (IN DAYS)
+                            TARGET
                           </Text>
                         </div>
                         <Text
@@ -1583,8 +1589,25 @@ const StockCard = () => {
                           }}
                           size={22}
                         >
-                          {`${Math.ceil(stock.time_left)}` || <Loading /> ||
-                            "-"}
+                            {/* {`${Math.ceil(stock.time_left)}` || <Loading /> ||
+														"-"} */}
+                            {(() => {
+                                    const timeLeft = Math.ceil(stock.time_left);
+                                    const years = Math.floor(timeLeft / 365);
+                                    const months = Math.floor((timeLeft % 365) / 30);
+                                    const days = Math.floor((timeLeft % 365) % 30);
+
+                                    if (timeLeft < 30) {
+                                        return `${days} days`;
+                                    } else if (years === 0) {
+                                        return `${months} month${
+                                            months !== 1 ? "s" : ""
+                                        }`;
+                                    } else {
+                                        return `${years} yr ${months} mo.`;
+                                    }
+                                })() || <Loading /> ||
+                                "-"}
                         </Text>
                       </div>
                     </div>
@@ -1610,6 +1633,7 @@ const StockCard = () => {
                       alignSelf: "center",
                       width: "100%",
                       borderRadius: "10000px",
+                        color: "#000",
                       backgroundImage:
                         "linear-gradient(to top , #FF9D28, #ffa736)",
                       fontSize: 18,
