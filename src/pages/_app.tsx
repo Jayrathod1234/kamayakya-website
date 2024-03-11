@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               name="og:description"
               content="KamayaKya is your friendly investment guru who will assist you in finding the best SME, MicroCap and SmallCap stocks to invest, backed by solid research."
             />
+            <meta name="keywords" content="stock market advisory, share market advisory, stock market advisory services, stock market advisory company, best stock market advisor, investment advisor, stock investment advisor, best trading advisory services, sebi registered stock market advisory company, top stock advisory services, share market investment advisor" />
             <link
               rel="icon"
               // type="image/png"

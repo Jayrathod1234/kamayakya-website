@@ -6,12 +6,19 @@ import AuthContext from "@/components/AuthContext";
 import NavBar2 from "@/components/Navbar2";
 import { Text } from "@nextui-org/react";
 import { Box } from "@mui/material";
-
+import Head from "next/head";
 const Complaints = () => {
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <div>
+        <Head>
+            <title>KamayaKya | Complaints</title>
+            <meta
+                name="description"
+                content="Check out our Complaints Page to provide feedback. We are committed to resolving issues promptly, ensuring a seamless experience for our valued clients."
+            />
+        </Head>
       {isLoggedIn ? <NavBar2 /> : <NavBar />}
       <Box
         sx={{

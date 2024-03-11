@@ -6,11 +6,19 @@ import AuthContext from "@/components/AuthContext";
 import NavBar2 from "@/components/Navbar2";
 import { Text } from "@nextui-org/react";
 import { Box } from "@mui/material";
+import Head from "next/head";
 
 const Disclaimer = () => {
   const { isLoggedIn } = useContext(AuthContext);
   return (
     <div>
+        <Head>
+            <title>KamayaKya | Disclaimer</title>
+            <meta
+                name="description"
+                content="Read KamayaKya's disclaimer, which clearly explains the risks and responsibilities. Commit to clarity as you navigate your financial journey with us."
+            />
+        </Head>
       {isLoggedIn ? <NavBar2 /> : <NavBar />}
       <Box
         sx={{
