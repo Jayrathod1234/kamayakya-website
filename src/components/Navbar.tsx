@@ -215,19 +215,19 @@ export default function App() {
                 About Us
               </Text>
             </ListItemButton>
-            {/*<ListItemButton*/}
-            {/*  onClick={() => {*/}
-            {/*    handleBlog();*/}
-            {/*    toggleDrawer();*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  <ListItemIcon sx={{ paddingLeft: "4px" }}>*/}
-            {/*    <Book size={30} />*/}
-            {/*  </ListItemIcon>*/}
-            {/*  <Text b className="drawerElementText">*/}
-            {/*    Blogs*/}
-            {/*  </Text>*/}
-            {/*</ListItemButton>*/}
+            <ListItemButton
+             onClick={() => {
+               handleBlog();
+               toggleDrawer();
+             }}
+            >
+             <ListItemIcon sx={{ paddingLeft: "4px" }}>
+               <Book size={30} style={{ color: "#FB9E29" }}/>
+             </ListItemIcon>
+             <Text b className="drawerElementText">
+               Blogs
+             </Text>
+            </ListItemButton>
             <ListItemButton
               onClick={() => {
                 trackRecord();
@@ -333,18 +333,18 @@ export default function App() {
                 About Us
               </Text>
             </Navbar.Link>
-            {/*<Navbar.Link*/}
-            {/*  // isActive={activeLink === "blogs"}*/}
-            {/*  isActive={*/}
-            {/*    typeof window !== "undefined" &&*/}
-            {/*    window.location.pathname === "/blogs-page"*/}
-            {/*  }*/}
-            {/*  onClick={handleBlog}*/}
-            {/*>*/}
-            {/*  <Text b size={16} css={{ lineHeight: 5 }}>*/}
-            {/*    Blogs*/}
-            {/*  </Text>*/}
-            {/*</Navbar.Link>*/}
+            <Navbar.Link
+             // isActive={activeLink === "blogs"}
+             isActive={
+               typeof window !== "undefined" &&
+               window.location.pathname === "/blogs-page"
+             }
+             onClick={handleBlog}
+            >
+             <Text b size={16} css={{ lineHeight: 5 }}>
+               Blogs
+             </Text>
+            </Navbar.Link>
             <Navbar.Link
               // isActive={activeLink === "blogs"}
               isActive={

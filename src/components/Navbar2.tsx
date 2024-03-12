@@ -185,17 +185,17 @@ const NavBar2 = () => {
             About Us
           </Text>
         </Navbar.Link>
-        {/*<Navbar.Link*/}
-        {/*  isActive={*/}
-        {/*    typeof window !== "undefined" &&*/}
-        {/*    window.location.pathname === "/blogs-page"*/}
-        {/*  }*/}
-        {/*  onClick={() => handleBlog()}*/}
-        {/*>*/}
-        {/*  <Text b size={16} css={{ lineHeight: 5 }}>*/}
-        {/*    Blogs*/}
-        {/*  </Text>*/}
-        {/*</Navbar.Link>*/}
+        <Navbar.Link
+         isActive={
+           typeof window !== "undefined" &&
+           window.location.pathname === "/blogs-page"
+         }
+         onClick={() => handleBlog()}
+        >
+         <Text b size={16} css={{ lineHeight: 5 }}>
+           Blogs
+         </Text>
+        </Navbar.Link>
 
         <Navbar.Link
           isActive={
@@ -293,7 +293,7 @@ const NavBar2 = () => {
           >
             <Dropdown.Item key="handleHome">Home</Dropdown.Item>
             <Dropdown.Item key="handleAboutUs">About us</Dropdown.Item>
-            {/*<Dropdown.Item key="handleBlog">Blogs</Dropdown.Item>*/}
+            <Dropdown.Item key="handleBlog">Blogs</Dropdown.Item>
             <Dropdown.Item key="handleTrack">Track record</Dropdown.Item>
             <Dropdown.Item key="handleStockPicks">Stocks to buy</Dropdown.Item>
             <Dropdown.Item key="settings" withDivider>
@@ -392,19 +392,19 @@ const NavBar2 = () => {
               About Us
             </Text>
           </ListItemButton>
-          {/*<ListItemButton*/}
-          {/*  onClick={() => {*/}
-          {/*    handleBlog();*/}
-          {/*    toggleDrawer();*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  <ListItemIcon sx={{ paddingLeft: "4px" }}>*/}
-          {/*    <Book size={30} />*/}
-          {/*  </ListItemIcon>*/}
-          {/*  <Text b className="drawerElementText">*/}
-          {/*    Blogs*/}
-          {/*  </Text>*/}
-          {/*</ListItemButton>*/}
+          <ListItemButton
+           onClick={() => {
+             handleBlog();
+             toggleDrawer();
+           }}
+          >
+           <ListItemIcon sx={{ paddingLeft: "4px" }}>
+             <Book size={30} style={{ color: "#FB9E29" }}/>
+           </ListItemIcon>
+           <Text b className="drawerElementText">
+             Blogs
+           </Text>
+          </ListItemButton>
           <ListItemButton
             onClick={() => {
               trackRecord();
