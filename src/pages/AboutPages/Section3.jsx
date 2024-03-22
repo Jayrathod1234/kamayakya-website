@@ -1,107 +1,82 @@
 import { Box, IconButton } from "@mui/material";
 import {
-  Button,
-  Card,
-  Modal,
-  Text,
-  Divider,
-  useModal,
+	Button,
+	Card,
+	Modal,
+	Text,
+	Divider,
+	useModal,
 } from "@nextui-org/react";
 import React, { useState } from "react";
-// import { useState } from "react/react.shared-subset";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Section3 = () => {
-  const { setVisible, bindings } = useModal();
-  const [selectedPDF, setSelectedPDF] = useState(new Set(["SampleReport.pdf"]));
-  const [showIframe, setShowIframe] = useState(false);
+	const { setVisible, bindings } = useModal();
+	const [selectedPDF, setSelectedPDF] = useState(new Set(["SampleReport.pdf"]));
+	const [showIframe, setShowIframe] = useState(false);
 
-  const handleCloseIframe = () => {
-    setShowIframe(false);
-  };
+	const handleCloseIframe = () => {
+		setShowIframe(false);
+	};
 
-  const handleIonOnePage = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleIonDetailed = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleHGOnePage = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleHGDetailed = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleGravitaOnePage = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Gravita India Ltd. (GIL) - 1 Page Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Gravita India Ltd. (GIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleGravitaDetailed = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Gravita India Ltd. (GIL) - Detailed Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
+	const handleIonOnePage = () => {
+		var win = window.open(
+			"Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleIonDetailed = () => {
+		var win = window.open(
+			"Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleHGOnePage = () => {
+		var win = window.open(
+			"H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleHGDetailed = () => {
+		var win = window.open(
+			"H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleGravitaOnePage = () => {
+		var win = window.open(
+			"Gravita India Ltd. (GIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleGravitaDetailed = () => {
+		var win = window.open(
+			"Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
 
-  const handleMonteOnePage = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - 1 Page Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Monte Carlo Fashions Ltd. (MCFL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
+  const handleGuficOnePage = () => {
+		var win = window.open(
+			"Gufic Bioscience - One Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
 
-  const handleMonteDetailed = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - Detailed Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Monte Carlo Fashions Ltd. (MCFL) - Detailed Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
+	const handleGuficDetailed = () => {
+		var win = window.open(
+			"Gufic BioSciences - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
 
   return (
     <section
@@ -255,7 +230,6 @@ const Section3 = () => {
             {selectedPDF && (
               <iframe
                 src={`${selectedPDF}#view=FitH&toolbar=0`}
-                // src={`Test1.pdf#toolbar=0`}
                 style={{
                   width: "100%",
                   height: "75vh",
@@ -499,7 +473,7 @@ const Section3 = () => {
               />
               <br />
               <Text b size={21} css={{ alignSelf: "center" }}>
-                Monte Carlo Fashions Ltd.
+              Gufic BioSciences Ltd.
               </Text>
               <div
                 style={{
@@ -517,7 +491,7 @@ const Section3 = () => {
                     marginTop: "0px",
                     width: "auto",
                   }}
-                  onPress={handleMonteOnePage}
+                  onPress={handleGuficOnePage}
                 >
                   <Text b size={21} color="#18501E">
                     1-Page Report
@@ -530,7 +504,7 @@ const Section3 = () => {
                     marginTop: "0px",
                     width: "auto",
                   }}
-                  onPress={handleMonteDetailed}
+                  onPress={handleGuficDetailed}
                 >
                   <Text b size={21} color="#18501E">
                     Detailed Report
@@ -538,83 +512,6 @@ const Section3 = () => {
                 </Button>
               </div>
             </Card>
-
-            {/*<Dropdown>*/}
-            {/*  <Dropdown.Button*/}
-            {/*    flat*/}
-            {/*    css={{*/}
-            {/*      alignSelf: "center",*/}
-            {/*      width: "100%",*/}
-            {/*      backgroundColor: "#125a54",*/}
-            {/*      color: "#fff",*/}
-            {/*      fontSize: 19,*/}
-            {/*      marginBottom: "20px",*/}
-            {/*      borderRadius: "10px",*/}
-            {/*      height: "50px",*/}
-            {/*      "@media only screen and (max-width: 768px)": {*/}
-            {/*        width: "100%",*/}
-            {/*        fontSize: 15,*/}
-            {/*        height: "50px",*/}
-            {/*        marginBottom: "0px",*/}
-            {/*        borderRadius: "10px 0 0",*/}
-            {/*        "& span": {*/}
-            {/*          // display: "none",*/}
-            {/*        },*/}
-            {/*      },*/}
-            {/*    }}*/}
-            {/*  >*/}
-            {/*    {PdfValue}*/}
-            {/*    /!*Report Types*!/*/}
-            {/*  </Dropdown.Button>*/}
-            {/*  <Dropdown.Menu*/}
-            {/*    // defaultSelectedKeys={'SampleReport.pdf'}*/}
-            {/*    aria-label="TimeActions"*/}
-            {/*    selectionMode="single"*/}
-            {/*    selectedKeys={selectedPDF}*/}
-            {/*    onSelectionChange={(key) => setSelectedPDF(key)}*/}
-            {/*    style={{ width: "100%" }}*/}
-            {/*  >*/}
-            {/*    <Dropdown.Item key="SampleReport.pdf">*/}
-            {/*      Half Page Report*/}
-            {/*    </Dropdown.Item>*/}
-            {/*    <Dropdown.Item*/}
-            {/*      key="IonExchangeHalfPageReport-English.pdf"*/}
-            {/*      css={{ width: "100vw" }}*/}
-            {/*    >*/}
-            {/*      Ion Exchange Half Page Report - English*/}
-            {/*    </Dropdown.Item>*/}
-            {/*    <Dropdown.Item key="DetailedReport.pdf">*/}
-            {/*      Detailed Report*/}
-            {/*    </Dropdown.Item>*/}
-            {/*  </Dropdown.Menu>*/}
-            {/*</Dropdown>*/}
-
-            {/* <Button
-							flat
-							onPress={() => setVisible(false)}
-							css={{
-								alignSelf: "center",
-								// width: "100%",
-								backgroundColor: "#ffa12e",
-								color: "#fff",
-								fontSize: 19,
-								marginTop: "20px",
-								borderRadius: "10px",
-								height: "50px",
-								"@media only screen and (max-width: 768px)": {
-									width: "100%",
-									fontSize: 15,
-									height: "50px",
-									marginTop: "0px",
-									borderRadius: "0px 0px 10px",
-									"& span": {
-										// display: "none",
-									},
-								},
-							}}
-						>
-							Close
-						</Button> */}
           </Modal>
         </Box>
       </Box>
