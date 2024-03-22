@@ -9,7 +9,7 @@ import { Loading, Text } from "@nextui-org/react";
 import AuthContext from "@/components/AuthContext";
 import { useRouter } from "next/router";
 import { pdf } from "@react-pdf/renderer";
-import InvoicePDF from "./UserDetails/InvoicePDF";
+// import InvoicePDF from "./UserDetails/InvoicePDF";
 
 const paymentsuccessful = () => {
 	// const { isLoggedIn } = useContext(AuthContext);

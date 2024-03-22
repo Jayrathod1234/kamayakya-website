@@ -1,12 +1,12 @@
 import {
-  Text,
-  Button,
-  Avatar,
-  Modal,
-  Card,
-  useModal,
-  Dropdown,
-  Divider,
+	Text,
+	Button,
+	Avatar,
+	Modal,
+	Card,
+	useModal,
+	Dropdown,
+	Divider,
 } from "@nextui-org/react";
 import React, { useState, useContext } from "react";
 import { Box, IconButton } from "@mui/material";
@@ -24,26 +24,28 @@ const HomePage = () => {
 	const [showIframe, setShowIframe] = useState(false);
   const router = useRouter();
 
-  const handleCloseIframe = () => {
-    setShowIframe(false);
-  };
-  const handleCert = () => {
-    // setShowCert(true);
-    var win = window.open(
-      "Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-    // win.document.write('<PdfViewer pdf={PDF}/>');
-  };
+	const handleCloseIframe = () => {
+		setShowIframe(false);
+	};
+	const handleCert = () => {
+		// setShowCert(true);
+		var win = window.open(
+			"Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+		// win.document.write('<PdfViewer pdf={PDF}/>');
+	};
 
-  const handleCertClose = () => {
-    setShowCert(false);
-  };
+	const handleCertClose = () => {
+		setShowCert(false);
+	};
 
-  const handleLogin = () => {
-    setShowLoginModal(true);
-  };
+	const handleLogin = () => {
+		// const location = router.asPath;
+		// console.log(location, "login done");
+		setShowLoginModal(true);
+	};
 
 	const handleCloseLoginModal = () => {
 		setShowLoginModal(false);
@@ -58,95 +60,95 @@ const HomePage = () => {
 		"https://i.pravatar.cc/150?u=a04258114e29026702d",
 	];
 
-  const handleIonOnePage = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleIonDetailed = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleHGOnePage = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleHGDetailed = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleGravitaOnePage = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Gravita India Ltd. (GIL) - 1 Page Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Gravita India Ltd. (GIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
-  const handleGravitaDetailed = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Gravita India Ltd. (GIL) - Detailed Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
+	const handleIonOnePage = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleIonDetailed = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleHGOnePage = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleHGDetailed = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleGravitaOnePage = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Gravita India Ltd. (GIL) - 1 Page Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Gravita India Ltd. (GIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleGravitaDetailed = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Gravita India Ltd. (GIL) - Detailed Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
 
-  const handleMonteOnePage = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - 1 Page Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Monte Carlo Fashions Ltd. (MCFL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
+  const handleGuficOnePage = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - 1 Page Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Gufic Bioscience - One Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
 
-  const handleMonteDetailed = () => {
-    // setShowIframe(true);
-    // setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - Detailed Report.pdf");
-    // setVisible(false);
-    var win = window.open(
-      "Monte Carlo Fashions Ltd. (MCFL) - Detailed Report.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-  };
+	const handleGuficDetailed = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - Detailed Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Gufic BioSciences - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
 
-  // const [selectedPDF, setSelectedPDF] = useState(new Set(["SampleReport.pdf"]));
-  const [selectedPDF, setSelectedPDF] = useState("");
-  const PdfValue = React.useMemo(
-    () => Array.from(selectedPDF)[0]?.replaceAll("_", " ") || "",
-    [selectedPDF]
-  );
+	// const [selectedPDF, setSelectedPDF] = useState(new Set(["SampleReport.pdf"]));
+	const [selectedPDF, setSelectedPDF] = useState("");
+	const PdfValue = React.useMemo(
+		() => Array.from(selectedPDF)[0]?.replaceAll("_", " ") || "",
+		[selectedPDF]
+	);
 
   return (
     <main
@@ -291,15 +293,11 @@ const HomePage = () => {
                 height: "50px",
                 marginTop: "0px",
                 borderRadius: "0px 0px 10px",
-                "& span": {
-                  // display: "none",
-                },
               },
             }}
           >
             Close
           </Button>
-          {/* </Modal.Footer> */}
         </Modal>
         <div
           style={{
@@ -310,78 +308,27 @@ const HomePage = () => {
             textAlign: "center",
           }}
           className="animated-header-div"
-          // b
-          // size={70}
-          // css={{
-          //   marginTop: "40px",
-          //   // width: "90%",
-          //   maxWidth: "80rem" /* 1280px */,
-          //   textAlign: "center",
-          //   lineHeight: 1.2,
-          //   paddingLeft: "15px",
-          //   paddingRight: "15px",
-          //   "@media only screen and (max-width: 764px)": {
-          //     fontSize: 45,
-          //     lineHeight: 1.1,
-          //     paddingLeft: "5px",
-          //     paddingRight: "5px",
-          //     marginTop: "0px",
-          //     maxWidth: "100%",
-          //     textAlign: "left",
-          //   },
-          // }}
         >
-          {/*Maximize the growth of your funds by investing in{" "}*/}
-          {/*<span style={{ color: "#000000" }}>high-potential ideas</span>*/}
+
           <TypeAnimation
             preRenderFirstString={true}
             sequence={[
               5000,
-              "Grow your money by investing in ideas with Big Potential", // initially rendered starting point
+              "Grow your money by investing in ideas with Big Potential",
               3000,
               "Grow your money by investing in SME, Microcap and Smallcap stocks",
               3000,
               "Grow your money by investing in potential Multibaggers",
-              // 1000,
-              // 'We produce food for Guinea Pigs',
-              // 1000,
-              // 'We produce food for Chinchillas',
               5000,
             ]}
             speed={60}
-            // speed={{type: 'keyStrokeDelayInMs', value: 120}}
             deletionSpeed={60}
             style={{ fontSize: "80px" }}
             repeat={Infinity}
             className="homePage-text-animated"
           />
         </div>
-        {/*<Text*/}
-        {/*  b*/}
-        {/*  size={30}*/}
-        {/*  css={{*/}
-        {/*    marginTop: 10,*/}
-        {/*    maxWidth: "80rem"*/}
-        {/*    textAlign: "center",*/}
-        {/*    color: "#125a54",*/}
-        {/*    lineHeight: 1.2,*/}
-        {/*    paddingLeft: "15px",*/}
-        {/*    paddingRight: "15px",*/}
-        {/*    "@media only screen and (max-width: 764px)": {*/}
-        {/*      fontSize: 20,*/}
-        {/*      maxWidth: "100%",*/}
-        {/*      paddingLeft: "5px",*/}
-        {/*      paddingRight: "5px",*/}
-        {/*      marginTop: "10px",*/}
-        {/*      textAlign: "left",*/}
-        {/*      color: "#125a54",*/}
-        {/*    },*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  KamayaKya is your friendly investment guru who will assist you in*/}
-        {/*  finding the best SME, MicroCap and SmallCap stocks to invest in,*/}
-        {/*  backed by solid research.*/}
-        {/*</Text>*/}
+
         <Box
           sx={{
             marginTop: "10px",
@@ -706,7 +653,7 @@ const HomePage = () => {
               />
               <br />
               <Text b size={21} css={{ alignSelf: "center" }}>
-                Monte Carlo Fashions Ltd.
+              Gufic BioSciences Ltd.
               </Text>
               <div
                 style={{
@@ -724,7 +671,7 @@ const HomePage = () => {
                     marginTop: "0px",
                     width: "auto",
                   }}
-                  onPress={handleMonteOnePage}
+                  onPress={handleGuficOnePage}
                 >
                   <Text b size={21} color="#18501E">
                     1-Page Report
@@ -737,7 +684,7 @@ const HomePage = () => {
                     marginTop: "0px",
                     width: "auto",
                   }}
-                  onPress={handleMonteDetailed}
+                  onPress={handleGuficDetailed}
                 >
                   <Text b size={21} color="#18501E">
                     Detailed Report
@@ -746,216 +693,137 @@ const HomePage = () => {
               </div>
             </Card>
 
-            {/*<Dropdown>*/}
-            {/*  <Dropdown.Button*/}
-            {/*    flat*/}
-            {/*    css={{*/}
-            {/*      alignSelf: "center",*/}
-            {/*      width: "100%",*/}
-            {/*      backgroundColor: "#125a54",*/}
-            {/*      color: "#fff",*/}
-            {/*      fontSize: 19,*/}
-            {/*      marginBottom: "20px",*/}
-            {/*      borderRadius: "10px",*/}
-            {/*      height: "50px",*/}
-            {/*      "@media only screen and (max-width: 768px)": {*/}
-            {/*        width: "100%",*/}
-            {/*        fontSize: 15,*/}
-            {/*        height: "50px",*/}
-            {/*        marginBottom: "0px",*/}
-            {/*        borderRadius: "10px 0 0",*/}
-            {/*        "& span": {*/}
-            {/*          // display: "none",*/}
-            {/*        },*/}
-            {/*      },*/}
-            {/*    }}*/}
-            {/*  >*/}
-            {/*    {PdfValue}*/}
-            {/*    /!*Report Types*!/*/}
-            {/*  </Dropdown.Button>*/}
-            {/*  <Dropdown.Menu*/}
-            {/*    // defaultSelectedKeys={'SampleReport.pdf'}*/}
-            {/*    aria-label="TimeActions"*/}
-            {/*    selectionMode="single"*/}
-            {/*    selectedKeys={selectedPDF}*/}
-            {/*    onSelectionChange={(key) => setSelectedPDF(key)}*/}
-            {/*    style={{ width: "100%" }}*/}
-            {/*  >*/}
-            {/*    <Dropdown.Item key="SampleReport.pdf">*/}
-            {/*      Half Page Report*/}
-            {/*    </Dropdown.Item>*/}
-            {/*    <Dropdown.Item*/}
-            {/*      key="IonExchangeHalfPageReport-English.pdf"*/}
-            {/*      css={{ width: "100vw" }}*/}
-            {/*    >*/}
-            {/*      Ion Exchange Half Page Report - English*/}
-            {/*    </Dropdown.Item>*/}
-            {/*    <Dropdown.Item key="DetailedReport.pdf">*/}
-            {/*      Detailed Report*/}
-            {/*    </Dropdown.Item>*/}
-            {/*  </Dropdown.Menu>*/}
-            {/*</Dropdown>*/}
 
-            {/* <Button
-              flat
-              onPress={() => setVisible(false)}
-              css={{
-                alignSelf: "center",
-                // width: "100%",
-                backgroundColor: "#ffa12e",
-                color: "#fff",
-                fontSize: 19,
-                marginTop: "20px",
-                borderRadius: "10px",
-                height: "50px",
-                "@media only screen and (max-width: 768px)": {
-                  width: "100%",
-                  fontSize: 15,
-                  height: "50px",
-                  marginTop: "0px",
-                  borderRadius: "0px 0px 10px",
-                  "& span": {
-                    // display: "none",
-                  },
-                },
-              }}
-            >
-              Close
-            </Button> */}
-          </Modal>
-          {/* <span style={{ width: "10px" }}></span> */}
-          <Button
-            auto
-            size={"xl"}
-            css={{
-              borderRadius: "10000px",
-              display: isLoggedIn ? "none" : "block",
-              marginTop: 10,
-              marginLeft: 30,
-              // backgroundColor: "#0a5b53",
-              backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-              zIndex: 0,
-              paddingLeft: 50,
-              paddingRight: 50,
-              "@media only screen and (max-width: 764px)": {
-                borderRadius: "15px",
-                paddingLeft: 15,
-                paddingRight: 15,
-                marginLeft: 0,
-                marginBottom: 0,
-                marginTop: "25px",
-                height: "55px",
-              },
-            }}
-            onPress={handleLogin}
-            // onPress={() => handleRegestier()}
-          >
-            <Text
-              b
-              size={28}
-              color="White"
-              css={{
-                "@media only screen and (max-width: 764px)": {
-                  fontSize: 18,
-                  // padding: "5px 10px",
-                  // marginRight: 10,
-                  // marginBottom: 10,
-                  width: "auto",
-                },
-              }}
-            >
-              Get free access
-            </Text>
-          </Button>
-          <Modal
-            width="450px"
-            blur
-            open={showLoginModal}
-            onClose={handleCloseLoginModal}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-              <IconButton
-                sx={{
-                  width: "40px",
-                  "&:hover": { background: "#fff" },
-                  // alignSelf: "end",
-                  right: "20px",
-                }}
-                onClick={() => handleCloseLoginModal()}
-              >
-                <CloseIcon sx={{ color: "#e81123" }} />
-              </IconButton>
-            </Box>
+					</Modal>
+					{/* <span style={{ width: "10px" }}></span> */}
+					<Button
+						auto
+						size={"xl"}
+						css={{
+							borderRadius: "10000px",
+							display: isLoggedIn ? "none" : "block",
+							marginTop: 10,
+							marginLeft: 30,
+							// backgroundColor: "#0a5b53",
+							backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
+							zIndex: 0,
+							paddingLeft: 50,
+							paddingRight: 50,
+							"@media only screen and (max-width: 764px)": {
+								borderRadius: "15px",
+								paddingLeft: 15,
+								paddingRight: 15,
+								marginLeft: 0,
+								marginBottom: 0,
+								marginTop: "25px",
+								height: "55px",
+							},
+						}}
+						onPress={handleLogin}
 
-            <Modal.Body>
-              <Login />
-            </Modal.Body>
-          </Modal>
-        </Box>
+						// onPress={() => handleRegestier()}
+					>
+						<Text
+							b
+							size={28}
+							color="White"
+							css={{
+								"@media only screen and (max-width: 764px)": {
+									fontSize: 18,
+									width: "auto",
+								},
+							}}
+						>
+							Get free access
+						</Text>
+					</Button>
+					<Modal
+						width="450px"
+						blur
+						open={showLoginModal}
+						onClose={handleCloseLoginModal}
+					>
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								width: "100%",
+								justifyContent: "space-between",
+								alignItems: "center",
+							}}
+						>
+							<img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+							<IconButton
+								sx={{
+									width: "40px",
+									"&:hover": { background: "#fff" },
+									// alignSelf: "end",
+									right: "20px",
+								}}
+								onClick={() => handleCloseLoginModal()}
+							>
+								<CloseIcon sx={{ color: "#e81123" }} />
+							</IconButton>
+						</Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            marginTop: "40px",
-            "@media only screen and (max-width: 764px)": {
-              marginTop: "20px",
-              marginBottom: "10vh",
-              marginLeft: "15px",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-            },
-          }}
-        >
-          <Avatar.Group>
-            {pictureUsers.map((url, index) => (
-              <Avatar
-                key={index}
-                size="sm"
-                pointer
-                src={url}
-                stacked
-                style={{ zIndex: 0 }}
-              />
-            ))}
-          </Avatar.Group>
-          <Box
-            sx={{
-              marginLeft: "10px",
-            }}
-          >
-            <Text
-              b
-              size={22}
-              color="#125a54"
-              css={{
-                opacity: "0.75",
-                "@media only screen and (max-width: 764px)": {
-                  fontSize: "18px",
-                },
-              }}
-            >
-              2k+ regular users
-            </Text>
-          </Box>
-        </Box>
-      </Box>
-    </main>
-  );
+						<Modal.Body>
+							<Login />
+						</Modal.Body>
+					</Modal>
+				</Box>
+
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						alignItems: "center",
+						justifyContent: "center",
+						width: "100%",
+						marginTop: "40px",
+						"@media only screen and (max-width: 764px)": {
+							marginTop: "20px",
+							marginBottom: "10vh",
+							marginLeft: "15px",
+							alignItems: "flex-start",
+							justifyContent: "flex-start",
+						},
+					}}
+				>
+					<Avatar.Group>
+						{pictureUsers.map((url, index) => (
+							<Avatar
+								key={index}
+								size="sm"
+								pointer
+								src={url}
+								stacked
+								style={{ zIndex: 0 }}
+							/>
+						))}
+					</Avatar.Group>
+					<Box
+						sx={{
+							marginLeft: "10px",
+						}}
+					>
+						<Text
+							b
+							size={22}
+							color="#125a54"
+							css={{
+								opacity: "0.75",
+								"@media only screen and (max-width: 764px)": {
+									fontSize: "18px",
+								},
+							}}
+						>
+							2k+ regular users
+						</Text>
+					</Box>
+				</Box>
+			</Box>
+		</main>
+	);
 };
 
 export default HomePage;
-
-// Home Section

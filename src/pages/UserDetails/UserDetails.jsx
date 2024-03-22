@@ -20,7 +20,7 @@ import { Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "@/components/Login";
 import PhoneInput from "react-phone-input-2";
-import InvoicePDF from "./InvoicePDF";
+// import InvoicePDF from "./InvoicePDF";
 import { pdf } from "@react-pdf/renderer";
 //
 const UserDetails = () => {
