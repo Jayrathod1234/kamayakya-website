@@ -20,7 +20,8 @@ const FaqsNew = () => {
 	};
 
 	return (
-		<main
+		<section
+		id="FAQs"
 			style={{
 				backgroundColor: "#195B54",
 				display: "flex",
@@ -105,20 +106,6 @@ const FaqsNew = () => {
 						>
 							Still got a question?
 						</Text>
-						{/*<Text*/}
-						{/*  size={24}*/}
-						{/*  color="#fff"*/}
-						{/*  css={{*/}
-						{/*    lineHeight: 1.4,*/}
-						{/*    marginBottom: 0,*/}
-						{/*    "@media only screen and (max-width: 764px)": {*/}
-						{/*      fontSize: 20,*/}
-						{/*    },*/}
-						{/*  }}*/}
-						{/*>*/}
-						{/*  If there are questions you want to ask, we will answer all your*/}
-						{/*  questions.*/}
-						{/*</Text>*/}
 						<Button
 							auto
 							size={"lg"}
@@ -186,13 +173,6 @@ const FaqsNew = () => {
 								alignItems: "center",
 								marginBottom: "20px",
 								padding: "0 15px",
-								// "@media only screen and (max-width: 768px)": {
-								//   paddingTop: "0vh",
-								//   width: "100vw",
-								//   paddingLeft: "15px",
-								//   paddingRight: "15px",
-								//   // marginBottom: "10vh !important",
-								// },
 							}}
 							className="subscriptionPlansHeader"
 						>
@@ -694,7 +674,7 @@ const FaqsNew = () => {
 					</Box>
 				</div>
 			</div>
-		</main>
+		</section>
 	);
 };
 

@@ -5,11 +5,12 @@ import React from "react";
 const HeaderCards = () => {
   return (
     <section
+    id="whyUs"
       style={{
         width: "100vw",
         // backgroundColor: "#fafafa",
         backgroundColor: "#fafafa",
-        paddingTop: "100px",
+        // paddingTop: "100px",
         paddingBottom: "50px",
         display: "flex",
         flexDirection: "column",

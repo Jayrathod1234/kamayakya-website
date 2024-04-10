@@ -151,7 +151,7 @@ const HomePage = () => {
 	);
 
   return (
-    <main
+    <section
       id="home"
       style={{
         backgroundColor: "#fff",
@@ -822,7 +822,7 @@ const HomePage = () => {
 					</Box>
 				</Box>
 			</Box>
-		</main>
+		</section>
 	);
 };
 

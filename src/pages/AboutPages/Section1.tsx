@@ -5,6 +5,7 @@ import React from "react";
 const Section1 = () => {
   return (
     <section
+    id="philosophy"
       style={{
         width: "100vw",
         // background: "#edf6f8",

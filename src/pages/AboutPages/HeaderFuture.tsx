@@ -5,11 +5,12 @@ import React from "react";
 const HeaderFuture = () => {
   return (
     <section
+    id="howItWorks"
       style={{
         width: "100vw",
         // backgroundColor: "#fafafa",
         backgroundColor: "#fff",
-        paddingTop: "100px",
+        // paddingTop: "100px",
         paddingBottom: "50px",
         display: "flex",
         flexDirection: "column",

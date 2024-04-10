@@ -77,7 +77,8 @@ const SubscriptionNew = () => {
   };
 
 	return (
-		<main
+		<section
+		id="pricing"
 			style={{
 				display: "flex",
 				justifyContent: "center",
@@ -95,7 +96,7 @@ const SubscriptionNew = () => {
 					alignItems: "center",
 					paddingLeft: "15px",
 					paddingRight: "15px",
-					paddingTop: "10vh",
+					// paddingTop: "10vh",
 					paddingBottom: "15vh",
 					"@media only screen and (max-width: 768px)": {
 						// paddingTop: "10000px",
@@ -838,7 +839,7 @@ const SubscriptionNew = () => {
 					</Card>
 				</Box>
 			</section>
-		</main>
+		</section>
 	);
 };
 

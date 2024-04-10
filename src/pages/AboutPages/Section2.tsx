@@ -5,10 +5,11 @@ import React from "react";
 const Section2 = () => {
 	return (
 		<section
+		id="team"
 			style={{
 				width: "100%",
 				backgroundColor: "#fff",
-				paddingTop: "110px",
+				// paddingTop: "110px",
 				paddingBottom: "60px",
 				display: "flex",
 				justifyContent: "center",
