@@ -134,6 +134,11 @@ const NavBar2 = () => {
 		} else if (window.location.pathname !== "/" && element_id === "home") {
 			// Redirect to home page
 			router.push("/");
+		} else if (window.location.pathname === "/" && element_id === "home") {
+			window.scrollTo({
+				top: 0,
+				behavior: "smooth", // Optional: Smooth scrolling behavior
+			});
 		} else {
 			element?.scrollIntoView({ behavior: "smooth" });
 		}

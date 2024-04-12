@@ -83,7 +83,14 @@ export default function App() {
 		} else if (window.location.pathname !== "/" && element_id === "home") {
 			// Redirect to home page
 			router.push("/");
-		} else {
+		}
+		 else if (window.location.pathname === "/" && element_id === "home") {
+			window.scrollTo({
+				top: 0,
+				behavior: "smooth", // Optional: Smooth scrolling behavior
+			});
+		}
+		else {
 			element?.scrollIntoView({ behavior: "smooth" });
 		}
 	};
@@ -249,7 +256,7 @@ export default function App() {
 						<ListItemButton
 							onClick={() => {
 								// handleAboutUs();
-                scrolltoHash("philosophy");
+								scrolltoHash("philosophy");
 								toggleDrawer();
 							}}
 						>
@@ -276,7 +283,7 @@ export default function App() {
 								Blogs
 							</Text>
 						</ListItemButton> */}
-            <ListItemButton
+						<ListItemButton
 							onClick={() => {
 								scrolltoHash("pricing");
 								toggleDrawer();
@@ -306,21 +313,21 @@ export default function App() {
 							</Text>
 						</ListItemButton>
 						<ListItemButton
-              onClick={() => {
-                smeCorner();
-                toggleDrawer();
-              }}
-            >
-              <ListItemIcon sx={{ paddingLeft: "4px" }}>
-                <MoneyRoundedIcon
-                  sx={{ fontSize: 30 }}
-                  style={{ color: "#FB9E29" }}
-                />
-              </ListItemIcon>
-              <Text b className="drawerElementText">
-                SME Corner
-              </Text>
-            </ListItemButton>
+							onClick={() => {
+								smeCorner();
+								toggleDrawer();
+							}}
+						>
+							<ListItemIcon sx={{ paddingLeft: "4px" }}>
+								<MoneyRoundedIcon
+									sx={{ fontSize: 30 }}
+									style={{ color: "#FB9E29" }}
+								/>
+							</ListItemIcon>
+							<Text b className="drawerElementText">
+								SME Corner
+							</Text>
+						</ListItemButton>
 						<ListItemButton
 							onClick={() => {
 								ourStockPicks();
@@ -356,7 +363,7 @@ export default function App() {
 					style={{
 						display: "flex",
 						justifyContent: "center",
-						width: "100%",
+						// width: "100%",
 						// marginLeft: "-16%",
 					}}
 				>

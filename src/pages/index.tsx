@@ -25,10 +25,11 @@ import HeaderFuture from "./AboutPages/HeaderFuture";
 import Section5 from "./AboutPages/Section5";
 import Section6 from "./AboutPages/Section6";
 import Section7 from "./AboutPages/Section7";
+import HotStocks from "../pages/screens/HotStocks";
 // import PageVisibility from "@/components/PageVisibility";
 
 const Home: NextPage = () => {
-	const { isLoggedIn } = useContext(AuthProvider);
+	const { isLoggedIn, isSubscribed } = useContext(AuthProvider);
 
 	return (
 		// 	<PageVisibility>
@@ -38,7 +39,6 @@ const Home: NextPage = () => {
 			<HomePage />
 			<Section1 />
 			<Section3 />
-
 			<HeaderCards />
 			<Section4 />
 			<Section2 />
@@ -46,6 +46,7 @@ const Home: NextPage = () => {
 			<Section5 />
 			<Section6 />
 			<Section7 />
+			{isLoggedIn && isSubscribed ? "" : <HotStocks />}
 			<Testimonials />
 			<SubscriptionNew />
 			{/* <SmallcaseCard /> */}

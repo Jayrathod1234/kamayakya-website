@@ -167,7 +167,7 @@ const Section3 = () => {
               potential risks associated with investing in these hidden gems.
             </span>
           </Text>
-          <Button
+          {/* <Button
             auto
             // size={"xl"}/
             onPress={() => setVisible(true)}
@@ -206,7 +206,7 @@ const Section3 = () => {
             >
               Sample Reports
             </Text>
-          </Button>
+          </Button> */}
           <Modal
             blur
             aria-labelledby="modal-pdf"

@@ -10,7 +10,7 @@ const Testimonials = () => {
 			style={{
 				backgroundColor: "#fff",
 				// paddingTop: "10vh",
-				paddingBottom: "10vh",
+				paddingBottom: "4vh",
 				display: "flex",
 				flexWrap: "wrap",
 				flexDirection: "column",
