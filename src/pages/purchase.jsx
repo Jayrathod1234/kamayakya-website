@@ -21,7 +21,8 @@ import pincodeData from "../Data/pincode_db.json";
 import { ArrowBack, TaskAltOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import Confetti from "react-confetti";
-import { CODE_VALID, SUBSCRIBE_URL } from "./api/URLs";
+// import { TextInput } from "@mantine/core";
+import { CODE_VALID, SUBSCRIBE_RAZORPAY, SUBSCRIBE_URL } from "./api/URLs";
 import PageVisibility from "../components/PageVisibility";
 
 export default function PreviewPage() {
