@@ -39,6 +39,8 @@ export const GET_SPECIFIC_STOCK_URL = `${USER_URL}/specificStock`;
 //Billing Info
 export const BILLING_INFO_URL = `${USER_URL}/ccavenue_transaction/`;
 export const SUBSCRIBE_URL = `${USER_URL}/subscribe/`;
+export const SUBSCRIBE_RAZORPAY = `${USER_URL}/subscribe_through_razorpay/`;
+export const BILLING_URL_RAZORPAY = `${USER_URL}/razorpay_transaction/`;
 
 //Blogs URL
 export const GET_BLOGS = `${USER_URL}/all_blogs/`;

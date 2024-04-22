@@ -1208,3 +1208,19 @@ header > div > div {
     right: 20px;
   }
 }
+
+/* .alice-carousel__wrapper {
+  padding-bottom: 30px !important;
+} */
+
+.alice-carousel__stage-item {
+  padding-left: 7.5px !important;
+  padding-right: 7.5px !important;
+}
+
+@media only screen and (max-width: 764px) {
+  .alice-carousel__stage-item {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+   }
+ }

@@ -184,6 +184,63 @@ export default function PreviewPage() {
 		setDiscountCode(e.target.value.toUpperCase());
 	};
 
+	// const handleSaveAndPay = async () => {
+	// 	try {
+	// 		setLoading(true);
+
+	// 		const billingData = {
+	// 			name: billingName,
+	// 			whatsapp_no: billingNumber,
+	// 			email: billingEmail,
+	// 			pincode: userPincode,
+	// 			city: userCity,
+	// 			state: userState,
+	// 			gst_number: gstNo ? gstNo : "",
+	// 			referral_code: referralCode ? referralCode : "",
+	// 			discount_code: discountCode,
+	// 		};
+
+	// 		// Make API call to BILLING_URL
+	// 		const billingResponse = await fetch(SUBSCRIBE_URL, {
+	// 			method: "POST",
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 				Authorization: `token ${refreshToken}`,
+	// 			},
+	// 			body: JSON.stringify(billingData),
+	// 		});
+	// 		console.log(billingResponse);
+	// 		if (billingResponse.ok) {
+	// 			const responseData = await billingResponse.json();
+	// 			console.log(responseData);
+	// 			window.open(responseData, "_self");
+	// 		}
+
+	// 		setLoading(false);
+	// 	} catch (error) {
+	// 		console.error("Error:", error);
+	// 		setLoading(false);
+	// 	}
+	// };
+
+	const loadScript = (src) => {
+		return new Promise((resolve) => {
+		  const script = document.createElement("script");
+		  script.src = src;
+		  script.onload = () => {
+			resolve(true);
+		  };
+		  script.onerror = () => {
+			resolve(false);
+		  };
+		 document.body.appendChild(script);
+	   });
+	};
+
+	useEffect(() => {
+		loadScript("https://checkout.razorpay.com/v1/checkout.js");
+	},[]);
+
 	const handleSaveAndPay = async () => {
 		try {
 			setLoading(true);
@@ -200,21 +257,47 @@ export default function PreviewPage() {
 				discount_code: discountCode,
 			};
 
-			// Make API call to BILLING_URL
-			const billingResponse = await fetch(SUBSCRIBE_URL, {
+			// Make API call to create a Razorpay order
+			const orderResponse = await fetch(SUBSCRIBE_RAZORPAY, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `token ${refreshToken}`,
+					Authorization: `token ${refreshToken}`, // Use your Razorpay API key here
 				},
 				body: JSON.stringify(billingData),
 			});
-			console.log(billingResponse);
-			if (billingResponse.ok) {
-				const responseData = await billingResponse.json();
-				console.log(responseData);
-				window.open(responseData, "_self");
+
+			if (!orderResponse.ok) {
+				throw new Error("Failed to create Razorpay order");
 			}
+
+			const orderData = await orderResponse.json();
+			console.log(orderData, "ID", orderData.order_id);
+			// Initialize Razorpay
+			const options = {
+				key: 'rzp_live_XxyaONaRC20Cra', //'rzp_test_YteVuBPrLvOKSg',  // Your Razorpay API key
+				amount: orderData.amount * 100,
+				currency: orderData.currency,
+				order_id: orderData.order_id,
+				redirect: true,
+				callback_url: `https://test-server.kamayakya.in/user/razorpay_callback/`,
+				handler: function (response) {
+					// Handle success callback
+					console.log("Payment successful:", response);
+					// Redirect to success page or perform further actions
+					// router.push("/payment-successful");
+				},
+				prefill: {
+					name: billingName,
+					email: billingEmail,
+					contact: billingNumber,
+				},
+			};
+
+			const rzp = new Razorpay(options);
+
+			// Open Razorpay checkout form
+			rzp.open();
 
 			setLoading(false);
 		} catch (error) {
@@ -222,6 +305,7 @@ export default function PreviewPage() {
 			setLoading(false);
 		}
 	};
+
 
 	const [discountAmount, setDiscountAmount] = useState("");
 	const [totalAmount, setTotalAmount] = useState("");
@@ -411,8 +495,6 @@ export default function PreviewPage() {
 			</section>
 		);
 	}
-
-	//Adding this comment line for backend script run test
 
 	return (
 		// <PageVisibility>
