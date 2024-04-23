@@ -22,7 +22,7 @@ import { ArrowBack, TaskAltOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import Confetti from "react-confetti";
 // import { TextInput } from "@mantine/core";
-import { CODE_VALID, SUBSCRIBE_RAZORPAY, SUBSCRIBE_URL } from "./api/URLs";
+import { CODE_VALID, SUBSCRIBE_RAZORPAY, SUBSCRIBE_URL, RAZORPAY_CALLBACK } from "./api/URLs";
 import PageVisibility from "../components/PageVisibility";
 
 export default function PreviewPage() {
@@ -281,7 +281,7 @@ export default function PreviewPage() {
 				currency: orderData.currency,
 				order_id: orderData.order_id,
 				redirect: true,
-				callback_url: `https://test-server.kamayakya.in/user/razorpay_callback/`,
+				callback_url: RAZORPAY_CALLBACK,
 				handler: function (response) {
 					// Handle success callback
 					console.log("Payment successful:", response);
