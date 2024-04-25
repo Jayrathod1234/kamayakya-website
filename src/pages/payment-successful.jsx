@@ -16,40 +16,13 @@ const paymentsuccessful = () => {
 	const router = useRouter();
 	const refreshToken = localStorage.getItem("refresh");
 
-	// useEffect(() => {
-	// 	// const refreshToken = localStorage.getItem("refresh");
-
-	// 	const GetPaymentInfo = async () => {
-	// 		console.log("Hit", refreshToken);
-	// 		try {
-	// 			const billingInfo = await fetch(BILLING_INFO_URL, {
-	// 				method: "GET",
-	// 				headers: {
-	// 					"Content-Type": "application/json",
-	// 					Authorization: `token ${refreshToken}`,
-	// 				},
-	// 			});
-	// 			console.log(billingInfo);
-	// 			if (billingInfo.ok) {
-	// 				const billingInfoResponse = await billingInfo.json();
-	// 				console.log(billingInfoResponse);
-	// 				setBillingData(billingInfoResponse);
-	// 			}
-	// 		} catch (error) {
-	// 			console.error("Error:", error);
-	// 		}
-	// 	};
-
-	// 	GetPaymentInfo();
-	// }, [refreshToken]);
-
 	useEffect(() => {
 		// const refreshToken = localStorage.getItem("refresh");
 
 		const GetPaymentInfo = async () => {
-			// console.log("Hit", refreshToken);
+			console.log("Hit", refreshToken);
 			try {
-				const billingInfo = await fetch(BILLING_URL_RAZORPAY, {
+				const billingInfo = await fetch(BILLING_INFO_URL, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -69,6 +42,33 @@ const paymentsuccessful = () => {
 
 		GetPaymentInfo();
 	}, [refreshToken]);
+
+	// useEffect(() => {
+	// 	// const refreshToken = localStorage.getItem("refresh");
+	//
+	// 	const GetPaymentInfo = async () => {
+	// 		console.log("Hit", refreshToken);
+	// 		try {
+	// 			const billingInfo = await fetch(BILLING_URL_RAZORPAY, {
+	// 				method: "GET",
+	// 				headers: {
+	// 					"Content-Type": "application/json",
+	// 					Authorization: `token ${refreshToken}`,
+	// 				},
+	// 			});
+	// 			console.log(billingInfo);
+	// 			if (billingInfo.ok) {
+	// 				const billingInfoResponse = await billingInfo.json();
+	// 				console.log(billingInfoResponse);
+	// 				setBillingData(billingInfoResponse);
+	// 			}
+	// 		} catch (error) {
+	// 			console.error("Error:", error);
+	// 		}
+	// 	};
+	//
+	// 	GetPaymentInfo();
+	// }, [refreshToken]);
 
 	useEffect(() => {
 		const interval = setInterval(() => {

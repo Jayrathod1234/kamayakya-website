@@ -185,44 +185,44 @@ export default function PreviewPage() {
 		setDiscountCode(e.target.value.toUpperCase());
 	};
 
-	// const handleSaveAndPay = async () => {
-	// 	try {
-	// 		setLoading(true);
+	 const handleSaveAndPay = async () => {
+		try {
+			setLoading(true);
 
-	// 		const billingData = {
-	// 			name: billingName,
-	// 			whatsapp_no: billingNumber,
-	// 			email: billingEmail,
-	// 			pincode: userPincode,
-	// 			city: userCity,
-	// 			state: userState,
-	// 			gst_number: gstNo ? gstNo : "",
-	// 			referral_code: referralCode ? referralCode : "",
-	// 			discount_code: discountCode,
-	// 		};
+			const billingData = {
+				name: billingName,
+				whatsapp_no: billingNumber,
+				email: billingEmail,
+				pincode: userPincode,
+				city: userCity,
+				state: userState,
+				gst_number: gstNo ? gstNo : "",
+				referral_code: referralCode ? referralCode : "",
+				discount_code: discountCode,
+			};
 
-	// 		// Make API call to BILLING_URL
-	// 		const billingResponse = await fetch(SUBSCRIBE_URL, {
-	// 			method: "POST",
-	// 			headers: {
-	// 				"Content-Type": "application/json",
-	// 				Authorization: `token ${refreshToken}`,
-	// 			},
-	// 			body: JSON.stringify(billingData),
-	// 		});
-	// 		console.log(billingResponse);
-	// 		if (billingResponse.ok) {
-	// 			const responseData = await billingResponse.json();
-	// 			console.log(responseData);
-	// 			window.open(responseData, "_self");
-	// 		}
+			// Make API call to BILLING_URL
+			const billingResponse = await fetch(SUBSCRIBE_URL, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `token ${refreshToken}`,
+				},
+				body: JSON.stringify(billingData),
+			});
+			console.log(billingResponse);
+			if (billingResponse.ok) {
+				const responseData = await billingResponse.json();
+				console.log(responseData);
+				window.open(responseData, "_self");
+			}
 
-	// 		setLoading(false);
-	// 	} catch (error) {
-	// 		console.error("Error:", error);
-	// 		setLoading(false);
-	// 	}
-	// };
+			setLoading(false);
+		} catch (error) {
+			console.error("Error:", error);
+			setLoading(false);
+		}
+	};
 
 	const loadScript = (src) => {
 		return new Promise((resolve) => {
@@ -238,11 +238,11 @@ export default function PreviewPage() {
 	   });
 	};
 
-	useEffect(() => {
+	/*useEffect(() => {
 		loadScript("https://checkout.razorpay.com/v1/checkout.js");
-	},[]);
+	},[]);*/
 
-	const handleSaveAndPay = async () => {
+	/*const handleSaveAndPay = async () => {
 		try {
 			setLoading(true);
 
@@ -305,7 +305,7 @@ export default function PreviewPage() {
 			console.error("Error:", error);
 			setLoading(false);
 		}
-	};
+	};*/
 
 
 	const [discountAmount, setDiscountAmount] = useState("");
