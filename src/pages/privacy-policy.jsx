@@ -404,6 +404,8 @@ const PrivacyPolicy = () => {
 					</b>
 					<br />
 					<br />
+					Designation: <b>Compliance and Grievance Officer</b>
+					<br/>
 					Name: <b>Aniket Kulkarni</b>
 					<br />
 					Phone Number:{" "}
