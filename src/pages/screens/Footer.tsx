@@ -121,6 +121,9 @@ const Footer = () => {
       </div>
       <div className="padding-top-header">
         <Text className="copyright warning">
+          Investment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors.
+        </Text>
+        {/*<Text className="copyright warning">
           Kamayakya Wealth Management Pvt. Ltd makes no warranties or
           representations, express or implied, on products and services offered
           through the platform. It accepts no liability for any damages or
@@ -132,7 +135,7 @@ const Footer = () => {
           choosing a fund, or designing a portfolio that suits your needs.
           Performance and returns of any investment portfolio can neither be
           predicted nor guaranteed.
-        </Text>
+        </Text>*/}
       </div>
       <div
           style={{
