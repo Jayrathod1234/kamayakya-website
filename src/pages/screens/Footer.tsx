@@ -74,6 +74,15 @@ const Footer = () => {
               </a>
             </Link>
           </nav>
+          <nav className="bottomNavbarPageLinks">
+            <Link href={"https://smartodr.in/login"}>
+              <a>
+                <Text className="bottomNavbarPageLinks-text">
+                  Smart ODR
+                </Text>
+              </a>
+            </Link>
+          </nav>
         </div>
         {/* Social Links */}
         <div>
