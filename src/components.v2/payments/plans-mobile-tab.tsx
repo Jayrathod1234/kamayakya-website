@@ -6,13 +6,15 @@ type TPlansMobileTab = {
   features?: Array<string>;
   popular?: boolean;
   selected?: boolean;
+  onClick:()=>void
 };
 
-export function PlansMobileTab({ plan, features, popular = false, selected=false }: TPlansMobileTab) {
+export function PlansMobileTab({ plan, features, popular = false, selected=false,onClick }: TPlansMobileTab) {
   return (
     <div
+      onClick ={onClick}
       className={` p-[10px] pb-5 border border-gray-150  w-full relative ${
-        popular && "shadow-[0px_-3px_0px_3px_#75CDC5]"
+        popular && selected && "shadow-[0px_-3px_0px_3px_#75CDC5]"
       } ${selected && "bg-[linear-gradient(272deg,_#125B54_18.54%,_#092E2B_107.09%)] text-white"}`}
     >
       {popular && (

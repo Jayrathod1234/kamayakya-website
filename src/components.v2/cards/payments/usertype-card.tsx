@@ -1,5 +1,6 @@
 import { Button } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
+import { getMixPanelClient } from "@/externals/mixpanel";
 import Image from "next/image";
 import React from "react";
 
@@ -11,6 +12,19 @@ type TUserTypeCard = {
 };
 
 export function UserTypeCard({ imgSrc, title, attributes, btnText }: TUserTypeCard) {
+  
+  const handleCheckPlan = () => {
+    const element =
+      title === "Effortless Investor"
+        ? document.querySelector("#effortless-section")
+        : document.querySelector("#deepresearch-section");
+    element?.scrollIntoView({ behavior: "smooth" });
+    const eventName =
+      title === "Deep Research Investor" ? "checkmembershipplan_clicked" : "checkeffortlessbaskets_clicked";
+    const mp = getMixPanelClient();
+    mp.track(eventName, {});
+  };
+
   return (
     <div className=" flex flex-col items-center min-h-[402px] min-w-[173px] gap-4 px-2 py-[10px] text-center border border-white rounded-lg backdrop-blur-[20px] bg-[linear-gradient(0deg,_#FFFFFF66_0%,_#FFFFFF66_100%)]">
       <div>
@@ -43,7 +57,12 @@ export function UserTypeCard({ imgSrc, title, attributes, btnText }: TUserTypeCa
           ))}
       </div>
       <div className=" mt-auto">
-        <Button size={ButtonSize.md} variant={ButtonVariant.primary} customStyle=" !px-5 !py-2 gap-[6px] min-w-[141px]">
+        <Button
+          onClick={handleCheckPlan}
+          size={ButtonSize.md}
+          variant={ButtonVariant.primary}
+          customStyle=" !px-5 !py-2 gap-[6px] min-w-[141px]"
+        >
           <p className="truncate text-sm">{btnText}</p>
           <Image alt="arrow-icon" height={18} width={18} src={"/icons/arrow-down.svg"} />
         </Button>

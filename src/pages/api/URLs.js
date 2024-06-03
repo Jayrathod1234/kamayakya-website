@@ -67,3 +67,8 @@ export const SUBS_URL1 = `${USER_URL1}/subscribe/`;
 
 // Discount Code Validation
 export const CODE_VALID = `${USER_URL}/validate_discount_code/`;
+
+//Pricings apis
+export const PLANS_URL = `${USER_URL}/subscription_plans`
+export const ACTIVE_PLAN_URL = `${USER_URL}/active_subscription`
+export const NEWSLETTER_SUBSCRIBE_URL = `${USER_URL}/newsletter_subscribe/`

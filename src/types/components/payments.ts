@@ -1,4 +1,5 @@
 import { ButtonVariant } from "@/components.v2/button/button";
+import { TPlanResponse } from "../apiResponseData";
 
 export type TPlanCardHead = {
   plan: string;
@@ -22,9 +23,10 @@ export type TFeatures = {
   feature: string;
 };
 
-export type TFeatureList = {featureList:Array<TFeatures>};
+export type TFeatureList = { featureList: Array<TFeatures> };
 
 export type TPlanCardDesktop = {
+  active?:boolean;
   plan: string;
   price: string;
   priceStrikeThrough: string;
@@ -38,6 +40,11 @@ export type TPlanCardDesktop = {
   warnMessage: string;
   perMonth?: boolean;
   popular?: boolean;
-  btnVariant?:ButtonVariant;
-  className?:string;
+  btnVariant?: ButtonVariant;
+  className?: string;
+  ctaDisabled?: boolean;
+};
+
+export type TPlan = {
+  [k: string]: Array<TPlanResponse>;
 };

@@ -1,5 +1,5 @@
-import React from "react";
-import {Button as SButton} from '../ui/button'
+import React, { ButtonHTMLAttributes } from "react";
+import {ButtonProps, Button as SButton} from '../ui/button'
 
 export enum ButtonVariant {
   primary,
@@ -17,7 +17,7 @@ export enum ButtonSize {
   xl,
 }
 
-type Button = {
+type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
   variant: ButtonVariant;
   size: ButtonSize;
@@ -28,7 +28,7 @@ type Button = {
   customStyle?: string;
 };
 
-export function Button({ children, variant,startIcon,endIcon, loading = false, disabled = false, size, customStyle, ...rest }: Button) {
+export function Button({ children, variant,startIcon,endIcon, loading = false, disabled = false, size, customStyle, ...rest }: Button ) {
   const style =
     variant === ButtonVariant.primary
       ? `bg-brand-400 border border-brand-400 text-white hover:bg-brand-600 hover:border-brand-600 disabled:border-gray-300 disabled:bg-gray-300 ${
@@ -63,7 +63,7 @@ export function Button({ children, variant,startIcon,endIcon, loading = false, d
     <SButton
       {...rest}
       disabled={disabled}
-      className={`  text-center font-medium flex items-center justify-center  rounded-md ${btnSize} ${style} ${customStyle} `}
+      className={`  text-center font-medium flex items-center gap-[6px] justify-center  rounded-md ${btnSize} ${style} ${customStyle} `}
     >
       {startIcon}
       {children}

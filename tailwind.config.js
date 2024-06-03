@@ -13,7 +13,7 @@ const config = {
   prefix: "",
   theme: {
     fontFamily:{
-      "open_sans":["open_sans",'sans-serif']
+      "open_sans":["Open Sans",'sans-serif'],
     },
     fontSize: {
       "4xs": [

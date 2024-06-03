@@ -11,10 +11,11 @@ import {
   TPrice,
   TPriceStrikeThrough,
 } from "@/types";
+import { PlanActiveLabel } from "./plan-active-label";
 
 const PlanCardHead = ({ plan, label }: TPlanCardHead) => {
   return (
-    <div className=" flex justify-between">
+    <div className=" flex justify-between flex-wrap">
       <p className=" uppercase text-lg font-semibold">{plan}</p>
       {label && (
         <div className=" px-3 py-[3px] border border-brand-300 bg-brand-100 text-3xs text-center text-brand-400 font-semibold uppercase rounded-3xl flex items-center justify-center">
@@ -83,6 +84,7 @@ const Warn = ({ children }: TChildren) => {
 };
 
 export function PlanCardDesktop({
+  active = false,
   plan,
   price,
   priceStrikeThrough,
@@ -97,6 +99,7 @@ export function PlanCardDesktop({
   perMonth = false,
   popular = false,
   btnVariant = ButtonVariant.secondary,
+  ctaDisabled = false,
   className,
 }: TPlanCardDesktop) {
   return (
@@ -128,7 +131,19 @@ export function PlanCardDesktop({
             <GstLabel gstLabel={gstLabel} />
           </div>
         </div>
-        <div className=" h-[1px] w-full bg-gray-100 mt-auto"></div>
+        <div className=" flex items-center justify-center w-full relative">
+          <div
+            className={` h-[1px] w-full bg-gray-100 ${
+              active && "bg-[radial-gradient(50%_50%_at_50%_50%,_#F98800_66.5%,_#FFEFDC_100%)]"
+            } mt-auto relative`}
+          >
+            {active && (
+              <div className=" flex items-center justify-center absolute -top-4 left-[30%] bg-white">
+                <PlanActiveLabel />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
       <div className=" flex flex-col gap-y-7 px-7  pb-14 row-start-2">
         <p className=" m-0 text-sm text-gray-700">{featureHead}</p>
@@ -136,11 +151,11 @@ export function PlanCardDesktop({
       </div>
       <div className=" px-7 pb-[18px] flex flex-col justify-start gap-3 row-start-3">
         <Button
-        
+          disabled={ctaDisabled}
           variant={btnVariant}
           size={ButtonSize.lg}
-          customStyle={`border border-brand-300 ${
-            btnVariant === ButtonVariant.primary ? "border-2 " : ""
+          customStyle={`border disabled:bg-gray-100 disabled:border-gray-100 disabled:text-gray-300 disabled:opacity-1  ${
+            btnVariant === ButtonVariant.primary ? "border-2 " : " border-brand-300"
           }  `}
         >
           <span className=" font-medium"> {btnText} </span>

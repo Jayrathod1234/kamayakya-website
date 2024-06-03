@@ -8,6 +8,7 @@ import { TestimonialsCard } from "./cards";
 import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import { getMixPanelClient } from "@/externals/mixpanel";
 // import ClassNames from 'embla-carousel-class-names'
 
 const carouselItem = [
@@ -114,11 +115,19 @@ export function Carousel({ className }: { className?: string }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       startIndex: 1,
-    },
+    }
     // [Autoplay({ playOnInit: true, delay: 3000 })]
   );
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+
+  const handlePrevNext = (cb: () => void) => {
+    cb();
+    const mp = getMixPanelClient();
+    mp.track("testimonialsnav_clicked", {
+      page: "Pricing_Page",
+    });
+  };
 
   return (
     <div className={`relative w-screen m-auto`}>
@@ -126,7 +135,7 @@ export function Carousel({ className }: { className?: string }) {
       <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-white to-transparent z-20 flex flex-col justify-center ">
         <div>
           <Button
-            onClick={onPrevButtonClick}
+            onClick={() => handlePrevNext(onPrevButtonClick)}
             disabled={selectedIndex == 1 ? true : prevBtnDisabled}
             variant={"default"}
             className=" rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
@@ -138,7 +147,7 @@ export function Carousel({ className }: { className?: string }) {
       <div className=" right-4  md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-white to-transparent z-20 flex flex-col justify-center items-center">
         <div>
           <Button
-            onClick={onNextButtonClick}
+            onClick={() => handlePrevNext(onNextButtonClick)}
             disabled={selectedIndex === carouselItem.length - 2 ? true : nextBtnDisabled}
             variant={"default"}
             className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
@@ -150,7 +159,7 @@ export function Carousel({ className }: { className?: string }) {
       </div>
 
       <div ref={emblaRef} className={` overflow-hidden`}>
-        <div className=" flex py-4" style={{ backfaceVisibility: "hidden" }}>
+        <div className=" flex pb-12 pt-[60px]" style={{ backfaceVisibility: "hidden" }}>
           {carouselItem.map((carousel, index) => (
             <CarouselItem
               className={` flex-[0_0_35%] transition-all ${
@@ -164,7 +173,7 @@ export function Carousel({ className }: { className?: string }) {
       </div>
       {/* indicator */}
       <div className=" flex gap-4 justify-center items-center">
-        {scrollSnaps.map((_, index:number) => (
+        {scrollSnaps.map((_, index: number) => (
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}

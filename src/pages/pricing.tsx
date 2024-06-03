@@ -17,10 +17,93 @@ import {
 } from "@/components.v2/index.components";
 import Image from "next/image";
 import { Open_Sans } from "next/font/google";
+import { useEffect, useState } from "react";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import { usePathname } from "next/navigation";
+import axios from "axios";
+import { NEWSLETTER_SUBSCRIBE_URL } from "./api/URLs";
+import Link from "next/link";
+import { useToast } from "@/components.v2/ui/use-toast";
+import { cn } from "@/lib/utils";
+
 const open_sans = Open_Sans({ subsets: ["latin"] });
+
 export default function Page() {
+  const pathname = usePathname();
+  const { toast } = useToast()
+  const [email, setEmail] = useState("");
+
+  const handleNewsLetterLinkedin = () => {
+    const mp = getMixPanelClient();
+    mp.track("Linkedinbutton_clicked", {
+      page: "Pricing_Page",
+      pagegroup: "newsletter",
+    });
+  };
+
+  const handleNewsLetterEmailSubmit = async () => {
+    try {
+      //check if is loggedin
+      //check email format
+      const response = await axios.post(
+        NEWSLETTER_SUBSCRIBE_URL,
+        { email },
+        {
+          headers: {
+            Authorization: "token " + localStorage.getItem("refresh"),
+          },
+        }
+      );
+      console.log(response.data)
+      if (response.data) {
+        toast({
+          description: "Friday, February 10, 2023 at 5:57 PM"
+        })
+
+        const mp = getMixPanelClient();
+        mp.track("Linkedinbutton_clicked", {
+          page: "Pricing_Page",
+          pagegroup: "newsletter_subscribed",
+          email: email,
+        });
+      }
+    } catch (e:any) {
+      console.log(e)
+      toast({
+        startIcon:<div className=" h-full w-full"><Image src={"/warn_icon.svg"} alt="warn" height={16} width={16}/></div>,
+        description: e.response.data?.email[0] || e.message || "Something went wrong"
+      })
+    }
+  };
+
+  useEffect(() => {
+    const mp = getMixPanelClient();
+    mp.track("Pricing_page_loaded", {
+      id: "",
+      Session_id: "",
+      time: new Date().toUTCString(),
+      source_page: "",
+      current_url: pathname,
+      account_created_at: "",
+      Curr_Subscription_Tyoe: "",
+      Curr_Plan_Duration: "",
+      Curr_Subscription_Start_date: "",
+      Curr_Subscription_End_date: "",
+      usertype: "",
+      browser_version: "",
+      browser_name: "",
+      device_type: "",
+      device_name: "",
+      utm_campaign: "",
+      utm_content: "",
+      utm_source: "",
+      utm_medium: "",
+      utm_terms: "",
+    });
+  }, []);
+
   return (
-    <div className={` relative !font-open_sans tracking-wide bg-white`}>
+    <div className={` relative pricing tracking-wide bg-white overflow-hidden`}>
       <div className=" absolute top-0 left-0 h-screen w-full object-contain ">
         <svg
           className="hidden md:block min-w-full min-h-[1140px]"
@@ -76,7 +159,9 @@ export default function Page() {
           </defs>
         </svg>
       </div>
-      <div className=" absolute mix-blend-color-burn -rotate-180 h-screen w-full"><video className=" h-full w-full object-cover" src="/pricing/pricing-hero-bg.mp4" autoPlay loop></video></div>
+      <div className=" absolute mix-blend-color-burn -rotate-180 h-screen w-full">
+        <video className=" h-full w-full object-cover" src="/pricing/pricing-hero-bg.mp4" autoPlay loop></video>
+      </div>
       {/* <div className=" hidden  absolute top-0 left-0 w-full h-[15%] md:h-[22%] bg-black  backdrop-blur-lg bg-gradient-to-t from-white to-[rgba(255,255,255,0.01)] "></div> */}
       {/* bg-radial-gradient-xl */}
       {/* HERO */}
@@ -124,7 +209,7 @@ export default function Page() {
               <p className=" text-sm md:text-md text-gray-700 md:mt-3">Find a plan that works for YOU.</p>
             </div>
             {/* PLAN SECTION */}
-            <section className="">
+            <section id="deepresearch-section" className="">
               <Plans />
             </section>
           </div>
@@ -132,7 +217,7 @@ export default function Page() {
           <div id="effortless-section" className=" py-[60px]">
             <SmallCaseCard />
           </div>
-          <div id="deepresearch-section" className=" py-[60px]">
+          <div  className=" py-[100px]">
             <EnterpriseCard />
           </div>
         </div>
@@ -141,7 +226,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className=" min-h-screen">
+      <div className=" ">
         <ContactUs />
       </div>
 
@@ -152,10 +237,15 @@ export default function Page() {
           </h3>
           <div className=" mt-10 md:mt-[75px] flex flex-col items-center gap-3 md:flex-row md:gap-x-3 md:justify-center">
             <p mb-3>Get monthly dose of market gyaan on :</p>
-            <button className=" px-4 py-2 flex gap-2 items-center bg-gray-900 border border-gray-800 rounded-[6px]">
+            <button
+              onClick={handleNewsLetterLinkedin}
+              className=" "
+            >
+              <Link className=" text-inherit px-4 py-2 flex gap-2 items-center bg-gray-900 border border-gray-800 rounded-[6px]" href={"https://www.linkedin.com/company/kamayakya/"} target="_blank">
               <Image height={32} width={32} src={"/icons/linkedin.svg"} alt="linkedin-icon" />
               <p className=" font-medium">KamayaKya’s Linkedin</p>
               <Image height={18} width={18} src={"/icons/open-link.svg"} alt="open-link-icon" />
+              </Link>
             </button>
           </div>
           <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p>
@@ -166,10 +256,11 @@ export default function Page() {
               <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
               {/* </div> */}
               <Input
-                placeholder="Enter your mobile number"
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
                 className="  px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
               />
-              <Button variant={ButtonVariant.primary} size={ButtonSize.lg}>
+              <Button customStyle=" gap-[6px]" onClick={handleNewsLetterEmailSubmit} variant={ButtonVariant.primary} size={ButtonSize.lg}>
                 <p className=" text-sm font-medium">Subscribe</p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
@@ -188,7 +279,13 @@ export default function Page() {
       </div>
       <div>
         <div className="h-[calc(286px+10%)] w-full z-10 -mt-[10%]">
-          <Image alt="footer-bg" src={"/footer-illustration-bg.svg"} width={1440} height={491} className=" w-full h-full"/>
+          <Image
+            alt="footer-bg"
+            src={"/footer-illustration-bg.svg"}
+            width={1440}
+            height={491}
+            className=" w-full h-full"
+          />
           {/* <svg className=" h-full w-screen" viewBox="0 0 1440 491" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_4646_230291)">
               <path

@@ -6,4 +6,5 @@ export type {
   TPlanCardDesktop,
   TPrice,
   TPriceStrikeThrough,
+  TPlan,
 } from "./payments";
