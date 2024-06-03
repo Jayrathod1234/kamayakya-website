@@ -30,8 +30,10 @@ const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export default function Page() {
   const pathname = usePathname();
-  const { toast } = useToast()
+  const { toast } = useToast();
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleNewsLetterLinkedin = () => {
     const mp = getMixPanelClient();
@@ -43,8 +45,12 @@ export default function Page() {
 
   const handleNewsLetterEmailSubmit = async () => {
     try {
-      //check if is loggedin
-      //check email format
+      setLoading(true);
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!isEmail) {
+        setEmailError(true);
+        return;
+      }
       const response = await axios.post(
         NEWSLETTER_SUBSCRIBE_URL,
         { email },
@@ -54,11 +60,11 @@ export default function Page() {
           },
         }
       );
-      console.log(response.data)
+      console.log(response.data);
       if (response.data) {
         toast({
-          description: "Friday, February 10, 2023 at 5:57 PM"
-        })
+          description: "Friday, February 10, 2023 at 5:57 PM",
+        });
 
         const mp = getMixPanelClient();
         mp.track("Linkedinbutton_clicked", {
@@ -67,12 +73,18 @@ export default function Page() {
           email: email,
         });
       }
-    } catch (e:any) {
-      console.log(e)
+    } catch (e: any) {
+      console.log(e);
       toast({
-        startIcon:<div className=" h-full w-full"><Image src={"/warn_icon.svg"} alt="warn" height={16} width={16}/></div>,
-        description: e.response.data?.email[0] || e.message || "Something went wrong"
-      })
+        startIcon: (
+          <div className=" h-full w-full">
+            <Image src={"/warn_icon.svg"} alt="warn" height={16} width={16} />
+          </div>
+        ),
+        description: e.response.data?.email[0] || e.message || "Something went wrong",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -217,7 +229,7 @@ export default function Page() {
           <div id="effortless-section" className=" py-[60px]">
             <SmallCaseCard />
           </div>
-          <div  className=" py-[100px]">
+          <div className=" py-[100px]">
             <EnterpriseCard />
           </div>
         </div>
@@ -237,30 +249,44 @@ export default function Page() {
           </h3>
           <div className=" mt-10 md:mt-[75px] flex flex-col items-center gap-3 md:flex-row md:gap-x-3 md:justify-center">
             <p mb-3>Get monthly dose of market gyaan on :</p>
-            <button
-              onClick={handleNewsLetterLinkedin}
-              className=" "
-            >
-              <Link className=" text-inherit px-4 py-2 flex gap-2 items-center bg-gray-900 border border-gray-800 rounded-[6px]" href={"https://www.linkedin.com/company/kamayakya/"} target="_blank">
-              <Image height={32} width={32} src={"/icons/linkedin.svg"} alt="linkedin-icon" />
-              <p className=" font-medium">KamayaKya’s Linkedin</p>
-              <Image height={18} width={18} src={"/icons/open-link.svg"} alt="open-link-icon" />
+            <button onClick={handleNewsLetterLinkedin} className=" ">
+              <Link
+                className=" text-inherit px-4 py-2 flex gap-2 items-center bg-gray-900 border border-gray-800 rounded-[6px]"
+                href={"https://www.linkedin.com/company/kamayakya/"}
+                target="_blank"
+              >
+                <Image height={32} width={32} src={"/icons/linkedin.svg"} alt="linkedin-icon" />
+                <p className=" font-medium">KamayaKya’s Linkedin</p>
+                <Image height={18} width={18} src={"/icons/open-link.svg"} alt="open-link-icon" />
               </Link>
             </button>
           </div>
           <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p>
           <div>
             {/* EMAIL INPUT */}
-            <div className=" flex items-center bg-white p-2 pl-3 rounded-[6px] gap-[8px] mt-3 w-full max-w-[350px] md:max-w-[566px] mx-auto">
+            <div
+              className={` flex items-center bg-white p-2 pl-3 rounded-[6px] gap-[8px] mt-3 w-full max-w-[350px] md:max-w-[566px] mx-auto ${
+                emailError ? " border  border-[rgba(253,162,155,1)] shadow-xs shadow-[rgba(253,162,155,1)] " : ""
+              }`}
+            >
               {/* <div className=" ml-[6px]"> */}
               <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
               {/* </div> */}
               <Input
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  if(emailError) setEmailError(false)
+                  setEmail(e.target.value);
+                }}
                 placeholder="Enter your email"
                 className="  px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
               />
-              <Button customStyle=" gap-[6px]" onClick={handleNewsLetterEmailSubmit} variant={ButtonVariant.primary} size={ButtonSize.lg}>
+              <Button
+                loading={loading}
+                customStyle=" gap-[6px]"
+                onClick={handleNewsLetterEmailSubmit}
+                variant={ButtonVariant.primary}
+                size={ButtonSize.lg}
+              >
                 <p className=" text-sm font-medium">Subscribe</p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
@@ -273,6 +299,9 @@ export default function Page() {
                 </svg>
               </Button>
             </div>
+            {emailError ? (
+              <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left">Enter valid email</p>
+            ) : null}
             <p className=" text-sm text-gray-200 mt-4">We’ll never share your details with third parties.</p>
           </div>
         </div>

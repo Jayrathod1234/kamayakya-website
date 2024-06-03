@@ -72,3 +72,4 @@ export const CODE_VALID = `${USER_URL}/validate_discount_code/`;
 export const PLANS_URL = `${USER_URL}/subscription_plans`
 export const ACTIVE_PLAN_URL = `${USER_URL}/active_subscription`
 export const NEWSLETTER_SUBSCRIBE_URL = `${USER_URL}/newsletter_subscribe/`
+export const CONTACT_URL = `${USER_URL}/contact_us/`
