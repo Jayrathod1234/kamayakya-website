@@ -9,6 +9,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../public/fonts/OpenSans-VariableFont_wdthwght.ttf");
+}
+
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -1226,3 +1232,52 @@ header > div > div {
     padding-right: 0px !important;
    }
  }
+
+.discount-remove {
+  text-transform: uppercase;
+  color: #282c3f;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.discount-remove:hover{
+  color: #ff9e29;
+}
+
+@media only screen and (max-width: 764px) {
+  .discount-remove {
+    color: #ff9e29;
+  }
+}
+
+@media only screen and (max-width: 764px) {
+  .custom-image {
+    /* Styles for mobile devices */
+    top: 55px;
+    right: 20px;
+  }
+}
+
+/* .alice-carousel__wrapper {
+  padding-bottom: 30px !important;
+} */
+
+.alice-carousel__stage-item {
+  padding-left: 7.5px !important;
+  padding-right: 7.5px !important;
+}
+
+@media only screen and (max-width: 764px) {
+  .alice-carousel__stage-item {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+   }
+ }
+
+ .pricing * {
+  @apply font-open_sans !important;
+}
+
+*{
+  scroll-behavior: smooth;
+}

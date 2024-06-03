@@ -6,6 +6,7 @@ import FaqsNew from "./screens/FaqsNew";
 import Footer from "./screens/Footer";
 import { Text } from "@nextui-org/react";
 import { Box } from "@mui/material";
+import Head from "next/head";
 
 const PrivacyPolicy = () => {
 	const { isLoggedIn } = useContext(AuthContext);
@@ -403,6 +404,8 @@ const PrivacyPolicy = () => {
 					</b>
 					<br />
 					<br />
+					Designation: <b>Compliance and Grievance Officer</b>
+					<br/>
 					Name: <b>Aniket Kulkarni</b>
 					<br />
 					Phone Number:{" "}

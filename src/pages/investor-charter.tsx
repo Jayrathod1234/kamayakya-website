@@ -141,8 +141,8 @@ const InvestorCharter = () => {
 					<b>SEBI SCORES Links :</b>
 					<br />
 					SEBI SCORES link to register complaints :<br />
-					<a href="https://scores.gov.in/scores/Welcome.html" target="_blank">
-						https://scores.gov.in/scores/Welcome.html
+					<a href="https://scores.sebi.gov.in/scores-home" target="_blank">
+						https://scores.sebi.gov.in/scores-home
 					</a>
 					<br />
 					SEBI SCORES app link to register complaints :<br />

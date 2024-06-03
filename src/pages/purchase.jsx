@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { GET_USER } from "@/pages/api/URLs";
-// import { loadStripe } from "@stripe/stripe-js";
 import {
 	Button,
 	Card,
@@ -11,7 +10,6 @@ import {
 	Text,
 } from "@nextui-org/react";
 import { Box, IconButton } from "@mui/material";
-// import { Elements } from "@stripe/react-stripe-js";
 import NavBar2 from "@/components/Navbar2";
 import FaqsNew from "../pages/screens/FaqsNew";
 import Footer from "../pages/screens/Footer";
@@ -24,9 +22,8 @@ import { ArrowBack, TaskAltOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import Confetti from "react-confetti";
 // import { TextInput } from "@mantine/core";
-import { CODE_VALID, SUBSCRIBE_RAZORPAY, SUBSCRIBE_URL } from "./api/URLs";
+import { CODE_VALID, SUBSCRIBE_RAZORPAY, SUBSCRIBE_URL, RAZORPAY_CALLBACK } from "./api/URLs";
 import PageVisibility from "../components/PageVisibility";
-// import '@mantine/core/styles.css';
 
 export default function PreviewPage() {
 	// const [productID, setProductID] = useState("");
@@ -166,7 +163,6 @@ export default function PreviewPage() {
 	};
 
 	const updateFormValidity = () => {
-		// console.log("Nope", billingNumber, billingEmail, billingName, userPincode);
 		setIsFormValid(
 			billingNumber !== "" &&
 				billingEmail !== "" &&
@@ -263,7 +259,7 @@ export default function PreviewPage() {
 			};
 
 			// Make API call to create a Razorpay order
-			const orderResponse = await fetch(SUBSCRIBE_URL, {
+			const orderResponse = await fetch(SUBSCRIBE_RAZORPAY, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -285,7 +281,7 @@ export default function PreviewPage() {
 				currency: orderData.currency,
 				order_id: orderData.order_id,
 				redirect: true,
-				callback_url: `https://test-server.kamayakya.in/user/razorpay_callback/`,
+				callback_url: RAZORPAY_CALLBACK,
 				handler: function (response) {
 					// Handle success callback
 					console.log("Payment successful:", response);

@@ -1,7 +1,13 @@
 //AUTH BASE
-export const BASE_URL = 'https://test-server.kamayakya.in';
-// export const BASE_URL = 'https://api-server.kamayakya.in';
-
+// console.log(process.env.NEXT_PUBLIC_STRIPE_KEY);
+// export const BASE_URL = "https://api-server.kamayakya.in";
+// export const BASE_URL = "https://test-server.kamayakya.in";
+export const BASE_URL = process.env.NEXT_PUBLIC_BASEPATH;
+// export const BASE_URL = "http://192.168.0.151:8000";
+// export const BASE_URL = "http://192.168.0.151:8000";
+// export const BASE_U       RL = process.env.NEXT_PUBLIC_BASEPATH;
+// console.log(process.env.NEXT_PUBLIC_BASEPATH);
+// console.log(BASE_URL);
 export const ADMIN_URL = `${BASE_URL}/kmkadmin`;
 export const MASTER_URL = `${BASE_URL}/master`;
 export const USER_URL = `${BASE_URL}/user`;
@@ -34,6 +40,8 @@ export const GET_SPECIFIC_STOCK_URL = `${USER_URL}/specificStock`;
 export const BILLING_INFO_URL = `${USER_URL}/ccavenue_transaction/`;
 export const SUBSCRIBE_URL = `${USER_URL}/subscribe/`;
 export const SUBSCRIBE_RAZORPAY = `${USER_URL}/subscribe_through_razorpay/`;
+
+export const RAZORPAY_CALLBACK = `${USER_URL}/razorpay_callback/`;
 export const BILLING_URL_RAZORPAY = `${USER_URL}/razorpay_transaction/`;
 
 //Blogs URL
@@ -59,3 +67,8 @@ export const SUBS_URL1 = `${USER_URL1}/subscribe/`;
 
 // Discount Code Validation
 export const CODE_VALID = `${USER_URL}/validate_discount_code/`;
+
+//Pricings apis
+export const PLANS_URL = `${USER_URL}/subscription_plans`
+export const ACTIVE_PLAN_URL = `${USER_URL}/active_subscription`
+export const NEWSLETTER_SUBSCRIBE_URL = `${USER_URL}/newsletter_subscribe/`

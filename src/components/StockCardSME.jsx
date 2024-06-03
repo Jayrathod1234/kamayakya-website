@@ -474,294 +474,274 @@ const StockCardSME = () => {
 		return createdDate >= twoMonthsAgo && createdDate <= today;
 	};
 
-	return (
-		<div
-			style={{
-				// maxWidth: "80rem",
-				width: "100vw",
-				display: "flex",
-				flexDirection: "column",
-				paddingBottom: 100,
-				backgroundColor: "#fff",
-				alignItems: "center",
-				// backgroundImage: "url(coral_texture.svg)",
-				objectPosition: "center",
-				backgroundPositionY: "center",
-				backgroundPositionX: "center",
-				backgroundSize: "cover",
-				backgroundRepeat: "none",
-			}}
-		>
-			<Box
-				sx={{
-					width: "95%",
-					display: "flex",
-					flexDirection: "column",
-					flexWrap: "wrap",
-					alignItems: "center",
-					paddingTop: "5vh",
-					paddingBottom: "20px",
-					"@media only screen and (max-width: 764px)": {
-						// maxHeight: "100vh",
-						marginTop: "0px",
-						paddingTop: "0px",
-						justifyContent: "flex-start",
-						alignItems: "flex-start",
-						paddingLeft: "5px",
-						paddingRight: "5px",
-						paddingBottom: "10px",
-					},
-				}}
-			>
-				<Box
-					sx={{
-						cursor: "pointer",
-						// paddingLeft: "40px",
-						// paddingRight: "40px",
-						// paddingTop: "15px",
-						// paddingBottom: "15px",
-						padding: "0",
-						// marginTop: "25px",
-						display: "flex",
-						flexDirection: "column",
-						// backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
-						// backgroundImage: "linear-gradient(to top , #fff, #fff)",
-						alignItems: "center",
-						// backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-						borderRadius: "1200.5px",
-						"@media only screen and (max-width: 764px)": {
-							paddingLeft: "5px",
-							paddingRight: "5px",
-							marginTop: "10px",
-							marginBottom: "10px",
-							borderRadius: "10px",
-							alignItems: "flex-start",
-							backgroundImage: "linear-gradient(to top , #fff, #fff)",
-						},
-					}}
-				>
-					<Text
-						b
-						size={18}
-						color="#FFF"
-						css={{
-							fontWeight: "bolder",
-							color: "#021C61",
-							"@media only screen and (max-width: 764px)": {
-								fontSize: 18,
-								width: "100%",
-								textAlign: "left",
-								color: "#021C61",
-							},
-						}}
-						onClick={handleCert}
-					>
-						SEBI Registered: INH000009843
-					</Text>
-				</Box>
-				<Modal
-					// width="790px"
-					blur
-					open={showCert}
-					onClose={handleCertClose}
-					css={{
-						width: "65vw",
-						maxWidth: "65vw",
-						alignSelf: "flex-end",
-						background: "transparent",
-						boxShadow: "none",
-						borderRadius: "15px",
-						"@media only screen and (max-width: 764px)": {
-							width: "95vw !important",
-							maxWidth: "95vw !important",
-						},
-					}}
-				>
-					<iframe
-						src="Kamayakya-SEBI-License.pdf#view=FitH&toolbar=0"
-						alt="SEBI Certificate"
-						style={{
-							width: "100%",
-							height: "75vh",
-							borderColor: "transparent",
-							borderRadius: "15px",
-							borderWidth: "0px",
-							zoom: "1",
-						}}
-						className="iframePdfMobile"
-					/>
-					{/* <Modal.Footer justify="center"> */}
-					<Button
-						auto
-						onClick={handleCertClose}
-						css={{
-							// alignSelf: "end",
-							width: "100%",
-							backgroundColor: "#ffa12e",
-							color: "#fff",
-							fontSize: 19,
-							marginTop: "20px",
-							borderRadius: "10px",
-							height: "50px",
-							"@media only screen and (max-width: 768px)": {
-								width: "100%",
-								fontSize: 15,
-								height: "50px",
-								marginTop: "0px",
-								borderRadius: "0px 0px 10px",
-								"& span": {
-									// display: "none",
-								},
-							},
-						}}
-					>
-						Close
-					</Button>
-					{/* </Modal.Footer> */}
-				</Modal>
-				<Text
-					b
-					size={70}
-					css={{
-						marginTop: "0px",
-						marginBottom: "0px",
-						// width: "90%",
-						maxWidth: "80rem" /* 1280px */,
-						textAlign: "center",
-						lineHeight: 1.2,
-						paddingLeft: "15px",
-						paddingRight: "15px",
-						"@media only screen and (max-width: 764px)": {
-							fontSize: 45,
-							lineHeight: 1.1,
-							paddingLeft: "5px",
-							paddingRight: "5px",
-							marginTop: "0px",
-							marginBottom: "10px",
-							maxWidth: "100%",
-							textAlign: "left",
-						},
-					}}
-				>
-					SME Corner
-				</Text>
-				<Text
-					b
-					size={18}
-					css={{
-						marginTop: 0,
-						marginBottom: "10px",
-						maxWidth: "50rem" /* 1280px */,
-						textAlign: "center",
-						color: "#000",
-						lineHeight: 1.2,
-						paddingLeft: "15px",
-						paddingRight: "15px",
-						"@media only screen and (max-width: 764px)": {
-							fontSize: 20,
-							maxWidth: "100%",
-							paddingLeft: "5px",
-							paddingRight: "5px",
-							marginTop: "0px",
-							marginBottom: "10px",
-							textAlign: "left",
-							color: "#000",
-						},
-					}}
-				>
-					Unlocking Potential, Fuelling Growth – Your One-Stop Resource for SME
-					Success
-				</Text>
-			</Box>
-			{/* {isLoggedIn && (
-				<div style={{ display: "flex", gap: "20px", marginBottom: "30px" }}>
-					<Button
-						auto
-						css={{
-							borderRadius: "25px",
-							backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-							width: "76px"
-						}}
-					>
-						BUY
-					</Button>
-					<Button
-						auto
-						css={{
-							borderRadius: "25px",
-							backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-						}}
-					>
-						HOLD
-					</Button>
-					<Button
-						auto
-						css={{
-							borderRadius: "25px",
-							backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-						}}
-					>
-						SELL
-					</Button>
-				</div>
-			)} */}
-			{isLoggedIn ? (
-				<Box
-					sx={{
-						display: "flex",
-						flexWrap: "wrap",
-						flexDirection: "row",
-						gap: "5px",
-						marginBottom: "40px",
-						justifyContent: "center",
-						alignItems: "center",
-					}}
-					className="stockPicks-searchBar-box"
-				>
-					{/* Search Bar */}
-					<Box
-						sx={{
-							border: "1px solid #125a54",
-							borderRadius: "10000px",
-							padding: "0px 15px",
-							paddingTop: "2px",
-							display: "flex",
-							alignItems: "center",
-							// "@media only screen and (max-width: 768px)": {
-							//   padding: "0px 15px",
-							//   width: "500px",
-							// },
-						}}
-						className="stockPicks-searchBar"
-					>
-						<IconButton>
-							<SearchNormal size={25} color="#125a54" />
-						</IconButton>
-						<InputBase
-							placeholder="Ion Exchange (OR) IONEXCHANG"
-							variant="standard"
-							// size="large"
-							value={searchQuery}
-							onChange={(e) => setSearchQuery(e.target.value)}
-							sx={{
-								display: "flex",
-								alignItems: "center",
-								fontSize: 18,
-								lineHeight: 1,
-								textAlign: "center",
-								width: "80vw",
-								maxWidth: "60rem",
-								padding: "10px 10px",
-								backgroundColor: "#fff",
-								borderRadius: "10000px",
-								"@media only screen and (max-width: 768px)": {
-									width: "100vw",
-									fontSize: 15,
-									backgroundColor: "transparent",
-								},
-							}}
-						/>
-					</Box>
+    const isNewStock = (createdDateString) => {
+        const createdDate = new Date(createdDateString);
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+
+        const today = new Date();
+        // console.log(
+        // 	createdDate,
+        // 	createdDate >= twoMonthsAgo && createdDate <= today
+        // );
+        return createdDate >= twoMonthsAgo && createdDate <= today;
+    };
+  return (
+    <div
+      style={{
+        // maxWidth: "80rem",
+        width: "100vw",
+        display: "flex",
+        flexDirection: "column",
+        paddingBottom: 100,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        // backgroundImage: "url(coral_texture.svg)",
+        objectPosition: "center",
+        backgroundPositionY: "center",
+        backgroundPositionX: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "none",
+      }}
+    >
+      <Box
+        sx={{
+          width: "95%",
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          alignItems: "center",
+          paddingTop: "5vh",
+          paddingBottom: "20px",
+          "@media only screen and (max-width: 764px)": {
+            // maxHeight: "100vh",
+            marginTop: "0px",
+            paddingTop: "0px",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            paddingLeft: "5px",
+            paddingRight: "5px",
+            paddingBottom: "10px",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            cursor: "pointer",
+            // paddingLeft: "40px",
+            // paddingRight: "40px",
+            // paddingTop: "15px",
+            // paddingBottom: "15px",
+            padding: "0",
+            // marginTop: "25px",
+            display: "flex",
+            flexDirection: "column",
+            // backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
+            // backgroundImage: "linear-gradient(to top , #fff, #fff)",
+            alignItems: "center",
+            // backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
+            borderRadius: "1200.5px",
+            "@media only screen and (max-width: 764px)": {
+              paddingLeft: "5px",
+              paddingRight: "5px",
+              marginTop: "10px",
+              marginBottom: "10px",
+              borderRadius: "10px",
+              alignItems: "flex-start",
+              backgroundImage: "linear-gradient(to top , #fff, #fff)",
+            },
+          }}
+        >
+          <Text
+            b
+            size={18}
+            color="#FFF"
+            css={{
+              fontWeight: "bolder",
+              color: "#021C61",
+              "@media only screen and (max-width: 764px)": {
+                fontSize: 18,
+                width: "100%",
+                textAlign: "left",
+                color: "#021C61",
+              },
+            }}
+            onClick={handleCert}
+          >
+            SEBI Registered: INH000009843
+          </Text>
+        </Box>
+        <Modal
+          // width="790px"
+          blur
+          open={showCert}
+          onClose={handleCertClose}
+          css={{
+            width: "65vw",
+            maxWidth: "65vw",
+            alignSelf: "flex-end",
+            background: "transparent",
+            boxShadow: "none",
+            borderRadius: "15px",
+            "@media only screen and (max-width: 764px)": {
+              width: "95vw !important",
+              maxWidth: "95vw !important",
+            },
+          }}
+        >
+          <iframe
+            src="Kamayakya-SEBI-License.pdf#view=FitH&toolbar=0"
+            alt="SEBI Certificate"
+            style={{
+              width: "100%",
+              height: "75vh",
+              borderColor: "transparent",
+              borderRadius: "15px",
+              borderWidth: "0px",
+              zoom: "1",
+            }}
+            className="iframePdfMobile"
+          />
+          {/* <Modal.Footer justify="center"> */}
+          <Button
+            auto
+            onClick={handleCertClose}
+            css={{
+              // alignSelf: "end",
+              width: "100%",
+              backgroundColor: "#ffa12e",
+              color: "#fff",
+              fontSize: 19,
+              marginTop: "20px",
+              borderRadius: "10px",
+              height: "50px",
+              "@media only screen and (max-width: 768px)": {
+                width: "100%",
+                fontSize: 15,
+                height: "50px",
+                marginTop: "0px",
+                borderRadius: "0px 0px 10px",
+                "& span": {
+                  // display: "none",
+                },
+              },
+            }}
+          >
+            Close
+          </Button>
+          {/* </Modal.Footer> */}
+        </Modal>
+        <Text
+          b
+          size={70}
+          css={{
+            marginTop: "0px",
+            marginBottom: "0px",
+            // width: "90%",
+            maxWidth: "80rem" /* 1280px */,
+            textAlign: "center",
+            lineHeight: 1.2,
+            paddingLeft: "15px",
+            paddingRight: "15px",
+            "@media only screen and (max-width: 764px)": {
+              fontSize: 45,
+              lineHeight: 1.1,
+              paddingLeft: "5px",
+              paddingRight: "5px",
+              marginTop: "0px",
+              marginBottom: "10px",
+              maxWidth: "100%",
+              textAlign: "left",
+            },
+          }}
+        >
+          SME Corner
+        </Text>
+        <Text
+          b
+          size={18}
+          css={{
+            marginTop: 0,
+            marginBottom: "10px",
+            maxWidth: "50rem" /* 1280px */,
+            textAlign: "center",
+            color: "#000",
+            lineHeight: 1.2,
+            paddingLeft: "15px",
+            paddingRight: "15px",
+            "@media only screen and (max-width: 764px)": {
+              fontSize: 20,
+              maxWidth: "100%",
+              paddingLeft: "5px",
+              paddingRight: "5px",
+              marginTop: "0px",
+              marginBottom: "10px",
+              textAlign: "left",
+              color: "#000",
+            },
+          }}
+        >
+          Unlocking Potential, Fuelling Growth – Your One-Stop Resource for SME
+          Success
+        </Text>
+      </Box>
+      {isLoggedIn ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            gap: "5px",
+            marginBottom: "40px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className="stockPicks-searchBar-box"
+        >
+          {/* Search Bar */}
+          <Box
+            sx={{
+              border: "1px solid #125a54",
+              borderRadius: "10000px",
+              padding: "0px 15px",
+              paddingTop: "2px",
+              display: "flex",
+              alignItems: "center",
+              // "@media only screen and (max-width: 768px)": {
+              //   padding: "0px 15px",
+              //   width: "500px",
+              // },
+            }}
+            className="stockPicks-searchBar"
+          >
+            <IconButton>
+              <SearchNormal size={25} color="#125a54" />
+            </IconButton>
+            <InputBase
+              placeholder="Ion Exchange (OR) IONEXCHANG"
+              variant="standard"
+              // size="large"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: 18,
+                lineHeight: 1,
+                textAlign: "center",
+                width: "80vw",
+                maxWidth: "60rem",
+                padding: "10px 10px",
+                backgroundColor: "#fff",
+                borderRadius: "10000px",
+                "@media only screen and (max-width: 768px)": {
+                  width: "100vw",
+                  fontSize: 15,
+                  backgroundColor: "transparent",
+                },
+              }}
+            />
+          </Box>
 
           <IconButton
             onClick={toggleDrawer}

@@ -86,20 +86,8 @@ const Disclaimer = () => {
             },
           }}
         >
-          KamayaKya is a SEBI registered research analyst. All information
-          present on KamayaKya.com is to help investors in their decision-
-          making process and shall not be considered as a recommendation or
-          solicitation of an investment or investment strategy. Investors are
-          responsible for their investment decisions and are responsible to
-          validate all the information used to make the investment decision.
-          Investor should understand that his/her investment decision is based
-          on personal investment needs and risk tolerance, and performance
-          information available on kamayakya.com is one amongst many other
-          things that should be considered while making an investment decision.
-          Past performance does not guarantee future returns and performance
-          stocks are subject to market risk. Investments in the securities
-          market are subject to market risks and investors should read all the
-          related documents carefully before investing.
+            Kamayakya Wealth Management Pvt. Ltd makes no warranties or representations, express or implied, on products and services offered through the platform. It accepts no liability for any damages or losses, however, caused in connection with the use of, or on the reliance of its research and recommendation services. Past performance is not indicative of future returns. Please consider your specific investment requirements, risk tolerance, goal, time frame, risk and reward balance and the cost associated with the investment before choosing an investment option, or designing an investment strategy that suits your needs. Performance and returns of any investment strategy can neither be predicted nor guaranteed.
+            Investment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors
         </Text>
       </Box>
       <FaqsNew />
