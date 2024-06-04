@@ -33,7 +33,7 @@ export function SmallCaseCard() {
         <p className=" text-md text-gray-200">
           Get access to professionally created basket of stocks. Invest in multiple stocks in 1 click{" "}
         </p>
-        <div className=" md:mt-[41px]">
+        <div className=" mt-6 md:mt-[41px]">
           <Button endIcon={<MoveRight className=" text-inherit" />} onClick={handleSmallCaseClick} variant={ButtonVariant.primary} size={ButtonSize.lg} customStyle=" bg-white hover:bg-white !border-white text-brand-500 ">
             <Link className=" text-inherit" target="_blank" href={"https://kamayakya.smallcase.com/#portfolios"}>
             <p className=" ">Go to Smallcase</p>

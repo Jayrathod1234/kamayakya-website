@@ -48,3 +48,10 @@ export type TPlanCardDesktop = {
 export type TPlan = {
   [k: string]: Array<TPlanResponse>;
 };
+
+export type TContactOptionCard = {
+  className?:string;
+  label:string;
+  value:string;
+  icon:React.ReactNode;
+}

@@ -234,7 +234,7 @@ export default function Page() {
           </div>
         </div>
         <div className=" py-[60px] bg-gray-100 relative ">
-          <div className=" absolute top-[-10%] w-screen">
+          <div className=" absolute top-[-5%] md:top-[-10%] w-screen">
             <svg className=" w-full h-full" viewBox="0 0 1440 236" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_5060_262281)">
                 <path

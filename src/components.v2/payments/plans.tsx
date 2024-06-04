@@ -61,16 +61,13 @@ export function Plans() {
 
   const fetchPlans = async () => {
     try {
+      let token;
       if (isLoggedIn) {
-        const token = localStorage.getItem("refresh");
-        const response = await axios.get(PLANS_URL, {
-          headers: {
-            Authorization: "token " + token,
-          },
-        });
-        const formattedPlans = formatPlans(response.data);
-        setPlans(formattedPlans);
+        token = localStorage.getItem("refresh");
       }
+      const response = await axios.get(PLANS_URL);
+      const formattedPlans = formatPlans(response.data);
+      setPlans(formattedPlans);
     } catch (e) {}
   };
 
@@ -81,10 +78,28 @@ export function Plans() {
   return (
     <div>
       <div className=" relative flex justify-center mb-12 pt-10 md:pb-20 pb-6">
-      <Image className=" block lg:hidden absolute -rotate-12  right-[20%] md:right-[25%] lg:right-[30%] top-[4%] bg-blend-multiply" height={58} width={98} src={"/tab_save_33.svg"} alt="save-33%"/>
-        <Image className=" hidden lg:block absolute right-[-10%] lg:right-[30%] top-[5%] bg-blend-multiply" height={59} width={129} src={"/tab_save_33.svg"} alt="save-33%"/>
+        <Image
+          className=" block lg:hidden absolute -rotate-12  right-[20%] md:right-[25%] lg:right-[30%] top-[4%] bg-blend-multiply"
+          height={58}
+          width={98}
+          src={"/tab_save_33.svg"}
+          alt="save-33%"
+        />
+        <Image
+          className=" hidden lg:block absolute right-[-10%] lg:right-[30%] top-[5%] bg-blend-multiply"
+          height={59}
+          width={129}
+          src={"/tab_save_33.svg"}
+          alt="save-33%"
+        />
         <Tabs setSelectedOption={setCurrentTab} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
-        <Image className=" absolute bottom-[-20%] right-[33.5%]  sm:right-[41.5%] md:right-[43.5%] lg:right-[45%] md:bottom-[20%] bg-blend-multiply" height={51} width={88} src={"/tab_save_25.svg"} alt="save-25%"/>
+        <Image
+          className=" absolute bottom-[-20%] right-[33.5%]  sm:right-[41.5%] md:right-[43.5%] lg:right-[45%] md:bottom-[20%] bg-blend-multiply"
+          height={51}
+          width={88}
+          src={"/tab_save_25.svg"}
+          alt="save-25%"
+        />
       </div>
       <div>
         <div className=" md:hidden">
@@ -157,6 +172,12 @@ export function Plans() {
                       ctaDisabled = true;
                     }
                   }
+                }else{
+                  if(planName === "free"){
+                    btnText="Get Free Access"
+                  }else{
+                    btnText = 'Get Started'
+                  }
                 }
                 return (
                   plan.name.toLowerCase() === currentPlanViewing && (
@@ -182,9 +203,9 @@ export function Plans() {
                         {/* line */}
                         <div className=" my-5">
                           <div className=" relative flex items-center justify-center">
-                          {activePlan.plan.toLowerCase() === currentPlanViewing.toLowerCase() && (
+                            {activePlan.plan.toLowerCase() === currentPlanViewing.toLowerCase() && (
                               // <div className=" flex items-center justify-center bg-white">
-                                <PlanActiveLabel />
+                              <PlanActiveLabel />
                               // </div>
                             )}
                             <div
@@ -193,7 +214,6 @@ export function Plans() {
                                 "bg-[radial-gradient(50%_50%_at_50%_50%,_#F98800_66.5%,_#FFEFDC_100%)]"
                               }`}
                             ></div>
-                           
                           </div>
                         </div>
                         <div>
@@ -292,11 +312,24 @@ export function Plans() {
                       ctaDisabled = true;
                     }
                   }
+                }else{
+                  if(planName === "free"){
+                    btnText="Get Free Access"
+                  }else{
+                    btnText = 'Get Started'
+                  }
                 }
                 return (
                   <PlanCardDesktop
                     active={activePlan.plan === plan.name}
-                    className={PLAN[planName].className + `${currentTab === "3months" && plan.name === "vip" ? " md:!col-start-1 md:col-span-full md:justify-self-center":""}`}
+                    className={
+                      PLAN[planName].className +
+                      `${
+                        currentTab === "3months" && plan.name === "vip"
+                          ? " md:!col-start-1 md:col-span-full md:justify-self-center"
+                          : ""
+                      }`
+                    }
                     subtext={""}
                     plan={plan.name}
                     price={plan.perMonth.toFixed(2)}

@@ -11,6 +11,7 @@ import { Send } from "lucide-react";
 import { CONTACT_URL } from "@/pages/api/URLs";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { DialogClose } from "../ui/dialog";
 
 export function ContactForm() {
   const [querySelected, setQuerySelected] = useState("");
@@ -92,7 +93,7 @@ export function ContactForm() {
     } catch (e) {}
   };
 
-  const handleInputs = (value: string, cb:React.Dispatch<React.SetStateAction<string>>) => {
+  const handleInputs = (value: string, cb: React.Dispatch<React.SetStateAction<string>>) => {
     cb(value);
   };
 
@@ -239,14 +240,16 @@ export function ContactForm() {
         >
           Send Message
         </Button>
-        <Button
-          onClick={() => handleClose("cancel_clicked")}
-          variant={ButtonVariant.tertiary}
-          size={ButtonSize.md}
-          customStyle=" px-4 !py-2 border-0"
-        >
-          Close
-        </Button>
+        <DialogClose asChild>
+          <Button
+            onClick={() => handleClose("cancel_clicked")}
+            variant={ButtonVariant.tertiary}
+            size={ButtonSize.md}
+            customStyle=" px-4 !py-2 border-0"
+          >
+            Close
+          </Button>
+        </DialogClose>
       </div>
     </>
   );

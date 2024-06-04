@@ -16,10 +16,10 @@ import { ContactModalHead } from "./contact-modal-head";
 
 export function ContactModal() {
   return (
-    <DialogContent className=" p-6 pb-[21px] max-w-[1200px] min-h-[749px] max-md:max-h-screen overflow-y-hidden ">
+    <DialogContent className=" p-5 md:p-6 pb-[21px] max-w-[1200px] md:min-h-[749px] max-md:h-screen overflow-y-scroll ">
       {/* <div className=" h-full p-0"> */}
-      <div className="grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] gap-6 h-full max-w-[1152px] min-h-[704px] max-md:max-h-screen max-md:overflow-y-scroll">
-        <div className=" hidden md:block md:col-start-1 md:row-span-2 p-5 rounded-xl shadow-2xs ">
+      <div className="grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] md:gap-6 h-full max-w-[1152px] md:min-h-[704px] ">
+        <div className=" hidden md:block md:col-start-1 md:row-span-2 rounded-xl shadow-2xs ">
           <ContactModalHead />
           <div className=" h-[1px] my-6 w-full bg-gray-100"></div>
           <div className=" flex flex-col gap-y-6 max-h-[420px] overflow-y-scroll max-md:hidden">
@@ -35,11 +35,11 @@ export function ContactModal() {
             alt="kamayakya-mascot"
           />
         </div>
-        <div className=" col-start-2 row-start-2 bg-white h-full p-5 rounded-xl max-md:row-start-3 max-md:col-start-1">
+        <div className=" col-start-2 row-start-2 bg-white h-full md:p-5 rounded-xl max-md:row-start-3 max-md:col-start-1">
           <div className=" hidden max-md:block text-center mb-5">
             <ContactModalHead />
           </div>
-          <div className=" shadow-2xs grid lg:grid-cols-2 grow-row-[auto_auto_auto] gap-4 md:grid-cols-1">
+          <div className=" mt-[22px] py-4 max-md:shadow-none shadow-2xs grid lg:grid-cols-2 grow-row-[auto_auto_auto] gap-4 md:grid-cols-1">
             <ContactOptionCard
               value={"+91 9175939641"}
               label={"Mobile No"}
@@ -134,12 +134,12 @@ export function ContactModal() {
               }
               className={" lg:col-span-2 lg:row-start-2 md:col-start-1 md:row-start-3 md:col-span-full"}
             />
-            <p className=" lg:row-start-3 lg:col-span-2 text-gray-700 text-sm md:row-start-4 md:col-span-1 md:text-center">
+            <p className=" lg:row-start-3 lg:col-span-2 text-gray-700 text-sm md:row-start-4 md:col-span-1 text-center">
               Call us during business hours, Monday to Friday, between 9am and 5pm EST, for assistance.
             </p>
           </div>
         </div>
-        <div className=" hidden max-md:grid max-md:col-start-1 max-md:row-start-5 max-md:row-span-2 h-fit p-5">
+        <div className=" hidden py-5 max-md:grid max-md:col-start-1 max-md:row-start-5 max-md:row-span-2 h-fit md:p-5">
           <div className=" flex flex-col gap-y-6 ">
             <ContactForm />
           </div>

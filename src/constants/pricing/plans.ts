@@ -16,7 +16,8 @@ export const FREE_PLAN = {
   btnText: "Get Started",
   warnMessage: "No credit card required.Start for free, pick a plan later.",
   perMonth: false,
-  popular:false
+  popular:false,
+  btnVariant: ButtonVariant.secondary,
 };
 
 export const CORE_PLAN = {
@@ -37,7 +38,8 @@ export const CORE_PLAN = {
   btnText: "Get Started",
   warnMessage: "No subscription auto-renewal",
   perMonth: true,
-  popular:false
+  popular:false,
+  btnVariant: ButtonVariant.secondary,
 };
 
 
@@ -59,7 +61,8 @@ export const ADVANCED_PLAN = {
   btnText: "Get Started",
   warnMessage: "No subscription auto-renewal",
   perMonth: true,
-  popular:false
+  popular:false,
+  btnVariant: ButtonVariant.secondary,
 };
 
 export const VIP_PLAN = {
