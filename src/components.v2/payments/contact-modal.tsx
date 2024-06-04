@@ -11,163 +11,19 @@ import { Send } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import axios from "axios";
 import { CONTACT_URL } from "@/pages/api/URLs";
+import { ContactForm } from "./contact-form";
+import { ContactModalHead } from "./contact-modal-head";
 
 export function ContactModal() {
-  const [querySelected, setQuerySelected] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [otherQuery, setOtherQuery] = useState("");
-
-  const handleClose = (event: string) => {
-    const mp = getMixPanelClient();
-    mp.track(event, {
-      page: "Pricing_Page",
-    });
-  };
-
-  const handleSendMessage = async () => {
-    const mp = getMixPanelClient();
-    console.log(email, phone, querySelected, otherQuery, name);
-    //add input validation
-    try {
-      const response = await axios.postForm(CONTACT_URL, {
-        name,
-        email,
-        mobile_number: phone,
-        query_type: querySelected,
-        message: otherQuery,
-      },
-      {headers:{
-        Authorization:"token "+localStorage.getItem("refresh")
-      }}
-    );
-    if(response.data){
-      mp.track("sendmessage_clicked", {
-        page: "Pricing_Page",
-        name: name,
-        email: email,
-        phone: phone,
-        message: otherQuery,
-      });
-    }
-     
-    } catch (e) {}
-  };
-
-  const handleQuery = (value: string, cb) => {
-    cb(value);
-  };
-
   return (
     <DialogContent className=" p-6 pb-[21px] max-w-[1200px] min-h-[749px] max-md:max-h-screen overflow-y-hidden ">
       {/* <div className=" h-full p-0"> */}
       <div className="grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] gap-6 h-full max-w-[1152px] min-h-[704px] max-md:max-h-screen max-md:overflow-y-scroll">
         <div className=" hidden md:block md:col-start-1 md:row-span-2 p-5 rounded-xl shadow-2xs ">
-          <p className=" text-sm font-medium text-orange-600 uppercase"> Get in touch</p>
-          <h2 className=" mt-1 mb-3 text-display-sm">Ask the team</h2>
-          <p>Have questions? We're here to help! Send us a message, and we'll get back to you within 24 hours</p>
+          <ContactModalHead />
           <div className=" h-[1px] my-6 w-full bg-gray-100"></div>
           <div className=" flex flex-col gap-y-6 max-h-[420px] overflow-y-scroll max-md:hidden">
-            <div className="">
-              <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-                Name*
-              </label>
-              <Input
-                onChange={(e) => handleQuery(e.target.value, setName)}
-                className=" border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-              />
-            </div>
-            <div className="p-0">
-              <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-                Phone number*
-              </label>
-              <div className=" border pl-[14px]  border-[#D0D5DD] flex items-center md:items-start bg-white rounded-[6px] gap-[10px] w-full">
-                <Select>
-                  <SelectTrigger className="w-fit p-0 text-gray-900 outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0">
-                    <SelectValue placeholder="IN" />
-                  </SelectTrigger>
-                  <SelectContent className=" w-4 overflow-hidden">
-                    <SelectItem value="light">KR</SelectItem>
-                    <SelectItem value="dark">LA</SelectItem>
-                    <SelectItem value="system">IN</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Input
-                  onChange={(e) => handleQuery(e.target.value, setPhone)}
-                  placeholder="Enter your mobile number"
-                  className=" pl-0 py-0 placeholder:text-gray-400 placeholder:font-normal text-md outline-none border-0 bg-transparent focus:border-0 focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
-                />
-              </div>
-            </div>
-            <div className="">
-              <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-                Email*
-              </label>
-              <div className=" border border-[#D0D5DD] px-[14px]  py-[10px] flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-[350px] md:max-w-[566px] mx-auto">
-                {/* <div className=" ml-[6px]"> */}
-                <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
-                {/* </div> */}
-                <Input
-                  onChange={(e) => handleQuery(e.target.value, setEmail)}
-                  placeholder="Enter your mobile number"
-                  className=" h-0 placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
-                />
-              </div>
-            </div>
-            <div className="">
-              <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-                What's your query?*
-              </label>
-              <div className=" flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-[350px] md:max-w-[566px] mx-auto">
-                <Select onValueChange={(value) => handleQuery(value, setQuerySelected)}>
-                  <SelectTrigger className="focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
-                    <SelectValue placeholder="Select your query" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Product Information">Product Information</SelectItem>
-                    <SelectItem value="Pricing">Pricing</SelectItem>
-                    <SelectItem value="Billing & Payment">Billing & Payment</SelectItem>
-                    <SelectItem value="Technical support">Technical support</SelectItem>
-                    <SelectItem value="Parterships">Parterships</SelectItem>
-                    <SelectItem value="Media/Press">Media/Press</SelectItem>
-                    <SelectItem value="Feedback">Feedback</SelectItem>
-                    <SelectItem value="Schedule a consultation">Schedule a consultation</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            {querySelected === "Other" && (
-              <div className="">
-                <div className=" flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-[350px] md:max-w-[566px] mx-auto">
-                  <Textarea
-                    onChange={(e) => handleQuery(e.target.value, setOtherQuery)}
-                    className=" border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
-                </div>
-              </div>
-            )}
-
-            <div className=" flex flex-row">
-              <Button
-                onClick={handleSendMessage}
-                variant={ButtonVariant.primary}
-                size={ButtonSize.md}
-                customStyle=" px-4 !py-2"
-                startIcon={<Send height={16} width={16} />}
-              >
-                Send Message
-              </Button>
-              <Button
-                onClick={() => handleClose("cancel_clicked")}
-                variant={ButtonVariant.tertiary}
-                size={ButtonSize.md}
-                customStyle=" px-4 !py-2 border-0"
-              >
-                Close
-              </Button>
-            </div>
+            <ContactForm />
           </div>
         </div>
         <div className=" col-start-2 row-start-1  max-md:col-start-1">
@@ -181,11 +37,7 @@ export function ContactModal() {
         </div>
         <div className=" col-start-2 row-start-2 bg-white h-full p-5 rounded-xl max-md:row-start-3 max-md:col-start-1">
           <div className=" hidden max-md:block text-center mb-5">
-            <p className=" text-sm max-md:text-2xs font-medium text-orange-600 uppercase"> Get in touch</p>
-            <h2 className=" mt-1 mb-3 text-display-sm max-md:text-display-xs">Ask the team</h2>
-            <p className=" max-md:text-2xs">
-              Have questions? We're here to help! Send us a message, and we'll get back to you within 24 hours
-            </p>
+            <ContactModalHead />
           </div>
           <div className=" shadow-2xs grid lg:grid-cols-2 grow-row-[auto_auto_auto] gap-4 md:grid-cols-1">
             <ContactOptionCard
@@ -289,90 +141,7 @@ export function ContactModal() {
         </div>
         <div className=" hidden max-md:grid max-md:col-start-1 max-md:row-start-5 max-md:row-span-2 h-fit p-5">
           <div className=" flex flex-col gap-y-6 ">
-            <div className="">
-              <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-                Name*
-              </label>
-              <Input onChange={(e)=>handleQuery(e.target.value,setName)} className=" border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0" />
-            </div>
-            <div className="p-0">
-              <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-                Phone number*
-              </label>
-              <div className=" border pl-[14px]  border-[#D0D5DD] flex items-center md:items-start bg-white rounded-[6px] gap-[10px] w-full">
-                <Select>
-                  <SelectTrigger className="w-fit p-0 text-gray-900 outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0">
-                    <SelectValue placeholder="IN" />
-                  </SelectTrigger>
-                  <SelectContent className=" w-4 overflow-hidden">
-                    <SelectItem value="light">KR</SelectItem>
-                    <SelectItem value="dark">LA</SelectItem>
-                    <SelectItem value="system">IN</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Input
-                onChange={(e)=>handleQuery(e.target.value,setPhone)}
-                  placeholder="Enter your mobile number"
-                  className=" pl-0 py-0 placeholder:text-gray-400 placeholder:font-normal text-md outline-none border-0 bg-transparent focus:border-0 focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
-                />
-              </div>
-            </div>
-            <div className="">
-              <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-                Email*
-              </label>
-              <div className=" border border-[#D0D5DD] px-[14px]  py-[10px] flex items-center bg-white rounded-[6px] gap-[8px] w-full">
-                {/* <div className=" ml-[6px]"> */}
-                <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
-                {/* </div> */}
-                <Input
-                onChange={(e)=>handleQuery(e.target.value,setEmail)}
-                  placeholder="Enter your email"
-                  className=" h-0 placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
-                />
-              </div>
-            </div>
-            <div className="">
-              <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-                What's your query?*
-              </label>
-              <div className=" flex items-center bg-white rounded-[6px] gap-[8px] w-full mx-auto">
-                <Select onValueChange={(value)=>handleQuery(value,setQuerySelected)}> 
-                  <SelectTrigger className="focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
-                    <SelectValue placeholder="Select Query" />
-                  </SelectTrigger>
-                  <SelectContent>
-                  <SelectItem value="Product Information">Product Information</SelectItem>
-                    <SelectItem value="Pricing">Pricing</SelectItem>
-                    <SelectItem value="Billing & Payment">Billing & Payment</SelectItem>
-                    <SelectItem value="Technical support">Technical support</SelectItem>
-                    <SelectItem value="Parterships">Parterships</SelectItem>
-                    <SelectItem value="Media/Press">Media/Press</SelectItem>
-                    <SelectItem value="Feedback">Feedback</SelectItem>
-                    <SelectItem value="Schedule a consultation">Schedule a consultation</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            {querySelected === "Other" && (
-              <div className="">
-                <div className=" flex items-center bg-white rounded-[6px] gap-[8px] w-full mx-auto">
-                  <Textarea
-                    onChange={(e) => handleQuery(e.target.value, setOtherQuery)}
-                    className=" border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
-                </div>
-              </div>
-            )}
-            <div className=" flex flex-row max-md:flex-col pb-8">
-              <Button onClick={handleSendMessage} variant={ButtonVariant.primary} size={ButtonSize.md} customStyle=" px-4 !py-2">
-                Send Message
-              </Button>
-              <Button variant={ButtonVariant.tertiary} size={ButtonSize.md} customStyle=" px-4 !py-2 border-0">
-                Close
-              </Button>
-            </div>
+            <ContactForm />
           </div>
         </div>
       </div>

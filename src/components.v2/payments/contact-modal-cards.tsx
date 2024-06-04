@@ -1,9 +1,22 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useToast } from "../ui/use-toast";
 
 export const ContactOptionCard = ({ className, label, value, icon }) => {
+  const [copied, setCopied] = useState(false);
+  const { toast } = useToast();
   const ref = useRef();
-  const handleCopy = () => {};
+
+  const handleCopy = () => {
+    toast({
+      description: `${value} copied to clipboard!!`,
+    });
+    setCopied(true);
+    let timeout = setTimeout(() => {
+      setCopied(false);
+      clearTimeout(timeout);
+    }, 1000);
+  };
   return (
     <div
       className={` flex flex-row items-center p-4 gap-x-2 bg-white rounded-xl shadow-2xs border border-brand-300  ${className}`}
@@ -15,6 +28,7 @@ export const ContactOptionCard = ({ className, label, value, icon }) => {
           <p ref={ref} className=" text-gray-700 leading-6">
             {value}
           </p>
+          <div className=" cursor-pointer">
           <CopyToClipboard text={value} onCopy={handleCopy}>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="0.5" y="1" width="23" height="23" rx="3.5" stroke="#EDF0F5" />
@@ -26,6 +40,7 @@ export const ContactOptionCard = ({ className, label, value, icon }) => {
               />
             </svg>
           </CopyToClipboard>
+          </div>
         </div>
       </div>
     </div>

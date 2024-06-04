@@ -63,7 +63,7 @@ export default function Page() {
       console.log(response.data);
       if (response.data) {
         toast({
-          description: "Friday, February 10, 2023 at 5:57 PM",
+          description: "Subscribed to newsletter successfully",
         });
 
         const mp = getMixPanelClient();
@@ -233,12 +233,27 @@ export default function Page() {
             <EnterpriseCard />
           </div>
         </div>
-        <div className=" py-[60px]">
+        <div className=" py-[60px] bg-gray-100 relative ">
+          <div className=" absolute top-[-10%] w-screen">
+            <svg className=" w-full h-full" viewBox="0 0 1440 236" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_5060_262281)">
+                <path
+                  d="M-72.6057 7.86867C708.139 106.745 1675.87 7.86867 1675.87 7.86867C1675.87 7.86867 2312.13 952.554 1675.87 814.365C1039.62 676.177 410.655 854.869 -72.6057 814.365C-555.866 773.862 -853.35 -91.0076 -72.6057 7.86867Z"
+                  fill="#F2F4F7"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_5060_262281">
+                  <rect width="1440" height="236" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
           <Testimonials />
         </div>
       </div>
 
-      <div className=" ">
+      <div className=" bg-gray-100">
         <ContactUs />
       </div>
 
@@ -274,7 +289,7 @@ export default function Page() {
               {/* </div> */}
               <Input
                 onChange={(e) => {
-                  if(emailError) setEmailError(false)
+                  if (emailError) setEmailError(false);
                   setEmail(e.target.value);
                 }}
                 placeholder="Enter your email"

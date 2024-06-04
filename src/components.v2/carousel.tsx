@@ -7,7 +7,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { TestimonialsCard } from "./cards";
 import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
+// import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 // import ClassNames from 'embla-carousel-class-names'
 
@@ -46,7 +46,7 @@ export const usePrevNextButtons = (
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
 
-  const onSelect = useCallback((emblaApi: UseEmblaCarouselType) => {
+  const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
     setPrevBtnDisabled(!emblaApi.canScrollPrev());
     setNextBtnDisabled(!emblaApi.canScrollNext());
   }, []);
@@ -54,7 +54,7 @@ export const usePrevNextButtons = (
   useEffect(() => {
     if (!emblaApi) return;
 
-    onSelect(emblaApi);
+    onSelect(emblaApi as EmblaCarouselType);
     emblaApi.on("reInit", onSelect).on("select", onSelect);
   }, [emblaApi, onSelect]);
 
@@ -132,7 +132,7 @@ export function Carousel({ className }: { className?: string }) {
   return (
     <div className={`relative w-screen m-auto`}>
       {/* gradient */}
-      <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-white to-transparent z-20 flex flex-col justify-center ">
+      <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center ">
         <div>
           <Button
             onClick={() => handlePrevNext(onPrevButtonClick)}
@@ -144,7 +144,7 @@ export function Carousel({ className }: { className?: string }) {
           </Button>
         </div>
       </div>
-      <div className=" right-4  md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-white to-transparent z-20 flex flex-col justify-center items-center">
+      <div className=" right-4  md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-gray-100 to-transparent z-20 flex flex-col justify-center items-center">
         <div>
           <Button
             onClick={() => handlePrevNext(onNextButtonClick)}
@@ -173,7 +173,7 @@ export function Carousel({ className }: { className?: string }) {
       </div>
       {/* indicator */}
       <div className=" flex gap-4 justify-center items-center">
-        {scrollSnaps.map((_, index: number) => (
+        {scrollSnaps.map((_:unknown, index: number) => (
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}

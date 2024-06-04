@@ -40,7 +40,7 @@ export function ContactUs() {
 
   return (
     // bg-blend-color-burn bg-cover
-    <div className=" bg-[url(/feeling_lost_bg.webp)] text-white bg-no-repeat bg-cover md:mt-[60px]">
+    <div className=" bg-[url(/feeling_lost_bg.webp)] text-white bg-no-repeat bg-cover md:pt-[60px]">
       {/* <div className=" overflow-hidden relative w-[calc(100vw+24rem)] ml-[-10%] h-[500px] flex items-center justify-center max-lg:h-[400px] max-md:h-[200px]">
         <svg
           className=" absolute left-0 top-1 w-[95%] h-[100%] mt-[-8%]"

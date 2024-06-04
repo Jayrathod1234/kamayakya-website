@@ -7,7 +7,7 @@ export enum AvatarVariant {
 }
 
 type TAvatar = {
-  variant?: AvatarVariant;
+  variant?: AvatarVariant | string;
 };
 
 export function Avatar({ variant = AvatarVariant.sm }: TAvatar) {
@@ -18,6 +18,6 @@ export function Avatar({ variant = AvatarVariant.sm }: TAvatar) {
       ? "h-10 w-10"
       : variant === AvatarVariant.lg
       ? "h-16 w-16"
-      : "";
+      : variant;
   return <div className={`${size} bg-brand-300 rounded-full`}></div>;
 }
