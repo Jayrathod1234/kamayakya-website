@@ -9,7 +9,7 @@ import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
-// import ClassNames from 'embla-carousel-class-names'
+import ClassNames from 'embla-carousel-class-names'
 
 const carouselItem = [
   <TestimonialsCard
@@ -146,7 +146,7 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
 export const CarouselItem = React.forwardRef(
   ({ children, className, ref }: TChildren & { className?: string; ref: any }) => {
     return (
-      <div ref={ref} className={`carousel__item flex-shrink-0 h-full ${className}`}>
+      <div ref={ref} className={`carousel__item h-full ${className}`}>
         {children}
       </div>
     );
@@ -156,10 +156,10 @@ export const CarouselItem = React.forwardRef(
 export function Carousel({ className }: { className?: string }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
-      startIndex: 1,
+      // startIndex: 1,
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 3000 })]
+    [Autoplay({ playOnInit: true, delay: 3000 }),ClassNames()]
   );
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
@@ -201,15 +201,17 @@ export function Carousel({ className }: { className?: string }) {
         </div>
       </div>
 
-      <div ref={emblaRef} className={` overflow-hidden`}>
-        <div className=" flex pb-12 pt-[60px]" style={{ backfaceVisibility: "hidden" }}>
+      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
+        {/* <div className=" overflow-hidden max-w-full"> */}
+        <div className=" flex pb-12 pt-[60px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
           {carouselItem.map((carousel, index) => (
             <CarouselItem
-              className={` flex-[0_0_5%]  transition-all px-6 
-              ${
-                index === selectedIndex ? "" : index > selectedIndex
-                 ? " !scale-75 md:ml-[-2rem] lg:ml-[-4rem]"
-                 : " !scale-75 md:mr-[-2rem] lg:mr-[-4rem]"
+            key={carousel.key}
+              className={` carousel embla__class-names  flex-[0_0_25%]
+              ${""
+                // index === selectedIndex ? "" : index > selectedIndex
+                //  ? " !scale-75 md:ml-[-2rem] lg:ml-[-4rem]"
+                //  : " !scale-75 md:mr-[-2rem] lg:mr-[-4rem]"
               }
               `
             }
@@ -218,6 +220,7 @@ export function Carousel({ className }: { className?: string }) {
             </CarouselItem>
           ))}
         </div>
+        {/* </div> */}
       </div>
       {/* indicator */}
       <div className=" flex gap-4 justify-center items-center">

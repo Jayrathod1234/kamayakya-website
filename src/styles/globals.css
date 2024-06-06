@@ -1242,3 +1242,14 @@ header > div > div {
 .rounded-important-6px{
   border-radius:6px !important;
 }
+
+.carousel__container{
+  backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility:hidden ;
+}
+
+/* .carousel:not(.is-snapped) {
+  transform: scale(.7);
+ 
+} */
