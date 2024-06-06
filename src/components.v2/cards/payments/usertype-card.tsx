@@ -26,7 +26,7 @@ export function UserTypeCard({ imgSrc, title, attributes, btnText }: TUserTypeCa
   };
 
   return (
-    <div className=" flex flex-col items-center min-h-[402px] min-w-[173px] gap-4 px-2 py-[10px] text-center border border-white rounded-lg backdrop-blur-[20px] bg-[linear-gradient(0deg,_#FFFFFF66_0%,_#FFFFFF66_100%)]">
+    <div className=" flex flex-col items-center min-h-[402px] min-w-[173px] gap-x-2 px-2 py-[10px] text-center border border-white rounded-lg backdrop-blur-[20px] bg-[linear-gradient(0deg,_#FFFFFF66_0%,_#FFFFFF66_100%)]">
       <div>
         <Image src={imgSrc} alt="user-persona" height={125} width={122} />
       </div>

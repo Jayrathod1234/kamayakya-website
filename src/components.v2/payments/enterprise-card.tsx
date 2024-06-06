@@ -18,7 +18,7 @@ export function EnterpriseCard() {
 
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2 place-content-center place-items-center gap-6 md:gap-x-11 items-center justify-center">
-      <Image className="md:hidden rounded-xl" src={"/contact_us.jpeg"} alt="contact_us_img" height={223} width={358} />
+      <Image className="md:hidden rounded-xl" src={"/pricing/contact_us_desktop.jpeg"} alt="contact_us_img" height={223} width={358} />
       <Image
         className="hidden md:inline-block rounded-xl"
         src={"/pricing/contact_us_desktop.jpeg"}

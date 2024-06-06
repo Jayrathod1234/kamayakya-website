@@ -13,12 +13,20 @@ import { PLAN } from "@/constants/pricing/plans";
 import { TPlan, TPlanName, TPlanResponse } from "@/types";
 import { useActivePlanContext } from "@/components/PlanContext";
 import { PlanActiveLabel } from "./plan-active-label";
+import { Modal } from "@nextui-org/react";
+import { Box, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import Login from "@/components/Login";
+import { useRouter } from "next/router";
+
 export function Plans() {
   const { isLoggedIn } = useContext(AuthContext);
   const { activePlan } = useActivePlanContext();
   const [currentTab, setCurrentTab] = useState("1year");
   const [currentPlanViewing, setCurrentPlanViewing] = useState("vip");
   const [plans, setPlans] = useState<TPlan | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
   const tabOptions = [
     { label: "3 months", value: "3months" },
     { label: "1 years", value: "1year" },
@@ -57,7 +65,23 @@ export function Plans() {
     return plans;
   };
 
+  const handleLogin = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   const handlePlanSelect = (plan: string) => setCurrentPlanViewing(plan);
+
+  let handlePlanClick = () => {
+    if (!isLoggedIn) {
+      handleLogin();
+      return;
+    }
+    router.push("/#pricing");
+  };
 
   const fetchPlans = async () => {
     try {
@@ -78,28 +102,51 @@ export function Plans() {
   return (
     <div>
       <div className=" relative flex justify-center mb-12 pt-10 md:pb-20 pb-6">
-        <Image
+        <div className="relative">
+          {/* <Image
           className=" block lg:hidden absolute -rotate-12  right-[20%] md:right-[25%] lg:right-[30%] top-[4%] bg-blend-multiply"
           height={58}
           width={98}
-          src={"/tab_save_33.svg"}
+          src={"/save_33.png"}
           alt="save-33%"
         />
         <Image
-          className=" hidden lg:block absolute right-[-10%] lg:right-[30%] top-[5%] bg-blend-multiply"
+          className=" hidden lg:block absolute right-[-11%] md:right-[29%] lg:right-[30%] top-[6%] bg-blend-multiply"
           height={59}
           width={129}
-          src={"/tab_save_33.svg"}
+          src={"/save_33.png"}
           alt="save-33%"
-        />
-        <Tabs setSelectedOption={setCurrentTab} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
-        <Image
+        /> */}
+          <Image
+            className=" block md:hidden absolute -rotate-2 md:rotate-0 -right-12  md:-right-16 -top-12  bg-blend-multiply"
+            height={58}
+            width={98}
+            src={"/save_33.png"}
+            alt="save-33%"
+          />
+          <Image
+            className=" hidden md:block -right-24 -top-8 absolute bg-blend-multiply"
+            height={59}
+            width={129}
+            src={"/save_33.png"}
+            alt="save-33%"
+          />
+          <Tabs setSelectedOption={setCurrentTab} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
+          <Image
+            className=" absolute bg-blend-multiply left-[40%]"
+            height={51}
+            width={88}
+            src={"/tab_save_25.svg"}
+            alt="save-25%"
+          />
+          {/* <Image
           className=" absolute bottom-[-20%] right-[33.5%]  sm:right-[41.5%] md:right-[43.5%] lg:right-[45%] md:bottom-[20%] bg-blend-multiply"
           height={51}
           width={88}
           src={"/tab_save_25.svg"}
           alt="save-25%"
-        />
+        /> */}
+        </div>
       </div>
       <div>
         <div className=" md:hidden">
@@ -137,6 +184,7 @@ export function Plans() {
                 const planName = plan.name.toLowerCase() as TPlanName;
                 let btnText = "";
                 let ctaDisabled = false;
+
                 if (isLoggedIn) {
                   if (activePlan.plan.toLowerCase() === "free") {
                     btnText = `Upgrade to ${plan.name.toUpperCase()}`;
@@ -172,11 +220,11 @@ export function Plans() {
                       ctaDisabled = true;
                     }
                   }
-                }else{
-                  if(planName === "free"){
-                    btnText="Get Free Access"
-                  }else{
-                    btnText = 'Get Started'
+                } else {
+                  if (planName === "free") {
+                    btnText = "Get Free Access";
+                  } else {
+                    btnText = "Get Started";
                   }
                 }
                 return (
@@ -312,11 +360,11 @@ export function Plans() {
                       ctaDisabled = true;
                     }
                   }
-                }else{
-                  if(planName === "free"){
-                    btnText="Get Free Access"
-                  }else{
-                    btnText = 'Get Started'
+                } else {
+                  if (planName === "free") {
+                    btnText = "Get Free Access";
+                  } else {
+                    btnText = "Get Started";
                   }
                 }
                 return (
@@ -328,6 +376,8 @@ export function Plans() {
                         currentTab === "3months" && plan.name === "vip"
                           ? " md:!col-start-1 md:col-span-full md:justify-self-center"
                           : ""
+                      }${plan.name.toLowerCase() === "free" ? "" : ""}${
+                        plan.name.toLowerCase() === "vip" ? " " : ""
                       }`
                     }
                     subtext={""}
@@ -351,6 +401,7 @@ export function Plans() {
                     popular={PLAN[planName].popular}
                     ctaDisabled={ctaDisabled}
                     btnVariant={PLAN[planName].btnVariant ?? ButtonVariant.secondary}
+                    handleClick={handlePlanClick}
                   />
                 );
               })}
@@ -379,6 +430,50 @@ export function Plans() {
           </TooltipProvider>
         </div>
       </div>
+      <Modal
+        width="450px"
+        blur
+        open={showModal}
+        onClose={handleCloseModal}
+        css={{
+          // marginLeft: "2.5vw",
+          marginLeft: "0",
+          "@media only screen and (max-width: 764px)": {
+            width: "100vw",
+            alignSelf: "center",
+            // marginLeft: "2.5vw",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <img src="kmk-k.png" style={{ width: "50px" }} />
+          <IconButton
+            sx={{
+              width: "40px",
+              "&:hover": { background: "#fff" },
+              // alignSelf: "end",
+              right: "0px",
+              paddingTop: "20px",
+              paddingRight: "30px",
+            }}
+            onClick={() => handleCloseModal()}
+          >
+            <CloseIcon sx={{ color: "#e81123" }} />
+          </IconButton>
+        </Box>
+
+        <Modal.Body>
+          <Login />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

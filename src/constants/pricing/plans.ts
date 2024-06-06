@@ -1,7 +1,7 @@
 import { ButtonVariant } from "@/components.v2/button/button";
 
 export const FREE_PLAN = {
-  className: " md:row-start-1 md:justify-self-end order-1",
+  className: " md:row-start-1 md:justify-self-end order-1  rounded-l-xl",
   subtext: "",
   label: "",
   gstLabel: false,
@@ -67,7 +67,7 @@ export const ADVANCED_PLAN = {
 
 export const VIP_PLAN = {
   className:
-    "  md:row-start-2 md:col-start-2 md:justify-self-start md:rounded-t-xl lg:rounded-none md:pt-[59px] lg:pt-0 order-4",
+    "  md:row-start-2 md:col-start-2 md:justify-self-start md:rounded-t-xl lg:rounded-none lg:rounded-br-xl md:pt-[59px] lg:pt-0 order-4",
   subtext: "",
   priceStrikeThrough: "",
   label: "Mainboard + SME Board",

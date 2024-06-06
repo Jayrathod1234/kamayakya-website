@@ -29,14 +29,14 @@ const UserSelectTab = ({ usertype, icon, active, handleClick }: TUserSelectTab) 
       <div
         className={` z-10 p-[18px] h-[72px] flex items-center gap-4 bg-[rgba(255,255,255,0.33)] ${
           active ? "" : "hover:bg-[rgba(255,255,255,0.72)] hover:shadow-md "
-        } rounded-xl ${
+        } rounded-xl ${usertype === "Deep Research Investor"? " rounded-br-none":" rounded-bl-none"} ${
           active && "rounded-b-none shadow-none pb-3"
         } backdrop-blur-[2px] sm:w-[1000px] md:w-[350px] lg:w-[492px] stroke-white stroke-1`}
       >
         <div
           className={` ${
             active ? " h-12 w-12 bg-brand-300 p-3" : "h-9 w-9 bg-white p-2"
-          }  rounded-lg flex items-center justify-center`}
+          }  rounded-lg flex items-center justify-center `}
         >
           <Image height={active ? 32 : 18} width={active ? 32 : 18} alt="effortless-icon" src={icon} />
         </div>
@@ -54,7 +54,7 @@ export function UserTypeDesktopCard() {
   const [progress, setProgress] = useState(0);
   const [displayPauseIcon, setDisplayPauseIcon] = useState(false);
   const router = useRouter();
-  let intervalRef = useRef< NodeJS.Timer>();
+  let intervalRef = useRef<NodeJS.Timer>();
   const handleUserTabClick = (userType: string) => {
     setUserTypeSelected(userType);
     const eventName = userType === "Deep Research Investor" ? "driinvestor_clicked" : "effortlessinvestor_clicked";
@@ -145,7 +145,7 @@ export function UserTypeDesktopCard() {
               <ul className=" flex flex-col gap-y-6">
                 <li className=" flex gap-3 items-start">
                   <Image height={18} width={18} alt="list-icon" src={"/icons/effortless-inactive-icon.svg"} />
-                  <p className=" text-gray-700">
+                  <p className=" text-gray-950">
                     I do not have <HightlightText>time</HightlightText> or <HightlightText>knowledge</HightlightText> to
                     take my own investment decision.
                   </p>

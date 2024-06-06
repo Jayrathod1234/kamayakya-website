@@ -7,17 +7,59 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { TestimonialsCard } from "./cards";
 import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
-// import Autoplay from "embla-carousel-autoplay";
+import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 // import ClassNames from 'embla-carousel-class-names'
 
 const carouselItem = [
-  <TestimonialsCard key={1} />,
-  <TestimonialsCard key={1} />,
-  <TestimonialsCard key={1} />,
-  <TestimonialsCard key={1} />,
-  <TestimonialsCard key={2} />,
-  <TestimonialsCard key={3} />,
+  <TestimonialsCard
+    testimony={
+      "I have been investing with KamayaKya since over a year now and I only have good things to say. Very good returns, transparency and a team of market experts with amazing investment strategies. I plan to invest with the firm for a long time and I would highly recommend it too."
+    }
+    author={"Tanish Mittal"}
+    company="Hindustan Pressings Pvt. Ltd."
+    imgSrc="/tanish_mittal.png"
+    key={1}
+  />,
+  <TestimonialsCard
+    imgSrc="/kiran_sanghvi.png"
+    company="Indus Properties"
+    author="Kiran Sanghvi"
+    testimony="My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched in the industry. Some of their small cap picks are truly gems that have created  huge wealth for their investors. I would highly recommend investors to take their services to achieve their long term financial goals."
+    key={2}
+  />,
+  <TestimonialsCard
+    testimony={
+      "I have been investing with KamayaKya since over a year now and I only have good things to say. Very good returns, transparency and a team of market experts with amazing investment strategies. I plan to invest with the firm for a long time and I would highly recommend it too."
+    }
+    author={"Tanish Mittal"}
+    company="Hindustan Pressings Pvt. Ltd."
+    imgSrc="/tanish_mittal.png"
+    key={13}
+  />,
+  <TestimonialsCard
+    imgSrc="/kiran_sanghvi.png"
+    company="Indus Properties"
+    author="Kiran Sanghvi"
+    testimony="My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched in the industry. Some of their small cap picks are truly gems that have created  huge wealth for their investors. I would highly recommend investors to take their services to achieve their long term financial goals."
+    key={23}
+  />,
+  <TestimonialsCard
+    testimony={
+      "I have been investing with KamayaKya since over a year now and I only have good things to say. Very good returns, transparency and a team of market experts with amazing investment strategies. I plan to invest with the firm for a long time and I would highly recommend it too."
+    }
+    author={"Tanish Mittal"}
+    company="Hindustan Pressings Pvt. Ltd."
+    imgSrc="/tanish_mittal.png"
+    key={12}
+  />,
+  <TestimonialsCard
+    imgSrc="/kiran_sanghvi.png"
+    company="Indus Properties"
+    author="Kiran Sanghvi"
+    testimony="My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched in the industry. Some of their small cap picks are truly gems that have created  huge wealth for their investors. I would highly recommend investors to take their services to achieve their long term financial goals."
+    key={21}
+  />,
 ];
 
 type UsePrevNextButtonsType = {
@@ -115,8 +157,9 @@ export function Carousel({ className }: { className?: string }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       startIndex: 1,
-    }
-    // [Autoplay({ playOnInit: true, delay: 3000 })]
+      loop: true,
+    },
+    [Autoplay({ playOnInit: true, delay: 3000 })]
   );
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
@@ -136,7 +179,7 @@ export function Carousel({ className }: { className?: string }) {
         <div>
           <Button
             onClick={() => handlePrevNext(onPrevButtonClick)}
-            disabled={selectedIndex == 1 ? true : prevBtnDisabled}
+            // disabled={selectedIndex == 1 ? true : prevBtnDisabled}
             variant={"default"}
             className=" rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
           >
@@ -148,7 +191,7 @@ export function Carousel({ className }: { className?: string }) {
         <div>
           <Button
             onClick={() => handlePrevNext(onNextButtonClick)}
-            disabled={selectedIndex === carouselItem.length - 2 ? true : nextBtnDisabled}
+            // disabled={selectedIndex === carouselItem.length - 2 ? true : nextBtnDisabled}
             variant={"default"}
             className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
           >
@@ -162,9 +205,14 @@ export function Carousel({ className }: { className?: string }) {
         <div className=" flex pb-12 pt-[60px]" style={{ backfaceVisibility: "hidden" }}>
           {carouselItem.map((carousel, index) => (
             <CarouselItem
-              className={` flex-[0_0_35%] transition-all ${
-                index === 0 || index === carouselItem.length - 1 ? "invisible" : ""
-              } ${index === selectedIndex ? "" : " scale-95"}`}
+              className={` flex-[0_0_5%]  transition-all px-6 
+              ${
+                index === selectedIndex ? "" : index > selectedIndex
+                 ? " !scale-75 md:ml-[-2rem] lg:ml-[-4rem]"
+                 : " !scale-75 md:mr-[-2rem] lg:mr-[-4rem]"
+              }
+              `
+            }
             >
               {carousel}
             </CarouselItem>
@@ -173,20 +221,15 @@ export function Carousel({ className }: { className?: string }) {
       </div>
       {/* indicator */}
       <div className=" flex gap-4 justify-center items-center">
-        {scrollSnaps.map((_:unknown, index: number) => (
+        {scrollSnaps.map((_: unknown, index: number) => (
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={`${index === 0 || index === carouselItem.length - 1 ? "invisible" : ""} ${
+            className={` ${
               index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
             } h-[10px]  bg-gray-200 rounded-full transition-all`}
           ></div>
         ))}
-
-        {/* <div className=" h-[10px] aspect-square bg-gray-200 rounded-full"></div>
-        <div className=" h-[10px] aspect-square bg-gray-200 rounded-full"></div>
-        <div className=" h-[10px] aspect-square bg-gray-200 rounded-full"></div>
-        <div className=" h-[10px] aspect-square bg-gray-200 rounded-full"></div> */}
       </div>
     </div>
   );

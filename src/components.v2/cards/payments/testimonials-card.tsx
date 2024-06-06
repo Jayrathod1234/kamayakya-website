@@ -10,24 +10,42 @@ const Quotes = () => (
   </svg>
 );
 
-export function TestimonialsCard({className}:{className?:string}) {
+export function TestimonialsCard({
+  className,
+  testimony,
+  title,
+  author,
+  company,
+  imgSrc
+}: {
+  className?: string;
+  title?: string;
+  testimony: string;
+  author: string;
+  company?: string;
+  imgSrc?:string;
+}) {
   return (
-    <div className= {className + " group/testimonial-card bg-white relative text-start p-5 md:px-[3.44rem] md:py-[3.31rem] shadow-sm hover:shadow-xl md:max-w-[42.587rem] min-w-[324px] border border-[#EFF0F6] rounded-[1.25rem] transition-all hover:border-[1.5px] hover:border-[#E4E7EC]"}>
-      <div className=" absolute top-[-3%] right-[2.5rem]"><Quotes/></div>
-      <h4 className=" text-lg md:text-display-xs font-semibold mb-3 md:mb-8">Exceptional Stock Analysis & Wealth Creation</h4>
+    <div
+      className={
+        className +
+        " group/testimonial-card h-[408px] md:h-[425px] flex flex-col bg-white relative text-start p-7 md:px-[3.44rem] md:py-[3.31rem] shadow-sm hover:shadow-xl md:min-w-[450px] md:max-w-[664px] lg:w-[664px] min-w-[324px] border border-[#EFF0F6] rounded-[1.25rem] transition-all hover:border-0 hover:border-[#E4E7EC]"
+      }
+    >
+      <div className=" absolute top-[-3%] right-[2.5rem]">
+        <Quotes />
+      </div>
+      <h4 className=" text-lg md:text-display-xs font-semibold mb-3 md:mb-8">{title}</h4>
       <p className=" line-clamp-[8] text-sm md:text-md text-gray-600 leading-[23.52px] md:leading-[1.68rem] mb-8 tracking-normal">
-        My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their
-        in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched
-        in the industry. Some of their small cap picks are truly gems that have created huge wealth for their investors.
-        I would highly recommend investors to take their services to achieve their long term financial goals.
+        {testimony}
       </p>
-      <div className=" transition-all origin-left flex gap-6 md:gap-[10px] items-center group-hover/testimonial-card:scale-110">
+      <div className=" mt-auto transition-all origin-left flex gap-6 md:gap-4 items-center group-hover/testimonial-card:scale-110">
         <div>
-          <Avatar variant={AvatarVariant.lg} />
+          <Avatar imgSrc={imgSrc} variant={AvatarVariant.lg} />
         </div>
         <div className=" flex flex-col items-start">
-          <p className=" transition-all md:text-xs md:font-semibold font-bold text-[#170F49]">Kiran Sanghvi</p>
-          <p className="transition-all md:text-xs text-gray-500">Indus Properties</p>
+          <p className=" transition-all md:text-xs md:font-semibold font-bold text-[#170F49]">{author}</p>
+          <p className="transition-all md:text-xs text-gray-500">{company}</p>
         </div>
       </div>
     </div>

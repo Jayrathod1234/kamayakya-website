@@ -63,8 +63,8 @@ export function ContactUs() {
           </div>
           <div className="md:col-start-1 md:row-start-1  text-center md:text-left ">
             <div className=" pt-[60px]">
-              <h2 className=" text-display-sm md:text-display-xl font-bold">Feeling Lost at Sea?</h2>
-              <p className=" md:text-xl mt-6 mb-14">Let Us Be Your Onboarding Lighthouse!</p>
+              <h2 className=" text-display-sm md:text-display-xl font-bold">Feeling Lost?</h2>
+              <p className=" md:text-xl mt-6 mb-14">Let Us help you out!</p>
             </div>
             {/* <div className=" mt-[60px] md:mt-14 mb-10">
               <p className=" font-semibold">{"Share your number, we'll reach out!"}</p> */}
