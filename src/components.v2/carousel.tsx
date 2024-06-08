@@ -4,12 +4,12 @@ import styles from "./carousel.module.css";
 import { Button } from "./ui/button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { TestimonialsCard } from "./cards";
+import { TestimonialsCard } from "./payments/testimonials-card";
 import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
-import ClassNames from 'embla-carousel-class-names'
+import ClassNames from "embla-carousel-class-names";
 
 const carouselItem = [
   <TestimonialsCard
@@ -153,14 +153,20 @@ export const CarouselItem = React.forwardRef(
   }
 );
 
+const TWEEN_FACTOR_BASE = 0.1;
+
+const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
+
 export function Carousel({ className }: { className?: string }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       // startIndex: 1,
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 3000 }),ClassNames()]
+    [Autoplay({ playOnInit: true, delay: 3000 }), ClassNames()] //change carousel timer here.
   );
+  const tweenFactor = useRef(0);
+  const tweenNodes = useRef<HTMLElement[]>([]);
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
@@ -171,6 +177,69 @@ export function Carousel({ className }: { className?: string }) {
       page: "Pricing_Page",
     });
   };
+
+  const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
+    tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
+      return slideNode.querySelector(".testimony") as HTMLElement;
+    });
+  }, []);
+
+  const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
+    tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
+  }, []);
+
+  const tweenScale = useCallback((emblaApi: EmblaCarouselType, eventName?: any) => {
+    const engine = emblaApi.internalEngine();
+    const scrollProgress = emblaApi.scrollProgress();
+    const slidesInView = emblaApi.slidesInView();
+    const isScrollEvent = eventName === "scroll";
+
+    emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+      let diffToTarget = scrollSnap - scrollProgress;
+      const slidesInSnap = engine.slideRegistry[snapIndex];
+
+      slidesInSnap.forEach((slideIndex) => {
+        if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
+
+        if (engine.options.loop) {
+          engine.slideLooper.loopPoints.forEach((loopItem) => {
+            const target = loopItem.target();
+
+            if (slideIndex === loopItem.index && target !== 0) {
+              const sign = Math.sign(target);
+
+              if (sign === -1) {
+                diffToTarget = scrollSnap - (1 + scrollProgress);
+              }
+              if (sign === 1) {
+                diffToTarget = scrollSnap + (1 - scrollProgress);
+              }
+            }
+          });
+        }
+
+        const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
+        const scale = numberWithinRange(tweenValue, 0, 1).toString();
+        const tweenNode = tweenNodes.current[slideIndex];
+        tweenNode.style.transform = `scale(${scale})`;
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    setTweenNodes(emblaApi);
+    setTweenFactor(emblaApi);
+    tweenScale(emblaApi);
+
+    emblaApi
+      .on("reInit", setTweenNodes)
+      .on("reInit", setTweenFactor)
+      .on("reInit", tweenScale)
+      .on("scroll", tweenScale)
+      .on("slideFocus", tweenScale);
+  }, [emblaApi, tweenScale]);
 
   return (
     <div className={`relative w-screen m-auto`}>
@@ -206,15 +275,15 @@ export function Carousel({ className }: { className?: string }) {
         <div className=" flex pb-12 pt-[60px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
           {carouselItem.map((carousel, index) => (
             <CarouselItem
-            key={carousel.key}
+              key={carousel.key}
               className={` carousel embla__class-names  flex-[0_0_25%]
-              ${""
+              ${
+                ""
                 // index === selectedIndex ? "" : index > selectedIndex
                 //  ? " !scale-75 md:ml-[-2rem] lg:ml-[-4rem]"
                 //  : " !scale-75 md:mr-[-2rem] lg:mr-[-4rem]"
               }
-              `
-            }
+              `}
             >
               {carousel}
             </CarouselItem>

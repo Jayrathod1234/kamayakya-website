@@ -5,20 +5,20 @@ import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import SmallcaseEmbed from "./smallcase-embed";
 
 export function SmallCaseCard() {
-
-  const handleSmallCaseClick = ()=>{
+  const handleSmallCaseClick = () => {
     const mp = getMixPanelClient();
-    mp.track("view_smallcase",{
-      page:"Pricing_Page"
-    })
-  }
+    mp.track("view_smallcase", {
+      page: "Pricing_Page",
+    });
+  };
 
   return (
     <div className="overflow-hidden relative px-5 py-7 bg-[#1E7AE0] rounded-xl flex flex-col md:flex-row justify-center items-center gap-6 text-center md:h-[26.14769rem] bg-[url(/effortless_investors_bg.svg)] bg-cover bg-no-repeat">
       <div className="">
-      {/* <img className=" absolute inline-block object-cover right-0 top-0" src="/pricing/confetti-right.png" alt="" 
+        {/* <img className=" absolute inline-block object-cover right-0 top-0" src="/pricing/confetti-right.png" alt="" 
         width="50%" 
         height="413px" 
         />
@@ -34,24 +34,31 @@ export function SmallCaseCard() {
           Get access to professionally created basket of stocks. Invest in multiple stocks in 1 click{" "}
         </p>
         <div className=" mt-6 md:mt-[41px]">
-          <Button endIcon={<MoveRight className=" text-inherit" />} onClick={handleSmallCaseClick} variant={ButtonVariant.primary} size={ButtonSize.lg} customStyle=" bg-white hover:bg-white !border-white text-brand-500 ">
+          <Button
+            endIcon={<MoveRight className=" text-inherit" />}
+            onClick={handleSmallCaseClick}
+            variant={ButtonVariant.primary}
+            size={ButtonSize.lg}
+            customStyle=" bg-white hover:bg-white !border-white text-brand-500 "
+          >
             <Link className=" text-inherit" target="_blank" href={"https://kamayakya.smallcase.com/#portfolios"}>
-            <p className=" ">Go to Smallcase</p>
+              <p className=" ">Go to Smallcase</p>
             </Link>
           </Button>
         </div>
       </div>
 
-      <div className="">
-        <Image className="md:hidden" height={192} width={318} src="/smallcase_ss.png" alt="smallcase-screenshot" />
+      <div className=" max-w-[500px] w-full h-full flex flex-col justify-center">
+        <SmallcaseEmbed />
+        {/* <Image className="md:hidden" height={192} width={318} src="/smallcase_ss.png" alt="smallcase-screenshot" />
         <Image
           className=" hidden md:inline-block"
           height={254}
           width={424}
           src="/smallcase_ss_desktop.png"
           alt="smallcase-screenshot"
-        />
-        <div className="w-full md:w-[30rem] h-[9.5625rem] bg-[rgba(255,_255,_255,_0.20)] rounded-b-2xl absolute bottom-0 left-0 md:relative md:mt-[-28%]"></div>
+        /> */}
+        <div className="w-full md:w-[36rem] h-[9.5625rem] bg-[rgba(255,_255,_255,_0.20)] rounded-b-2xl absolute bottom-0 left-0 md:relative md:mt-[-28%]"></div>
       </div>
     </div>
   );

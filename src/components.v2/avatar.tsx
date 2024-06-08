@@ -10,12 +10,13 @@ export enum AvatarVariant {
 
 type TAvatar = {
   variant?: AvatarVariant | string;
-  imgSrc?:string;
-  className?:string;
-  imgClassName?:string;
+  imgSrc?: string;
+  className?: string;
+  imgClassName?: string;
+  customImgSize?:number
 };
 
-export function Avatar({ variant = AvatarVariant.sm,imgSrc, className,imgClassName }: TAvatar) {
+export function Avatar({ variant = AvatarVariant.sm, imgSrc="/avatar-card.png", className, imgClassName,customImgSize }: TAvatar) {
   const size =
     variant == AvatarVariant.sm
       ? " h-9 w-9"
@@ -23,6 +24,30 @@ export function Avatar({ variant = AvatarVariant.sm,imgSrc, className,imgClassNa
       ? "h-10 w-10"
       : variant === AvatarVariant.lg
       ? "h-12 w-12"
-      :variant == AvatarVariant.xs ? " h-5 w-5": variant;
-  return <div className={`${size} bg-brand-300 rounded-full overflow-hidden ${className}`}><img className={` h-full aspect-square object-cover ${imgClassName}`} src={imgSrc}/></div>;
+      : variant == AvatarVariant.xs
+      ? " h-5 w-5"
+      : variant;
+
+  const imgSize =
+    variant == AvatarVariant.sm
+      ? 36
+      : variant === AvatarVariant.md
+      ? 40
+      : variant === AvatarVariant.lg
+      ? 48
+      : variant == AvatarVariant.xs
+      ? 20
+      : customImgSize;
+  return (
+    <div className={`${size} bg-brand-300 rounded-full overflow-hidden ${className}`}>
+      {imgSrc && (
+        <img
+          className={` h-full aspect-square object-cover ${imgClassName}`}
+          height={imgSize}
+          width={imgSize}
+          src={imgSrc}
+        />
+      )}
+    </div>
+  );
 }

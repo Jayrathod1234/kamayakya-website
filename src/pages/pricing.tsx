@@ -5,10 +5,12 @@ import { Button as ShadBtn } from "@/components.v2/ui/button";
 
 import {
   Button,
-  ContactUs,
   EnterpriseCard,
+  FeelingLost,
   Navbar,
+  Newsletter,
   Plans,
+  Semibold,
   SmallCaseCard,
   Tabs,
   Testimonials,
@@ -24,72 +26,16 @@ import axios from "axios";
 import { NEWSLETTER_SUBSCRIBE_URL } from "./api/URLs";
 import Link from "next/link";
 import { useToast } from "@/components.v2/ui/use-toast";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { cn } from "@/lib/utils";
 import { useActivePlanContext } from "@/components/PlanContext";
+import { Mail, Phone } from "lucide-react";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export default function Page() {
   const pathname = usePathname();
-  const { toast } = useToast();
-  const {activePlan} = useActivePlanContext()
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleNewsLetterLinkedin = () => {
-    const mp = getMixPanelClient();
-    mp.track("Linkedinbutton_clicked", {
-      page: "Pricing_Page",
-      pagegroup: "newsletter",
-    });
-  };
-
-  const handleNewsLetterEmailSubmit = async () => {
-    try {
-      setLoading(true);
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!isEmail) {
-        setEmailError(true);
-        return;
-      }
-      const response = await axios.post(
-        NEWSLETTER_SUBSCRIBE_URL,
-        { email },
-        {
-          headers: {
-            Authorization: "token " + localStorage.getItem("refresh"),
-          },
-        }
-      );
-      console.log(response.data);
-      if (response.data) {
-        toast({
-          description: "Subscribed to newsletter successfully",
-        });
-
-        const mp = getMixPanelClient();
-        mp.track("Linkedinbutton_clicked", {
-          page: "Pricing_Page",
-          pagegroup: "newsletter_subscribed",
-          email: email,
-        });
-      }
-    } catch (e: any) {
-      console.log(e);
-      toast({
-        startIcon: (
-          <div className=" h-full w-full">
-            <Image src={"/warn_icon.svg"} alt="warn" height={16} width={16} />
-          </div>
-        ),
-        description: e.response.data?.email[0] || e.message || "Something went wrong",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { activePlan } = useActivePlanContext();
 
   useEffect(() => {
     const mp = getMixPanelClient();
@@ -104,7 +50,7 @@ export default function Page() {
       Curr_Plan_Duration: "",
       Curr_Subscription_Start_date: activePlan.start_date,
       Curr_Subscription_End_date: activePlan.end_date,
-      usertype: activePlan.plan ? activePlan.plan.toLowerCase()=== "free" ? "Free":"Paid" : null,
+      usertype: activePlan.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
       browser_version: "",
       browser_name: "",
       device_type: "",
@@ -118,11 +64,12 @@ export default function Page() {
   }, []);
 
   return (
-    <div className={` relative pricing tracking-wide bg-white overflow-hidden`}>
-      <div className=" absolute top-0 left-0 h-screen w-full object-contain ">
-        <svg
-          className="hidden md:block min-w-full min-h-[1140px]"
-          viewBox="0 0 1440 1150"
+    <div className={` relative pricing tracking-wide bg-white overflow-hidden `}>
+      <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40 ">
+        <div className=" h-full w-full bg-[radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,#F1FCFF_0%,#CAF2FF_19%,#C1F0FF_39%,#C1FFEC_57.07%,#CBFFE0_69.37%,#E5FFDF_79.3%,#F6FFF4_100%)]"></div>
+        {/* <svg
+          className="hidden md:block h-full w-full"
+          // viewBox="0 0 1440 1150"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -145,8 +92,8 @@ export default function Page() {
               <stop offset="1" stop-color="white" stop-opacity="0" />
             </radialGradient>
           </defs>
-        </svg>
-        <svg
+        </svg> */}
+        {/* <svg
           className="block md:hidden min-h-[848px] min-w-full"
           viewBox="0 0 390 840"
           fill="none"
@@ -172,15 +119,18 @@ export default function Page() {
               <stop offset="1" stop-color="white" stop-opacity="0" />
             </radialGradient>
           </defs>
-        </svg>
+        </svg> */}
       </div>
-      <div className=" absolute mix-blend-color-burn -rotate-180 h-screen w-full pointer-events-none">
-        <video className=" h-full w-full object-cover" src="/pricing/pricing-hero-bg.mp4" autoPlay loop></video>
+      <div className=" absolute h-screen mix-blend-color-burn  w-full pointer-events-none bg-gray-25">
+        <video
+          className=" h-full w-full object-cover z-40"
+          src="/pricing/pricing-hero-bg.mp4"
+          autoPlay
+          muted
+          loop
+        ></video>
+        {/* <div className=" h-16 bg-red-200 w-full -mt-16 z-50"></div> */}
       </div>
-      {/* <div className=" hidden  absolute top-0 left-0 w-full h-[15%] md:h-[22%] bg-black  backdrop-blur-lg bg-gradient-to-t from-white to-[rgba(255,255,255,0.01)] "></div> */}
-      {/* bg-radial-gradient-xl */}
-      {/* HERO */}
-      {/* bg-[url("/pricing/hero_gradient_svg.svg")] bg-no-repeat bg-cover */}
       <div className="relative ">
         <div className="  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-fit  md:min-h-screen z-0 ">
           <Navbar />
@@ -189,38 +139,58 @@ export default function Page() {
               What type of <span className=" text-brand-400">investor</span> are you?
             </h1>
             <p className=" text-md md:text-lg mt-3 text-gray-600 mb-9">
-              Deciphering the Market: Unlock the Plan That Speaks Your Language
+              Get the Right Fit : Because a good plan is like a good pair of shoes
             </p>
           </div>
           <div className=" md:mt-20 grid grid-cols-2 grid-rows-8 md:grid-rows-[auto] mt-[42px] gap-4 md:grid-cols-1 place-content-center place-items-center">
             <UserTypeDesktopCard />
             <div className=" justify-self-end col-start-1 row-span-6 md:hidden">
               <UserTypeCard
+                icon="/icons/deep-research-active-icon.svg"
                 imgSrc="/user.png"
                 title="Deep Research Investor"
-                attributes={["Have some time & knowledge", "Likes doing research", "Likes the thrill & learning"]}
+                attributes={[
+                  <span>
+                    <Semibold>Time</Semibold> & <Semibold>knowledge</Semibold> for own decisions
+                  </span>,
+                  <span>
+                    {" "}
+                    Enjoys <Semibold>research</Semibold>
+                  </span>,
+                  <span>
+                    <Semibold>Thrill</Semibold> & <Semibold>learning</Semibold> from decisions
+                  </span>,
+                ]}
                 btnText="Membership"
               />
             </div>
             <div className=" justify-self-start col-start-2 row-start-1 row-span-7 md:hidden">
               <UserTypeCard
+                icon="/icons/effortless-active-icon.svg"
                 imgSrc="/user2.png"
                 title="Effortless Investor"
-                attributes={["Do not have time & knowledge", "Need a ready-made solution"]}
+                attributes={[
+                  <span>
+                    <Semibold>No time</Semibold> / <Semibold>knowledge</Semibold> for decisions
+                  </span>,
+                  <span>
+                    Prefers <Semibold>readymade</Semibold> solutions
+                  </span>,
+                ]}
                 btnText="Effortless Baskets"
               />
             </div>
           </div>
         </div>
-        <div className=" h-[100px] md:h-[200px] w-full bg-gradient-to-t from-white to-transparent"></div>
+        {/* <div className=" h-[100px] md:h-[200px] w-full bg-gradient-to-t from-white to-transparent"></div> */}
       </div>
-      <div className=" backdrop-blur-3xl bg-white bg-[linear-gradient(to_bottom,transparent,white)] bg-[length:25%]">
+      <div className=" backdrop-blur-3xl bg-opacity-10 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.0),white_99%)] bg-[length:30%]">
         <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] min-h-screen mx-auto ">
           {/* WEBSITE PLAN */}
           <div className="py-[60px]">
             <div className=" flex flex-col items-center text-center gap-3 md:gap-0">
               <p className=" text-2xs md:text-md text-[#F98800] font-medium uppercase">KamayaKya Membership</p>
-              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold">For Do it Yourself Investor</p>
+              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold">For Deep Research Investors</p>
               <p className=" text-sm md:text-md text-gray-700 md:mt-3">Find a plan that works for YOU.</p>
             </div>
             {/* PLAN SECTION */}
@@ -257,90 +227,37 @@ export default function Page() {
       </div>
 
       <div className=" bg-gray-100">
-        <ContactUs />
+        <FeelingLost />
       </div>
 
-      <div className=" py-[60px] text-white bg-[url('/news_letter_bg.png')] bg-gray-950 text-center  md:w-[min(1280px,calc(100%-32px))] md:min-w-[328px] md:max-h-[639px] md:mx-auto md:mt-[-10%] md:rounded-xl relative z-40 ">
-        <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto md:w-[566px] md:mt-[109px] md:mb-[126px]">
-          <h3 className=" text-xl font-bold md:text-display-md">
-            Guess who doesn’t like to “Spam” ? <span className=" text-[#32D583]">Us.</span>
-          </h3>
-          <div className=" mt-10 md:mt-[75px] flex flex-col items-center gap-3 md:flex-row md:gap-x-3 md:justify-center">
-            <p mb-3>Get monthly dose of market gyaan on :</p>
-            <button onClick={handleNewsLetterLinkedin} className=" ">
-              <Link
-                className=" text-inherit px-4 py-2 flex gap-2 items-center bg-gray-900 border border-gray-800 rounded-[6px]"
-                href={"https://www.linkedin.com/company/kamayakya/"}
-                target="_blank"
-              >
-                <Image height={32} width={32} src={"/icons/linkedin.svg"} alt="linkedin-icon" />
-                <p className=" font-medium">KamayaKya’s Linkedin</p>
-                <Image height={18} width={18} src={"/icons/open-link.svg"} alt="open-link-icon" />
-              </Link>
-            </button>
-          </div>
-          <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p>
-          <div>
-            {/* EMAIL INPUT */}
-            <div
-              className={` flex items-center bg-white p-2 pl-3 rounded-[6px] gap-[8px] mt-3 w-full max-w-[350px] md:max-w-[566px] mx-auto ${
-                emailError ? " border  border-[rgba(253,162,155,1)] shadow-xs shadow-[rgba(253,162,155,1)] " : ""
-              }`}
-            >
-              {/* <div className=" ml-[6px]"> */}
-              <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
-              {/* </div> */}
-              <Input
-                onChange={(e) => {
-                  if (emailError) setEmailError(false);
-                  setEmail(e.target.value);
-                }}
-                placeholder="Enter your email"
-                className="  px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
-              />
-              <Button
-                loading={loading}
-                customStyle=" gap-[6px]"
-                onClick={handleNewsLetterEmailSubmit}
-                variant={ButtonVariant.primary}
-                size={ButtonSize.lg}
-              >
-                <p className=" text-sm font-medium">Subscribe</p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M8.88897 3.33301L13.3334 7.99967M13.3334 7.99967L8.88897 12.6663M13.3334 7.99967L2.66675 7.99967"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </Button>
-            </div>
-            {emailError ? (
-              <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left">Enter valid email</p>
-            ) : null}
-            <p className=" text-sm text-gray-200 mt-4">We do not share your details with third parties.</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="h-[calc(286px+10%)] w-full z-10 -mt-[10%]">
+      <Newsletter />
+      <div className="bg-gradient-to-b from-[#244D4E] to-[#182E35]">
+        <div className="h-[calc(286px+10%)] overflow-hidden w-full z-10 -mt-[10%] ">
           <Image
             alt="footer-bg"
-            src={"/footer-illustration-bg.svg"}
+            src={"/footer-top-illustration.png"}
             width={1440}
             height={491}
             className=" w-full h-full"
           />
         </div>
 
-        <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto flex flex-col gap-y-16 max-md:gap-y-[21px] pb-5 mt-[58px]">
-          <div className=" flex justify-between max-md:flex-col">
-            <Image className=" inline-block" src="/KKLogo.png" alt="KamayaKya-logo" width={170} height={56} priority />
+        <div className=" text-white  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto flex flex-col gap-y-16 max-md:gap-y-[21px] pb-5 mt-[58px]">
+          <div className=" flex justify-between max-md:flex-col max-md:gap-y-7">
+            <div className=" flex items-center gap-x-[14.77px]">
+              <Image
+                className=" block "
+                src="/KKLogo_footer.png"
+                alt="KamayaKya-logo"
+                width={209}
+                height={40}
+                priority
+              />
+              <p className="hidden md:block text-sm mt-2">Made in Bharat with ❤️</p>
+            </div>
             <div className=" flex gap-x-[10px]">
               <Image
-                className=" inline-block"
+                className="h-8 aspect-square md:h-9 inline-block"
                 src="icons/Facebook.svg"
                 alt="KamayaKya-logo"
                 width={40}
@@ -348,7 +265,7 @@ export default function Page() {
                 priority
               />
               <Image
-                className=" inline-block"
+                className="h-8 aspect-square md:h-9 inline-block"
                 src="/icons/Instagram.svg"
                 alt="KamayaKya-logo"
                 width={40}
@@ -356,7 +273,7 @@ export default function Page() {
                 priority
               />
               <Image
-                className=" inline-block"
+                className="h-8 aspect-square md:h-9 inline-block"
                 src="/icons/Twitter.svg"
                 alt="KamayaKya-logo"
                 width={40}
@@ -364,7 +281,7 @@ export default function Page() {
                 priority
               />
               <Image
-                className=" inline-block"
+                className="h-8 aspect-square md:h-9 inline-block"
                 src="/icons/Linkedin.svg"
                 alt="KamayaKya-logo"
                 width={40}
@@ -372,7 +289,7 @@ export default function Page() {
                 priority
               />
               <Image
-                className=" inline-block"
+                className="h-8 aspect-square md:h-9 inline-block"
                 src="/icons/Telegram.svg"
                 alt="KamayaKya-logo"
                 width={40}
@@ -384,82 +301,99 @@ export default function Page() {
           <div className=" flex justify-between flex-wrap max-md:flex-col max-md:gap-y-[21px]">
             <div className=" flex items-start gap-x-[10px]">
               <svg
-                className=" mt-[6px]"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
+                className=" mt-[5px] aspect-square flex-shrink-0"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M8.00001 1C6.54184 1.00172 5.1439 1.58174 4.11282 2.61281C3.08174 3.64389 2.50173 5.04184 2.50001 6.5C2.49826 7.69161 2.8875 8.85089 3.60801 9.8C3.60801 9.8 3.75801 9.9975 3.78251 10.026L8.00001 15L12.2195 10.0235C12.2415 9.997 12.392 9.8 12.392 9.8L12.3925 9.7985C13.1127 8.84981 13.5017 7.69107 13.5 6.5C13.4983 5.04184 12.9183 3.64389 11.8872 2.61281C10.8561 1.58174 9.45817 1.00172 8.00001 1ZM8.00001 8.5C7.60444 8.5 7.21776 8.3827 6.88887 8.16294C6.55997 7.94318 6.30362 7.63082 6.15225 7.26537C6.00087 6.89991 5.96126 6.49778 6.03844 6.10982C6.11561 5.72186 6.30609 5.36549 6.58579 5.08579C6.8655 4.80608 7.22186 4.6156 7.60983 4.53843C7.99779 4.46126 8.39992 4.50087 8.76537 4.65224C9.13082 4.80362 9.44318 5.05996 9.66294 5.38886C9.88271 5.71776 10 6.10444 10 6.5C9.99934 7.03023 9.78842 7.53855 9.41349 7.91348C9.03856 8.28841 8.53024 8.49934 8.00001 8.5Z"
-                  fill="#667085"
+                  fill="white"
                 />
               </svg>
-              <p className=" max-w-[392px]">
+
+              <p className="text-sm md:text-md  max-w-[392px]">
                 Flat No 6, New Nirmal Apartments, Balkrishna Sakharam Dhole Patil Rd, near Akshay Complex Road, Pune,
                 Maharashtra 411001
               </p>
             </div>
-            <div className=" flex gap-x-10 max-md:flex-col max-md:gap-y-[21px]">
-              <div className=" flex items-center gap-x-[10px]">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className=" flex gap-x-10 gap-y-[7px] md:gap-y-0 flex-col items-start md:items-end ">
+              <div className=" flex items-center gap-x-[10px] md:gap-x-1 py-[7px]">
+                <Phone fill="white" size={20} stroke="1" />
+
+                <p className=" text-sm md:text-md md:font-semibold">+91 9175939641</p>
+              </div>
+              <div className=" flex items-center  gap-x-[10px] md:gap-x-1 py-[7px]">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d="M14 10.9467V13.304C14.0001 13.4728 13.9361 13.6353 13.8211 13.7588C13.706 13.8823 13.5484 13.9575 13.38 13.9693C13.0887 13.9893 12.8507 14 12.6667 14C6.77533 14 2 9.22467 2 3.33333C2 3.14933 2.01 2.91133 2.03067 2.62C2.04248 2.45163 2.11772 2.29401 2.2412 2.17894C2.36468 2.06387 2.52722 1.99992 2.696 2H5.05333C5.13603 1.99992 5.2158 2.03057 5.27715 2.08601C5.33851 2.14145 5.37706 2.21772 5.38533 2.3C5.40067 2.45333 5.41467 2.57533 5.428 2.668C5.56049 3.59262 5.832 4.49189 6.23333 5.33533C6.29667 5.46867 6.25533 5.628 6.13533 5.71333L4.69667 6.74133C5.5763 8.79097 7.2097 10.4244 9.25933 11.304L10.286 9.868C10.328 9.80933 10.3892 9.76725 10.459 9.7491C10.5288 9.73095 10.6028 9.73787 10.668 9.76867C11.5113 10.1693 12.4104 10.4401 13.3347 10.572C13.4273 10.5853 13.5493 10.5993 13.7013 10.6147C13.7835 10.6231 13.8596 10.6617 13.9149 10.7231C13.9702 10.7844 14.0001 10.8641 14 10.9467Z"
-                    fill="#667085"
+                    d="M16.668 3.33398H3.33464C2.41797 3.33398 1.6763 4.08398 1.6763 5.00065L1.66797 15.0007C1.66797 15.9173 2.41797 16.6673 3.33464 16.6673H16.668C17.5846 16.6673 18.3346 15.9173 18.3346 15.0007V5.00065C18.3346 4.08398 17.5846 3.33398 16.668 3.33398ZM16.3346 6.87565L10.443 10.559C10.1763 10.7257 9.8263 10.7257 9.55964 10.559L3.66797 6.87565C3.58441 6.82874 3.51123 6.76537 3.45288 6.68936C3.39452 6.61336 3.35219 6.5263 3.32845 6.43346C3.30471 6.34062 3.30005 6.24393 3.31477 6.14924C3.32948 6.05455 3.36325 5.96383 3.41404 5.88257C3.46482 5.80131 3.53157 5.7312 3.61024 5.67648C3.68891 5.62176 3.77786 5.58358 3.87172 5.56423C3.96557 5.54489 4.06237 5.54479 4.15626 5.56394C4.25016 5.58309 4.33919 5.6211 4.41797 5.67565L10.0013 9.16732L15.5846 5.67565C15.6634 5.6211 15.7524 5.58309 15.8463 5.56394C15.9402 5.54479 16.037 5.54489 16.1309 5.56423C16.2247 5.58358 16.3137 5.62176 16.3924 5.67648C16.471 5.7312 16.5378 5.80131 16.5886 5.88257C16.6394 5.96383 16.6731 6.05455 16.6878 6.14924C16.7026 6.24393 16.6979 6.34062 16.6742 6.43346C16.6504 6.5263 16.6081 6.61336 16.5497 6.68936C16.4914 6.76537 16.4182 6.82874 16.3346 6.87565Z"
+                    fill="white"
                   />
                 </svg>
 
-                <p>+91 9175939641</p>
-              </div>
-              <div className=" flex items-center gap-x-[10px]">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M13.334 2.66699H2.66732C1.93398 2.66699 1.34065 3.26699 1.34065 4.00033L1.33398 12.0003C1.33398 12.7337 1.93398 13.3337 2.66732 13.3337H13.334C14.0673 13.3337 14.6673 12.7337 14.6673 12.0003V4.00033C14.6673 3.26699 14.0673 2.66699 13.334 2.66699ZM13.0673 5.50033L8.35398 8.44699C8.14065 8.58033 7.86065 8.58033 7.64732 8.44699L2.93398 5.50033C2.86714 5.4628 2.8086 5.4121 2.76191 5.35129C2.71522 5.29049 2.68136 5.22084 2.66237 5.14657C2.64338 5.0723 2.63965 4.99495 2.65142 4.9192C2.66319 4.84344 2.69021 4.77087 2.73084 4.70586C2.77147 4.64085 2.82487 4.58476 2.8878 4.54099C2.95074 4.49722 3.0219 4.46667 3.09698 4.45119C3.17206 4.43572 3.24951 4.43564 3.32462 4.45096C3.39974 4.46628 3.47096 4.49668 3.53398 4.54033L8.00065 7.33366L12.4673 4.54033C12.5303 4.49668 12.6016 4.46628 12.6767 4.45096C12.7518 4.43564 12.8292 4.43572 12.9043 4.45119C12.9794 4.46667 13.0506 4.49722 13.1135 4.54099C13.1764 4.58476 13.2298 4.64085 13.2705 4.70586C13.3111 4.77087 13.3381 4.84344 13.3499 4.9192C13.3616 4.99495 13.3579 5.0723 13.3389 5.14657C13.3199 5.22084 13.2861 5.29049 13.2394 5.35129C13.1927 5.4121 13.1342 5.4628 13.0673 5.50033Z"
-                    fill="#667085"
-                  />
-                </svg>
-                <p>contact@kamayakya.com</p>
+                <p className="text-sm md:text-md md:font-semibold">contact@kamayakya.com</p>
               </div>
             </div>
           </div>
-          <div className=" flex flex-col pt-12 pb-[72px] max-md:py-10 gap-y-16 max-md:gap-y-10 border-t border-t-[#E4E7EC]">
-            <div className=" flex max-md:flex-wrap content-center max-md:justify-center justify-between items-center">
-              <Image className=" inline-block max-md:hidden" width={252} height={50} alt="sebi" src={"/sebi.png"} />
-              <Image className=" inline-block max-md:hidden" width={280.29} height={55} alt="udyam" src="/udyam.png" />
-              <Image
-                className=" inline-block max-md:hidden"
-                width={265.48}
-                height={55}
-                alt="startupindia"
-                src={"/startupindia.png"}
-              />
-              <Image className=" hidden max-md:inline-block" width={132} height={26} alt="sebi" src={"/sebi.png"} />
-              <Image className=" hidden max-md:inline-block" width={149} height={29} alt="udyam" src="/udyam.png" />
-              <Image
-                className=" hidden max-md:inline-block"
-                width={131}
-                height={27}
-                alt="startupindia"
-                src={"/startupindia.png"}
-              />
+          <div className=" flex flex-col pt-10 md:pt-12 gap-y-10  md:gap-y-[60px] border-t border-t-[rgba(228,231,236,0.4)]">
+            {/* <div className=" flex gap-[10px] flex-wrap content-center items-center justify-between max-md:justify-center"> */}
+            <div className=" grid grid-cols-[repeat(auto-fit,_minmax(149px,0.5fr))] gap-[10px] justify-between place-content-center max-phone:place-content-center">
+              <div className=" max-phone:place-self-center place-self-start">
+                <Image
+                  className=" inline-block max-md:hidden h-full w-full max-w-[252px] "
+                  width={252}
+                  height={50}
+                  alt="sebi"
+                  src={"/sebi.png"}
+                />
+                <Image className=" hidden max-md:inline-block" width={132} height={26} alt="sebi" src={"/sebi.png"} />
+              </div>
+              <div className=" max-phone:place-self-center place-self-center">
+                <Image
+                  className=" inline-block max-md:hidden h-full w-full max-w-[252px] "
+                  width={280.29}
+                  height={55}
+                  alt="udyam"
+                  src="/udyam.png"
+                />
+                <Image className=" hidden max-md:inline-block" width={149} height={29} alt="udyam" src="/udyam.png" />
+              </div>
+              <div className=" max-phone:place-self-center place-self-end max-phone:col-span-full">
+                <Image
+                  className=" inline-flex max-md:hidden h-full w-full max-w-[252px]"
+                  width={265.48}
+                  height={55}
+                  alt="startupindia"
+                  src={"/startupindia.png"}
+                />
+
+                <Image
+                  className=" hidden max-md:inline-block"
+                  width={131}
+                  height={27}
+                  alt="startupindia"
+                  src={"/startupindia.png"}
+                />
+              </div>
             </div>
-            <p className=" text-sm text-gray-500 max-md:text-center">
+            <p className=" text-sm text-center">
               Investment in securities market are subject to market risks. Read all the related documents carefully
               before investing. Registration granted by SEBI and certification from NISM in no way guarantee performance
               of the intermediary or provide any assurance of returns to investors.
             </p>
-          </div>
-          <div className=" flex justify-between items-center max-md:flex-col-reverse flex-wrap-reverse">
-            <p className=" text-sm text-[#52525B] max-md:text-4xs">
-              © 2023 KamayaKya Wealth Management Pvt. Ltd., all rights reserved.
-            </p>
-            <div className=" flex flex-wrap gap-x-5 items-center max-md:justify-center flex-shrink-0 content-center whitespace-nowrap max-md:text-2xs ">
-              <p className=" text-gray-800">Terms & conditions</p>
-              <p className=" text-gray-800">Disclousers</p>
-              <p className=" text-gray-800">Investor Charter</p>
-              <p className=" text-gray-800">Complaints</p>
-              <p className=" text-gray-800">Privacy Policy</p>
+            <div className=" flex flex-col gap-y-5 md:gap-y-12">
+              <div className=" text-white flex flex-wrap gap-x-5 items-center justify-center flex-shrink-0 content-center whitespace-nowrap max-md:text-2xs ">
+                <p className=" m-0 font-medium text-2xs md:text-md">Terms & conditions</p>
+                <p className=" m-0 font-medium text-2xs md:text-md">Disclousers</p>
+                <p className=" m-0 font-medium text-2xs md:text-md">Investor Charter</p>
+                <p className=" m-0 font-medium text-2xs md:text-md">Complaints</p>
+                <p className=" m-0 font-medium text-2xs md:text-md">Privacy Policy</p>
+              </div>
+              <p className=" text-sm  max-md:text-4xs opacity-[62%] text-center">
+                © 2023 KamayaKya Wealth Management Pvt. Ltd., all rights reserved.
+              </p>
             </div>
           </div>
         </div>

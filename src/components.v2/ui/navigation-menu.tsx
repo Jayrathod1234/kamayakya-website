@@ -12,7 +12,7 @@ const NavigationMenu = React.forwardRef<
   <NavigationMenuPrimitive.Root
     ref={ref}
     className={cn(
-      "relative z-10 flex max-w-max flex-1 items-center justify-center",
+      "relative z-30 flex max-w-max flex-1 items-center justify-center",
       className
     )}
     {...props}
@@ -41,7 +41,7 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 const NavigationMenuItem = NavigationMenuPrimitive.Item
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-[rgba(255,255,255,0.3)] hover:text-gray-600 focus:bg-[rgba(255,255,255,0.3)] focus:text-gray-600 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[rgba(255,255,255,0.6)]/50 data-[active]:text-brand-400 data-[state=open]:bg-[rgba(255,255,255,0.3)]/50 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:focus:bg-slate-800 dark:focus:text-slate-50 dark:data-[active]:bg-slate-800/50 dark:data-[state=open]:bg-slate-800/50"
+  "group inline-flex w-max items-center justify-center rounded-md px-[10px] py-[9px] md:px-4 md:py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-[rgba(255,255,255,0.3)] hover:text-gray-600 focus:bg-[rgba(255,255,255,0.3)] focus:text-gray-600 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[rgba(255,255,255,0.6)]/50 data-[active]:text-brand-400 data-[active]:border data-[active]:border-white data-[state=open]:bg-[rgba(255,255,255,0.3)]/50 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:focus:bg-slate-800 dark:focus:text-slate-50 dark:data-[active]:bg-slate-800/50 dark:data-[state=open]:bg-slate-800/50"
 )
 
 const NavigationMenuTrigger = React.forwardRef<

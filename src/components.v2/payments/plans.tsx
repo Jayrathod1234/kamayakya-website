@@ -19,6 +19,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import Login from "@/components/Login";
 import { useRouter } from "next/router";
 
+// ${
+//   currentPlanViewing === "vip" && "shadow-[0px_0px_0px_3px_#75CDC5]"
+// }
+
 export function Plans() {
   const { isLoggedIn } = useContext(AuthContext);
   const { activePlan } = useActivePlanContext();
@@ -26,6 +30,7 @@ export function Plans() {
   const [currentPlanViewing, setCurrentPlanViewing] = useState("vip");
   const [plans, setPlans] = useState<TPlan | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [openTooltip,setOpenTooltip] = useState(false);
   const router = useRouter();
   const tabOptions = [
     { label: "3 months", value: "3months" },
@@ -101,7 +106,7 @@ export function Plans() {
 
   return (
     <div>
-      <div className=" relative flex justify-center mb-12 pt-10 md:pb-20 pb-6">
+      <div className=" relative flex justify-center mb-14 md:mb-0 pt-10 md:pb-20 pb-6">
         <div className="relative">
           {/* <Image
           className=" block lg:hidden absolute -rotate-12  right-[20%] md:right-[25%] lg:right-[30%] top-[4%] bg-blend-multiply"
@@ -149,8 +154,8 @@ export function Plans() {
         </div>
       </div>
       <div>
-        <div className=" md:hidden">
-          <div className=" flex w-full min-h-[82px]">
+        <div className=" md:hidden max-w-[540px] mx-auto">
+          <div className=" flex w-full min-h-[82px] gap-x-2 ">
             <PlansMobileTab
               onClick={() => handlePlanSelect("free")}
               plan="FREE TRIAL"
@@ -230,21 +235,23 @@ export function Plans() {
                 return (
                   plan.name.toLowerCase() === currentPlanViewing && (
                     <div
-                      className={` rounded-b-xl border-x border-x-gray-150 border-b border-b-gray-150 ${
-                        currentPlanViewing === "vip" && "shadow-[0px_0px_0px_3px_#75CDC5]"
-                      }`}
+                      className={` rounded-b-xl border-x border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)] 
+                      
+                      `}
                     >
                       <div className=" px-4 py-5">
                         <div>
-                          <p className=" text-md text-gray-400 line-through"></p>
+                          <p className=" text-md text-gray-400 line-through">{PLAN[planName].priceStrikeThrough}</p>
                           <span className=" text-display-md font-semibold">₹{plan.perMonth.toFixed(2)}</span>
                           <span className=" text-gray-400 text-2xs"> / month</span>
                           <p className=" text-sm font-medium text-gray-800">
-                            {plan.duration_in_days > 365
-                              ? `Pay ₹${(plan.amount / 12).toFixed(2)} annually`
-                              : plan.duration_in_days === 365
-                              ? `Pay ₹${plan.amount} annually`
-                              : ""}{" "}
+                            {planName !== "free"
+                              ? plan.duration_in_days > 365
+                                ? `Billed ₹${plan.amount.toFixed(2)} for 3 years `
+                                : plan.duration_in_days === 365
+                                ? `Billed ₹${plan.amount} annually`
+                                : `Billed ₹${plan.amount} for 3 months`
+                              : ""}
                           </p>
                           <p className="text-sm  text-gray-500">Inclusive of 18% GST</p>
                         </div>
@@ -285,7 +292,7 @@ export function Plans() {
                         >
                           {btnText}
                         </Button>
-                        <p className=" mt-3 text-center text-gray-400 text-sm">No subscription auto-renewal</p>
+                        <p className=" mt-3 text-center text-gray-400 text-sm">{PLAN[planName].warnMessage}</p>
                       </div>
                     </div>
                     // <PlanCardDesktop
@@ -318,7 +325,7 @@ export function Plans() {
           ) : null}
         </div>
 
-        <div className="hidden md:grid md:grid-cols-2 md:grid-rows-2 md:gap-8 lg:flex lg:gap-0 justify-center">
+        <div className="hidden md:grid md:grid-cols-2 md:grid-rows-2 md:gap-8 lg:flex lg:gap-y-8 lg:gap-x-0 flex-wrap justify-center">
           {plans && plans[currentTab] ? (
             <>
               {plans[currentTab].map((plan: TPlanResponse) => {
@@ -376,19 +383,19 @@ export function Plans() {
                         currentTab === "3months" && plan.name === "vip"
                           ? " md:!col-start-1 md:col-span-full md:justify-self-center"
                           : ""
-                      }${plan.name.toLowerCase() === "free" ? "" : ""}${
-                        plan.name.toLowerCase() === "vip" ? " " : ""
-                      }`
+                      }${plan.name.toLowerCase() === "free" ? "" : ""}${plan.name.toLowerCase() === "vip" ? " " : ""}`
                     }
                     subtext={""}
                     plan={plan.name}
                     price={plan.perMonth.toFixed(2)}
-                    priceStrikeThrough=""
+                    priceStrikeThrough={currentTab !== "3months" ? PLAN[planName].priceStrikeThrough : ""}
                     showAnually={
-                      plan.duration_in_days > 365
-                        ? `Pay ₹${(plan.amount / 12).toFixed(2)} annually`
-                        : plan.duration_in_days === 365
-                        ? `Pay ₹${plan.amount} annually`
+                      planName !== "free"
+                        ? plan.duration_in_days > 365
+                          ? `Billed ₹${plan.amount.toFixed(2)} for 3 years `
+                          : plan.duration_in_days === 365
+                          ? `Billed ₹${plan.amount} annually`
+                          : `Billed ₹${plan.amount} for 3 months`
                         : ""
                     }
                     label={PLAN[planName].label}
@@ -396,12 +403,14 @@ export function Plans() {
                     featureHead={PLAN[planName].featureHead}
                     featureList={PLAN[planName].featureList}
                     btnText={btnText}
-                    warnMessage="No credit card required.Start for free, pick a plan later."
+                    warnMessage={PLAN[planName].warnMessage}
                     perMonth={PLAN[planName].perMonth}
                     popular={PLAN[planName].popular}
                     ctaDisabled={ctaDisabled}
                     btnVariant={PLAN[planName].btnVariant ?? ButtonVariant.secondary}
                     handleClick={handlePlanClick}
+                    tooltip = {PLAN[planName].tooltip ? PLAN[planName].tooltip[currentTab] : null}
+                    total={"₹"+plan.amount}
                   />
                 );
               })}
@@ -410,16 +419,16 @@ export function Plans() {
         </div>
         <div className=" mt-6 md:mt-10 text-center flex items-center justify-center ">
           <TooltipProvider delayDuration={0}>
-            <Tooltip>
-              <TooltipTrigger>
+            <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
+              <TooltipTrigger onClick={()=>setOpenTooltip(true)} >
                 <div className="px-16 py-[9px] bg-gray-50 w-fit rounded-full border border-gray-100">
                   <p className=" text-center text-brand-600 text-sm md:text-md md:border-b-[1px] md:border-dashed border-brand-600 w-fit">
-                    Why do we recommend minimum annual membership
+                    Why do we recommend minimum annual membership ?
                   </p>
                 </div>
               </TooltipTrigger>
               <TooltipContent side="bottom" className=" bg-black text-white border-0 p-3 max-w-[425px]">
-                <p>
+                <p className=" leading-6 w-[350px] md:w-full]">
                   We understand that effective investing requires time and patience, which is why we exclusively offer
                   an annual plan. Our strategy reflects our ethos that long-term commitment is key to unlocking the true
                   potential of your investments.

@@ -1,6 +1,15 @@
 import { Avatar, AvatarVariant } from "@/components.v2/avatar";
 import React from "react";
 
+type TTestimonialsCard = {
+  className?: string;
+  title?: string;
+  testimony: string;
+  author: string;
+  company?: string;
+  imgSrc?: string;
+};
+
 const Quotes = () => (
   <svg width="33" height="22" viewBox="0 0 33 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -10,26 +19,12 @@ const Quotes = () => (
   </svg>
 );
 
-export function TestimonialsCard({
-  className,
-  testimony,
-  title,
-  author,
-  company,
-  imgSrc
-}: {
-  className?: string;
-  title?: string;
-  testimony: string;
-  author: string;
-  company?: string;
-  imgSrc?:string;
-}) {
+export function TestimonialsCard({ className, testimony, title, author, company, imgSrc }: TTestimonialsCard) {
   return (
     <div
       className={
         className +
-        " group/testimonial-card h-[408px] md:h-[425px] flex flex-col bg-white relative text-start p-7 md:px-[3.44rem] md:py-[3.31rem] shadow-sm hover:shadow-xl md:min-w-[450px] md:max-w-[664px] lg:w-[664px] min-w-[324px] border border-[#EFF0F6] rounded-[1.25rem] transition-all hover:border-0 hover:border-[#E4E7EC]"
+        " testimony  group/testimonial-card h-[408px] md:h-[425px] flex flex-col bg-white relative text-start p-7 md:px-[3.44rem] md:py-[3.31rem] shadow-sm hover:shadow-xl md:min-w-[450px] md:max-w-[650px] lg:w-[664px] min-w-[324px] border border-[#EFF0F6] rounded-[1.25rem] transition-all hover:border-0 hover:border-[#E4E7EC]"
       }
     >
       <div className=" absolute top-[-3%] right-[2.5rem]">

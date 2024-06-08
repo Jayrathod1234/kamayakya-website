@@ -38,6 +38,7 @@ import { Box, IconButton } from "@mui/material";
 import { Modal } from "@nextui-org/react";
 
 import Login from "@/components/Login";
+import { LoginBtnNav } from "./login-btn-nav";
 
 export function Navbar() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -57,7 +58,7 @@ export function Navbar() {
   return (
     <div className=" flex py-2 md:py-4 justify-between items-center">
       <div className=" flex flex-row items-center justify-center">
-        <div className=" mb-1 mr-10">
+        <div className=" mb-1 mr-3 lg:mr-10">
           <Image
             className=" inline-block md:hidden h-full w-full"
             src="/KKLogoK.svg"
@@ -75,15 +76,15 @@ export function Navbar() {
             priority
           />
         </div>
-        <div className="relative z-[1000]">
+        <div className="relative">
           <NavigationMenu>
             <NavigationMenuList className=" m-0">
               <NavigationMenuItem className=" m-0 hidden lg:flex">
-                <NavigationMenuTrigger>Home</NavigationMenuTrigger>
-                <NavigationMenuContent className=" rounded-xl ">
+                <NavigationMenuTrigger>{isLoggedIn ? "About us" : "Home"}</NavigationMenuTrigger>
+                <NavigationMenuContent className=" rounded-xl z-20 ">
                   <ul className="grid md:grid-cols-3 lg:grid-cols-[1fr_1fr_1fr_minmax(284px,auto)] grid-rows-4 grid-flow-col gap-3 m-0 p-6 md:w-[500px] lg:w-[957px]">
                     {HOME_OPTIONS.map((option) => (
-                      <ListItem href={option.link} icon={option.icon} title={option.title}>
+                      <ListItem className=" hover:bg-gray-50" href={option.link} icon={option.icon} title={option.title} endIcon={option.endIcon}>
                         {option.subtitle}
                       </ListItem>
                     ))}
@@ -95,7 +96,16 @@ export function Navbar() {
               </NavigationMenuItem>
               {NAVBAR_LINKS.map((navigationOption) => (
                 <NavigationMenuItem
-                  className={` m-0 ${navigationOption.title !== "Track Record" ? "hidden lg:flex" : ""}`}
+                  className={` m-0 ${
+                    (navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to buy") ||
+                    !isLoggedIn
+                      ? navigationOption.title === "Stocks to buy"
+                        ? "hidden"
+                        : "hidden lg:flex"
+                      : navigationOption.title === "Stocks to buy"
+                      ? "lg:hidden"
+                      : ""
+                  } ${isLoggedIn && navigationOption.title === "About us" ? "!hidden" : ""}`}
                 >
                   <Link href={navigationOption.link} legacyBehavior passHref>
                     <NavigationMenuLink
@@ -111,7 +121,10 @@ export function Navbar() {
           </NavigationMenu>
         </div>
       </div>
-      <SideNav handleLogin={handleLogin} />
+      <div className=" flex items-center justify-center gap-x-4 lg:hidden">
+        {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
+        <SideNav handleLogin={handleLogin} />
+      </div>
       <div className="hidden px-2 lg:flex">
         <Link href={"/stock-picks"}>
           <button
@@ -126,31 +139,7 @@ export function Navbar() {
           {isLoggedIn ? (
             <NavbarDropdownCard triggerElement={<Avatar variant={AvatarVariant.md} />} userCard={true} />
           ) : (
-            <button
-              onClick={handleLogin}
-              className={` border border-brand-500 pricing bg-brand-500 text-white  px-4 py-[10px] rounded-[6px] flex items-center justify-center gap-x-2`}
-            >
-              <Avatar variant={AvatarVariant.xs} />
-              <p className=" text-sm font-medium">Login</p>
-              <div>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 5.33398L14.6667 8.00065L12 10.6673"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M1.33325 8H14.6666"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </button>
+            <LoginBtnNav handleLogin={handleLogin} arrow />
           )}
         </div>
       </div>
@@ -204,11 +193,12 @@ export function Navbar() {
 
 interface CustomProps extends React.ComponentPropsWithoutRef<"a"> {
   icon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   title?: string;
 }
 
 const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
-  ({ className, icon, title, children, ...props }, ref) => {
+  ({ className, icon, endIcon, title, children, ...props }, ref) => {
     return (
       <li>
         <NavigationMenuLink asChild>
@@ -222,7 +212,10 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
           >
             <div>{icon}</div>
             <div>
-              <div className="text-sm font-medium leading-none text-gray-950 mb-1">{title}</div>
+              <div className="text-sm font-medium leading-none text-gray-950 mb-1 flex gap-x-2 items-center">
+                <span>{title}</span>
+                <span>{endIcon}</span>
+              </div>
               <p className="line-clamp-2 text-sm leading-snug text-gray-500">{children}</p>
             </div>
           </a>

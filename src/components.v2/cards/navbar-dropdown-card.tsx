@@ -11,17 +11,31 @@ import { Avatar, AvatarVariant } from "../avatar";
 import { NavbarUserCard } from "./navbar-user-card";
 import { CircleHelp, Headset, LogOut, MessageSquareText, User } from "lucide-react";
 
-export function NavbarDropdownCard({ triggerElement, userCard, sideOffset = 8, side = undefined }) {
+export function NavbarDropdownCard({
+  triggerElement,
+  userCard,
+  sideOffset = 8,
+  side = undefined,
+}: {
+  triggerElement: React.ReactNode;
+  userCard?: boolean;
+  sideOffset?: number;
+  side?: "top" | "right" | "bottom" | "left" | undefined;
+}) {
   const handleLogoutClick = () => {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
-    
+
     // router.push("/");
   };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className=" w-full">{triggerElement}</DropdownMenuTrigger>
-      <DropdownMenuContent side={side} sideOffset={sideOffset}>
+      <DropdownMenuContent
+        className=" w-[319px] md:w-auto rounded-[6px] border border-gray-150 shadow-[0px_4px_6px_rgba(0,0,0,0.09)]"
+        side={side}
+        sideOffset={sideOffset}
+      >
         {userCard && (
           <DropdownMenuLabel className=" p-0">
             <NavbarUserCard />
@@ -63,12 +77,12 @@ const DropDownItemContent = ({
   icon,
   option,
   fontColor,
-  onClick
+  onClick,
 }: {
   icon: React.ReactNode;
   option: string;
   fontColor?: string;
-  onClick?:()=>void
+  onClick?: () => void;
 }) => {
   return (
     <div onClick={onClick} className=" flex gap-x-2 px-2 py-[6px] items-center">

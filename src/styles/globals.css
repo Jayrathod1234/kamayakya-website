@@ -1233,6 +1233,7 @@ header > div > div {
 
  .pricing * {
   @apply font-open_sans !important;
+  letter-spacing: normal !important;
 }
 
 *{
@@ -1249,7 +1250,66 @@ header > div > div {
   -webkit-backface-visibility:hidden ;
 }
 
-/* .carousel:not(.is-snapped) {
-  transform: scale(.7);
- 
-} */
+
+
+/* SmallcaseEmbed.css */
+
+.sc-embed {
+  max-width: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .sc-embed {
+    min-height: 200px;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sc-embed {
+    min-height: 150px;
+    padding: 0.25rem;
+  }
+}
+
+.font-14px{
+  font-size: 14px !important;
+}
+
+.font-w-normal{
+  font-weight: normal !important;
+}
+
+.pricing .flag-dropdown{
+   margin: 0;
+   /* padding-left: 14px; */
+   /* padding-block: 10px; */
+   height: 100%;
+   position: relative !important;
+   order:1;
+   display: flex;
+   justify-content: flex-start;
+} 
+
+.pricing .flag-dropdown .selected-flag{
+   padding: 0;
+   max-width: 44px !important;
+} 
+
+.pricing .form-control{
+  order:2;
+  border:0 !important;
+  padding-left: 0 !important;
+  height: auto !important;
+}
+
+.pricing .react-tel-input{
+  display: flex;
+  align-items: center;
+}

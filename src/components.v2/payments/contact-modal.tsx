@@ -16,9 +16,9 @@ import { ContactModalHead } from "./contact-modal-head";
 
 export function ContactModal() {
   return (
-    <DialogContent className=" p-5 md:p-6 pb-[21px] max-w-[1200px] md:min-h-[749px] max-md:h-screen overflow-y-scroll pricing">
+    <DialogContent className=" p-5 md:p-6 pb-[21px]  max-w-[1200px] min-h-[749px] max-md:h-screen overflow-y-scroll pricing">
       {/* <div className=" h-full p-0"> */}
-      <div className="grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] md:gap-6 h-full max-w-[1152px] md:min-h-[704px] ">
+      <div className="grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] md:gap-6 h-full max-w-[1152px] min-h-[704px] ">
         <div className=" hidden md:block md:col-start-1 md:row-span-2 rounded-xl shadow-2xs ">
           <ContactModalHead />
           <div className=" h-[1px] my-6 w-full bg-gray-100"></div>
@@ -135,7 +135,7 @@ export function ContactModal() {
               className={" lg:col-span-2 lg:row-start-2 md:col-start-1 md:row-start-3 md:col-span-full"}
             />
             <p className=" lg:row-start-3 lg:col-span-2 text-gray-700 text-sm md:row-start-4 md:col-span-1 text-center">
-              Call us during business hours, Monday to Friday, between 9am and 5pm EST, for assistance.
+              Call us during business hours, Monday to Friday, between 10am and 7pm IST, for assistance.
             </p>
           </div>
         </div>

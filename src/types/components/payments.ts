@@ -25,8 +25,15 @@ export type TFeatures = {
 
 export type TFeatureList = { featureList: Array<TFeatures> };
 
+export type TPlantooltip = { price: string; strikePrice?: string; saveText?: string; gst: string; total: string };
+
+type TTooltip = {
+  [k: string]: TPlantooltip;
+};
+
 export type TPlanCardDesktop = {
-  active?:boolean;
+  total:string;
+  active?: boolean;
   plan: string;
   price: string;
   priceStrikeThrough: string;
@@ -43,6 +50,8 @@ export type TPlanCardDesktop = {
   btnVariant?: ButtonVariant;
   className?: string;
   ctaDisabled?: boolean;
+  handleClick: () => void;
+  tooltip?: TTooltip;
 };
 
 export type TPlan = {
@@ -50,8 +59,8 @@ export type TPlan = {
 };
 
 export type TContactOptionCard = {
-  className?:string;
-  label:string;
-  value:string;
-  icon:React.ReactNode;
-}
+  className?: string;
+  label: string;
+  value: string;
+  icon: React.ReactNode;
+};

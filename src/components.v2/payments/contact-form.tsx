@@ -109,9 +109,9 @@ export function ContactForm() {
             handleInputs(e.target.value, setName);
             if (error.nameError) setError((prev) => ({ ...prev, nameError: false }));
           }}
-          className={` placeholder:text-gray-400 placeholer:text-md  border border-[#D0D5DD] ${
+          className={` placeholder:text-gray-400 placeholer:text-md py-[10px] px-[14px] max-h-11 lg:h-11  border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0  ${
             error.nameError ? " border  border-[rgba(253,162,155,1)]  " : ""
-          } focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0`}
+          }`}
         />
         {error.nameError ? <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left">Enter name</p> : null}
       </div>
@@ -119,41 +119,25 @@ export function ContactForm() {
         <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
           Phone number*
         </label>
-        <div
-        // className={`border pl-[14px]  border-[#D0D5DD] ${
-        //   error.phoneError ? " border  border-[rgba(253,162,155,1)]  " : ""
-        // } flex items-center md:items-start bg-white rounded-[6px] gap-[10px] w-full`}
-        >
-          {/* <Select>
-            <SelectTrigger className="w-fit p-0 text-gray-900 outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0">
-              <SelectValue placeholder="IN" />
-            </SelectTrigger>
-            <SelectContent className=" w-4 overflow-hidden">
-              <SelectItem value="light">KR</SelectItem>
-              <SelectItem value="dark">LA</SelectItem>
-              <SelectItem value="system">IN</SelectItem>
-            </SelectContent>
-          </Select> */}
+        <div className={` border border-[#D0D5DD] max-md:pl-0  px-[14px]  py-[10px] lg:h-11 max-h-11 flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto ${
+            error.emailError ? " border  border-[rgba(253,162,155,1)]  " : ""
+          }`}>
           <PhoneInput
+            countryCodeEditable={false}
             onChange={(value) => {
               handleInputs(value, setPhone);
               if (error.phoneError) {
                 setError((prev) => ({ ...prev, phoneError: false }));
               }
             }}
-            inputClass={`border pl-[14px]  !border-[#D0D5DD] ${
+            inputStyle={{
+              fontSize: "14px !important",
+            }}
+            inputClass={` font-w-normal !flex font-normal border pl-[14px] !border-[#D0D5DD] max-h-11 lg:h-11 flex items-center md:items-start bg-white rounded-important-6px gap-[10px] !w-full !text-sm ${
               error.phoneError ? " border  !border-[rgba(253,162,155,1)]  " : ""
-            } flex items-center md:items-start bg-white rounded-important-6px gap-[10px] !w-full !text-sm`}
+            }`}
             country={"in"}
           />
-          {/* <Input
-            onChange={(e) => {
-              handleInputs(e.target.value, setPhone);
-              if (error.phoneError) setError((prev) => ({ ...prev, phoneError: false }));
-            }}
-            placeholder="Phone"
-            className=" placeholer:text-md pl-0 py-0 placeholder:text-gray-400  text-md outline-none border-0 bg-transparent focus:border-0 focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
-          /> */}
         </div>
         {error.phoneError ? (
           <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left">Enter valid phone</p>
@@ -164,9 +148,9 @@ export function ContactForm() {
           Email*
         </label>
         <div
-          className={` border border-[#D0D5DD] ${
+          className={` border border-[#D0D5DD]  px-[14px]  py-[10px] lg:h-11 max-h-11 flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto ${
             error.emailError ? " border  border-[rgba(253,162,155,1)]  " : ""
-          } px-[14px]  py-[10px] flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto`}
+          }`}
         >
           {/* <div className=" ml-[6px]"> */}
           <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
@@ -189,9 +173,9 @@ export function ContactForm() {
           What's your query?*
         </label>
         <div
-          className={`${
+          className={` flex items-center  bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto ${
             error.queryError ? " border  border-[rgba(253,162,155,1)]  " : ""
-          } flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto`}
+          }`}
         >
           <Select
             onValueChange={(value) => {
@@ -199,11 +183,13 @@ export function ContactForm() {
               if (error.queryError) setError((prev) => ({ ...prev, queryError: false }));
             }}
           >
-            <SelectTrigger className=" placeholder:text-gray-400 placeholder:text-md focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
-              <SelectValue placeholder="Select your query" className=" placeholder:text-gray-400 placeholder:text-md" />
+            <SelectTrigger className="px-[14px] py-[10px] max-h-11 lg:h-11 text-md placeholder:text-gray-400 placeholder:text-md focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
+              <SelectValue placeholder="Select your query" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Product Information">Product Information</SelectItem>
+            <SelectContent className=" text-sm font-medium">
+              <SelectItem className="" value="Product Information">
+                Product Information
+              </SelectItem>
               <SelectItem value="Pricing">Pricing</SelectItem>
               <SelectItem value="Billing & Payment">Billing & Payment</SelectItem>
               <SelectItem value="Technical support">Technical support</SelectItem>
@@ -221,10 +207,12 @@ export function ContactForm() {
       </div>
       {querySelected === "Other" && (
         <div className="">
-          <div className=" flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-[350px] md:max-w-[566px] mx-auto">
+          <div className=" flex items-center bg-white rounded-[6px] gap-[8px] w-full mx-auto">
             <Textarea
+              maxLength={256}
+              placeholder="Tell us about your query"
               onChange={(e) => handleInputs(e.target.value, setOtherQuery)}
-              className=" border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className=" text-md placeholder:text-gray-400 placeholer:text-md py-[10px] px-[14px]  border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </div>
         </div>

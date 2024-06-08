@@ -12,6 +12,7 @@ import {
   TPriceStrikeThrough,
 } from "@/types";
 import { PlanActiveLabel } from "./plan-active-label";
+import { PlanTooltip } from "./plan-tooltip";
 
 const PlanCardHead = ({ plan, label }: TPlanCardHead) => {
   return (
@@ -50,16 +51,24 @@ const SubText = ({ children }: TChildren) => {
   return <p className={` text-gray-700 text-sm font-semibold`}>{children}&zwj;</p>;
 };
 
-const GstLabel = ({ gstLabel }: TGstLabel) => {
+const GstLabel = ({ gstLabel, tooltip, total }: TGstLabel) => {
   return (
     <p className=" text-sm text-gray-400 flex items-center gap-2">
       {gstLabel ? (
-        <>
-          Inclusive of 18% GST{" "}
-          <span>
-            <Image width={16} height={16} alt="info-icon" src="/icons/info-icon.svg" />
-          </span>
-        </>
+        <span className=" flex items-center gap-x-2">
+          <span className=" inline-block">Inclusive of 18% GST </span>
+          <PlanTooltip
+            price={tooltip?.price}
+            saveText={tooltip?.saveText}
+            strikePrice={tooltip?.strikePrice}
+            gst={tooltip?.gst}
+            total={total}
+          >
+            <div className=" flex justify-center items-center">
+              <Image width={16} height={16} alt="info-icon" src="/icons/info-icon.svg" />
+            </div>
+          </PlanTooltip>
+        </span>
       ) : null}
       &zwj;
     </p>
@@ -102,6 +111,8 @@ export function PlanCardDesktop({
   ctaDisabled = false,
   className,
   handleClick,
+  tooltip,
+  total,
 }: TPlanCardDesktop) {
   return (
     <div
@@ -109,11 +120,18 @@ export function PlanCardDesktop({
         popular
           ? "before:pointer-events-auto shadow-[inset_0px_0px_0px_3px] shadow-brand-300 before:content-[''] before:h-full before:w-full before:absolute before:bg-transparent before:z-[-1] before:shadow-sm"
           : "border border-gray-150"
-      } z-20 max-w-[315px] grid grid-col-1 grid-rows-[279px_1fr_.2fr] max-h-[785px] relative ${className}`}
+      }  max-w-[315px] grid grid-col-1 grid-rows-[279px_1fr_.2fr] max-h-[785px] relative rounded-xl lg:rounded-none ${className}`}
     >
       {popular && (
         <div className=" flex flex-row items-center justify-center gap-x-[2px] px-2 py-[7px] rounded-t-lg bg-brand-300 text-white font-semibold absolute w-full lg:-top-8 max-md:top-0 ">
-           <svg className=" inline-block" width="10" height="10" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className=" inline-block"
+            width="10"
+            height="10"
+            viewBox="0 0 11 11"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M9.35519 4.98686L7.65867 6.50366L8.17554 8.77202C8.20406 8.89515 8.19672 9.02429 8.15444 9.1431C8.11216 9.26192 8.03684 9.36509 7.938 9.43958C7.83917 9.51406 7.72124 9.55653 7.59912 9.56161C7.477 9.56669 7.35616 9.53415 7.25188 9.46811L5.348 8.25405L3.443 9.46811C3.33873 9.53377 3.21804 9.566 3.09613 9.56073C2.97422 9.55547 2.85654 9.51294 2.75791 9.43852C2.65927 9.3641 2.5841 9.2611 2.54185 9.1425C2.49959 9.02389 2.49216 8.89499 2.52047 8.77202L3.03923 6.50366L1.3427 4.98686C1.25045 4.90425 1.18373 4.7953 1.15088 4.67364C1.11802 4.55197 1.12049 4.42297 1.15798 4.30275C1.19546 4.18252 1.2663 4.07641 1.36164 3.99765C1.45698 3.91889 1.57261 3.87098 1.69407 3.85991L3.9184 3.67397L4.77647 1.52241C4.82291 1.40515 4.90196 1.30485 5.00356 1.23426C5.10517 1.16367 5.22473 1.12598 5.34706 1.12598C5.46939 1.12598 5.58896 1.16367 5.69056 1.23426C5.79217 1.30485 5.87121 1.40515 5.91766 1.52241L6.77535 3.67397L8.99967 3.85991C9.12138 3.87057 9.23734 3.91821 9.33303 3.99686C9.42872 4.07551 9.49988 4.18167 9.5376 4.30204C9.57532 4.42241 9.57791 4.55163 9.54506 4.67352C9.51221 4.79541 9.44538 4.90454 9.35293 4.98725L9.35519 4.98686Z"
               fill="white"
@@ -135,7 +153,7 @@ export function PlanCardDesktop({
           </div>
           <SubText>{showAnually} &zwj;</SubText>
           <div className=" mt-2">
-            <GstLabel gstLabel={gstLabel} />
+            <GstLabel gstLabel={gstLabel} tooltip={tooltip} total={total} />
           </div>
         </div>
         <div className=" flex items-center justify-center w-full relative">
@@ -153,7 +171,7 @@ export function PlanCardDesktop({
         </div>
       </div>
       <div className=" flex flex-col gap-y-7 px-7  pb-14 row-start-2">
-        <p className=" m-0 text-sm text-gray-700">{featureHead}</p>
+        <p className=" m-0 text-sm text-gray-700 ">{featureHead}</p>
         <FeatureList featureList={featureList} />
       </div>
       <div className=" px-7 pb-[18px] flex flex-col justify-start gap-3 row-start-3">

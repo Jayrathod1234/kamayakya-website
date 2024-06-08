@@ -1,0 +1,120 @@
+import { useState } from "react";
+import { useToast } from "../ui/use-toast";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import axios from "axios";
+import { NEWSLETTER_SUBSCRIBE_URL } from "@/pages/api/URLs";
+import Image from "next/image";
+import Link from "next/link";
+import { Input } from "../ui/input";
+import { Button } from "../button";
+import { ButtonSize, ButtonVariant } from "../button/button";
+import { LinkedinBtn } from "./linkedin-btn";
+
+export function Newsletter() {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handleNewsLetterEmailSubmit = async () => {
+    try {
+      setLoading(true);
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!isEmail) {
+        setEmailError(true);
+        return;
+      }
+      const response = await axios.post(
+        NEWSLETTER_SUBSCRIBE_URL,
+        { email },
+        {
+          headers: {
+            Authorization: "token " + localStorage.getItem("refresh"),
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data) {
+        toast({
+          description: "Subscribed to newsletter successfully",
+        });
+
+        const mp = getMixPanelClient();
+        mp.track("Linkedinbutton_clicked", {
+          page: "Pricing_Page",
+          pagegroup: "newsletter_subscribed",
+          email: email,
+        });
+      }
+    } catch (e: any) {
+      console.log(e);
+      toast({
+        startIcon: (
+          <div className=" h-full w-full">
+            <Image src={"/warn_icon.svg"} alt="warn" height={16} width={16} />
+          </div>
+        ),
+        description: e.response.data?.email[0] || e.message || "Something went wrong",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className=" relative flex flex-col justify-center items-center py-[60px] text-white before:content-[' '] before:absolute before:top-0 before:left-0 before:-z-[10] before:h-full before:w-full before:bg-[url('/news_letter_bg.png')] before:opacity-80 bg-gray-950 text-center  md:w-[min(1280px,calc(100%-32px))] md:min-w-[328px] md:max-h-[639px] md:mx-auto md:mt-[-15rem]  lg:mt-[-15rem] md:rounded-[40px] relative z-40 ">
+      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto md:w-[566px] md:mt-[109px] md:mb-[126px]">
+        <h3 className=" text-xl font-bold md:text-display-md">
+          Guess who doesn’t like to “Spam” ? <span className=" text-[#32D583]">Us.</span>
+        </h3>
+        <div className=" mt-10 md:mt-[75px] flex flex-col items-center gap-3 md:flex-row md:gap-x-3 md:justify-center">
+          <p className=" whitespace-nowrap">Get monthly dose of market gyaan on :</p>
+          <LinkedinBtn />
+        </div>
+        <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p>
+        <div>
+          {/* EMAIL INPUT */}
+          <div
+            className={` flex items-center bg-white p-2 pl-3 rounded-[6px] gap-[8px] mt-3 w-full max-h-[52px] max-w-[350px] md:max-w-[566px] mx-auto ${
+              emailError ? " border  border-[rgba(253,162,155,1)] shadow-xs shadow-[rgba(253,162,155,1)] " : ""
+            }`}
+          >
+            {/* <div className=" ml-[6px]"> */}
+            <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
+            {/* </div> */}
+            <Input
+              onChange={(e) => {
+                if (emailError) setEmailError(false);
+                setEmail(e.target.value);
+              }}
+              placeholder="Enter your email"
+              className="  px-0 py-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
+            />
+            <Button
+              loading={loading}
+              customStyle=" gap-[6px] !py-2 md:py-[auto]"
+              onClick={handleNewsLetterEmailSubmit}
+              variant={ButtonVariant.primary}
+              size={ButtonSize.lg}
+            >
+              <p className=" text-sm font-medium">Subscribe</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8.88897 3.33301L13.3334 7.99967M13.3334 7.99967L8.88897 12.6663M13.3334 7.99967L2.66675 7.99967"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </Button>
+          </div>
+          {emailError ? (
+            <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left">Enter valid email</p>
+          ) : null}
+          <p className=" text-sm text-gray-200 mt-4">We do not share your details with third parties.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
