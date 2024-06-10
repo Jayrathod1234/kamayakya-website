@@ -3,7 +3,7 @@ export { Button } from "./button/index";
 export {
   EnterpriseCard,
   Testimonials,
-  Plans,
+  PlansSection,
   FeelingLost,
   SmallCaseCard,
   UserTypeCard,
@@ -15,3 +15,4 @@ export { Navbar } from "./navbar";
 export { NavbarUserCard, NavbarDropdownCard } from "./cards/index";
 export { Tabs } from "./tabs";
 export { Semibold } from "./semibold";
+export { Footer } from "./footer";

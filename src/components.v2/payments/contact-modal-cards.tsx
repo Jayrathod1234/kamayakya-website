@@ -20,12 +20,12 @@ export const ContactOptionCard = ({ className, label, value, icon }: TContactOpt
   };
   return (
     <div
-      className={` flex flex-row items-center p-4 gap-x-2 bg-white rounded-xl shadow-2xs border border-brand-300  ${className}`}
+      className={` flex flex-row items-center p-4 gap-x-2 bg-white rounded-xl shadow-2xs border border-brand-300  ${className} w-full`}
     >
       <div>{icon}</div>
       <div className=" whitespace-nowrap">
         <p className=" text-gray-950 leading-6">{label}</p>
-        <div className=" flex items-center gap-[6px]">
+        <div className=" flex items-center gap-[6px] w-full flex-wrap">
           <p ref={ref} className=" text-gray-700 leading-6">
             {value}
           </p>

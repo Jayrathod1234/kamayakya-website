@@ -59,6 +59,7 @@ export function Navbar() {
     <div className=" flex py-2 md:py-4 justify-between items-center">
       <div className=" flex flex-row items-center justify-center">
         <div className=" mb-1 mr-3 lg:mr-10">
+          <Link href={'/'}>
           <Image
             className=" inline-block md:hidden h-full w-full"
             src="/KKLogoK.svg"
@@ -75,21 +76,41 @@ export function Navbar() {
             height={24}
             priority
           />
+          </Link>
         </div>
         <div className="relative">
-          <NavigationMenu>
-            <NavigationMenuList className=" m-0">
+          <NavigationMenu className=" ">
+            <NavigationMenuList className=" m-0 ">
               <NavigationMenuItem className=" m-0 hidden lg:flex">
                 <NavigationMenuTrigger>{isLoggedIn ? "About us" : "Home"}</NavigationMenuTrigger>
-                <NavigationMenuContent className=" rounded-xl z-20 ">
-                  <ul className="grid md:grid-cols-3 lg:grid-cols-[1fr_1fr_1fr_minmax(284px,auto)] grid-rows-4 grid-flow-col gap-3 m-0 p-6 md:w-[500px] lg:w-[957px]">
-                    {HOME_OPTIONS.map((option) => (
-                      <ListItem className=" hover:bg-gray-50" href={option.link} icon={option.icon} title={option.title} endIcon={option.endIcon}>
+                <NavigationMenuContent className=" z-20 w-auto">
+                  <ul
+                    className={`nav__grid-container grid md:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(fit-content,1fr))_minmax(auto,284px)] grid-flow-col  max-h-[332px]  ${
+                      isLoggedIn ? "grid-rows-3" : "grid-rows-4"
+                    } gap-3 m-0 p-6 md:w-[550px] lg:w-[800px] xl:w-[957px] `}
+                  >
+                    {HOME_OPTIONS.filter((options) =>
+                      isLoggedIn
+                        ? options.title !== "Sample Reports" &&
+                          options.title !== "Performance" &&
+                          options.title !== "Hot Stocks"
+                        : true
+                    ).map((option) => (
+                      <ListItem
+                      key={option.title}
+                        className=" hover:bg-gray-50 relative "
+                        href={option.link}
+                        icon={option.icon}
+                        title={option.title}
+                        endIcon={option.endIcon}
+                      >
                         {option.subtitle}
                       </ListItem>
                     ))}
-                    <li className="hidden lg:block row-span-4 col-start-4 row-start-1">
-                      <Image className=" h-full w-full" src={"/nav_img.png"} height={284} width={284} alt="nav-img" />
+                    <li
+                      className={`hidden lg:block ${isLoggedIn ? " row-span-3" : "row-span-4"} col-start-4 row-start-1`}
+                    >
+                      <Image className=" object-contain" src={"/pricing/home-hover.png"} height={284} width={284} alt="nav-img" />
                     </li>
                   </ul>
                 </NavigationMenuContent>
@@ -200,12 +221,12 @@ interface CustomProps extends React.ComponentPropsWithoutRef<"a"> {
 const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
   ({ className, icon, endIcon, title, children, ...props }, ref) => {
     return (
-      <li>
+      <li className="relative m-0 ">
         <NavigationMenuLink asChild>
           <a
             ref={ref}
             className={cn(
-              "flex select-none gap-x-2 rounded-md p-3 pl-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+              "flex select-none gap-x-2 rounded-md p-3 pl-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground relative  ",
               className
             )}
             {...props}
@@ -213,7 +234,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
             <div>{icon}</div>
             <div>
               <div className="text-sm font-medium leading-none text-gray-950 mb-1 flex gap-x-2 items-center">
-                <span>{title}</span>
+                <span className=" whitespace-nowrap">{title}</span>
                 <span>{endIcon}</span>
               </div>
               <p className="line-clamp-2 text-sm leading-snug text-gray-500">{children}</p>

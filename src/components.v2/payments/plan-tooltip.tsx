@@ -2,7 +2,7 @@ import { TooltipArrow } from "@radix-ui/react-tooltip";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { TChildren } from "@/types";
 import { Landmark, ShoppingBag } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { TPlantooltip } from "@/types/components/payments";
 
 const Breakdown = ({
@@ -31,10 +31,11 @@ const Breakdown = ({
 };
 
 export function PlanTooltip({ children, price, strikePrice, saveText, gst, total }: TChildren & TPlantooltip) {
+  const [displayToast,setDisplayToast] = useState(false)
   return (
     <TooltipProvider delayDuration={0}>
-      <Tooltip>
-        <TooltipTrigger>{children}</TooltipTrigger>
+      <Tooltip open={displayToast} onOpenChange={setDisplayToast}>
+        <TooltipTrigger onClick={()=>setDisplayToast(true)}>{children}</TooltipTrigger>
         <TooltipContent
           side="bottom"
           className=" bg-white text-black border-0 p-0  max-w-[425px] z-[100] rounded-[10px] shadow-3xl w-[255px]"

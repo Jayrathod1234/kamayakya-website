@@ -1,6 +1,6 @@
 export { EnterpriseCard } from "./enterprise-card";
 export { Testimonials } from "./testimonials";
-export { Plans } from "./plans";
+export { PlansSection } from "./plans-section";
 export { FeelingLost } from "./feeling-lost";
 export { UserTypeCard } from "./user-type-card";
 export { UserTypeDesktopCard } from "./user-type-desktop-card";

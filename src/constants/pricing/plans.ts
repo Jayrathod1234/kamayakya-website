@@ -1,10 +1,28 @@
 import { ButtonVariant } from "@/components.v2/button/button";
+import { TPlanCardDesktop } from "@/types";
+import { TFeatures, TTooltip } from "@/types/components/payments";
 
-export const FREE_PLAN = {
+type TPlan = {
+  className: string;
+  subtext: string;
+  label: string;
+  priceStrikeThrough: string;
+  gstLabel: boolean;
+  featureHead: string;
+  featureList: Array<TFeatures>;
+  btnText: string;
+  warnMessage: string;
+  popular: boolean;
+  btnVariant: ButtonVariant;
+  tooltip: TTooltip;
+  perMonth: boolean;
+};
+
+export const FREE_PLAN: TPlan = {
   className: " md:row-start-1 md:justify-self-end order-1  lg:rounded-l-xl",
   subtext: "",
   label: "",
-  priceStrikeThrough: "1500",
+  priceStrikeThrough: "1,500",
   gstLabel: false,
   featureHead:
     "Experience the potential of KamayaKya with 3 free stock recommendations and access to our track record – jumpstart your investment journey today!",
@@ -20,13 +38,18 @@ export const FREE_PLAN = {
   perMonth: false,
   popular: false,
   btnVariant: ButtonVariant.secondary,
-  tooltip: null,
+  tooltip: {
+    "3months": {
+      price: "",
+      gst: "",
+    },
+  },
 };
 
-export const CORE_PLAN = {
+export const CORE_PLAN: TPlan = {
   className: " md:row-start-1 md:col-start-2 md:justify-self-start order-2",
   subtext: "",
-  priceStrikeThrough: "₹1166.66",
+  priceStrikeThrough: "1,100",
   label: "MAINBOARD",
   gstLabel: true,
   featureHead:
@@ -64,7 +87,7 @@ export const CORE_PLAN = {
   },
 };
 
-export const ADVANCED_PLAN = {
+export const ADVANCED_PLAN: TPlan = {
   className: "  md:row-start-2 md:justify-self-end md:pt-[59px] lg:pt-0 order-3",
   subtext: "",
   priceStrikeThrough: "",
@@ -97,11 +120,11 @@ export const ADVANCED_PLAN = {
   },
 };
 
-export const VIP_PLAN = {
+export const VIP_PLAN: TPlan = {
   className:
     "  md:row-start-2 md:col-start-2 md:justify-self-start md:rounded-t-xl lg:rounded-none lg:rounded-br-xl md:pt-[59px] lg:pt-0 order-4",
   subtext: "",
-  priceStrikeThrough: "1500",
+  priceStrikeThrough: "1,667",
   label: "Mainboard + SME Board",
   gstLabel: true,
   featureHead:

@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 export const NAVBAR_LINKS = [
   {
     title: "About us",
-    link: "",
+    link: "/#philosophy",
   },
   {
     title: "Pricing",
@@ -11,15 +11,15 @@ export const NAVBAR_LINKS = [
   },
   {
     title: "Track Record",
-    link: "",
+    link: "/track-record",
   },
   {
     title: "SME Corner",
-    link: "",
+    link: "/sme",
   },
   {
     title: "Stocks to buy",
-    link: "",
+    link: "/stock-picks",
   },
 ];
 
@@ -137,7 +137,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/#philosophy",
   },
   {
     title: "Sample Reports",
@@ -193,7 +193,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/#philosophy",
   },
   {
     title: "Performance",
@@ -250,7 +250,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/#whyUs",
   },
   {
     title: "Team",
@@ -296,7 +296,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/#team",
   },
   {
     title: "How it works?",
@@ -595,7 +595,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/#hotStocks",
   },
   {
     title: "Media",
@@ -659,7 +659,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/pricing/#testimonials",
   },
   {
     title: "Blogs",
@@ -709,7 +709,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/blogs",
   },
   {
     title: "FAQ",
@@ -756,6 +756,6 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/#FAQs",
   },
 ];

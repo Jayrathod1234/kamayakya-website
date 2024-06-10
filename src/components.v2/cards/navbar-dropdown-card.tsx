@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +10,8 @@ import {
 import { Avatar, AvatarVariant } from "../avatar";
 import { NavbarUserCard } from "./navbar-user-card";
 import { CircleHelp, Headset, LogOut, MessageSquareText, User } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export function NavbarDropdownCard({
   triggerElement,
@@ -22,14 +24,28 @@ export function NavbarDropdownCard({
   sideOffset?: number;
   side?: "top" | "right" | "bottom" | "left" | undefined;
 }) {
+  const [open,setOpen] = useState(false)
+  const router = useRouter();
+
+  //scroll to not working properly because of dropdown state change
+  // const scrollTo = (id: string) => {
+  //   const element = document.querySelector(id);
+  //   if (element) {
+  //     element.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
+
+  const handleRouting = (href: string) => {
+    router.push(href);
+  };
+
   const handleLogoutClick = () => {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
-
-    // router.push("/");
+    router.replace("/");
   };
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger className=" w-full">{triggerElement}</DropdownMenuTrigger>
       <DropdownMenuContent
         className=" w-[319px] md:w-auto rounded-[6px] border border-gray-150 shadow-[0px_4px_6px_rgba(0,0,0,0.09)]"
@@ -42,19 +58,46 @@ export function NavbarDropdownCard({
           </DropdownMenuLabel>
         )}
 
-        <DropdownMenuLabel className=" p-2">
+        {/* <DropdownMenuLabel className=" p-2">
           <DropDownItemContent icon={<User size={16} />} option="My Account" />
         </DropdownMenuLabel>
+        <DropdownMenuSeparator /> */}
+        <DropdownMenuItem className=" p-2">
+          <DropDownItemContent
+            onClick={() => handleRouting("/user-profile")}
+            icon={<User size={16} />}
+            option="My Account"
+          />
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <div className=" p-2 flex flex-col gap-y-2">
           <DropdownMenuItem className=" p-0">
-            <DropDownItemContent icon={<MessageSquareText size={16} />} option="Blogs" />
+            <DropDownItemContent
+              onClick={() => handleRouting("/blogs")}
+              icon={<MessageSquareText size={16} />}
+              option="Blogs"
+            />
           </DropdownMenuItem>
           <DropdownMenuItem className=" p-0">
-            <DropDownItemContent icon={<CircleHelp size={16} />} option="FAQs" />
+            <DropDownItemContent
+              onClick={() => handleRouting("/#FAQs")}
+              icon={<CircleHelp size={16} />}
+              option="FAQs"
+            />
           </DropdownMenuItem>
-          <DropdownMenuItem className=" p-0">
-            <DropDownItemContent icon={<Headset size={16} />} option="Contact us" />
+          <DropdownMenuItem
+            // onClick={(e) => {
+            //   e.preventDefault();
+            //   scrollTo("#feeling-lost")
+            //   setOpen(false)
+            // }}
+            className=" p-0"
+          >
+            <DropDownItemContent
+              onClick={() =>handleRouting("/pricing#feeling-lost") }
+              icon={<Headset size={16} />}
+              option="Contact us"
+            />
           </DropdownMenuItem>
         </div>
         <DropdownMenuSeparator />

@@ -3,7 +3,7 @@ import { Button } from "../button";
 import { ButtonSize, ButtonVariant } from "../button/button";
 import { Input } from "../ui/input";
 import { getMixPanelClient } from "@/externals/mixpanel";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
@@ -12,8 +12,9 @@ import { CONTACT_URL } from "@/pages/api/URLs";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { DialogClose } from "../ui/dialog";
+import { useToast } from "../ui/use-toast";
 
-export function ContactForm() {
+export function ContactForm({ closeModal }: { closeModal: () => void }) {
   const [querySelected, setQuerySelected] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -25,6 +26,8 @@ export function ContactForm() {
     queryError: false,
   });
   const [otherQuery, setOtherQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleClose = (event: string) => {
     const mp = getMixPanelClient();
@@ -35,37 +38,45 @@ export function ContactForm() {
 
   const handleSendMessage = async () => {
     const mp = getMixPanelClient();
+    let errorFlag = false;
     if (name.trim().length == 0) {
+      errorFlag = true;
       setError((prev) => ({ ...prev, nameError: true }));
     } else {
       const isValidName = /^[A-Za-z\s]*$/.test(name);
       if (!isValidName) {
+        errorFlag = true;
         setError((prev) => ({ ...prev, nameError: true }));
       }
     }
-    if (phone.trim().length == 0) {
+    if (phone.trim().length < 10) {
+      errorFlag = true;
       setError((prev) => ({ ...prev, phoneError: true }));
     } else {
-      if (phone.slice(2).length < 10) {
-        console.log(false);
+      if (phone.trim().slice(2).length > 10) {
+        errorFlag = true;
         setError((prev) => ({ ...prev, phoneError: true }));
       }
     }
     if (email.trim().length == 0) {
+      errorFlag = true;
       setError((prev) => ({ ...prev, emailError: true }));
     } else {
       const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       if (!isEmail) {
+        errorFlag = true;
         setError((prev) => ({ ...prev, emailError: true }));
       }
     }
     if (querySelected.trim().length == 0) {
+      errorFlag = true;
       setError((prev) => ({ ...prev, queryError: true }));
     }
-    const errorFlag = error.nameError || error.emailError || error.phoneError || error.queryError;
     if (errorFlag) return;
 
     try {
+      setLoading(true);
+      console.log(phone);
       const response = await axios.postForm(
         CONTACT_URL,
         {
@@ -82,6 +93,9 @@ export function ContactForm() {
         }
       );
       if (response.data) {
+        toast({
+          description: "Your query has been sent!",
+        });
         mp.track("sendmessage_clicked", {
           page: "Pricing_Page",
           name: name,
@@ -89,8 +103,23 @@ export function ContactForm() {
           phone: phone,
           message: otherQuery,
         });
+        closeModal();
       }
-    } catch (e) {}
+    } catch (e) {
+      toast({
+        startIcon: (
+          <div className=" h-full w-full">
+            <Image src={"/warn_icon.svg"} alt="warn" height={16} width={16} />
+          </div>
+        ),
+        description:
+          (e as AxiosError<{ error: string }>)?.response?.data?.error ||
+          (e as AxiosError).message ||
+          "Something went wrong",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputs = (value: string, cb: React.Dispatch<React.SetStateAction<string>>) => {
@@ -104,6 +133,8 @@ export function ContactForm() {
           Name*
         </label>
         <Input
+        
+          autoFocus={false}
           placeholder="Name"
           onChange={(e) => {
             handleInputs(e.target.value, setName);
@@ -119,9 +150,11 @@ export function ContactForm() {
         <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
           Phone number*
         </label>
-        <div className={` border border-[#D0D5DD] max-md:pl-0  px-[14px]  py-[10px] lg:h-11 max-h-11 flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto ${
+        <div
+          className={` border border-[#D0D5DD] max-md:pl-0  px-[14px]  py-[10px] lg:h-11 max-h-11 flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto ${
             error.emailError ? " border  border-[rgba(253,162,155,1)]  " : ""
-          }`}>
+          }`}
+        >
           <PhoneInput
             countryCodeEditable={false}
             onChange={(value) => {
@@ -156,6 +189,7 @@ export function ContactForm() {
           <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
           {/* </div> */}
           <Input
+            autoFocus={false}
             onChange={(e) => {
               handleInputs(e.target.value, setEmail);
               if (error.emailError) setError((prev) => ({ ...prev, emailError: false }));
@@ -220,6 +254,7 @@ export function ContactForm() {
 
       <div className=" flex flex-row max-md:flex-col max-mdpb-8">
         <Button
+          loading={loading}
           onClick={handleSendMessage}
           variant={ButtonVariant.primary}
           size={ButtonSize.md}

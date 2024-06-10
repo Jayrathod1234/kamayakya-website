@@ -14,7 +14,7 @@ import {
 import { PlanActiveLabel } from "./plan-active-label";
 import { PlanTooltip } from "./plan-tooltip";
 
-const PlanCardHead = ({ plan, label }: TPlanCardHead) => {
+export const PlanCardHead = ({ plan, label }: TPlanCardHead) => {
   return (
     <div className=" flex justify-between flex-wrap">
       <p className=" uppercase text-lg font-semibold">{plan}</p>
@@ -27,7 +27,7 @@ const PlanCardHead = ({ plan, label }: TPlanCardHead) => {
   );
 };
 
-const PriceStrikeThrough = ({ price }: TPriceStrikeThrough) => {
+export const PriceStrikeThrough = ({ price }: TPriceStrikeThrough) => {
   return (
     <h3 className=" text-lg font-semibold text-gray-400 m-0">
       <span className=" inline-block text-2xs float-start mt-[2.5px]">{price ? "₹" : null}&zwj;</span>
@@ -35,7 +35,7 @@ const PriceStrikeThrough = ({ price }: TPriceStrikeThrough) => {
     </h3>
   );
 };
-const Price = ({ price, perMonth = false }: TPrice) => {
+export const Price = ({ price, perMonth = false }: TPrice) => {
   return (
     <div className=" flex items-baseline">
       <h3 className=" text-display-md font-semibold text-gray-800 m-0">
@@ -47,27 +47,29 @@ const Price = ({ price, perMonth = false }: TPrice) => {
   );
 };
 
-const SubText = ({ children }: TChildren) => {
+export const SubText = ({ children }: TChildren) => {
   return <p className={` text-gray-700 text-sm font-semibold`}>{children}&zwj;</p>;
 };
 
-const GstLabel = ({ gstLabel, tooltip, total }: TGstLabel) => {
+export const GstLabel = ({ gstLabel, tooltip, total }: TGstLabel) => {
   return (
     <p className=" text-sm text-gray-400 flex items-center gap-2">
       {gstLabel ? (
         <span className=" flex items-center gap-x-2">
           <span className=" inline-block">Inclusive of 18% GST </span>
-          <PlanTooltip
-            price={tooltip?.price}
-            saveText={tooltip?.saveText}
-            strikePrice={tooltip?.strikePrice}
-            gst={tooltip?.gst}
-            total={total}
-          >
-            <div className=" flex justify-center items-center">
-              <Image width={16} height={16} alt="info-icon" src="/icons/info-icon.svg" />
-            </div>
-          </PlanTooltip>
+          {tooltip ? (
+            <PlanTooltip
+              price={tooltip?.price}
+              saveText={tooltip?.saveText}
+              strikePrice={tooltip?.strikePrice}
+              gst={tooltip?.gst}
+              total={total}
+            >
+              <div className=" flex justify-center items-center">
+                <Image width={16} height={16} alt="info-icon" src="/icons/info-icon.svg" />
+              </div>
+            </PlanTooltip>
+          ) : null}
         </span>
       ) : null}
       &zwj;
@@ -75,9 +77,9 @@ const GstLabel = ({ gstLabel, tooltip, total }: TGstLabel) => {
   );
 };
 
-const FeatureList = ({ featureList }: TFeatureList) => {
+export const FeatureList = ({ featureList }: TFeatureList) => {
   return (
-    <ul className=" m-0">
+    <ul className=" m-0 flex flex-col gap-4">
       {featureList.map((feature) => (
         <li key={feature.feature} className=" flex items-start gap-2 ">
           <Image height={20} width={20} alt="check" src={feature.icon} />
@@ -88,7 +90,7 @@ const FeatureList = ({ featureList }: TFeatureList) => {
   );
 };
 
-const Warn = ({ children }: TChildren) => {
+export const Warn = ({ children }: TChildren) => {
   return <p className=" text-sm text-gray-400 text-center h-10">{children}</p>;
 };
 
@@ -114,13 +116,14 @@ export function PlanCardDesktop({
   tooltip,
   total,
 }: TPlanCardDesktop) {
+  // max-h-[785px]
   return (
     <div
       className={`${
         popular
           ? "before:pointer-events-auto shadow-[inset_0px_0px_0px_3px] shadow-brand-300 before:content-[''] before:h-full before:w-full before:absolute before:bg-transparent before:z-[-1] before:shadow-sm"
           : "border border-gray-150"
-      }  max-w-[315px] grid grid-col-1 grid-rows-[279px_1fr_.2fr] max-h-[785px] relative rounded-xl lg:rounded-none ${className}`}
+      }  max-w-[315px] grid grid-col-1 grid-rows-[279px_1fr_.2fr]  relative rounded-xl lg:rounded-none bg-white ${className}`}
     >
       {popular && (
         <div className=" flex flex-row items-center justify-center gap-x-[2px] px-2 py-[7px] rounded-t-lg bg-brand-300 text-white font-semibold absolute w-full lg:-top-8 max-md:top-0 ">

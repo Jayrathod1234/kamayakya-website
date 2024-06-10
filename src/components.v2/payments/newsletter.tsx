@@ -9,6 +9,7 @@ import { Input } from "../ui/input";
 import { Button } from "../button";
 import { ButtonSize, ButtonVariant } from "../button/button";
 import { LinkedinBtn } from "./linkedin-btn";
+import { LoaderCircle } from "lucide-react";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");
@@ -35,6 +36,7 @@ export function Newsletter() {
       );
       console.log(response.data);
       if (response.data) {
+        
         toast({
           description: "Subscribed to newsletter successfully",
         });
@@ -57,6 +59,7 @@ export function Newsletter() {
         description: e.response.data?.email[0] || e.message || "Something went wrong",
       });
     } finally {
+      setEmail("")
       setLoading(false);
     }
   };
@@ -83,6 +86,7 @@ export function Newsletter() {
             <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
             {/* </div> */}
             <Input
+              value={email}
               onChange={(e) => {
                 if (emailError) setEmailError(false);
                 setEmail(e.target.value);
@@ -95,7 +99,7 @@ export function Newsletter() {
               customStyle=" gap-[6px] !py-2 md:py-[auto]"
               onClick={handleNewsLetterEmailSubmit}
               variant={ButtonVariant.primary}
-              size={ButtonSize.lg}
+              // size={ButtonSize.lg}
             >
               <p className=" text-sm font-medium">Subscribe</p>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -110,7 +114,7 @@ export function Newsletter() {
             </Button>
           </div>
           {emailError ? (
-            <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left">Enter valid email</p>
+            <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left max-w-[350px] md:max-w-[566px] mx-auto">Enter valid email</p>
           ) : null}
           <p className=" text-sm text-gray-200 mt-4">We do not share your details with third parties.</p>
         </div>

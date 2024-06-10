@@ -19,7 +19,8 @@ export const SmallcaseEmbed = () => {
 
   return (
     <div
-      className={`relative overflow-hidden width-full max-[${width}]:pt-[120%] pt-[60%]`}
+      className={`relative w-full h-full pb-[80%] sm:pb-[60%] md:pb-[58%] slg:pb-[58%] z-10`}
+      // max-[${width}]:pt-[120%]
       // className="sc-embed"
       // data-smallcase="true"
       // data-cta="view"
@@ -29,12 +30,11 @@ export const SmallcaseEmbed = () => {
       // style={{ maxWidth: '100%', minHeight: '300px', display: 'flex', alignItems: 'stretch', justifyContent: 'center' }}
     >
       <iframe
-        className={`absolute top-0 left-0 right-0 bottom-0 w-full h-full max-[${width}]:block hidden`}
+        className={` rounded-lg block phone:hidden sm:hidden md:block lg:hidden absolute top-0 left-1/2 -translate-x-1/2 w-[300px] max-w-[300px] max-h-[378px] h-[378px]`}
         src="https://www.smallcase.com/embed/smallcase?scid=KAKYMO_0001&cardsize=small&primaryCta=view&viewOnCreatorPlatform=true"
       ></iframe>
-
       <iframe
-        className={`absolute top-0 left-0 right-0 bottom-0 w-full h-full hidden min-[${width}]:block`}
+        className={` rounded-lg hidden phone:block md:hidden lg:block absolute left-0  w-full h-full max-w-[500px] md:max-h-[300px]`}
         src="https://www.smallcase.com/embed/smallcase?scid=KAKYMO_0001&cardsize=big&primaryCta=view&viewOnCreatorPlatform=true"
       ></iframe>
     </div>

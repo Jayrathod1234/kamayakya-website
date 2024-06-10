@@ -39,7 +39,7 @@ export function FeelingLost() {
 
   return (
     // bg-blend-color-burn bg-cover
-    <div className=" bg-[url(/feeling_lost_bg.webp)] text-white bg-no-repeat bg-cover md:pt-[60px]">
+    <div  className=" bg-[url(/feeling_lost_bg.webp)] text-white bg-no-repeat bg-cover md:pt-[60px]">
       <div className=" py-[60px] md:pt-[120px] md:pb-[333px]">
         <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-1 place-content-center place-items-center w-[min(1200px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="hidden md:block md:col-start-2 md:row-start-1 pt-[71px] md:pt-0">
@@ -54,13 +54,16 @@ export function FeelingLost() {
 
             <div className=" flex flex-col items-center justify-center gap-4 md:items-start">
               {/* <p className=" font-medium">Or ask them directly,</p> */}
-              <Dialog>
-                <DialogTrigger asChild>
+
+              <ContactModal
+                trigger={
                   <Button
-                    endIcon={<div>
-                      <MoveRight className="hidden md:block text-inherit" /> 
-                      <ArrowRight height={18} width={18} className="block md:hidden text-inherit"/>
-                      </div>}
+                    endIcon={
+                      <div>
+                        <MoveRight className="hidden md:block text-inherit" />
+                        <ArrowRight height={18} width={18} className="block md:hidden text-inherit" />
+                      </div>
+                    }
                     onClick={handleContactUsModal}
                     customStyle="!py-[14px] md:py-[auto] bg-brand-100 text-brand-500 hover:border hover:border-brand-300 hover:bg-transparent hover:text-brand-100"
                     variant={ButtonVariant.secondary}
@@ -68,9 +71,8 @@ export function FeelingLost() {
                   >
                     Contact Us
                   </Button>
-                </DialogTrigger>
-                <ContactModal />
-              </Dialog>
+                }
+              />
             </div>
           </div>
         </div>

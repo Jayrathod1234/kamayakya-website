@@ -74,7 +74,7 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
       className={` z-10 h-full row-start-2 col-span-2 backdrop-blur-[20px] min-h-[448px] shadow-[4px_32px_50px_0px_rgba(1,24,33,0.08)]`}
     >
       <div
-        className={`flex bg-[rgba(255,255,255,0.33)] rounded-xl h-full ${
+        className={`flex justify-between items-center bg-[rgba(255,255,255,0.33)] rounded-xl h-full ${
           userTypeSelected === DEEP_RESEARCH_INVESTOR ? "rounded-tl-none" : " rounded-tr-none"
         }`}
       >
@@ -96,9 +96,9 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
             <Image alt="arrow-icon" height={18} width={18} src={"/icons/arrow-down.svg"} />
           </Button>
         </div>
-        {/* <div className=" md:w-[350px]">
+        <div className=" md:w-[350px] lg:w-[523px] mx-auto">
           <video className=" w-full h-full" width={523} height={343} src="/pricing/effortless investor.webm" muted autoPlay loop></video>
-        </div> */}
+        </div>
       </div>
       <UserTypProgress progress={progress} displayPauseIcon={displayPauseIcon} />
     </div>
