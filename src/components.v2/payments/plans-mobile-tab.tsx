@@ -25,7 +25,7 @@ export function PlansMobileTab({ plan, features, popular = false, selected = fal
     >
       {popular && (
         <div
-          className={` flex gap-x-[2px] flex-nowrap items-center justify-center  text-center py-[1px] md:py-[3px] px-[6px] whitespace-nowrap font-semibold bg-brand-300 text-white rounded-t-lg absolute -top-[1.2rem] left-0 z-30 w-full `}
+          className={` flex gap-x-[2px] flex-nowrap items-center justify-center  text-center py-[1px] md:py-[3px] px-[6px] whitespace-nowrap font-semibold bg-brand-300 text-white rounded-t-lg absolute -top-[1.15rem] left-0 z-30 w-full `}
         >
           <svg
             className=" inline-block"
@@ -49,7 +49,7 @@ export function PlansMobileTab({ plan, features, popular = false, selected = fal
         features.length > 0 &&
         features.map((feature) => <p className=" text-4xs text-gray-400">SME Board</p>)}
       {selected && (
-        <div className=" bg-white w-fit rounded-full p-[0.5px] flex items-center justify-center absolute right-2 bottom-2">
+        <div className=" w-fit rounded-full p-[0.5px] flex items-center justify-center absolute right-2 bottom-2">
           <Image height={16} width={16} src={"/icons/check.svg"} alt="checked-plan" />
         </div>
       )}
