@@ -66,62 +66,11 @@ export default function Page() {
 
   return (
     <div className={` relative pricing tracking-wide bg-white overflow-hidden `}>
+      {/* gradeint bg */}
       <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40 ">
         <div className=" h-full w-full bg-[radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,#F1FCFF_0%,#CAF2FF_19%,#C1F0FF_39%,#C1FFEC_57.07%,#CBFFE0_69.37%,#E5FFDF_79.3%,#F6FFF4_100%)]"></div>
-        {/* <svg
-          className="hidden md:block h-full w-full"
-          // viewBox="0 0 1440 1150"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="1440" height="1150" fill="url(#paint0_radial_3735_425)" fill-opacity="0.57" />
-          <defs>
-            <radialGradient
-              id="paint0_radial_3735_425"
-              cx="0"
-              cy="0"
-              r="1"
-              gradientUnits="userSpaceOnUse"
-              gradientTransform="translate(-17 261.364) rotate(34.2062) scale(1786.54 4116.71)"
-            >
-              <stop stop-color="white" stop-opacity="0" />
-              <stop offset="0.19" stop-color="#A4E9FF" stop-opacity="0.71" />
-              <stop offset="0.436274" stop-color="#9BE2F9" />
-              <stop offset="0.570705" stop-color="#C5FFE0" />
-              <stop offset="0.693668" stop-color="#CBFFE0" />
-              <stop offset="0.793023" stop-color="#E5FFDF" />
-              <stop offset="1" stop-color="white" stop-opacity="0" />
-            </radialGradient>
-          </defs>
-        </svg> */}
-        {/* <svg
-          className="block md:hidden min-h-[848px] min-w-full"
-          viewBox="0 0 390 840"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect y="-8" width="390" height="848" fill="white" />
-          <rect y="-8" width="390" height="848" fill="url(#paint0_radial_3746_1276)" fill-opacity="0.57" />
-          <defs>
-            <radialGradient
-              id="paint0_radial_3746_1276"
-              cx="0"
-              cy="0"
-              r="1"
-              gradientUnits="userSpaceOnUse"
-              gradientTransform="translate(-4.60416 184.727) rotate(61.6168) scale(841.785 1744.86)"
-            >
-              <stop stop-color="white" stop-opacity="0" />
-              <stop offset="0.19" stop-color="#A4E9FF" stop-opacity="0.71" />
-              <stop offset="0.436274" stop-color="#9BE2F9" />
-              <stop offset="0.570705" stop-color="#C5FFE0" />
-              <stop offset="0.693668" stop-color="#CBFFE0" />
-              <stop offset="0.793023" stop-color="#E5FFDF" />
-              <stop offset="1" stop-color="white" stop-opacity="0" />
-            </radialGradient>
-          </defs>
-        </svg> */}
       </div>
+     
       <div className=" absolute h-screen mix-blend-color-burn  w-full pointer-events-none bg-gray-25">
         <video
           className=" h-full w-full object-cover z-40"
@@ -133,7 +82,16 @@ export default function Page() {
         {/* <div className=" h-16 bg-red-200 w-full -mt-16 z-50"></div> */}
       </div>
       <div className="relative ">
-        <div className="  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-fit  md:min-h-screen z-0 ">
+        <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-fit  md:min-h-screen z-0 ">
+        <div className="hidden lg:block  absolute lg:right-20 top-52">
+        <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />
+      </div>
+      <div className=" absolute lg:left-12 md:bottom-16 -left-1 bottom-20">
+        <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
+      </div>
+      <div className=" lg:hidden absolute right-0 top-48 -rotate-[75deg]">
+        <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
+      </div>
           <Navbar />
           <div className=" mt-[1.875rem] md:mt-9 text-center">
             <h1 className=" text-display-xs md:text-display-lg font-bold cursor-pointer">
