@@ -40,7 +40,7 @@ export function UserTypeTabDesktop({ usertype, icon, active, handleClick }: TUse
         <p className={`${tabFontStyle}`}>{usertype}</p>
       </div>
 
-      <div className={` bg-red before:absolute before:h-3 before:w-full   ${active && clipStyle}`}></div>
+      <div className={` bg-white before:absolute before:h-3 before:w-full   ${active && clipStyle}`}></div>
     </div>
   );
 }
