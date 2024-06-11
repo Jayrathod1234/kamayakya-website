@@ -86,11 +86,11 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
           query_type: querySelected,
           message: otherQuery,
         },
-        {
-          headers: {
-            Authorization: "token " + localStorage.getItem("refresh"),
-          },
-        }
+        // {
+        //   headers: {
+        //     Authorization: "token " + localStorage.getItem("refresh"),
+        //   },
+        // }
       );
       if (response.data) {
         toast({

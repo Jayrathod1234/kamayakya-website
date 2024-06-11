@@ -65,13 +65,13 @@ export default function Page() {
   }, []);
 
   return (
-    <div className={` relative pricing tracking-wide bg-white overflow-hidden `}>
+    <div className={` relative pricing tracking-wide overflow-hidden bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}>
       {/* gradeint bg */}
-      <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40 ">
-        <div className=" h-full w-full bg-[radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,#F1FCFF_0%,#CAF2FF_19%,#C1F0FF_39%,#C1FFEC_57.07%,#CBFFE0_69.37%,#E5FFDF_79.3%,#F6FFF4_100%)]"></div>
-      </div>
+      {/* <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40  ">
+        <div className=" h-full w-full  "></div>
+      </div> */}
      
-      <div className=" absolute h-screen mix-blend-color-burn  w-full pointer-events-none bg-gray-25">
+      <div className=" absolute h-[1200px] mix-blend-color-burn  w-full pointer-events-none">
         <video
           className=" h-full w-full object-cover z-40"
           src="/pricing/pricing-hero-bg.mp4"
@@ -79,7 +79,7 @@ export default function Page() {
           muted
           loop
         ></video>
-        {/* <div className=" h-16 bg-red-200 w-full -mt-16 z-50"></div> */}
+       
       </div>
       <div className="relative ">
         <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-fit  md:min-h-screen z-0 ">
@@ -143,14 +143,14 @@ export default function Page() {
         </div>
         {/* <div className=" h-[100px] md:h-[200px] w-full bg-gradient-to-t from-white to-transparent"></div> */}
       </div>
-      <div className=" backdrop-blur-3xl bg-opacity-10 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.0),white_99%)] bg-[length:30%]">
+      <div className="bg-[linear-gradient(0deg,white_97.6%,transparent)] md:bg-[linear-gradient(0deg,white_95%,transparent)]">
         <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] min-h-screen mx-auto ">
           {/* WEBSITE PLAN */}
           <div className="py-[60px]">
             <div className=" flex flex-col items-center text-center gap-3 md:gap-0">
-              <p className=" text-2xs md:text-md text-[#F98800] font-medium uppercase">KamayaKya Membership</p>
-              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold">For Deep Research Investors</p>
-              <p className=" text-sm md:text-md text-gray-700 md:mt-3">Find a plan that works for YOU.</p>
+              <p className=" text-2xs md:text-md text-[#F98800] font-medium uppercase relative z-20">KamayaKya Membership</p>
+              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">For Deep Research Investors</p>
+              <p className=" text-sm md:text-md text-gray-700 md:mt-3  z-20">Find a plan that works for YOU.</p>
             </div>
             {/* PLAN SECTION */}
             <section id="deepresearch-section" className="">

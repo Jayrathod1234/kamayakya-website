@@ -16,10 +16,11 @@ export const SmallcaseEmbed = () => {
   //   };
   // }, []);
   const width = "500px";
+  // pb-[80%] sm:pb-[60%] md:pb-[58%] slg:pb-[58%] 
 
   return (
     <div
-      className={`relative w-full h-full pb-[80%] sm:pb-[60%] md:pb-[58%] slg:pb-[58%] z-10`}
+      className={`relative w-full h-[378px] z-10 flex justify-center items-center`}
       // max-[${width}]:pt-[120%]
       // className="sc-embed"
       // data-smallcase="true"
@@ -30,11 +31,11 @@ export const SmallcaseEmbed = () => {
       // style={{ maxWidth: '100%', minHeight: '300px', display: 'flex', alignItems: 'stretch', justifyContent: 'center' }}
     >
       <iframe
-        className={` rounded-lg block phone:hidden sm:hidden md:block lg:hidden absolute top-0 left-1/2 -translate-x-1/2 w-[300px] max-w-[300px] max-h-[378px] h-[378px]`}
+        className={` rounded-lg block phone:hidden sm:hidden md:block lg:hidden w-[300px] max-w-[300px] max-h-[378px] h-[378px]`}
         src="https://www.smallcase.com/embed/smallcase?scid=KAKYMO_0001&cardsize=small&primaryCta=view&viewOnCreatorPlatform=true"
       ></iframe>
       <iframe
-        className={` rounded-lg hidden phone:block md:hidden lg:block absolute left-0  w-full h-full max-w-[500px] md:max-h-[300px]`}
+        className={` rounded-lg hidden phone:block md:hidden lg:block w-full max-w-[500px] max-h-[300px] h-[300px]`}
         src="https://www.smallcase.com/embed/smallcase?scid=KAKYMO_0001&cardsize=big&primaryCta=view&viewOnCreatorPlatform=true"
       ></iframe>
     </div>
