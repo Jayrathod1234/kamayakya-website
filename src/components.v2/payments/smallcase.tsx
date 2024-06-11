@@ -17,7 +17,7 @@ export function SmallCaseCard() {
 
   return (
     // lg:px-[136px]
-    <div className="lg:gap-x-11 lg:flex-nowrap  overflow-hidden relative px-5 py-7  bg-[#1E7AE0] rounded-xl flex flex-col md:flex-row justify-center items-center gap-6 text-center md:h-[27.125rem] bg-[url(/effortless_investors_bg.svg)] bg-cover bg-no-repeat">
+    <div className="lg:gap-x-11 lg:flex-nowrap  overflow-hidden relative p-7  bg-[#1E7AE0] rounded-xl flex flex-col md:flex-row justify-center items-center gap-6 text-center md:h-[27.125rem] bg-[url(/effortless_investors_bg.svg)] bg-cover bg-no-repeat">
       <div className=" text-white flex flex-col items-center justify-center md:items-start md:max-w-[484px] md:text-start">
         <p className=" text-2xs md:text-sm font-medium mb-1 uppercase">KamayaKya Smallcase Basket</p>
         <h3 className=" font-bold text-display-xs md:text-display-md mb-3">For Effortless Investors</h3>

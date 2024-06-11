@@ -65,33 +65,28 @@ export default function Page() {
   }, []);
 
   return (
-    <div className={` relative pricing tracking-wide overflow-hidden bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}>
+    <div
+      className={` relative pricing tracking-wide overflow-hidden bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}
+    >
       {/* gradeint bg */}
       {/* <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40  ">
         <div className=" h-full w-full  "></div>
       </div> */}
-     
+
       <div className=" absolute h-[1200px] mix-blend-color-burn  w-full pointer-events-none">
-        <video
-          className=" h-full w-full object-cover z-40"
-          src="/pricing/pricing-hero-bg.mp4"
-          autoPlay
-          muted
-          loop
-        ></video>
-       
+        <video className=" h-full w-full object-cover z-40" src="/pricing/hero_bg.webm" autoPlay muted loop></video>
       </div>
       <div className="relative ">
-        <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-fit  md:min-h-screen z-0 ">
-        <div className="hidden lg:block  absolute lg:right-20 top-52">
-        <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />
-      </div>
-      <div className=" absolute lg:left-12 md:bottom-16 -left-1 bottom-20">
-        <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
-      </div>
-      <div className=" lg:hidden absolute right-0 top-48 -rotate-[75deg]">
-        <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
-      </div>
+        <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
+          <div className="hidden lg:block  absolute lg:right-20 top-52">
+            <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />
+          </div>
+          <div className=" absolute lg:left-12 md:bottom-16 -left-1 bottom-20">
+            <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
+          </div>
+          <div className=" lg:hidden absolute right-0 top-48 -rotate-[75deg]">
+            <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
+          </div>
           <Navbar />
           <div className=" mt-[1.875rem] md:mt-9 text-center">
             <h1 className=" text-display-xs md:text-display-lg font-bold cursor-pointer">
@@ -101,9 +96,9 @@ export default function Page() {
               Get the Right Fit : Because a good plan is like a good pair of shoes
             </p>
           </div>
-          <div className=" md:mt-20 grid grid-cols-2 grid-rows-8 md:grid-rows-[auto] mt-[42px] gap-4 md:grid-cols-1 place-content-center place-items-center">
+          <div className=" md:mt-20 grid grid-cols-2 grid-rows-6 md:grid-rows-[auto] mt-[42px] gap-4 md:grid-cols-1 place-items-center max-h-full">
             <UserTypeDesktopCard />
-            <div className=" justify-self-end col-start-1 row-span-6 md:hidden">
+            <div className=" justify-self-end col-start-1 row-span-4 md:hidden">
               <UserTypeCard
                 icon="/icons/deep-research-active-icon.svg"
                 imgSrc="/user.png"
@@ -123,7 +118,7 @@ export default function Page() {
                 btnText="Membership"
               />
             </div>
-            <div className=" justify-self-start col-start-2 row-start-1 row-span-7 md:hidden">
+            <div className=" justify-self-start col-start-2 row-start-1 row-span-5 md:hidden">
               <UserTypeCard
                 icon="/icons/effortless-active-icon.svg"
                 imgSrc="/user2.png"
@@ -146,10 +141,14 @@ export default function Page() {
       <div className="bg-[linear-gradient(0deg,white_97.6%,transparent)] md:bg-[linear-gradient(0deg,white_95%,transparent)]">
         <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] min-h-screen mx-auto ">
           {/* WEBSITE PLAN */}
-          <div className="py-[60px]">
+          <div className="py-[60px] lg:mt-[60px]">
             <div className=" flex flex-col items-center text-center gap-3 md:gap-0">
-              <p className=" text-2xs md:text-md text-[#F98800] font-medium uppercase relative z-20">KamayaKya Membership</p>
-              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">For Deep Research Investors</p>
+              <p className=" text-2xs md:text-md text-[#F98800] font-medium uppercase relative z-20">
+                KamayaKya Membership
+              </p>
+              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">
+                For Deep Research Investors
+              </p>
               <p className=" text-sm md:text-md text-gray-700 md:mt-3  z-20">Find a plan that works for YOU.</p>
             </div>
             {/* PLAN SECTION */}

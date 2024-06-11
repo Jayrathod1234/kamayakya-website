@@ -97,7 +97,7 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
           </Button>
         </div>
         <div className=" md:w-[350px] lg:w-[523px] mx-auto">
-          <video className=" w-full h-full" width={523} height={343} src="/pricing/effortless investor.webm" muted autoPlay loop></video>
+          <video className=" w-full h-full" width={523} height={343} src={userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep_investor.webm":"/pricing/effortless_investor.webm"} muted autoPlay loop></video>
         </div>
       </div>
       <UserTypProgress progress={progress} displayPauseIcon={displayPauseIcon} />

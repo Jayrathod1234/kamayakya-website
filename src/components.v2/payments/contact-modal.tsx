@@ -21,13 +21,13 @@ export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className=" contact__modal p-5 md:p-6 pb-[21px]  max-w-[1200px] min-h-[749px] max-md:h-[calc(100vh-2rem)] overflow-y-scroll pricing">
+      <DialogContent className=" contact__modal p-5 md:p-6 pb-[21px]  max-w-[1200px] min-h-[749px] max-md:h-[calc(100vh-0.5rem)] overflow-y-scroll pricing">
         {/* <div className=" h-full p-0"> */}
         <div className="grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] md:gap-6 h-full max-w-[1152px] min-h-[704px] ">
-          <div className=" hidden md:block md:col-start-1 md:row-span-2 rounded-xl shadow-2xs ">
+          <div className=" hidden md:block md:col-start-1 md:row-span-2 rounded-xl shadow-2xs p-4 ">
             <ContactModalHead />
             <div className=" h-[1px] my-6 w-full bg-gray-100"></div>
-            <div className=" flex flex-col gap-y-6 max-h-[420px] overflow-y-scroll max-md:hidden">
+            <div className=" flex flex-col gap-y-6 max-h-[440px] overflow-y-scroll max-md:hidden">
               <ContactForm closeModal={closeModal}  />
             </div>
           </div>
@@ -40,11 +40,11 @@ export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
               alt="kamayakya-mascot"
             />
           </div>
-          <div className=" col-start-2 row-start-2 bg-white h-full max-md:p-5 rounded-xl max-md:row-start-3 max-md:col-start-1">
+          <div className=" col-start-2 row-start-2 md:overflow-hidden bg-white md:shadow-2xs h-full max-md:py-5 rounded-xl max-md:row-start-3 max-md:col-start-1">
             <div className=" hidden max-md:block text-center mb-5">
               <ContactModalHead />
             </div>
-            <div className=" mt-[22px] lg:p-4 max-md:shadow-none shadow-2xs grid lg:grid-cols-2 grow-row-[auto_auto_auto] gap-4 md:grid-cols-1">
+            <div className=" mt-[22px] md:p-4 max-md:shadow-none  grid lg:grid-cols-2 grid-row-[auto_auto_auto] gap-4 md:grid-cols-1">
               <ContactOptionCard
                 value={"+91 9175939641"}
                 label={"Mobile No"}
@@ -144,7 +144,7 @@ export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
               </p>
             </div>
           </div>
-          <div className=" hidden py-5 max-md:grid max-md:col-start-1 max-md:row-start-5 max-md:row-span-2 h-fit md:p-5">
+          <div className=" border-t-[1px] border-t-gray-150 md:border-0 hidden py-5 max-md:grid max-md:col-start-1 max-md:row-start-5 max-md:row-span-2 h-fit md:p-5">
             <div className=" flex flex-col gap-y-6 ">
               <ContactForm closeModal={closeModal} />
             </div>
