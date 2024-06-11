@@ -257,7 +257,7 @@ const Footer = () => {
       </div>
       <div className="copyright-box">
         <Text className="copyright">
-          © 2023 KamayaKya Wealth Management Pvt. Ltd., all rights reserved.
+          © 2024 KamayaKya Wealth Management Pvt. Ltd. (CIN - U74999PN2021PTC205529), all rights reserved.
         </Text>
       </div>
     </header>
