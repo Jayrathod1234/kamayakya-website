@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 export const NAVBAR_LINKS = [
   {
-    title: "About us",
+    title: "About Us",
     link: "/#philosophy",
   },
   {
@@ -661,56 +661,56 @@ export const HOME_OPTIONS = [
     ),
     link: "/pricing/#testimonials",
   },
-  {
-    title: "Blogs",
-    subtitle: "One-liner",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M7.55556 15.6944C7.35664 15.6944 7.16588 15.7735 7.02523 15.9141L4.75 18.1893V5.77778C4.75 5.50519 4.85828 5.24377 5.05103 5.05103C5.24377 4.85828 5.50519 4.75 5.77778 4.75H18.2222C18.4948 4.75 18.7562 4.85828 18.949 5.05103C19.1417 5.24377 19.25 5.50519 19.25 5.77778V14.6667C19.25 14.9393 19.1417 15.2007 18.949 15.3934C18.7562 15.5862 18.4948 15.6944 18.2222 15.6944H7.55556Z"
-          fill="url(#paint0_linear_5180_241599)"
-          stroke="url(#paint1_linear_5180_241599)"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path d="M12.889 8.44531H7.55566H12.889Z" fill="#344054" />
-        <path d="M16.4446 12.0009H7.55566H16.4446Z" fill="#344054" />
-        <path
-          d="M12.889 8.44531H7.55566M16.4446 12.0009H7.55566"
-          stroke="white"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <defs>
-          <linearGradient
-            id="paint0_linear_5180_241599"
-            x1="19.623"
-            y1="18.2928"
-            x2="2.29748"
-            y2="1.41271"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#125B54" />
-            <stop offset="1" stop-color="#12ADB7" />
-          </linearGradient>
-          <linearGradient
-            id="paint1_linear_5180_241599"
-            x1="19.623"
-            y1="18.2928"
-            x2="2.29748"
-            y2="1.41271"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#125B54" />
-            <stop offset="1" stop-color="#12ADB7" />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-    link: "/blogs",
-  },
+  // {
+  //   title: "Blogs",
+  //   subtitle: "One-liner",
+  //   icon: (
+  //     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  //       <path
+  //         d="M7.55556 15.6944C7.35664 15.6944 7.16588 15.7735 7.02523 15.9141L4.75 18.1893V5.77778C4.75 5.50519 4.85828 5.24377 5.05103 5.05103C5.24377 4.85828 5.50519 4.75 5.77778 4.75H18.2222C18.4948 4.75 18.7562 4.85828 18.949 5.05103C19.1417 5.24377 19.25 5.50519 19.25 5.77778V14.6667C19.25 14.9393 19.1417 15.2007 18.949 15.3934C18.7562 15.5862 18.4948 15.6944 18.2222 15.6944H7.55556Z"
+  //         fill="url(#paint0_linear_5180_241599)"
+  //         stroke="url(#paint1_linear_5180_241599)"
+  //         stroke-width="1.5"
+  //         stroke-linecap="round"
+  //         stroke-linejoin="round"
+  //       />
+  //       <path d="M12.889 8.44531H7.55566H12.889Z" fill="#344054" />
+  //       <path d="M16.4446 12.0009H7.55566H16.4446Z" fill="#344054" />
+  //       <path
+  //         d="M12.889 8.44531H7.55566M16.4446 12.0009H7.55566"
+  //         stroke="white"
+  //         stroke-width="1.5"
+  //         stroke-linecap="round"
+  //         stroke-linejoin="round"
+  //       />
+  //       <defs>
+  //         <linearGradient
+  //           id="paint0_linear_5180_241599"
+  //           x1="19.623"
+  //           y1="18.2928"
+  //           x2="2.29748"
+  //           y2="1.41271"
+  //           gradientUnits="userSpaceOnUse"
+  //         >
+  //           <stop stop-color="#125B54" />
+  //           <stop offset="1" stop-color="#12ADB7" />
+  //         </linearGradient>
+  //         <linearGradient
+  //           id="paint1_linear_5180_241599"
+  //           x1="19.623"
+  //           y1="18.2928"
+  //           x2="2.29748"
+  //           y2="1.41271"
+  //           gradientUnits="userSpaceOnUse"
+  //         >
+  //           <stop stop-color="#125B54" />
+  //           <stop offset="1" stop-color="#12ADB7" />
+  //         </linearGradient>
+  //       </defs>
+  //     </svg>
+  //   ),
+  //   link: "/blogs",
+  // },
   {
     title: "FAQ",
     subtitle: "One-liner",

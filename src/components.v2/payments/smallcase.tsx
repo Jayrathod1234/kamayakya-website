@@ -17,12 +17,12 @@ export function SmallCaseCard() {
 
   return (
     // lg:px-[136px]
-    <div className="lg:gap-x-11 lg:flex-nowrap  overflow-hidden relative p-7  bg-[#1E7AE0] rounded-xl flex flex-col md:flex-row justify-center items-center gap-6 text-center md:h-[27.125rem] bg-[url(/effortless_investors_bg.svg)] bg-cover bg-no-repeat">
-      <div className=" text-white flex flex-col items-center justify-center md:items-start md:max-w-[484px] md:text-start">
+    <div className="lg:gap-x-11 lg:flex-nowrap  overflow-hidden relative p-7 px-[1.95rem]  bg-[#1E7AE0] rounded-xl flex flex-col md:flex-row justify-center items-center gap-6 text-center md:h-[27.125rem] lg:bg-[url(/effortless_investors_bg.svg)] bg-cover bg-no-repeat">
+      <div className=" text-white w-full flex flex-col items-center justify-center md:items-start md:max-w-[484px] md:text-start">
         <p className=" text-2xs md:text-sm font-medium mb-1 uppercase">KamayaKya Smallcase Basket</p>
         <h3 className=" font-bold text-display-xs md:text-display-md mb-3">For Effortless Investors</h3>
         <p className=" text-md text-gray-200">
-          Get access to professionally created basket of stocks. Invest in multiple stocks in 1 click{" "}
+          Get access to professionally created basket of NSE stocks. Invest in multiple stocks in 1 click{" "}
         </p>
         <div className=" mt-6 md:mt-[41px]">
           <Button
@@ -36,6 +36,7 @@ export function SmallCaseCard() {
               <p className=" ">Go to Smallcase</p>
             </Link>
           </Button>
+          <p className=" text-2xs text-[rgba(255,255,255,0.64)] mt-[6px]">*No BSE and SME Stocks</p>
         </div>
       </div>
 

@@ -178,7 +178,7 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
       </div>
       <div className="">
         <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
-          Email*
+          Email
         </label>
         <div
           className={` border border-[#D0D5DD]  px-[14px]  py-[10px] lg:h-11 max-h-11 flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto ${

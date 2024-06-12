@@ -42,8 +42,8 @@ export function FeelingLost() {
     <div  className=" bg-[url(/feeling_lost_bg.webp)] text-white bg-no-repeat bg-cover md:pt-[60px]">
       <div className=" py-[60px] md:pt-[120px] md:pb-[333px]">
         <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-1 place-content-center place-items-center w-[min(1200px,calc(100%-32px))] min-w-[328px] mx-auto">
-          <div className="hidden md:block md:col-start-2 md:row-start-1 pt-[71px] md:pt-0">
-            <Image className=" hidden" height={85} width={131} src={"/ship.svg"} alt="ship" />
+          <div className=" md:col-start-2 md:row-start-1 pt-[71px] md:pt-0">
+            <Image className="block md:hidden" height={85} width={131} src={"/ship.svg"} alt="ship" />
             <Image className="hidden md:inline-block" height={115} width={177} src={"/ship.svg"} alt="ship" />
           </div>
           <div className="md:col-start-1 md:row-start-1  text-center md:text-left py-[60px]">

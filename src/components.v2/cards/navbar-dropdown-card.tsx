@@ -28,12 +28,12 @@ export function NavbarDropdownCard({
   const router = useRouter();
 
   //scroll to not working properly because of dropdown state change
-  // const scrollTo = (id: string) => {
-  //   const element = document.querySelector(id);
-  //   if (element) {
-  //     element.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
+  const scrollTo = (id: string) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const handleRouting = (href: string) => {
     router.push(href);
@@ -45,7 +45,7 @@ export function NavbarDropdownCard({
     router.replace("/");
   };
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
+    <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger className=" w-full">{triggerElement}</DropdownMenuTrigger>
       <DropdownMenuContent
         className=" w-[319px] md:w-auto rounded-[6px] border border-gray-150 shadow-[0px_4px_6px_rgba(0,0,0,0.09)]"
@@ -86,15 +86,15 @@ export function NavbarDropdownCard({
             />
           </DropdownMenuItem>
           <DropdownMenuItem
-            // onClick={(e) => {
-            //   e.preventDefault();
-            //   scrollTo("#feeling-lost")
-            //   setOpen(false)
-            // }}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo("#feeling-lost")
+              setOpen(false)
+            }}
             className=" p-0"
           >
             <DropDownItemContent
-              onClick={() =>handleRouting("/pricing#feeling-lost") }
+              // onClick={() =>handleRouting("/pricing#feeling-lost") }
               icon={<Headset size={16} />}
               option="Contact us"
             />

@@ -17,7 +17,7 @@ export function PlansMobileTab({ plan, features, popular = false, selected = fal
     <div
       onClick={onClick}
       className={`  px-2 py-3 border border-gray-150 min-h-[107px] md:max-w-auto md:min-w-[83.5px]  w-full relative  ${
-         popular ? " rounded-b-xl" : "rounded-xl"
+        popular ? " rounded-b-xl" : "rounded-xl"
       } ${
         selected &&
         "bg-[linear-gradient(272deg,_#125B54_18.54%,_#092E2B_107.09%)] shadow-[rgba(0,0,0,0.3)_0px_4px_13px_-3px] border-none text-white"
@@ -40,14 +40,16 @@ export function PlansMobileTab({ plan, features, popular = false, selected = fal
               fill="white"
             />
           </svg>
-          <p className=" whitespace-nowrap text-4xs">Most Popular</p>
+          <p className=" whitespace-nowrap text-4xs font-bold">Most Popular</p>
         </div>
       )}
       {/* {popular && <div className=" h-[6px] w-full bg-white absolute bottom-[-6px] left-0"></div>} */}
       <p className=" text-2xs font-bold">{plan}</p>
       {features &&
         features.length > 0 &&
-        features.map((feature) => <p className=" text-4xs text-gray-400">SME Board</p>)}
+        features.map((feature) => (
+          <p className={` text-4xs ${selected ? "text-white" : "text-gray-400"} `}>{feature}</p>
+        ))}
       {selected && (
         <div className=" w-fit rounded-full p-[0.5px] flex items-center justify-center absolute right-2 bottom-2">
           <Image height={16} width={16} src={"/icons/check.svg"} alt="checked-plan" />

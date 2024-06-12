@@ -4,15 +4,15 @@ export const formatPlans = (data: Array<TPlanResponse>) => {
   let plans = data.reduce(
     (accPlan: TPlan, currPlan) => {
       if (currPlan.duration_in_days === 90) {
-        currPlan = { ...currPlan, perMonth: currPlan.amount / 3 };
+        currPlan = { ...currPlan, perMonth: Math.floor(currPlan.amount / 3) };
         return { ...accPlan, "3months": [...accPlan["3months"], currPlan] };
       }
       if (currPlan.duration_in_days === 365) {
-        currPlan = { ...currPlan, perMonth: currPlan.amount / 12 };
+        currPlan = { ...currPlan, perMonth: Math.floor(currPlan.amount / 12) };
         return { ...accPlan, "1year": [...accPlan["1year"], currPlan] };
       }
       if (currPlan.duration_in_days === 1095) {
-        currPlan = { ...currPlan, perMonth: currPlan.amount / 36 };
+        currPlan = { ...currPlan, perMonth: Math.floor(currPlan.amount / 36) };
         return { ...accPlan, "3year": [...accPlan["3year"], currPlan] };
       }
       if (!currPlan.duration_in_days) {

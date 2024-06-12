@@ -35,9 +35,9 @@ export function PlansSection() {
   const [openTooltip, setOpenTooltip] = useState(false);
   const router = useRouter();
   const tabOptions = [
-    { label: "3 months", value: "3months" },
-    { label: "1 years", value: "1year" },
-    { label: "3 years", value: "3year" },
+    { label: "3 Months", value: "3months" },
+    { label: "1 Year", value: "1year" },
+    { label: "3 Years", value: "3year" },
   ];
 
   const handleLogin = () => {
@@ -163,21 +163,21 @@ export function PlansSection() {
             <PlansMobileTab
               onClick={() => handlePlanSelect("core")}
               plan="CORE"
-              features={["SME Board"]}
+              features={["Main Board"]}
               selected={currentPlanViewing === "core"}
             />
             {currentTab !== "3months" && (
               <PlansMobileTab
                 onClick={() => handlePlanSelect("advanced")}
                 plan="ADVANCED"
-                features={["Mainboard"]}
+                features={["SME Board"]}
                 selected={currentPlanViewing === "advanced"}
               />
             )}
             <PlansMobileTab
               onClick={() => handlePlanSelect("vip")}
               plan="VIP"
-              features={["SME Board", "Mainboard"]}
+              features={["Main Board","SME Board" ]}
               selected={currentPlanViewing === "vip"}
               popular
             />
@@ -276,10 +276,10 @@ export function PlansSection() {
                         ? plan.duration_in_days > 365
                           ? `Billed ₹${new Intl.NumberFormat("en-IN").format(
                               parseFloat(plan.amount.toFixed(2))
-                            )} for 3 years `
+                            )} for 3 Years `
                           : plan.duration_in_days === 365
                           ? `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} annually`
-                          : `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} for 3 months`
+                          : `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} for 3 Months`
                         : ""
                     }
                     label={PLAN[planName].label}
@@ -304,9 +304,9 @@ export function PlansSection() {
         <div className=" mt-6 md:mt-10 text-center flex items-center justify-center ">
           <TooltipProvider delayDuration={0}>
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
-              <TooltipTrigger onClick={() => setOpenTooltip(true)}>
-                <div className="px-16 py-[9px] bg-gray-50 w-fit rounded-full border border-gray-100">
-                  <p className=" text-center text-brand-600 text-sm md:text-md md:border-b-[1px] md:border-dashed border-brand-600 w-fit">
+              <TooltipTrigger onClick={(e) => {e.preventDefault();setOpenTooltip(true)}}>
+                <div className=" px-7 md:px-16 py-[9px] bg-gray-50 rounded-full border border-brand-400">
+                  <p className=" font-semibold text-center text-brand-600 text-sm md:text-md  w-fit">
                     Why do we recommend minimum annual membership ?
                   </p>
                 </div>

@@ -16,11 +16,19 @@ import { ContactModalHead } from "./contact-modal-head";
 import { TChildren } from "@/types";
 
 export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
-  const [open,setOpen] = useState(false);
-  const closeModal = ()=>setOpen(false)
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen(true);
+        }}
+        asChild
+      >
+        {trigger}
+      </DialogTrigger>
       <DialogContent className=" contact__modal p-5 md:p-6 pb-[21px]  max-w-[1200px] min-h-[749px] max-md:h-[calc(100vh-0.5rem)] overflow-y-scroll pricing">
         {/* <div className=" h-full p-0"> */}
         <div className="grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] md:gap-6 h-full max-w-[1152px] min-h-[704px] ">
@@ -28,7 +36,7 @@ export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
             <ContactModalHead />
             <div className=" h-[1px] my-6 w-full bg-gray-100"></div>
             <div className=" flex flex-col gap-y-6 max-h-[440px] overflow-y-scroll max-md:hidden">
-              <ContactForm closeModal={closeModal}  />
+              <ContactForm closeModal={closeModal} />
             </div>
           </div>
           <div className=" col-start-2 row-start-1  max-md:col-start-1">

@@ -105,7 +105,7 @@ export default function Page() {
                 title="Deep Research Investor"
                 attributes={[
                   <span>
-                    <Semibold>Time</Semibold> & <Semibold>knowledge</Semibold> for own decisions
+                    <Semibold>Time</Semibold> & <Semibold>knowledge</Semibold> for own investment decisions
                   </span>,
                   <span>
                     {" "}
@@ -125,7 +125,7 @@ export default function Page() {
                 title="Effortless Investor"
                 attributes={[
                   <span>
-                    <Semibold>No time</Semibold> / <Semibold>knowledge</Semibold> for decisions
+                    <Semibold>Less time</Semibold> / <Semibold>knowledge</Semibold> for investment decisions
                   </span>,
                   <span>
                     Prefers <Semibold>readymade</Semibold> solutions
@@ -143,8 +143,8 @@ export default function Page() {
           {/* WEBSITE PLAN */}
           <div className="py-[60px] lg:mt-[60px]">
             <div className=" flex flex-col items-center text-center gap-3 md:gap-0">
-              <p className=" text-2xs md:text-md text-[#F98800] font-medium uppercase relative z-20">
-                KamayaKya Membership
+              <p className=" text-sm md:text-md text-[#F98800] font-semibold uppercase relative z-20">
+                KamayaKya Membership Plans
               </p>
               <p className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">
                 For Deep Research Investors

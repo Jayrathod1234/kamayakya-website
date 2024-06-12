@@ -10,13 +10,13 @@ export const DEEP_RESEARCH_INVESTOR_FEATURES = [
   </p>,
   <p>
     I like the <HightlightText>thrill</HightlightText> and <HightlightText>learning</HightlightText> that comes with
-    taking my own investment decisions.
+    taking control of my investment decisions.
   </p>,
 ];
 
 export const EFFORTLESS_INVESTOR_FEATURES = [
   <p>
-    I do not have <HightlightText>time</HightlightText> and <HightlightText>knowledge</HightlightText> to take my own
+    I  have less <HightlightText>time</HightlightText> and <HightlightText>knowledge</HightlightText> to take my own
     investment decisions.
   </p>,
   <p>

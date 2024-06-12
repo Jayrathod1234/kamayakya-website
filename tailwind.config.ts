@@ -6,16 +6,17 @@ const config = {
   prefix: "",
   theme: {
     screens: {
-      phone:'497px',
-      sm:'640px',
-      md:'768px',
-      slg:'900px',
-      lg:'1024px',
-      xl:'1280px',
-      '2xl':'1536px',
+      phone: "497px",
+      sm: "640px",
+      md: "768px",
+      slg: "900px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+      "min-h-700": { raw: "( (min-height: 700px) and (min-width:700px))" },
     },
     fontFamily: {
-      open_sans: ["open_sans",'sans-serif'],
+      open_sans: ["open_sans", "sans-serif"],
     },
     fontSize: {
       "4xs": [

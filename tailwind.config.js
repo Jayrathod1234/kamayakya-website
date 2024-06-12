@@ -13,17 +13,17 @@ const config = {
   prefix: "",
   theme: {
     screens: {
-      phone:'497px',
-      sm:'640px',
-      md:'768px',
-      slg:'900px',
-      lg:'1024px',
-      xl:'1280px',
-      '2xl':'1536px',
-     
+      phone: "497px",
+      sm: "640px",
+      md: "768px",
+      slg: "900px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+      "min-h-700": { raw: "( (min-height: 700px))" },
     },
-    fontFamily:{
-      "open_sans":["Open Sans",'sans-serif'],
+    fontFamily: {
+      open_sans: ["Open Sans", "sans-serif"],
     },
     fontSize: {
       "4xs": [
@@ -124,7 +124,8 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        "radial-gradient-xl":"radial-gradient(389.9% 150.6% at -13.33% 12.53%, rgba(100, 253, 171, 0.00) 0%, rgba(129, 184, 244, 0.40) 25.93%, rgba(196, 219, 254, 0.57) 43.63%, rgba(228, 238, 253, 0.57) 69.37%, rgba(253, 239, 255, 0.57) 79.3%, rgba(253, 239, 255, 0.00) 100%)",
+        "radial-gradient-xl":
+          "radial-gradient(389.9% 150.6% at -13.33% 12.53%, rgba(100, 253, 171, 0.00) 0%, rgba(129, 184, 244, 0.40) 25.93%, rgba(196, 219, 254, 0.57) 43.63%, rgba(228, 238, 253, 0.57) 69.37%, rgba(253, 239, 255, 0.57) 79.3%, rgba(253, 239, 255, 0.00) 100%)",
         "radial-gradient":
           "radial-gradient(348.84% 134.74% at -1.18% 22.73%, rgba(255, 255, 255, 0.00) 0%, rgba(164, 233, 255, 0.40) 19%, rgba(155, 226, 249, 0.57) 43.63%, rgba(197, 255, 224, 0.57) 57.07%, rgba(203, 255, 224, 0.57) 69.37%, rgba(229, 255, 223, 0.57) 79.3%, rgba(255, 255, 255, 0.00) 100%)",
       },

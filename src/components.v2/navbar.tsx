@@ -79,10 +79,10 @@ export function Navbar() {
           </Link>
         </div>
         <div className="relative">
-          <NavigationMenu className=" ">
+          <NavigationMenu delayDuration={0} className=" ">
             <NavigationMenuList className=" m-0 ">
               <NavigationMenuItem className=" m-0 hidden lg:flex">
-                <NavigationMenuTrigger>{isLoggedIn ? "About us" : "Home"}</NavigationMenuTrigger>
+                <NavigationMenuTrigger>{isLoggedIn ? "About Us" : "Home"}</NavigationMenuTrigger>
                 <NavigationMenuContent className=" z-20 w-auto">
                   <ul
                     className={`nav__grid-container grid md:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(fit-content,1fr))_minmax(auto,284px)] grid-flow-col  max-h-[332px]  ${
@@ -93,7 +93,7 @@ export function Navbar() {
                       isLoggedIn
                         ? options.title !== "Sample Reports" &&
                           options.title !== "Performance" &&
-                          options.title !== "Hot Stocks"
+                          options.title !== "Hot Stocks" 
                         : true
                     ).map((option) => (
                       <ListItem
@@ -120,13 +120,13 @@ export function Navbar() {
                   className={` m-0 ${
                     (navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to buy") ||
                     !isLoggedIn
-                      ? navigationOption.title === "Stocks to buy"
+                      ? navigationOption.title === "Stocks to buy" 
                         ? "hidden"
                         : "hidden lg:flex"
                       : navigationOption.title === "Stocks to buy"
                       ? "lg:hidden"
                       : ""
-                  } ${isLoggedIn && navigationOption.title === "About us" ? "!hidden" : ""}`}
+                  } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                 >
                   <Link href={navigationOption.link} legacyBehavior passHref>
                     <NavigationMenuLink
@@ -149,11 +149,11 @@ export function Navbar() {
       <div className="hidden px-2 lg:flex">
         <Link href={"/stock-picks"}>
           <button
-            className={` border pricing border-orange-500 ${
-              isLoggedIn ? "bg-orange-500 text-white mr-6 " : " bg-transparent text-orange-500 mr-4"
+            className={` border pricing border-orange-500  ${
+              isLoggedIn ? "bg-orange-500 text-white hover:bg-orange-600 mr-6 " : " bg-transparent text-orange-500 hover:bg-orange-500 hover:text-white mr-4"
             }  px-4 py-[10px] rounded-[6px]`}
           >
-            <p className=" text-sm font-bold">Stock to Buy</p>
+            <p className=" text-sm font-bold">Stocks to Buy</p>
           </button>
         </Link>
         <div>

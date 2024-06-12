@@ -28,11 +28,11 @@ export function Newsletter() {
       const response = await axios.post(
         NEWSLETTER_SUBSCRIBE_URL,
         { email },
-        {
-          headers: {
-            Authorization: "token " + localStorage.getItem("refresh"),
-          },
-        }
+        // {
+        //   headers: {
+        //     Authorization: "token " + localStorage.getItem("refresh"),
+        //   },
+        // }
       );
       console.log(response.data);
       if (response.data) {
@@ -56,7 +56,7 @@ export function Newsletter() {
             <Image src={"/warn_icon.svg"} alt="warn" height={16} width={16} />
           </div>
         ),
-        description: e.response.data?.email[0] || e.message || "Something went wrong",
+        description: e?.response?.data?.email[0] || e?.message || "Something went wrong",
       });
     } finally {
       setEmail("")
@@ -75,11 +75,12 @@ export function Newsletter() {
           <LinkedinBtn />
         </div>
         <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p>
+        <p className=" text-center font-semibold text-lg mb-8">Subscribe to our Newsletter</p>
         <div>
           {/* EMAIL INPUT */}
           <div
             className={` flex items-center bg-white p-2 pl-3 rounded-[6px] gap-[8px] mt-3 w-full max-h-[52px] max-w-[350px] md:max-w-[566px] mx-auto ${
-              emailError ? " border  border-[rgba(253,162,155,1)] shadow-xs shadow-[rgba(253,162,155,1)] " : ""
+              emailError ? " border-[2px] border-[crimson_red] " : ""
             }`}
           >
             {/* <div className=" ml-[6px]"> */}

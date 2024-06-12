@@ -31,11 +31,18 @@ const Breakdown = ({
 };
 
 export function PlanTooltip({ children, price, strikePrice, saveText, gst, total }: TChildren & TPlantooltip) {
-  const [displayToast,setDisplayToast] = useState(false)
+  const [displayToast, setDisplayToast] = useState(false);
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip open={displayToast} onOpenChange={setDisplayToast}>
-        <TooltipTrigger onClick={()=>setDisplayToast(true)}>{children}</TooltipTrigger>
+        <TooltipTrigger
+          onClick={(e) => {
+            e.preventDefault();
+            setDisplayToast(true);
+          }}
+        >
+          {children}
+        </TooltipTrigger>
         <TooltipContent
           side="bottom"
           className=" bg-white text-black border-0 p-0  max-w-[425px] z-[100] rounded-[10px] shadow-3xl w-[255px]"

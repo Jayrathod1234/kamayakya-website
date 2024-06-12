@@ -149,8 +149,8 @@ export function Footer() {
           </p>
           <div className=" flex flex-col gap-y-5 md:gap-y-12">
             <div className=" text-white flex flex-wrap gap-x-5 items-center justify-center flex-shrink-0 content-center whitespace-nowrap max-md:text-2xs ">
-              <FooterLinks href="terms-conditions" label="Terms & conditions"/>
-              <FooterLinks href="disclaimer" label="Disclousers"/>
+              <FooterLinks href="terms-conditions" label="Terms & Conditions"/>
+              <FooterLinks href="disclaimer" label="Disclosures"/>
               <FooterLinks href="investor-charter" label="Investor Charter"/>
               <FooterLinks href="complaints" label="Complaints"/>
               <FooterLinks href="privacy-policy" label="Privacy Policy"/>
@@ -158,7 +158,7 @@ export function Footer() {
              
             </div>
             <p className=" text-sm  max-md:text-4xs opacity-[62%] text-center">
-              © 2024 KamayaKya Wealth Management Pvt. Ltd., all rights reserved.
+              KamayaKya Wealth Management Pvt. Ltd. (CIN - U74999PN2021PTC205529). All rights reserved.
             </p>
           </div>
         </div>

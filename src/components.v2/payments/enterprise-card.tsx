@@ -35,7 +35,7 @@ export function EnterpriseCard() {
         />
       </div>
       <div className=" flex flex-col items-center md:items-start text-center  md:text-start">
-        <p className=" text-2xs md:text-sm text-[#F98800] font-medium uppercase">KamayaKya Enterprise Plan</p>
+        <p className=" text-sm md:text-md text-[#F98800] font-semibold uppercase">KamayaKya Enterprise Plan</p>
         <h3 className=" text-display-xs md:text-display-md font-bold m-0">Looking for enterprise solutions?</h3>
         <p className=" text-md mt-3 md:mt-4 text-gray-600">
           For wealth management businesses like Family Office, PMS, AIF, MF and other wealth creators in the ecosystem.{" "}
