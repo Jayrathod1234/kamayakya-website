@@ -21,14 +21,14 @@ export function EnterpriseCard() {
       <div className="  max-w-[540px] lg:max-w-[648.59px]  overflow-hidden mx-auto">
         <Image
           className="md:hidden rounded-xl h-full w-full object-contain"
-          src={"/pricing/contact_us_desktop.jpeg"}
+          src={"/pricing/enterprise_solution.webp"}
           alt="contact_us_img"
           height={223}
           width={358}
         />
         <Image
           className="hidden md:inline-block rounded-xl h-full w-full object-contain"
-          src={"/pricing/contact_us_desktop.jpeg"}
+          src={"/pricing/enterprise_solution.webp"}
           alt="contact_us_img"
           height={460}
           width={648.59}

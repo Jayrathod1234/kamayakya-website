@@ -27,7 +27,7 @@ export function PlanCardMobile({
   currentTab,
 }: TPlanCardMobile) {
   return (
-    <div className="rounded-b-xl border-x border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)]">
+    <div className="rounded-b-xl border-x bg-white border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)]">
       <div className=" px-4 py-5">
         <div>
           <p className=" text-md text-gray-400 line-through">

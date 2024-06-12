@@ -19,8 +19,8 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
   const [displayPauseIcon, setDisplayPauseIcon] = useState(false);
   const bulletIcon =
     userTypeSelected === DEEP_RESEARCH_INVESTOR
-      ? "/icons/deep-research-bullet-icon.svg"
-      : "/icons/deep-research-bullet-icon.svg";
+      ? "/icons/deep-research-bullet-icon.png"
+      : "/icons/effortless-bullet-icon.png";
   const features =
     userTypeSelected === DEEP_RESEARCH_INVESTOR ? DEEP_RESEARCH_INVESTOR_FEATURES : EFFORTLESS_INVESTOR_FEATURES;
   const intervalRef = useRef<NodeJS.Timer>();

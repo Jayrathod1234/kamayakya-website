@@ -44,7 +44,7 @@ export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
               className=" h-full w-full"
               height={390}
               width={528}
-              src={"/pricing/modal-desktop.png"}
+              src={"/pricing/modal-mascot.webp"}
               alt="kamayakya-mascot"
             />
           </div>

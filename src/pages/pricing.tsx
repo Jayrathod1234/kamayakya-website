@@ -101,7 +101,7 @@ export default function Page() {
             <div className=" justify-self-end col-start-1 row-span-4 md:hidden">
               <UserTypeCard
                 icon="/icons/deep-research-active-icon.svg"
-                imgSrc="/user.png"
+                imgSrc="/pricing/deep_investor_mob.webp"
                 title="Deep Research Investor"
                 attributes={[
                   <span>
@@ -121,7 +121,7 @@ export default function Page() {
             <div className=" justify-self-start col-start-2 row-start-1 row-span-5 md:hidden">
               <UserTypeCard
                 icon="/icons/effortless-active-icon.svg"
-                imgSrc="/user2.png"
+                imgSrc="/pricing/effortless_investor_mob.webp"
                 title="Effortless Investor"
                 attributes={[
                   <span>
