@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../button";
 import { ButtonSize, ButtonVariant } from "../button/button";
 import { Input } from "../ui/input";
@@ -9,10 +9,14 @@ import Image from "next/image";
 import { Textarea } from "../ui/textarea";
 import { Send } from "lucide-react";
 import { CONTACT_URL } from "@/pages/api/URLs";
-import PhoneInput from "react-phone-input-2";
+// import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { DialogClose } from "../ui/dialog";
 import { useToast } from "../ui/use-toast";
+import "react-phone-number-input/style.css";
+
+import PhoneInput from "react-phone-number-input";
+import { Separator } from "../ui/separator";
 
 export function ContactForm({ closeModal }: { closeModal: () => void }) {
   const [querySelected, setQuerySelected] = useState("");
@@ -28,6 +32,8 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
   const [otherQuery, setOtherQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const nameref = useRef<HTMLInputElement | null>(null);
+  const emailref = useRef<HTMLInputElement | null>(null);
 
   const handleClose = (event: string) => {
     const mp = getMixPanelClient();
@@ -53,15 +59,13 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
       errorFlag = true;
       setError((prev) => ({ ...prev, phoneError: true }));
     } else {
-      if (phone.trim().slice(2).length > 10) {
+      console.log(phone.trim().slice(3));
+      if (phone.trim().slice(3).length > 10) {
         errorFlag = true;
         setError((prev) => ({ ...prev, phoneError: true }));
       }
     }
-    if (email.trim().length == 0) {
-      errorFlag = true;
-      setError((prev) => ({ ...prev, emailError: true }));
-    } else {
+    if (email.trim().length > 0) {
       const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       if (!isEmail) {
         errorFlag = true;
@@ -85,7 +89,7 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
           mobile_number: phone,
           query_type: querySelected,
           message: otherQuery,
-        },
+        }
         // {
         //   headers: {
         //     Authorization: "token " + localStorage.getItem("refresh"),
@@ -126,21 +130,31 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
     cb(value);
   };
 
+  useEffect(() => {
+    if (nameref.current) {
+      (nameref.current.focus as unknown as boolean) = false;
+    }
+    if (emailref.current) {
+      (emailref.current.focus as unknown as boolean) = false;
+    }
+  }, []);
+
   return (
     <>
       <div style={{ fontFamily: "Open Sans !important" }} className=" placeholder:text-gray-400 placeholer:text-md ">
-        <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
+        <label defaultChecked={false} className=" text-sm font-medium mb-[6px]" htmlFor="name">
           Name*
         </label>
         <Input
-        
+          ref={nameref}
+          defaultChecked={false}
           autoFocus={false}
           placeholder="Name"
           onChange={(e) => {
             handleInputs(e.target.value, setName);
             if (error.nameError) setError((prev) => ({ ...prev, nameError: false }));
           }}
-          className={` placeholder:text-gray-400 placeholer:text-md py-[10px] px-[14px] max-h-11 lg:h-11  border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0  ${
+          className={` autofill:bg-white placeholder:text-gray-400 placeholer:text-md py-[10px] px-[14px] max-h-11 lg:h-11  border border-[#D0D5DD] focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0  ${
             error.nameError ? " border  border-[rgba(253,162,155,1)]  " : ""
           }`}
         />
@@ -150,12 +164,27 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
         <label className=" text-sm font-medium mb-[6px]" htmlFor="name">
           Phone number*
         </label>
+        {/* max-md:pl-0  */}
         <div
-          className={` border border-[#D0D5DD] max-md:pl-0  px-[14px]  py-[10px] lg:h-11 max-h-11 flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto ${
+          className={` border border-[#D0D5DD]  px-[14px]  py-[10px] lg:h-11 max-h-11 flex items-center bg-white rounded-[6px] gap-[8px] w-full max-w-full md:max-w-[566px] mx-auto ${
             error.emailError ? " border  border-[rgba(253,162,155,1)]  " : ""
           }`}
         >
           <PhoneInput
+            defaultCountry="IN"
+            placeholder="Enter phone number"
+            value={phone}
+            onChange={(value) => {
+              handleInputs(value!, setPhone);
+              if (error.phoneError) {
+                setError((prev) => ({ ...prev, phoneError: false }));
+              }
+            }}
+          />
+          {/* <PhoneInput
+            
+            // ref={phoneref}
+            // autoFocus = {false}
             countryCodeEditable={false}
             onChange={(value) => {
               handleInputs(value, setPhone);
@@ -166,11 +195,18 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
             inputStyle={{
               fontSize: "14px !important",
             }}
-            inputClass={` font-w-normal !flex font-normal border pl-[14px] !border-[#D0D5DD] max-h-11 lg:h-11 flex items-center md:items-start bg-white rounded-important-6px gap-[10px] !w-full !text-sm ${
+            inputProps={{
+              autoFocus:false,
+              // ref: phoneref,
+              required:true,
+              
+              
+            }}
+            inputClass={` phone__input font-w-normal !flex font-normal border pl-[14px] !border-[#D0D5DD] max-h-11 lg:h-11 flex items-center md:items-start bg-white rounded-important-6px gap-[10px] !w-full !text-sm ${
               error.phoneError ? " border  !border-[rgba(253,162,155,1)]  " : ""
             }`}
             country={"in"}
-          />
+          />*/}
         </div>
         {error.phoneError ? (
           <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left">Enter valid phone</p>
@@ -189,13 +225,14 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
           <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
           {/* </div> */}
           <Input
+            ref={emailref}
             autoFocus={false}
             onChange={(e) => {
               handleInputs(e.target.value, setEmail);
               if (error.emailError) setError((prev) => ({ ...prev, emailError: false }));
             }}
             placeholder="Email"
-            className={` h-0 placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black`}
+            className={`autofill:bg-white auto h-0 placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black`}
           />
         </div>
         {error.emailError ? (
@@ -217,18 +254,19 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
               if (error.queryError) setError((prev) => ({ ...prev, queryError: false }));
             }}
           >
-            <SelectTrigger className="px-[14px] py-[10px] max-h-11 lg:h-11 text-md placeholder:text-gray-400 placeholder:text-md focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
-              <SelectValue placeholder="Select your query" />
+            <SelectTrigger className=" pricing px-[14px] py-[10px] max-h-11 lg:h-11 text-md data-[placeholder]:text-gray-400 placeholder:text-gray-400 placeholder:text-md focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
+              <SelectValue placeholder="Select your query"   />
             </SelectTrigger>
-            <SelectContent className=" text-sm font-medium">
-              <SelectItem className="" value="Product Information">
+            <SelectContent className="pricing text-sm font-medium ">
+              <SelectItem className=" text-inherit" value="Product Information">
                 Product Information
               </SelectItem>
-              <SelectItem value="Pricing">Pricing</SelectItem>
+              <SelectItem className=" font-normal" value="Pricing">Pricing</SelectItem>
               <SelectItem value="Billing & Payment">Billing & Payment</SelectItem>
               <SelectItem value="Technical support">Technical support</SelectItem>
-              <SelectItem value="Parterships">Parterships</SelectItem>
+              <SelectItem value="Parterships">Partnerships</SelectItem>
               <SelectItem value="Media/Press">Media/Press</SelectItem>
+              <Separator/>
               <SelectItem value="Feedback">Feedback</SelectItem>
               <SelectItem value="Schedule a consultation">Schedule a consultation</SelectItem>
               <SelectItem value="Other">Other</SelectItem>

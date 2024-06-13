@@ -74,7 +74,7 @@ export default function Page() {
       </div> */}
 
       <div className=" absolute h-[1200px] mix-blend-color-burn  w-full pointer-events-none">
-        <video className=" h-full w-full object-cover z-40" src="/pricing/hero_bg.webm" autoPlay muted loop></video>
+        <video className=" h-full w-full object-cover z-40 pointer-events-none" src="/pricing/hero_bg.webm" autoPlay muted loop></video>
       </div>
       <div className="relative ">
         <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
@@ -89,14 +89,14 @@ export default function Page() {
           </div>
           <Navbar />
           <div className=" mt-[1.875rem] md:mt-9 text-center">
-            <h1 className=" text-display-xs md:text-display-lg font-bold cursor-pointer">
+            <h1 className=" text-display-xs md:text-display-lg font-bold">
               What type of <span className=" text-brand-400">investor</span> are you?
             </h1>
             <p className=" text-md md:text-lg mt-3 text-gray-600 mb-9">
               Get the Right Fit : Because a good plan is like a good pair of shoes
             </p>
           </div>
-          <div className=" md:mt-20 grid grid-cols-2 grid-rows-6 md:grid-rows-[auto] mt-[42px] gap-4 md:grid-cols-1 place-items-center max-h-full">
+          <div className=" md:mt-20 grid grid-cols-2 grid-rows-6 md:grid-rows-[auto] mt-[30px] gap-4 md:grid-cols-1 place-items-center max-h-full">
             <UserTypeDesktopCard />
             <div className=" justify-self-end col-start-1 row-span-4 md:hidden">
               <UserTypeCard
@@ -112,13 +112,14 @@ export default function Page() {
                     Enjoys <Semibold>research</Semibold>
                   </span>,
                   <span>
-                    <Semibold>Thrill</Semibold> & <Semibold>learning</Semibold> from decisions
+                    
+                    <Semibold>Thrill</Semibold> & <Semibold>learning</Semibold> by taking control of your wealth
                   </span>,
                 ]}
                 btnText="Membership"
               />
             </div>
-            <div className=" justify-self-start col-start-2 row-start-1 row-span-5 md:hidden">
+            <div className=" justify-self-start col-start-2 row-start-1 row-span-5 md:hidden mt-[-3.8rem]">
               <UserTypeCard
                 icon="/icons/effortless-active-icon.svg"
                 imgSrc="/pricing/effortless_investor_mob.webp"
@@ -141,23 +142,23 @@ export default function Page() {
       <div className="bg-[linear-gradient(0deg,white_97.6%,transparent)] md:bg-[linear-gradient(0deg,white_95%,transparent)]">
         <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] min-h-screen mx-auto ">
           {/* WEBSITE PLAN */}
-          <div className="py-[60px] lg:mt-[60px]">
-            <div className=" flex flex-col items-center text-center gap-3 md:gap-0">
-              <p className=" text-sm md:text-md text-[#F98800] font-semibold uppercase relative z-20">
+          <div  className="py-[60px] lg:mt-[60px]">
+            <div  className=" flex flex-col items-center text-center gap-3 md:gap-0">
+              <p id="deepresearch-section" className=" text-sm md:text-md text-[#F98800] font-semibold uppercase relative z-20">
                 KamayaKya Membership Plans
               </p>
-              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">
+              <p  className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">
                 For Deep Research Investors
               </p>
               <p className=" text-sm md:text-md text-gray-700 md:mt-3  z-20">Find a plan that works for YOU.</p>
             </div>
             {/* PLAN SECTION */}
-            <section id="deepresearch-section" className="">
+            <section  className="">
               <PlansSection />
             </section>
           </div>
 
-          <div id="effortless-section" className=" py-[60px]">
+          <div  className=" pt-10 pb-[60px]">
             <SmallCaseCard />
           </div>
           <div className="py-[60px] md:py-[100px]">

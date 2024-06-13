@@ -31,7 +31,7 @@ export function TestimonialsCard({ className, testimony, title, author, company,
         <Quotes />
       </div>
       <h4 className=" text-lg md:text-display-xs font-semibold mb-3 md:mb-8">{title}</h4>
-      <p className=" line-clamp-[8] text-sm md:text-md text-gray-600 leading-[23.52px] md:leading-[1.68rem] mb-8 tracking-normal">
+      <p className="testimonial-card-para line-clamp-[8] overflow-y-scroll text-sm md:text-md text-gray-600 leading-[23.52px] md:leading-[1.68rem] mb-8 tracking-normal">
         {testimony}
       </p>
       <div className=" mt-auto transition-all origin-left flex gap-6 md:gap-4 items-center group-hover/testimonial-card:scale-110">

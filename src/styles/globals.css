@@ -1319,25 +1319,117 @@ header > div > div {
   }
 }
 
-
-.contact__modal::-webkit-scrollbar {
+.testimonial-card-para::-webkit-scrollbar,.contact__modal::-webkit-scrollbar {
   background-color: transparent;
   opacity: 0.15;
-  width:fit-content;
+  width: 0;
 }
 
 /* background of the scrollbar except button or resizer */
-.contact__modal::-webkit-scrollbar-track {
+.testimonial-card-para::-webkit-scrollbar,.contact__modal::-webkit-scrollbar-track {
   background-color: transparent;
-  width: fit-content !important;
+  width: 0 !important;
   /* margin: 0.5px; */
   /*box-shadow: inset 0 0 0.5px grey;*/
 }
 
 /* scrollbar itself */
-.contact__modal::-webkit-scrollbar-thumb {
+.testimonial-card-para::-webkit-scrollbar,.contact__modal::-webkit-scrollbar-thumb {
   background-color: transparent;
   /* border-radius: 16px; */
   /* border: 4px solid #fff; */
   /* margin: 55px; */
 }
+
+.contact__modal input:-webkit-autofill,
+.contact__modal input:-webkit-autofill:hover,
+.contact__modal input:-webkit-autofill:focus,
+.contact__modal input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: black !important;
+}
+
+@media screen and (max-height: 670px) and (min-width: 830px) {
+  .contact__modal .mascot__container {
+    display: none;
+  }
+
+  .contact__modal-left {
+    height: 100dvh;
+    max-height: 740px;
+  }
+
+  .contact__modal .contacts__container {
+    height: 100vh;
+    grid-row-start: 1 !important;
+    grid-row-end: 2 !important;
+  }
+
+  .contacts__container div:nth-child(2) {
+    /* background-color: green; */
+    grid-template-columns: 1fr;
+  }
+
+  .contacts__container div:nth-child(2) div:first-child {
+    grid-column-start: 1;
+    grid-row-start: 1;
+  }
+  .contacts__container div:nth-child(2) div:nth-child(2) {
+    grid-column-start: 1;
+    grid-row-start: 2;
+  }
+  .contacts__container div:nth-child(2) div:nth-child(3) {
+    grid-column-start: 1;
+    grid-row-start: 3;
+    grid-column-end: 1;
+  }
+  .contacts__container div:nth-child(2) p:nth-child(4) {
+    grid-column-start: 1;
+    grid-row-start: 4;
+  }
+}
+
+@media screen and (min-width:1025px) and (max-width:1291px){
+  .popular__card{
+    margin-top:2rem
+  }
+}
+
+
+.PhoneInput{
+  margin-bottom:0;
+  width: 100%;
+}
+
+.PhoneInputInput{
+  width: 100% !important;
+  background-color:white;
+  font-size:0.875rem;
+  margin-left:4px;
+}
+
+
+.PhoneInputInput::placeholder{
+  /* background-color:white; */
+  font-size:0.875rem;
+  margin-left:4px;
+}
+
+/* PhoneInputCountryIcon--border */
+.PhoneInputCountryIcon {
+width:20px !important;
+  height:21px !important;
+  overflow:hidden;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+.PhoneInputCountrySelect{
+  border-radius:2rem;
+}
+
+.PhoneInputCountrySelect option{
+  background-color:white;
+}
+
+

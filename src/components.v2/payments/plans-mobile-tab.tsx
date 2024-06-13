@@ -20,12 +20,12 @@ export function PlansMobileTab({ plan, features, popular = false, selected = fal
         popular ? " rounded-b-xl" : "rounded-xl"
       } ${
         selected &&
-        "bg-[linear-gradient(272deg,_#125B54_18.54%,_#092E2B_107.09%)] shadow-[rgba(0,0,0,0.3)_0px_4px_13px_-3px] border-none text-white"
+        "bg-[linear-gradient(272deg,_#125B54_18.54%,_#092E2B_107.09%)] shadow-[rgba(0,0,0,0.3)_0px_4px_13px_-3px] border-transparent text-white"
       }`}
     >
       {popular && (
         <div
-          className={` flex gap-x-[2px] flex-nowrap items-center justify-center  text-center py-[1px] md:py-[3px] px-[6px] whitespace-nowrap font-semibold bg-brand-300 text-white rounded-t-lg absolute -top-[1.15rem] left-0 z-30 w-full `}
+          className={` flex gap-x-[2px] flex-nowrap items-center justify-center  text-center py-[1px] md:py-[3px] px-[6px] shadow-[0px_0px_0px_1px] shadow-brand-300 whitespace-nowrap font-semibold bg-brand-300 text-white rounded-t-lg absolute -top-[1.1rem] left-0 z-30 w-full `}
         >
           <svg
             className=" inline-block"

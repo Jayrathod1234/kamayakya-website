@@ -19,8 +19,8 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
   const [displayPauseIcon, setDisplayPauseIcon] = useState(false);
   const bulletIcon =
     userTypeSelected === DEEP_RESEARCH_INVESTOR
-      ? "/icons/deep-research-bullet-icon.png"
-      : "/icons/effortless-bullet-icon.png";
+      ? "/icons/deep-research-bullet-icon.svg"
+      : "/icons/effortless-bullet-icon.svg";
   const features =
     userTypeSelected === DEEP_RESEARCH_INVESTOR ? DEEP_RESEARCH_INVESTOR_FEATURES : EFFORTLESS_INVESTOR_FEATURES;
   const intervalRef = useRef<NodeJS.Timer>();
@@ -78,7 +78,7 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
           userTypeSelected === DEEP_RESEARCH_INVESTOR ? "rounded-tl-none" : " rounded-tr-none"
         }`}
       >
-        <div className=" flex flex-col pl-10 pt-12 pb-[17px] w-[360px] h-full ">
+        <div className=" flex flex-col p-10  pb-[17px] w-full max-w-[360px] lg:max-w-[400px] h-full ">
           <ul className=" flex flex-col gap-y-6">
             {features.map((feature) => (
               <FeatureListDesktop feature={feature} bulletIcon={bulletIcon} />

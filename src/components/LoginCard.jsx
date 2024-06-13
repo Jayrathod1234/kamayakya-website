@@ -232,6 +232,7 @@ const LoginCard = () => {
             <Card
               variant="flat"
               css={{
+                border:"0px",
                 borderRadius: "0px",
                 display: "flex",
                 alignItems: "center",

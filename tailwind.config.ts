@@ -13,7 +13,7 @@ const config = {
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
-      "min-h-700": { raw: "( (min-height: 700px) and (min-width:700px))" },
+      // "min-h-700": { raw: "( (min-height: 700px) and (min-width:700px))" },
     },
     fontFamily: {
       open_sans: ["open_sans", "sans-serif"],

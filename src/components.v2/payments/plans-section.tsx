@@ -128,26 +128,26 @@ export function PlansSection() {
     <div>
       <div className=" relative flex justify-center mb-14 md:mb-0 pt-10 md:pb-20 pb-6">
         <div className="relative">
-          <Image
+          {/* <Image
             className=" block md:hidden absolute -rotate-2 md:rotate-0 -right-12  md:-right-16 -top-12  bg-blend-multiply"
             height={58}
             width={98}
             src={"/save_33.png"}
             alt="save-33%"
-          />
+          /> */}
           <Image
-            className=" hidden md:block -right-24 -top-8 absolute bg-blend-multiply"
-            height={59}
-            width={129}
+            className=" block -right-5 -top-8 absolute bg-blend-multiply"
+            height={40.75}
+            width={76}
             src={"/save_33.png"}
             alt="save-33%"
           />
           <Tabs setSelectedOption={setCurrentTab} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
           <Image
-            className=" absolute bg-blend-multiply left-[40%]"
-            height={51}
-            width={88}
-            src={"/tab_save_25.svg"}
+            className=" absolute left-[35%] top-10"
+            height={28}
+            width={94}
+            src={"/save_25.png"}
             alt="save-25%"
           />
         </div>
@@ -313,8 +313,8 @@ export function PlansSection() {
               </TooltipTrigger>
               <TooltipContent side="bottom" className=" bg-black text-white border-0 p-3 max-w-[425px]">
                 <p className=" leading-6 w-[350px] md:w-full]">
-                  We understand that effective investing requires time and patience, which is why we exclusively offer
-                  an annual plan. Our strategy reflects our ethos that long-term commitment is key to unlocking the true
+                  We understand that effective investing requires time and patience, which is why we suggest minimum
+                   annual membership. Our strategy reflects our ethos that long-term commitment is key to unlocking the true
                   potential of your investments.
                 </p>
                 <TooltipArrow className=" fill-black" />

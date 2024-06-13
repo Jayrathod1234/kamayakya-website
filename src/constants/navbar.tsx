@@ -24,36 +24,36 @@ export const NAVBAR_LINKS = [
 ];
 
 export const HOME_OPTIONS = [
-  {
-    title: "Our Products",
-    subtitle: "One-liner",
-    endIcon: <ArrowRight size={12} className=" text-gray-400" />,
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M20.2728 7.27096L20.1857 7.32075L19.943 7.44935L19.609 7.6236L11.9942 11.6498L8.69606 9.90534L16.344 5.89984L16.6801 5.7256L17.014 5.54928L20.2728 7.27096ZM16.1242 5.08049L15.7902 5.25473L15.4542 5.42898L7.80618 9.43654L4.38772 7.62567L4.05583 7.45143L3.80899 7.32075L3.72394 7.27304L11.5331 3.14727C11.8255 2.99281 12.1753 2.99285 12.4677 3.1474L16.1242 5.08049ZM20.7001 7.98245V16.1226C20.7001 16.4936 20.4948 16.834 20.1668 17.0071L12.4091 21.1004V12.3696L20.0778 8.31641L20.3889 8.15047L20.5777 8.0509L20.7001 7.98245ZM11.5794 12.3696V21.1004L3.83357 17.0072C3.50583 16.834 3.30078 16.4938 3.30078 16.1231V7.9866L3.41072 8.04883H3.41279L3.61193 8.15462L3.92307 8.31849L11.5794 12.3696Z"
-          fill="url(#paint0_linear_5180_241530)"
-        />
-        <defs>
-          <linearGradient
-            id="paint0_linear_5180_241530"
-            x1="20.2902"
-            y1="19.1585"
-            x2="0.625296"
-            y2="0.84209"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#125B54" />
-            <stop offset="1" stop-color="#12ADB7" />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-    link: "",
-  },
+  // { title: "Our Products",
+    
+  //  subtitle: "Explore our unique offerings.",
+  //   endIcon: <ArrowRight size={12} className=" text-gray-400" />,
+  //   icon: (
+  //     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  //       <path
+  //         d="M20.2728 7.27096L20.1857 7.32075L19.943 7.44935L19.609 7.6236L11.9942 11.6498L8.69606 9.90534L16.344 5.89984L16.6801 5.7256L17.014 5.54928L20.2728 7.27096ZM16.1242 5.08049L15.7902 5.25473L15.4542 5.42898L7.80618 9.43654L4.38772 7.62567L4.05583 7.45143L3.80899 7.32075L3.72394 7.27304L11.5331 3.14727C11.8255 2.99281 12.1753 2.99285 12.4677 3.1474L16.1242 5.08049ZM20.7001 7.98245V16.1226C20.7001 16.4936 20.4948 16.834 20.1668 17.0071L12.4091 21.1004V12.3696L20.0778 8.31641L20.3889 8.15047L20.5777 8.0509L20.7001 7.98245ZM11.5794 12.3696V21.1004L3.83357 17.0072C3.50583 16.834 3.30078 16.4938 3.30078 16.1231V7.9866L3.41072 8.04883H3.41279L3.61193 8.15462L3.92307 8.31849L11.5794 12.3696Z"
+  //         fill="url(#paint0_linear_5180_241530)"
+  //       />
+  //       <defs>
+  //         <linearGradient
+  //           id="paint0_linear_5180_241530"
+  //           x1="20.2902"
+  //           y1="19.1585"
+  //           x2="0.625296"
+  //           y2="0.84209"
+  //           gradientUnits="userSpaceOnUse"
+  //         >
+  //           <stop stop-color="#125B54" />
+  //           <stop offset="1" stop-color="#12ADB7" />
+  //         </linearGradient>
+  //       </defs>
+  //     </svg>
+  //   ),
+  //   link: "",
+  // },
   {
     title: "Our Philosophy",
-    subtitle: "One-liner",
+    subtitle: "Strategic framework for investing",
     icon: (
       <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -141,7 +141,7 @@ export const HOME_OPTIONS = [
   },
   {
     title: "Sample Reports",
-    subtitle: "One-liner",
+    subtitle: "Experience our research insights",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -195,40 +195,40 @@ export const HOME_OPTIONS = [
     ),
     link: "/#philosophy",
   },
-  {
-    title: "Performance",
-    subtitle: "One-liner",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_5180_241551)">
-          <path
-            d="M20.3251 8.93417L19.1439 3.3516C19.1298 3.28129 19.0876 3.23911 19.0454 3.22505C19.0173 3.19692 18.9611 3.18286 18.8767 3.19692C18.8486 3.19692 18.8345 3.21098 18.8064 3.22505L13.941 6.13586C13.8425 6.19211 13.8003 6.33272 13.8707 6.43116C13.8988 6.47334 13.9269 6.50147 13.9691 6.51553L15.305 7.09207L15.0378 7.7811C14.9534 8.02015 12.9144 13.209 4.78667 13.209C4.47731 13.209 4.13982 13.1949 3.8164 13.1809H3.77421C3.74609 13.1809 3.73203 13.1949 3.7039 13.209C3.68984 13.223 3.67578 13.2512 3.67578 13.2793C3.67578 13.3215 3.70391 13.3637 3.74609 13.3777L3.77421 13.3918C5.53195 13.9824 7.36 14.2918 9.21617 14.3199C15.9237 14.3199 18.3283 9.32791 18.3564 9.27166L18.6798 8.58263L20.0438 9.17323C20.1001 9.20135 20.1704 9.18729 20.1985 9.17323C20.2407 9.15916 20.2829 9.13104 20.311 9.06073C20.3391 9.01854 20.3391 8.97636 20.3251 8.93417ZM4.63199 19.8165C4.63199 20.3688 5.0797 20.8165 5.63199 20.8165H7.1334C7.68569 20.8165 8.1334 20.3688 8.1334 19.8165V15.7401C6.9522 15.6558 5.78506 15.473 4.63199 15.1777V19.8165ZM15.8674 13.9543V19.8165C15.8674 20.3688 16.3152 20.8165 16.8674 20.8165H18.3688C18.9211 20.8165 19.3688 20.3688 19.3688 19.8165V10.481H19.3548C18.8486 11.2825 17.7377 12.759 15.8674 13.9543ZM10.2427 19.8165C10.2427 20.3688 10.6904 20.8165 11.2427 20.8165H12.7441C13.2964 20.8165 13.7441 20.3688 13.7441 19.8165V15.0089C12.7316 15.3886 11.5786 15.6558 10.2427 15.7542V19.8165Z"
-            fill="url(#paint0_linear_5180_241551)"
-          />
-        </g>
-        <defs>
-          <linearGradient
-            id="paint0_linear_5180_241551"
-            x1="19.9418"
-            y1="18.9359"
-            x2="0.914796"
-            y2="1.41468"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#125B54" />
-            <stop offset="1" stop-color="#12ADB7" />
-          </linearGradient>
-          <clipPath id="clip0_5180_241551">
-            <rect width="17.9992" height="17.9992" fill="white" transform="translate(3.00098 3)" />
-          </clipPath>
-        </defs>
-      </svg>
-    ),
-    link: "",
-  },
+  // {
+  //   title: "Performance",
+  //   subtitle: "Tracking of our wins and losses",
+  //   icon: (
+  //     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  //       <g clip-path="url(#clip0_5180_241551)">
+  //         <path
+  //           d="M20.3251 8.93417L19.1439 3.3516C19.1298 3.28129 19.0876 3.23911 19.0454 3.22505C19.0173 3.19692 18.9611 3.18286 18.8767 3.19692C18.8486 3.19692 18.8345 3.21098 18.8064 3.22505L13.941 6.13586C13.8425 6.19211 13.8003 6.33272 13.8707 6.43116C13.8988 6.47334 13.9269 6.50147 13.9691 6.51553L15.305 7.09207L15.0378 7.7811C14.9534 8.02015 12.9144 13.209 4.78667 13.209C4.47731 13.209 4.13982 13.1949 3.8164 13.1809H3.77421C3.74609 13.1809 3.73203 13.1949 3.7039 13.209C3.68984 13.223 3.67578 13.2512 3.67578 13.2793C3.67578 13.3215 3.70391 13.3637 3.74609 13.3777L3.77421 13.3918C5.53195 13.9824 7.36 14.2918 9.21617 14.3199C15.9237 14.3199 18.3283 9.32791 18.3564 9.27166L18.6798 8.58263L20.0438 9.17323C20.1001 9.20135 20.1704 9.18729 20.1985 9.17323C20.2407 9.15916 20.2829 9.13104 20.311 9.06073C20.3391 9.01854 20.3391 8.97636 20.3251 8.93417ZM4.63199 19.8165C4.63199 20.3688 5.0797 20.8165 5.63199 20.8165H7.1334C7.68569 20.8165 8.1334 20.3688 8.1334 19.8165V15.7401C6.9522 15.6558 5.78506 15.473 4.63199 15.1777V19.8165ZM15.8674 13.9543V19.8165C15.8674 20.3688 16.3152 20.8165 16.8674 20.8165H18.3688C18.9211 20.8165 19.3688 20.3688 19.3688 19.8165V10.481H19.3548C18.8486 11.2825 17.7377 12.759 15.8674 13.9543ZM10.2427 19.8165C10.2427 20.3688 10.6904 20.8165 11.2427 20.8165H12.7441C13.2964 20.8165 13.7441 20.3688 13.7441 19.8165V15.0089C12.7316 15.3886 11.5786 15.6558 10.2427 15.7542V19.8165Z"
+  //           fill="url(#paint0_linear_5180_241551)"
+  //         />
+  //       </g>
+  //       <defs>
+  //         <linearGradient
+  //           id="paint0_linear_5180_241551"
+  //           x1="19.9418"
+  //           y1="18.9359"
+  //           x2="0.914796"
+  //           y2="1.41468"
+  //           gradientUnits="userSpaceOnUse"
+  //         >
+  //           <stop stop-color="#125B54" />
+  //           <stop offset="1" stop-color="#12ADB7" />
+  //         </linearGradient>
+  //         <clipPath id="clip0_5180_241551">
+  //           <rect width="17.9992" height="17.9992" fill="white" transform="translate(3.00098 3)" />
+  //         </clipPath>
+  //       </defs>
+  //     </svg>
+  //   ),
+  //   link: "",
+  // },
   {
     title: "Why Trust Us?",
-    subtitle: "One-liner",
+    subtitle: "Why choose us as partners",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -254,7 +254,7 @@ export const HOME_OPTIONS = [
   },
   {
     title: "Team",
-    subtitle: "One-liner",
+    subtitle: "Meet your trusted experts",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_5180_241566)">
@@ -300,7 +300,7 @@ export const HOME_OPTIONS = [
   },
   {
     title: "How it works?",
-    subtitle: "One-liner",
+    subtitle: "Explore how our platform works",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -549,7 +549,7 @@ export const HOME_OPTIONS = [
   },
   {
     title: "Hot Stocks",
-    subtitle: "One-liner",
+    subtitle: "Top stocks to invest in right now.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_5180_241578)">
@@ -597,35 +597,35 @@ export const HOME_OPTIONS = [
     ),
     link: "/#hotStocks",
   },
-  {
-    title: "Media",
-    subtitle: "One-liner",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M4.8 7.5C4.8 7.00294 4.39706 6.6 3.9 6.6C3.40294 6.6 3 7.00294 3 7.5V19.2C3 20.1945 3.8055 21 4.8 21H16.5C16.9971 21 17.4 20.5971 17.4 20.1C17.4 19.6029 16.9971 19.2 16.5 19.2H4.8V7.5ZM19.2 3H8.4C7.4055 3 6.6 3.8055 6.6 4.8V15.6C6.6 16.5945 7.4055 17.4 8.4 17.4H19.2C20.1945 17.4 21 16.5945 21 15.6V4.8C21 3.8055 20.1945 3 19.2 3ZM12 14.25V6.15L17.4 10.2L12 14.25Z"
-          fill="url(#paint0_linear_5180_241587)"
-        />
-        <defs>
-          <linearGradient
-            id="paint0_linear_5180_241587"
-            x1="20.5759"
-            y1="19.0794"
-            x2="1.08467"
-            y2="0.0893016"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#125B54" />
-            <stop offset="1" stop-color="#12ADB7" />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-    link: "",
-  },
+  // {
+  //   title: "Media",
+  //   subtitle: "See where we’re making headlines.",
+  //   icon: (
+  //     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  //       <path
+  //         d="M4.8 7.5C4.8 7.00294 4.39706 6.6 3.9 6.6C3.40294 6.6 3 7.00294 3 7.5V19.2C3 20.1945 3.8055 21 4.8 21H16.5C16.9971 21 17.4 20.5971 17.4 20.1C17.4 19.6029 16.9971 19.2 16.5 19.2H4.8V7.5ZM19.2 3H8.4C7.4055 3 6.6 3.8055 6.6 4.8V15.6C6.6 16.5945 7.4055 17.4 8.4 17.4H19.2C20.1945 17.4 21 16.5945 21 15.6V4.8C21 3.8055 20.1945 3 19.2 3ZM12 14.25V6.15L17.4 10.2L12 14.25Z"
+  //         fill="url(#paint0_linear_5180_241587)"
+  //       />
+  //       <defs>
+  //         <linearGradient
+  //           id="paint0_linear_5180_241587"
+  //           x1="20.5759"
+  //           y1="19.0794"
+  //           x2="1.08467"
+  //           y2="0.0893016"
+  //           gradientUnits="userSpaceOnUse"
+  //         >
+  //           <stop stop-color="#125B54" />
+  //           <stop offset="1" stop-color="#12ADB7" />
+  //         </linearGradient>
+  //       </defs>
+  //     </svg>
+  //   ),
+  //   link: "",
+  // },
   {
     title: "Testimonials",
-    subtitle: "One-liner",
+    subtitle: "Hear from our satisfied customers.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12.6001 9.03516H13.7516V14.666H12.6001V9.03516Z" fill="url(#paint0_linear_5180_241593)" />
@@ -659,11 +659,12 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "/pricing/#testimonials",
+    link:'',
+    id: "#testimonials",
   },
   // {
   //   title: "Blogs",
-  //   subtitle: "One-liner",
+  //   subtitle: "In-depth investment insights and trends.",
   //   icon: (
   //     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   //       <path
@@ -713,7 +714,7 @@ export const HOME_OPTIONS = [
   // },
   {
     title: "FAQ",
-    subtitle: "One-liner",
+    subtitle: "Find answers to common questions.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

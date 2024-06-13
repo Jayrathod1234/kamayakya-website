@@ -12,6 +12,7 @@ import { NavbarUserCard } from "./navbar-user-card";
 import { CircleHelp, Headset, LogOut, MessageSquareText, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { ContactModal } from "../payments/contact-modal";
 
 export function NavbarDropdownCard({
   triggerElement,
@@ -71,13 +72,13 @@ export function NavbarDropdownCard({
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <div className=" p-2 flex flex-col gap-y-2">
-          <DropdownMenuItem className=" p-0">
+          {/* <DropdownMenuItem className=" p-0">
             <DropDownItemContent
               onClick={() => handleRouting("/blogs")}
               icon={<MessageSquareText size={16} />}
               option="Blogs"
             />
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem className=" p-0">
             <DropDownItemContent
               onClick={() => handleRouting("/#FAQs")}
@@ -85,11 +86,11 @@ export function NavbarDropdownCard({
               option="FAQs"
             />
           </DropdownMenuItem>
-          <DropdownMenuItem
+          <ContactModal trigger={<DropdownMenuItem
             onClick={(e) => {
               e.preventDefault();
-              scrollTo("#feeling-lost")
-              setOpen(false)
+              // scrollTo("#feeling-lost")
+              // setOpen(false)
             }}
             className=" p-0"
           >
@@ -98,7 +99,8 @@ export function NavbarDropdownCard({
               icon={<Headset size={16} />}
               option="Contact us"
             />
-          </DropdownMenuItem>
+          </DropdownMenuItem>}/>
+          
         </div>
         <DropdownMenuSeparator />
         <div className=" p-2">

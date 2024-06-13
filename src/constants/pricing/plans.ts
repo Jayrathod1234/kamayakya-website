@@ -34,7 +34,7 @@ export const FREE_PLAN: TPlan = {
     { icon: "/icons/close_only.svg", feature: "No Ask Me Anything (AMA)" },
   ],
   btnText: "Get Started",
-  warnMessage: "No credit card required.Start for free, pick a plan later.",
+  warnMessage: "No credit card required. Start for free, pick a plan later.",
   perMonth: false,
   popular: false,
   btnVariant: ButtonVariant.secondary,
@@ -50,15 +50,15 @@ export const CORE_PLAN: TPlan = {
   className: " md:row-start-1 md:col-start-2 md:justify-self-start order-2",
   subtext: "",
   priceStrikeThrough: "1,100",
-  label: "MAINBOARD",
+  label: "MAIN BOARD",
   gstLabel: true,
   featureHead:
     "Ideal for semi-pro and professional retail investors focused on mainboard stocks with flexible investment amounts. ",
   featureList: [
     { icon: "/icons/check_only.svg", feature: "30+ Mainboard Stocks to buy every year (NSE + BSE)" },
     { icon: "/icons/check_only.svg", feature: "2-4 new stock picks every month" },
-    { icon: "/icons/close_only.svg", feature: "Regular Updates via WhatsApp" },
-    { icon: "/icons/close_only.svg", feature: "Email Updates" },
+    { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
+    { icon: "/icons/check_only.svg", feature: "Email Updates" },
     { icon: "/icons/close_only.svg", feature: "No SME board stock picks" },
     { icon: "/icons/close_only.svg", feature: "No Ask Me Anything (AMA)" },
   ],
@@ -96,8 +96,8 @@ export const ADVANCED_PLAN: TPlan = {
   featureHead:
     "Designed for long-term, high-risk, high-reward investors targeting high volatility stocks with a minimum investment of ₹1L per stock.",
   featureList: [
-    { icon: "/icons/check_only.svg", feature: "Up to 10 SME board Stocks to buy every year (NSE+BSE)" },
-    { icon: "/icons/check_only.svg", feature: "2-4 new stock picks every month" },
+    { icon: "/icons/check_only.svg", feature: "10+ SME board Stocks to buy every year (NSE+BSE)" },
+    { icon: "/icons/check_only.svg", feature: "1-2 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
     { icon: "/icons/close_only.svg", feature: "No Mainboard stock picks" },
@@ -125,14 +125,14 @@ export const VIP_PLAN: TPlan = {
     "  md:row-start-2 md:col-start-2 md:justify-self-start md:rounded-t-xl lg:rounded-none lg:rounded-br-xl md:pt-[59px] lg:pt-0 order-4",
   subtext: "",
   priceStrikeThrough: "1,667",
-  label: "Mainboard + SME Board",
+  label: "MAIN Board + SME Board",
   gstLabel: true,
   featureHead:
     "Perfect for seasoned investors looking to diversify their portfolio across mainboard and SME stocks with comprehensive support and updates.",
   featureList: [
     { icon: "/icons/check_only.svg", feature: "30+ Mainboard Stocks to buy every year (NSE + BSE)" },
-    { icon: "/icons/check_only.svg", feature: "Up to 10 SME board stocks to buy" },
-    { icon: "/icons/check_only.svg", feature: "2-4 new stock picks every month" },
+    { icon: "/icons/check_only.svg", feature: "10+ SME board stocks to buy every year" },
+    { icon: "/icons/check_only.svg", feature: "3-5 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
 

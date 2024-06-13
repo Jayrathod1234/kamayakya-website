@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components.v2/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import { Menu } from "lucide-react";
@@ -26,7 +26,10 @@ export default function SideNav({ handleLogin }: TSideNav) {
     "Track Record": "",
     "Stocks to buy": "",
   });
-  const {activePlan:{plan} } = useActivePlanContext();
+  const [id, setId] = useState("");
+  const {
+    activePlan: { plan },
+  } = useActivePlanContext();
   const refreshToken = localStorage.getItem("refresh");
 
   const handleClick = () => {
@@ -52,11 +55,23 @@ export default function SideNav({ handleLogin }: TSideNav) {
     })();
   }, [isLoggedIn]);
 
-  console.log(plan)
+  useEffect(() => {
+    let timeoutid: ReturnType<typeof setTimeout>;
+    if (id && !open) {
+      timeoutid = setTimeout(() => {
+        let ele = document.querySelector(id);
+        ele?.scrollIntoView({ behavior: "smooth" });
+        setId("");
+      }, 500);
+    }
+    return () => {
+      clearTimeout(timeoutid);
+    };
+  }, [id, open]);
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger>
+    <Sheet modal={true} open={open} onOpenChange={setOpen}>
+      <SheetTrigger onClick={() => setOpen(true)}>
         <Menu className="inline-block lg:hidden" />
       </SheetTrigger>
       <SheetContent className=" pricing flex flex-col p-0 overflow-y-scroll pr-0">
@@ -76,7 +91,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                 <Accordion className="" type="single" collapsible>
                   <AccordionItem className=" border-b-0" value="item-1">
                     <AccordionTrigger className=" text-md hover:no-underline py-0">
-                      {isLoggedIn ? "About us" : "Home"}
+                      {isLoggedIn ? "About Us" : "Home"}
                     </AccordionTrigger>
                     <AccordionContent>
                       <ul className=" flex flex-col gap-y-[8px]">
@@ -87,10 +102,22 @@ export default function SideNav({ handleLogin }: TSideNav) {
                               options.title !== "Hot Stocks"
                             : true
                         ).map((options) => (
-                          <li key={options.title} className="flex gap-x-[10px] items-center mb-0 p-3 pl-2">
-                            <div>{options.icon}</div>
-                            <p className="text-md font-medium">{options.title}</p>
-                          </li>
+                          <Link
+                            className=" text-inherit"
+                            href={options.link}
+                            onClick={(e) => {
+                              if (options.id) {
+                                e.preventDefault();
+                                setOpen(false);
+                                setId(options.id);
+                              }
+                            }}
+                          >
+                            <li key={options.title} className="flex gap-x-[10px] items-center mb-0 p-3 pl-2">
+                              <div>{options.icon}</div>
+                              <p className="text-md font-medium">{options.title}</p>
+                            </li>
+                          </Link>
                         ))}
                       </ul>
                     </AccordionContent>
@@ -98,11 +125,11 @@ export default function SideNav({ handleLogin }: TSideNav) {
                 </Accordion>
               </li>
               {NAVBAR_LINKS.map((nav) => (
-                <Link key={nav.title} className=" text-inherit" href={"/"}>
+                <Link key={nav.title} className=" text-inherit" href={nav.link}>
                   <li
                     key={nav.title}
                     className={` text-md flex justify-between items-center font-medium py-3 px-4 m-0 ${
-                      isLoggedIn && nav.title === "About us" ? "!hidden" : ""
+                      nav.title === "About Us" ? "!hidden" : ""
                     }`}
                   >
                     <p className=" text-inherit">{nav.title}</p>
@@ -117,9 +144,8 @@ export default function SideNav({ handleLogin }: TSideNav) {
         </div>
         {isLoggedIn ? (
           <div className=" pt-4 mt-auto">
-            {plan && (plan.toLowerCase() === "free" ||
-            plan.toLowerCase() === "advanced" ||
-            plan.toLowerCase() === "core") ? (
+            {plan &&
+            (plan.toLowerCase() === "free" || plan.toLowerCase() === "advanced" || plan.toLowerCase() === "core") ? (
               <div className=" px-4">
                 <MissOutBanner />
               </div>
@@ -136,7 +162,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
         ) : (
           <div className=" p-4 mt-auto">
             <p className=" text-sm font-bold text-[rgba(16,24,40,1))]"> Log in</p>
-            <p className=" text-sm text-gray-500 mb-5">Log in and unlock 3 HOT stocks for Free</p>
+            <p className=" text-sm text-gray-500 mb-5">Log in to unlock 3 HOT stocks and our Track Record for free.</p>
             {/* <Button onClick={handleClick} variant={ButtonVariant.primary} size={ButtonSize.sm} customStyle=" w-full mb-2">Sign up</Button> */}
             <Button onClick={handleClick} variant={ButtonVariant.secondary} size={ButtonSize.sm} customStyle=" w-full">
               Login

@@ -29,7 +29,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Item } from "@radix-ui/react-select";
 import { HOME_OPTIONS, NAVBAR_LINKS } from "@/constants/index.constants";
-import { CircleHelp, Headset, LogOut, Menu, MessageSquareText, User } from "lucide-react";
+import { ArrowRight, CircleHelp, Headset, LogOut, Menu, MessageSquareText, User } from "lucide-react";
 import { light } from "@mui/material/styles/createPalette";
 import { NavbarDropdownCard, NavbarUserCard } from "./cards";
 import AuthContext from "@/components/AuthContext";
@@ -84,10 +84,11 @@ export function Navbar() {
               <NavigationMenuItem className=" m-0 hidden lg:flex">
                 <NavigationMenuTrigger>{isLoggedIn ? "About Us" : "Home"}</NavigationMenuTrigger>
                 <NavigationMenuContent className=" z-20 w-auto">
+                {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
                   <ul
-                    className={`nav__grid-container grid md:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(fit-content,1fr))_minmax(auto,284px)] grid-flow-col  max-h-[332px]  ${
-                      isLoggedIn ? "grid-rows-3" : "grid-rows-4"
-                    } gap-3 m-0 p-6 md:w-[550px] lg:w-[800px] xl:w-[957px] `}
+                    className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
+                      isLoggedIn ? "grid-rows-3" : "grid-rows-3"
+                    } gap-3 m-0 p-6  ${isLoggedIn ? "lg:w-[700px]" : "md:w-[620px] lg:w-[900px]"}  `}
                   >
                     {HOME_OPTIONS.filter((options) =>
                       isLoggedIn
@@ -97,20 +98,29 @@ export function Navbar() {
                         : true
                     ).map((option) => (
                       <ListItem
+                        onClick={(e)=>{
+                          
+                          if(option.id){
+                            e.preventDefault();
+                            let ele = document.querySelector(option.id)
+                            ele?.scrollIntoView({behavior:'smooth'})
+                          }
+                        }}
                       key={option.title}
                         className=" hover:bg-gray-50 relative "
                         href={option.link}
                         icon={option.icon}
                         title={option.title}
-                        endIcon={option.endIcon}
+                        id={option?.id}
+                        // endIcon={option?.endIcon}
                       >
                         {option.subtitle}
                       </ListItem>
                     ))}
                     <li
-                      className={`hidden lg:block ${isLoggedIn ? " row-span-3" : "row-span-4"} col-start-4 row-start-1`}
+                      className={`hidden lg:block  row-span-full row-start-1`}
                     >
-                      <Image className=" object-contain" src={"/pricing/home-hover.png"} height={284} width={284} alt="nav-img" />
+                      <Image className=" object-cover h-full w-full rounded-xl" src={"/pricing/home-hover.png"} height={284} width={284} alt="nav-img" />
                     </li>
                   </ul>
                 </NavigationMenuContent>
@@ -221,7 +231,7 @@ interface CustomProps extends React.ComponentPropsWithoutRef<"a"> {
 const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
   ({ className, icon, endIcon, title, children, ...props }, ref) => {
     return (
-      <li className="relative m-0 ">
+      <li className="relative m-0 group ">
         <NavigationMenuLink asChild>
           <a
             ref={ref}
@@ -235,9 +245,9 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
             <div>
               <div className="text-sm font-medium leading-none text-gray-950 mb-1 flex gap-x-2 items-center">
                 <span className=" whitespace-nowrap">{title}</span>
-                <span>{endIcon}</span>
+                <span className=" invisible group-hover:visible">{endIcon || <ArrowRight size={12} className=" text-gray-400" />}</span>
               </div>
-              <p className="line-clamp-2 text-sm leading-snug text-gray-500">{children}</p>
+              <p className="line-clamp-2 leading-snug text-gray-500 text-2xs">{children}</p>
             </div>
           </a>
         </NavigationMenuLink>

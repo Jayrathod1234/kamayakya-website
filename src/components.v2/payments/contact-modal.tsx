@@ -29,26 +29,26 @@ export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
       >
         {trigger}
       </DialogTrigger>
-      <DialogContent className=" contact__modal p-5 md:p-6 pb-[21px]  max-w-[1200px] min-h-[749px] max-md:h-[calc(100vh-0.5rem)] overflow-y-scroll pricing">
+      <DialogContent className=" contact__modal p-5 md:p-6 pb-[21px]  max-w-[1200px]  h-[100dvh] md:max-h-[773px] overflow-y-scroll pricing">
         {/* <div className=" h-full p-0"> */}
-        <div className="grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] md:gap-6 h-full max-w-[1152px] min-h-[704px] ">
-          <div className=" hidden md:block md:col-start-1 md:row-span-2 rounded-xl shadow-2xs p-4 ">
+        <div className=" grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] md:gap-6 max-w-[1152px]  ">
+          <div className="contact__modal-left hidden md:block md:col-start-1 md:row-span-2 rounded-xl shadow-2xs p-4 overflow-y-scroll  md:pb-8 ">
             <ContactModalHead />
             <div className=" h-[1px] my-6 w-full bg-gray-100"></div>
-            <div className=" flex flex-col gap-y-6 max-h-[440px] overflow-y-scroll max-md:hidden">
+            <div className=" flex flex-col gap-y-6 max-md:hidden">
               <ContactForm closeModal={closeModal} />
             </div>
           </div>
-          <div className=" col-start-2 row-start-1  max-md:col-start-1">
+          <div className="mascot__container col-start-2 row-start-1  max-md:col-start-1 rounded-xl">
             <Image
-              className=" h-full w-full"
+              className=" h-full w-full object-cover"
               height={390}
               width={528}
               src={"/pricing/modal-mascot.webp"}
               alt="kamayakya-mascot"
             />
           </div>
-          <div className=" col-start-2 row-start-2 md:overflow-hidden bg-white md:shadow-2xs h-full max-md:py-5 rounded-xl max-md:row-start-3 max-md:col-start-1">
+          <div className="contacts__container col-start-2 row-start-2 md:overflow-hidden bg-white md:shadow-2xs h-full max-md:py-5 rounded-xl max-md:row-start-3 max-md:col-start-1">
             <div className=" hidden max-md:block text-center mb-5">
               <ContactModalHead />
             </div>
