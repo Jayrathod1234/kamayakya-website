@@ -127,7 +127,7 @@ export function PlanCardDesktop({
       }  max-w-[315px] grid grid-col-1 grid-rows-[279px_1fr_.2fr]  relative rounded-xl lg:rounded-none bg-white ${className}`}
     >
       {popular && (
-        <div className=" flex flex-row items-center justify-center gap-x-[4px] px-2 py-[7px] rounded-t-[10px] bg-brand-300 text-white font-semibold absolute w-full lg:-top-[38.5px] max-md:top-0 ">
+        <div className=" flex flex-row items-center justify-center gap-x-[4px] px-2 py-[7px] rounded-t-[10px] bg-brand-300 text-white font-semibold absolute w-full lg:-top-[38.2px] max-md:top-0 ">
           <Star size={16} fill="white"/>
           {/* <svg
             className=" inline-block"

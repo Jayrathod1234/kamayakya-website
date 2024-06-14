@@ -132,7 +132,7 @@ export default function Page() {
                     Prefers <Semibold>readymade</Semibold> solutions
                   </span>,
                 ]}
-                btnText="Effortless Baskets"
+                btnText="Basket"
               />
             </div>
           </div>
