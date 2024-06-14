@@ -8,6 +8,8 @@ import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import { UserTypProgress } from "./user-type-progress";
 import { DEEP_RESEARCH_INVESTOR_FEATURES, EFFORTLESS_INVESTOR_FEATURES } from "@/constants/index.constants";
 import { FeatureListDesktop } from "./feature-list-desktop";
+import Lottie from 'react-lottie';
+import * as DEEP_RESEARCH_LOTTIE from '../../../public/pricing/deep-research-investor.json'
 
 type TUserTypeFeaturesDesktop = {
   userTypeSelected: TUserType;
@@ -24,6 +26,15 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
   const features =
     userTypeSelected === DEEP_RESEARCH_INVESTOR ? DEEP_RESEARCH_INVESTOR_FEATURES : EFFORTLESS_INVESTOR_FEATURES;
   const intervalRef = useRef<NodeJS.Timer>();
+  const defaultOptions = {
+    loop: true,
+    autoplay: true, 
+    animationData:DEEP_RESEARCH_LOTTIE,
+    //  userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep-research-investor.json":"/pricing/effortless-investor.json",
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
   const onMouseEnter = () => {
     clearInterval(intervalRef.current);
@@ -97,7 +108,13 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
           </Button>
         </div>
         <div className=" md:w-[350px] lg:w-[523px] mx-auto flex justify-center items-center">
-          <video className=" w-[80%] aspect-square" width={523} height={343} src={userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep_investor.webm":"/pricing/effortless_investor.webm"} muted autoPlay loop></video>
+          {/* <video className=" w-[80%] aspect-square" width={523} height={343} src={userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep_investor.webm":"/pricing/effortless_investor.webm"} muted autoPlay loop></video> */}
+          <Lottie options={defaultOptions}
+              height={480}
+              width={480}
+              // isStopped={this.state.isStopped}
+              // isPaused={this.state.isPaused}
+              />
         </div>
       </div>
       <UserTypProgress progress={progress} displayPauseIcon={displayPauseIcon} />
