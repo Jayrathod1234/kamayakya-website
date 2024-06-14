@@ -110,8 +110,8 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
         <div className=" md:w-[350px] lg:w-[523px] mx-auto flex justify-center items-center">
           {/* <video className=" w-[80%] aspect-square" width={523} height={343} src={userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep_investor.webm":"/pricing/effortless_investor.webm"} muted autoPlay loop></video> */}
           <Lottie options={defaultOptions}
-              height={480}
-              width={480}
+              height={400}
+              width={400}
               // isStopped={this.state.isStopped}
               // isPaused={this.state.isPaused}
               />
