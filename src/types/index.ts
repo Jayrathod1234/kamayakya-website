@@ -7,6 +7,7 @@ export type {
   TPrice,
   TPriceStrikeThrough,
   TPlan,
+  TContactOptionCard
 } from "./components";
 export type { TChildren } from "./shared";
 export type { TPlanResponse,TPlanName } from "./apiResponseData";

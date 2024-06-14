@@ -18,12 +18,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import Login from "../components/Login";
 import PhoneInput from "react-phone-input-2";
 import pincodeData from "../Data/pincode_db.json";
-import { ArrowBack, TaskAltOutlined } from "@mui/icons-material";
+import { ArrowBack, RepeatOneSharp, TaskAltOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import Confetti from "react-confetti";
 // import { TextInput } from "@mantine/core";
-import { CODE_VALID, SUBSCRIBE_RAZORPAY, SUBSCRIBE_URL, RAZORPAY_CALLBACK } from "./api/URLs";
+import { CODE_VALID, SUBSCRIBE_RAZORPAY, SUBSCRIBE_URL, RAZORPAY_CALLBACK, BILLING_DETAILS } from "./api/URLs";
 import PageVisibility from "../components/PageVisibility";
+import axios from "axios";
 
 export default function PreviewPage() {
 	// const [productID, setProductID] = useState("");
@@ -47,7 +48,13 @@ export default function PreviewPage() {
 	const [billingEmail, setBillingEmail] = useState("");
 	const refreshToken = localStorage.getItem("refresh");
 	const [step, setStep] = useState(1);
-
+	const [billingDetails,setBillingDetails] = useState({
+		plan:'',
+		basePrice:"",
+		taxableAmount:'',
+		tax:'',
+		totalAmount:''
+	})
 	const handleNextStep = () => {
 		setStep(step + 1);
 	};
@@ -199,6 +206,7 @@ export default function PreviewPage() {
 				gst_number: gstNo ? gstNo : "",
 				referral_code: referralCode ? referralCode : "",
 				discount_code: discountCode,
+				subscription_id:router.query.planId
 			};
 
 			// Make API call to BILLING_URL
@@ -359,6 +367,31 @@ export default function PreviewPage() {
 		setDiscountCode("");
 		setDiscountApplied(false);
 	};
+
+	useEffect(()=>{
+		const getBillingDetails = async()=>{
+			try{
+				if(refreshToken){
+					const response = await axios.post(BILLING_DETAILS,{"subscription_id":router.query.planId},{
+						headers:{
+							Authorization:'token '+refreshToken
+						}
+					})
+					if(response.data){
+						setBillingDetails({
+							plan:response.data["plan_name "],
+							taxableAmount:response.data.taxable_amount,
+							tax:response.data.tax_amount,
+							basePrice:response.data.base_price
+						})
+					}
+				}
+			}catch(e){
+
+			}
+		}
+		getBillingDetails()
+	},[])
 
 	if (!isLoggedIn) {
 		return (
@@ -1042,11 +1075,11 @@ export default function PreviewPage() {
 							<Divider css={{ marginTop: "5px", marginBottom: "5px" }} />
 							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 								<Box>Subscription Plan</Box>
-								<Box>KamayaKya VIP+</Box>
+								<Box>{billingDetails.plan}</Box>
 							</Box>
 							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 								<Box>Base Price</Box>
-								<Box>₹12711.86/-</Box>
+								<Box>₹{billingDetails.basePrice}/-</Box>
 							</Box>
 							{discountApplied === true && (
 								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -1065,11 +1098,11 @@ export default function PreviewPage() {
 							)}
 							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 								<Box>Taxable Amount</Box>
-								<Box>₹{(12711.86 - discountAmount).toFixed(2)}/- </Box>
+								<Box>₹{(billingDetails.taxableAmount - discountAmount).toFixed(2)}/- </Box>
 							</Box>
 							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 								<Box>Tax</Box>
-								<Box>₹{((12711.86 - discountAmount) * 0.18).toFixed(2)}/- </Box>
+								<Box>₹{((billingDetails.tax - discountAmount)).toFixed(2)}/- </Box>
 							</Box>
 							<hr
 								style={{
@@ -1083,8 +1116,8 @@ export default function PreviewPage() {
 								<Box>
 									₹
 									{discountApplied === false
-										? `15000.00`
-										: ((12711.86 - discountAmount) * 1.18).toFixed(2)}
+										? billingDetails.taxableAmount + billingDetails.tax
+										: ((billingDetails.taxableAmount + billingDetails.tax - discountAmount) * 1.18).toFixed(2)}
 									/-{" "}
 								</Box>
 							</Box>

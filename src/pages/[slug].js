@@ -109,6 +109,7 @@ const BlogPage = () => {
           />
         </Box>
         <Text
+          className=" pricing"
           b
           size={55}
           css={{
@@ -124,12 +125,13 @@ const BlogPage = () => {
           {blog.title}
         </Text>
         <div
+        className=" pricing"
           style={{
             fontSize: 19,
             textAlign: "left",
             padding: "15px",
-            fontWeight: "normal",
-            fontFamily: "Arial",
+            // fontWeight: "normal",
+            // fontFamily: "Arial",
             "@media only screen and (maxWidth: : 724px)": {
               fontSize: "18px",
               lineHeight: "1.2",
@@ -137,7 +139,7 @@ const BlogPage = () => {
           }}
         >
           {/* <Markdown> */}
-           <p dangerouslySetInnerHTML={{__html: `${blog.description}`}}></p>
+           <div  dangerouslySetInnerHTML={{__html: `${blog.description}`}}></div>
             {/* </Markdown> */}
         </div>
       </Box>

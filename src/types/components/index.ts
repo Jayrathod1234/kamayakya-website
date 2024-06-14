@@ -7,4 +7,5 @@ export type {
   TPrice,
   TPriceStrikeThrough,
   TPlan,
+  TContactOptionCard
 } from "./payments";
