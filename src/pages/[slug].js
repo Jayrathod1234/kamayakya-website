@@ -11,6 +11,7 @@ import FaqsNew from "./screens/FaqsNew";
 import Footer from "./screens/Footer";
 import { Loading, Text } from "@nextui-org/react";
 import Markdown from "markdown-to-jsx";
+import styles from  './blog.module.css'
 // import { ReactQuill } from "react-quill";
 
 // import Markdown from "markdown-to-jsx";
@@ -108,8 +109,8 @@ const BlogPage = () => {
             }}
           />
         </Box>
-        <Text
-          className=" pricing"
+        {/* <Text
+          className=" !pricing"
           b
           size={55}
           css={{
@@ -123,23 +124,23 @@ const BlogPage = () => {
           }}
         >
           {blog.title}
-        </Text>
+        </Text> */}
         <div
-        className=" pricing"
-          style={{
-            fontSize: 19,
-            textAlign: "left",
-            padding: "15px",
-            // fontWeight: "normal",
-            // fontFamily: "Arial",
-            "@media only screen and (maxWidth: : 724px)": {
-              fontSize: "18px",
-              lineHeight: "1.2",
-            },
-          }}
+        className=""
+          // style={{
+          //   fontSize: 19,
+          //   textAlign: "left",
+          //   padding: "15px",
+          //   // fontWeight: "normal",
+          //   // fontFamily: "Arial",
+          //   "@media only screen and (maxWidth: : 724px)": {
+          //     fontSize: "18px",
+          //     lineHeight: "1.2",
+          //   },
+          // }}
         >
           {/* <Markdown> */}
-           <div  dangerouslySetInnerHTML={{__html: `${blog.description}`}}></div>
+           <div className={`prose pricing blog ${styles.blog}`}  dangerouslySetInnerHTML={{__html: blog.description}}></div>
             {/* </Markdown> */}
         </div>
       </Box>
