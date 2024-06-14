@@ -8,8 +8,9 @@ import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import { UserTypProgress } from "./user-type-progress";
 import { DEEP_RESEARCH_INVESTOR_FEATURES, EFFORTLESS_INVESTOR_FEATURES } from "@/constants/index.constants";
 import { FeatureListDesktop } from "./feature-list-desktop";
-import Lottie from 'react-lottie';
-import * as DEEP_RESEARCH_LOTTIE from '../../../public/pricing/deep-research-investor.json'
+import Lottie from "lottie-react";
+import * as DEEP_RESEARCH_LOTTIE from "../../../public/pricing/deep-research-investor.json";
+import * as EFFORTLESS_LOTTIE from "../../../public/pricing/effortless-investor.json";
 
 type TUserTypeFeaturesDesktop = {
   userTypeSelected: TUserType;
@@ -26,15 +27,15 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
   const features =
     userTypeSelected === DEEP_RESEARCH_INVESTOR ? DEEP_RESEARCH_INVESTOR_FEATURES : EFFORTLESS_INVESTOR_FEATURES;
   const intervalRef = useRef<NodeJS.Timer>();
-  const defaultOptions = {
-    loop: true,
-    autoplay: true, 
-    animationData:DEEP_RESEARCH_LOTTIE,
-    //  userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep-research-investor.json":"/pricing/effortless-investor.json",
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData:DEEP_RESEARCH_LOTTIE,
+  //   //  userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep-research-investor.json":"/pricing/effortless-investor.json",
+  //   rendererSettings: {
+  //     preserveAspectRatio: 'xMidYMid slice'
+  //   }
+  // };
 
   const onMouseEnter = () => {
     clearInterval(intervalRef.current);
@@ -82,14 +83,14 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
     <div
       onMouseLeave={onMouseLeave}
       onMouseEnter={onMouseEnter}
-      className={` z-10 h-full row-start-2 col-span-2 backdrop-blur-[20px] min-h-[448px] shadow-[4px_32px_50px_0px_rgba(1,24,33,0.08)]`}
+      className={` z-10 h-full row-start-2 col-span-2 backdrop-blur-[20px] min-h-[410px] shadow-[4px_32px_50px_0px_rgba(1,24,33,0.08)]`}
     >
       <div
         className={`flex justify-between items-center bg-[rgba(255,255,255,0.33)] rounded-xl h-full ${
           userTypeSelected === DEEP_RESEARCH_INVESTOR ? "rounded-tl-none" : " rounded-tr-none"
         }`}
       >
-        <div className=" flex flex-col p-10  pb-[17px] w-full max-w-[360px] lg:max-w-[400px] h-full ">
+        <div className=" flex flex-col p-[1.5rem]  pb-[17px] w-full max-w-[360px] lg:max-w-[400px] h-full ">
           <ul className=" flex flex-col gap-y-6">
             {features.map((feature) => (
               <FeatureListDesktop feature={feature} bulletIcon={bulletIcon} />
@@ -99,7 +100,7 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
             onClick={handleCheckPlan}
             variant={ButtonVariant.primary}
             size={ButtonSize.lg}
-            customStyle=" !py-2 gap-[6px] mt-auto w-fit mb-10"
+            customStyle=" !py-2 gap-[6px] mt-auto w-fit mb-[2rem] ml-[1.25rem]"
           >
             <span className=" whitespace-nowrap truncate text-md font-medium">
               {userTypeSelected === DEEP_RESEARCH_INVESTOR ? "Check Membership Plans" : "Check Effortless Baskets"}
@@ -107,14 +108,17 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
             <Image alt="arrow-icon" height={18} width={18} src={"/icons/arrow-down.svg"} />
           </Button>
         </div>
-        <div className=" md:w-[350px] lg:w-[523px] mx-auto flex justify-center items-center">
+        <div className=" md:w-[350px] lg:w-[523px] mx-auto flex justify-center items-center object-contain">
           {/* <video className=" w-[80%] aspect-square" width={523} height={343} src={userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep_investor.webm":"/pricing/effortless_investor.webm"} muted autoPlay loop></video> */}
-          <Lottie options={defaultOptions}
-              height={400}
-              width={400}
-              // isStopped={this.state.isStopped}
-              // isPaused={this.state.isPaused}
-              />
+          <Lottie
+            className=" w-[70%] aspect-square"
+            animationData={userTypeSelected === DEEP_RESEARCH_INVESTOR ? DEEP_RESEARCH_LOTTIE : EFFORTLESS_LOTTIE}
+            // options={defaultOptions}
+            // height={343}
+            // width={523}
+            // isStopped={this.state.isStopped}
+            // isPaused={this.state.isPaused}
+          />
         </div>
       </div>
       <UserTypProgress progress={progress} displayPauseIcon={displayPauseIcon} />

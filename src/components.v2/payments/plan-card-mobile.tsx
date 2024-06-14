@@ -15,6 +15,7 @@ type TPlanCardMobile = {
   ctaDisabled: boolean;
   btnText: string;
   currentTab: TPlanDuration;
+  priceStrikeThrough: string;
 };
 
 export function PlanCardMobile({
@@ -25,30 +26,32 @@ export function PlanCardMobile({
   ctaDisabled,
   btnText,
   currentTab,
+  priceStrikeThrough,
 }: TPlanCardMobile) {
   return (
     <div className="rounded-b-xl border-x bg-white border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)]">
       <div className=" px-4 py-5">
         <div>
-          <p className=" text-md text-gray-400 line-through">
-            {currentTab !== "3months" && PLAN[planName].priceStrikeThrough
-              ? "₹" + PLAN[planName].priceStrikeThrough
-              : ""}
-          </p>
-          <span className=" text-display-md font-semibold">₹{new Intl.NumberFormat("en-IN").format(parseFloat(plan.perMonth.toFixed(2)))}</span>
+          <p className=" text-md text-gray-400 line-through">₹{priceStrikeThrough}</p>
+          <span className=" text-display-md font-semibold">
+            ₹{new Intl.NumberFormat("en-IN").format(parseFloat(plan.perMonth.toFixed(2)))}
+          </span>
           <span className=" text-gray-400 text-2xs"> / month</span>
-          <p className=" text-sm font-medium text-gray-800">
-            {planName !== "free"
-              ? plan.duration_in_days > 365
-                ? `Billed ₹${new Intl.NumberFormat("en-IN").format(parseFloat(plan.amount.toFixed(2)))} for 3 years `
-                : plan.duration_in_days === 365
-                ? `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} annually`
-                : `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} for 3 months`
-              : ""}
-          </p>
+
           {PLAN[planName].gstLabel && (
             <div className=" mt-[6px]">
               <GstLabel
+                showAnually={
+                  planName !== "free"
+                    ? plan.duration_in_days > 365
+                      ? `Billed ₹${new Intl.NumberFormat("en-IN").format(
+                          parseFloat(plan.amount.toFixed(2))
+                        )} for 3 years `
+                      : plan.duration_in_days === 365
+                      ? `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} annually`
+                      : `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} for 3 months`
+                    : ""
+                }
                 gstLabel={PLAN[planName].gstLabel}
                 tooltip={PLAN[planName].tooltip ? PLAN[planName].tooltip[currentTab] : null}
                 total={"₹" + plan.amount}

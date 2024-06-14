@@ -41,6 +41,7 @@ export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
           </div>
           <div className="mascot__container col-start-2 row-start-1  max-md:col-start-1 rounded-xl">
             <Image
+              priority={true}
               className=" h-full w-full object-cover"
               height={390}
               width={528}
