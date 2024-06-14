@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, ButtonSize, ButtonVariant } from "../button/button";
 import { Tabs, TabsVariant } from "../tabs";
-import { PlanCardDesktop } from "./plan-card-desktop";
+import { PlanCardDesktop, PriceStrikeThrough } from "./plan-card-desktop";
 import { PlansMobileTab } from "./plans-mobile-tab";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
 import { TooltipArrow } from "@radix-ui/react-tooltip";
@@ -94,8 +94,14 @@ export function PlansSection() {
         btnText = "Get Started";
       }
     }
+    const isNotThreeMonths = currentTab !== "3months";
+const isNotOneYear = currentTab !== "1year";
+const isAdvancedPlan = planName === "advanced";
+let priceStrikeThrough = isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : true) 
+? PLAN[planName].priceStrikeThrough 
+: "";
 
-    return { ctaDisabled, btnText, planName };
+    return { ctaDisabled, btnText, planName,priceStrikeThrough };
   };
 
   const handlePlanSelect = (plan: string) => setCurrentPlanViewing(plan);
@@ -126,7 +132,7 @@ export function PlansSection() {
 
   return (
     <div>
-      <div className=" relative flex justify-center mb-14 md:mb-0 pt-10 md:pb-20 pb-6">
+      <div className=" relative flex justify-center mb-14 md:mb-0 pt-10 md:pb-14 pb-6">
         <div className="relative">
           {/* <Image
             className=" block md:hidden absolute -rotate-2 md:rotate-0 -right-12  md:-right-16 -top-12  bg-blend-multiply"
@@ -143,13 +149,7 @@ export function PlansSection() {
             alt="save-33%"
           />
           <Tabs setSelectedOption={setCurrentTab} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
-          <Image
-            className=" absolute left-[35%] top-10"
-            height={28}
-            width={94}
-            src={"/save_25.png"}
-            alt="save-25%"
-          />
+          <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" />
         </div>
       </div>
       <div>
@@ -177,7 +177,7 @@ export function PlansSection() {
             <PlansMobileTab
               onClick={() => handlePlanSelect("vip")}
               plan="VIP"
-              features={["Main Board","SME Board" ]}
+              features={["Main Board", "SME Board"]}
               selected={currentPlanViewing === "vip"}
               popular
             />
@@ -231,7 +231,7 @@ export function PlansSection() {
                 //     btnText = "Get Started";
                 //   }
                 // }
-                const { planName, btnText, ctaDisabled } = handlePlanProps(plan);
+                const { planName, btnText, ctaDisabled,priceStrikeThrough } = handlePlanProps(plan);
                 return (
                   plan.name.toLowerCase() === currentPlanViewing && (
                     <PlanCardMobile
@@ -242,6 +242,7 @@ export function PlansSection() {
                       ctaDisabled={ctaDisabled}
                       btnText={btnText}
                       currentTab={currentTab}
+                      priceStrikeThrough={priceStrikeThrough}
                     />
                   )
                 );
@@ -254,7 +255,7 @@ export function PlansSection() {
           {plans && plans[currentTab] ? (
             <>
               {plans[currentTab].map((plan: TPlanResponse) => {
-                const { btnText, ctaDisabled, planName } = handlePlanProps(plan);
+                const { btnText, ctaDisabled, planName,priceStrikeThrough } = handlePlanProps(plan);
 
                 return (
                   <PlanCardDesktop
@@ -270,7 +271,9 @@ export function PlansSection() {
                     subtext={""}
                     plan={plan.name}
                     price={new Intl.NumberFormat("en-IN").format(parseFloat(plan.perMonth.toFixed(2)))}
-                    priceStrikeThrough={currentTab !== "3months" ? PLAN[planName].priceStrikeThrough : ""}
+                    priceStrikeThrough={
+                      priceStrikeThrough
+                    }
                     showAnually={
                       planName !== "free"
                         ? plan.duration_in_days > 365
@@ -304,7 +307,12 @@ export function PlansSection() {
         <div className=" mt-6 md:mt-10 text-center flex items-center justify-center ">
           <TooltipProvider delayDuration={0}>
             <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
-              <TooltipTrigger onClick={(e) => {e.preventDefault();setOpenTooltip(true)}}>
+              <TooltipTrigger
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenTooltip(true);
+                }}
+              >
                 <div className=" px-7 md:px-16 py-[9px] bg-gray-50 rounded-full border border-brand-400">
                   <p className=" font-semibold text-center text-brand-600 text-sm md:text-md  w-fit">
                     Why do we recommend minimum annual membership ?
@@ -314,8 +322,8 @@ export function PlansSection() {
               <TooltipContent side="bottom" className=" bg-black text-white border-0 p-3 max-w-[425px]">
                 <p className=" leading-6 w-[350px] md:w-full]">
                   We understand that effective investing requires time and patience, which is why we suggest minimum
-                   annual membership. Our strategy reflects our ethos that long-term commitment is key to unlocking the true
-                  potential of your investments.
+                  annual membership. Our strategy reflects our ethos that long-term commitment is key to unlocking the
+                  true potential of your investments.
                 </p>
                 <TooltipArrow className=" fill-black" />
               </TooltipContent>

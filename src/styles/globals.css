@@ -1475,4 +1475,8 @@ width:20px !important;
   background-color:white;
 }
 
-
+.pricing-body{
+  -webkit-background-size: auto 1200px;
+  -moz-background-size: auto 1200px;
+  -o-background-size: auto 1200px;
+}

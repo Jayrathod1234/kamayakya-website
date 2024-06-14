@@ -27,7 +27,7 @@ export function PlanActiveLabel() {
           </defs>
         </svg>
       {/* </div> */}
-      <p className="text-3xs text-[#F98800] whitespace-nowrap uppercase font-bold">Active plan</p>
+      <p className="text-4xs text-[#F98800] whitespace-nowrap uppercase font-bold">Active plan</p>
     </div>
   );
 }

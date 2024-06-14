@@ -30,7 +30,7 @@ export const PlanCardHead = ({ plan, label }: TPlanCardHead) => {
 
 export const PriceStrikeThrough = ({ price }: TPriceStrikeThrough) => {
   return (
-    <h3 className=" text-lg font-semibold text-gray-400 m-0">
+    <h3 className=" text-md font-semibold text-gray-400 m-0">
       <span className=" inline-block text-2xs float-start mt-[2.5px]">{price ? "₹" : null}&zwj;</span>
       <span className="inline-block line-through font-medium">{price}</span>
     </h3>
@@ -39,7 +39,7 @@ export const PriceStrikeThrough = ({ price }: TPriceStrikeThrough) => {
 export const Price = ({ price, perMonth = false }: TPrice) => {
   return (
     <div className=" flex items-baseline">
-      <h3 className=" text-display-md font-semibold text-gray-800 m-0">
+      <h3 className="  text-display-sm font-semibold text-gray-800 m-0">
         <span className=" inline-block text-lg float-start mt-[2.5px]">₹</span>
         <span className="inline-block ">{price}</span>
       </h3>
@@ -52,12 +52,13 @@ export const SubText = ({ children }: TChildren) => {
   return <p className={` text-gray-700 text-sm font-semibold`}>{children}&zwj;</p>;
 };
 
-export const GstLabel = ({ gstLabel, tooltip, total }: TGstLabel) => {
+export const GstLabel = ({ gstLabel, tooltip, total, showAnually }: TGstLabel) => {
   return (
     <p className=" text-sm text-gray-400 flex items-center gap-2">
       {gstLabel ? (
         <span className=" flex items-center gap-x-2">
-          <span className=" inline-block">Inclusive of 18% GST </span>
+          <SubText>{showAnually} &zwj;</SubText>
+          {/* <span className=" inline-block">Inclusive of 18% GST </span> */}
           {tooltip ? (
             <PlanTooltip
               price={tooltip?.price}
@@ -82,7 +83,7 @@ export const FeatureList = ({ featureList }: TFeatureList) => {
   return (
     <ul className=" m-0 flex flex-col gap-4">
       {featureList.map((feature) => (
-        <li key={feature.feature} className=" flex items-start gap-2 ">
+        <li key={feature.feature} className=" flex items-start gap-2 m-0 ">
           <Image height={20} width={20} alt="check" src={feature.icon} />
           <p className=" text-sm text-gray-500">{feature.feature}</p>
         </li>
@@ -124,11 +125,11 @@ export function PlanCardDesktop({
         popular
           ? " popular__card before:pointer-events-auto shadow-[inset_0px_-2px_0px_3px] shadow-brand-300 before:content-[''] before:h-full before:w-full before:absolute before:bg-transparent before:z-[-1] before:shadow-sm"
           : "border border-gray-150"
-      }  max-w-[315px] grid grid-col-1 grid-rows-[279px_1fr_.2fr]  relative rounded-xl lg:rounded-none bg-white ${className}`}
+      }  max-w-[315px] grid grid-col-1 grid-rows-[240px_1fr_.2fr]  relative rounded-xl lg:rounded-none bg-white ${className}`}
     >
       {popular && (
         <div className=" flex flex-row items-center justify-center gap-x-[4px] px-2 py-[7px] rounded-t-[10px] bg-brand-300 text-white font-semibold absolute w-full lg:-top-[38.2px] max-md:top-0 ">
-          <Star size={16} fill="white"/>
+          <Star size={16} fill="white" />
           {/* <svg
             className=" inline-block"
             width="16"
@@ -142,25 +143,24 @@ export function PlanCardDesktop({
               fill="white"
             />
           </svg> */}
-          <p className=" text-md font-bold">Most popular</p>
+          <p className=" text-md font-bold">Most Popular</p>
         </div>
       )}
       {/* {popular &&  <div className=" h-1 w-[calc(99%)] border-l-[1px] border-r-[1px] left-0 border-red-500 absolute bg-white"></div>} */}
-      
 
-      <div className=" p-7 row-start-1 flex flex-col  gap-y-8 h-[279px]">
+      <div className=" p-7 row-start-1 flex flex-col  gap-y-[24px] h-[279px]">
         <PlanCardHead plan={plan} label={label} />
 
-        <div className=" flex flex-col max-h-full justify-center flex-1 ">
+        <div className=" flex flex-col max-h-full justify-center mb-[2px] ">
           <div className=" mb-1">
             <PriceStrikeThrough price={priceStrikeThrough} />
             <div>
               <Price price={price} perMonth={perMonth} />
             </div>
           </div>
-          <SubText>{showAnually} &zwj;</SubText>
-          <div className=" mt-2">
-            <GstLabel gstLabel={gstLabel} tooltip={tooltip} total={total} />
+
+          <div className=" mb-[0.6rem]">
+            <GstLabel showAnually={showAnually} gstLabel={gstLabel} tooltip={tooltip} total={total} />
           </div>
         </div>
         <div className=" flex items-center justify-center w-full relative">
@@ -170,14 +170,14 @@ export function PlanCardDesktop({
             } mt-auto relative`}
           >
             {active && (
-              <div className=" flex items-center justify-center absolute -top-3 left-[30%] bg-white">
+              <div className=" flex items-center justify-center absolute -top-3 left-[28.5%] bg-white">
                 <PlanActiveLabel />
               </div>
             )}
           </div>
         </div>
       </div>
-      <div className=" flex flex-col gap-y-7 px-7  pb-14 row-start-2">
+      <div className=" flex flex-col gap-y-6 px-7 pb-10 row-start-2">
         <p className=" m-0 text-sm text-gray-700 ">{featureHead}</p>
         <FeatureList featureList={featureList} />
       </div>

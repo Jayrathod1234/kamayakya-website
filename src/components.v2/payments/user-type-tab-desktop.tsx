@@ -21,7 +21,7 @@ const rightTabStyles =
 
 export function UserTypeTabDesktop({ usertype, icon, active, handleClick }: TUserTypeTabDesktop) {
   const tabActiveHoverStyle = active ? "" : "hover:bg-[rgba(255,255,255,0.72)] hover:shadow-md ";
-  const tabRadiusStyle = usertype === "Deep Research Investor" ? " rounded-br-none" : " rounded-bl-none";
+  // const tabRadiusStyle = usertype === "Deep Research Investor" ? " rounded-b-none" : " rounded-b-none";
   const tabActiveStyle = active ? "rounded-b-none shadow-none pb-3 border-transparent" : "border-[#d0f4f1]";
   const clipStyle =
     usertype === "Deep Research Investor" ? leftTabStyles : usertype === "Effortless Investor" ? rightTabStyles : "";
@@ -32,7 +32,7 @@ export function UserTypeTabDesktop({ usertype, icon, active, handleClick }: TUse
   return (
     <div onClick={handleClick} className={`relative cursor-pointer `}>
       <div
-        className={` z-10 p-[18px] h-[72px] flex items-center gap-4  bg-[rgba(255,255,255,0.33)] border-[2px]  rounded-xl ${tabActiveHoverStyle} ${tabRadiusStyle} ${tabActiveStyle} backdrop-blur-[2px] sm:w-[1000px] md:w-[350px] lg:w-[492px] stroke-white stroke-1`}
+        className={` z-10 p-[18px] h-[72px] flex items-center gap-4  bg-[rgba(255,255,255,0.33)] border-[2px]  rounded-xl ${tabActiveHoverStyle}  ${tabActiveStyle} backdrop-blur-[2px] sm:w-[1000px] md:w-[350px] lg:w-[492px] stroke-white stroke-1`}
       >
         <div className={` ${iconbg}  rounded-lg flex items-center justify-center `}>
           <Image height={iconDimension} width={iconDimension} alt="effortless-icon" src={icon} />
