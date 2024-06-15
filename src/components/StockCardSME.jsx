@@ -474,18 +474,18 @@ const StockCardSME = () => {
 		return createdDate >= twoMonthsAgo && createdDate <= today;
 	};
 
-    const isNewStock = (createdDateString) => {
-        const createdDate = new Date(createdDateString);
-        const twoMonthsAgo = new Date();
-        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    // const isNewStock = (createdDateString) => {
+    //     const createdDate = new Date(createdDateString);
+    //     const twoMonthsAgo = new Date();
+    //     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
-        const today = new Date();
-        // console.log(
-        // 	createdDate,
-        // 	createdDate >= twoMonthsAgo && createdDate <= today
-        // );
-        return createdDate >= twoMonthsAgo && createdDate <= today;
-    };
+    //     const today = new Date();
+    //     // console.log(
+    //     // 	createdDate,
+    //     // 	createdDate >= twoMonthsAgo && createdDate <= today
+    //     // );
+    //     return createdDate >= twoMonthsAgo && createdDate <= today;
+    // };
   return (
     <div
       style={{
