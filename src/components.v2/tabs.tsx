@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Tabs as ShadCnTab, TabsContent, TabsList, TabsTrigger } from "@/components.v2/ui/tabs";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { TPlanDuration } from "@/types/components/payments";
+import AuthContext from "@/components/AuthContext";
+import { useActivePlanContext } from "@/components/PlanContext";
 
 export enum TabsVariant {
   md,
@@ -24,12 +26,18 @@ export function Tabs({ variant, options, defaultOption, setSelectedOption }: TTa
   const parentPadding = variant === TabsVariant.md ? "p-1 " : variant === TabsVariant.lg ? "p-[12px]" : "";
   const childrenSize =
     variant === TabsVariant.md ? "px-4 py-2 text-sm " : variant === TabsVariant.lg ? " px-5 py-3 text-md" : "";
+  const { isLoggedIn } = useContext(AuthContext);
+  const { activePlan } = useActivePlanContext();
 
   const onValueChange = (value: string) => {
     if (setSelectedOption) setSelectedOption(value as TPlanDuration);
     const mp = getMixPanelClient();
     mp.track("planduration_clicked", {
       duration: value,
+      action_type:
+        isLoggedIn && (activePlan.plan === "core" || activePlan.plan === "advanced" || activePlan.plan === "vip")
+          ? "Upgrade"
+          : "New",
     });
   };
 

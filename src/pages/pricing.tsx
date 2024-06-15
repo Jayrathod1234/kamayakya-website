@@ -37,8 +37,10 @@ const open_sans = Open_Sans({ subsets: ["latin"] });
 export default function Page() {
   const pathname = usePathname();
   const { activePlan } = useActivePlanContext();
+ 
 
   useEffect(() => {
+    console.log(activePlan)
     const mp = getMixPanelClient();
     mp.track("Pricing_page_loaded", {
       id: uuidv4(),
@@ -62,7 +64,7 @@ export default function Page() {
       utm_medium: "",
       utm_terms: "",
     });
-  }, []);
+  }, [activePlan?.plan,activePlan?.start_date,activePlan?.end_date]);
 
   return (
     <div

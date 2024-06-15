@@ -42,7 +42,7 @@ export function Newsletter() {
         });
 
         const mp = getMixPanelClient();
-        mp.track("Linkedinbutton_clicked", {
+        mp.track("newsletter_subscribed", {
           page: "Pricing_Page",
           pagegroup: "newsletter_subscribed",
           email: email,

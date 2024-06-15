@@ -303,7 +303,7 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
         </Button>
         <DialogClose asChild>
           <Button
-            onClick={() => handleClose("cancel_clicked")}
+            onClick={() => handleClose("closewindow_clicked")}
             variant={ButtonVariant.tertiary}
             size={ButtonSize.md}
             customStyle=" px-4 !py-2 border-0"

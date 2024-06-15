@@ -14,6 +14,10 @@ export function EnterpriseCard() {
       page: "Pricing_Page",
       pagegroup: "enterprise_solution",
     });
+    mp.track("asktheteam_loaded", {
+      page: "Pricing_Page",
+      pagegroup: "enterprise_solution",
+    });
   };
 
   return (
