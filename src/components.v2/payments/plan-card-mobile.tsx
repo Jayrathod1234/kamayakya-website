@@ -16,6 +16,7 @@ type TPlanCardMobile = {
   btnText: string;
   currentTab: TPlanDuration;
   priceStrikeThrough: string;
+  handleClick: () => void;
 };
 
 export function PlanCardMobile({
@@ -27,12 +28,13 @@ export function PlanCardMobile({
   btnText,
   currentTab,
   priceStrikeThrough,
+  handleClick,
 }: TPlanCardMobile) {
   return (
     <div className="rounded-b-xl border-x bg-white border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)]">
       <div className=" px-4 py-5">
         <div>
-          <p className=" text-md text-gray-400 line-through">₹{priceStrikeThrough}</p>
+          <p className=" text-md text-gray-400 line-through">{priceStrikeThrough ? "₹" + priceStrikeThrough : null}</p>
           <span className=" text-display-md font-semibold">
             ₹{new Intl.NumberFormat("en-IN").format(parseFloat(plan.perMonth.toFixed(2)))}
           </span>
@@ -81,6 +83,7 @@ export function PlanCardMobile({
       </div>
       <div className=" p-4 pt-0">
         <Button
+          onClick={handleClick}
           disabled={ctaDisabled}
           customStyle=" w-full text-center"
           variant={PLAN[planName].btnVariant ?? ButtonVariant.secondary}
