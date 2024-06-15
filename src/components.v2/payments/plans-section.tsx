@@ -243,6 +243,7 @@ let priceStrikeThrough = isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : tr
                       btnText={btnText}
                       currentTab={currentTab}
                       priceStrikeThrough={priceStrikeThrough}
+                      handleClick={() => handlePlanClick(plan.id)}
                     />
                   )
                 );
