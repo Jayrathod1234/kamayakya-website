@@ -6,9 +6,7 @@ WORKDIR /src/app
 
 COPY ./package*.json ./
 
-RUN npm install --production
-RUN npm install @types/mixpanel-browser
-RUN npm install @types/react-copy-to-clipboard
+RUN npm install
 
 ENV NEXT_PUBLIC_BASEPATH=https://test-server.kamayakya.in
 
