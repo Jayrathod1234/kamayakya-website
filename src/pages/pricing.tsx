@@ -40,7 +40,6 @@ export default function Page() {
  
 
   useEffect(() => {
-    console.log(activePlan)
     const mp = getMixPanelClient();
     mp.track("Pricing_page_loaded", {
       id: uuidv4(),
