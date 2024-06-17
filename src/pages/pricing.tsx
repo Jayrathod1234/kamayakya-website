@@ -37,6 +37,7 @@ const open_sans = Open_Sans({ subsets: ["latin"] });
 export default function Page() {
   const pathname = usePathname();
   const { activePlan } = useActivePlanContext();
+ 
 
   useEffect(() => {
     const mp = getMixPanelClient();
@@ -62,7 +63,7 @@ export default function Page() {
       utm_medium: "",
       utm_terms: "",
     });
-  }, []);
+  }, [activePlan?.plan,activePlan?.start_date,activePlan?.end_date]);
 
   return (
     <div

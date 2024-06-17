@@ -10,7 +10,7 @@ import SmallcaseEmbed from "./smallcase-embed";
 export function SmallCaseCard() {
   const handleSmallCaseClick = () => {
     const mp = getMixPanelClient();
-    mp.track("view_smallcase", {
+    mp.track("GoToSmallcase_clicked", {
       page: "Pricing_Page",
     });
   };
@@ -34,7 +34,7 @@ export function SmallCaseCard() {
             customStyle=" bg-white hover:bg-brand-300 !border-white hover:!border-brand-300 text-brand-500 "
           >
             <Link className=" text-inherit" target="_blank" href={"https://kamayakya.smallcase.com/#portfolios"}>
-              <p className=" ">Go to Smallcase</p>
+              <p className=" ">Go to smallcase</p>
             </Link>
           </Button>
           <p className=" text-2xs text-[rgba(255,255,255,0.64)] mt-[6px]">*No BSE and SME Stocks</p>

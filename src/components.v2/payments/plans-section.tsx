@@ -20,6 +20,7 @@ import Login from "@/components/Login";
 import { useRouter } from "next/router";
 import { formatPlans } from "@/lib/helper";
 import { PlanCardMobile } from "./plan-card-mobile";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 // ${
 //   currentPlanViewing === "vip" && "shadow-[0px_0px_0px_3px_#75CDC5]"
@@ -95,22 +96,36 @@ export function PlansSection() {
       }
     }
     const isNotThreeMonths = currentTab !== "3months";
-const isNotOneYear = currentTab !== "1year";
-const isAdvancedPlan = planName === "advanced";
-let priceStrikeThrough = isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : true) 
-? PLAN[planName].priceStrikeThrough 
-: "";
+    const isNotOneYear = currentTab !== "1year";
+    const isAdvancedPlan = planName === "advanced";
+    let priceStrikeThrough =
+      isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : true) ? PLAN[planName].priceStrikeThrough : "";
 
-    return { ctaDisabled, btnText, planName,priceStrikeThrough };
+    return { ctaDisabled, btnText, planName, priceStrikeThrough };
   };
 
   const handlePlanSelect = (plan: string) => setCurrentPlanViewing(plan);
 
-  let handlePlanClick = (planId: string) => {
+  let handlePlanClick = (planId: string, planName: string, planAmount: number) => {
+    const mp = getMixPanelClient();
     if (!isLoggedIn) {
+      if (planName.toLowerCase() === "free") {
+        mp.track("getfreeaccess_clicked", {
+          page: "Pricing_page",
+        });
+      }
+
       handleLogin();
       return;
     }
+
+    mp.track("planpurchase_buttonclicked", {
+      duration: currentTab,
+      action_type:
+        activePlan.plan === "core" || activePlan.plan === "advanced" || activePlan.plan === "vip" ? "Upgrade" : "New",
+      planname: planName,
+      amount: planAmount,
+    });
     router.push({ pathname: "/purchase", query: { planId } });
   };
 
@@ -231,7 +246,7 @@ let priceStrikeThrough = isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : tr
                 //     btnText = "Get Started";
                 //   }
                 // }
-                const { planName, btnText, ctaDisabled,priceStrikeThrough } = handlePlanProps(plan);
+                const { planName, btnText, ctaDisabled, priceStrikeThrough } = handlePlanProps(plan);
                 return (
                   plan.name.toLowerCase() === currentPlanViewing && (
                     <PlanCardMobile
@@ -243,7 +258,7 @@ let priceStrikeThrough = isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : tr
                       btnText={btnText}
                       currentTab={currentTab}
                       priceStrikeThrough={priceStrikeThrough}
-                      handleClick={() => handlePlanClick(plan.id)}
+                      handleClick={() => handlePlanClick(plan.id, plan.name, plan.amount)}
                     />
                   )
                 );
@@ -256,7 +271,7 @@ let priceStrikeThrough = isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : tr
           {plans && plans[currentTab] ? (
             <>
               {plans[currentTab].map((plan: TPlanResponse) => {
-                const { btnText, ctaDisabled, planName,priceStrikeThrough } = handlePlanProps(plan);
+                const { btnText, ctaDisabled, planName, priceStrikeThrough } = handlePlanProps(plan);
 
                 return (
                   <PlanCardDesktop
@@ -272,9 +287,7 @@ let priceStrikeThrough = isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : tr
                     subtext={""}
                     plan={plan.name}
                     price={new Intl.NumberFormat("en-IN").format(parseFloat(plan.perMonth.toFixed(2)))}
-                    priceStrikeThrough={
-                      priceStrikeThrough
-                    }
+                    priceStrikeThrough={priceStrikeThrough}
                     showAnually={
                       planName !== "free"
                         ? plan.duration_in_days > 365
@@ -296,7 +309,7 @@ let priceStrikeThrough = isNotThreeMonths && (isAdvancedPlan ? isNotOneYear : tr
                     popular={PLAN[planName].popular}
                     ctaDisabled={ctaDisabled}
                     btnVariant={PLAN[planName].btnVariant ?? ButtonVariant.secondary}
-                    handleClick={() => handlePlanClick(plan.id)}
+                    handleClick={() => handlePlanClick(plan.id, plan.name, plan.amount)}
                     tooltip={planName !== "free" && PLAN[planName].tooltip ? PLAN[planName].tooltip[currentTab] : null}
                     total={"₹" + plan.amount}
                   />

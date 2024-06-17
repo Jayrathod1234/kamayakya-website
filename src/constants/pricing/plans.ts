@@ -25,13 +25,13 @@ export const FREE_PLAN: TPlan = {
   priceStrikeThrough: "1,500",
   gstLabel: false,
   featureHead:
-    "Experience the potential of KamayaKya with 3 free stock recommendations and access to our track record – jumpstart your investment journey today!",
+    "Experience the potential of KamayaKya with 3 free stock picks and our proven track record – start your investment journey now!",
   featureList: [
-    { icon: "/icons/check_only.svg", feature: "3 Free Stocks to buy every year (NSE + BSE)" },
+    { icon: "/icons/check_only.svg", feature: "3 Free Stocks to Buy and Research Reports (NSE + BSE)" },
     { icon: "/icons/check_only.svg", feature: "Unlock Track Record" },
     { icon: "/icons/close_only.svg", feature: "No WhatsApp Notifications" },
     { icon: "/icons/close_only.svg", feature: "No Email Updates" },
-    { icon: "/icons/close_only.svg", feature: "No Ask Me Anything (AMA)" },
+    { icon: "/icons/close_only.svg", feature: "No Live Quarterly Interaction with KamayaKya research team" },
   ],
   btnText: "Get Started",
   warnMessage: "No credit card required. Start for free, pick a plan later.",
@@ -55,12 +55,15 @@ export const CORE_PLAN: TPlan = {
   featureHead:
     "Ideal for semi-pro and professional retail investors focused on Main Board stocks with flexible investment amounts. ",
   featureList: [
-    { icon: "/icons/check_only.svg", feature: "30+ Main Board Stocks to buy every year (NSE + BSE)" },
+    {
+      icon: "/icons/check_only.svg",
+      feature: "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
+    },
     { icon: "/icons/check_only.svg", feature: "2-4 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
     { icon: "/icons/close_only.svg", feature: "No SME board stock picks" },
-    { icon: "/icons/close_only.svg", feature: "No Ask Me Anything (AMA)" },
+    { icon: "/icons/close_only.svg", feature: "No Live Quarterly Interaction with KamayaKya research team" },
   ],
   btnText: "Get Started",
   warnMessage: "You're in control – no auto-renewal!",
@@ -96,12 +99,12 @@ export const ADVANCED_PLAN: TPlan = {
   featureHead:
     "Designed for long-term, high-risk, high-reward investors targeting high volatility stocks with a minimum investment of ₹1L per stock.",
   featureList: [
-    { icon: "/icons/check_only.svg", feature: "10+ SME board Stocks to buy every year (NSE+BSE)" },
+    { icon: "/icons/check_only.svg", feature: "10+ SME board Stocks to Buy and Research Reports every year (NSE+BSE)" },
     { icon: "/icons/check_only.svg", feature: "1-2 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
     { icon: "/icons/close_only.svg", feature: "No Main Board stock picks" },
-    { icon: "/icons/close_only.svg", feature: "No Ask Me Anything (AMA)" },
+    { icon: "/icons/close_only.svg", feature: "No Live Quarterly Interaction with KamayaKya research team" },
   ],
   btnText: "Get Started",
   warnMessage: "You're in control – no auto-renewal!",
@@ -130,13 +133,16 @@ export const VIP_PLAN: TPlan = {
   featureHead:
     "Perfect for seasoned investors looking to diversify their portfolio across Main Board and SME stocks with comprehensive support and updates.",
   featureList: [
-    { icon: "/icons/check_only.svg", feature: "30+ Main Board Stocks to buy every year (NSE + BSE)" },
+    {
+      icon: "/icons/check_only.svg",
+      feature: "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
+    },
     { icon: "/icons/check_only.svg", feature: "10+ SME board stocks to buy every year" },
     { icon: "/icons/check_only.svg", feature: "3-5 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
 
-    { icon: "/icons/check_only.svg", feature: "Ask Me Anything (AMA)" },
+    { icon: "/icons/check_only.svg", feature: "Live Quarterly Interaction with KamayaKya research team" },
   ],
   btnText: "Get Started",
   warnMessage: "You're in control – no auto-renewal!",
