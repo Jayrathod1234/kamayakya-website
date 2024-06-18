@@ -10,7 +10,7 @@ import SmallcaseEmbed from "./smallcase-embed";
 export function SmallCaseCard() {
   const handleSmallCaseClick = () => {
     const mp = getMixPanelClient();
-    mp.track("view_smallcase", {
+    mp.track("GoToSmallcase_clicked", {
       page: "Pricing_Page",
     });
   };

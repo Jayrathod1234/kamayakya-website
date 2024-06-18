@@ -128,12 +128,12 @@ export function Navbar() {
               {NAVBAR_LINKS.map((navigationOption) => (
                 <NavigationMenuItem
                   className={` m-0 ${
-                    (navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to buy") ||
+                    (navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to Buy") ||
                     !isLoggedIn
-                      ? navigationOption.title === "Stocks to buy" 
+                      ? navigationOption.title === "Stocks to Buy" 
                         ? "hidden"
                         : "hidden lg:flex"
-                      : navigationOption.title === "Stocks to buy"
+                      : navigationOption.title === "Stocks to Buy"
                       ? "lg:hidden"
                       : ""
                   } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}

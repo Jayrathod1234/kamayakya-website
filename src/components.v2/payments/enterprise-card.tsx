@@ -14,12 +14,17 @@ export function EnterpriseCard() {
       page: "Pricing_Page",
       pagegroup: "enterprise_solution",
     });
+    mp.track("asktheteam_loaded", {
+      page: "Pricing_Page",
+      pagegroup: "enterprise_solution",
+    });
   };
 
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2 place-content-center place-items-center gap-6 md:gap-x-11 items-center justify-center">
       <div className="  max-w-[540px] lg:max-w-[648.59px]  overflow-hidden mx-auto">
         <Image
+          priority={false}
           className="md:hidden rounded-xl h-full w-full object-contain"
           src={"/pricing/enterprise_solution.webp"}
           alt="contact_us_img"
@@ -27,6 +32,7 @@ export function EnterpriseCard() {
           width={358}
         />
         <Image
+         priority={false}
           className="hidden md:inline-block rounded-xl h-full w-full object-contain"
           src={"/pricing/enterprise_solution.webp"}
           alt="contact_us_img"

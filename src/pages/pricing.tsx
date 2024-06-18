@@ -20,7 +20,7 @@ import {
 } from "@/components.v2/index.components";
 import Image from "next/image";
 import { Open_Sans } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { usePathname } from "next/navigation";
 import axios from "axios";
@@ -31,14 +31,17 @@ import { v4 as uuidv4 } from "uuid";
 import { cn } from "@/lib/utils";
 import { useActivePlanContext } from "@/components/PlanContext";
 import { Mail, Phone } from "lucide-react";
+import AuthContext from "@/components/AuthContext";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export default function Page() {
   const pathname = usePathname();
   const { activePlan } = useActivePlanContext();
+  const {user} = useContext(AuthContext) 
 
   useEffect(() => {
+    console.log(activePlan)
     const mp = getMixPanelClient();
     mp.track("Pricing_page_loaded", {
       id: uuidv4(),
@@ -46,9 +49,10 @@ export default function Page() {
       time: new Date().toUTCString(),
       source_page: "",
       current_url: pathname,
-      account_created_at: "",
+      account_created_at: user?.created,
+      customer_id:user?.id || null,
       Curr_Subscription_Type: activePlan.plan,
-      Curr_Plan_Duration: "",
+      Curr_Plan_Duration: activePlan.duration,
       Curr_Subscription_Start_date: activePlan.start_date,
       Curr_Subscription_End_date: activePlan.end_date,
       usertype: activePlan.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
@@ -62,23 +66,23 @@ export default function Page() {
       utm_medium: "",
       utm_terms: "",
     });
-  }, []);
+  }, [activePlan?.plan,activePlan?.start_date,activePlan?.end_date,user?.id]);
 
   return (
     <div
-      className={` relative pricing tracking-wide overflow-hidden bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}
+      className={` relative pricing pricing-body tracking-wide overflow-hidden bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}
     >
       {/* gradeint bg */}
       {/* <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40  ">
         <div className=" h-full w-full  "></div>
       </div> */}
 
-      <div className=" absolute h-[1200px] mix-blend-color-burn  w-full pointer-events-none">
+      {/* <div className=" absolute h-[1200px] mix-blend-color-burn  w-full pointer-events-none">
         <video className=" h-full w-full object-cover z-40 pointer-events-none" src="/pricing/hero_bg.webm" autoPlay muted loop></video>
-      </div>
+      </div> */}
       <div className="relative ">
         <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
-          <div className="hidden lg:block  absolute lg:right-20 top-52">
+          <div className="hidden lg:block  absolute lg:right-[60px] top-52">
             <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />
           </div>
           <div className=" absolute lg:left-12 md:bottom-16 -left-1 bottom-20">
@@ -96,7 +100,7 @@ export default function Page() {
               Get the Right Fit : Because a good plan is like a good pair of shoes
             </p>
           </div>
-          <div className=" md:mt-20 grid grid-cols-2 grid-rows-6 md:grid-rows-[auto] mt-[30px] gap-4 md:grid-cols-1 place-items-center max-h-full">
+          <div className=" md:mt-14 grid grid-cols-2 grid-rows-6 md:grid-rows-[auto] mt-[30px] gap-4 md:grid-cols-1 place-items-center max-h-full">
             <UserTypeDesktopCard />
             <div className=" justify-self-end col-start-1 row-span-4 md:hidden">
               <UserTypeCard

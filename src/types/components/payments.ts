@@ -33,6 +33,7 @@ export type TGstLabel = {
   gstLabel: boolean;
   total: string;
   tooltip: TPlantooltip | undefined | null;
+  showAnually: string;
 };
 
 export type TPlanCardDesktop = {
@@ -71,4 +72,11 @@ export type TContactOptionCard = {
 
 export type TPlanDuration = "3months" | "1year" | "3year";
 
-export type TActivePlan = { id: string; plan: string; start_date: string; end_date: string; amount_paid: number; is_active: boolean; }
+export type TActivePlan = {
+  id: string;
+  plan: string;
+  start_date: string;
+  end_date: string;
+  amount_paid: number;
+  is_active: boolean;
+};

@@ -53,9 +53,9 @@ export const CORE_PLAN: TPlan = {
   label: "MAIN BOARD",
   gstLabel: true,
   featureHead:
-    "Ideal for semi-pro and professional retail investors focused on mainboard stocks with flexible investment amounts. ",
+    "Ideal for semi-pro and professional retail investors focused on Main Board stocks with flexible investment amounts. ",
   featureList: [
-    { icon: "/icons/check_only.svg", feature: "30+ Mainboard Stocks to buy every year (NSE + BSE)" },
+    { icon: "/icons/check_only.svg", feature: "30+ Main Board Stocks to buy every year (NSE + BSE)" },
     { icon: "/icons/check_only.svg", feature: "2-4 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
@@ -90,7 +90,7 @@ export const CORE_PLAN: TPlan = {
 export const ADVANCED_PLAN: TPlan = {
   className: "  md:row-start-2 md:justify-self-end md:pt-[59px] lg:pt-0 order-3",
   subtext: "",
-  priceStrikeThrough: "",
+  priceStrikeThrough: "1,000",
   label: "SME BOARD",
   gstLabel: true,
   featureHead:
@@ -100,7 +100,7 @@ export const ADVANCED_PLAN: TPlan = {
     { icon: "/icons/check_only.svg", feature: "1-2 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
-    { icon: "/icons/close_only.svg", feature: "No Mainboard stock picks" },
+    { icon: "/icons/close_only.svg", feature: "No Main Board stock picks" },
     { icon: "/icons/close_only.svg", feature: "No Ask Me Anything (AMA)" },
   ],
   btnText: "Get Started",
@@ -128,9 +128,9 @@ export const VIP_PLAN: TPlan = {
   label: "MAIN Board + SME Board",
   gstLabel: true,
   featureHead:
-    "Perfect for seasoned investors looking to diversify their portfolio across mainboard and SME stocks with comprehensive support and updates.",
+    "Perfect for seasoned investors looking to diversify their portfolio across Main Board and SME stocks with comprehensive support and updates.",
   featureList: [
-    { icon: "/icons/check_only.svg", feature: "30+ Mainboard Stocks to buy every year (NSE + BSE)" },
+    { icon: "/icons/check_only.svg", feature: "30+ Main Board Stocks to buy every year (NSE + BSE)" },
     { icon: "/icons/check_only.svg", feature: "10+ SME board stocks to buy every year" },
     { icon: "/icons/check_only.svg", feature: "3-5 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },

@@ -31,6 +31,10 @@ export function FeelingLost() {
 
   const handleContactUsModal = () => {
     const mp = getMixPanelClient();
+    mp.track("contactus_clicked", {
+      page: "Pricing_Page",
+      pagegroup: "feeling_lost",
+    });
     mp.track("asktheteam_loaded", {
       page: "Pricing_Page",
       pagegroup: "feeling_lost",

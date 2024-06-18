@@ -46,6 +46,7 @@
     "framer-motion": "^10.10.0",
     "iconsax-react": "^0.0.8",
     "js-cookie": "^3.0.5",
+    "lottie-react": "^2.4.0",
     "lucide-react": "^0.379.0",
     "markdown-to-jsx": "^7.3.2",
     "mixpanel-browser": "^2.50.0",
