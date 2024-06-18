@@ -422,7 +422,7 @@ const NavBar2 = () => {
 						{/* <Dropdown.Item key="handleBlog">Blogs</Dropdown.Item> */}
 						<Dropdown.Item key="handleTrack">Track record</Dropdown.Item>
 						<Dropdown.Item key="handleSMECorner">SME Corner</Dropdown.Item>
-						<Dropdown.Item key="handleStockPicks">Stocks to buy</Dropdown.Item>
+						<Dropdown.Item key="handleStockPicks">Stocks to Buy</Dropdown.Item>
 						<Dropdown.Item key="settings" withDivider>
 							Profile
 						</Dropdown.Item>

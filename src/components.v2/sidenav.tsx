@@ -24,7 +24,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
   const [open, setOpen] = React.useState(false);
   const [stockRecommendation, setStockRecommendation] = React.useState({
     "Track Record": "",
-    "Stocks to buy": "",
+    "Stocks to Buy": "",
   });
   const [id, setId] = useState("");
   const {
@@ -47,7 +47,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
           if (response.data) {
             setStockRecommendation({
               "Track Record": response.data?.recentSoldRecommendedCount + " New Exits",
-              "Stocks to buy": response.data?.recentBuyRecommendedCount + " New Stocks",
+              "Stocks to Buy": response.data?.recentBuyRecommendedCount + " New Stocks",
             });
           }
         }
@@ -133,8 +133,8 @@ export default function SideNav({ handleLogin }: TSideNav) {
                     }`}
                   >
                     <p className=" text-inherit">{nav.title}</p>
-                    {stockRecommendation[nav.title as "Stocks to buy" | "Track Record"] ? (
-                      <NewStockbadge label={stockRecommendation[nav.title as "Stocks to buy" | "Track Record"]} />
+                    {stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"] ? (
+                      <NewStockbadge label={stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"]} />
                     ) : null}
                   </li>
                 </Link>

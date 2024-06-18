@@ -678,7 +678,7 @@ export default function App() {
 								boxShadow: "0px 0px 0px 2px rgba(255,255,255,0.15)",
 							}}
 						>
-							<span style={{ fontSize: 20 }}>Stocks to buy</span>
+							<span style={{ fontSize: 20 }}>Stocks to Buy</span>
 						</Button>
 					</Navbar.Item>
 				</Navbar.Content>
