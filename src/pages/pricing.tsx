@@ -20,7 +20,7 @@ import {
 } from "@/components.v2/index.components";
 import Image from "next/image";
 import { Open_Sans } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { usePathname } from "next/navigation";
 import axios from "axios";
@@ -31,13 +31,14 @@ import { v4 as uuidv4 } from "uuid";
 import { cn } from "@/lib/utils";
 import { useActivePlanContext } from "@/components/PlanContext";
 import { Mail, Phone } from "lucide-react";
+import AuthContext from "@/components/AuthContext";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export default function Page() {
   const pathname = usePathname();
   const { activePlan } = useActivePlanContext();
- 
+  const {user} = useContext(AuthContext) 
 
   useEffect(() => {
     console.log(activePlan)
@@ -49,6 +50,7 @@ export default function Page() {
       source_page: "",
       current_url: pathname,
       account_created_at: "",
+      customer_id:user?.id || null,
       Curr_Subscription_Type: activePlan.plan,
       Curr_Plan_Duration: "",
       Curr_Subscription_Start_date: activePlan.start_date,
@@ -64,7 +66,7 @@ export default function Page() {
       utm_medium: "",
       utm_terms: "",
     });
-  }, [activePlan?.plan,activePlan?.start_date,activePlan?.end_date]);
+  }, [activePlan?.plan,activePlan?.start_date,activePlan?.end_date,user?.id]);
 
   return (
     <div
