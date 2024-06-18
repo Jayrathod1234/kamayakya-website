@@ -10,6 +10,7 @@ const AuthContext = createContext({
     username: "",
     mobile: "",
     subscription: [{ plan: "" }],
+    created:""
   },
   children: null,
 });
@@ -23,6 +24,7 @@ export const AuthProvider = ({ children }) => {
     username: "",
     mobile: "",
     subscription: [{ plan: "" }],
+    created:""
   });
   const refreshToken = localStorage.getItem("refresh");
 
