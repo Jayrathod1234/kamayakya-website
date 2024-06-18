@@ -79,22 +79,12 @@ const BlogPage = () => {
   }
 
   return (
-    <main style={{ backgroundColor: "#fff" }}>
+    <div  className='pricing' style={{ backgroundColor: "#fff" }}>
       {isLoggedIn ? <NavBar2 /> : <NavBar />}
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          maxWidth: "80rem",
-          paddingTop: "25px",
-          paddingBottom: "55px",
-          margin: "0 auto",
-        }}
+      <div
+      className=" w-[min(1200px,calc(100%-32px))] min-w-[328px] mx-auto"
       >
-        <Box sx={{ width: "100%" }}>
+        <div >
           <img
             placeholder={<Loading />}
             src={blog.image1}
@@ -108,7 +98,8 @@ const BlogPage = () => {
               backgroundColor: "lightgray",
             }}
           />
-        </Box>
+        </div>
+        <h1 className="text-center">{blog.title}</h1>
         {/* <Text
           className=" !pricing"
           b
@@ -143,10 +134,10 @@ const BlogPage = () => {
            <div className={`prose pricing blog ${styles.blog}`}  dangerouslySetInnerHTML={{__html: blog.description}}></div>
             {/* </Markdown> */}
         </div>
-      </Box>
+      </div>
       <FaqsNew />
       <Footer />
-    </main>
+    </div>
   );
 };
 
