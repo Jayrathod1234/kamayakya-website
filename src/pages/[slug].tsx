@@ -1,0 +1,177 @@
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL, GET_SPECIFIC_BLOG } from "./api/URLs";
+import { Box } from "@mui/material";
+import AuthContext from "../components/AuthContext";
+import { useContext } from "react";
+import NavBar2 from "../components/Navbar2";
+import NavBar from "../components/Navbar";
+import FaqsNew from "./screens/FaqsNew";
+// import Footer from "./screens/Footer";
+import { Loading, Text } from "@nextui-org/react";
+import Markdown from "markdown-to-jsx";
+import styles from "./blog.module.css";
+import { Navbar } from "@/components.v2/navbar";
+import { Footer } from "@/components.v2/footer";
+// import { ReactQuill } from "react-quill";
+
+// import Markdown from "markdown-to-jsx";
+
+const BlogPage = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+  const [blog, setBlog] = useState<null | { author: string; title: string; description: string }>(null);
+  const { isLoggedIn } = useContext(AuthContext);
+  const decoder = new TextDecoder("utf-8");
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      if (slug) {
+        try {
+          const refresh = localStorage.getItem("refresh");
+          // console.log(
+          //   `https://api-server.kamayakya.in/user/specificStock/${slug}`
+          // );
+
+          const response = await fetch(`${GET_SPECIFIC_BLOG}${slug}`, {
+            headers: {
+              "Content-Type": "application/json",
+              // Authorization: `Token ${refresh}`,
+            },
+            next: { revalidate: 3600 },
+          });
+          const data = await response.arrayBuffer();
+          const textData = decoder.decode(data);
+          const jsonData = JSON.parse(textData);
+          setBlog(jsonData);
+        } catch (error) {
+          console.error("Error fetching blog data:", error);
+        }
+      }
+    };
+    fetchBlogData();
+  }, [slug]);
+
+  if (!blog) {
+    return (
+      <Box
+        sx={{
+          backgroundColor: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          // maxWidth: "80rem",
+          // paddingTop: "10vh",
+          paddingBottom: "10vh",
+          margin: "0 auto",
+          fontSize: 30,
+        }}
+      >
+        {isLoggedIn ? <NavBar2 /> : <NavBar />}
+        <Loading size={"lg"} css={{ paddingTop: "20vh", paddingBottom: "20vh" }} />
+        <FaqsNew />
+        <Footer />
+      </Box>
+    );
+  }
+
+  return (
+    <div className="pricing" style={{ backgroundColor: "#fff" }}>
+      {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
+      <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
+        <Navbar />
+      </div>
+      <div
+        // style={{
+        //   backgroundImage: `url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')`,
+        // }}
+        className={` mb-8 p-[3vw] py-[10vw] bg-opacity-5 bg-cover bg-[linear-gradient(to_top,rgba(0,0,0,.45),rgba(0,0,0,.45)),url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')] `}
+      >
+        <h1 className="text-center font-bold text-display-lg text-white">{blog.title}</h1>
+        <p className=" font-bold text-center text-slate-100">
+          by <span className="  text-brand-200">{blog.author}</span>
+        </p>
+      </div>
+      <div className=" w-[min(840px,calc(100%-32px))] min-w-[328px] mx-auto">
+        {/* <div
+          // style={{
+          //   backgroundImage: `url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')`,
+          // }}
+          className={` mb-8 p-[3vw] py-[6vw] bg-opacity-5 bg-cover bg-[linear-gradient(to_top,rgba(0,0,0,.5),rgba(0,0,0,.5)),url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')] `}
+        >
+          <h1 className="text-center font-bold text-display-lg text-white">{blog.title}</h1>
+          <p className=" font-bold text-center text-slate-100">
+            by <span className="  text-brand-200">{blog.author}</span>
+          </p>
+        </div> */}
+        {/* <div
+          // style={{
+          //   backgroundImage: `url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')`,
+          // }}
+          className={` p-[3vw]  rounded-xl bg-opacity-5 bg-cover  `}
+        >
+          <h1 className="text-center font-bold text-display-lg ">{blog.title}</h1>
+          <p className=" font-bold text-center ">
+            by <span className="  text-brand-400">{blog.author}</span>
+          </p>
+        </div> 
+         <div>
+          <img
+            // placeholder={<Loading />}
+            height={393}
+            width={500}
+            src={"https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b"}
+            alt="Blog Image"
+            className=" max-h-[393.75px] w-full max-w-full object-cover mb-24 "
+          />
+        </div> */}
+
+        {/* <Text
+          className=" !pricing"
+          b
+          size={55}
+          css={{
+            textAlign: "left",
+            padding: "15px",
+            lineHeight: "1.1",
+            "@media only screen and (maxWidth: : 724px)": {
+              fontSize: "35px",
+              lineHeight: "1.2",
+            },
+          }}
+        >
+          {blog.title}
+        </Text> */}
+        <div
+          className=""
+          // style={{
+          //   fontSize: 19,
+          //   textAlign: "left",
+          //   padding: "15px",
+          //   // fontWeight: "normal",
+          //   // fontFamily: "Arial",
+          //   "@media only screen and (maxWidth: : 724px)": {
+          //     fontSize: "18px",
+          //     lineHeight: "1.2",
+          //   },
+          // }}
+        >
+          {/* <Markdown> */}
+          <div
+            className={`prose pricing blog !max-w-none pb-[10%] ${styles.blog}`}
+            dangerouslySetInnerHTML={{ __html: blog.description }}
+          ></div>
+          {/* </Markdown> */}
+        </div>
+      </div>
+      {/* <div className=" pb-[10%]">
+      <FaqsNew />
+      </div> */}
+      <Footer />
+    </div>
+  );
+};
+
+export default BlogPage;
