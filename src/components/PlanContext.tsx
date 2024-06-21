@@ -27,12 +27,8 @@ export const PlanProvider = ({ children }: TChildren) => {
         },
       });
       if (response.data) {
-        const startDate = new Date(response.data.current_active_subscription.start_date);
-        const endDate = new Date(response.data.current_active_subscription.end_date);
-        const durationMs = endDate - startDate;
-        const millisecondsPerDay = 1000 * 60 * 60 * 24;
-        const durationDays = durationMs / millisecondsPerDay;
-        const duration = durationDays > 90 ? "1year" : durationDays > 365 ? "3year" : "3months";
+        const days = response.data.current_active_subscription.days
+        const duration = days > 90 ? "1year" : days > 365 ? "3year" : days > 0 ? "3months" :"";
         setActivePlan({ ...response.data.current_active_subscription, duration });
       }
     } catch (e) {}

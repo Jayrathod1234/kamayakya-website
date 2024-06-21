@@ -77,9 +77,9 @@ export default function App() {
 
 		if (window.location.pathname !== "/" && element_id === "philosophy") {
 			router.push("/#philosophy");
-		} else if (window.location.pathname !== "/" && element_id === "pricing") {
+		} else if ( element_id === "pricing") {
 			// Redirect to home page
-			router.push("/#pricing");
+			router.push("/pricing");
 		} else if (window.location.pathname !== "/" && element_id === "home") {
 			// Redirect to home page
 			router.push("/");

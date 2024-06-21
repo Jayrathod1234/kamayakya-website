@@ -11,7 +11,7 @@ import { ButtonSize, ButtonVariant } from "./button/button";
 import { MissOutBanner } from "./cards/miss-out-banner";
 import { NewStockbadge } from "./badge/new-stock-badge";
 import axios from "axios";
-import { RECOMMENDATION_COUNTS } from "@/pages/api/URLs";
+import { ACTIVE_PLAN_URL, RECOMMENDATION_COUNTS } from "@/pages/api/URLs";
 import { useActivePlanContext } from "@/components/PlanContext";
 import Link from "next/link";
 
@@ -26,10 +26,20 @@ export default function SideNav({ handleLogin }: TSideNav) {
     "Track Record": "",
     "Stocks to Buy": "",
   });
+  // const [activePlan, setActivePlan] = useState({
+  //   id: "",
+  //   plan: "",
+  //   start_date: "",
+  //   end_date: "",
+  //   amount_paid: 0,
+  //   is_active: false,
+  //   duration: "",
+  // });
   const [id, setId] = useState("");
   const {
     activePlan: { plan },
   } = useActivePlanContext();
+  // const {plan} = activePlan
   const refreshToken = localStorage.getItem("refresh");
 
   const handleClick = () => {
@@ -37,22 +47,44 @@ export default function SideNav({ handleLogin }: TSideNav) {
     handleLogin();
   };
 
+  const fetchRecommendation = async () => {
+    try {
+      const response = await axios(RECOMMENDATION_COUNTS, {
+        headers: { Authorization: "token " + refreshToken },
+      });
+      if (response.data) {
+        setStockRecommendation({
+          "Track Record": response.data?.recentSoldRecommendedCount + " New Exits",
+          "Stocks to Buy": response.data?.recentBuyRecommendedCount + " New Stocks",
+        });
+      }
+    } catch (e) {}
+  };
+
+  const fetchActivePlan = async () => {
+    try {
+      const response = await axios.get(ACTIVE_PLAN_URL, {
+        headers: {
+          Authorization: `token ${refreshToken}`,
+        },
+      });
+      if (response.data) {
+        const startDate = new Date(response.data.current_active_subscription.start_date);
+        const endDate = new Date(response.data.current_active_subscription.end_date);
+        const durationMs = endDate.valueOf() - startDate.valueOf();
+        const millisecondsPerDay = 1000 * 60 * 60 * 24;
+        const durationDays = durationMs / millisecondsPerDay;
+        const duration = durationDays > 90 ? "1year" : durationDays > 365 ? "3year" : "3months";
+        // setActivePlan({ ...response.data.current_active_subscription, duration });
+      }
+    } catch (e) {}
+  };
+
   useEffect(() => {
-    (async () => {
-      try {
-        if (isLoggedIn) {
-          const response = await axios(RECOMMENDATION_COUNTS, {
-            headers: { Authorization: "token " + refreshToken },
-          });
-          if (response.data) {
-            setStockRecommendation({
-              "Track Record": response.data?.recentSoldRecommendedCount + " New Exits",
-              "Stocks to Buy": response.data?.recentBuyRecommendedCount + " New Stocks",
-            });
-          }
-        }
-      } catch (e) {}
-    })();
+    if (isLoggedIn) {
+      fetchRecommendation();
+      // fetchActivePlan();
+    }
   }, [isLoggedIn]);
 
   useEffect(() => {
