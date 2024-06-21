@@ -32,7 +32,7 @@ import { cn } from "@/lib/utils";
 import { useActivePlanContext } from "@/components/PlanContext";
 import { Mail, Phone } from "lucide-react";
 import AuthContext from "@/components/AuthContext";
-import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal";
+// import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
