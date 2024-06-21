@@ -6,9 +6,11 @@ const AuthContext = createContext({
   isLoggedIn: false,
   isSubscribed: false,
   user: {
+    id:'',
     username: "",
     mobile: "",
     subscription: [{ plan: "" }],
+    created:""
   },
   children: null,
 });
@@ -18,9 +20,11 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [user, setUser] = useState({
+    id:'',
     username: "",
     mobile: "",
     subscription: [{ plan: "" }],
+    created:""
   });
   const refreshToken = localStorage.getItem("refresh");
 

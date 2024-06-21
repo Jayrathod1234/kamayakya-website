@@ -20,50 +20,121 @@ import {
 } from "@/components.v2/index.components";
 import Image from "next/image";
 import { Open_Sans } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { usePathname } from "next/navigation";
 import axios from "axios";
-import { NEWSLETTER_SUBSCRIBE_URL } from "./api/URLs";
+import { ACTIVE_PLAN_URL, GET_USER, NEWSLETTER_SUBSCRIBE_URL } from "./api/URLs";
 import Link from "next/link";
 import { useToast } from "@/components.v2/ui/use-toast";
 import { v4 as uuidv4 } from "uuid";
 import { cn } from "@/lib/utils";
 import { useActivePlanContext } from "@/components/PlanContext";
 import { Mail, Phone } from "lucide-react";
+import AuthContext from "@/components/AuthContext";
+// import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export default function Page() {
   const pathname = usePathname();
-  const { activePlan } = useActivePlanContext();
- 
+  // const { activePlan } = useActivePlanContext();
+  const { isLoggedIn } = useContext(AuthContext);
+  const refreshToken = localStorage.getItem("refresh");
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(GET_USER, {
+        method: "GET",
+        headers: {
+          Authorization: `Token ${refreshToken}`,
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (e) {
+      return null;
+    }
+  };
+  const fetchActivePlan = async () => {
+    try {
+      const response = await axios.get(ACTIVE_PLAN_URL, {
+        headers: {
+          Authorization: `token ${refreshToken}`,
+        },
+      });
+      if (response.data) {
+        const days = response.data.current_active_subscription.days;
+        const duration = days > 90 ? "1year" : days > 365 ? "3year" : days > 0 ? "3months" : "";
+        return { ...response.data.current_active_subscription, duration };
+      }
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const handlePageLoadEvent = async () => {
+    const mp = getMixPanelClient();
+
+    const user = await fetchUser();
+    const activePlan = await fetchActivePlan();
+    if (user && activePlan) {
+      mp.track("Pricing_page_loaded", {
+        id: uuidv4(),
+        Session_id: "",
+        time: new Date().toUTCString(),
+        source_page: "",
+        current_url: pathname,
+        account_created_at: user.created,
+        customer_id: user?.id,
+        Curr_Subscription_Type: activePlan.plan,
+        Curr_Plan_Duration: activePlan.duration,
+        Curr_Subscription_Start_date: activePlan.start_date,
+        Curr_Subscription_End_date: activePlan.end_date,
+        usertype: activePlan.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
+        browser_version: "",
+        browser_name: "",
+        device_type: "",
+        device_name: "",
+        utm_campaign: "",
+        utm_content: "",
+        utm_source: "",
+        utm_medium: "",
+        utm_terms: "",
+      });
+    }
+  };
 
   useEffect(() => {
     const mp = getMixPanelClient();
-    mp.track("Pricing_page_loaded", {
-      id: uuidv4(),
-      Session_id: "",
-      time: new Date().toUTCString(),
-      source_page: "",
-      current_url: pathname,
-      account_created_at: "",
-      Curr_Subscription_Type: activePlan.plan,
-      Curr_Plan_Duration: "",
-      Curr_Subscription_Start_date: activePlan.start_date,
-      Curr_Subscription_End_date: activePlan.end_date,
-      usertype: activePlan.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
-      browser_version: "",
-      browser_name: "",
-      device_type: "",
-      device_name: "",
-      utm_campaign: "",
-      utm_content: "",
-      utm_source: "",
-      utm_medium: "",
-      utm_terms: "",
-    });
-  }, [activePlan?.plan,activePlan?.start_date,activePlan?.end_date]);
+
+    if (isLoggedIn) {
+      handlePageLoadEvent();
+    } else if (!isLoggedIn && !refreshToken) {
+      mp.track("Pricing_page_loaded", {
+        id: uuidv4(),
+        Session_id: "",
+        time: new Date().toUTCString(),
+        source_page: "",
+        current_url: pathname,
+        account_created_at: null,
+        customer_id: null,
+        Curr_Subscription_Type: null,
+        Curr_Plan_Duration: null,
+        Curr_Subscription_Start_date: null,
+        Curr_Subscription_End_date: null,
+        usertype: null,
+        browser_version: "",
+        browser_name: "",
+        device_type: "",
+        device_name: "",
+        utm_campaign: "",
+        utm_content: "",
+        utm_source: "",
+        utm_medium: "",
+        utm_terms: "",
+      });
+    }
+  }, [isLoggedIn]);
 
   return (
     <div
@@ -113,7 +184,6 @@ export default function Page() {
                     Enjoys <Semibold>research</Semibold>
                   </span>,
                   <span>
-                    
                     <Semibold>Thrill</Semibold> & <Semibold>learning</Semibold> by taking control of your wealth
                   </span>,
                 ]}
@@ -143,23 +213,35 @@ export default function Page() {
       <div className="bg-[linear-gradient(0deg,white_97.6%,transparent)] md:bg-[linear-gradient(0deg,white_95%,transparent)]">
         <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] min-h-screen mx-auto ">
           {/* WEBSITE PLAN */}
-          <div  className="py-[60px] lg:mt-[60px]">
-            <div  className=" flex flex-col items-center text-center gap-3 md:gap-0">
-              <p id="deepresearch-section" className=" text-sm md:text-md text-[#F98800] font-semibold uppercase relative z-20">
+          <div className="py-[60px] lg:mt-[60px]">
+            <div className=" flex flex-col items-center text-center gap-3 md:gap-0">
+              <p
+                id="deepresearch-section"
+                className=" text-sm md:text-md text-[#F98800] font-semibold uppercase relative z-20"
+              >
                 KamayaKya Membership Plans
               </p>
-              <p  className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">
+              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">
                 For Deep Research Investors
               </p>
-              <p className=" text-sm md:text-md text-gray-700 md:mt-3  z-20">Find a plan that works for YOU.</p>
+              <p className=" text-sm md:text-md text-gray-700 md:mt-3  z-20">
+                Find a plan that works for YOU.
+                {/* <MainSmeBoardModal
+                  trigger={
+                    <span className=" text-brand-400 font-semibold underline decoration-dotted underline-offset-4 hover:text-[#0B3A36]">
+                      What does Main Board and SME Board mean?
+                    </span>
+                  }
+                /> */}
+              </p>
             </div>
             {/* PLAN SECTION */}
-            <section  className="">
+            <section className="">
               <PlansSection />
             </section>
           </div>
 
-          <div  className=" pt-10 pb-[60px]">
+          <div className=" pt-10 pb-[60px]">
             <SmallCaseCard />
           </div>
           <div className="py-[60px] md:py-[100px]">

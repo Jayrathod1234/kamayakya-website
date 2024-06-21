@@ -2,10 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { Avatar, AvatarVariant } from "../avatar";
 import AuthContext from "@/components/AuthContext";
 import { PlanBadge } from "../badge";
+import { useActivePlanContext } from "@/components/PlanContext";
 
 export function NavbarUserCard({ arrow = false, className }: { arrow?: boolean; className?: string }) {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const { activePlan } = useActivePlanContext();
+
   return (
     <div className={`p-4 flex gap-x-2 justify-between items-center  ${className}`}>
       <div className=" flex gap-x-3">
@@ -13,7 +15,7 @@ export function NavbarUserCard({ arrow = false, className }: { arrow?: boolean; 
         <div>
           <p className=" text-[15px] font-semibold text-[rgba(26,27,45,1)]">{user?.username || user?.mobile}</p>
           <p className=" text-2xs text-[rgba(83,87,99,1)]">
-            <PlanBadge plan={user ? user.subscription[0].plan : ""} />
+            <PlanBadge plan={activePlan ? activePlan.plan : ""} />
           </p>
         </div>
       </div>

@@ -128,9 +128,9 @@ const NavBar2 = () => {
 
 		if (window.location.pathname !== "/" && element_id === "philosophy") {
 			router.push("/#philosophy");
-		} else if (window.location.pathname !== "/" && element_id === "pricing") {
+		} else if ( element_id === "pricing") {
 			// Redirect to home page
-			router.push("/#pricing");
+			router.push("/pricing");
 		} else if (window.location.pathname !== "/" && element_id === "home") {
 			// Redirect to home page
 			router.push("/");
@@ -140,6 +140,7 @@ const NavBar2 = () => {
 				behavior: "smooth", // Optional: Smooth scrolling behavior
 			});
 		} else {
+			console.log(window.location.pathname)
 			element?.scrollIntoView({ behavior: "smooth" });
 		}
 	};
@@ -422,7 +423,7 @@ const NavBar2 = () => {
 						{/* <Dropdown.Item key="handleBlog">Blogs</Dropdown.Item> */}
 						<Dropdown.Item key="handleTrack">Track record</Dropdown.Item>
 						<Dropdown.Item key="handleSMECorner">SME Corner</Dropdown.Item>
-						<Dropdown.Item key="handleStockPicks">Stocks to buy</Dropdown.Item>
+						<Dropdown.Item key="handleStockPicks">Stocks to Buy</Dropdown.Item>
 						<Dropdown.Item key="settings" withDivider>
 							Profile
 						</Dropdown.Item>

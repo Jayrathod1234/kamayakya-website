@@ -18,7 +18,7 @@ export const NAVBAR_LINKS = [
     link: "/sme",
   },
   {
-    title: "Stocks to buy",
+    title: "Stocks to Buy",
     link: "/stock-picks",
   },
 ];
