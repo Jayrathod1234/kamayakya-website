@@ -225,10 +225,10 @@ export default function Page() {
                 For Deep Research Investors
               </p>
               <p className=" text-sm md:text-md text-gray-700 md:mt-3  z-20">
-                Find a plan that works for YOU.
+                Find a plan that works for YOU.{" "}
                 <MainSmeBoardModal
                   trigger={
-                    <span className=" text-brand-400 font-semibold underline decoration-dotted underline-offset-4 hover:text-[#0B3A36]">
+                    <span className=" cursor-pointer whitespace-nowrap text-brand-400 font-semibold underline decoration-dotted underline-offset-4 hover:text-[#0B3A36]">
                       What does Main Board and SME Board mean?
                     </span>
                   }

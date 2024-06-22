@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { MAIN_BOARD, SME_BOARD } from "@/constants/index.constants";
 
 const BoardHead = ({ head }: { head: string }) => {
-  return <h2 className="hidden md:block text-xl font-bold text-gray-950 m-0 sticky top-[0px] pt-[16px] bg-inherit">{head}</h2>;
+  return <h2 className="hidden md:block text-xl font-bold text-gray-950 m-0 sticky top-[0px] pt-[16px] bg-inherit ">{head}</h2>;
 };
 
 const Tag = ({ tag }: { tag: string }) => {
