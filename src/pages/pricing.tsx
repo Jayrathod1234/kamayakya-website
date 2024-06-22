@@ -32,7 +32,7 @@ import { cn } from "@/lib/utils";
 import { useActivePlanContext } from "@/components/PlanContext";
 import { Mail, Phone } from "lucide-react";
 import AuthContext from "@/components/AuthContext";
-// import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal";
+import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -226,13 +226,13 @@ export default function Page() {
               </p>
               <p className=" text-sm md:text-md text-gray-700 md:mt-3  z-20">
                 Find a plan that works for YOU.
-                {/* <MainSmeBoardModal
+                <MainSmeBoardModal
                   trigger={
                     <span className=" text-brand-400 font-semibold underline decoration-dotted underline-offset-4 hover:text-[#0B3A36]">
                       What does Main Board and SME Board mean?
                     </span>
                   }
-                /> */}
+                />
               </p>
             </div>
             {/* PLAN SECTION */}
