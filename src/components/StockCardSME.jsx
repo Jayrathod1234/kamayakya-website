@@ -355,7 +355,7 @@ const StockCardSME = () => {
     if (isLoggedIn === true && isSubscribed === false) {
       const location = router.asPath;
       localStorage.setItem("location", location);
-      router.push("/purchase");
+      router.push("/pricing");
     }
     if (isLoggedIn === true && isSubscribed === true) {
       router.push("/sme");
