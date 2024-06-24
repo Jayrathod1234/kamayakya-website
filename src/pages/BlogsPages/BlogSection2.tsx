@@ -59,7 +59,7 @@ const BlogSection2 = () => {
             <div style={{ fontSize: 30 }}>No Blogs yet!</div>
           </>
         )}
-        <div className="">
+        <div className="  w-full">
           <div className=" text-center mt-9 mb-10 text-gray-950">
             <h1 className=" font-bold text-display-lg mb-3">Blogs</h1>
             <p className=" text-lg text-gray-800">Deep dives into market trends and data</p>
@@ -69,10 +69,10 @@ const BlogSection2 = () => {
             <Input className=" border-none p-0 h-auto autofill:bg-white auto placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0" placeholder="Search for blogs"/>
           </div>
           
-          <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(358px,1fr))] gap-y-14 gap-x-8 w-full">
+          <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(358px,1fr))] gap-y-14 gap-x-8 w-full ">
             <BlogCardLg />
             {/* <div className=" flex row-start-2 gap-x-8"> */}
-            {blogs.map((blog: TBlog) => (
+            {blogs.map((blog:TBlog) => (
               <BlogCardSm key={blog.id} blog={blog} />
               // <div
               //   onClick={() => router.push(`${blog.slug}`)}

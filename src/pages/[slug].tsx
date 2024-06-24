@@ -18,8 +18,7 @@ import { Line, Meta } from "@/components.v2/blogs/blog-card-sm";
 import { format } from "date-fns";
 import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter, BsWhatsapp } from "react-icons/bs";
 import { Share } from "lucide-react";
-import { TBlog } from "@/types";
-import { CustomCSSProperties } from "@/types/shared";
+import { CustomCSSProperties, TBlog } from "@/types/shared";
 
 // import { ReactQuill } from "react-quill";
 
@@ -129,10 +128,21 @@ const BlogPage = () => {
       </div>
       <div className=" relative ">
         <div className=" hidden lg:flex sticky top-[25dvh] ml-6  flex-col w-fit float-left gap-y-3">
-          <button className=" border border-gray-100 rounded-full p-3">
+          <button onClick={()=>{
+            window.open(`https://x.com/intent/post?text=${"TEST SHARING ON X"}+${"https://www.kamayakya.com/"}`)
+          }} className=" border border-gray-100 rounded-full p-3">
             <BsWhatsapp size={16} fontSize={16} />
           </button>
-          <button className=" border border-gray-100 rounded-full p-3">
+          <button
+            onClick={() => {
+              window.open(
+                `https://www.linkedin.com/feed/?linkOrigin=LI_BADGE&shareActive=true&shareUrl=${"https://www.kamayakya.com/"}`,
+                "targetWindow",
+                "toolbar=no"
+              );
+            }}
+            className=" border border-gray-100 rounded-full p-3"
+          >
             <BsLinkedin size={16} fontSize={16} />
           </button>
           <button className=" border border-gray-100 rounded-full p-3">

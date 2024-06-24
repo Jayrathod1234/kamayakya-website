@@ -8,14 +8,14 @@ import { useRouter } from "next/router";
 import { TBlog } from "@/types";
 
 type TMeta = {
-  icon: keyof typeof icons;
-  label: string;
-  variant?: string;
+  icon:keyof typeof icons;
+  label:string;
+  variant?:string;
   fontColor?:string;
   iconColor?:string;
-};
+}
 
-export const Meta = ({ icon, label, variant = "sm", fontColor, iconColor }: TMeta) => {
+export const Meta = ({ icon, label,variant = "sm",fontColor,iconColor }:TMeta) => {
   const LucideIcon = icons[icon];
   let fontStyle = variant === "lg" ? " text-xs md:text-lg" : "text-sm";
   let gap = variant === "lg" ? " gap-x-[8px]" : "gap-x-[6px]";
@@ -34,9 +34,9 @@ export const Line = () => {
 };
 
 export function BlogCardSm({ blog }:{blog:TBlog}) {
-  const router = useRouter();
-
-  const handleReadMore = () => router.push(`${blog.slug}`);
+  const router = useRouter()
+  
+  const handleReadMore = ()=> router.push(`${blog.slug}`)
 
   return (
     <div className=" min-w-[358px] max-w-[405.33px] border border-gray-150 rounded-[10px] overflow-hidden shadow-6xs">
