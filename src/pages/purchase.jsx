@@ -10,10 +10,10 @@ import {
 	Text,
 } from "@nextui-org/react";
 import { Box, IconButton } from "@mui/material";
-// import NavBar2 from "@/components/Navbar2";
+import NavBar2 from "@/components/Navbar2";
 import FaqsNew from "../pages/screens/FaqsNew";
-// import Footer from "../pages/screens/Footer";
-import {Navbar,Footer} from "@/components.v2/index.components";
+import Footer from "../pages/screens/Footer";
+// import {Navbar,Footer} from "@/components.v2/index.components";
 import AuthContext from "@/components/AuthContext";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "../components/Login";
@@ -560,14 +560,13 @@ export default function PreviewPage() {
 					},
 				}}
 			>
-				<Navbar />
+				<NavBar2 />
 				<Text
 					b
 					color="#000"
 					css={{
 						fontSize: 70,
 						lineHeight: 1.2,
-						marginTop: "100px",
 						marginBottom: "0px",
 						textAlign: "center",
 						"@media only screen and (max-width: 764px)": {

@@ -22,8 +22,8 @@ import {
 import FaqsNew from "@/pages/screens/FaqsNew";
 import AuthContext from "@/components/AuthContext";
 import { TRACK_RECORD_FOR_ALL, TRACK_RECORD_FOR_USER } from "@/pages/api/URLs";
-// import Footer from "@/pages/screens/Footer";
-import {Footer} from "@/components.v2/index.components";
+import Footer from "@/pages/screens/Footer";
+// import {Footer} from "@/components.v2/index.components";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { DocumentAskPasswordEvent } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -339,7 +339,6 @@ const WhyUs = () => {
 						css={{
 							fontWeight: "bolder",
 							color: "#021C61",
-							marginTop:50,
 							"@media only screen and (max-width: 764px)": {
 								fontSize: 18,
 								width: "100%",

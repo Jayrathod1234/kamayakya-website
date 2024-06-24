@@ -459,7 +459,6 @@ const UserDetails = () => {
 					b
 					size={70}
 					css={{
-						marginTop: "100px",
 						marginBottom: "40px",
 						// width: "90%",
 						maxWidth: "80rem" /* 1280px */,

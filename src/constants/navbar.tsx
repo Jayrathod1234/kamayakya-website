@@ -10,7 +10,7 @@ export const NAVBAR_LINKS = [
     link: "/pricing",
   },
   {
-    title: "Track Recrd",
+    title: "Track Record",
     link: "/track-record",
   },
   {

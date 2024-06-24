@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import AuthContext from '@/components/AuthContext';
 import UserDetails from "./UserDetails/UserDetails";
-// import NavBar from "@/components/Navbar";
-// import NavBar2 from "@/components/Navbar2";
+import NavBar from "@/components/Navbar";
+import NavBar2 from "@/components/Navbar2";
 import FaqsNew from "./screens/FaqsNew";
-import {Navbar,Footer} from "@/components.v2/index.components";
+import Footer from "./screens/Footer";
+// import {Navbar,Footer} from "@/components.v2/index.components";
+
 const UserProfile = () => {
 	const { isLoggedIn } = useContext(AuthContext);
 	return (
@@ -17,7 +19,7 @@ const UserProfile = () => {
 				// alignItems: "center",
 			}}
 		>
-			{isLoggedIn ? <Navbar /> : <Navbar />}
+			{isLoggedIn ? <NavBar2 /> : <NavBar />}
 			<UserDetails />
 			<FaqsNew />
 			<Footer />

@@ -1,10 +1,10 @@
 // import { useContext } from "react";
-// import NavBar2 from "../components/Navbar2";
-// import NavBar from "../components/Navbar";
+import NavBar2 from "../components/Navbar2";
+import NavBar from "../components/Navbar";
 import StockCard from "../components/StockCard";
 import FaqsNew from "./screens/FaqsNew";
-// import Footer from "./screens/Footer";
-import {Navbar,Footer} from "@/components.v2/index.components";
+import Footer from "./screens/Footer";
+// import {Navbar,Footer} from "@/components.v2/index.components";
 import AuthContext from "../components/AuthContext";
 import PageVisibility from "../components/PageVisibility";
 import { useContext } from "react";
@@ -16,7 +16,7 @@ const StockPicks = () => {
 		<PageVisibility>
 			{(isPageVisible) => (
 				<>
-					{isLoggedIn ? <Navbar /> : <Navbar />}
+					{isLoggedIn ? <NavBar2 /> : <NavBar />}
 					<div
 						style={{
 							background: "#fff",

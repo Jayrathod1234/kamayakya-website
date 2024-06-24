@@ -560,7 +560,7 @@ const StockCardSME = () => {
             css={{
               fontWeight: "bolder",
               color: "#021C61",
-              marginTop:50,
+              // marginTop:50,
               "@media only screen and (max-width: 764px)": {
                 fontSize: 18,
                 width: "100%",

@@ -58,7 +58,8 @@ export function Navbar() {
   return (
     <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
 
-    <div className=" flex py-2 px-2 md:py-4 px-4 justify-between items-center" style={{position:"fixed",zIndex:50,background:"#fafafa",width:"100%"}} >
+    <div className=" flex py-2 px-2 md:py-4 px-4 justify-between items-center" style={{
+      zIndex:50,width:"100%"}} >
       <div className=" flex flex-row items-center justify-center">
         <div className=" mb-1 mr-3 lg:mr-10">
           <Link href={'/'}>

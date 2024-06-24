@@ -179,7 +179,6 @@ const HomePage = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginTop:10,
           width: "100vw",
           maxWidth: "80rem",
           "@media only screen and (min-width: 764px)": {
