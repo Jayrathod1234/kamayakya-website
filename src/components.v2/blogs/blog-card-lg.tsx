@@ -38,7 +38,7 @@ export function BlogCardLg({
   return (
     <div className=" col-span-full h-[500px] min-w-full border-[10px] flex border-gray-150 rounded-[20px] overflow-hidden shadow-6xs">
       <div>
-        <Image className=" object-cover h-full w-[406px]" width={406} height={300} alt="blog-image" src={"https://plus.unsplash.com/premium_photo-1681881669915-bd5d2608f535?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZmFsbGluZ3xlbnwwfHwwfHx8MA%3D%3D"} />
+        <Image className=" object-cover h-full w-full" width={406} height={300} alt="blog-image" src={"https://plus.unsplash.com/premium_photo-1681881669915-bd5d2608f535?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZmFsbGluZ3xlbnwwfHwwfHx8MA%3D%3D"} />
       </div>
       <div className=" py-12 px-14 flex flex-col max-w-[491px]">
         <div className="flex items-center gap-x-3">

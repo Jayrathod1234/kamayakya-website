@@ -115,10 +115,10 @@ export function MainSmeBoardModal({ trigger }: { trigger: React.ReactNode }) {
                 <span className="">SME Board </span>
               </TabsTrigger>
             </TabsList>
-            <TabsContent className=" md:hidden overflow-y-scroll md:overflow-hidden h-full" value="mainboard">
+            <TabsContent className=" md:hidden overflow-y-scroll md:overflow-hidden h-full focus-visible:ring-0 focus-visible:ring-offset-0" value="mainboard">
               <Content content={MAIN_BOARD} className={"!p-0"} />
             </TabsContent>
-            <TabsContent className=" md:hidden overflow-y-scroll md:overflow-hidden h-full" value="smeboard">
+            <TabsContent className=" md:hidden overflow-y-scroll md:overflow-hidden h-full focus-visible:ring-0 focus-visible:ring-offset-0" value="smeboard">
               <Content content={SME_BOARD} className={"!p-0"} />
             </TabsContent>
           </Tabs>

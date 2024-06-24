@@ -18,6 +18,7 @@ import { Line, Meta } from "@/components.v2/blogs/blog-card-sm";
 import { format } from "date-fns";
 import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter, BsWhatsapp } from "react-icons/bs";
 import { Share } from "lucide-react";
+import { CustomCSSProperties, TBlog } from "@/types/shared";
 
 // import { ReactQuill } from "react-quill";
 
@@ -26,10 +27,12 @@ import { Share } from "lucide-react";
 const BlogPage = () => {
   const router = useRouter();
   const { slug } = router.query;
-  const [blog, setBlog] = useState<null | { author: string; title: string; description: string }>(null);
+  const [blog, setBlog] = useState<null | TBlog>(null);
   const { isLoggedIn } = useContext(AuthContext);
   const decoder = new TextDecoder("utf-8");
-
+  const customCss: CustomCSSProperties = {
+    "--image-url": `url(${blog?.image1})`,
+  };
   useEffect(() => {
     const fetchBlogData = async () => {
       if (slug) {
@@ -93,9 +96,7 @@ const BlogPage = () => {
         //   backgroundImage: `url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')`,
         // }}
         // linear-gradient(to_top,rgba(0,0,0,1),rgba(0,0,0,.45)),
-        style={{
-        '--image-url':`url(${blog.image1})`
-        }}
+        style={customCss}
         className={` mb-8 p-[3vw] bg-[rgba(0,0,0,.80)] py-[10vw] relative before:absolute before:content-[""] before:h-full before:w-full before:top-0 before:left-0 before:opacity-70 before:z-[1]  before:bg-cover before:bg-[image:var(--image-url)] `}
       >
         <h1 className=" relative z-10 text-center font-bold text-display-lg text-white">{blog.title}</h1>
@@ -127,10 +128,21 @@ const BlogPage = () => {
       </div>
       <div className=" relative ">
         <div className=" hidden lg:flex sticky top-[25dvh] ml-6  flex-col w-fit float-left gap-y-3">
-          <button className=" border border-gray-100 rounded-full p-3">
+          <button onClick={()=>{
+            window.open(`https://x.com/intent/post?text=${"TEST SHARING ON X"}+${"https://www.kamayakya.com/"}`)
+          }} className=" border border-gray-100 rounded-full p-3">
             <BsWhatsapp size={16} fontSize={16} />
           </button>
-          <button className=" border border-gray-100 rounded-full p-3">
+          <button
+            onClick={() => {
+              window.open(
+                `https://www.linkedin.com/feed/?linkOrigin=LI_BADGE&shareActive=true&shareUrl=${"https://www.kamayakya.com/"}`,
+                "targetWindow",
+                "toolbar=no"
+              );
+            }}
+            className=" border border-gray-100 rounded-full p-3"
+          >
             <BsLinkedin size={16} fontSize={16} />
           </button>
           <button className=" border border-gray-100 rounded-full p-3">
