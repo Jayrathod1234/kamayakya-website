@@ -507,6 +507,7 @@ const StockCard = () => {
 						css={{
 							fontWeight: "bolder",
 							color: "#021C61",
+              marginTop:70,
 							"@media only screen and (max-width: 764px)": {
 								fontSize: 18,
 								width: "100%",
