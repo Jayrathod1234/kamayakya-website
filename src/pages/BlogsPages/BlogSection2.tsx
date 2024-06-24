@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { div } from "@mui/material";
+// import { div } from "@mui/material";
 import { Button, Loading, Text } from "@nextui-org/react";
 import { BiChevronRight } from "react-icons/bi";
 import { GET_BLOGS } from "../api/URLs";
@@ -8,6 +8,7 @@ import Markdown from "markdown-to-jsx";
 import { BlogCardLg, BlogCardSm } from "@/components.v2/blogs";
 import { Input } from "@/components.v2/ui/input";
 import { Search } from "lucide-react";
+import { TBlog } from "@/types";
 
 const BlogSection2 = () => {
   const [blogs, setBlogs] = useState([]);
@@ -71,7 +72,7 @@ const BlogSection2 = () => {
           <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(358px,1fr))] gap-y-14 gap-x-8 w-full">
             <BlogCardLg />
             {/* <div className=" flex row-start-2 gap-x-8"> */}
-            {blogs.map((blog) => (
+            {blogs.map((blog:TBlog) => (
               <BlogCardSm key={blog.id} blog={blog} />
               // <div
               //   onClick={() => router.push(`${blog.slug}`)}

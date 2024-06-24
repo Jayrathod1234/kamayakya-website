@@ -4,12 +4,13 @@ import { format } from "date-fns";
 import { Button } from "../button";
 import { ButtonVariant } from "../button/button";
 import Image from "next/image";
+import { TBlog } from "@/types";
 
-const Meta = ({ icon, label }) => {
-  const LucideIcon = icons[icon];
+const Meta = ({ icon, label }:{icon:string;label:string}) => {
+  const LucideIcon = icons[icon as keyof typeof icons];
   return (
     <span className=" flex gap-x-[6px] items-center ">
-      <LucideIcon colors="#344054" size={12} />
+      <LucideIcon color="#344054" size={12} />
       <p className=" text-gray-500 font-medium text-sm">{label}</p>
     </span>
   );
@@ -33,7 +34,7 @@ export function BlogCardLg({
     title: "THE RISE OF THE TOURISM SECTOR",
     updated_at: "2024-06-05T18:57:29.062002+05:30",
   },
-}: {}) {
+}: {blog?:TBlog}) {
   return (
     <div className=" col-span-full h-[500px] min-w-full border-[10px] flex border-gray-150 rounded-[20px] overflow-hidden shadow-6xs">
       <div>
