@@ -18,7 +18,7 @@ const Testimonials = () => {
 				justifyContent: "center",
 				alignItems: "center",
 				width: "100%",
-				alignContent: "center",
+				alignContent: "center"
 			}}
 		>
 			<div
@@ -30,6 +30,7 @@ const Testimonials = () => {
 					justifyContent: "center",
 					alignItems: "center",
 					flexDirection: "column",
+					marginBottom:50
 				}}
 			>
 				<Box

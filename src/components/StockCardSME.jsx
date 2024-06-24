@@ -559,6 +559,7 @@ const StockCardSME = () => {
             css={{
               fontWeight: "bolder",
               color: "#021C61",
+              marginTop:50,
               "@media only screen and (max-width: 764px)": {
                 fontSize: 18,
                 width: "100%",
@@ -681,7 +682,7 @@ const StockCardSME = () => {
             },
           }}
         >
-          Unlocking Potential, Fuelling Growth – Your One-Stop Resource for SME
+          Unlocing Potential, Fuelling Growth – Your One-Stop Resource for SME
           Success
         </Text>
       </Box>
@@ -2148,7 +2149,7 @@ const StockCardSME = () => {
               </Modal>
             </Grid>
           ))}
-          {!isLoggedIn || !isSubscribed ? (
+          { !isSubscribed ? (
             <Grid>
               <Card
                 isHoverable
@@ -2478,7 +2479,7 @@ const StockCardSME = () => {
           {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
           {/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
-          {!isLoggedIn || !isSubscribed
+          {!isSubscribed
             ? staticNumbers.map((number, index) => (
                 <Grid
                   // key={stock.id}
