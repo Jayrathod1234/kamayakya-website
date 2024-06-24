@@ -14,6 +14,11 @@ import Markdown from "markdown-to-jsx";
 import styles from "./blog.module.css";
 import { Navbar } from "@/components.v2/navbar";
 import { Footer } from "@/components.v2/footer";
+import { Line, Meta } from "@/components.v2/blogs/blog-card-sm";
+import { format } from "date-fns";
+import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter, BsWhatsapp } from "react-icons/bs";
+import { Share } from "lucide-react";
+
 // import { ReactQuill } from "react-quill";
 
 // import Markdown from "markdown-to-jsx";
@@ -87,14 +92,63 @@ const BlogPage = () => {
         // style={{
         //   backgroundImage: `url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')`,
         // }}
-        className={` mb-8 p-[3vw] py-[10vw] bg-opacity-5 bg-cover bg-[linear-gradient(to_top,rgba(0,0,0,.45),rgba(0,0,0,.45)),url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')] `}
+        // linear-gradient(to_top,rgba(0,0,0,1),rgba(0,0,0,.45)),
+        style={{
+        '--image-url':`url(${blog.image1})`
+        }}
+        className={` mb-8 p-[3vw] bg-[rgba(0,0,0,.80)] py-[10vw] relative before:absolute before:content-[""] before:h-full before:w-full before:top-0 before:left-0 before:opacity-70 before:z-[1]  before:bg-cover before:bg-[image:var(--image-url)] `}
       >
-        <h1 className="text-center font-bold text-display-lg text-white">{blog.title}</h1>
-        <p className=" font-bold text-center text-slate-100">
-          by <span className="  text-brand-200">{blog.author}</span>
-        </p>
+        <h1 className=" relative z-10 text-center font-bold text-display-lg text-white">{blog.title}</h1>
+        <div className=" relative z-10 flex items-center justify-center gap-x-3">
+          <Meta
+            icon={"Calendar"}
+            label={`By ${blog.author}`}
+            variant="lg"
+            fontColor={"!text-gray-200"}
+            iconColor={"#E4E7EC"}
+          />
+          <Line />
+          <Meta
+            icon={"Calendar"}
+            label={format(new Date(blog?.created), "dd MMM, yyyy")}
+            variant="lg"
+            fontColor={"!text-gray-200"}
+            iconColor={"#E4E7EC"}
+          />
+          <Line />
+          <Meta
+            icon={"Clock"}
+            label={blog.read_time + " min read"}
+            variant="lg"
+            fontColor={"!text-gray-200"}
+            iconColor={"#E4E7EC"}
+          />
+        </div>
       </div>
-      <div className=" w-[min(840px,calc(100%-32px))] min-w-[328px] mx-auto">
+      <div className=" relative ">
+        <div className=" hidden lg:flex sticky top-[25dvh] ml-6  flex-col w-fit float-left gap-y-3">
+          <button className=" border border-gray-100 rounded-full p-3">
+            <BsWhatsapp size={16} fontSize={16} />
+          </button>
+          <button className=" border border-gray-100 rounded-full p-3">
+            <BsLinkedin size={16} fontSize={16} />
+          </button>
+          <button className=" border border-gray-100 rounded-full p-3">
+            <BsInstagram size={16} fontSize={16} />
+          </button>
+          <button className=" border border-gray-100 rounded-full p-3">
+            <BsTwitter size={16} fontSize={16} />
+          </button>
+          <button className=" border border-gray-100 rounded-full p-3">
+            <BsFacebook size={16} fontSize={16} />
+          </button>
+        </div>
+        <div className=" block lg:hidden fixed left-4 bottom-10 z-40 ">
+          <button className=" border border-gray-100 bg-white  rounded-full p-3">
+            <Share size={16} color="black" />
+          </button>
+          <p className=" text-sm font-medium text-gray-700">Share</p>
+        </div>
         {/* <div
           // style={{
           //   backgroundImage: `url('https://kamayakya.s3.amazonaws.com/blogs/tourism.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240619%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240619T050238Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7a462fea25dc56f3015dd30e1fd6d2e91085eca86d0df70e71c1a0f1f952837b')`,
@@ -145,7 +199,7 @@ const BlogPage = () => {
           {blog.title}
         </Text> */}
         <div
-          className=""
+          className="w-[min(840px,calc(100%-32px))] min-w-[328px] mx-auto relative"
           // style={{
           //   fontSize: 19,
           //   textAlign: "left",
