@@ -56,6 +56,7 @@ export default function PreviewPage() {
 		tax:'',
 		totalAmount:''
 	})
+	const [subscriptionId,setSubscriptionId] = useState("")
 	const handleNextStep = () => {
 		setStep(step + 1);
 	};
@@ -207,7 +208,7 @@ export default function PreviewPage() {
 				gst_number: gstNo ? gstNo : "",
 				referral_code: referralCode ? referralCode : "",
 				discount_code: discountCode,
-				subscription_id:router.query.planId
+				subscription_id:subscriptionId
 			};
 
 			// Make API call to BILLING_URL
@@ -370,10 +371,11 @@ export default function PreviewPage() {
 	};
 
 	useEffect(()=>{
+		console.log("SUBSCRIPTION++>",subscriptionId,router.query.planId)
 		const getBillingDetails = async()=>{
 			try{
 				if(refreshToken){
-					const response = await axios.post(BILLING_DETAILS,{"subscription_id":router.query.planId},{
+					const response = await axios.post(BILLING_DETAILS,{"subscription_id":subscriptionId},{
 						headers:{
 							Authorization:'token '+refreshToken
 						}
@@ -392,7 +394,12 @@ export default function PreviewPage() {
 			}
 		}
 		getBillingDetails()
-	},[])
+	},[subscriptionId])
+
+	useEffect(()=>{
+		console.log(router.query.planId)
+		setSubscriptionId(router.query.planId)
+	},[router.query.planId])
 
 	if (!isLoggedIn) {
 		return (

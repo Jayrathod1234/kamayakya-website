@@ -9,5 +9,5 @@ export type {
   TPlan,
   TContactOptionCard
 } from "./components";
-export type { TChildren } from "./shared";
+export type { TChildren, TBlog } from "./shared";
 export type { TPlanResponse,TPlanName } from "./apiResponseData";

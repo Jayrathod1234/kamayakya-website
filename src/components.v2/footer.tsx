@@ -19,10 +19,8 @@ function Socials({ href, imgSrc, alt }: Record<string, string>) {
 
 export function Footer() {
   return (
-    <div className="bg-gradient-to-b from-[#244D4E] to-[#182E35]"
-     style={{marginTop:100}}
-     >
-      <div className="h-[calc(286px+10%)] overflow-hidden w-full z-10 -mt-[10%] ">
+    <div className="bg-gradient-to-b from-[#244D4E] to-[#182E35]">
+      <div className="h-[calc(286px+10%)] overflow-hidden w-full z-10 ">
         <Image
           alt="footer-bg"
           src={"/footer-top-illustration.png"}

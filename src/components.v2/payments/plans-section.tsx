@@ -113,6 +113,10 @@ export function PlansSection() {
         mp.track("getfreeaccess_clicked", {
           page: "Pricing_page",
         });
+      }else{
+        mp.track("getstarted_clicked", {
+          page: "Pricing_page",
+        });
       }
 
       handleLogin();

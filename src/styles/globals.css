@@ -1,6 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+  .main-container{
+    @apply w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto overflow-hidden;
+  }
+}
+
+
 @font-face {
   font-family: "SF Pro Rounded Bold";
   src: url("../../public/fonts/SF-Pro-Rounded-Bold.otf") format("opentype");
@@ -13,6 +21,7 @@
   font-family: "Open Sans";
   src: url("../../public/fonts/OpenSans-VariableFont_wdthwght.ttf");
 }
+
 
 :root {
   --max-width: 1100px;
@@ -42,6 +51,8 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+  
+  --container-width: min(1280px,calc(100%-32px));
 }
 
 @media (prefers-color-scheme: dark) {

@@ -10,6 +10,7 @@ const initialValue = {
   end_date: "",
   amount_paid: 0,
   is_active: false,
+  duration:""
 };
 
 const PlanContext = createContext({ activePlan: initialValue });
@@ -26,7 +27,9 @@ export const PlanProvider = ({ children }: TChildren) => {
         },
       });
       if (response.data) {
-        setActivePlan(response.data.current_active_subscription);
+        const days = response.data.current_active_subscription.days
+        const duration = days > 90 ? "1year" : days > 365 ? "3year" : days > 0 ? "3months" :"";
+        setActivePlan({ ...response.data.current_active_subscription, duration });
       }
     } catch (e) {}
   };

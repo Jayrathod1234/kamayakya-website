@@ -17,10 +17,10 @@ export const NAVBAR_LINKS = [
     title: "SME Corner",
     link: "/sme",
   },
-  // {
-  //   title: "Stocks to buy",
-  //   link: "/stock-picks",
-  // },
+  {
+    title: "Stocks to Buy",
+    link: "/stock-picks",
+  },
 ];
 
 export const HOME_OPTIONS = [

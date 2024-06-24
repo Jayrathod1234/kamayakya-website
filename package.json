@@ -37,6 +37,7 @@
     "babel-preset-es2015": "^6.24.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
     "embla-carousel-autoplay": "^8.1.3",
     "embla-carousel-class-names": "^8.1.3",
     "embla-carousel-react": "^8.1.3",
@@ -79,6 +80,7 @@
     "@types/react-copy-to-clipboard": "^5.0.7"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "@types/file-saver": "^2.0.5",
     "@types/mixpanel-browser": "^2.49.0",
     "@types/react": "18.0.4",

@@ -317,7 +317,7 @@ const SubscriptionNew = () => {
 							}}
 						>
 							<Text b size={18} color="#fff">
-								{isLoggedIn ? "Stocks to buy" : "Login"}
+								{isLoggedIn ? "Stocks to Buy" : "Login"}
 							</Text>
 						</Button>
 						<Modal
@@ -527,7 +527,7 @@ const SubscriptionNew = () => {
 								{isLoggedIn ? (
 									isSubscribed ? (
 										<Text b color="#FFF" size={18}>
-											Stocks to buy
+											Stocks to Buy
 										</Text>
 									) : (
 										<Text b color="#FFF" size={18}>

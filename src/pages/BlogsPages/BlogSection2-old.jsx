@@ -252,3 +252,4 @@ const BlogSection2 = () => {
 };
 
 export default BlogSection2;
+
