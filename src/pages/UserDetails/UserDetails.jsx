@@ -459,7 +459,7 @@ const UserDetails = () => {
 					b
 					size={70}
 					css={{
-						marginTop: "50px",
+						marginTop: "100px",
 						marginBottom: "40px",
 						// width: "90%",
 						maxWidth: "80rem" /* 1280px */,
@@ -467,6 +467,7 @@ const UserDetails = () => {
 						lineHeight: 1.2,
 						paddingLeft: "15px",
 						paddingRight: "15px",
+						
 						"@media only screen and (max-width: 764px)": {
 							fontSize: 45,
 							lineHeight: 1.1,

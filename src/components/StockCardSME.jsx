@@ -401,6 +401,7 @@ const StockCardSME = () => {
 							Authorization: `token ${refresh}`,
 						},
 					});
+          console.log(response)
 					const sortedStocks = response.data.sort((a, b) => {
 						// if (a.recommended_stock === b.recommended_stock) return 0;
 						// return a.recommended_stock ? -1 : 1;
@@ -682,7 +683,7 @@ const StockCardSME = () => {
             },
           }}
         >
-          Unlocing Potential, Fuelling Growth – Your One-Stop Resource for SME
+          Unlocking Potential, Fuelling Growth – Your One-Stop Resource for SME
           Success
         </Text>
       </Box>
@@ -2149,7 +2150,7 @@ const StockCardSME = () => {
               </Modal>
             </Grid>
           ))}
-          { !isSubscribed ? (
+          { isLoggedIn || !isLoggedIn || !isSubscribed ? (
             <Grid>
               <Card
                 isHoverable
@@ -2479,7 +2480,7 @@ const StockCardSME = () => {
           {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
           {/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
-          {!isSubscribed
+          {isLoggedIn || !isLoggedIn || !isSubscribed
             ? staticNumbers.map((number, index) => (
                 <Grid
                   // key={stock.id}
