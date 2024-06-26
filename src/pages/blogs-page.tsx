@@ -14,7 +14,7 @@ const BlogsPage = ({ blogs }: { blogs: Array<TBlog> }) => {
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
-    <div className="  bg-white pricing bg-[url('/blogs/blog-bg.webp')] bg-[length:auto_600px] bg-no-repeat bg-[top_center]">
+    <div className="  bg-white pricing bg-[url('/blogs/blog-bg.webp')] bg-[length:100vw_554px] bg-no-repeat bg-[top_center]">
       <main className="  main-container">
         <Navbar />
         {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}

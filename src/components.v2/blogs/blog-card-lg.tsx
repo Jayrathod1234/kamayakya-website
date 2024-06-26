@@ -38,7 +38,7 @@ export function BlogCardLg({
   blog?: TBlog;
 }) {
   return (
-    <div className=" hidden md:flex col-span-full h-[500px] min-w-full border-[10px]  border-gray-150 rounded-[20px] overflow-hidden shadow-6xs">
+    <div className="bg-white hidden md:flex col-span-full h-[500px] min-w-full border-[10px]  border-gray-150 rounded-[20px] overflow-hidden shadow-6xs">
       <div>
         <Image
           className=" object-cover h-full w-full"

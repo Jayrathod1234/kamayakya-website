@@ -121,7 +121,7 @@ const BlogPage = ({ blog }: { blog: TBlog }) => {
       </Box>
     );
   }
-  console.log(router.pathname)
+  console.log( router.pathname, router.asPath, router.basePath, router.route)
   return (
     <div className="pricing" style={{ backgroundColor: "#fff" }}>
       {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}

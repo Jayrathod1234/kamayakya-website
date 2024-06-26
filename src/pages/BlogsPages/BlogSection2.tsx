@@ -50,7 +50,7 @@ const BlogSection2 = ({ blogs }: { blogs: Array<TBlog> }) => {
   // }, []);
 
   return (
-    <main style={{ backgroundColor: "#fff" }}>
+    <main>
       <section className="flex flex-col items-center ">
         {isLoadingBlogs && <Loading type={"gradient"} style={{ marginBottom: "50px" }} />}
         {noBlogs && (
