@@ -9,7 +9,7 @@ import AuthContext from "../components/AuthContext";
 import BlogSection2 from "./BlogsPages/BlogSection2";
 import { Footer, Navbar } from "../components.v2/index.components";
 import { GET_BLOGS } from "./api/URLs";
-const BlogsPage = ({blogs}) => {
+const BlogsPage = ({ blogs }) => {
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
@@ -27,20 +27,20 @@ const BlogsPage = ({blogs}) => {
   );
 };
 
-export async function getStaticProps(){
-      const response = await fetch(`${GET_BLOGS}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      return {
-        props:{
-          blogs:data,
-        }
-      }
-
+export async function getStaticProps() {
+  const response = await fetch(`${GET_BLOGS}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  return {
+    props: {
+      blogs: data,
+    },
+    revalidate: 10,
+  };
 }
 
 export default BlogsPage;

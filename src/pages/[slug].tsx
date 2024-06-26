@@ -36,14 +36,14 @@ export const getStaticPaths = async () => {
   const paths = data.map((blog) => ({
     params: { slug: blog.slug },
   }));
-  console.log(paths)
+  console.log(paths);
   return {
     paths,
     fallback: false,
   };
 };
 
-export const getStaticProps = (async (context) => {
+export const getStaticProps = async (context) => {
   const response = await fetch(`${GET_SPECIFIC_BLOG}${context.params.slug}`, {
     headers: {
       "Content-Type": "application/json",
@@ -52,48 +52,49 @@ export const getStaticProps = (async (context) => {
     next: { revalidate: 3600 },
   });
   const data = await response.arrayBuffer();
+  const decoder = new TextDecoder("utf-8");
   const textData = decoder.decode(data);
   const jsonData = JSON.parse(textData);
-  const blog = data;
-  return { props: { blog } }
-}) 
+  const blog = jsonData;
+  return { props: { blog }, revalidate: 10 };
+};
 
-const BlogPage = () => {
+const BlogPage = ({ blog }) => {
   const router = useRouter();
   const { slug } = router.query;
-  const [blog, setBlog] = useState<null | TBlog>(null);
+  // const [blog, setBlog] = useState<null | TBlog>(null);
   const { isLoggedIn } = useContext(AuthContext);
-  const decoder = new TextDecoder("utf-8");
+  // const decoder = new TextDecoder("utf-8");
   const customCss: CustomCSSProperties = {
     "--image-url": `url(${blog?.image1})`,
   };
-  useEffect(() => {
-    const fetchBlogData = async () => {
-      if (slug) {
-        try {
-          const refresh = localStorage.getItem("refresh");
-          // console.log(
-          //   `https://api-server.kamayakya.in/user/specificStock/${slug}`
-          // );
+  // useEffect(() => {
+  //   const fetchBlogData = async () => {
+  //     if (slug) {
+  //       try {
+  //         const refresh = localStorage.getItem("refresh");
+  //         // console.log(
+  //         //   `https://api-server.kamayakya.in/user/specificStock/${slug}`
+  //         // );
 
-          const response = await fetch(`${GET_SPECIFIC_BLOG}${slug}`, {
-            headers: {
-              "Content-Type": "application/json",
-              // Authorization: `Token ${refresh}`,
-            },
-            next: { revalidate: 3600 },
-          });
-          const data = await response.arrayBuffer();
-          const textData = decoder.decode(data);
-          const jsonData = JSON.parse(textData);
-          setBlog(jsonData);
-        } catch (error) {
-          console.error("Error fetching blog data:", error);
-        }
-      }
-    };
-    fetchBlogData();
-  }, [slug]);
+  //         const response = await fetch(`${GET_SPECIFIC_BLOG}${slug}`, {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             // Authorization: `Token ${refresh}`,
+  //           },
+  //           next: { revalidate: 3600 },
+  //         });
+  //         const data = await response.arrayBuffer();
+  //         const textData = decoder.decode(data);
+  //         const jsonData = JSON.parse(textData);
+  //         setBlog(jsonData);
+  //       } catch (error) {
+  //         console.error("Error fetching blog data:", error);
+  //       }
+  //     }
+  //   };
+  //   fetchBlogData();
+  // }, [slug]);
 
   if (!blog) {
     return (
@@ -124,7 +125,7 @@ const BlogPage = () => {
       {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
       <Head>
         <title>Kamayakya | {blog.title}</title>
-        {/* <meta name="title" content={blog.title} />
+        <meta name="title" content={blog.title} />
         <meta name="description" content={blog.description.substring(10)} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={"https://www.kamayakya.com/"} />
@@ -135,35 +136,7 @@ const BlogPage = () => {
         <meta property="twitter:url" content={"https://www.kamayakya.com/"} />
         <meta property="twitter:title" content={blog.title} />
         <meta property="twitter:description" content={blog.description.substring(10)} />
-        <meta property="twitter:image" content={blog.image1} /> */}
-        <title>Meta Tags — Preview, Edit and Generate</title>
-        <meta name="title" content="Meta Tags — Preview, Edit and Generate" />
-        <meta
-          name="description"
-          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
-        />
-
-        {/* <!-- Open Graph / Facebook --> */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://metatags.io/" />
-        <meta property="og:title" content="Meta Tags — Preview, Edit and Generate" />
-        <meta
-          property="og:description"
-          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
-        />
-        <meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
-        <meta property="og:image:height" content="200" />
-        <meta property="og:image:width" content="200" />
-
-        {/* <!-- Twitter --> */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://metatags.io/" />
-        <meta property="twitter:title" content="Meta Tags — Preview, Edit and Generate" />
-        <meta
-          property="twitter:description"
-          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
-        />
-        <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
+        <meta property="twitter:image" content={blog.image1} />
       </Head>
       <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
         <Navbar />
