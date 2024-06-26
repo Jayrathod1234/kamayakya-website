@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BASE_URL, GET_SPECIFIC_BLOG } from "./api/URLs";
+import { BASE_URL, GET_BLOGS, GET_SPECIFIC_BLOG } from "./api/URLs";
 import { Box } from "@mui/material";
 import AuthContext from "../components/AuthContext";
 import { useContext } from "react";
@@ -20,9 +20,43 @@ import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter, BsWhatsapp } from "reac
 import { Share } from "lucide-react";
 import { CustomCSSProperties, TBlog } from "@/types/shared";
 import Head from "next/head";
+import { GetStaticProps } from "next";
 // import { ReactQuill } from "react-quill";
 
 // import Markdown from "markdown-to-jsx";
+
+export const getStaticPaths = async () => {
+  const response = await fetch(`${GET_BLOGS}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  const paths = data.map((blog) => ({
+    params: { slug: blog.slug },
+  }));
+  console.log(paths)
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = (async (context) => {
+  const response = await fetch(`${GET_SPECIFIC_BLOG}${context.params.slug}`, {
+    headers: {
+      "Content-Type": "application/json",
+      // Authorization: `Token ${refresh}`,
+    },
+    next: { revalidate: 3600 },
+  });
+  const data = await response.arrayBuffer();
+  const textData = decoder.decode(data);
+  const jsonData = JSON.parse(textData);
+  const blog = data;
+  return { props: { blog } }
+}) 
 
 const BlogPage = () => {
   const router = useRouter();
@@ -103,25 +137,33 @@ const BlogPage = () => {
         <meta property="twitter:description" content={blog.description.substring(10)} />
         <meta property="twitter:image" content={blog.image1} /> */}
         <title>Meta Tags — Preview, Edit and Generate</title>
-<meta name="title" content="Meta Tags — Preview, Edit and Generate" />
-<meta name="description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!" />
+        <meta name="title" content="Meta Tags — Preview, Edit and Generate" />
+        <meta
+          name="description"
+          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+        />
 
-{/* <!-- Open Graph / Facebook --> */}
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://metatags.io/" />
-<meta property="og:title" content="Meta Tags — Preview, Edit and Generate" />
-<meta property="og:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!" />
-<meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
-<meta property="og:image:height" content="200" />
-<meta property="og:image:width" content="200" />
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://metatags.io/" />
+        <meta property="og:title" content="Meta Tags — Preview, Edit and Generate" />
+        <meta
+          property="og:description"
+          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+        />
+        <meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
+        <meta property="og:image:height" content="200" />
+        <meta property="og:image:width" content="200" />
 
-{/* <!-- Twitter --> */}
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://metatags.io/" />
-<meta property="twitter:title" content="Meta Tags — Preview, Edit and Generate" />
-<meta property="twitter:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!" />
-<meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
-
+        {/* <!-- Twitter --> */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://metatags.io/" />
+        <meta property="twitter:title" content="Meta Tags — Preview, Edit and Generate" />
+        <meta
+          property="twitter:description"
+          content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
+        />
+        <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
       </Head>
       <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
         <Navbar />

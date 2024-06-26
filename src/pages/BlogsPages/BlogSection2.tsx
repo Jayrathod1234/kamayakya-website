@@ -10,44 +10,44 @@ import { Input } from "@/components.v2/ui/input";
 import { Search } from "lucide-react";
 import { TBlog } from "@/types";
 
-const BlogSection2 = () => {
-  const [blogs, setBlogs] = useState([]);
+const BlogSection2 = ({blogs}) => {
+  // const [blogs, setBlogs] = useState([]);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
+  const [isLoadingBlogs, setIsLoadingBlogs] = useState(false);
   const [noBlogs, setNoBlogs] = useState(false);
 
   const handleImageLoad = () => {
     setIsLoading(false);
   };
 
-  const fetchBlogs = async () => {
-    try {
-      setIsLoadingBlogs(true);
-      const response = await fetch(`${GET_BLOGS}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `token ${refresh}`,
-        },
-      });
-      const data = await response.json();
-      setBlogs(data);
-      // console.log(data);
-      if (data.length === 0) {
-        setNoBlogs(true);
-      } else {
-        setNoBlogs(false);
-      }
-      setIsLoadingBlogs(false);
-    } catch (error) {
-      console.log("Error fetching blogs:", error);
-    }
-  };
+  // const fetchBlogs = async () => {
+  //   try {
+  //     setIsLoadingBlogs(true);
+  //     const response = await fetch(`${GET_BLOGS}`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // Authorization: `token ${refresh}`,
+  //       },
+  //     });
+  //     const data = await response.json();
+  //     setBlogs(data);
+  //     // console.log(data);
+  //     if (data.length === 0) {
+  //       setNoBlogs(true);
+  //     } else {
+  //       setNoBlogs(false);
+  //     }
+  //     setIsLoadingBlogs(false);
+  //   } catch (error) {
+  //     console.log("Error fetching blogs:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+  // useEffect(() => {
+  //   fetchBlogs();
+  // }, []);
 
   return (
     <main style={{ backgroundColor: "#fff" }}>
