@@ -5,6 +5,13 @@ import React, { createContext, useState, useEffect } from "react";
 const AuthContext = createContext({
   isLoggedIn: false,
   isSubscribed: false,
+  user: {
+    id:'',
+    username: "",
+    mobile: "",
+    subscription: [{ plan: "" }],
+    created:""
+  },
   children: null,
 });
 
@@ -12,6 +19,13 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [user, setUser] = useState({
+    id:'',
+    username: "",
+    mobile: "",
+    subscription: [{ plan: "" }],
+    created:""
+  });
   const refreshToken = localStorage.getItem("refresh");
 
   useEffect(() => {
@@ -59,6 +73,7 @@ export const AuthProvider = ({ children }) => {
           } else {
             setIsSubscribed(false);
           }
+          setUser(data);
         } catch (error) {
           console.error("Error verifying tokens:", error);
           setIsLoggedIn(false);
@@ -71,11 +86,7 @@ export const AuthProvider = ({ children }) => {
     getUserDetails();
   }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
 
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, isSubscribed }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ isLoggedIn, isSubscribed, user }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;

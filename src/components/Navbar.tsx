@@ -77,9 +77,9 @@ export default function App() {
 
 		if (window.location.pathname !== "/" && element_id === "philosophy") {
 			router.push("/#philosophy");
-		} else if (window.location.pathname !== "/" && element_id === "pricing") {
+		} else if ( element_id === "pricing") {
 			// Redirect to home page
-			router.push("/#pricing");
+			router.push("/pricing");
 		} else if (window.location.pathname !== "/" && element_id === "home") {
 			// Redirect to home page
 			router.push("/");
@@ -283,7 +283,7 @@ export default function App() {
 								Blogs
 							</Text>
 						</ListItemButton> */}
-						<ListItemButton
+						{/* <ListItemButton
 							onClick={() => {
 								scrolltoHash("pricing");
 								toggleDrawer();
@@ -295,7 +295,7 @@ export default function App() {
 							<Text b className="drawerElementText">
 								Pricing
 							</Text>
-						</ListItemButton>
+						</ListItemButton> */}
 						<ListItemButton
 							onClick={() => {
 								trackRecord();
@@ -469,7 +469,7 @@ export default function App() {
 								Testimonials
 							</Text>
 						</Navbar.Link> */}
-						<Navbar.Link
+						{/* <Navbar.Link
 							// isActive={
 							// 	typeof window !== "undefined" &&
 							// 	window.location.pathname === "/about-company"
@@ -485,7 +485,7 @@ export default function App() {
 							<Text b size={16} css={{ lineHeight: 5 }}>
 								Pricing
 							</Text>
-						</Navbar.Link>
+						</Navbar.Link> */}
 						{/* <Navbar.Link
 							// isActive={
 							// 	typeof window !== "undefined" &&
@@ -678,7 +678,7 @@ export default function App() {
 								boxShadow: "0px 0px 0px 2px rgba(255,255,255,0.15)",
 							}}
 						>
-							<span style={{ fontSize: 20 }}>Stocks to buy</span>
+							<span style={{ fontSize: 20 }}>Stocks to Buy</span>
 						</Button>
 					</Navbar.Item>
 				</Navbar.Content>

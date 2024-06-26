@@ -119,6 +119,7 @@ const LoginCard = () => {
         // Cookies.set("location", location, {expires: in30Minutes});
         // console.log( location, "login done from CArd" );
         router.push(location);
+        router.reload()
         // Cookies.set("refresh", data.refresh, { expires: in30Minutes });
         // if (router.pathname !== "/track-record") {
         //   router.push("/stock-picks");
@@ -231,6 +232,7 @@ const LoginCard = () => {
             <Card
               variant="flat"
               css={{
+                border:"0px",
                 borderRadius: "0px",
                 display: "flex",
                 alignItems: "center",

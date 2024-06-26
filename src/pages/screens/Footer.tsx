@@ -3,10 +3,10 @@ import { Divider, Text } from "@nextui-org/react";
 import React from "react";
 import Navbar from "../../components/Navbar";
 import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
+	FaFacebook,
+	FaInstagram,
+	FaLinkedinIn,
+	FaTwitter,
 } from "react-icons/fa";
 import { BsTelephone } from "react-icons/bs";
 import { CiMail } from "react-icons/ci";
@@ -257,7 +257,7 @@ const Footer = () => {
       </div>
       <div className="copyright-box">
         <Text className="copyright">
-          © 2024 KamayaKya Wealth Management Pvt. Ltd. (CIN - U74999PN2021PTC205529), all rights reserved.
+          © 2023 KamayaKya Wealth Management Pvt. Ltd., all rights reserved.
         </Text>
       </div>
     </header>

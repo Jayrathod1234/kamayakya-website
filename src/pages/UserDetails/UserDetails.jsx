@@ -40,7 +40,10 @@ const UserDetails = () => {
 	// const [editing, setEditing] = useState(false);
 	// const [editingRef, setEditingREf] = useState(false);
 	// const [saved, setSaved] = useState(false);
-
+	const toSentenceCase=(str)=> {
+		if (!str) return '';
+		return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+	}
   const handleLogin = () => {
     setShowLoginModal(true);
   };
@@ -98,7 +101,8 @@ const UserDetails = () => {
 					},
 				});
 				const data = await response.json();
-				// console.log(data.list_of_subscriptions);
+
+				console.log(data.list_of_subscriptions);
 				setSubscription(data.list_of_subscriptions);
 			} catch (error) {
 				console.error("Error fetching user details:", error);
@@ -455,7 +459,6 @@ const UserDetails = () => {
 					b
 					size={70}
 					css={{
-						marginTop: "50px",
 						marginBottom: "40px",
 						// width: "90%",
 						maxWidth: "80rem" /* 1280px */,
@@ -463,6 +466,7 @@ const UserDetails = () => {
 						lineHeight: 1.2,
 						paddingLeft: "15px",
 						paddingRight: "15px",
+						
 						"@media only screen and (max-width: 764px)": {
 							fontSize: 45,
 							lineHeight: 1.1,
@@ -943,9 +947,7 @@ const UserDetails = () => {
 									Subscription Type
 									<br />
 									<span style={{ fontSize: "25px", color: "#184D48" }}>
-										{sub.plan == "KamayaKya"
-											? "KamayaKya VIP+"
-											: "KamayaKya Free"}
+									{toSentenceCase(sub.plan)}
 									</span>
 								</Text>
 								<br />

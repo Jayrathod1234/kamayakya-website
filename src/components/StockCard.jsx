@@ -1,47 +1,47 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
-  Button,
-  Card,
-  Divider,
-  Text,
-  Loading,
-  Modal,
-  Dropdown,
+	Button,
+	Card,
+	Divider,
+	Text,
+	Loading,
+	Modal,
+	Dropdown,
 } from "@nextui-org/react";
 import { ArrowCircleUp, DocumentText, Lock, Lock1 } from "iconsax-react";
 import axios from "axios";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {
-  GET_ALL_URL,
-  GET_SPECIFIC_STOCK_URL,
-  TRACK_RECORD_FOR_ALL,
-  TRACK_RECORD_FOR_USER,
+	GET_ALL_URL,
+	GET_SPECIFIC_STOCK_URL,
+	TRACK_RECORD_FOR_ALL,
+	TRACK_RECORD_FOR_USER,
 } from "../pages/api/URLs";
 import {
-  Box,
-  Grid,
-  Alert,
-  IconButton,
-  TextField,
-  InputBase,
-  SwipeableDrawer,
-  List,
-  ListItemButton,
-  ListItemText,
-  ListItem,
-  FormGroup,
-  FormControl,
-  FormLabel,
-  FormControlLabel,
-  Checkbox,
-  FormHelperText,
-  RadioGroup,
-  Radio,
+	Box,
+	Grid,
+	Alert,
+	IconButton,
+	TextField,
+	InputBase,
+	SwipeableDrawer,
+	List,
+	ListItemButton,
+	ListItemText,
+	ListItem,
+	FormGroup,
+	FormControl,
+	FormLabel,
+	FormControlLabel,
+	Checkbox,
+	FormHelperText,
+	RadioGroup,
+	Radio,
 } from "@mui/material";
 import SpeedIcon from "@mui/icons-material/Speed";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { FaIndustry, FaRegArrowAltCircleUp } from "react-icons/fa";
-import { MdOutlineLock, MdFilterList } from "react-icons/md";
+import { MdOutlineLock, MdFilterList, MdOutlineFiberNew } from "react-icons/md";
 import { BiChevronRight } from "react-icons/bi";
 import { GrDocumentPdf } from "react-icons/gr";
 import { useRouter } from "next/router";
@@ -59,221 +59,221 @@ import LoginForSubsribe from "./LoginForSubsribe";
 import { BsFire } from "react-icons/bs";
 
 const StockCard = () => {
-  const router = useRouter();
-  const [stocks, setStocks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [isAlertVisible, setIsAlertVisible] = useState(false);
-  const [flipStates, setFlipStates] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [filteredStocks, setFilteredStocks] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedReportUrl, setSelectedReportUrl] = useState("");
-  const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
-  const { isLoggedIn } = useContext(AuthContext);
-  const { isSubscribed } = useContext(AuthContext);
-  // console.log(pdfjsVersion);
-  const [selectedStock, setSelectedStock] = useState(null);
-  const [showReportsModal, setShowReportsModal] = useState(false);
+	const router = useRouter();
+	const [stocks, setStocks] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState("");
+	const [isAlertVisible, setIsAlertVisible] = useState(false);
+	const [flipStates, setFlipStates] = useState([]);
+	const [showModal, setShowModal] = useState(false);
+	const [filteredStocks, setFilteredStocks] = useState([]);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [selectedReportUrl, setSelectedReportUrl] = useState("");
+	const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
+	const { isLoggedIn } = useContext(AuthContext);
+	const { isSubscribed } = useContext(AuthContext);
+	// console.log(pdfjsVersion);
+	const [selectedStock, setSelectedStock] = useState(null);
+	const [showReportsModal, setShowReportsModal] = useState(false);
 
   const staticNumbers = [70, 68, 61];
   const [showWhyModal, setShowWhyModal] = useState(false);
 
-  const [record, setRecord] = useState([]);
+	const [record, setRecord] = useState([]);
 
-  const [showLoginModalForSubscribe, setShowLoginModalForSubscribe] =
-    useState(false);
+	const [showLoginModalForSubscribe, setShowLoginModalForSubscribe] =
+		useState(false);
 
-  const handleShowWhyModal = () => {
-    setShowWhyModal(true);
-  };
+	const handleShowWhyModal = () => {
+		setShowWhyModal(true);
+	};
 
-  const handleWhyModalClose = () => {
-    setShowWhyModal(false);
-  };
+	const handleWhyModalClose = () => {
+		setShowWhyModal(false);
+	};
 
-  const handleOpenModal = (documentUrl) => {
-    setSelectedReportUrl(documentUrl);
-    // console.log(selectedReportUrl);
-    setShowModal(true);
-  };
+	const handleOpenModal = (documentUrl) => {
+		setSelectedReportUrl(documentUrl);
+		// console.log(selectedReportUrl);
+		setShowModal(true);
+	};
 
-  const handleOpenDisclosure = (stock) => {
-    if (stock?.stock_disclosures?.length > 0) {
-      const disclosureUrl = stock.stock_disclosures[0].document;
-      window.open(`${disclosureUrl}#toolbar=0`, "_blank", "fullscreen=yes");
-    } else {
-      // If no disclosures available, open the dummy URL
-      window.open(
-        "https://6c20e9b8-4436-474a-a31f-665d7b41553d.usrfiles.com/ugd/6c20e9_b05424ae64794ddc84905b8a57e161a4.pdf#toolbar=0",
-        "_blank",
-        "fullscreen=yes"
-      );
-    }
-  };
+	const handleOpenDisclosure = (stock) => {
+		if (stock?.stock_disclosures?.length > 0) {
+			const disclosureUrl = stock.stock_disclosures[0].document;
+			window.open(`${disclosureUrl}#toolbar=0`, "_blank", "fullscreen=yes");
+		} else {
+			// If no disclosures available, open the dummy URL
+			window.open(
+				"https://6c20e9b8-4436-474a-a31f-665d7b41553d.usrfiles.com/ugd/6c20e9_b05424ae64794ddc84905b8a57e161a4.pdf#toolbar=0",
+				"_blank",
+				"fullscreen=yes"
+			);
+		}
+	};
 
-  const handleOpenReports = (stock) => {
-    setSelectedStock(stock);
-    // console.log(selectedStock);
-    setShowReportsModal(true);
-  };
-  const handleCloseReports = () => {
-    setSelectedStock(null);
-    setShowReportsModal(false);
-  };
+	const handleOpenReports = (stock) => {
+		setSelectedStock(stock);
+		// console.log(selectedStock);
+		setShowReportsModal(true);
+	};
+	const handleCloseReports = () => {
+		setSelectedStock(null);
+		setShowReportsModal(false);
+	};
 
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // const handleTrackRecord = async () => {
-  //   try {
-  //     const refreshToken = localStorage.getItem("refresh");
-  //
-  //     const url = isLoggedIn ? TRACK_RECORD_FOR_USER : TRACK_RECORD_FOR_ALL;
-  //
-  //     const headers = {
-  //       "Content-Type": "application/json",
-  //     };
-  //
-  //     if (isLoggedIn) {
-  //       headers.Authorization = `token ${refreshToken}`;
-  //     }
-  //
-  //     const response = await fetch(url, {
-  //       method: "GET",
-  //       headers,
-  //     });
-  //
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setRecord(data);
-  //       console.log(data);
-  //     } else {
-  //       // Handle API call error
-  //       console.error("Error Getting Track Records | Track Record Page");
-  //     }
-  //   } catch (error) {
-  //     // Handle any other error
-  //     console.error(error);
-  //     // console.log("no call");
-  //   }
-  // };
-  //
-  // useEffect(() => {
-  //   handleTrackRecord();
-  // }, [isLoggedIn]);
+	// const handleTrackRecord = async () => {
+	//   try {
+	//     const refreshToken = localStorage.getItem("refresh");
+	//
+	//     const url = isLoggedIn ? TRACK_RECORD_FOR_USER : TRACK_RECORD_FOR_ALL;
+	//
+	//     const headers = {
+	//       "Content-Type": "application/json",
+	//     };
+	//
+	//     if (isLoggedIn) {
+	//       headers.Authorization = `token ${refreshToken}`;
+	//     }
+	//
+	//     const response = await fetch(url, {
+	//       method: "GET",
+	//       headers,
+	//     });
+	//
+	//     if (response.ok) {
+	//       const data = await response.json();
+	//       setRecord(data);
+	//       console.log(data);
+	//     } else {
+	//       // Handle API call error
+	//       console.error("Error Getting Track Records | Track Record Page");
+	//     }
+	//   } catch (error) {
+	//     // Handle any other error
+	//     console.error(error);
+	//     // console.log("no call");
+	//   }
+	// };
+	//
+	// useEffect(() => {
+	//   handleTrackRecord();
+	// }, [isLoggedIn]);
 
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
+	const toggleDrawer = () => {
+		setIsDrawerOpen(!isDrawerOpen);
+	};
 
-  const [showCert, setShowCert] = useState(false);
+	const [showCert, setShowCert] = useState(false);
 
-  const handleCert = () => {
-    // setShowCert(true);
-    var win = window.open(
-      "Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
-      "_blank",
-      "fullscreen=yes"
-    );
-    // win.document.write('<PdfViewer pdf={PDF}/>');
-  };
+	const handleCert = () => {
+		// setShowCert(true);
+		var win = window.open(
+			"Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+		// win.document.write('<PdfViewer pdf={PDF}/>');
+	};
 
-  const handleCertClose = () => {
-    setShowCert(false);
-  };
+	const handleCertClose = () => {
+		setShowCert(false);
+	};
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedPDF("");
-  };
+	const handleCloseModal = () => {
+		setShowModal(false);
+		setSelectedPDF("");
+	};
 
-  const handleCloseLoginModalForSubscribeNow = () => {
-    setShowLoginModalForSubscribe(false);
-  };
+	const handleCloseLoginModalForSubscribeNow = () => {
+		setShowLoginModalForSubscribe(false);
+	};
 
-  const handleAskPassword = (e) => {
-    e.verifyPassword("$420%69#kamayakya#69%420$");
-  };
+	const handleAskPassword = (e) => {
+		e.verifyPassword("$420%69#kamayakya#69%420$");
+	};
 
-  const handleClick = (index) => {
-    const newFlipStates = flipStates.map((state, i) =>
-      i == index ? !state : false
-    );
-    setFlipStates(newFlipStates);
-  };
+	const handleClick = (index) => {
+		const newFlipStates = flipStates.map((state, i) =>
+			i == index ? !state : false
+		);
+		setFlipStates(newFlipStates);
+	};
 
-  const [industries, setIndustries] = useState([]);
-  const [selectedIndustries, setSelectedIndustries] = useState([]);
-  const handleIndustrySelection = (industry) => {
-    if (selectedIndustries.includes(industry)) {
-      setSelectedIndustries(
-        selectedIndustries.filter((item) => item !== industry)
-      );
-    } else {
-      setSelectedIndustries([...selectedIndustries, industry]);
-    }
-  };
-  const selectedValue = React.useMemo(
-    () => Array.from(selectedIndustries).join(", ").replaceAll("_", " "),
-    [selectedIndustries]
-  );
+	const [industries, setIndustries] = useState([]);
+	const [selectedIndustries, setSelectedIndustries] = useState([]);
+	const handleIndustrySelection = (industry) => {
+		if (selectedIndustries.includes(industry)) {
+			setSelectedIndustries(
+				selectedIndustries.filter((item) => item !== industry)
+			);
+		} else {
+			setSelectedIndustries([...selectedIndustries, industry]);
+		}
+	};
+	const selectedValue = React.useMemo(
+		() => Array.from(selectedIndustries).join(", ").replaceAll("_", " "),
+		[selectedIndustries]
+	);
 
-  useEffect(() => {
-    const uniqueIndustries = [
-      ...new Set(stocks.map((stock) => stock.stock_industry)),
-    ];
-    setIndustries(uniqueIndustries);
-  }, [filteredStocks]);
+	useEffect(() => {
+		const uniqueIndustries = [
+			...new Set(stocks.map((stock) => stock.stock_industry)),
+		];
+		setIndustries(uniqueIndustries);
+	}, [filteredStocks]);
 
-  // const [timeSort, setTimeSort] = useState(new Set([""]));
-  const [timeSort, setTimeSort] = useState("");
-  // const [upsideSort, setUpsideSort] = useState(new Set([""]));
-  const [upsideSort, setUpsideSort] = useState("");
-  const [selectedPDF, setSelectedPDF] = useState(new Set([selectedReportUrl]));
+	// const [timeSort, setTimeSort] = useState(new Set([""]));
+	const [timeSort, setTimeSort] = useState("");
+	// const [upsideSort, setUpsideSort] = useState(new Set([""]));
+	const [upsideSort, setUpsideSort] = useState("");
+	const [selectedPDF, setSelectedPDF] = useState(new Set([selectedReportUrl]));
 
-  const PdfValue = React.useMemo(
-    () => Array.from(selectedPDF)[0] || "",
-    [selectedPDF]
-  );
+	const PdfValue = React.useMemo(
+		() => Array.from(selectedPDF)[0] || "",
+		[selectedPDF]
+	);
 
-  const timeSortValue = (event) => {
-    setTimeSort(event.target.value);
-    setUpsideSort("");
-  };
-  // React.useMemo(
-  // 	() => Array.from(timeSort)[0]?.replaceAll("_", " ") || "",
-  // 	[timeSort]
-  // );
+	const timeSortValue = (event) => {
+		setTimeSort(event.target.value);
+		setUpsideSort("");
+	};
+	// React.useMemo(
+	// 	() => Array.from(timeSort)[0]?.replaceAll("_", " ") || "",
+	// 	[timeSort]
+	// );
 
-  const upsideSortValue = (event) => {
-    setUpsideSort(event.target.value);
-    setTimeSort("");
-  };
+	const upsideSortValue = (event) => {
+		setUpsideSort(event.target.value);
+		setTimeSort("");
+	};
 
-  // React.useMemo(
-  // 	() => Array.from(upsideSort)[0]?.replaceAll("_", " ") || "",
-  // 	[upsideSort]
-  // );
+	// React.useMemo(
+	// 	() => Array.from(upsideSort)[0]?.replaceAll("_", " ") || "",
+	// 	[upsideSort]
+	// );
 
-  useEffect(() => {
-    // console.log(selectedIndustries);
-    const filteredAndSortedStocks = stocks
-      .filter((stock) => {
-        let passTimeFilter = true;
-        let passUpsideFilter = true;
-        let passSearchFilter = true;
+	useEffect(() => {
+		// console.log(selectedIndustries);
+		const filteredAndSortedStocks = stocks
+			.filter((stock) => {
+				let passTimeFilter = true;
+				let passUpsideFilter = true;
+				let passSearchFilter = true;
 
-        if (timeSort === "ascending") {
-          passTimeFilter = stock.time_left > 0;
-        } else if (timeSort === "descending") {
-          passTimeFilter = stock.time_left >= 0;
-        }
+				if (timeSort === "ascending") {
+					passTimeFilter = stock.time_left > 0;
+				} else if (timeSort === "descending") {
+					passTimeFilter = stock.time_left >= 0;
+				}
 
-        if (upsideSort === "ascending") {
-          passUpsideFilter = stock.upside_left > 0;
-        } else if (upsideSort === "descending") {
-          passUpsideFilter = stock.upside_left >= 0;
-        }
+				if (upsideSort === "ascending") {
+					passUpsideFilter = stock.upside_left > 0;
+				} else if (upsideSort === "descending") {
+					passUpsideFilter = stock.upside_left >= 0;
+				}
 
         if (searchQuery.trim() !== "") {
           // passSearchFilter =
@@ -296,52 +296,52 @@ const StockCard = () => {
           // console.log(searchQuery)
         }
 
-        return passTimeFilter && passUpsideFilter && passSearchFilter;
-      })
-      .filter((stock) => {
-        if (selectedValue.length === 0) {
-          return true; // Include all stocks if no industries are selected
-        } else {
-          return selectedValue.includes(stock.stock_industry);
-        }
-      })
-      .sort((stockA, stockB) => {
-        if (timeSort === "ascending") {
-          return stockA.time_left - stockB.time_left;
-        } else if (timeSort === "descending") {
-          return stockB.time_left - stockA.time_left;
-        } else if (upsideSort === "ascending") {
-          return stockA.upside_left - stockB.upside_left;
-        } else if (upsideSort === "descending") {
-          return stockB.upside_left - stockA.upside_left;
-        }
+				return passTimeFilter && passUpsideFilter && passSearchFilter;
+			})
+			.filter((stock) => {
+				if (selectedValue.length === 0) {
+					return true; // Include all stocks if no industries are selected
+				} else {
+					return selectedValue.includes(stock.stock_industry);
+				}
+			})
+			.sort((stockA, stockB) => {
+				if (timeSort === "ascending") {
+					return stockA.time_left - stockB.time_left;
+				} else if (timeSort === "descending") {
+					return stockB.time_left - stockA.time_left;
+				} else if (upsideSort === "ascending") {
+					return stockA.upside_left - stockB.upside_left;
+				} else if (upsideSort === "descending") {
+					return stockB.upside_left - stockA.upside_left;
+				}
 
-        return 0;
-      });
-    // console.log(filteredAndSortedStocks);
-    setFilteredStocks(filteredAndSortedStocks);
-  }, [stocks, timeSort, upsideSort, searchQuery, selectedIndustries]);
+				return 0;
+			});
+		// console.log(filteredAndSortedStocks);
+		setFilteredStocks(filteredAndSortedStocks);
+	}, [stocks, timeSort, upsideSort, searchQuery, selectedIndustries]);
 
-  const [showLoginModal, setShowLoginModal] = useState(false);
+	const [showLoginModal, setShowLoginModal] = useState(false);
 
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      setShowLoginModal(false);
-    }
-  }, [isLoggedIn]);
-  const handleLogin = () => {
-    setShowLoginModal(true);
-  };
+	useEffect(() => {
+		if (isLoggedIn === true) {
+			setShowLoginModal(false);
+		}
+	}, [isLoggedIn]);
+	const handleLogin = () => {
+		setShowLoginModal(true);
+	};
 
-  const handleCloseLoginModal = () => {
-    setShowLoginModal(false);
-  };
+	const handleCloseLoginModal = () => {
+		setShowLoginModal(false);
+	};
 
   const handleLoginOrSubForSubscribeNow = () => {
     if (isLoggedIn === true && isSubscribed === false) {
       const location = router.asPath;
       localStorage.setItem("location", location);
-      router.push("/purchase");
+      router.push("/pricing");
     }
     if (isLoggedIn === true && isSubscribed === true) {
       router.push("/stock-picks");
@@ -361,18 +361,18 @@ const StockCard = () => {
     }
   };
 
-  const showAlert = () => {
-    setIsAlertVisible(true);
-    setTimeout(() => {
-      setIsAlertVisible(false);
-    }, 10000);
-  };
+	const showAlert = () => {
+		setIsAlertVisible(true);
+		setTimeout(() => {
+			setIsAlertVisible(false);
+		}, 10000);
+	};
 
-  useEffect(() => {
-    if (error) {
-      showAlert();
-    }
-  }, [error]);
+	useEffect(() => {
+		if (error) {
+			showAlert();
+		}
+	}, [error]);
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -664,101 +664,101 @@ const StockCard = () => {
 						/>
 					</Box>
 
-          <IconButton
-            onClick={toggleDrawer}
-            css={{
-              width: "30px !important",
-              maxWidth: "30px !important",
-              backgroundColor: "red",
-              "@media only screen and (max-width: 768px)": {
-                width: "30px",
-                maxWidth: "30px",
-              },
-            }}
-          >
-            <Filter size={25} color="#125a54" />
-          </IconButton>
-          {/* Side Drawer Filtering & Sorting */}
-          <SwipeableDrawer
-            anchor="right"
-            open={isDrawerOpen}
-            onOpen={() => setIsDrawerOpen(true)}
-            onClose={toggleDrawer}
-            sx={{
-              width: {
-                xs: "100vw",
-                sm: "500px",
-              },
-              maxWidth: {
-                xs: "100%",
-                sm: "500px",
-              },
-              "& .MuiDrawer-paper": {
-                borderRadius: { xs: "0px", sm: "25px 0px 0px 25px" },
-                padding: "15px",
-                width: {
-                  xs: "100vw",
-                  sm: "500px",
-                },
-                maxWidth: {
-                  xs: "100%",
-                  sm: "500px",
-                },
-              },
-            }}
-          >
-            <List>
-              <ListItemButton
-                onClick={() => {
-                  toggleDrawer();
-                }}
-                sx={{
-                  justifyContent: "end",
-                  "&:hover": {
-                    backgroundColor: "#fff",
-                  },
-                }}
-              >
-                <CloseIcon />
-              </ListItemButton>
-              {/*<Text b size={21} css={{ paddingLeft: "30px" }}>*/}
-              {/*  Filter by industries :*/}
-              {/*</Text>*/}
-              <ListItem>
-                <FormControl
-                  sx={{ mt: "5px", ml: "15px" }}
-                  component="fieldset"
-                  variant="standard"
-                >
-                  <Text
-                    b
-                    size={19}
-                    css={{ paddingLeft: "30px", marginBottom: "15px" }}
-                  >
-                    Filter by industries:
-                  </Text>
-                  <FormGroup>
-                    {/* <Grid container spacing={2}> */}
-                    {industries.map((industry, index) => (
-                      // <Grid item xs={6} key={industry}>
-                      <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox
-                            checked={selectedIndustries.includes(industry)}
-                            onChange={() => handleIndustrySelection(industry)}
-                          />
-                        }
-                        label={industry}
-                      />
-                      // </Grid>
-                    ))}
-                    {/* </Grid> */}
-                  </FormGroup>
-                  {/*<FormHelperText>Multiple Selection</FormHelperText>*/}
-                </FormControl>
-              </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
+					<IconButton
+						onClick={toggleDrawer}
+						css={{
+							width: "30px !important",
+							maxWidth: "30px !important",
+							backgroundColor: "red",
+							"@media only screen and (max-width: 768px)": {
+								width: "30px",
+								maxWidth: "30px",
+							},
+						}}
+					>
+						<Filter size={25} color="#125a54" />
+					</IconButton>
+					{/* Side Drawer Filtering & Sorting */}
+					<SwipeableDrawer
+						anchor="right"
+						open={isDrawerOpen}
+						onOpen={() => setIsDrawerOpen(true)}
+						onClose={toggleDrawer}
+						sx={{
+							width: {
+								xs: "100vw",
+								sm: "500px",
+							},
+							maxWidth: {
+								xs: "100%",
+								sm: "500px",
+							},
+							"& .MuiDrawer-paper": {
+								borderRadius: { xs: "0px", sm: "25px 0px 0px 25px" },
+								padding: "15px",
+								width: {
+									xs: "100vw",
+									sm: "500px",
+								},
+								maxWidth: {
+									xs: "100%",
+									sm: "500px",
+								},
+							},
+						}}
+					>
+						<List>
+							<ListItemButton
+								onClick={() => {
+									toggleDrawer();
+								}}
+								sx={{
+									justifyContent: "end",
+									"&:hover": {
+										backgroundColor: "#fff",
+									},
+								}}
+							>
+								<CloseIcon />
+							</ListItemButton>
+							{/*<Text b size={21} css={{ paddingLeft: "30px" }}>*/}
+							{/*  Filter by industries :*/}
+							{/*</Text>*/}
+							<ListItem>
+								<FormControl
+									sx={{ mt: "5px", ml: "15px" }}
+									component="fieldset"
+									variant="standard"
+								>
+									<Text
+										b
+										size={19}
+										css={{ paddingLeft: "30px", marginBottom: "15px" }}
+									>
+										Filter by industries:
+									</Text>
+									<FormGroup>
+										{/* <Grid container spacing={2}> */}
+										{industries.map((industry, index) => (
+											// <Grid item xs={6} key={industry}>
+											<FormControlLabel
+												key={index}
+												control={
+													<Checkbox
+														checked={selectedIndustries.includes(industry)}
+														onChange={() => handleIndustrySelection(industry)}
+													/>
+												}
+												label={industry}
+											/>
+											// </Grid>
+										))}
+										{/* </Grid> */}
+									</FormGroup>
+									{/*<FormHelperText>Multiple Selection</FormHelperText>*/}
+								</FormControl>
+							</ListItem>
+							{/* <ListItem sx={{ justifyContent: "center" }}>
 								<Dropdown>
 									<Dropdown.Button
 										flat
@@ -808,50 +808,50 @@ const StockCard = () => {
 								</Dropdown>
 							</ListItem> */}
 
-              <Divider
-                css={{
-                  width: "50%",
-                  height: "4px",
-                  borderRadius: "1000px",
-                  backgroundColor: "#FF9E24",
-                  margin: "20px 25px 15px",
-                }}
-              />
-              {/*<Text b size={21} css={{ paddingLeft: "30px" }}>*/}
-              {/*  Sort by time left:*/}
-              {/*</Text>*/}
-              <ListItem>
-                <FormControl sx={{ mt: "5px", ml: "15px" }}>
-                  {/*<FormLabel*/}
-                  {/*  id="demo-controlled-radio-buttons-group"*/}
-                  {/*  style={{*/}
-                  {/*    fontSize: "15px",*/}
-                  {/*    fontWeight: "bold",*/}
-                  {/*    color: "#106352",*/}
-                  {/*  }}*/}
-                  {/*>*/}
-                  {/*  Time left*/}
-                  {/*</FormLabel>*/}
-                  <Text b size={19} css={{ paddingLeft: "30px" }}>
-                    Sort by time left:
-                  </Text>
-                  <RadioGroup value={timeSort} onChange={timeSortValue}>
-                    <FormControlLabel
-                      value="descending"
-                      control={<Radio />}
-                      label="Most Time Remaining (This means the stocks with the most time left are at the top)"
-                      style={{ paddingTop: "20px" }}
-                    />
-                    <FormControlLabel
-                      value="ascending"
-                      control={<Radio />}
-                      label="Least Time Remaining (This means the stocks with the least time left are at the top)"
-                      style={{ paddingTop: "20px" }}
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
+							<Divider
+								css={{
+									width: "50%",
+									height: "4px",
+									borderRadius: "1000px",
+									backgroundColor: "#FF9E24",
+									margin: "20px 25px 15px",
+								}}
+							/>
+							{/*<Text b size={21} css={{ paddingLeft: "30px" }}>*/}
+							{/*  Sort by time left:*/}
+							{/*</Text>*/}
+							<ListItem>
+								<FormControl sx={{ mt: "5px", ml: "15px" }}>
+									{/*<FormLabel*/}
+									{/*  id="demo-controlled-radio-buttons-group"*/}
+									{/*  style={{*/}
+									{/*    fontSize: "15px",*/}
+									{/*    fontWeight: "bold",*/}
+									{/*    color: "#106352",*/}
+									{/*  }}*/}
+									{/*>*/}
+									{/*  Time left*/}
+									{/*</FormLabel>*/}
+									<Text b size={19} css={{ paddingLeft: "30px" }}>
+										Sort by time left:
+									</Text>
+									<RadioGroup value={timeSort} onChange={timeSortValue}>
+										<FormControlLabel
+											value="descending"
+											control={<Radio />}
+											label="Most Time Remaining (This means the stocks with the most time left are at the top)"
+											style={{ paddingTop: "20px" }}
+										/>
+										<FormControlLabel
+											value="ascending"
+											control={<Radio />}
+											label="Least Time Remaining (This means the stocks with the least time left are at the top)"
+											style={{ paddingTop: "20px" }}
+										/>
+									</RadioGroup>
+								</FormControl>
+							</ListItem>
+							{/* <ListItem sx={{ justifyContent: "center" }}>
 								<Dropdown>
 									<Dropdown.Button
 										flat
@@ -898,37 +898,37 @@ const StockCard = () => {
 									</Dropdown.Menu>
 								</Dropdown>
 							</ListItem> */}
-              <ListItem>
-                <FormControl sx={{ ml: "15px" }}>
-                  {/*<FormLabel*/}
-                  {/*  id="controlled-radio-buttons"*/}
-                  {/*  style={{*/}
-                  {/*    fontSize: "15px",*/}
-                  {/*    fontWeight: "bold",*/}
-                  {/*    color: "#106352",*/}
-                  {/*  }}*/}
-                  {/*>*/}
-                  {/*  Potential upside*/}
-                  {/*</FormLabel>*/}
-                  <Text b size={19} css={{ paddingLeft: "30px" }}>
-                    Sort by potential upside:
-                  </Text>
-                  <RadioGroup value={upsideSort} onChange={upsideSortValue}>
-                    <FormControlLabel
-                      value="descending"
-                      control={<Radio />}
-                      label="Highest to Lowest (This means the stocks with the greatest potential upside are at the top)"
-                      style={{ paddingTop: "20px" }}
-                    />
-                    <FormControlLabel
-                      value="ascending"
-                      control={<Radio />}
-                      label="Lowest to Highest (This means the stocks with the least potential upside are at the top)"
-                      style={{ paddingTop: "20px" }}
-                    />
-                  </RadioGroup>
+							<ListItem>
+								<FormControl sx={{ ml: "15px" }}>
+									{/*<FormLabel*/}
+									{/*  id="controlled-radio-buttons"*/}
+									{/*  style={{*/}
+									{/*    fontSize: "15px",*/}
+									{/*    fontWeight: "bold",*/}
+									{/*    color: "#106352",*/}
+									{/*  }}*/}
+									{/*>*/}
+									{/*  Potential upside*/}
+									{/*</FormLabel>*/}
+									<Text b size={19} css={{ paddingLeft: "30px" }}>
+										Sort by potential upside:
+									</Text>
+									<RadioGroup value={upsideSort} onChange={upsideSortValue}>
+										<FormControlLabel
+											value="descending"
+											control={<Radio />}
+											label="Highest to Lowest (This means the stocks with the greatest potential upside are at the top)"
+											style={{ paddingTop: "20px" }}
+										/>
+										<FormControlLabel
+											value="ascending"
+											control={<Radio />}
+											label="Lowest to Highest (This means the stocks with the least potential upside are at the top)"
+											style={{ paddingTop: "20px" }}
+										/>
+									</RadioGroup>
 
-                  {/* {upsideSort !== "" && (
+									{/* {upsideSort !== "" && (
 										<Button variant="contained" onClick={handleClearSelection}>
 											Clear Selection
 										</Button>
@@ -943,28 +943,28 @@ const StockCard = () => {
 											Clear Selection
 										</Button>
 									)} */}
-                </FormControl>
-              </ListItem>
-              <ListItem sx={{ justifyContent: "center" }}>
-                {upsideSort !== "" ||
-                selectedIndustries.length > 0 ||
-                timeSort !== "" ? (
-                  <Button
-                    auto
-                    onPress={handleClearSelection}
-                    css={{
-                      background: "#ffa12e",
-                      fontSize: 17,
-                      width: "100%",
-                      borderRadius: "10000px",
-                      marginTop: "20px",
-                    }}
-                  >
-                    Clear Selection
-                  </Button>
-                ) : null}
-              </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
+								</FormControl>
+							</ListItem>
+							<ListItem sx={{ justifyContent: "center" }}>
+								{upsideSort !== "" ||
+								selectedIndustries.length > 0 ||
+								timeSort !== "" ? (
+									<Button
+										auto
+										onPress={handleClearSelection}
+										css={{
+											background: "#ffa12e",
+											fontSize: 17,
+											width: "100%",
+											borderRadius: "10000px",
+											marginTop: "20px",
+										}}
+									>
+										Clear Selection
+									</Button>
+								) : null}
+							</ListItem>
+							{/* <ListItem sx={{ justifyContent: "center" }}>
 								<Dropdown>
 									<Dropdown.Button
 										flat
@@ -1730,57 +1730,57 @@ const StockCard = () => {
                       {selectedStock?.stock_name}
                     </Text>
 
-                    {selectedStock?.stock_reports?.length > 0 ? (
-                      selectedStock.stock_reports.map((report) => (
-                        <div key={report.report_name} style={{}}>
-                          <IconButton
-                            key={report.report_name}
-                            onClick={() =>
-                              window.open(
-                                `${report.document}#view=FitH&toolbar=0`,
-                                "_blank",
-                                "fullscreen=yes"
-                              )
-                            }
-                            // onClick={() => handleOpenModal(report.document)}
-                            sx={{
-                              "&:hover": { background: "#fff" },
-                              borderRadius: "0px",
-                              paddingLeft: "0px",
-                            }}
-                          >
-                            <DocumentText size={25} />
-                            <Text
-                              b
-                              size={21}
-                              css={{
-                                marginLeft: "5px",
-                                alignSelf: "start",
-                                lineHeight: 1.5,
-                              }}
-                            >
-                              {report.report_name}
-                            </Text>
-                          </IconButton>
-                        </div>
-                      ))
-                    ) : (
-                      <Text
-                        b
-                        size={20}
-                        css={{
-                          // position: "absolute",
-                          paddingTop: "50px",
-                          paddingBottom: "50px",
-                          // left: "22.5%",
-                        }}
-                      >
-                        No Reports Available!
-                      </Text>
-                    )}
-                  </Box>
-                </Card>
-                {/* <Button
+										{selectedStock?.stock_reports?.length > 0 ? (
+											selectedStock.stock_reports.map((report) => (
+												<div key={report.report_name} style={{}}>
+													<IconButton
+														key={report.report_name}
+														onClick={() =>
+															window.open(
+																`${report.document}#view=FitH&toolbar=0`,
+																"_blank",
+																"fullscreen=yes"
+															)
+														}
+														// onClick={() => handleOpenModal(report.document)}
+														sx={{
+															"&:hover": { background: "#fff" },
+															borderRadius: "0px",
+															paddingLeft: "0px",
+														}}
+													>
+														<DocumentText size={25} />
+														<Text
+															b
+															size={21}
+															css={{
+																marginLeft: "5px",
+																alignSelf: "start",
+																lineHeight: 1.5,
+															}}
+														>
+															{report.report_name}
+														</Text>
+													</IconButton>
+												</div>
+											))
+										) : (
+											<Text
+												b
+												size={20}
+												css={{
+													// position: "absolute",
+													paddingTop: "50px",
+													paddingBottom: "50px",
+													// left: "22.5%",
+												}}
+											>
+												No Reports Available!
+											</Text>
+										)}
+									</Box>
+								</Card>
+								{/* <Button
 									flat
 									onPress={handleCloseReports}
 									css={{
@@ -1906,194 +1906,194 @@ const StockCard = () => {
                   alt="kamayakya"
                 />
 
-                <Divider
-                  css={{
-                    background: "#fff",
-                    opacity: "0.5",
-                    width: "30px",
-                    height: "3px",
-                    marginTop: "20px",
-                  }}
-                />
+								<Divider
+									css={{
+										background: "#fff",
+										opacity: "0.5",
+										width: "30px",
+										height: "3px",
+										marginTop: "20px",
+									}}
+								/>
 
-                <Box
-                  sx={{
-                    width: "100%",
-                    alignSelf: "start",
-                    marginTop: "20px",
-                    marginBottom: "10px",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingLeft: "30px",
-                    paddingRight: "30px",
-                  }}
-                >
-                  <CheckCircleIcon
-                    sx={{
-                      marginRight: "10px",
-                      color: "#fff",
-                      fontSize: 20,
-                      alignSelf: "start",
-                      marginTop: "5px",
-                      opacity: 0.9,
-                    }}
-                  />
-                  <Text
-                    b
-                    color="#fff"
-                    size={20}
-                    css={{ lineHeight: 1.2, opacity: 0.9 }}
-                  >
-                    2-4 individual stock picks every month
-                  </Text>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    alignSelf: "start",
-                    marginBottom: "10px",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingLeft: "30px",
-                    paddingRight: "30px",
-                  }}
-                >
-                  <CheckCircleIcon
-                    sx={{
-                      marginRight: "10px",
-                      color: "#fff",
-                      fontSize: 20,
-                      alignSelf: "start",
-                      marginTop: "5px",
-                      opacity: 0.9,
-                    }}
-                  />
-                  <Text
-                    b
-                    color="#fff"
-                    size={20}
-                    css={{ lineHeight: 1.2, opacity: 0.9 }}
-                  >
-                    NSE + BSE + SME stock picks
-                  </Text>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    alignSelf: "start",
-                    // marginTop: "20px",
-                    marginBottom: "10px",
-                    // marginLeft: "5%",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingLeft: "30px",
-                    paddingRight: "30px",
-                  }}
-                >
-                  <CheckCircleIcon
-                    sx={{
-                      marginRight: "10px",
-                      color: "#fff",
-                      fontSize: 20,
-                      alignSelf: "start",
-                      marginTop: "5px",
-                      opacity: 0.9,
-                    }}
-                  />
-                  <Text
-                    b
-                    color="#fff"
-                    size={20}
-                    css={{ lineHeight: 1.2, opacity: 0.9 }}
-                  >
-                    WhatsApp & Email updates
-                  </Text>
-                </Box>
-                <Divider
-                  css={{
-                    background: "#fff",
-                    opacity: "0.5",
-                    width: "30px",
-                    height: "3px",
-                    marginTop: "20px",
-                    marginBottom: "20px",
-                  }}
-                />
-                <Button
-                  // variant="contained"
-                  css={{
-                    width: "75%",
-                    background: "linear-gradient(to top , #fb7716,#fe9807)",
-                    paddingTop: "5px",
-                    paddingBottom: "5px",
-                    borderRadius: "10000px",
-                    boxShadow: "none",
-                    "&:hover": {
-                      backgroundImage:
-                        "linear-gradient(to top , #FF9D28, #ffa736)",
-                    },
-                  }}
-                  onClick={handleLoginOrSubForSubscribeNow}
-                >
-                  <Text b color="#FFF" size={18}>
-                    Subscribe Now
-                  </Text>
-                </Button>
-                <Modal
-                  width="450px"
-                  open={showLoginModalForSubscribe}
-                  onClose={handleCloseLoginModalForSubscribeNow}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-                    <IconButton
-                      sx={{
-                        width: "40px",
-                        "&:hover": { background: "#fff" },
-                        // alignSelf: "end",
-                        right: "20px",
-                      }}
-                      onClick={() => handleCloseLoginModalForSubscribeNow()}
-                    >
-                      <CloseIcon sx={{ color: "#e81123" }} />
-                    </IconButton>
-                  </Box>
+								<Box
+									sx={{
+										width: "100%",
+										alignSelf: "start",
+										marginTop: "20px",
+										marginBottom: "10px",
+										display: "flex",
+										flexDirection: "row",
+										alignItems: "center",
+										paddingLeft: "30px",
+										paddingRight: "30px",
+									}}
+								>
+									<CheckCircleIcon
+										sx={{
+											marginRight: "10px",
+											color: "#fff",
+											fontSize: 20,
+											alignSelf: "start",
+											marginTop: "5px",
+											opacity: 0.9,
+										}}
+									/>
+									<Text
+										b
+										color="#fff"
+										size={20}
+										css={{ lineHeight: 1.2, opacity: 0.9 }}
+									>
+										2-4 individual stock picks every month
+									</Text>
+								</Box>
+								<Box
+									sx={{
+										width: "100%",
+										alignSelf: "start",
+										marginBottom: "10px",
+										display: "flex",
+										flexDirection: "row",
+										alignItems: "center",
+										paddingLeft: "30px",
+										paddingRight: "30px",
+									}}
+								>
+									<CheckCircleIcon
+										sx={{
+											marginRight: "10px",
+											color: "#fff",
+											fontSize: 20,
+											alignSelf: "start",
+											marginTop: "5px",
+											opacity: 0.9,
+										}}
+									/>
+									<Text
+										b
+										color="#fff"
+										size={20}
+										css={{ lineHeight: 1.2, opacity: 0.9 }}
+									>
+										NSE + BSE + SME stock picks
+									</Text>
+								</Box>
+								<Box
+									sx={{
+										width: "100%",
+										alignSelf: "start",
+										// marginTop: "20px",
+										marginBottom: "10px",
+										// marginLeft: "5%",
+										display: "flex",
+										flexDirection: "row",
+										alignItems: "center",
+										paddingLeft: "30px",
+										paddingRight: "30px",
+									}}
+								>
+									<CheckCircleIcon
+										sx={{
+											marginRight: "10px",
+											color: "#fff",
+											fontSize: 20,
+											alignSelf: "start",
+											marginTop: "5px",
+											opacity: 0.9,
+										}}
+									/>
+									<Text
+										b
+										color="#fff"
+										size={20}
+										css={{ lineHeight: 1.2, opacity: 0.9 }}
+									>
+										WhatsApp & Email updates
+									</Text>
+								</Box>
+								<Divider
+									css={{
+										background: "#fff",
+										opacity: "0.5",
+										width: "30px",
+										height: "3px",
+										marginTop: "20px",
+										marginBottom: "20px",
+									}}
+								/>
+								<Button
+									// variant="contained"
+									css={{
+										width: "75%",
+										background: "linear-gradient(to top , #fb7716,#fe9807)",
+										paddingTop: "5px",
+										paddingBottom: "5px",
+										borderRadius: "10000px",
+										boxShadow: "none",
+										"&:hover": {
+											backgroundImage:
+												"linear-gradient(to top , #FF9D28, #ffa736)",
+										},
+									}}
+									onClick={handleLoginOrSubForSubscribeNow}
+								>
+									<Text b color="#FFF" size={18}>
+										Subscribe Now
+									</Text>
+								</Button>
+								<Modal
+									width="450px"
+									open={showLoginModalForSubscribe}
+									onClose={handleCloseLoginModalForSubscribeNow}
+								>
+									<Box
+										sx={{
+											display: "flex",
+											flexDirection: "row",
+											width: "100%",
+											justifyContent: "space-between",
+											alignItems: "center",
+										}}
+									>
+										<img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+										<IconButton
+											sx={{
+												width: "40px",
+												"&:hover": { background: "#fff" },
+												// alignSelf: "end",
+												right: "20px",
+											}}
+											onClick={() => handleCloseLoginModalForSubscribeNow()}
+										>
+											<CloseIcon sx={{ color: "#e81123" }} />
+										</IconButton>
+									</Box>
 
-                  <Modal.Body>
-                    <LoginForSubsribe />
-                  </Modal.Body>
-                </Modal>
+									<Modal.Body>
+										<LoginForSubsribe />
+									</Modal.Body>
+								</Modal>
 
-                <Text
-                  b
-                  size={20}
-                  color="#fff"
-                  css={{
-                    textAlign: "center",
-                    marginTop: "10px",
-                    "@media only screen and (max-width: 768px)": {
-                      fontSize: "20px",
-                    },
-                  }}
-                >
-                  for ₹
-                  <span
-                    style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
-                  >
-                    15,000/year
-                  </span>
-                </Text>
+								<Text
+									b
+									size={20}
+									color="#fff"
+									css={{
+										textAlign: "center",
+										marginTop: "10px",
+										"@media only screen and (max-width: 768px)": {
+											fontSize: "20px",
+										},
+									}}
+								>
+									for ₹
+									<span
+										style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
+									>
+										15,000/year
+									</span>
+								</Text>
 
                 <Text
                   b
@@ -2193,16 +2193,16 @@ const StockCard = () => {
                   </IconButton>
                 </Box>
 
-                <Modal.Body>
-                  <Login />
-                </Modal.Body>
-              </Modal>
-            </Grid>
-          ) : (
-            ""
-          )}
-          {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
-          {/* {stocks.length <= 3 &&
+								<Modal.Body>
+									<Login />
+								</Modal.Body>
+							</Modal>
+						</Grid>
+					) : (
+						""
+					)}
+					{/* {stocks.length <= 3 && stocks.map((stock) => ( */}
+					{/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
           {!isLoggedIn || !isSubscribed
             ? staticNumbers.map((number, index) => (
@@ -2379,46 +2379,46 @@ const StockCard = () => {
                         </div>
                       </Box>
 
-                      <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
-                        <div
-                          style={{
-                            display: "flex",
-                            width: "100%",
-                            flexDirection: "column",
-                          }}
-                        >
-                          <Divider
-                            height={4}
-                            style={{
-                              backgroundColor: "#ffa736",
-                              marginTop: "30px",
-                              marginBottom: "10px",
-                              width: "50px",
-                              alignSelf: "center",
-                            }}
-                          />
+											<Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
+												<div
+													style={{
+														display: "flex",
+														width: "100%",
+														flexDirection: "column",
+													}}
+												>
+													<Divider
+														height={4}
+														style={{
+															backgroundColor: "#ffa736",
+															marginTop: "30px",
+															marginBottom: "10px",
+															width: "50px",
+															alignSelf: "center",
+														}}
+													/>
 
-                          <div
-                            style={{
-                              zIndex: 1,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              flexDirection: "column",
-                              marginTop: "0px",
-                            }}
-                          >
-                            <MdOutlineLock color="#ffa12e" size={50} />
-                            <div
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                flexDirection: "row",
-                                marginTop: "20px",
-                              }}
-                              className="stocksPage-card-loginSection"
-                            >
-                              {/* <Button
+													<div
+														style={{
+															zIndex: 1,
+															display: "flex",
+															alignItems: "center",
+															justifyContent: "center",
+															flexDirection: "column",
+															marginTop: "0px",
+														}}
+													>
+														<MdOutlineLock color="#ffa12e" size={50} />
+														<div
+															style={{
+																display: "flex",
+																alignItems: "center",
+																flexDirection: "row",
+																marginTop: "20px",
+															}}
+															className="stocksPage-card-loginSection"
+														>
+															{/* <Button
 																on
 																onPress={handleFirstCard}
 																css={{
@@ -2525,31 +2525,31 @@ const StockCard = () => {
                                 </div>
                               )}
 
-                              {/*<BiChevronRight size={24} color="#000000" />*/}
-                              {/* </Button> */}
-                            </div>
-                          </div>
-                          <Divider
-                            height={4}
-                            style={{
-                              backgroundColor: "#ffa736",
-                              marginTop: "30px",
-                              marginBottom: "10px",
-                              width: "50px",
-                              alignSelf: "center",
-                            }}
-                          />
-                        </div>
-                      </Box>
-                    </Box>
-                  </Card>
-                </Grid>
-              ))
-            : ""}
-        </Grid>
-      </Box>
-    </div>
-  );
+															{/*<BiChevronRight size={24} color="#000000" />*/}
+															{/* </Button> */}
+														</div>
+													</div>
+													<Divider
+														height={4}
+														style={{
+															backgroundColor: "#ffa736",
+															marginTop: "30px",
+															marginBottom: "10px",
+															width: "50px",
+															alignSelf: "center",
+														}}
+													/>
+												</div>
+											</Box>
+										</Box>
+									</Card>
+								</Grid>
+						  ))
+						: ""}
+				</Grid>
+			</Box>
+		</div>
+	);
 };
 
 export default StockCard;

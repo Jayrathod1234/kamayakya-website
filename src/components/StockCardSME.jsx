@@ -355,7 +355,7 @@ const StockCardSME = () => {
     if (isLoggedIn === true && isSubscribed === false) {
       const location = router.asPath;
       localStorage.setItem("location", location);
-      router.push("/purchase");
+      router.push("/pricing");
     }
     if (isLoggedIn === true && isSubscribed === true) {
       router.push("/sme");
@@ -401,6 +401,7 @@ const StockCardSME = () => {
 							Authorization: `token ${refresh}`,
 						},
 					});
+          console.log(response)
 					const sortedStocks = response.data.sort((a, b) => {
 						// if (a.recommended_stock === b.recommended_stock) return 0;
 						// return a.recommended_stock ? -1 : 1;
@@ -461,18 +462,31 @@ const StockCardSME = () => {
     setUpsideSort("");
   };
 
-    const isNewStock = (createdDateString) => {
-        const createdDate = new Date(createdDateString);
-        const twoMonthsAgo = new Date();
-        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+	const isNewStock = (createdDateString) => {
+		const createdDate = new Date(createdDateString);
+		const twoMonthsAgo = new Date();
+		twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
-        const today = new Date();
-        // console.log(
-        // 	createdDate,
-        // 	createdDate >= twoMonthsAgo && createdDate <= today
-        // );
-        return createdDate >= twoMonthsAgo && createdDate <= today;
-    };
+		const today = new Date();
+		// console.log(
+		// 	createdDate,
+		// 	createdDate >= twoMonthsAgo && createdDate <= today
+		// );
+		return createdDate >= twoMonthsAgo && createdDate <= today;
+	};
+
+    // const isNewStock = (createdDateString) => {
+    //     const createdDate = new Date(createdDateString);
+    //     const twoMonthsAgo = new Date();
+    //     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+
+    //     const today = new Date();
+    //     // console.log(
+    //     // 	createdDate,
+    //     // 	createdDate >= twoMonthsAgo && createdDate <= today
+    //     // );
+    //     return createdDate >= twoMonthsAgo && createdDate <= today;
+    // };
   return (
     <div
       style={{
@@ -546,6 +560,7 @@ const StockCardSME = () => {
             css={{
               fontWeight: "bolder",
               color: "#021C61",
+              // marginTop:50,
               "@media only screen and (max-width: 764px)": {
                 fontSize: 18,
                 width: "100%",
@@ -2135,7 +2150,7 @@ const StockCardSME = () => {
               </Modal>
             </Grid>
           ))}
-          {!isLoggedIn || !isSubscribed ? (
+          { isLoggedIn || !isLoggedIn || !isSubscribed ? (
             <Grid>
               <Card
                 isHoverable
@@ -2465,7 +2480,7 @@ const StockCardSME = () => {
           {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
           {/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
-          {!isLoggedIn || !isSubscribed
+          {isLoggedIn || !isLoggedIn || !isSubscribed
             ? staticNumbers.map((number, index) => (
                 <Grid
                   // key={stock.id}

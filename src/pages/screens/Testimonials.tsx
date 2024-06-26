@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Box, Avatar } from "@mui/material";
 import { Text } from "@nextui-org/react";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+import Marquee from "react-fast-marquee";
 
 const Testimonials = () => {
 	return (
@@ -17,7 +18,7 @@ const Testimonials = () => {
 				justifyContent: "center",
 				alignItems: "center",
 				width: "100%",
-				alignContent: "center",
+				alignContent: "center"
 			}}
 		>
 			<div
@@ -29,6 +30,7 @@ const Testimonials = () => {
 					justifyContent: "center",
 					alignItems: "center",
 					flexDirection: "column",
+					marginBottom:50
 				}}
 			>
 				<Box

@@ -164,6 +164,7 @@ const HomePage = () => {
         backgroundPositionY: "bottom",
         backgroundSize: "contain",
         backgroundRepeat: "repeat-x",
+    
         // minHeight: "100vh",
         // paddingTop: "80px",
         height: "fit-content",

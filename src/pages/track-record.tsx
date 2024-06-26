@@ -3,6 +3,7 @@ import AuthContext from "@/components/AuthContext";
 import NavBar2 from "@/components/Navbar2";
 import NavBar from "@/components/Navbar";
 // import { Text } from "@nextui-org/react";
+// import {Navbar,Footer} from "@/components.v2/index.components";
 import TrackPage from "../components/TrackPage";
 import PageVisibility from "@/components/PageVisibility";
 import Head from "next/head";
