@@ -19,7 +19,7 @@ import { format } from "date-fns";
 import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter, BsWhatsapp } from "react-icons/bs";
 import { Share } from "lucide-react";
 import { CustomCSSProperties, TBlog } from "@/types/shared";
-
+import Head from "next/head";
 // import { ReactQuill } from "react-quill";
 
 // import Markdown from "markdown-to-jsx";
@@ -88,6 +88,41 @@ const BlogPage = () => {
   return (
     <div className="pricing" style={{ backgroundColor: "#fff" }}>
       {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
+      <Head>
+        <title>Kamayakya | {blog.title}</title>
+        {/* <meta name="title" content={blog.title} />
+        <meta name="description" content={blog.description.substring(10)} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={"https://www.kamayakya.com/"} />
+        <meta property="og:title" content={blog.title} />
+        <meta property="og:description" content={blog.description.substring(10)} />
+        <meta property="og:image" content={blog.image1} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={"https://www.kamayakya.com/"} />
+        <meta property="twitter:title" content={blog.title} />
+        <meta property="twitter:description" content={blog.description.substring(10)} />
+        <meta property="twitter:image" content={blog.image1} /> */}
+        <title>Meta Tags — Preview, Edit and Generate</title>
+<meta name="title" content="Meta Tags — Preview, Edit and Generate" />
+<meta name="description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!" />
+
+{/* <!-- Open Graph / Facebook --> */}
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://metatags.io/" />
+<meta property="og:title" content="Meta Tags — Preview, Edit and Generate" />
+<meta property="og:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!" />
+<meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
+<meta property="og:image:height" content="200" />
+<meta property="og:image:width" content="200" />
+
+{/* <!-- Twitter --> */}
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://metatags.io/" />
+<meta property="twitter:title" content="Meta Tags — Preview, Edit and Generate" />
+<meta property="twitter:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!" />
+<meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
+
+      </Head>
       <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
         <Navbar />
       </div>
@@ -128,9 +163,12 @@ const BlogPage = () => {
       </div>
       <div className=" relative ">
         <div className=" hidden lg:flex sticky top-[25dvh] ml-6  flex-col w-fit float-left gap-y-3">
-          <button onClick={()=>{
-            window.open(`https://x.com/intent/post?text=${"TEST SHARING ON X"}+${"https://www.kamayakya.com/"}`)
-          }} className=" border border-gray-100 rounded-full p-3">
+          <button
+            onClick={() => {
+              window.open(`https://x.com/intent/post?text=${"TEST SHARING ON X"}+${"https://www.kamayakya.com/"}`);
+            }}
+            className=" border border-gray-100 rounded-full p-3"
+          >
             <BsWhatsapp size={16} fontSize={16} />
           </button>
           <button
