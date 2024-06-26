@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import { ChevronDown, ChevronsDown, ChevronsUp, FileBadge, Icon, Layers2, UnfoldHorizontal, icons } from "lucide-react";
+import {  icons } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { MAIN_BOARD, SME_BOARD } from "@/constants/index.constants";
 
