@@ -9,11 +9,12 @@ import AuthContext from "../components/AuthContext";
 import BlogSection2 from "./BlogsPages/BlogSection2";
 import { Footer, Navbar } from "../components.v2/index.components";
 import { GET_BLOGS } from "./api/URLs";
-const BlogsPage = ({ blogs }) => {
+import { TBlog } from "@/types";
+const BlogsPage = ({ blogs }: { blogs: Array<TBlog> }) => {
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
-    <div className="  bg-white pricing">
+    <div className="  bg-white pricing bg-[url('/blogs/blog-bg.webp')] bg-[length:auto_600px] bg-no-repeat bg-[top_center]">
       <main className="  main-container">
         <Navbar />
         {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}

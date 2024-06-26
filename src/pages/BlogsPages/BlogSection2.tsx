@@ -10,7 +10,7 @@ import { Input } from "@/components.v2/ui/input";
 import { Search } from "lucide-react";
 import { TBlog } from "@/types";
 
-const BlogSection2 = ({blogs}) => {
+const BlogSection2 = ({ blogs }: { blogs: Array<TBlog> }) => {
   // const [blogs, setBlogs] = useState([]);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +51,7 @@ const BlogSection2 = ({blogs}) => {
 
   return (
     <main style={{ backgroundColor: "#fff" }}>
-      <section className='flex flex-col items-center '>
+      <section className="flex flex-col items-center ">
         {isLoadingBlogs && <Loading type={"gradient"} style={{ marginBottom: "50px" }} />}
         {noBlogs && (
           <>
@@ -65,14 +65,20 @@ const BlogSection2 = ({blogs}) => {
             <p className=" text-lg text-gray-800">Deep dives into market trends and data</p>
           </div>
           <div className=" mx-auto w-full  max-w-[426.67px] mb-10 py-[10px] px-[14px] border border-gray-200 rounded-[6px] flex items-center gap-x-2">
-            <Search size={16} color="#667085"/>
-            <Input className=" border-none p-0 h-auto autofill:bg-white auto placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0" placeholder="Search for blogs"/>
+            <Search size={16} color="#667085" />
+            <Input
+              className=" border-none p-0 h-auto autofill:bg-white auto placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              placeholder="Search for blogs"
+            />
           </div>
-          
+
           <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(358px,1fr))] gap-y-14 gap-x-8 w-full ">
+            {/* <div className=" col-span-full"> */}
             <BlogCardLg />
+            {/* </div> */}
+
             {/* <div className=" flex row-start-2 gap-x-8"> */}
-            {blogs.map((blog:TBlog) => (
+            {blogs.map((blog: TBlog) => (
               <BlogCardSm key={blog.id} blog={blog} />
               // <div
               //   onClick={() => router.push(`${blog.slug}`)}

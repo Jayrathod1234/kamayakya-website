@@ -33,7 +33,7 @@ export const getStaticPaths = async () => {
     },
   });
   const data = await response.json();
-  const paths = data.map((blog) => ({
+  const paths = data.map((blog: TBlog) => ({
     params: { slug: blog.slug },
   }));
   console.log(paths);
@@ -43,8 +43,8 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context) => {
-  const response = await fetch(`${GET_SPECIFIC_BLOG}${context.params.slug}`, {
+export const getStaticProps = (async (context) => {
+  const response = await fetch(`${GET_SPECIFIC_BLOG}${context.params?.slug}`, {
     headers: {
       "Content-Type": "application/json",
       // Authorization: `Token ${refresh}`,
@@ -57,9 +57,11 @@ export const getStaticProps = async (context) => {
   const jsonData = JSON.parse(textData);
   const blog = jsonData;
   return { props: { blog }, revalidate: 10 };
-};
+}) satisfies GetStaticProps<{
+  blog: TBlog;
+}>;
 
-const BlogPage = ({ blog }) => {
+const BlogPage = ({ blog }: { blog: TBlog }) => {
   const router = useRouter();
   const { slug } = router.query;
   // const [blog, setBlog] = useState<null | TBlog>(null);
@@ -119,7 +121,7 @@ const BlogPage = ({ blog }) => {
       </Box>
     );
   }
-
+  console.log(router.pathname)
   return (
     <div className="pricing" style={{ backgroundColor: "#fff" }}>
       {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
@@ -128,7 +130,7 @@ const BlogPage = ({ blog }) => {
         <meta name="title" content={blog.title} />
         <meta name="description" content={blog.description.substring(10)} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={"https://www.kamayakya.com/"} />
+        <meta property="og:url" content={router.pathname} />
         <meta property="og:title" content={blog.title} />
         <meta property="og:description" content={blog.description.substring(10)} />
         <meta property="og:image" content={blog.image1} />
