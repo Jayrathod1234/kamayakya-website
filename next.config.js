@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images:{
-    unoptimized:true
+  images: {
+    unoptimized: true,
   },
   async rewrites() {
     return [
@@ -11,6 +11,9 @@ const nextConfig = {
         destination: "https://api.example.com/:path*",
       },
     ];
+  },
+  experimental: {
+    esmExternals: true,
   },
 };
 
