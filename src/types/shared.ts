@@ -7,13 +7,6 @@ export interface CustomCSSProperties extends CSSProperties {
 }
 
 
-// src/types.d.ts
-import { CSSProperties } from 'react';
-
-export interface CustomCSSProperties extends CSSProperties {
-  '--image-url'?: string;
-}
-
 
 export type TChildren = {
   children: React.ReactNode;
