@@ -369,7 +369,7 @@ const StockCardSME = () => {
     if (isLoggedIn) {
       const location = router.asPath;
       localStorage.setItem("location", location);
-      router.push("/purchase");
+      router.push("/pricing");
     } else {
       handleLogin();
     }
@@ -401,7 +401,7 @@ const StockCardSME = () => {
 							Authorization: `token ${refresh}`,
 						},
 					});
-          console.log(response)
+          console.log(response);
 					const sortedStocks = response.data.sort((a, b) => {
 						// if (a.recommended_stock === b.recommended_stock) return 0;
 						// return a.recommended_stock ? -1 : 1;
@@ -1767,6 +1767,51 @@ const StockCardSME = () => {
                                     }
                                 })() || <Loading /> ||
                                 "-"}
+                        </Text>
+                      </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                         <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <Text
+                            b
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 21,
+                              },
+                            }}
+                            size={15}
+                          >
+                            RETURNS
+                          </Text>
+                        </div>
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                           {`${stock.gain_loss} %`}
                         </Text>
                       </div>
                     </div>

@@ -138,7 +138,7 @@ export default function App() {
 				height={100}
 				css={{
 					marginTop: 0,
-					zIndex: 1,
+					zIndex: 20,
 					$$navbarBackgroundColor: "transparent",
 					$$navbarBlurBackgroundColor: "none",
 					".nextui-navbar-container": {
@@ -283,7 +283,7 @@ export default function App() {
 								Blogs
 							</Text>
 						</ListItemButton> */}
-						{/* <ListItemButton
+						<ListItemButton
 							onClick={() => {
 								scrolltoHash("pricing");
 								toggleDrawer();
@@ -295,7 +295,7 @@ export default function App() {
 							<Text b className="drawerElementText">
 								Pricing
 							</Text>
-						</ListItemButton> */}
+						</ListItemButton>
 						<ListItemButton
 							onClick={() => {
 								trackRecord();
@@ -391,10 +391,10 @@ export default function App() {
 							onClick={() => scrolltoHash("home")}
 						>
 							<Text b size={16} css={{ lineHeight: 5 }}>
-								Home
+								About Us
 							</Text>
 						</Navbar.Link>
-						<Navbar.Link
+						{/* <Navbar.Link
 							isActive={
 								typeof window !== "undefined" && activeLink === "philosophy"
 									? true
@@ -405,7 +405,7 @@ export default function App() {
 							<Text b size={16} css={{ lineHeight: 5 }}>
 								About Us
 							</Text>
-						</Navbar.Link>
+						</Navbar.Link> */}
 						{/* <Navbar.Link
 							// isActive={
 							// 	typeof window !== "undefined" &&
@@ -469,7 +469,7 @@ export default function App() {
 								Testimonials
 							</Text>
 						</Navbar.Link> */}
-						{/* <Navbar.Link
+						<Navbar.Link
 							// isActive={
 							// 	typeof window !== "undefined" &&
 							// 	window.location.pathname === "/about-company"
@@ -485,7 +485,7 @@ export default function App() {
 							<Text b size={16} css={{ lineHeight: 5 }}>
 								Pricing
 							</Text>
-						</Navbar.Link> */}
+						</Navbar.Link>
 						{/* <Navbar.Link
 							// isActive={
 							// 	typeof window !== "undefined" &&

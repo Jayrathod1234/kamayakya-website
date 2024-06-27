@@ -72,7 +72,7 @@ const HotStocks = () => {
 		if (isLoggedIn) {
 			const location = router.asPath;
 			localStorage.setItem("location", location);
-			router.push("/purchase");
+			router.push("/pricing");
 		} else {
 			handleLogin();
 		}
