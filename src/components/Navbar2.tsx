@@ -189,7 +189,7 @@ const NavBar2 = () => {
 			height={100}
 			css={{
 				marginTop: 0,
-				zIndex: 20,
+				zIndex: 1000,
 				$$navbarBackgroundColor: "transparent",
 				$$navbarBlurBackgroundColor: "none",
 				".nextui-navbar-container": {

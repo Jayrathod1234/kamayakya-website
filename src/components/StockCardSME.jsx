@@ -72,8 +72,8 @@ const StockCardSME = () => {
   const [selectedReportUrl, setSelectedReportUrl] = useState("");
   const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
   const { isLoggedIn } = useContext(AuthContext);
-  const { isSubscribed } = useContext(AuthContext);
-  // console.log(pdfjsVersion);
+  const { isSubscribed ,plan} = useContext(AuthContext);
+  console.log(isSubscribed);
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
 
@@ -131,7 +131,6 @@ const StockCardSME = () => {
     setSelectedStock(null);
     setShowReportsModal(false);
   };
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // const handleTrackRecord = async () => {
@@ -474,7 +473,7 @@ const StockCardSME = () => {
 		// );
 		return createdDate >= twoMonthsAgo && createdDate <= today;
 	};
-
+  
     // const isNewStock = (createdDateString) => {
     //     const createdDate = new Date(createdDateString);
     //     const twoMonthsAgo = new Date();
@@ -2195,7 +2194,8 @@ const StockCardSME = () => {
               </Modal>
             </Grid>
           ))}
-          { isLoggedIn || !isLoggedIn || !isSubscribed ? (
+          
+          {plan=="core" ||  (!isSubscribed &&  (isLoggedIn || !isLoggedIn)) ? (
             <Grid>
               <Card
                 isHoverable
@@ -2525,8 +2525,9 @@ const StockCardSME = () => {
           {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
           {/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
-          {isLoggedIn || !isLoggedIn || !isSubscribed
-            ? staticNumbers.map((number, index) => (
+          {plan=="core" || (!isSubscribed &&  (isLoggedIn || !isLoggedIn))
+            ? 
+            staticNumbers.map((number, index) => (
                 <Grid
                   // key={stock.id}
                   key={index}

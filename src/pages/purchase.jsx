@@ -980,48 +980,48 @@ export default function PreviewPage() {
 						}}
 						className="paymentsPage-box"
 					>
-						{discountApplied === false && (
-							<Box
-								sx={{
-									background: "#fff",
-									borderRadius: "5px",
-									display: "flex",
-									justifyContent: "center",
-									gap: "2px",
-									flexDirection: "row",
-								}}
-							>
-								<Input
-									placeholder="Have a discount code?"
-									clearable
-									animated={false}
-									size="lg"
-									value={discountCode}
-									onChange={handleDiscountChange}
-									css={{
-										alignSelf: "center",
-										height: "46px",
-										border: "1px solid lightgrey",
-										borderRadius: "10px",
-									}}
-								/>
-								<Button
-									auto
-									css={{
-										alignSelf: "center",
-										maxWidth: "262px",
-										borderRadius: "10px",
-										fontSize: 16,
-										// backgroundImage:
-										// 	"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",
-										backgroundColor: "#ff9f24",
-									}}
-									onClick={validateDiscountCode}
-									disabled={discountCode === "" || loading}
-								>
-									{loading ? <Loading color={"white"} /> : "Apply Code"}
-								</Button>
-							</Box>
+						{/* {discountApplied === false && (
+							// <Box
+							// 	sx={{
+							// 		background: "#fff",
+							// 		borderRadius: "5px",
+							// 		display: "flex",
+							// 		justifyContent: "center",
+							// 		gap: "2px",
+							// 		flexDirection: "row",
+							// 	}}
+							// >
+							// 	<Input
+							// 		placeholder="Have a discount code?"
+							// 		clearable
+							// 		animated={false}
+							// 		size="lg"
+							// 		value={discountCode}
+							// 		onChange={handleDiscountChange}
+							// 		css={{
+							// 			alignSelf: "center",
+							// 			height: "46px",
+							// 			border: "1px solid lightgrey",
+							// 			borderRadius: "10px",
+							// 		}}
+							// 	/>
+							// 	<Button
+							// 		auto
+							// 		css={{
+							// 			alignSelf: "center",
+							// 			maxWidth: "262px",
+							// 			borderRadius: "10px",
+							// 			fontSize: 16,
+							// 			// backgroundImage:
+							// 			// 	"linear-gradient(to right , #51168C, #3C4AB3, #32C0C8)",
+							// 			backgroundColor: "#ff9f24",
+							// 		}}
+							// 		onClick={validateDiscountCode}
+							// 		disabled={discountCode === "" || loading}
+							// 	>
+							// 		{loading ? <Loading color={"white"} /> : "Apply Code"}
+							// 	</Button>
+							// </Box>
 						)}
 						{discountApplied === true && (
 							<Box
@@ -1069,7 +1069,7 @@ export default function PreviewPage() {
 									Remove
 								</span>
 							</Box>
-						)}
+						)} */}
 						<Box
 							sx={{
 								display: "flex",

@@ -19,6 +19,8 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [plan, setPlan] = useState(false);
+
   const [user, setUser] = useState({
     id:'',
     username: "",
@@ -85,8 +87,34 @@ export const AuthProvider = ({ children }) => {
 
     getUserDetails();
   }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
+  useEffect(() => {
+    const getUserDetails = async () => {
+      if (refreshToken) {
+        try {
+          const response = await fetch(GET_USER, {
+            method: "GET",
+            headers: {
+              Authorization: `Token ${refreshToken}`,
+            },
+          });
+          const data = await response.json();
+          console.log(data.subscription[0].plan)
+        
+          setPlan(data.subscription[0].plan)
+          setUser(data);
+        } catch (error) {
+          console.error("Error verifying tokens:", error);
+          setIsLoggedIn(false);
+        }
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
 
-  return <AuthContext.Provider value={{ isLoggedIn, isSubscribed, user }}>{children}</AuthContext.Provider>;
+    getUserDetails();
+  }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
+
+  return <AuthContext.Provider value={{ isLoggedIn, isSubscribed, user,plan }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;

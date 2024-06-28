@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { BiLockAlt } from "react-icons/bi";
+import { FaAccusoft } from "react-icons/fa";
 
 const LoginCard = () => {
   const router = useRouter();
@@ -211,11 +212,11 @@ const LoginCard = () => {
               <Text
                 b
                 size={17.5}
-                color="#ffa12e"
+                color="#2A6950"
                 css={{
                   lineHeight: 1.1,
                   marginTop: "5px",
-                  marginBottom: "20px",
+                  marginBottom: "5px",
                   width: "100%",
                   padding: "0px 10px",
                   opacity: "0.95",
@@ -225,8 +226,45 @@ const LoginCard = () => {
                   },
                 }}
               >
-                Ready to conquer the stock market? Skip the hassle of
-                registration and jump right in!
+             Experience the potential of KamayaKya.  
+              </Text>
+              <Text
+                b
+                size={17.5}
+                color="#2A6950"
+                css={{
+                  lineHeight: 1.1,
+                  marginTop: "5px",
+                  marginBottom: "5px",
+                  width: "100%",
+                  padding: "0px 10px",
+                  opacity: "0.95",
+                  "@media only screen and (max-width: 764px)": {
+                    fontSize: 17.5,
+                    width: "100%",
+                  },
+                }}
+              >
+               Log in to unlock 3 HOT stocks and our Track Record for free.
+              </Text>
+              <Text
+                b
+                size={17.5}
+                color="#2A6950"
+                css={{
+                  lineHeight: 1.1,
+                  marginTop: "5px",
+                  marginBottom: "5px",
+                  width: "100%",
+                  padding: "0px 10px",
+                  opacity: "0.95",
+                  "@media only screen and (max-width: 764px)": {
+                    fontSize: 17.5,
+                    width: "100%",
+                  },
+                }}
+              >
+            Start your investment journey now!
               </Text>
             </Box>
             <Card
