@@ -1077,7 +1077,7 @@ const StockCard = () => {
               // background: "#fff",
               boxShadow: "none",
               "@media only screen and (max-width: 768px)": {
-                gap: "20px",
+                gap: "40px",
               },
             }}
           >
@@ -1101,7 +1101,7 @@ const StockCard = () => {
                     <Box
                       sx={{
                         position: "absolute",
-                        zIndex: 99,
+                        zIndex: 9,
                         padding: "2px 20px",
                         borderRadius: "20px",
                         background: "#fff",
@@ -1769,7 +1769,7 @@ const StockCard = () => {
                         // height: "350px",
                         display: "flex",
                         flexDirection: "column",
-                        gap: "20px",
+                        gap: "40px",
                       }}
                     >
                       <Text b size={27}>
@@ -3286,7 +3286,7 @@ const StockCard = () => {
               // background: "#fff",
               boxShadow: "none",
               "@media only screen and (max-width: 768px)": {
-                gap: "20px",
+                gap: "40px",
               },
             }}
           >
@@ -3310,7 +3310,7 @@ const StockCard = () => {
                     <Box
                       sx={{
                         position: "absolute",
-                        zIndex: 99,
+                        zIndex: 9,
                         padding: "2px 20px",
                         borderRadius: "20px",
                         background: "#fff",

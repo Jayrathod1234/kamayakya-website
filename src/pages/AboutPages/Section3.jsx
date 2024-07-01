@@ -62,6 +62,21 @@ const Section3 = () => {
 		);
 	};
 
+  const handleVirOnePage = () => {
+		var win = window.open(
+			"Virtuso_main.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleVirDetailed = () => {
+		var win = window.open(
+			"virtuso_single.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+
   const handleGuficOnePage = () => {
 		var win = window.open(
 			"Gufic Bioscience - One Page Report.pdf#toolbar=0&fitH=1",
@@ -511,6 +526,57 @@ const Section3 = () => {
                   </Text>
                 </Button>
               </div>
+              <Divider
+						css={{
+							width: "50px",
+							height: "4px",
+							borderRadius: "1000px",
+							backgroundColor: "#FF9E24",
+						}}
+					/>
+					<br />
+					<Text b size={21} css={{ alignSelf: "center",color:"#18501E" }}>
+					SME
+					</Text>
+					<Text b size={21} css={{ alignSelf: "center" }}>
+					Virtuoso Optoelectronics Ltd.
+					</Text>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							flexWrap: "wrap",
+							alignContent: "center",
+							justifyContent: "center",
+						}}
+					>
+						<Button
+							css={{
+								background: "transparent",
+								paddingLeft: "0px",
+								marginTop: "0px",
+								width: "auto",
+							}}
+							onPress={handleVirOnePage}
+						>
+							<Text b size={21} color="#18501E">
+								1-Page Report
+							</Text>
+						</Button>
+						<Button
+							css={{
+								background: "transparent",
+								paddingLeft: "0px",
+								marginTop: "0px",
+								width: "auto",
+							}}
+							onPress={handleVirDetailed}
+						>
+							<Text b size={21} color="#18501E">
+								Detailed Report
+							</Text>
+						</Button>
+					</div>
             </Card>
           </Modal>
         </Box>

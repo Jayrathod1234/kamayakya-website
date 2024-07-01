@@ -1,12 +1,12 @@
 import {
-	Text,
-	Button,
-	Avatar,
-	Modal,
-	Card,
-	useModal,
-	Dropdown,
-	Divider,
+  Text,
+  Button,
+  Avatar,
+  Modal,
+  Card,
+  useModal,
+  Dropdown,
+  Divider,
 } from "@nextui-org/react";
 import React, { useState, useContext } from "react";
 import { Box, IconButton } from "@mui/material";
@@ -17,138 +17,154 @@ import AuthContext from "@/components/AuthContext";
 import { TypeAnimation } from "react-type-animation";
 
 const HomePage = () => {
-	const { isLoggedIn } = useContext(AuthContext);
-	const { setVisible, bindings } = useModal();
-	const [showLoginModal, setShowLoginModal] = useState(false);
-	const [showCert, setShowCert] = useState(false);
-	const [showIframe, setShowIframe] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
+  const { setVisible, bindings } = useModal();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showCert, setShowCert] = useState(false);
+  const [showIframe, setShowIframe] = useState(false);
   const router = useRouter();
 
-	const handleCloseIframe = () => {
-		setShowIframe(false);
-	};
-	const handleCert = () => {
-		// setShowCert(true);
-		var win = window.open(
-			"Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
-			"_blank",
-			"fullscreen=yes"
-		);
-		// win.document.write('<PdfViewer pdf={PDF}/>');
-	};
+  const handleCloseIframe = () => {
+    setShowIframe(false);
+  };
+  const handleCert = () => {
+    // setShowCert(true);
+    var win = window.open(
+      "Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+    // win.document.write('<PdfViewer pdf={PDF}/>');
+  };
 
-	const handleCertClose = () => {
-		setShowCert(false);
-	};
+  const handleCertClose = () => {
+    setShowCert(false);
+  };
 
-	const handleLogin = () => {
-		// const location = router.asPath;
-		// console.log(location, "login done");
-		setShowLoginModal(true);
-	};
+  const handleLogin = () => {
+    // const location = router.asPath;
+    // console.log(location, "login done");
+    setShowLoginModal(true);
+  };
 
-	const handleCloseLoginModal = () => {
-		setShowLoginModal(false);
-	};
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+  };
 
-	const handleRegestier = () => {
-		router.push("/registration");
-	};
-	const pictureUsers = [
-		"https://i.pravatar.cc/150?u=a042581f4e29026024d",
-		"https://i.pravatar.cc/150?u=a042581f4e29026704d",
-		"https://i.pravatar.cc/150?u=a04258114e29026702d",
-	];
+  const handleRegestier = () => {
+    router.push("/registration");
+  };
+  const pictureUsers = [
+    "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+    "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+    "https://i.pravatar.cc/150?u=a04258114e29026702d",
+  ];
 
-	const handleIonOnePage = () => {
-		// setShowIframe(true);
-		// setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf");
-		// setVisible(false);
+  const handleIonOnePage = () => {
+    // setShowIframe(true);
+    // setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf");
+    // setVisible(false);
+    var win = window.open(
+      "Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
+
+
+  const handleVirOnePage = () => {
 		var win = window.open(
-			"Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"Virtuso_main.pdf#toolbar=0&fitH=1",
 			"_blank",
 			"fullscreen=yes"
 		);
 	};
-	const handleIonDetailed = () => {
-		// setShowIframe(true);
-		// setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf");
-		// setVisible(false);
+	const handleVirDetailed = () => {
 		var win = window.open(
-			"Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"virtuso_single.pdf#toolbar=0&fitH=1",
 			"_blank",
 			"fullscreen=yes"
 		);
 	};
-	const handleHGOnePage = () => {
-		// setShowIframe(true);
-		// setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf");
-		// setVisible(false);
-		var win = window.open(
-			"H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-			"_blank",
-			"fullscreen=yes"
-		);
-	};
-	const handleHGDetailed = () => {
-		// setShowIframe(true);
-		// setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf");
-		// setVisible(false);
-		var win = window.open(
-			"H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf#toolbar=0&fitH=1",
-			"_blank",
-			"fullscreen=yes"
-		);
-	};
-	const handleGravitaOnePage = () => {
-		// setShowIframe(true);
-		// setSelectedPDF("Gravita India Ltd. (GIL) - 1 Page Report.pdf");
-		// setVisible(false);
-		var win = window.open(
-			"Gravita India Ltd. (GIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-			"_blank",
-			"fullscreen=yes"
-		);
-	};
-	const handleGravitaDetailed = () => {
-		// setShowIframe(true);
-		// setSelectedPDF("Gravita India Ltd. (GIL) - Detailed Report.pdf");
-		// setVisible(false);
-		var win = window.open(
-			"Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
-			"_blank",
-			"fullscreen=yes"
-		);
-	};
+  const handleIonDetailed = () => {
+    // setShowIframe(true);
+    // setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf");
+    // setVisible(false);
+    var win = window.open(
+      "Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
+  const handleHGOnePage = () => {
+    // setShowIframe(true);
+    // setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf");
+    // setVisible(false);
+    var win = window.open(
+      "H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
+  const handleHGDetailed = () => {
+    // setShowIframe(true);
+    // setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf");
+    // setVisible(false);
+    var win = window.open(
+      "H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
+  const handleGravitaOnePage = () => {
+    // setShowIframe(true);
+    // setSelectedPDF("Gravita India Ltd. (GIL) - 1 Page Report.pdf");
+    // setVisible(false);
+    var win = window.open(
+      "Gravita India Ltd. (GIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
+  const handleGravitaDetailed = () => {
+    // setShowIframe(true);
+    // setSelectedPDF("Gravita India Ltd. (GIL) - Detailed Report.pdf");
+    // setVisible(false);
+    var win = window.open(
+      "Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
 
   const handleGuficOnePage = () => {
-		// setShowIframe(true);
-		// setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - 1 Page Report.pdf");
-		// setVisible(false);
-		var win = window.open(
-			"Gufic Bioscience - One Page Report.pdf#toolbar=0&fitH=1",
-			"_blank",
-			"fullscreen=yes"
-		);
-	};
+    // setShowIframe(true);
+    // setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - 1 Page Report.pdf");
+    // setVisible(false);
+    var win = window.open(
+      "Gufic Bioscience - One Page Report.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
 
-	const handleGuficDetailed = () => {
-		// setShowIframe(true);
-		// setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - Detailed Report.pdf");
-		// setVisible(false);
-		var win = window.open(
-			"Gufic BioSciences - Detailed Report.pdf#toolbar=0&fitH=1",
-			"_blank",
-			"fullscreen=yes"
-		);
-	};
+  const handleGuficDetailed = () => {
+    // setShowIframe(true);
+    // setSelectedPDF("Monte Carlo Fashions Ltd. (MCFL) - Detailed Report.pdf");
+    // setVisible(false);
+    var win = window.open(
+      "Gufic BioSciences - Detailed Report.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
 
-	// const [selectedPDF, setSelectedPDF] = useState(new Set(["SampleReport.pdf"]));
-	const [selectedPDF, setSelectedPDF] = useState("");
-	const PdfValue = React.useMemo(
-		() => Array.from(selectedPDF)[0]?.replaceAll("_", " ") || "",
-		[selectedPDF]
-	);
+  // const [selectedPDF, setSelectedPDF] = useState(new Set(["SampleReport.pdf"]));
+  const [selectedPDF, setSelectedPDF] = useState("");
+  const PdfValue = React.useMemo(
+    () => Array.from(selectedPDF)[0]?.replaceAll("_", " ") || "",
+    [selectedPDF]
+  );
 
   return (
     <section
@@ -164,7 +180,7 @@ const HomePage = () => {
         backgroundPositionY: "bottom",
         backgroundSize: "contain",
         backgroundRepeat: "repeat-x",
-    
+
         // minHeight: "100vh",
         // paddingTop: "80px",
         height: "fit-content",
@@ -653,7 +669,7 @@ const HomePage = () => {
               />
               <br />
               <Text b size={21} css={{ alignSelf: "center" }}>
-              Gufic BioSciences Ltd.
+                Gufic BioSciences Ltd.
               </Text>
               <div
                 style={{
@@ -690,142 +706,245 @@ const HomePage = () => {
                     Detailed Report
                   </Text>
                 </Button>
+
+
               </div>
+              <br />
+              <Divider
+                css={{
+                  width: "50px",
+                  height: "4px",
+                  borderRadius: "1000px",
+                  backgroundColor: "#FF9E24",
+                }}
+              />
+              <br />
+              <Text b size={21} css={{ alignSelf: "center" }}>
+                Gufic BioSciences Ltd.
+              </Text>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  css={{
+                    background: "transparent",
+                    paddingLeft: "0px",
+                    marginTop: "0px",
+                    width: "auto",
+                  }}
+                  onPress={handleGuficOnePage}
+                >
+                  <Text b size={21} color="#18501E">
+                    1-Page Report
+                  </Text>
+                </Button>
+                <Button
+                  css={{
+                    background: "transparent",
+                    paddingLeft: "0px",
+                    marginTop: "0px",
+                    width: "auto",
+                  }}
+                  onPress={handleGuficDetailed}
+                >
+                  <Text b size={21} color="#18501E">
+                    Detailed Report
+                  </Text>
+                </Button>
+
+              </div>
+              <Divider
+						css={{
+							width: "50px",
+							height: "4px",
+							borderRadius: "1000px",
+							backgroundColor: "#FF9E24",
+						}}
+					/>
+					<br />
+					<Text b size={21} css={{ alignSelf: "center",color:"#18501E" }}>
+					SME
+					</Text>
+					<Text b size={21} css={{ alignSelf: "center" }}>
+					Virtuoso Optoelectronics Ltd.
+					</Text>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							flexWrap: "wrap",
+							alignContent: "center",
+							justifyContent: "center",
+						}}
+					>
+						<Button
+							css={{
+								background: "transparent",
+								paddingLeft: "0px",
+								marginTop: "0px",
+								width: "auto",
+							}}
+							onPress={handleVirOnePage}
+						>
+							<Text b size={21} color="#18501E">
+								1-Page Report
+							</Text>
+						</Button>
+						<Button
+							css={{
+								background: "transparent",
+								paddingLeft: "0px",
+								marginTop: "0px",
+								width: "auto",
+							}}
+							onPress={handleVirDetailed}
+						>
+							<Text b size={21} color="#18501E">
+								Detailed Report
+							</Text>
+						</Button>
+					</div>
             </Card>
 
 
-					</Modal>
-					{/* <span style={{ width: "10px" }}></span> */}
-					<Button
-						auto
-						size={"xl"}
-						css={{
-							borderRadius: "10000px",
-							display: isLoggedIn ? "none" : "block",
-							marginTop: 10,
-							// marginLeft: 30,
-							// backgroundColor: "#0a5b53",
-							backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-							zIndex: 0,
-							paddingLeft: 50,
-							paddingRight: 50,
-							"@media only screen and (max-width: 764px)": {
-								borderRadius: "15px",
-								paddingLeft: 15,
-								paddingRight: 15,
-								marginLeft: 0,
-								marginBottom: 0,
-								// marginTop: "25px",
-								height: "55px",
+          </Modal>
+          {/* <span style={{ width: "10px" }}></span> */}
+          <Button
+            auto
+            size={"xl"}
+            css={{
+              borderRadius: "10000px",
+              display: isLoggedIn ? "none" : "block",
+              marginTop: 10,
+              // marginLeft: 30,
+              // backgroundColor: "#0a5b53",
+              backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
+              zIndex: 0,
+              paddingLeft: 50,
+              paddingRight: 50,
+              "@media only screen and (max-width: 764px)": {
+                borderRadius: "15px",
+                paddingLeft: 15,
+                paddingRight: 15,
+                marginLeft: 0,
+                marginBottom: 0,
+                // marginTop: "25px",
+                height: "55px",
                 width: "70%",
                 maxWidth: "300px",
-							},
-						}}
-						onPress={handleLogin}
+              },
+            }}
+            onPress={handleLogin}
 
-						// onPress={() => handleRegestier()}
-					>
-						<Text
-							b
-							size={28}
-							color="White"
-							css={{
-								"@media only screen and (max-width: 764px)": {
-									fontSize: 18,
-									width: "auto",
-								},
-							}}
-						>
-							Get free access
-						</Text>
-					</Button>
-					<Modal
-						width="450px"
-						blur
-						open={showLoginModal}
-						onClose={handleCloseLoginModal}
-					>
-						<Box
-							sx={{
-								display: "flex",
-								flexDirection: "row",
-								width: "100%",
-								justifyContent: "space-between",
-								alignItems: "center",
-							}}
-						>
-							<img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-							<IconButton
-								sx={{
-									width: "40px",
-									"&:hover": { background: "#fff" },
-									// alignSelf: "end",
-									right: "20px",
-								}}
-								onClick={() => handleCloseLoginModal()}
-							>
-								<CloseIcon sx={{ color: "#e81123" }} />
-							</IconButton>
-						</Box>
+          // onPress={() => handleRegestier()}
+          >
+            <Text
+              b
+              size={28}
+              color="White"
+              css={{
+                "@media only screen and (max-width: 764px)": {
+                  fontSize: 18,
+                  width: "auto",
+                },
+              }}
+            >
+              Get free access
+            </Text>
+          </Button>
+          <Modal
+            width="450px"
+            blur
+            open={showLoginModal}
+            onClose={handleCloseLoginModal}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+              <IconButton
+                sx={{
+                  width: "40px",
+                  "&:hover": { background: "#fff" },
+                  // alignSelf: "end",
+                  right: "20px",
+                }}
+                onClick={() => handleCloseLoginModal()}
+              >
+                <CloseIcon sx={{ color: "#e81123" }} />
+              </IconButton>
+            </Box>
 
-						<Modal.Body>
-							<Login />
-						</Modal.Body>
-					</Modal>
-				</Box>
+            <Modal.Body>
+              <Login />
+            </Modal.Body>
+          </Modal>
+        </Box>
 
-				<Box
-					sx={{
-						display: "flex",
-						flexDirection: "row",
-						alignItems: "center",
-						justifyContent: "center",
-						width: "100%",
-						marginTop: "40px",
-						"@media only screen and (max-width: 764px)": {
-							marginTop: "20px",
-							marginBottom: "10vh",
-							// marginLeft: "15px",
-							// alignItems: "flex-start",0
-							// justifyContent: "flex-start",
-						},
-					}}
-				>
-					<Avatar.Group>
-						{pictureUsers.map((url, index) => (
-							<Avatar
-								key={index}
-								size="sm"
-								pointer
-								src={url}
-								stacked
-								style={{ zIndex: 0 }}
-							/>
-						))}
-					</Avatar.Group>
-					<Box
-						sx={{
-							marginLeft: "10px",
-						}}
-					>
-						<Text
-							b
-							size={22}
-							color="#125a54"
-							css={{
-								opacity: "0.75",
-								"@media only screen and (max-width: 764px)": {
-									fontSize: "18px",
-								},
-							}}
-						>
-							2k+ regular users
-						</Text>
-					</Box>
-				</Box>
-			</Box>
-		</section>
-	);
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: "40px",
+            "@media only screen and (max-width: 764px)": {
+              marginTop: "20px",
+              marginBottom: "10vh",
+              // marginLeft: "15px",
+              // alignItems: "flex-start",0
+              // justifyContent: "flex-start",
+            },
+          }}
+        >
+          <Avatar.Group>
+            {pictureUsers.map((url, index) => (
+              <Avatar
+                key={index}
+                size="sm"
+                pointer
+                src={url}
+                stacked
+                style={{ zIndex: 0 }}
+              />
+            ))}
+          </Avatar.Group>
+          <Box
+            sx={{
+              marginLeft: "10px",
+            }}
+          >
+            <Text
+              b
+              size={22}
+              color="#125a54"
+              css={{
+                opacity: "0.75",
+                "@media only screen and (max-width: 764px)": {
+                  fontSize: "18px",
+                },
+              }}
+            >
+              2k+ regular users
+            </Text>
+          </Box>
+        </Box>
+      </Box>
+    </section>
+  );
 };
 
 export default HomePage;

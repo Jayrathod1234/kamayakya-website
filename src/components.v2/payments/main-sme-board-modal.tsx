@@ -98,7 +98,7 @@ export function MainSmeBoardModal({ trigger }: { trigger: React.ReactNode }) {
       >
         {trigger}
       </DialogTrigger>
-      <DialogContent className=" contact__modal !rounded-[20px] p-4 md:max-w-[680px] lg:max-w-[1000px] h-[100dvh] max-h-[477px] md:max-h-[858px] lg:max-h-[718px] overflow-hidden md:overflow-y-scroll pricing">
+      <DialogContent className=" contact__modal !rounded-[20px] p-4 md:max-w-[680px] lg:max-w-[1000px] h-[80dvh] max-h-[477px] md:max-h-[858px] lg:max-h-[718px] mt-10 overflow-hidden md:overflow-y-scroll pricing">
         <div className="flex h-full overflow-hidden md:overflow-y-scroll rounded-lg">
           <Tabs defaultValue="mainboard" className=" md:hidden">
             <TabsList className=" md:hidden bg-transparent p-0">
