@@ -396,9 +396,10 @@ export default function PreviewPage() {
 	},[subscriptionId])
 
 	useEffect(()=>{
-		console.log(router.query.planId)
-		setSubscriptionId(router.query.planId)
-	},[router.query.planId])
+		// console.log(router.query.planId)
+		setSubscriptionId(router.query.planId || sessionStorage.getItem("planId"))
+		
+	},[router.query.planId,sessionStorage.getItem("planId")])
 
 	if (!isLoggedIn) {
 		return (

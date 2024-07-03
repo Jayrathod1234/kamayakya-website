@@ -24,6 +24,7 @@ import { GetStaticProps } from "next";
 import Image from "next/image";
 import { Avatar, AvatarVariant } from "@/components.v2/avatar";
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTrigger } from "@/components.v2/ui/drawer";
+import { Newsletter } from "@/components.v2/payments";
 // import { ReactQuill } from "react-quill";
 
 // import Markdown from "markdown-to-jsx";
@@ -74,7 +75,7 @@ const BlogPage = ({ blog }: { blog: TBlog }) => {
     "--image-url": `url(${blog?.image1})`,
   };
   // const ref = useRef<HTMLDivElement | null>(null);
-  const url = "https://legendary-madeleine-b03cd5.netlify.app";
+  const url = "https://legendary-madeleine-b03cd5.netlify.app/";
   // useEffect(() => {
   //   const fetchBlogData = async () => {
   //     if (slug) {
@@ -213,7 +214,7 @@ const BlogPage = ({ blog }: { blog: TBlog }) => {
             onClick={() => {
               window.open(`https://x.com/intent/post?text=${blog.title}+${url + blog.slug}`);
             }}
-            className=" h-fit border border-gray-100 rounded-full"
+            className=" h-fit  rounded-full"
           >
             <Image height={36} width={36} alt="X" src={"/icons/X.svg"} />
           </button>
@@ -225,7 +226,7 @@ const BlogPage = ({ blog }: { blog: TBlog }) => {
                 "toolbar=no,height=100"
               );
             }}
-            className=" h-fit border border-gray-100 rounded-full"
+            className=" h-fit  rounded-full"
           >
             <Image height={36} width={36} alt="linkedin" src={"/blogs/linkedin.svg"} />
           </button>
@@ -233,7 +234,7 @@ const BlogPage = ({ blog }: { blog: TBlog }) => {
             onClick={() => {
               window.open(`https://www.facebook.com/share.php?u=${url + blog.slug}`);
             }}
-            className=" h-fit border border-gray-100 rounded-full"
+            className=" h-fit  rounded-full"
           >
             <Image height={36} width={36} alt="linkedin" src={"/blogs/fb.svg"} />
           </button>
@@ -241,7 +242,7 @@ const BlogPage = ({ blog }: { blog: TBlog }) => {
             onClick={() => {
               window.open(`https://web.whatsapp.com/send?text=Look%20at%20this...%20%F0%9F%91%80%0A${url + blog.slug}`);
             }}
-            className=" h-fit border border-gray-100 rounded-full"
+            className=" h-fit  rounded-full"
           >
             <Image height={36} width={36} alt="linkedin" src={"/blogs/whatsapp.svg"} />
           </button>
@@ -388,6 +389,7 @@ const BlogPage = ({ blog }: { blog: TBlog }) => {
       {/* <div className=" pb-[10%]">
       <FaqsNew />
       </div> */}
+      <Newsletter/>
       <Footer />
     </div>
   );

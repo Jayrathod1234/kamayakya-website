@@ -160,7 +160,7 @@ export default function Page() {
           <div className=" lg:hidden absolute right-0 top-48 -rotate-[75deg]">
             <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
           </div>
-          
+
           <div className=" mt-[1.875rem] md:mt-9 text-center">
             <h1 className=" text-display-xs md:text-display-lg font-bold">
               What type of <span className=" text-brand-400">investor</span> are you?
@@ -272,8 +272,10 @@ export default function Page() {
       <div id="feeling-lost" className=" bg-gray-100">
         <FeelingLost />
       </div>
+      <div className=" md:mt-[-15rem]  lg:mt-[-15rem]">
+        <Newsletter />
+      </div>
 
-      <Newsletter />
       <div className="   mt-[-10%]">
         <Footer />
       </div>

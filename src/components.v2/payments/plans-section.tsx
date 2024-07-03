@@ -113,7 +113,7 @@ export function PlansSection() {
         mp.track("getfreeaccess_clicked", {
           page: "Pricing_page",
         });
-      }else{
+      } else {
         mp.track("getstarted_clicked", {
           page: "Pricing_page",
         });
@@ -130,7 +130,8 @@ export function PlansSection() {
       planname: planName,
       amount: planAmount,
     });
-    router.push({ pathname: "/purchase", query: { planId } });
+    sessionStorage.setItem("planId", planId);
+    router.push({ pathname: "/purchase", query: { planId } }, "/purchase");
   };
 
   const fetchPlans = async () => {
