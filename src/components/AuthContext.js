@@ -1,120 +1,120 @@
-import { GET_USER, VERIFY_TOKEN_URL } from "@/pages/api/URLs";
-import React, { createContext, useState, useEffect } from "react";
+import {GET_USER, VERIFY_TOKEN_URL} from "@/pages/api/URLs";
+import React, {createContext, useEffect, useState} from "react";
 
 // Create the context
 const AuthContext = createContext({
-  isLoggedIn: false,
-  isSubscribed: false,
-  user: {
-    id:'',
-    username: "",
-    mobile: "",
-    subscription: [{ plan: "" }],
-    created:""
-  },
-  children: null,
+    isLoggedIn: false,
+    isSubscribed: false,
+    user: {
+        id: '',
+        username: "",
+        mobile: "",
+        subscription: [{plan: ""}],
+        created: ""
+    },
+    children: null,
 });
 
 // Create the provider component
-export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [plan, setPlan] = useState(false);
+export const AuthProvider = ({children}) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [plan, setPlan] = useState(false);
 
-  const [user, setUser] = useState({
-    id:'',
-    username: "",
-    mobile: "",
-    subscription: [{ plan: "" }],
-    created:""
-  });
-  const refreshToken = localStorage.getItem("refresh");
+    const [user, setUser] = useState({
+        id: '',
+        username: "",
+        mobile: "",
+        subscription: [{plan: ""}],
+        created: ""
+    });
+    const refreshToken = localStorage.getItem("refresh");
 
-  useEffect(() => {
-    const verifyTokens = async () => {
-      if (refreshToken) {
-        try {
-          const response = await fetch(VERIFY_TOKEN_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ token: refreshToken }),
-          });
+    useEffect(() => {
+        const verifyTokens = async () => {
+            if (refreshToken) {
+                try {
+                    const response = await fetch(VERIFY_TOKEN_URL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({token: refreshToken}),
+                    });
 
-          if (response.ok) {
-            setIsLoggedIn(true);
-          } else {
-            setIsLoggedIn(false);
-          }
-        } catch (error) {
-          console.error("Error verifying tokens:", error);
-          setIsLoggedIn(false);
-        }
-      } else {
-        setIsLoggedIn(false);
-      }
-    };
+                    if (response.ok) {
+                        setIsLoggedIn(true);
+                    } else {
+                        setIsLoggedIn(false);
+                    }
+                } catch (error) {
+                    console.error("Error verifying tokens:", error);
+                    setIsLoggedIn(false);
+                }
+            } else {
+                setIsLoggedIn(false);
+            }
+        };
 
-    verifyTokens();
-  }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
+        verifyTokens();
+    }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
 
-  useEffect(() => {
-    const getUserDetails = async () => {
-      if (refreshToken) {
-        try {
-          const response = await fetch(GET_USER, {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${refreshToken}`,
-            },
-          });
-          const data = await response.json();
-          if (data.is_subscribed === true) {
-            setIsSubscribed(true);
-          } else {
-            setIsSubscribed(false);
-          }
-          setUser(data);
-        } catch (error) {
-          console.error("Error verifying tokens:", error);
-          setIsLoggedIn(false);
-        }
-      } else {
-        setIsLoggedIn(false);
-      }
-    };
+    useEffect(() => {
+        const getUserDetails = async () => {
+            if (refreshToken) {
+                try {
+                    const response = await fetch(GET_USER, {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Token ${refreshToken}`,
+                        },
+                    });
+                    const data = await response.json();
+                    if (data.is_subscribed === true) {
+                        setIsSubscribed(true);
+                    } else {
+                        setIsSubscribed(false);
+                    }
+                    setUser(data);
+                } catch (error) {
+                    console.error("Error verifying tokens:", error);
+                    setIsLoggedIn(false);
+                }
+            } else {
+                setIsLoggedIn(false);
+            }
+        };
 
-    getUserDetails();
-  }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
-  useEffect(() => {
-    const getUserDetails = async () => {
-      if (refreshToken) {
-        try {
-          const response = await fetch(GET_USER, {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${refreshToken}`,
-            },
-          });
-          const data = await response.json();
-          console.log(data.subscription[0].plan)
-        
-          setPlan(data.subscription[0].plan)
-          setUser(data);
-        } catch (error) {
-          console.error("Error verifying tokens:", error);
-          setIsLoggedIn(false);
-        }
-      } else {
-        setIsLoggedIn(false);
-      }
-    };
+        getUserDetails();
+    }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
+    useEffect(() => {
+        const getUserDetails = async () => {
+            if (refreshToken) {
+                try {
+                    const response = await fetch(GET_USER, {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Token ${refreshToken}`,
+                        },
+                    });
+                    const data = await response.json();
+                    console.log(data.subscription[0].plan)
 
-    getUserDetails();
-  }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
+                    setPlan(data.subscription[0].plan)
+                    setUser(data);
+                } catch (error) {
+                    console.error("Error verifying tokens:", error);
+                    setIsLoggedIn(false);
+                }
+            } else {
+                setIsLoggedIn(false);
+            }
+        };
 
-  return <AuthContext.Provider value={{ isLoggedIn, isSubscribed, user,plan }}>{children}</AuthContext.Provider>;
+        getUserDetails();
+    }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
+
+    return <AuthContext.Provider value={{isLoggedIn, isSubscribed, user, plan}}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;

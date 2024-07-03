@@ -1,5 +1,5 @@
-import type { NextPage } from "next";
-import React, { useContext } from "react";
+import type {NextPage} from "next";
+import React, {useContext} from "react";
 import NavBar from "@/components/Navbar";
 import NavBar2 from "../components/Navbar2";
 // import AboutUs from "./screens/AboutUs";
@@ -13,7 +13,6 @@ import FaqsNew from "./screens/FaqsNew";
 // import Process2 from "./screens/Process2";
 import Testimonials from "./screens/Testimonials";
 // import TestimonialsNew from './screens/TestimonialsNew';
-import SubscriptionNew from "../components/SubscriptionNew";
 import AuthProvider from "@/components/AuthContext";
 import HomePage from "@/pages/screens/HomePage";
 import Section1 from "./AboutPages/Section1";
@@ -29,41 +28,41 @@ import HotStocks from "../pages/screens/HotStocks";
 // import PageVisibility from "@/components/PageVisibility";
 
 const Home: NextPage = () => {
-	const { isLoggedIn, isSubscribed } = useContext(AuthProvider);
+    const {isLoggedIn, isSubscribed} = useContext(AuthProvider);
 
-	return (
-		// 	<PageVisibility>
-		//   {(isPageVisible: any) => (
-		<>
-			{isLoggedIn ? <NavBar2  /> : <NavBar />}
-			<HomePage />
-			<Section1 />
-			<Section3 />
-			<HeaderCards />
-			<Section4 />
-			<Section2 />
-			<HeaderFuture />
-			<Section5 />
-			<Section6 />
-			<Section7 />
-			{isLoggedIn && isSubscribed ? "" : <HotStocks />}
-			<Testimonials />
-			{/* <SubscriptionNew /> */}
-			{/* <SmallcaseCard /> */}
-			{/* <AboutUs /> */}
-			{/* <Process /> */}
-			{/* <Process2/> */}
-			{/* <WhyUs /> */}
-			{/* <Blogs2 /> */}
-			{/* <TestimonialsNew /> */}
-			{/*<Solutions />*/}
-			<FaqsNew />
-			<Footer />
-			{/* <Footer /> */}
-		</>
-		//   )}
-		// 	</PageVisibility>
-	);
+    return (
+        // 	<PageVisibility>
+        //   {(isPageVisible: any) => (
+        <>
+            {isLoggedIn ? <NavBar2/> : <NavBar/>}
+            <HomePage/>
+            <Section1/>
+            <Section3/>
+            <HeaderCards/>
+            <Section4/>
+            <Section2/>
+            <HeaderFuture/>
+            <Section5/>
+            <Section6/>
+            <Section7/>
+            {isLoggedIn && isSubscribed ? "" : <HotStocks/>}
+            <Testimonials/>
+            {/* <SubscriptionNew /> */}
+            {/* <SmallcaseCard /> */}
+            {/* <AboutUs /> */}
+            {/* <Process /> */}
+            {/* <Process2/> */}
+            {/* <WhyUs /> */}
+            {/* <Blogs2 /> */}
+            {/* <TestimonialsNew /> */}
+            {/*<Solutions />*/}
+            <FaqsNew/>
+            <Footer/>
+            {/* <Footer /> */}
+        </>
+        //   )}
+        // 	</PageVisibility>
+    );
 };
 
 export default Home;

@@ -7,34 +7,34 @@ import Footer from "./screens/Footer";
 // import {Navbar,Footer} from "@/components.v2/index.components";
 import AuthContext from "../components/AuthContext";
 import PageVisibility from "../components/PageVisibility";
-import { useContext } from "react";
+import {useContext} from "react";
 
 const StockPicks = () => {
-	const { isLoggedIn } = useContext(AuthContext);
+    const {isLoggedIn} = useContext(AuthContext);
 
-	return (
-		<PageVisibility>
-			{(isPageVisible) => (
-				<>
-					{isLoggedIn ? <NavBar2 /> : <NavBar />}
-					<div
-						style={{
-							background: "#fff",
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-							flexDirection: "column",
-						}}
-					>
-						<StockCard />
-						{/* <StockCardBlur /> */}
-						<FaqsNew />
-						<Footer />
-					</div>
-				</>
-			)}
-		</PageVisibility>
-	);
+    return (
+        <PageVisibility>
+            {(isPageVisible) => (
+                <>
+                    {isLoggedIn ? <NavBar2/> : <NavBar/>}
+                    <div
+                        style={{
+                            background: "#fff",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            flexDirection: "column",
+                        }}
+                    >
+                        <StockCard/>
+                        {/* <StockCardBlur /> */}
+                        <FaqsNew/>
+                        <Footer/>
+                    </div>
+                </>
+            )}
+        </PageVisibility>
+    );
 };
 
 export default StockPicks;

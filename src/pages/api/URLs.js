@@ -21,7 +21,7 @@ export const REGEN_TOKEN_URL = `${MASTER_URL}/regenerateRefreshToken/`;
 //Payment
 export const GET_PRODUCT = `${ADMIN_URL}/subscription/`;
 export const PAYMENT_URL =
-  `${USER_URL}/create-checkout-session/` || "http://localhost:3000";
+    `${USER_URL}/create-checkout-session/` || "http://localhost:3000";
 
 //Profile URLs
 export const USER_PROFILE_URL = `${USER_URL}/userprofile/`;
