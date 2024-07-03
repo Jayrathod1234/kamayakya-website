@@ -1,17 +1,35 @@
+import { getMixPanelClient } from "@/externals/mixpanel";
 import { Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function FooterLinks({href,label,...rest}:Record<string,string>){
-  return  <Link {...rest} href={href} className=" text-inherit">
-  <p className=" m-0 font-medium text-2xs md:text-md">{label}</p>
-</Link>
+function FooterLinks({ href, label, event, ...rest }: Record<string, string>) {
+  const handleEvent = () => {
+    if (!event) return;
+    const mp = getMixPanelClient();
+    mp.track(event, {
+      page: "Pricing_Page",
+      pagegroup: "footer",
+    });
+  };
+  return (
+    <Link onClick={handleEvent} {...rest} href={href} className=" text-inherit">
+      <p className=" m-0 font-medium text-2xs md:text-md">{label}</p>
+    </Link>
+  );
 }
 
-function Socials({ href, imgSrc, alt }: Record<string, string>) {
+function Socials({ href, imgSrc, alt, event }: Record<string, string>) {
+  const handleEvent = () => {
+    const mp = getMixPanelClient();
+    mp.track(event, {
+      page: "Pricing_Page",
+      pagegroup: "footer",
+    });
+  };
   return (
-    <Link target="_blank" href={href}>
+    <Link onClick={handleEvent} target="_blank" href={href}>
       <Image className="h-8 aspect-square md:h-9 inline-block" src={imgSrc} alt={alt} width={40} height={40} priority />
     </Link>
   );
@@ -37,23 +55,36 @@ export function Footer() {
             <p className="hidden md:block text-sm mt-2">Made in Bharat with ❤️</p>
           </div>
           <div className=" flex gap-x-[10px]">
-            <Socials href="https://www.facebook.com/KamayaKya" imgSrc="icons/Facebook.svg" alt="kamayakya-fb" />
             <Socials
+              event="facebook_clicked"
+              href="https://www.facebook.com/KamayaKya"
+              imgSrc="icons/Facebook.svg"
+              alt="kamayakya-fb"
+            />
+            <Socials
+              event="instagram_clicked"
               href="https://www.instagram.com/kamayakyaofficial?igshid=YmMyMTA2M2Y%3D"
               imgSrc="/icons/Instagram.svg"
               alt="kamayakya-instagram"
             />
             <Socials
+              event="twitter_clicked"
               href="https://x.com/KamayaKyaIndia?s=20&t=LGnZi-Xq9J6m993h9E7BCw"
               imgSrc="/icons/Twitter.svg"
               alt="kamayakya-twitter"
             />
             <Socials
+              event="linkedin_clicked"
               href="https://www.linkedin.com/company/kamayakya/"
               imgSrc="/icons/Linkedin.svg"
               alt="kamayakya-linkedin"
             />
-            <Socials href="https://t.me/+5ZpxedvOoothOWZl" imgSrc="/icons/Telegram.svg" alt="kamayakya-telegram" />
+            <Socials
+              event="telegram_clicked"
+              href="https://t.me/+5ZpxedvOoothOWZl"
+              imgSrc="/icons/Telegram.svg"
+              alt="kamayakya-telegram"
+            />
           </div>
         </div>
         <div className=" flex justify-between flex-wrap max-md:flex-col max-md:gap-y-[21px]">
@@ -149,13 +180,17 @@ export function Footer() {
           </p>
           <div className=" flex flex-col gap-y-5 md:gap-y-12">
             <div className=" text-white flex flex-wrap gap-x-5 items-center justify-center flex-shrink-0 content-center whitespace-nowrap max-md:text-2xs ">
-              <FooterLinks href="terms-conditions" label="Terms & Conditions"/>
-              <FooterLinks href="disclaimer" label="Disclosures"/>
-              <FooterLinks href="investor-charter" label="Investor Charter"/>
-              <FooterLinks href="complaints" label="Complaints"/>
-              <FooterLinks href="privacy-policy" label="Privacy Policy"/>
-              <FooterLinks target="_blank" href="https://smartodr.in/login" label="Smart ODR"/>
-             
+              <FooterLinks event="tnc_clicked" href="terms-conditions" label="Terms & Conditions" />
+              <FooterLinks href="disclaimer" label="Disclosures" />
+              <FooterLinks href="investor-charter" label="Investor Charter" />
+              <FooterLinks event="complaints_clicked" href="complaints" label="Complaints" />
+              <FooterLinks href="privacy-policy" label="Privacy Policy" />
+              <FooterLinks
+                event="smartodr_clicked"
+                target="_blank"
+                href="https://smartodr.in/login"
+                label="Smart ODR"
+              />
             </div>
             <p className=" text-sm  max-md:text-4xs opacity-[62%] text-center">
               KamayaKya Wealth Management Pvt. Ltd. (CIN - U74999PN2021PTC205529). All rights reserved.

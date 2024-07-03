@@ -74,156 +74,162 @@ const BlogSection2 = ({ blogs }: { blogs: Array<TBlog> }) => {
 
           <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(358px,1fr))] gap-y-14 gap-x-8 w-full ">
             {/* <div className=" col-span-full"> */}
-            <BlogCardLg />
+            {/* <BlogCardLg /> */}
             {/* </div> */}
 
             {/* <div className=" flex row-start-2 gap-x-8"> */}
-            {blogs.map((blog: TBlog) => (
-              <BlogCardSm key={blog.id} blog={blog} />
-              // <div
-              //   onClick={() => router.push(`${blog.slug}`)}
-              //   key={blog.id}
-              //   // sx={{
-              //   //   width: "280px",
-              //   //   height: "450px",
-              //   //   display: "flex",
-              //   //   flexWrap: "wrap",
-              //   //   flexDirection: "column",
-              //   //   justifyContent: "space-between",
-              //   //   marginBottom: "50px",
-              //   //   "@media only screen and (max-width: 764px)": {
-              //   //     width: "100%",
-              //   //     height: "auto",
-              //   //     gap: "0px",
-              //   //   },
-              //   // }}
-              // >
-              //   <div>
-              //     <div sx={{ width: "100%", position: "relative" }}>
-              //       {isLoading && (
-              //         <div
-              //           // sx={{
-              //           //   width: "100%",
-              //           //   height: "190px",
-              //           //   display: "flex",
-              //           //   justifyContent: "center",
-              //           //   alignItems: "center",
-              //           //   backgroundColor: "#fefefe",
-              //           //   zIndex: 1,
-              //           //   transition: "opacity 0.5s",
-              //           // }}
-              //         >
-              //           <Loading type={"gradient"} />
-              //         </div>
-              //       )}
-              //       <img
-              //         src={blog.image1}
-              //         alt="Blog image"
-              //         width={"100%"}
-              //         height={"180px"}
-              //         style={{
-              //           objectFit: "cover",
-              //           marginBottom: "15px",
-              //           borderRadius: "2.5px",
-              //           display: isLoading ? "none" : "block",
-              //           opacity: isLoading ? 0 : 1,
-              //           transition: "opacity 0.5s",
-              //           backgroundColor: "#f3f3f3",
-              //         }}
-              //         onLoad={handleImageLoad}
-              //       />
-              //     </div>
-              //     <div
-              //       sx={{
-              //         display: "flex",
-              //         flexWrap: "wrap",
-              //         flexDirection: "row",
-              //         justifyContent: "flex-start",
-              //         "@media only screen and (max-width: 764px)": {
-              //           width: "90%",
-              //         },
-              //       }}
-              //     >
-              //       {/*<Text b size={15} css={{ lineHeight: 1 }}>*/}
-              //       {/*	Team KamayaKya*/}
-              //       {/*</Text>*/}
-              //       <div
-              //         style={{
-              //           width: "20px",
-              //           height: "5px",
-              //           backgroundColor: "#FF9E24",
-              //           marginTop: "4px",
-              //           marginRight: "7.5px",
-              //           borderRadius: "10000px",
-              //         }}
-              //       ></div>
-              //       <Text
-              //         b
-              //         size={14}
-              //         css={{ lineHeight: 1, paddingBottom: "0px" }}
-              //       >
-              //         {new Date(blog.created).toLocaleDateString()}
-              //       </Text>
-              //     </div>
-              //     <div style={{ display: "flex", flexDirection: "column" }}>
-              //       <Text
-              //         b
-              //         size={24}
-              //         css={{
-              //           lineHeight: 1.1,
-              //           marginTop: "10px",
-              //           "@media only screen and (max-width: 764px)": {
-              //             width: "90%",
-              //           },
-              //         }}
-              //       >
-              //         {blog.title}
-              //       </Text>
-              //       {/*<Text*/}
-              //       {/*  b*/}
-              //       {/*  size={14}*/}
-              //       {/*  css={{ lineHeight: 1.2, marginTop: "5px" }}*/}
-              //       {/*>*/}
-              //       {/*  {blog.description.length > 200*/}
-              //       {/*    ? `${blog.description.substring(0, 100)}...`*/}
-              //       {/*    : blog.description}*/}
-              //       {/*</Text>*/}
-              //       <span style={{ height: "10px" }} />
-              //         {/* <Markdown>
-              //         {blog.description.length > 200
-              //           ? `${blog.description.substring(0, 100)}...`
-              //           : blog.description}
-              //       </Markdown> */}
-              // 			<span
-              // 				dangerouslySetInnerHTML={{
-              // 					__html:
-              // 						blog.description.length > 200
-              // 							? `${blog.description.substring(0, 100)}...`
-              // 							: blog.description,
-              // 				}}
-              // 			/>
-              // 		</div>
-              // 	</div>
+            {blogs.map((blog: TBlog, index) =>
+              index === 0 ? (
+                <>
+                  <BlogCardLg key={blog.id} blog={blog} /> <BlogCardSm className=" md:hidden" key={blog.id} blog={blog} />
+                </>
+              ) : (
+                <BlogCardSm key={blog.id} blog={blog} />
+                // <div
+                //   onClick={() => router.push(`${blog.slug}`)}
+                //   key={blog.id}
+                //   // sx={{
+                //   //   width: "280px",
+                //   //   height: "450px",
+                //   //   display: "flex",
+                //   //   flexWrap: "wrap",
+                //   //   flexDirection: "column",
+                //   //   justifyContent: "space-between",
+                //   //   marginBottom: "50px",
+                //   //   "@media only screen and (max-width: 764px)": {
+                //   //     width: "100%",
+                //   //     height: "auto",
+                //   //     gap: "0px",
+                //   //   },
+                //   // }}
+                // >
+                //   <div>
+                //     <div sx={{ width: "100%", position: "relative" }}>
+                //       {isLoading && (
+                //         <div
+                //           // sx={{
+                //           //   width: "100%",
+                //           //   height: "190px",
+                //           //   display: "flex",
+                //           //   justifyContent: "center",
+                //           //   alignItems: "center",
+                //           //   backgroundColor: "#fefefe",
+                //           //   zIndex: 1,
+                //           //   transition: "opacity 0.5s",
+                //           // }}
+                //         >
+                //           <Loading type={"gradient"} />
+                //         </div>
+                //       )}
+                //       <img
+                //         src={blog.image1}
+                //         alt="Blog image"
+                //         width={"100%"}
+                //         height={"180px"}
+                //         style={{
+                //           objectFit: "cover",
+                //           marginBottom: "15px",
+                //           borderRadius: "2.5px",
+                //           display: isLoading ? "none" : "block",
+                //           opacity: isLoading ? 0 : 1,
+                //           transition: "opacity 0.5s",
+                //           backgroundColor: "#f3f3f3",
+                //         }}
+                //         onLoad={handleImageLoad}
+                //       />
+                //     </div>
+                //     <div
+                //       sx={{
+                //         display: "flex",
+                //         flexWrap: "wrap",
+                //         flexDirection: "row",
+                //         justifyContent: "flex-start",
+                //         "@media only screen and (max-width: 764px)": {
+                //           width: "90%",
+                //         },
+                //       }}
+                //     >
+                //       {/*<Text b size={15} css={{ lineHeight: 1 }}>*/}
+                //       {/*	Team KamayaKya*/}
+                //       {/*</Text>*/}
+                //       <div
+                //         style={{
+                //           width: "20px",
+                //           height: "5px",
+                //           backgroundColor: "#FF9E24",
+                //           marginTop: "4px",
+                //           marginRight: "7.5px",
+                //           borderRadius: "10000px",
+                //         }}
+                //       ></div>
+                //       <Text
+                //         b
+                //         size={14}
+                //         css={{ lineHeight: 1, paddingBottom: "0px" }}
+                //       >
+                //         {new Date(blog.created).toLocaleDateString()}
+                //       </Text>
+                //     </div>
+                //     <div style={{ display: "flex", flexDirection: "column" }}>
+                //       <Text
+                //         b
+                //         size={24}
+                //         css={{
+                //           lineHeight: 1.1,
+                //           marginTop: "10px",
+                //           "@media only screen and (max-width: 764px)": {
+                //             width: "90%",
+                //           },
+                //         }}
+                //       >
+                //         {blog.title}
+                //       </Text>
+                //       {/*<Text*/}
+                //       {/*  b*/}
+                //       {/*  size={14}*/}
+                //       {/*  css={{ lineHeight: 1.2, marginTop: "5px" }}*/}
+                //       {/*>*/}
+                //       {/*  {blog.description.length > 200*/}
+                //       {/*    ? `${blog.description.substring(0, 100)}...`*/}
+                //       {/*    : blog.description}*/}
+                //       {/*</Text>*/}
+                //       <span style={{ height: "10px" }} />
+                //         {/* <Markdown>
+                //         {blog.description.length > 200
+                //           ? `${blog.description.substring(0, 100)}...`
+                //           : blog.description}
+                //       </Markdown> */}
+                // 			<span
+                // 				dangerouslySetInnerHTML={{
+                // 					__html:
+                // 						blog.description.length > 200
+                // 							? `${blog.description.substring(0, 100)}...`
+                // 							: blog.description,
+                // 				}}
+                // 			/>
+                // 		</div>
+                // 	</div>
 
-              // 	<Button
-              // 		css={{
-              // 			width: "100%",
-              // 			borderRadius: "5px",
-              // 			// marginTop: "25px",
-              // 			backgroundColor: "#303d6a",
-              // 			color: "#fff",
-              // 		}}
-              // 		onClick={() => router.push(`${blog.slug}`)}
-              // 	>
-              // 		Read More
-              // 		<BiChevronRight
-              // 			color="#fff"
-              // 			size={20}
-              // 			style={{ marginLeft: "20px" }}
-              // 		/>
-              // 	</Button>
-              // </div>
-            ))}
+                // 	<Button
+                // 		css={{
+                // 			width: "100%",
+                // 			borderRadius: "5px",
+                // 			// marginTop: "25px",
+                // 			backgroundColor: "#303d6a",
+                // 			color: "#fff",
+                // 		}}
+                // 		onClick={() => router.push(`${blog.slug}`)}
+                // 	>
+                // 		Read More
+                // 		<BiChevronRight
+                // 			color="#fff"
+                // 			size={20}
+                // 			style={{ marginLeft: "20px" }}
+                // 		/>
+                // 	</Button>
+                // </div>
+              )
+            )}
             {/* </div> */}
           </div>
         </div>

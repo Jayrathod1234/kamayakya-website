@@ -4,22 +4,52 @@ export const NAVBAR_LINKS = [
   {
     title: "About Us",
     link: "/#philosophy",
+    mixpanel:{
+      event:"sampleReports_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Pricing",
     link: "/pricing",
+    mixpanel:{
+      event:"pricing_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Track Record",
     link: "/track-record",
+    mixpanel:{
+      event:"trackrecord_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "SME Corner",
     link: "/sme",
+    mixpanel:{
+      event:"smecorner_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Stocks to Buy",
     link: "/stock-picks",
+    mixpanel:{
+      event:"stockstobuy_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
 ];
 
@@ -138,6 +168,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#philosophy",
+    mixpanel:{
+      event:"philosophy_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Sample Reports",
@@ -194,6 +230,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#philosophy",
+    mixpanel:{
+      event:"sampleReports_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   // {
   //   title: "Performance",
@@ -251,6 +293,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#whyUs",
+    mixpanel:{
+      event:"trustus_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Team",
@@ -297,6 +345,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#team",
+    mixpanel:{
+      event:"team_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "How it works?",
@@ -546,6 +600,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "",
+    mixpanel:{
+      event:"howitworks_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Hot Stocks",
@@ -596,6 +656,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#hotStocks",
+    mixpanel:{
+      event:"hotstocks_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   // {
   //   title: "Media",
@@ -661,6 +727,12 @@ export const HOME_OPTIONS = [
     ),
     link:'',
     id: "#testimonials",
+    mixpanel:{
+      event:"testimonials_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   // {
   //   title: "Blogs",
@@ -758,5 +830,11 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#FAQs",
+    mixpanel:{
+      event:"sampleReports_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
 ];

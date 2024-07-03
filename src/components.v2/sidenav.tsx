@@ -14,6 +14,7 @@ import axios from "axios";
 import { ACTIVE_PLAN_URL, RECOMMENDATION_COUNTS } from "@/pages/api/URLs";
 import { useActivePlanContext } from "@/components/PlanContext";
 import Link from "next/link";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 type TSideNav = {
   handleLogin: () => void;
@@ -42,7 +43,13 @@ export default function SideNav({ handleLogin }: TSideNav) {
   // const {plan} = activePlan
   const refreshToken = localStorage.getItem("refresh");
 
+  const handleEvent = (event: string, properties: Record<string, string>) => {
+    const mp = getMixPanelClient();
+    mp.track(event, properties);
+  };
+
   const handleClick = () => {
+    handleEvent("login_clicked", { page: "Pricing_Page" });
     setOpen(false);
     handleLogin();
   };
@@ -106,7 +113,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
       <SheetTrigger onClick={() => setOpen(true)}>
         <Menu className="inline-block lg:hidden" />
       </SheetTrigger>
-      <SheetContent className=" pricing flex flex-col p-0 overflow-y-scroll pr-0">
+      <SheetContent className=" z-[1000] pricing flex flex-col p-0 overflow-y-scroll pr-0">
         {/* <SheetHeader> */}
         <div className="  p-4">
           <Image
@@ -138,6 +145,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                             className=" text-inherit"
                             href={options.link}
                             onClick={(e) => {
+                              handleEvent(options.mixpanel.event, options.mixpanel.property);
                               if (options.id) {
                                 e.preventDefault();
                                 setOpen(false);
@@ -157,7 +165,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                 </Accordion>
               </li>
               {NAVBAR_LINKS.map((nav) => (
-                <Link key={nav.title} className=" text-inherit" href={nav.link}>
+                <Link onClick={() => handleEvent(nav.mixpanel.event, nav.mixpanel.property)} key={nav.title} className=" text-inherit" href={nav.link}>
                   <li
                     key={nav.title}
                     className={` text-md flex justify-between items-center font-medium py-3 px-4 m-0 ${

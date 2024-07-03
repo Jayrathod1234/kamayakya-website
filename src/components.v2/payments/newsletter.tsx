@@ -65,7 +65,7 @@ export function Newsletter() {
   };
 
   return (
-    <div className=" relative flex flex-col justify-center items-center py-[60px] text-white before:content-[' '] before:absolute before:top-0 before:left-0 before:-z-[10] before:h-full before:w-full before:bg-[url('/news_letter_bg.png')] before:opacity-80 bg-gray-950 text-center  md:w-[min(1280px,calc(100%-32px))] md:min-w-[328px] md:max-h-[639px] md:mx-auto md:mt-[-15rem]  lg:mt-[-15rem] md:rounded-[40px] relative z-40 ">
+    <div className=" relative flex flex-col justify-center items-center py-[60px] text-white before:content-[' '] before:absolute before:top-0 before:left-0 before:-z-[10] before:h-full before:w-full before:bg-[url('/news_letter_bg.png')] before:opacity-80 bg-gray-950 text-center  md:w-[min(1280px,calc(100%-32px))] md:min-w-[328px] md:max-h-[639px] md:mx-auto md:mt-[-15rem]  lg:mt-[-15rem] md:rounded-[40px] relative z-30 ">
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto md:w-[566px] md:mt-[109px] md:mb-[126px]">
         <h3 className=" text-xl font-bold md:text-display-md">
           Guess who doesn’t like to “Spam” ? <span className=" text-[#32D583]">Us.</span>

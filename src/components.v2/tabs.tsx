@@ -57,7 +57,7 @@ export function Tabs({ variant, options, defaultOption, setSelectedOption }: TTa
         {options &&
           options.map((tabs) => (
             <TabsTrigger
-              className={` ${childrenSize} text-gray-500 rounded-full hover:bg-gray-100 data-[state=active]:text-gray-950 data-[state=active]:font-medium`}
+              className={` ${childrenSize} text-gray-500 rounded-full hover:bg-gray-50 data-[state=active]:text-gray-950 data-[state=active]:font-medium`}
               value={tabs.value}
             >
               {tabs.label}
