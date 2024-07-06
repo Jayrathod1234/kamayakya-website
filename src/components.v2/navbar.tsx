@@ -73,7 +73,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <div ref={ref} className="sticky left-0 right-0 top-0 z-[1000] transition-all duration-500 overflow-visible">
+    <div ref={ref} className="sticky left-0 right-0 top-0 z-50 transition-all duration-500 overflow-visible">
       <div className="flex py-2 md:py-4 justify-between items-center main-container overflow-visible">
         <div className=" flex flex-row items-center justify-center">
           <div className=" mb-1 mr-3 lg:mr-10">
@@ -105,7 +105,7 @@ export function Navbar() {
                     {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
                     <ul
                       className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
-                        isLoggedIn ? "grid-rows-3" : "grid-rows-3"
+                        isLoggedIn ? "grid-rows-4" : "grid-rows-3"
                       } gap-3 m-0 p-6  ${isLoggedIn ? "lg:w-[700px]" : "md:w-[620px] lg:w-[900px]"}  `}
                     >
                       {HOME_OPTIONS.filter((options) =>
@@ -156,18 +156,19 @@ export function Navbar() {
                           ? "hidden"
                           : "hidden lg:flex"
                         : navigationOption.title === "Stocks to Buy"
-                        ? "lg:hidden"
+                        ? "lg:hidden rounded-[6px] border pricing border-orange-500 bg-transparent !text-orange-500 hover:bg-orange-500 hover:text-white mr-4"
                         : ""
                     } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                   >
                     <Link
+                      className=" !text-inherit"
                       onClick={() => handleEvent(navigationOption.mixpanel.event, navigationOption.mixpanel.property)}
                       href={navigationOption.link}
                       legacyBehavior
                       passHref
                     >
                       <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
+                        className={`${navigationMenuTriggerStyle()} text-inherit`}
                         active={pathname === navigationOption.link}
                       >
                         {navigationOption.title}

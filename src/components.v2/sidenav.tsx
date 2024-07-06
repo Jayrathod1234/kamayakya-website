@@ -113,7 +113,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
       <SheetTrigger onClick={() => setOpen(true)}>
         <Menu className="inline-block lg:hidden" />
       </SheetTrigger>
-      <SheetContent className=" z-[1000] pricing flex flex-col p-0 overflow-y-scroll pr-0">
+      <SheetContent className=" z-50 pricing flex flex-col p-0 overflow-y-scroll pr-0">
         {/* <SheetHeader> */}
         <div className="  p-4">
           <Image
@@ -186,13 +186,13 @@ export default function SideNav({ handleLogin }: TSideNav) {
           <div className=" pt-4 mt-auto">
             {plan &&
             (plan.toLowerCase() === "free" || plan.toLowerCase() === "advanced" || plan.toLowerCase() === "core") ? (
-              <div className=" px-4">
+              <div onClick={()=>setOpen(false)} className=" px-4">
                 <MissOutBanner />
               </div>
             ) : null}
 
             <div className=" mb-2 mt-4  h-[1px] bg-gray-150 w-full"></div>
-            <div className=" px-4 pb-4">
+            <div className=" px-4 pb-4 z-50">
               <NavbarDropdownCard
                 triggerElement={<NavbarUserCard arrow={true} className="py-2 pl-4 pr-3" />}
                 userCard={false}

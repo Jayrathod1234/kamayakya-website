@@ -30,6 +30,7 @@ export function NavbarDropdownCard({
   const router = useRouter();
 
   const handleEvent = (event: string, properties: Record<string, string>) => {
+    console.log("CLICKED",event);
     const mp = getMixPanelClient();
     mp.track(event, properties);
   };
@@ -52,11 +53,16 @@ export function NavbarDropdownCard({
     localStorage.removeItem("refresh");
     router.replace("/");
   };
+  // console.log(open)
   return (
-    <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
+    <DropdownMenu modal={true} open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger
-        onClick={() => handleEvent("profileicon_clicked", { page: "Pricing_Page" })}
-        className=" w-full"
+        onClick={(e) => {
+          e.preventDefault()
+          // setOpen(true)
+          handleEvent("profileicon_clicked", { page: "Pricing_Page" });
+        }}
+        className=" w-full z-10"
       >
         {triggerElement}
       </DropdownMenuTrigger>
@@ -65,19 +71,20 @@ export function NavbarDropdownCard({
         side={side}
         sideOffset={sideOffset}
       >
-        {userCard && (
+        {/* {userCard && (
           <DropdownMenuLabel className=" p-0">
             <NavbarUserCard />
           </DropdownMenuLabel>
-        )}
+        )} */}
 
         {/* <DropdownMenuLabel className=" p-2">
           <DropDownItemContent icon={<User size={16} />} option="My Account" />
         </DropdownMenuLabel>
         <DropdownMenuSeparator /> */}
-        <DropdownMenuItem className=" p-2">
+        <DropdownMenuItem  className=" p-2">
           <DropDownItemContent
             onClick={() => {
+              
               handleEvent("myaccount_clicked", { page: "Pricing_Page" });
               handleRouting("/user-profile");
             }}
@@ -109,6 +116,7 @@ export function NavbarDropdownCard({
               <DropdownMenuItem
                 onClick={(e) => {
                   e.preventDefault();
+                  // setOpen(false)
                   handleEvent("contactscroll_clicked", { page: "Pricing_Page", pagegroup: "My Profile" });
 
                   // scrollTo("#feeling-lost")

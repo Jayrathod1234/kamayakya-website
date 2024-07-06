@@ -1,6 +1,9 @@
 //AUTH BASE
 // console.log(process.env.NEXT_PUBLIC_STRIPE_KEY);
 // export const BASE_URL = "https://api-server.kamayakya.in";
+
+import exp from "constants";
+
 // export const BASE_URL = "https://test-server.kamayakya.in";
 export const BASE_URL = process.env.NEXT_PUBLIC_BASEPATH;
 // export const BASE_URL = "http://192.168.0.151:8000";
@@ -45,8 +48,9 @@ export const RAZORPAY_CALLBACK = `${USER_URL}/razorpay_callback/`;
 export const BILLING_URL_RAZORPAY = `${USER_URL}/razorpay_transaction/`;
 
 //Blogs URL
-export const GET_BLOGS = `${USER_URL}/all_blogs/`;
+export const GET_BLOGS = `${USER_URL}/all_blogs`;
 export const GET_SPECIFIC_BLOG = `${USER_URL}/blog/`;
+export const SEARCH_BLOG = `${USER_URL}/search_blog`
 
 //Track Records
 export const TRACK_RECORD_FOR_ALL = `${USER_URL}/getTrackRecordForAll`;

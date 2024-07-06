@@ -66,16 +66,13 @@ export function Newsletter() {
 
   return (
     <div className=" relative flex flex-col justify-center items-center py-[60px] text-white before:content-[' '] before:absolute before:top-0 before:left-0 before:-z-[10] before:h-full before:w-full before:bg-[url('/news_letter_bg.png')] before:opacity-80 bg-gray-950 text-center  md:w-[min(1280px,calc(100%-32px))] md:min-w-[328px] md:max-h-[639px] md:mx-auto  md:rounded-[40px] relative z-30 ">
-      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto md:w-[566px] md:mt-[109px] md:mb-[126px]">
-        <h3 className=" text-xl font-bold md:text-display-md">
-          Guess who doesn’t like to “Spam” ? <span className=" text-[#32D583]">Us.</span>
+      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto md:w-[720px] md:mt-[109px] md:mb-[126px]">
+        <h3 className=" text-xl font-bold md:text-display-md m-0">
+          Guess who doesn’t like to <br/> “Spam” ? <span className=" text-[#32D583]">Us.</span>
         </h3>
-        <div className=" mt-10 md:mt-[75px] flex flex-col items-center gap-3 md:flex-row md:gap-x-3 md:justify-center">
-          <p className=" whitespace-nowrap">Get monthly dose of market gyaan on :</p>
-          <LinkedinBtn />
-        </div>
-        <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p>
-        <p className=" text-center font-semibold text-lg mb-8">Subscribe to our Newsletter</p>
+        <div className="block h-[2px] w-16 bg-brand-400 mx-auto mt-[26px] md:hidden"></div>
+        <div className=" md:py-11 md:px-20 md:border rounded-[30px] md:border-[rgba(255,255,255,.25)] mt-[26px] md:mt-12 md:bg-[rgba(12,17,29,0.70)]">
+        <p className=" text-center font-semibold text-lg mb-5 md:mb-9">Subscribe to our Newsletter</p>
         <div>
           {/* EMAIL INPUT */}
           <div
@@ -117,8 +114,15 @@ export function Newsletter() {
           {emailError ? (
             <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left max-w-[350px] md:max-w-[566px] mx-auto">Enter valid email</p>
           ) : null}
-          <p className=" text-sm text-gray-200 mt-4">We do not share your details with third parties.</p>
+          <p className=" text-sm text-gray-200 mt-5 md:mt-[30px]">We do not share your details with third parties.</p>
         </div>
+        </div>
+        <div className=" mt-[46px] md:mt-9 flex flex-col items-center gap-3 md:flex-row md:gap-x-3 md:justify-center">
+          <p className=" text-2xs md:text-md whitespace-nowrap">Or,get monthly dose of market gyaan on :</p>
+          <LinkedinBtn />
+        </div>
+        {/* <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p> */}
+      
       </div>
     </div>
   );

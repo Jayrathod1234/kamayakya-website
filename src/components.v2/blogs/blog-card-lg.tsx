@@ -17,34 +17,14 @@ const Meta = ({ icon, label }: { icon: string; label: string }) => {
   );
 };
 
-export function BlogCardLg({
-  blog = {
-    author: "KMK",
-    created: "2024-06-05T18:57:29.075079+05:30",
-    description:
-      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nihil alias accusantium a dignissimos odit voluptates, et voluptatum natus ullam dolorem aliquam non dolore consectetur impedit amet officiis. Officia obcaecati maxime aliquam ad culpa! Odio recusandae fuga voluptatum minus voluptatibus inventore nemo quam asperiores, consequatur odit, culpa, sint quibusdam amet!",
-    id: "3a13796d-de38-4e09-a645-ba76d68fdad4",
-    image1:
-      "https://kamayakya.s3.amazonaws.com/test-folder/Election_results.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240622%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240622T091530Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=bd88e318fd9a8840f3fe7c6c7a155c2f97dacc5f1242133dd774c51489b2f0d1",
-    image2: null,
-    image3: null,
-    is_archived: false,
-    is_drafted: false,
-    read_time: 2,
-    slug: "the-rise-of-the-tourism-sector",
-    title: "THE RISE OF THE TOURISM SECTOR",
-    updated_at: "2024-06-05T18:57:29.062002+05:30",
-  },
-}: {
-  blog?: TBlog;
-}) {
+export function BlogCardLg({ blog }: { blog: TBlog }) {
   const router = useRouter();
 
   const handleReadMore = () => router.push(`${blog.slug}`);
 
   return (
-    <div className="bg-white hidden md:flex col-span-full h-[500px] min-w-full border-[10px]  border-gray-150 rounded-[20px] overflow-hidden shadow-6xs">
-      <div>
+    <div className="bg-white hidden md:flex col-span-full h-[500px] min-w-full border-[10px]  border-gray-150 rounded-[20px] overflow-hidden shadow-6xs max-md:hover:shadow-lg transition-shadow ">
+      <div onClick={handleReadMore} className=" cursor-pointer ">
         <Image className=" object-cover h-full w-full" width={406} height={300} alt="blog-image" src={blog.image1} />
       </div>
       <div className=" py-12 px-14 flex flex-col max-w-[400px] lg:max-w-[491px]">
@@ -54,7 +34,12 @@ export function BlogCardLg({
           <Meta icon={"Clock"} label={blog.read_time + " min read"} />
         </div>
         <div className=" mt-6">
-          <h2 className=" font-bold text-md text-gray-950 md:text-display-md w-full line-clamp-2">{blog.title}</h2>
+          <h2
+            onClick={handleReadMore}
+            className=" cursor-pointer font-bold text-md text-gray-950 md:text-display-md w-full line-clamp-2"
+          >
+            {blog.title}
+          </h2>
           <p
             dangerouslySetInnerHTML={{ __html: blog.description }}
             className=" mt-2 line-clamp-2 md:line-clamp-[6] text-gray-950 opacity-60"
