@@ -10,7 +10,7 @@ import { Input } from "@/components.v2/ui/input";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { TBlog } from "@/types";
 import { Button } from "@/components.v2/button";
-import { ButtonVariant } from "@/components.v2/button/button";
+import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import axios from "axios";
 import Lottie from "lottie-react";
 import LOADING_GIF from "../../../public/blogs/loading.json";
@@ -33,7 +33,7 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
     setIsLoading(false);
   };
 
-  const handleSearch = async (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       // setIsLoadingBlogs(true)
       setSearch(e.target.value);
@@ -97,7 +97,7 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
       setFilteredBlogs(blogs);
     }
   }, [filteredblogs, search]);
-  console.log(filteredblogs)
+  console.log(filteredblogs);
   return (
     <main>
       <section className="flex flex-col items-center ">
@@ -132,13 +132,13 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
             {/* <Input className=" h-0 w-0" type="submit" value={""} /> */}
           </form>
 
-          <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-y-14 gap-x-8 w-full pb-16 ">
+          <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-y-14 gap-x-8 w-full pb-[3.75rem] ">
             {search && filteredblogs?.length == 0 ? <h1 className=" col-span-full">No Blogs Found</h1> : null}
             {filteredblogs.map((blog: TBlog, index) =>
-              index === 0 ? (
+              index === 0 && search.length === 0 && prevPage === null ? (
                 <>
                   <BlogCardLg key={blog.id} blog={blog} />
-                  <BlogCardSm className=" md:hidden" key={blog.id+index} blog={blog} />
+                  <BlogCardSm className=" md:hidden" key={blog.id + index} blog={blog} />
                 </>
               ) : (
                 <BlogCardSm key={blog.id} blog={blog} />
@@ -146,23 +146,26 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
             )}
           </div>
         </div>
-        <div className=" flex items-center justify-center gap-x-4 mt-[5.375rem]">
-          {prevPage && (
-            <Button
-              onClick={() => handlePrevNext(prevPage as string)}
-              startIcon={<ChevronLeft />}
-              variant={ButtonVariant.tertiary}
-              customStyle=" !w-10 !aspect-square min-w-10 !px-0 !py-0"
-            ></Button>
-          )}
-          {nextPage && (
-            <Button
-              onClick={() => handlePrevNext(nextPage as string)}
-              startIcon={<ChevronRight />}
-              variant={ButtonVariant.tertiary}
-              customStyle=" !w-10 !aspect-square min-w-10 !px-0 !py-0"
-            ></Button>
-          )}
+        <div className=" flex items-center justify-center gap-x-4 ">
+          <Button
+            disabled={!prevPage}
+            onClick={() => handlePrevNext(prevPage as string)}
+            startIcon={<ChevronLeft size={16} />}
+            variant={ ButtonVariant.primary }
+            customStyle=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+          >
+            Prev
+          </Button>
+
+          <Button
+            disabled={!nextPage}
+            onClick={() => handlePrevNext(nextPage as string)}
+            endIcon={<ChevronRight size={16} />}
+            variant={ButtonVariant.primary }
+            customStyle="  !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+          >
+            Next
+          </Button>
         </div>
         {/* <iframe
 					src="https://docs.google.com/document/d/e/2PACX-1vRKruCKKwxPDEUaTzG6Noq-tB-HNb5YoFEwSgurv9jfOLfk9U3I04ncHGhpmxjKHw/pub?embedded=true"

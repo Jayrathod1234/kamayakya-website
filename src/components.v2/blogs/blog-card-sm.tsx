@@ -59,7 +59,7 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
           <div className=" mt-4 ">
             <h2
               // onClick={handleReadMore}
-              className=" font-bold text-gray-950 text-lg w-full line-clamp-2 cursor-pointer mb-0 group-hover:text-brand-500"
+              className=" font-bold text-gray-950 text-lg w-full line-clamp-1 cursor-pointer mb-0 group-hover:text-brand-500"
             >
               {blog.title}
             </h2>
