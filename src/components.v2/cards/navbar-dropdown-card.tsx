@@ -13,6 +13,7 @@ import { CircleHelp, Headset, LogOut, MessageSquareText, User } from "lucide-rea
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ContactModal } from "../payments/contact-modal";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 export function NavbarDropdownCard({
   triggerElement,
@@ -25,8 +26,14 @@ export function NavbarDropdownCard({
   sideOffset?: number;
   side?: "top" | "right" | "bottom" | "left" | undefined;
 }) {
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  const handleEvent = (event: string, properties: Record<string, string>) => {
+    console.log("CLICKED",event);
+    const mp = getMixPanelClient();
+    mp.track(event, properties);
+  };
 
   //scroll to not working properly because of dropdown state change
   const scrollTo = (id: string) => {
@@ -41,31 +48,46 @@ export function NavbarDropdownCard({
   };
 
   const handleLogoutClick = () => {
+    handleEvent("logout_clicked", { page: "Pricing_Page" });
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
     router.replace("/");
   };
+  // console.log(open)
   return (
-    <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger className=" w-full">{triggerElement}</DropdownMenuTrigger>
+    <DropdownMenu modal={true} open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger
+        onClick={(e) => {
+          e.preventDefault()
+          // setOpen(true)
+          handleEvent("profileicon_clicked", { page: "Pricing_Page" });
+        }}
+        className=" w-full z-10"
+      >
+        {triggerElement}
+      </DropdownMenuTrigger>
       <DropdownMenuContent
         className=" w-[319px] md:w-auto rounded-[6px] border border-gray-150 shadow-[0px_4px_6px_rgba(0,0,0,0.09)]"
         side={side}
         sideOffset={sideOffset}
       >
-        {userCard && (
+        {/* {userCard && (
           <DropdownMenuLabel className=" p-0">
             <NavbarUserCard />
           </DropdownMenuLabel>
-        )}
+        )} */}
 
         {/* <DropdownMenuLabel className=" p-2">
           <DropDownItemContent icon={<User size={16} />} option="My Account" />
         </DropdownMenuLabel>
         <DropdownMenuSeparator /> */}
-        <DropdownMenuItem className=" p-2">
+        <DropdownMenuItem  className=" p-2">
           <DropDownItemContent
-            onClick={() => handleRouting("/user-profile")}
+            onClick={() => {
+              
+              handleEvent("myaccount_clicked", { page: "Pricing_Page" });
+              handleRouting("/user-profile");
+            }}
             icon={<User size={16} />}
             option="My Account"
           />
@@ -81,26 +103,35 @@ export function NavbarDropdownCard({
           </DropdownMenuItem> */}
           <DropdownMenuItem className=" p-0">
             <DropDownItemContent
-              onClick={() => handleRouting("/#FAQs")}
+              onClick={() => {
+                handleEvent("faq_clicked", { page: "Pricing_Page", pagegroup: "My Profile" });
+                handleRouting("/#FAQs");
+              }}
               icon={<CircleHelp size={16} />}
               option="FAQs"
             />
           </DropdownMenuItem>
-          <ContactModal trigger={<DropdownMenuItem
-            onClick={(e) => {
-              e.preventDefault();
-              // scrollTo("#feeling-lost")
-              // setOpen(false)
-            }}
-            className=" p-0"
-          >
-            <DropDownItemContent
-              // onClick={() =>handleRouting("/pricing#feeling-lost") }
-              icon={<Headset size={16} />}
-              option="Contact us"
-            />
-          </DropdownMenuItem>}/>
-          
+          <ContactModal
+            trigger={
+              <DropdownMenuItem
+                onClick={(e) => {
+                  e.preventDefault();
+                  // setOpen(false)
+                  handleEvent("contactscroll_clicked", { page: "Pricing_Page", pagegroup: "My Profile" });
+
+                  // scrollTo("#feeling-lost")
+                  // setOpen(false)
+                }}
+                className=" p-0"
+              >
+                <DropDownItemContent
+                  // onClick={() =>handleRouting("/pricing#feeling-lost") }
+                  icon={<Headset size={16} />}
+                  option="Contact us"
+                />
+              </DropdownMenuItem>
+            }
+          />
         </div>
         <DropdownMenuSeparator />
         <div className=" p-2">

@@ -1,57 +1,106 @@
 import React, { useState, useEffect } from "react";
 // import { div } from "@mui/material";
-import { Button, Loading, Text } from "@nextui-org/react";
+import { Loading, Text } from "@nextui-org/react";
 import { BiChevronRight } from "react-icons/bi";
-import { GET_BLOGS } from "../api/URLs";
+import { GET_BLOGS, SEARCH_BLOG } from "../api/URLs";
 import { useRouter } from "next/router";
 import Markdown from "markdown-to-jsx";
 import { BlogCardLg, BlogCardSm } from "@/components.v2/blogs";
 import { Input } from "@/components.v2/ui/input";
-import { Search } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { TBlog } from "@/types";
+import { Button } from "@/components.v2/button";
+import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
+import axios from "axios";
+import Lottie from "lottie-react";
+import LOADING_GIF from "../../../public/blogs/loading.json";
+import { debounce } from "@/lib/debounce";
 
-const BlogSection2 = () => {
-  const [blogs, setBlogs] = useState([]);
+const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | null; prev: string | null }) => {
+  const [filteredblogs, setFilteredBlogs] = useState(blogs);
+  const [nextPage, setNextPage] = useState(next);
+  const [prevPage, setPrevPage] = useState(prev);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
+  const [isLoadingBlogs, setIsLoadingBlogs] = useState(false);
   const [noBlogs, setNoBlogs] = useState(false);
+  const [search, setSearch] = useState("");
+  const [searchLoading, setSearchLoading] = useState(false);
+  // let timeout;
+  // let lastExec = 0;
 
   const handleImageLoad = () => {
     setIsLoading(false);
   };
 
-  const fetchBlogs = async () => {
+  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      setIsLoadingBlogs(true);
-      const response = await fetch(`${GET_BLOGS}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `token ${refresh}`,
-        },
-      });
-      const data = await response.json();
-      setBlogs(data);
-      // console.log(data);
-      if (data.length === 0) {
-        setNoBlogs(true);
-      } else {
-        setNoBlogs(false);
-      }
-      setIsLoadingBlogs(false);
-    } catch (error) {
-      console.log("Error fetching blogs:", error);
+      // setIsLoadingBlogs(true)
+      setSearch(e.target.value);
+      const response = await axios.get(SEARCH_BLOG, { params: { title: e.target.value } });
+      setFilteredBlogs(response.data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSearchLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+  const handlePrevNext = async (url: string) => {
+    try {
+      setIsLoadingBlogs(true);
+      const response = await axios.get(url);
+      // console.log(response)
+      setFilteredBlogs(response.data.results);
+      setNextPage(response.data.next);
+      setPrevPage(response.data.previous);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoadingBlogs(false);
+    }
+  };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // console.log(`/blogs/${search}`);
+  //   router.push(`/blogs/${search}`);
+  // };
+
+  // const fetchBlogs = async () => {
+  //   try {
+  //     setIsLoadingBlogs(true);
+  //     const response = await fetch(`${GET_BLOGS}`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // Authorization: `token ${refresh}`,
+  //       },
+  //     });
+  //     const data = await response.json();
+  //     setBlogs(data);
+  //     // console.log(data);
+  //     if (data.length === 0) {
+  //       setNoBlogs(true);
+  //     } else {
+  //       setNoBlogs(false);
+  //     }
+  //     setIsLoadingBlogs(false);
+  //   } catch (error) {
+  //     console.log("Error fetching blogs:", error);
+  //   }
+  // };
+
+  useEffect(() => {
+    // fetchBlogs();
+    if (filteredblogs && filteredblogs.length == 0 && !search) {
+      setFilteredBlogs(blogs);
+    }
+  }, [filteredblogs, search]);
+  console.log(filteredblogs);
   return (
-    <main style={{ backgroundColor: "#fff" }}>
-      <section className='flex flex-col items-center '>
+    <main>
+      <section className="flex flex-col items-center ">
         {isLoadingBlogs && <Loading type={"gradient"} style={{ marginBottom: "50px" }} />}
         {noBlogs && (
           <>
@@ -64,162 +113,59 @@ const BlogSection2 = () => {
             <h1 className=" font-bold text-display-lg mb-3">Blogs</h1>
             <p className=" text-lg text-gray-800">Deep dives into market trends and data</p>
           </div>
-          <div className=" mx-auto w-full  max-w-[426.67px] mb-10 py-[10px] px-[14px] border border-gray-200 rounded-[6px] flex items-center gap-x-2">
-            <Search size={16} color="#667085"/>
-            <Input className=" border-none p-0 h-auto autofill:bg-white auto placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0" placeholder="Search for blogs"/>
-          </div>
-          
-          <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(358px,1fr))] gap-y-14 gap-x-8 w-full ">
-            <BlogCardLg />
-            {/* <div className=" flex row-start-2 gap-x-8"> */}
-            {blogs.map((blog:TBlog) => (
-              <BlogCardSm key={blog.id} blog={blog} />
-              // <div
-              //   onClick={() => router.push(`${blog.slug}`)}
-              //   key={blog.id}
-              //   // sx={{
-              //   //   width: "280px",
-              //   //   height: "450px",
-              //   //   display: "flex",
-              //   //   flexWrap: "wrap",
-              //   //   flexDirection: "column",
-              //   //   justifyContent: "space-between",
-              //   //   marginBottom: "50px",
-              //   //   "@media only screen and (max-width: 764px)": {
-              //   //     width: "100%",
-              //   //     height: "auto",
-              //   //     gap: "0px",
-              //   //   },
-              //   // }}
-              // >
-              //   <div>
-              //     <div sx={{ width: "100%", position: "relative" }}>
-              //       {isLoading && (
-              //         <div
-              //           // sx={{
-              //           //   width: "100%",
-              //           //   height: "190px",
-              //           //   display: "flex",
-              //           //   justifyContent: "center",
-              //           //   alignItems: "center",
-              //           //   backgroundColor: "#fefefe",
-              //           //   zIndex: 1,
-              //           //   transition: "opacity 0.5s",
-              //           // }}
-              //         >
-              //           <Loading type={"gradient"} />
-              //         </div>
-              //       )}
-              //       <img
-              //         src={blog.image1}
-              //         alt="Blog image"
-              //         width={"100%"}
-              //         height={"180px"}
-              //         style={{
-              //           objectFit: "cover",
-              //           marginBottom: "15px",
-              //           borderRadius: "2.5px",
-              //           display: isLoading ? "none" : "block",
-              //           opacity: isLoading ? 0 : 1,
-              //           transition: "opacity 0.5s",
-              //           backgroundColor: "#f3f3f3",
-              //         }}
-              //         onLoad={handleImageLoad}
-              //       />
-              //     </div>
-              //     <div
-              //       sx={{
-              //         display: "flex",
-              //         flexWrap: "wrap",
-              //         flexDirection: "row",
-              //         justifyContent: "flex-start",
-              //         "@media only screen and (max-width: 764px)": {
-              //           width: "90%",
-              //         },
-              //       }}
-              //     >
-              //       {/*<Text b size={15} css={{ lineHeight: 1 }}>*/}
-              //       {/*	Team KamayaKya*/}
-              //       {/*</Text>*/}
-              //       <div
-              //         style={{
-              //           width: "20px",
-              //           height: "5px",
-              //           backgroundColor: "#FF9E24",
-              //           marginTop: "4px",
-              //           marginRight: "7.5px",
-              //           borderRadius: "10000px",
-              //         }}
-              //       ></div>
-              //       <Text
-              //         b
-              //         size={14}
-              //         css={{ lineHeight: 1, paddingBottom: "0px" }}
-              //       >
-              //         {new Date(blog.created).toLocaleDateString()}
-              //       </Text>
-              //     </div>
-              //     <div style={{ display: "flex", flexDirection: "column" }}>
-              //       <Text
-              //         b
-              //         size={24}
-              //         css={{
-              //           lineHeight: 1.1,
-              //           marginTop: "10px",
-              //           "@media only screen and (max-width: 764px)": {
-              //             width: "90%",
-              //           },
-              //         }}
-              //       >
-              //         {blog.title}
-              //       </Text>
-              //       {/*<Text*/}
-              //       {/*  b*/}
-              //       {/*  size={14}*/}
-              //       {/*  css={{ lineHeight: 1.2, marginTop: "5px" }}*/}
-              //       {/*>*/}
-              //       {/*  {blog.description.length > 200*/}
-              //       {/*    ? `${blog.description.substring(0, 100)}...`*/}
-              //       {/*    : blog.description}*/}
-              //       {/*</Text>*/}
-              //       <span style={{ height: "10px" }} />
-              //         {/* <Markdown>
-              //         {blog.description.length > 200
-              //           ? `${blog.description.substring(0, 100)}...`
-              //           : blog.description}
-              //       </Markdown> */}
-              // 			<span
-              // 				dangerouslySetInnerHTML={{
-              // 					__html:
-              // 						blog.description.length > 200
-              // 							? `${blog.description.substring(0, 100)}...`
-              // 							: blog.description,
-              // 				}}
-              // 			/>
-              // 		</div>
-              // 	</div>
+          <form
+            // onSubmit={handleSubmit}
+            className=" mx-auto w-full  max-w-[426.67px] mb-10 py-[10px] px-[14px] border border-gray-200 bg-white rounded-[6px] flex items-center gap-x-2"
+          >
+            <Search size={16} color="#667085" />
+            <Input
+              onChange={(e) => {
+                setSearchLoading(true);
+                debounce(() => handleSearch(e), 500);
+              }}
+              className=" border-none p-0 h-auto autofill:bg-white auto placeholder:text-gray-400 placeholder:font-normal px-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              placeholder="Search for blogs"
+            />
+            <div className=" h-8 aspect-square">
+              {searchLoading && <Lottie className=" h-full" animationData={LOADING_GIF} />}
+            </div>
+            {/* <Input className=" h-0 w-0" type="submit" value={""} /> */}
+          </form>
 
-              // 	<Button
-              // 		css={{
-              // 			width: "100%",
-              // 			borderRadius: "5px",
-              // 			// marginTop: "25px",
-              // 			backgroundColor: "#303d6a",
-              // 			color: "#fff",
-              // 		}}
-              // 		onClick={() => router.push(`${blog.slug}`)}
-              // 	>
-              // 		Read More
-              // 		<BiChevronRight
-              // 			color="#fff"
-              // 			size={20}
-              // 			style={{ marginLeft: "20px" }}
-              // 		/>
-              // 	</Button>
-              // </div>
-            ))}
-            {/* </div> */}
+          <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-y-14 gap-x-8 w-full pb-[3.75rem] ">
+            {search && filteredblogs?.length == 0 ? <h1 className=" col-span-full">No Blogs Found</h1> : null}
+            {filteredblogs.map((blog: TBlog, index) =>
+              index === 0 && search.length === 0 && prevPage === null ? (
+                <>
+                  <BlogCardLg key={blog.id} blog={blog} />
+                  <BlogCardSm className=" md:hidden" key={blog.id + index} blog={blog} />
+                </>
+              ) : (
+                <BlogCardSm key={blog.id} blog={blog} />
+              )
+            )}
           </div>
+        </div>
+        <div className=" flex items-center justify-center gap-x-4 ">
+          <Button
+            disabled={!prevPage}
+            onClick={() => handlePrevNext(prevPage as string)}
+            startIcon={<ChevronLeft size={16} />}
+            variant={ ButtonVariant.primary }
+            customStyle=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+          >
+            Prev
+          </Button>
+
+          <Button
+            disabled={!nextPage}
+            onClick={() => handlePrevNext(nextPage as string)}
+            endIcon={<ChevronRight size={16} />}
+            variant={ButtonVariant.primary }
+            customStyle="  !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+          >
+            Next
+          </Button>
         </div>
         {/* <iframe
 					src="https://docs.google.com/document/d/e/2PACX-1vRKruCKKwxPDEUaTzG6Noq-tB-HNb5YoFEwSgurv9jfOLfk9U3I04ncHGhpmxjKHw/pub?embedded=true"

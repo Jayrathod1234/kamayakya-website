@@ -89,6 +89,7 @@ body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+  position:relative;
 }
 
 * {
@@ -1490,4 +1491,8 @@ width:20px !important;
   -webkit-background-size: auto 1200px;
   -moz-background-size: auto 1200px;
   -o-background-size: auto 1200px;
+}
+
+.scrolled-nav{
+  background:white;
 }

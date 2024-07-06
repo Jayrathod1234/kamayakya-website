@@ -138,7 +138,7 @@ export default function Page() {
 
   return (
     <div
-      className={` relative pricing pricing-body tracking-wide overflow-hidden bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}
+      className={` relative pricing pricing-body tracking-wide bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}
     >
       {/* gradeint bg */}
       {/* <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40  ">
@@ -148,6 +148,7 @@ export default function Page() {
       {/* <div className=" absolute h-[1200px] mix-blend-color-burn  w-full pointer-events-none">
         <video className=" h-full w-full object-cover z-40 pointer-events-none" src="/pricing/hero_bg.webm" autoPlay muted loop></video>
       </div> */}
+      <Navbar />
       <div className="relative ">
         <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
           <div className="hidden lg:block  absolute lg:right-[60px] top-52">
@@ -159,7 +160,7 @@ export default function Page() {
           <div className=" lg:hidden absolute right-0 top-48 -rotate-[75deg]">
             <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
           </div>
-          <Navbar />
+
           <div className=" mt-[1.875rem] md:mt-9 text-center">
             <h1 className=" text-display-xs md:text-display-lg font-bold mt-20">
               What type of <span className=" text-brand-400">investor</span> are you?
@@ -271,8 +272,10 @@ export default function Page() {
       <div id="feeling-lost" className=" bg-gray-100">
         <FeelingLost />
       </div>
+      <div className=" md:mt-[-15rem]  lg:mt-[-15rem]">
+        <Newsletter />
+      </div>
 
-      <Newsletter />
       <div className="   mt-[-10%]">
         <Footer />
       </div>

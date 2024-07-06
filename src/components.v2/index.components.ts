@@ -16,4 +16,4 @@ export { NavbarUserCard, NavbarDropdownCard } from "./cards/index";
 export { Tabs } from "./tabs";
 export { Semibold } from "./semibold";
 export { Footer } from "./footer";
-export { BlogCardSm, BlogCardLg } from "./blogs/index";
+export { BlogCardSm, BlogCardLg, BlogHero, BlogSocialList,BlogShareDrawer } from "./blogs/index";

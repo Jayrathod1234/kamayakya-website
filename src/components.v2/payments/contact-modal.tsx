@@ -29,7 +29,7 @@ export function ContactModal({ trigger }: { trigger: React.ReactNode }) {
       >
         {trigger}
       </DialogTrigger>
-      <DialogContent className=" contact__modal p-5 md:p-6 pb-[21px]  max-w-[1200px]  h-[100dvh] md:max-h-[773px] overflow-y-scroll pricing">
+      <DialogContent className=" contact__modal p-5 md:p-6 pb-[21px]  max-w-[1200px]  h-[100dvh] md:max-h-[773px] overflow-y-scroll pricing z-[8000]">
         {/* <div className=" h-full p-0"> */}
         <div className=" grid grid-cols-2 max-md:grid-cols-1 grid-rows-[auto_auto] max-md:grid-rows-[auto] md:gap-6 max-w-[1152px]  ">
           <div className="contact__modal-left hidden md:block md:col-start-1 md:row-span-2 rounded-xl shadow-2xs p-4 overflow-y-scroll  md:pb-8 ">

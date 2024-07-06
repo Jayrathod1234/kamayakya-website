@@ -5,7 +5,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { MAIN_BOARD, SME_BOARD } from "@/constants/index.constants";
 
 const BoardHead = ({ head }: { head: string }) => {
-  return <h2 className="hidden md:block text-xl font-bold text-gray-950 m-0 sticky top-[0px] pt-[16px] bg-inherit ">{head}</h2>;
+  return (
+    <h2 className="hidden md:block text-xl font-bold text-gray-950 m-0 sticky top-[0px] pt-[16px] bg-inherit ">
+      {head}
+    </h2>
+  );
 };
 
 const Tag = ({ tag }: { tag: string }) => {
@@ -56,7 +60,6 @@ const Content = ({
   };
 }) => {
   return (
-    
     <div className={`relative pt-0 flex flex-col gap-y-[14px] pb-4 px-5 md:min-h-full md:h-fit ${className}`}>
       <BoardHead head={content.title} />
       <div className="h-fit grid grid-cols-1 gap-y-[14px] rounded-lg">
@@ -86,6 +89,8 @@ const Content = ({
 export function MainSmeBoardModal({ trigger }: { trigger: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
+  const tabStyle =
+    "data-[state=active]:shadow-none data-[state=active]:font-bold text-sm font-medium data-[state=active]:text-white border border-gray-200  px-[10px] py-1 data-[state=active]:border-brand-700 data-[state=active]:bg-brand-700 rounded-lg";
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -98,27 +103,27 @@ export function MainSmeBoardModal({ trigger }: { trigger: React.ReactNode }) {
       >
         {trigger}
       </DialogTrigger>
-      <DialogContent className=" contact__modal !rounded-[20px] p-4 md:max-w-[680px] lg:max-w-[1000px] h-[100dvh] max-h-[477px] md:max-h-[858px] lg:max-h-[718px] overflow-hidden md:overflow-y-scroll pricing">
+      <DialogContent className=" contact__modal !rounded-[20px] p-4 md:max-w-[680px] lg:max-w-[1000px] h-[100dvh] max-h-[477px] md:max-h-[858px] lg:max-h-[718px] overflow-hidden md:overflow-y-scroll pricing z-[8000]">
         <div className="flex h-full overflow-hidden md:overflow-y-scroll rounded-lg">
           <Tabs defaultValue="mainboard" className=" md:hidden">
-            <TabsList className=" md:hidden bg-transparent p-0">
-              <TabsTrigger
-                className="data-[state=active]:font-bold text-sm font-medium data-[state=active]:text-brand-500  px-[10px] py-1 border-b-[2px] border-transparent data-[state=active]:shadow-none data-[state=active]:border-b-[2px] data-[state=active]:border-brand-500"
-                value="mainboard"
-              >
+            <TabsList className=" md:hidden bg-transparent p-0 gap-x-4">
+              <TabsTrigger value="mainboard" className={tabStyle}>
                 <span className=" ">Main Board</span>
               </TabsTrigger>
-              <TabsTrigger
-                className="data-[state=active]:font-bold text-sm font-medium data-[state=active]:text-brand-500 px-[10px] py-1 border-b-[2px] border-transparent data-[state=active]:shadow-none data-[state=active]:border-b-[2px] data-[state=active]:border-brand-500"
-                value="smeboard"
-              >
+              <TabsTrigger className={tabStyle} value="smeboard">
                 <span className="">SME Board </span>
               </TabsTrigger>
             </TabsList>
-            <TabsContent className=" md:hidden overflow-y-scroll md:overflow-hidden h-full focus-visible:ring-0 focus-visible:ring-offset-0" value="mainboard">
+            <TabsContent
+              className=" md:hidden overflow-y-scroll md:overflow-hidden h-full focus-visible:ring-0 focus-visible:ring-offset-0"
+              value="mainboard"
+            >
               <Content content={MAIN_BOARD} className={"!p-0"} />
             </TabsContent>
-            <TabsContent className=" md:hidden overflow-y-scroll md:overflow-hidden h-full focus-visible:ring-0 focus-visible:ring-offset-0" value="smeboard">
+            <TabsContent
+              className=" md:hidden overflow-y-scroll md:overflow-hidden h-full focus-visible:ring-0 focus-visible:ring-offset-0"
+              value="smeboard"
+            >
               <Content content={SME_BOARD} className={"!p-0"} />
             </TabsContent>
           </Tabs>

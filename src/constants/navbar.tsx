@@ -4,22 +4,52 @@ export const NAVBAR_LINKS = [
   {
     title: "About Us",
     link: "/#philosophy",
+    mixpanel:{
+      event:"sampleReports_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Pricing",
     link: "/pricing",
+    mixpanel:{
+      event:"pricing_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Track Record",
     link: "/track-record",
+    mixpanel:{
+      event:"trackrecord_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "SME Corner",
     link: "/sme",
+    mixpanel:{
+      event:"smecorner_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Stocks to Buy",
     link: "/stock-picks",
+    mixpanel:{
+      event:"stockstobuy_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
 ];
 
@@ -138,6 +168,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#philosophy",
+    mixpanel:{
+      event:"philosophy_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Sample Reports",
@@ -194,6 +230,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#philosophy",
+    mixpanel:{
+      event:"sampleReports_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   // {
   //   title: "Performance",
@@ -251,6 +293,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#whyUs",
+    mixpanel:{
+      event:"trustus_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Team",
@@ -297,6 +345,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#team",
+    mixpanel:{
+      event:"team_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "How it works?",
@@ -546,6 +600,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "",
+    mixpanel:{
+      event:"howitworks_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   {
     title: "Hot Stocks",
@@ -596,6 +656,12 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#hotStocks",
+    mixpanel:{
+      event:"hotstocks_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
   // {
   //   title: "Media",
@@ -661,57 +727,69 @@ export const HOME_OPTIONS = [
     ),
     link:'',
     id: "#testimonials",
+    mixpanel:{
+      event:"testimonials_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
-  // {
-  //   title: "Blogs",
-  //   subtitle: "In-depth investment insights and trends.",
-  //   icon: (
-  //     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  //       <path
-  //         d="M7.55556 15.6944C7.35664 15.6944 7.16588 15.7735 7.02523 15.9141L4.75 18.1893V5.77778C4.75 5.50519 4.85828 5.24377 5.05103 5.05103C5.24377 4.85828 5.50519 4.75 5.77778 4.75H18.2222C18.4948 4.75 18.7562 4.85828 18.949 5.05103C19.1417 5.24377 19.25 5.50519 19.25 5.77778V14.6667C19.25 14.9393 19.1417 15.2007 18.949 15.3934C18.7562 15.5862 18.4948 15.6944 18.2222 15.6944H7.55556Z"
-  //         fill="url(#paint0_linear_5180_241599)"
-  //         stroke="url(#paint1_linear_5180_241599)"
-  //         stroke-width="1.5"
-  //         stroke-linecap="round"
-  //         stroke-linejoin="round"
-  //       />
-  //       <path d="M12.889 8.44531H7.55566H12.889Z" fill="#344054" />
-  //       <path d="M16.4446 12.0009H7.55566H16.4446Z" fill="#344054" />
-  //       <path
-  //         d="M12.889 8.44531H7.55566M16.4446 12.0009H7.55566"
-  //         stroke="white"
-  //         stroke-width="1.5"
-  //         stroke-linecap="round"
-  //         stroke-linejoin="round"
-  //       />
-  //       <defs>
-  //         <linearGradient
-  //           id="paint0_linear_5180_241599"
-  //           x1="19.623"
-  //           y1="18.2928"
-  //           x2="2.29748"
-  //           y2="1.41271"
-  //           gradientUnits="userSpaceOnUse"
-  //         >
-  //           <stop stop-color="#125B54" />
-  //           <stop offset="1" stop-color="#12ADB7" />
-  //         </linearGradient>
-  //         <linearGradient
-  //           id="paint1_linear_5180_241599"
-  //           x1="19.623"
-  //           y1="18.2928"
-  //           x2="2.29748"
-  //           y2="1.41271"
-  //           gradientUnits="userSpaceOnUse"
-  //         >
-  //           <stop stop-color="#125B54" />
-  //           <stop offset="1" stop-color="#12ADB7" />
-  //         </linearGradient>
-  //       </defs>
-  //     </svg>
-  //   ),
-  //   link: "/blogs",
-  // },
+  {
+    title: "Blogs",
+    subtitle: "In-depth investment insights and trends.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M7.55556 15.6944C7.35664 15.6944 7.16588 15.7735 7.02523 15.9141L4.75 18.1893V5.77778C4.75 5.50519 4.85828 5.24377 5.05103 5.05103C5.24377 4.85828 5.50519 4.75 5.77778 4.75H18.2222C18.4948 4.75 18.7562 4.85828 18.949 5.05103C19.1417 5.24377 19.25 5.50519 19.25 5.77778V14.6667C19.25 14.9393 19.1417 15.2007 18.949 15.3934C18.7562 15.5862 18.4948 15.6944 18.2222 15.6944H7.55556Z"
+          fill="url(#paint0_linear_5180_241599)"
+          stroke="url(#paint1_linear_5180_241599)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path d="M12.889 8.44531H7.55566H12.889Z" fill="#344054" />
+        <path d="M16.4446 12.0009H7.55566H16.4446Z" fill="#344054" />
+        <path
+          d="M12.889 8.44531H7.55566M16.4446 12.0009H7.55566"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_5180_241599"
+            x1="19.623"
+            y1="18.2928"
+            x2="2.29748"
+            y2="1.41271"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#125B54" />
+            <stop offset="1" stop-color="#12ADB7" />
+          </linearGradient>
+          <linearGradient
+            id="paint1_linear_5180_241599"
+            x1="19.623"
+            y1="18.2928"
+            x2="2.29748"
+            y2="1.41271"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#125B54" />
+            <stop offset="1" stop-color="#12ADB7" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+    link: "/blogs-page",
+    mixpanel:{
+      event:"blogs_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
+  },
   {
     title: "FAQ",
     subtitle: "Find answers to common questions.",
@@ -758,5 +836,11 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#FAQs",
+    mixpanel:{
+      event:"sampleReports_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
   },
 ];
