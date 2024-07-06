@@ -837,7 +837,7 @@ export const HOME_OPTIONS = [
     ),
     link: "/#FAQs",
     mixpanel:{
-      event:"sampleReports_clicked",
+      event:"faq_clicked",
       property:{
         page:"Pricing_Page"
       }

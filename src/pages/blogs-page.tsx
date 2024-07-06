@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import BSection1 from "./BlogsPages/BSection1";
 // import BSection2 from './BlogsPages/BSection2';
 // import NavBar from "../components/Navbar";
@@ -8,10 +8,112 @@ import FaqsNew from "./screens/FaqsNew";
 import AuthContext from "../components/AuthContext";
 import BlogSection2 from "./BlogsPages/BlogSection2";
 import { Footer, Navbar } from "../components.v2/index.components";
-import { GET_BLOGS } from "./api/URLs";
+import { ACTIVE_PLAN_URL, GET_BLOGS, GET_USER } from "./api/URLs";
 import { TBlog } from "@/types";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import axios from "axios";
+import { usePathname } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
+
 const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | null; prev: string | null }) => {
   const { isLoggedIn } = useContext(AuthContext);
+  const pathname = usePathname();
+
+  const refreshToken = localStorage.getItem("refresh");
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(GET_USER, {
+        method: "GET",
+        headers: {
+          Authorization: `Token ${refreshToken}`,
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (e) {
+      return null;
+    }
+  };
+  const fetchActivePlan = async () => {
+    try {
+      const response = await axios.get(ACTIVE_PLAN_URL, {
+        headers: {
+          Authorization: `token ${refreshToken}`,
+        },
+      });
+      if (response.data) {
+        const days = response.data.current_active_subscription.days;
+        const duration = days > 90 ? "1year" : days > 365 ? "3year" : days > 0 ? "3months" : "";
+        return { ...response.data.current_active_subscription, duration };
+      }
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const handlePageLoadEvent = async () => {
+    const mp = getMixPanelClient();
+
+    const user = await fetchUser();
+    const activePlan = await fetchActivePlan();
+    if (user && activePlan) {
+      mp.track("Blogs_loaded", {
+        id: uuidv4(),
+        Session_id: "",
+        time: new Date().toUTCString(),
+        source_page: "",
+        current_url: pathname,
+        account_created_at: user.created,
+        customer_id: user?.id,
+        Curr_Subscription_Type: activePlan.plan,
+        Curr_Plan_Duration: activePlan.duration,
+        Curr_Subscription_Start_date: activePlan.start_date,
+        Curr_Subscription_End_date: activePlan.end_date,
+        usertype: activePlan.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
+        browser_version: "",
+        browser_name: "",
+        device_type: "",
+        device_name: "",
+        utm_campaign: "",
+        utm_content: "",
+        utm_source: "",
+        utm_medium: "",
+        utm_terms: "",
+      });
+    }
+  };
+
+  useEffect(() => {
+    const mp = getMixPanelClient();
+
+    if (isLoggedIn) {
+      handlePageLoadEvent();
+    } else if (!isLoggedIn && !refreshToken) {
+      mp.track("Blogs_loaded", {
+        id: uuidv4(),
+        Session_id: "",
+        time: new Date().toUTCString(),
+        source_page: "",
+        current_url: pathname,
+        account_created_at: null,
+        customer_id: null,
+        Curr_Subscription_Type: null,
+        Curr_Plan_Duration: null,
+        Curr_Subscription_Start_date: null,
+        Curr_Subscription_End_date: null,
+        usertype: null,
+        browser_version: "",
+        browser_name: "",
+        device_type: "",
+        device_name: "",
+        utm_campaign: "",
+        utm_content: "",
+        utm_source: "",
+        utm_medium: "",
+        utm_terms: "",
+      });
+    }
+  }, [isLoggedIn]);
 
   return (
     <div className="relative  bg-white pricing bg-[url('/blogs/blog-bg.webp')] bg-[length:100vw] bg-no-repeat bg-[top_center]">
@@ -34,7 +136,6 @@ export async function getStaticProps() {
     headers: {
       "Content-Type": "application/json",
     },
-    
   });
   const data = await response.json();
   // console.log(data);

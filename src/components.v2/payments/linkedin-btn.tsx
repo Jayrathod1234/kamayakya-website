@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export function LinkedinBtn() {
+export function LinkedinBtn({page}:Record<string,string>) {
   const handleNewsLetterLinkedin = () => {
     const mp = getMixPanelClient();
     mp.track("Linkedinbutton_clicked", {
-      page: "Pricing_Page",
+      page: page,
       pagegroup: "newsletter",
     });
   };

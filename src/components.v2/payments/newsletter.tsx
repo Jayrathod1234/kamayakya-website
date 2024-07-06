@@ -11,12 +11,12 @@ import { ButtonSize, ButtonVariant } from "../button/button";
 import { LinkedinBtn } from "./linkedin-btn";
 import { LoaderCircle } from "lucide-react";
 
-export function Newsletter() {
+export function Newsletter({page="Pricing_Page"}) {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-
+  
   const handleNewsLetterEmailSubmit = async () => {
     try {
       setLoading(true);
@@ -43,7 +43,7 @@ export function Newsletter() {
 
         const mp = getMixPanelClient();
         mp.track("newsletter_subscribed", {
-          page: "Pricing_Page",
+          page:page,
           pagegroup: "newsletter_subscribed",
           email: email,
         });
@@ -119,7 +119,7 @@ export function Newsletter() {
         </div>
         <div className=" mt-[46px] md:mt-9 flex flex-col items-center gap-3 md:flex-row md:gap-x-3 md:justify-center">
           <p className=" text-2xs md:text-md whitespace-nowrap">Or,get monthly dose of market gyaan on :</p>
-          <LinkedinBtn />
+          <LinkedinBtn page={page} />
         </div>
         {/* <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p> */}
       

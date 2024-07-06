@@ -188,7 +188,7 @@ const BlogPage = ({ blog }: { blog: TBlog }) => {
           ></div>
         </div>
       </div>
-      <Newsletter />
+      <Newsletter page="Blogs" />
       <Footer />
     </div>
   );
