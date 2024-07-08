@@ -115,13 +115,13 @@ const BlogSection2 = () => {
           </>
         )}
         <div className="  w-full">
-          <div className=" text-center mt-9 mb-10 text-gray-950">
+          <div className=" text-center mt-9 mb-5 text-gray-950">
             <h1 className=" font-bold text-display-lg mb-3">Blogs</h1>
             <p className=" text-lg text-gray-800">Deep dives into market trends and data</p>
           </div>
           <form
             // onSubmit={handleSubmit}
-            className=" mx-auto w-full  max-w-[426.67px] mb-10 py-[10px] px-[14px] border border-gray-200 bg-white rounded-[6px] flex items-center gap-x-2"
+            className=" shadow-2xs focus-within:ring-4 focus-within:ring-brand-200  mx-auto w-full  max-w-[426.67px] mb-5 py-[10px] px-[14px] border border-gray-200 bg-white rounded-[6px] flex items-center gap-x-2"
           >
             <Search size={16} color="#667085" />
             <Input
