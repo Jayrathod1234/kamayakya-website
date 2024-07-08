@@ -36,13 +36,16 @@ const Feature = ({
   const LucideIcon = icons[icon];
   return (
     <div>
-      <div className=" flex items-center">
+      <div className=" flex  items-start gap-x-[4px]">
         <span className=" h-5 aspect-square flex items-center justify-center">
-          {<LucideIcon name={icon} color="#108973" size={12} strokeWidth={1.5} />}
+          {<LucideIcon name={icon} color="#108973" size={16} strokeWidth={2} />}
         </span>
-        <h3 className=" m-0 text-xs font-bold text-brand-400">{feature}</h3>
+      
+        <div>
+          <h3 className=" m-0 text-xs font-bold text-brand-400">{feature}</h3>
+          <p className="text-gray-500 text-xs">{description}</p>
+        </div>
       </div>
-      <p className="text-gray-500 text-xs">{description}</p>
     </div>
   );
 };

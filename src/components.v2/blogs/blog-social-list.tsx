@@ -24,8 +24,10 @@ export function BlogSocial({ icon, url, size, social, url2, eventName = "" }: TB
     mp.track(eventName, {
       page: "Blogs",
     });
+    if (url2?.includes("whatsapp")) {
+      window.open(url2);
+    }
     window.open(url);
-    window.open(url2);
   };
   return (
     <TooltipProvider delayDuration={0}>

@@ -28,85 +28,82 @@ import { Newsletter, BlogHero, BlogSocialList } from "@/components.v2/index.comp
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useToast } from "@/components.v2/ui/use-toast";
 import { BlogShareDrawer } from "@/components.v2/blogs";
+import { useRouter } from "next/router";
 // import { ReactQuill } from "react-quill";
 
 // import Markdown from "markdown-to-jsx";
 
-export const getStaticPaths = async () => {
-  const response = await fetch(`${GET_BLOGS}?limit=1000`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await response.json();
-  const paths = data.results.map((blog: TBlog) => ({
-    params: { slug: blog.slug },
-  }));
-  // console.log(paths);
-  return {
-    paths,
-    fallback: false,
-  };
-};
+// export const getStaticPaths = async () => {
+//   const response = await fetch(`${GET_BLOGS}?limit=1000`, {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     next:{revalidate:500}
+//   });
+//   const data = await response.json();
+//   const paths = data.results.map((blog: TBlog) => ({
+//     params: { slug: blog.slug },
+//   }));
+//   // console.log(paths);
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
 
-export const getStaticProps = (async (context) => {
-  const response = await fetch(`${GET_SPECIFIC_BLOG}${context.params?.slug}`, {
-    headers: {
-      "Content-Type": "application/json",
-      // Authorization: `Token ${refresh}`,
-    },
-    next: { revalidate: 3600 },
-  });
-  const data = await response.arrayBuffer();
-  const decoder = new TextDecoder("utf-8");
-  const textData = decoder.decode(data);
-  const jsonData = JSON.parse(textData);
-  const blog = jsonData;
+// export const getStaticProps = (async (context) => {
+//   const response = await fetch(`${GET_SPECIFIC_BLOG}${context.params?.slug}`, {
+//     headers: {
+//       "Content-Type": "application/json",
+//       // Authorization: `Token ${refresh}`,
+//     },
+//     next: { revalidate: 500 },
+//   });
+//   const data = await response.arrayBuffer();
+//   const decoder = new TextDecoder("utf-8");
+//   const textData = decoder.decode(data);
+//   const jsonData = JSON.parse(textData);
+//   const blog = jsonData;
 
-  return { props: { blog }, revalidate: 500 };
-}) satisfies GetStaticProps<{
-  blog: TBlog;
-}>;
+//   return { props: { blog }, revalidate: 500 };
+// }) satisfies GetStaticProps<{
+//   blog: TBlog;
+// }>;
+// { blog }: { blog: TBlog }
+const BlogPage = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+  const [blog, setBlog] = useState<null | TBlog>(null);
 
-const BlogPage = ({ blog }: { blog: TBlog }) => {
-  // const router = useRouter();
-  // const { slug } = router.query;
-  // const [blog, setBlog] = useState<null | TBlog>(null);
   const { isLoggedIn } = useContext(AuthContext);
   const [displayShare, setDisplayShare] = useState(false);
-  // const decoder = new TextDecoder("utf-8");
+  const decoder = new TextDecoder("utf-8");
 
   const ref = useRef<HTMLDivElement | null>(null);
   const url = "https://legendary-madeleine-b03cd5.netlify.app/";
 
-  // useEffect(() => {
-  //   const fetchBlogData = async () => {
-  //     if (slug) {
-  //       try {
-  //         const refresh = localStorage.getItem("refresh");
-  //         // console.log(
-  //         //   `https://api-server.kamayakya.in/user/specificStock/${slug}`
-  //         // );
-
-  //         const response = await fetch(`${GET_SPECIFIC_BLOG}${slug}`, {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             // Authorization: `Token ${refresh}`,
-  //           },
-  //           next: { revalidate: 3600 },
-  //         });
-  //         const data = await response.arrayBuffer();
-  //         const textData = decoder.decode(data);
-  //         const jsonData = JSON.parse(textData);
-  //         setBlog(jsonData);
-  //       } catch (error) {
-  //         console.error("Error fetching blog data:", error);
-  //       }
-  //     }
-  //   };
-  //   fetchBlogData();
-  // }, [slug]);
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      if (slug) {
+        try {
+          const response = await fetch(`${GET_SPECIFIC_BLOG}${slug}`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            next: { revalidate: 3600 },
+          });
+          const data = await response.arrayBuffer();
+          const textData = decoder.decode(data);
+          const jsonData = JSON.parse(textData);
+          setBlog(jsonData);
+        } catch (error) {
+          console.error("Error fetching blog data:", error);
+        }
+      }
+    };
+    fetchBlogData();
+  }, [slug]);
 
   useEffect(() => {
     if (ref.current) {

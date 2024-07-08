@@ -122,7 +122,7 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
         {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
         {/*<BSection1 />*/}
         {/* <BSection2 /> */}
-        <BlogSection2 blogs={blogs} next={next} prev={prev} />
+        <BlogSection2  />
         {/* <FaqsNew /> */}
       </main>
       <Footer />
@@ -130,23 +130,24 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
   );
 };
 
-export async function getStaticProps() {
-  const response = await fetch(`${GET_BLOGS}?limit=10&offset=0`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await response.json();
-  // console.log(data);
-  return {
-    props: {
-      next: data?.next,
-      prev: data?.previous,
-      blogs: data.results,
-    },
-    revalidate: 500,
-  };
-}
+// export async function getStaticProps() {
+//   const response = await fetch(`${GET_BLOGS}?limit=10&offset=0`, {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     next:{revalidate:500}
+//   });
+//   const data = await response.json();
+//   // console.log(data);
+//   return {
+//     props: {
+//       next: data?.next,
+//       prev: data?.previous,
+//       blogs: data.results,
+//     },
+//     revalidate: 500,
+//   };
+// }
 
 export default BlogsPage;
