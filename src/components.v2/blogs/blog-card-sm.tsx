@@ -45,12 +45,12 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
     >
       <div
         // onClick={handleReadMore}
-        className=" z-0 transition-all absolute group-hover:h-[496px] h-[300px] w-full cursor-pointer"
+        className=" z-0 transition-all absolute group-hover:h-[496px] group-active:h-[496px] h-[300px] w-full cursor-pointer"
       >
         <Image className=" object-cover h-full w-full" width={406} height={300} alt="blog-image" src={blog.image1} />
       </div>
-      <div className=" relative p-6 pt-[324px] z-10 group-hover:hover:bg-[linear-gradient(180deg,_rgba(255,255,255,0.10)_0%,rgba(255,255,255,.90)_45%,rgba(255,255,255)_100%)]">
-        <div className=" translate-y-3 group-hover:-translate-y-9 transition-all ">
+      <div className=" relative p-6 pt-[324px] z-10 group-hover:bg-[linear-gradient(180deg,_rgba(255,255,255,0.10)_0%,rgba(255,255,255,.90)_45%,rgba(255,255,255)_100%)] group-active:bg-[linear-gradient(180deg,_rgba(255,255,255,0.10)_0%,rgba(255,255,255,.90)_45%,rgba(255,255,255)_100%)]">
+        <div className=" translate-y-3 group-hover:-translate-y-9 group-active:-translate-y-9 transition-all ">
           <div className="flex items-center gap-x-3">
             <Meta icon={"Calendar"} label={format(new Date(blog?.created), "dd MMM, yyyy")} />
             <Line />

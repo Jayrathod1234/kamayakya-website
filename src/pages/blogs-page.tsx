@@ -116,7 +116,7 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
   }, [isLoggedIn]);
 
   return (
-    <div className="relative  bg-white pricing bg-[url('/blogs/blog-bg.webp')] bg-[length:100vw] bg-no-repeat bg-[top_center]">
+    <div className="relative bg-gray-50 pricing bg-[url('/blogs/blog-bg.webp')] bg-[length:100vw] bg-no-repeat bg-[top_center]">
       <Navbar />
       <main className="  main-container">
         {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
