@@ -100,7 +100,7 @@ export function Navbar() {
             <NavigationMenu delayDuration={0} className=" ">
               <NavigationMenuList className=" m-0 ">
                 <NavigationMenuItem className=" m-0 hidden lg:flex">
-                  <NavigationMenuTrigger>{isLoggedIn ? "About Us" : "Home"}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className=" text-gray-950">{isLoggedIn ? "About Us" : "Home"}</NavigationMenuTrigger>
                   <NavigationMenuContent className=" w-auto">
                     {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
                     <ul

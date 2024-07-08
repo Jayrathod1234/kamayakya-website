@@ -6,6 +6,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { Link } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { TooltipArrow } from "@radix-ui/react-tooltip";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 type TBlogSocial = {
   icon: string;
@@ -13,10 +14,21 @@ type TBlogSocial = {
   url2?: string;
   size: number;
   social: string;
+  eventName?: string;
 };
 
-export function BlogSocial({ icon, url, size, social, url2 }: TBlogSocial) {
+export function BlogSocial({ icon, url, size, social, url2, eventName = "" }: TBlogSocial) {
   const [openTooltip, setOpenTooltip] = useState(false);
+  const handleShare = () => {
+    const mp = getMixPanelClient();
+    mp.track(eventName, {
+      page: "Blogs",
+    });
+    if (url2?.includes("whatsapp")) {
+      window.open(url2);
+    }
+    window.open(url);
+  };
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
@@ -27,10 +39,7 @@ export function BlogSocial({ icon, url, size, social, url2 }: TBlogSocial) {
           }}
         >
           <button
-            onClick={async () => {
-              window.open(url);
-              window.open(url2);
-            }}
+            onClick={handleShare}
             className=" h-fit aspect-square border-[3px] border-transparent hover:border-gray-200 rounded-full"
           >
             <Image height={size} width={size} alt={social} src={icon} />
@@ -108,24 +117,28 @@ export function BlogSocialList({ blog, size = 36 }: { blog: TBlog; size?: number
   return (
     <>
       <BlogSocial
+        eventName="twittershare_clicked"
         size={size}
         url={`https://x.com/intent/post?text=${blog.title}+${url + blog.slug}`}
         icon={"/icons/X.svg"}
         social="X"
       />
       <BlogSocial
+        eventName="Linkedinshare_clicked"
         size={size}
         url={`https://www.linkedin.com/feed/?linkOrigin=LI_BADGE&shareActive=true&shareUrl=${url + blog.slug}`}
         icon={"/blogs/linkedin.svg"}
         social="LinkedIn"
       />
       <BlogSocial
+        eventName="facebookshare_clicked"
         social="Facebook"
         size={size}
         url={`https://www.facebook.com/share.php?u=${url + blog.slug}`}
         icon={"/blogs/fb.svg"}
       />
       <BlogSocial
+        eventName="whatsappshare_clicked"
         social="Whatsapp"
         size={size}
         url2={`whatsapp://send?text=Look%20at%20this...%20%F0%9F%91%80%0A${url + blog.slug}`}

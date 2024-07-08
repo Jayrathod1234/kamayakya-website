@@ -15,11 +15,12 @@ import axios from "axios";
 import Lottie from "lottie-react";
 import LOADING_GIF from "../../../public/blogs/loading.json";
 import { debounce } from "@/lib/debounce";
-
-const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | null; prev: string | null }) => {
-  const [filteredblogs, setFilteredBlogs] = useState(blogs);
-  const [nextPage, setNextPage] = useState(next);
-  const [prevPage, setPrevPage] = useState(prev);
+// { blogs, next, prev }: { blogs: Array<TBlog>; next: string | null; prev: string | null }
+const BlogSection2 = () => {
+  const [blogs, setBlogs] = useState([]);
+  // const [filteredblogs, setFilteredBlogs] = useState(blogs);
+  const [nextPage, setNextPage] = useState<null | string>(null);
+  const [prevPage, setPrevPage] = useState<null | string>(null);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingBlogs, setIsLoadingBlogs] = useState(false);
@@ -38,7 +39,7 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
       // setIsLoadingBlogs(true)
       setSearch(e.target.value);
       const response = await axios.get(SEARCH_BLOG, { params: { title: e.target.value } });
-      setFilteredBlogs(response.data);
+      setBlogs(response.data);
     } catch (e) {
       console.error(e);
     } finally {
@@ -51,7 +52,7 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
       setIsLoadingBlogs(true);
       const response = await axios.get(url);
       // console.log(response)
-      setFilteredBlogs(response.data.results);
+      setBlogs(response.data.results);
       setNextPage(response.data.next);
       setPrevPage(response.data.previous);
     } catch (e) {
@@ -67,37 +68,42 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
   //   router.push(`/blogs/${search}`);
   // };
 
-  // const fetchBlogs = async () => {
-  //   try {
-  //     setIsLoadingBlogs(true);
-  //     const response = await fetch(`${GET_BLOGS}`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         // Authorization: `token ${refresh}`,
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     setBlogs(data);
-  //     // console.log(data);
-  //     if (data.length === 0) {
-  //       setNoBlogs(true);
-  //     } else {
-  //       setNoBlogs(false);
-  //     }
-  //     setIsLoadingBlogs(false);
-  //   } catch (error) {
-  //     console.log("Error fetching blogs:", error);
-  //   }
-  // };
+  const fetchBlogs = async () => {
+    try {
+      setIsLoadingBlogs(true);
+      const response = await axios.get(`${GET_BLOGS}?limit=10&offset=0`, {
+        // method: "GET",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        // next: { revalidate: 500 },
+      });
+      // if (response.ok) {
+      const data = response.data;
+      setBlogs(data.results);
+      setNextPage(data.next);
+      setPrevPage(data.previous);
+      // }
+    } catch (error) {
+      console.log("Error fetching blogs:", error);
+    } finally {
+      setIsLoadingBlogs(false);
+    }
+  };
 
   useEffect(() => {
-    // fetchBlogs();
-    if (filteredblogs && filteredblogs.length == 0 && !search) {
-      setFilteredBlogs(blogs);
+    if (!search) {
+      fetchBlogs();
     }
-  }, [filteredblogs, search]);
-  console.log(filteredblogs);
+  }, [search]);
+
+  // useEffect(() => {
+  //   // fetchBlogs();
+  //   if (filteredblogs && filteredblogs.length == 0 && !search) {
+  //     setFilteredBlogs(blogs);
+  //   }
+  // }, [filteredblogs, search]);
+  // console.log(filteredblogs);
   return (
     <main>
       <section className="flex flex-col items-center ">
@@ -133,8 +139,8 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
           </form>
 
           <div className=" place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-y-14 gap-x-8 w-full pb-[3.75rem] ">
-            {search && filteredblogs?.length == 0 ? <h1 className=" col-span-full">No Blogs Found</h1> : null}
-            {filteredblogs.map((blog: TBlog, index) =>
+            {search && blogs?.length == 0 ? <h1 className=" col-span-full">No Blogs Found</h1> : null}
+            {blogs.map((blog: TBlog, index) =>
               index === 0 && search.length === 0 && prevPage === null ? (
                 <>
                   <BlogCardLg key={blog.id} blog={blog} />
@@ -146,27 +152,30 @@ const BlogSection2 = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string
             )}
           </div>
         </div>
-        <div className=" flex items-center justify-center gap-x-4 ">
-          <Button
-            disabled={!prevPage}
-            onClick={() => handlePrevNext(prevPage as string)}
-            startIcon={<ChevronLeft size={16} />}
-            variant={ ButtonVariant.primary }
-            customStyle=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
-          >
-            Prev
-          </Button>
+        {!search ? (
+          <div className=" flex items-center justify-center gap-x-4 ">
+            <Button
+              disabled={!prevPage}
+              onClick={() => handlePrevNext(prevPage as string)}
+              startIcon={<ChevronLeft size={16} />}
+              variant={ButtonVariant.primary}
+              customStyle=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+            >
+              Prev
+            </Button>
 
-          <Button
-            disabled={!nextPage}
-            onClick={() => handlePrevNext(nextPage as string)}
-            endIcon={<ChevronRight size={16} />}
-            variant={ButtonVariant.primary }
-            customStyle="  !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
-          >
-            Next
-          </Button>
-        </div>
+            <Button
+              disabled={!nextPage}
+              onClick={() => handlePrevNext(nextPage as string)}
+              endIcon={<ChevronRight size={16} />}
+              variant={ButtonVariant.primary}
+              customStyle="  !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+            >
+              Next
+            </Button>
+          </div>
+        ) : null}
+
         {/* <iframe
 					src="https://docs.google.com/document/d/e/2PACX-1vRKruCKKwxPDEUaTzG6Noq-tB-HNb5YoFEwSgurv9jfOLfk9U3I04ncHGhpmxjKHw/pub?embedded=true"
 					allowFullScreen="true"
