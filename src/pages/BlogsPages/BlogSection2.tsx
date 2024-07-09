@@ -121,9 +121,9 @@ const BlogSection2 = () => {
           </div>
           <form
             // onSubmit={handleSubmit}
-            className=" shadow-2xs focus-within:ring-4 focus-within:ring-brand-200  mx-auto w-full  max-w-[426.67px] mb-5 py-[10px] px-[14px] border border-gray-200 bg-white rounded-[6px] flex items-center gap-x-2"
+            className=" shadow-2xs focus-within:ring-4 focus-within:ring-brand-200 hover:ring-4 hover:ring-brand-200  mx-auto w-full  max-w-[426.67px] mb-5 py-[10px] px-[14px] border border-gray-200 bg-white rounded-[6px] flex items-center gap-x-2"
           >
-            <Search size={16} color="#667085" />
+            <Search size={24} color="#667085" />
             <Input
               onChange={(e) => {
                 setSearchLoading(true);
