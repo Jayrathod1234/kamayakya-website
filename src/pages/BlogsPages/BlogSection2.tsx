@@ -118,14 +118,14 @@ const BlogSection2 = () => {
             <div style={{ fontSize: 30 }}>No Blogs yet!</div>
           </>
         )}
-        <div className="  w-full">
+        <div className="  w-full ">
           <div className=" text-center mt-9 mb-5 text-gray-950">
             <h1 className=" font-bold text-display-lg mb-3">Blogs</h1>
             <p className=" text-lg text-gray-500">Deep dives into market trends and data</p>
           </div>
           <form
             // onSubmit={handleSubmit}
-            className=" shadow-2xs ease-out duration-200 transition-all focus-within:ring-4 focus-within:ring-brand-200 hover:ring-4 hover:ring-brand-200  mx-auto w-full  max-w-[426.67px] mb-10 py-[10px] px-[14px] border border-gray-200 bg-white rounded-[6px] flex items-center gap-x-2"
+            className=" shadow-2xs ease-out duration-200 transition-all focus-within:ring-4 focus-within:ring-brand-200 hover:ring-4 hover:ring-brand-200  mx-auto w-full max-w-[340px]  md:max-w-[426.67px] mb-10 py-[10px] px-[14px] border border-gray-200 bg-white rounded-[6px] flex items-center gap-x-2"
           >
             <Search size={24} color="#667085" />
             <Input
@@ -142,7 +142,7 @@ const BlogSection2 = () => {
             {/* <Input className=" h-0 w-0" type="submit" value={""} /> */}
           </form>
 
-          <div className=" px-2 overflow-x-visible place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-y-14 gap-x-8 w-full pb-[3.75rem] ">
+          <div className=" px-2 overflow-x-visible place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-y-8 gap-x-8 w-full pb-[3.75rem] ">
             {search && blogs?.length == 0 ? <h1 className=" col-span-full">No Blogs Found</h1> : null}
             {blogs.map((blog: TBlog, index) =>
               index === 0 && search.length === 0 && prevPage === null ? (

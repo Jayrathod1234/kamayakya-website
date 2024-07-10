@@ -118,7 +118,7 @@ export function Newsletter({page="Pricing_Page"}) {
         </div>
         </div>
         <div className=" mt-[46px] md:mt-9 flex flex-col items-center gap-3 md:flex-row md:gap-x-3 md:justify-center">
-          <p className=" text-2xs md:text-md whitespace-nowrap">Or,get monthly dose of market gyaan on :</p>
+          <p className=" text-2xs md:text-md whitespace-nowrap">Or, get monthly dose of market gyaan on :</p>
           <LinkedinBtn page={page} />
         </div>
         {/* <p className=" p-2 my-3 md:my-8 text-gray-600">OR</p> */}

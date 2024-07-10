@@ -108,7 +108,7 @@ export function Footer() {
                 hoverBorderColor="#D6DBE5"
                 hoverBgColor="#1D2939"
                 social="X"
-                icon={<BsTwitterX size={20} className="text-gray-950 group-hover:text-white" />}
+                icon={<BsTwitterX size={16} className="text-gray-950 group-hover:text-white" />}
               />
               <BlogSocial
                 className="h-8 aspect-square"

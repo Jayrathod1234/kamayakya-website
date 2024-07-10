@@ -14,7 +14,7 @@ export function BlogHero({ blog }: { blog: TBlog }) {
   return (
     <div
       style={customCss}
-      className=' mb-8 p-[3vw] bg-[rgba(0,0,0,.80)] py-[10vw] relative before:absolute before:content-[""] before:h-full before:w-full before:top-0 before:left-0 before:opacity-70 before:z-[1]  before:bg-cover before:bg-[image:var(--image-url)]'
+      className=' mb-8 p-[3vw] bg-[rgba(0,0,0,1)] py-[10vw] relative before:absolute before:content-[""] before:h-full before:w-full before:top-0 before:left-0 before:opacity-30 before:z-[1]  before:bg-cover before:bg-[image:var(--image-url)]'
     >
       <h1 className=" relative z-10 text-center font-bold text-display-xs md:text-display-lg text-white">
         {blog.title}
