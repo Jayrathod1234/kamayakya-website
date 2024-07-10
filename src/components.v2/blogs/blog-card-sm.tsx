@@ -41,16 +41,16 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
   return (
     <div
       onClick={handleReadMore}
-      className={` cursor-pointer relative group bg-white min-w-[320px] max-w-[405.33px] max-h-[496px] border border-gray-150 rounded-[10px] overflow-hidden shadow-6xs hover:shadow-lg transition-shadow hover:scale-105 duration-300 ${className}`}
+      className={` cursor-pointer relative before:content-[""] before:absolute before:h-full before:w-full before:bg-[rgba(0,0,0,0.25)] before:invisible active:before:visible before:z-20  group bg-white min-w-[320px] max-w-[405.33px] max-h-[496px] border border-white rounded-[10px] overflow-hidden shadow-6xs hover:shadow-lg transition-all scale-100 ease-[cubic-bezier(0.175,0.0885,0,0.1)] hover:scale-[.98] active:scale-[.98] duration-300 ${className}`}
     >
       <div
         // onClick={handleReadMore}
-        className=" z-0 transition-all duration-300 group-hover:opacity-30 absolute group-hover:h-[496px] group-active:h-[496px] h-[300px] w-full cursor-pointer"
+        className=" z-0 transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] group-hover:opacity-30 absolute group-hover:h-[496px] h-[300px] w-full cursor-pointer"
       >
         <Image className=" object-cover h-full w-full" width={406} height={300} alt="blog-image" src={blog.image1} />
       </div>
-      <div className=" relative p-6 pt-[324px] z-10 group-hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.60)_45.04%,#FFF_100%)] group-active:bg-[linear-gradient(180deg,_rgba(255,255,255,0.10)_0%,rgba(255,255,255,.90)_45%,rgba(255,255,255)_100%)]">
-        <div className=" translate-y-3 group-hover:-translate-y-9 group-active:-translate-y-9 transition-all duration-300 ">
+      <div className=" relative p-6 pt-[324px] z-10 group-hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.60)_45.04%,#FFF_100%)] active:bg-[linear-gradient(180deg,_rgba(255,255,255,0.10)_0%,rgba(255,255,255,.90)_45%,rgba(255,255,255)_100%)]">
+        <div className=" translate-y-3 group-hover:-translate-y-9  transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] ">
           <div className="flex items-center gap-x-3">
             <Meta icon={"Calendar"} label={format(new Date(blog?.created), "dd MMM, yyyy")} />
             <Line />
