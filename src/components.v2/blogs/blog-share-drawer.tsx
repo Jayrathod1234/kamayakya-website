@@ -17,7 +17,7 @@ export function BlogShareDrawer({ blog }: { blog: TBlog }) {
       </DrawerTrigger>
       <DrawerContent className=" border-0 rounded-t-[20px]">
         <div className=" py-7 px-3 flex justify-center items-center gap-x-4">
-          <BlogSocialList blog={blog} size={44} />
+          <BlogSocialList blog={blog} size={20} disabled />
           {/* <button
                   onClick={() => {
                     window.open(`https://x.com/intent/post?text=${blog.title}+${url + blog.slug}`);

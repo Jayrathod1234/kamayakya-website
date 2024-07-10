@@ -123,7 +123,7 @@ const BlogPage = () => {
 
       observer.observe(ref.current);
     }
-  }, [ref.current]);
+  }, [ref.current,blog]);
 
   if (!blog) {
     return (
