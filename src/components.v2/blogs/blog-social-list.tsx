@@ -187,7 +187,7 @@ export function BlogSocialList({ blog, size = 20, disabled }: { blog: TBlog; siz
         hoverBorderColor="#D6DBE5"
         hoverBgColor="#1D2939"
         social="X"
-        icon={<BsTwitterX size={size} className=" text-gray-950 group-hover:text-white" />}
+        icon={<BsTwitterX size={16} className=" text-gray-950 group-hover:text-white" />}
       />
       <BlogSocial
         disableTooltip={disabled}
