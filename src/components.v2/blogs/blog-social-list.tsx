@@ -59,7 +59,7 @@ export function BlogSocial({
   const handleShare = () => {
     const mp = getMixPanelClient();
     mp.track(eventName, property);
-    if (url2?.includes("whatsapp") && isMobile) {
+    if (url2 && url2?.includes("whatsapp") && isMobile) {
       window.open(url2);
     }
     console.log("TRYING WHATSAPP");
@@ -69,10 +69,10 @@ export function BlogSocial({
     <TooltipProvider delayDuration={0}>
       <Tooltip open={disableTooltip ? false : openTooltip} onOpenChange={disableTooltip ? undefined : setOpenTooltip}>
         <TooltipTrigger
-          onClick={(e) => {
-            e.preventDefault();
-            // setOpenTooltip(true);
-          }}
+        // onClick={(e) => {
+        //   e.preventDefault();
+        //   // setOpenTooltip(true);
+        // }}
         >
           <button
             onClick={handleShare}
@@ -102,9 +102,10 @@ export function BlogSocial({
 type TCopyBlogLink = {
   url: string;
   size: number;
+  disableTooltip?:boolean;
 };
 
-export function CopyBlogLink({ url, size }: TCopyBlogLink) {
+export function CopyBlogLink({ url, size, disableTooltip }: TCopyBlogLink) {
   const [copied, setCopied] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
   const { toast } = useToast();
@@ -140,11 +141,11 @@ export function CopyBlogLink({ url, size }: TCopyBlogLink) {
 
   return (
     <TooltipProvider delayDuration={0}>
-      <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
+      <Tooltip open={disableTooltip ? false : openTooltip} onOpenChange={disableTooltip ? undefined : setOpenTooltip}>
         <TooltipTrigger
           onClick={(e) => {
-            e.preventDefault();
-            setOpenTooltip(true);
+            // e.preventDefault();
+            // setOpenTooltip(true);
           }}
         >
           <CopyToClipboard text={url} onCopy={handleCopy}>
@@ -170,12 +171,13 @@ export function CopyBlogLink({ url, size }: TCopyBlogLink) {
   );
 }
 
-export function BlogSocialList({ blog, size = 20 }: { blog: TBlog; size?: number }) {
+export function BlogSocialList({ blog, size = 20, disabled }: { blog: TBlog; size?: number; disabled?: boolean }) {
   const url = "https://legendary-madeleine-b03cd5.netlify.app/";
 
   return (
     <>
       <BlogSocial
+        disableTooltip={disabled}
         className=" h-11 w-11"
         eventName="twittershare_clicked"
         size={size}
@@ -188,6 +190,7 @@ export function BlogSocialList({ blog, size = 20 }: { blog: TBlog; size?: number
         icon={<BsTwitterX size={size} className=" text-gray-950 group-hover:text-white" />}
       />
       <BlogSocial
+        disableTooltip={disabled}
         className=" h-11 w-11"
         eventName="Linkedinshare_clicked"
         size={size}
@@ -200,6 +203,7 @@ export function BlogSocialList({ blog, size = 20 }: { blog: TBlog; size?: number
         icon={<FaLinkedinIn size={size} className=" text-gray-950 group-hover:text-white" />}
       />
       <BlogSocial
+        disableTooltip={disabled}
         className=" h-11 w-11"
         eventName="facebookshare_clicked"
         social="Facebook"
@@ -212,6 +216,7 @@ export function BlogSocialList({ blog, size = 20 }: { blog: TBlog; size?: number
         icon={<FaFacebookF size={size} className=" text-gray-950 group-hover:text-white" />}
       />
       <BlogSocial
+        disableTooltip={disabled}
         className=" h-11 w-11"
         eventName="whatsappshare_clicked"
         social="Whatsapp"
@@ -224,7 +229,7 @@ export function BlogSocialList({ blog, size = 20 }: { blog: TBlog; size?: number
         hoverBorderColor="#D9F0DB"
         icon={<FaWhatsapp size={size} className=" text-gray-950 group-hover:text-white" />}
       />
-      <CopyBlogLink size={size === 36 ? 14 : 16} url={url + blog.slug} />
+      <CopyBlogLink disableTooltip={disabled} size={size === 36 ? 14 : 16} url={url + blog.slug} />
     </>
   );
 }

@@ -6,6 +6,7 @@ import { ButtonVariant } from "../button/button";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { TBlog } from "@/types";
+import { useMediaQuery } from "@mui/material";
 
 type TMeta = {
   icon: keyof typeof icons;
@@ -34,6 +35,7 @@ export const Line = ({ className }: { className?: string }) => {
 };
 
 export function BlogCardSm({ blog, className }: { blog: TBlog; className?: string }) {
+  const isMobile = useMediaQuery("(max-width:1280px)");
   const router = useRouter();
 
   const handleReadMore = () => router.push(`${blog.slug}`);
@@ -41,16 +43,32 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
   return (
     <div
       onClick={handleReadMore}
-      className={` cursor-pointer relative before:content-[""] before:absolute before:h-full before:w-full before:bg-[rgba(0,0,0,0.25)] before:invisible active:before:visible before:z-20  group bg-white min-w-[320px] max-w-[405.33px] max-h-[496px] border border-white rounded-[10px] overflow-hidden shadow-6xs hover:shadow-lg transition-all scale-100 ease-[cubic-bezier(0.175,0.0885,0,0.1)] hover:scale-[.98] active:scale-[.98] duration-300 ${className}`}
+      className={` cursor-pointer relative ${
+        isMobile
+          ? 'before:content-[""] before:absolute before:h-full before:w-full before:bg-[rgba(0,0,0,0.25)] before:invisible active:before:visible before:z-20 active:scale-[.98]'
+          : "hover:scale-[.98] "
+      }   group bg-white min-w-[320px] max-w-[405.33px] max-h-[496px] border border-white rounded-[10px] overflow-hidden shadow-6xs hover:shadow-lg transition-all scale-100 ease-[cubic-bezier(0.175,0.0885,0,0.1)]  duration-300 ${className}`}
     >
       <div
         // onClick={handleReadMore}
-        className=" z-0 transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] group-hover:opacity-30 absolute group-hover:h-[496px] h-[300px] w-full cursor-pointer"
+        className={` z-0 transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] ${
+          isMobile ? "" : "group-hover:opacity-30 group-hover:h-[496px]"
+        }  absolute  h-[300px] w-full cursor-pointer`}
       >
         <Image className=" object-cover h-full w-full" width={406} height={300} alt="blog-image" src={blog.image1} />
       </div>
-      <div className=" relative p-6 pt-[324px] z-10 group-hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.60)_45.04%,#FFF_100%)] active:bg-[linear-gradient(180deg,_rgba(255,255,255,0.10)_0%,rgba(255,255,255,.90)_45%,rgba(255,255,255)_100%)]">
-        <div className=" translate-y-3 group-hover:-translate-y-9  transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] ">
+      <div
+        className={` relative p-6 pt-[324px] z-10 ${
+          isMobile
+            ? ""
+            : "group-hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.60)_45.04%,#FFF_100%)]"
+        }  `}
+      >
+        <div
+          className={` translate-y-3 ${
+            isMobile ? "" : "group-hover:-translate-y-9"
+          } transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] `}
+        >
           <div className="flex items-center gap-x-3">
             <Meta icon={"Calendar"} label={format(new Date(blog?.created), "dd MMM, yyyy")} />
             <Line />
@@ -59,7 +77,7 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
           <div className=" mt-4 ">
             <h2
               // onClick={handleReadMore}
-              className=" font-bold text-gray-950 text-lg w-full line-clamp-1 cursor-pointer mb-0 group-hover:text-brand-500"
+              className={` font-bold text-gray-950 text-lg w-full line-clamp-1 cursor-pointer mb-0 ${isMobile ? "":"group-hover:text-brand-500"} `}
             >
               {blog.title}
             </h2>
