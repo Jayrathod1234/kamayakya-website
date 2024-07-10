@@ -54,7 +54,9 @@ export default function PreviewPage() {
 		basePrice:"",
 		taxableAmount:'',
 		tax:'',
-		totalAmount:''
+		totalAmount:'',
+		originalAmount:"",
+		totalPayable:"",
 	})
 	const [subscriptionId,setSubscriptionId] = useState("")
 	const handleNextStep = () => {
@@ -322,11 +324,34 @@ export default function PreviewPage() {
 	const [totalAmount, setTotalAmount] = useState("");
 	const [discountApplied, setDiscountApplied] = useState(false);
 
+	const getBillingDetails = async()=>{
+		try{
+			if(refreshToken){
+				const response = await axios.post(BILLING_DETAILS,{"subscription_id":subscriptionId},{
+					headers:{
+						Authorization:'token '+refreshToken
+					}
+				})
+				if(response.data){
+					setBillingDetails({
+						plan:response.data["plan_name "],
+						taxableAmount:response.data.taxable_amount,
+						tax:response.data.tax_amount,
+						basePrice:response.data.base_price,
+						originalAmount:response.data.total_payable,
+						totalPayable:response.data.total_payable
+					})
+				}
+			}
+		}catch(e){
+
+		}}
+	
 	const validateDiscountCode = async () => {
 		// console.log(discountCode);
 		setLoading(true);
 		try {
-			const discountCodeValidation = await fetch(CODE_VALID, {
+			const discountCodeValidation = await fetch(BILLING_DETAILS, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -334,6 +359,7 @@ export default function PreviewPage() {
 				},
 				body: JSON.stringify({
 					discount_code: discountCode,
+					subscription_id:subscriptionId
 				}),
 			});
 			if (discountCodeValidation.ok) {
@@ -341,6 +367,15 @@ export default function PreviewPage() {
 				// console.log(responseData);
 				setLoading(false);
 				setDiscountAmount(responseData.discount);
+				setBillingDetails(prev=>({
+					...prev,
+					plan:responseData["plan_name "],
+					taxableAmount:responseData.taxable_amount,
+					tax:responseData.tax_amount,
+					basePrice:responseData.base_price,
+					totalPayable:responseData.total_payable
+					
+				}))
 				setTotalAmount(responseData.total_amount);
 				setDiscountApplied(true);
 				handleDiscountConfirmationOpen();
@@ -368,31 +403,10 @@ export default function PreviewPage() {
 		setDiscountAmount("");
 		setDiscountCode("");
 		setDiscountApplied(false);
+		getBillingDetails()
 	};
 
 	useEffect(()=>{
-		console.log("SUBSCRIPTION++>",subscriptionId,router.query.planId)
-		const getBillingDetails = async()=>{
-			try{
-				if(refreshToken){
-					const response = await axios.post(BILLING_DETAILS,{"subscription_id":subscriptionId},{
-						headers:{
-							Authorization:'token '+refreshToken
-						}
-					})
-					if(response.data){
-						setBillingDetails({
-							plan:response.data["plan_name "],
-							taxableAmount:response.data.taxable_amount,
-							tax:response.data.tax_amount,
-							basePrice:response.data.base_price
-						})
-					}
-				}
-			}catch(e){
-
-			}
-		}
 		getBillingDetails()
 	},[subscriptionId])
 
@@ -1106,11 +1120,13 @@ export default function PreviewPage() {
 							)}
 							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 								<Box>Taxable Amount</Box>
-								<Box>₹{(billingDetails.taxableAmount - discountAmount).toFixed(2)}/- </Box>
+								{/* <Box>₹{(billingDetails.taxableAmount - discountAmount).toFixed(2)}/- </Box> */}
+								<Box>₹{(billingDetails.taxableAmount)}/- </Box>
 							</Box>
 							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 								<Box>Tax</Box>
-								<Box>₹{((billingDetails.tax - discountAmount)).toFixed(2)}/- </Box>
+								{/* <Box>₹{((billingDetails.tax - discountAmount)).toFixed(2)}/- </Box> */}
+								<Box>₹{((billingDetails.tax))}/- </Box>
 							</Box>
 							<hr
 								style={{
@@ -1121,11 +1137,16 @@ export default function PreviewPage() {
 							/>
 							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 								<Box>Total Amount</Box>
-								<Box>
+								{/* <Box>
 									₹
 									{discountApplied === false
 										? billingDetails.taxableAmount + billingDetails.tax
 										: ((billingDetails.taxableAmount + billingDetails.tax - discountAmount) * 1.18).toFixed(2)}
+									/-{" "}
+								</Box> */}
+								<Box>
+									₹
+									{billingDetails.totalPayable}
 									/-{" "}
 								</Box>
 							</Box>
@@ -1167,12 +1188,13 @@ export default function PreviewPage() {
 									textDecoration: "2px line-through red",
 								}}
 							>
-								₹{totalAmount}/-
+								₹{billingDetails.originalAmount }/-
 							</span>
 						</Box>
 						<Box sx={{ fontSize: 20, marginTop: "-20px" }}>
 							Discounted Price: ₹
-							{((12711.86 - discountAmount) * 1.18).toFixed(2)}/-
+							{/* {((12711.86 - discountAmount) * 1.18).toFixed(2)}/- */}
+							{((billingDetails.totalPayable))}/-
 						</Box>
 
 						<Box sx={{ fontSize: 24, marginTop: "-10px", color: "#37b24d" }}>

@@ -23,7 +23,7 @@ export function BlogCardLg({ blog }: { blog: TBlog }) {
   const handleReadMore = () => router.push(`${blog.slug}`);
 
   return (
-    <div className="bg-white hidden md:flex col-span-full h-[500px] min-w-full border-[10px]  border-gray-150 rounded-[20px] overflow-hidden shadow-6xs max-md:hover:shadow-lg transition-shadow ">
+    <div className="bg-white hidden md:flex col-span-full h-[500px] min-w-full border-[10px]  border-white rounded-[20px] overflow-hidden shadow-6xs max-md:hover:shadow-lg transition-shadow ">
       <div onClick={handleReadMore} className=" cursor-pointer ">
         <Image className=" object-cover h-full w-full" width={406} height={300} alt="blog-image" src={blog.image1} />
       </div>

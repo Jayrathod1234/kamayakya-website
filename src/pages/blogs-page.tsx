@@ -117,7 +117,8 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
   }, [isLoggedIn]);
 
   return (
-    <div className="relative bg-gray-50 pricing bg-[url('/blogs/blog-bg.webp')] bg-[length:100vw] bg-no-repeat bg-[top_center]">
+    // bg-[url('/blogs/blog-bg2.webp')]
+    <div className="relative bg-[#effffc] pricing  bg-[length:100vw] bg-no-repeat bg-[top_center]">
        <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
           <div className="  absolute right-1 lg:right-[40px] top-36">
             <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />

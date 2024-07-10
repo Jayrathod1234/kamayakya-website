@@ -71,11 +71,11 @@ export function NavbarDropdownCard({
         side={side}
         sideOffset={sideOffset}
       >
-        {/* {userCard && (
+        {userCard && (
           <DropdownMenuLabel className=" p-0">
             <NavbarUserCard />
           </DropdownMenuLabel>
-        )} */}
+        )}
 
         {/* <DropdownMenuLabel className=" p-2">
           <DropDownItemContent icon={<User size={16} />} option="My Account" />

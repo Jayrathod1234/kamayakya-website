@@ -4,6 +4,10 @@ import { CSSProperties } from 'react';
 
 export interface CustomCSSProperties extends CSSProperties {
   '--image-url'?: string;
+  '--hover-bg'?:string;
+  "--hover-border"?:string;
+  "--bg-img"?:string;
+  '--bg-hover-img'?:string;
 }
 
 

@@ -123,7 +123,7 @@ const BlogPage = () => {
 
       observer.observe(ref.current);
     }
-  }, []);
+  }, [ref.current]);
 
   if (!blog) {
     return (
@@ -148,10 +148,12 @@ const BlogPage = () => {
       </Box>
     );
   }
+  console.log(displayShare)
   // console.log(blog.slug, blog.slug, router.basePath, router.route);
   return (
     <div className="pricing" style={{ backgroundColor: "#fff" }}>
       {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
+      <Navbar />
       <Head>
         <title>Kamayakya | {blog.title}</title>
         <meta name="title" content={blog.title} />
@@ -168,7 +170,7 @@ const BlogPage = () => {
         <meta property="twitter:image" content={blog.image1} />
       </Head>
       <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
-        <Navbar />
+        
       </div>
       <div ref={ref}>
         <BlogHero blog={blog} />
