@@ -1,11 +1,4 @@
-// /** @type {import('tailwindcss').Config} */
-// module.exports = {
-//   content: [],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [],
-// }
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
@@ -20,10 +13,10 @@ const config = {
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
-      // "min-h-700": { raw: "( (min-height: 700px))" },
+      // "min-h-700": { raw: "( (min-height: 700px) and (min-width:700px))" },
     },
     fontFamily: {
-      open_sans: ["Open Sans", "sans-serif"],
+      open_sans: ["open_sans", "sans-serif"],
     },
     fontSize: {
       "4xs": [
@@ -126,6 +119,7 @@ const config = {
       backgroundImage: {
         "radial-gradient-xl":
           "radial-gradient(389.9% 150.6% at -13.33% 12.53%, rgba(100, 253, 171, 0.00) 0%, rgba(129, 184, 244, 0.40) 25.93%, rgba(196, 219, 254, 0.57) 43.63%, rgba(228, 238, 253, 0.57) 69.37%, rgba(253, 239, 255, 0.57) 79.3%, rgba(253, 239, 255, 0.00) 100%)",
+
         "radial-gradient":
           "radial-gradient(348.84% 134.74% at -1.18% 22.73%, rgba(255, 255, 255, 0.00) 0%, rgba(164, 233, 255, 0.40) 19%, rgba(155, 226, 249, 0.57) 43.63%, rgba(197, 255, 224, 0.57) 57.07%, rgba(203, 255, 224, 0.57) 69.37%, rgba(229, 255, 223, 0.57) 79.3%, rgba(255, 255, 255, 0.00) 100%)",
       },
@@ -197,13 +191,13 @@ const config = {
           700: "#05603A",
         },
         orange: {
-          100: "#FFFBF6",
-          200: "#FEF0DF",
-          300: "#FFD19A",
-          400: "#FEB359",
-          500: "#FF9E29",
-          600: "#F98800",
-          700: "#A3651A",
+          100: "#fcfcfd",
+          200: "#f8f9fc",
+          300: "#c8cce5",
+          400: "#717bbc",
+          500: "#4e5ba6",
+          600: "#3e4784",
+          700: "#363f72",
         },
       },
       keyframes: {
@@ -223,6 +217,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-};
+} satisfies Config;
 
 export default config;
