@@ -1,14 +1,14 @@
-import React, {useState} from "react";
-import {Document, Page, pdfjs} from "react-pdf";
+import React, { useState } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
 import "./PdfViewer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const PdfViewer = ({pdf}) => {
+const PdfViewer = ({ pdf }) => {
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
-    const onDocumentLoadSuccess = ({numPages}) => {
+    const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
     };
 
@@ -41,7 +41,7 @@ const PdfViewer = ({pdf}) => {
                 onContextMenu={(e) => e.preventDefault()}
                 className="pdf-container"
             >
-                <Page pageNumber={pageNumber}/>
+                <Page pageNumber={pageNumber} />
             </Document>
         </div>
     );

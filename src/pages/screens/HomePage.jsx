@@ -51,82 +51,66 @@ const HomePage = () => {
         "https://i.pravatar.cc/150?u=a04258114e29026702d",
     ];
 
-    const handleIonOnePage = () => {
-        // setShowIframe(true);
-        // setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf");
-        // setVisible(false);
-        var win = window.open(
-            "Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-            "_blank",
-            "fullscreen=yes"
-        );
-    };
-
-
-    const handleVirOnePage = () => {
-        var win = window.open(
-            "Virtuso_main.pdf#toolbar=0&fitH=1",
-            "_blank",
-            "fullscreen=yes"
-        );
-    };
-    const handleVirDetailed = () => {
-        var win = window.open(
-            "virtuso_single.pdf#toolbar=0&fitH=1",
-            "_blank",
-            "fullscreen=yes"
-        );
-    };
-    const handleIonDetailed = () => {
-        // setShowIframe(true);
-        // setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf");
-        // setVisible(false);
-        var win = window.open(
-            "Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf#toolbar=0&fitH=1",
-            "_blank",
-            "fullscreen=yes"
-        );
-    };
-    const handleHGOnePage = () => {
-        // setShowIframe(true);
-        // setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf");
-        // setVisible(false);
-        var win = window.open(
-            "H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-            "_blank",
-            "fullscreen=yes"
-        );
-    };
-    const handleHGDetailed = () => {
-        // setShowIframe(true);
-        // setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf");
-        // setVisible(false);
-        var win = window.open(
-            "H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf#toolbar=0&fitH=1",
-            "_blank",
-            "fullscreen=yes"
-        );
-    };
-    const handleGravitaOnePage = () => {
-        // setShowIframe(true);
-        // setSelectedPDF("Gravita India Ltd. (GIL) - 1 Page Report.pdf");
-        // setVisible(false);
-        var win = window.open(
-            "Gravita India Ltd. (GIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
-            "_blank",
-            "fullscreen=yes"
-        );
-    };
-    const handleGravitaDetailed = () => {
-        // setShowIframe(true);
-        // setSelectedPDF("Gravita India Ltd. (GIL) - Detailed Report.pdf");
-        // setVisible(false);
-        var win = window.open(
-            "Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
-            "_blank",
-            "fullscreen=yes"
-        );
-    };
+	const handleIonOnePage = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Ion Exchange (India) Ltd. (IEIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleIonDetailed = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Ion Exchange (India) Ltd. (IEIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleHGOnePage = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"H.G. Infra Engineering Ltd (HGIEL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleHGDetailed = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"H.G. Infra Engineering Ltd (HGIEL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleGravitaOnePage = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Gravita India Ltd. (GIL) - 1 Page Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Gravita India Ltd. (GIL) - 1 Page Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
+	const handleGravitaDetailed = () => {
+		// setShowIframe(true);
+		// setSelectedPDF("Gravita India Ltd. (GIL) - Detailed Report.pdf");
+		// setVisible(false);
+		var win = window.open(
+			"Gravita India Ltd. (GIL) - Detailed Report.pdf#toolbar=0&fitH=1",
+			"_blank",
+			"fullscreen=yes"
+		);
+	};
 
     const handleGuficOnePage = () => {
         // setShowIframe(true);

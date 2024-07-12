@@ -1,6 +1,9 @@
 //AUTH BASE
 // console.log(process.env.NEXT_PUBLIC_STRIPE_KEY);
 // export const BASE_URL = "https://api-server.kamayakya.in";
+
+import exp from "constants";
+
 // export const BASE_URL = "https://test-server.kamayakya.in";
 export const BASE_URL = process.env.NEXT_PUBLIC_BASEPATH;
 // export const BASE_URL = "http://192.168.0.151:8000";
@@ -21,7 +24,7 @@ export const REGEN_TOKEN_URL = `${MASTER_URL}/regenerateRefreshToken/`;
 //Payment
 export const GET_PRODUCT = `${ADMIN_URL}/subscription/`;
 export const PAYMENT_URL =
-    `${USER_URL}/create-checkout-session/` || "http://localhost:3000";
+  `${USER_URL}/create-checkout-session/` || "http://localhost:3000";
 
 //Profile URLs
 export const USER_PROFILE_URL = `${USER_URL}/userprofile/`;
@@ -45,8 +48,9 @@ export const RAZORPAY_CALLBACK = `${USER_URL}/razorpay_callback/`;
 export const BILLING_URL_RAZORPAY = `${USER_URL}/razorpay_transaction/`;
 
 //Blogs URL
-export const GET_BLOGS = `${USER_URL}/all_blogs/`;
+export const GET_BLOGS = `${USER_URL}/all_blogs`;
 export const GET_SPECIFIC_BLOG = `${USER_URL}/blog/`;
+export const SEARCH_BLOG = `${USER_URL}/search_blog`
 
 //Track Records
 export const TRACK_RECORD_FOR_ALL = `${USER_URL}/getTrackRecordForAll`;
@@ -74,4 +78,4 @@ export const ACTIVE_PLAN_URL = `${USER_URL}/active_subscription`
 export const NEWSLETTER_SUBSCRIBE_URL = `${USER_URL}/newsletter_subscribe/`
 export const CONTACT_URL = `${USER_URL}/contact_us/`
 export const BILLING_DETAILS = `${USER_URL}/plan_price/`
-export const RECOMMENDATION_COUNTS = `${USER_URL}/get_recent_recommendation_count/`
+export const RECOMMENDATION_COUNTS = `${USER_URL}/get_recent_recommendation_count/` 
