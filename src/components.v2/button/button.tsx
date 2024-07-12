@@ -8,6 +8,7 @@ export enum ButtonVariant {
   tertiary,
   // iconOnly,
   accent,
+  custom
 }
 
 export enum ButtonSize {
@@ -74,7 +75,7 @@ export function Button({
     <SButton
       {...rest}
       disabled={disabled || loading}
-      className={`  text-center font-medium flex items-center gap-[6px] justify-center min-w-fit  rounded-md ${btnSize} ${style} ${customStyle} `}
+      className={` hover:scale-95 transition-all duration-200 text-center font-medium flex items-center gap-[6px] justify-center min-w-fit  rounded-md ${btnSize} ${style} ${customStyle} `}
     >
       {loading ? (
         <>

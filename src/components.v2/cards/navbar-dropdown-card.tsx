@@ -30,7 +30,7 @@ export function NavbarDropdownCard({
   const router = useRouter();
 
   const handleEvent = (event: string, properties: Record<string, string>) => {
-    console.log("CLICKED",event);
+    console.log("CLICKED", event);
     const mp = getMixPanelClient();
     mp.track(event, properties);
   };
@@ -58,7 +58,7 @@ export function NavbarDropdownCard({
     <DropdownMenu modal={true} open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger
         onClick={(e) => {
-          e.preventDefault()
+          e.preventDefault();
           // setOpen(true)
           handleEvent("profileicon_clicked", { page: "Pricing_Page" });
         }}
@@ -81,10 +81,9 @@ export function NavbarDropdownCard({
           <DropDownItemContent icon={<User size={16} />} option="My Account" />
         </DropdownMenuLabel>
         <DropdownMenuSeparator /> */}
-        <DropdownMenuItem  className=" p-2">
+        <DropdownMenuItem className=" p-2">
           <DropDownItemContent
             onClick={() => {
-              
               handleEvent("myaccount_clicked", { page: "Pricing_Page" });
               handleRouting("/user-profile");
             }}
@@ -94,13 +93,16 @@ export function NavbarDropdownCard({
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <div className=" p-2 flex flex-col gap-y-2">
-          {/* <DropdownMenuItem className=" p-0">
+          <DropdownMenuItem className=" p-0">
             <DropDownItemContent
-              onClick={() => handleRouting("/blogs")}
+              onClick={() => {
+                handleEvent("blogs_clicked", { page: "Pricing_Page", pagegroup: "My Profile" });
+                handleRouting("/blogs-page");
+              }}
               icon={<MessageSquareText size={16} />}
               option="Blogs"
             />
-          </DropdownMenuItem> */}
+          </DropdownMenuItem>
           <DropdownMenuItem className=" p-0">
             <DropDownItemContent
               onClick={() => {

@@ -40,6 +40,8 @@ import { Modal } from "@nextui-org/react";
 import Login from "@/components/Login";
 import { LoginBtnNav } from "./login-btn-nav";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import { Button } from "./button";
+import { ButtonVariant } from "./button/button";
 
 export function Navbar() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -186,15 +188,16 @@ export function Navbar() {
         </div>
         <div className="hidden px-2 lg:flex">
           <Link href={"/stock-picks"}>
-            <button
-              className={` border pricing border-orange-500  ${
+            <Button
+              variant={ButtonVariant.custom}
+              customStyle={`  border pricing border-orange-500  ${
                 isLoggedIn
-                  ? "bg-orange-500 text-white hover:bg-orange-600 mr-6 "
-                  : " bg-transparent text-orange-500 hover:bg-orange-500 hover:text-white mr-4"
-              }  px-4 py-[10px] rounded-[6px]`}
+                  ? "bg-orange-500 text-white  hover:bg-orange-600 mr-6 "
+                  : " text-orange-500 bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+              }  !px-4 !py-[10px] rounded-[6px]`}
             >
               <p className=" text-sm font-bold">Stocks to Buy</p>
-            </button>
+            </Button>
           </Link>
           <div>
             {isLoggedIn ? (
