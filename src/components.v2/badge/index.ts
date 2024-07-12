@@ -1,1 +1,1 @@
-export {PlanBadge} from "./plan-badge";
+export { PlanBadge } from "./plan-badge";
