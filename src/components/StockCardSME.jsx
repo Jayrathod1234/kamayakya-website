@@ -72,7 +72,7 @@ const StockCardSME = () => {
   const [selectedReportUrl, setSelectedReportUrl] = useState("");
   const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
   const { isLoggedIn } = useContext(AuthContext);
-  const { isSubscribed } = useContext(AuthContext);
+  const { isSubscribed ,plan} = useContext(AuthContext);
   // console.log(pdfjsVersion);
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
@@ -2181,7 +2181,7 @@ const StockCardSME = () => {
               </Modal>
             </Grid>
           ))}
-          {!isLoggedIn || !isSubscribed ? (
+          {plan=="core" ||  (!isSubscribed &&  (isLoggedIn || !isLoggedIn)) ? (
             <Grid>
               <Card
                 isHoverable
@@ -2511,7 +2511,7 @@ const StockCardSME = () => {
           {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
           {/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
-          {!isLoggedIn || !isSubscribed
+          {plan=="core" || (!isSubscribed &&  (isLoggedIn || !isLoggedIn))
             ? staticNumbers.map((number, index) => (
                 <Grid
                   // key={stock.id}
