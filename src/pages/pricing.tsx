@@ -162,7 +162,7 @@ export default function Page() {
           </div>
 
           <div className=" mt-[1.875rem] md:mt-9 text-center">
-            <h1 className=" text-display-xs md:text-display-lg font-bold mt-20">
+            <h1 className=" text-display-xs md:text-display-lg font-bold">
               What type of <span className=" text-brand-400">investor</span> are you?
             </h1>
             <p className=" text-md md:text-lg mt-3 text-gray-600 mb-9">
