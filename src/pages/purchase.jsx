@@ -1069,7 +1069,7 @@ export default function PreviewPage() {
 											lineHeight: 1,
 										}}
 									>
-										saved on base value ₹12711.86/-
+										saved on base value ₹{billingDetails.basePrice}/-
 									</span>
 								</div>
 								<span
@@ -1198,7 +1198,7 @@ export default function PreviewPage() {
 						</Box>
 
 						<Box sx={{ fontSize: 24, marginTop: "-10px", color: "#37b24d" }}>
-							You saved: ₹{discountAmount}/-
+							You saved: ₹{(billingDetails.originalAmount - billingDetails.totalPayable)}/-
 						</Box>
 					</Modal.Body>
 					<Modal.Footer>
