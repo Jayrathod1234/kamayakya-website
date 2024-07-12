@@ -1197,6 +1197,7 @@ export default function PreviewPage() {
 							{((billingDetails.totalPayable))}/-
 						</Box>
 
+
 						<Box sx={{ fontSize: 24, marginTop: "-10px", color: "#37b24d" }}>
 							You saved: ₹{(billingDetails.originalAmount - billingDetails.totalPayable)}/-
 						</Box>
@@ -1214,6 +1215,7 @@ export default function PreviewPage() {
 						</Button>
 					</Modal.Footer>
 				</Modal>
+
 
 				<FaqsNew />
 				<Footer />
