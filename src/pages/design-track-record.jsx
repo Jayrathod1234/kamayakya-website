@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { Button, Loading, Text } from "@nextui-org/react";
-import React, { useState, useContext, useEffect } from "react";
 import Design1 from "./TrackDesigns/Design1";
 import Design2 from "./TrackDesigns/Design2";
 import Design3 from "./TrackDesigns/Design3";
@@ -8,7 +7,6 @@ import AuthContext from "@/components/AuthContext";
 import { TRACK_RECORD_FOR_ALL, TRACK_RECORD_FOR_USER } from "@/pages/api/URLs";
 import NavBar2 from "@/components/Navbar2";
 import NavBar from "@/components/Navbar";
-import PageVisibility from "@/components/PageVisibility";
 
 const DesignTrackRecord = () => {
 	const [designActive, setDesignActive] = useState(1);

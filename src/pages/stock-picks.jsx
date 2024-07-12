@@ -1,13 +1,11 @@
-// import { useContext } from "react";
+import { useContext } from "react";
 import NavBar2 from "../components/Navbar2";
 import NavBar from "../components/Navbar";
 import StockCard from "../components/StockCard";
 import FaqsNew from "./screens/FaqsNew";
 import Footer from "./screens/Footer";
-// import {Navbar,Footer} from "@/components.v2/index.components";
 import AuthContext from "../components/AuthContext";
 import PageVisibility from "../components/PageVisibility";
-import { useContext } from "react";
 
 const StockPicks = () => {
 	const { isLoggedIn } = useContext(AuthContext);
