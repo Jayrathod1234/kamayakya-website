@@ -158,7 +158,7 @@ export function Navbar() {
                           ? "hidden"
                           : "hidden lg:flex"
                         : navigationOption.title === "Stocks to Buy"
-                        ? "lg:hidden rounded-[6px] border pricing border-orange-500 bg-transparent !text-orange-500 hover:bg-orange-500 hover:text-white mr-4"
+                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 !text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
                         : ""
                     } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                   >
@@ -170,7 +170,7 @@ export function Navbar() {
                       passHref
                     >
                       <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} text-inherit`}
+                        className={`${navigationMenuTriggerStyle()} text-inherit ${navigationOption.title === "Stocks to Buy" ?"!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]":"" }`}
                         active={pathname === navigationOption.link}
                       >
                         {navigationOption.title}
