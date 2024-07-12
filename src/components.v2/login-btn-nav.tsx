@@ -1,5 +1,7 @@
 import React from "react";
 import { Avatar, AvatarVariant } from "./avatar";
+import { Button } from "./button";
+import { ButtonVariant } from "./button/button";
 
 type TLoginBtnNav = {
   handleLogin: () => void;
@@ -8,9 +10,10 @@ type TLoginBtnNav = {
 
 export function LoginBtnNav({ handleLogin, arrow }: TLoginBtnNav) {
   return (
-    <button
+    <Button
+      variant={ButtonVariant.custom}
       onClick={handleLogin}
-      className={` border border-brand-500 pricing bg-brand-500  hover:bg-brand-600 text-white  px-4 py-[10px] rounded-[6px] flex items-center justify-center gap-x-2`}
+      customStyle={` border border-brand-500 pricing bg-brand-500  hover:bg-brand-600 text-white  px-4 py-[10px] rounded-[6px] flex items-center justify-center gap-x-2`}
     >
       <Avatar variant={AvatarVariant.xs} imgSrc="/avatar-login.png" />
       <p className=" text-sm font-medium">Login</p>
@@ -34,6 +37,6 @@ export function LoginBtnNav({ handleLogin, arrow }: TLoginBtnNav) {
           </svg>
         </div>
       )}
-    </button>
+    </Button>
   );
 }

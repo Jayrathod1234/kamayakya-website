@@ -17,7 +17,7 @@ function FooterLinks({ href, label, event, ...rest }: Record<string, string>) {
     });
   };
   return (
-    <Link onClick={handleEvent} {...rest} href={href} className=" text-inherit">
+    <Link onClick={handleEvent} {...rest} href={href} className=" text-inherit hover:scale-[.98] hover:text-orange-500 duration-200 transition-all">
       <p className=" m-0 font-medium text-2xs md:text-md">{label}</p>
     </Link>
   );
