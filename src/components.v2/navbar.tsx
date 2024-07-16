@@ -42,6 +42,7 @@ import { LoginBtnNav } from "./login-btn-nav";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { Button } from "./button";
 import { ButtonVariant } from "./button/button";
+import { ScrollProgress } from "./scroll-progress";
 
 export function Navbar() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -76,6 +77,7 @@ export function Navbar() {
 
   return (
     <div ref={ref} className="sticky left-0 right-0 top-0 z-50 transition-all duration-500 overflow-visible max-h-14">
+      <ScrollProgress/>
       <div className="flex py-2 justify-between items-center main-container overflow-visible">
         <div className=" flex flex-row items-center justify-center">
           <div className=" mb-1 mr-3 lg:mr-10">
@@ -158,7 +160,7 @@ export function Navbar() {
                           ? "hidden"
                           : "hidden lg:flex"
                         : navigationOption.title === "Stocks to Buy"
-                        ? "lg:hidden rounded-[6px] border pricing border-orange-500 bg-transparent !text-orange-500 hover:bg-orange-500 hover:text-white mr-4"
+                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 !text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
                         : ""
                     } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                   >
@@ -170,7 +172,7 @@ export function Navbar() {
                       passHref
                     >
                       <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} text-inherit`}
+                        className={`${navigationMenuTriggerStyle()} text-inherit ${navigationOption.title === "Stocks to Buy" ?"!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]":"" }`}
                         active={pathname === navigationOption.link}
                       >
                         {navigationOption.title}

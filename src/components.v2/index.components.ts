@@ -1,5 +1,5 @@
 export { Avatar } from "./avatar";
-export { Button } from "./button/index";
+export { Button, ButtonnArrow } from "./button/index";
 export {
   EnterpriseCard,
   Testimonials,

@@ -9,7 +9,7 @@ import { BlogCardLg, BlogCardSm } from "@/components.v2/blogs";
 import { Input } from "@/components.v2/ui/input";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { TBlog } from "@/types";
-import { Button } from "@/components.v2/button";
+import { Button, ButtonnArrow } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import axios from "axios";
 import Lottie from "lottie-react";
@@ -158,7 +158,7 @@ const BlogSection2 = () => {
         </div>
         {!search ? (
           <div className=" flex items-center justify-center gap-x-4 ">
-            {prevPage && <Button
+            {prevPage && <ButtonnArrow
               disabled={!prevPage}
               onClick={() => handlePrevNext(prevPage as string)}
               startIcon={<ChevronLeft size={16} />}
@@ -166,8 +166,8 @@ const BlogSection2 = () => {
               customStyle=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
             >
               Prev
-            </Button>}
-            {nextPage &&  <Button
+            </ButtonnArrow>}
+            {nextPage &&  <ButtonnArrow
               disabled={!nextPage}
               onClick={() => handlePrevNext(nextPage as string)}
               endIcon={<ChevronRight size={16} />}
@@ -175,7 +175,7 @@ const BlogSection2 = () => {
               customStyle="  !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
             >
               Next
-            </Button>}
+            </ButtonnArrow>}
             
           </div>
         ) : null}

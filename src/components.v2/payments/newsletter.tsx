@@ -6,7 +6,7 @@ import { NEWSLETTER_SUBSCRIBE_URL } from "@/pages/api/URLs";
 import Image from "next/image";
 import Link from "next/link";
 import { Input } from "../ui/input";
-import { Button } from "../button";
+import { Button, ButtonnArrow } from "../button";
 import { ButtonSize, ButtonVariant } from "../button/button";
 import { LinkedinBtn } from "./linkedin-btn";
 import { LoaderCircle } from "lucide-react";
@@ -49,13 +49,9 @@ export function Newsletter({page="Pricing_Page"}) {
         });
       }
     } catch (e: any) {
-      console.log(e);
+     
       toast({
-        startIcon: (
-          <div className=" h-full w-full">
-            <Image src={"/warn_icon.svg"} alt="warn" height={16} width={16} />
-          </div>
-        ),
+        variant:'danger',
         description: e?.response?.data?.email[0] || e?.message || "Something went wrong",
       });
     } finally {
@@ -92,24 +88,16 @@ export function Newsletter({page="Pricing_Page"}) {
               placeholder="Enter your email"
               className="  px-0 py-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
             />
-            <Button
+            <ButtonnArrow
               loading={loading}
-              customStyle=" gap-[6px] !py-2 md:py-[auto]"
+              customStyle="group gap-[6px] !py-2 md:py-[auto] flex items-center justify-center"
               onClick={handleNewsLetterEmailSubmit}
               variant={ButtonVariant.primary}
               // size={ButtonSize.lg}
             >
               <p className=" text-sm font-medium">Subscribe</p>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M8.88897 3.33301L13.3334 7.99967M13.3334 7.99967L8.88897 12.6663M13.3334 7.99967L2.66675 7.99967"
-                  stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </Button>
+            
+            </ButtonnArrow>
           </div>
           {emailError ? (
             <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left max-w-[350px] md:max-w-[566px] mx-auto">Enter valid email</p>

@@ -19,7 +19,7 @@ export enum ButtonSize {
   xl,
 }
 
-type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children?: React.ReactNode;
   variant: ButtonVariant;
   size?: ButtonSize;
@@ -28,6 +28,8 @@ type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
   disabled?: boolean;
   customStyle?: string;
+  arrowStyle?:string;
+  strokeStyle?:string;
 };
 
 export function Button({
