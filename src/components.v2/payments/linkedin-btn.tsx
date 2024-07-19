@@ -15,7 +15,7 @@ export function LinkedinBtn({page}:Record<string,string>) {
   };
 
   return (
-    <Button onClick={handleNewsLetterLinkedin} variant={ButtonVariant.custom} customStyle=" !px-0">
+    <Button onClick={handleNewsLetterLinkedin} variant={ButtonVariant.custom} className=" !px-0">
       <Link
         className=" whitespace-nowrap text-inherit px-4 py-2 flex gap-2 items-center bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-[6px]"
         href={"https://www.linkedin.com/company/kamayakya/"}

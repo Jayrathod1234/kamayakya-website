@@ -55,16 +55,22 @@ export function Toaster() {
             <DangerIcon />
           ) : null;
         return (
-          <Toast className=" bg-gray-800 text-white flex items-center relative max-w-fit" key={id} {...props}>
-            <div className=" mr-[10px]">{icon}</div>
-            <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
-              {description && <ToastDescription>{description}</ToastDescription>}
+          <Toast
+            className=" bg-gray-800 text-white flex items-center relative max-w-[380px] pricing"
+            key={id}
+            {...props}
+          >
+            {icon && <div className=" mr-[10px]">{icon}</div>}
+            <div className="grid gap-1 ">
+              {title && (
+                <ToastTitle className={` text-sm font-semibold ${action ? "truncate" : ""}`}>{title}</ToastTitle>
+              )}
+              {description && (
+                <ToastDescription className={` text-xs  ${action ? "truncate" : ""}`}>{description}</ToastDescription>
+              )}
             </div>
             {action && <Separator className=" h-[39px] mx-4 bg-gray-700" orientation="vertical" />}
-            <div className=" flex space-x-4">
-            {action}
-            </div>
+            <div className=" flex space-x-4">{action}</div>
             {props.close && <ToastClose />}
           </Toast>
         );

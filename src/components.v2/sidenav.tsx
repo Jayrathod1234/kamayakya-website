@@ -203,8 +203,8 @@ export default function SideNav({ handleLogin }: TSideNav) {
           <div className=" p-4 mt-auto">
             <p className=" text-sm font-bold text-[rgba(16,24,40,1))]"> Log in</p>
             <p className=" text-sm text-gray-500 mb-5">Log in to unlock 3 HOT stocks and our Track Record for free.</p>
-            {/* <Button onClick={handleClick} variant={ButtonVariant.primary} size={ButtonSize.sm} customStyle=" w-full mb-2">Sign up</Button> */}
-            <Button onClick={handleClick} variant={ButtonVariant.secondary} size={ButtonSize.sm} customStyle=" w-full">
+            {/* <Button onClick={handleClick} variant={ButtonVariant.primary} size={ButtonSize.sm} className=" w-full mb-2">Sign up</Button> */}
+            <Button onClick={handleClick} variant={ButtonVariant.secondary} size={ButtonSize.sm} className=" w-full">
               Login
             </Button>
           </div>

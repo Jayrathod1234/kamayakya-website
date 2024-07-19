@@ -32,10 +32,10 @@ export function SmallCaseCard() {
             variant={ButtonVariant.primary}
             size={ButtonSize.lg}
             strokeStyle="  stroke-brand-500 group-hover:stroke-brand-500"
-            customStyle=" bg-white hover:bg-brand-300 !border-white hover:!border-brand-300 text-brand-500 "
+            className=" bg-white hover:bg-brand-300 !border-white hover:!border-brand-300 text-brand-500 "
           >
             <Link className=" text-inherit" target="_blank" href={"https://kamayakya.smallcase.com/#portfolios"}>
-              <p className=" ">Go to smallcase</p>
+              <p className="font-semibold ">Go to smallcase</p>
             </Link>
           </ButtonnArrow>
           <p className=" text-2xs text-[rgba(255,255,255,0.64)] mt-[6px]">*No BSE and SME Stocks</p>

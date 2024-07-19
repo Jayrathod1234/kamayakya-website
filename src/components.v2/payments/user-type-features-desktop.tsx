@@ -100,10 +100,10 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
             onClick={handleCheckPlan}
             variant={ButtonVariant.primary}
             size={ButtonSize.lg}
-            customStyle=" !py-2 gap-[6px] mt-auto w-fit mb-[2rem] ml-[1.25rem]"
+            className=" !py-2 gap-[6px] mt-auto w-fit mb-[2rem] ml-[1.25rem]"
             arrowStyle="rotate-90 stroke-white"
           >
-            <span className=" whitespace-nowrap truncate text-md font-medium">
+            <span className=" whitespace-nowrap truncate text-md">
               {userTypeSelected === DEEP_RESEARCH_INVESTOR ? "Check Membership Plans" : "Check Effortless Baskets"}
             </span>
             {/* <Image alt="arrow-icon" height={18} width={18} src={"/icons/arrow-down.svg"} /> */}

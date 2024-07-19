@@ -37,8 +37,9 @@ export function Newsletter({page="Pricing_Page"}) {
       console.log(response.data);
       if (response.data) {
         
-        toast({
-          description: "Subscribed to newsletter successfully",
+        toast({ variant:'success',
+          title:"Successfully Subscribed!",
+          description: "Congrats! Your inbox just got smarter. Expect awesome investment insights soon.",
         });
 
         const mp = getMixPanelClient();
@@ -52,6 +53,7 @@ export function Newsletter({page="Pricing_Page"}) {
      
       toast({
         variant:'danger',
+        title:"Error",
         description: e?.response?.data?.email[0] || e?.message || "Something went wrong",
       });
     } finally {
@@ -90,12 +92,12 @@ export function Newsletter({page="Pricing_Page"}) {
             />
             <ButtonnArrow
               loading={loading}
-              customStyle="group gap-[6px] !py-2 md:py-[auto] flex items-center justify-center"
+              className="group  !py-2 md:py-[auto] flex items-center justify-center"
               onClick={handleNewsLetterEmailSubmit}
               variant={ButtonVariant.primary}
               // size={ButtonSize.lg}
             >
-              <p className=" text-sm font-medium">Subscribe</p>
+              <p className=" text-sm font-semibold">Subscribe</p>
             
             </ButtonnArrow>
           </div>

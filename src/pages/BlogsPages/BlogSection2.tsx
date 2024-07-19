@@ -163,7 +163,7 @@ const BlogSection2 = () => {
               onClick={() => handlePrevNext(prevPage as string)}
               startIcon={<ChevronLeft size={16} />}
               variant={ButtonVariant.primary}
-              customStyle=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+              className=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
             >
               Prev
             </ButtonnArrow>}
@@ -172,7 +172,7 @@ const BlogSection2 = () => {
               onClick={() => handlePrevNext(nextPage as string)}
               endIcon={<ChevronRight size={16} />}
               variant={ButtonVariant.primary}
-              customStyle="  !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+              className=" !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
             >
               Next
             </ButtonnArrow>}

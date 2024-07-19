@@ -51,7 +51,7 @@ export function BlogCardLg({ blog }: { blog: TBlog }) {
             strokeStyle=" stroke-brand-400"
             variant={ButtonVariant.secondary}
           >
-            <p>Read More</p>
+            Read More
           </ButtonnArrow>
         </div>
       </div>

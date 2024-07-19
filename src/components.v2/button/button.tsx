@@ -1,6 +1,7 @@
 import React, { ButtonHTMLAttributes } from "react";
 import { ButtonProps, Button as SButton } from "../ui/button";
 import { LoaderCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export enum ButtonVariant {
   primary,
@@ -27,7 +28,7 @@ export type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   endIcon?: React.ReactNode;
   loading?: boolean;
   disabled?: boolean;
-  customStyle?: string;
+  className?: string;
   arrowStyle?:string;
   strokeStyle?:string;
 };
@@ -40,7 +41,7 @@ export function Button({
   loading = false,
   disabled = false,
   size,
-  customStyle,
+  className,
   ...rest
 }: Button) {
   const style =
@@ -77,7 +78,7 @@ export function Button({
     <SButton
       {...rest}
       disabled={disabled || loading}
-      className={` hover:scale-95 transition-all duration-200 text-center font-medium flex items-center gap-[6px] justify-center min-w-fit  rounded-md ${btnSize} ${style} ${customStyle} `}
+      className={cn(` hover:scale-90 transition-all duration-200 text-center font-semibold flex items-center gap-[6px] justify-center min-w-fit  rounded-md  ${btnSize} ${style}`,className)}
     >
       {loading ? (
         <>

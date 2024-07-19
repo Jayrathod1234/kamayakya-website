@@ -13,13 +13,10 @@ export function LoginBtnNav({ handleLogin, arrow }: TLoginBtnNav) {
     <ButtonnArrow
       variant={ButtonVariant.custom}
       onClick={handleLogin}
-      customStyle={`group border border-brand-500 pricing bg-brand-500  hover:bg-brand-600 text-white  px-4 py-[10px] rounded-[6px] flex items-center justify-center gap-x-2`}
+      className={` border border-brand-500 pricing bg-brand-500  hover:bg-brand-600 text-white  px-4 py-[10px] rounded-[6px] flex items-center justify-center`}
     >
       <Avatar variant={AvatarVariant.xs} imgSrc="/avatar-login.png" />
-      <p className=" text-sm font-medium m-0">Login</p>
-      {/* {arrow && (
-        <BtnArrowIcon/>
-      )} */}
+      <p className=" text-sm m-0 font-semibold">Login</p>
     </ButtonnArrow>
   );
 }
