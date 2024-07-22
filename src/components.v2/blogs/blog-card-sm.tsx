@@ -51,23 +51,26 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
     >
       <div
         // onClick={handleReadMore}
-        className={` z-0 transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] ${
-          isMobile ? "" : "group-hover/card:opacity-30 group-hover/card:h-[496px]"
-        }  absolute  h-[300px] w-full cursor-pointer`}
+        //group-hover/card:opacity-30 group-hover/card:h-[496px]
+        // absolute
+        className={` relative transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] ${
+          isMobile ? "" : " "
+        }    h-[300px] w-full cursor-pointer before:content-[""] before:absolute before:h-full before:w-full before:transition-colors  before:bg-transparent group-hover/card:before:bg-[rgba(0,0,0,.5)] before:z-10`}
       >
         <Image className=" object-cover h-full w-full" width={406} height={300} alt="blog-image" src={blog.image1} />
       </div>
+      {/* group-hover/card:bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.60)_45.04%,#FFF_100%)] */}
+      {/* pt-[324px] */}
       <div
-        className={` relative p-6 pt-[324px] z-10 ${
-          isMobile
-            ? ""
-            : "group-hover/card:bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.60)_45.04%,#FFF_100%)]"
-        }  `}
-      >
-        <div
-          className={` translate-y-3 ${
+        className={` relative p-6  z-10  translate-y-3 bg-white ${
             isMobile ? "" : "group-hover/card:-translate-y-9"
           } transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] `}
+      >
+        {/* className={` translate-y-3 ${
+            isMobile ? "" : "group-hover/card:-translate-y-9"
+          } transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] `} */}
+        <div
+          
         >
           <div className="flex items-center gap-x-3">
             <Meta icon={"Calendar"} label={format(new Date(blog?.created), "dd MMM, yyyy")} />

@@ -172,7 +172,7 @@ export function CopyBlogLink({ url, size, disableTooltip }: TCopyBlogLink) {
 }
 
 export function BlogSocialList({ blog, size = 20, disabled }: { blog: TBlog; size?: number; disabled?: boolean }) {
-  const url = "https://legendary-madeleine-b03cd5.netlify.app/";
+  const url = process.env.NEXT_PUBLIC_CLIENT_URL;
 
   return (
     <>
