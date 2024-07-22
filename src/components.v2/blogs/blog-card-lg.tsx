@@ -1,7 +1,7 @@
 import { ChevronRight, icons } from "lucide-react";
 import React from "react";
 import { format } from "date-fns";
-import { Button } from "../button";
+import { Button, ButtonnArrow } from "../button";
 import { ButtonVariant } from "../button/button";
 import Image from "next/image";
 import { TBlog } from "@/types";
@@ -46,17 +46,13 @@ export function BlogCardLg({ blog }: { blog: TBlog }) {
           ></p>
         </div>
         <div className=" mt-auto">
-          <Button
+          <ButtonnArrow
             onClick={handleReadMore}
-            endIcon={
-              <div className=" h-4 aspect-square">
-                <ChevronRight size={16} />
-              </div>
-            }
+            strokeStyle=" stroke-brand-400"
             variant={ButtonVariant.secondary}
           >
-            <p>Read More</p>
-          </Button>
+            Read More
+          </ButtonnArrow>
         </div>
       </div>
     </div>

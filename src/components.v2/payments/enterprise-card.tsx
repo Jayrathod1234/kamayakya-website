@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { Button } from "../button/index";
+import { Button, ButtonnArrow } from "../button/index";
 import { ButtonSize, ButtonVariant } from "../button/button";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { MoveRight } from "lucide-react";
@@ -49,14 +49,14 @@ export function EnterpriseCard() {
         <div className=" !mt-6 md:!mt-10">
           <ContactModal
             trigger={
-              <Button
-                endIcon={<MoveRight className=" text-inherit" />}
+              <ButtonnArrow
+                // endIcon={<MoveRight className=" text-inherit" />}
                 onClick={handleContactButton}
                 variant={ButtonVariant.primary}
                 size={ButtonSize.lg}
               >
                 Contact Us
-              </Button>
+              </ButtonnArrow>
             }
           />
         </div>

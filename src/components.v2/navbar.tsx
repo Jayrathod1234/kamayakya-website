@@ -42,8 +42,9 @@ import { LoginBtnNav } from "./login-btn-nav";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { Button } from "./button";
 import { ButtonVariant } from "./button/button";
+import { ScrollProgress } from "./scroll-progress";
 
-export function Navbar() {
+export function Navbar({className}:{className?:string}) {
   const { isLoggedIn } = useContext(AuthContext);
   const router = useRouter();
   const pathname = router.pathname;
@@ -75,7 +76,8 @@ export function Navbar() {
   }, []);
 
   return (
-    <div ref={ref} className="sticky left-0 right-0 top-0 z-50 transition-all duration-500 overflow-visible max-h-14">
+    <div ref={ref} className={cn(" group/nav sticky left-0 right-0 top-0 z-50 transition-all duration-500 overflow-visible",className)}>
+      <ScrollProgress/>
       <div className="flex py-2 justify-between items-center main-container overflow-visible">
         <div className=" flex flex-row items-center justify-center">
           <div className=" mb-1 mr-3 lg:mr-10">
@@ -102,7 +104,7 @@ export function Navbar() {
             <NavigationMenu delayDuration={0} className=" ">
               <NavigationMenuList className=" m-0 ">
                 <NavigationMenuItem className=" m-0 hidden lg:flex">
-                  <NavigationMenuTrigger className=" text-gray-950">{isLoggedIn ? "About Us" : "Home"}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className=" text-gray-950 font-semibold">{isLoggedIn ? "About Us" : "Home"}</NavigationMenuTrigger>
                   <NavigationMenuContent className=" w-auto">
                     {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
                     <ul
@@ -158,7 +160,7 @@ export function Navbar() {
                           ? "hidden"
                           : "hidden lg:flex"
                         : navigationOption.title === "Stocks to Buy"
-                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 !text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
+                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 hover:bg-[#E26103] !text-orange-500 hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
                         : ""
                     } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                   >
@@ -170,7 +172,7 @@ export function Navbar() {
                       passHref
                     >
                       <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} text-inherit ${navigationOption.title === "Stocks to Buy" ?"!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]":"" }`}
+                        className={`${navigationMenuTriggerStyle()} font-semibold text-inherit ${navigationOption.title === "Stocks to Buy" ?"!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]":"" }`}
                         active={pathname === navigationOption.link}
                       >
                         {navigationOption.title}
@@ -190,18 +192,18 @@ export function Navbar() {
           <Link href={"/stock-picks"}>
             <Button
               variant={ButtonVariant.custom}
-              customStyle={`  border pricing border-orange-500  ${
+              className={`!text-sm  border pricing border-orange-500  ${
                 isLoggedIn
-                  ? "bg-orange-500 text-white  hover:bg-orange-600 mr-6 "
-                  : " text-orange-500 bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+                  ? "bg-orange-500 text-white  hover:bg-[#f98800] mr-6 "
+                  : " text-orange-500 hover:text-[#E26103] hover:border-[#E26103] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
               }  !px-4 !py-[10px] rounded-[6px]`}
             >
-              <p className=" text-sm font-bold">Stocks to Buy</p>
+              Stocks to Buy
             </Button>
           </Link>
           <div>
             {isLoggedIn ? (
-              <NavbarDropdownCard triggerElement={<Avatar variant={AvatarVariant.md} />} userCard={true} />
+              <NavbarDropdownCard triggerElement={<Avatar className=" transition-all border-[1.38px] border-[#EDF0F5] hover:border-[4px] hover:scale-[1.05]" variant={AvatarVariant.md} />} userCard={true} />
             ) : (
               <LoginBtnNav handleLogin={handleLogin} arrow />
             )}
@@ -265,7 +267,7 @@ interface CustomProps extends React.ComponentPropsWithoutRef<"a"> {
 const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
   ({ className, icon, endIcon, title, children, ...props }, ref) => {
     return (
-      <li className="relative m-0 group ">
+      <li className="relative m-0 group/list ">
         <NavigationMenuLink asChild>
           <a
             ref={ref}
@@ -278,8 +280,8 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
             <div>{icon}</div>
             <div>
               <div className="text-sm font-medium leading-none text-gray-950 mb-1 flex gap-x-2 items-center">
-                <span className=" whitespace-nowrap">{title}</span>
-                <span className=" invisible group-hover:visible">
+                <span className=" whitespace-nowrap font-semibold">{title}</span>
+                <span className=" invisible group-hover/list:visible">
                   {endIcon || <ArrowRight size={12} className=" text-gray-400" />}
                 </span>
               </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Button as ShadBtn } from "../ui/button";
 import { Input } from "../ui/input";
-import { Button } from "../button";
+import { Button, ButtonnArrow } from "../button";
 import { ButtonSize, ButtonVariant } from "../button/button";
 import {
   Dialog,
@@ -61,20 +61,21 @@ export function FeelingLost() {
 
               <ContactModal
                 trigger={
-                  <Button
-                    endIcon={
-                      <div>
-                        <MoveRight className="hidden md:block text-inherit" />
-                        <ArrowRight height={18} width={18} className="block md:hidden text-inherit" />
-                      </div>
-                    }
+                  <ButtonnArrow
+                    // endIcon={
+                    //   <div>
+                    //     <MoveRight className="hidden md:block text-inherit" />
+                    //     <ArrowRight height={18} width={18} className="block md:hidden text-inherit" />
+                    //   </div>
+                    // }
                     onClick={handleContactUsModal}
-                    customStyle="!py-[14px] md:py-[auto] bg-brand-100 text-brand-500 hover:border hover:border-brand-300 hover:bg-transparent hover:text-brand-100"
+                    strokeStyle=" !stroke-brand-500 group-hover/btn-arrow:!stroke-white"
+                    className="!py-[14px] md:py-[auto] bg-brand-100 text-brand-500 hover:border hover:border-brand-300 hover:bg-transparent hover:text-brand-100"
                     variant={ButtonVariant.secondary}
                     size={ButtonSize.lg}
                   >
                     Contact Us
-                  </Button>
+                  </ButtonnArrow>
                 }
               />
             </div>

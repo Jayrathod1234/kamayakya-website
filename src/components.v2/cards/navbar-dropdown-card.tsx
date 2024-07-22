@@ -72,7 +72,7 @@ export function NavbarDropdownCard({
         sideOffset={sideOffset}
       >
         {userCard && (
-          <DropdownMenuLabel className=" p-0">
+          <DropdownMenuLabel className=" p-0 bg-gray-50">
             <NavbarUserCard />
           </DropdownMenuLabel>
         )}
@@ -81,7 +81,8 @@ export function NavbarDropdownCard({
           <DropDownItemContent icon={<User size={16} />} option="My Account" />
         </DropdownMenuLabel>
         <DropdownMenuSeparator /> */}
-        <DropdownMenuItem className=" p-2">
+        <div className=" px-2 my-2">
+        <DropdownMenuItem className="p-0">
           <DropDownItemContent
             onClick={() => {
               handleEvent("myaccount_clicked", { page: "Pricing_Page" });
@@ -90,9 +91,11 @@ export function NavbarDropdownCard({
             icon={<User size={16} />}
             option="My Account"
           />
+          
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <div className=" p-2 flex flex-col gap-y-2">
+        </div>
+        <DropdownMenuSeparator className="!my-0" />
+        <div className=" p-2 flex flex-col">
           <DropdownMenuItem className=" p-0">
             <DropDownItemContent
               onClick={() => {
@@ -135,7 +138,7 @@ export function NavbarDropdownCard({
             }
           />
         </div>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="!my-0" />
         <div className=" p-2">
           <DropdownMenuItem className=" p-0">
             <DropDownItemContent

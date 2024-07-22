@@ -153,7 +153,7 @@ const BlogPage = () => {
   return (
     <div className="pricing" style={{ backgroundColor: "#fff" }}>
       {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
-      <Navbar />
+      <Navbar className=" bg-white" />
       <Head>
         <title>Kamayakya | {blog.title}</title>
         <meta name="title" content={blog.title} />

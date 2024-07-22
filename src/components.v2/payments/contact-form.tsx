@@ -296,7 +296,7 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
           onClick={handleSendMessage}
           variant={ButtonVariant.primary}
           size={ButtonSize.md}
-          customStyle=" px-4 !py-2"
+          className=" px-4 !py-2"
           startIcon={<Send height={16} width={16} />}
         >
           Send Message
@@ -306,7 +306,7 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
             onClick={() => handleClose("closewindow_clicked")}
             variant={ButtonVariant.tertiary}
             size={ButtonSize.md}
-            customStyle=" px-4 !py-2 border-0"
+            className=" px-4 !py-2 border-0"
           >
             Close
           </Button>
