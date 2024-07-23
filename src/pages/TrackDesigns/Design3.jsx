@@ -1,13 +1,4 @@
-import {
-	Text,
-	Button,
-	Card,
-	Modal,
-	Divider,
-	Progress,
-} from "@nextui-org/react";
 import Marquee from "react-fast-marquee";
-import React, { useState, useContext, useEffect } from "react";
 import { Box, Grid, IconButton } from "@mui/material";
 import { DocumentText, LockCircle } from "iconsax-react";
 import "@react-pdf-viewer/core/lib/styles/index.css";

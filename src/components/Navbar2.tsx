@@ -189,7 +189,7 @@ const NavBar2 = () => {
 			height={100}
 			css={{
 				marginTop: 0,
-				zIndex: 1,
+				zIndex: 1000,
 				$$navbarBackgroundColor: "transparent",
 				$$navbarBlurBackgroundColor: "none",
 				".nextui-navbar-container": {
@@ -254,7 +254,7 @@ const NavBar2 = () => {
 						Home
 					</Text>
 				</Navbar.Link>
-				<Navbar.Link
+				{/* <Navbar.Link
 					// isActive={
 					// 	typeof window !== "undefined" &&
 					// 	window.location.pathname === "/about-company"
@@ -268,8 +268,8 @@ const NavBar2 = () => {
 					<Text b size={16} css={{ lineHeight: 5 }}>
 						About Us
 					</Text>
-				</Navbar.Link>
-				{/* <Navbar.Link
+				</Navbar.Link> */}
+				<Navbar.Link
 					// isActive={
 					// 	typeof window !== "undefined" &&
 					// 	window.location.pathname === "/about-company"
@@ -281,7 +281,7 @@ const NavBar2 = () => {
 					<Text b size={16} css={{ lineHeight: 5 }}>
 						Pricing
 					</Text>
-				</Navbar.Link> */}
+				</Navbar.Link>
 				{/* <Navbar.Link
 					isActive={
 						typeof window !== "undefined" &&

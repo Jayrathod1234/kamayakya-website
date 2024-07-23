@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import NavBar2 from "../components/Navbar2";
 import NavBar from "../components/Navbar";
-// import {Navbar,Footer} from "@/components.v2/index.components";
 import StockCard from "../components/StockCard";
 import FaqsNew from "./screens/FaqsNew";
 import Footer from "./screens/Footer";

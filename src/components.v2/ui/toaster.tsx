@@ -56,7 +56,7 @@ export function Toaster() {
           ) : null;
         return (
           <Toast
-            className=" bg-gray-800 text-white flex items-center relative max-w-[380px] pricing"
+            className=" bg-gray-800 text-white flex items-center relative max-w-fit  md:max-w-[380px] pricing"
             key={id}
             {...props}
           >

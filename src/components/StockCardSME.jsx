@@ -72,7 +72,7 @@ const StockCardSME = () => {
   const [selectedReportUrl, setSelectedReportUrl] = useState("");
   const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
   const { isLoggedIn } = useContext(AuthContext);
-  const { isSubscribed } = useContext(AuthContext);
+  const { isSubscribed ,plan} = useContext(AuthContext);
   // console.log(pdfjsVersion);
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
@@ -355,7 +355,7 @@ const StockCardSME = () => {
     if (isLoggedIn === true && isSubscribed === false) {
       const location = router.asPath;
       localStorage.setItem("location", location);
-      router.push("/pricing");
+      router.push("/purchase");
     }
     if (isLoggedIn === true && isSubscribed === true) {
       router.push("/sme");
@@ -401,7 +401,6 @@ const StockCardSME = () => {
 							Authorization: `token ${refresh}`,
 						},
 					});
-          console.log(response)
 					const sortedStocks = response.data.sort((a, b) => {
 						// if (a.recommended_stock === b.recommended_stock) return 0;
 						// return a.recommended_stock ? -1 : 1;
@@ -462,31 +461,18 @@ const StockCardSME = () => {
     setUpsideSort("");
   };
 
-	const isNewStock = (createdDateString) => {
-		const createdDate = new Date(createdDateString);
-		const twoMonthsAgo = new Date();
-		twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    const isNewStock = (createdDateString) => {
+        const createdDate = new Date(createdDateString);
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
-		const today = new Date();
-		// console.log(
-		// 	createdDate,
-		// 	createdDate >= twoMonthsAgo && createdDate <= today
-		// );
-		return createdDate >= twoMonthsAgo && createdDate <= today;
-	};
-
-    // const isNewStock = (createdDateString) => {
-    //     const createdDate = new Date(createdDateString);
-    //     const twoMonthsAgo = new Date();
-    //     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-
-    //     const today = new Date();
-    //     // console.log(
-    //     // 	createdDate,
-    //     // 	createdDate >= twoMonthsAgo && createdDate <= today
-    //     // );
-    //     return createdDate >= twoMonthsAgo && createdDate <= today;
-    // };
+        const today = new Date();
+        // console.log(
+        // 	createdDate,
+        // 	createdDate >= twoMonthsAgo && createdDate <= today
+        // );
+        return createdDate >= twoMonthsAgo && createdDate <= today;
+    };
   return (
     <div
       style={{
@@ -560,7 +546,6 @@ const StockCardSME = () => {
             css={{
               fontWeight: "bolder",
               color: "#021C61",
-              // marginTop:50,
               "@media only screen and (max-width: 764px)": {
                 fontSize: 18,
                 width: "100%",
@@ -1769,6 +1754,52 @@ const StockCardSME = () => {
                                 "-"}
                         </Text>
                       </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <Text
+                            b
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 21,
+                              },
+                            }}
+                            size={15}
+                          >
+                            RETURNS
+                          </Text>
+                          
+                        </div>
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                          {`${stock.gain_loss}` || <Loading /> || "-"}
+                        </Text>
+                      </div>
                     </div>
                   </Box>
 
@@ -2150,7 +2181,7 @@ const StockCardSME = () => {
               </Modal>
             </Grid>
           ))}
-          { isLoggedIn || !isLoggedIn || !isSubscribed ? (
+          {plan=="core" ||  (!isSubscribed &&  (isLoggedIn || !isLoggedIn)) ? (
             <Grid>
               <Card
                 isHoverable
@@ -2480,7 +2511,7 @@ const StockCardSME = () => {
           {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
           {/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
-          {isLoggedIn || !isLoggedIn || !isSubscribed
+          {plan=="core" || (!isSubscribed &&  (isLoggedIn || !isLoggedIn))
             ? staticNumbers.map((number, index) => (
                 <Grid
                   // key={stock.id}

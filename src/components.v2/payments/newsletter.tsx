@@ -10,6 +10,7 @@ import { Button, ButtonnArrow } from "../button";
 import { ButtonSize, ButtonVariant } from "../button/button";
 import { LinkedinBtn } from "./linkedin-btn";
 import { LoaderCircle } from "lucide-react";
+import { ToastAction } from "../ui/toast";
 
 export function Newsletter({page="Pricing_Page"}) {
   const [email, setEmail] = useState("");
@@ -40,6 +41,7 @@ export function Newsletter({page="Pricing_Page"}) {
         toast({ variant:'success',
           title:"Successfully Subscribed!",
           description: "Congrats! Your inbox just got smarter. Expect awesome investment insights soon.",
+          
         });
 
         const mp = getMixPanelClient();

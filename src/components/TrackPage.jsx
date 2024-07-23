@@ -23,7 +23,6 @@ import FaqsNew from "@/pages/screens/FaqsNew";
 import AuthContext from "@/components/AuthContext";
 import { TRACK_RECORD_FOR_ALL, TRACK_RECORD_FOR_USER } from "@/pages/api/URLs";
 import Footer from "@/pages/screens/Footer";
-// import {Footer} from "@/components.v2/index.components";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { DocumentAskPasswordEvent } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -684,7 +683,7 @@ const WhyUs = () => {
 											paddingBottom: "5px",
 										}}
 									>
-										<div style={{ display: "flex", flexDirection: "column" }}>
+										<div style={{ display: "flex", flexDirection: "column" ,width:"80%" }}>
 											<Text
 												b
 												size={15}
@@ -702,13 +701,13 @@ const WhyUs = () => {
 											</Text>
 											<Text
 												b
-												size={22}
+												size={20}
 												color="#fff"
 												css={{
 													lineHeight: 1.5,
 													"@media only screen and (max-width: 764px)": {
 														paddingTop: "5px",
-														fontSize: "22px",
+														fontSize: "20px",
 														lineHeight: 1.1,
 													},
 													// filter:
@@ -725,7 +724,7 @@ const WhyUs = () => {
 												{/* {console.log((!isLoggedIn || !isSubscribed) && item.action === "BUY" ? true : false,)} */}
 												{item.stock_name.length > 28 ? (
 													<Marquee delay={5} speed={30}>
-														<span style={{ paddingRight: "40px" }}>
+														<span style={{ paddingRight: "20px" }}>
 															{item.stock_name}
 														</span>
 													</Marquee>
@@ -775,7 +774,7 @@ const WhyUs = () => {
 										<img
 											src="trackRecord-lion.png"
 											height={"120px"}
-											// width={"610px"}
+											width={"60px"}
 											style={{
 												position: "absolute",
 												right: "25px",
