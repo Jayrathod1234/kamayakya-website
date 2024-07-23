@@ -13,6 +13,7 @@ import { Box, IconButton } from "@mui/material";
 import NavBar2 from "@/components/Navbar2";
 import FaqsNew from "../pages/screens/FaqsNew";
 import Footer from "../pages/screens/Footer";
+// import {Navbar,Footer} from "@/components.v2/index.components";
 import AuthContext from "@/components/AuthContext";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "../components/Login";
@@ -581,7 +582,6 @@ export default function PreviewPage() {
 					css={{
 						fontSize: 70,
 						lineHeight: 1.2,
-						marginTop: "30px",
 						marginBottom: "0px",
 						textAlign: "center",
 						"@media only screen and (max-width: 764px)": {
@@ -1069,7 +1069,7 @@ export default function PreviewPage() {
 											lineHeight: 1,
 										}}
 									>
-										saved on base value ₹12711.86/-
+										saved on base value ₹{billingDetails.basePrice}/-
 									</span>
 								</div>
 								<span
@@ -1197,8 +1197,9 @@ export default function PreviewPage() {
 							{((billingDetails.totalPayable))}/-
 						</Box>
 
+
 						<Box sx={{ fontSize: 24, marginTop: "-10px", color: "#37b24d" }}>
-							You saved: ₹{discountAmount}/-
+							You saved: ₹{(billingDetails.originalAmount - billingDetails.totalPayable)}/-
 						</Box>
 					</Modal.Body>
 					<Modal.Footer>
@@ -1214,6 +1215,7 @@ export default function PreviewPage() {
 						</Button>
 					</Modal.Footer>
 				</Modal>
+
 
 				<FaqsNew />
 				<Footer />

@@ -72,7 +72,7 @@ const StockCardSME = () => {
   const [selectedReportUrl, setSelectedReportUrl] = useState("");
   const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
   const { isLoggedIn } = useContext(AuthContext);
-  const { isSubscribed } = useContext(AuthContext);
+  const { isSubscribed ,plan} = useContext(AuthContext);
   // console.log(pdfjsVersion);
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
@@ -1754,6 +1754,52 @@ const StockCardSME = () => {
                                 "-"}
                         </Text>
                       </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
+                          <Text
+                            b
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 21,
+                              },
+                            }}
+                            size={15}
+                          >
+                            RETURNS
+                          </Text>
+                          
+                        </div>
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                          {`${stock.gain_loss}` || <Loading /> || "-"}
+                        </Text>
+                      </div>
                     </div>
                   </Box>
 
@@ -2135,7 +2181,7 @@ const StockCardSME = () => {
               </Modal>
             </Grid>
           ))}
-          {!isLoggedIn || !isSubscribed ? (
+          {plan=="core" ||  (!isSubscribed &&  (isLoggedIn || !isLoggedIn)) ? (
             <Grid>
               <Card
                 isHoverable
@@ -2465,7 +2511,7 @@ const StockCardSME = () => {
           {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
           {/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
-          {!isLoggedIn || !isSubscribed
+          {plan=="core" || (!isSubscribed &&  (isLoggedIn || !isLoggedIn))
             ? staticNumbers.map((number, index) => (
                 <Grid
                   // key={stock.id}

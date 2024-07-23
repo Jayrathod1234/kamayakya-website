@@ -41,7 +41,7 @@ import {
 import SpeedIcon from "@mui/icons-material/Speed";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { FaIndustry, FaRegArrowAltCircleUp } from "react-icons/fa";
-import { MdOutlineLock, MdFilterList } from "react-icons/md";
+import { MdOutlineLock, MdFilterList, MdOutlineFiberNew } from "react-icons/md";
 import { BiChevronRight } from "react-icons/bi";
 import { GrDocumentPdf } from "react-icons/gr";
 import { useRouter } from "next/router";
@@ -57,6 +57,7 @@ import { SearchNormal, Filter } from "iconsax-react";
 import Marquee from "react-fast-marquee";
 import LoginForSubsribe from "./LoginForSubsribe";
 import { BsFire } from "react-icons/bs";
+import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal";
 
 const StockCard = () => {
   const router = useRouter();
@@ -71,7 +72,8 @@ const StockCard = () => {
   const [selectedReportUrl, setSelectedReportUrl] = useState("");
   const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
   const { isLoggedIn } = useContext(AuthContext);
-  const { isSubscribed } = useContext(AuthContext);
+  const { isSubscribed, plan } = useContext(AuthContext);
+  console.log("plan");
   // console.log(pdfjsVersion);
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
@@ -83,7 +85,13 @@ const StockCard = () => {
 
   const [showLoginModalForSubscribe, setShowLoginModalForSubscribe] =
     useState(false);
-
+  const [showSME, setShowSME] = useState(true);
+  const handleToggle = (isSME) => {
+    setShowSME(isSME);
+  };
+  const toggleStocks = () => {
+    setShowSME(!showSME);
+  };
   const handleShowWhyModal = () => {
     setShowWhyModal(true);
   };
@@ -341,7 +349,7 @@ const StockCard = () => {
     if (isLoggedIn === true && isSubscribed === false) {
       const location = router.asPath;
       localStorage.setItem("location", location);
-      router.push("/purchase");
+      router.push("/pricing");
     }
     if (isLoggedIn === true && isSubscribed === true) {
       router.push("/stock-picks");
@@ -355,7 +363,7 @@ const StockCard = () => {
     if (isLoggedIn) {
       const location = router.asPath;
       localStorage.setItem("location", location);
-      router.push("/purchase");
+      router.push("/pricing");
     } else {
       handleLogin();
     }
@@ -374,46 +382,46 @@ const StockCard = () => {
     }
   }, [error]);
 
-	useEffect(() => {
-		if (isLoggedIn) {
-			const refresh = localStorage.getItem("refresh");
-			setIsLoading(true);
-			const fetchData = async () => {
-				try {
-					const response = await axios.get(GET_ALL_URL, {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `token ${refresh}`,
-						},
-					});
-					// console.log(response.data);
-					const sortedStocks = response.data.sort((a, b) => {
-						// if (a.recommended_stock === b.recommended_stock) return 0;
-						// return a.recommended_stock ? -1 : 1;
+  useEffect(() => {
+    if (isLoggedIn) {
+      const refresh = localStorage.getItem("refresh");
+      setIsLoading(true);
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(GET_ALL_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `token ${refresh}`,
+            },
+          });
+          // console.log(response.data);
+          const sortedStocks = response.data.sort((a, b) => {
+            // if (a.recommended_stock === b.recommended_stock) return 0;
+            // return a.recommended_stock ? -1 : 1;
 
-						if (a.recommended_stock && !b.recommended_stock) return -1;
-						if (!a.recommended_stock && b.recommended_stock) return 1;
+            if (a.recommended_stock && !b.recommended_stock) return -1;
+            if (!a.recommended_stock && b.recommended_stock) return 1;
 
-						// Then check for new stocks
-						const isNewStockA = isNewStock(a.created);
-						const isNewStockB = isNewStock(b.created);
-						if (isNewStockA && !isNewStockB) return -1;
-						if (!isNewStockA && isNewStockB) return 1;
-					});
-					setStocks(sortedStocks);
-					// setStocks(response.data);
-					setFlipStates(new Array(response.data.length).fill(false));
-				} catch (error) {
-					setError("Please Login First to see our stock picks!");
-					showAlert();
-				} finally {
-					setIsLoading(false);
-				}
-			};
-			fetchData();
-		}
-	}, [isLoggedIn]);
+            // Then check for new stocks
+            const isNewStockA = isNewStock(a.created);
+            const isNewStockB = isNewStock(b.created);
+            if (isNewStockA && !isNewStockB) return -1;
+            if (!isNewStockA && isNewStockB) return 1;
+          });
+          setStocks(sortedStocks);
+          // setStocks(response.data);
+          setFlipStates(new Array(response.data.length).fill(false));
+        } catch (error) {
+          setError("Please Login First to see our stock picks!");
+          showAlert();
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchData();
+    }
+  }, [isLoggedIn]);
 
   const handleClearSelection = () => {
     setSelectedIndustries([]);
@@ -421,248 +429,248 @@ const StockCard = () => {
     setUpsideSort("");
   };
 
-	const isNewStock = (createdDateString) => {
-		const createdDate = new Date(createdDateString);
-		const twoMonthsAgo = new Date();
-		twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+  const isNewStock = (createdDateString) => {
+    const createdDate = new Date(createdDateString);
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
-		const today = new Date();
-		// console.log(
-		// 	createdDate,
-		// 	createdDate >= twoMonthsAgo && createdDate <= today
-		// );
-		return createdDate >= twoMonthsAgo && createdDate <= today;
-	};
+    const today = new Date();
+    // console.log(
+    // 	createdDate,
+    // 	createdDate >= twoMonthsAgo && createdDate <= today
+    // );
+    return createdDate >= twoMonthsAgo && createdDate <= today;
+  };
 
-	return (
-		<div
-			style={{
-				// maxWidth: "80rem",
-				width: "100vw",
-				display: "flex",
-				flexDirection: "column",
-				paddingBottom: 100,
-				backgroundColor: "#fff",
-				alignItems: "center",
-				// backgroundImage: "url(coral_texture.svg)",
-				objectPosition: "center",
-				backgroundPositionY: "center",
-				backgroundPositionX: "center",
-				backgroundSize: "cover",
-				backgroundRepeat: "none",
-			}}
-		>
-			<Box
-				sx={{
-					width: "95%",
-					display: "flex",
-					flexDirection: "column",
-					flexWrap: "wrap",
-					alignItems: "center",
-					paddingTop: "5vh",
-					paddingBottom: "20px",
-					"@media only screen and (max-width: 764px)": {
-						// maxHeight: "100vh",
-						marginTop: "0px",
-						paddingTop: "0px",
-						justifyContent: "flex-start",
-						alignItems: "flex-start",
-						paddingLeft: "5px",
-						paddingRight: "5px",
-						paddingBottom: "10px",
-					},
-				}}
-			>
-				<Box
-					sx={{
-						cursor: "pointer",
-						// paddingLeft: "40px",
-						// paddingRight: "40px",
-						// paddingTop: "15px",
-						// paddingBottom: "15px",
-						padding: "0",
-						// marginTop: "25px",
-						display: "flex",
-						flexDirection: "column",
-						// backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
-						// backgroundImage: "linear-gradient(to top , #fff, #fff)",
-						alignItems: "center",
-						// backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-						borderRadius: "1200.5px",
-						"@media only screen and (max-width: 764px)": {
-							paddingLeft: "5px",
-							paddingRight: "5px",
-							marginTop: "10px",
-							marginBottom: "10px",
-							borderRadius: "10px",
-							alignItems: "flex-start",
-							backgroundImage: "linear-gradient(to top , #fff, #fff)",
-						},
-					}}
-				>
-					<Text
-						b
-						size={18}
-						color="#FFF"
-						css={{
-							fontWeight: "bolder",
-							color: "#021C61",
-							"@media only screen and (max-width: 764px)": {
-								fontSize: 18,
-								width: "100%",
-								textAlign: "left",
-								color: "#021C61",
-							},
-						}}
-						onClick={handleCert}
-					>
-						SEBI Registered: INH000009843
-					</Text>
-				</Box>
-				<Modal
-					// width="790px"
-					blur
-					open={showCert}
-					onClose={handleCertClose}
-					css={{
-						width: "65vw",
-						maxWidth: "65vw",
-						alignSelf: "flex-end",
-						background: "transparent",
-						boxShadow: "none",
-						borderRadius: "15px",
-						"@media only screen and (max-width: 764px)": {
-							width: "95vw !important",
-							maxWidth: "95vw !important",
-						},
-					}}
-				>
-					<iframe
-						src="Kamayakya-SEBI-License.pdf#view=FitH&toolbar=0"
-						alt="SEBI Certificate"
-						style={{
-							width: "100%",
-							height: "75vh",
-							borderColor: "transparent",
-							borderRadius: "15px",
-							borderWidth: "0px",
-							zoom: "1",
-						}}
-						className="iframePdfMobile"
-					/>
-					{/* <Modal.Footer justify="center"> */}
-					<Button
-						auto
-						onClick={handleCertClose}
-						css={{
-							// alignSelf: "end",
-							width: "100%",
-							backgroundColor: "#ffa12e",
-							color: "#fff",
-							fontSize: 19,
-							marginTop: "20px",
-							borderRadius: "10px",
-							height: "50px",
-							"@media only screen and (max-width: 768px)": {
-								width: "100%",
-								fontSize: 15,
-								height: "50px",
-								marginTop: "0px",
-								borderRadius: "0px 0px 10px",
-								"& span": {
-									// display: "none",
-								},
-							},
-						}}
-					>
-						Close
-					</Button>
-					{/* </Modal.Footer> */}
-				</Modal>
-				<Text
-					b
-					size={70}
-					css={{
-						marginTop: "0px",
-						marginBottom: "0px",
-						// width: "90%",
-						maxWidth: "80rem" /* 1280px */,
-						textAlign: "center",
-						lineHeight: 1.2,
-						paddingLeft: "15px",
-						paddingRight: "15px",
-						"@media only screen and (max-width: 764px)": {
-							fontSize: 45,
-							lineHeight: 1.1,
-							paddingLeft: "5px",
-							paddingRight: "5px",
-							marginTop: "0px",
-							marginBottom: "10px",
-							maxWidth: "100%",
-							textAlign: "left",
-						},
-					}}
-				>
-					Stocks To Buy
-				</Text>
-			</Box>
-			{isLoggedIn ? (
-				<Box
-					sx={{
-						display: "flex",
-						flexWrap: "wrap",
-						flexDirection: "row",
-						gap: "5px",
-						marginBottom: "40px",
-						justifyContent: "center",
-						alignItems: "center",
-					}}
-					className="stockPicks-searchBar-box"
-				>
-					{/* Search Bar */}
-					<Box
-						sx={{
-							border: "1px solid #125a54",
-							borderRadius: "10000px",
-							padding: "0px 15px",
-							paddingTop: "2px",
-							display: "flex",
-							alignItems: "center",
-							// "@media only screen and (max-width: 768px)": {
-							//   padding: "0px 15px",
-							//   width: "500px",
-							// },
-						}}
-						className="stockPicks-searchBar"
-					>
-						<IconButton>
-							<SearchNormal size={25} color="#125a54" />
-						</IconButton>
-						<InputBase
-							placeholder="Ion Exchange (OR) IONEXCHANG"
-							variant="standard"
-							// size="large"
-							value={searchQuery}
-							onChange={(e) => setSearchQuery(e.target.value)}
-							sx={{
-								display: "flex",
-								alignItems: "center",
-								fontSize: 18,
-								lineHeight: 1,
-								textAlign: "center",
-								width: "80vw",
-								maxWidth: "60rem",
-								padding: "10px 10px",
-								backgroundColor: "#fff",
-								borderRadius: "10000px",
-								"@media only screen and (max-width: 768px)": {
-									width: "100vw",
-									fontSize: 15,
-									backgroundColor: "transparent",
-								},
-							}}
-						/>
-					</Box>
+  return (
+    <div
+      style={{
+        // maxWidth: "80rem",
+        width: "100vw",
+        display: "flex",
+        flexDirection: "column",
+        paddingBottom: 100,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        // backgroundImage: "url(coral_texture.svg)",
+        objectPosition: "center",
+        backgroundPositionY: "center",
+        backgroundPositionX: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "none",
+      }}
+    >
+      <Box
+        sx={{
+          width: "95%",
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          alignItems: "center",
+          paddingTop: "5vh",
+          paddingBottom: "20px",
+          "@media only screen and (max-width: 764px)": {
+            // maxHeight: "100vh",
+            marginTop: "0px",
+            paddingTop: "0px",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            paddingLeft: "5px",
+            paddingRight: "5px",
+            paddingBottom: "10px",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            cursor: "pointer",
+            // paddingLeft: "40px",
+            // paddingRight: "40px",
+            // paddingTop: "15px",
+            // paddingBottom: "15px",
+            padding: "0",
+            // marginTop: "25px",
+            display: "flex",
+            flexDirection: "column",
+            // backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
+            // backgroundImage: "linear-gradient(to top , #fff, #fff)",
+            alignItems: "center",
+            // backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
+            borderRadius: "1200.5px",
+            "@media only screen and (max-width: 764px)": {
+              paddingLeft: "5px",
+              paddingRight: "5px",
+              marginTop: "10px",
+              marginBottom: "10px",
+              borderRadius: "10px",
+              alignItems: "flex-start",
+              backgroundImage: "linear-gradient(to top , #fff, #fff)",
+            },
+          }}
+        >
+          <Text
+            b
+            size={18}
+            color="#FFF"
+            css={{
+              fontWeight: "bolder",
+              color: "#021C61",
+              "@media only screen and (max-width: 764px)": {
+                fontSize: 18,
+                width: "100%",
+                textAlign: "left",
+                color: "#021C61",
+              },
+            }}
+            onClick={handleCert}
+          >
+            SEBI Registered: INH000009843
+          </Text>
+        </Box>
+        <Modal
+          // width="790px"
+          blur
+          open={showCert}
+          onClose={handleCertClose}
+          css={{
+            width: "65vw",
+            maxWidth: "65vw",
+            alignSelf: "flex-end",
+            background: "transparent",
+            boxShadow: "none",
+            borderRadius: "15px",
+            "@media only screen and (max-width: 764px)": {
+              width: "95vw !important",
+              maxWidth: "95vw !important",
+            },
+          }}
+        >
+          <iframe
+            src="Kamayakya-SEBI-License.pdf#view=FitH&toolbar=0"
+            alt="SEBI Certificate"
+            style={{
+              width: "100%",
+              height: "75vh",
+              borderColor: "transparent",
+              borderRadius: "15px",
+              borderWidth: "0px",
+              zoom: "1",
+            }}
+            className="iframePdfMobile"
+          />
+          {/* <Modal.Footer justify="center"> */}
+          <Button
+            auto
+            onClick={handleCertClose}
+            css={{
+              // alignSelf: "end",
+              width: "100%",
+              backgroundColor: "#ffa12e",
+              color: "#fff",
+              fontSize: 19,
+              marginTop: "20px",
+              borderRadius: "10px",
+              height: "50px",
+              "@media only screen and (max-width: 768px)": {
+                width: "100%",
+                fontSize: 15,
+                height: "50px",
+                marginTop: "0px",
+                borderRadius: "0px 0px 10px",
+                "& span": {
+                  // display: "none",
+                },
+              },
+            }}
+          >
+            Close
+          </Button>
+          {/* </Modal.Footer> */}
+        </Modal>
+        <Text
+          b
+          size={70}
+          css={{
+            marginTop: "0px",
+            marginBottom: "0px",
+            // width: "90%",
+            maxWidth: "80rem" /* 1280px */,
+            textAlign: "center",
+            lineHeight: 1.2,
+            paddingLeft: "15px",
+            paddingRight: "15px",
+            "@media only screen and (max-width: 764px)": {
+              fontSize: 45,
+              lineHeight: 1.1,
+              paddingLeft: "5px",
+              paddingRight: "5px",
+              marginTop: "0px",
+              marginBottom: "10px",
+              maxWidth: "100%",
+              textAlign: "left",
+            },
+          }}
+        >
+          Stocks To Buy
+        </Text>
+      </Box>
+      {isLoggedIn ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            gap: "5px",
+            marginBottom: "40px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className="stockPicks-searchBar-box"
+        >
+          {/* Search Bar */}
+          <Box
+            sx={{
+              border: "1px solid #125a54",
+              borderRadius: "10000px",
+              padding: "0px 15px",
+              paddingTop: "2px",
+              display: "flex",
+              alignItems: "center",
+              // "@media only screen and (max-width: 768px)": {
+              //   padding: "0px 15px",
+              //   width: "500px",
+              // },
+            }}
+            className="stockPicks-searchBar"
+          >
+            <IconButton>
+              <SearchNormal size={25} color="#125a54" />
+            </IconButton>
+            <InputBase
+              placeholder="Ion Exchange (OR) IONEXCHANG"
+              variant="standard"
+              // size="large"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: 18,
+                lineHeight: 1,
+                textAlign: "center",
+                width: "80vw",
+                maxWidth: "60rem",
+                padding: "10px 10px",
+                backgroundColor: "#fff",
+                borderRadius: "10000px",
+                "@media only screen and (max-width: 768px)": {
+                  width: "100vw",
+                  fontSize: 15,
+                  backgroundColor: "transparent",
+                },
+              }}
+            />
+          </Box>
 
           <IconButton
             onClick={toggleDrawer}
@@ -947,8 +955,8 @@ const StockCard = () => {
               </ListItem>
               <ListItem sx={{ justifyContent: "center" }}>
                 {upsideSort !== "" ||
-                selectedIndustries.length > 0 ||
-                timeSort !== "" ? (
+                  selectedIndustries.length > 0 ||
+                  timeSort !== "" ? (
                   <Button
                     auto
                     onPress={handleClearSelection}
@@ -1019,349 +1027,326 @@ const StockCard = () => {
       {isLoading && (
         <Loading type={"gradient"} style={{ marginBottom: "50px" }} />
       )}
-      <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <Grid
-          container
-          justifyContent={"center"}
-          gap={"20px"}
+      <p className=" text-md md:text-lg text-gray-700 md:my-3 z-20">
+        <MainSmeBoardModal
+          trigger={
+            <span className=" cursor-pointer whitespace-nowrap text-brand-400 font-semibold underline decoration-dotted underline-offset-4 hover:text-[#0B3A36]">
+              What does Main Board and SME Board mean?
+            </span>
+          }
+        />
+      </p>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 5, mt: 5 }}>
+        <Box
+          onClick={() => handleToggle(true)}
           sx={{
-            // background: "#fff",
-            boxShadow: "none",
-            "@media only screen and (max-width: 768px)": {
-              gap: "20px",
-            },
+            cursor: 'pointer',
+            padding: 2,
+            borderRadius: 1,
+            backgroundColor: showSME ? 'primary.main' : 'grey.300',
+            color: showSME ? 'white' : 'black',
+            marginRight: 2,
+            textAlign: 'center',
           }}
         >
-          {filteredStocks.map((stock, index) => (
-            <Grid
-              key={stock.id}
-              item
-              xs={"auto"}
-              sm={"auto"}
-              md={"auto"}
-              lg={"auto"}
-            >
-                {isSubscribed && stock.recommended_stock === true ? (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            width: "100%",
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                zIndex: 99,
-                                padding: "2px 20px",
-                                borderRadius: "20px",
-                                background: "#fff",
-                                border: "4px solid #ff9702",
-                                alignSelf: "center",
-                                color: "#cc0000",
-                                display: "flex",
-                                alignItems: "center",
-                                fontSize: 18,
-                            }}
-                        >
-                            <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
-                            <BsFire style={{ marginLeft: "5px" }} />
-                        </Box>
-                    </Box>
-                ) : (
-                    ""
-                )}
-              <Card
-                isHoverable
-                css={{
-                  // height: "580px",
-                  width: "285px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                  borderRadius: "40px",
-                  border: "4px solid",
-                  borderColor: "#ffa12e",
-                  marginBottom: "0px",
-                  boxShadow: "none",
-                  filter: "none",
-                  "@media only screen and (max-width: 768px)": {
-                    width: "92.5vw",
-                    maxWidth: "620px",
-                    // height: "650px",
-                    borderRadius: "35px",
-                  },
-                }}
+          Main Board Stocks
+        </Box>
+        <Box
+          onClick={() => handleToggle(false)}
+          sx={{
+            cursor: 'pointer',
+            padding: 2,
+            borderRadius: 1,
+            backgroundColor: !showSME ? 'primary.main' : 'grey.300',
+            color: !showSME ? 'white' : 'black',
+            textAlign: 'center',
+          }}
+        >
+          SME Board Stocks
+        </Box>
+      </Box>
+      {showSME ? (
+        <Box
+          sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        >
+          <Grid
+            container
+            justifyContent={"center"}
+            gap={"20px"}
+            sx={{
+              // background: "#fff",
+              boxShadow: "none",
+              "@media only screen and (max-width: 768px)": {
+                gap: "20px",
+              },
+            }}
+          >
+            {filteredStocks.filter(stock => stock.stock_exchange === "BSE" || stock.stock_exchange === "NSE").map((stock, index) => (
+              <Grid
+                key={stock.id}
+                item
+                xs={"auto"}
+                sm={"auto"}
+                md={"auto"}
+                lg={"auto"}
               >
-                <Box
-                  sx={{
-                    marginLeft: "5%",
-                    marginRight: "5%",
-                    marginTop: "20px",
-                    marginBottom: "20px",
-                    minWidth: "90%",
-                    maxWidth: "90%",
-                    // height: "600px",
+                {isSubscribed && stock.recommended_stock === true ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        zIndex: 99,
+                        padding: "2px 20px",
+                        borderRadius: "20px",
+                        background: "#fff",
+                        border: "4px solid #ff9702",
+                        alignSelf: "center",
+                        color: "#cc0000",
+                        display: "flex",
+                        alignItems: "center",
+                        fontSize: 18,
+                      }}
+                    >
+                      <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
+                      <BsFire style={{ marginLeft: "5px" }} />
+                    </Box>
+                  </Box>
+                ) : (
+                  ""
+                )}
+                <Card
+                  isHoverable
+                  css={{
+                    // height: "580px",
+                    width: "285px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    backgroundColor: "#fff",
+                    borderRadius: "40px",
+                    border: "4px solid",
+                    borderColor: "#ffa12e",
+                    marginBottom: "0px",
+                    boxShadow: "none",
+                    filter: "none",
                     "@media only screen and (max-width: 768px)": {
-                      marginLeft: "5px",
-                      marginRight: "5px",
-                      height: "auto",
-                      marginBottom: "30px",
+                      width: "92.5vw",
+                      maxWidth: "620px",
+                      // height: "650px",
+                      borderRadius: "35px",
                     },
                   }}
                 >
                   <Box
                     sx={{
+                      marginLeft: "5%",
+                      marginRight: "5%",
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                      minWidth: "90%",
+                      maxWidth: "90%",
+                      // height: "600px",
                       display: "flex",
                       flexDirection: "column",
-                      textAlign: "center",
-                      backgroundColor: "#fff",
-                      marginBottom: "15px",
-                      width: "90%",
+                      alignItems: "center",
                       "@media only screen and (max-width: 768px)": {
-                        width: "100%",
+                        marginLeft: "5px",
+                        marginRight: "5px",
+                        height: "auto",
+                        marginBottom: "30px",
                       },
                     }}
                   >
                     <Box
                       sx={{
-                        width: "100%",
-                        height: "30px",
-                        paddingTop: "7.5px",
-                        paddingBottom: "7.5px",
-                        paddingLeft: "5px",
-                        paddingRight: "5px",
-                        backgroundImage:
-                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "center",
+                        backgroundColor: "#fff",
                         marginBottom: "15px",
-                        marginTop: "5px",
-                        borderRadius: "10000px",
-                        lineHeight: 1,
+                        width: "90%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
                       }}
-                      className="stockCardMobile-industry"
                     >
+                      <Box
+                        sx={{
+                          width: "100%",
+                          height: "30px",
+                          paddingTop: "7.5px",
+                          paddingBottom: "7.5px",
+                          paddingLeft: "5px",
+                          paddingRight: "5px",
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                          marginBottom: "15px",
+                          marginTop: "5px",
+                          borderRadius: "10000px",
+                          lineHeight: 1,
+                        }}
+                        className="stockCardMobile-industry"
+                      >
+                        <Text
+                          b
+                          size={14}
+                          color="Black"
+                          css={{
+                            lineHeight: 1.2,
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: "16px",
+                            },
+                          }}
+                        >
+                          {stock.stock_industry.length > 29 ? (
+                            <Marquee
+                              delay={2}
+                              speed={30}
+                              style={{ marginRight: "20px" }}
+                            >
+                              <span style={{ paddingRight: "20px" }}>
+                                {stock.stock_industry}
+                              </span>
+                            </Marquee>
+                          ) : (
+                            <>{stock.stock_industry}</> || <Loading /> || "-"
+                          )}
+                        </Text>
+                      </Box>
                       <Text
                         b
-                        size={14}
-                        color="Black"
+                        size={26}
                         css={{
+                          minWidth: "100%",
+                          maxWidth: "100%",
+                          textAlign: "center",
                           lineHeight: 1.2,
                           "@media only screen and (max-width: 768px)": {
-                            fontSize: "16px",
+                            fontSize: 25,
+                            paddingTop: "5px",
+                            paddingBottom: "5px",
                           },
                         }}
                       >
-                        {stock.stock_industry.length > 29 ? (
+                        {stock.stock_name.length > 17 ? (
                           <Marquee
                             delay={2}
                             speed={30}
                             style={{ marginRight: "20px" }}
                           >
-                            <span style={{ paddingRight: "20px" }}>
-                              {stock.stock_industry}
+                            <span style={{ paddingRight: "40px" }}>
+                              {stock.stock_name}
                             </span>
                           </Marquee>
                         ) : (
-                          <>{stock.stock_industry}</> || <Loading /> || "-"
+                          <>{stock.stock_name}</>
                         )}
                       </Text>
                     </Box>
-                    <Text
-                      b
-                      size={26}
-                      css={{
-                        minWidth: "100%",
-                        maxWidth: "100%",
-                        textAlign: "center",
-                        lineHeight: 1.2,
-                        "@media only screen and (max-width: 768px)": {
-                          fontSize: 25,
-                          paddingTop: "5px",
-                          paddingBottom: "5px",
-                        },
-                      }}
-                    >
-                      {stock.stock_name.length > 17 ? (
-                        <Marquee
-                          delay={2}
-                          speed={30}
-                          style={{ marginRight: "20px" }}
-                        >
-                          <span style={{ paddingRight: "40px" }}>
-                            {stock.stock_name}
-                          </span>
-                        </Marquee>
-                      ) : (
-                        <>{stock.stock_name}</>
-                      )}
-                    </Text>
-                  </Box>
-                  <Box
-                    sx={{
-                      width: "90%",
-                      backgroundImage:
-                        "linear-gradient(to top , #106052, #0f734d)",
-                      borderRadius: "17.5px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      paddingTop: "20px",
-                      paddingBottom: "20px",
-                      "@media only screen and (max-width: 768px)": {
-                        width: "100%",
+                    <Box
+                      sx={{
+                        width: "90%",
+                        backgroundImage:
+                          "linear-gradient(to top , #106052, #0f734d)",
+                        borderRadius: "17.5px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
                         paddingTop: "20px",
                         paddingBottom: "20px",
-                      },
-                    }}
-                  >
-                      {isSubscribed && isNewStock(stock.created) ? (
-                          <Box
-                              sx={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  width: "100%",
-                              }}
-                          >
-                              <div
-                                  style={{
-                                      position: "absolute",
-                                      width: "80px",
-                                      marginTop: "-30px",
-                                      background: "#cc0000",
-                                      color: "#fff",
-                                      height: "20px",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      borderRadius: "10px",
-                                  }}
-                              >
-                                  {isNewStock(stock.created) && <div>NEW</div>}
-                              </div>
-                          </Box>
-                      ) : (
-                          ""
-                      )}
-                    <Text
-                      b
-                      size={20}
-                      color="#fff"
-                      css={{
-                        lineHeight: 1.5,
                         "@media only screen and (max-width: 768px)": {
-                          fontSize: 19,
+                          width: "100%",
+                          paddingTop: "20px",
+                          paddingBottom: "20px",
                         },
                       }}
                     >
-                      Upside Left
-                    </Text>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <ArrowCircleUp size={25} color="#fff" />
+                      {isSubscribed && isNewStock(stock.created) ? (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "100%",
+                          }}
+                        >
+                          <div
+                            style={{
+                              position: "absolute",
+                              width: "80px",
+                              marginTop: "-30px",
+                              background: "#cc0000",
+                              color: "#fff",
+                              height: "20px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            {isNewStock(stock.created) && <div>NEW</div>}
+                          </div>
+                        </Box>
+                      ) : (
+                        ""
+                      )}
                       <Text
                         b
-                        size={48}
+                        size={20}
                         color="#fff"
                         css={{
-                          lineHeight: 1,
-                          marginLeft: "3px",
-                          marginRight: "3px",
+                          lineHeight: 1.5,
                           "@media only screen and (max-width: 768px)": {
-                            fontSize: 60,
+                            fontSize: 19,
                           },
                         }}
                       >
-                        {`${Math.ceil(stock.upside_left)}` || <Loading /> ||
-                          "-"}
+                        Upside Left
                       </Text>
-                      <span
-                        style={{
-                          fontSize: 25,
-                          color: "#FFF",
-                          "@media only screen and (max-width: 768px)": {
-                            fontSize: 10,
-                          },
-                        }}
-                      >
-                        %
-                      </span>
-                    </div>
-                  </Box>
-                  <Box
-                    sx={{
-                      mt: "20px",
-                      width: "90%",
-                      "@media only screen and (max-width: 768px)": {
-                        width: "100%",
-                      },
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div style={{ display: "flex", flexDirection: "column" }}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <ArrowCircleUp size={25} color="#fff" />
                         <Text
                           b
+                          size={48}
+                          color="#fff"
                           css={{
-                            lineHeight: 1.1,
+                            lineHeight: 1,
+                            marginLeft: "3px",
+                            marginRight: "3px",
                             "@media only screen and (max-width: 768px)": {
-                              fontSize: 21,
-                            },
-                          }}
-                          size={15}
-                        >
-                          MKT. CAP.
-                        </Text>
-                        <Text
-                          b
-                          size={15}
-                          css={{
-                            lineHeight: 1.1,
-                            "@media only screen and (max-width: 768px)": {
-                              fontSize: 15,
+                              fontSize: 60,
                             },
                           }}
                         >
-                          (IN Cr.)
+                          {`${Math.ceil(stock.upside_left)}` || <Loading /> ||
+                            "-"}
                         </Text>
+                        <span
+                          style={{
+                            fontSize: 25,
+                            color: "#FFF",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 10,
+                            },
+                          }}
+                        >
+                          %
+                        </span>
                       </div>
-                      <Text
-                        b
-                        css={{
-                          flex: 1,
-                          textAlign: "right",
-                          "@media only screen and (max-width: 768px)": {
-                            fontSize: 30,
-                          },
-                        }}
-                        size={22}
-                      >
-                        {`${stock.market_cap}` || <Loading /> || "-"}
-                      </Text>
-                    </div>
-                    <Divider
-                      height={2}
-                      style={{
-                        backgroundColor: "#ffa12e",
-                        marginTop: "10px",
-                        marginBottom: "10px",
-                      }}
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        flexDirection: "column",
+                    </Box>
+                    <Box
+                      sx={{
+                        mt: "20px",
+                        width: "90%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
                       }}
                     >
                       <div
@@ -1371,9 +1356,7 @@ const StockCard = () => {
                           alignItems: "center",
                         }}
                       >
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
+                        <div style={{ display: "flex", flexDirection: "column" }}>
                           <Text
                             b
                             css={{
@@ -1384,7 +1367,7 @@ const StockCard = () => {
                             }}
                             size={15}
                           >
-                            ENTRY PRICE
+                            MKT. CAP.
                           </Text>
                           <Text
                             b
@@ -1396,7 +1379,7 @@ const StockCard = () => {
                               },
                             }}
                           >
-                            (in ₹)
+                            (IN Cr.)
                           </Text>
                         </div>
                         <Text
@@ -1410,7 +1393,7 @@ const StockCard = () => {
                           }}
                           size={22}
                         >
-                          {`${stock.entry_price}` || <Loading /> || "-"}
+                          {`${stock.market_cap}` || <Loading /> || "-"}
                         </Text>
                       </div>
                       <Divider
@@ -1424,107 +1407,171 @@ const StockCard = () => {
                       <div
                         style={{
                           display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
+                          width: "100%",
+                          flexDirection: "column",
                         }}
                       >
                         <div
-                          style={{ display: "flex", flexDirection: "column" }}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
                         >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Text
+                              b
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 21,
+                                },
+                              }}
+                              size={15}
+                            >
+                              ENTRY PRICE
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              (in ₹)
+                            </Text>
+                          </div>
                           <Text
                             b
                             css={{
-                              lineHeight: 1.1,
+                              flex: 1,
+                              textAlign: "right",
                               "@media only screen and (max-width: 768px)": {
-                                fontSize: 21,
+                                fontSize: 30,
                               },
                             }}
-                            size={15}
+                            size={22}
                           >
-                            CMP
-                          </Text>
-                          <Text
-                            b
-                            size={15}
-                            css={{
-                              lineHeight: 1.1,
-                              "@media only screen and (max-width: 768px)": {
-                                fontSize: 15,
-                              },
-                            }}
-                          >
-                            (in ₹)
+                            {`${stock.entry_price}` || <Loading /> || "-"}
                           </Text>
                         </div>
-                        <Text
-                          b
-                          css={{
-                            flex: 1,
-                            textAlign: "right",
-                            "@media only screen and (max-width: 768px)": {
-                              fontSize: 30,
-                            },
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
                           }}
-                          size={22}
-                        >
-                          {`${stock.live_price}` || <Loading /> || "-"}
-                        </Text>
-                      </div>
-                      <Divider
-                        height={2}
-                        style={{
-                          backgroundColor: "#ffa12e",
-                          marginTop: "10px",
-                          marginBottom: "10px",
-                        }}
-                      />
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
+                        />
                         <div
-                          style={{ display: "flex", flexDirection: "column" }}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
                         >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Text
+                              b
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 21,
+                                },
+                              }}
+                              size={15}
+                            >
+                              CMP
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              (in ₹)
+                            </Text>
+                          </div>
                           <Text
                             b
                             css={{
-                              lineHeight: 1.1,
+                              flex: 1,
+                              textAlign: "right",
                               "@media only screen and (max-width: 768px)": {
-                                fontSize: 21,
+                                fontSize: 30,
                               },
                             }}
-                            size={15}
+                            size={22}
                           >
-                            TARGET PRICE
-                          </Text>
-                          <Text
-                            b
-                            size={15}
-                            css={{
-                              lineHeight: 1.1,
-                              "@media only screen and (max-width: 768px)": {
-                                fontSize: 15,
-                              },
-                            }}
-                          >
-                            (IN ₹)
+                            {`${stock.live_price}` || <Loading /> || "-"}
                           </Text>
                         </div>
-                        <Text
-                          b
-                          css={{
-                            flex: 1,
-                            textAlign: "right",
-                            "@media only screen and (max-width: 768px)": {
-                              fontSize: 30,
-                            },
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
                           }}
-                          size={22}
+                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
                         >
-                          {/* {stock.stock_targets.length > 0
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Text
+                              b
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 21,
+                                },
+                              }}
+                              size={15}
+                            >
+                              TARGET PRICE
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              (IN ₹)
+                            </Text>
+                          </div>
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
+                            }}
+                            size={22}
+                          >
+                            {/* {stock.stock_targets.length > 0
                             ? `${
                                 stock.stock_targets[
                                   stock.stock_targets.length - 1
@@ -1532,255 +1579,254 @@ const StockCard = () => {
                               }`
                             : `${stock.target_price}`} */}
                             {stock.latest_target_price}
-                        </Text>
-                      </div>
-                      <Divider
-                        height={2}
-                        style={{
-                          backgroundColor: "#ffa12e",
-                          marginTop: "10px",
-                          marginBottom: "10px",
-                        }}
-                      />
-
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
-                          <Text
-                            b
-                            css={{
-                              lineHeight: 1.1,
-                              "@media only screen and (max-width: 768px)": {
-                                fontSize: 21,
-                              },
-                            }}
-                            size={15}
-                          >
-                            TIME TO
-                          </Text>
-                          <Text
-                            b
-                            size={15}
-                            css={{
-                              lineHeight: 1.1,
-                              "@media only screen and (max-width: 768px)": {
-                                fontSize: 15,
-                              },
-                            }}
-                          >
-                            TARGET
                           </Text>
                         </div>
-                        <Text
-                          b
-                          css={{
-                            flex: 1,
-                            textAlign: "right",
-                            "@media only screen and (max-width: 768px)": {
-                              fontSize: 30,
-                            },
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
                           }}
-                          size={22}
+                        />
+
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
                         >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Text
+                              b
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 21,
+                                },
+                              }}
+                              size={15}
+                            >
+                              TIME TO
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              TARGET
+                            </Text>
+                          </div>
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
+                            }}
+                            size={22}
+                          >
                             {/* {`${Math.ceil(stock.time_left)}` || <Loading /> ||
 														"-"} */}
                             {(() => {
-                                    const timeLeft = Math.ceil(stock.time_left);
-                                    const years = Math.floor(timeLeft / 365);
-                                    const months = Math.floor((timeLeft % 365) / 30);
-                                    const days = Math.floor((timeLeft % 365) % 30);
+                              const timeLeft = Math.ceil(stock.time_left);
+                              const years = Math.floor(timeLeft / 365);
+                              const months = Math.floor((timeLeft % 365) / 30);
+                              const days = Math.floor((timeLeft % 365) % 30);
 
-                                    if (timeLeft < 30) {
-                                        return `${days} days`;
-                                    } else if (years === 0) {
-                                        return `${months} month${
-                                            months !== 1 ? "s" : ""
-                                        }`;
-                                    } else {
-                                        return `${years} yr ${months} mo.`;
-                                    }
-                                })() || <Loading /> ||
-                                "-"}
-                        </Text>
+                              if (timeLeft < 30) {
+                                return `${days} days`;
+                              } else if (years === 0) {
+                                return `${months} month${months !== 1 ? "s" : ""
+                                  }`;
+                              } else {
+                                return `${years} yr ${months} mo.`;
+                              }
+                            })() || <Loading /> ||
+                              "-"}
+                          </Text>
+                        </div>
                       </div>
-                    </div>
+                    </Box>
                   </Box>
-                </Box>
-                <Box
-                  sx={{
-                    bottom: "5px",
-                    width: "85%",
-                    marginBottom: "25px",
-                    "@media only screen and (max-width: 768px)": {
-                      width: "90%",
-                      // height: "50px",
-                      justifyContent: "center",
-                    },
-                  }}
-                >
-                  <Button
-                    auto
-                    onPress={() => handleOpenReports(stock)}
-                    css={{
-                      top: "0px",
-                      alignSelf: "center",
-                      width: "100%",
-                      borderRadius: "10000px",
-                        color: "#000",
-                      backgroundImage:
-                        "linear-gradient(to top , #FF9D28, #ffa736)",
-                      fontSize: 18,
-                      "@media only screen and (max-width: 768px)": {
-                        fontSize: 18,
-                        lineHeight: 1,
-                        height: "40px",
-                        color: "black",
-                      },
-                    }}
-                  >
-                    View reports
-                  </Button>
-                  <Button
-                    auto
-                    onPress={() => handleOpenDisclosure(stock)}
-                    css={{
-                      top: "10px",
-                      // marginTop: "10%",
-                      color: "#106052",
-                      width: "100%",
-                      borderRadius: "10000px",
-                      backgroundColor: "#fff",
-                      // backgroundImage:
-                      //   "linear-gradient(to top , #106052, #0f734d)",
-                      fontSize: 15,
-                      height: "20px",
-                      "@media only screen and (max-width: 768px)": {
-                        top: "10px",
-                        lineHeight: 1,
-                        height: "20px",
-                        fontSize: 15,
-                      },
-                    }}
-                  >
-                    Disclosure
-                  </Button>
-                </Box>
-              </Card>
-              <Modal
-                // blur
-                open={showReportsModal}
-                onClose={handleCloseReports}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-                css={{
-                  width: "100%",
-                  borderRadius: "15px",
-                  background: "transparent",
-                  boxShadow: "none",
-                  // backdropFilter: "blur(8px)",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                className="iframePdfMobile"
-              >
-                <Card
-                  css={{
-                    height: "fit-content",
-                    width: "fit-content",
-                    maxWidth: "80rem",
-                    minWidth: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    padding: "50px 30px",
-                    borderRadius: "25px",
-                    // backgroundImage: "url(symbol-scatter-haikei-3.svg)",
-                    objectPosition: "center",
-                    backgroundPositionY: "center",
-                    backgroundSize: "cover",
-                    "@media only screen and (max-width: 764px)": {
-                      minWidth: "100px",
-                      width: "100vw !important",
-                    },
-                  }}
-                >
-                  <IconButton
-                    sx={{ position: "absolute", top: "5px", right: "5px" }}
-                    onClick={handleCloseReports}
-                  >
-                    <CloseIcon color="error" />
-                  </IconButton>
                   <Box
                     sx={{
-                      width: "100%",
-                      // height: "350px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "20px",
+                      bottom: "5px",
+                      width: "85%",
+                      marginBottom: "25px",
+                      "@media only screen and (max-width: 768px)": {
+                        width: "90%",
+                        // height: "50px",
+                        justifyContent: "center",
+                      },
                     }}
                   >
-                    <Text b size={27}>
-                      {selectedStock?.stock_name}
-                    </Text>
-
-                    {selectedStock?.stock_reports?.length > 0 ? (
-                      selectedStock.stock_reports.map((report) => (
-                        <div key={report.report_name} style={{}}>
-                          <IconButton
-                            key={report.report_name}
-                            onClick={() =>
-                              window.open(
-                                `${report.document}#view=FitH&toolbar=0`,
-                                "_blank",
-                                "fullscreen=yes"
-                              )
-                            }
-                            // onClick={() => handleOpenModal(report.document)}
-                            sx={{
-                              "&:hover": { background: "#fff" },
-                              borderRadius: "0px",
-                              paddingLeft: "0px",
-                            }}
-                          >
-                            <DocumentText size={25} />
-                            <Text
-                              b
-                              size={21}
-                              css={{
-                                marginLeft: "5px",
-                                alignSelf: "start",
-                                lineHeight: 1.5,
-                              }}
-                            >
-                              {report.report_name}
-                            </Text>
-                          </IconButton>
-                        </div>
-                      ))
-                    ) : (
-                      <Text
-                        b
-                        size={20}
-                        css={{
-                          // position: "absolute",
-                          paddingTop: "50px",
-                          paddingBottom: "50px",
-                          // left: "22.5%",
-                        }}
-                      >
-                        No Reports Available!
-                      </Text>
-                    )}
+                    <Button
+                      auto
+                      onPress={() => handleOpenReports(stock)}
+                      css={{
+                        top: "0px",
+                        alignSelf: "center",
+                        width: "100%",
+                        borderRadius: "10000px",
+                        color: "#000",
+                        backgroundImage:
+                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                        fontSize: 18,
+                        "@media only screen and (max-width: 768px)": {
+                          fontSize: 18,
+                          lineHeight: 1,
+                          height: "40px",
+                          color: "black",
+                        },
+                      }}
+                    >
+                      View reports
+                    </Button>
+                    <Button
+                      auto
+                      onPress={() => handleOpenDisclosure(stock)}
+                      css={{
+                        top: "10px",
+                        // marginTop: "10%",
+                        color: "#106052",
+                        width: "100%",
+                        borderRadius: "10000px",
+                        backgroundColor: "#fff",
+                        // backgroundImage:
+                        //   "linear-gradient(to top , #106052, #0f734d)",
+                        fontSize: 15,
+                        height: "20px",
+                        "@media only screen and (max-width: 768px)": {
+                          top: "10px",
+                          lineHeight: 1,
+                          height: "20px",
+                          fontSize: 15,
+                        },
+                      }}
+                    >
+                      Disclosure
+                    </Button>
                   </Box>
                 </Card>
-                {/* <Button
+                <Modal
+                  // blur
+                  open={showReportsModal}
+                  onClose={handleCloseReports}
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-description"
+                  css={{
+                    width: "100%",
+                    borderRadius: "15px",
+                    background: "transparent",
+                    boxShadow: "none",
+                    // backdropFilter: "blur(8px)",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className="iframePdfMobile"
+                >
+                  <Card
+                    css={{
+                      height: "fit-content",
+                      width: "fit-content",
+                      maxWidth: "80rem",
+                      minWidth: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      padding: "50px 30px",
+                      borderRadius: "25px",
+                      // backgroundImage: "url(symbol-scatter-haikei-3.svg)",
+                      objectPosition: "center",
+                      backgroundPositionY: "center",
+                      backgroundSize: "cover",
+                      "@media only screen and (max-width: 764px)": {
+                        minWidth: "100px",
+                        width: "100vw !important",
+                      },
+                    }}
+                  >
+                    <IconButton
+                      sx={{ position: "absolute", top: "5px", right: "5px" }}
+                      onClick={handleCloseReports}
+                    >
+                      <CloseIcon color="error" />
+                    </IconButton>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        // height: "350px",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
+                      }}
+                    >
+                      <Text b size={27}>
+                        {selectedStock?.stock_name}
+                      </Text>
+
+                      {selectedStock?.stock_reports?.length > 0 ? (
+                        selectedStock.stock_reports.map((report) => (
+                          <div key={report.report_name} style={{}}>
+                            <IconButton
+                              key={report.report_name}
+                              onClick={() =>
+                                window.open(
+                                  `${report.document}#view=FitH&toolbar=0`,
+                                  "_blank",
+                                  "fullscreen=yes"
+                                )
+                              }
+                              // onClick={() => handleOpenModal(report.document)}
+                              sx={{
+                                "&:hover": { background: "#fff" },
+                                borderRadius: "0px",
+                                paddingLeft: "0px",
+                              }}
+                            >
+                              <DocumentText size={25} />
+                              <Text
+                                b
+                                size={21}
+                                css={{
+                                  marginLeft: "5px",
+                                  alignSelf: "start",
+                                  lineHeight: 1.5,
+                                }}
+                              >
+                                {report.report_name}
+                              </Text>
+                            </IconButton>
+                          </div>
+                        ))
+                      ) : (
+                        <Text
+                          b
+                          size={20}
+                          css={{
+                            // position: "absolute",
+                            paddingTop: "50px",
+                            paddingBottom: "50px",
+                            // left: "22.5%",
+                          }}
+                        >
+                          No Reports Available!
+                        </Text>
+                      )}
+                    </Box>
+                  </Card>
+                  {/* <Button
 									flat
 									onPress={handleCloseReports}
 									css={{
@@ -1806,246 +1852,368 @@ const StockCard = () => {
 								>
 									Close
 								</Button> */}
-              </Modal>
-              <Modal
-                // blur
-                open={showModal}
-                onClose={handleCloseModal}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-                css={{
-                  height: "95vh",
-                  borderRadius: "15px",
-                  background: "transparent",
-                  boxShadow: "none",
-                  alignSelf: "center",
-                  alignContent: "center",
-                  justifyContent: "center",
-                  // backdropFilter: "blur(8px)",
-                }}
-                className="iframePdfMobile"
-              >
-                <Worker
-                  // workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}/pdf.worker.min.js`}
-                  workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
+                </Modal>
+                <Modal
+                  // blur
+                  open={showModal}
+                  onClose={handleCloseModal}
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-description"
+                  css={{
+                    height: "95vh",
+                    borderRadius: "15px",
+                    background: "transparent",
+                    boxShadow: "none",
+                    alignSelf: "center",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    // backdropFilter: "blur(8px)",
+                  }}
+                  className="iframePdfMobile"
                 >
+                  <Worker
+                    // workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}/pdf.worker.min.js`}
+                    workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
+                  >
+                    <Box
+                      sx={{
+                        height: "75vh",
+                        borderRadius: "15px",
+                      }}
+                    >
+                      {/* {console.log(PdfValue)} */}
+                      <Viewer
+                        fileUrl={`${PdfValue ? PdfValue : selectedReportUrl
+                          }#view=FitH&toolbar=0`}
+                        onDocumentAskPassword={handleAskPassword}
+                      />
+                    </Box>
+                  </Worker>
+                  <Button
+                    flat
+                    onPress={handleCloseModal}
+                    css={{
+                      alignSelf: "center",
+                      // width: "100%",
+                      backgroundColor: "#ffa12e",
+                      color: "#fff",
+                      fontSize: 19,
+                      marginTop: "20px",
+                      borderRadius: "10px",
+                      height: "50px",
+                      width: "100%",
+                      "@media only screen and (max-width: 768px)": {
+                        width: "100%",
+                        fontSize: 15,
+                        height: "50px",
+                        marginTop: "0px",
+                        borderRadius: "0px 0px 10px",
+                        "& span": {
+                          // display: "none",
+                        },
+                      },
+                    }}
+                  >
+                    Close
+                  </Button>
+                </Modal>
+              </Grid>
+            ))}
+            {!isLoggedIn || !isSubscribed ? (
+              <Grid>
+                <Card
+                  isHoverable
+                  css={{
+                    height: "617px",
+                    width: "285px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    borderRadius: "35px",
+                    background: "#fff",
+                    filter: "none",
+                    justifyContent: "center",
+                    paddingTop: "50px",
+                    paddingBottom: "50px",
+                    paddingLeft: "15px",
+                    paddingRight: "15px",
+                    backgroundImage:
+                      "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
+                  }}
+                  className="stocksPage-subscribe-mobile"
+                >
+                  <div className="cr cr-top cr-right cr-sticky cr-subscription">
+                    VIP+
+                  </div>
+                  <img
+                    src="kamayakya-logo-white-vip.png"
+                    style={{ marginTop: "5px", width: "75%" }}
+                    alt="kamayakya"
+                  />
+
+                  <Divider
+                    css={{
+                      background: "#fff",
+                      opacity: "0.5",
+                      width: "30px",
+                      height: "3px",
+                      marginTop: "20px",
+                    }}
+                  />
+
                   <Box
                     sx={{
-                      height: "75vh",
-                      borderRadius: "15px",
-                    }}
-                  >
-                    {/* {console.log(PdfValue)} */}
-                    <Viewer
-                      fileUrl={`${
-                        PdfValue ? PdfValue : selectedReportUrl
-                      }#view=FitH&toolbar=0`}
-                      onDocumentAskPassword={handleAskPassword}
-                    />
-                  </Box>
-                </Worker>
-                <Button
-                  flat
-                  onPress={handleCloseModal}
-                  css={{
-                    alignSelf: "center",
-                    // width: "100%",
-                    backgroundColor: "#ffa12e",
-                    color: "#fff",
-                    fontSize: 19,
-                    marginTop: "20px",
-                    borderRadius: "10px",
-                    height: "50px",
-                    width: "100%",
-                    "@media only screen and (max-width: 768px)": {
                       width: "100%",
-                      fontSize: 15,
-                      height: "50px",
-                      marginTop: "0px",
-                      borderRadius: "0px 0px 10px",
-                      "& span": {
-                        // display: "none",
+                      alignSelf: "start",
+                      marginTop: "20px",
+                      marginBottom: "10px",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingLeft: "30px",
+                      paddingRight: "30px",
+                    }}
+                  >
+                    <CheckCircleIcon
+                      sx={{
+                        marginRight: "10px",
+                        color: "#fff",
+                        fontSize: 20,
+                        alignSelf: "start",
+                        marginTop: "5px",
+                        opacity: 0.9,
+                      }}
+                    />
+                    <Text
+                      b
+                      color="#fff"
+                      size={20}
+                      css={{ lineHeight: 1.2, opacity: 0.9 }}
+                    >
+                      2-4 individual stock picks every month
+                    </Text>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      alignSelf: "start",
+                      marginBottom: "10px",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingLeft: "30px",
+                      paddingRight: "30px",
+                    }}
+                  >
+                    <CheckCircleIcon
+                      sx={{
+                        marginRight: "10px",
+                        color: "#fff",
+                        fontSize: 20,
+                        alignSelf: "start",
+                        marginTop: "5px",
+                        opacity: 0.9,
+                      }}
+                    />
+                    <Text
+                      b
+                      color="#fff"
+                      size={20}
+                      css={{ lineHeight: 1.2, opacity: 0.9 }}
+                    >
+                      NSE + BSE + SME stock picks
+                    </Text>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      alignSelf: "start",
+                      // marginTop: "20px",
+                      marginBottom: "10px",
+                      // marginLeft: "5%",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingLeft: "30px",
+                      paddingRight: "30px",
+                    }}
+                  >
+                    <CheckCircleIcon
+                      sx={{
+                        marginRight: "10px",
+                        color: "#fff",
+                        fontSize: 20,
+                        alignSelf: "start",
+                        marginTop: "5px",
+                        opacity: 0.9,
+                      }}
+                    />
+                    <Text
+                      b
+                      color="#fff"
+                      size={20}
+                      css={{ lineHeight: 1.2, opacity: 0.9 }}
+                    >
+                      WhatsApp & Email updates
+                    </Text>
+                  </Box>
+                  <Divider
+                    css={{
+                      background: "#fff",
+                      opacity: "0.5",
+                      width: "30px",
+                      height: "3px",
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                    }}
+                  />
+                  <Button
+                    // variant="contained"
+                    css={{
+                      width: "75%",
+                      background: "linear-gradient(to top , #fb7716,#fe9807)",
+                      paddingTop: "5px",
+                      paddingBottom: "5px",
+                      borderRadius: "10000px",
+                      boxShadow: "none",
+                      "&:hover": {
+                        backgroundImage:
+                          "linear-gradient(to top , #FF9D28, #ffa736)",
                       },
-                    },
-                  }}
-                >
-                  Close
-                </Button>
-              </Modal>
-            </Grid>
-          ))}
-          {!isLoggedIn || !isSubscribed ? (
-            <Grid>
-              <Card
-                isHoverable
-                css={{
-                  height: "617px",
-                  width: "285px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  borderRadius: "35px",
-                  background: "#fff",
-                  filter: "none",
-                  justifyContent: "center",
-                  paddingTop: "50px",
-                  paddingBottom: "50px",
-                  paddingLeft: "15px",
-                  paddingRight: "15px",
-                  backgroundImage:
-                    "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
-                }}
-                className="stocksPage-subscribe-mobile"
-              >
-                <div className="cr cr-top cr-right cr-sticky cr-subscription">
-                  VIP+
-                </div>
-                <img
-                  src="kamayakya-logo-white-vip.png"
-                  style={{ marginTop: "5px", width: "75%" }}
-                  alt="kamayakya"
-                />
+                    }}
+                    onClick={handleLoginOrSubForSubscribeNow}
+                  >
+                    <Text b color="#FFF" size={18}>
+                      Subscribe Now
+                    </Text>
+                  </Button>
+                  <Modal
+                    width="450px"
+                    open={showLoginModalForSubscribe}
+                    onClose={handleCloseLoginModalForSubscribeNow}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+                      <IconButton
+                        sx={{
+                          width: "40px",
+                          "&:hover": { background: "#fff" },
+                          // alignSelf: "end",
+                          right: "20px",
+                        }}
+                        onClick={() => handleCloseLoginModalForSubscribeNow()}
+                      >
+                        <CloseIcon sx={{ color: "#e81123" }} />
+                      </IconButton>
+                    </Box>
 
-                <Divider
-                  css={{
-                    background: "#fff",
-                    opacity: "0.5",
-                    width: "30px",
-                    height: "3px",
-                    marginTop: "20px",
-                  }}
-                />
+                    <Modal.Body>
+                      <LoginForSubsribe />
+                    </Modal.Body>
+                  </Modal>
 
-                <Box
-                  sx={{
-                    width: "100%",
-                    alignSelf: "start",
-                    marginTop: "20px",
-                    marginBottom: "10px",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingLeft: "30px",
-                    paddingRight: "30px",
-                  }}
-                >
-                  <CheckCircleIcon
-                    sx={{
-                      marginRight: "10px",
-                      color: "#fff",
-                      fontSize: 20,
-                      alignSelf: "start",
-                      marginTop: "5px",
-                      opacity: 0.9,
-                    }}
-                  />
                   <Text
                     b
-                    color="#fff"
                     size={20}
-                    css={{ lineHeight: 1.2, opacity: 0.9 }}
-                  >
-                    2-4 individual stock picks every month
-                  </Text>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    alignSelf: "start",
-                    marginBottom: "10px",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingLeft: "30px",
-                    paddingRight: "30px",
-                  }}
-                >
-                  <CheckCircleIcon
-                    sx={{
-                      marginRight: "10px",
-                      color: "#fff",
-                      fontSize: 20,
-                      alignSelf: "start",
-                      marginTop: "5px",
-                      opacity: 0.9,
+                    color="#fff"
+                    css={{
+                      textAlign: "center",
+                      marginTop: "10px",
+                      "@media only screen and (max-width: 768px)": {
+                        fontSize: "20px",
+                      },
                     }}
-                  />
+                  >
+                    for ₹
+                    <span
+                      style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
+                    >
+                      15,000/year
+                    </span>
+                  </Text>
+
                   <Text
                     b
-                    color="#fff"
-                    size={20}
-                    css={{ lineHeight: 1.2, opacity: 0.9 }}
+                    size={18}
+                    color="#FFF"
+                    css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
                   >
-                    NSE + BSE + SME stock picks
+                    inclusive of taxes
                   </Text>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    alignSelf: "start",
-                    // marginTop: "20px",
-                    marginBottom: "10px",
-                    // marginLeft: "5%",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingLeft: "30px",
-                    paddingRight: "30px",
-                  }}
-                >
-                  <CheckCircleIcon
-                    sx={{
-                      marginRight: "10px",
-                      color: "#fff",
-                      fontSize: 20,
-                      alignSelf: "start",
-                      marginTop: "5px",
-                      opacity: 0.9,
-                    }}
-                  />
                   <Text
                     b
+                    size={14}
                     color="#fff"
-                    size={20}
-                    css={{ lineHeight: 1.2, opacity: 0.9 }}
+                    css={{
+                      textDecoration: "underline",
+                      position: "absolute",
+                      bottom: "35px",
+                      cursor: "pointer",
+                      // mt: "10px",
+                      lineHeight: 1,
+                      opacity: 1,
+                      "@media only screen and (max-width: 768px)": {
+                        marginTop: "20px",
+                        marginBottom: "20px",
+                        bottom: "0px",
+                      },
+                    }}
+                    onClick={handleShowWhyModal}
                   >
-                    WhatsApp & Email updates
+                    Why do we charge annually?
                   </Text>
-                </Box>
-                <Divider
-                  css={{
-                    background: "#fff",
-                    opacity: "0.5",
-                    width: "30px",
-                    height: "3px",
-                    marginTop: "20px",
-                    marginBottom: "20px",
-                  }}
-                />
-                <Button
-                  // variant="contained"
-                  css={{
-                    width: "75%",
-                    background: "linear-gradient(to top , #fb7716,#fe9807)",
-                    paddingTop: "5px",
-                    paddingBottom: "5px",
-                    borderRadius: "10000px",
-                    boxShadow: "none",
-                    "&:hover": {
-                      backgroundImage:
-                        "linear-gradient(to top , #FF9D28, #ffa736)",
-                    },
-                  }}
-                  onClick={handleLoginOrSubForSubscribeNow}
-                >
-                  <Text b color="#FFF" size={18}>
-                    Subscribe Now
-                  </Text>
-                </Button>
+                  <Modal
+                    open={showWhyModal}
+                    onClose={handleWhyModalClose}
+                    css={{
+                      justifyContent: "center",
+                      background: "transparent",
+                      alignItems: "center",
+                      boxShadow: "none",
+                    }}
+                  >
+                    <Card
+                      css={{
+                        padding: "50px 50px",
+                        width: "550px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "95%",
+                        },
+                      }}
+                    >
+                      <IconButton
+                        sx={{ position: "absolute", top: "5px", right: "5px" }}
+                        onClick={handleWhyModalClose}
+                      >
+                        <CloseIcon color="error" />
+                      </IconButton>
+                      <Text b size={21} css={{ textAlign: "start" }}>
+                        Why do we charge annually?
+                      </Text>
+                      <br />
+                      <Text b css={{ lineHeight: 1.2, textAlign: "start" }}>
+                        We understand that effective investing requires time and
+                        patience, which is why we exclusively offer an annual
+                        plan. Our strategy reflects our ethos that long-term
+                        commitment is key to unlocking the true potential of
+                        your investments.
+                      </Text>
+                    </Card>
+                  </Modal>
+                </Card>
                 <Modal
+                  blur
                   width="450px"
-                  open={showLoginModalForSubscribe}
-                  onClose={handleCloseLoginModalForSubscribeNow}
+                  open={showLoginModal}
+                  onClose={handleCloseLoginModal}
                 >
                   <Box
                     sx={{
@@ -2064,148 +2232,25 @@ const StockCard = () => {
                         // alignSelf: "end",
                         right: "20px",
                       }}
-                      onClick={() => handleCloseLoginModalForSubscribeNow()}
+                      onClick={() => handleCloseLoginModal()}
                     >
                       <CloseIcon sx={{ color: "#e81123" }} />
                     </IconButton>
                   </Box>
 
                   <Modal.Body>
-                    <LoginForSubsribe />
+                    <Login />
                   </Modal.Body>
                 </Modal>
-
-                <Text
-                  b
-                  size={20}
-                  color="#fff"
-                  css={{
-                    textAlign: "center",
-                    marginTop: "10px",
-                    "@media only screen and (max-width: 768px)": {
-                      fontSize: "20px",
-                    },
-                  }}
-                >
-                  for ₹
-                  <span
-                    style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
-                  >
-                    15,000/year
-                  </span>
-                </Text>
-
-                <Text
-                  b
-                  size={18}
-                  color="#FFF"
-                  css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
-                >
-                  inclusive of taxes
-                </Text>
-                <Text
-                  b
-                  size={14}
-                  color="#fff"
-                  css={{
-                    textDecoration: "underline",
-                    position: "absolute",
-                    bottom: "35px",
-                    cursor: "pointer",
-                    // mt: "10px",
-                    lineHeight: 1,
-                    opacity: 1,
-                    "@media only screen and (max-width: 768px)": {
-                      marginTop: "20px",
-                      marginBottom: "20px",
-                      bottom: "0px",
-                    },
-                  }}
-                  onClick={handleShowWhyModal}
-                >
-                  Why do we charge annually?
-                </Text>
-                <Modal
-                  open={showWhyModal}
-                  onClose={handleWhyModalClose}
-                  css={{
-                    justifyContent: "center",
-                    background: "transparent",
-                    alignItems: "center",
-                    boxShadow: "none",
-                  }}
-                >
-                  <Card
-                    css={{
-                      padding: "50px 50px",
-                      width: "550px",
-                      "@media only screen and (max-width: 768px)": {
-                        width: "95%",
-                      },
-                    }}
-                  >
-                    <IconButton
-                      sx={{ position: "absolute", top: "5px", right: "5px" }}
-                      onClick={handleWhyModalClose}
-                    >
-                      <CloseIcon color="error" />
-                    </IconButton>
-                    <Text b size={21} css={{ textAlign: "start" }}>
-                      Why do we charge annually?
-                    </Text>
-                    <br />
-                    <Text b css={{ lineHeight: 1.2, textAlign: "start" }}>
-                      We understand that effective investing requires time and
-                      patience, which is why we exclusively offer an annual
-                      plan. Our strategy reflects our ethos that long-term
-                      commitment is key to unlocking the true potential of
-                      your investments.
-                    </Text>
-                  </Card>
-                </Modal>
-              </Card>
-              <Modal
-                blur
-                width="450px"
-                open={showLoginModal}
-                onClose={handleCloseLoginModal}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-                  <IconButton
-                    sx={{
-                      width: "40px",
-                      "&:hover": { background: "#fff" },
-                      // alignSelf: "end",
-                      right: "20px",
-                    }}
-                    onClick={() => handleCloseLoginModal()}
-                  >
-                    <CloseIcon sx={{ color: "#e81123" }} />
-                  </IconButton>
-                </Box>
-
-                <Modal.Body>
-                  <Login />
-                </Modal.Body>
-              </Modal>
-            </Grid>
-          ) : (
-            ""
-          )}
-          {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
-          {/* {stocks.length <= 3 &&
+              </Grid>
+            ) : (
+              ""
+            )}
+            {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
+            {/* {stocks.length <= 3 &&
 					Array.from({ length: 4 }).map((_, index) => ( */}
-          {!isLoggedIn || !isSubscribed
-            ? staticNumbers.map((number, index) => (
+            {!isLoggedIn || !isSubscribed
+              ? staticNumbers.map((number, index) => (
                 <Grid
                   // key={stock.id}
                   key={index}
@@ -2545,9 +2590,2896 @@ const StockCard = () => {
                   </Card>
                 </Grid>
               ))
-            : ""}
-        </Grid>
-      </Box>
+              : ""}
+
+            {isSubscribed && plan === "advanced" ? (() => {
+              return <>
+                <Grid>
+                  <Card
+                    isHoverable
+                    css={{
+                      height: "575px",
+                      width: "285px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      borderRadius: "35px",
+                      background: "#fff",
+                      filter: "none",
+                      justifyContent: "center",
+                      paddingTop: "50px",
+                      paddingBottom: "50px",
+                      paddingLeft: "15px",
+                      paddingRight: "15px",
+                      backgroundImage:
+                        "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
+                    }}
+                    className="stocksPage-subscribe-mobile"
+                  >
+                    <div className="cr cr-top cr-right cr-sticky cr-subscription">
+                      VIP+
+                    </div>
+                    <img
+                      src="kamayakya-logo-white-vip.png"
+                      style={{ marginTop: "5px", width: "75%" }}
+                      alt="kamayakya"
+                    />
+
+                    <Divider
+                      css={{
+                        background: "#fff",
+                        opacity: "0.5",
+                        width: "30px",
+                        height: "3px",
+                        marginTop: "20px",
+                      }}
+                    />
+
+                    <Box
+                      sx={{
+                        width: "100%",
+                        alignSelf: "start",
+                        marginTop: "20px",
+                        marginBottom: "10px",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: "30px",
+                        paddingRight: "30px",
+                      }}
+                    >
+                      <CheckCircleIcon
+                        sx={{
+                          marginRight: "10px",
+                          color: "#fff",
+                          fontSize: 20,
+                          alignSelf: "start",
+                          marginTop: "5px",
+                          opacity: 0.9,
+                        }}
+                      />
+                      <Text
+                        b
+                        color="#fff"
+                        size={20}
+                        css={{ lineHeight: 1.2, opacity: 0.9 }}
+                      >
+                        2-4 individual stock picks every month
+                      </Text>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        alignSelf: "start",
+                        marginBottom: "10px",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: "30px",
+                        paddingRight: "30px",
+                      }}
+                    >
+                      <CheckCircleIcon
+                        sx={{
+                          marginRight: "10px",
+                          color: "#fff",
+                          fontSize: 20,
+                          alignSelf: "start",
+                          marginTop: "5px",
+                          opacity: 0.9,
+                        }}
+                      />
+                      <Text
+                        b
+                        color="#fff"
+                        size={20}
+                        css={{ lineHeight: 1.2, opacity: 0.9 }}
+                      >
+                        NSE + BSE + SME stock picks
+                      </Text>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        alignSelf: "start",
+                        // marginTop: "20px",
+                        marginBottom: "10px",
+                        // marginLeft: "5%",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: "30px",
+                        paddingRight: "30px",
+                      }}
+                    >
+                      <CheckCircleIcon
+                        sx={{
+                          marginRight: "10px",
+                          color: "#fff",
+                          fontSize: 20,
+                          alignSelf: "start",
+                          marginTop: "5px",
+                          opacity: 0.9,
+                        }}
+                      />
+                      <Text
+                        b
+                        color="#fff"
+                        size={20}
+                        css={{ lineHeight: 1.2, opacity: 0.9 }}
+                      >
+                        WhatsApp & Email updates
+                      </Text>
+                    </Box>
+                    <Divider
+                      css={{
+                        background: "#fff",
+                        opacity: "0.5",
+                        width: "30px",
+                        height: "3px",
+                        marginTop: "20px",
+                        marginBottom: "20px",
+                      }}
+                    />
+                    <Button
+                      // variant="contained"
+                      css={{
+                        width: "75%",
+                        background: "linear-gradient(to top , #fb7716,#fe9807)",
+                        paddingTop: "5px",
+                        paddingBottom: "5px",
+                        borderRadius: "10000px",
+                        boxShadow: "none",
+                        "&:hover": {
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                        },
+                      }}
+                      onClick={handleLoginOrSubForSubscribeNow}
+                    >
+                      <Text b color="#FFF" size={18}>
+                        Subscribe Now
+                      </Text>
+                    </Button>
+                    <Modal
+                      width="450px"
+                      open={showLoginModalForSubscribe}
+                      onClose={handleCloseLoginModalForSubscribeNow}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          width: "100%",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+                        <IconButton
+                          sx={{
+                            width: "40px",
+                            "&:hover": { background: "#fff" },
+                            // alignSelf: "end",
+                            right: "20px",
+                          }}
+                          onClick={() => handleCloseLoginModalForSubscribeNow()}
+                        >
+                          <CloseIcon sx={{ color: "#e81123" }} />
+                        </IconButton>
+                      </Box>
+
+                      <Modal.Body>
+                        <LoginForSubsribe />
+                      </Modal.Body>
+                    </Modal>
+
+                    <Text
+                      b
+                      size={20}
+                      color="#fff"
+                      css={{
+                        textAlign: "center",
+                        marginTop: "10px",
+                        "@media only screen and (max-width: 768px)": {
+                          fontSize: "20px",
+                        },
+                      }}
+                    >
+                      for ₹
+                      <span
+                        style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
+                      >
+                        15,000/year
+                      </span>
+                    </Text>
+
+                    <Text
+                      b
+                      size={18}
+                      color="#FFF"
+                      css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
+                    >
+                      inclusive of taxes
+                    </Text>
+                    <Text
+                      b
+                      size={14}
+                      color="#fff"
+                      css={{
+                        textDecoration: "underline",
+                        position: "absolute",
+                        bottom: "35px",
+                        cursor: "pointer",
+                        // mt: "10px",
+                        lineHeight: 1,
+                        opacity: 1,
+                        "@media only screen and (max-width: 768px)": {
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          bottom: "0px",
+                        },
+                      }}
+                      onClick={handleShowWhyModal}
+                    >
+                      Why do we charge annually?
+                    </Text>
+                    <Modal
+                      open={showWhyModal}
+                      onClose={handleWhyModalClose}
+                      css={{
+                        justifyContent: "center",
+                        background: "transparent",
+                        alignItems: "center",
+                        boxShadow: "none",
+                      }}
+                    >
+                      <Card
+                        css={{
+                          padding: "50px 50px",
+                          width: "550px",
+                          "@media only screen and (max-width: 768px)": {
+                            width: "95%",
+                          },
+                        }}
+                      >
+                        <IconButton
+                          sx={{ position: "absolute", top: "5px", right: "5px" }}
+                          onClick={handleWhyModalClose}
+                        >
+                          <CloseIcon color="error" />
+                        </IconButton>
+                        <Text b size={21} css={{ textAlign: "start" }}>
+                          Why do we charge annually?
+                        </Text>
+                        <br />
+                        <Text b css={{ lineHeight: 1.2, textAlign: "start" }}>
+                          We understand that effective investing requires time and
+                          patience, which is why we exclusively offer an annual
+                          plan. Our strategy reflects our ethos that long-term
+                          commitment is key to unlocking the true potential of
+                          your investments.
+                        </Text>
+                      </Card>
+                    </Modal>
+                  </Card>
+                  <Modal
+                    blur
+                    width="450px"
+                    open={showLoginModal}
+                    onClose={handleCloseLoginModal}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+                      <IconButton
+                        sx={{
+                          width: "40px",
+                          "&:hover": { background: "#fff" },
+                          // alignSelf: "end",
+                          right: "20px",
+                        }}
+                        onClick={() => handleCloseLoginModal()}
+                      >
+                        <CloseIcon sx={{ color: "#e81123" }} />
+                      </IconButton>
+                    </Box>
+
+                    <Modal.Body>
+                      <Login />
+                    </Modal.Body>
+                  </Modal>
+                </Grid>
+              </>
+            })() : null}
+
+            {isSubscribed && plan === "advanced" ? staticNumbers.map((number, index) => (
+              <Grid
+                // key={stock.id}
+                key={index}
+                item
+                xs={"auto"}
+                sm={"auto"}
+                md={"auto"}
+                lg={"auto"}
+                style={{ alignItems: "center" }}
+              >
+                <Card
+                  variant="flat"
+                  css={{
+                    height: "575px",
+                    width: "285px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                    borderRadius: "40px",
+                    border: "4px solid",
+                    borderColor: "#ffa12e",
+                    marginBottom: "20px",
+                    boxShadow: "none",
+                    filter: "none",
+                    "@media only screen and (max-width: 768px)": {
+                      width: "95vw",
+                      maxWidth: "620px",
+                      height: "auto",
+                      borderRadius: "35px",
+                      border: "4px solid",
+                      borderColor: "#ffa12e",
+                      paddingBottom: "30px",
+                      marginBottom: "0px",
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      marginLeft: "5%",
+                      marginRight: "5%",
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                      width: "90%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        marginTop: "5px",
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "center",
+                        backgroundColor: "#fff",
+                        marginBottom: "15px",
+                        width: "90%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <div
+                        className="cr cr-top cr-right cr-sticky cr-subscription"
+                        style={{ zIndex: 10 }}
+                      >
+                        SME
+                      </div>
+                      <Box
+                        sx={{
+                          zIndex: 0,
+                          width: "100%",
+                          paddingTop: "7.5px",
+                          paddingBottom: "7.5px",
+                          paddingLeft: "5px",
+                          paddingRight: "5px",
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                          marginBottom: "15px",
+                          marginTop: "5px",
+                          borderRadius: "10000px",
+                          lineHeight: 1,
+                        }}
+                      >
+                        <Text
+                          b
+                          size={14}
+                          color="Black"
+                          css={{ lineHeight: 1 }}
+                        >
+                          {/* {stock.stock_industry} */}
+                          {`<Industry>`}
+                        </Text>
+                      </Box>
+                      <Text
+                        b
+                        size={26}
+                        css={{
+                          minWidth: "100%",
+                          maxWidth: "100%",
+                          textAlign: "center",
+                          lineHeight: 1.2,
+                          position: "relative",
+                          zIndex: 0,
+                          "@media only screen and (max-width: 768px)": {
+                            fontSize: 20,
+                          },
+                        }}
+                      >
+                        {`KamayaKya`}
+                      </Text>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          backdropFilter: "blur(8px)",
+                          zIndex: 0,
+                          WebkitBackdropFilter: "blur(8px)",
+                          margin: "15px",
+                          "@media only screen and (max-width: 768px)": {
+                            margin: "0px",
+                          },
+                        }}
+                      >{` `}</Box>
+                    </Box>
+                    <Box
+                      sx={{
+                        zIndex: 1,
+                        width: "90%",
+                        backgroundImage:
+                          "linear-gradient(to top , #106052, #0f734d)",
+                        borderRadius: "17.5px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <Text
+                        b
+                        size={20}
+                        color="#fff"
+                        css={{
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        Upside Left
+                      </Text>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <ArrowCircleUp size={25} color="#fff" />
+                        <Text
+                          b
+                          size={48}
+                          color="#fff"
+                          css={{
+                            lineHeight: 1,
+                            marginLeft: "3px",
+                            marginRight: "3px",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 55,
+                            },
+                          }}
+                        >
+                          {`${number}`}
+                        </Text>
+                        <span style={{ fontSize: 25, color: "#FFF" }}>%</span>
+                      </div>
+                    </Box>
+
+                    <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <Divider
+                          height={4}
+                          style={{
+                            backgroundColor: "#ffa736",
+                            marginTop: "30px",
+                            marginBottom: "10px",
+                            width: "50px",
+                            alignSelf: "center",
+                          }}
+                        />
+
+                        <div
+                          style={{
+                            zIndex: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            marginTop: "0px",
+                          }}
+                        >
+                          <MdOutlineLock color="#ffa12e" size={50} />
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              marginTop: "20px",
+                            }}
+                            className="stocksPage-card-loginSection"
+                          >
+                            {/* <Button
+																on
+																onPress={handleFirstCard}
+																css={{
+																	backgroundColor: "transparent",
+																}}
+															> */}
+                            {isLoggedIn ? (
+                              <div
+                                style={{
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  // height: "fit-content",
+                                  // maxWidth: "220px",
+                                  // maxHeight: "220px",
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  css={{
+                                    // maxWidth: "220px",
+                                    // lineHeight: 1
+                                    textAlign: "center",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  Unlock a world of wealth with just a click.
+                                  {/* Log in, and three free stock picks */}
+                                  {/* are your key to potential prosperity. It's */}
+                                  {/* like finding hidden gems without the */}
+                                  {/* digging! */}
+                                </Text>
+                                <Button
+                                  // variant="contained"
+                                  css={{
+                                    width: "100%",
+                                    marginTop: "10px",
+                                    background:
+                                      "linear-gradient(to top , #fb7716,#fe9807)",
+                                    paddingTop: "5px",
+                                    paddingBottom: "5px",
+                                    borderRadius: "10000px",
+                                    boxShadow: "none",
+                                    "&:hover": {
+                                      backgroundImage:
+                                        "linear-gradient(to top , #FF9D28, #ffa736)",
+                                    },
+                                  }}
+                                  onPress={handleFirstCard}
+                                >
+                                  <Text b color="#FFF" size={18}>
+                                    Subscribe to unlock
+                                  </Text>
+                                </Button>
+                              </div>
+                            ) : (
+                              <div
+                                style={{
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  // height: "fit-content",
+                                  // maxWidth: "220px",
+                                  // maxHeight: "220px",
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  css={{
+                                    // maxWidth: "220px",
+                                    // lineHeight: 1
+                                    textAlign: "center",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  Unlock a world of wealth with just a click.
+                                  {/* Log in, and three free stock picks */}
+                                  {/* are your key to potential prosperity. It's */}
+                                  {/* like finding hidden gems without the */}
+                                  {/* digging! */}
+                                </Text>
+                                <Button
+                                  // variant="contained"
+                                  css={{
+                                    width: "100%",
+                                    marginTop: "10px",
+                                    background:
+                                      "linear-gradient(to top , #fb7716,#fe9807)",
+                                    paddingTop: "5px",
+                                    paddingBottom: "5px",
+                                    borderRadius: "10000px",
+                                    boxShadow: "none",
+                                    "&:hover": {
+                                      backgroundImage:
+                                        "linear-gradient(to top , #FF9D28, #ffa736)",
+                                    },
+                                  }}
+                                  onPress={handleFirstCard}
+                                >
+                                  <Text b color="#FFF" size={18}>
+                                    Subscribe to unlock
+                                  </Text>
+                                </Button>
+                              </div>
+                            )}
+
+                            {/*<BiChevronRight size={24} color="#000000" />*/}
+                            {/* </Button> */}
+                          </div>
+                        </div>
+                        <Divider
+                          height={4}
+                          style={{
+                            backgroundColor: "#ffa736",
+                            marginTop: "30px",
+                            marginBottom: "10px",
+                            width: "50px",
+                            alignSelf: "center",
+                          }}
+                        />
+                      </div>
+                    </Box>
+                  </Box>
+                </Card>
+              </Grid>
+            ))
+              : ""}
+
+
+          </Grid>
+
+
+
+        </Box>
+      ) : (
+        <Box
+          sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        >
+          <Grid
+            container
+            justifyContent={"center"}
+            gap={"20px"}
+            sx={{
+              // background: "#fff",
+              boxShadow: "none",
+              "@media only screen and (max-width: 768px)": {
+                gap: "20px",
+              },
+            }}
+          >
+            {filteredStocks.filter(stock => stock.stock_exchange === "BSE-SME" || stock.stock_exchange === "NSE-SME").map((stock, index) => (
+              <Grid
+                key={stock.id}
+                item
+                xs={"auto"}
+                sm={"auto"}
+                md={"auto"}
+                lg={"auto"}
+              >
+                {isSubscribed && stock.recommended_stock === true ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        zIndex: 99,
+                        padding: "2px 20px",
+                        borderRadius: "20px",
+                        background: "#fff",
+                        border: "4px solid #ff9702",
+                        alignSelf: "center",
+                        color: "#cc0000",
+                        display: "flex",
+                        alignItems: "center",
+                        fontSize: 18,
+                      }}
+                    >
+                      <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
+                      <BsFire style={{ marginLeft: "5px" }} />
+                    </Box>
+                  </Box>
+                ) : (
+                  ""
+                )}
+                <Card
+                  isHoverable
+                  css={{
+                    // height: "580px",
+                    width: "285px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                    borderRadius: "40px",
+                    border: "4px solid",
+                    borderColor: "#ffa12e",
+                    marginBottom: "0px",
+                    boxShadow: "none",
+                    filter: "none",
+                    "@media only screen and (max-width: 768px)": {
+                      width: "92.5vw",
+                      maxWidth: "620px",
+                      // height: "650px",
+                      borderRadius: "35px",
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      marginLeft: "5%",
+                      marginRight: "5%",
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                      minWidth: "90%",
+                      maxWidth: "90%",
+                      // height: "600px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      "@media only screen and (max-width: 768px)": {
+                        marginLeft: "5px",
+                        marginRight: "5px",
+                        height: "auto",
+                        marginBottom: "30px",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "center",
+                        backgroundColor: "#fff",
+                        marginBottom: "15px",
+                        width: "90%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: "100%",
+                          height: "30px",
+                          paddingTop: "7.5px",
+                          paddingBottom: "7.5px",
+                          paddingLeft: "5px",
+                          paddingRight: "5px",
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                          marginBottom: "15px",
+                          marginTop: "5px",
+                          borderRadius: "10000px",
+                          lineHeight: 1,
+                        }}
+                        className="stockCardMobile-industry"
+                      >
+                        <Text
+                          b
+                          size={14}
+                          color="Black"
+                          css={{
+                            lineHeight: 1.2,
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: "16px",
+                            },
+                          }}
+                        >
+                          {stock.stock_industry.length > 29 ? (
+                            <Marquee
+                              delay={2}
+                              speed={30}
+                              style={{ marginRight: "20px" }}
+                            >
+                              <span style={{ paddingRight: "20px" }}>
+                                {stock.stock_industry}
+                              </span>
+                            </Marquee>
+                          ) : (
+                            <>{stock.stock_industry}</> || <Loading /> || "-"
+                          )}
+                        </Text>
+                      </Box>
+                      <Text
+                        b
+                        size={26}
+                        css={{
+                          minWidth: "100%",
+                          maxWidth: "100%",
+                          textAlign: "center",
+                          lineHeight: 1.2,
+                          "@media only screen and (max-width: 768px)": {
+                            fontSize: 25,
+                            paddingTop: "5px",
+                            paddingBottom: "5px",
+                          },
+                        }}
+                      >
+                        {stock.stock_name.length > 17 ? (
+                          <Marquee
+                            delay={2}
+                            speed={30}
+                            style={{ marginRight: "20px" }}
+                          >
+                            <span style={{ paddingRight: "40px" }}>
+                              {stock.stock_name}
+                            </span>
+                          </Marquee>
+                        ) : (
+                          <>{stock.stock_name}</>
+                        )}
+                      </Text>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "90%",
+                        backgroundImage:
+                          "linear-gradient(to top , #106052, #0f734d)",
+                        borderRadius: "17.5px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                          paddingTop: "20px",
+                          paddingBottom: "20px",
+                        },
+                      }}
+                    >
+                      {isSubscribed && isNewStock(stock.created) ? (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "100%",
+                          }}
+                        >
+                          <div
+                            style={{
+                              position: "absolute",
+                              width: "80px",
+                              marginTop: "-30px",
+                              background: "#cc0000",
+                              color: "#fff",
+                              height: "20px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            {isNewStock(stock.created) && <div>NEW</div>}
+                          </div>
+                        </Box>
+                      ) : (
+                        ""
+                      )}
+                      <Text
+                        b
+                        size={20}
+                        color="#fff"
+                        css={{
+                          lineHeight: 1.5,
+                          "@media only screen and (max-width: 768px)": {
+                            fontSize: 19,
+                          },
+                        }}
+                      >
+                        Upside Left
+                      </Text>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <ArrowCircleUp size={25} color="#fff" />
+                        <Text
+                          b
+                          size={48}
+                          color="#fff"
+                          css={{
+                            lineHeight: 1,
+                            marginLeft: "3px",
+                            marginRight: "3px",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 60,
+                            },
+                          }}
+                        >
+                          {`${Math.ceil(stock.upside_left)}` || <Loading /> ||
+                            "-"}
+                        </Text>
+                        <span
+                          style={{
+                            fontSize: 25,
+                            color: "#FFF",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 10,
+                            },
+                          }}
+                        >
+                          %
+                        </span>
+                      </div>
+                    </Box>
+                    <Box
+                      sx={{
+                        mt: "20px",
+                        width: "90%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <Text
+                            b
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 21,
+                              },
+                            }}
+                            size={15}
+                          >
+                            MKT. CAP.
+                          </Text>
+                          <Text
+                            b
+                            size={15}
+                            css={{
+                              lineHeight: 1.1,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 15,
+                              },
+                            }}
+                          >
+                            (IN Cr.)
+                          </Text>
+                        </div>
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                          {`${stock.market_cap}` || <Loading /> || "-"}
+                        </Text>
+                      </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Text
+                              b
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 21,
+                                },
+                              }}
+                              size={15}
+                            >
+                              ENTRY PRICE
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              (in ₹)
+                            </Text>
+                          </div>
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
+                            }}
+                            size={22}
+                          >
+                            {`${stock.entry_price}` || <Loading /> || "-"}
+                          </Text>
+                        </div>
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Text
+                              b
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 21,
+                                },
+                              }}
+                              size={15}
+                            >
+                              CMP
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              (in ₹)
+                            </Text>
+                          </div>
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
+                            }}
+                            size={22}
+                          >
+                            {`${stock.live_price}` || <Loading /> || "-"}
+                          </Text>
+                        </div>
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Text
+                              b
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 21,
+                                },
+                              }}
+                              size={15}
+                            >
+                              TARGET PRICE
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              (IN ₹)
+                            </Text>
+                          </div>
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
+                            }}
+                            size={22}
+                          >
+                            {/* {stock.stock_targets.length > 0
+                            ? `${
+                                stock.stock_targets[
+                                  stock.stock_targets.length - 1
+                                ].target_price
+                              }`
+                            : `${stock.target_price}`} */}
+                            {stock.latest_target_price}
+                          </Text>
+                        </div>
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        />
+
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Text
+                              b
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 21,
+                                },
+                              }}
+                              size={15}
+                            >
+                              TIME TO
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              TARGET
+                            </Text>
+                          </div>
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
+                            }}
+                            size={22}
+                          >
+                            {/* {`${Math.ceil(stock.time_left)}` || <Loading /> ||
+														"-"} */}
+                            {(() => {
+                              const timeLeft = Math.ceil(stock.time_left);
+                              const years = Math.floor(timeLeft / 365);
+                              const months = Math.floor((timeLeft % 365) / 30);
+                              const days = Math.floor((timeLeft % 365) % 30);
+
+                              if (timeLeft < 30) {
+                                return `${days} days`;
+                              } else if (years === 0) {
+                                return `${months} month${months !== 1 ? "s" : ""
+                                  }`;
+                              } else {
+                                return `${years} yr ${months} mo.`;
+                              }
+                            })() || <Loading /> ||
+                              "-"}
+                          </Text>
+                        </div>
+                      </div>
+                    </Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      bottom: "5px",
+                      width: "85%",
+                      marginBottom: "25px",
+                      "@media only screen and (max-width: 768px)": {
+                        width: "90%",
+                        // height: "50px",
+                        justifyContent: "center",
+                      },
+                    }}
+                  >
+                    <Button
+                      auto
+                      onPress={() => handleOpenReports(stock)}
+                      css={{
+                        top: "0px",
+                        alignSelf: "center",
+                        width: "100%",
+                        borderRadius: "10000px",
+                        color: "#000",
+                        backgroundImage:
+                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                        fontSize: 18,
+                        "@media only screen and (max-width: 768px)": {
+                          fontSize: 18,
+                          lineHeight: 1,
+                          height: "40px",
+                          color: "black",
+                        },
+                      }}
+                    >
+                      View reports
+                    </Button>
+                    <Button
+                      auto
+                      onPress={() => handleOpenDisclosure(stock)}
+                      css={{
+                        top: "10px",
+                        // marginTop: "10%",
+                        color: "#106052",
+                        width: "100%",
+                        borderRadius: "10000px",
+                        backgroundColor: "#fff",
+                        // backgroundImage:
+                        //   "linear-gradient(to top , #106052, #0f734d)",
+                        fontSize: 15,
+                        height: "20px",
+                        "@media only screen and (max-width: 768px)": {
+                          top: "10px",
+                          lineHeight: 1,
+                          height: "20px",
+                          fontSize: 15,
+                        },
+                      }}
+                    >
+                      Disclosure
+                    </Button>
+                  </Box>
+                </Card>
+                <Modal
+                  // blur
+                  open={showReportsModal}
+                  onClose={handleCloseReports}
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-description"
+                  css={{
+                    width: "100%",
+                    borderRadius: "15px",
+                    background: "transparent",
+                    boxShadow: "none",
+                    // backdropFilter: "blur(8px)",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className="iframePdfMobile"
+                >
+                  <Card
+                    css={{
+                      height: "fit-content",
+                      width: "fit-content",
+                      maxWidth: "80rem",
+                      minWidth: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      padding: "50px 30px",
+                      borderRadius: "25px",
+                      // backgroundImage: "url(symbol-scatter-haikei-3.svg)",
+                      objectPosition: "center",
+                      backgroundPositionY: "center",
+                      backgroundSize: "cover",
+                      "@media only screen and (max-width: 764px)": {
+                        minWidth: "100px",
+                        width: "100vw !important",
+                      },
+                    }}
+                  >
+                    <IconButton
+                      sx={{ position: "absolute", top: "5px", right: "5px" }}
+                      onClick={handleCloseReports}
+                    >
+                      <CloseIcon color="error" />
+                    </IconButton>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        // height: "350px",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
+                      }}
+                    >
+                      <Text b size={27}>
+                        {selectedStock?.stock_name}
+                      </Text>
+
+                      {selectedStock?.stock_reports?.length > 0 ? (
+                        selectedStock.stock_reports.map((report) => (
+                          <div key={report.report_name} style={{}}>
+                            <IconButton
+                              key={report.report_name}
+                              onClick={() =>
+                                window.open(
+                                  `${report.document}#view=FitH&toolbar=0`,
+                                  "_blank",
+                                  "fullscreen=yes"
+                                )
+                              }
+                              // onClick={() => handleOpenModal(report.document)}
+                              sx={{
+                                "&:hover": { background: "#fff" },
+                                borderRadius: "0px",
+                                paddingLeft: "0px",
+                              }}
+                            >
+                              <DocumentText size={25} />
+                              <Text
+                                b
+                                size={21}
+                                css={{
+                                  marginLeft: "5px",
+                                  alignSelf: "start",
+                                  lineHeight: 1.5,
+                                }}
+                              >
+                                {report.report_name}
+                              </Text>
+                            </IconButton>
+                          </div>
+                        ))
+                      ) : (
+                        <Text
+                          b
+                          size={20}
+                          css={{
+                            // position: "absolute",
+                            paddingTop: "50px",
+                            paddingBottom: "50px",
+                            // left: "22.5%",
+                          }}
+                        >
+                          No Reports Available!
+                        </Text>
+                      )}
+                    </Box>
+                  </Card>
+                  {/* <Button
+									flat
+									onPress={handleCloseReports}
+									css={{
+										alignSelf: "center",
+										// width: "100%",
+										backgroundColor: "#ffa12e",
+										color: "#fff",
+										fontSize: 19,
+										marginTop: "20px",
+										borderRadius: "10px",
+										height: "50px",
+										"@media only screen and (max-width: 768px)": {
+											width: "100%",
+											fontSize: 15,
+											height: "50px",
+											marginTop: "0px",
+											borderRadius: "0px 0px 10px",
+											"& span": {
+												// display: "none",
+											},
+										},
+									}}
+								>
+									Close
+								</Button> */}
+                </Modal>
+                <Modal
+                  // blur
+                  open={showModal}
+                  onClose={handleCloseModal}
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-description"
+                  css={{
+                    height: "95vh",
+                    borderRadius: "15px",
+                    background: "transparent",
+                    boxShadow: "none",
+                    alignSelf: "center",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    // backdropFilter: "blur(8px)",
+                  }}
+                  className="iframePdfMobile"
+                >
+                  <Worker
+                    // workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}/pdf.worker.min.js`}
+                    workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
+                  >
+                    <Box
+                      sx={{
+                        height: "75vh",
+                        borderRadius: "15px",
+                      }}
+                    >
+                      {/* {console.log(PdfValue)} */}
+                      <Viewer
+                        fileUrl={`${PdfValue ? PdfValue : selectedReportUrl
+                          }#view=FitH&toolbar=0`}
+                        onDocumentAskPassword={handleAskPassword}
+                      />
+                    </Box>
+                  </Worker>
+                  <Button
+                    flat
+                    onPress={handleCloseModal}
+                    css={{
+                      alignSelf: "center",
+                      // width: "100%",
+                      backgroundColor: "#ffa12e",
+                      color: "#fff",
+                      fontSize: 19,
+                      marginTop: "20px",
+                      borderRadius: "10px",
+                      height: "50px",
+                      width: "100%",
+                      "@media only screen and (max-width: 768px)": {
+                        width: "100%",
+                        fontSize: 15,
+                        height: "50px",
+                        marginTop: "0px",
+                        borderRadius: "0px 0px 10px",
+                        "& span": {
+                          // display: "none",
+                        },
+                      },
+                    }}
+                  >
+                    Close
+                  </Button>
+                </Modal>
+              </Grid>
+            ))}
+            {!isLoggedIn || !isSubscribed ? (
+              <Grid>
+                <Card
+                  isHoverable
+                  css={{
+                    height: "617px",
+                    width: "285px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    borderRadius: "35px",
+                    background: "#fff",
+                    filter: "none",
+                    justifyContent: "center",
+                    paddingTop: "50px",
+                    paddingBottom: "50px",
+                    paddingLeft: "15px",
+                    paddingRight: "15px",
+                    backgroundImage:
+                      "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
+                  }}
+                  className="stocksPage-subscribe-mobile"
+                >
+                  <div className="cr cr-top cr-right cr-sticky cr-subscription">
+                    VIP+
+                  </div>
+                  <img
+                    src="kamayakya-logo-white-vip.png"
+                    style={{ marginTop: "5px", width: "75%" }}
+                    alt="kamayakya"
+                  />
+
+                  <Divider
+                    css={{
+                      background: "#fff",
+                      opacity: "0.5",
+                      width: "30px",
+                      height: "3px",
+                      marginTop: "20px",
+                    }}
+                  />
+
+                  <Box
+                    sx={{
+                      width: "100%",
+                      alignSelf: "start",
+                      marginTop: "20px",
+                      marginBottom: "10px",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingLeft: "30px",
+                      paddingRight: "30px",
+                    }}
+                  >
+                    <CheckCircleIcon
+                      sx={{
+                        marginRight: "10px",
+                        color: "#fff",
+                        fontSize: 20,
+                        alignSelf: "start",
+                        marginTop: "5px",
+                        opacity: 0.9,
+                      }}
+                    />
+                    <Text
+                      b
+                      color="#fff"
+                      size={20}
+                      css={{ lineHeight: 1.2, opacity: 0.9 }}
+                    >
+                      2-4 individual stock picks every month
+                    </Text>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      alignSelf: "start",
+                      marginBottom: "10px",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingLeft: "30px",
+                      paddingRight: "30px",
+                    }}
+                  >
+                    <CheckCircleIcon
+                      sx={{
+                        marginRight: "10px",
+                        color: "#fff",
+                        fontSize: 20,
+                        alignSelf: "start",
+                        marginTop: "5px",
+                        opacity: 0.9,
+                      }}
+                    />
+                    <Text
+                      b
+                      color="#fff"
+                      size={20}
+                      css={{ lineHeight: 1.2, opacity: 0.9 }}
+                    >
+                      NSE + BSE + SME stock picks
+                    </Text>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      alignSelf: "start",
+                      // marginTop: "20px",
+                      marginBottom: "10px",
+                      // marginLeft: "5%",
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingLeft: "30px",
+                      paddingRight: "30px",
+                    }}
+                  >
+                    <CheckCircleIcon
+                      sx={{
+                        marginRight: "10px",
+                        color: "#fff",
+                        fontSize: 20,
+                        alignSelf: "start",
+                        marginTop: "5px",
+                        opacity: 0.9,
+                      }}
+                    />
+                    <Text
+                      b
+                      color="#fff"
+                      size={20}
+                      css={{ lineHeight: 1.2, opacity: 0.9 }}
+                    >
+                      WhatsApp & Email updates
+                    </Text>
+                  </Box>
+                  <Divider
+                    css={{
+                      background: "#fff",
+                      opacity: "0.5",
+                      width: "30px",
+                      height: "3px",
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                    }}
+                  />
+                  <Button
+                    // variant="contained"
+                    css={{
+                      width: "75%",
+                      background: "linear-gradient(to top , #fb7716,#fe9807)",
+                      paddingTop: "5px",
+                      paddingBottom: "5px",
+                      borderRadius: "10000px",
+                      boxShadow: "none",
+                      "&:hover": {
+                        backgroundImage:
+                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                      },
+                    }}
+                    onClick={handleLoginOrSubForSubscribeNow}
+                  >
+                    <Text b color="#FFF" size={18}>
+                      Subscribe Now
+                    </Text>
+                  </Button>
+                  <Modal
+                    width="450px"
+                    open={showLoginModalForSubscribe}
+                    onClose={handleCloseLoginModalForSubscribeNow}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+                      <IconButton
+                        sx={{
+                          width: "40px",
+                          "&:hover": { background: "#fff" },
+                          // alignSelf: "end",
+                          right: "20px",
+                        }}
+                        onClick={() => handleCloseLoginModalForSubscribeNow()}
+                      >
+                        <CloseIcon sx={{ color: "#e81123" }} />
+                      </IconButton>
+                    </Box>
+
+                    <Modal.Body>
+                      <LoginForSubsribe />
+                    </Modal.Body>
+                  </Modal>
+
+                  <Text
+                    b
+                    size={20}
+                    color="#fff"
+                    css={{
+                      textAlign: "center",
+                      marginTop: "10px",
+                      "@media only screen and (max-width: 768px)": {
+                        fontSize: "20px",
+                      },
+                    }}
+                  >
+                    for ₹
+                    <span
+                      style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
+                    >
+                      15,000/year
+                    </span>
+                  </Text>
+
+                  <Text
+                    b
+                    size={18}
+                    color="#FFF"
+                    css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
+                  >
+                    inclusive of taxes
+                  </Text>
+                  <Text
+                    b
+                    size={14}
+                    color="#fff"
+                    css={{
+                      textDecoration: "underline",
+                      position: "absolute",
+                      bottom: "35px",
+                      cursor: "pointer",
+                      // mt: "10px",
+                      lineHeight: 1,
+                      opacity: 1,
+                      "@media only screen and (max-width: 768px)": {
+                        marginTop: "20px",
+                        marginBottom: "20px",
+                        bottom: "0px",
+                      },
+                    }}
+                    onClick={handleShowWhyModal}
+                  >
+                    Why do we charge annually?
+                  </Text>
+                  <Modal
+                    open={showWhyModal}
+                    onClose={handleWhyModalClose}
+                    css={{
+                      justifyContent: "center",
+                      background: "transparent",
+                      alignItems: "center",
+                      boxShadow: "none",
+                    }}
+                  >
+                    <Card
+                      css={{
+                        padding: "50px 50px",
+                        width: "550px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "95%",
+                        },
+                      }}
+                    >
+                      <IconButton
+                        sx={{ position: "absolute", top: "5px", right: "5px" }}
+                        onClick={handleWhyModalClose}
+                      >
+                        <CloseIcon color="error" />
+                      </IconButton>
+                      <Text b size={21} css={{ textAlign: "start" }}>
+                        Why do we charge annually?
+                      </Text>
+                      <br />
+                      <Text b css={{ lineHeight: 1.2, textAlign: "start" }}>
+                        We understand that effective investing requires time and
+                        patience, which is why we exclusively offer an annual
+                        plan. Our strategy reflects our ethos that long-term
+                        commitment is key to unlocking the true potential of
+                        your investments.
+                      </Text>
+                    </Card>
+                  </Modal>
+                </Card>
+                <Modal
+                  blur
+                  width="450px"
+                  open={showLoginModal}
+                  onClose={handleCloseLoginModal}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+                    <IconButton
+                      sx={{
+                        width: "40px",
+                        "&:hover": { background: "#fff" },
+                        // alignSelf: "end",
+                        right: "20px",
+                      }}
+                      onClick={() => handleCloseLoginModal()}
+                    >
+                      <CloseIcon sx={{ color: "#e81123" }} />
+                    </IconButton>
+                  </Box>
+
+                  <Modal.Body>
+                    <Login />
+                  </Modal.Body>
+                </Modal>
+              </Grid>
+            ) : (
+              ""
+            )}
+            {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
+            {/* {stocks.length <= 3 &&
+					Array.from({ length: 4 }).map((_, index) => ( */}
+            {!isLoggedIn || !isSubscribed
+              ? staticNumbers.map((number, index) => (
+                <Grid
+                  // key={stock.id}
+                  key={index}
+                  item
+                  xs={"auto"}
+                  sm={"auto"}
+                  md={"auto"}
+                  lg={"auto"}
+                  style={{ alignItems: "center" }}
+                >
+                  <Card
+                    variant="flat"
+                    css={{
+                      height: "617px",
+                      width: "285px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      backgroundColor: "#fff",
+                      borderRadius: "40px",
+                      border: "4px solid",
+                      borderColor: "#ffa12e",
+                      marginBottom: "20px",
+                      boxShadow: "none",
+                      filter: "none",
+                      "@media only screen and (max-width: 768px)": {
+                        width: "95vw",
+                        maxWidth: "620px",
+                        height: "auto",
+                        borderRadius: "35px",
+                        border: "4px solid",
+                        borderColor: "#ffa12e",
+                        paddingBottom: "30px",
+                        marginBottom: "0px",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        marginLeft: "5%",
+                        marginRight: "5%",
+                        marginTop: "20px",
+                        marginBottom: "20px",
+                        width: "90%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          marginTop: "5px",
+                          display: "flex",
+                          flexDirection: "column",
+                          textAlign: "center",
+                          backgroundColor: "#fff",
+                          marginBottom: "15px",
+                          width: "90%",
+                          "@media only screen and (max-width: 768px)": {
+                            width: "100%",
+                          },
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            zIndex: 0,
+                            width: "100%",
+                            paddingTop: "7.5px",
+                            paddingBottom: "7.5px",
+                            paddingLeft: "5px",
+                            paddingRight: "5px",
+                            backgroundImage:
+                              "linear-gradient(to top , #FF9D28, #ffa736)",
+                            marginBottom: "15px",
+                            marginTop: "5px",
+                            borderRadius: "10000px",
+                            lineHeight: 1,
+                          }}
+                        >
+                          <Text
+                            b
+                            size={14}
+                            color="Black"
+                            css={{ lineHeight: 1 }}
+                          >
+                            {/* {stock.stock_industry} */}
+                            {`<Industry>`}
+                          </Text>
+                        </Box>
+                        <Text
+                          b
+                          size={26}
+                          css={{
+                            minWidth: "100%",
+                            maxWidth: "100%",
+                            textAlign: "center",
+                            lineHeight: 1.2,
+                            position: "relative",
+                            zIndex: 0,
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 20,
+                            },
+                          }}
+                        >
+                          {`KamayaKya`}
+                        </Text>
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backdropFilter: "blur(8px)",
+                            zIndex: 0,
+                            WebkitBackdropFilter: "blur(8px)",
+                            margin: "15px",
+                            "@media only screen and (max-width: 768px)": {
+                              margin: "0px",
+                            },
+                          }}
+                        >{` `}</Box>
+                      </Box>
+                      <Box
+                        sx={{
+                          zIndex: 1,
+                          width: "90%",
+                          backgroundImage:
+                            "linear-gradient(to top , #106052, #0f734d)",
+                          borderRadius: "17.5px",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          paddingTop: "20px",
+                          paddingBottom: "20px",
+                          "@media only screen and (max-width: 768px)": {
+                            width: "100%",
+                          },
+                        }}
+                      >
+                        <Text
+                          b
+                          size={20}
+                          color="#fff"
+                          css={{
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          Upside Left
+                        </Text>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <ArrowCircleUp size={25} color="#fff" />
+                          <Text
+                            b
+                            size={48}
+                            color="#fff"
+                            css={{
+                              lineHeight: 1,
+                              marginLeft: "3px",
+                              marginRight: "3px",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 55,
+                              },
+                            }}
+                          >
+                            {`${number}`}
+                          </Text>
+                          <span style={{ fontSize: 25, color: "#FFF" }}>%</span>
+                        </div>
+                      </Box>
+
+                      <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            width: "100%",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <Divider
+                            height={4}
+                            style={{
+                              backgroundColor: "#ffa736",
+                              marginTop: "30px",
+                              marginBottom: "10px",
+                              width: "50px",
+                              alignSelf: "center",
+                            }}
+                          />
+
+                          <div
+                            style={{
+                              zIndex: 1,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              marginTop: "0px",
+                            }}
+                          >
+                            <MdOutlineLock color="#ffa12e" size={50} />
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexDirection: "row",
+                                marginTop: "20px",
+                              }}
+                              className="stocksPage-card-loginSection"
+                            >
+                              {/* <Button
+																on
+																onPress={handleFirstCard}
+																css={{
+																	backgroundColor: "transparent",
+																}}
+															> */}
+                              {isLoggedIn ? (
+                                <div
+                                  style={{
+                                    justifyContent: "center",
+                                    textAlign: "center",
+                                    // height: "fit-content",
+                                    // maxWidth: "220px",
+                                    // maxHeight: "220px",
+                                  }}
+                                >
+                                  <Text
+                                    b
+                                    size={16}
+                                    css={{
+                                      // maxWidth: "220px",
+                                      // lineHeight: 1
+                                      textAlign: "center",
+                                      marginBottom: "15px",
+                                    }}
+                                  >
+                                    Unlock a world of wealth with just a click.
+                                    {/* Log in, and three free stock picks */}
+                                    {/* are your key to potential prosperity. It's */}
+                                    {/* like finding hidden gems without the */}
+                                    {/* digging! */}
+                                  </Text>
+                                  <Button
+                                    // variant="contained"
+                                    css={{
+                                      width: "100%",
+                                      marginTop: "10px",
+                                      background:
+                                        "linear-gradient(to top , #fb7716,#fe9807)",
+                                      paddingTop: "5px",
+                                      paddingBottom: "5px",
+                                      borderRadius: "10000px",
+                                      boxShadow: "none",
+                                      "&:hover": {
+                                        backgroundImage:
+                                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                                      },
+                                    }}
+                                    onPress={handleFirstCard}
+                                  >
+                                    <Text b color="#FFF" size={18}>
+                                      Subscribe to unlock
+                                    </Text>
+                                  </Button>
+                                </div>
+                              ) : (
+                                <div
+                                  style={{
+                                    justifyContent: "center",
+                                    textAlign: "center",
+                                    // height: "fit-content",
+                                    // maxWidth: "220px",
+                                    // maxHeight: "220px",
+                                  }}
+                                >
+                                  <Text
+                                    b
+                                    size={16}
+                                    css={{
+                                      // maxWidth: "220px",
+                                      // lineHeight: 1
+                                      textAlign: "center",
+                                      marginBottom: "15px",
+                                    }}
+                                  >
+                                    Unlock a world of wealth with just a click.
+                                    {/* Log in, and three free stock picks */}
+                                    {/* are your key to potential prosperity. It's */}
+                                    {/* like finding hidden gems without the */}
+                                    {/* digging! */}
+                                  </Text>
+                                  <Button
+                                    // variant="contained"
+                                    css={{
+                                      width: "100%",
+                                      marginTop: "10px",
+                                      background:
+                                        "linear-gradient(to top , #fb7716,#fe9807)",
+                                      paddingTop: "5px",
+                                      paddingBottom: "5px",
+                                      borderRadius: "10000px",
+                                      boxShadow: "none",
+                                      "&:hover": {
+                                        backgroundImage:
+                                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                                      },
+                                    }}
+                                    onPress={handleFirstCard}
+                                  >
+                                    <Text b color="#FFF" size={18}>
+                                      Login to unlock
+                                    </Text>
+                                  </Button>
+                                </div>
+                              )}
+
+                              {/*<BiChevronRight size={24} color="#000000" />*/}
+                              {/* </Button> */}
+                            </div>
+                          </div>
+                          <Divider
+                            height={4}
+                            style={{
+                              backgroundColor: "#ffa736",
+                              marginTop: "30px",
+                              marginBottom: "10px",
+                              width: "50px",
+                              alignSelf: "center",
+                            }}
+                          />
+                        </div>
+                      </Box>
+                    </Box>
+                  </Card>
+                </Grid>
+              ))
+              : ""}
+
+
+            {isSubscribed && plan === "core" ? (() => {
+              return <>
+                <Grid>
+                  <Card
+                    isHoverable
+                    css={{
+                      height: "575px",
+                      width: "285px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      borderRadius: "35px",
+                      background: "#fff",
+                      filter: "none",
+                      justifyContent: "center",
+                      paddingTop: "50px",
+                      paddingBottom: "50px",
+                      paddingLeft: "15px",
+                      paddingRight: "15px",
+                      backgroundImage:
+                        "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
+                    }}
+                    className="stocksPage-subscribe-mobile"
+                  >
+                    <div className="cr cr-top cr-right cr-sticky cr-subscription">
+                      VIP+
+                    </div>
+                    <img
+                      src="kamayakya-logo-white-vip.png"
+                      style={{ marginTop: "5px", width: "75%" }}
+                      alt="kamayakya"
+                    />
+
+                    <Divider
+                      css={{
+                        background: "#fff",
+                        opacity: "0.5",
+                        width: "30px",
+                        height: "3px",
+                        marginTop: "20px",
+                      }}
+                    />
+
+                    <Box
+                      sx={{
+                        width: "100%",
+                        alignSelf: "start",
+                        marginTop: "20px",
+                        marginBottom: "10px",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: "30px",
+                        paddingRight: "30px",
+                      }}
+                    >
+                      <CheckCircleIcon
+                        sx={{
+                          marginRight: "10px",
+                          color: "#fff",
+                          fontSize: 20,
+                          alignSelf: "start",
+                          marginTop: "5px",
+                          opacity: 0.9,
+                        }}
+                      />
+                      <Text
+                        b
+                        color="#fff"
+                        size={20}
+                        css={{ lineHeight: 1.2, opacity: 0.9 }}
+                      >
+                        2-4 individual stock picks every month
+                      </Text>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        alignSelf: "start",
+                        marginBottom: "10px",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: "30px",
+                        paddingRight: "30px",
+                      }}
+                    >
+                      <CheckCircleIcon
+                        sx={{
+                          marginRight: "10px",
+                          color: "#fff",
+                          fontSize: 20,
+                          alignSelf: "start",
+                          marginTop: "5px",
+                          opacity: 0.9,
+                        }}
+                      />
+                      <Text
+                        b
+                        color="#fff"
+                        size={20}
+                        css={{ lineHeight: 1.2, opacity: 0.9 }}
+                      >
+                        NSE + BSE + SME stock picks
+                      </Text>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        alignSelf: "start",
+                        // marginTop: "20px",
+                        marginBottom: "10px",
+                        // marginLeft: "5%",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        paddingLeft: "30px",
+                        paddingRight: "30px",
+                      }}
+                    >
+                      <CheckCircleIcon
+                        sx={{
+                          marginRight: "10px",
+                          color: "#fff",
+                          fontSize: 20,
+                          alignSelf: "start",
+                          marginTop: "5px",
+                          opacity: 0.9,
+                        }}
+                      />
+                      <Text
+                        b
+                        color="#fff"
+                        size={20}
+                        css={{ lineHeight: 1.2, opacity: 0.9 }}
+                      >
+                        WhatsApp & Email updates
+                      </Text>
+                    </Box>
+                    <Divider
+                      css={{
+                        background: "#fff",
+                        opacity: "0.5",
+                        width: "30px",
+                        height: "3px",
+                        marginTop: "20px",
+                        marginBottom: "20px",
+                      }}
+                    />
+                    <Button
+                      // variant="contained"
+                      css={{
+                        width: "75%",
+                        background: "linear-gradient(to top , #fb7716,#fe9807)",
+                        paddingTop: "5px",
+                        paddingBottom: "5px",
+                        borderRadius: "10000px",
+                        boxShadow: "none",
+                        "&:hover": {
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                        },
+                      }}
+                      onClick={handleLoginOrSubForSubscribeNow}
+                    >
+                      <Text b color="#FFF" size={18}>
+                        Subscribe Now
+                      </Text>
+                    </Button>
+                    <Modal
+                      width="450px"
+                      open={showLoginModalForSubscribe}
+                      onClose={handleCloseLoginModalForSubscribeNow}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          width: "100%",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+                        <IconButton
+                          sx={{
+                            width: "40px",
+                            "&:hover": { background: "#fff" },
+                            // alignSelf: "end",
+                            right: "20px",
+                          }}
+                          onClick={() => handleCloseLoginModalForSubscribeNow()}
+                        >
+                          <CloseIcon sx={{ color: "#e81123" }} />
+                        </IconButton>
+                      </Box>
+
+                      <Modal.Body>
+                        <LoginForSubsribe />
+                      </Modal.Body>
+                    </Modal>
+
+                    <Text
+                      b
+                      size={20}
+                      color="#fff"
+                      css={{
+                        textAlign: "center",
+                        marginTop: "10px",
+                        "@media only screen and (max-width: 768px)": {
+                          fontSize: "20px",
+                        },
+                      }}
+                    >
+                      for ₹
+                      <span
+                        style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
+                      >
+                        15,000/year
+                      </span>
+                    </Text>
+
+                    <Text
+                      b
+                      size={18}
+                      color="#FFF"
+                      css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
+                    >
+                      inclusive of taxes
+                    </Text>
+                    <Text
+                      b
+                      size={14}
+                      color="#fff"
+                      css={{
+                        textDecoration: "underline",
+                        position: "absolute",
+                        bottom: "35px",
+                        cursor: "pointer",
+                        // mt: "10px",
+                        lineHeight: 1,
+                        opacity: 1,
+                        "@media only screen and (max-width: 768px)": {
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          bottom: "0px",
+                        },
+                      }}
+                      onClick={handleShowWhyModal}
+                    >
+                      Why do we charge annually?
+                    </Text>
+                    <Modal
+                      open={showWhyModal}
+                      onClose={handleWhyModalClose}
+                      css={{
+                        justifyContent: "center",
+                        background: "transparent",
+                        alignItems: "center",
+                        boxShadow: "none",
+                      }}
+                    >
+                      <Card
+                        css={{
+                          padding: "50px 50px",
+                          width: "550px",
+                          "@media only screen and (max-width: 768px)": {
+                            width: "95%",
+                          },
+                        }}
+                      >
+                        <IconButton
+                          sx={{ position: "absolute", top: "5px", right: "5px" }}
+                          onClick={handleWhyModalClose}
+                        >
+                          <CloseIcon color="error" />
+                        </IconButton>
+                        <Text b size={21} css={{ textAlign: "start" }}>
+                          Why do we charge annually?
+                        </Text>
+                        <br />
+                        <Text b css={{ lineHeight: 1.2, textAlign: "start" }}>
+                          We understand that effective investing requires time and
+                          patience, which is why we exclusively offer an annual
+                          plan. Our strategy reflects our ethos that long-term
+                          commitment is key to unlocking the true potential of
+                          your investments.
+                        </Text>
+                      </Card>
+                    </Modal>
+                  </Card>
+                  <Modal
+                    blur
+                    width="450px"
+                    open={showLoginModal}
+                    onClose={handleCloseLoginModal}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+                      <IconButton
+                        sx={{
+                          width: "40px",
+                          "&:hover": { background: "#fff" },
+                          // alignSelf: "end",
+                          right: "20px",
+                        }}
+                        onClick={() => handleCloseLoginModal()}
+                      >
+                        <CloseIcon sx={{ color: "#e81123" }} />
+                      </IconButton>
+                    </Box>
+
+                    <Modal.Body>
+                      <Login />
+                    </Modal.Body>
+                  </Modal>
+                </Grid>
+              </>
+            })() : null}
+
+            {isSubscribed && plan === "core" ? staticNumbers.map((number, index) => (
+              <Grid
+                // key={stock.id}
+                key={index}
+                item
+                xs={"auto"}
+                sm={"auto"}
+                md={"auto"}
+                lg={"auto"}
+                style={{ alignItems: "center" }}
+              >
+                <Card
+                  variant="flat"
+                  css={{
+                    height: "575px",
+                    width: "285px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                    borderRadius: "40px",
+                    border: "4px solid",
+                    borderColor: "#ffa12e",
+                    marginBottom: "20px",
+                    boxShadow: "none",
+                    filter: "none",
+                    "@media only screen and (max-width: 768px)": {
+                      width: "95vw",
+                      maxWidth: "620px",
+                      height: "auto",
+                      borderRadius: "35px",
+                      border: "4px solid",
+                      borderColor: "#ffa12e",
+                      paddingBottom: "30px",
+                      marginBottom: "0px",
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      marginLeft: "5%",
+                      marginRight: "5%",
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                      width: "90%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        marginTop: "5px",
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "center",
+                        backgroundColor: "#fff",
+                        marginBottom: "15px",
+                        width: "90%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <div
+                        className="cr cr-top cr-right cr-sticky cr-subscription"
+                        style={{ zIndex: 10 }}
+                      >
+                        SME
+                      </div>
+                      <Box
+                        sx={{
+                          zIndex: 0,
+                          width: "100%",
+                          paddingTop: "7.5px",
+                          paddingBottom: "7.5px",
+                          paddingLeft: "5px",
+                          paddingRight: "5px",
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                          marginBottom: "15px",
+                          marginTop: "5px",
+                          borderRadius: "10000px",
+                          lineHeight: 1,
+                        }}
+                      >
+                        <Text
+                          b
+                          size={14}
+                          color="Black"
+                          css={{ lineHeight: 1 }}
+                        >
+                          {/* {stock.stock_industry} */}
+                          {`<Industry>`}
+                        </Text>
+                      </Box>
+                      <Text
+                        b
+                        size={26}
+                        css={{
+                          minWidth: "100%",
+                          maxWidth: "100%",
+                          textAlign: "center",
+                          lineHeight: 1.2,
+                          position: "relative",
+                          zIndex: 0,
+                          "@media only screen and (max-width: 768px)": {
+                            fontSize: 20,
+                          },
+                        }}
+                      >
+                        {`KamayaKya`}
+                      </Text>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          backdropFilter: "blur(8px)",
+                          zIndex: 0,
+                          WebkitBackdropFilter: "blur(8px)",
+                          margin: "15px",
+                          "@media only screen and (max-width: 768px)": {
+                            margin: "0px",
+                          },
+                        }}
+                      >{` `}</Box>
+                    </Box>
+                    <Box
+                      sx={{
+                        zIndex: 1,
+                        width: "90%",
+                        backgroundImage:
+                          "linear-gradient(to top , #106052, #0f734d)",
+                        borderRadius: "17.5px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <Text
+                        b
+                        size={20}
+                        color="#fff"
+                        css={{
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        Upside Left
+                      </Text>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <ArrowCircleUp size={25} color="#fff" />
+                        <Text
+                          b
+                          size={48}
+                          color="#fff"
+                          css={{
+                            lineHeight: 1,
+                            marginLeft: "3px",
+                            marginRight: "3px",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 55,
+                            },
+                          }}
+                        >
+                          {`${number}`}
+                        </Text>
+                        <span style={{ fontSize: 25, color: "#FFF" }}>%</span>
+                      </div>
+                    </Box>
+
+                    <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <Divider
+                          height={4}
+                          style={{
+                            backgroundColor: "#ffa736",
+                            marginTop: "30px",
+                            marginBottom: "10px",
+                            width: "50px",
+                            alignSelf: "center",
+                          }}
+                        />
+
+                        <div
+                          style={{
+                            zIndex: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            marginTop: "0px",
+                          }}
+                        >
+                          <MdOutlineLock color="#ffa12e" size={50} />
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              marginTop: "20px",
+                            }}
+                            className="stocksPage-card-loginSection"
+                          >
+                            {/* <Button
+																on
+																onPress={handleFirstCard}
+																css={{
+																	backgroundColor: "transparent",
+																}}
+															> */}
+                            {isLoggedIn ? (
+                              <div
+                                style={{
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  // height: "fit-content",
+                                  // maxWidth: "220px",
+                                  // maxHeight: "220px",
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  css={{
+                                    // maxWidth: "220px",
+                                    // lineHeight: 1
+                                    textAlign: "center",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  Unlock a world of wealth with just a click.
+                                  {/* Log in, and three free stock picks */}
+                                  {/* are your key to potential prosperity. It's */}
+                                  {/* like finding hidden gems without the */}
+                                  {/* digging! */}
+                                </Text>
+                                <Button
+                                  // variant="contained"
+                                  css={{
+                                    width: "100%",
+                                    marginTop: "10px",
+                                    background:
+                                      "linear-gradient(to top , #fb7716,#fe9807)",
+                                    paddingTop: "5px",
+                                    paddingBottom: "5px",
+                                    borderRadius: "10000px",
+                                    boxShadow: "none",
+                                    "&:hover": {
+                                      backgroundImage:
+                                        "linear-gradient(to top , #FF9D28, #ffa736)",
+                                    },
+                                  }}
+                                  onPress={handleFirstCard}
+                                >
+                                  <Text b color="#FFF" size={18}>
+                                    Subscribe to unlock
+                                  </Text>
+                                </Button>
+                              </div>
+                            ) : (
+                              <div
+                                style={{
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  // height: "fit-content",
+                                  // maxWidth: "220px",
+                                  // maxHeight: "220px",
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  css={{
+                                    // maxWidth: "220px",
+                                    // lineHeight: 1
+                                    textAlign: "center",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  Unlock a world of wealth with just a click.
+                                  {/* Log in, and three free stock picks */}
+                                  {/* are your key to potential prosperity. It's */}
+                                  {/* like finding hidden gems without the */}
+                                  {/* digging! */}
+                                </Text>
+                                <Button
+                                  // variant="contained"
+                                  css={{
+                                    width: "100%",
+                                    marginTop: "10px",
+                                    background:
+                                      "linear-gradient(to top , #fb7716,#fe9807)",
+                                    paddingTop: "5px",
+                                    paddingBottom: "5px",
+                                    borderRadius: "10000px",
+                                    boxShadow: "none",
+                                    "&:hover": {
+                                      backgroundImage:
+                                        "linear-gradient(to top , #FF9D28, #ffa736)",
+                                    },
+                                  }}
+                                  onPress={handleFirstCard}
+                                >
+                                  <Text b color="#FFF" size={18}>
+                                    Subscribe to unlock
+                                  </Text>
+                                </Button>
+                              </div>
+                            )}
+
+                            {/*<BiChevronRight size={24} color="#000000" />*/}
+                            {/* </Button> */}
+                          </div>
+                        </div>
+                        <Divider
+                          height={4}
+                          style={{
+                            backgroundColor: "#ffa736",
+                            marginTop: "30px",
+                            marginBottom: "10px",
+                            width: "50px",
+                            alignSelf: "center",
+                          }}
+                        />
+                      </div>
+                    </Box>
+                  </Box>
+                </Card>
+              </Grid>
+            ))
+              : ""}
+          </Grid>
+        </Box>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import React, { useContext } from "react";
 import NavBar from "@/components/Navbar";
+import NavBar2 from "../components/Navbar2";
 // import AboutUs from "./screens/AboutUs";
 // import WhyUs from "./screens/WhyUs";
 // import Solutions from "./screens/Solutions";
@@ -13,7 +14,6 @@ import FaqsNew from "./screens/FaqsNew";
 import Testimonials from "./screens/Testimonials";
 // import TestimonialsNew from './screens/TestimonialsNew';
 import SubscriptionNew from "../components/SubscriptionNew";
-import NavBar2 from "@/components/Navbar2";
 import AuthProvider from "@/components/AuthContext";
 import HomePage from "@/pages/screens/HomePage";
 import Section1 from "./AboutPages/Section1";
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
 		// 	<PageVisibility>
 		//   {(isPageVisible: any) => (
 		<>
-			{isLoggedIn ? <NavBar2 /> : <NavBar />}
+			{isLoggedIn ? <NavBar2  /> : <NavBar />}
 			<HomePage />
 			<Section1 />
 			<Section3 />
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
 			<Section7 />
 			{isLoggedIn && isSubscribed ? "" : <HotStocks />}
 			<Testimonials />
-			<SubscriptionNew />
+			{/* <SubscriptionNew /> */}
 			{/* <SmallcaseCard /> */}
 			{/* <AboutUs /> */}
 			{/* <Process /> */}

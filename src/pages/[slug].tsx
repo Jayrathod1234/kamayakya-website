@@ -81,7 +81,7 @@ const BlogPage = () => {
   const decoder = new TextDecoder("utf-8");
 
   const ref = useRef<HTMLDivElement | null>(null);
-  const url = "https://legendary-madeleine-b03cd5.netlify.app/";
+  const url = "https://dev-website.kamayakya.in/";
 
   useEffect(() => {
     const fetchBlogData = async () => {

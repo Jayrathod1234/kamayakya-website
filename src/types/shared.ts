@@ -1,5 +1,4 @@
 import React from "react";
-
 // src/types.d.ts
 import { CSSProperties } from 'react';
 
@@ -10,6 +9,7 @@ export interface CustomCSSProperties extends CSSProperties {
   "--bg-img"?:string;
   '--bg-hover-img'?:string;
 }
+
 
 
 export type TChildren = {

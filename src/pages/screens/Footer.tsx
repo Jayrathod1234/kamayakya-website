@@ -3,10 +3,10 @@ import { Divider, Text } from "@nextui-org/react";
 import React from "react";
 import Navbar from "../../components/Navbar";
 import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
+	FaFacebook,
+	FaInstagram,
+	FaLinkedinIn,
+	FaTwitter,
 } from "react-icons/fa";
 import { BsTelephone } from "react-icons/bs";
 import { CiMail } from "react-icons/ci";
