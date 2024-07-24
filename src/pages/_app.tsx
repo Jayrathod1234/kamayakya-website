@@ -17,7 +17,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           <PlanProvider>
             <Component {...pageProps} />
             <Head>
-              <title>KamayaKya - SEBI Registered Research Analyst | Expert Microcap & Smallcap Stock Picks</title>
+              <title>
+                KamayaKya - SEBI Registered Research Analyst | Expert Microcap &
+                Smallcap Stock Picks
+              </title>
               <meta
                 name="og:title"
                 content="KamayaKya - SEBI Registered Research Analyst | Expert Microcap &
@@ -69,8 +72,10 @@ function MyApp({ Component, pageProps }: AppProps) {
               {/*  data-nscript="afterInteractive"*/}
               {/*/>*/}
             </Head>
-            <Toaster/>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=G-4R949GS408`} />
+            <Toaster />
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=G-4R949GS408`}
+            />
 
             <Script id="google-analytics">
               {`
