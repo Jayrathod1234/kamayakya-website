@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+
 import type { AppProps } from "next/app";
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 import { useSSR } from "@nextui-org/react";
@@ -7,6 +8,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { PlanProvider } from "@/components/PlanContext";
 import { Toaster } from "@/components.v2/ui/toaster";
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { isBrowser } = useSSR();

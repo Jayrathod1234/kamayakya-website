@@ -25,6 +25,7 @@ import AuthContext from "../components/AuthContext";
 import PageVisibility from "../components/PageVisibility";
 import Stockpicks from "../components.v2/Stockpicks";
 
+
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
 
