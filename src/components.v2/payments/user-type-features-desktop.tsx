@@ -2,6 +2,7 @@ import { ButtonnArrow } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import { DEEP_RESEARCH_INVESTOR_FEATURES, EFFORTLESS_INVESTOR_FEATURES } from "@/constants/index.constants";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import Lottie from "lottie-react";
 import { useEffect, useRef, useState } from "react";
 import { FeatureListDesktop } from "./feature-list-desktop";
 import { DEEP_RESEARCH_INVESTOR, EFFORTLESS_INVESTOR, TUserType } from "./user-type-desktop-card";
@@ -120,7 +121,7 @@ export function UserTypeFeaturesDesktop({
         </div>
         <div className=" md:w-[350px] lg:w-[523px] mx-auto flex justify-center items-center object-contain">
           {/* <video className=" w-[80%] aspect-square" width={523} height={343} src={userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep_investor.webm":"/pricing/effortless_investor.webm"} muted autoPlay loop></video> */}
-          {/* <Lottie
+           <Lottie
             className=" w-[70%] aspect-square"
             animationData={userTypeSelected === DEEP_RESEARCH_INVESTOR ? DEEP_RESEARCH_LOTTIE : EFFORTLESS_LOTTIE}
             // options={defaultOptions}
@@ -128,7 +129,7 @@ export function UserTypeFeaturesDesktop({
             // width={523}
             // isStopped={this.state.isStopped}
             // isPaused={this.state.isPaused}
-          /> */}
+          /> 
         </div>
       </div>
       <UserTypProgress
