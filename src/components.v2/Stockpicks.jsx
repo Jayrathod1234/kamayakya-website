@@ -7,6 +7,7 @@ import ProgressBar from "./ProgressBar.jsx";
 import Latest from "./Latest.jsx";
 import Discover from "./Discover.jsx";
 import { Carousel } from "../components.v2/carousel";
+import Mainboard from "./Mainboard.jsx";
 
 function Stockpicks() {
   const handleContactButton = () => {
@@ -587,6 +588,7 @@ function Stockpicks() {
 
       <Latest />
       <Discover />
+      <Mainboard />
     </React.Fragment>
   );
 }

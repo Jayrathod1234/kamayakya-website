@@ -1649,7 +1649,10 @@ width:20px !important;
 .card:hover .overlay {
   transform: scale(4) translateZ(0);
 }
-
+/* .card:hover .card-title {
+  color: black;
+  display: block;
+} */
 .card:hover .circle {
   border-color: #fff;
   background: #fff;
