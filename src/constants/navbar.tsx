@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 
 export const NAVBAR_LINKS = [
   {
@@ -46,6 +45,16 @@ export const NAVBAR_LINKS = [
     link: "/stock-picks",
     mixpanel:{
       event:"stockstobuy_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
+  },
+  {
+    title: "Blogs",
+    link: "/blogs-page",
+    mixpanel:{
+      event:"blogs_clicked",
       property:{
         page:"Pricing_Page"
       }
