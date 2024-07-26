@@ -4,7 +4,7 @@ import { Carousel } from "../components.v2/carousel";
 function Latest() {
   return (
     <>
-      <div className=" pb-[100px] relative">
+      <div className=" pt-[339px] pb-[100px] ">
         <div className=" before:content-[''] before:bg-[url(/testimonials_texture.png)] before:absolute before:w-full before:h-full before:opacity-25 relative flex flex-col items-center justify-center text-center bg-cover">
           <p className=" text-display-xs text-[#0C111D] font-bold font-open_sans">
             Latest Releases (10)
