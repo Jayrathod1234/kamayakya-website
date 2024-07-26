@@ -4,6 +4,8 @@ import { DEEP_RESEARCH_INVESTOR_FEATURES, EFFORTLESS_INVESTOR_FEATURES } from "@
 import { getMixPanelClient } from "@/externals/mixpanel";
 import Lottie from "lottie-react";
 import { useEffect, useRef, useState } from "react";
+import * as DEEP_RESEARCH_LOTTIE from "../../../public/pricing/deep-research-investor.json";
+import * as EFFORTLESS_LOTTIE from "../../../public/pricing/effortless-investor.json";
 import { FeatureListDesktop } from "./feature-list-desktop";
 import { DEEP_RESEARCH_INVESTOR, EFFORTLESS_INVESTOR, TUserType } from "./user-type-desktop-card";
 import { UserTypProgress } from "./user-type-progress";
