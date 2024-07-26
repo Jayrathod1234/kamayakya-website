@@ -12,11 +12,15 @@ export const getMixPanelClient = () => {
 class MixPanel {
   constructor(debug = false) {
     const isProd = process.env.NODE_ENV === "production";
-    mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_KEY!, {
-      debug : debug,
-      track_pageview: true,
-      persistence: "localStorage",
-    });
+
+    mixpanel.init(
+      process.env.NEXT_PUBLIC_MIXPANEL_KEY! || "http://localhost:3000",
+      {
+        debug: debug,
+        track_pageview: true,
+        persistence: "localStorage",
+      }
+    );
   }
 
   identify(id: string) {
