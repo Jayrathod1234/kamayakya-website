@@ -77,7 +77,7 @@ function Stockpicks() {
               Discover hidden gems! 💎
             </h1>
             <div className="bg-white rounded-[61px] mx-auto max-w-[347px] py-[6px] z-50">
-              <div className="flex flex-row flex-wrap justify-center cursor-pointer">
+              <div className="flex flex-row flex-wrap justify-center">
                 <input
                   id="tab-one"
                   type="radio"
@@ -87,7 +87,7 @@ function Stockpicks() {
                 />
                 <label
                   for="tab-one"
-                  className="bg-white peer-checked/tab-one:bg-black peer-checked/tab-one:text-white cursor-default px-10 py-2 rounded-[47px] block text-base font-semibold"
+                  className="bg-white peer-checked/tab-one:bg-black peer-checked/tab-one:text-white px-10 py-2 rounded-[47px] block text-base font-semibold cursor-pointer"
                 >
                   Main Board
                   <span className="block text-[11px] font-bold">12 Stocks</span>
@@ -100,7 +100,7 @@ function Stockpicks() {
                 />
                 <label
                   for="tab-two"
-                  className="bg-white peer-checked/tab-two:bg-black peer-checked/tab-two:text-white cursor-default px-10 py-2 rounded-[47px] block text-base font-semibold"
+                  className="bg-white peer-checked/tab-two:bg-black peer-checked/tab-two:text-white cursor-pointer px-10 py-2 rounded-[47px] block text-base font-semibold"
                 >
                   SME Board
                   <span className="block text-[11px] font-bold">14 Stocks</span>
@@ -167,7 +167,12 @@ function Stockpicks() {
                                 className="w-[16px] "
                               />
                               <div className="min-w-[215px] flex justify-center rounded-2xl bg-[#EDF0F5] gap-1 h-full w-full mr-4"></div>
-                              <div class="relative flex  items-center group">
+                              <img
+                                src="/assets/noto_locked.png"
+                                alt=""
+                                className="w-[16px] "
+                              />
+                              {/* <div class="relative flex  items-center group">
                                 <img
                                   src="/assets/play.gif"
                                   alt=""
@@ -180,7 +185,7 @@ function Stockpicks() {
                                   </span>
                                   <div class="w-3 h-3 -mt-2 rotate-45 bg-white"></div>
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                           <div className="pt-[9px] flex items-center gap-[6px] pb-[15px]">
