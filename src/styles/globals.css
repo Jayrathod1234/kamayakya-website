@@ -90,6 +90,7 @@ body {
   padding: 0;
   scroll-behavior: smooth;
   position:relative;
+  font-family: 'Open Sans';
 }
 
 * {
@@ -1547,7 +1548,7 @@ width:20px !important;
 .button-82-front {
   display: flex;
   position: relative;
-  padding: 6px 77px;
+  padding: 5px 49px;
   gap: 3px;
   border-radius: 6px;
   font-size: 1.1rem;
@@ -1558,11 +1559,14 @@ width:20px !important;
   transition:
     transform 600ms cubic-bezier(.3, .7, .4, 1);
 }
+.button-82-front.button-82-front2 {
+  padding: 5px 108px;
+}
 
 @media (min-width: 768px) {
   .button-82-front {
     /* font-size: 1.25rem; */
-    padding: 12px 42px;
+    /* padding: 12px 42px; */
   }
 }
 
@@ -1722,4 +1726,14 @@ width:20px !important;
   left: 50px;
   z-index: 0;
   transition: transform 0.3s ease-out;
+}
+/* play btn  */
+.watch-video {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.play:hover .watch-video {
+  opacity: 1;
+  visibility: visible;
 }

@@ -283,7 +283,7 @@ function Stockpicks() {
                                   srcSet=""
                                   className="w-4"
                                 />
-                                <p className="text-[9px] font-bold text-[#125B54]">
+                                <p className="text-[13px] font-bold text-[#125B54]">
                                   Become a Member
                                 </p>
                                 <img
@@ -425,7 +425,7 @@ function Stockpicks() {
                                   srcSet=""
                                   className="w-4"
                                 />
-                                <p className="text-[9px] font-bold text-[#125B54]">
+                                <p className="text-[13px] font-bold text-[#125B54]">
                                   Become a Member
                                 </p>
                                 <img
@@ -567,7 +567,7 @@ function Stockpicks() {
                                   srcSet=""
                                   className="w-4"
                                 />
-                                <p className="text-[9px] font-bold text-[#125B54]">
+                                <p className="text-[13px] font-bold text-[#125B54]">
                                   Become a Member
                                 </p>
                                 <img

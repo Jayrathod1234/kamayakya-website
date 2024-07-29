@@ -136,6 +136,8 @@ const config = {
           "radial-gradient(348.84% 134.74% at -1.18% 22.73%, rgba(255, 255, 255, 0.00) 0%, rgba(164, 233, 255, 0.40) 19%, rgba(155, 226, 249, 0.57) 43.63%, rgba(197, 255, 224, 0.57) 57.07%, rgba(203, 255, 224, 0.57) 69.37%, rgba(229, 255, 223, 0.57) 79.3%, rgba(255, 255, 255, 0.00) 100%)",
         "custom-gradient":
           "linear-gradient(314deg, #125B54 6.46%, #12ADB7 113.37%)",
+        "custom-gradient-3":
+          "linear-gradient(272deg, #125B54 18.54%, #092E2B 107.09%)",
       },
       boxShadow: {
         "6xs": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",

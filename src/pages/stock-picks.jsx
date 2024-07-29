@@ -57,9 +57,9 @@ const StockPicks = () => {
             <Stockpicks />
           </div>
 
-          {/* <div className="   mt-[-10%]">
+          <div className="  ">
             <Footer />
-          </div> */}
+          </div>
         </>
       )}
     </PageVisibility>
