@@ -198,7 +198,7 @@ export function Navbar({className}:{className?:string}) {
           {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
           <SideNav handleLogin={handleLogin} />
         </div>
-        <div className="hidden px-2 lg:flex">
+        <div className="hidden px-2 lg:flex items-center">
           <Link href={"/stock-picks"}>
             <Button
               variant={ButtonVariant.custom}
@@ -211,13 +211,13 @@ export function Navbar({className}:{className?:string}) {
               Stocks to Buy
             </Button>
           </Link>
-          <div>
+          
             {isLoggedIn ? (
               <NavbarDropdownCard triggerElement={<Avatar className=" transition-all border-[1.38px] border-[#EDF0F5] hover:border-[4px] hover:scale-[1.05]" variant={AvatarVariant.md} />} userCard={true} />
             ) : (
               <LoginBtnNav handleLogin={handleLogin} arrow />
             )}
-          </div>
+         
         </div>
         <Modal
           width="450px"
