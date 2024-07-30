@@ -3,10 +3,11 @@ import React, {useContext} from "react";
 import FaqsNew from "./screens/FaqsNew";
 import Footer from "./screens/Footer";
 import AuthContext from "@/components/AuthContext";
-import NavBar2 from "@/components/Navbar2";
+// import NavBar2 from "@/components/Navbar2";
 import {Text} from "@nextui-org/react";
 import {Box} from "@mui/material";
 import Head from "next/head";
+import { Navbar } from "@/components.v2/navbar";
 
 const Complaints = () => {
     const {isLoggedIn} = useContext(AuthContext);
@@ -20,7 +21,8 @@ const Complaints = () => {
                     content="Check out our Complaints Page to provide feedback. We are committed to resolving issues promptly, ensuring a seamless experience for our valued clients."
                 />
             </Head>
-            {isLoggedIn ? <NavBar2/> : <NavBar/>}
+            {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
+            <Navbar/>
             <Box
                 sx={{
                     // paddingTop: "30px",

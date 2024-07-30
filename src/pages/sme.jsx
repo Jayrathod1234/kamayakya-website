@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import NavBar2 from "../components/Navbar2";
-import NavBar from "../components/Navbar";
+// import NavBar2 from "../components/Navbar2";
+// import NavBar from "../components/Navbar";
+import {Navbar} from '../components.v2/navbar'
 import StockCard from "../components/StockCard";
 import FaqsNew from "./screens/FaqsNew";
 import Footer from "./screens/Footer";
@@ -23,7 +24,8 @@ const SME = () => {
 							content="Checkout KamayaKya's SME stocks recommendations and get maximum benefits and subscribe now to fuel your financial growth."
 						/>
 					</Head>
-					{isLoggedIn ? <NavBar2 /> : <NavBar />}
+					{/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
+					<Navbar/>
 					<div
 						style={{
 							background: "#fff",

@@ -42,7 +42,7 @@ export function Footer() {
   return (
     <div className="bg-gradient-to-b from-[15%] from-[transparent] md:from-20% via-[#182E35] via-5% to-[#182E35] to-90%">
       <div className="h-[calc(286px+10%)] overflow-hidden w-full z-10">
-        <Image alt="footer-bg" src={"/footer.webp"} width={1440} height={491} className=" w-full h-full" />
+        <Image alt="footer-bg" src={"/footer.webp"} width={1440} height={300} className=" w-full h-full" />
       </div>
       <div className=" bg-[#182E35]">
         <div className=" text-white  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto flex flex-col gap-y-16 max-md:gap-y-[21px] pb-5 mt-[58px]">

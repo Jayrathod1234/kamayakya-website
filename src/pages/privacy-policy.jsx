@@ -1,7 +1,8 @@
 import React, {useContext} from "react";
 import AuthContext from "@/components/AuthContext";
-import NavBar2 from "@/components/Navbar2";
-import NavBar from "@/components/Navbar";
+// import NavBar2 from "@/components/Navbar2";
+// import NavBar from "@/components/Navbar";
+import Navbar from '@/components.v2/navbar'
 import FaqsNew from "./screens/FaqsNew";
 import Footer from "./screens/Footer";
 import {Text} from "@nextui-org/react";
@@ -19,7 +20,8 @@ const PrivacyPolicy = () => {
                     content="KamayKya is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, and protected by KamayaKya."
                 />
             </Head>
-            {isLoggedIn ? <NavBar2/> : <NavBar/>}
+            {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
+            <Navbar/>
             <Box
                 sx={{
                     // paddingTop: "30px",
