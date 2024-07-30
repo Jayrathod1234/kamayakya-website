@@ -40,10 +40,10 @@ export function BlogCardLg({ blog }: { blog: TBlog }) {
           >
             {blog.title}
           </h2>
-          <p
-            dangerouslySetInnerHTML={{ __html: blog.description }}
+          <div
+            
             className=" mt-2 line-clamp-2 md:line-clamp-[6] text-gray-950 opacity-60"
-          ></p>
+          ><div dangerouslySetInnerHTML={{ __html: blog.description }}></div></div>
         </div>
         <div className=" mt-auto">
           <ButtonnArrow

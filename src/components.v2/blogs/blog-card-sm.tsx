@@ -84,10 +84,9 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
             >
               {blog.title}
             </h2>
-            <p
-              dangerouslySetInnerHTML={{ __html: blog.description }}
+            <div
               className=" mt-2 line-clamp-2 text-gray-950 opacity-60"
-            ></p>
+            ><div dangerouslySetInnerHTML={{ __html: blog.description }}></div></div>
           </div>
           <div className=" mt-6">
           <ButtonnArrow
