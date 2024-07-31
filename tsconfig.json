@@ -40,7 +40,7 @@
     "src/pages/screens/WhyUs.jsx",
     "src/pages/AboutPages/Section3.jsx",
     "src/pages/UserDetails/UserDetails.jsx"
-, "src/pages/pricing.jsx"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

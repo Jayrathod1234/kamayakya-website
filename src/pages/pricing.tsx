@@ -1,11 +1,5 @@
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components.v2/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components.v2/ui/select";
 import { Input } from "@/components.v2/ui/input";
 import { Button as ShadBtn } from "@/components.v2/ui/button";
 
@@ -30,11 +24,7 @@ import { useContext, useEffect, useState } from "react";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { usePathname } from "next/navigation";
 import axios from "axios";
-import {
-  ACTIVE_PLAN_URL,
-  GET_USER,
-  NEWSLETTER_SUBSCRIBE_URL,
-} from "./api/URLs";
+import { ACTIVE_PLAN_URL, GET_USER, NEWSLETTER_SUBSCRIBE_URL } from "./api/URLs";
 import Link from "next/link";
 import { useToast } from "@/components.v2/ui/use-toast";
 import { v4 as uuidv4 } from "uuid";
@@ -74,14 +64,7 @@ export default function Page() {
       });
       if (response.data) {
         const days = response.data.current_active_subscription.days;
-        const duration =
-          days > 90
-            ? "1year"
-            : days > 365
-            ? "3year"
-            : days > 0
-            ? "3months"
-            : "";
+        const duration = days > 90 ? "1year" : days > 365 ? "3year" : days > 0 ? "3months" : "";
         return { ...response.data.current_active_subscription, duration };
       }
     } catch (e) {
@@ -107,11 +90,7 @@ export default function Page() {
         Curr_Plan_Duration: activePlan.duration,
         Curr_Subscription_Start_date: activePlan.start_date,
         Curr_Subscription_End_date: activePlan.end_date,
-        usertype: activePlan.plan
-          ? activePlan.plan.toLowerCase() === "free"
-            ? "Free"
-            : "Paid"
-          : null,
+        usertype: activePlan.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
         browser_version: "",
         browser_name: "",
         device_type: "",
@@ -125,37 +104,37 @@ export default function Page() {
     }
   };
 
-  // useEffect(() => {
-  //   const mp = getMixPanelClient();
+  useEffect(() => {
+    const mp = getMixPanelClient();
 
-  //   if (isLoggedIn) {
-  //     handlePageLoadEvent();
-  //   } else if (!isLoggedIn && !refreshToken) {
-  //     mp.track("Pricing_page_loaded", {
-  //       id: uuidv4(),
-  //       Session_id: "",
-  //       time: new Date().toUTCString(),
-  //       source_page: "",
-  //       current_url: pathname,
-  //       account_created_at: null,
-  //       customer_id: null,
-  //       Curr_Subscription_Type: null,
-  //       Curr_Plan_Duration: null,
-  //       Curr_Subscription_Start_date: null,
-  //       Curr_Subscription_End_date: null,
-  //       usertype: null,
-  //       browser_version: "",
-  //       browser_name: "",
-  //       device_type: "",
-  //       device_name: "",
-  //       utm_campaign: "",
-  //       utm_content: "",
-  //       utm_source: "",
-  //       utm_medium: "",
-  //       utm_terms: "",
-  //     });
-  //   }
-  // }, [isLoggedIn]);
+    if (isLoggedIn) {
+      handlePageLoadEvent();
+    } else if (!isLoggedIn && !refreshToken) {
+      mp.track("Pricing_page_loaded", {
+        id: uuidv4(),
+        Session_id: "",
+        time: new Date().toUTCString(),
+        source_page: "",
+        current_url: pathname,
+        account_created_at: null,
+        customer_id: null,
+        Curr_Subscription_Type: null,
+        Curr_Plan_Duration: null,
+        Curr_Subscription_Start_date: null,
+        Curr_Subscription_End_date: null,
+        usertype: null,
+        browser_version: "",
+        browser_name: "",
+        device_type: "",
+        device_name: "",
+        utm_campaign: "",
+        utm_content: "",
+        utm_source: "",
+        utm_medium: "",
+        utm_terms: "",
+      });
+    }
+  }, [isLoggedIn]);
 
   return (
     <div
@@ -173,38 +152,21 @@ export default function Page() {
       <div className="relative ">
         <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
           <div className="hidden lg:block  absolute lg:right-[60px] top-52">
-            <Image
-              alt="rupee_icon"
-              width={81}
-              height={93}
-              src={"/pricing/rupee_hero_icon.svg"}
-            />
+            <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />
           </div>
           <div className=" absolute lg:left-12 md:bottom-16 -left-1 bottom-20">
-            <Image
-              alt="rupee_icon"
-              width={85}
-              height={85}
-              src={"/pricing/rupee_hero_icon_left.svg"}
-            />
+            <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
           </div>
           <div className=" lg:hidden absolute right-0 top-48 -rotate-[75deg]">
-            <Image
-              alt="rupee_icon"
-              width={85}
-              height={85}
-              src={"/pricing/rupee_hero_icon_left.svg"}
-            />
+            <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
           </div>
 
           <div className=" mt-[1.875rem] md:mt-9 text-center">
             <h1 className=" text-display-xs md:text-display-lg font-bold">
-              What type of <span className=" text-brand-400">investor</span> are
-              you?
+              What type of <span className=" text-brand-400">investor</span> are you?
             </h1>
             <p className=" text-md md:text-lg mt-3 text-gray-600 mb-9">
-              Get the Right Fit : Because a good plan is like a good pair of
-              shoes
+              Get the Right Fit : Because a good plan is like a good pair of shoes
             </p>
           </div>
           <div className=" md:mt-14 grid grid-cols-2 grid-rows-6 md:grid-rows-[auto] mt-[30px] gap-4 md:grid-cols-1 place-items-center max-h-full">
@@ -216,16 +178,14 @@ export default function Page() {
                 title="Deep Research Investor"
                 attributes={[
                   <span>
-                    <Semibold>Time</Semibold> & <Semibold>knowledge</Semibold>{" "}
-                    for own investment decisions
+                    <Semibold>Time</Semibold> & <Semibold>knowledge</Semibold> for own investment decisions
                   </span>,
                   <span>
                     {" "}
                     Enjoys <Semibold>research</Semibold>
                   </span>,
                   <span>
-                    <Semibold>Thrill</Semibold> & <Semibold>learning</Semibold>{" "}
-                    by taking control of your wealth
+                    <Semibold>Thrill</Semibold> & <Semibold>learning</Semibold> by taking control of your wealth
                   </span>,
                 ]}
                 btnText="Membership"
@@ -238,8 +198,7 @@ export default function Page() {
                 title="Effortless Investor"
                 attributes={[
                   <span>
-                    <Semibold>Less time</Semibold> /{" "}
-                    <Semibold>knowledge</Semibold> for investment decisions
+                    <Semibold>Less time</Semibold> / <Semibold>knowledge</Semibold> for investment decisions
                   </span>,
                   <span>
                     Prefers <Semibold>readymade</Semibold> solutions
@@ -250,9 +209,11 @@ export default function Page() {
             </div>
           </div>
         </div>
+        {/* <div className=" h-[100px] md:h-[200px] w-full bg-gradient-to-t from-white to-transparent"></div> */}
       </div>
       <div className="bg-[linear-gradient(0deg,white_97.6%,transparent)] md:bg-[linear-gradient(0deg,white_95%,transparent)]">
         <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] min-h-screen mx-auto ">
+          {/* WEBSITE PLAN */}
           <div className="py-[60px] lg:mt-[60px]">
             <div className=" flex flex-col items-center text-center gap-3 md:gap-0">
               <p
@@ -275,6 +236,7 @@ export default function Page() {
                 />
               </p>
             </div>
+            {/* PLAN SECTION */}
             <section className="">
               <PlansSection />
             </section>
@@ -289,12 +251,7 @@ export default function Page() {
         </div>
         <div id="testimonials" className=" py-[60px] bg-gray-100 relative ">
           <div className=" absolute top-[-5%] md:top-[-10%] w-screen">
-            <svg
-              className=" w-full h-full"
-              viewBox="0 0 1440 236"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg className=" w-full h-full" viewBox="0 0 1440 236" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_5060_262281)">
                 <path
                   d="M-72.6057 7.86867C708.139 106.745 1675.87 7.86867 1675.87 7.86867C1675.87 7.86867 2312.13 952.554 1675.87 814.365C1039.62 676.177 410.655 854.869 -72.6057 814.365C-555.866 773.862 -853.35 -91.0076 -72.6057 7.86867Z"
