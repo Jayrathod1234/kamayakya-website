@@ -2,7 +2,13 @@ import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./**/*.{ts,tsx,jsx}",
+    "./components/**/*.{ts,tsx}",
+    "./components.v2/**/*.{ts,tsx,jsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     screens: {
@@ -209,10 +215,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        move: {
+          "0%": { transform: "translateX(-4px)" },
+          "100%": { transform: "translateX(0px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        move:'move 0.15s ease-in-out forwards'
       },
     },
   },

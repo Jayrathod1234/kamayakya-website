@@ -1,23 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import { DEEP_RESEARCH_INVESTOR, EFFORTLESS_INVESTOR, TUserType } from "./user-type-desktop-card";
-import { getMixPanelClient } from "@/externals/mixpanel";
-import Image from "next/image";
-import { HightlightText } from "./highlight-text";
-import { Button } from "@/components.v2/button";
+import { ButtonnArrow } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
-import { UserTypProgress } from "./user-type-progress";
 import { DEEP_RESEARCH_INVESTOR_FEATURES, EFFORTLESS_INVESTOR_FEATURES } from "@/constants/index.constants";
-import { FeatureListDesktop } from "./feature-list-desktop";
+import { getMixPanelClient } from "@/externals/mixpanel";
 import Lottie from "lottie-react";
+import { useEffect, useRef, useState } from "react";
 import * as DEEP_RESEARCH_LOTTIE from "../../../public/pricing/deep-research-investor.json";
 import * as EFFORTLESS_LOTTIE from "../../../public/pricing/effortless-investor.json";
+import { FeatureListDesktop } from "./feature-list-desktop";
+import { DEEP_RESEARCH_INVESTOR, EFFORTLESS_INVESTOR, TUserType } from "./user-type-desktop-card";
+import { UserTypProgress } from "./user-type-progress";
 
 type TUserTypeFeaturesDesktop = {
   userTypeSelected: TUserType;
   handleSwitchUser: (user: TUserType) => void;
 };
 
-export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: TUserTypeFeaturesDesktop) {
+export function UserTypeFeaturesDesktop({
+  userTypeSelected,
+  handleSwitchUser,
+}: TUserTypeFeaturesDesktop) {
   const [progress, setProgress] = useState(0);
   const [displayPauseIcon, setDisplayPauseIcon] = useState(false);
   const bulletIcon =
@@ -25,7 +26,9 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
       ? "/icons/deep-research-bullet-icon.svg"
       : "/icons/effortless-bullet-icon.svg";
   const features =
-    userTypeSelected === DEEP_RESEARCH_INVESTOR ? DEEP_RESEARCH_INVESTOR_FEATURES : EFFORTLESS_INVESTOR_FEATURES;
+    userTypeSelected === DEEP_RESEARCH_INVESTOR
+      ? DEEP_RESEARCH_INVESTOR_FEATURES
+      : EFFORTLESS_INVESTOR_FEATURES;
   const intervalRef = useRef<NodeJS.Timer>();
   // const defaultOptions = {
   //   loop: true,
@@ -58,7 +61,9 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
         : document.querySelector("#deepresearch-section");
     element?.scrollIntoView({ behavior: "smooth" });
     const eventName =
-      userTypeSelected === DEEP_RESEARCH_INVESTOR ? "checkmembershipplan_clicked" : "checkeffortlessbaskets_clicked";
+      userTypeSelected === DEEP_RESEARCH_INVESTOR
+        ? "checkmembershipplan_clicked"
+        : "checkeffortlessbaskets_clicked";
     const mp = getMixPanelClient();
     mp.track(eventName, {});
   };
@@ -76,9 +81,14 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
 
   useEffect(() => {
     if (progress >= 100) {
-      handleSwitchUser(userTypeSelected === DEEP_RESEARCH_INVESTOR ? EFFORTLESS_INVESTOR : DEEP_RESEARCH_INVESTOR);
+      handleSwitchUser(
+        userTypeSelected === DEEP_RESEARCH_INVESTOR
+          ? EFFORTLESS_INVESTOR
+          : DEEP_RESEARCH_INVESTOR
+      );
     }
   }, [progress]);
+
   return (
     <div
       onMouseLeave={onMouseLeave}
@@ -87,7 +97,9 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
     >
       <div
         className={`flex justify-between items-center bg-[rgba(255,255,255,0.33)] rounded-xl h-full ${
-          userTypeSelected === DEEP_RESEARCH_INVESTOR ? "rounded-tl-none" : " rounded-tr-none"
+          userTypeSelected === DEEP_RESEARCH_INVESTOR
+            ? "rounded-tl-none"
+            : " rounded-tr-none"
         }`}
       >
         <div className=" flex flex-col p-[1.5rem]  pb-[17px] w-full max-w-[360px] lg:max-w-[400px] h-full ">
@@ -96,21 +108,22 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
               <FeatureListDesktop feature={feature} bulletIcon={bulletIcon} />
             ))}
           </ul>
-          <Button
+          <ButtonnArrow
             onClick={handleCheckPlan}
             variant={ButtonVariant.primary}
             size={ButtonSize.lg}
-            customStyle=" !py-2 gap-[6px] mt-auto w-fit mb-[2rem] ml-[1.25rem]"
+            className=" !py-2 gap-[6px] mt-auto w-fit mb-[2rem] ml-[1.25rem]"
+            arrowStyle="rotate-90 stroke-white"
           >
-            <span className=" whitespace-nowrap truncate text-md font-medium">
+            <span className=" whitespace-nowrap truncate text-md">
               {userTypeSelected === DEEP_RESEARCH_INVESTOR ? "Check Membership Plans" : "Check Effortless Baskets"}
             </span>
-            <Image alt="arrow-icon" height={18} width={18} src={"/icons/arrow-down.svg"} />
-          </Button>
+            {/* <Image alt="arrow-icon" height={18} width={18} src={"/icons/arrow-down.svg"} /> */}
+          </ButtonnArrow>
         </div>
         <div className=" md:w-[350px] lg:w-[523px] mx-auto flex justify-center items-center object-contain">
           {/* <video className=" w-[80%] aspect-square" width={523} height={343} src={userTypeSelected === DEEP_RESEARCH_INVESTOR ?"/pricing/deep_investor.webm":"/pricing/effortless_investor.webm"} muted autoPlay loop></video> */}
-          <Lottie
+           <Lottie
             className=" w-[70%] aspect-square"
             animationData={userTypeSelected === DEEP_RESEARCH_INVESTOR ? DEEP_RESEARCH_LOTTIE : EFFORTLESS_LOTTIE}
             // options={defaultOptions}
@@ -118,10 +131,13 @@ export function UserTypeFeaturesDesktop({ userTypeSelected, handleSwitchUser }: 
             // width={523}
             // isStopped={this.state.isStopped}
             // isPaused={this.state.isPaused}
-          />
+          /> 
         </div>
       </div>
-      <UserTypProgress progress={progress} displayPauseIcon={displayPauseIcon} />
+      <UserTypProgress
+        progress={progress}
+        displayPauseIcon={displayPauseIcon}
+      />
     </div>
   );
 }

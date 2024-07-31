@@ -139,6 +139,8 @@ const NavBar2 = () => {
 				top: 0,
 				behavior: "smooth", // Optional: Smooth scrolling behavior
 			});
+		}else if(element_id === "blogs-page"){
+			router.push("/blogs-page");
 		} else {
 			console.log(window.location.pathname)
 			element?.scrollIntoView({ behavior: "smooth" });
@@ -348,6 +350,19 @@ const NavBar2 = () => {
 						SME Corner
 						{/* </Text> */}
 					</Box>
+				</Navbar.Link>
+				<Navbar.Link
+					// isActive={
+					// 	typeof window !== "undefined" &&
+					// 	window.location.pathname === "/about-company"
+					// }
+					// onClick={() => handlePhilosophy()}
+					isActive={typeof window !== "undefined" && activeLink === "blogs-page"}
+					onClick={() => scrolltoHash("blogs-page")}
+				>
+					<Text b size={16} css={{ lineHeight: 5 }}>
+						Blogs
+					</Text>
 				</Navbar.Link>
 			</Navbar.Content>
 			{/* </div> */}
@@ -564,6 +579,19 @@ const NavBar2 = () => {
 							Track Record
 						</Text>
 					</ListItemButton>
+					<ListItemButton
+							onClick={() => {
+								scrolltoHash("blogs-page");
+								toggleDrawer();
+							}}
+						>
+							<ListItemIcon sx={{ paddingLeft: "4px" }}>
+								<Book size={30} style={{ color: "#FB9E29" }} />
+							</ListItemIcon>
+							<Text b className="drawerElementText">
+								Blogs
+							</Text>
+						</ListItemButton>
 					<ListItemButton
 						onClick={() => {
 							smeCorner();

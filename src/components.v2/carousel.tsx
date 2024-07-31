@@ -10,6 +10,8 @@ import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
+import { ButtonnArrow } from "./button";
+import { ButtonVariant } from "./button/button";
 
 const carouselItem = [
   <TestimonialsCard
@@ -244,29 +246,29 @@ export function Carousel({ className }: { className?: string }) {
   return (
     <div className={`relative w-screen m-auto`}>
       {/* gradient */}
-      <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center ">
+      <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center items-center ">
         <div>
-          <Button
+          <ButtonnArrow
             onClick={() => handlePrevNext(onPrevButtonClick)}
             // disabled={selectedIndex == 1 ? true : prevBtnDisabled}
-            variant={"default"}
-            className=" rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
+            variant={ButtonVariant.custom}
+            className=" rounded-full md:h-[52px] md:w-[52px] h-6 w-6 aspect-square md:!p-2 !px-4 !py-4 rotate-180 hover:bg-[#0b3a36]"
           >
-            <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
-          </Button>
+            {/* <ChevronLeftIcon fontSize="small" style={{ color: "white" }} /> */}
+          </ButtonnArrow>
         </div>
       </div>
       <div className=" right-4  md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-gray-100 to-transparent z-20 flex flex-col justify-center items-center">
         <div>
-          <Button
+          <ButtonnArrow
             onClick={() => handlePrevNext(onNextButtonClick)}
             // disabled={selectedIndex === carouselItem.length - 2 ? true : nextBtnDisabled}
-            variant={"default"}
-            className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
+            variant={ButtonVariant.custom}
+            className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] aspect-square md:!p-2 !px-4 !py-4 hover:bg-[#0b3a36]"
           >
             {/* <ChevronRightIcon className="hidden md:inline-block" fontSize="large" style={{ color: "white" }} /> */}
-            <ChevronRightIcon className="inline-block md:hidden" fontSize="small" style={{ color: "white" }} />
-          </Button>
+            {/* <ChevronRightIcon className="inline-block md:hidden" fontSize="small" style={{ color: "white" }} /> */}
+          </ButtonnArrow>
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 import { ChevronRight, icons } from "lucide-react";
 import React from "react";
 import { format } from "date-fns";
-import { Button } from "../button";
+import { Button, ButtonnArrow } from "../button";
 import { ButtonVariant } from "../button/button";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -47,27 +47,30 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
         isMobile
           ? 'before:content-[""] before:absolute before:h-full before:w-full before:bg-[rgba(0,0,0,0.25)] before:invisible active:before:visible before:z-20 active:scale-[.98]'
           : "hover:scale-[.98] "
-      }   group bg-white min-w-[320px] max-w-[405.33px] max-h-[496px] border border-white rounded-[10px] overflow-hidden shadow-6xs hover:shadow-lg transition-all scale-100 ease-[cubic-bezier(0.175,0.0885,0,0.1)]  duration-300 ${className}`}
+      }   group/card bg-white min-w-[320px] max-w-[405.33px] max-h-[496px] border border-white rounded-[10px] overflow-hidden shadow-6xs hover:shadow-lg transition-all scale-100 ease-[cubic-bezier(0.175,0.0885,0,0.1)]  duration-300 ${className}`}
     >
       <div
         // onClick={handleReadMore}
-        className={` z-0 transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] ${
-          isMobile ? "" : "group-hover:opacity-30 group-hover:h-[496px]"
-        }  absolute  h-[300px] w-full cursor-pointer`}
+        //group-hover/card:opacity-30 group-hover/card:h-[496px]
+        // absolute
+        className={` relative transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] ${
+          isMobile ? "" : " "
+        }    h-[300px] w-full cursor-pointer before:content-[""] before:absolute before:h-full before:w-full before:transition-colors  before:bg-transparent group-hover/card:before:bg-[rgba(0,0,0,.5)] before:z-10`}
       >
         <Image className=" object-cover h-full w-full" width={406} height={300} alt="blog-image" src={blog.image1} />
       </div>
+      {/* group-hover/card:bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.60)_45.04%,#FFF_100%)] */}
+      {/* pt-[324px] */}
       <div
-        className={` relative p-6 pt-[324px] z-10 ${
-          isMobile
-            ? ""
-            : "group-hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.60)_45.04%,#FFF_100%)]"
-        }  `}
-      >
-        <div
-          className={` translate-y-3 ${
-            isMobile ? "" : "group-hover:-translate-y-9"
+        className={` relative p-6  z-10  translate-y-3 bg-white ${
+            isMobile ? "" : "group-hover/card:-translate-y-9"
           } transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] `}
+      >
+        {/* className={` translate-y-3 ${
+            isMobile ? "" : "group-hover/card:-translate-y-9"
+          } transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] `} */}
+        <div
+          
         >
           <div className="flex items-center gap-x-3">
             <Meta icon={"Calendar"} label={format(new Date(blog?.created), "dd MMM, yyyy")} />
@@ -77,27 +80,25 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
           <div className=" mt-4 ">
             <h2
               // onClick={handleReadMore}
-              className={` font-bold text-gray-950 text-lg w-full line-clamp-1 cursor-pointer mb-0 ${isMobile ? "":"group-hover:text-brand-500"} `}
+              className={` font-bold text-gray-950 text-lg w-full line-clamp-1 cursor-pointer mb-0 ${isMobile ? "":"group-hover/card:text-brand-500"} `}
             >
               {blog.title}
             </h2>
-            <p
-              dangerouslySetInnerHTML={{ __html: blog.description }}
+            <div
               className=" mt-2 line-clamp-2 text-gray-950 opacity-60"
-            ></p>
+            ><div dangerouslySetInnerHTML={{ __html: blog.description }}></div></div>
           </div>
-          <Button
-            customStyle="mt-6 !p-0 h-fit border-0 bg-transparent hover:bg-transparent"
-            // onClick={handleReadMore}
-            endIcon={
-              <div className=" h-4 aspect-square">
-                <ChevronRight size={16} />
-              </div>
-            }
+          <div className=" mt-6">
+          <ButtonnArrow
+            className="border-0 bg-transparent hover:bg-transparent !px-0"
             variant={ButtonVariant.secondary}
+            arrowStyle=" mt-[2px]"
+            strokeStyle=" stroke-brand-400"
           >
-            <p className=" font-medium">Read More</p>
-          </Button>
+            <p className=" font-semibold">Read More</p>
+          </ButtonnArrow>
+          </div>
+          
         </div>
       </div>
     </div>

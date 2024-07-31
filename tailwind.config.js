@@ -9,7 +9,13 @@
 
 const config = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./**/*.{ts,tsx,jsx}",
+    "./components/**/*.{ts,tsx}",
+    "./components.v2/**/*.{ts,tsx,jsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     screens: {
@@ -128,6 +134,8 @@ const config = {
           "radial-gradient(389.9% 150.6% at -13.33% 12.53%, rgba(100, 253, 171, 0.00) 0%, rgba(129, 184, 244, 0.40) 25.93%, rgba(196, 219, 254, 0.57) 43.63%, rgba(228, 238, 253, 0.57) 69.37%, rgba(253, 239, 255, 0.57) 79.3%, rgba(253, 239, 255, 0.00) 100%)",
         "radial-gradient":
           "radial-gradient(348.84% 134.74% at -1.18% 22.73%, rgba(255, 255, 255, 0.00) 0%, rgba(164, 233, 255, 0.40) 19%, rgba(155, 226, 249, 0.57) 43.63%, rgba(197, 255, 224, 0.57) 57.07%, rgba(203, 255, 224, 0.57) 69.37%, rgba(229, 255, 223, 0.57) 79.3%, rgba(255, 255, 255, 0.00) 100%)",
+        "custom-gradient":
+          "linear-gradient(314deg, #125B54 6.46%, #12ADB7 113.37%)",
       },
       boxShadow: {
         "6xs": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
@@ -215,10 +223,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        move: {
+          "0%": { transform: "translateX(-4px)" },
+          "100%": { transform: "translateX(0px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        move:'move 0.15s ease-in-out forwards'
       },
     },
   },
