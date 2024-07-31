@@ -16,97 +16,20 @@ function Discover() {
         </p>
 
         <div className="pt-10 pb-8">
-          <div className="flex justify-between">
-            <div className="card education">
-              <div className="overlay"></div>
-              <div className="circle">
-                <img
-                  src="/assets/ëÎÓÈ_1.svg"
-                  alt=""
-                  srcset=""
-                  className="z-[1] w-12"
-                />
-              </div>
-              <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
-              <p className="text-white hidden">
-                Discover undervalued gems with strong fundamentals.
-              </p>
+          <div className="card education">
+            <div className="overlay"></div>
+            <div className="circle">
+              <img
+                src="/assets/ëÎÓÈ_1.svg"
+                alt=""
+                srcset=""
+                className="z-[1] w-12"
+              />
             </div>
-            {/* <div className="card education">
-              <div className="overlay"></div>
-              <div className="circle">
-                <img
-                  src="/assets/ëÎÓÈ_1.svg"
-                  alt=""
-                  srcset=""
-                  className="z-[1] w-12"
-                />
-              </div>
-              <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
-              <p className="text-white hidden">
-                Discover undervalued gems with strong fundamentals.
-              </p>
-            </div>
-            <div className="card education">
-              <div className="overlay"></div>
-              <div className="circle">
-                <img
-                  src="/assets/ëÎÓÈ_1.svg"
-                  alt=""
-                  srcset=""
-                  className="z-[1] w-12"
-                />
-              </div>
-              <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
-              <p className="text-white hidden">
-                Discover undervalued gems with strong fundamentals.
-              </p>
-            </div>
-            <div className="card education">
-              <div className="overlay"></div>
-              <div className="circle">
-                <img
-                  src="/assets/ëÎÓÈ_1.svg"
-                  alt=""
-                  srcset=""
-                  className="z-[1] w-12"
-                />
-              </div>
-              <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
-              <p className="text-white hidden">
-                Discover undervalued gems with strong fundamentals.
-              </p>
-            </div>
-            <div className="card education">
-              <div className="overlay"></div>
-              <div className="circle">
-                <img
-                  src="/assets/ëÎÓÈ_1.svg"
-                  alt=""
-                  srcset=""
-                  className="z-[1] w-12"
-                />
-              </div>
-              <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
-              <p className="text-white hidden">
-                Discover undervalued gems with strong fundamentals.
-              </p>
-            </div>
-            <div className="card education">
-              <div className="overlay"></div>
-              <div className="circle">
-                <img
-                  src="/assets/ëÎÓÈ_1.svg"
-                  alt=""
-                  srcset=""
-                  className="z-[1] w-12"
-                />
-              </div>
-              <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
-              <p className="text-white hidden">
-                Discover undervalued gems with strong fundamentals.
-              </p>
-            </div> */}
+            <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
+            <p className="text-white hidden">
+              Discover undervalued gems with strong fundamentals.
+            </p>
           </div>
         </div>
       </div>

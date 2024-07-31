@@ -77,7 +77,7 @@ export function Navbar() {
   return (
     <div
       ref={ref}
-      className="sticky left-0 right-0 top-0 z-50 transition-all duration-500 overflow-visible max-h-14 bg-white"
+      className="sticky left-0 right-0 top-0 z-50 transition-all duration-500 overflow-visible max-h-14"
     >
       <div className="flex py-2 justify-between items-center main-container overflow-visible">
         <div className=" flex flex-row items-center justify-center">
