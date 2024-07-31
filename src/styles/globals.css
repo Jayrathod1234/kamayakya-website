@@ -93,7 +93,7 @@ body {
 }
 
 * {
-  /* font-family: "SF Pro Rounded Bold", sans-serif; */
+  font-family: "SF Pro Rounded Bold", sans-serif;
 }
 
 table,
@@ -368,8 +368,8 @@ input::-webkit-inner-spin-button {
 
 body {
   /* font-family: 'SF Pro Rounded Bold', sans-serif; */
-  /* color: rgb(var(--foreground-rgb)); */
-    /* background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb)); */
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 /* total width */
@@ -1345,7 +1345,7 @@ header > div > div {
   block-size: 100%;
   inset-inline-start: 12.5rem;
   border-right: 1px;
-  /* border-color: theme(colors.gray.200); */
+  border-color: theme(colors.gray.200);
   border-style: dashed;
   padding-block: 24px;
 }
