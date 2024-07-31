@@ -18,10 +18,10 @@ const ProgressBar = () => {
 
         <div class="w-1/6 align-center items-center align-middle content-center flex">
           <div class="w-full bg-grey-light rounded items-center align-middle align-center flex-1">
-            {/* <div
+            <div
               class="bg-green-light text-xs leading-none py-1 text-center text-grey-darkest rounded "
               style="width: 100%"
-            ></div> */}
+            ></div>
           </div>
         </div>
 
@@ -33,7 +33,7 @@ const ProgressBar = () => {
           </div>
         </div>
 
-        {/* <div class="w-1/6 align-center items-center align-middle content-center flex">
+        <div class="w-1/6 align-center items-center align-middle content-center flex">
           <div class="w-full bg-grey-light rounded items-center align-middle align-center flex-1">
             <div
               class="bg-green-light text-xs leading-none py-1 text-center text-grey-darkest rounded "
@@ -63,7 +63,7 @@ const ProgressBar = () => {
           </div>
         </div>
 
-        <div class="flex-1"></div> */}
+        <div class="flex-1"></div>
       </div>
 
       <div class="flex text-xs content-center text-center">
