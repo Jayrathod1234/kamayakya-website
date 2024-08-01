@@ -123,13 +123,6 @@ function Mainboard() {
             </div> */}
           </div>
           <div className=" w-10/12">
-            {/* <div className=" bg-white border border-[#E4E7EC] py-[10px] px-[14px] rounded-md flex gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)]">
-              <img src="/assets/search.svg" alt="" />
-              <p className="text-[#667085] font-normal font-open_sans">
-                Search Stocks...
-              </p>
-            </div> */}
-
             <form class="">
               <label
                 for="default-search"
@@ -139,21 +132,6 @@ function Mainboard() {
               </label>
               <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none gap-2">
-                  {/* <svg
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                    />
-                  </svg> */}
                   <img src="/assets/search.svg" alt="" />
                 </div>
                 <input
@@ -1335,7 +1313,7 @@ function Mainboard() {
                     <span className="button-82-shadow"></span>
                     <span className="button-82-edge"></span>
 
-                    <span className="button-82-front  button-82-front2 text flex items-center">
+                    <span className="button-82-front button-82-front2 text flex items-center">
                       <img
                         src="/assets/noto_locked.png"
                         alt=""

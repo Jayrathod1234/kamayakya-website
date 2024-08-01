@@ -35,6 +35,15 @@ function Discovercard() {
           </p>
         </div>
       </div> */}
+
+      <a href="#" class="card education">
+        <div class="overlay-1"></div>
+        <div class="circle">
+          <img src="/assets/ëÎÓÈ_1.svg" alt="" />
+        </div>
+        <p className="text">Education</p>
+        <p className="title">dsdsd</p>
+      </a>
     </>
   );
 }
