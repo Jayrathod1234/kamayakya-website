@@ -3,7 +3,7 @@ import React from "react";
 function Discovercard() {
   return (
     <>
-      <div className="flex justify-between gap-4">
+      {/* <div className="flex justify-between gap-4">
         <div className="w-1/4">
           <div className="card education">
             <div className="overlay"></div>
@@ -21,10 +21,11 @@ function Discovercard() {
           </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex justify-between gap-4">
         <div className="card">
+        <div className="overlay"></div>
           <div className="icon">
             <img src="/assets/ëÎÓÈ_1.svg" alt="" />
           </div>
