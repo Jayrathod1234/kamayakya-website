@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import React, { useContext } from "react";
-import NavBar from "@/components/Navbar";
-import NavBar2 from "../components/Navbar2";
+// import NavBar from "@/components/Navbar";
+// import NavBar2 from "../components/Navbar2";
 // import AboutUs from "./screens/AboutUs";
 // import WhyUs from "./screens/WhyUs";
 // import Solutions from "./screens/Solutions";
 // import SmallcaseCard from "./screens/smallcaseCard";
 // import Blogs2 from "./screens/blogs2";
-import Footer from "./screens/Footer";
+// import Footer from "./screens/Footer";
 // import Process from "./screens/Process";
 import FaqsNew from "./screens/FaqsNew";
 // import Process2 from "./screens/Process2";
@@ -26,44 +26,44 @@ import Section5 from "./AboutPages/Section5";
 import Section6 from "./AboutPages/Section6";
 import Section7 from "./AboutPages/Section7";
 import HotStocks from "../pages/screens/HotStocks";
+import { Navbar, Footer } from "@/components.v2/index.components";
 // import PageVisibility from "@/components/PageVisibility";
 
 const Home: NextPage = () => {
-	const { isLoggedIn, isSubscribed } = useContext(AuthProvider);
+  const { isLoggedIn, isSubscribed } = useContext(AuthProvider);
 
-	return (
-		// 	<PageVisibility>
-		//   {(isPageVisible: any) => (
-		<>
-			{isLoggedIn ? <NavBar2  /> : <NavBar />}
-			<HomePage />
-			<Section1 />
-			<Section3 />
-			<HeaderCards />
-			<Section4 />
-			<Section2 />
-			<HeaderFuture />
-			<Section5 />
-			<Section6 />
-			<Section7 />
-			{isLoggedIn && isSubscribed ? "" : <HotStocks />}
-			<Testimonials />
-			{/* <SubscriptionNew /> */}
-			{/* <SmallcaseCard /> */}
-			{/* <AboutUs /> */}
-			{/* <Process /> */}
-			{/* <Process2/> */}
-			{/* <WhyUs /> */}
-			{/* <Blogs2 /> */}
-			{/* <TestimonialsNew /> */}
-			{/*<Solutions />*/}
-			<FaqsNew />
-			<Footer />
-			{/* <Footer /> */}
-		</>
-		//   )}
-		// 	</PageVisibility>
-	);
+  return (
+    // 	<PageVisibility>
+    //   {(isPageVisible: any) => (
+    <>
+      <Navbar />
+      <HomePage />
+      <Section1 />
+      <Section3 />
+      <HeaderCards />
+      <Section4 />
+      <Section2 />
+      <HeaderFuture />
+      <Section5 />
+      <Section6 />
+      <Section7 />
+      {isLoggedIn && isSubscribed ? "" : <HotStocks />}
+      <Testimonials />
+      {/* <SubscriptionNew /> */}
+      {/* <SmallcaseCard /> */}
+      {/* <AboutUs /> */}
+      {/* <Process /> */}
+      {/* <Process2/> */}
+      {/* <WhyUs /> */}
+      {/* <Blogs2 /> */}
+      {/* <TestimonialsNew /> */}
+      {/*<Solutions />*/}
+      <FaqsNew />
+      <Footer />
+    </>
+    //   )}
+    // 	</PageVisibility>
+  );
 };
 
 export default Home;
