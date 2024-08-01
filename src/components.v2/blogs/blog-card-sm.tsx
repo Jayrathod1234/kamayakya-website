@@ -47,7 +47,7 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
         isMobile
           ? 'before:content-[""] before:absolute before:h-full before:w-full before:bg-[rgba(0,0,0,0.25)] before:invisible active:before:visible before:z-20 active:scale-[.98]'
           : "hover:scale-[.98] "
-      }   group/card bg-white min-w-[320px] max-w-[405.33px] max-h-[496px] border border-white rounded-[10px] overflow-hidden shadow-6xs hover:shadow-lg transition-all scale-100 ease-[cubic-bezier(0.175,0.0885,0,0.1)]  duration-300 ${className}`}
+      }   group/card bg-white w-full min-w-[320px] max-w-[405.33px] max-h-[496px] border border-white rounded-[10px] overflow-hidden shadow-6xs hover:shadow-lg transition-all scale-100 ease-[cubic-bezier(0.175,0.0885,0,0.1)]  duration-300 ${className}`}
     >
       <div
         // onClick={handleReadMore}
@@ -84,10 +84,12 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
             >
               {blog.title}
             </h2>
-            <p
-              dangerouslySetInnerHTML={{ __html: blog.description }}
-              className=" mt-2 line-clamp-2 text-gray-950 opacity-60"
-            ></p>
+            <div
+              
+              className=" mt-2 line-clamp-2 text-gray-950 opacity-60 h-[52px]"
+            >
+              <div dangerouslySetInnerHTML={{ __html: blog.description.length > 200 ? blog.description.slice(0,200):blog.description }}></div>
+            </div>
           </div>
           <div className=" mt-6">
           <ButtonnArrow

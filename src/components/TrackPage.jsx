@@ -22,13 +22,13 @@ import {
 import FaqsNew from "@/pages/screens/FaqsNew";
 import AuthContext from "@/components/AuthContext";
 import { TRACK_RECORD_FOR_ALL, TRACK_RECORD_FOR_USER } from "@/pages/api/URLs";
-import Footer from "@/pages/screens/Footer";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { DocumentAskPasswordEvent } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import packageJson from "../../package.json";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "@/components/Login";
+import { Footer } from "@/components.v2/footer";
 
 const WhyUs = () => {
 	// const { setVisible, bindings } = useModal();
@@ -2416,7 +2416,7 @@ const WhyUs = () => {
 				{/* </Grid> */}
 			</Box>
 			<FaqsNew />
-			<Footer />
+			<Footer/>
 		</section>
 	);
 };

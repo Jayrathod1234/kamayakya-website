@@ -157,9 +157,11 @@ const BlogSection2 = () => {
           </div>
         </div>
         {!search ? (
-          <div className=" flex items-center justify-center gap-x-4 ">
+          <div className=" flex items-center justify-center gap-x-4  ">
             {prevPage && <ButtonnArrow
               disabled={!prevPage}
+              arrowPosition="start"
+              arrowStyle=" rotate-180"
               onClick={() => handlePrevNext(prevPage as string)}
               startIcon={<ChevronLeft size={16} />}
               variant={ButtonVariant.primary}

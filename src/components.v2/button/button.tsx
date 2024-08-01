@@ -31,6 +31,7 @@ export type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
   arrowStyle?:string;
   strokeStyle?:string;
+  arrowPosition?:string;
 };
 
 export function Button({

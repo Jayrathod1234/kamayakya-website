@@ -15,7 +15,7 @@ const FaqsNew = () => {
         <section
             id="FAQs"
             style={{
-                backgroundColor: "#195B54",
+                // backgroundColor: "#195B54",
                 display: "flex",
                 flexWrap: "wrap",
                 paddingTop: "10vh",
@@ -26,7 +26,7 @@ const FaqsNew = () => {
                 alignContent: "center",
                 borderRadius: "0px",
             }}
-            className="faq-section-mobile"
+            className="faq-section-mobile bg-[linear-gradient(180deg,rgba(25,91,84,1)_0%,rgba(68,153,144,1)_44%,rgba(255,255,255,1)_100%)]"
         >
             <div
                 style={{
@@ -74,7 +74,7 @@ const FaqsNew = () => {
                         <Divider
                             css={{
                                 width: "100%",
-                                backgroundColor: "#fff",
+                                backgroundColor: "#000",
                                 height: "10px",
                                 borderRadius: "200px",
                                 mb: "55px",
@@ -85,7 +85,7 @@ const FaqsNew = () => {
                         <Text
                             b
                             size={50}
-                            color="#fff"
+                            color="#000"
                             css={{
                                 lineHeight: 1.2,
                                 marginBottom: 10,

@@ -117,7 +117,6 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
   }, [isLoggedIn]);
 
   return (
-    // bg-[url('/blogs/blog-bg2.webp')]
     <div className="relative bg-[#effffc] pricing  bg-[length:100vw] bg-no-repeat bg-[top_center]">
        <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
           <div className="  absolute right-1 lg:right-[40px] top-36 opacity-20 md:opacity-100">
@@ -126,15 +125,9 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
           <div className=" absolute lg:left-12 md:bottom-16 left-1 top-16 opacity-30 md:opacity-100">
             <Image alt="rupee_icon" width={52} height={61.28} src={"/pricing/rupee_hero_icon.svg"} />
           </div>
-          {/* <div className=" lg:hidden absolute right-0 top-48 -rotate-[75deg]">
-            <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
-          </div> */}
         </div>
       <Navbar />
       <main className="  main-container relative z-10">
-        {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
-        {/*<BSection1 />*/}
-        {/* <BSection2 /> */}
         <BlogSection2  />
         {/* <FaqsNew /> */}
       </main>
