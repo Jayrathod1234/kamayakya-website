@@ -4,8 +4,8 @@
 
 import exp from "constants";
 
-export const BASE_URL = "https://test-server.kamayakya.in";
-// export const BASE_URL = process.env.NEXT_PUBLIC_BASEPATH;
+// export const BASE_URL = "https://test-server.kamayakya.in";
+export const BASE_URL = process.env.NEXT_PUBLIC_BASEPATH;
 // export const BASE_URL = "http://192.168.0.151:8000";
 // export const BASE_URL = "http://192.168.0.151:8000";
 // export const BASE_U       RL = process.env.NEXT_PUBLIC_BASEPATH;

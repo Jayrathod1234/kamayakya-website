@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-
 import type { AppProps } from "next/app";
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 import { useSSR } from "@nextui-org/react";
@@ -8,7 +7,6 @@ import Head from "next/head";
 import Script from "next/script";
 import { PlanProvider } from "@/components/PlanContext";
 import { Toaster } from "@/components.v2/ui/toaster";
-
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { isBrowser } = useSSR();
@@ -19,10 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <PlanProvider>
             <Component {...pageProps} />
             <Head>
-              <title>
-                KamayaKya - SEBI Registered Research Analyst | Expert Microcap &
-                Smallcap Stock Picks
-              </title>
+              <title>KamayaKya - SEBI Registered Research Analyst | Expert Microcap & Smallcap Stock Picks</title>
               <meta
                 name="og:title"
                 content="KamayaKya - SEBI Registered Research Analyst | Expert Microcap &
@@ -74,10 +69,8 @@ function MyApp({ Component, pageProps }: AppProps) {
               {/*  data-nscript="afterInteractive"*/}
               {/*/>*/}
             </Head>
-            <Toaster />
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=G-4R949GS408`}
-            />
+            <Toaster/>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=G-4R949GS408`} />
 
             <Script id="google-analytics">
               {`
