@@ -1,7 +1,7 @@
 import React from "react";
-import { Carousel } from "../components.v2/carousel";
+import { LatestReleasesCarousel } from "../common/LatestReleasesCarousel";
 
-function Latest() {
+function LatestReleases() {
   return (
     <>
       <div className=" pt-[339px] pb-[100px] ">
@@ -13,11 +13,11 @@ function Latest() {
             New Stocks released in the last 60 days
           </p>
           <div className=" mb-6 w-full">
-            <Carousel />
+            <LatestReleasesCarousel />
           </div>
         </div>
       </div>
     </>
   );
 }
-export default Latest;
+export default LatestReleases;

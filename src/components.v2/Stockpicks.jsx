@@ -4,7 +4,7 @@ import { Button } from "../components.v2/button/button.tsx";
 import { ButtonSize, ButtonVariant } from "../components.v2/button/button.tsx";
 import { MoveRight } from "lucide-react";
 import ProgressBar from "./ProgressBar.jsx";
-import Latest from "./Latest.jsx";
+import LatestReleases from "../components.v3/section/LatestReleases";
 import Discover from "./Discover.jsx";
 import { Carousel } from "../components.v2/carousel";
 import Mainboard from "./Mainboard.jsx";
@@ -591,7 +591,7 @@ function Stockpicks() {
 
       {/* banner card  */}
 
-      <Latest />
+      <LatestReleases />
       <Discover />
       <Mainboard />
     </React.Fragment>

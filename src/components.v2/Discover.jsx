@@ -17,8 +17,8 @@ function Discover() {
         </p>
 
         <div className="pt-10 pb-8">
-          <Discovercard />
-          
+          {/* <Discovercard /> */}
+
         </div>
       </div>
     </>
