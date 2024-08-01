@@ -1601,7 +1601,7 @@ width:20px !important;
   outline: none;
 }
 /* discover card  */
-.education {
+/* .education {
   --bg-color: #ffd861;
   --bg-color-light: #ffeeba;
   --text-color-hover: #4C5656;
@@ -1653,11 +1653,12 @@ width:20px !important;
 .card:hover .overlay {
   transform: scale(4) translateZ(0);
 }
+*/
 /* .card:hover .card-title {
   color: black;
   display: block;
 } */
-.card:hover .circle {
+/* .card:hover .circle {
   border-color: #fff;
   background: #fff;
 }
@@ -1717,15 +1718,87 @@ width:20px !important;
 }
 
 .overlay {
-  width: 118px;
-  position: absolute;
-  height: 118px;
+  width: 118px !important;
+    position: absolute !important;
+    height: 118px !important;
   border-radius: 50%;
   background: #E3F7FF;
   top: 23px;
   left: 50px;
   z-index: 0;
   transition: transform 0.3s ease-out;
+}
+*/ 
+/* .card {
+  width: 100%;
+  max-width: 208px;
+  min-width: 208px;
+  height: 220px;
+  background-color: #ffffff;
+  margin: 10px;
+  border-radius: 12px;
+  border: 1px solid #EDF0F5;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.3s ease;
+} */
+
+/* .icon {
+  margin: 0 auto;
+  padding: 20px;
+  background: #E3F7FF;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: all 0.8s ease;
+  background-position: 0px;
+  background-size: 200px;
+} */
+
+.card .title {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  margin-top: 12px;
+  color: #1D2939;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+
+}
+
+.card .text {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 12px;
+  color: #667085;
+  font-weight: 200;
+  line-height: 20px;
+  font-weight: 400;
+  opacity: 0;
+  max-height: 0;
+  transition: all 0.3s ease;
+}
+
+.card:hover .icon {
+  background-position: -120px;
+  transition: all 0.3s ease;
+}
+
+.card:hover .text {
+  transition: all 0.3s ease;
+  opacity: 1;
+  max-height: 40px;
 }
 /* play btn  */
 .watch-video {
@@ -1736,4 +1809,7 @@ width:20px !important;
 .play:hover .watch-video {
   opacity: 1;
   visibility: visible;
+}
+.navbar {
+  background-color: transparent !important;
 }

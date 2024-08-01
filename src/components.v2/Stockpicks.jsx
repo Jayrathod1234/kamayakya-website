@@ -26,7 +26,7 @@ function Stockpicks() {
       {/* banner  */}
 
       <div className=" font-open_sans h-[756px] relative">
-        <div className="absolute top-0 left-0 h-full w-full">
+        <div className="absolute top-[-56px] left-0 h-full w-full">
           <video
             autoPlay
             muted

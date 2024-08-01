@@ -30,19 +30,19 @@ const NavigationMenuList = React.forwardRef<
   <NavigationMenuPrimitive.List
     ref={ref}
     className={cn(
-      "group flex flex-1 list-none items-center justify-center space-x-1",
+      "group flex flex-1 list-none items-center justify-center space-x-1 text-[#e6e6e7]",
       className
     )}
     {...props}
   />
-))
+));
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 
 const NavigationMenuItem = NavigationMenuPrimitive.Item
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex w-max items-center justify-center rounded-md px-[10px] py-[9px] md:px-4 md:py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-[rgba(255,255,255,1)] hover:text-gray-600 focus:bg-[rgba(255,255,255,0.5)] focus:text-gray-600 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[#dbf3f5] data-[active]:text-brand-400 data-[active]:font-semibold data-[active]:border data-[active]:border-[#d1eae5] data-[state=open]:bg-[rgba(255,255,255,1)] dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:focus:bg-slate-800 dark:focus:text-slate-50 dark:data-[active]:bg-slate-800/50 dark:data-[state=open]:bg-slate-800/50 scrolled_hover scale-100 hover:scale-95 !transition-all duration-200"
-)
+  "group inline-flex w-max items-center justify-center rounded-md px-[10px] py-[9px] md:px-4 md:py-2 text-sm font-medium transition-colors hover:bg-[rgba(255,255,255,1)] hover:text-gray-600 focus:bg-[rgba(255,255,255,0.5)] focus:text-gray-600 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[#dbf3f5] data-[active]:text-brand-400 data-[active]:font-semibold data-[active]:border data-[active]:border-[#d1eae5] data-[state=open]:bg-[rgba(255,255,255,1)] dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:focus:bg-slate-800 dark:focus:text-slate-50 dark:data-[active]:bg-slate-800/50 dark:data-[state=open]:bg-slate-800/50 scrolled_hover scale-100 hover:scale-95 !transition-all duration-200"
+);
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
