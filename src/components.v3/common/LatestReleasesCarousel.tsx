@@ -221,32 +221,36 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
             className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
           >
             {/* <ChevronRightIcon className="hidden md:inline-block" fontSize="large" style={{ color: "white" }} /> */}
-            <ChevronRightIcon className="inline-block md:hidden" fontSize="small" style={{ color: "white" }} />
+            <ChevronRightIcon
+              className="inline-block md:hidden"
+              fontSize="small"
+              style={{ color: "white" }}
+            />
           </Button>
         </div>
       </div>
 
       <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
         {/* <div className=" overflow-hidden max-w-full"> */}
-        <div className=" flex pb-12 pt-[60px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
+        <div
+          className=" flex pb-12 pt-[60px] carousel__container"
+          style={{ backfaceVisibility: "hidden" }}
+        >
           {carouselItem.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
-              className={` carousel embla__class-names  flex-[0_0_25%]
-              ${""
+              className={` carousel embla__class-names  
+              ${
+                ""
                 // index === selectedIndex ? "" : index > selectedIndex
                 //  ? " !scale-75 md:ml-[-2rem] lg:ml-[-4rem]"
                 //  : " !scale-75 md:mr-[-2rem] lg:mr-[-4rem]"
-                }
+              }
               `}
             >
               {carousel}
             </CarouselItem>
-
-
           ))}
-
-
         </div>
         {/* </div> */}
       </div>
@@ -256,8 +260,9 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={` ${index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
-              } h-[10px]  bg-gray-200 rounded-full transition-all`}
+            className={` ${
+              index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
+            } h-[10px]  bg-gray-200 rounded-full transition-all`}
           ></div>
         ))}
       </div>

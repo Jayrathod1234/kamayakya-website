@@ -5,7 +5,7 @@ import { ButtonSize, ButtonVariant } from "../components.v2/button/button.tsx";
 import { MoveRight } from "lucide-react";
 import ProgressBar from "./ProgressBar.jsx";
 import LatestReleases from "../components.v3/section/LatestReleases";
-import Discover from "./Discover.jsx";
+import Discover from "../components.v3/section/Discover.jsx";
 import { Carousel } from "../components.v2/carousel";
 import Mainboard from "./Mainboard.jsx";
 
@@ -122,7 +122,7 @@ function Stockpicks() {
                   Top stocks to invest in right NOW!
                 </p>
                 <div className="bg-white bg-[url('/assets/grid.png')] bg-cover py-[74px] px-[80px] flex items-center  rounded-[10px]">
-                  <div className="w-1/3">
+                  <div className="sm:w-1/3 w-1/2">
                     <img
                       src="/assets/noto_locked.png"
                       alt=""
@@ -147,7 +147,7 @@ function Stockpicks() {
                     </div>
                   </div>
 
-                  <div className="w-7/12">
+                  <div className="sm:w-7/12 w-1/2">
                     <div className="flex">
                       {/* 1 */}
                       <div className="flex relative">

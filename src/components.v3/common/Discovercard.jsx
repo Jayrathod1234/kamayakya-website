@@ -17,13 +17,13 @@ function Discovercard() {
             </div>
             <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
             <p className="text font-open_sans ">
-            Discover undervalued gems with strong fundamentals.
-          </p>
+              Discover undervalued gems with strong fundamentals.
+            </p>
           </div>
         </div>
       </div> */}
 
-      <div className="flex justify-between gap-4">
+      {/* <div className="flex justify-between gap-4">
         <div className="card">
         <div className="overlay"></div>
           <div className="icon">
@@ -34,7 +34,7 @@ function Discovercard() {
             Discover undervalued gems with strong fundamentals.
           </p>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
