@@ -23,6 +23,7 @@ import { ACTIVE_PLAN_URL, RECOMMENDATION_COUNTS } from "@/pages/api/URLs";
 import { useActivePlanContext } from "@/components/PlanContext";
 import Link from "next/link";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import { usePathname } from "next/navigation";
 
 type TSideNav = {
   handleLogin: () => void;
@@ -50,7 +51,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
   } = useActivePlanContext();
   // const {plan} = activePlan
   const refreshToken = localStorage.getItem("refresh");
-
+  const pathname = usePathname()
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
     mp.track(event, properties);
@@ -140,15 +141,15 @@ export default function SideNav({ handleLogin }: TSideNav) {
         </SheetHeader>
         <div className=" overflow-y-scroll">
           <div className="">
-            <ul className=" m-0 px-4 text-[#475467] ">
+            <ul className=" m-0 px-4 text-[#475467]  ">
               <li className=" py-3 px-4 m-0">
                 <Accordion className="" type="single" collapsible>
                   <AccordionItem className=" border-b-0" value="item-1">
-                    <AccordionTrigger className=" text-md hover:no-underline py-0">
+                    <AccordionTrigger className=" text-md font-medium hover:no-underline py-0">
                       {isLoggedIn ? "About Us" : "Home"}
                     </AccordionTrigger>
                     <AccordionContent>
-                      <ul className=" flex flex-col text-[#475467] m-0">
+                      <ul className=" flex flex-col text-[#475467]  m-0">
                         {HOME_OPTIONS.filter((options) =>
                           isLoggedIn
                             ? options.title !== "Sample Reports" &&
@@ -168,9 +169,9 @@ export default function SideNav({ handleLogin }: TSideNav) {
                               }
                             }}
                           >
-                            <li key={options.title} className="flex gap-x-[10px] items-center mb-0 p-3 pl-0">
+                            <li key={options.title} className={`flex gap-x-[10px] items-center mb-0 p-3 pl-0 hover:text-black `}>
                               <div>{options.icon}</div>
-                              <p className="text-md font-medium">{options.title}</p>
+                              <p className={`text-md font-medium `}>{options.title}</p>
                             </li>
                           </Link>
                         ))}
@@ -188,11 +189,11 @@ export default function SideNav({ handleLogin }: TSideNav) {
                 >
                   <li
                     key={nav.title}
-                    className={` text-md flex justify-between items-center font-medium py-3 px-4 m-0 ${
+                    className={` text-md flex justify-between items-center font-medium py-3 px-4 m-0 hover:text-black ${
                       nav.title === "About Us" ? "!hidden" : ""
                     }`}
                   >
-                    <p className=" text-inherit">{nav.title}</p>
+                    <p className={` text-[#475467] ${pathname.includes(nav.link)?"text-black":""}`}>{nav.title}</p>
                     {stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"] ? (
                       <NewStockbadge label={stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"]} />
                     ) : null}
