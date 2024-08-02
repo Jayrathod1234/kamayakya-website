@@ -221,6 +221,7 @@ export function Carousel({ className }: { className?: string }) {
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
         const scale = numberWithinRange(tweenValue, 0, 1).toString();
         const tweenNode = tweenNodes.current[slideIndex];
+        console.log("🚀 ~ slidesInSnap.forEach ~ tweenNode:", tweenNode);
         tweenNode.style.transform = `scale(${scale})`;
       });
     });
@@ -265,18 +266,25 @@ export function Carousel({ className }: { className?: string }) {
             className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
           >
             {/* <ChevronRightIcon className="hidden md:inline-block" fontSize="large" style={{ color: "white" }} /> */}
-            <ChevronRightIcon className="inline-block md:hidden" fontSize="small" style={{ color: "white" }} />
+            <ChevronRightIcon
+              className="inline-block md:hidden"
+              fontSize="small"
+              style={{ color: "white" }}
+            />
           </Button>
         </div>
       </div>
 
       <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
         {/* <div className=" overflow-hidden max-w-full"> */}
-        <div className=" flex pb-12 pt-[60px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
+        <div
+          className=" flex pb-12 pt-[60px] carousel__container"
+          style={{ backfaceVisibility: "hidden" }}
+        >
           {carouselItem.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
-              className={` carousel embla__class-names  flex-[0_0_25%]
+              className={` carousel embla__class-names  
               ${
                 ""
                 // index === selectedIndex ? "" : index > selectedIndex

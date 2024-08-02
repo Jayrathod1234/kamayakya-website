@@ -1,5 +1,5 @@
 import React from "react";
-import Discovercard from "./Discovercard";
+import Discovercard from "../common/Discovercard.jsx";
 
 function Discover() {
   return (
@@ -17,8 +17,7 @@ function Discover() {
         </p>
 
         <div className="pt-10 pb-8">
-          {/* <Discovercard /> */}
-
+          <Discovercard />
         </div>
       </div>
     </>

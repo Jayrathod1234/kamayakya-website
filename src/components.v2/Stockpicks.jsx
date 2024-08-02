@@ -3,11 +3,11 @@ import React from "react";
 import { Button } from "../components.v2/button/button.tsx";
 import { ButtonSize, ButtonVariant } from "../components.v2/button/button.tsx";
 import { MoveRight } from "lucide-react";
-import ProgressBar from "./ProgressBar.jsx";
 import LatestReleases from "../components.v3/section/LatestReleases";
-import Discover from "./Discover.jsx";
+import Discover from "../components.v3/section/Discover.jsx";
 import { Carousel } from "../components.v2/carousel";
-import Mainboard from "./Mainboard.jsx";
+import Mainboard from "../components.v3/section/Mainboard.jsx";
+import ProgressBar from "../components.v3/common/ProgressBar.jsx";
 
 function Stockpicks() {
   const handleContactButton = () => {
@@ -25,7 +25,7 @@ function Stockpicks() {
     <React.Fragment>
       {/* banner  */}
 
-      <div className=" font-open_sans h-[756px] relative">
+      <div className=" font-open_sans h-[805px] relative">
         <div className="absolute top-[-56px] left-0 h-full w-full">
           <video
             autoPlay
@@ -110,7 +110,7 @@ function Stockpicks() {
             </div>
           </div>
         </div>
-        {/* card  */}
+        {/* Hot Stocks card  */}
         <div className="relative z-[2] pb-[110px] mt-[20px]">
           <div className="container mx-auto">
             <div className="bg-gray-150 p-[10px] rounded-[20px]">
@@ -122,7 +122,7 @@ function Stockpicks() {
                   Top stocks to invest in right NOW!
                 </p>
                 <div className="bg-white bg-[url('/assets/grid.png')] bg-cover py-[74px] px-[80px] flex items-center  rounded-[10px]">
-                  <div className="w-1/3">
+                  <div className="sm:w-1/3 w-1/2">
                     <img
                       src="/assets/noto_locked.png"
                       alt=""
@@ -147,7 +147,7 @@ function Stockpicks() {
                     </div>
                   </div>
 
-                  <div className="w-7/12">
+                  <div className="sm:w-7/12 w-1/2">
                     <div className="flex">
                       {/* 1 */}
                       <div className="flex relative">
@@ -166,26 +166,15 @@ function Stockpicks() {
                                 alt=""
                                 className="w-[16px] "
                               />
-                              <div className="min-w-[215px] flex justify-center rounded-2xl bg-[#EDF0F5] gap-1 h-full w-full mr-4"></div>
-                              <img
-                                src="/assets/noto_locked.png"
-                                alt=""
-                                className="w-[16px] "
-                              />
-                              {/* <div class="relative flex  items-center group">
+                              <p className="min-w-[215px] flex justify-center rounded-2xl bg-[#EDF0F5] gap-1 h-full w-full mr-4"></p>
+
+                              <div class="relative flex  items-center group">
                                 <img
                                   src="/assets/play.gif"
                                   alt=""
                                   className=""
                                 />
-                                <div class="absolute bottom-0 flex flex-col items-center hidden mb-4 group-hover:flex gap-[6px]">
-                                  <span class="relative z-10 p-2 text-xs leading-none text-black whitespace-no-wrap bg-white shadow-lg">
-                                    Watch Video
-                                    <img src="/assets/image/Icon.svg" alt="" />
-                                  </span>
-                                  <div class="w-3 h-3 -mt-2 rotate-45 bg-white"></div>
-                                </div>
-                              </div> */}
+                              </div>
                             </div>
                           </div>
                           <div className="pt-[9px] flex items-center gap-[6px] pb-[15px]">
@@ -289,7 +278,7 @@ function Stockpicks() {
                                 <img
                                   src="assets/chevron-right.png"
                                   alt=""
-                                  className="w-4"
+                                  className="w-4 "
                                 />
                               </span>
                             </button>
@@ -592,7 +581,9 @@ function Stockpicks() {
       {/* banner card  */}
 
       <LatestReleases />
+
       <Discover />
+
       <Mainboard />
     </React.Fragment>
   );

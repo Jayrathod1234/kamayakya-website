@@ -15,7 +15,10 @@ const carouselItem = [
   <LatestReleasesCard percentage="20.24" />,
   <LatestReleasesCard percentage="20.24" />,
   <LatestReleasesCard percentage="20.24" />,
-  <LatestReleasesCard percentage="20.24" />
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
 ];
 
 type UsePrevNextButtonsType = {
@@ -100,7 +103,11 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
 };
 
 export const CarouselItem = React.forwardRef(
-  ({ children, className, ref }: TChildren & { className?: string; ref: any }) => {
+  ({
+    children,
+    className,
+    ref,
+  }: TChildren & { className?: string; ref: any }) => {
     return (
       <div ref={ref} className={`carousel__item h-full ${className}`}>
         {children}
@@ -111,20 +118,31 @@ export const CarouselItem = React.forwardRef(
 
 const TWEEN_FACTOR_BASE = 0.1;
 
-const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
+const numberWithinRange = (number: number, min: number, max: number): number =>
+  Math.min(Math.max(number, min), max);
 
 export function LatestReleasesCarousel({ className }: { className?: string }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      // startIndex: 1,
-      loop: true,
-    },
-    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
-  );
+  // const [emblaRef, emblaApi] = useEmblaCarousel(
+  //   {
+  //     // startIndex: 1,
+  //     loop: true,
+  //   },
+  //   [Autoplay({ playOnInit: false, delay: 6000 }), ClassNames()] //change carousel timer here.
+  // );
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    // startIndex: 1,
+    loop: true,
+  });
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
-  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+  const { selectedIndex, scrollSnaps, onDotButtonClick } =
+    useDotButton(emblaApi);
 
   const handlePrevNext = (cb: () => void) => {
     cb();
@@ -136,7 +154,7 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
 
   const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
-      return slideNode.querySelector(".testimony") as HTMLElement;
+      return slideNode.querySelector(".main_card_carousel") as HTMLElement;
     });
   }, []);
 
@@ -144,43 +162,46 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
 
-  const tweenScale = useCallback((emblaApi: EmblaCarouselType, eventName?: any) => {
-    const engine = emblaApi.internalEngine();
-    const scrollProgress = emblaApi.scrollProgress();
-    const slidesInView = emblaApi.slidesInView();
-    const isScrollEvent = eventName === "scroll";
+  const tweenScale = useCallback(
+    (emblaApi: EmblaCarouselType, eventName?: any) => {
+      const engine = emblaApi.internalEngine();
+      const scrollProgress = emblaApi.scrollProgress();
+      const slidesInView = emblaApi.slidesInView();
+      const isScrollEvent = eventName === "scroll";
 
-    emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
-      let diffToTarget = scrollSnap - scrollProgress;
-      const slidesInSnap = engine.slideRegistry[snapIndex];
+      emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+        let diffToTarget = scrollSnap - scrollProgress;
+        const slidesInSnap = engine.slideRegistry[snapIndex];
 
-      slidesInSnap.forEach((slideIndex) => {
-        if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
+        slidesInSnap.forEach((slideIndex) => {
+          if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
 
-        if (engine.options.loop) {
-          engine.slideLooper.loopPoints.forEach((loopItem) => {
-            const target = loopItem.target();
+          if (engine.options.loop) {
+            engine.slideLooper.loopPoints.forEach((loopItem) => {
+              const target = loopItem.target();
 
-            if (slideIndex === loopItem.index && target !== 0) {
-              const sign = Math.sign(target);
+              if (slideIndex === loopItem.index && target !== 0) {
+                const sign = Math.sign(target);
 
-              if (sign === -1) {
-                diffToTarget = scrollSnap - (1 + scrollProgress);
+                if (sign === -1) {
+                  diffToTarget = scrollSnap - (1 + scrollProgress);
+                }
+                if (sign === 1) {
+                  diffToTarget = scrollSnap + (1 - scrollProgress);
+                }
               }
-              if (sign === 1) {
-                diffToTarget = scrollSnap + (1 - scrollProgress);
-              }
-            }
-          });
-        }
+            });
+          }
 
-        const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-        const scale = numberWithinRange(tweenValue, 0, 1).toString();
-        const tweenNode = tweenNodes.current[slideIndex];
-        // tweenNode.style.transform = `scale(${scale})`;
+          const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
+          const scale = numberWithinRange(tweenValue, 0, 1).toString();
+          const tweenNode = tweenNodes.current[slideIndex];
+          // tweenNode.style.transform = `scale(${scale})`;
+        });
       });
-    });
-  }, []);
+    },
+    []
+  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -221,32 +242,45 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
             className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
           >
             {/* <ChevronRightIcon className="hidden md:inline-block" fontSize="large" style={{ color: "white" }} /> */}
-            <ChevronRightIcon className="inline-block md:hidden" fontSize="small" style={{ color: "white" }} />
+            <ChevronRightIcon
+              className="inline-block md:hidden"
+              fontSize="small"
+              style={{ color: "white" }}
+            />
           </Button>
         </div>
       </div>
 
       <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
         {/* <div className=" overflow-hidden max-w-full"> */}
-        <div className=" flex pb-12 pt-[60px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
+        <div
+          className=" flex pb-12 pt-[60px] carousel__container"
+          style={{ backfaceVisibility: "hidden" }}
+        >
           {carouselItem.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
-              className={` carousel embla__class-names  flex-[0_0_25%]
-              ${""
-                // index === selectedIndex ? "" : index > selectedIndex
-                //  ? " !scale-75 md:ml-[-2rem] lg:ml-[-4rem]"
-                //  : " !scale-75 md:mr-[-2rem] lg:mr-[-4rem]"
-                }
+              className={` carousel embla__class-names  
+              ${
+                index === selectedIndex
+                  ? ""
+                  : index > selectedIndex
+                  ? `!scale-[0.85] ${
+                      selectedIndex + 2 == index
+                        ? "md:ml-[-2rem] lg:ml-[-3rem]"
+                        : ""
+                    }`
+                  : `!scale-[0.85] ${
+                      selectedIndex - 2 == index
+                        ? "md:mr-[-2rem] lg:mr-[-3rem]"
+                        : ""
+                    }`
+              }
               `}
             >
               {carousel}
             </CarouselItem>
-
-
           ))}
-
-
         </div>
         {/* </div> */}
       </div>
@@ -256,8 +290,9 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={` ${index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
-              } h-[10px]  bg-gray-200 rounded-full transition-all`}
+            className={` ${
+              index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
+            } h-[10px]  bg-gray-200 rounded-full transition-all`}
           ></div>
         ))}
       </div>

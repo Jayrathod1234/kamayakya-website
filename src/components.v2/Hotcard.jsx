@@ -1,5 +1,5 @@
 import React from "react";
-import ProgressBar from "./ProgressBar.jsx";
+import ProgressBar from "../components.v3/common/ProgressBar";
 
 function Hotcard() {
   return (
