@@ -1,49 +1,115 @@
 import React from "react";
 
-function Discovercard() {
+function Discovercard({}) {
   return (
     <>
-      {/* <div className="flex justify-between gap-4">
+      <div className="flex justify-between gap-4">
         <div className="w-1/4">
-          <div className="card education">
-            <div className="overlay"></div>
-            <div className="circle">
-              <img
-                src="/assets/ëÎÓÈ_1.svg"
-                alt=""
-                srcset=""
-                className="z-[1] w-12"
-              />
+          <a href="#" class="card education border border-gray-200">
+            <div className="main-card">
+              <div class="overlay-1"></div>
+              <div class="circle">
+                <img src="/assets/ëÎÓÈ_1.svg" alt="" className="z-[1]" />
+              </div>
+              <p className="text font-open_sans">Value Pick</p>
             </div>
-            <p className="text-sm font-bold text-[#1D2939]">Value Pick</p>
-            <p className="text font-open_sans ">
+
+            <p className="title max-w-[159px] font-open_sans">
               Discover undervalued gems with strong fundamentals.
             </p>
-          </div>
+          </a>
         </div>
-      </div> */}
+        <div className="w-1/4">
+          <a href="#" class="card education border border-gray-200">
+            <div className="main-card">
+              <div class="overlay-1"></div>
+              <div class="circle">
+                <img src="/assets/ëÎÓÈ_1.svg" alt="" className="z-[1]" />
+              </div>
+              <p className="text font-open_sans">Value Pick</p>
+            </div>
 
-      {/* <div className="flex justify-between gap-4">
-        <div className="card">
-        <div className="overlay"></div>
-          <div className="icon">
-            <img src="/assets/ëÎÓÈ_1.svg" alt="" />
-          </div>
-          <p className="title font-open_sans">Value Pick</p>
-          <p className="text font-open_sans ">
-            Discover undervalued gems with strong fundamentals.
-          </p>
+            <p className="title max-w-[159px] font-open_sans">
+              Discover undervalued gems with strong fundamentals.
+            </p>
+          </a>
         </div>
-      </div> */}
+        <div className="w-1/4">
+          <a href="#" class="card education border border-gray-200">
+            <div className="main-card">
+              <div class="overlay-1"></div>
+              <div class="circle">
+                <img src="/assets/ëÎÓÈ_1.svg" alt="" className="z-[1]" />
+              </div>
+              <p className="text  font-open_sans">Value Pick</p>
+            </div>
 
-      <a href="#" class="card education">
-        <div class="overlay-1"></div>
-        <div class="circle">
-          <img src="/assets/ëÎÓÈ_1.svg" alt="" />
+            <p className="title max-w-[159px] font-open_sans">
+              Discover undervalued gems with strong fundamentals.
+            </p>
+          </a>
         </div>
-        <p className="text">Education</p>
-        <p className="title">dsdsd</p>
-      </a>
+        <div className="w-1/4">
+          <a href="#" class="card education border border-gray-200">
+            <div className="main-card">
+              <div class="overlay-1"></div>
+              <div class="circle">
+                <img src="/assets/ëÎÓÈ_1.svg" alt="" className="z-[1]" />
+              </div>
+              <p className="text font-open_sans">Value Pick</p>
+            </div>
+
+            <p className="title max-w-[159px] font-open_sans">
+              Discover undervalued gems with strong fundamentals.
+            </p>
+          </a>
+        </div>
+        <div className="w-1/4">
+          <a href="#" class="card education border border-gray-200">
+            <div className="main-card">
+              <div class="overlay-1"></div>
+              <div class="circle">
+                <img src="/assets/ëÎÓÈ_1.svg" alt="" className="z-[1]" />
+              </div>
+              <p className="text font-open_sans">Value Pick</p>
+            </div>
+
+            <p className="title max-w-[159px] font-open_sans">
+              Discover undervalued gems with strong fundamentals.
+            </p>
+          </a>
+        </div>
+        <div className="w-1/4">
+          <a href="#" class="card education border border-gray-200">
+            <div className="main-card">
+              <div class="overlay-1"></div>
+              <div class="circle">
+                <img src="/assets/ëÎÓÈ_1.svg" alt="" className="z-[1]" />
+              </div>
+              <p className="text  font-open_sans">Value Pick</p>
+            </div>
+
+            <p className="title max-w-[159px] font-open_sans">
+              Discover undervalued gems with strong fundamentals.
+            </p>
+          </a>
+        </div>
+        <div className="w-1/4">
+          <a href="#" class="card education border border-gray-200">
+            <div className="main-card">
+              <div class="overlay-1"></div>
+              <div class="circle">
+                <img src="/assets/ëÎÓÈ_1.svg" alt="" className="z-[1]" />
+              </div>
+              <p className="text  font-open_sans">Value Pick</p>
+            </div>
+
+            <p className="title max-w-[159px] font-open_sans">
+              Discover undervalued gems with strong fundamentals.
+            </p>
+          </a>
+        </div>
+      </div>
     </>
   );
 }

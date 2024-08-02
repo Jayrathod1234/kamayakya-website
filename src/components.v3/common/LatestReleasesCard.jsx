@@ -1,10 +1,14 @@
 import React from "react";
+import ProgressBar from "../common/ProgressBar";
 
 function LatestReleasesCard({ percentage }) {
   return (
     <>
-      <div className="w-1/3">
-        <div className="flex relative ">
+      <div className="main_card_carousel">
+        <div className="flex relative">
+          <div className="absolute top-[-7px] right-[97px] z-[1]">
+            <img src="/assets/newtab.png" alt="" className="w-[210px]" />
+          </div>
           <div className="relative rounded-lg bg-white border border-[#FEC84B] min-w-[408px]">
             <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
               <div className="p-1 gap-2 flex items-center">
@@ -17,7 +21,11 @@ function LatestReleasesCard({ percentage }) {
                 <div className="h-5 bg-[#EDF0F5] items-end rounded-[20px] min-w-[281px]"></div>
               </div>
 
-              <img src="/assets/play.gif" alt="" className="w-[24px] play" />
+              <img
+                src="/assets/play.gif"
+                alt=""
+                className="w-[24px] play blur-[1px]"
+              />
               {/* <img
               src="/assets/Property 1=Default.png"
               alt=""
@@ -94,7 +102,9 @@ function LatestReleasesCard({ percentage }) {
                 </div>
               </div>
             </div>
-            <div className="pt-5 pb-[10px] pr-5">{/* <ProgressBar /> */}</div>
+            <div className="pt-5 pb-[10px] pr-5">
+              <ProgressBar />
+            </div>
             <div className="p-5">
               {/* btn  */}
               <button className="button-82-pushable" role="button">
