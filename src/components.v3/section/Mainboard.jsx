@@ -150,9 +150,12 @@ function Mainboard() {
             </form>
           </div>
           <div className="w-1/12">
-            <button className=" bg-white border border-[#E4E7EC] py-[10px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)]">
+            <button className="relative bg-white border border-[#E4E7EC] py-[10px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)]">
               <img src="/assets/filter.svg" alt="" />
               <p className="font-open_sans">Filter</p>
+              <span class="absolute bg-[#FDB022] text-white px-1 text-xs font-bold rounded-full -top-1 -right-1 w-6 h-6 justify-center items-center flex">
+                1
+              </span>
             </button>
           </div>
         </div>
