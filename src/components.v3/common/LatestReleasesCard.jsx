@@ -3,7 +3,7 @@ import React from "react";
 function LatestReleasesCard({ percentage }) {
   return (
     <>
-      <div className="flex relative">
+      <div className="flex relative ">
         <div className="relative rounded-lg bg-white border border-[#FEC84B] min-w-[408px]">
           <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
             <div className="p-1 gap-2 flex items-center">
