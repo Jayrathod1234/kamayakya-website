@@ -4,7 +4,7 @@ import ProgressBar from "../common/ProgressBar";
 function LatestReleasesCard({ percentage }) {
   return (
     <>
-      <div className="main_card_carousel ">
+      <div className="main_card_carousel">
         <div className="flex relative">
           <div className="absolute top-[-7px] right-[97px] z-[1]">
             <img src="/assets/newtab.png" alt="" className="w-[210px]" />
