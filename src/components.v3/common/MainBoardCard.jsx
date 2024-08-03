@@ -4,7 +4,7 @@ import ProgressBar from "../common/ProgressBar";
 function MainBoardCard() {
   return (
     <div className="flex relative">
-      <div className="relative rounded-lg bg-white border border-[#FEC84B] min-w-[408px]">
+      <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px]">
         <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
           <div className="p-1 gap-2 flex items-center">
             <img src="/assets/noto_locked.png" alt="" className="w-[19px]" />
@@ -16,9 +16,16 @@ function MainBoardCard() {
             <img
               src="/assets/play.gif"
               alt=""
-              className="w-[24px] blur-[1px]"
+              className="w-[24px] blur-[2px]"
             />
-            <span class="tooltiptext">Tooltip text</span>
+            <span class="tooltiptext relative">
+              <img
+                src="/assets/div.png"
+                alt=""
+                className="absolute -top-2 left-[52px] w-4"
+              />
+              Please become a member to watch this video.
+            </span>
           </div>
           {/* <img
           src="/assets/Property 1=Default.png"

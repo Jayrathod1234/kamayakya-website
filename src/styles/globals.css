@@ -1778,23 +1778,27 @@ header > div > div {
 }
 
 .tooltip .tooltiptext {
+  display: flex;
   visibility: hidden;
-  width: 120px;
-  background-color: rgb(248, 248, 248);
-  border: 1px solid #e4e7ec;
-  color: #000000;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
+  width: 140px;
+    background-color: #fff;
+    border: 1px solid #EDF0F5;
+    color: #1D2939;
+    align-items: flex-start;
+    border-radius: 8px;
+    padding: 16px;
   position: absolute;
   z-index: 1;
-  bottom: -31%;
-  /* Position the tooltip text */
-  left: -284%;
+  top: 150%;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    left: 91%;
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.3s;
 }
+
 
 .tooltip:hover .tooltiptext {
   visibility: visible;

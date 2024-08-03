@@ -122,17 +122,14 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 export function LatestReleasesCarousel({ className }: { className?: string }) {
-  // const [emblaRef, emblaApi] = useEmblaCarousel(
-  //   {
-  //     // startIndex: 1,
-  //     loop: true,
-  //   },
-  //   [Autoplay({ playOnInit: false, delay: 6000 }), ClassNames()] //change carousel timer here.
-  // );
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    // startIndex: 1,
-    loop: true,
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      // startIndex: 1,
+      loop: true,
+    },
+    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
+  );
+
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
   const {
@@ -196,6 +193,8 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
           const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
           const scale = numberWithinRange(tweenValue, 0, 1).toString();
           const tweenNode = tweenNodes.current[slideIndex];
+          console.log("🚀 ~ slidesInSnap.forEach ~ tweenNode:", tweenNode);
+          tweenNode.style.transform = `scale(${scale})`;
           // tweenNode.style.transform = `scale(${scale})`;
         });
       });
