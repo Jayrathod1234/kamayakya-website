@@ -9,7 +9,7 @@ function LatestReleasesCard({ percentage }) {
           <div className="absolute top-[-7px] right-[97px] z-[1]">
             <img src="/assets/newtab.png" alt="" className="w-[210px]" />
           </div>
-          <div className="relative rounded-lg bg-white border border-[#FEC84B] min-w-[408px]">
+          <div className="relative rounded-lg bg-white border border-brand-300 min-w-[408px]">
             <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
               <div className="p-1 gap-2 flex items-center">
                 <img

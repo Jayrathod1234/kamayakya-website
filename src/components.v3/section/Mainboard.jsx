@@ -1,5 +1,5 @@
 import React from "react";
-import MainBoardCard from "../common/MainBoardCard.jsx";
+import MainBoardArea from "../common/MainBoardArea.jsx";
 
 function Mainboard() {
   return (
@@ -8,21 +8,10 @@ function Mainboard() {
         <p className=" text-display-xs text-[#0C111D] font-bold font-open_sans text-center pb-10">
           All Mainboard Stocks
         </p>
+        {/* all mainboard nav  */}
         <div className="sticky top-0">
           <div className="flex gap-4 items-center">
             <div className="w-3/12">
-              {/* <div className=" bg-[#E7F8F8] border border-[#ADDFDB] py-[10px] px-[14px] rounded-md flex gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)]">
-              <img src="/assets/mi_sort.svg" alt="" />
-              <p className="font-medium font-open_sans">
-                Returns : High to Low
-              </p>
-              <img src="/assets/chevron-down.svg" alt="" />
-            </div> */}
-
-              {/* Hot and New */}
-              {/* New */}
-              {/* Hot */}
-
               <div>
                 <button
                   type="button"
@@ -50,83 +39,83 @@ function Mainboard() {
               </div>
 
               {/* <div
-              class="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby="menu-button"
-              tabindex="-1"
-            >
-              <div class="py-1" role="none">
-                <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                  <input
-                    type="radio"
-                    name="sort"
-                    class="form-radio text-indigo-600"
-                    checked
-                  />
-                  <span class="ml-2">High to Low</span>
-                </label>
-                <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                  <input
-                    type="radio"
-                    name="sort"
-                    class="form-radio text-indigo-600"
-                  />
-                  <span class="ml-2">Low to High</span>
-                </label>
+                class="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="menu-button"
+                tabindex="-1"
+              >
+                <div class="py-1" role="none">
+                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="form-radio text-indigo-600"
+                      checked
+                    />
+                    <span class="ml-2">High to Low</span>
+                  </label>
+                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="form-radio text-indigo-600"
+                    />
+                    <span class="ml-2">Low to High</span>
+                  </label>
 
-                <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                  <input
-                    type="radio"
-                    name="sort"
-                    class="form-radio text-indigo-600"
-                  />
-                  <span class="ml-2">Newest to Oldest</span>
-                </label>
-                <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                  <input
-                    type="radio"
-                    name="sort"
-                    class="form-radio text-indigo-600"
-                  />
-                  <span class="ml-2">Oldest to Newest</span>
-                </label>
+                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="form-radio text-indigo-600"
+                    />
+                    <span class="ml-2">Newest to Oldest</span>
+                  </label>
+                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="form-radio text-indigo-600"
+                    />
+                    <span class="ml-2">Oldest to Newest</span>
+                  </label>
 
-                <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                  <input
-                    type="radio"
-                    name="sort"
-                    class="form-radio text-indigo-600"
-                  />
-                  <span class="ml-2">Longest to Shortest</span>
-                </label>
-                <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                  <input
-                    type="radio"
-                    name="sort"
-                    class="form-radio text-indigo-600"
-                  />
-                  <span class="ml-2">Shortest to Longest</span>
-                </label>
+                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="form-radio text-indigo-600"
+                    />
+                    <span class="ml-2">Longest to Shortest</span>
+                  </label>
+                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="form-radio text-indigo-600"
+                    />
+                    <span class="ml-2">Shortest to Longest</span>
+                  </label>
 
-                <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                  <input
-                    type="radio"
-                    name="sort"
-                    class="form-radio text-indigo-600"
-                  />
-                  <span class="ml-2">High to Low</span>
-                </label>
-                <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                  <input
-                    type="radio"
-                    name="sort"
-                    class="form-radio text-indigo-600"
-                  />
-                  <span class="ml-2">Low to High</span>
-                </label>
-              </div>
-            </div> */}
+                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="form-radio text-indigo-600"
+                    />
+                    <span class="ml-2">High to Low</span>
+                  </label>
+                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="form-radio text-indigo-600"
+                    />
+                    <span class="ml-2">Low to High</span>
+                  </label>
+                </div>
+              </div> */}
             </div>
             <div className=" w-10/12">
               <form class="">
@@ -168,7 +157,7 @@ function Mainboard() {
               </p>
             </div>
             <div className="w-auto">
-              <button className=" px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center hover:bg-brand-100 hover:border-brand-200 hover:scale-[0.960] transition-all duration-500 hover:transition-all hover:duration-500">
+              <button className=" px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center hover:bg-brand-100 hover:border-brand-200 hover:scale-[0.960] transition-all duration-500 hover:transition-all hover:duration-500 focus:bg-brand-500 focus:text-white text-[#1D2939]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -183,7 +172,7 @@ function Mainboard() {
                     fill="#475467"
                   />
                 </svg>
-                <p className="text-[#1D2939] text-sm font-medium font-open_sans">
+                <p className=" text-sm font-medium font-open_sans">
                   Most Recent
                 </p>
               </button>
@@ -328,14 +317,16 @@ function Mainboard() {
           </div>
         </div>
       </div>
+      {/* blur card  */}
       <div className="mt-4 bg-[#F2F4F7] py-10 px-20 relative">
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7 ">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
-              <MainBoardCard />
+            {[1, 2, 3, 4, 5, 6].map(() => (
+              <MainBoardArea />
             ))}
+            {/* <MainBoardArea /> */}
           </div>
-          {/* Elevate Your   */}
+          {/* Elevate Your section  */}
           <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
             <div className="p-[56px] rounded-[20px] bg-custom-gradient-3 flex items-center justify-between relative overflow-hidden z-[555] top-[102px]">
               <div className="absolute bottom-[2px] left-[41%]">
@@ -368,7 +359,7 @@ function Mainboard() {
             </div>
           </div>
         </div>
-        {/* blur Rectangle  */}
+        {/* Blur Rectangle  */}
         <div className="absolute bottom-[163px] z-[1] max-h-[400px] w-full">
           <img
             src="/assets/Rectangle.png"
