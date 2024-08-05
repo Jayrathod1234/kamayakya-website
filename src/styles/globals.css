@@ -1570,7 +1570,13 @@ header > div > div {
     #5db7ad 100%
   );
 }
+.button-82-pushable:hover .button-82-edge {
+  background: linear-gradient(90deg, #0C3F3A 0%, #47ADA3 8%, #47ADA3 92%, #0C3F3A 100%);
+}
 
+.button-82-pushable:hover .button-82-front {
+  background: linear-gradient(172deg, #C9F1E6 -17.72%, #B6EBE9 108.12%);
+}
 .button-82-front {
   display: flex;
   position: relative;
