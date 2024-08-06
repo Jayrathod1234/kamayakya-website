@@ -56,7 +56,7 @@ const StockPicks = () => {
           <div>
             <Stockpicks />
           </div>
-
+            
           <div className="  ">
             <Footer />
           </div>
