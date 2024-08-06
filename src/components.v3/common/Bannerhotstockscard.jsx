@@ -35,6 +35,24 @@ const Bannerhotstockscard = () => {
                     <br></br>with KamayaKya membership.
                   </p>
                   <div className=" !mt-6">
+                    <button className="py-2 px-5 bg-brand-500 text-white rounded-md justify-center items-center flex">
+                      Explore Plans
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                      >
+                        <path
+                          d="M6.75 13.5L11.25 9L6.75 4.5"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
                     {/* <Button
                       endIcon={<MoveRight className=" text-inherit" />}
                       onClick={handleContactButton}

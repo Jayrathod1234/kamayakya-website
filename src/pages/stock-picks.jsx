@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import NavBar2 from "../components/Navbar2";
-import NavBar from "../components/Navbar";
+import NavBar from "../components.v2/navbar";
 import StockCard from "../components/StockCard";
 import FaqsNew from "./screens/FaqsNew";
 

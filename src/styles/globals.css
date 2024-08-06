@@ -1819,6 +1819,7 @@ header > div > div {
   visibility: visible;
   opacity: 1;
 }
+/* tab  */
 /* selectore  */
 details {
   position: relative;
@@ -1891,6 +1892,7 @@ details[open] summary:after {
   border-radius: 5px;
   max-height: 200px;
   overflow-y: auto;
+  z-index: 11;
 }
 
 .navlist ul li {

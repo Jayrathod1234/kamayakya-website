@@ -91,7 +91,7 @@ function Stockpicks() {
                 />
                 <label
                   for="tab-one"
-                  className="bg-white peer-checked/tab-one:bg-black peer-checked/tab-one:text-white px-10 py-2 rounded-[47px] block text-base font-semibold cursor-pointer transition duration-500 scroll-smooth"
+                  className="bg-white peer-checked/tab-one:bg-black peer-checked/tab-one:text-white px-10 py-2 rounded-[47px] block text-base font-semibold cursor-pointer transition duration-500 ease-in"
                 >
                   Main Board
                   <span className="block text-[11px] font-bold">12 Stocks</span>
@@ -104,12 +104,12 @@ function Stockpicks() {
                 />
                 <label
                   for="tab-two"
-                  className="bg-white peer-checked/tab-two:bg-black peer-checked/tab-two:text-white cursor-pointer px-10 py-2 rounded-[47px] block text-base font-semibold transition duration-500 scroll-smooth"
+                  className="bg-white peer-checked/tab-two:bg-black peer-checked/tab-two:text-white cursor-pointer px-10 py-2 rounded-[47px] block text-base font-semibold transition duration-500 ease-in"
                 >
                   SME Board
                   <span className="block text-[11px] font-bold">14 Stocks</span>
                 </label>
-                <div className="basis-full h-0 transition ease-out duration-700"></div>
+                <div className="basis-full h-0 transition ease duration-500"></div>
               </div>
             </div>
           </div>
