@@ -41,7 +41,7 @@ function Discovercard({}) {
               <div class="circle">
                 <img src="/assets/ëÎÓÈ_1.svg" alt="" className="z-[1]" />
               </div>
-              <p className="text  font-open_sans">Value Pick</p>
+              <p className="text font-open_sans">Value Pick</p>
             </div>
 
             <p className="title max-w-[159px] font-open_sans">

@@ -9,6 +9,7 @@ import { Carousel } from "../components.v2/carousel";
 import Mainboard from "../components.v3/section/Mainboard.jsx";
 import ProgressBar from "../components.v3/common/ProgressBar.jsx";
 import Bannerhotstockscard from "../components.v3/common/Bannerhotstockscard.jsx";
+import { Navbar } from "@nextui-org/react";
 
 function Stockpicks() {
   const handleContactButton = () => {
@@ -24,6 +25,7 @@ function Stockpicks() {
   };
   return (
     <React.Fragment>
+      {/* <Navbar /> */}
       {/* stocks-picks Banner */}
 
       <div className=" font-open_sans h-[805px] relative">
@@ -89,7 +91,7 @@ function Stockpicks() {
                 />
                 <label
                   for="tab-one"
-                  className="bg-white peer-checked/tab-one:bg-black peer-checked/tab-one:text-white px-10 py-2 rounded-[47px] block text-base font-semibold cursor-pointer"
+                  className="bg-white peer-checked/tab-one:bg-black peer-checked/tab-one:text-white px-10 py-2 rounded-[47px] block text-base font-semibold cursor-pointer transition duration-500 scroll-smooth"
                 >
                   Main Board
                   <span className="block text-[11px] font-bold">12 Stocks</span>
@@ -102,7 +104,7 @@ function Stockpicks() {
                 />
                 <label
                   for="tab-two"
-                  className="bg-white peer-checked/tab-two:bg-black peer-checked/tab-two:text-white cursor-pointer px-10 py-2 rounded-[47px] block text-base font-semibold"
+                  className="bg-white peer-checked/tab-two:bg-black peer-checked/tab-two:text-white cursor-pointer px-10 py-2 rounded-[47px] block text-base font-semibold transition duration-500 scroll-smooth"
                 >
                   SME Board
                   <span className="block text-[11px] font-bold">14 Stocks</span>

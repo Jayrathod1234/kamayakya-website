@@ -8,7 +8,7 @@ function MainBoardcard() {
   return (
     <div>
       {/* new stock card  */}
-      <div className="flex relative">
+      {/* <div className="flex relative">
         <div className="absolute top-[-7px] right-[97px] z-[1]">
           <img src="/assets/newtab.png" alt="" className="w-[210px]" />
         </div>
@@ -20,14 +20,6 @@ function MainBoardcard() {
 
             <div class="tooltip">
               <img src="/assets/play.gif" alt="" className="w-[24px]" />
-              {/* <span class="tooltiptext relative">
-                <img
-                  src="/assets/div.png"
-                  alt=""
-                  className="absolute -top-2 left-[52px] w-4"
-                />
-                Please become a member to watch this video.
-              </span> */}
             </div>
           </div>
           <div className="pt-[12px] px-[20px] pb-[20px]">
@@ -110,10 +102,9 @@ function MainBoardcard() {
           </div>
           <div className="pt-5 pb-[10px] pr-5">
             <ProgressBar />
-            {/* <ProgressIndicator /> */}
           </div>
           <div className="p-5">
-            {/* btn  */}
+
             <button className="button-82-pushable" role="button">
               <span className="button-82-shadow"></span>
               <span className="button-82-edge"></span>
@@ -127,7 +118,7 @@ function MainBoardcard() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* hot stock card  */}
       {/* <Hotstockcard /> */}
       {/* hotNew stock card  */}

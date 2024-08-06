@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 KamayaKya - SEBI Registered Research Analyst | Expert Microcap &
                 Smallcap Stock Picks
               </title>
+
               <meta
                 name="og:title"
                 content="KamayaKya - SEBI Registered Research Analyst | Expert Microcap &
@@ -46,6 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 href="/kamayaKya-website-favicon-white-bordered.ico"
                 sizes="any"
               />
+              <script src="%PUBLIC_URL%/assets/js/mutiple-dropdown.js"></script>
               {/*<link*/}
               {/*  rel="icon"*/}
               {/*  type="image/svg+xml"*/}

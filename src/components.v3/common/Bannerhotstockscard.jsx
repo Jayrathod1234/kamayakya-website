@@ -240,6 +240,14 @@ const Bannerhotstockscard = () => {
                     </div>
                     {/* 2  */}
                     <div className="flex relative scale-x-90 left-[-38%] z-10">
+                      <div className="absolute z-20 left-[7.5rem] -top-1">
+                        <img
+                          src="/assets/hottab.png"
+                          alt=""
+                          srcset=""
+                          className="w-[160px]"
+                        />
+                      </div>
                       <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-[#FEC84B]">
                         <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
                           <div className="p-1 gap-2 flex items-center">
@@ -422,6 +430,14 @@ const Bannerhotstockscard = () => {
                     </div>
                     {/* 3 */}
                     <div className="flex relative scale-75 left-[-70%]">
+                      <div className="absolute z-10 left-[7.5rem] -top-1">
+                        <img
+                          src="/assets/hottab.png"
+                          alt=""
+                          srcset=""
+                          className="w-[160px]"
+                        />
+                      </div>
                       <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-[#FEC84B]">
                         <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
                           <div className="p-1 gap-2 flex items-center">

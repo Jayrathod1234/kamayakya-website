@@ -6,10 +6,10 @@ import MainBoardcard from "./MainBoardcard";
 function MainBoardArea() {
   return (
     <>
-    {/* Non-login-user card blur effect */}
+      {/* Non-login-user card blur effect */}
       <Nonlogincard />
       {/* login-user card  */}
-      <MainBoardcard />
+      {/* <MainBoardcard /> */}
     </>
   );
 }

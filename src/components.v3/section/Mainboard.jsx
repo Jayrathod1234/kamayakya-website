@@ -307,12 +307,50 @@ function Mainboard() {
               </div>
             </div>
             <div className="w-auto">
-              <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
+              <details class="custom-select">
+                <summary class="radios">
+                  <input
+                    type="radio"
+                    name="item"
+                    id="default"
+                    title="Strategy"
+                    checked
+                  />
+                  <input type="radio" name="item" id="item1" title="Item 1" />
+                  <input type="radio" name="item" id="item2" title="Item 2" />
+                  <input type="radio" name="item" id="item3" title="Item 3" />
+                  <input type="radio" name="item" id="item4" title="Item 4" />
+                  <input type="radio" name="item" id="item5" title="Item 5" />
+                  <img src="/assets/chevron-down.svg" alt="" />
+                </summary>
+                <div className="navlist">
+                  <ul class="list">
+                    <li>
+                      <label for="item1">
+                        Item 1<span></span>
+                      </label>
+                    </li>
+                    <li>
+                      <label for="item2">Item 2</label>
+                    </li>
+                    <li>
+                      <label for="item3">Item 3</label>
+                    </li>
+                    <li>
+                      <label for="item4">Item 4</label>
+                    </li>
+                    <li>
+                      <label for="item5">Item 5</label>
+                    </li>
+                  </ul>
+                </div>
+              </details>
+              {/* <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
                 <p className="text-[#1D2939] text-sm font-medium font-open_sans">
                   Sector
                 </p>
                 <img src="/assets/chevron-down.svg" alt="" />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -321,7 +359,7 @@ function Mainboard() {
       <div className="mt-4 bg-[#F2F4F7] py-10 px-20 relative">
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7 ">
-            {[1, 2, 3, 4, 5, 6].map(() => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
               <MainBoardArea />
             ))}
             {/* <MainBoardArea /> */}

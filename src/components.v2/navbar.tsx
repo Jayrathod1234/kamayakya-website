@@ -29,7 +29,15 @@ import {
 import { cn } from "@/lib/utils";
 import { Item } from "@radix-ui/react-select";
 import { HOME_OPTIONS, NAVBAR_LINKS } from "@/constants/index.constants";
-import { ArrowRight, CircleHelp, Headset, LogOut, Menu, MessageSquareText, User } from "lucide-react";
+import {
+  ArrowRight,
+  CircleHelp,
+  Headset,
+  LogOut,
+  Menu,
+  MessageSquareText,
+  User,
+} from "lucide-react";
 import { light } from "@mui/material/styles/createPalette";
 import { NavbarDropdownCard, NavbarUserCard } from "./cards";
 import AuthContext from "@/components/AuthContext";
@@ -314,10 +322,14 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
               <div className="text-sm font-medium leading-none text-gray-950 mb-1 flex gap-x-2 items-center">
                 <span className=" whitespace-nowrap">{title}</span>
                 <span className=" invisible group-hover:visible">
-                  {endIcon || <ArrowRight size={12} className=" text-gray-400" />}
+                  {endIcon || (
+                    <ArrowRight size={12} className=" text-gray-400" />
+                  )}
                 </span>
               </div>
-              <p className="line-clamp-2 leading-snug text-gray-500 text-2xs">{children}</p>
+              <p className="line-clamp-2 leading-snug text-gray-500 text-2xs">
+                {children}
+              </p>
             </div>
           </a>
         </NavigationMenuLink>
