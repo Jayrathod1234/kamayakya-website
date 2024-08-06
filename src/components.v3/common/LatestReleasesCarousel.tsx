@@ -4,21 +4,20 @@ import { Button } from "../../components.v2/ui/button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { EmblaCarouselType } from "embla-carousel";
-import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
+import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
-import LatestReleasesCard from "./LatestReleasesCard"
+import LatestReleasesCard from "./LatestReleasesCard";
 
-const carouselItem = [
-  <LatestReleasesCard percentage="12.24" />,
-  <LatestReleasesCard percentage="20.24" />,
-  <LatestReleasesCard percentage="20.24" />,
-  <LatestReleasesCard percentage="20.24" />,
-  <LatestReleasesCard percentage="20.24" />,
-  <LatestReleasesCard percentage="20.24" />,
-  <LatestReleasesCard percentage="20.24" />,
-  <LatestReleasesCard percentage="20.24" />,
+const carouselItems = [
+  <LatestReleasesCard key="1" percentage="12.24" />,
+  <LatestReleasesCard key="2" percentage="20.24" />,
+  <LatestReleasesCard key="3" percentage="20.24" />,
+  <LatestReleasesCard key="4" percentage="20.24" />,
+  <LatestReleasesCard key="5" percentage="20.24" />,
+  <LatestReleasesCard key="6" percentage="20.24" />,
+  <LatestReleasesCard key="7" percentage="20.24" />,
+  <LatestReleasesCard key="8" percentage="20.24" />,
 ];
 
 type UsePrevNextButtonsType = {
@@ -30,21 +29,19 @@ type UsePrevNextButtonsType = {
 
 export const usePrevNextButtons = (
   emblaApi: EmblaCarouselType | undefined,
-  onButtonClick?: (emblaApi: UseEmblaCarouselType) => void
+  onButtonClick?: (emblaApi: EmblaCarouselType) => void
 ): UsePrevNextButtonsType => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
 
   const onPrevButtonClick = useCallback(() => {
-    if (!emblaApi) return;
-    emblaApi.scrollPrev();
-    // if (onButtonClick) onButtonClick(emblaApi)
+    emblaApi?.scrollPrev();
+    if (onButtonClick) onButtonClick(emblaApi);
   }, [emblaApi, onButtonClick]);
 
   const onNextButtonClick = useCallback(() => {
-    if (!emblaApi) return;
-    emblaApi.scrollNext();
-    // if (onButtonClick) onButtonClick(emblaApi)
+    emblaApi?.scrollNext();
+    if (onButtonClick) onButtonClick(emblaApi);
   }, [emblaApi, onButtonClick]);
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
@@ -54,8 +51,7 @@ export const usePrevNextButtons = (
 
   useEffect(() => {
     if (!emblaApi) return;
-
-    onSelect(emblaApi as EmblaCarouselType);
+    onSelect(emblaApi);
     emblaApi.on("reInit", onSelect).on("select", onSelect);
   }, [emblaApi, onSelect]);
 
@@ -67,14 +63,13 @@ export const usePrevNextButtons = (
   };
 };
 
-export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
+export const useDotButton = (emblaApi: EmblaCarouselType | undefined) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
   const onDotButtonClick = useCallback(
     (index: number) => {
-      if (!emblaApi) return;
-      emblaApi.scrollTo(index);
+      emblaApi?.scrollTo(index);
     },
     [emblaApi]
   );
@@ -89,7 +84,6 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
 
   useEffect(() => {
     if (!emblaApi) return;
-
     onInit(emblaApi);
     onSelect(emblaApi);
     emblaApi.on("reInit", onInit).on("reInit", onSelect).on("select", onSelect);
@@ -102,18 +96,12 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
   };
 };
 
-export const CarouselItem = React.forwardRef(
-  ({
-    children,
-    className,
-    ref,
-  }: TChildren & { className?: string; ref: any }) => {
-    return (
-      <div ref={ref} className={`carousel__item h-full ${className}`}>
-        {children}
-      </div>
-    );
-  }
+const CarouselItem = React.memo(
+  React.forwardRef<HTMLDivElement, TChildren & { className?: string }>(({ children, className }, ref) => (
+    <div ref={ref} className={`carousel__item h-full ${className}`}>
+      {children}
+    </div>
+  ))
 );
 
 const TWEEN_FACTOR_BASE = 0.1;
@@ -124,10 +112,9 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
 export function LatestReleasesCarousel({ className }: { className?: string }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
-      // startIndex: 1,
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
+    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()]
   );
 
   const tweenFactor = useRef(0);
@@ -138,21 +125,18 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-  const { selectedIndex, scrollSnaps, onDotButtonClick } =
-    useDotButton(emblaApi);
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
   const handlePrevNext = (cb: () => void) => {
     cb();
     const mp = getMixPanelClient();
-    mp.track("testimonialsnav_clicked", {
-      page: "Pricing_Page",
-    });
+    mp.track("testimonialsnav_clicked", { page: "Pricing_Page" });
   };
 
-  const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
-    tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
-      return slideNode.querySelector(".main_card_carousel") as HTMLElement;
-    });
+  const setTweenNodes = useCallback((emblaApi: EmblaCarouselType) => {
+    tweenNodes.current = emblaApi.slideNodes().map((slideNode) =>
+      slideNode.querySelector(".main_card_carousel") as HTMLElement
+    );
   }, []);
 
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
@@ -176,16 +160,11 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
           if (engine.options.loop) {
             engine.slideLooper.loopPoints.forEach((loopItem) => {
               const target = loopItem.target();
-
               if (slideIndex === loopItem.index && target !== 0) {
                 const sign = Math.sign(target);
-
-                if (sign === -1) {
-                  diffToTarget = scrollSnap - (1 + scrollProgress);
-                }
-                if (sign === 1) {
-                  diffToTarget = scrollSnap + (1 - scrollProgress);
-                }
+                diffToTarget = sign === -1
+                  ? scrollSnap - (1 + scrollProgress)
+                  : scrollSnap + (1 - scrollProgress);
               }
             });
           }
@@ -193,9 +172,11 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
           const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
           const scale = numberWithinRange(tweenValue, 0, 1).toString();
           const tweenNode = tweenNodes.current[slideIndex];
-          console.log("🚀 ~ slidesInSnap.forEach ~ tweenNode:", tweenNode);
-          tweenNode.style.transform = `scale(${scale})`;
-          // tweenNode.style.transform = `scale(${scale})`;
+          console.log("🚀 ~ slidesInSnap.forEach ~ ̥:")
+
+          if (tweenNode) {
+            tweenNode.style.transform = `scale(${scale})`;
+          }
         });
       });
     },
@@ -204,94 +185,67 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
 
   useEffect(() => {
     if (!emblaApi) return;
-
     setTweenNodes(emblaApi);
     setTweenFactor(emblaApi);
     tweenScale(emblaApi);
 
-    emblaApi
-      .on("reInit", setTweenNodes)
-      .on("reInit", setTweenFactor)
-      .on("reInit", tweenScale)
-      .on("scroll", tweenScale)
-      .on("slideFocus", tweenScale);
-  }, [emblaApi, tweenScale]);
+    const handleEvent = (eventName: string) => {
+      if (emblaApi) {
+        setTweenNodes(emblaApi);
+        setTweenFactor(emblaApi);
+        tweenScale(emblaApi, eventName);
+      }
+    };
+
+    emblaApi.on("reInit", () => handleEvent("reInit"));
+    emblaApi.on("scroll", () => handleEvent("scroll"));
+    emblaApi.on("slideFocus", () => handleEvent("slideFocus"));
+  }, [emblaApi, setTweenNodes, setTweenFactor, tweenScale]);
 
   return (
-    <div className={`relative w-screen m-auto`}>
-      {/* gradient */}
-      <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center ">
-        <div>
-          <Button
-            onClick={() => handlePrevNext(onPrevButtonClick)}
-            // disabled={selectedIndex == 1 ? true : prevBtnDisabled}
-            variant={"default"}
-            className=" rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
-          >
-            <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
-          </Button>
-        </div>
+    <div className={`relative w-screen m-auto ${className}`}>
+      <div className="h-full left-4 md:left-0 md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center">
+        <Button
+          onClick={() => handlePrevNext(onPrevButtonClick)}
+          variant={"default"}
+          className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
+        >
+          <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
+        </Button>
       </div>
-      <div className=" right-4  md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-gray-100 to-transparent z-20 flex flex-col justify-center items-center">
-        <div>
-          <Button
-            onClick={() => handlePrevNext(onNextButtonClick)}
-            // disabled={selectedIndex === carouselItem.length - 2 ? true : nextBtnDisabled}
-            variant={"default"}
-            className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
-          >
-            {/* <ChevronRightIcon className="hidden md:inline-block" fontSize="large" style={{ color: "white" }} /> */}
-            <ChevronRightIcon
-              className="inline-block md:hidden"
-              fontSize="small"
-              style={{ color: "white" }}
-            />
-          </Button>
-        </div>
+      <div className="right-4 md:right-0 h-full max-w-[261px] md:w-1/3 absolute md:bg-gradient-to-l from-gray-100 to-transparent z-20 flex flex-col justify-center items-center">
+        <Button
+          onClick={() => handlePrevNext(onNextButtonClick)}
+          variant={"default"}
+          className="rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2"
+        >
+          <ChevronRightIcon fontSize="small" style={{ color: "white" }} />
+        </Button>
       </div>
 
-      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
-        {/* <div className=" overflow-hidden max-w-full"> */}
-        <div
-          className=" flex pb-12 pt-[60px] carousel__container"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          {carouselItem.map((carousel, index) => (
+      <div ref={emblaRef} className="max-w-[100vw] overflow-hidden">
+        <div className="flex pb-12 pt-[60px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
+          {carouselItems.map((item, index) => (
             <CarouselItem
-              key={carousel.key}
-              className={` carousel embla__class-names  
-              ${
-                index === selectedIndex
-                  ? ""
-                  : index > selectedIndex
-                  ? `!scale-[0.85] ${
-                      selectedIndex + 2 == index
-                        ? "md:ml-[-2rem] lg:ml-[-3rem]"
-                        : ""
-                    }`
-                  : `!scale-[0.85] ${
-                      selectedIndex - 2 == index
-                        ? "md:mr-[-2rem] lg:mr-[-3rem]"
-                        : ""
-                    }`
-              }
-              `}
+              key={index}
+              className={`
+              ${index === selectedIndex ? "" : "!scale-[0.85]"}
+              ${index > selectedIndex ? (selectedIndex + 2 === index ? "md:ml-[-2rem] lg:ml-[-3rem]" : "") : ""}
+              ${index < selectedIndex ? (selectedIndex - 2 === index ? "md:mr-[-2rem] lg:mr-[-3rem]" : "") : ""}
+            `}
             >
-              {carousel}
+              {item}
             </CarouselItem>
           ))}
         </div>
-        {/* </div> */}
       </div>
-      {/* indicator */}
-      <div className=" flex gap-4 justify-center items-center">
-        {scrollSnaps.map((_: unknown, index: number) => (
+
+      <div className="flex gap-4 justify-center items-center">
+        {scrollSnaps.map((_, index) => (
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={` ${
-              index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
-            } h-[10px]  bg-gray-200 rounded-full transition-all`}
+            className={`h-[10px] w-6 bg-gray-200 rounded-full transition-all ${index === selectedIndex ? "!bg-brand-300" : ""}`}
           ></div>
         ))}
       </div>
