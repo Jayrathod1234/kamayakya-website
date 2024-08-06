@@ -11,27 +11,44 @@ const RadioDrop = ({ options, onSelect }) => {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block w-64">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight cursor-pointer"
+        className="flex items-center justify-between gap-2 w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md  leading-tight cursor-pointer  h-12 shadow-3xs "
       >
-        return
-        <span>{selectedOption ? selectedOption.label : "Sector"}</span>
+        <div className="flex items-center gap-1">
+          <img src="/assets/mi_sort.svg" alt="" srcset="" />
+          <span className="text-md font-medium text-gray-950 font-open_sans">
+            Returns:
+          </span>
+          <p className="text-md font-medium text-gray-950 font-open_sans">
+            {selectedOption ? selectedOption.label : "High to Low"}
+          </p>
+        </div>
         <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" />
       </div>
       {isOpen && (
-        <ul className="absolute z-[999] w-64 bg-white border border-gray-300 rounded shadow mt-1">
+        <ul className="absolute z-[999] w-[276px] bg-white border border-gray-100 rounded-md shadow mt-1 p-2 m-0">
+          <p className="py-1 pl-2.5 text-[#98A2B3]">Upside Left</p>
           {options.map((option, index) => (
             <li
               key={index}
               onClick={() => handleOptionClick(option)}
-              className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+              className="px-2.5 py-2 hover:bg-gray-200 cursor-pointer flex items-center gap-2"
             >
+              <img src={option.icon} alt="" srcset="" />
               {option.label}
+              <label htmlFor="">
+                <input type="radio" />
+              </label>
             </li>
           ))}
         </ul>
+        // <label class="has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200 ..">
+        //   <svg fill="currentColor"></svg>
+        //   Google Pay
+        //   <input type="radio" class="checked:border-indigo-500 ..." />
+        // </label>
       )}
     </div>
   );

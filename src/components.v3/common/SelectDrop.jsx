@@ -14,10 +14,11 @@ const SelectDrop = ({ options, onSelect }) => {
     <div className="relative inline-block">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight cursor-pointer"
+        className="flex items-center gap-2 w-full bg-white border border-gray-200 hover: py-2.5 pr-3 pl-4 rounded shadow-3xs leading-tight cursor-pointer"
       >
-        return
-        <span>{selectedOption ? selectedOption.label : "Sector"}</span>
+        <span className="font-open_sans text-sm text-gray-800 font-medium">
+          {selectedOption ? selectedOption.label : "Sector"}
+        </span>
         <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" />
       </div>
       {isOpen && (

@@ -1,6 +1,7 @@
 import React from "react";
 import MainBoardArea from "../common/MainBoardArea.jsx";
 import SelectDrop from "../common/SelectDrop.jsx";
+import RadioDrop from "../common/RadioDrop.jsx";
 
 function Mainboard() {
   const options = [
@@ -12,6 +13,16 @@ function Mainboard() {
   const handleSelect = (value) => {
     console.log("Selected:", value);
   };
+  const options2 = [
+    {
+      label: "High to Low",
+      value: "option1",
+      icon: "/assets/graph-down-new-broken.svg",
+    },
+    { label: "Option 2", value: "option2" },
+    { label: "Option 3", value: "option3" },
+  ];
+
   return (
     <>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
@@ -28,7 +39,8 @@ function Mainboard() {
                   Sort by
                 </p>
               </div>
-              <button
+              <RadioDrop options={options2} onSelect={handleSelect} />
+              {/* <button
                 type="button"
                 class="inline-flex justify-center w-full bg-[#E7F8F8] border border-[#ADDFDB] py-[10px] px-[14px] rounded-md  gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)] "
                 id="menu-button"
@@ -50,7 +62,7 @@ function Mainboard() {
                     clip-rule="evenodd"
                   />
                 </svg>
-              </button>
+              </button> */}
             </div>
             {/* <div
                 class="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -135,7 +147,7 @@ function Mainboard() {
             <form class="">
               <label
                 for="default-search"
-                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white ml-2"
+                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white ml-2 shadow-3xs "
               >
                 Search
               </label>
@@ -146,7 +158,7 @@ function Mainboard() {
                 <input
                   type="search"
                   id="default-search"
-                  class="block w-full pr-[14px] pl-9 py-[12px] text-md text-gray-900 border border-[#E4E7EC] rounded-lg bg-white  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 "
+                  class="block w-full pr-[14px] pl-9 py-[12px] text-md text-gray-900 border border-[#E4E7EC] rounded-lg bg-white  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 shadow-3xs "
                   placeholder="Search Stocks..."
                   required
                 />
@@ -154,9 +166,9 @@ function Mainboard() {
             </form>
           </div>
           <div className="w-1/12">
-            <button className="relative bg-white border border-[#E4E7EC] py-[10px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)]">
+            <button className="relative bg-white border border-[#E4E7EC] py-[10px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-3xs ">
               <img src="/assets/filter.svg" alt="" />
-              <p className="font-open_sans">Filter</p>
+              <p className="font-open_sans text-brand-500">Filter</p>
               <span class="absolute bg-[#FDB022] text-white px-1 text-xs font-bold rounded-full top-[-7px] right-[-9px] w-6 h-6 justify-center items-center flex">
                 1
               </span>
@@ -171,13 +183,14 @@ function Mainboard() {
             </p>
           </div>
           <div className="w-auto">
-            <button className=" px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center hover:bg-brand-100 hover:border-brand-200 hover:scale-[0.960] transition-all duration-500 hover:transition-all hover:duration-500 focus:bg-brand-500 focus:text-white text-[#1D2939]">
+            <button className="group group/item px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center hover:bg-brand-100 hover:border-brand-200 hover:scale-[0.960] transition-all duration-500 hover:transition-all hover:duration-500 focus:bg-brand-500 focus:text-white text-[#1D2939]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
                 height="18"
                 viewBox="0 0 18 18"
                 fill="none"
+                className="group-focus:stroke-white"
               >
                 <path
                   fill-rule="evenodd"
@@ -187,6 +200,23 @@ function Mainboard() {
                 />
               </svg>
               <p className=" text-sm font-medium font-open_sans">Most Recent</p>
+              <div className="group-focus/item:visible invisible">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M12 4L4 12M4 4L12 12"
+                    stroke="white"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
             </button>
           </div>
           <div className="w-auto">
