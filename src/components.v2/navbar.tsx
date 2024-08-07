@@ -235,7 +235,7 @@ export function Navbar() {
                   : " text-orange-500 bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
               }  !px-4 !py-[10px] rounded-[6px]`}
             >
-              <p className=" text-sm font-bold capitalize">Stocks to Buy</p>
+              <p className=" text-sm font-bold capitalize ">Stocks to Buy</p>
             </Button>
           </Link>
           <div>

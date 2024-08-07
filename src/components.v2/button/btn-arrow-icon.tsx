@@ -30,36 +30,35 @@ const Arrow = ({ arrowStyle, strokeStyle }: { arrowStyle?: string; strokeStyle?:
   </div>
 );
 
-// export function ButtonnArrow({
-//   children,
-//   variant,
-//   startIcon,
-//   endIcon,
-//   loading = false,
-//   disabled = false,
-//   size,
-//   className,
-//   arrowStyle = " stroke-white",
-//   strokeStyle = "stroke-white",
-//   arrowPosition = "end",
-//   ...rest
-// }: Button) {
-//   return (
-//     <Button
-//       disabled={disabled}
-//       loading={loading}
-//       variant={variant}
-//       {...rest}
-//       className={`group/btn-arrow flex items-center justify-center font-semibold px-3  ${className}`}
-//     >
-//       {arrowPosition == "start" ? <Arrow arrowStyle={arrowStyle} strokeStyle={strokeStyle} /> : null}
-//       {children}
-//       {arrowPosition == "end" ? <Arrow arrowStyle={arrowStyle} strokeStyle={strokeStyle} /> : null}
-//     </Button>
-//   );
-// }
-export function ButtonnArrow() {
+export function ButtonnArrow({
+  children,
+  variant,
+  startIcon,
+  endIcon,
+  loading = false,
+  disabled = false,
+  size,
+  className,
+  arrowStyle = "stroke-white",
+  strokeStyle = "stroke-white",
+  arrowPosition = "end",
+  ...rest
+}: Button) {
   return (
-    <></>
-  )
+    <Button
+      disabled={disabled}
+      loading={loading}
+      variant={variant}
+      {...rest}
+      className={`group/btn-arrow flex items-center justify-center font-semibold px-3  ${className}`}
+    >
+      {arrowPosition == "start" ? (
+        <Arrow arrowStyle={arrowStyle} strokeStyle={strokeStyle} />
+      ) : null}
+      {children}
+      {arrowPosition == "end" ? (
+        <Arrow arrowStyle={arrowStyle} strokeStyle={strokeStyle} />
+      ) : null}
+    </Button>
+  );
 }

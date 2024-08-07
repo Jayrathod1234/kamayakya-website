@@ -1820,8 +1820,3 @@ header > div > div {
   opacity: 1;
 }
 /* tab  */
-input.radiobtn {
-  background-color: none;
-  border: 2px solid yellow;
-  padding: 2px;
-}
