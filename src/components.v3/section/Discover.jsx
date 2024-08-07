@@ -1,5 +1,5 @@
 import React from "react";
-import Discovercard from "../common/Discovercard.jsx";
+import DiscoverCarousel from "../common/DiscoverCarousel.jsx";
 
 function Discover() {
   return (
@@ -17,7 +17,9 @@ function Discover() {
         </p>
 
         <div className="pt-10 pb-8">
-          <Discovercard />
+          <div className="flex justify-between gap-4">
+            <DiscoverCarousel />
+          </div>
         </div>
       </div>
     </>

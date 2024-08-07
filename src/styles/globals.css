@@ -1674,7 +1674,7 @@ header > div > div {
 
 .card:hover .circle {
   border-color: #fff;
-  background: var(--bg-color);
+  /* background: var(--bg-color); */
 }
 
 .card:hover .circle:after {
@@ -1709,7 +1709,7 @@ header > div > div {
   height: 104px;
   border-radius: 50%;
   background: #fff;
-  border: 2px solid var(--bg-color);
+  /* border: 2px solid var(--bg-color); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1736,7 +1736,7 @@ header > div > div {
   position: absolute;
   height: 86px;
   border-radius: 50%;
-  background: var(--bg-color);
+  /* background: var(--bg-color); */
   top: 10px;
   left: 10px;
   z-index: 1;
@@ -1820,3 +1820,11 @@ header > div > div {
   opacity: 1;
 }
 /* tab  */
+
+.embla {
+  max-width: 48rem;
+  /* margin: auto; */
+  --slide-height: 19rem;
+  --slide-spacing: 1rem;
+  --slide-size: 50%;
+}
