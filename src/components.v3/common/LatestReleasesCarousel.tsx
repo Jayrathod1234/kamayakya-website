@@ -11,7 +11,6 @@ import ClassNames from "embla-carousel-class-names";
 import LatestReleasesCard from "./LatestReleasesCard"
 
 const carouselItem = [
-
   <LatestReleasesCard percentage="12.24" />,
   <LatestReleasesCard percentage="20.24" />,
   <LatestReleasesCard percentage="20.24" />,
