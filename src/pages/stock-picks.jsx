@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import NavBar2 from "../components/Navbar2";
+
 import NavBar from "../components.v2/navbar";
 import StockCard from "../components/StockCard";
 import FaqsNew from "./screens/FaqsNew";
@@ -25,7 +25,6 @@ import AuthContext from "../components/AuthContext";
 import PageVisibility from "../components/PageVisibility";
 import Stockpicks from "../components.v2/Stockpicks";
 
-
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -48,15 +47,13 @@ const StockPicks = () => {
           {/* <FaqsNew /> */}
           {/* <Footer /> */}
           {/* </div> */}
-          <div className="!bg-transparent navbar">
-            <Navbar />
-          </div>
+          <div className="!bg-transparent navbar">{/* <Navbar /> */}</div>
           {/* <StockCard /> */}
           {/* <StockPicks /> */}
           <div>
             <Stockpicks />
           </div>
-            
+
           <div className="  ">
             <Footer />
           </div>
