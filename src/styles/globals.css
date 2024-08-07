@@ -1640,8 +1640,8 @@ header > div > div {
 
 .education {
   --bg-color: #e3f7ff;
-  --bg-color-light: #eef7f6;
-  --text-color-hover: #1d2939;
+  /* --bg-color-light: #eef7f6; */
+  /* --text-color-hover: #1d2939; */
   /* --box-shadow-color: rgba(255, 215, 97, 0.48); */
 }
 
@@ -1724,7 +1724,7 @@ header > div > div {
   height: 86px;
   display: block;
   position: absolute;
-  background: var(--bg-color);
+  /* background: var(--bg-color); */
   border-radius: 50%;
   top: 7px;
   left: 7px;

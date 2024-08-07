@@ -138,8 +138,8 @@ const config = {
           "linear-gradient(314deg, #125B54 6.46%, #12ADB7 113.37%)",
         "custom-gradient-3":
           "linear-gradient(272deg, #125B54 18.54%, #092E2B 107.09%)",
-          "blue-gradient":
-          "linear-gradient(314deg, ##0079EF 6.46%, ##0079EF30 113.37%,#FFFFFF)"
+        "blue-gradient":
+          "linear-gradient(314deg, ##0079EF 6.46%, ##0079EF30 113.37%,#FFFFFF)",
       },
       boxShadow: {
         "6xs": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
@@ -216,6 +216,20 @@ const config = {
           500: "#FF9E29",
           600: "#F98800",
           700: "#A3651A",
+        },
+        strategy: {
+          value_pick: "#EEF7F6",
+          turnaround_story: "#FFF1DE",
+          special_situation: "#FAF8D7",
+          management_change: "#F8ECFA",
+          market_leadership: "#FFF7CF",
+          industry_tailwind: "#E7F4FF",
+          cyclicals: "#F8ECFA",
+          thematic_stories: "#F2F7FB",
+          future_focused: "#FFF9D6",
+          esg: "#FFE7E9",
+          high_dividends: "#E9F8D2",
+          moated: "#FFF3E1",
         },
       },
       keyframes: {

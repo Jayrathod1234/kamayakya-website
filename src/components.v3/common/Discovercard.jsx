@@ -9,9 +9,9 @@ function Discovercard({ name, description, image, color }) {
           class="card group transition-all duration-500 education border border-gray-200"
         >
           <div className="main-card">
-            <div class={`overlay-1 bg-[#e3f7ff]`}></div>
+            <div class={`overlay-1 bg-strategy-${color}`}></div>
             <div
-              class={`circle after:bg-[#e3f7ff]-500 border-2 border-[#e3f7ff]-500 group-hover:bg-[#e3f7ff]-500 transition-all duration-500`}
+              class={`circle after:bg-strategy-${color} border-2 border-${color} group-hover:bg-strategy-${color}`}
             >
               <img src={image} alt="" className="z-[1]" />
             </div>
