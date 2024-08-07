@@ -4,10 +4,21 @@ import {
   ButtonSize,
   ButtonVariant,
 } from "../../components.v2/button/button.tsx";
-import { MoveRight } from "lucide-react";
 import ProgressBar from "./ProgressBar.jsx";
+import { ButtonnArrow } from "../../components.v2/button/btn-arrow-icon.tsx";
 
 const Bannerhotstockscard = () => {
+  const handleContactButton = () => {
+    const mp = getMixPanelClient();
+    mp.track("contactus_clicked", {
+      page: "Pricing_Page",
+      pagegroup: "enterprise_solution",
+    });
+    mp.track("asktheteam_loaded", {
+      page: "Pricing_Page",
+      pagegroup: "enterprise_solution",
+    });
+  };
   return (
     <div>
       <div className="relative z-[2] pb-[110px] mt-[20px]">
@@ -35,7 +46,7 @@ const Bannerhotstockscard = () => {
                     <br></br>with KamayaKya membership.
                   </p>
                   <div className=" !mt-6">
-                    <button className="py-2 px-5 bg-brand-500 text-white rounded-md justify-center items-center flex">
+                    {/* <button className="py-2 px-5 bg-brand-500 text-white rounded-md justify-center items-center flex">
                       Explore Plans
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +63,19 @@ const Bannerhotstockscard = () => {
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </button>
+                    </button> */}
+
+                    <ButtonnArrow
+                      // endIcon={<MoveRight className=" text-inherit" />}
+                      onClick={handleContactButton}
+                      variant={ButtonVariant.primary}
+                      size={ButtonSize.lg}
+                      // strokeStyle=" stroke-brand-400"
+                      // arrowStyle="rotate-90 stroke-white"
+                    >
+                      Contact Us
+                    </ButtonnArrow>
+
                     {/* <Button
                       endIcon={<MoveRight className=" text-inherit" />}
                       onClick={handleContactButton}

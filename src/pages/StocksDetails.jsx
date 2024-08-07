@@ -47,9 +47,7 @@ const StockDetails = () => {
           {/* <FaqsNew /> */}
           {/* <Footer /> */}
           {/* </div> */}
-          <div className="!bg-transparent navbar">
-            <Navbar />
-          </div>
+          <div className="!bg-transparent navbar">{/* <Navbar /> */}</div>
           <div>
             <Stockdetails />
           </div>

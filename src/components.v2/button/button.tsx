@@ -1,6 +1,7 @@
 import React, { ButtonHTMLAttributes } from "react";
 import { ButtonProps, Button as SButton } from "../ui/button";
 import { LoaderCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export enum ButtonVariant {
   primary,
@@ -8,7 +9,7 @@ export enum ButtonVariant {
   tertiary,
   // iconOnly,
   accent,
-  custom
+  custom,
 }
 
 export enum ButtonSize {
@@ -19,7 +20,7 @@ export enum ButtonSize {
   xl,
 }
 
-type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children?: React.ReactNode;
   variant: ButtonVariant;
   size?: ButtonSize;
@@ -27,6 +28,10 @@ type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   endIcon?: React.ReactNode;
   loading?: boolean;
   disabled?: boolean;
+  className?: string;
+  arrowStyle?: string;
+  strokeStyle?: string;
+  arrowPosition?: string;
   customStyle?: string;
 };
 
@@ -38,6 +43,7 @@ export function Button({
   loading = false,
   disabled = false,
   size,
+  className,
   customStyle,
   ...rest
 }: Button) {
@@ -75,11 +81,14 @@ export function Button({
     <SButton
       {...rest}
       disabled={disabled || loading}
-      className={` hover:scale-95 transition-all duration-200 text-center font-medium flex items-center gap-[6px] justify-center min-w-fit  rounded-md ${btnSize} ${style} ${customStyle} `}
+      className={cn(
+        ` hover:scale-90 transition-transform duration-200 eas-in-out text-center font-semibold flex items-center gap-[6px] justify-center min-w-fit  rounded-md  ${btnSize} ${style}`,
+        className
+      )}
     >
       {loading ? (
         <>
-          <LoaderCircle size={16} className=" text-inherit"/>
+          <LoaderCircle size={16} className=" text-inherit" />
           <span>Loading</span>
         </>
       ) : (
