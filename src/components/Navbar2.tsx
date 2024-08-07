@@ -38,7 +38,7 @@ import { Avatar, AvatarVariant } from "@/components.v2/avatar";
 // import { LoginBtnNav } from "./login-btn-nav";
 // import { ScrollProgress } from "./scroll-progress";
 
-export function Navbar({ className }: { className?: string }) {
+export default function Navbar({ className }: { className?: string }) {
   const { isLoggedIn } = useContext(AuthContext);
   const router = useRouter();
   const pathname = router.pathname;
@@ -115,19 +115,17 @@ export function Navbar({ className }: { className?: string }) {
                   <NavigationMenuContent className=" w-auto">
                     {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
                     <ul
-                      className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
-                        isLoggedIn ? "grid-rows-4" : "grid-rows-3"
-                      } gap-3 m-0 p-6  ${
-                        isLoggedIn
+                      className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${isLoggedIn ? "grid-rows-4" : "grid-rows-3"
+                        } gap-3 m-0 p-6  ${isLoggedIn
                           ? "lg:w-[700px]"
                           : "md:w-[620px] lg:w-[900px]"
-                      }  `}
+                        }  `}
                     >
                       {HOME_OPTIONS.filter((options) =>
                         isLoggedIn
                           ? options.title !== "Sample Reports" &&
-                            options.title !== "Performance" &&
-                            options.title !== "Hot Stocks"
+                          options.title !== "Performance" &&
+                          options.title !== "Hot Stocks"
                           : true
                       ).map((option) => (
                         <ListItem
@@ -148,7 +146,7 @@ export function Navbar({ className }: { className?: string }) {
                           icon={option.icon}
                           title={option.title}
                           id={option?.id}
-                          // endIcon={option?.endIcon}
+                        // endIcon={option?.endIcon}
                         >
                           {option.subtitle}
                         </ListItem>
@@ -169,19 +167,17 @@ export function Navbar({ className }: { className?: string }) {
                 </NavigationMenuItem>
                 {NAVBAR_LINKS.map((navigationOption) => (
                   <NavigationMenuItem
-                    className={` m-0 ${
-                      (navigationOption.title !== "Track Record" &&
-                        navigationOption.title !== "Stocks to Buy") ||
+                    className={` m-0 ${(navigationOption.title !== "Track Record" &&
+                      navigationOption.title !== "Stocks to Buy") ||
                       !isLoggedIn
-                        ? navigationOption.title === "Stocks to Buy"
-                          ? "hidden"
-                          : "hidden lg:flex"
-                        : navigationOption.title === "Stocks to Buy"
+                      ? navigationOption.title === "Stocks to Buy"
+                        ? "hidden"
+                        : "hidden lg:flex"
+                      : navigationOption.title === "Stocks to Buy"
                         ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 hover:bg-[#E26103] !text-orange-500 hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
                         : ""
-                    } ${
-                      navigationOption.title === "About Us" ? "!hidden" : ""
-                    }`}
+                      } ${navigationOption.title === "About Us" ? "!hidden" : ""
+                      }`}
                   >
                     <Link
                       className=" !text-inherit"
@@ -196,11 +192,10 @@ export function Navbar({ className }: { className?: string }) {
                       passHref
                     >
                       <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} font-semibold text-inherit ${
-                          navigationOption.title === "Stocks to Buy"
-                            ? "!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
-                            : ""
-                        }`}
+                        className={`${navigationMenuTriggerStyle()} font-semibold text-inherit ${navigationOption.title === "Stocks to Buy"
+                          ? "!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
+                          : ""
+                          }`}
                         active={pathname === navigationOption.link}
                       >
                         {navigationOption.title}
@@ -220,11 +215,10 @@ export function Navbar({ className }: { className?: string }) {
           <Link href={"/stock-picks"}>
             <Button
               variant={ButtonVariant.custom}
-              className={`!text-sm  border pricing border-orange-500  ${
-                isLoggedIn
-                  ? "bg-orange-500 text-white  hover:bg-[#f98800] mr-6 "
-                  : " text-orange-500 hover:text-[#E26103] hover:border-[#E26103] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
-              }  !px-4 !py-[10px] rounded-[6px]`}
+              className={`!text-sm  border pricing border-orange-500  ${isLoggedIn
+                ? "bg-orange-500 text-white  hover:bg-[#f98800] mr-6 "
+                : " text-orange-500 hover:text-[#E26103] hover:border-[#E26103] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+                }  !px-4 !py-[10px] rounded-[6px]`}
             >
               Stocks to Buy
             </Button>
