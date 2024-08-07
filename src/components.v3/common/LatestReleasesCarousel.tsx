@@ -193,7 +193,6 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
           const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
           const scale = numberWithinRange(tweenValue, 0, 1).toString();
           const tweenNode = tweenNodes.current[slideIndex];
-          console.log("🚀 ~ slidesInSnap.forEach ~ tweenNode:", tweenNode);
           tweenNode.style.transform = `scale(${scale})`;
           // tweenNode.style.transform = `scale(${scale})`;
         });
@@ -260,21 +259,18 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
             <CarouselItem
               key={carousel.key}
               className={` carousel embla__class-names  
-              ${
-                index === selectedIndex
+              ${index === selectedIndex
                   ? ""
                   : index > selectedIndex
-                  ? `!scale-[0.85] ${
-                      selectedIndex + 2 == index
-                        ? "md:ml-[-2rem] lg:ml-[-3rem]"
-                        : ""
+                    ? `!scale-[0.85] ${selectedIndex + 2 == index
+                      ? "md:ml-[-2rem] lg:ml-[-3rem]"
+                      : ""
                     }`
-                  : `!scale-[0.85] ${
-                      selectedIndex - 2 == index
-                        ? "md:mr-[-2rem] lg:mr-[-3rem]"
-                        : ""
+                    : `!scale-[0.85] ${selectedIndex - 2 == index
+                      ? "md:mr-[-2rem] lg:mr-[-3rem]"
+                      : ""
                     }`
-              }
+                }
               `}
             >
               {carousel}
@@ -289,9 +285,8 @@ export function LatestReleasesCarousel({ className }: { className?: string }) {
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={` ${
-              index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
-            } h-[10px]  bg-gray-200 rounded-full transition-all`}
+            className={` ${index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
+              } h-[10px]  bg-gray-200 rounded-full transition-all`}
           ></div>
         ))}
       </div>
