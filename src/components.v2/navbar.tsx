@@ -223,7 +223,7 @@ export function Navbar() {
         <div className="hidden px-2 lg:flex">
           <Link href={"/stock-picks"}>
             <Button
-              variant={ButtonVariant.custom}
+              variant={ButtonVariant.orange}
               customStyle={`border pricing border-orange-500  ${isLoggedIn
                 ? "bg-orange-500 text-white  hover:bg-orange-600 mr-6 "
                 : " text-orange-500 bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"

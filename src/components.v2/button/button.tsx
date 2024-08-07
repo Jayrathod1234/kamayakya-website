@@ -10,6 +10,7 @@ export enum ButtonVariant {
   // iconOnly,
   accent,
   custom,
+  orange,
   sebi,
 }
 
@@ -34,7 +35,6 @@ export type Button = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   strokeStyle?: string;
   arrowPosition?: string;
   customStyle?: string;
-  sebi?: string;
 };
 
 export function Button({
@@ -46,7 +46,6 @@ export function Button({
   disabled = false,
   size,
   className,
-  sebi,
   customStyle,
   ...rest
 }: Button) {
@@ -69,7 +68,7 @@ export function Button({
               : variant === ButtonVariant.sebi
                 ? ` py-[6px] pr-[10px] pl-[14px] text-white text-sm border border-[#75cdc5] rounded-3xl bg-[#108973]/[0.20] hover:bg-[108973] ${loading ? " text-brand-300" : ""
                 }`
-                : customStyle;
+                : variant === ButtonVariant.orange && customStyle;
 
   const btnSize =
     size === ButtonSize.xs
