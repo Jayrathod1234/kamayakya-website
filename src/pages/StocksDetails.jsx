@@ -50,8 +50,6 @@ const StockDetails = () => {
           <div className="!bg-transparent navbar">
             <Navbar />
           </div>
-          {/* <StockCard /> */}
-          {/* <StockPicks /> */}
           <div>
             <Stockdetails />
           </div>
