@@ -221,7 +221,7 @@ export function Carousel({ className }: { className?: string }) {
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
         const scale = numberWithinRange(tweenValue, 0, 1).toString();
         const tweenNode = tweenNodes.current[slideIndex];
-        console.log("🚀 ~ slidesInSnap.forEach ~ tweenNode:", tweenNode);
+        // console.log("🚀 ~ slidesInSnap.forEach ~ tweenNode:", tweenNode);
         tweenNode.style.transform = `scale(${scale})`;
       });
     });
