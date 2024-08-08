@@ -7,7 +7,6 @@ import { Button } from "../../components.v2/ui/button";
 const useSelectedSnapDisplay = (emblaApi) => {
   const [selectedSnap, setSelectedSnap] = useState(0);
   const [snapCount, setSnapCount] = useState(0);
-
   const updateScrollSnapState = useCallback((emblaApi) => {
     setSnapCount(emblaApi.scrollSnapList().length);
     setSelectedSnap(emblaApi.selectedScrollSnap());
@@ -115,8 +114,7 @@ const NextButton = (props) => {
     </div>
   );
 };
-const DiscoverCarousel = (props) => {
-  const { options } = props;
+const DiscoverCarousel = ({ strategyTagList, colors }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ dragFree: true });
 
   const {
@@ -127,92 +125,15 @@ const DiscoverCarousel = (props) => {
   } = usePrevNextButtons(emblaApi);
 
   const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi);
-  const carouselItems = [
-    {
-      name: "Value Pick",
-      color: "#EEF7F6",
-      image: "/assets/discover-by-strategy/value-pick.svg",
-      description: "Discover undervalued gems with strong fundamentals.",
-    },
-    {
-      name: "Turnaround Story",
-      color: "#FFF1DE",
-      image: "/assets/discover-by-strategy/turnaround-story.svg",
-      description: "Invest in companies poised for a comeback.",
-    },
-    {
-      name: "Special Situation",
-      color: "#FAF8D7",
-      image: "/assets/discover-by-strategy/special-situation.svg",
-      description:
-        "Unique opportunities arising from corporate events or restructuring.",
-    },
-    {
-      name: "Management Change",
-      color: "#F8ECFA",
-      image: "/assets/discover-by-strategy/management-change.svg",
-      description: "Benefit from new leadership and strategic direction.",
-    },
-    {
-      name: "Market Leadership",
-      color: "#FFF7CF",
-      image: "/assets/discover-by-strategy/market-leadership.svg",
-      description: "Invest in industry leaders with a strong market position.",
-    },
-    {
-      name: "Industry Tailwind",
-      color: "#E7F4FF",
-      image: "/assets/discover-by-strategy/industry-tailwind.svg",
-      description: "Sectors with favorable economic conditions driving growth.",
-    },
-    {
-      name: "Moated",
-      color: "#F8ECFA",
-      image: "/assets/discover-by-strategy/moated.svg",
-      description:
-        "Firms with strong competitive advantages that protect their market position.",
-    },
-    {
-      name: "Cyclicals",
-      color: "#F2F7FB",
-      image: "/assets/discover-by-strategy/cyclicals.svg",
-      description: "Invest in industries that benefit from economic cycles.",
-    },
-    {
-      name: "Thematic Stories",
-      color: "#FFF9D6",
-      image: "/assets/discover-by-strategy/thematic-stories.svg",
-      description: "Align investments with emerging trends and themes.",
-    },
-    {
-      name: "Future Focused",
-      color: "#FFE7E9",
-      image: "/assets/discover-by-strategy/future-focused.svg",
-      description: "Companies with a strong vision for long-term growth.",
-    },
-    {
-      name: "ESG",
-      color: "#E9F8D2",
-      image: "/assets/discover-by-strategy/esg.svg",
-      description:
-        "Invest in companies with strong Environmental, Social, and Governance practices.",
-    },
-    {
-      name: "High Dividends",
-      color: "#FFF3E1",
-      image: "/assets/discover-by-strategy/high-dividends.svg",
-      description:
-        "Companies offering attractive and consistent dividend yields.",
-    },
-  ];
 
-  const carouselItemComponents = carouselItems.map((item, index) => (
+  const carouselItemComponents = strategyTagList.map((item, index) => (
     <Discovercard
       key={index} // Use the index or a unique identifier if available
       name={item.name}
-      color={item.color}
+      color={colors[item.slug]}
       image={item.image}
       description={item.description}
+      id={item.id}
     />
   ));
 
