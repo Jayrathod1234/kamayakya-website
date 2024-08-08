@@ -21,38 +21,38 @@ function Mainboard() {
     },
     {
       label: "Low to High",
-      value: "option1",
+      value: "option2",
       icon: "/assets/graph-down-new-broken.svg",
     },
 
     {
       label: "Newest to Oldest",
-      value: "option2",
+      value: "option3",
       icon: "/assets/currency-rupee.svg",
     },
     {
       label: "Oldest to Newest",
-      value: "option2",
+      value: "option4",
       icon: "/assets/currency-rupee (1).svg",
     },
     {
       label: "Longest to Shortest",
-      value: "option3",
+      value: "option5",
       icon: "/assets/hourglass-02.svg",
     },
     {
       label: "Shortest to Longest",
-      value: "option3",
+      value: "option6",
       icon: "/assets/hourglass-02 (1).svg",
     },
     {
       label: "High to Low",
-      value: "option3",
+      value: "option7",
       icon: "/assets/rupee.svg",
     },
     {
       label: "Low to High",
-      value: "option3",
+      value: "option8",
       icon: "/assets/rupee.svg",
     },
   ];

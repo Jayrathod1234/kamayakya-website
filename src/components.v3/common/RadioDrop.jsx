@@ -11,7 +11,7 @@ const RadioDrop = ({ options, onSelect }) => {
   };
 
   return (
-    <div className="relative inline-block w-64">
+    <div className="relative inline-block w-auto">
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between gap-2 w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md  leading-tight cursor-pointer  h-12 shadow-3xs "
