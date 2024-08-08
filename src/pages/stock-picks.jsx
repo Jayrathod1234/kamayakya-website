@@ -12,7 +12,7 @@ const StockPicks = () => {
 
 	return (
 		<PageVisibility>
-			{(isPageVisible) => (
+			{() => (
 				<>
 					{isLoggedIn ? <NavBar2 /> : <NavBar />}
 					<div
@@ -25,7 +25,6 @@ const StockPicks = () => {
 						}}
 					>
 						<StockCard />
-						{/* <StockCardBlur /> */}
 						<FaqsNew />
 						<Footer />
 					</div>
