@@ -61,8 +61,8 @@ const PrevButton = (props) => {
 const NextButton = (props) => {
   const { children, ...restProps } = props;
 
-  return (
-    <div className=" right-4  md:right-0  max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-col items-center">
+  return (  
+    <div className="right-4  md:right-0  max-w-[225px] h-[190px] justify-center  md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-row items-center">
       <div>
         <Button
           {...restProps}
@@ -184,17 +184,17 @@ const DiscoverCarousel = (props) => {
 
   return (
     <>
-      <div className="embla" ref={emblaRef}>
-        <div className="embla__container flex gap-[28px]">
-          {carouselItemComponents}
+        <div className="embla" ref={emblaRef}>
+          <div className="embla__container flex gap-[28px]">
+            {carouselItemComponents}
+          </div>
         </div>
-      </div>
-      <div className="">
-        <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+        <div className="">
+          <div className="embla__buttons ">
+            <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+            <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+          </div>
         </div>
-      </div>
     </>
   );
 };

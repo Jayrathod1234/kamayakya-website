@@ -19,7 +19,7 @@ const RadioDrop = ({ options, onSelect }) => {
         <div className="flex items-center gap-1">
           <img src="/assets/mi_sort.svg" alt="" srcset="" />
           <span className="text-md font-medium text-gray-950 font-open_sans">
-            Returns:
+            Upside Left:
           </span>
           <p className="text-md font-medium text-gray-950 font-open_sans">
             {selectedOption ? selectedOption.label : "High to Low"}
@@ -28,18 +28,18 @@ const RadioDrop = ({ options, onSelect }) => {
         <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" />
       </div>
       {isOpen && (
-        <ul className="absolute z-[999] w-[276px] bg-white border border-gray-100 rounded-md shadow mt-1 p-2 m-0">
+        <ul className="absolute z-[999] w-[276px] bg-white border border-gray-100 rounded-md shadow mt-1 p-2 m-0 " >
           <p className="py-1 pl-2.5 text-[#98A2B3]">Upside Left</p>
           {options.map((option, index) => (
             <li
               key={index}
               onClick={() => handleOptionClick(option)}
-              className="px-2.5 py-2 hover:bg-gray-200 cursor-pointer flex items-center gap-2"
+              className="px-2.5 py-2 hover:bg-gray-200 cursor-pointer flex items-center justify-between gap-2"
             >
               <img src={option.icon} alt="" srcset="" />
-              {option.label}
+              <span className="w-[180px] text-left">{option.label}</span>
               <label htmlFor="">
-                <input type="radio" className="radiobtn"/>
+                <input type="radio" className="radiobtn text-right" />
               </label>
             </li>
           ))}
