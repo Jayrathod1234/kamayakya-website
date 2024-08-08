@@ -36,3 +36,11 @@ yarn-error.log*
 next-env.d.ts
 
 package-lock.json
+
+
+# env files
+.env
+.env.local
+
+# yarn.lock file
+yarn.lock
