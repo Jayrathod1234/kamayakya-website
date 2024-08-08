@@ -13,6 +13,7 @@ import { Navbar } from "@nextui-org/react";
 import StocksTab from "../components.v3/common/StocksTab.jsx";
 import { ButtonnArrow } from "./button/btn-arrow-icon.tsx";
 
+
 function Stockpicks() {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
