@@ -17,7 +17,13 @@ function Discover() {
         </p>
 
         <div className="pt-10 pb-8">
+<<<<<<< Updated upstream
           <Discovercard />
+=======
+          <div className="flex justify-between gap-6">
+            <DiscoverCarousel />
+          </div>
+>>>>>>> Stashed changes
         </div>
       </div>
     </>
