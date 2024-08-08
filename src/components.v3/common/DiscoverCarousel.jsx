@@ -130,79 +130,79 @@ const DiscoverCarousel = (props) => {
   const carouselItems = [
     {
       name: "Value Pick",
-      color: "value_pick",
-      image: "/assets/value-pick.svg",
+      color: "#EEF7F6",
+      image: "/assets/discover-by-strategy/value-pick.svg",
       description: "Discover undervalued gems with strong fundamentals.",
     },
     {
       name: "Turnaround Story",
-      color: "turnaround_story",
-      image: "/assets/turnaround-story.svg",
+      color: "#FFF1DE",
+      image: "/assets/discover-by-strategy/turnaround-story.svg",
       description: "Invest in companies poised for a comeback.",
     },
     {
       name: "Special Situation",
-      color: "special_situation",
-      image: "/assets/special-situation.svg",
+      color: "#FAF8D7",
+      image: "/assets/discover-by-strategy/special-situation.svg",
       description:
         "Unique opportunities arising from corporate events or restructuring.",
     },
     {
       name: "Management Change",
-      color: "management_change",
-      image: "/assets/management-change.svg",
+      color: "#F8ECFA",
+      image: "/assets/discover-by-strategy/management-change.svg",
       description: "Benefit from new leadership and strategic direction.",
     },
     {
       name: "Market Leadership",
-      color: "market_leadership",
-      image: "/assets/market-leadership.svg",
+      color: "#FFF7CF",
+      image: "/assets/discover-by-strategy/market-leadership.svg",
       description: "Invest in industry leaders with a strong market position.",
     },
     {
       name: "Industry Tailwind",
-      color: "industry_tailwind",
-      image: "/assets/industry-tailwind.svg",
+      color: "#E7F4FF",
+      image: "/assets/discover-by-strategy/industry-tailwind.svg",
       description: "Sectors with favorable economic conditions driving growth.",
     },
     {
+      name: "Moated",
+      color: "#F8ECFA",
+      image: "/assets/discover-by-strategy/moated.svg",
+      description:
+        "Firms with strong competitive advantages that protect their market position.",
+    },
+    {
       name: "Cyclicals",
-      color: "cyclicals",
-      image: "/assets/cyclicals.svg",
+      color: "#F2F7FB",
+      image: "/assets/discover-by-strategy/cyclicals.svg",
       description: "Invest in industries that benefit from economic cycles.",
     },
     {
       name: "Thematic Stories",
-      color: "thematic_stories",
-      image: "/assets/thematic-stories.svg",
+      color: "#FFF9D6",
+      image: "/assets/discover-by-strategy/thematic-stories.svg",
       description: "Align investments with emerging trends and themes.",
     },
     {
       name: "Future Focused",
-      color: "future_focused",
-      image: "/assets/future-focused.svg",
+      color: "#FFE7E9",
+      image: "/assets/discover-by-strategy/future-focused.svg",
       description: "Companies with a strong vision for long-term growth.",
     },
     {
       name: "ESG",
-      color: "esg",
-      image: "/assets/esg.svg",
+      color: "#E9F8D2",
+      image: "/assets/discover-by-strategy/esg.svg",
       description:
         "Invest in companies with strong Environmental, Social, and Governance practices.",
     },
     {
       name: "High Dividends",
-      color: "high_dividends",
-      image: "/assets/high-dividends.svg",
+      color: "#FFF3E1",
+      image: "/assets/discover-by-strategy/high-dividends.svg",
       description:
         "Companies offering attractive and consistent dividend yields.",
-    },
-    {
-      name: "Moated",
-      color: "moated",
-      image: "/assets/moated.svg",
-      description:
-        "Firms with strong competitive advantages that protect their market position.",
     },
   ];
 

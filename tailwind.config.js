@@ -217,20 +217,6 @@ const config = {
           600: "#F98800",
           700: "#A3651A",
         },
-        strategy: {
-          value_pick: "#EEF7F6",
-          turnaround_story: "#FFF1DE",
-          special_situation: "#FAF8D7",
-          management_change: "#F8ECFA",
-          market_leadership: "#FFF7CF",
-          industry_tailwind: "#E7F4FF",
-          cyclicals: "#F8ECFA",
-          thematic_stories: "#F2F7FB",
-          future_focused: "#FFF9D6",
-          esg: "#FFE7E9",
-          high_dividends: "#E9F8D2",
-          moated: "#FFF3E1",
-        },
       },
       keyframes: {
         "accordion-down": {
