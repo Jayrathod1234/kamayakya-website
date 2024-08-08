@@ -4,38 +4,6 @@ import Discovercard from "./Discovercard";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Button } from "../../components.v2/ui/button";
 
-const useSelectedSnapDisplay = (emblaApi) => {
-  const [selectedSnap, setSelectedSnap] = useState(0);
-  const [snapCount, setSnapCount] = useState(0);
-  const updateScrollSnapState = useCallback((emblaApi) => {
-    setSnapCount(emblaApi.scrollSnapList().length);
-    setSelectedSnap(emblaApi.selectedScrollSnap());
-  }, []);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    updateScrollSnapState(emblaApi);
-    emblaApi.on("select", updateScrollSnapState);
-    emblaApi.on("reInit", updateScrollSnapState);
-  }, [emblaApi, updateScrollSnapState]);
-
-  return {
-    selectedSnap,
-    snapCount,
-  };
-};
-
-const SelectedSnapDisplay = (props) => {
-  const { selectedSnap, snapCount } = props;
-
-  return (
-    <div className="embla__selected-snap-display">
-      {selectedSnap + 1} / {snapCount}
-    </div>
-  );
-};
-
 const usePrevNextButtons = (emblaApi) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
@@ -94,7 +62,7 @@ const NextButton = (props) => {
   const { children, ...restProps } = props;
 
   return (
-    <div className=" right-4  md:right-0  max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-col justify-center items-center">
+    <div className=" right-4  md:right-0  max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-col items-center">
       <div>
         <Button
           {...restProps}
@@ -123,9 +91,6 @@ const DiscoverCarousel = ({ strategyTagList, colors }) => {
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-
-  const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi);
-
   const carouselItemComponents = strategyTagList.map((item, index) => (
     <Discovercard
       key={index} // Use the index or a unique identifier if available
@@ -140,20 +105,15 @@ const DiscoverCarousel = ({ strategyTagList, colors }) => {
   return (
     <>
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container flex gap-4">
+        <div className="embla__container flex gap-[28px]">
           {carouselItemComponents}
         </div>
       </div>
-      <div className="embla__controls">
+      <div className="">
         <div className="embla__buttons">
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
-
-        <SelectedSnapDisplay
-          selectedSnap={selectedSnap}
-          snapCount={snapCount}
-        />
       </div>
     </>
   );
