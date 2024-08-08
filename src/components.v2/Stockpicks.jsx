@@ -10,6 +10,9 @@ import Mainboard from "../components.v3/section/Mainboard.jsx";
 import ProgressBar from "../components.v3/common/ProgressBar.jsx";
 import Bannerhotstockscard from "../components.v3/common/Bannerhotstockscard.jsx";
 import { Navbar } from "@nextui-org/react";
+import StocksTab from "../components.v3/common/StocksTab.jsx";
+import { ButtonnArrow } from "./button/btn-arrow-icon.tsx";
+
 
 function Stockpicks() {
   const handleContactButton = () => {
@@ -53,7 +56,7 @@ function Stockpicks() {
         <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
           <div className="min-w-[470px] z-5 text-center relative">
             <div className="pt-9 pb-[22px] flex justify-center">
-              <a
+              {/* <a
                 className="py-[6px] pr-[10px] pl-[14px] text-white text-sm border border-[#75cdc5] rounded-3xl bg-[#108973]/[0.20]"
                 href="https://kamayakya.com/Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1"
               >
@@ -74,13 +77,27 @@ function Stockpicks() {
                     stroke-linejoin="round"
                   />
                 </svg>
-              </a>
+              </a> */}
+              <ButtonnArrow
+                // endIcon={<MoveRight className=" text-inherit" />}
+                onClick={handleContactButton}
+                variant={ButtonVariant.sebi}
+                size={ButtonSize.lg}
+                // strokeStyle=" stroke-brand-400"
+                // arrowStyle="rotate-90 stroke-white"
+              >
+                SEBI Registered: INH000009843
+              </ButtonnArrow>
             </div>
             <h1 className="text-3xl font-bold leading-[38px] text-white mb-8 flex justify-center">
               Discover hidden gems! 💎
             </h1>
             {/* Banner tab  */}
-            <div className="bg-white rounded-[61px] mx-auto max-w-[347px] py-[6px] z-50">
+            <div className="flex justify-center">
+              <StocksTab />
+            </div>
+
+            {/* <div className="bg-white rounded-[61px] mx-auto max-w-[347px] py-[6px] z-50">
               <div className="flex flex-row flex-wrap justify-center">
                 <input
                   id="tab-one"
@@ -111,7 +128,7 @@ function Stockpicks() {
                 </label>
                 <div className="basis-full h-0 transition ease duration-500"></div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* Hot Stocks card  */}

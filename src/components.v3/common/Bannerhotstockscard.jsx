@@ -6,6 +6,7 @@ import {
 } from "../../components.v2/button/button.tsx";
 import ProgressBar from "./ProgressBar.jsx";
 import { ButtonnArrow } from "../../components.v2/button/btn-arrow-icon.tsx";
+import DeepValue from "./DeepValue.jsx";
 
 const Bannerhotstockscard = () => {
   const handleContactButton = () => {
@@ -18,6 +19,32 @@ const Bannerhotstockscard = () => {
       page: "Pricing_Page",
       pagegroup: "enterprise_solution",
     });
+  };
+  const options = [
+    {
+      label: "Deep Value",
+      value: "Deep Value",
+      icon: "/assets/stock-details/Pricing.svg",
+    },
+    {
+      label: "Special Situation",
+      value: "Special Situation",
+      icon: "/assets/stock-details/Pricing (1).svg",
+    },
+    {
+      label: "Market Leader",
+      value: "Market Leader",
+      icon: "/assets/stock-details/Pricing (2).svg",
+    },
+    {
+      label: "Deep Value",
+      value: "Deep Value",
+      icon: "/assets/stock-details/Pricing (3).svg",
+    },
+  ];
+
+  const handleSelect = (value) => {
+    console.log("Selected:", value);
   };
   return (
     <div>
@@ -73,7 +100,7 @@ const Bannerhotstockscard = () => {
                       // strokeStyle=" stroke-brand-400"
                       // arrowStyle="rotate-90 stroke-white"
                     >
-                      Contact Us
+                      Explore Plans
                     </ButtonnArrow>
 
                     {/* <Button
@@ -279,7 +306,7 @@ const Bannerhotstockscard = () => {
                         </div>
                       </div>
                     </div>
-                    {/* 2  */}
+                    {/* 2 with deep value drop down */}
                     <div className="flex relative scale-x-90 left-[-38%] z-10">
                       <div className="absolute z-20 left-[7.5rem] -top-1">
                         <img
@@ -340,7 +367,11 @@ const Bannerhotstockscard = () => {
                                 <span className="blur-sm">₹2843 Cr</span>
                               </p>
                             </div>
-                            <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
+                            <DeepValue
+                              options={options}
+                              onSelect={handleSelect}
+                            />
+                            {/* <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
                               <img
                                 src="/assets/ic_round-diamond.svg"
                                 alt=""
@@ -357,7 +388,7 @@ const Bannerhotstockscard = () => {
                                 alt=""
                                 className="w-4"
                               />
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                         <div className="px-5 pb-3">

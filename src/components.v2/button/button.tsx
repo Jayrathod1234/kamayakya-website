@@ -10,6 +10,7 @@ export enum ButtonVariant {
   // iconOnly,
   accent,
   custom,
+  sebi,
 }
 
 export enum ButtonSize {
@@ -44,6 +45,7 @@ export function Button({
   disabled = false,
   size,
   className,
+  sebi,
   customStyle,
   ...rest
 }: Button) {
@@ -64,7 +66,15 @@ export function Button({
       ? `bg-red text-brand-400 hover:bg-brand-100 disabled:border-gray-300 disabled:text-gray-300 ${
           loading ? " text-brand-300" : ""
         }`
-      : "";
+      : variant === ButtonVariant.custom
+      ? ` text-brand-400 hover:bg-red-100 disabled:border-gray-300 disabled:text-gray-300 ${
+          loading ? " text-brand-300" : ""
+        }`
+      : variant === ButtonVariant.sebi
+      ? ` py-[6px] pr-[10px] pl-[14px] text-white text-sm border border-[#75cdc5] rounded-3xl bg-[#108973]/[0.20] hover:bg-[108973] ${
+          loading ? " text-brand-300" : ""
+        }`
+      : customStyle;
 
   const btnSize =
     size === ButtonSize.xs
