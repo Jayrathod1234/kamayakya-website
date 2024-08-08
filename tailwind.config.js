@@ -140,6 +140,8 @@ const config = {
           "linear-gradient(272deg, #125B54 18.54%, #092E2B 107.09%)",
         "blue-gradient":
           "linear-gradient(314deg, ##0079EF 6.46%, ##0079EF30 113.37%,#FFFFFF)",
+        "border-image":
+          "conic-gradient(from 90deg, #a8efff, #a8efff1a, 0.1turn,  a#8efff  0.15turn, #a8efff1a 0.25turn) 30",
       },
       boxShadow: {
         "6xs": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",

@@ -42,6 +42,7 @@ const PrevButton = (props) => {
   const { children, ...restProps } = props;
 
   return (
+    // <div className=" left-4  md:left-0 h-[261px] max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-col items-center">
     <button
       className="embla__button embla__button--prev"
       type="button"
@@ -55,14 +56,15 @@ const PrevButton = (props) => {
       </svg>
       {children}
     </button>
+    // </div>
   );
 };
 
 const NextButton = (props) => {
   const { children, ...restProps } = props;
 
-  return (
-    <div className=" right-4  md:right-0  max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-col items-center">
+  return (  
+    <div className="right-4  md:right-0  max-w-[225px] h-[190px] justify-center  md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-row items-center">
       <div>
         <Button
           {...restProps}
@@ -104,17 +106,17 @@ const DiscoverCarousel = ({ strategyTagList, colors }) => {
 
   return (
     <>
-      <div className="embla" ref={emblaRef}>
-        <div className="embla__container flex gap-[28px]">
-          {carouselItemComponents}
+        <div className="embla" ref={emblaRef}>
+          <div className="embla__container flex gap-[28px]">
+            {carouselItemComponents}
+          </div>
         </div>
-      </div>
-      <div className="">
-        <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+        <div className="">
+          <div className="embla__buttons ">
+            <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+            <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+          </div>
         </div>
-      </div>
     </>
   );
 };

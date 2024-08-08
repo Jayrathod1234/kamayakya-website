@@ -19,8 +19,42 @@ function Mainboard() {
       value: "option1",
       icon: "/assets/graph-down-new-broken.svg",
     },
-    { label: "Option 2", value: "option2" },
-    { label: "Option 3", value: "option3" },
+    {
+      label: "Low to High",
+      value: "option2",
+      icon: "/assets/graph-down-new-broken.svg",
+    },
+
+    {
+      label: "Newest to Oldest",
+      value: "option3",
+      icon: "/assets/currency-rupee.svg",
+    },
+    {
+      label: "Oldest to Newest",
+      value: "option4",
+      icon: "/assets/currency-rupee (1).svg",
+    },
+    {
+      label: "Longest to Shortest",
+      value: "option5",
+      icon: "/assets/hourglass-02.svg",
+    },
+    {
+      label: "Shortest to Longest",
+      value: "option6",
+      icon: "/assets/hourglass-02 (1).svg",
+    },
+    {
+      label: "High to Low",
+      value: "option7",
+      icon: "/assets/rupee.svg",
+    },
+    {
+      label: "Low to High",
+      value: "option8",
+      icon: "/assets/rupee.svg",
+    },
   ];
 
   return (
@@ -423,10 +457,10 @@ function Mainboard() {
                   Recommendations
                 </p>
               </div>
-              <div className="rounded-[6px] bg-white border border-white gap-[8px]">
-                <div className="gap-[8px] flex items-center justify-center px-[36px] py-[18px]">
-                  <img src="/assets/icon.svg" alt="" />
-                  <p className="font-medium text-sm text-[#125B54]">
+              <div className="rounded-[6px] bg-[#061D1B] gap-[8px]">
+                <div className="gap-[6px] flex items-center justify-center px-5 py-2">
+                  <img src="/assets/white-icon.svg" alt="" />
+                  <p className="font-medium text-sm text-white">
                     Become a Member
                   </p>
                 </div>
