@@ -457,10 +457,10 @@ function Mainboard() {
                   Recommendations
                 </p>
               </div>
-              <div className="rounded-[6px] bg-white border border-white gap-[8px]">
-                <div className="gap-[8px] flex items-center justify-center px-[36px] py-[18px]">
-                  <img src="/assets/icon.svg" alt="" />
-                  <p className="font-medium text-sm text-[#125B54]">
+              <div className="rounded-[6px] bg-[#061D1B] gap-[8px]">
+                <div className="gap-[6px] flex items-center justify-center px-5 py-2">
+                  <img src="/assets/white-icon.svg" alt="" />
+                  <p className="font-medium text-sm text-white">
                     Become a Member
                   </p>
                 </div>

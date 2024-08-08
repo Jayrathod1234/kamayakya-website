@@ -1846,7 +1846,7 @@ header > div > div {
   --slide-spacing: 1rem;
   --slide-size: 50%;
 }
-/* .radio-input input {
+.radio-input input {
   display: none;
 }
 
@@ -1865,13 +1865,12 @@ header > div > div {
   border: 6px solid #ffffff3a;
   }
   
-  */
 
-/* .radio-input label {
+.radio-input label {
   width: 100%;
   padding: 10px;
   cursor: pointer;
-  display: flex !;
+  /* display: flex !; */
   justify-content: center;
   align-items: center;
   z-index: 1;
@@ -1880,15 +1879,14 @@ header > div > div {
   font-size: 14px;
 }
 
-*/
 
-/* .selection {
+.selection {
   display: none;
   position: absolute;
   height: 100%;
   width: calc(var(--container_width) / 2);
   z-index: 0;
-  width: 170px !;
+  /* width: 170px !; */
   left: 0;
   top: 0;
   padding: 8px 40px;
@@ -1896,19 +1894,19 @@ header > div > div {
   border-radius: 47px;
 }
 
-*/
 
-/* .radio-input label:has(input:checked) {
+
+.radio-input label:has(input:checked) {
   color: #fff;
 }
 
-*/
 
-/* .radio-input span:has(input:checked) {
+
+.radio-input span:has(input:checked) {
   color: #fff;
-} */
+}
 
-/* .radio-input label:has(input:checked)~.selection {
+.radio-input label:has(input:checked)~.selection {
   background-color: #0C111D;
   display: inline-block;
 }
@@ -1928,4 +1926,4 @@ header > div > div {
   transform: translateX(calc(var(--container_width) * 2/3));
 }
 
-*/
+/* gradient-btn  */
