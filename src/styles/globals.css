@@ -1840,7 +1840,7 @@ header > div > div {
 /* tab  */
 
 .embla {
-  max-width: 48rem;
+  min-width: 48rem;
   /* margin: auto; */
   --slide-height: 19rem;
   --slide-spacing: 1rem;

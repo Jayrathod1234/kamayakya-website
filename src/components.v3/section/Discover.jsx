@@ -119,7 +119,7 @@ function Discover() {
   // // }
   return (
     <>
-      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto pb-[110px]">
+      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
         <p className=" text-display-xs text-[#0C111D] font-bold font-open_sans text-center">
           Discover by Strategy
         </p>
@@ -130,7 +130,8 @@ function Discover() {
           </span>
           and to find your perfect investment match!
         </p>
-
+      </div>
+      <div className="pb-[110px] ml-32">
         <div className="pt-10 pb-8">
           <div className="flex justify-between gap-4">
             <DiscoverCarousel
