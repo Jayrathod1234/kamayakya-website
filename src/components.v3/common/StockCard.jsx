@@ -1,18 +1,29 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
 
-function MainBoardcard() {
+function StockCard({ title, market_cap, new_stock, recommended_stock }) {
+  let tabImage = null;
+  if (new_stock & recommended_stock) {
+    tabImage = "newtab";
+  } else if (new_stock) {
+    tabImage = "hot-newtab";
+  } else if (recommended_stock) {
+    tabImage = "hottab";
+  }
   return (
     <div>
       {/* new stock card  */}
       <div className="flex relative">
-        <div className="absolute top-[-7px] right-[97px] z-[1]">
-          <img src="/assets/newtab.png" alt="" className="w-[210px]" />
-        </div>
+        {tabImage && (
+          <div className="absolute top-[-7px] right-[97px] z-[1]">
+            <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
+          </div>
+        )}
+
         <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-brand-300">
           <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
             <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis">
-              Coal India
+              {title}
             </p>
 
             <div class="tooltip">
@@ -35,7 +46,7 @@ function MainBoardcard() {
                 <img src="/assets/Component 8.svg" alt="" className="w-3" />
                 <p className="text-[10px] font-semibold text-gray-500">
                   MCap:
-                  <span className="">₹2843 Cr</span>
+                  <span className="">₹ {market_cap}</span>
                 </p>
               </div>
               <div className="px-[6px] py-[2px] rounded-2xl border border-gray-150 bg-white flex gap-[4px] items-center">
@@ -119,4 +130,4 @@ function MainBoardcard() {
   );
 }
 
-export default MainBoardcard;
+export default StockCard;

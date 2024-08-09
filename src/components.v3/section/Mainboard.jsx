@@ -2,12 +2,93 @@ import React from "react";
 import MainBoardArea from "../common/MainBoardArea.jsx";
 import SelectDrop from "../common/SelectDrop.jsx";
 import RadioDrop from "../common/RadioDrop.jsx";
+import StockCard from "../common/StockCard.jsx";
+import Nonlogincard from "../common/Nonlogincard.jsx";
 
 function Mainboard() {
   const options = [
     { label: "Option 1", value: "option1" },
     { label: "Option 2", value: "option2" },
     { label: "Option 3", value: "option3" },
+  ];
+  const stockList = [
+    {
+      title: "Vidhi Specialty Food Ingredients Ltd.",
+      market_cap: "5678",
+      recommended_stock: true,
+      is_blur: false,
+      new_stock: true,
+    },
+    {
+      title: "Reliance Industries Ltd.",
+      market_cap: "9876",
+      recommended_stock: false,
+      is_blur: true,
+      new_stock: false,
+    },
+    {
+      title: "Tata Consultancy Services Ltd.",
+      market_cap: "2345",
+      recommended_stock: true,
+      is_blur: false,
+      new_stock: false,
+    },
+    {
+      title: "Infosys Ltd.",
+      market_cap: "8765",
+      recommended_stock: false,
+      is_blur: true,
+      new_stock: true,
+    },
+    {
+      title: "HDFC Bank Ltd.",
+      market_cap: "3456",
+      recommended_stock: true,
+      is_blur: false,
+      new_stock: false,
+    },
+    {
+      title: "ICICI Bank Ltd.",
+      market_cap: "6543",
+      recommended_stock: false,
+      is_blur: true,
+      new_stock: true,
+    },
+    {
+      title: "Bharti Airtel Ltd.",
+      market_cap: "4321",
+      recommended_stock: true,
+      is_blur: false,
+      new_stock: false,
+    },
+    {
+      title: "Hindustan Unilever Ltd.",
+      market_cap: "7890",
+      recommended_stock: false,
+      is_blur: true,
+      new_stock: true,
+    },
+    {
+      title: "Kotak Mahindra Bank Ltd.",
+      market_cap: "8901",
+      recommended_stock: true,
+      is_blur: false,
+      new_stock: true,
+    },
+    {
+      title: "Larsen & Toubro Ltd.",
+      market_cap: "5432",
+      recommended_stock: false,
+      is_blur: true,
+      new_stock: false,
+    },
+    {
+      title: "State Bank of India",
+      market_cap: "6789",
+      recommended_stock: true,
+      is_blur: false,
+      new_stock: true,
+    },
   ];
 
   const handleSelect = (value) => {
@@ -433,9 +514,24 @@ function Mainboard() {
       <div className="mt-4 bg-[#F2F4F7] py-10 px-20 relative">
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7 ">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
-              <MainBoardArea />
-            ))}
+            <Nonlogincard />
+            {stockList.map(
+              ({
+                title,
+                market_cap,
+                recommended_stock,
+                is_blur,
+                new_stock,
+              }) => (
+                <StockCard
+                  title={title}
+                  market_cap={market_cap}
+                  recommended_stock={recommended_stock}
+                  is_blur={is_blur}
+                  new_stock={new_stock}
+                />
+              )
+            )}
             {/* <MainBoardArea /> */}
           </div>
           {/* Elevate Your section  */}
