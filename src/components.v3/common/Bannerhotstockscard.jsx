@@ -4,7 +4,7 @@ import {
   ButtonSize,
   ButtonVariant,
 } from "../../components.v2/button/button.tsx";
-import ProgressBar from "./ProgressBar.jsx";
+import ProgressBarDemo from "./ProgressBarDemo.jsx";
 import { ButtonnArrow } from "../../components.v2/button/btn-arrow-icon.tsx";
 import DeepValue from "./DeepValue.jsx";
 
@@ -278,7 +278,7 @@ const Bannerhotstockscard = () => {
                           </div>
                         </div>
                         <div className="pt-5 pb-[10px] pr-5">
-                          <ProgressBar />
+                          <ProgressBarDemo />
                         </div>
                         <div className="p-5">
                           {/* btn  */}
@@ -472,7 +472,7 @@ const Bannerhotstockscard = () => {
                           </div>
                         </div>
                         <div className="pt-5 pb-[10px] pr-5">
-                          <ProgressBar />
+                          <ProgressBarDemo />
                         </div>
                         <div className="p-5">
                           {/* btn  */}
@@ -662,7 +662,7 @@ const Bannerhotstockscard = () => {
                           </div>
                         </div>
                         <div className="pt-5 pb-[10px] pr-5">
-                          <ProgressBar />
+                          <ProgressBarDemo />
                         </div>
                         <div className="p-5">
                           {/* btn  */}
