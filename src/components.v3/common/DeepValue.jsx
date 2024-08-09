@@ -34,16 +34,22 @@ const DeepValue = ({ options, onSelect }) => {
             />
           </div>
           <ul className="absolute p-3 w-[147px] gap-3 bg-white border border-[#EDF0F5] rounded-lg shadow m-0 mt-2 z-[2]">
-            {options.map((option, index) => (
-              <li
-                key={index}
-                onClick={() => handleOptionClick(option)}
-                className="flex items-center gap-2 pb-3 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer"
-              >
-                <img src={option.icon} alt="" srcset="" />
-                {option.label}
-              </li>
-            ))}
+            <li className="flex items-center gap-2 pb-3 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer">
+              <img src="/assets/stock-details/Pricing.svg" alt="" />
+              Deep Value
+            </li>
+            <li className="flex items-center gap-2 pb-3 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer">
+              <img src="/assets/stock-details/Pricing (1).svg" alt="" />
+              Special Situation
+            </li>
+            <li className="flex items-center gap-2 pb-3 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer">
+              <img src="/assets/stock-details/Pricing (2).svg" alt="" />
+              Market Leader
+            </li>
+            <li className="flex items-center gap-2 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer">
+              <img src="/assets/stock-details/Pricing (3).svg" alt="" />
+              Deep Value
+            </li>
           </ul>
         </>
       )}

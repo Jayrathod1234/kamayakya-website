@@ -1,53 +1,52 @@
-import { useState } from "react";
+// components/RadioSelectDropdown.js
+import React from "react";
+import {
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  MenuItem,
+  Select,
+  Box,
+} from "@mui/material";
 
-const RadioDrop = ({ options, onSelect }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    onSelect(option.value);
-    setIsOpen(false);
-  };
-
+const RadioSelectDropdown = ({
+  selectedValue,
+  handleChange,
+  options,
+  label,
+}) => {
   return (
-    <div className="relative inline-block w-64">
-      <div
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between gap-2 w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md  leading-tight cursor-pointer  h-12 shadow-3xs "
-      >
-        <div className="flex items-center gap-1">
-          <img src="/assets/mi_sort.svg" alt="" srcset="" />
-          <span className="text-md font-medium text-gray-950 font-open_sans">
-            Upside Left:
-          </span>
-          <p className="text-md font-medium text-gray-950 font-open_sans">
-            {selectedOption ? selectedOption.label : "High to Low"}
-          </p>
-        </div>
-        <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" />
-      </div>
-      {isOpen && (
-        <ul className="absolute z-[999] w-[276px] bg-white border border-gray-100 rounded-md shadow mt-1 p-2 m-0 " >
-          <p className="py-1 pl-2.5 text-[#98A2B3]">Upside Left</p>
-          {options.map((option, index) => (
-            <li
-              key={index}
-              onClick={() => handleOptionClick(option)}
-              className="px-2.5 py-2 hover:bg-gray-200 cursor-pointer flex items-center justify-between gap-2"
-            >
-              <img src={option.icon} alt="" srcset="" />
-              <span className="w-[180px] text-left">{option.label}</span>
-              <label htmlFor="">
-                <input type="radio" className="radiobtn text-right" />
-              </label>
-            </li>
+    <Box display="flex" alignItems="center" width="100%">
+      <Box flexShrink={0} mr={2}>
+        {/* Label on the left side */}
+        {/* <div className="font-medium">{label}ds:</div> */}
+      </Box>
+      <FormControl fullWidth>
+        <Select
+          value={selectedValue}
+          onChange={handleChange}
+          displayEmpty
+          className="w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md leading-tight cursor-pointer h-12 shadow-3xs z-[8]"
+          renderValue={(selected) => {
+            const option = options.find((opt) => opt.value === selected);
+            return option ? option.label : "Select an option";
+          }}
+        >
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              <FormControlLabel
+                className="w-full"
+                label={option.label}
+                control={<Radio checked={selectedValue === option.value} />}
+              />
+            </MenuItem>
           ))}
-        </ul>
-
-      )}
-    </div>
+        </Select>
+      </FormControl>
+    </Box>
   );
 };
 
-export default RadioDrop;
+export default RadioSelectDropdown;

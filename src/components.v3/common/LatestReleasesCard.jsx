@@ -59,6 +59,7 @@ function LatestReleasesCard({ percentage }) {
                   </p>
                   <img src="/assets/chevron-down.svg" alt="" />
                 </div>
+                {/* <DeepValue /> */}
               </div>
             </div>
             <div className="px-5 pb-3">

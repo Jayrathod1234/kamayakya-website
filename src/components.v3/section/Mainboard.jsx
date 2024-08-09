@@ -1,60 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import MainBoardArea from "../common/MainBoardArea.jsx";
 import SelectDrop from "../common/SelectDrop.jsx";
-import RadioDrop from "../common/RadioDrop.jsx";
+import RadioSelectDropdown from "../common/RadioDrop.jsx";
+import Button from "@mui/material/Button";
+import {
+  Box,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { InboxIcon, MailIcon, MailsIcon } from "lucide-react";
+// import { Button } from "../../components.v2/button/button.js";
 
 function Mainboard() {
-  const options = [
-    { label: "Option 1", value: "option1" },
-    { label: "Option 2", value: "option2" },
-    { label: "Option 3", value: "option3" },
-  ];
+  const [open, setOpen] = React.useState(false);
 
-  const handleSelect = (value) => {
-    console.log("Selected:", value);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
   };
-  const options2 = [
-    {
-      label: "High to Low",
-      value: "option1",
-      icon: "/assets/graph-down-new-broken.svg",
-    },
-    {
-      label: "Low to High",
-      value: "option1",
-      icon: "/assets/graph-down-new-broken.svg",
-    },
 
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List>
+        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailsIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["All mail", "Trash", "Spam"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
+  // const options = [
+  //   { label: "Option 1", value: "option1" },
+  //   { label: "Option 2", value: "option2" },
+  //   { label: "Option 3", value: "option3" },
+  // ];
+
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const options = [
     {
-      label: "Newest to Oldest",
-      value: "option2",
-      icon: "/assets/currency-rupee.svg",
-    },
-    {
-      label: "Oldest to Newest",
-      value: "option2",
-      icon: "/assets/currency-rupee (1).svg",
-    },
-    {
-      label: "Longest to Shortest",
-      value: "option3",
-      icon: "/assets/hourglass-02.svg",
-    },
-    {
-      label: "Shortest to Longest",
-      value: "option3",
-      icon: "/assets/hourglass-02 (1).svg",
-    },
-    {
+      icon: "/assets/graph-down-new-broken.svg",
+      value: "High to Low",
       label: "High to Low",
-      value: "option3",
-      icon: "/assets/rupee.svg",
     },
-    {
-      label: "Low to High",
-      value: "option3",
-      icon: "/assets/rupee.svg",
-    },
+    { value: "Low to High", label: "Low to High" },
+    { value: "Newest to Oldest", label: "Newest to Oldest" },
   ];
 
   return (
@@ -68,13 +86,32 @@ function Mainboard() {
         <div className="flex gap-4 items-center">
           <div className="w-3/12">
             <div className="relative">
-              <div className="absolute z-[1] top-[-10px] left-4 bg-white px-1 justify-center items-center gap-2 rounded-2xl">
+              <div className="absolute z-[9] top-[-10px] left-4 bg-white px-1 justify-center items-center gap-2 rounded-2xl">
                 <p className="text-gray-500 text-2xs font-medium text-center font-open_sans">
                   Sort by
                 </p>
               </div>
-              <RadioDrop options={options2} onSelect={handleSelect} />
-              {/* <button
+              {/* <RadioSelectDropdown option={option} onSelect={handleSelect} /> */}
+              {/* <div className="relative inline-block w-64">
+                <div className="flex items-center justify-between gap-2 w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md  leading-tight cursor-pointer  h-12 shadow-3xs ">
+                  <div className="flex items-center gap-1">
+                    <img src="/assets/mi_sort.svg" alt="" srcset="" />
+                    <span className="text-md font-medium text-gray-950 font-open_sans">
+                      Upside Left:
+                    </span>
+                    <p className="text-md font-medium text-gray-950 font-open_sans"></p>
+                  </div> */}
+              <RadioSelectDropdown
+                selectedValue={selectedValue}
+                handleChange={handleChange}
+                options={options}
+              />
+              {/* <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" /> */}
+              {/* </div>
+              </div> */}
+            </div>
+
+            {/* <button
                 type="button"
                 class="inline-flex justify-center w-full bg-[#E7F8F8] border border-[#ADDFDB] py-[10px] px-[14px] rounded-md  gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)] "
                 id="menu-button"
@@ -97,87 +134,9 @@ function Mainboard() {
                   />
                 </svg>
               </button> */}
-            </div>
-            {/* <div
-                class="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="menu-button"
-                tabindex="-1"
-              >
-                <div class="py-1" role="none">
-                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                    <input
-                      type="radio"
-                      name="sort"
-                      class="form-radio text-indigo-600"
-                      checked
-                    />
-                    <span class="ml-2">High to Low</span>
-                  </label>
-                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                    <input
-                      type="radio"
-                      name="sort"
-                      class="form-radio text-indigo-600"
-                    />
-                    <span class="ml-2">Low to High</span>
-                  </label>
-
-                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                    <input
-                      type="radio"
-                      name="sort"
-                      class="form-radio text-indigo-600"
-                    />
-                    <span class="ml-2">Newest to Oldest</span>
-                  </label>
-                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                    <input
-                      type="radio"
-                      name="sort"
-                      class="form-radio text-indigo-600"
-                    />
-                    <span class="ml-2">Oldest to Newest</span>
-                  </label>
-
-                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                    <input
-                      type="radio"
-                      name="sort"
-                      class="form-radio text-indigo-600"
-                    />
-                    <span class="ml-2">Longest to Shortest</span>
-                  </label>
-                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                    <input
-                      type="radio"
-                      name="sort"
-                      class="form-radio text-indigo-600"
-                    />
-                    <span class="ml-2">Shortest to Longest</span>
-                  </label>
-
-                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                    <input
-                      type="radio"
-                      name="sort"
-                      class="form-radio text-indigo-600"
-                    />
-                    <span class="ml-2">High to Low</span>
-                  </label>
-                  <label class="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100">
-                    <input
-                      type="radio"
-                      name="sort"
-                      class="form-radio text-indigo-600"
-                    />
-                    <span class="ml-2">Low to High</span>
-                  </label>
-                </div>
-              </div> */}
           </div>
-          <div className=" w-10/12">
+
+          <div className=" w-full">
             <form class="">
               <label
                 for="default-search"
@@ -199,18 +158,33 @@ function Mainboard() {
               </div>
             </form>
           </div>
-          <div className="w-1/12">
-            <button className="relative bg-white border border-[#E4E7EC] py-[10px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-3xs ">
+          <div className="w-1/6">
+            {/* <button className="relative bg-white border border-[#E4E7EC] py-[10px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-3xs ">
               <img src="/assets/filter.svg" alt="" />
               <p className="font-open_sans text-brand-500">Filter</p>
               <span class="absolute bg-[#FDB022] text-white px-1 text-xs font-bold rounded-full top-[-7px] right-[-9px] w-6 h-6 justify-center items-center flex">
                 1
               </span>
-            </button>
+            </button> */}
+            <Button
+              variant="outlined"
+              onClick={toggleDrawer(true)}
+              className="relative bg-white border !border-[#E4E7EC] !py-[8px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-3xs "
+            >
+              <img src="/assets/filter.svg" alt="" />
+              <p className="font-open_sans text-brand-500">Filter</p>
+              <span class="absolute bg-[#FDB022] text-white px-1 text-xs font-bold rounded-full top-[-7px] right-[-9px] w-6 h-6 justify-center items-center flex">
+                1
+              </span>
+            </Button>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              {DrawerList}
+            </Drawer>
           </div>
         </div>
-
-        <div className="w-full py-[10px] px-5 flex gap-1 items-center justify-between pt-4">
+      </div>
+      <div className="bg-white sticky top-0 left-0 z-[8]">
+        <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto  py-[10px] px-5 flex gap-1 items-center justify-between pt-4">
           <div className="w-auto">
             <p className="font-open_sans text-sm font-normal text-[#344054]">
               Quick Filters:
@@ -383,7 +357,14 @@ function Mainboard() {
             </div>
           </div>
           <div className="w-auto">
-            <SelectDrop options={options} onSelect={handleSelect} />
+            <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
+              <p className="text-[#1D2939] text-sm font-medium font-open_sans">
+                Strategy
+              </p>
+              <img src="/assets/chevron-down.svg" alt="" />
+            </div>
+
+            {/* <SelectDrop options={options} onSelect={handleSelect} /> */}
             {/* <details class="custom-select">
                 <summary class="radios">
                   <input

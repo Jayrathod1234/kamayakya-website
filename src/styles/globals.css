@@ -1838,7 +1838,6 @@ header > div > div {
   opacity: 1;
 }
 /* tab  */
-
 .embla {
   max-width: 48rem;
   /* margin: auto; */
@@ -1925,5 +1924,6 @@ header > div > div {
 .radio-input label:nth-child(3):has(input:checked)~.selection {
   transform: translateX(calc(var(--container_width) * 2/3));
 }
+
 
 /* gradient-btn  */
