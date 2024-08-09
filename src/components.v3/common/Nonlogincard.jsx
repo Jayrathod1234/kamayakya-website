@@ -1,5 +1,6 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
+import DeepValue from "./DeepValue";
 
 function Nonlogincard() {
   return (
@@ -49,18 +50,7 @@ function Nonlogincard() {
                   <span className="blur-sm">₹2843 Cr</span>
                 </p>
               </div>
-              <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
-                <img
-                  src="/assets/ic_round-diamond.svg"
-                  alt=""
-                  className="w-3.5"
-                />
-                <p className="text-[10px] font-semibold text-[#344054] flex gap-[3px]">
-                  Deep Value
-                  <span className="text-[#108973] font-bold">+3</span>
-                </p>
-                <img src="/assets/chevron-down.svg" alt="" className="w-4" />
-              </div>
+              <DeepValue />
             </div>
           </div>
           <div className="px-5 pb-3">

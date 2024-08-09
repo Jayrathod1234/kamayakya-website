@@ -38,18 +38,7 @@ function MainBoardcard() {
                   <span className="">₹2843 Cr</span>
                 </p>
               </div>
-              <div className="px-[6px] py-[2px] rounded-2xl border border-gray-150 bg-white flex gap-[4px] items-center">
-                <img
-                  src="/assets/ic_round-diamond.svg"
-                  alt=""
-                  className="w-3.5"
-                />
-                <p className="text-[10px] font-semibold text-gray-700 flex gap-[3px]">
-                  Turnaround Story
-                  <span className="text-[#108973] font-bold">+3</span>
-                </p>
-                <img src="/assets/chevron-down.svg" alt="" className="w-4" />
-              </div>
+              <DeepValue />
             </div>
           </div>
           <div className="px-5 pb-3">

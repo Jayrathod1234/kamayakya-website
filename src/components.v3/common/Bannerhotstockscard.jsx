@@ -20,32 +20,10 @@ const Bannerhotstockscard = () => {
       pagegroup: "enterprise_solution",
     });
   };
-  const options = [
-    {
-      label: "Deep Value",
-      value: "Deep Value",
-      icon: "/assets/stock-details/Pricing.svg",
-    },
-    {
-      label: "Special Situation",
-      value: "Special Situation",
-      icon: "/assets/stock-details/Pricing (1).svg",
-    },
-    {
-      label: "Market Leader",
-      value: "Market Leader",
-      icon: "/assets/stock-details/Pricing (2).svg",
-    },
-    {
-      label: "Deep Value",
-      value: "Deep Value",
-      icon: "/assets/stock-details/Pricing (3).svg",
-    },
-  ];
 
-  const handleSelect = (value) => {
-    console.log("Selected:", value);
-  };
+  // const handleSelect = (value) => {
+  //   console.log("Selected:", value);
+  // };
   return (
     <div>
       <div className="relative z-[2] pb-[110px] mt-[20px]">
@@ -73,44 +51,13 @@ const Bannerhotstockscard = () => {
                     <br></br>with KamayaKya membership.
                   </p>
                   <div className=" !mt-6">
-                    {/* <button className="py-2 px-5 bg-brand-500 text-white rounded-md justify-center items-center flex">
-                      Explore Plans
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
-                        fill="none"
-                      >
-                        <path
-                          d="M6.75 13.5L11.25 9L6.75 4.5"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </button> */}
-
                     <ButtonnArrow
-                      // endIcon={<MoveRight className=" text-inherit" />}
                       onClick={handleContactButton}
                       variant={ButtonVariant.primary}
                       size={ButtonSize.lg}
-                      // strokeStyle=" stroke-brand-400"
-                      // arrowStyle="rotate-90 stroke-white"
                     >
                       Explore Plans
                     </ButtonnArrow>
-
-                    {/* <Button
-                      endIcon={<MoveRight className=" text-inherit" />}
-                      onClick={handleContactButton}
-                      variant={ButtonVariant.primary}
-                      size={ButtonSize.lg}
-                    >
-                      Explore Plans
-                    </Button> */}
                   </div>
                 </div>
 
@@ -367,28 +314,7 @@ const Bannerhotstockscard = () => {
                                 <span className="blur-sm">₹2843 Cr</span>
                               </p>
                             </div>
-                            <DeepValue
-                              options={options}
-                              onSelect={handleSelect}
-                            />
-                            {/* <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
-                              <img
-                                src="/assets/ic_round-diamond.svg"
-                                alt=""
-                                className="w-3.5"
-                              />
-                              <p className="text-[10px] font-semibold text-[#344054] flex gap-[3px]">
-                                Deep Value
-                                <span className="text-[#108973] font-bold">
-                                  +3
-                                </span>
-                              </p>
-                              <img
-                                src="/assets/chevron-down.svg"
-                                alt=""
-                                className="w-4"
-                              />
-                            </div> */}
+                            <DeepValue />
                           </div>
                         </div>
                         <div className="px-5 pb-3">
@@ -561,7 +487,7 @@ const Bannerhotstockscard = () => {
                                 <span className="blur-sm">₹2843 Cr</span>
                               </p>
                             </div>
-                            <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
+                            {/* <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
                               <img
                                 src="/assets/ic_round-diamond.svg"
                                 alt=""
@@ -578,7 +504,8 @@ const Bannerhotstockscard = () => {
                                 alt=""
                                 className="w-4"
                               />
-                            </div>
+                            </div> */}
+                            <DeepValue/>
                           </div>
                         </div>
                         <div className="px-5 pb-3">
