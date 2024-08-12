@@ -19,7 +19,7 @@ const RadioSelectDropdown = ({
 }) => {
   return (
     <Box display="flex" alignItems="center" width="100%">
-      <Box flexShrink={0} mr={2}>
+      <Box flexShrink={0}>
         {/* Label on the left side */}
         {/* <div className="font-medium">{label}ds:</div> */}
       </Box>

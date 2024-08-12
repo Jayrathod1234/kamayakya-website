@@ -1,71 +1,105 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-
-function StocksTab(props) {
+import React, { useState } from "react";
+import { Tabs, Tab, Box, Typography } from "@mui/material";
+import { styled } from "@mui/system";
+const CustomTabs = styled(Tabs)({
+  backgroundColor: "#ffffff",
+  color: "#000",
+  borderRadius: "61px",
+  fontWeight: "bold",
+  padding: "6px",
+  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+  "& .MuiTabs-indicator": {
+    display: "none",
+  },
+});
+const CustomTab = styled(Tab)(({ theme, selected }) => ({
+  textTransform: "none",
+  fontWeight: "bold",
+  borderRadius: "47px",
+  padding: "8px 40px",
+  minHeight: "40px",
+  minWidth: "120px",
+  // color: selected ? "#ffffff" : theme.palette.text.primary,
+  color: selected ? "#ffffff" : theme?.palette?.text?.primary || "#fffff",
+  backgroundColor: selected ? "#101115" : "transparent",
+  transition: "0.3s",
+  "& .MuiTab-labelIcon": {
+    alignItems: "center",
+  },
+  // "&:hover": {
+  //   backgroundColor: selected ? "#101115" : "#f0f0f0",
+  // },
+}));
+function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`custom-tabpanel-${index}`}
+      aria-labelledby={`custom-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
     </div>
   );
 }
-
-StocksTab.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    id: `custom-tab-${index}`,
+    "aria-controls": `custom-tabpanel-${index}`,
   };
 }
-
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
-
+export default function StocksTab() {
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
-    <>
-      <div className="radio-input h-[68px] w-[333px] relative flex items-center rounded-[61px] p-1.5 bg-white text-black overflow-hidden border-[6px] border-[#ffffff3a]">
-        <label className="w-full p-[10px] cursor-pointer justify-center items-center z-[1] font-semibold text-sm">
-          <input type="radio" id="value-1" name="value-radio" value="value-1" />
-          <span className="text-md font-semibold font-open_sans">
-            {" "}
-            Main Board
-          </span>
-          <div>
-            {" "}
-            <span className="text-3xs font-bold text-[#D0D5DD]">12 Stocks</span>
-          </div>
-        </label>
-        <label>
-          <input type="radio" id="value-2" name="value-radio" value="value-2" />
-          <span className="text-md font-semibold font-open_sans ">
-            SME Board
-          </span>
-          <div>
-            <span className="text-3xs font-bold text-[#667085]">14 Stocks</span>
-          </div>
-        </label>
-
-        <span className="selection hidden absolute h-full w-[166px] left-0 top-0 px-10 py-2 rounded-[47px] "></span>
-      </div>
-    </>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CustomTabs
+        value={value}
+        onChange={handleChange}
+        aria-label="rounded tabs example"
+      >
+        <CustomTab
+          label={
+            <>
+              <Typography>Main Board</Typography>
+              <Typography variant="caption">12 Stocks</Typography>
+            </>
+          }
+          selected={value === 0}
+          {...a11yProps(0)}
+        />
+        <CustomTab
+          label={
+            <>
+              <Typography>SME Board</Typography>
+              <Typography variant="caption">14 Stocks</Typography>
+            </>
+          }
+          selected={value === 1}
+          {...a11yProps(1)}
+        />
+      </CustomTabs>
+      {/* <CustomTabPanel value={value} index={0}>
+        Main Board Content
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        SME Board Content
+      </CustomTabPanel> */}
+    </Box>
   );
 }

@@ -1926,4 +1926,21 @@ header > div > div {
 }
 
 
-/* gradient-btn  */
+/* search  */
+.search:focus-within input {
+  width: 200px;
+  padding-left: 10px;
+
+
+}
+
+::placeholder {
+  font: inherit;
+  color: #e3e3e3;
+}
+.search :is(input, button) {
+  background: transparent;
+  color: inherit;
+  border: none;
+  outline: none;
+}
