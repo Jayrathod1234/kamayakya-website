@@ -1,7 +1,8 @@
-import React from "react";
-import ProgressBar from "./ProgressBar";
+import React, { useState } from "react";
+import ProgressBarDemo from "./ProgressBarDemo";
 
 function HotNewcard() {
+  const [hovered, setHovered] = useState(false);
   return (
     <div>
       <div className="flex relative">
@@ -15,17 +16,34 @@ function HotNewcard() {
                 Coal India
               </p>
 
-              <div class="tooltip">
-                <img src="/assets/play.gif" alt="" className="w-[24px]" />
-                {/* <span class="tooltiptext relative">
-                <img
-                  src="/assets/div.png"
-                  alt=""
-                  className="absolute -top-2 left-[52px] w-4"
-                />
-                Please become a member to watch this video.
-              </span> */}
+              <div className="flex items-center relative">
+                {/* <!-- GIF Image --> */}
+                <div>
+                  <a href="#">
+                    <img
+                      src="/assets/play.gif"
+                      alt="Play"
+                      className={`w-[24px] transition-transform duration-500 ease-in-out ${hovered ? "-translate-x-[75px] filter brightness-0 sepia opacity-100" : ""
+                        }`}
+                      // Update hover state when mouse enters or leaves the image
+                      onMouseEnter={() => setHovered(true)}
+                      onMouseLeave={() => setHovered(false)}
+                    />
+                  </a>
+                </div>
+                {/* <!-- Hidden text container --> */}
+                <div
+                  className={`absolute left-full transition-transform duration-500 ease-in-out ${hovered ? "opacity-100 -translate-x-16" : "opacity-0 translate-x-2"
+                    }`}
+                >
+                  <a href="https://www.youtube.com/watch?v=ipUuoMCEbDQ" target="_blank" className="cursor-default">
+                    <p className="text-[14px] leading-[20px] text-[#125B54] w-36 ">
+                      Watch Video
+                    </p>
+                  </a>
+                </div>
               </div>
+
             </div>
             <div className="pt-[12px] px-[20px] pb-[20px]">
               <div className=" flex items-center gap-[8px] ">
@@ -106,7 +124,7 @@ function HotNewcard() {
               </div>
             </div>
             <div className="pt-5 pb-[10px] pr-5">
-              <ProgressBar />
+              <ProgressBarDemo />
               {/* <ProgressIndicator /> */}
             </div>
             <div className="p-5">

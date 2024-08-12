@@ -300,15 +300,30 @@ function Mainboard() {
                   Recommendations
                 </p>
               </div>
-              <div className="rounded-[6px] bg-[#061D1B] gap-[8px]">
-                <div className="gap-[6px] flex items-center justify-center px-5 py-2">
-                  <img src="/assets/white-icon.svg" alt="" />
-                  <p className="font-medium text-sm text-white">
-                    Become a Member
-                  </p>
+              <div class="relative group">
+                <div
+                  class="relative w-64 h-14 opacity-90 overflow-hidden rounded-xl bg-black z-10"
+                >
+                  <div
+                    class="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12"
+                  ></div>
+
+                  <div
+                    class="absolute flex items-center justify-center text-white z-[1] opacity-90 rounded-2xl inset-0.5 bg-black"
+                  >
+                    <button
+                      name="text"
+                      class="input font-semibold text-sm h-full opacity-90 w-full px-16 py-3 rounded-xl bg-black"
+                    >
+                      Become a Member
+                    </button>
+                  </div>
+                  <div
+                    class="absolute transition-all duration-1000  animate-spin w-full h-[100px] bg-gradient-to-r from-white to-white blur-[30px]"
+                  ></div>
                 </div>
               </div>
-              <div className="absolute right-[-31px] bottom-[-95px]">
+              <div className="absolute right-[-31px] bottom-[-95px] z-0">
                 <img src="/assets/Group 1.png" alt="" className="w-[620px]" />
               </div>
             </div>

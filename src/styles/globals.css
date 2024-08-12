@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @layer components {
   .main-container {
     @apply w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto overflow-hidden;
