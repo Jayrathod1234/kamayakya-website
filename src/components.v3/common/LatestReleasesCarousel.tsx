@@ -8,18 +8,18 @@ import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
-import StockCard from "./StockCard"
+import LatestReleasesCard from "./LatestReleasesCard"
 
 const carouselItem = [
 
-  <StockCard title="Vidhi Specialty Food Ingredients Ltd." market_cap="12.24" recommended_stock={false} is_blur={false} new_stock={true} />,
-  <StockCard title="Reliance Industries Ltd." market_cap="20.24" recommended_stock={false} is_blur={true} new_stock={true} />,
-  <StockCard title="Tata Consultancy Services Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} />,
-  <StockCard title="Infosys Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} />,
-  <StockCard title="HDFC Bank Ltd." market_cap="20.24" recommended_stock={false} is_blur={false} new_stock={true} />,
-  <StockCard title="ICICI Bank Ltd." market_cap="20.24" recommended_stock={true} is_blur={false} new_stock={true} />,
-  <StockCard title="Bharti Airtel Ltd." market_cap="20.24" recommended_stock={false} is_blur={true} new_stock={true} />,
-  <StockCard title="Hindustan Unilever Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} />,
+  <LatestReleasesCard percentage="12.24" />,
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
+  <LatestReleasesCard percentage="20.24" />,
 ];
 
 type UsePrevNextButtonsType = {

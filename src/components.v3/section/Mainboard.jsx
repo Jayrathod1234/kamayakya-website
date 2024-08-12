@@ -17,8 +17,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import { InboxIcon, MailIcon, MailsIcon } from "lucide-react";
-import HotNewcard from "../common/HotNewcard.jsx";
-import Hotstockcard from "../common/Hotstockcard.jsx";
 
 // import { Button } from "../../components.v2/button/button.js";
 
@@ -493,6 +491,7 @@ function Mainboard() {
       <div className="mt-4 bg-[#F2F4F7] py-10 px-20 relative">
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7 ">
+            <Nonlogincard />
             {stockList.map(
               ({
                 title,
