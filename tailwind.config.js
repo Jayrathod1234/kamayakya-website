@@ -158,6 +158,7 @@ const config = {
         "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.20)",
       },
       colors: {
+        'custom-green': '#108973',
         gray: {
           25: "#fcfcfd",
           50: "#f9fafb",
@@ -233,10 +234,42 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        'spin-slow': 'spin 5s linear infinite',
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"),
+    function({ addComponents }) {
+      addComponents({
+        '.conic-gradient-border': {
+          position: 'relative',
+          padding: '0.5rem 1rem',
+          borderRadius: '0.375rem',
+          overflow: 'hidden',
+          background: 'transparent',
+          color: 'white', // Set text color to white
+          border: '2px solid transparent',
+          fontWeight: 'bold', // Optional: make text bold for better visibility
+        },
+        '.conic-gradient-border::before': {
+          content: '""',
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          width: '100%',
+          height: '100%',
+          borderRadius: 'inherit',
+          border: '2px solid',
+          borderImage: 'conic-gradient(from 0deg, #ff007a, #d400ff, #007aff, #00c5ff, #00ff8c, #ff007a) 1',
+          zIndex: '-1',
+          transition: 'border-image 1s ease-in-out',
+        },
+        '.conic-gradient-border:hover::before': {
+          borderImage: 'conic-gradient(from 0deg, #00c5ff, #ff007a, #d400ff, #007aff, #00ff8c, #00c5ff) 1',
+        },
+      });
+    },
+  ],
 };
 
 export default config;

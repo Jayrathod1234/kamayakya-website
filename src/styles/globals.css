@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @layer components {
   .main-container {
     @apply w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto overflow-hidden;
@@ -1926,4 +1928,81 @@ header > div > div {
   transform: translateX(calc(var(--container_width) * 2/3));
 }
 
-/* gradient-btn  */
+.btn{
+  position: relative;
+}
+
+.btn::before{
+  content: '';
+  background: conic-gradient(transparent 270deg , white , transparent); 
+  position: absolute;
+}
+
+
+
+.upsale-button {
+  position: relative;
+  z-index: 50;
+  height: 44px;
+  overflow: hidden;
+  border: none !important;
+  padding: 0 !important;
+  background: #06381b !important;
+  color: #656565;
+  background: white;
+  border-radius: 8px;
+  width: 152px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: 0 4px 50px 0 rgb(0 0 0 / 7%);
+  transition: .2s all linear;
+  text-decoration: initial;
+}
+
+
+
+.upsale-button span{
+  position: relative;
+  z-index: 1;
+  height: calc( 100% - 4px );
+  width: calc( 100% - 4px );
+  top: 2px;
+  left: 2px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  color: white;
+  background: #5D5DFF;
+}
+
+.upsale-button:after{
+ content: "";
+  position: absolute;
+  z-index: -2;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 50% 50%, 50% 50%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0)    0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+  -webkit-animation: rotate 2s linear infinite;
+  animation: rotate 2s linear infinite;
+}
+
+
+@-webkit-keyframes rotate {
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  100% {
+      transform: rotate(360deg);
+  }
+}

@@ -11,7 +11,7 @@ const RadioDrop = ({ options, onSelect }) => {
   };
 
   return (
-    <div className="relative inline-block w-auto">
+    <div className="relative inline-block w-64">
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between gap-2 w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md  leading-tight cursor-pointer  h-12 shadow-3xs "
@@ -34,12 +34,13 @@ const RadioDrop = ({ options, onSelect }) => {
             <li
               key={index}
               onClick={() => handleOptionClick(option)}
-              className="px-2.5 py-2 hover:bg-gray-200 cursor-pointer flex items-center justify-between gap-2"
+              className="px-2.5 py-2 hover:bg-gray-200 cursor-pointer"
             >
+              <label htmlFor="" className=" flex items-center justify-between gap-2">
               <img src={option.icon} alt="" srcset="" />
               <span className="w-[180px] text-left">{option.label}</span>
-              <label htmlFor="">
-                <input type="radio" className="radiobtn text-right" />
+              
+                <input id="" type="radio" />
               </label>
             </li>
           ))}
