@@ -124,17 +124,19 @@ export function Navbar() {
                   <NavigationMenuContent className=" w-auto">
                     {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
                     <ul
-                      className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${isLoggedIn ? "grid-rows-4" : "grid-rows-3"
-                        } gap-3 m-0 p-6  ${isLoggedIn
+                      className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
+                        isLoggedIn ? "grid-rows-4" : "grid-rows-3"
+                      } gap-3 m-0 p-6  ${
+                        isLoggedIn
                           ? "lg:w-[700px]"
                           : "md:w-[620px] lg:w-[900px]"
-                        }  `}
+                      }  `}
                     >
                       {HOME_OPTIONS.filter((options) =>
                         isLoggedIn
                           ? options.title !== "Sample Reports" &&
-                          options.title !== "Performance" &&
-                          options.title !== "Hot Stocks"
+                            options.title !== "Performance" &&
+                            options.title !== "Hot Stocks"
                           : true
                       ).map((option) => (
                         <ListItem
@@ -149,13 +151,13 @@ export function Navbar() {
                               ele?.scrollIntoView({ behavior: "smooth" });
                             }
                           }}
-                          key={option.title}
+                          key={option.id || option.title} // Ensure key is unique
                           className=" hover:bg-gray-50 relative "
                           href={option.link}
                           icon={option.icon}
                           title={option.title}
                           id={option?.id}
-                        // endIcon={option?.endIcon}
+                          // endIcon={option?.endIcon}
                         >
                           {option.subtitle}
                         </ListItem>
@@ -176,17 +178,20 @@ export function Navbar() {
                 </NavigationMenuItem>
                 {NAVBAR_LINKS.map((navigationOption) => (
                   <NavigationMenuItem
-                    className={` m-0 ${(navigationOption.title !== "Track Record" &&
-                      navigationOption.title !== "Stocks to Buy") ||
+                    key={navigationOption?.id || navigationOption?.title} // Ensure key is unique
+                    className={` m-0 ${
+                      (navigationOption.title !== "Track Record" &&
+                        navigationOption.title !== "Stocks to Buy") ||
                       !isLoggedIn
-                      ? navigationOption.title === "Stocks to Buy"
-                        ? "hidden"
-                        : "hidden lg:flex"
-                      : navigationOption.title === "Stocks to Buy"
+                        ? navigationOption.title === "Stocks to Buy"
+                          ? "hidden"
+                          : "hidden lg:flex"
+                        : navigationOption.title === "Stocks to Buy"
                         ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 !text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4 uppercase"
                         : ""
-                      } ${navigationOption.title === "About Us" ? "!hidden" : ""
-                      }`}
+                    } ${
+                      navigationOption.title === "About Us" ? "!hidden" : ""
+                    }`}
                   >
                     <Link
                       className=" !text-inherit"
@@ -201,10 +206,11 @@ export function Navbar() {
                       passHref
                     >
                       <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} text-inherit ${navigationOption.title === "Stocks to Buy"
-                          ? "!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
-                          : ""
-                          }`}
+                        className={`${navigationMenuTriggerStyle()} text-inherit ${
+                          navigationOption.title === "Stocks to Buy"
+                            ? "!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
+                            : ""
+                        }`}
                         active={pathname === navigationOption.link}
                       >
                         {navigationOption.title}
@@ -224,10 +230,11 @@ export function Navbar() {
           <Link href={"/stock-picks"}>
             <Button
               variant={ButtonVariant.orange}
-              customStyle={`border pricing border-orange-500  ${isLoggedIn
-                ? "bg-orange-500 text-white  hover:bg-orange-600 mr-6 "
-                : " text-orange-500 bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
-                }  !px-4 !py-[10px] rounded-[6px]`}
+              customStyle={`border pricing border-orange-500  ${
+                isLoggedIn
+                  ? "bg-orange-500 text-white  hover:bg-orange-600 mr-6 "
+                  : " text-orange-500 bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+              }  !px-4 !py-[10px] rounded-[6px]`}
             >
               <p className=" text-sm font-bold capitalize ">Stocks to Buy</p>
             </Button>
