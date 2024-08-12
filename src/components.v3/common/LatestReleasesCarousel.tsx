@@ -104,11 +104,7 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
 };
 
 export const CarouselItem = React.forwardRef(
-  ({
-    children,
-    className,
-    ref,
-  }: TChildren & { className?: string; ref: any }) => {
+  ({ children, className }: TChildren & { className?: string }, ref) => {
     return (
       <div ref={ref} className={`carousel__item h-full ${className}`}>
         {children}
