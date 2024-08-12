@@ -262,6 +262,7 @@ function Mainboard() {
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7 ">
             <Nonlogincard />
+            <MainBoardArea />
             {stockList.map(
               ({
                 title,

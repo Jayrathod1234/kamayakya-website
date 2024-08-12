@@ -1,5 +1,6 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
+import DeepValue from "./DeepValue";
 
 function MainBoardcard() {
   return (
