@@ -109,7 +109,7 @@ function Mainboard() {
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-      {/* <List>
+      <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -133,7 +133,7 @@ function Mainboard() {
             </ListItemButton>
           </ListItem>
         ))}
-      </List> */}
+      </List>
       <div>dhtidfjth</div>
     </Box>
   );
