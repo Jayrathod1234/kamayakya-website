@@ -1603,7 +1603,7 @@ header > div > div {
   width: 365px;
   /* margin: auto; */
   justify-content: center;
-  padding: 2px 0;
+  padding: 4px 0;
 }
 
 @media (min-width: 768px) {

@@ -9,6 +9,7 @@
 
 const config = {
   darkMode: ["class"],
+  fill: ['hover', 'focus'],
   content: [
     "./**/*.{ts,tsx,jsx}",
     "./components/**/*.{ts,tsx}",

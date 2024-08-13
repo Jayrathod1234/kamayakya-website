@@ -63,7 +63,7 @@ const NextButton = (props) => {
   const { children, ...restProps } = props;
 
   return (
-    <div className="right-4  md:right-0  max-w-[225px] h-[190px] justify-center  md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-row items-center">
+    <div className="right-4  md:right-0  max-w-[225px] h-[240px] justify-center  md:w-1/3  absolute md:bg-gradient-to-l from-[#FCFCFD] to-transparent z-20 flex flex-row items-center">
       <div>
         <Button
           {...restProps}

@@ -303,7 +303,7 @@ function Mainboard() {
               </div>
               <div className="relative group">
                 <div
-                  className="relative w-48 h-12 opacity-90 border-[1px] border-transparent duration-500 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA]
+                  className="relative w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA]
                   group-hover:border-[1px] group-hover:px-4  group-hover:w-52 group-hover:-me-5 group-hover:h-10 group-hover:ms-5  group-hover:shadow-6xs" 
                 >
                   <div
