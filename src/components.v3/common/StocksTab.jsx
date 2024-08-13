@@ -19,8 +19,7 @@ const CustomTab = styled(Tab)(({ theme, selected }) => ({
   padding: "8px 40px",
   minHeight: "40px",
   minWidth: "120px",
-  // color: selected ? "#ffffff" : theme.palette.text.primary,
-  color: selected ? "#ffffff" : theme?.palette?.text?.primary || "#fffff",
+  color: selected ? "#ffffff !important" : theme?.palette?.text?.primary,
   backgroundColor: selected ? "#101115" : "transparent",
   transition: "0.3s",
   "& .MuiTab-labelIcon": {

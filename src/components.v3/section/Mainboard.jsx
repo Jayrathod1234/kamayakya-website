@@ -109,7 +109,7 @@ function Mainboard() {
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-      {/* <List>
+      <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -133,7 +133,7 @@ function Mainboard() {
             </ListItemButton>
           </ListItem>
         ))}
-      </List> */}
+      </List>
       <div>dhtidfjth</div>
     </Box>
   );
@@ -302,16 +302,10 @@ function Mainboard() {
                 </p>
               </div>
               <div class="relative group">
-                <div
-                  class="relative w-64 h-14 opacity-90 overflow-hidden rounded-xl bg-black z-10"
-                >
-                  <div
-                    class="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12"
-                  ></div>
+                <div class="relative w-64 h-14 opacity-90 overflow-hidden rounded-xl bg-black z-10">
+                  <div class="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12"></div>
 
-                  <div
-                    class="absolute flex items-center justify-center text-white z-[1] opacity-90 rounded-2xl inset-0.5 bg-black"
-                  >
+                  <div class="absolute flex items-center justify-center text-white z-[1] opacity-90 rounded-2xl inset-0.5 bg-black">
                     <button
                       name="text"
                       class="input font-semibold text-sm h-full opacity-90 w-full px-16 py-3 rounded-xl bg-black"
@@ -319,9 +313,7 @@ function Mainboard() {
                       Become a Member
                     </button>
                   </div>
-                  <div
-                    class="absolute transition-all duration-1000  animate-spin w-full h-[100px] bg-gradient-to-r from-white to-white blur-[30px]"
-                  ></div>
+                  <div class="absolute transition-all duration-1000  animate-spin w-full h-[100px] bg-gradient-to-r from-white to-white blur-[30px]"></div>
                 </div>
               </div>
               <div className="absolute right-[-31px] bottom-[-95px] z-0">
