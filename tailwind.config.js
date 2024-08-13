@@ -28,6 +28,13 @@ const config = {
       "2xl": "1536px",
       // "min-h-700": { raw: "( (min-height: 700px))" },
     },
+    transitionDuration: {
+      '2000': '2000ms',
+      '700':'700ms',
+      '300':'300ms',
+      '500':'500ms',
+      '100' : '100ms'
+    },
     fontFamily: {
       open_sans: ["Open Sans", "sans-serif"],
     },

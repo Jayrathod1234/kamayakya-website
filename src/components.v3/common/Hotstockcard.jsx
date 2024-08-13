@@ -1,5 +1,5 @@
 import React from 'react'
-import ProgressBar from './ProgressBar'
+import ProgressBarDemo from './ProgressBarDemo'
 
 function Hotstockcard() {
   return (
@@ -98,22 +98,32 @@ function Hotstockcard() {
             </div>
           </div>
           <div className="pt-5 pb-[10px] pr-5">
-            <ProgressBar />
+            <ProgressBarDemo />
             {/* <ProgressIndicator /> */}
           </div>
           <div className="p-5">
             {/* btn  */}
-            <button className="button-82-pushable" role="button">
-              <span className="button-82-shadow"></span>
-              <span className="button-82-edge"></span>
-
-              <span className="button-82-front  button-82-front2 text flex items-center">
-                <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                  View Reports & Details
-                </p>
-                <img src="assets/chevron-right.png" alt="" className="w-4" />
-              </span>
-            </button>
+            <button className="button-82-pushable group " role="button">
+                <span className="button-82-shadow"></span>
+                <span className="button-82-edge"></span>
+                <span className="button-82-front button-82-front2 text flex items-center">
+                  <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
+                  View Reports & Details 
+                  </p>
+                  <div className="relative flex">
+                  <img
+                    src="assets/chevron-right.png"
+                    alt=""
+                    className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                  />
+                  <img
+                    src="assets/pajamas_long-arrow.svg"
+                    alt=""
+                    className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
+                  />
+                </div>
+                </span>
+              </button>
           </div>
         </div>
       </div>

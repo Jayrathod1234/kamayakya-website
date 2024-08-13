@@ -174,7 +174,7 @@ const ProgressIndicator = () => {
       <div className="flex justify-between text-gray-600 mt-2">
         {prices.map((price, index) => (
           <div key={index} className="text-center">
-            <span className="block font-semibold text-sm">₹{price}</span>
+            <span className="block font-semibold text-sm my-2">₹{price}</span>
             {index === labels.length - 1 && (
               <span className="text-orange-500 block ">Active</span>
             )}

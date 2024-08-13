@@ -384,7 +384,7 @@ function Filtermenu() {
               <input
                 type="text"
                 placeholder="Search"
-                className="search__input w-0 transition-width duration-[0.5s]"
+                className="search__input w-0 transition-width duration-300"
               />
               <button
                 type="button"

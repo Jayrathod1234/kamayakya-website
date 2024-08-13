@@ -1,5 +1,5 @@
 import React from "react";
-import ProgressBar from "./ProgressBar";
+import ProgressBarDemo from "./ProgressBarDemo";
 import DeepValue from "./DeepValue";
 
 function Nonlogincard() {
@@ -79,7 +79,7 @@ function Nonlogincard() {
                         />
                         <div className="text-gray-800 text-2xs font-normal">
                           Upside Left means how much the stock price could rise
-                          from its current level. 
+                          from its current level.
                         </div>
                         <div className="mt-2 p-2">
                           <span className="text-[#108973] text-2xs font-bold">
@@ -121,25 +121,28 @@ function Nonlogincard() {
             </div>
           </div>
           <div className="pt-5 pb-[10px] pr-5">
-            <ProgressBar />
+            <ProgressBarDemo />
           </div>
           <div className="p-5">
             {/* btn  */}
-            <button className="button-82-pushable" role="button">
+            <button className="button-82-pushable group relative" role="button">
               <span className="button-82-shadow"></span>
               <span className="button-82-edge"></span>
-
-              <span className="button-82-front  button-82-front2 text flex items-center">
-                <img
-                  src="/assets/noto_locked.png"
-                  alt=""
-                  srcSet=""
-                  className="w-4"
-                />
+              <span className="button-82-front button-82-front2 text flex items-center">
+                <img src="/assets/noto_locked.png" alt="" className="w-4" />
                 <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                   Become a Member
                 </p>
-                <img src="assets/chevron-right.png" alt="" className="w-4" />
+                <img
+                  src="assets/chevron-right.png"
+                  alt=""
+                  className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                />
+                <img
+                  src="assets/pajamas_long-arrow.svg"
+                  alt=""
+                  className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-[105px]"
+                />
               </span>
             </button>
           </div>
