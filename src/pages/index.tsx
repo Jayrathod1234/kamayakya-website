@@ -36,7 +36,7 @@ const Home: NextPage = () => {
     // 	<PageVisibility>
     //   {(isPageVisible: any) => (
     <>
-      <Navbar />
+    <Navbar className=" bg-white" />
       <HomePage />
       <Section1 />
       <Section3 />

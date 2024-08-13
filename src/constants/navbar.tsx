@@ -734,7 +734,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link:'',
+    link:'/#testimonials',
     id: "#testimonials",
     mixpanel:{
       event:"testimonials_clicked",
