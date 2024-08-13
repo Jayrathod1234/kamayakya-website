@@ -143,20 +143,8 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
   };
 };
 
-// export const CarouselItem = React.forwardRef(
-// ({ children, className, ref }: TChildren & { className?: string; ref: any }) => {
-//     return (
-//       <div ref={ref} className={`carousel__item h-full ${className}`}>
-//         {children}
-//       </div>
-//     );
-//   }
-// );
 export const CarouselItem = React.forwardRef(
-  (
-    { children, className }: { children: React.ReactNode; className?: string },
-    ref
-  ) => {
+  ({ children, className, ref }: TChildren & { className?: string; ref: any }) => {
     return (
       <div ref={ref} className={`carousel__item h-full ${className}`}>
         {children}
@@ -297,12 +285,11 @@ export function Carousel({ className }: { className?: string }) {
             <CarouselItem
               key={carousel.key}
               className={` carousel embla__class-names  
-              ${
-                ""
+              ${""
                 // index === selectedIndex ? "" : index > selectedIndex
                 //  ? " !scale-75 md:ml-[-2rem] lg:ml-[-4rem]"
                 //  : " !scale-75 md:mr-[-2rem] lg:mr-[-4rem]"
-              }
+                }
               `}
             >
               {carousel}
@@ -317,9 +304,8 @@ export function Carousel({ className }: { className?: string }) {
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={` ${
-              index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
-            } h-[10px]  bg-gray-200 rounded-full transition-all`}
+            className={` ${index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
+              } h-[10px]  bg-gray-200 rounded-full transition-all`}
           ></div>
         ))}
       </div>
