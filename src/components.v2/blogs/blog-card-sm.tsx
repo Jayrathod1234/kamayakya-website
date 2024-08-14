@@ -88,7 +88,7 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
               
               className=" mt-2 line-clamp-2 text-gray-950 opacity-60 h-[52px]"
             >
-              <div dangerouslySetInnerHTML={{ __html: blog.description.length > 200 ? blog.description.slice(0,200):blog.description }}></div>
+              <p>{blog.subtext}</p>
             </div>
           </div>
           <div className=" mt-6">

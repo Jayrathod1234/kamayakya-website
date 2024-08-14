@@ -23,7 +23,7 @@ import { ACTIVE_PLAN_URL, RECOMMENDATION_COUNTS } from "@/pages/api/URLs";
 import { useActivePlanContext } from "@/components/PlanContext";
 import Link from "next/link";
 import { getMixPanelClient } from "@/externals/mixpanel";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type TSideNav = {
   handleLogin: () => void;
@@ -49,6 +49,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
   const {
     activePlan: { plan },
   } = useActivePlanContext();
+  const router = useRouter()
   // const {plan} = activePlan
   const refreshToken = localStorage.getItem("refresh");
   const pathname = usePathname()
@@ -146,7 +147,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                 <Accordion className="" type="single" collapsible>
                   <AccordionItem className=" border-b-0" value="item-1">
                     <AccordionTrigger className=" text-md font-medium hover:no-underline py-0">
-                      {isLoggedIn ? "About Us" : "Home"}
+                      About Us
                     </AccordionTrigger>
                     <AccordionContent>
                       <ul className=" flex flex-col text-[#475467]  m-0">
@@ -162,10 +163,24 @@ export default function SideNav({ handleLogin }: TSideNav) {
                             href={options.link}
                             onClick={(e) => {
                               handleEvent(options.mixpanel.event, options.mixpanel.property);
+                              // if (options.id) {
+                              //   e.preventDefault();
+                              //   setOpen(false);
+                              //   setId(options.id);
+                              // }
                               if (options.id) {
-                                e.preventDefault();
                                 setOpen(false);
                                 setId(options.id);
+                                e.preventDefault();
+                                if (pathname.includes("pricing") && options.id.includes("testimonials")) {
+                                  let ele = document.querySelector(options.id);
+                                  ele?.scrollIntoView({ behavior: "smooth" });
+                                } else if (pathname == "/") {
+                                  let ele = document.querySelector(options.id);
+                                  ele?.scrollIntoView({ behavior: "smooth" });
+                                } else {
+                                  router.push(options.link);
+                                }
                               }
                             }}
                           >

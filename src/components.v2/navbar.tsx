@@ -32,6 +32,12 @@ import { ButtonVariant } from "./button/button";
 import { LoginBtnNav } from "./login-btn-nav";
 import { ScrollProgress } from "./scroll-progress";
 
+/*
+For pages with white background give className=bg-white to get the green hover effect
+eg: <Navbar className="bg-white"/>
+To change the hover effects, look for navigationMenuTriggerStyle in navigation-menu.tsx
+*/
+
 export function Navbar({ className }: { className?: string }) {
   const { isLoggedIn } = useContext(AuthContext);
   const router = useRouter();
@@ -49,6 +55,26 @@ export function Navbar({ className }: { className?: string }) {
     setShowModal(true);
   };
 
+  const handleNavigation = (
+    option: (typeof HOME_OPTIONS)[number],
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    handleEvent(option.mixpanel.event, option.mixpanel.property);
+    if (option.id) {
+      e.preventDefault();
+      // if (pathname.includes("pricing") && option.id.includes("testimonials")) {
+      //   let ele = document.querySelector(option.id);
+      //   ele?.scrollIntoView({ behavior: "smooth" });
+      // } else
+      if (pathname == "/") {
+        let ele = document.querySelector(option.id);
+        ele?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        router.push(option.link);
+      }
+    }
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -64,13 +90,7 @@ export function Navbar({ className }: { className?: string }) {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className={cn(
-        " group/nav sticky left-0 right-0 top-0 z-50 overflow-visible",
-        className
-      )}
-    >
+    <div ref={ref} className={cn(" group/nav sticky left-0 right-0 top-0 z-50 overflow-visible pricing", className)}>
       <ScrollProgress />
       <div className="flex py-2 justify-between items-center main-container overflow-visible">
         <div className=" flex flex-row items-center justify-center">
@@ -101,7 +121,12 @@ export function Navbar({ className }: { className?: string }) {
                   <NavigationMenuTrigger
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push("/#team")
+                      if (pathname === "/") {
+                        let ele = document.querySelector("#team");
+                        ele?.scrollIntoView({ behavior: "smooth" });
+                      } else {
+                        router.push("/#team");
+                      }
                     }}
                     className=" text-gray-950 font-semibold"
                   >
@@ -122,17 +147,7 @@ export function Navbar({ className }: { className?: string }) {
                           : true
                       ).map((option) => (
                         <ListItem
-                          onClick={(e) => {
-                            handleEvent(option.mixpanel.event, option.mixpanel.property);
-                            if (option.id) {
-                              e.preventDefault();
-                              if(pathname.includes("pricing") || pathname === "/"){
-                                let ele = document.querySelector(option.id);
-                              ele?.scrollIntoView({ behavior: "smooth" });
-                              } 
-                              
-                            }
-                          }}
+                          onClick={(e) => handleNavigation(option, e)}
                           key={option.title}
                           className=" hover:bg-gray-50 relative "
                           href={option.link}
@@ -201,10 +216,10 @@ export function Navbar({ className }: { className?: string }) {
           <Link href={"/stock-picks"}>
             <Button
               variant={ButtonVariant.custom}
-              className={`!text-sm  border pricing border-orange-500  ${
+              className={`!text-sm  border pricing border-[rgba(246,135,0,1)]  ${
                 isLoggedIn
-                  ? "bg-orange-500 text-white  hover:bg-[#f98800] mr-6 "
-                  : " text-orange-500 hover:text-[#E26103] hover:border-[#E26103] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+                  ? "bg-[rgba(246,135,0,1)] text-white  hover:bg-[rgba(247,117,4,1)] mr-6 "
+                  : " text-[rgba(246,135,0,1)] hover:text-[rgba(247,117,4,1)] hover:border-[rgba(247,117,4,1)] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
               }  !px-4 !py-[10px] rounded-[6px]`}
             >
               Stocks to Buy

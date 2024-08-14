@@ -71,13 +71,7 @@ const BlogSection2 = () => {
   const fetchBlogs = async () => {
     try {
       setIsLoadingBlogs(true);
-      const response = await axios.get(`${GET_BLOGS}?limit=10&offset=0`, {
-        // method: "GET",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-        // next: { revalidate: 500 },
-      });
+      const response = await axios.get(`${GET_BLOGS}?limit=10&offset=0`);
       // if (response.ok) {
       const data = response.data;
       setBlogs(data.results);

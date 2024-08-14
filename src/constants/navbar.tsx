@@ -3,6 +3,7 @@ export const NAVBAR_LINKS = [
   {
     title: "About Us",
     link: "/#philosophy",
+    id:"#philosophy",
     mixpanel:{
       event:"sampleReports_clicked",
       property:{
@@ -177,6 +178,7 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#philosophy",
+    id:"#philosophy",
     mixpanel:{
       event:"philosophy_clicked",
       property:{
@@ -239,6 +241,7 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#philosophy",
+    id:"#philosophy",
     mixpanel:{
       event:"sampleReports_clicked",
       property:{
@@ -302,6 +305,7 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#whyUs",
+    id:"#whyUs",
     mixpanel:{
       event:"trustus_clicked",
       property:{
@@ -354,6 +358,7 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#team",
+    id:"#team",
     mixpanel:{
       event:"team_clicked",
       property:{
@@ -608,7 +613,8 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
+    link: "/#howItWorks",
+    id:"#howItWorks",
     mixpanel:{
       event:"howitworks_clicked",
       property:{
@@ -665,6 +671,7 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#hotStocks",
+    id:"#hotStocks",
     mixpanel:{
       event:"hotstocks_clicked",
       property:{
@@ -845,6 +852,7 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#FAQs",
+    id:"#FAQs",
     mixpanel:{
       event:"faq_clicked",
       property:{
