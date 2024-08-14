@@ -323,7 +323,7 @@ const LoginCard = () => {
                 }}
               >
                 By logging in you agree to all our{" "}
-                <a className="linkColor" href="/TermsAndCond" target="=_blank">
+                <a className="linkColor" href="/terms-conditions" target="=_blank">
                   terms & conditions
                 </a>
               </Text>

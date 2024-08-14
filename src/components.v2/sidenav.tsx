@@ -172,10 +172,11 @@ export default function SideNav({ handleLogin }: TSideNav) {
                                 setOpen(false);
                                 setId(options.id);
                                 e.preventDefault();
-                                if (pathname.includes("pricing") && options.id.includes("testimonials")) {
-                                  let ele = document.querySelector(options.id);
-                                  ele?.scrollIntoView({ behavior: "smooth" });
-                                } else if (pathname == "/") {
+                                // if (pathname.includes("pricing") && options.id.includes("testimonials")) {
+                                //   let ele = document.querySelector(options.id);
+                                //   ele?.scrollIntoView({ behavior: "smooth" });
+                                // } else 
+                                if (pathname == "/") {
                                   let ele = document.querySelector(options.id);
                                   ele?.scrollIntoView({ behavior: "smooth" });
                                 } else {
