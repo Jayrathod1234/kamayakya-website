@@ -36,8 +36,12 @@ import ShowChartIcon from "@mui/icons-material/ShowChart";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import SizeSelector from "./SizeSelector.jsx";
 import FilterMenuTags from "./FilterMenuTags.jsx";
+import styled from "@emotion/styled";
+import SectorFilter from "./SizeSelector.jsx";
+import Sectorefilter from "./Sectore/Sectorefilter.jsx";
+import CheckDropdown from "./CheckDrop.jsx";
 
-function Filtermenu() {
+function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   const stockList = [
     {
       title: "Vidhi Specialty Food Ingredients Ltd.",
@@ -129,6 +133,29 @@ function Filtermenu() {
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
   };
+  const CustomSlider = styled(Slider)({
+    color: "#004d40", // Main color for the rail and thumb border
+    height: 4, // Thickness of the slider rail
+    "& .MuiSlider-thumb": {
+      height: 24,
+      width: 24,
+      backgroundColor: "#fff",
+      border: "2px solid currentColor",
+      "&:hover": {
+        boxShadow: "0 0 0 8px rgba(0, 77, 64, 0.16)", // Light shadow on hover
+      },
+      "&:focus, &:active": {
+        boxShadow: "0 0 0 14px rgba(0, 77, 64, 0.16)", // Larger shadow on active or focus
+      },
+    },
+    "& .MuiSlider-rail": {
+      color: "#004d40",
+      opacity: 1,
+    },
+    "& .MuiSlider-track": {
+      border: "none",
+    },
+  });
 
   const handleInputChange = (event) => {
     const index = event.target.name === "min" ? 0 : 1;
@@ -174,15 +201,56 @@ function Filtermenu() {
     "18-24 months": false,
     "Greater than 24 months": false,
   });
-
+  const CustomSlider2 = styled(Slider)({
+    color: "#004d40", // Main color for the rail and thumb border
+    height: 4, // Thickness of the slider rail
+    "& .MuiSlider-thumb": {
+      height: 24,
+      width: 24,
+      backgroundColor: "#fff",
+      border: "2px solid currentColor",
+      "&:hover": {
+        boxShadow: "0 0 0 8px rgba(0, 77, 64, 0.16)", // Light shadow on hover
+      },
+      "&:focus, &:active": {
+        boxShadow: "0 0 0 14px rgba(0, 77, 64, 0.16)", // Larger shadow on active or focus
+      },
+    },
+    "& .MuiSlider-rail": {
+      color: "#004d40",
+      opacity: 1,
+    },
+    "& .MuiSlider-track": {
+      border: "none",
+    },
+  });
   const handleChange4 = (event) => {
     setState2({ ...state, [event.target.name]: event.target.checked });
   };
+  // sectore
+  const options = [
+    {
+      value: "Agricultural",
+      label: "Agricultural",
+    },
+  ];
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
 
   const DrawerList = (
-    <Box sx={{ width: 400 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box
+      sx={{ width: 400 }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      className={`${
+        Filtermenu ? "translate-x-0" : "-translate-x-full"
+      }transition-all duration-500`}
+    >
       {/* topbar  */}
-      <div className="py-4 px-6  sticky top-0 bg-white z-50">
+      <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
         <div className="justify-between absolute flex items-center w-auto gap-2 ">
           <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">
             Filters
@@ -191,7 +259,7 @@ function Filtermenu() {
             Clear All
           </div>
         </div>
-        <Divider sx={{ marginTop: "44px" }} />
+        <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
       </div>
       {/* upside left  */}
       <div className="pt-6 pr-6 pl-4 overflow-x-hidden">
@@ -231,7 +299,7 @@ function Filtermenu() {
           </IconButton>
         </Box>
 
-        <Slider
+        <CustomSlider
           value={value}
           onChange={handleSliderChange}
           valueLabelDisplay="auto"
@@ -268,7 +336,7 @@ function Filtermenu() {
             />
           </Grid>
         </Grid>
-        <Divider sx={{ marginTop: "16px" }} />
+        <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
       </div>
 
       {/*  Recency */}
@@ -352,7 +420,7 @@ function Filtermenu() {
           </FormGroup>
         </AccordionDetails>
       </Accordion>
-
+      <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
       {/* Time Left  */}
       <Accordion defaultExpanded>
         <AccordionSummary
@@ -439,7 +507,7 @@ function Filtermenu() {
           </IconButton>
         </Box>
 
-        <Slider
+        <CustomSlider2
           value={value2}
           onChange={handleSliderChange3}
           valueLabelDisplay="auto"
@@ -487,7 +555,21 @@ function Filtermenu() {
           id="recency-header"
         >
           <Box display="flex" alignItems="center">
-            <img src="/assets/hourglass-02.svg" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M5.99992 16.6654V4.66536C5.99992 4.31174 6.14039 3.9726 6.39044 3.72256C6.64049 3.47251 6.97963 3.33203 7.33325 3.33203H12.6666C13.0202 3.33203 13.3593 3.47251 13.6094 3.72256C13.8594 3.9726 13.9999 4.31174 13.9999 4.66536V16.6654M5.99992 16.6654H13.9999M5.99992 16.6654H4.66659C4.31296 16.6654 3.97382 16.5249 3.72378 16.2748C3.47373 16.0248 3.33325 15.6857 3.33325 15.332V11.332C3.33325 10.9784 3.47373 10.6393 3.72378 10.3892C3.97382 10.1392 4.31296 9.9987 4.66659 9.9987H5.99992M13.9999 16.6654H15.3333C15.6869 16.6654 16.026 16.5249 16.2761 16.2748C16.5261 16.0248 16.6666 15.6857 16.6666 15.332V9.33203C16.6666 8.97841 16.5261 8.63927 16.2761 8.38922C16.026 8.13917 15.6869 7.9987 15.3333 7.9987H13.9999M8.66659 5.9987H11.3333M8.66659 8.66536H11.3333M8.66659 11.332H11.3333M8.66659 13.9987H11.3333"
+                stroke="#1D2939"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
             <Typography
               variant="subtitle1"
               ml={1}
@@ -499,7 +581,7 @@ function Filtermenu() {
           </Box>
         </AccordionSummary>
         {/* <SizeSelector /> */}
-        <div class="flex px-7 gap-4">
+        <div class="flex px-7 gap-4 pb-4">
           <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
             {/* <div class=""> */}
             <img src="/assets/Group 47357.svg" />
@@ -524,7 +606,7 @@ function Filtermenu() {
       </Accordion>
 
       {/* Sectors  */}
-      {/* <Accordion defaultExpanded>
+      <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon sx={{ rotate: "180deg" }} />}
           aria-controls="recency-content"
@@ -538,18 +620,13 @@ function Filtermenu() {
               viewBox="0 0 20 20"
               fill="none"
             >
-              <g clip-path="url(#clip0_9195_356175)">
-                <path
-                  d="M5.21512 4.22366C10.6575 5.03937 14.9612 9.34308 15.7769 14.7854C15.8613 15.3484 15.393 15.9173 14.6666 15.9173H5.33325C4.6429 15.9173 4.08325 15.3577 4.08325 14.6673V5.33398C4.08325 4.60755 4.65221 4.13928 5.21512 4.22366Z"
-                  stroke="black"
-                  stroke-width="1.5"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_9195_356175">
-                  <rect width="20" height="20" fill="white" />
-                </clipPath>
-              </defs>
+              <path
+                d="M5.99992 16.6654V4.66536C5.99992 4.31174 6.14039 3.9726 6.39044 3.72256C6.64049 3.47251 6.97963 3.33203 7.33325 3.33203H12.6666C13.0202 3.33203 13.3593 3.47251 13.6094 3.72256C13.8594 3.9726 13.9999 4.31174 13.9999 4.66536V16.6654M5.99992 16.6654H13.9999M5.99992 16.6654H4.66659C4.31296 16.6654 3.97382 16.5249 3.72378 16.2748C3.47373 16.0248 3.33325 15.6857 3.33325 15.332V11.332C3.33325 10.9784 3.47373 10.6393 3.72378 10.3892C3.97382 10.1392 4.31296 9.9987 4.66659 9.9987H5.99992M13.9999 16.6654H15.3333C15.6869 16.6654 16.026 16.5249 16.2761 16.2748C16.5261 16.0248 16.6666 15.6857 16.6666 15.332V9.33203C16.6666 8.97841 16.5261 8.63927 16.2761 8.38922C16.026 8.13917 15.6869 7.9987 15.3333 7.9987H13.9999M8.66659 5.9987H11.3333M8.66659 8.66536H11.3333M8.66659 11.332H11.3333M8.66659 13.9987H11.3333"
+                stroke="#1D2939"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
             <Typography
               variant="subtitle1"
@@ -561,58 +638,110 @@ function Filtermenu() {
             </Typography>
           </Box>
         </AccordionSummary>
-        <div>
-          <TextField
-            label="Search for sectors"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-          />
-          <FormGroup>
-            <FormControlLabel control={<Checkbox />} label="Agricultural" />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Automobile & Ancillaries"
-            />
-            <FormControlLabel control={<Checkbox />} label="Banking" />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Consumer Durables"
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Derived Materials"
-            />
-            <FormControlLabel control={<Checkbox />} label="Financial" />
-            <FormControlLabel control={<Checkbox />} label="Agricultural" />
-          </FormGroup>
+        <SectorFilter />
+      </Accordion>
+      {/* Strategies   */}
+
+      {/*Risk */}
+      <Accordion defaultExpanded>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon sx={{ rotate: "180deg" }} />}
+          aria-controls="recency-content"
+          id="recency-header"
+        >
+          <Box display="flex" alignItems="center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_9195_356396)">
+                <path
+                  d="M1.66675 9.99935C1.66675 6.07102 1.66675 4.10685 2.88675 2.88602C4.10841 1.66602 6.07175 1.66602 10.0001 1.66602C13.9284 1.66602 15.8926 1.66602 17.1126 2.88602C18.3334 4.10768 18.3334 6.07102 18.3334 9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935Z"
+                  stroke="#1D2939"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M5.8335 11.6654L7.74433 9.75453C7.9006 9.59831 8.11253 9.51054 8.3335 9.51054C8.55447 9.51054 8.76639 9.59831 8.92266 9.75453L10.2443 11.0762C10.4006 11.2324 10.6125 11.3202 10.8335 11.3202C11.0545 11.3202 11.2664 11.2324 11.4227 11.0762L14.1668 8.33203M14.1668 8.33203V10.4154M14.1668 8.33203H12.0835"
+                  stroke="#1D2939"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_9195_356396">
+                  <rect width="20" height="20" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            <Typography
+              variant="subtitle1"
+              ml={1}
+              mr={1}
+              sx={{ color: "#1D2939", fontSize: "14px", fontWeight: "700" }}
+            >
+              Risk
+            </Typography>
+          </Box>
+        </AccordionSummary>
+
+        <div class="flex px-7 gap-4 pb-4">
+          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+            <img src="/assets/low.svg" />
+            <span class="pt-2 text-2xs  text-[#344054] font-normal">Low</span>
+          </div>
+
+          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+            <img src="/assets/medium.svg" />
+            <span class="pt-2 text-2xs  text-[#344054] font-normal">
+              Medium
+            </span>
+          </div>
+
+          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+            <img src="/assets/High.svg" />
+            <span class="pt-2 text-2xs  text-[#344054] font-normal">High</span>
+          </div>
         </div>
-      </Accordion> */}
+      </Accordion>
+      {/* button  */}
+      <div className="pt-[61px]">
+        <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
+          <button class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]">
+            Cancel
+          </button>
+          <button class=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] ">
+            Apply
+          </button>
+        </div>
+      </div>
     </Box>
   );
 
   // step
 
-  const [selectedValue, setSelectedValue] = useState("");
+  // const [selectedValue, setSelectedValue] = useState("");
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setSelectedValue(event.target.value);
+  // };
 
-  
   return (
     <>
-      <div className="bg-white sticky top-0 left-0 z-[8]">
+      <div className="bg-white sticky top-12 left-0 z-[8]">
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center justify-between pt-4">
           {/* <div className="w-auto">
             <p className="font-open_sans text-sm font-normal text-[#344054]">
               Quick Filters:
             </p>
           </div> */}
-          
+
           {/* Import FilterMenuTag here */}
 
-          <FilterMenuTags/>
+          <FilterMenuTags />
 
           <div className="w-auto">
             <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
@@ -629,50 +758,12 @@ function Filtermenu() {
               </p>
               <img src="/assets/chevron-down.svg" alt="" />
             </div>
-
-            {/* <SelectDrop options={options} onSelect={handleSelect} /> */}
-            {/* <details class="custom-select">
-                <summary class="radios">
-                  <input
-                    type="radio"
-                    name="item"
-                    id="default"
-                    title="Strategy"
-                    checked
-                  />
-                  <input type="radio" name="item" id="item1" title="Item 1" />
-                  <input type="radio" name="item" id="item2" title="Item 2" />
-                  <input type="radio" name="item" id="item3" title="Item 3" />
-                  <input type="radio" name="item" id="item4" title="Item 4" />
-                  <input type="radio" name="item" id="item5" title="Item 5" />
-                  <img src="/assets/chevron-down.svg" alt="" />
-                </summary>
-                <div className="navlist">
-                  <ul class="list">
-                    <li>
-                      <label for="item1">
-                        Agricultural<span></span>
-                      </label>
-                    </li>
-                    <li>
-                      <label for="item2">Chemicals</label>
-                    </li>
-                    <li>
-                      <label for="item3">Apparel & Accessories</label>
-                    </li>
-                    <li>
-                      <label for="item4">Banking </label>
-                    </li>
-                  
-                  </ul>
-                </div>
-              </details> */}
-            {/* <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
-                <p className="text-[#1D2939] text-sm font-medium font-open_sans">
-                  Sector
-                </p>
-                <img src="/assets/chevron-down.svg" alt="" />
-              </div> */}
+            {/* <CheckDropdown
+              selectedValue={selectedValue}
+              handleChange={handleChange}
+              options={options}
+            /> */}
+            {/* <Sectorefilter /> */}
           </div>
           <div className="flex gap-[10] items-center">
             <form className="search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear  ">
