@@ -170,9 +170,10 @@ function StockCard({
               </div>
             </div>
             <div className="pt-5 pb-[10px] pr-5">
-              {is_blur ? (<>
-                <ProgressBar2 />
-              </>
+              {is_blur ? (
+                <>
+                  <ProgressBar2 />
+                </>
               ) : (
                 <>
                   <ProgressBarDemo />
@@ -180,62 +181,77 @@ function StockCard({
               )}
             </div>
 
-            {is_blur ? <>
-              <div className="p-5">
-                {/* btn  */}
-                <button className="button-82-pushable group " role="button">
-                  <span className="button-82-shadow"></span>
-                  <span className="button-82-edge"></span>
-                  <span className="button-82-front button-82-front2 text flex items-center">
-                    <img src="/assets/noto_locked.png" alt="" className="w-4" />
-                    <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                      Become a Member
-                    </p>
-                    <div className="relative w-5">
-                      <img
-                        src="assets/chevron-right.png"
-                        alt=""
-                        className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
-                      />
-                      <img
-                        src="assets/pajamas_long-arrow.svg"
-                        alt=""
-                        className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-0"
-                      />
-                    </div>
-                  </span>
-                </button>
-              </div>
-            </> : new_stock  ? <>
-              <div className="p-5">
-                {/* btn  */}
-                <button className="button-82-pushable group " role="button">
-                  <span className="button-82-shadow"></span>
-                  <span className="button-82-edge"></span>
-                  <span className="button-82-front button-82-front2 text flex items-center">
-                    <img src="/assets/noto_locked.png" alt="" className="w-4" />
-                    <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                      Log In to Get 3 Hot Stocks
-                    </p>
-                    <div className="relative w-5">
-                      <img
-                        src="assets/chevron-right.png"
-                        alt=""
-                        className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
-                      />
-                      <img
-                        src="assets/pajamas_long-arrow.svg"
-                        alt=""
-                        className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-0"
-                      />
-                    </div>
-                  </span>
-                </button>
-              </div>
-            </> :
+            {is_blur ? (
               <>
                 <div className="p-5">
-                  <button className="button-82-pushable group relative" role="button">
+                  {/* btn  */}
+                  <button className="button-82-pushable group " role="button">
+                    <span className="button-82-shadow"></span>
+                    <span className="button-82-edge"></span>
+                    <span className="button-82-front button-82-front2 text flex items-center">
+                      <img
+                        src="/assets/noto_locked.png"
+                        alt=""
+                        className="w-4"
+                      />
+                      <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
+                        Become a Member
+                      </p>
+                      <div className="relative w-5">
+                        <img
+                          src="assets/chevron-right.png"
+                          alt=""
+                          className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                        />
+                        <img
+                          src="assets/pajamas_long-arrow.svg"
+                          alt=""
+                          className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-0"
+                        />
+                      </div>
+                    </span>
+                  </button>
+                </div>
+              </>
+            ) : new_stock ? (
+              <>
+                <div className="p-5">
+                  {/* btn  */}
+                  <button className="button-82-pushable group " role="button">
+                    <span className="button-82-shadow"></span>
+                    <span className="button-82-edge"></span>
+                    <span className="button-82-front button-82-front2 text flex items-center">
+                      <img
+                        src="/assets/noto_locked.png"
+                        alt=""
+                        className="w-4"
+                      />
+                      <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
+                        Log In to Get 3 Hot Stocks
+                      </p>
+                      <div className="relative w-5">
+                        <img
+                          src="assets/chevron-right.png"
+                          alt=""
+                          className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                        />
+                        <img
+                          src="assets/pajamas_long-arrow.svg"
+                          alt=""
+                          className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-0"
+                        />
+                      </div>
+                    </span>
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="p-5">
+                  <button
+                    className="button-82-pushable group relative"
+                    role="button"
+                  >
                     <span className="button-82-shadow"></span>
                     <span className="button-82-edge"></span>
                     <span className="button-82-front button-82-front2 text flex items-center">
@@ -257,8 +273,8 @@ function StockCard({
                     </span>
                   </button>
                 </div>
-              </>}
-
+              </>
+            )}
           </div>
         </div>
       </div>
