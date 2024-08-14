@@ -82,7 +82,7 @@ const Bannerhotstockscard = () => {
                               className="w-[19px]"
                             />
 
-                            <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[281px]"></div>
+                            <div className="h-5 bg-gray-150 rounded-[20px] min-w-[281px]"></div>
                           </div>
 
                           <div class="tooltip">
@@ -114,13 +114,17 @@ const Bannerhotstockscard = () => {
                               </p>
                             </div>
                             <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
-                              <img src="/assets/Component 8.svg" alt="" className="w-3" />
+                              <img
+                                src="/assets/Component 8.svg"
+                                alt=""
+                                className="w-3"
+                              />
                               <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                                 MCap:
                                 <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                               </p>
                             </div>
-                            <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
+                            <div className="px-[6px] py-[2px] rounded-2xl border border-gray-150  flex gap-[4px] items-center">
                               <img
                                 src="/assets/ic_round-diamond.svg"
                                 alt=""
@@ -169,8 +173,7 @@ const Bannerhotstockscard = () => {
                                       />
                                       <div className="text-gray-800 text-2xs font-normal">
                                         Upside Left means how much the stock
-                                        price could rise from its current
-                                        level.
+                                        price could rise from its current level.
                                       </div>
                                       <div className="mt-2 p-2">
                                         <span className="text-[#108973] text-2xs font-bold">
@@ -225,11 +228,18 @@ const Bannerhotstockscard = () => {
                         </div>
                         <div className="p-5">
                           {/* btn  */}
-                          <button className="button-82-pushable group " role="button">
+                          <button
+                            className="button-82-pushable group "
+                            role="button"
+                          >
                             <span className="button-82-shadow"></span>
                             <span className="button-82-edge"></span>
                             <span className="button-82-front button-82-front2 text flex items-center">
-                              <img src="/assets/noto_locked.png" alt="" className="w-4" />
+                              <img
+                                src="/assets/noto_locked.png"
+                                alt=""
+                                className="w-4"
+                              />
                               <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                                 Become a Member
                               </p>
@@ -269,7 +279,7 @@ const Bannerhotstockscard = () => {
                               className="w-[19px]"
                             />
 
-                            <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[281px]"></div>
+                            <div className="h-5 bg-gray-150 rounded-[20px] min-w-[281px]"></div>
                           </div>
 
                           <div class="tooltip">
@@ -301,7 +311,11 @@ const Bannerhotstockscard = () => {
                               </p>
                             </div>
                             <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
-                              <img src="/assets/Component 8.svg" alt="" className="w-3" />
+                              <img
+                                src="/assets/Component 8.svg"
+                                alt=""
+                                className="w-3"
+                              />
                               <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                                 MCap:
                                 <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
@@ -339,8 +353,7 @@ const Bannerhotstockscard = () => {
                                       />
                                       <div className="text-gray-800 text-2xs font-normal">
                                         Upside Left means how much the stock
-                                        price could rise from its current
-                                        level.
+                                        price could rise from its current level.
                                       </div>
                                       <div className="mt-2 p-2">
                                         <span className="text-[#108973] text-2xs font-bold">
@@ -395,11 +408,18 @@ const Bannerhotstockscard = () => {
                         </div>
                         <div className="p-5">
                           {/* btn  */}
-                          <button className="button-82-pushable group " role="button">
+                          <button
+                            className="button-82-pushable group "
+                            role="button"
+                          >
                             <span className="button-82-shadow"></span>
                             <span className="button-82-edge"></span>
                             <span className="button-82-front button-82-front2 text flex items-center">
-                              <img src="/assets/noto_locked.png" alt="" className="w-4" />
+                              <img
+                                src="/assets/noto_locked.png"
+                                alt=""
+                                className="w-4"
+                              />
                               <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                                 Become a Member
                               </p>
@@ -439,7 +459,7 @@ const Bannerhotstockscard = () => {
                               className="w-[19px]"
                             />
 
-                            <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[281px]"></div>
+                            <div className="h-5 bg-gray-150 rounded-[20px] min-w-[281px]"></div>
                           </div>
 
                           <div class="tooltip">
@@ -471,30 +491,16 @@ const Bannerhotstockscard = () => {
                               </p>
                             </div>
                             <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
-                              <img src="/assets/Component 8.svg" alt="" className="w-3" />
+                              <img
+                                src="/assets/Component 8.svg"
+                                alt=""
+                                className="w-3"
+                              />
                               <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                                 MCap:
                                 <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                               </p>
                             </div>
-                            {/* <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
-                              <img
-                                src="/assets/ic_round-diamond.svg"
-                                alt=""
-                                className="w-3.5"
-                              />
-                              <p className="text-[10px] font-semibold text-[#344054] flex gap-[3px]">
-                                Deep Value
-                                <span className="text-[#108973] font-bold">
-                                  +3
-                                </span>
-                              </p>
-                              <img
-                                src="/assets/chevron-down.svg"
-                                alt=""
-                                className="w-4"
-                              />
-                            </div> */}
                             <DeepValue />
                           </div>
                         </div>
@@ -527,8 +533,7 @@ const Bannerhotstockscard = () => {
                                       />
                                       <div className="text-gray-800 text-2xs font-normal">
                                         Upside Left means how much the stock
-                                        price could rise from its current
-                                        level.
+                                        price could rise from its current level.
                                       </div>
                                       <div className="mt-2 p-2">
                                         <span className="text-[#108973] text-2xs font-bold">
@@ -583,11 +588,18 @@ const Bannerhotstockscard = () => {
                         </div>
                         <div className="p-5">
                           {/* btn  */}
-                          <button className="button-82-pushable group " role="button">
+                          <button
+                            className="button-82-pushable group "
+                            role="button"
+                          >
                             <span className="button-82-shadow"></span>
                             <span className="button-82-edge"></span>
                             <span className="button-82-front button-82-front2 text flex items-center">
-                              <img src="/assets/noto_locked.png" alt="" className="w-4" />
+                              <img
+                                src="/assets/noto_locked.png"
+                                alt=""
+                                className="w-4"
+                              />
                               <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                                 Become a Member
                               </p>

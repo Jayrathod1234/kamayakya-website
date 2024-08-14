@@ -47,7 +47,7 @@ const StockPicks = () => {
           {/* <FaqsNew /> */}
           {/* <Footer /> */}
           {/* </div> */}
-          <div className="!bg-transparent navbar ">
+          <div className=" navbar bg-white sticky top-0 z-[1111] ">
             <Navbar />
           </div>
           {/* <StockCard /> */}

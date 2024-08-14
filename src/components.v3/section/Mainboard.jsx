@@ -103,6 +103,8 @@ function Mainboard() {
   ];
   const [open, setOpen] = React.useState(false);
 
+  const [filteropen, filtersideopen] = useState(false);
+
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
@@ -250,13 +252,13 @@ function Mainboard() {
                 1
               </div>
             </Button>
-            <Drawer open={open} onClose={toggleDrawer(false)}>
+            {/* <Drawer open={open} onClose={toggleDrawer(false)}>
               {DrawerList}
-            </Drawer>
+            </Drawer> */}
           </div>
         </div>
       </div>
-      <Filtermenu />
+      <Filtermenu Filtermenu={filteropen} FiltermenuSidebar={filtersideopen} />
       {/* blur card  */}
       <div className="mt-4 bg-[#F2F4F7] py-10 px-20 relative">
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
@@ -294,7 +296,7 @@ function Mainboard() {
               </div>
               <div>
                 <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
-                  Elevate Your Investments with KamayaKya 
+                  Elevate Your Investments with KamayaKya
                 </p>
                 <p className="text-lg font-normal text-white opacity-35 font-open_sans">
                   Access Exclusive Insights with 30+ Premium SME Stock
@@ -304,15 +306,11 @@ function Mainboard() {
               <div className="relative group">
                 <div
                   className="relative w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA]
-                  group-hover:border-[1px] group-hover:px-4  group-hover:w-52 group-hover:-me-5 group-hover:h-10 group-hover:ms-5  group-hover:shadow-6xs" 
+                  group-hover:border-[1px] group-hover:px-4  group-hover:w-52 group-hover:-me-5 group-hover:h-10 group-hover:ms-5  group-hover:shadow-6xs"
                 >
-                  <div
-                    className="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12 group-hover:hidden"
-                  ></div>
+                  <div className="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12 group-hover:hidden"></div>
 
-                  <div
-                    className="absolute flex items-center text-center justify-center text-white z-[1] opacity-90 rounded-2xl inset-0.5 bg-black  group-hover:bg-transparent"
-                  >
+                  <div className="absolute flex items-center text-center justify-center text-white z-[1] opacity-90 rounded-2xl inset-0.5 bg-black  group-hover:bg-transparent">
                     <button
                       name="text"
                       className="input font-medium text-sm h-full opacity-90 w-full   rounded-xl bg-black group-hover:bg-transparent"
@@ -320,9 +318,7 @@ function Mainboard() {
                       Become a Member
                     </button>
                   </div>
-                  <div
-                    className="absolute transition-all duration-2000  animate-spin w-full h-[100px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden"
-                  ></div>
+                  <div className="absolute transition-all duration-2000  animate-spin w-full h-[100px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden"></div>
                 </div>
               </div>
               <div className="absolute right-[-31px] bottom-[-95px] z-0">
