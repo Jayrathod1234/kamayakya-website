@@ -171,7 +171,7 @@ function StockCard({
             <div className="pt-5 pb-[10px] pr-5">
               <ProgressBarDemo />
             </div>
-            {!recommended_stock ? (
+            {new_stock ? (
               <>
                 <div className="p-5">
                   <button className="button-82-pushable" role="button">
