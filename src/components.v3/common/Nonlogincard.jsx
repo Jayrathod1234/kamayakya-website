@@ -1,5 +1,5 @@
 import React from "react";
-import ProgressBarDemo from "./ProgressBarDemo";
+import ProgressBar2 from "./ProgressBar2";
 import DeepValue from "./DeepValue";
 
 function Nonlogincard() {
@@ -45,9 +45,9 @@ function Nonlogincard() {
               </div>
               <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
                 <img src="/assets/Component 8.svg" alt="" className="w-3" />
-                <p className="text-[10px] font-semibold text-[#667085]">
+                <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                   MCap:
-                  <span className="blur-sm">₹2843 Cr</span>
+                  <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                 </p>
               </div>
               <DeepValue />
@@ -121,7 +121,7 @@ function Nonlogincard() {
             </div>
           </div>
           <div className="pt-5 pb-[10px] pr-5">
-            <ProgressBarDemo />
+            <ProgressBar2 />
           </div>
           <div className="p-5">
             {/* btn  */}

@@ -35,6 +35,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import SizeSelector from "./SizeSelector.jsx";
+import FilterMenuTags from "./FilterMenuTags.jsx";
 
 function Filtermenu() {
   const stockList = [
@@ -311,7 +312,7 @@ function Filtermenu() {
                   className="absolute -top-2 left-[52px] w-4"
                 />
                 <div className="text-gray-800 text-2xs font-normal">
-                  Recency tells you how new this stock recommendation is.  
+                  Recency tells you how new this stock recommendation is.
                 </div>
                 <div className="mt-2 p-2">
                   <span className="text-[#108973] text-2xs font-bold">
@@ -598,19 +599,7 @@ function Filtermenu() {
     setSelectedValue(event.target.value);
   };
 
-  const [buttons, setButtons] = useState([
-    { id: 1, label: 'Most Recent', icon:'/assets/watch.svg'},
-    { id: 2, label: 'Value Pick', icon:'/assets/Pricing.svg' },
-    { id: 3, label: 'Market Leadership', icon:'/assets/leader.svg'},
-    { id: 4, label: 'Thematic Stories', icon:'/assets/bulb.svg'},
-    { id: 5, label: 'Chemicals', icon:'/assets/chamical.svg'},
-    { id: 6, label: 'Pharma', icon:'/assets/pharma.svg'}
-  ]);
-
-
-  const handleDelete = (id) => {
-    setButtons(buttons.filter(button => button.id !== id));
-  };
+  
   return (
     <>
       <div className="bg-white sticky top-0 left-0 z-[8]">
@@ -620,44 +609,11 @@ function Filtermenu() {
               Quick Filters:
             </p>
           </div> */}
-          {buttons.map((button) => (
-            <div key={button.id} className="w-auto">
-              <button
-                className="group relative px-4 py-[10px] flex items-center justify-between w-full shadow-md border-[#E4E7EC] border rounded hover:bg-brand-100 hover:border-brand-200 transition-all duration-500 focus:bg-brand-500 focus:text-white text-[#1D2939] focus:w-[calc(100%+10px)]"
-              >
-                <img
-                  src={button.icon} // Replace with your icon's path or URL
-                  alt="Icon"
-                  width="18"
-                  height="18"
-                  className="group-focus:brightness-0 group-focus:invert-[1]"
-                />
-                <p className="flex-grow  text-sm font-medium font-open_sans mx-2">
-                  {button.label}
-                </p>
-                <div
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 invisible group-focus-within:visible"
-                  onClick={() => handleDelete(button.id)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M12 4L4 12M4 4L12 12"
-                      stroke="white"
-                      strokeWidth="1.3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </button>
-            </div>
-          ))}
+          
+          {/* Import FilterMenuTag here */}
+
+          <FilterMenuTags/>
+
           <div className="w-auto">
             <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
               <p className="text-[#1D2939] text-sm font-medium font-open_sans">

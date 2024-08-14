@@ -125,7 +125,7 @@ const ProgressIndicator = () => {
     <div className="max-w-full pe-2">
       <div className="flex justify-between items-center mb-5">
         {labels.map((label, index) => (
-          <div key={index} className="flex flex-col items-center text-xs font-semibold">
+          <div key={index} className="flex flex-col items-center text-xs font-normal">
             
             <span
               id={`label-${index}`}

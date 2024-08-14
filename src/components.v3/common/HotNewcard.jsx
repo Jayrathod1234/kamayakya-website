@@ -53,7 +53,7 @@ function HotNewcard() {
                     alt=""
                     className="w-3"
                   />
-                  <p className="text-[10px] font-semibold text-orange-700">
+                  <p className="text-[10px] font-semibold text-[#a3651a]">
                     Air Conditioners
                   </p>
                 </div>
@@ -136,7 +136,7 @@ function HotNewcard() {
                   <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                   View Reports & Details
                   </p>
-                  <div className="relative flex">
+                  <div className="relative flex w-5">
                   <img
                     src="assets/chevron-right.png"
                     alt=""

@@ -134,7 +134,7 @@ function Mainboard() {
           </ListItem>
         ))}
       </List>
-      <div>dhtidfjth</div>
+      {/* <div>dhtidfjth</div> */}
     </Box>
   );
 
@@ -246,9 +246,9 @@ function Mainboard() {
             >
               <img src="/assets/filter.svg" alt="" />
               <p className="font-open_sans text-brand-500">Filter</p>
-              <span class="absolute bg-[#FDB022] text-white px-1 text-xs font-bold rounded-full top-[-7px] right-[-9px] w-6 h-6 justify-center items-center flex">
+              <div class=" bg-[#FDB022] text-white px-2 text-xs font-bold rounded-full top-[-7px] right-[-9px] w-4  h-4 justify-center items-center flex">
                 1
-              </span>
+              </div>
             </Button>
             <Drawer open={open} onClose={toggleDrawer(false)}>
               {DrawerList}

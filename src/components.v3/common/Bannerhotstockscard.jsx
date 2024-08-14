@@ -114,14 +114,10 @@ const Bannerhotstockscard = () => {
                               </p>
                             </div>
                             <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
-                              <img
-                                src="/assets/Component 8.svg"
-                                alt=""
-                                className="w-3"
-                              />
-                              <p className="text-[10px] font-semibold text-[#667085]">
+                              <img src="/assets/Component 8.svg" alt="" className="w-3" />
+                              <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                                 MCap:
-                                <span className="blur-sm">₹2843 Cr</span>
+                                <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                               </p>
                             </div>
                             <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
@@ -237,7 +233,7 @@ const Bannerhotstockscard = () => {
                               <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                                 Become a Member
                               </p>
-                              <div className="relative flex">
+                              <div className="relative flex w-5">
                                 <img
                                   src="assets/chevron-right.png"
                                   alt=""
@@ -305,14 +301,10 @@ const Bannerhotstockscard = () => {
                               </p>
                             </div>
                             <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
-                              <img
-                                src="/assets/Component 8.svg"
-                                alt=""
-                                className="w-3"
-                              />
-                              <p className="text-[10px] font-semibold text-[#667085]">
+                              <img src="/assets/Component 8.svg" alt="" className="w-3" />
+                              <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                                 MCap:
-                                <span className="blur-sm">₹2843 Cr</span>
+                                <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                               </p>
                             </div>
                             <DeepValue />
@@ -411,7 +403,7 @@ const Bannerhotstockscard = () => {
                               <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                                 Become a Member
                               </p>
-                              <div className="relative flex">
+                              <div className="relative flex w-5">
                                 <img
                                   src="assets/chevron-right.png"
                                   alt=""
@@ -479,14 +471,10 @@ const Bannerhotstockscard = () => {
                               </p>
                             </div>
                             <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
-                              <img
-                                src="/assets/Component 8.svg"
-                                alt=""
-                                className="w-3"
-                              />
-                              <p className="text-[10px] font-semibold text-[#667085]">
+                              <img src="/assets/Component 8.svg" alt="" className="w-3" />
+                              <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                                 MCap:
-                                <span className="blur-sm">₹2843 Cr</span>
+                                <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                               </p>
                             </div>
                             {/* <div className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center">
@@ -603,7 +591,7 @@ const Bannerhotstockscard = () => {
                               <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                                 Become a Member
                               </p>
-                              <div className="relative flex">
+                              <div className="relative flex w-5">
                                 <img
                                   src="assets/chevron-right.png"
                                   alt=""

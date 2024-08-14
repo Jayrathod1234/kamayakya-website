@@ -146,7 +146,7 @@ function Nonlogincard() {
                 <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                   Become a Member 
                 </p>
-                <div className="relative flex">
+                <div className="relative flex w-5">
                   <img
                     src="assets/chevron-right.png"
                     alt=""
