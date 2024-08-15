@@ -10,14 +10,14 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
 import StockCard from "./StockCard"
 const carouselItem = [
-  <StockCard title="Vidhi Specialty Food Ingredients Ltd." market_cap="12.24" recommended_stock={false} is_blur={false} new_stock={true} />,
-  <StockCard title="Reliance Industries Ltd." market_cap="20.24" recommended_stock={false} is_blur={true} new_stock={true} />,
-  <StockCard title="Tata Consultancy Services Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} />,
-  <StockCard title="Infosys Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} />,
-  <StockCard title="HDFC Bank Ltd." market_cap="20.24" recommended_stock={false} is_blur={false} new_stock={true} />,
-  <StockCard title="ICICI Bank Ltd." market_cap="20.24" recommended_stock={true} is_blur={false} new_stock={true} />,
-  <StockCard title="Bharti Airtel Ltd." market_cap="20.24" recommended_stock={false} is_blur={true} new_stock={true} />,
-  <StockCard title="Hindustan Unilever Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} />,
+  <StockCard stock_name="Vidhi Specialty Food Ingredients Ltd." market_cap="12.24" recommended_stock={false} is_blur={false} new_stock={true} upside_left="20" sector="Chemicals" upside_left_time="2 days" />,
+  <StockCard stock_name="Reliance Industries Ltd." market_cap="20.24" recommended_stock={false} is_blur={true} new_stock={true} upside_left="20" sector="Chemicals" upside_left_time="2 days" />,
+  <StockCard stock_name="Tata Consultancy Services Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} upside_left="20" sector="Chemicals" upside_left_time="2 days" />,
+  <StockCard stock_name="Infosys Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} upside_left="20" sector="Chemicals" upside_left_time="2 days" />,
+  <StockCard stock_name="HDFC Bank Ltd." market_cap="20.24" recommended_stock={false} is_blur={false} new_stock={true} upside_left="20" sector="Chemicals" upside_left_time="2 days" />,
+  <StockCard stock_name="ICICI Bank Ltd." market_cap="20.24" recommended_stock={true} is_blur={false} new_stock={true} upside_left="20" sector="Chemicals" upside_left_time="2 days" />,
+  <StockCard stock_name="Bharti Airtel Ltd." market_cap="20.24" recommended_stock={false} is_blur={true} new_stock={true} upside_left="20" sector="Chemicals" upside_left_time="2 days" />,
+  <StockCard stock_name="Hindustan Unilever Ltd." market_cap="20.24" recommended_stock={true} is_blur={true} new_stock={true} upside_left="20" sector="Chemicals" upside_left_time="2 days" />,
 ];
 
 type UsePrevNextButtonsType = {
