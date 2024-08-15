@@ -18,8 +18,8 @@ axiosApi.interceptors.response.use(
     const _status = error?.response?.status;
     switch (_status) {
       case 401:
-        localStorage.removeItem("refresh");
-        window.location.href = "/";
+        // localStorage.removeItem("refresh");
+        // window.location.href = "/";
         break;
       default:
       // toast.custom((t) => (

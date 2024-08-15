@@ -53,10 +53,11 @@ function a11yProps(index) {
     "aria-controls": `custom-tabpanel-${index}`,
   };
 }
-export default function StocksTab() {
+export default function StocksTab({ setSebiBoardType }) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setSebiBoardType(newValue === 0 ? "mainboard" : "sme");
   };
   return (
     <Box

@@ -274,7 +274,7 @@ function AllBoardStockSection() {
                 new_stock,
               }) => (
                 <StockCard
-                  title={title}
+                  stock_name={title}
                   market_cap={market_cap}
                   recommended_stock={recommended_stock}
                   is_blur={is_blur}

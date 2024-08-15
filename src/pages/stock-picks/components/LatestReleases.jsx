@@ -1,66 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Slider } from "@/components.v3/common/Slider.jsx";
 import StockCard from "@/components.v3/common/StockCard.jsx";
-
-function LatestReleases() {
-  const items = [
-    <StockCard
-      title="Vidhi Specialty Food Ingredients Ltd."
-      market_cap="12.24"
-      recommended_stock={false}
-      is_blur={false}
-      new_stock={true}
-    />,
-    <StockCard
-      title="Reliance Industries Ltd."
-      market_cap="20.24"
-      recommended_stock={false}
-      is_blur={true}
-      new_stock={true}
-    />,
-    <StockCard
-      title="Tata Consultancy Services Ltd."
-      market_cap="20.24"
-      recommended_stock={true}
-      is_blur={true}
-      new_stock={true}
-    />,
-    <StockCard
-      title="Infosys Ltd."
-      market_cap="20.24"
-      recommended_stock={true}
-      is_blur={true}
-      new_stock={true}
-    />,
-    <StockCard
-      title="HDFC Bank Ltd."
-      market_cap="20.24"
-      recommended_stock={false}
-      is_blur={false}
-      new_stock={true}
-    />,
-    <StockCard
-      title="ICICI Bank Ltd."
-      market_cap="20.24"
-      recommended_stock={true}
-      is_blur={false}
-      new_stock={true}
-    />,
-    <StockCard
-      title="Bharti Airtel Ltd."
-      market_cap="20.24"
-      recommended_stock={false}
-      is_blur={true}
-      new_stock={true}
-    />,
-    <StockCard
-      title="Hindustan Unilever Ltd."
-      market_cap="20.24"
-      recommended_stock={true}
-      is_blur={true}
-      new_stock={true}
-    />,
-  ];
+import { getLatestReleasesStockListApi } from "@/api/stock-picks";
+import { useQuery } from "@tanstack/react-query";
+import AuthContext from "@/components/AuthContext";
+function LatestReleases({ sebiBoardType }) {
+  const { isLoggedIn } = useContext(AuthContext);
+  // Use react-query to fetch the strategy tag list
+  const { data: items = [] } = useQuery({
+    queryKey: ["latestReleasesStock", sebiBoardType, isLoggedIn],
+    queryFn: () =>
+      getLatestReleasesStockListApi({ isLoggedIn, type: sebiBoardType }),
+  });
   return (
     <>
       <div className=" pt-[339px] pb-[100px] ">
@@ -71,9 +22,18 @@ function LatestReleases() {
           <p className=" text-sm font-normal text-[#475467] w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto pt-3 font-open_sans">
             New Stocks released in the last 60 days
           </p>
-          <div className=" mb-6 w-full">
-            <Slider items={items} />
-          </div>
+          {items.length > 0 && (
+            <div className=" mb-6 w-full">
+              <Slider>
+                {items.map((value) => (
+                  <StockCard
+                    key={value.id} // Ensure each item has a unique key
+                    {...value}
+                  />
+                ))}
+              </Slider>
+            </div>
+          )}
         </div>
       </div>
     </>

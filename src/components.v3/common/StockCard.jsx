@@ -5,11 +5,14 @@ import DeepValue from "./DeepValue";
 import AuthContext from "@/components/AuthContext";
 
 function StockCard({
-  title,
+  stock_name,
   market_cap,
   new_stock,
   recommended_stock,
   is_blur,
+  upside_left,
+  sector,
+  upside_left_time,
 }) {
   let tabImage = null;
   let cardClass = "";
@@ -71,7 +74,7 @@ function StockCard({
             ) : (
               <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
                 <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis">
-                  {title}
+                  {stock_name}
                 </p>
 
                 <div class="tooltip">
@@ -82,16 +85,18 @@ function StockCard({
 
             <div className="pt-[12px] px-[20px] pb-[20px]">
               <div className=" flex items-center gap-[8px] ">
-                <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
-                  <img
-                    src="/assets/streamline_hotel-air-conditioner-solid.svg"
-                    alt=""
-                    className="w-3"
-                  />
-                  <p className="text-[10px] font-semibold text-orange-700">
-                    Air Conditioners
-                  </p>
-                </div>
+                {sector && (
+                  <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+                    <img
+                      src="/assets/streamline_hotel-air-conditioner-solid.svg"
+                      alt=""
+                      className="w-3"
+                    />
+                    <p className="text-[10px] font-semibold text-orange-700">
+                      {sector}
+                    </p>
+                  </div>
+                )}
                 <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
                   <img src="/assets/Component 8.svg" alt="" className="w-3" />
                   <p className="text-[10px] font-semibold text-[#667085] flex items-center">
@@ -137,10 +142,10 @@ function StockCard({
                       <img src="/assets/ph_info-duotone.svg" alt="" />
                     </div>
                     <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">
-                      12.24%
+                      {upside_left || 0}%
                     </h3>
                     <p className="text-2xs font-medium text-[#E4E7EC] font-open_sans">
-                      likely within a year
+                      likely within a {upside_left_time}
                     </p>
                   </div>
                 </div>

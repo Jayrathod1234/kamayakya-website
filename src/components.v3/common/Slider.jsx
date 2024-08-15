@@ -93,7 +93,7 @@ const TWEEN_FACTOR_BASE = 0.1;
 const numberWithinRange = (number, min, max) =>
   Math.min(Math.max(number, min), max);
 
-export function Slider({ items }) {
+export function Slider({ children }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       // startIndex: 1,
@@ -224,7 +224,7 @@ export function Slider({ items }) {
           className=" flex pb-12 pt-[60px] carousel__container"
           style={{ backfaceVisibility: "hidden" }}
         >
-          {items.map((carousel, index) => (
+          {children.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
               className={` carousel embla__class-names  
