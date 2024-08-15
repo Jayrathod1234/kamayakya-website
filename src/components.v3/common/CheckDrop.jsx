@@ -50,13 +50,14 @@ export default function SectorSelect() {
       <Button
         variant="outlined"
         onClick={handleClick}
-        endIcon={<ArrowDropDownIcon />}
+        endIcon={<img src="/assets/chevron-down.svg" alt="" />}
         sx={{
           justifyContent: "space-between",
           textTransform: "none",
-          fontSize: "1px",
+          fontSize: "14px",
           color: "#1D2939",
           borderColor: "#E4E7EC",
+          padding: "10px, 16px",
         }}
       >
         Sector {selectedSectors.length > 0 && `(${selectedSectors.length})`}

@@ -750,7 +750,7 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
               <img src="/assets/chevron-down.svg" alt="" />
             </div>
           </div>
-          <div className="w-auto">
+          <div className="">
             <SectorSelect />
           </div>
           <div className="flex gap-[10] items-center">
