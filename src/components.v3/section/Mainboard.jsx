@@ -250,8 +250,8 @@ function Mainboard() {
             >
               <img src="/assets/filter.svg" alt="" />
               <p className="font-open_sans text-brand-500">Filter</p>
-              <div class=" bg-[#FDB022] text-white px-2 text-xs font-bold rounded-full top-[-7px] right-[-9px] w-4  h-4 justify-center items-center flex">
-                1
+              <div class=" bg-brand-500 text-white px-2 text-xs font-bold rounded-full top-[-7px] right-[-9px] w-4  h-4 justify-center items-center flex">
+                3
               </div>
             </Button>
             {/* <Drawer open={open} onClose={toggleDrawer(false)}>

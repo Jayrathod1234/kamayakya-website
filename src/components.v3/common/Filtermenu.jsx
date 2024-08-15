@@ -740,8 +740,6 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
 
           {/* Import FilterMenuTag here */}
 
-          <FilterMenuTags />
-
           <div className="w-auto">
             <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
               <p className="text-[#1D2939] text-sm font-medium font-open_sans">
@@ -750,6 +748,9 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
               <img src="/assets/chevron-down.svg" alt="" />
             </div>
           </div>
+          
+          <FilterMenuTags />
+
           <div className="w-auto">
             <SectorSelect />
           </div>

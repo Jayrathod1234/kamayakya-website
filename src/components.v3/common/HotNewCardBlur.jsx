@@ -3,9 +3,9 @@ import ProgressBar2 from "./ProgressBar2";
 
 function Nonlogincard() {
   return (
-    <div>
-      {/* blur card  */}
-      <div className="flex relative">
+    <>
+    {/* blur card  */}
+      <div className="flex relative sm:mx-auto">
         <div className="absolute top-[-7px] right-[97px] z-[1]">
           <img src="/assets/hot-newtab.png" alt="" className="w-[210px]" />
         </div>
@@ -163,7 +163,7 @@ function Nonlogincard() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

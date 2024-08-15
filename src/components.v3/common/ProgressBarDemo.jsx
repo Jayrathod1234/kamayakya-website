@@ -90,7 +90,7 @@ const ProgressIndicator = () => {
   const [completedSteps, setCompletedSteps] = React.useState([0, 1]); // Example completed steps
 
   const prices = [3725, 3740, 4470, 5364];
-  const labels = ["Target-2", "CMP", "Target-3", "Target-4"];
+  const labels = ["Target-2","Target-3", "CMP",  "Target-4"];
   const dates = ["Jan 2024", "Feb 2024", "Mar 2024"];
   const [markerPositions, setMarkerPositions] = useState([]);
   const progressBarRef = useRef(null);

@@ -46,7 +46,7 @@ const HotStockSection = () => {
                     </span>
                     <br></br>with KamayaKya membership.
                   </p>
-                  <div className=" !mt-6">
+                  <div className="  !mt-6">
                     <ButtonnArrow
                       onClick={handleContactButton}
                       variant={ButtonVariant.primary}

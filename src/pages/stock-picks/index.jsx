@@ -35,16 +35,16 @@ const StockPicks = () => {
     <Layout>
       <div className=" font-open_sans h-[805px] relative">
         {/* SebiBoardTab */}
-        <SebiBoardTab setSebiBoardType={handleSebiBoardTypeChange} />
+        {/* <SebiBoardTab setSebiBoardType={handleSebiBoardTypeChange} /> */}
         {/* Bannerhotstockscard */}
-        <HotStockSection />
+        {/* <HotStockSection /> */}
       </div>
       {/* Latest Releases  */}
-      <LatestReleases sebiBoardType={sebiBoardType} />
+      {/* <LatestReleases sebiBoardType={sebiBoardType} /> */}
       {/* Discover by Strategy */}
       <StrategyCard />
       {/* All Mainboard Stocks */}
-      <AllBoardStockSection />
+      {/* <AllBoardStockSection /> */}
     </Layout>
   );
 };
