@@ -14,7 +14,7 @@ const StockPicks = () => {
         {/* Bannerhotstockscard */}
         <HotStockSection />
       </div>
-      {/* Latest Releases (10)  */}
+      {/* Latest Releases  */}
       <LatestReleases />
       {/* Discover by Strategy */}
       <StrategyCard />
