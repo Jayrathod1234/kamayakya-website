@@ -38,8 +38,7 @@ import SizeSelector from "./SizeSelector.jsx";
 import FilterMenuTags from "./FilterMenuTags.jsx";
 import styled from "@emotion/styled";
 import SectorFilter from "./SizeSelector.jsx";
-import Sectorefilter from "./Sectore/Sectorefilter.jsx";
-import CheckDropdown from "./CheckDrop.jsx";
+import SectorSelect from "./SectoreDrop.jsx";
 
 function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   const stockList = [
@@ -752,18 +751,19 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
             </div>
           </div>
           <div className="w-auto">
-            <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
+            {/* <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
               <p className="text-[#1D2939] text-sm font-medium font-open_sans">
                 Sector
               </p>
               <img src="/assets/chevron-down.svg" alt="" />
-            </div>
+            </div> */}
             {/* <CheckDropdown
               selectedValue={selectedValue}
               handleChange={handleChange}
               options={options}
             /> */}
             {/* <Sectorefilter /> */}
+            {/* <SectorSelect /> */}
           </div>
           <div className="flex gap-[10] items-center">
             <form className="search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear  ">

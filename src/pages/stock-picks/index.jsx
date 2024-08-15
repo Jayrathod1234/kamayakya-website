@@ -10,16 +10,16 @@ const StockPicks = () => {
     <Layout>
       <div className=" font-open_sans h-[805px] relative">
         {/* SebiBoardTab */}
-        <SebiBoardTab />
+        {/* <SebiBoardTab /> */}
         {/* Bannerhotstockscard */}
-        <HotStockSection />
+        {/* <HotStockSection /> */}
       </div>
       {/* Latest Releases  */}
-      <LatestReleases />
+      {/* <LatestReleases /> */}
       {/* Discover by Strategy */}
-      <StrategyCard />
+      {/* <StrategyCard /> */}
       {/* All Mainboard Stocks */}
-      <AllBoardStockSection />
+      {/* <AllBoardStockSection /> */}
     </Layout>
   );
 };

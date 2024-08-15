@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { InboxIcon, MailIcon, MailsIcon } from "lucide-react";
 import Filtermenu from "../common/Filtermenu.jsx";
+import CustomSortMenu from "../common/RadioDrop.jsx";
 
 // import { Button } from "../../components.v2/button/button.js";
 
@@ -190,11 +191,11 @@ function Mainboard() {
           </div>
           <div className="w-auto">
             <div className="relative">
-              <div className="absolute z-[9] top-[-10px] left-4 bg-white px-1 justify-center items-center gap-2 rounded-2xl">
+              {/* <div className="absolute z-[9] top-[-10px] left-4 bg-white px-1 justify-center items-center gap-2 rounded-2xl">
                 <p className="text-gray-500 text-2xs font-medium text-center font-open_sans">
                   Sort by
                 </p>
-              </div>
+              </div> */}
               {/* <RadioSelectDropdown option={option} onSelect={handleSelect} /> */}
               {/* <div className="relative inline-block w-64">
                 <div className="flex items-center justify-between gap-2 w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md  leading-tight cursor-pointer  h-12 shadow-3xs ">
@@ -205,14 +206,15 @@ function Mainboard() {
                     </span>
                     <p className="text-md font-medium text-gray-950 font-open_sans"></p>
                   </div> */}
-              <RadioSelectDropdown
+              {/* <RadioSelectDropdown
                 selectedValue={selectedValue}
                 handleChange={handleChange}
                 options={options}
-              />
+              /> */}
               {/* <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" /> */}
               {/* </div>
               </div> */}
+              <CustomSortMenu />
             </div>
 
             {/* <button
