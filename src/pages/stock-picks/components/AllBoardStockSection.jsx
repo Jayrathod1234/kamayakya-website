@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { InboxIcon, MailIcon, MailsIcon } from "lucide-react";
 import Filtermenu from "@/components.v3/common/Filtermenu.jsx";
+import CustomSortMenu from "../../../components.v3/common/RadioDrop";
 
 // import { Button } from "../../components.v2/button/button.js";
 
@@ -190,54 +191,8 @@ function AllBoardStockSection() {
           </div>
           <div className="w-auto">
             <div className="relative">
-              <div className="absolute z-[9] top-[-10px] left-4 bg-white px-1 justify-center items-center gap-2 rounded-2xl">
-                <p className="text-gray-500 text-2xs font-medium text-center font-open_sans">
-                  Sort by
-                </p>
-              </div>
-              {/* <RadioSelectDropdown option={option} onSelect={handleSelect} /> */}
-              {/* <div className="relative inline-block w-64">
-                <div className="flex items-center justify-between gap-2 w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md  leading-tight cursor-pointer  h-12 shadow-3xs ">
-                  <div className="flex items-center gap-1">
-                    <img src="/assets/mi_sort.svg" alt="" srcset="" />
-                    <span className="text-md font-medium text-gray-950 font-open_sans">
-                      Upside Left:
-                    </span>
-                    <p className="text-md font-medium text-gray-950 font-open_sans"></p>
-                  </div> */}
-              <RadioSelectDropdown
-                selectedValue={selectedValue}
-                handleChange={handleChange}
-                options={options}
-              />
-              {/* <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" /> */}
-              {/* </div>
-              </div> */}
+              <CustomSortMenu />
             </div>
-
-            {/* <button
-                type="button"
-                class="inline-flex justify-center w-full bg-[#E7F8F8] border border-[#ADDFDB] py-[10px] px-[14px] rounded-md  gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)] "
-                id="menu-button"
-                aria-expanded="true"
-                aria-haspopup="true"
-              >
-                <img src="/assets/mi_sort.svg" alt="" />
-                Returns : High to Low
-                <svg
-                  class="-mr-1 ml-2 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06 0L10 10.92l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 010-1.06z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button> */}
           </div>
 
           <div className="w-auto">
