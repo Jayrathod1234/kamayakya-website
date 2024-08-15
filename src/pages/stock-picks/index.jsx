@@ -1,9 +1,9 @@
 import Layout from "../../layout/Layout";
-import SebiBoardTab from "@/pages/stock-test/components/SebiBoardTab";
-import HotStockSection from "@/pages/stock-test/components/HotStockSection";
-import LatestReleases from "@/pages/stock-test/components/LatestReleases";
-import StrategyCard from "@/pages/stock-test/components/StrategyCard";
-import AllBoardStockSection from "@/pages/stock-test/components/AllBoardStockSection";
+import SebiBoardTab from "@/pages/stock-picks/components/SebiBoardTab";
+import HotStockSection from "@/pages/stock-picks/components/HotStockSection";
+import LatestReleases from "@/pages/stock-picks/components/LatestReleases";
+import StrategyCard from "@/pages/stock-picks/components/StrategyCard";
+import AllBoardStockSection from "@/pages/stock-picks/components/AllBoardStockSection";
 
 const StockPicks = () => {
   return (
