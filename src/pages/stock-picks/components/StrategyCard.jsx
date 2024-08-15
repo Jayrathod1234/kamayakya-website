@@ -43,12 +43,8 @@ function StrategyCard() {
           </span>{" "}
           and to find your perfect investment match!
         </p>
-      </div>
-      <div className="pb-[110px] pl-32 pr-32">
-        <div className="pt-10 pb-8">
-          <div className="flex justify-between gap-4">
-            <StrategySlider strategyTagList={strategyTagList} colors={colors} />
-          </div>
+        <div className=" mb-6 w-full flex ps-32 pe-32">
+          <StrategySlider strategyTagList={strategyTagList} colors={colors} />
         </div>
       </div>
 
