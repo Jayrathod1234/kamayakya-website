@@ -151,7 +151,7 @@ function StockCard({
                   </div>
                   <div className="flex gap-[2px] items-center font-open_sans">
                     <img src="/assets/Polygon 2.svg" alt="" className="w-2" />
-                    {is_blur || !expected_returns ? (
+                    {!expected_returns ? (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans blur-sm">
                         0%
                       </p>

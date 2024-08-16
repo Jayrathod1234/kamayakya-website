@@ -7,6 +7,7 @@ import { getHotStockListApi } from "@/api/stock-picks";
 import HotStockSectionBlur from "./HotStockSectionBlur";
 import HotStockSectionSlider from "./HotStockSectionSlider";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
+import { Skeleton } from "@mui/material";
 const HotStockSection = ({ sebiBoardType }) => {
   const { isLoggedIn } = useContext(AuthContext);
   // Use react-query to fetch the strategy tag list
@@ -22,8 +23,32 @@ const HotStockSection = ({ sebiBoardType }) => {
   return (
     <>
       {isLoading || error ? (
-        <div className="flex pb-12 pt-[60px] carousel__container gap-5">
-          <StockCardSkeleton length={5} />
+        <div className="relative z-[2] pb-[110px] mt-[20px]">
+          <div className="container mx-auto">
+            <div className="bg-gray-150 p-[10px] rounded-[20px]">
+              <div className="bg-[#fff] bg-[url('/assets/grid.png')] bg-cover rounded-[20px] px-10 py-8 gap-10 text-center">
+                <div className=" pt-5   rounded-[10px]">
+                  <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-center">
+                    <Skeleton
+                      animation="wave"
+                      sx={{ borderRadius: "6px" }}
+                      variant="text"
+                    />
+                  </h2>
+                  <p className="pt-3 font-normal text-sm text-gray-500 pb-6 text-center">
+                    <Skeleton
+                      animation="wave"
+                      sx={{ borderRadius: "6px" }}
+                      variant="text"
+                    />
+                  </p>
+                  <div className="flex gap-4">
+                    <StockCardSkeleton length={3} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       ) : isLimitedView ? (
         <>
