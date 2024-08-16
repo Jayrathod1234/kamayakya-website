@@ -1,29 +1,30 @@
 import { useState } from "react";
 
-const DeepValue = ({ options, onSelect }) => {
+const DeepValue = ({ stock_tags }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    onSelect(option.value);
-    setIsOpen(false);
-  };
-
+  const stock_tags_count = stock_tags?.length;
   return (
     <div className="relative inline-block">
       <div
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          stock_tags_count > 1 ? setIsOpen(!isOpen) : "";
+        }}
         className="px-[6px] py-[2px] rounded-2xl border border-[#EDF0F5]  flex gap-[4px] items-center cursor-pointer"
       >
-        <img src="/assets/ic_round-diamond.svg" alt="" className="w-3.5" />
+        <img src={stock_tags?.[0]?.image} alt="" className="w-3.5" />
         <p className="text-[10px] font-semibold text-[#344054] flex gap-[3px]">
-          {selectedOption ? selectedOption.label : "Deep Value"}
-          <span className="text-[#108973] font-bold">+3</span>
+          {stock_tags?.[0]?.name}
+          {stock_tags_count > 1 && (
+            <span className="text-[#108973] font-bold">
+              + {stock_tags_count - 1}
+            </span>
+          )}
         </p>
-        <img src="/assets/chevron-down.svg" alt="" className="w-4" />
+        {stock_tags_count > 1 && (
+          <img src="/assets/chevron-down.svg" alt="" className="w-4" />
+        )}
       </div>
-      {isOpen && (
+      {stock_tags_count > 1 && isOpen && (
         <>
           <div className="absolute top-5 left-16 z-[1] shadow">
             <img
@@ -33,23 +34,19 @@ const DeepValue = ({ options, onSelect }) => {
               className="w-4"
             />
           </div>
-          <ul className="absolute p-3 w-[147px] gap-3 bg-white border border-[#EDF0F5] rounded-lg shadow m-0 mt-2 z-[2]">
-            <li className="flex items-center gap-2 pb-3 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer">
-              <img src="/assets/stock-details/Pricing.svg" alt="" />
-              Deep Value
-            </li>
-            <li className="flex items-center gap-2 pb-3 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer">
-              <img src="/assets/stock-details/Pricing (1).svg" alt="" />
-              Special Situation
-            </li>
-            <li className="flex items-center gap-2 pb-3 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer">
-              <img src="/assets/stock-details/Pricing (2).svg" alt="" />
-              Market Leader
-            </li>
-            <li className="flex items-center gap-2 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer">
-              <img src="/assets/stock-details/Pricing (3).svg" alt="" />
-              Deep Value
-            </li>
+          <ul className="absolute p-3 w-[175px] gap-3 bg-white border border-[#EDF0F5] rounded-lg shadow m-0 mt-2 z-[2]">
+            {stock_tags.slice(1).map((value, index) => {
+              return (
+                <li
+                  className={`flex items-center gap-2 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer ${
+                    stock_tags_count - 2 != index ? `pb-3` : ``
+                  }`}
+                >
+                  <img src={value.image} className="h-4 w-4" alt="" />
+                  {value.name}
+                </li>
+              );
+            })}
           </ul>
         </>
       )}

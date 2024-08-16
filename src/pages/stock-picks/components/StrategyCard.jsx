@@ -2,7 +2,8 @@ import React from "react";
 import { getStrategyTagListApi } from "@/api/stock-picks";
 import { useQuery } from "@tanstack/react-query";
 import StrategySlider from "@/components.v3/common/StrategySlider.jsx";
-
+import Discovercard from "@/components.v3/common/Discovercard";
+import DiscoverCardSkeleton from "./skeletons/DiscoverCardSkeleton";
 function StrategyCard() {
   /* ----------------------------- Static Strategy Tag Colors List---------------------------- */
   const colors = {
@@ -22,7 +23,7 @@ function StrategyCard() {
 
   // Use react-query to fetch the strategy tag list
   const {
-    data: strategyTagList = [],
+    data: items = [],
     isLoading,
     error,
   } = useQuery({
@@ -37,6 +38,7 @@ function StrategyCard() {
   // // if (error) {
   // //   return <p>Error fetching strategy tags</p>;
   // // }
+
   return (
     <>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
@@ -54,7 +56,19 @@ function StrategyCard() {
       <div className="pb-[110px] pl-32 pr-32">
         <div className="pt-10 pb-8">
           <div className="flex justify-between gap-4">
-            <StrategySlider strategyTagList={strategyTagList} colors={colors} />
+            {isLoading || error ? (
+              <DiscoverCardSkeleton length={7} />
+            ) : (
+              <StrategySlider>
+                {items.map((value, index) => (
+                  <Discovercard
+                    key={index} // Use the index or a unique identifier if available
+                    {...value}
+                    color={colors[value.slug]}
+                  />
+                ))}
+              </StrategySlider>
+            )}
           </div>
         </div>
       </div>

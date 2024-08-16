@@ -53,27 +53,15 @@ const NextButton = (props) => {
     </div>
   );
 };
-const StrategySlider = ({ strategyTagList, colors }) => {
+const StrategySlider = ({ children }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ dragFree: true });
 
   const { nextBtnDisabled, onNextButtonClick } = usePrevNextButtons(emblaApi);
-  const carouselItemComponents = strategyTagList.map((item, index) => (
-    <Discovercard
-      key={index} // Use the index or a unique identifier if available
-      name={item.name}
-      color={colors[item.slug]}
-      image={item.image}
-      description={item.description}
-      id={item.id}
-    />
-  ));
 
   return (
     <>
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container flex gap-[28px]">
-          {carouselItemComponents}
-        </div>
+        <div className="embla__container flex gap-[28px]">{children}</div>
       </div>
       <div className="">
         <div className="embla__buttons ">

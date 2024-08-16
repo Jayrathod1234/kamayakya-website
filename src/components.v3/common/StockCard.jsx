@@ -13,6 +13,9 @@ function StockCard({
   upside_left,
   sector,
   upside_left_time,
+  stock_tags,
+  expected_returns,
+  return_time,
 }) {
   let tabImage = null;
   let cardClass = "";
@@ -108,19 +111,9 @@ function StockCard({
                     )}
                   </p>
                 </div>
-                <DeepValue />
-                {/* <div className="px-[6px] py-[2px] rounded-2xl border border-gray-150 bg-white flex gap-[4px] items-center">
-                  <img
-                    src="/assets/ic_round-diamond.svg"
-                    alt=""
-                    className="w-3.5"
-                  />
-                  <p className="text-[10px] font-semibold text-gray-700 flex gap-[3px]">
-                    Turnaround Story
-                    <span className="text-[#108973] font-bold">+3</span>
-                  </p>
-                  <img src="/assets/chevron-down.svg" alt="" className="w-4" />
-                </div> */}
+                {stock_tags?.length > 0 && (
+                  <DeepValue stock_tags={stock_tags} />
+                )}
               </div>
             </div>
             <div className="px-5 pb-3">
@@ -158,17 +151,17 @@ function StockCard({
                   </div>
                   <div className="flex gap-[2px] items-center font-open_sans">
                     <img src="/assets/Polygon 2.svg" alt="" className="w-2" />
-                    {is_blur ? (
+                    {is_blur || !expected_returns ? (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans blur-sm">
                         0%
                       </p>
                     ) : (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans">
-                        64.08%
+                        {expected_returns}%
                       </p>
                     )}
                     <span className="text-[10px] font-semibold text-[#6E6E6E]">
-                      in less than a month
+                      in less than a {return_time}
                     </span>
                   </div>
                 </div>
@@ -186,7 +179,7 @@ function StockCard({
               )}
             </div>
 
-            {is_blur ? (
+            {!isLoggedIn ? (
               <>
                 <div className="p-5">
                   {/* btn  */}
@@ -200,7 +193,7 @@ function StockCard({
                         className="w-4"
                       />
                       <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                        Become a Member
+                        Log In to Get 3 Hot Stocks
                       </p>
                       <div className="relative w-5">
                         <img
@@ -218,7 +211,7 @@ function StockCard({
                   </button>
                 </div>
               </>
-            ) : new_stock ? (
+            ) : is_blur ? (
               <>
                 <div className="p-5">
                   {/* btn  */}
@@ -232,7 +225,7 @@ function StockCard({
                         className="w-4"
                       />
                       <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                        Log In to Get 3 Hot Stocks
+                        Become a Member
                       </p>
                       <div className="relative w-5">
                         <img
