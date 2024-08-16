@@ -7,6 +7,7 @@ import HotStockSectionBlur from "@/pages/stock-picks/components/HotStockSectionB
 import LatestReleases from "@/pages/stock-picks/components/LatestReleases";
 import StrategyCard from "@/pages/stock-picks/components/StrategyCard";
 import AllBoardStockSection from "@/pages/stock-picks/components/AllBoardStockSection";
+import InvestmentSection from "./components/InvestmentSection";
 
 // const SebiBoardTab = dynamic(() =>
 //   import("@/pages/stock-picks/components/SebiBoardTab")
@@ -36,17 +37,15 @@ const StockPicks = () => {
     <Layout>
       <div className=" font-open_sans h-[805px] relative">
         {/* SebiBoardTab */}
-        {/* <SebiBoardTab setSebiBoardType={handleSebiBoardTypeChange} /> */}
+        <SebiBoardTab setSebiBoardType={handleSebiBoardTypeChange} />
         {/* Bannerhotstockscard */}
         <HotStockSection sebiBoardType={sebiBoardType}  />
-        {/* <HotStockSectionBlur/> */}
-        {/* <HotStockSection sebiBoardType={sebiBoardType}  /> */}
-        {/* <HotStockSectionBlur/> */}
+      
       </div>
       {/* Latest Releases  */}
-      {/* <LatestReleases sebiBoardType={sebiBoardType} /> */}
+      <LatestReleases sebiBoardType={sebiBoardType} />
       {/* Discover by Strategy */}
-      {/* <StrategyCard /> */}
+      <StrategyCard />
       {/* All Mainboard Stocks */}
       <AllBoardStockSection />
     </Layout>
