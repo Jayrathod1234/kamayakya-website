@@ -258,9 +258,9 @@ function AllBoardStockSection() {
                   className="w-[200px] sm:w-[376px] rotate-[-9.288deg]"
                 />
               </div>
-              <div className="mb-4 sm:mb-0">
-                <p className="text-lg sm:text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
-                  Elevate Your Investments with KamayaKya
+              <div>
+                <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
+                  Elevate Your Investments with KamayaKya!
                 </p>
                 <p className="text-base sm:text-lg font-normal text-white opacity-35 font-open_sans">
                   Access Exclusive Insights with 30+ Premium SME Stock Recommendations

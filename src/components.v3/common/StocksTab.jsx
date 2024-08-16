@@ -86,7 +86,7 @@ export default function StocksTab({ setSebiBoardType }) {
         <CustomTab
           label={
             <>
-              <Typography>SME Board</Typography>
+              <Typography className="">SME Board</Typography>
               <Typography variant="caption">14 Stocks</Typography>
             </>
           }
