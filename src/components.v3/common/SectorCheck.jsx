@@ -84,8 +84,12 @@ export default function SectorSelect() {
           color: "#1D2939",
           borderColor: "#E4E7EC",
           borderRadius: "4px",
-          padding: "8px 16px",
+          padding: "7px 16px",
           fontWeight: 500,
+          "&:hover": {
+            backgroundColor: "#e7f8f8 !important",
+            borderColor: "#cbf3f0 !important",
+          },
         }}
       >
         Sector {selectedSectors.length > 0 && `(${selectedSectors.length})`}

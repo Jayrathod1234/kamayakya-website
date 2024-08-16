@@ -38,7 +38,8 @@ import SizeSelector from "./SizeSelector.jsx";
 import FilterMenuTags from "./FilterMenuTags.jsx";
 import styled from "@emotion/styled";
 import SectorFilter from "./SizeSelector.jsx";
-import SectorSelect from "./CheckDrop.jsx";
+import StrategyCheck from "./StrategyCheck.jsx";
+import SectorSelect from "./SectorCheck.jsx";
 
 function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   const stockList = [
@@ -742,13 +743,8 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
 
           <FilterMenuTags />
 
-          <div className="w-auto">
-            <div className="px-4 py-[10px] gap-1 flex shadow-md border-[#E4E7EC] border rounded items-center">
-              <p className="text-[#1D2939] text-sm font-medium font-open_sans">
-                Strategy
-              </p>
-              <img src="/assets/chevron-down.svg" alt="" />
-            </div>
+          <div className="">
+            <StrategyCheck />
           </div>
           <div className="">
             <SectorSelect />

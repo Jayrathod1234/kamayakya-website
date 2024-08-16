@@ -26,10 +26,7 @@ function Stockpicks() {
     });
   };
   return (
-    <React.Fragment>
-      {/* <Navbar /> */}
-      {/* stocks-picks Banner */}
-
+    <>
       <div className=" font-open_sans h-[805px] relative">
         <div className="absolute top-[-56px] left-0 h-full w-full">
           <video
@@ -140,7 +137,7 @@ function Stockpicks() {
       <Discover />
       {/* All Mainboard Stocks */}
       <Mainboard />
-    </React.Fragment>
+    </>
   );
 }
 
