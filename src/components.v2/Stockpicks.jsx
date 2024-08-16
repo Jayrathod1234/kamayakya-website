@@ -12,6 +12,7 @@ import Bannerhotstockscard from "../components.v3/common/Bannerhotstockscard.jsx
 import { Navbar } from "@nextui-org/react";
 import StocksTab from "../components.v3/common/StocksTab.jsx";
 import { ButtonnArrow } from "./button/btn-arrow-icon.tsx";
+import BannerPopUp from "../components.v3/common/BannerPopUp.jsx"
 
 function Stockpicks() {
   const handleContactButton = () => {
@@ -132,14 +133,16 @@ function Stockpicks() {
         </div>
         {/* Hot Stocks card  */}
         <Bannerhotstockscard />
+        
       </div>
+      
 
       {/* Latest Releases (10)  */}
       <LatestReleases />
       {/* Discover by Strategy */}
-      <Discover />
+      {/* <Discover /> */}
       {/* All Mainboard Stocks */}
-      <Mainboard />
+      {/* <Mainboard /> */}
     </React.Fragment>
   );
 }

@@ -53,7 +53,7 @@ function Discover() {
       </div>
       <div className="pb-[110px] pl-32 pr-32">
         <div className="pt-10 pb-8">
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-between gap-4 ">
             <DiscoverCarousel
               strategyTagList={strategyTagList}
               colors={colors}

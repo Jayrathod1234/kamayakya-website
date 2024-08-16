@@ -31,25 +31,17 @@ function StrategyCard() {
     queryFn: getStrategyTagListApi,
   });
 
-  // // if (isLoading) {
-  // //   return <p>Loading...</p>;
-  // // }
-
-  // // if (error) {
-  // //   return <p>Error fetching strategy tags</p>;
-  // // }
-
   return (
     <>
-      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-        <p className=" text-display-xs text-[#0C111D] font-bold font-open_sans text-center">
+      <div className="w-[min(1280px] mx-auto overflow-hidden">
+        <p className="text-lg sm:text-xl md:text-2xl text-[#0C111D] font-bold font-open_sans text-center ">
           Discover by Strategy
         </p>
-        <p className=" text-sm font-normal text-[#475467]  mx-auto pt-3 font-open_sans text-center">
+        <p className="text-sm md:text-base font-normal text-[#475467] mx-auto pt-3 mb-2 font-open_sans text-center">
           Screen stocks with KamayaKya's strategy tags to{" "}
           <span className="text-[#F79009] font-semibold">
             understand why each stock was chosen
-          </span>
+          </span>{" "}
           and to find your perfect investment match!
         </p>
       </div>
