@@ -42,16 +42,19 @@ function SebiBoardTab({ setSebiBoardType }) {
       <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
         <div className="min-w-[470px] z-5 text-center relative">
           <div className="pt-9 pb-[22px] flex justify-center">
+            {/* <div className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1 rounded-3xl "> */}
             <ButtonnArrow
               // endIcon={<MoveRight className=" text-inherit" />}
               onClick={handleContactButton}
               variant={ButtonVariant.sebi}
               size={ButtonSize.lg}
+
               // strokeStyle=" stroke-brand-400"
               // arrowStyle="rotate-90 stroke-white"
             >
               SEBI Registered: INH000009843
             </ButtonnArrow>
+            {/* </div> */}
           </div>
           <h1 className="text-3xl font-bold leading-[38px] text-white mb-8 flex justify-center">
             Discover hidden gems! 💎

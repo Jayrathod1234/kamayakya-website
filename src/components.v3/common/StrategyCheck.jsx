@@ -143,7 +143,7 @@ export default function StrategyCheck() {
                   >
                     <TextField
                       size="small"
-                      type="Search"
+                      type="Search  "
                       placeholder="Search..."
                       onChange={handleSearch}
                       variant="outlined"
