@@ -288,7 +288,7 @@ function Mainboard() {
           </div>
           {/* Elevate Your section  */}
           <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="p-[56px] rounded-[20px] bg-custom-gradient-3 flex items-center justify-between relative overflow-hidden z-[555] top-[102px]">
+            <div className="p-[56px] rounded-[20px] bg-custom-gradient-3 flex items-center justify-between relative overflow-hidden z-[5] top-[102px]">
               <div className="absolute bottom-[2px] left-[41%]">
                 <img
                   src="/assets/Group.png"
@@ -298,7 +298,7 @@ function Mainboard() {
               </div>
               <div>
                 <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
-                  Elevate Your Investments with KamayaKya
+                  Elevate Your Investments with KamayaKya!
                 </p>
                 <p className="text-lg font-normal text-white opacity-35 font-open_sans">
                   Access Exclusive Insights with 30+ Premium SME Stock

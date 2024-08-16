@@ -41,7 +41,7 @@ function Socials({ href, imgSrc, alt, event }: Record<string, string>) {
 export function Footer() {
   return (
     <div className="bg-gradient-to-b from-[15%] from-[transparent] md:from-20% via-[#182E35] via-5% to-[#182E35] to-90%">
-      <div className="h-[calc(286px+10%)] overflow-hidden w-full z-10">
+      <div className="h-[calc(286px+10%)] overflow-hidden w-full z-1">
         <Image alt="footer-bg" src={"/footer.webp"} width={1440} height={491} className=" w-full h-full" />
       </div>
       <div className=" bg-[#182E35]">
@@ -138,7 +138,7 @@ export function Footer() {
                 hoverBgColor="#00B0F2"
                 hoverIcon="/social_media/telegram_w.svg"
                 hoverBorderColor="#D1F2FF"
-                icon={<FaTelegramPlane size={20} className="text-gray-950 group-hover:text-white"/>}
+                icon={<FaTelegramPlane size={20} className="text-gray-950 group-hover:text-white" />}
               />
               {/* <Socials
                 event="facebook_clicked"

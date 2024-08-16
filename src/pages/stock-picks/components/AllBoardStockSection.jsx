@@ -19,6 +19,9 @@ import {
 import { InboxIcon, MailIcon, MailsIcon } from "lucide-react";
 import Filtermenu from "@/components.v3/common/Filtermenu.jsx";
 import CustomSortMenu from "../../../components.v3/common/RadioDrop";
+import InvestmentSection from "./InvestmentSection";
+
+// import { Button } from "../../components.v2/button/button.js";
 
 function AllBoardStockSection() {
   const stockList = [
@@ -232,6 +235,18 @@ function AllBoardStockSection() {
               )
             )}
             {/* <MainBoardArea /> */}
+
+          </div>
+          {/* Blur Rectangle  */}
+          <div className="absolute bottom-[440px] z-[1] max-h-[400px] w-full">
+            <img
+              src="/assets/Rectangle.png"
+              alt=""
+              className="max-h-[400px] w-full"
+            />
+          </div>
+          <div className="mt-11">
+            <InvestmentSection />
           </div>
           {/* Elevate Your section  */}
           <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto mt-8 sm:mt-16">
@@ -243,9 +258,9 @@ function AllBoardStockSection() {
                   className="w-[200px] sm:w-[376px] rotate-[-9.288deg]"
                 />
               </div>
-              <div className="mb-4 sm:mb-0">
-                <p className="text-lg sm:text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
-                  Elevate Your Investments with KamayaKya
+              <div>
+                <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
+                  Elevate Your Investments with KamayaKya!
                 </p>
                 <p className="text-base sm:text-lg font-normal text-white opacity-35 font-open_sans">
                   Access Exclusive Insights with 30+ Premium SME Stock Recommendations
@@ -275,14 +290,7 @@ function AllBoardStockSection() {
           </div>
 
         </div>
-        {/* Blur Rectangle  */}
-        {/* <div className="absolute bottom-[163px] z-[1] max-h-[400px] w-[min(1280px,calc(100%-32px))]">
-          <img
-            src="/assets/Rectangle.png"
-            alt=""
-            className="max-h-[400px] w-full"
-          />
-        </div> */}
+       
       </div>
     </>
   );

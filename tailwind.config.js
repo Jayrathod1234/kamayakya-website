@@ -34,7 +34,8 @@ const config = {
       '700':'700ms',
       '300':'300ms',
       '500':'500ms',
-      '100' : '100ms'
+      '100' : '100ms',
+      '200':'200ms'
     },
     fontFamily: {
       open_sans: ["Open Sans", "sans-serif"],
