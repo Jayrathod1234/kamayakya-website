@@ -8,7 +8,6 @@ import {
 // Latest Releases Stock List API
 export const getHotStockListApi = async ({ isLoggedIn, type }) => {
   try {
-    console.log("=============getHotStockListApi=====================");
     if (process.env.NEXT_PUBLIC_DEBUG) {
       const URL = isLoggedIn ? `/user/hotStock` : `/user/hotStock/guest`;
       /* ----------------------------------- API ---------------------------------- */
