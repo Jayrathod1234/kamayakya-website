@@ -15,15 +15,9 @@ import {
   InputAdornment,
   Typography,
 } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchIcon from "@mui/icons-material/Search";
 
-const sectors = [
-  "Deep Value",
-  "Market Leader ",
-  "Special Situation",
-  "Banking",
-];
+const sectors = ["Deep Value", "Market Leader", "Special Situation", "Banking"];
 
 export default function StrategyCheck() {
   const [selectedSectors, setSelectedSectors] = useState([]);
@@ -72,43 +66,72 @@ export default function StrategyCheck() {
   );
 
   return (
-    <Box sx={{}}>
+    <Box>
       <Button
         ref={anchorRef}
         variant="outlined"
         onClick={handleClick}
-        endIcon={<img src="/assets/chevron-down.svg" alt="" />}
+        endIcon={
+          <img
+            src="/assets/chevron-down.svg"
+            alt=""
+            style={{
+              filter: selectedSectors.length > 0 ? "brightness(0) invert(1)" : "none",
+            }}
+          />
+        }
         sx={{
           justifyContent: "space-between",
           textTransform: "none",
-          color: "#1D2939",
-          borderColor: "#E4E7EC",
+          color: selectedSectors.length > 0 ? "#FFFFFF" : "#1D2939",
+          borderColor: selectedSectors.length > 0 ? "#108973" : "#E4E7EC",
+          backgroundColor: selectedSectors.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "4px",
           padding: "7px 16px",
           fontWeight: 500,
           "&:hover": {
-            backgroundColor: "#e7f8f8 !important",
-            borderColor: "#cbf3f0 !important",
+            backgroundColor: selectedSectors.length > 0 ? "#125B54" : "#e7f8f8 !important",
+            borderColor: selectedSectors.length > 0 ? "#108973" : "#cbf3f0 !important",
           },
         }}
       >
-        Strategy {selectedSectors.length > 0 && `(${selectedSectors.length})`}
+        <div className="flex items-center space-x-2">
+          <span>Strategy</span>
+          {selectedSectors.length > 0 && (
+            <span
+              style={{
+                backgroundColor: "#FFFFFF",
+                color: "#108973",
+                borderRadius: "50%",
+                display: "flex", // Use flex to center the content
+                justifyContent: "center",
+                alignItems: "center",
+                width: "20px", // Equal width and height for a perfect circle
+                height: "20px",
+                fontSize: "14px",
+                fontWeight: 200,
+              }}
+            >
+              {selectedSectors.length}
+            </span>
+          )}
+        </div>
       </Button>
+
+
+
       <Popper
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
         transition
-        placement="bottom-start" // Ensures the dropdown opens directly below the button
-        style={{
-          zIndex: 9,
-          width: 300,
-        }}
+        placement="bottom-start"
+        style={{ zIndex: 9, width: 300 }}
         modifiers={[
           {
             name: "offset",
             options: {
-              offset: [0, 4], // Adjust the offset as needed (4px gap below the button)
+              offset: [0, 4],
             },
           },
         ]}
@@ -143,7 +166,7 @@ export default function StrategyCheck() {
                   >
                     <TextField
                       size="small"
-                      type="Search  "
+                      type="Search"
                       placeholder="Search..."
                       onChange={handleSearch}
                       variant="outlined"
@@ -164,9 +187,7 @@ export default function StrategyCheck() {
                           width: "100%",
                         },
                       }}
-                      sx={{
-                        flex: 1,
-                      }}
+                      sx={{ flex: 1 }}
                     />
                     <Typography
                       onClick={handleSelectAllClick}
@@ -203,7 +224,9 @@ export default function StrategyCheck() {
                           ? "#E7F8F8"
                           : "transparent",
                         "&:hover": {
-                          backgroundColor: "#F0F0F0",
+                          backgroundColor: selectedSectors.includes(sector)
+                            ? "#cde6e6"
+                            : "#E0F7FA",
                         },
                       }}
                     >
