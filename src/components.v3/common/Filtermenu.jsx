@@ -245,9 +245,8 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
       sx={{ width: 400 }}
       role="presentation"
       onClick={toggleDrawer(false)}
-      className={`${
-        Filtermenu ? "translate-x-0" : "-translate-x-full"
-      }transition-all duration-500`}
+      className={`${Filtermenu ? "translate-x-0" : "-translate-x-full"
+        }transition-all duration-500`}
     >
       {/* topbar  */}
       <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
@@ -728,6 +727,11 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   // const handleChange = (event) => {
   //   setSelectedValue(event.target.value);
   // };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSearch = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   return (
     <>
@@ -750,14 +754,19 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
             <SectorSelect />
           </div>
           <div className="flex gap-[10] items-center">
-            <form className="search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear  ">
+            <form
+              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear ${isOpen ? "border-[#108973]" : ""
+                }`}
+            >
               <input
                 type="text"
                 placeholder="Search"
-                className="search__input w-0  transition-width duration-300"
+                className={`search__input transition-width duration-300 ${isOpen ? "w-[200px] px-2" : "w-0"
+                  }`}
               />
               <button
                 type="button"
+                onClick={toggleSearch}
                 className="search__button grid place-items-center w-[35px] h-[35px] cursor-pointer transition-colors duration-[0.25s] hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full "
               >
                 <svg

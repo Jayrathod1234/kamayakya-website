@@ -77,22 +77,51 @@ export default function SectorSelect() {
         ref={anchorRef}
         variant="outlined"
         onClick={handleClick}
-        endIcon={<img src="/assets/chevron-down.svg" alt="" />}
+        endIcon={
+          <img
+            src="/assets/chevron-down.svg"
+            alt=""
+            style={{
+              filter: selectedSectors.length > 0 ? "brightness(0) invert(1)" : "none",
+            }}
+          />
+        }
         sx={{
           justifyContent: "space-between",
           textTransform: "none",
-          color: "#1D2939",
-          borderColor: "#E4E7EC",
+          color: selectedSectors.length > 0 ? "#FFFFFF" : "#1D2939",
+          borderColor: selectedSectors.length > 0 ? "#108973" : "#E4E7EC",
+          backgroundColor: selectedSectors.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "4px",
           padding: "7px 16px",
           fontWeight: 500,
           "&:hover": {
-            backgroundColor: "#e7f8f8 !important",
-            borderColor: "#cbf3f0 !important",
+            backgroundColor: selectedSectors.length > 0 ? "#125B54" : "#e7f8f8 !important",
+            borderColor: selectedSectors.length > 0 ? "#108973" : "#cbf3f0 !important",
           },
         }}
       >
-        Sector {selectedSectors.length > 0 && `(${selectedSectors.length})`}
+        <div className="flex items-center space-x-2">
+          <span>Sector</span>
+          {selectedSectors.length > 0 && (
+            <span
+              style={{
+                backgroundColor: "#FFFFFF",
+                color: "#108973",
+                borderRadius: "50%",
+                display: "flex", // Use flex to center the content
+                justifyContent: "center",
+                alignItems: "center",
+                width: "20px", // Equal width and height for a perfect circle
+                height: "20px",
+                fontSize: "14px",
+                fontWeight: 200,
+              }}
+            >
+              {selectedSectors.length}
+            </span>
+          )}
+        </div>
       </Button>
       <Popper
         open={open}
