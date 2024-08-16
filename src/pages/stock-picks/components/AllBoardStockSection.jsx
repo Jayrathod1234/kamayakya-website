@@ -7,6 +7,7 @@ import Nonlogincard from "@/components.v3/common/Nonlogincard.jsx";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RadioSelectDropdown from "@/components.v3/common/RadioDrop.jsx";
 import Button from "@mui/material/Button";
+import InvestmentSection from "@/pages/stock-picks/components/InvestmentSection";
 import {
   Accordion,
   AccordionDetails,
@@ -120,7 +121,7 @@ function AllBoardStockSection() {
       new_stock: true,
     },
   ];
-
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };

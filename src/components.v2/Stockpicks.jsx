@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "../components.v2/button/button.tsx";
 import { ButtonSize, ButtonVariant } from "../components.v2/button/button.tsx";
 import { MoveRight } from "lucide-react";
-import LatestReleases from "../components.v3/section/LatestReleases";
+// import LatestReleases from "../components.v3/section/LatestReleases";
 import Discover from "../components.v3/section/Discover.jsx";
 import { Carousel } from "../components.v2/carousel";
 import Mainboard from "../components.v3/section/Mainboard.jsx";
@@ -75,12 +75,10 @@ function Stockpicks() {
         </div>
         {/* Hot Stocks card  */}
         <Bannerhotstockscard />
-        
       </div>
-      
 
       {/* Latest Releases (10)  */}
-      <LatestReleases />
+      {/* <LatestReleases /> */}
       {/* Discover by Strategy */}
       {/* <Discover /> */}
       {/* All Mainboard Stocks */}
