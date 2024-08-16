@@ -1,3 +1,266 @@
+export const getHotStockResponse = [
+  {
+    id: "b55d775c-52b5-43b9-b83e-fe530d577b36",
+    created: "2024-08-06T12:15:47.352069+05:30",
+    stock_name: "My Stock Ltd.",
+    stock_symbol: null,
+    stock_exchange: "BSE",
+    stock_industry: "IT",
+    market_cap: 2.45,
+    live_price: 158,
+    entry_price: 150,
+    target_price: 190,
+    upside_left: 20.25,
+    expected_returns: 26.67,
+    time_left: 91,
+    risk: "Medium",
+    action: "BUY",
+    stock_targets: [
+      {
+        id: "05921fdb-6735-43f4-a406-5c68f561cb70",
+        created: "2024-08-06T14:48:20.425672+05:30",
+        entry_price: 150,
+        target_price: 190,
+        target_date: "2024-11-05",
+        gain_loss: 5.33,
+        target_met: null,
+        target_action: "BUY",
+      },
+      {
+        id: "dfb9d83f-0c09-446c-afcd-999fff206258",
+        created: "2024-08-06T14:38:34.722770+05:30",
+        entry_price: 150,
+        target_price: 190,
+        target_date: "2024-11-05",
+        gain_loss: 5.33,
+        target_met: null,
+        target_action: "BUY",
+      },
+    ],
+    stock_reports: [],
+    youtube_details: [],
+    stock_disclosures: [],
+    latest_target_price: 190,
+    recommended_stock: true,
+    stock_tags: [
+      {
+        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+        name: "Value Pick",
+        slug: "value-pick",
+        created: "2024-08-05T16:00:50.385063+05:30",
+        description: "Discover undervalued gems with strong fundamentals",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2592e204b0e2170a0be533a8c08d7bc1e81cc5ca6068218ef22a672d03cdfb22",
+      },
+      {
+        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+        name: "Turnaround Story",
+        slug: "turnaround-story",
+        created: "2024-08-05T16:00:50.385063+05:30",
+        description: "Invest in companies poised for a comeback",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4a4c7844c7c5d23c196e36ebe55d974c856fec40e260748cef16be078542a8e0",
+      },
+      {
+        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+        name: "Special Situation",
+        slug: "special-situation",
+        created: "2024-08-05T16:00:50.385063+05:30",
+        description:
+          "Unique opportunities arising from corporate events or restructuring",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8681c777d3b23aef51356521d932b9c14279addaddb4bdaab1c297e77b656e96",
+      },
+    ],
+    upside_left_time: "10 days",
+    return_time: "3 months",
+    new_stock: true,
+    stock_target_count: 2,
+  },
+  {
+    id: "d4da1aab-0c22-49f7-b233-2bcd269f9dfc",
+    created: "2024-08-05T16:45:11.372184+05:30",
+    stock_name: "Demo India Ltd.",
+    stock_symbol: "DEMOS",
+    stock_exchange: "NSE",
+    stock_industry: "METALS",
+    market_cap: 2802.25,
+    live_price: 405.9,
+    entry_price: 403.8,
+    target_price: 486,
+    upside_left: 19.73,
+    expected_returns: 20.36,
+    time_left: 0,
+    risk: "Medium",
+    action: "BUY",
+    stock_targets: [
+      {
+        id: "f4e7a441-34a7-4758-b544-0134ed95b26b",
+        created: "2024-08-06T14:48:20.423769+05:30",
+        entry_price: 403.8,
+        target_price: 486,
+        target_date: "2024-01-24",
+        gain_loss: 0.52,
+        target_met: null,
+        target_action: "BUY",
+      },
+      {
+        id: "877e2af8-7bb9-41c2-b6e8-0a51c619ef9c",
+        created: "2024-08-06T14:38:34.719769+05:30",
+        entry_price: 403.8,
+        target_price: 486,
+        target_date: "2024-01-24",
+        gain_loss: 0.52,
+        target_met: null,
+        target_action: "BUY",
+      },
+    ],
+    stock_reports: [
+      {
+        id: "af703b1c-118c-48ff-b91f-4c39b9435863",
+        report_name: "page report",
+        document:
+          "https://kamayakya.s3.amazonaws.com/test-folder/encrypted_Get_Started_With_Smallpdf_yg3TTe3.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=f9ba4ba46fc7a0b4c15cd251933210fcc1bac8302c1cc39d5a523045b3eae976",
+        report_date: "2024-08-06",
+        report_action_text: "heading sample",
+        type: "report",
+      },
+    ],
+    youtube_details: [],
+    stock_disclosures: [],
+    latest_target_price: 486,
+    recommended_stock: true,
+    stock_tags: [
+      {
+        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+        name: "Value Pick",
+        slug: "value-pick",
+        created: "2024-08-05T16:00:50.385063+05:30",
+        description: "Discover undervalued gems with strong fundamentals",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2592e204b0e2170a0be533a8c08d7bc1e81cc5ca6068218ef22a672d03cdfb22",
+      },
+      {
+        id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+        name: "ESG",
+        slug: "esg",
+        created: "2024-08-05T16:00:50.432564+05:30",
+        description:
+          "Invest in companies with strong Environmental, Social, and Governance practices",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=52a7787bab1e1e16269d2f9e23879a5ef887d023729dbb22b162882b67d40feb",
+      },
+    ],
+    upside_left_time: "10 days",
+    return_time: "-194 days",
+    new_stock: true,
+    stock_target_count: 2,
+  },
+  {
+    id: "92326e51-f74f-411a-8c96-e3a1382a2b65",
+    created: "2024-08-06T14:22:55.544718+05:30",
+    stock_name: "Apple Ltd.",
+    stock_symbol: "APPL",
+    stock_exchange: "NSE",
+    stock_industry: "IT",
+    market_cap: 49392.25,
+    live_price: 5000,
+    entry_price: 5005,
+    target_price: 5555,
+    upside_left: 11.1,
+    expected_returns: 10.99,
+    time_left: 148,
+    risk: "Medium",
+    action: "BUY",
+    stock_targets: [
+      {
+        id: "b953ba9e-3e98-4ea0-bc97-78a6450e36d1",
+        created: "2024-08-06T14:48:20.433336+05:30",
+        entry_price: 5005,
+        target_price: 5555,
+        target_date: "2025-01-01",
+        gain_loss: -0.1,
+        target_met: null,
+        target_action: "BUY",
+      },
+      {
+        id: "1a18ff84-7e80-44ce-a387-e20b1a7bb471",
+        created: "2024-08-06T14:38:34.740776+05:30",
+        entry_price: 5005,
+        target_price: 5555,
+        target_date: "2025-01-01",
+        gain_loss: -0.1,
+        target_met: null,
+        target_action: "BUY",
+      },
+      {
+        id: "fe93688d-7683-4f26-a07e-34d79f6b800d",
+        created: "2024-08-06T14:22:55.642349+05:30",
+        entry_price: 5005,
+        target_price: 5555,
+        target_date: "2025-01-01",
+        gain_loss: -0.1,
+        target_met: null,
+        target_action: "BUY",
+      },
+    ],
+    stock_reports: [],
+    youtube_details: [],
+    stock_disclosures: [],
+    latest_target_price: 5555,
+    recommended_stock: true,
+    stock_tags: [
+      {
+        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+        name: "Turnaround Story",
+        slug: "turnaround-story",
+        created: "2024-08-05T16:00:50.385063+05:30",
+        description: "Invest in companies poised for a comeback",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4a4c7844c7c5d23c196e36ebe55d974c856fec40e260748cef16be078542a8e0",
+      },
+      {
+        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+        name: "Special Situation",
+        slug: "special-situation",
+        created: "2024-08-05T16:00:50.385063+05:30",
+        description:
+          "Unique opportunities arising from corporate events or restructuring",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8681c777d3b23aef51356521d932b9c14279addaddb4bdaab1c297e77b656e96",
+      },
+    ],
+    upside_left_time: "10 days",
+    return_time: "5 months",
+    new_stock: true,
+    stock_target_count: 3,
+  },
+  {
+    upside_left: 19.73,
+    stock_tags: [
+      {
+        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+        name: "Value Pick",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2592e204b0e2170a0be533a8c08d7bc1e81cc5ca6068218ef22a672d03cdfb22",
+      },
+      {
+        id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+        name: "ESG",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=52a7787bab1e1e16269d2f9e23879a5ef887d023729dbb22b162882b67d40feb",
+      },
+    ],
+    sector: "chemicals",
+    stock_target_count: 2,
+    id: "a15edf01-e950-403f-894b-8cf26dc9346e",
+    new_stock: true,
+    recommended_stock: true,
+    is_blur: true,
+    upside_left_time: "10 days",
+    return_time: "-194 days",
+  },
+];
 export const getLatestReleasesStockResponse = [
   {
     upside_left: null,
@@ -364,83 +627,81 @@ export const getLatestReleasesStockResponse = [
   },
 ];
 export const getStrategyTagResponse = [
-    {
-      name: "Value Pick",
-      slug: "value-pick",
-      image: "/assets/discover-by-strategy/value-pick.svg",
-      description: "Discover undervalued gems with strong fundamentals.",
-    },
-    {
-      name: "Turnaround Story",
-      slug: "turnaround-story",
-      image: "/assets/discover-by-strategy/turnaround-story.svg",
-      description: "Invest in companies poised for a comeback.",
-    },
-    {
-      name: "Special Situation",
-      slug: "special-situation",
-      image: "/assets/discover-by-strategy/special-situation.svg",
-      description:
-        "Unique opportunities arising from corporate events or restructuring.",
-    },
-    {
-      name: "Management Change",
-      slug: "management-change",
-      image: "/assets/discover-by-strategy/management-change.svg",
-      description: "Benefit from new leadership and strategic direction.",
-    },
-    {
-      name: "Market Leadership",
-      slug: "market-leadership",
-      image: "/assets/discover-by-strategy/market-leadership.svg",
-      description:
-        "Invest in industry leaders with a strong market position.",
-    },
-    {
-      name: "Industry Tailwind",
-      slug: "industry-tailwind",
-      image: "/assets/discover-by-strategy/industry-tailwind.svg",
-      description:
-        "Sectors with favorable economic conditions driving growth.",
-    },
-    {
-      name: "Cyclicals",
-      slug: "moated",
-      image: "/assets/discover-by-strategy/cyclicals.svg",
-      description: "Invest in industries that benefit from economic cycles.",
-    },
-    {
-      name: "Moated",
-      slug: "cyclicals",
-      image: "/assets/discover-by-strategy/moated.svg",
-      description:
-        "Firms with strong competitive advantages that protect their market position.",
-    },
+  {
+    name: "Value Pick",
+    slug: "value-pick",
+    image: "/assets/discover-by-strategy/value-pick.svg",
+    description: "Discover undervalued gems with strong fundamentals.",
+  },
+  {
+    name: "Turnaround Story",
+    slug: "turnaround-story",
+    image: "/assets/discover-by-strategy/turnaround-story.svg",
+    description: "Invest in companies poised for a comeback.",
+  },
+  {
+    name: "Special Situation",
+    slug: "special-situation",
+    image: "/assets/discover-by-strategy/special-situation.svg",
+    description:
+      "Unique opportunities arising from corporate events or restructuring.",
+  },
+  {
+    name: "Management Change",
+    slug: "management-change",
+    image: "/assets/discover-by-strategy/management-change.svg",
+    description: "Benefit from new leadership and strategic direction.",
+  },
+  {
+    name: "Market Leadership",
+    slug: "market-leadership",
+    image: "/assets/discover-by-strategy/market-leadership.svg",
+    description: "Invest in industry leaders with a strong market position.",
+  },
+  {
+    name: "Industry Tailwind",
+    slug: "industry-tailwind",
+    image: "/assets/discover-by-strategy/industry-tailwind.svg",
+    description: "Sectors with favorable economic conditions driving growth.",
+  },
+  {
+    name: "Cyclicals",
+    slug: "moated",
+    image: "/assets/discover-by-strategy/cyclicals.svg",
+    description: "Invest in industries that benefit from economic cycles.",
+  },
+  {
+    name: "Moated",
+    slug: "cyclicals",
+    image: "/assets/discover-by-strategy/moated.svg",
+    description:
+      "Firms with strong competitive advantages that protect their market position.",
+  },
 
-    {
-      name: "Thematic Stories",
-      slug: "thematic-stories",
-      image: "/assets/discover-by-strategy/thematic-stories.svg",
-      description: "Align investments with emerging trends and themes.",
-    },
-    {
-      name: "Future Focused",
-      slug: "future-focused",
-      image: "/assets/discover-by-strategy/future-focused.svg",
-      description: "Companies with a strong vision for long-term growth.",
-    },
-    {
-      name: "ESG",
-      slug: "esg",
-      image: "/assets/discover-by-strategy/esg.svg",
-      description:
-        "Invest in companies with strong Environmental, Social, and Governance practices.",
-    },
-    {
-      name: "High Dividends",
-      slug: "high-dividends",
-      image: "/assets/discover-by-strategy/high-dividends.svg",
-      description:
-        "Companies offering attractive and consistent dividend yields.",
-    },
-  ];
+  {
+    name: "Thematic Stories",
+    slug: "thematic-stories",
+    image: "/assets/discover-by-strategy/thematic-stories.svg",
+    description: "Align investments with emerging trends and themes.",
+  },
+  {
+    name: "Future Focused",
+    slug: "future-focused",
+    image: "/assets/discover-by-strategy/future-focused.svg",
+    description: "Companies with a strong vision for long-term growth.",
+  },
+  {
+    name: "ESG",
+    slug: "esg",
+    image: "/assets/discover-by-strategy/esg.svg",
+    description:
+      "Invest in companies with strong Environmental, Social, and Governance practices.",
+  },
+  {
+    name: "High Dividends",
+    slug: "high-dividends",
+    image: "/assets/discover-by-strategy/high-dividends.svg",
+    description:
+      "Companies offering attractive and consistent dividend yields.",
+  },
+];

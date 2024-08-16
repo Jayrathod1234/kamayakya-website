@@ -95,8 +95,18 @@ const StrategySlider = ({ children }) => {
       </div>
       <div className="">
         <div className="embla__buttons ">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+          {!prevBtnDisabled && (
+            <PrevButton
+              onClick={onPrevButtonClick}
+              disabled={prevBtnDisabled}
+            />
+          )}
+          {!nextBtnDisabled && (
+            <NextButton
+              onClick={onNextButtonClick}
+              disabled={nextBtnDisabled}
+            />
+          )}
         </div>
       </div>
     </>

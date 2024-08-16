@@ -2,7 +2,33 @@ import { axiosApi } from "../../utils/axios";
 import {
   getLatestReleasesStockResponse,
   getStrategyTagResponse,
+  getHotStockResponse,
 } from "./static-response";
+
+// Latest Releases Stock List API
+export const getHotStockListApi = async ({ isLoggedIn, type }) => {
+  try {
+    console.log("=============getHotStockListApi=====================");
+    if (process.env.NEXT_PUBLIC_DEBUG) {
+      const URL = isLoggedIn ? `/user/hotStock` : `/user/hotStock/guest`;
+      /* ----------------------------------- API ---------------------------------- */
+      const response = await axiosApi.get(URL, {
+        params: {
+          type,
+        },
+      });
+      return response.data;
+    } else {
+      /* ----------------------------- Static Data ---------------------------- */
+      return getHotStockResponse;
+    }
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+};
+
 // Latest Releases Stock List API
 export const getLatestReleasesStockListApi = async ({ isLoggedIn, type }) => {
   try {
