@@ -19,6 +19,7 @@ import {
 import { InboxIcon, MailIcon, MailsIcon } from "lucide-react";
 import Filtermenu from "../common/Filtermenu.jsx";
 import CustomSortMenu from "../common/RadioDrop.jsx";
+import Filtermenu2 from "../common/Filtermenu2.jsx";
 
 // import { Button } from "../../components.v2/button/button.js";
 
@@ -147,16 +148,6 @@ function Mainboard() {
     setSelectedValue(event.target.value);
   };
 
-  const options = [
-    {
-      icon: "/assets/graph-down-new-broken.svg",
-      value: "High to Low",
-      label: "High to Low",
-    },
-    { value: "Low to High", label: "Low to High" },
-    { value: "Newest to Oldest", label: "Newest to Oldest" },
-  ];
-
   return (
     <>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
@@ -191,78 +182,18 @@ function Mainboard() {
           </div>
           <div className="w-auto">
             <div className="relative">
-              {/* <div className="absolute z-[9] top-[-10px] left-4 bg-white px-1 justify-center items-center gap-2 rounded-2xl">
-                <p className="text-gray-500 text-2xs font-medium text-center font-open_sans">
-                  Sort by
-                </p>
-              </div> */}
-              {/* <RadioSelectDropdown option={option} onSelect={handleSelect} /> */}
-              {/* <div className="relative inline-block w-64">
-                <div className="flex items-center justify-between gap-2 w-full bg-brand-100 border border-[#ADDFDB] hover:border-[#ADDFDB] pr-2.5 pl-3.5 py-1.5 rounded-md  leading-tight cursor-pointer  h-12 shadow-3xs ">
-                  <div className="flex items-center gap-1">
-                    <img src="/assets/mi_sort.svg" alt="" srcset="" />
-                    <span className="text-md font-medium text-gray-950 font-open_sans">
-                      Upside Left:
-                    </span>
-                    <p className="text-md font-medium text-gray-950 font-open_sans"></p>
-                  </div> */}
-              {/* <RadioSelectDropdown
-                selectedValue={selectedValue}
-                handleChange={handleChange}
-                options={options}
-              /> */}
-              {/* <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" /> */}
-              {/* </div>
-              </div> */}
               <CustomSortMenu />
             </div>
-
-            {/* <button
-                type="button"
-                class="inline-flex justify-center w-full bg-[#E7F8F8] border border-[#ADDFDB] py-[10px] px-[14px] rounded-md  gap-2 items-center shadow-[0px 2px 6px 0px rgba(0, 0, 0, 0.05)] "
-                id="menu-button"
-                aria-expanded="true"
-                aria-haspopup="true"
-              >
-                <img src="/assets/mi_sort.svg" alt="" />
-                Returns : High to Low
-                <svg
-                  class="-mr-1 ml-2 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06 0L10 10.92l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 010-1.06z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button> */}
-          </div>
-
-          <div className="w-auto">
-            <Button
-              variant="outlined"
-              onClick={toggleDrawer(true)}
-              className="relative bg-white border !border-[#E4E7EC] !py-[8px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
-            >
-              <img src="/assets/filter.svg" alt="" />
-              <p className="font-open_sans text-brand-500">Filter</p>
-              <div class=" bg-brand-500 text-white px-2 text-xs font-bold rounded-full top-[-7px] right-[-9px] w-4  h-4 justify-center items-center flex">
-                3
-              </div>
-            </Button>
-            {/* <Drawer open={open} onClose={toggleDrawer(false)}>
-              {DrawerList}
-            </Drawer> */}
           </div>
         </div>
       </div>
-      <Filtermenu Filtermenu={filteropen} FiltermenuSidebar={filtersideopen} />
+      {/* main filter  */}
+      <Filtermenu2 className="sticky top-[55px] left-0 z-[8] " />
+      {/* sticky filtermenu */}
+      <Filtermenu className="bg-white sticky top-12 left-0 z-[8]" />
+
       {/* blur card  */}
-      <div className="mt-4 bg-[#F2F4F7] py-10 px-20 relative">
+      <div className=" bg-[#F2F4F7] py-10 px-20 relative">
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7 ">
             <Nonlogincard />

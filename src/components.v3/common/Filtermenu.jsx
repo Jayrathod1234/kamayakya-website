@@ -735,16 +735,8 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
 
   return (
     <>
-      <div className="bg-white sticky top-12 left-0 z-[8]">
+      <div className="bg-white sticky top-[55px] left-0 z-[8]">
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center justify-between pt-4">
-          {/* <div className="w-auto">
-            <p className="font-open_sans text-sm font-normal text-[#344054]">
-              Quick Filters:
-            </p>
-          </div> */}
-
-          {/* Import FilterMenuTag here */}
-
           <FilterMenuTags />
 
           <div className="">
@@ -791,16 +783,20 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
             <Button
               variant="outlined"
               onClick={toggleDrawer(true)}
-              className="relative bg-white border !border-[#E4E7EC] !py-[8px] pl-4 pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
+              className="relative bg-white border !border-[#E4E7EC] !py-[10px] !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
             >
               <img src="/assets/filter.svg" alt="" />
-              <p className="font-open_sans text-brand-500">Filter </p>
+              <p className="font-open_sans text-brand-500 font-medium">
+                Filter{" "}
+              </p>
+              <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+                1
+              </div>
             </Button>
             <Drawer open={open} onClose={toggleDrawer(false)}>
               {DrawerList}
             </Drawer>
           </div>
-          {/* <RadioSelectDropdown /> */}
         </div>
       </div>
     </>
