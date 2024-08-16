@@ -1,11 +1,11 @@
-import React from 'react'
-import ProgressBarDemo from './ProgressBarDemo'
+import React from "react";
+import ProgressBarDemo from "./ProgressBarDemo";
 
 function Hotstockcard() {
   return (
     <div>
-       <div className="flex relative">
-        <div className="absolute top-[-7px] right-[97px] z-[1]">
+      <div className="flex relative">
+        <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/hottab.png" alt="" className="w-[210px]" />
         </div>
         <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-warning-300">
@@ -16,7 +16,6 @@ function Hotstockcard() {
 
             <div class="tooltip">
               <img src="/assets/play.gif" alt="" className="w-[24px]" />
-             
             </div>
           </div>
           <div className="pt-[12px] px-[20px] pb-[20px]">
@@ -104,13 +103,13 @@ function Hotstockcard() {
           <div className="p-5">
             {/* btn  */}
             <button className="button-82-pushable group " role="button">
-                <span className="button-82-shadow"></span>
-                <span className="button-82-edge"></span>
-                <span className="button-82-front button-82-front2 text flex items-center">
-                  <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                  View Reports & Details 
-                  </p>
-                  <div className="relative flex w-5">
+              <span className="button-82-shadow"></span>
+              <span className="button-82-edge"></span>
+              <span className="button-82-front button-82-front2 text flex items-center">
+                <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
+                  View Reports & Details
+                </p>
+                <div className="relative flex w-5">
                   <img
                     src="assets/chevron-right.png"
                     alt=""
@@ -122,13 +121,13 @@ function Hotstockcard() {
                     className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
                   />
                 </div>
-                </span>
-              </button>
+              </span>
+            </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Hotstockcard
+export default Hotstockcard;

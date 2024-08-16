@@ -39,7 +39,7 @@ function StockCard({
     <div>
       {/* new stock card  */}
       <div className="flex relative main_card_carousel">
-        <div className="absolute top-[-7px] right-[97px] z-[1]">
+        <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
           )}

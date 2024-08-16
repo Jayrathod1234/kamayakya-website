@@ -38,13 +38,13 @@ const StockPicks = () => {
         {/* SebiBoardTab */}
         <SebiBoardTab setSebiBoardType={handleSebiBoardTypeChange} />
         {/* Bannerhotstockscard */}
-        <HotStockSection sebiBoardType={sebiBoardType}  />
+        <HotStockSection sebiBoardType={sebiBoardType} />
         {/* <HotStockSectionBlur/> */}
       </div>
       {/* Latest Releases  */}
       <LatestReleases sebiBoardType={sebiBoardType} />
       {/* Discover by Strategy */}
-      {/* <StrategyCard /> */}
+      <StrategyCard />
       {/* All Mainboard Stocks */}
       <AllBoardStockSection />
     </Layout>

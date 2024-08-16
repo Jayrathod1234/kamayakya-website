@@ -6,7 +6,7 @@ function HotNewcard() {
   return (
     <div>
       <div className="flex relative">
-        <div className="absolute top-[-7px] right-[97px] z-[1]">
+        <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/hot-newtab.png" alt="" className="w-[210px]" />
         </div>
         <div className=" p-[1px] rounded-lg bg-gradient-to-r from-[#75CDC5] to-[#FDB022]">
@@ -23,8 +23,11 @@ function HotNewcard() {
                     <img
                       src="/assets/play.gif"
                       alt="Play"
-                      className={`w-[24px] transition-transform duration-500 ease-in-out ${hovered ? "-translate-x-[75px] filter brightness-0 sepia opacity-100" : ""
-                        }`}
+                      className={`w-[24px] transition-transform duration-500 ease-in-out ${
+                        hovered
+                          ? "-translate-x-[75px] filter brightness-0 sepia opacity-100"
+                          : ""
+                      }`}
                       // Update hover state when mouse enters or leaves the image
                       onMouseEnter={() => setHovered(true)}
                       onMouseLeave={() => setHovered(false)}
@@ -33,17 +36,23 @@ function HotNewcard() {
                 </div>
                 {/* <!-- Hidden text container --> */}
                 <div
-                  className={`absolute left-full transition-transform duration-500 ease-in-out ${hovered ? "opacity-100 -translate-x-16" : "opacity-0 translate-x-2"
-                    }`}
+                  className={`absolute left-full transition-transform duration-500 ease-in-out ${
+                    hovered
+                      ? "opacity-100 -translate-x-16"
+                      : "opacity-0 translate-x-2"
+                  }`}
                 >
-                  <a href="https://www.youtube.com/watch?v=ipUuoMCEbDQ" target="_blank" className="cursor-default">
+                  <a
+                    href="https://www.youtube.com/watch?v=ipUuoMCEbDQ"
+                    target="_blank"
+                    className="cursor-default"
+                  >
                     <p className="text-[14px] leading-[20px] text-[#125B54] w-36 ">
                       Watch Video
                     </p>
                   </a>
                 </div>
               </div>
-
             </div>
             <div className="pt-[12px] px-[20px] pb-[20px]">
               <div className=" flex items-center gap-[8px] ">
@@ -134,20 +143,20 @@ function HotNewcard() {
                 <span className="button-82-edge"></span>
                 <span className="button-82-front button-82-front2 text flex items-center">
                   <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                  View Reports & Details
+                    View Reports & Details
                   </p>
                   <div className="relative flex w-5">
-                  <img
-                    src="assets/chevron-right.png"
-                    alt=""
-                    className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
-                  />
-                  <img
-                    src="assets/pajamas_long-arrow.svg"
-                    alt=""
-                    className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
-                  />
-                </div>
+                    <img
+                      src="assets/chevron-right.png"
+                      alt=""
+                      className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                    />
+                    <img
+                      src="assets/pajamas_long-arrow.svg"
+                      alt=""
+                      className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
+                    />
+                  </div>
                 </span>
               </button>
             </div>

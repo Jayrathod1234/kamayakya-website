@@ -4,9 +4,9 @@ import ProgressBar2 from "./ProgressBar2";
 function Nonlogincard() {
   return (
     <>
-    {/* blur card  */}
+      {/* blur card  */}
       <div className="flex relative sm:mx-auto">
-        <div className="absolute top-[-7px] right-[97px] z-[1]">
+        <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/hot-newtab.png" alt="" className="w-[210px]" />
         </div>
         <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px]">
@@ -144,7 +144,7 @@ function Nonlogincard() {
               <span className="button-82-front button-82-front2 text flex items-center">
                 <img src="/assets/noto_locked.png" alt="" className="w-4" />
                 <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                  Become a Member 
+                  Become a Member
                 </p>
                 <div className="relative flex w-5">
                   <img

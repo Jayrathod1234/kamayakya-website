@@ -7,7 +7,7 @@ function MainBoardcard() {
     <div>
       {/* new stock card  */}
       <div className="flex relative">
-        <div className="absolute top-[-7px] right-[97px] z-[1]">
+        <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/newtab.png" alt="" className="w-[210px]" />
         </div>
         <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-brand-300">
@@ -91,14 +91,14 @@ function MainBoardcard() {
             <ProgressBarDemo />
           </div>
           <div className="p-5">
-          <button className="button-82-pushable group " role="button">
-                <span className="button-82-shadow"></span>
-                <span className="button-82-edge"></span>
-                <span className="button-82-front button-82-front2 text flex items-center">
-                  <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
+            <button className="button-82-pushable group " role="button">
+              <span className="button-82-shadow"></span>
+              <span className="button-82-edge"></span>
+              <span className="button-82-front button-82-front2 text flex items-center">
+                <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
                   View Reports & Details
-                  </p>
-                  <div className="relative flex w-5">
+                </p>
+                <div className="relative flex w-5">
                   <img
                     src="assets/chevron-right.png"
                     alt=""
@@ -110,8 +110,8 @@ function MainBoardcard() {
                     className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
                   />
                 </div>
-                </span>
-              </button>
+              </span>
+            </button>
           </div>
         </div>
       </div>

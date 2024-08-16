@@ -6,7 +6,7 @@ function LatestReleasesCard({ percentage }) {
     <>
       <div className="main_card_carousel">
         <div className="flex relative">
-          <div className="absolute top-[-7px] right-[97px] z-[1]">
+          <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
             <img src="/assets/newtab.png" alt="" className="w-[210px]" />
           </div>
           <div className="relative rounded-lg bg-white border border-brand-300 min-w-[408px]">
@@ -109,27 +109,27 @@ function LatestReleasesCard({ percentage }) {
             <div className="p-5">
               {/* btn  */}
               <button className="button-82-pushable group " role="button">
-              <span className="button-82-shadow"></span>
-              <span className="button-82-edge"></span>
-              <span className="button-82-front button-82-front2 text flex items-center">
-                <img src="/assets/noto_locked.png" alt="" className="w-4" />
-                <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                  Become a Member
-                </p>
-                <div className="relative flex">
-                  <img
-                    src="assets/chevron-right.png"
-                    alt=""
-                    className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
-                  />
-                  <img
-                    src="assets/pajamas_long-arrow.svg"
-                    alt=""
-                    className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
-                  />
-                </div>
-              </span>
-            </button>
+                <span className="button-82-shadow"></span>
+                <span className="button-82-edge"></span>
+                <span className="button-82-front button-82-front2 text flex items-center">
+                  <img src="/assets/noto_locked.png" alt="" className="w-4" />
+                  <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
+                    Become a Member
+                  </p>
+                  <div className="relative flex">
+                    <img
+                      src="assets/chevron-right.png"
+                      alt=""
+                      className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                    />
+                    <img
+                      src="assets/pajamas_long-arrow.svg"
+                      alt=""
+                      className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
+                    />
+                  </div>
+                </span>
+              </button>
             </div>
           </div>
         </div>
