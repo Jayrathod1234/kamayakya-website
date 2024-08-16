@@ -3,8 +3,9 @@ import ProgressBarDemo from "./ProgressBarDemo";
 import ProgressBar2 from "./ProgressBar2";
 import DeepValue from "./DeepValue";
 import AuthContext from "@/components/AuthContext";
-
+import Link from "next/link";
 function StockCard({
+  id,
   stock_name,
   market_cap,
   new_stock,
@@ -214,62 +215,66 @@ function StockCard({
             ) : is_blur ? (
               <>
                 <div className="p-5">
-                  {/* btn  */}
-                  <button className="button-82-pushable group " role="button">
-                    <span className="button-82-shadow"></span>
-                    <span className="button-82-edge"></span>
-                    <span className="button-82-front button-82-front2 text flex items-center">
-                      <img
-                        src="/assets/noto_locked.png"
-                        alt=""
-                        className="w-4"
-                      />
-                      <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                        Become a Member
-                      </p>
-                      <div className="relative w-5">
+                  <Link href={`/pricing`}>
+                    {/* btn  */}
+                    <button className="button-82-pushable group " role="button">
+                      <span className="button-82-shadow"></span>
+                      <span className="button-82-edge"></span>
+                      <span className="button-82-front button-82-front2 text flex items-center">
                         <img
-                          src="assets/chevron-right.png"
+                          src="/assets/noto_locked.png"
                           alt=""
-                          className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                          className="w-4"
                         />
-                        <img
-                          src="assets/pajamas_long-arrow.svg"
-                          alt=""
-                          className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-0"
-                        />
-                      </div>
-                    </span>
-                  </button>
+                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
+                          Become a Member
+                        </p>
+                        <div className="relative w-5">
+                          <img
+                            src="assets/chevron-right.png"
+                            alt=""
+                            className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                          />
+                          <img
+                            src="assets/pajamas_long-arrow.svg"
+                            alt=""
+                            className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-0"
+                          />
+                        </div>
+                      </span>
+                    </button>
+                  </Link>
                 </div>
               </>
             ) : (
               <>
                 <div className="p-5">
-                  <button
-                    className="button-82-pushable group relative"
-                    role="button"
-                  >
-                    <span className="button-82-shadow"></span>
-                    <span className="button-82-edge"></span>
-                    <span className="button-82-front button-82-front2 text flex items-center">
-                      <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                        View Reports & Details
-                      </p>
-                      <div className="relative w-5">
-                        <img
-                          src="assets/chevron-right.png"
-                          alt=""
-                          className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
-                        />
-                        <img
-                          src="assets/pajamas_long-arrow.svg"
-                          alt=""
-                          className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-0"
-                        />
-                      </div>
-                    </span>
-                  </button>
+                  <Link href={`/stock-picks/${id}`}>
+                    <button
+                      className="button-82-pushable group relative"
+                      role="button"
+                    >
+                      <span className="button-82-shadow"></span>
+                      <span className="button-82-edge"></span>
+                      <span className="button-82-front button-82-front2 text flex items-center">
+                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
+                          View Reports & Details
+                        </p>
+                        <div className="relative w-5">
+                          <img
+                            src="assets/chevron-right.png"
+                            alt=""
+                            className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                          />
+                          <img
+                            src="assets/pajamas_long-arrow.svg"
+                            alt=""
+                            className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0 top-0"
+                          />
+                        </div>
+                      </span>
+                    </button>
+                  </Link>
                 </div>
               </>
             )}
