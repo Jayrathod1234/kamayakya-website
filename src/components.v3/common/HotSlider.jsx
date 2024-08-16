@@ -185,26 +185,7 @@ export function HotSlider({ children }) {
             .on("slideFocus", tweenScale);
     }, [emblaApi, tweenScale]);
 
-    const getVisibleIndicators = () => {
-        return scrollSnaps.map((_, index) => {
-            const isSelected = index === selectedIndex;
-            const isPrev = index === selectedIndex - 1;
-            const isNext = index === selectedIndex + 1;
-
-            if (isSelected || isPrev || isNext) {
-                return (
-                    <div
-                        onClick={() => onDotButtonClick(index)}
-                        key={index}
-                        className={`${isSelected ? "w-6 !bg-brand-300" : "aspect-square"
-                            } h-[10px] bg-gray-400 rounded-full transition-all`}
-                    ></div>
-                );
-            } else {
-                return null;
-            }
-        });
-    };
+   
 
     return (
         <div className={`relative w-full m-auto `}>
@@ -236,7 +217,7 @@ export function HotSlider({ children }) {
                 </div>
             </div>
 
-            <div ref={emblaRef} className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3` }>
+            <div ref={emblaRef} className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3`}>
                 <div
                     className="flex space-x-4 carousel__container"
                     style={{ backfaceVisibility: "hidden" }}
@@ -264,8 +245,15 @@ export function HotSlider({ children }) {
                 </div>
             </div>
             {/* indicator */}
-            <div className="flex gap-4 justify-center items-center bg-white rounded-lg mx-auto w-[100px] p-1">
-                {getVisibleIndicators()}
+            <div className=" flex gap-4 justify-center items-center py-2 bg-white rounded-full w-[35%] mx-auto">
+                {scrollSnaps.map((_, index) => (
+                    <div
+                        onClick={() => onDotButtonClick(index)}
+                        key={index}
+                        className={` ${index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
+                            } h-[10px]  bg-gray-200 rounded-full transition-all`}
+                    ></div>
+                ))}
             </div>
         </div>
     );
