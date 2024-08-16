@@ -1,32 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
-  Select,
   MenuItem,
   Checkbox,
   ListItemText,
   TextField,
   ListSubheader,
-  InputLabel,
-  FormControl,
   Button,
   Box,
+  Paper,
+  Popper,
+  ClickAwayListener,
+  Grow,
+  MenuList,
+  InputAdornment,
+  Typography,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import SearchIcon from "@mui/icons-material/Search";
+
 const sectors = [
-  "Agricultural",
-  "Agricultural",
   "Agricultural",
   "Chemicals",
   "Apparel & Accessories",
   "Banking",
 ];
+
 export default function SectorSelect() {
   const [selectedSectors, setSelectedSectors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+
   const handleChange = (event) => {
     const value = event.target.value;
-    if (value.includes("Select All")) {
+    if (value.includes("all")) {
       if (selectedSectors.length === sectors.length) {
         setSelectedSectors([]);
       } else {
@@ -36,82 +43,189 @@ export default function SectorSelect() {
       setSelectedSectors(value);
     }
   };
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
+
   const handleClick = () => {
-    setOpen(!open);
+    setOpen((prevOpen) => !prevOpen);
   };
+
+  const handleSelectAllClick = () => {
+    if (selectedSectors.length === sectors.length) {
+      setSelectedSectors([]);
+    } else {
+      setSelectedSectors(sectors);
+    }
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
   const filteredSectors = sectors.filter((sector) =>
     sector.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   return (
     <Box sx={{}}>
       <Button
+        ref={anchorRef}
         variant="outlined"
         onClick={handleClick}
         endIcon={<img src="/assets/chevron-down.svg" alt="" />}
         sx={{
           justifyContent: "space-between",
           textTransform: "none",
-          fontSize: "14px",
           color: "#1D2939",
           borderColor: "#E4E7EC",
-          padding: "10px, 16px",
+          borderRadius: "4px",
+          padding: "8px 16px",
+          fontWeight: 500,
         }}
       >
         Sector {selectedSectors.length > 0 && `(${selectedSectors.length})`}
       </Button>
-      {open && (
-        <FormControl fullWidth variant="outlined" sx={{ mt: 2 }}>
-          <InputLabel>Sector</InputLabel>
-          <Select
-            multiple
-            value={selectedSectors}
-            onChange={handleChange}
-            renderValue={(selected) => selected.join(", ")}
-            open={open}
-            onOpen={() => setOpen(true)}
-            onClose={() => setOpen(false)}
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  maxHeight: 224,
-                  width: 250,
-                },
-              },
-            }}
-          >
-            <ListSubheader>
-              <TextField
-                size="small"
-                placeholder="Search..."
-                fullWidth
-                onChange={handleSearch}
-              />
-            </ListSubheader>
-            <MenuItem
-              value="Select All"
-              onClick={() => {
-                if (selectedSectors.length === sectors.length) {
-                  setSelectedSectors([]);
-                } else {
-                  setSelectedSectors(sectors);
-                }
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        placement="bottom-start" // Ensures the dropdown opens directly below the button
+        style={{
+          zIndex: 9,
+          width: 300,
+        }}
+        modifiers={[
+          {
+            name: "offset",
+            options: {
+              offset: [0, 4], // Adjust the offset as needed (4px gap below the button)
+            },
+          },
+        ]}
+      >
+        {({ TransitionProps }) => (
+          <Grow {...TransitionProps}>
+            <Paper
+              sx={{
+                borderRadius: "8px",
+                boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden",
               }}
             >
-              <Checkbox checked={selectedSectors.length === sectors.length} />
-              <ListItemText primary="Select All" />
-            </MenuItem>
-            {filteredSectors.map((sector, index) => (
-              <MenuItem key={`${sector}-${index}`} value={sector}>
-                <Checkbox checked={selectedSectors.indexOf(sector) > -1} />
-                <ListItemText primary={sector} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList
+                  autoFocusItem={open}
+                  disablePadding
+                  sx={{
+                    padding: "8px",
+                  }}
+                >
+                  <ListSubheader
+                    disableSticky
+                    sx={{
+                      backgroundColor: "#00000",
+                      padding: "0",
+                      marginBottom: "8px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <TextField
+                      size="small"
+                      placeholder="Search..."
+                      onChange={handleSearch}
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SearchIcon
+                              fontSize="small"
+                              sx={{ color: "#667085" }}
+                            />
+                          </InputAdornment>
+                        ),
+                        sx: {
+                          color: "#98A2B3",
+                          borderRadius: "8px",
+                          paddingRight: "8px",
+                          fontSize: "14px",
+                          width: "100%",
+                        },
+                      }}
+                      sx={{
+                        flex: 1,
+                      }}
+                    />
+                    <Typography
+                      onClick={handleSelectAllClick}
+                      sx={{
+                        cursor: "pointer",
+                        color:
+                          selectedSectors.length === sectors.length
+                            ? "#125B54"
+                            : "#1D2939",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Select All
+                    </Typography>
+                  </ListSubheader>
+                  {filteredSectors.map((sector, index) => (
+                    <MenuItem
+                      key={`${sector}-${index}`}
+                      value={sector}
+                      onClick={() => {
+                        const currentIndex = selectedSectors.indexOf(sector);
+                        const newSelectedSectors = [...selectedSectors];
+                        if (currentIndex === -1) {
+                          newSelectedSectors.push(sector);
+                        } else {
+                          newSelectedSectors.splice(currentIndex, 1);
+                        }
+                        setSelectedSectors(newSelectedSectors);
+                      }}
+                      sx={{
+                        padding: "8px",
+                        backgroundColor: selectedSectors.includes(sector)
+                          ? "#E7F8F8"
+                          : "transparent",
+                        "&:hover": {
+                          backgroundColor: "#F0F0F0",
+                        },
+                      }}
+                    >
+                      <Checkbox
+                        checked={selectedSectors.indexOf(sector) > -1}
+                        sx={{
+                          color: selectedSectors.includes(sector)
+                            ? "#108973 !important"
+                            : "#E4E7EC",
+                          padding: "0 8px 0 0",
+                        }}
+                      />
+                      <ListItemText
+                        primary={sector}
+                        sx={{
+                          margin: 0,
+                          fontSize: "14px",
+                        }}
+                      />
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </Box>
   );
 }
