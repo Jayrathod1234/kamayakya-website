@@ -43,7 +43,7 @@ function StrategyCard() {
           </span>{" "}
           and to find your perfect investment match!
         </p>
-        <div className=" mb-6 w-full flex ps-32 pe-32">
+        <div className=" mb-6 w-full flex ps-32 pe-32 sm:ps-0">
           <StrategySlider strategyTagList={strategyTagList} colors={colors} />
         </div>
       </div>

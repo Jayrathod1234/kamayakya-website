@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 // import dynamic from "next/dynamic";
 import SebiBoardTab from "@/pages/stock-picks/components/SebiBoardTab";
 import HotStockSection from "@/pages/stock-picks/components/HotStockSection";
+import HotStockSectionBlur from "@/pages/stock-picks/components/HotStockSectionBlur";
 import LatestReleases from "@/pages/stock-picks/components/LatestReleases";
 import StrategyCard from "@/pages/stock-picks/components/StrategyCard";
 import AllBoardStockSection from "@/pages/stock-picks/components/AllBoardStockSection";
@@ -35,16 +36,17 @@ const StockPicks = () => {
     <Layout>
       <div className=" font-open_sans h-[805px] relative">
         {/* SebiBoardTab */}
-        {/* <SebiBoardTab setSebiBoardType={handleSebiBoardTypeChange} /> */}
+        <SebiBoardTab setSebiBoardType={handleSebiBoardTypeChange} />
         {/* Bannerhotstockscard */}
-        {/* <HotStockSection /> */}
+        <HotStockSection sebiBoardType={sebiBoardType}  />
+        {/* <HotStockSectionBlur/> */}
       </div>
       {/* Latest Releases  */}
-      {/* <LatestReleases sebiBoardType={sebiBoardType} /> */}
+      <LatestReleases sebiBoardType={sebiBoardType} />
       {/* Discover by Strategy */}
-      <StrategyCard />
+      {/* <StrategyCard /> */}
       {/* All Mainboard Stocks */}
-      {/* <AllBoardStockSection /> */}
+      <AllBoardStockSection />
     </Layout>
   );
 };
