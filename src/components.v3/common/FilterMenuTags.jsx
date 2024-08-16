@@ -38,7 +38,7 @@ const FilterMenuTags = () => {
             className={`group relative px-5 py-[10px] flex items-center  justify-between w-full shadow-md border-[#E4E7EC]  border rounded transition-all duration-500 ${
               clickedButtons.length > 0
                 ? "bg-brand-500 text-white"
-                : "bg-white text-[#1D2939]"
+                : "bg-white text-[#2a391d]"
             } focus:outline-none`}
           >
             <img
@@ -90,7 +90,7 @@ const FilterMenuTags = () => {
         .map((button) => (
           <div key={button.id} className="w-auto">
             <button
-              className="group relative px-4 py-[10px] flex items-center justify-between w-full shadow-md border-[#E4E7EC] border rounded hover:bg-brand-100 hover:border-brand-200 transition-all duration-500 focus:outline-none pe-2"
+              className="group relative px-4 py-[10px] flex items-center justify-between w-full shadow-md border-[#E4E7EC] bg-white text-black border rounded hover:bg-brand-100 hover:border-brand-200 transition-all duration-500 focus:outline-none pe-2"
               onClick={() => handleButtonClick(button)}
             >
               <img

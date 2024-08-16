@@ -41,7 +41,7 @@ import SectorFilter from "./SizeSelector.jsx";
 import StrategyCheck from "./StrategyCheck.jsx";
 import SectorSelect from "./SectorCheck.jsx";
 
-function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
+function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
   const stockList = [
     {
       title: "Vidhi Specialty Food Ingredients Ltd.",
@@ -732,61 +732,24 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   return (
     <>
       <div className="bg-white sticky top-[55px] left-0 z-[8]">
-        <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center justify-between pt-4">
-          <FilterMenuTags />
-
-          <div className="">
-            <StrategyCheck />
-          </div>
-          <div className="">
-            <SectorSelect />
-          </div>
-          <div className="flex gap-[10] items-center">
-            <form className="search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear  ">
-              <input
-                type="text"
-                placeholder="Search"
-                className="search__input w-0  transition-width duration-300"
-              />
-              <button
-                type="button"
-                className="search__button grid place-items-center w-[35px] h-[35px] cursor-pointer transition-colors duration-[0.25s] hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full "
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="#0000"
-                >
-                  <path
-                    d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
-                    stroke="#667085"
-                    stroke-width="1.66667"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            </form>
-          </div>
-          <div className="w-auto">
-            <Button
-              variant="outlined"
-              onClick={toggleDrawer(true)}
-              className="relative bg-white border !border-[#E4E7EC] !py-[10px] !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
-            >
-              <img src="/assets/filter.svg" alt="" />
-              <p className="font-open_sans text-brand-500 font-medium">
-                Filter{" "}
+        <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto">
+          <div className="bg-[#F2F4F7] rounded-md py-2.5 px-5 flex gap-3.5 items-center my-4">
+            <div className="w-auto">
+              <p className="font-open_sans text-sm font-normal text-[#344054]">
+                Quick Filters:
               </p>
-              <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
-                1
-              </div>
-            </Button>
-            <Drawer open={open} onClose={toggleDrawer(false)}>
-              {DrawerList}
-            </Drawer>
+            </div>
+
+            {/* Import FilterMenuTag here */}
+
+            <FilterMenuTags />
+
+            <div className="">
+              <StrategyCheck />
+            </div>
+            <div className="">
+              <SectorSelect />
+            </div>
           </div>
         </div>
       </div>
@@ -794,4 +757,4 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   );
 }
 
-export default Filtermenu;
+export default Filtermenu2;
