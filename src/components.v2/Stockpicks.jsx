@@ -6,7 +6,7 @@ import { MoveRight } from "lucide-react";
 // import LatestReleases from "../components.v3/section/LatestReleases";
 import Discover from "../components.v3/section/Discover.jsx";
 import { Carousel } from "../components.v2/carousel";
-import Mainboard from "../components.v3/section/Mainboard.jsx";
+// import Mainboard from "../components.v3/section/Mainboard.jsx";
 import ProgressBar from "../components.v3/common/ProgressBar.jsx";
 import Bannerhotstockscard from "../components.v3/common/Bannerhotstockscard.jsx";
 import { Navbar } from "@nextui-org/react";
@@ -82,7 +82,7 @@ function Stockpicks() {
       {/* Discover by Strategy */}
       {/* <Discover /> */}
       {/* All Mainboard Stocks */}
-      <Mainboard />
+      {/* <Mainboard /> */}
     </>
   );
 }
