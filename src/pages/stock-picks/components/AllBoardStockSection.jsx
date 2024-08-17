@@ -8,6 +8,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RadioSelectDropdown from "@/components.v3/common/RadioDrop.jsx";
 import Button from "@mui/material/Button";
 import InvestmentSection from "@/pages/stock-picks/components/InvestmentSection";
+import FilterMenuTags from "@/components.v3/common/FilterMenuTags.jsx";
 import {
   Accordion,
   AccordionDetails,
@@ -115,6 +116,35 @@ function AllBoardStockSection({ sebiBoardType }) {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+  // sticky header
+
+  const filterHeaderRef = useRef(null);
+  const xyzRef = useRef(null);
+  const [showFilterHeader, setShowFilterHeader] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (xyzRef.current) {
+        const rect = xyzRef.current.getBoundingClientRect();
+        setShowFilterHeader(rect.top <= 110);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
   // upside left
   const [value, setValue] = React.useState([25, 115]);
 
@@ -565,23 +595,20 @@ function AllBoardStockSection({ sebiBoardType }) {
         {/* <SizeSelector /> */}
         <div class="flex px-7 gap-4 pb-4">
           <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-            {/* <div class=""> */}
             <img src="/assets/Group 47357.svg" />
-            {/* </div> */}
+
             <span class="pt-2 text-2xs  text-[#344054] font-normal">Small</span>
           </div>
 
           <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-            {/* <div class=""> */}
             <img src="/assets/Component 5.svg" />
-            {/* </div> */}
+
             <span class="pt-2 text-2xs  text-[#344054] font-normal">Mid</span>
           </div>
 
           <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-            {/* <div class=""> */}
             <img src="/assets/Component 9.svg" />
-            {/* </div> */}
+
             <span class="pt-2 text-2xs  text-[#344054] font-normal">Large</span>
           </div>
         </div>
@@ -767,12 +794,29 @@ function AllBoardStockSection({ sebiBoardType }) {
         </div>
       </div>
       {/* main filter  */}
-      <Filtermenu2 />
+      {!showFilterHeader ? (
+        <>
+          {/* <Filtermenu2 /> */}
+          <FilterMenuTags />
+        </>
+      ) : (
+        <>
+          <Filtermenu
+            ref={filterHeaderRef}
+            // className={`fixed top-0 left-0 w-full p-10 bg-orange-600 transition-transform duration-500 ${
+            //   showFilterHeader ? "translate-y-0" : "-translate-y-full"
+            // }`}
+            role="banner"
+            aria-hidden={!showFilterHeader}
+          />
+        </>
+      )}
+      {/* <FilterCarousel /> */}
+      {/* <Filtermenu2 /> */}
       {/* sticky filtermenu */}
-      <Filtermenu />
 
       {/* blur card  */}
-      <div className=" bg-[#F2F4F7] py-10 px-20 relative">
+      <div className=" bg-[#F2F4F7] py-10 px-20 relative " ref={xyzRef}>
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7">
             {/* <Nonlogincard /> */}

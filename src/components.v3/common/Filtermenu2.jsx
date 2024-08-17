@@ -127,6 +127,8 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
     setOpen(newOpen);
   };
 
+  // filter carousel
+
   // upside left
   const [value, setValue] = React.useState([25, 115]);
 
@@ -721,17 +723,9 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
     </Box>
   );
 
-  // step
-
-  // const [selectedValue, setSelectedValue] = useState("");
-
-  // const handleChange = (event) => {
-  //   setSelectedValue(event.target.value);
-  // };
-
   return (
     <>
-      <div className="bg-white sticky top-[55px] left-0 z-[8]">
+      <div className="bg-white ">
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto">
           <div className="bg-[#F2F4F7] rounded-md py-2.5 px-5 flex gap-3.5 items-center my-4">
             <div className="w-auto">

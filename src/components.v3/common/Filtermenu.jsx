@@ -41,6 +41,7 @@ import styled from "@emotion/styled";
 import SectorFilter from "./SizeSelector.jsx";
 import StrategyCheck from "./StrategyCheck.jsx";
 import SectorSelect from "./SectorCheck.jsx";
+import CustomSortMenu from "../common/RadioDrop.jsx";
 
 function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   const stockList = [
@@ -127,7 +128,34 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+  // sticky header
+  const filterHeaderRef = useRef(null);
+  const xyzRef = useRef(null);
+  const [showFilterHeader, setShowFilterHeader] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (xyzRef.current) {
+        const rect = xyzRef.current.getBoundingClientRect();
+        setShowFilterHeader(rect.top <= 0);
+      }
+    };
+
+    const debouncedHandleScroll = debounce(handleScroll, 100);
+    window.addEventListener("scroll", debouncedHandleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", debouncedHandleScroll);
+    };
+  }, []);
+
+  function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
   // upside left
   const [value, setValue] = React.useState([25, 115]);
 
@@ -763,10 +791,22 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   //   };
   // }, []);
 
+  // return (
+  //   <>
+  //     <FilterMenuTags />
+  //     <div className="bg-white sticky top-12 left-0 z-[8]">
   return (
     <>
-      <FilterMenuTags />
-      <div className="bg-white sticky top-12 left-0 z-[8]">
+      {/* <FilterMenuTags /> */}
+      <div
+        className="sticky top-[50px] right-0 z-[88] bg-white "
+        // ref={filterHeaderRef}
+        // className={`fixed top-0 left-0 w-full p-10 bg-orange-600 transition-transform duration-500 ${
+        //   showFilterHeader ? "translate-y-0" : "-translate-y-full"
+        // }`}
+        // role="banner"
+        // aria-hidden={!showFilterHeader}
+      >
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center justify-between pt-4">
           {/* <div className="w-auto">
             <p className="font-open_sans text-sm font-normal text-[#344054]">
@@ -827,6 +867,7 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
               </button>
             </form>
           </div>
+          <CustomSortMenu />
           <div className="w-auto">
             <Button
               variant="outlined"
@@ -835,7 +876,7 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
             >
               <img src="/assets/filter.svg" alt="" />
               <p className="font-open_sans text-brand-500 font-medium">
-                Filter{" "}
+                Filterrrr{" "}
               </p>
               <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 1
