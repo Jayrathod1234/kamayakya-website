@@ -7,7 +7,7 @@ import AuthContext from "@/components/AuthContext";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 function LatestReleases({ sebiBoardType }) {
   const { isLoggedIn } = useContext(AuthContext);
-  // Use react-query to fetch the strategy tag list
+  // Use react-query to fetch
   const {
     data: items = [],
     isLoading,

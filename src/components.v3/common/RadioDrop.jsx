@@ -17,10 +17,18 @@ import {
   AccessTimeFilled,
 } from "@mui/icons-material";
 export default function CustomSortMenu() {
+  const radioButtonValue = {
+    upside_left_desc: "Upside Left : High to Low",
+    upside_left_asc: "Upside Left : Low to High",
+    recency_desc: "Recency : Newest to Oldest",
+    recency_asc: "Recency : Oldest to Newest",
+    time_left_desc: "Time Left : Longest to Shortest",
+    time_left_asc: "Time Left : Shortest to Longest",
+    returns_desc: "Returns : High to Low",
+    returns_asc: "Returns : Low to High",
+  };
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedValue, setSelectedValue] = useState(
-    "Upside Left : High to Low"
-  );
+  const [selectedValue, setSelectedValue] = useState("upside_left_desc");
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -84,7 +92,7 @@ export default function CustomSortMenu() {
           />
         </svg>
         <span style={{ color: "#1E555C", fontWeight: 600 }}>
-          {selectedValue}
+          {radioButtonValue[selectedValue]}
         </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +141,7 @@ export default function CustomSortMenu() {
           >
             <MenuItem>
               <FormControlLabel
-                value="Upside Left : High to Low"
+                value="upside_left_desc"
                 control={<Radio color="success" />}
                 label={
                   <Box display="flex" alignItems="center">
@@ -181,7 +189,7 @@ export default function CustomSortMenu() {
             </MenuItem>
             <MenuItem>
               <FormControlLabel
-                value="Upside Left : Low to High"
+                value="upside_left_asc"
                 control={<Radio color="success" />}
                 label={
                   <Box display="flex" alignItems="center">
@@ -254,7 +262,7 @@ export default function CustomSortMenu() {
           >
             <MenuItem>
               <FormControlLabel
-                value="Recency : Newest to Oldest"
+                value="recency_desc"
                 control={<Radio color="success" />}
                 label={
                   <Box display="flex" alignItems="center">
@@ -295,7 +303,7 @@ export default function CustomSortMenu() {
             </MenuItem>
             <MenuItem>
               <FormControlLabel
-                value="Recency : Oldest to Newest"
+                value="recency_asc"
                 control={<Radio color="success" />}
                 label={
                   <Box display="flex" alignItems="center">
@@ -351,7 +359,7 @@ export default function CustomSortMenu() {
           >
             <MenuItem>
               <FormControlLabel
-                value="Time Left : Longest to Shortest"
+                value="time_left_desc"
                 control={<Radio color="success" />}
                 label={
                   <Box display="flex" alignItems="center">
@@ -386,7 +394,7 @@ export default function CustomSortMenu() {
             </MenuItem>
             <MenuItem>
               <FormControlLabel
-                value="Time Left : Shortest to Longest"
+                value="time_left_asc"
                 control={<Radio color="success" />}
                 label={
                   <Box display="flex" alignItems="center">
@@ -436,7 +444,7 @@ export default function CustomSortMenu() {
           >
             <MenuItem>
               <FormControlLabel
-                value="Returns : High to Low"
+                value="returns_desc"
                 control={<Radio color="success" />}
                 label={
                   <Box display="flex" alignItems="center">
@@ -471,7 +479,7 @@ export default function CustomSortMenu() {
             </MenuItem>
             <MenuItem>
               <FormControlLabel
-                value="Returns : Low to High"
+                value="returns_asc"
                 control={<Radio color="success" />}
                 label={
                   <Box display="flex" alignItems="center">

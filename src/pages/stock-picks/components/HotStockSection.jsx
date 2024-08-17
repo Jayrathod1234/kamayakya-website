@@ -10,7 +10,7 @@ import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { Skeleton } from "@mui/material";
 const HotStockSection = ({ sebiBoardType }) => {
   const { isLoggedIn } = useContext(AuthContext);
-  // Use react-query to fetch the strategy tag list
+  // Use react-query to fetch
   const {
     data: { data: items = [], is_limited_view: isLimitedView = false } = {},
     isLoading,

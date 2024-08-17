@@ -20,7 +20,7 @@ function Discover() {
     "high-dividends": "#FFF3E1",
   };
 
-  // Use react-query to fetch the strategy tag list
+  // Use react-query to fetch
   const {
     data: strategyTagList = [],
     isLoading,

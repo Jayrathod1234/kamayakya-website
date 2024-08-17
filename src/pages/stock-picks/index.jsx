@@ -46,7 +46,7 @@ const StockPicks = () => {
       {/* Discover by Strategy */}
       <StrategyCard />
       {/* All Mainboard Stocks */}
-      <AllBoardStockSection />
+      <AllBoardStockSection sebiBoardType={sebiBoardType} />
     </Layout>
   );
 };

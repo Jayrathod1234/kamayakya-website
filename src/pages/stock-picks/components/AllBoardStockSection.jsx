@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import MainBoardArea from "@/components.v3/common/MainBoardArea.jsx";
 import SelectDrop from "@/components.v3/common/SelectDrop.jsx";
 import RadioDrop from "@/components.v3/common/RadioDrop.jsx";
@@ -37,90 +37,80 @@ import CustomSortMenu from "../../../components.v3/common/RadioDrop";
 import Filtermenu2 from "../../../components.v3/common/Filtermenu2";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SectorFilter from "../../../components.v3/common/SizeSelector";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import AuthContext from "@/components/AuthContext";
+import { getAllBoardStockStockListApi } from "@/api/stock-picks";
+import StockCardSkeleton from "./skeletons/StockCardSkeleton";
+import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
+import { useDebounce } from "../../../utils/deBounceSearch";
 
 // import { Button } from "../../components.v2/button/button.js";
 
-function AllBoardStockSection() {
-  const stockList = [
-    // ... your stock list data ...
-    {
-      title: "Vidhi Specialty Food Ingredients Ltd.",
-      market_cap: "5678",
-      recommended_stock: true,
-      is_blur: false,
-      new_stock: true,
+function AllBoardStockSection({ sebiBoardType }) {
+  const { isLoggedIn } = useContext(AuthContext);
+  const [searchStock, setSearchStock] = useState("");
+  const debouncedSearchStock = useDebounce(searchStock, 1000); // Apply debouncing
+
+  const LIMIT = 6;
+  const myObserver = useRef();
+
+  // Use react infinite query to fetch the list
+  const {
+    data: response = [],
+    isLoading,
+    error,
+    fetchNextPage,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: [
+      "allBoardStockStock",
+      {
+        LIMIT,
+        sebiBoardType,
+        isLoggedIn,
+        debouncedSearchStock,
+      },
+    ],
+    queryFn: ({ pageParam = 1 }) =>
+      getAllBoardStockStockListApi({
+        params: {
+          page: pageParam,
+          limit: LIMIT,
+          isLoggedIn,
+          type: sebiBoardType,
+        },
+        body: {
+          search: debouncedSearchStock,
+        },
+      }),
+    getNextPageParam: ({ total_pages, current_page }) => {
+      // Function to determine the parameter for fetching the next page
+      if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
-    {
-      title: "Reliance Industries Ltd.",
-      market_cap: "9876",
-      recommended_stock: false,
-      is_blur: true,
-      new_stock: false,
-    },
-    {
-      title: "Tata Consultancy Services Ltd.",
-      market_cap: "2345",
-      recommended_stock: true,
-      is_blur: false,
-      new_stock: false,
-    },
-    {
-      title: "Infosys Ltd.",
-      market_cap: "8765",
-      recommended_stock: false,
-      is_blur: true,
-      new_stock: true,
-    },
-    {
-      title: "HDFC Bank Ltd.",
-      market_cap: "3456",
-      recommended_stock: true,
-      is_blur: false,
-      new_stock: false,
-    },
-    {
-      title: "ICICI Bank Ltd.",
-      market_cap: "6543",
-      recommended_stock: false,
-      is_blur: true,
-      new_stock: true,
-    },
-    {
-      title: "Bharti Airtel Ltd.",
-      market_cap: "4321",
-      recommended_stock: true,
-      is_blur: false,
-      new_stock: false,
-    },
-    {
-      title: "Hindustan Unilever Ltd.",
-      market_cap: "7890",
-      recommended_stock: false,
-      is_blur: true,
-      new_stock: true,
-    },
-    {
-      title: "Kotak Mahindra Bank Ltd.",
-      market_cap: "8901",
-      recommended_stock: true,
-      is_blur: false,
-      new_stock: true,
-    },
-    {
-      title: "Larsen & Toubro Ltd.",
-      market_cap: "5432",
-      recommended_stock: false,
-      is_blur: true,
-      new_stock: false,
-    },
-    {
-      title: "State Bank of India",
-      market_cap: "6789",
-      recommended_stock: true,
-      is_blur: false,
-      new_stock: true,
-    },
-  ];
+    enabled: !!searchStock,
+  });
+
+  const items = response?.pages?.flatMap((page) => page.data) ?? [];
+
+  // Scroll Function
+  useEffect(() => {
+    // Start observing the element referenced by observerElem.current
+    if (myObserver.current) {
+      onScrollPaginationFunction(fetchNextPage).observe(myObserver.current);
+    }
+    // Clean up function to stop observing when component unmounts
+    return () => {
+      if (myObserver.current) {
+        onScrollPaginationFunction(fetchNextPage).unobserve(myObserver.current);
+      }
+    };
+  }, [fetchNextPage]);
+
+  // Handle search input change
+  const handleSearchStock = (e) => {
+    setSearchStock(e.target.value);
+  };
+
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -741,10 +731,12 @@ function AllBoardStockSection() {
                 </div>
                 <input
                   type="search"
+                  name="search-stock"
                   id="default-search"
                   className="block w-full pr-[14px] pl-9 py-[12px] text-md text-gray-900 border border-[#E4E7EC] rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 shadow-3xs"
                   placeholder="Search Stocks..."
-                  required
+                  value={searchStock}
+                  onChange={handleSearchStock}
                 />
               </div>
             </form>
@@ -783,35 +775,30 @@ function AllBoardStockSection() {
       <div className=" bg-[#F2F4F7] py-10 px-20 relative">
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7">
-            <Nonlogincard />
+            {/* <Nonlogincard /> */}
             {/* <MainBoardArea /> */}
-            {stockList.map(
-              ({
-                title,
-                market_cap,
-                recommended_stock,
-                is_blur,
-                new_stock,
-              }) => (
+
+            {isLoading || error ? (
+              <StockCardSkeleton length={9} />
+            ) : (
+              items.length > 0 &&
+              items.map((value, index) => (
                 <StockCard
-                  stock_name={title}
-                  market_cap={market_cap}
-                  recommended_stock={recommended_stock}
-                  is_blur={is_blur}
-                  new_stock={new_stock}
+                  key={index} // Ensure each item has a unique key
+                  {...value}
                 />
-              )
+              ))
             )}
-            {/* <MainBoardArea /> */}
           </div>
+          <div ref={myObserver} className="h-1"></div>
           {/* Blur Rectangle  */}
-          <div className="absolute bottom-[440px] z-[1] max-h-[400px] w-full">
+          {/* <div className="absolute bottom-[440px] z-[1] max-h-[400px] w-full">
             <img
               src="/assets/Rectangle.png"
               alt=""
               className="max-h-[400px] w-full"
             />
-          </div>
+          </div> */}
           <div className="mt-11">
             <InvestmentSection />
           </div>

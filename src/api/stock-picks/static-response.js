@@ -709,3 +709,290 @@ export const getStrategyTagResponse = [
       "Companies offering attractive and consistent dividend yields.",
   },
 ];
+export const getAllBoardStockStockResponse = {
+  data: [
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+          name: "Turnaround Story",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ae728e247deddfebc1d05868e512d119c62ae06ba9139d9000d5913268826075",
+        },
+      ],
+      sector: "chemicals",
+      stock_target_count: 0,
+      id: "fc57933e-3763-47d4-835e-6b269ce0220c",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "4 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+          name: "Turnaround Story",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ae728e247deddfebc1d05868e512d119c62ae06ba9139d9000d5913268826075",
+        },
+        {
+          id: "a282f6c5-0c47-451c-8d41-fd2888c7737b",
+          name: "Cyclicals",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/cyclicals.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=fb824793139349c80258f27c2b6e11d280c06f29cde1500c175ae995d984c4de",
+        },
+        {
+          id: "43a146f9-2f69-40ba-ad48-1faba29db0a5",
+          name: "Moated",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/moated.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=7569591d87702ce82e19881346593e19a4c74d417249b22a0b854593931ff34b",
+        },
+      ],
+      sector: "fmcg",
+      stock_target_count: 2,
+      id: "1208bb79-076b-4b09-92e3-7c4bdc597835",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "11 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+          name: "Value Pick",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8ef9f7ef72530efbc32e6eb1981fdc14c1994b0ee65c05e07a498b8475ad6e22",
+        },
+      ],
+      sector: "fmcg",
+      stock_target_count: 0,
+      id: "e8fbbac8-5106-4d7b-b321-d923ceb1779c",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "4 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+          name: "Turnaround Story",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ae728e247deddfebc1d05868e512d119c62ae06ba9139d9000d5913268826075",
+        },
+      ],
+      sector: "chemicals",
+      stock_target_count: 0,
+      id: "fa2bec3e-2312-4974-b8cc-8546c0253103",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "4 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+          name: "Turnaround Story",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ae728e247deddfebc1d05868e512d119c62ae06ba9139d9000d5913268826075",
+        },
+      ],
+      sector: "chemicals",
+      stock_target_count: 0,
+      id: "36027015-2c7d-4b3d-a287-a14a0a4b510c",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "4 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+          name: "Value Pick",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8ef9f7ef72530efbc32e6eb1981fdc14c1994b0ee65c05e07a498b8475ad6e22",
+        },
+        {
+          id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+          name: "Special Situation",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=46b6f74b5d93b932025a8153ce3a8ad56d037bf5d4dfa718a37a6246fd98eff0",
+        },
+      ],
+      sector: "chemicals",
+      stock_target_count: 0,
+      id: "e52a274e-1a2d-4332-a050-fdc7cc42475c",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "4 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+          name: "Value Pick",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8ef9f7ef72530efbc32e6eb1981fdc14c1994b0ee65c05e07a498b8475ad6e22",
+        },
+      ],
+      sector: "fmcg",
+      stock_target_count: 0,
+      id: "e9d86d54-7ebb-4aee-979e-e19f40722fd6",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "4 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+          name: "Special Situation",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=46b6f74b5d93b932025a8153ce3a8ad56d037bf5d4dfa718a37a6246fd98eff0",
+        },
+      ],
+      sector: "chemicals",
+      stock_target_count: 0,
+      id: "fa6623a0-c04a-4016-b794-1f997b73f6ad",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "4 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: null,
+      stock_tags: [
+        {
+          id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+          name: "Special Situation",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=46b6f74b5d93b932025a8153ce3a8ad56d037bf5d4dfa718a37a6246fd98eff0",
+        },
+        {
+          id: "6d9fb7a0-92b3-4633-8ea9-ae86dc2bd008",
+          name: "Management Change",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/management-change.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=529fc1d8d7ba0ef5ec2dce8b0db3b3e1b3daf85759f82adacd13d675358fcad8",
+        },
+      ],
+      sector: "fmcg",
+      stock_target_count: 0,
+      id: "9e97efcb-fe26-451d-8252-b10ce15de78e",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "4 days",
+      return_time: "No return time available",
+    },
+    {
+      upside_left: 200,
+      stock_tags: [
+        {
+          id: "ac7148dc-e122-48a8-9efb-51a02c87f518",
+          name: "Market Leadership",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/market-leadership.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=a574328b96b4a4d05ad87fe52e90d6a740e6f13c4a6e6c85466a3f5414ed7460",
+        },
+        {
+          id: "18ab2bd3-6895-420f-8259-6132597cdff4",
+          name: "Future Focused",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/future-focused.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=d0d3deb42e672eb80717bc681c6833baf48ab09aadc574778dff78b70a43bc96",
+        },
+        {
+          id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+          name: "ESG",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9cf86c423a3601877cb8f189b4b5527c586265c1738f0ab1b6e70de245d04807",
+        },
+      ],
+      sector: "chemicals",
+      stock_target_count: 4,
+      id: "2a4714ca-9a92-4267-8a51-2d6cc60e3ce1",
+      new_stock: true,
+      recommended_stock: false,
+      is_blur: true,
+      upside_left_time: "11 days",
+      return_time: "2 days",
+    },
+    {
+      upside_left: 20.25,
+      stock_tags: [
+        {
+          id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+          name: "Value Pick",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8ef9f7ef72530efbc32e6eb1981fdc14c1994b0ee65c05e07a498b8475ad6e22",
+        },
+        {
+          id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+          name: "Turnaround Story",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ae728e247deddfebc1d05868e512d119c62ae06ba9139d9000d5913268826075",
+        },
+        {
+          id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+          name: "Special Situation",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=46b6f74b5d93b932025a8153ce3a8ad56d037bf5d4dfa718a37a6246fd98eff0",
+        },
+      ],
+      sector: "it",
+      stock_target_count: 2,
+      id: "b55d775c-52b5-43b9-b83e-fe530d577b36",
+      new_stock: true,
+      recommended_stock: true,
+      is_blur: true,
+      upside_left_time: "11 days",
+      return_time: "3 months",
+    },
+    {
+      upside_left: 19.73,
+      stock_tags: [
+        {
+          id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+          name: "Value Pick",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8ef9f7ef72530efbc32e6eb1981fdc14c1994b0ee65c05e07a498b8475ad6e22",
+        },
+        {
+          id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+          name: "ESG",
+          image:
+            "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240817%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240817T072317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9cf86c423a3601877cb8f189b4b5527c586265c1738f0ab1b6e70de245d04807",
+        },
+      ],
+      sector: "chemicals",
+      stock_target_count: 2,
+      id: "a15edf01-e950-403f-894b-8cf26dc9346e",
+      new_stock: true,
+      recommended_stock: true,
+      is_blur: true,
+      upside_left_time: "11 days",
+      return_time: "-194 days",
+    },
+  ],
+  total_pages: 2,
+};
