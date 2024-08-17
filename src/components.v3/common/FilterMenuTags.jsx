@@ -1,3 +1,4 @@
+import { Chip } from "@mui/material";
 import React, { useState } from "react";
 
 const FilterMenuTags = () => {
@@ -89,7 +90,7 @@ const FilterMenuTags = () => {
         )
         .map((button) => (
           <div key={button.id} className="w-auto">
-            <button
+            <buttons
               className="group relative px-4 py-[10px] flex items-center justify-between w-full shadow-md border-[#E4E7EC] bg-white text-black border rounded hover:bg-brand-100 hover:border-brand-200 transition-all duration-500 focus:outline-none pe-2"
               onClick={() => handleButtonClick(button)}
             >
@@ -105,7 +106,7 @@ const FilterMenuTags = () => {
               <p className="flex-grow text-sm font-medium font-open_sans mx-2">
                 {button.label}
               </p>
-            </button>
+            </buttons>
           </div>
         ))}
     </>
