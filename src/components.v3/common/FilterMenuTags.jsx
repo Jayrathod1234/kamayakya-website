@@ -1,115 +1,228 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
+import { Box, Chip, IconButton } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import CloseIcon from "@mui/icons-material/Close";
+import StrategyCheck from "./StrategyCheck";
+import SectorSelect from "./SectorCheck";
 
-const FilterMenuTags = () => {
-  const originalButtons = [
-    { id: 1, label: "Most Recent", icon: "/assets/watch.svg" },
-    { id: 2, label: "Value Pick", icon: "/assets/Pricing.svg" },
-    { id: 3, label: "Market Leadership", icon: "/assets/leader.svg" },
-    { id: 4, label: "Thematic Stories", icon: "/assets/bulb.svg" },
-    { id: 5, label: "Chemicals", icon: "/assets/chamical.svg" },
-    { id: 6, label: "Pharma", icon: "/assets/pharma.svg" },
-  ];
+const FilterCarousel = () => {
+  const [selectedChips, setSelectedChips] = useState([]);
+  const [showButtons, setShowButtons] = useState(false);
+  const [chips, setChips] = useState([
+    {
+      label: "Most Recent",
+      id: 1,
+      originalIndex: 0,
+      icon: "/assets/watch.svg",
+    },
+    {
+      label: "Value Pick",
+      id: 2,
+      originalIndex: 1,
+      icon: "/assets/Pricing.svg",
+    },
+    {
+      label: "Market Leadership",
+      id: 3,
+      originalIndex: 2,
+      icon: "/assets/leader.svg",
+    },
+    {
+      label: "Thematic Stories",
+      id: 4,
+      originalIndex: 3,
+      icon: "/assets/bulb.svg",
+    },
+    {
+      label: "Chemicals",
+      id: 5,
+      originalIndex: 4,
+      icon: "/assets/chamical.svg",
+    },
+    { label: "Pharma", id: 6, originalIndex: 5, icon: "/assets/pharma.svg" },
+    { label: "Strategy", id: 7, originalIndex: 6 },
+    // { label: "Sector", id: 8 ,originalIndex: 7,},
+  ]);
 
-  const [buttons, setButtons] = useState(originalButtons);
-  const [clickedButtons, setClickedButtons] = useState([]);
+  const carouselRef = useRef(null);
+  const containerRef = useRef(null);
 
-  const handleButtonClick = (button) => {
-    if (
-      clickedButtons.some((clickedButton) => clickedButton.id === button.id)
-    ) {
-      return;
+  useLayoutEffect(() => {
+    const containerWidth = containerRef.current.offsetWidth;
+    const contentWidth = carouselRef.current.scrollWidth;
+    setShowButtons(contentWidth > containerWidth);
+  }, [selectedChips, chips]);
+
+  const handleChipClick = (chipId) => {
+    const clickedChip = chips.find((chip) => chip.id === chipId);
+    const isSelected = selectedChips.includes(chipId);
+
+    if (isSelected) {
+      handleChipDelete(chipId);
+    } else {
+      setSelectedChips([...selectedChips, chipId]);
+      const remainingChips = chips.filter((chip) => chip.id !== chipId);
+      setChips([clickedChip, ...remainingChips]);
     }
-    const newClickedButtons = [button, ...clickedButtons];
-    setClickedButtons(newClickedButtons);
   };
 
-  const handleCloseClick = (button) => {
-    const newClickedButtons = clickedButtons.filter(
-      (clickedButton) => clickedButton.id !== button.id
-    );
-    setClickedButtons(newClickedButtons);
+  const handleChipDelete = (chipId) => {
+    setSelectedChips(selectedChips.filter((id) => id !== chipId));
+    const clickedChip = chips.find((chip) => chip.id === chipId);
+    const remainingChips = chips.filter((chip) => chip.id !== chipId);
+
+    // Insert the chip back at its original position
+    const newChips = [...remainingChips];
+    newChips.splice(clickedChip.originalIndex, 0, clickedChip);
+    setChips(newChips);
+  };
+
+  const scrollLeft = () => {
+    carouselRef.current.scrollBy({ left: -200, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    carouselRef.current.scrollBy({ left: 200, behavior: "smooth" });
   };
 
   return (
-    <>
-      {clickedButtons.map((button) => (
-        <div key={button.id} className="w-auto ">
-          <button
-            className={`group relative px-5 py-[10px] flex items-center  justify-between w-full shadow-md border-[#E4E7EC]  border rounded transition-all duration-500 ${
-              clickedButtons.length > 0
-                ? "bg-brand-500 text-white"
-                : "bg-white text-[#2a391d]"
-            } focus:outline-none`}
+    <div className="bg-white">
+      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto">
+        <Box
+          sx={{ display: "flex", width: "1280px", overflow: "hidden" }}
+          ref={containerRef}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              backgroundColor: "#F0F0F0",
+              display: "flex",
+              alignItems: "center",
+              paddingLeft: "20px",
+              paddingRight: "20px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              marginTop: "16px",
+              marginBottom: "16px",
+              borderRadius: "6px",
+            }}
           >
-            <img
-              src={button.icon}
-              alt="Icon"
-              width="18"
-              height="18"
-              className={`group-focus:brightness-0 group-focus:invert ${
-                clickedButtons.includes(button) ? "brightness-0 invert" : ""
-              }`}
-            />
-            <p className="flex-grow text-sm font-medium font-open_sans mx-2">
-              {button.label}
-            </p>
-            <div
-              className="absolute right-1 top-1/2 transform -translate-y-1/2 visible me-1"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleCloseClick(button);
+            <div className="w-auto">
+              <p className="font-open_sans text-sm font-normal text-[#344054]">
+                Quick Filters:
+              </p>
+            </div>
+            {showButtons && (
+              <IconButton
+                onClick={scrollLeft}
+                sx={{
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "50%",
+                  "&:hover": {
+                    backgroundColor: "#333", // Darker black on hover
+                  },
+                }}
+              >
+                <ArrowBackIosIcon />
+              </IconButton>
+            )}
+            <Box
+              ref={carouselRef}
+              sx={{
+                display: "flex",
+                gap: 1,
+                overflowX: "auto",
+                flex: 1,
+                padding: "10px 24px",
+                whiteSpace: "nowrap",
+                "::-webkit-scrollbar": { display: "none" },
+                msOverflowStyle: "none",
+                scrollbarWidth: "none",
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <path
-                  d="M12 4L4 12M4 4L12 12"
-                  stroke="white"
-                  strokeWidth="1.3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+              {chips.map((chip) => (
+                <Chip
+                  key={chip.id}
+                  avatar={
+                    <img
+                      src={chip.icon}
+                      alt={chip.label}
+                      style={{
+                        width: 14,
+                        height: 14,
+                        filter: selectedChips.includes(chip.id)
+                          ? "invert(1)"
+                          : "none",
+                      }}
+                    />
+                  }
+                  label={chip.label}
+                  clickable
+                  onClick={() => handleChipClick(chip.id)}
+                  onDelete={
+                    selectedChips.includes(chip.id)
+                      ? () => handleChipDelete(chip.id)
+                      : undefined
+                  }
+                  deleteIcon={
+                    <CloseIcon
+                      sx={{
+                        color: selectedChips.includes(chip.id)
+                          ? "white !important"
+                          : "inherit",
+                      }}
+                    />
+                  }
+                  sx={{
+                    paddingLeft: "16px",
+                    paddingRight: "16px",
+                    borderRadius: "4px",
+                    maxWidth: "179px !important",
+                    height: "42px !important",
+                    backgroundColor: selectedChips.includes(chip.id)
+                      ? "#125b54"
+                      : "white",
+                    color: selectedChips.includes(chip.id)
+                      ? "white"
+                      : "inherit",
+                    "&:hover": {
+                      backgroundColor: selectedChips.includes(chip.id)
+                        ? "#125b54"
+                        : "#e7f8f8",
+                    },
+                    minWidth: "auto", // Ensure text is not truncated
+                    whiteSpace: "nowrap", // Prevent text wrapping
+                    overflow: "visible", // Ensure full visibility of text
+                    display: "inline-flex", // Allow the chip to grow based on content
+                  }}
                 />
-              </svg>
-            </div>
-          </button>
-        </div>
-      ))}
+              ))}
 
-      {buttons
-        .filter(
-          (button) =>
-            !clickedButtons.some(
-              (clickedButton) => clickedButton.id === button.id
-            )
-        )
-        .map((button) => (
-          <div key={button.id} className="w-auto">
-            <button
-              className="group relative px-4 py-[10px] flex items-center justify-between w-full shadow-md border-[#E4E7EC] bg-white text-black border rounded hover:bg-brand-100 hover:border-brand-200 transition-all duration-500 focus:outline-none pe-2"
-              onClick={() => handleButtonClick(button)}
-            >
-              <img
-                src={button.icon}
-                alt="Icon"
-                width="18"
-                height="18"
-                className={`group-focus:brightness-0 group-focus:invert ${
-                  clickedButtons.includes(button) ? "brightness-0 invert" : ""
-                }`}
-              />
-              <p className="flex-grow text-sm font-medium font-open_sans mx-2">
-                {button.label}
-              </p>
-            </button>
-          </div>
-        ))}
-    </>
+              <StrategyCheck />
+              <SectorSelect />
+            </Box>
+            {showButtons && (
+              <IconButton
+                onClick={scrollRight}
+                sx={{
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "50%",
+                  "&:hover": {
+                    backgroundColor: "#333", // Darker black on hover
+                  },
+                }}
+              >
+                <ArrowForwardIosIcon />
+              </IconButton>
+            )}
+          </Box>
+        </Box>
+      </div>
+    </div>
   );
 };
 
-export default FilterMenuTags;
+export default FilterCarousel;

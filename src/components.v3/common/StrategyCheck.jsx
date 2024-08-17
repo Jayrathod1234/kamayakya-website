@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const sectors = ["Deep Value", "Market Leader", "Special Situation", "Banking"];
 
@@ -66,15 +67,13 @@ export default function StrategyCheck() {
   );
 
   return (
-    <Box>
+    <Box sx={{maxWidth:"148px"}}>
       <Button
         ref={anchorRef}
         variant="outlined"
         onClick={handleClick}
         endIcon={
-          <img
-            src="/assets/chevron-down.svg"
-            alt=""
+          <KeyboardArrowDownIcon
             style={{
               filter: selectedSectors.length > 0 ? "brightness(0) invert(1)" : "none",
             }}

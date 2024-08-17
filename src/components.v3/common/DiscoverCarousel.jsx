@@ -105,7 +105,7 @@ const DiscoverCarousel = ({ strategyTagList, colors }) => {
 
   return (
     <>
-      <div className="embla" ref={emblaRef}>
+      <div className="embla sm:pe-96" ref={emblaRef}>
         <div className="embla__container flex gap-[28px]">
           {carouselItemComponents}
         </div>
