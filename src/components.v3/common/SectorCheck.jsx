@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchIcon from "@mui/icons-material/Search";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const sectors = [
   "Agricultural",
@@ -78,9 +79,7 @@ export default function SectorSelect() {
         variant="outlined"
         onClick={handleClick}
         endIcon={
-          <img
-            src="/assets/chevron-down.svg"
-            alt=""
+          <KeyboardArrowDownIcon
             style={{
               filter: selectedSectors.length > 0 ? "brightness(0) invert(1)" : "none",
             }}

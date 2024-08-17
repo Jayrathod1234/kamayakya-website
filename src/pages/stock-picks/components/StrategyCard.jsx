@@ -45,7 +45,7 @@ function StrategyCard() {
           and to find your perfect investment match!
         </p>
       </div>
-      <div className="pb-[110px] pl-32 pr-32">
+      <div className="pb-[110px] pl-32 pr-32 sm:pr-96 overflow-hidden">
         <div className="pt-10 pb-8">
           <div className="flex justify-between gap-4">
             {isLoading || error ? (

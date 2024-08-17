@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MainBoardArea from "../common/MainBoardArea.jsx";
 import SelectDrop from "../common/SelectDrop.jsx";
 import RadioDrop from "../common/RadioDrop.jsx";
@@ -6,6 +6,8 @@ import StockCard from "../common/StockCard.jsx";
 import Nonlogincard from "../common/Nonlogincard.jsx";
 import RadioSelectDropdown from "../common/RadioDrop.jsx";
 import Button from "@mui/material/Button";
+import FilterMenuTagsdummy from './FilterMenuTagsdummy'
+
 
 import {
   Box,
@@ -727,14 +729,45 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   // const handleChange = (event) => {
   //   setSelectedValue(event.target.value);
   // };
-  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSearch = () => {
-    setIsOpen((prev) => !prev);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [search, setSearch] = useState("");
+  const inputRef = useRef(null);
+  const formRef = useRef(null);
+
+  // Function to handle click on the search button
+  const handleSearchClick = () => {
+    setIsExpanded(!isExpanded);
+    if (!isExpanded) {
+      // Focus the input when it expands
+      setTimeout(() => inputRef.current.focus(), 300);
+    }
   };
+
+  // Collapse the search bar when clicking outside of it
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (
+  //       inputRef.current &&
+  //       !inputRef.current.contains(event.target) &&
+  //       formRef.current &&
+  //       !formRef.current.contains(event.target)
+  //     ) {
+  //       setIsExpanded(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
+
+ 
 
   return (
     <>
+          <FilterMenuTags/>
       <div className="bg-white sticky top-12 left-0 z-[8]">
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center justify-between pt-4">
           {/* <div className="w-auto">
@@ -745,43 +778,49 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
 
           {/* Import FilterMenuTag here */}
 
-          <FilterMenuTags />
-
+         
+            <FilterMenuTagsdummy/>
           <div className="">
             <StrategyCheck />
           </div>
           <div className="">
             <SectorSelect />
           </div>
-          <div className="flex gap-[10] items-center">
+          <div className="flex gap-[10px] items-center">
             <form
-              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear ${isOpen ? "border-[#108973]" : ""
-                }`}
+              ref={formRef}
+              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear ${isExpanded ? 'w-full' : 'w-auto'}`}
             >
               <input
                 type="text"
                 placeholder="Search"
-                className={`search__input transition-width duration-300 ${isOpen ? "w-[200px] px-2" : "w-0"
-                  }`}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onFocus={() => setIsExpanded(true)}
+                onBlur={() => {
+                  if (!search) setIsExpanded(false)
+                }}
+                ref={inputRef}
+                className={`search__input transition-width duration-300 ${isExpanded ? 'w-full px-2' : 'w-0'}`}
               />
               <button
                 type="button"
-                onClick={toggleSearch}
-                className="search__button grid place-items-center w-[35px] h-[35px] cursor-pointer transition-colors duration-[0.25s] hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full "
+                onClick={handleSearchClick}
+                className="search__button grid place-items-center w-[35px] h-[35px] cursor-pointer transition-colors duration-[0.25s] hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
-                  fill="#0000"
+                  fill="none"
                 >
                   <path
                     d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
                     stroke="#667085"
-                    stroke-width="1.66667"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="1.66667"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </button>

@@ -1805,7 +1805,7 @@ header > div > div {
   min-width: 48rem;
   --slide-height: 19rem;
   --slide-spacing: 1rem;
-  --slide-size: 50%;
+  --slide-size: 70%;
 }
 .radio-input input {
   display: none;
@@ -1888,4 +1888,9 @@ header > div > div {
   color: inherit;
   border: none;
   outline: none;
+}
+
+.css-6od3lo-MuiChip-label{
+  overflow: visible !important;
+  text-overflow: initial !important;
 }
