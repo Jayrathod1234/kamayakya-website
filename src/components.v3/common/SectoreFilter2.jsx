@@ -11,16 +11,16 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 
 const sectors = [
-  "Deep Value",
-  "Market Leader ",
-  "Special Situation",
-  "Special Situation",
-  "Special Situation",
-  "Special Situation",
-  "Special Situation", // Duplicated entry as per your image
+  "Agricultural",
+  "Automobile & Ancillaries ",
+  "Banking",
+  "Consumer Durables",
+  "Derived Materials",
+  "Financial",
+  "Agricultural", // Duplicated entry as per your image
 ];
 
-const SectorFilter = () => {
+const SectorFilter2 = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [checkedItems, setCheckedItems] = useState([]);
 
@@ -95,4 +95,4 @@ const SectorFilter = () => {
   );
 };
 
-export default SectorFilter;
+export default SectorFilter2;
