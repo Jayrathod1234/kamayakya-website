@@ -3,7 +3,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 function DiscoverCardSkeleton({ length }) {
   return Array.from({ length }).map((_, index) => (
-    <div key={index} className="w-1/4 discover_card_carousel">
+    <div key={index} className=" discover_card_carousel gap-12">
       <div className="card group transition-all duration-500 education border border-gray-200">
         <Skeleton
           animation="wave"

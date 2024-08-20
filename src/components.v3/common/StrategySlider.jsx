@@ -91,7 +91,9 @@ const StrategySlider = ({ children }) => {
   return (
     <>
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container flex gap-[28px] ">{children}</div>
+        <div className="embla__container flex sm:gap-[28px] gap-12 ">
+          {children}
+        </div>
       </div>
       <div className="">
         <div className="embla__buttons ">

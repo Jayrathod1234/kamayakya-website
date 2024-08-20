@@ -25,27 +25,26 @@ function SebiBoardTab({ setSebiBoardType }) {
   return (
     <>
       <div className="absolute top-0 left-0 w-full h-[300px] md:h-full">
-  <video
-    autoPlay
-    muted
-    playsInline
-    loop
-    className="h-full w-full object-cover"
-  >
-    <source
-      src="/assets/-7d58-4850-b149-dc7147331e8d.mp4"
-      type="video/mp4"
-    />
-  </video>
-  <div className="absolute top-0 left-0 h-full w-full">
-    <img
-      src="/assets/bg-vector.svg"
-      alt=""
-      className="h-full w-full object-cover"
-    />
-  </div>
-</div>
-
+        <video
+          autoPlay
+          muted
+          playsInline
+          loop
+          className="h-full w-full object-cover"
+        >
+          <source
+            src="/assets/-7d58-4850-b149-dc7147331e8d.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div className="absolute top-0 left-0 h-full w-full">
+          <img
+            src="/assets/bg-vector.svg"
+            alt=""
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
 
       <div className="relative w-full max-w-[1280px] min-w-[328px] mx-auto px-4 max-h-[700px] md:max-h-[950px]">
         <div className="min-w-[280px] md:min-w-[470px] z-5 text-center relative">

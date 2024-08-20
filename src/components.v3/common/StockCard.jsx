@@ -20,7 +20,7 @@ function StockCard({
 }) {
   let tabImage = null;
   let cardClass = "";
-  let innerClass = "relative rounded-lg bg-white shadow-6xs min-w-[408px] ";
+  let innerClass = "relative rounded-lg bg-white shadow-6xs  ";
 
   if (new_stock & recommended_stock) {
     tabImage = "hot-newtab";
@@ -37,7 +37,7 @@ function StockCard({
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
-    <div>
+    <>
       {/* new stock card  */}
       <div className="flex relative main_card_carousel">
         <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
@@ -151,11 +151,12 @@ function StockCard({
                     </p>
                   </div>
                   <div className="flex gap-[2px] items-center font-open_sans">
+                    {/* green up arrow  */}
                     <img src="/assets/Polygon 2.svg" alt="" className="w-2" />
+                    {/* red down arrow  */}
+                    {/* <img src="/assets/Polygon 3.svg" alt="" className="w-2" /> */}
                     {!expected_returns ? (
-                      <p className="text-2xs font-bold text-gray-800 font-open_sans blur-sm">
-                        0%
-                      </p>
+                      <p className="text-2xs font-bold text-gray-800 font-open_sans  w-[26px] h-3 bg-[#E4E7EC] rounded-full "></p>
                     ) : (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans">
                         {expected_returns}%
@@ -281,7 +282,7 @@ function StockCard({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

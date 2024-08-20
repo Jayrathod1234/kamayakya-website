@@ -862,7 +862,7 @@ function AllBoardStockSection({ sebiBoardType }) {
   return (
     <>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
-        <p className="text-display-xs text-[#0C111D] font-bold font-open_sans text-center pb-10">
+        <p className="text-display-xs text-[#0C111D] font-bold font-open_sans text-center sm:pb-10 pb-4">
           All Mainboard Stocks
         </p>
 
@@ -892,46 +892,44 @@ function AllBoardStockSection({ sebiBoardType }) {
             </form>
           </div>
           <div className="w-auto">
-            <div className="relative">
+            <div className="relative flex gap-4">
               <CustomSortMenu />
-            </div>
-          </div>
-          <div className="w-auto">
-            <Button
-              variant="outlined"
-              onClick={toggleDrawer(true)}
-              className="relative bg-white border !border-[#E4E7EC] !py-[10px] !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
-            >
-              <img src="/assets/filter.svg" alt="" />
-              <p className="font-open_sans text-brand-500 font-medium">
-                Filter{" "}
-              </p>
-              <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
-                1
+              <div className="w-auto">
+                <Button
+                  variant="outlined"
+                  onClick={toggleDrawer(true)}
+                  className="relative bg-white border !border-[#E4E7EC] !py-[10px] !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
+                >
+                  <img src="/assets/filter.svg" alt="" />
+                  <p className="font-open_sans text-brand-500 font-medium">
+                    Filter{" "}
+                  </p>
+                  <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+                    1
+                  </div>
+                </Button>
+                <Drawer open={open} anchor="right" onClose={() => {}}>
+                  {DrawerList}
+                </Drawer>
               </div>
-            </Button>
-            <Drawer open={open} anchor="right" onClose={() => {}}>
-              {DrawerList}
-            </Drawer>
+            </div>
           </div>
         </div>
       </div>
+      {/* filter menu code not delete -nehakikani */}
       {/* main filter  */}
       {!showFilterHeader ? (
         <>
           {/* <Filtermenu2 /> */}
-          <FilterMenuTags />
+          {/* <FilterMenuTags /> */}
         </>
       ) : (
         <>
-          <Filtermenu
+          {/* <Filtermenu
             ref={filterHeaderRef}
-            // className={`fixed top-0 left-0 w-full p-10 bg-orange-600 transition-transform duration-500 ${
-            //   showFilterHeader ? "translate-y-0" : "-translate-y-full"
-            // }`}
             role="banner"
             aria-hidden={!showFilterHeader}
-          />
+          /> */}
         </>
       )}
       {/* <FilterCarousel /> */}
@@ -939,8 +937,8 @@ function AllBoardStockSection({ sebiBoardType }) {
       {/* sticky filtermenu */}
 
       {/* blur card  */}
-      <div className=" bg-[#F2F4F7] py-10 px-20 relative " ref={xyzRef}>
-        <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
+      <div className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative " ref={xyzRef}>
+        <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7">
             {/* <Nonlogincard /> */}
             {/* <MainBoardArea /> */}
