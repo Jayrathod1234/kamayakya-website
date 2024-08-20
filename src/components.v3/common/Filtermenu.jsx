@@ -42,6 +42,8 @@ import SectorFilter from "./SizeSelector.jsx";
 import StrategyCheck from "./StrategyCheck.jsx";
 import SectorSelect from "./SectorCheck.jsx";
 import CustomSortMenu from "../common/RadioDrop.jsx";
+import FilterCarousel2 from "./FilterMenuTags2.jsx";
+import FilterMenuTags2 from "./FilterMenuTags2.jsx";
 
 function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
   const stockList = [
@@ -123,10 +125,13 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
       new_stock: true,
     },
   ];
-  const [open, setOpen] = React.useState(false);
-
+  // Sidebar right side
+  const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
+  };
+  const handleApply = () => {
+    setOpen(false);
   };
   // sticky header
   const filterHeaderRef = useRef(null);
@@ -739,25 +744,22 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
       {/* button  */}
       <div className="pt-[61px]">
         <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
-          <button class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]">
+          <button
+            class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+            onClick={toggleDrawer(false)}
+          >
             Cancel
           </button>
-          <button class=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] ">
+          <button
+            class=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
+            onClick={handleApply}
+          >
             Apply
           </button>
         </div>
       </div>
     </Box>
   );
-
-  // step
-
-  // const [selectedValue, setSelectedValue] = useState("");
-
-  // const handleChange = (event) => {
-  //   setSelectedValue(event.target.value);
-  // };
-
   const [isExpanded, setIsExpanded] = useState(false);
   const [search, setSearch] = useState("");
   const inputRef = useRef(null);
@@ -772,67 +774,26 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
     }
   };
 
-  // Collapse the search bar when clicking outside of it
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (
-  //       inputRef.current &&
-  //       !inputRef.current.contains(event.target) &&
-  //       formRef.current &&
-  //       !formRef.current.contains(event.target)
-  //     ) {
-  //       setIsExpanded(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
-  // return (
-  //   <>
-  //     <FilterMenuTags />
-  //     <div className="bg-white sticky top-12 left-0 z-[8]">
   return (
     <>
       {/* <FilterMenuTags /> */}
-      <div
-        className="sticky top-[50px] right-0 z-[88] bg-white "
-        // ref={filterHeaderRef}
-        // className={`fixed top-0 left-0 w-full p-10 bg-orange-600 transition-transform duration-500 ${
-        //   showFilterHeader ? "translate-y-0" : "-translate-y-full"
-        // }`}
-        // role="banner"
-        // aria-hidden={!showFilterHeader}
-      >
+      <div className="sticky top-[50px] right-0 z-[88] bg-[#f2f4f7] ">
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center justify-between pt-4">
-          {/* <div className="w-auto">
-            <p className="font-open_sans text-sm font-normal text-[#344054]">
-              Quick Filters:
-            </p>
-          </div> */}
-
           {/* Import FilterMenuTag here */}
 
-          <FilterMenuTagsdummy />
-          <div className="">
-            <StrategyCheck />
-          </div>
-          <div className="">
-            <SectorSelect />
-          </div>
+          {/* <FilterMenuTagsdummy /> */}
+          <FilterMenuTags2/>
+          
           <div className="flex gap-[10px] items-center">
             <form
               ref={formRef}
-              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear ${
+              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear bg-white focus:border-red-800 ${
                 isExpanded ? "w-full" : "w-auto"
-              }`}
+              }`} 
             >
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Search Stocks by Name"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 onFocus={() => setIsExpanded(true)}
@@ -847,7 +808,7 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
               <button
                 type="button"
                 onClick={handleSearchClick}
-                className="search__button grid place-items-center w-[35px] h-[35px] cursor-pointer transition-colors duration-[0.25s] hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full"
+                className="search__button grid place-items-center w-[35px] h-[35px] cursor-pointer transition-colors duration-[0.25s] hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -876,13 +837,13 @@ function Filtermenu({ Filtermenu, FiltermenuSidebar }) {
             >
               <img src="/assets/filter.svg" alt="" />
               <p className="font-open_sans text-brand-500 font-medium">
-                Filterrrr{" "}
+                Filter{" "}
               </p>
               <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
-                1
+                2
               </div>
             </Button>
-            <Drawer open={open} onClose={toggleDrawer(false)}>
+            <Drawer open={open} anchor="right" onClose={() => {}}>
               {DrawerList}
             </Drawer>
           </div>

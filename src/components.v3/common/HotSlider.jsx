@@ -245,7 +245,7 @@ export function HotSlider({ children }) {
                 </div>
             </div>
             {/* indicator */}
-            <div className=" flex gap-4 justify-center items-center py-2 bg-white rounded-full w-[35%] mx-auto">
+            <div className=" flex gap-4 justify-center items-center py-2 bg-white rounded-full w-auto max-w-32 mx-auto">
                 {scrollSnaps.map((_, index) => (
                     <div
                         onClick={() => onDotButtonClick(index)}

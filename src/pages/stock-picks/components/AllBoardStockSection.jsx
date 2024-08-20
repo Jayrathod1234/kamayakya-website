@@ -112,10 +112,15 @@ function AllBoardStockSection({ sebiBoardType }) {
     setSearchStock(e.target.value);
   };
 
-  const [open, setOpen] = React.useState(false);
+
+  // Sidebar right side 
+  const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
+     setOpen(newOpen);
   };
+  const handleApply = () => {
+    setOpen(false);
+  }
   // sticky header
 
   const filterHeaderRef = useRef(null);
@@ -257,9 +262,7 @@ function AllBoardStockSection({ sebiBoardType }) {
       sx={{ width: 400 }}
       role="presentation"
       onClick={toggleDrawer(false)}
-      className={`${
-        Filtermenu ? "translate-x-0" : "-translate-x-full"
-      }transition-all duration-500`}
+      onKeyDown={toggleDrawer(false)}
     >
       {/* topbar  */}
       <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
@@ -267,7 +270,10 @@ function AllBoardStockSection({ sebiBoardType }) {
           <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">
             Filters
           </div>
-          <div className="text-[#125B54] text-sm font-semibold cursor-pointer">
+          <div
+            className="text-[#125B54] text-sm font-semibold cursor-pointer"
+            onClick={toggleDrawer(false)}
+          >
             Clear All
           </div>
         </div>
@@ -719,10 +725,16 @@ function AllBoardStockSection({ sebiBoardType }) {
       {/* button  */}
       <div className="pt-[61px]">
         <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
-          <button class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]">
+          <button
+            class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+            onClick={toggleDrawer(false)}
+          >
             Cancel
           </button>
-          <button class=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] ">
+          <button
+            class=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
+            onClick={handleApply}
+          >
             Apply
           </button>
         </div>
@@ -787,7 +799,7 @@ function AllBoardStockSection({ sebiBoardType }) {
                 1
               </div>
             </Button>
-            <Drawer open={open} onClose={toggleDrawer(false)}>
+            <Drawer open={open}  anchor="right" onClose={()=>{}}>
               {DrawerList}
             </Drawer>
           </div>
