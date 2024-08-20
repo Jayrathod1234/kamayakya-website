@@ -8,24 +8,24 @@ import LatestReleases from "@/pages/stock-picks/components/LatestReleases";
 import StrategyCard from "@/pages/stock-picks/components/StrategyCard";
 import AllBoardStockSection from "@/pages/stock-picks/components/AllBoardStockSection";
 import InvestmentSection from "./components/InvestmentSection";
-
-// const SebiBoardTab = dynamic(() =>
-//   import("@/pages/stock-picks/components/SebiBoardTab")
-// );
-// const HotStockSection = dynamic(() =>
-//   import("@/pages/stock-picks/components/HotStockSection")
-// );
-// const LatestReleases = dynamic(() =>
-//   import("@/pages/stock-picks/components/LatestReleases")
-// );
-// const StrategyCard = dynamic(() =>
-//   import("@/pages/stock-picks/components/StrategyCard")
-// );
-// const AllBoardStockSection = dynamic(() =>
-//   import("@/pages/stock-picks/components/AllBoardStockSection")
-// );
+import { useQuery } from "@tanstack/react-query";
+import { getCommonDetailsApi } from "@/api/stock-picks";
 
 const StockPicks = () => {
+  // Use react-query to fetch
+  const {
+    data: items = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["commonDetails"],
+    queryFn: getCommonDetailsApi,
+  });
+  const {
+    total_mainboard_stocks,
+    total_sme_stocks,
+    stock_choices: { stock_sectors } = {},
+  } = items;
   const [sebiBoardType, setSebiBoardType] = useState("mainboard");
 
   // useCallback to memoize the setSebiBoardType function
@@ -33,20 +33,35 @@ const StockPicks = () => {
     setSebiBoardType(type);
   }, []);
 
+  const stockSector = stock_sectors?.reduce((acc, { value, label }) => {
+    acc[value] = label;
+    return acc;
+  }, {});
+
   return (
     <Layout>
       <div className=" font-open_sans h-[805px] relative">
         {/* SebiBoardTab */}
-        <SebiBoardTab setSebiBoardType={handleSebiBoardTypeChange} />
+        <SebiBoardTab
+          setSebiBoardType={handleSebiBoardTypeChange}
+          total_mainboard_stocks={total_mainboard_stocks}
+          total_sme_stocks={total_sme_stocks}
+        />
         {/* Bannerhotstockscard */}
-        <HotStockSection sebiBoardType={sebiBoardType} />
+        <HotStockSection
+          sebiBoardType={sebiBoardType}
+          stockSector={stockSector}
+        />
       </div>
       {/* Latest Releases  */}
-      <LatestReleases sebiBoardType={sebiBoardType} />
+      <LatestReleases sebiBoardType={sebiBoardType} stockSector={stockSector} />
       {/* Discover by Strategy */}
       <StrategyCard />
       {/* All Mainboard Stocks */}
-      <AllBoardStockSection sebiBoardType={sebiBoardType} />
+      <AllBoardStockSection
+        sebiBoardType={sebiBoardType}
+        stockSector={stockSector}
+      />
     </Layout>
   );
 };

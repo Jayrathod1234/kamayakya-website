@@ -996,3 +996,316 @@ export const getAllBoardStockStockResponse = {
   ],
   total_pages: 2,
 };
+
+export const getCommonDetailsResponse = [
+  {
+    min_upside_left: 0,
+    max_upside_left: 200,
+    min_returns: 6.67,
+    max_returns: 263.86,
+    total_mainboard_stocks: 16,
+    total_sme_stocks: 3,
+    stock_choices: {
+      stock_actions: [
+        {
+          value: "BUY",
+          label: "BUY",
+        },
+        {
+          value: "HOLD",
+          label: "HOLD",
+        },
+        {
+          value: "SELL",
+          label: "SELL",
+        },
+      ],
+      stock_risks: [
+        {
+          value: "Low",
+          label: "Low",
+        },
+        {
+          value: "Medium",
+          label: "Medium",
+        },
+        {
+          value: "High",
+          label: "High",
+        },
+      ],
+      market_cap_types: [
+        {
+          value: "Large",
+          label: "Large",
+        },
+        {
+          value: "Mid",
+          label: "Mid",
+        },
+        {
+          value: "Small",
+          label: "Small",
+        },
+      ],
+      stock_sectors: [
+        {
+          value: "defence",
+          label: "Defence",
+        },
+        {
+          value: "aerospace",
+          label: "Aerospace",
+        },
+        {
+          value: "alcohol",
+          label: "Alcohol",
+        },
+        {
+          value: "auto-ancillaries",
+          label: "Auto Ancillaries",
+        },
+        {
+          value: "automobile",
+          label: "Automobile",
+        },
+        {
+          value: "banks",
+          label: "Banks",
+        },
+        {
+          value: "bearings",
+          label: "Bearings",
+        },
+        {
+          value: "cables",
+          label: "Cables",
+        },
+        {
+          value: "capital-goods",
+          label: "Capital Goods",
+        },
+        {
+          value: "castings-forgings-fasteners",
+          label: "Castings, Forgings & Fasteners",
+        },
+        {
+          value: "cement",
+          label: "Cement",
+        },
+        {
+          value: "ceramic-products",
+          label: "Ceramic Products",
+        },
+        {
+          value: "chemicals",
+          label: "Chemicals",
+        },
+        {
+          value: "education",
+          label: "Education",
+        },
+        {
+          value: "construction",
+          label: "Construction",
+        },
+        {
+          value: "consumer-durables",
+          label: "Consumer Durables",
+        },
+        {
+          value: "crude-oil-natural-gas",
+          label: "Crude Oil & Natural Gas",
+        },
+        {
+          value: "jewellery",
+          label: "Jewellery",
+        },
+        {
+          value: "diversified",
+          label: "Diversified",
+        },
+        {
+          value: "new-age-it",
+          label: "New Age IT",
+        },
+        {
+          value: "electronics",
+          label: "Electronics",
+        },
+        {
+          value: "entertainment",
+          label: "Entertainment",
+        },
+        {
+          value: "fertilizers",
+          label: "Fertilizers",
+        },
+        {
+          value: "finance",
+          label: "Finance",
+        },
+        {
+          value: "fmcg",
+          label: "FMCG",
+        },
+        {
+          value: "gas-distribution",
+          label: "Gas Distribution",
+        },
+        {
+          value: "glass-glass-products",
+          label: "Glass & Glass Products",
+        },
+        {
+          value: "healthcare",
+          label: "Healthcare",
+        },
+        {
+          value: "hotels-restaurants",
+          label: "Hotels & Restaurants",
+        },
+        {
+          value: "infrastructure-developers-operators",
+          label: "Infrastructure Developers & Operators",
+        },
+        {
+          value: "insurance",
+          label: "Insurance",
+        },
+        {
+          value: "it",
+          label: "IT",
+        },
+        {
+          value: "logistics",
+          label: "Logistics",
+        },
+        {
+          value: "marine-port-services",
+          label: "Marine Port & Services",
+        },
+        {
+          value: "media",
+          label: "Media",
+        },
+        {
+          value: "mining-mineral-products",
+          label: "Mining & Mineral products",
+        },
+        {
+          value: "miscellaneous",
+          label: "Miscellaneous",
+        },
+        {
+          value: "packaging",
+          label: "Packaging",
+        },
+        {
+          value: "paints",
+          label: "Paints",
+        },
+        {
+          value: "paper",
+          label: "Paper",
+        },
+        {
+          value: "pharmaceuticals",
+          label: "Pharmaceuticals",
+        },
+        {
+          value: "plastic-products",
+          label: "Plastic products",
+        },
+        {
+          value: "plywood-boards-laminates",
+          label: "Plywood Boards/Laminates",
+        },
+        {
+          value: "power-generation-distribution",
+          label: "Power Generation & Distribution",
+        },
+        {
+          value: "printing-stationery",
+          label: "Printing & Stationery",
+        },
+        {
+          value: "quick-service-restaurant",
+          label: "Quick Service Restaurant",
+        },
+        {
+          value: "railways",
+          label: "Railways",
+        },
+        {
+          value: "readymade-garments-apparels",
+          label: "Readymade Garments/ Apparels",
+        },
+        {
+          value: "investment-trusts",
+          label: "Investment Trusts",
+        },
+        {
+          value: "renewable",
+          label: "Renewable",
+        },
+        {
+          value: "real-estate",
+          label: "Real estate",
+        },
+        {
+          value: "refineries",
+          label: "Refineries",
+        },
+        {
+          value: "refractories",
+          label: "Refractories",
+        },
+        {
+          value: "retail",
+          label: "Retail",
+        },
+        {
+          value: "sanitaryware",
+          label: "Sanitaryware",
+        },
+        {
+          value: "ship-building",
+          label: "Ship Building",
+        },
+        {
+          value: "steel",
+          label: "Steel",
+        },
+        {
+          value: "sugar",
+          label: "Sugar",
+        },
+        {
+          value: "stock-investment-companies",
+          label: "Stock/ Investment companies",
+        },
+        {
+          value: "telecom",
+          label: "Telecom",
+        },
+        {
+          value: "textiles",
+          label: "Textiles",
+        },
+        {
+          value: "trading",
+          label: "Trading",
+        },
+        {
+          value: "tyres-ancillaries",
+          label: "Tyres & Ancillaries",
+        },
+        {
+          value: "holding-company",
+          label: "Holding company",
+        },
+      ],
+    },
+  },
+];

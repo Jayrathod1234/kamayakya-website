@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { Box, Chip, IconButton } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -8,7 +8,8 @@ import SectorSelect from "./SectorCheck";
 
 const FilterMenuTags2 = () => {
   const [selectedChips, setSelectedChips] = useState([]);
-  const [showButtons, setShowButtons] = useState(false);
+  const [showLeftButton, setShowLeftButton] = useState(false);
+  const [showRightButton, setShowRightButton] = useState(false);
   const [chips, setChips] = useState([
     {
       label: "Most Recent",
@@ -17,7 +18,7 @@ const FilterMenuTags2 = () => {
       icon: "/assets/watch.svg",
     },
     {
-      label: "Value Pick",
+      label: "Value Pickkkkk",
       id: 2,
       originalIndex: 1,
       icon: "/assets/Pricing.svg",
@@ -48,11 +49,32 @@ const FilterMenuTags2 = () => {
   const carouselRef = useRef(null);
   const containerRef = useRef(null);
 
-  useLayoutEffect(() => {
+  const updateButtonVisibility = () => {
     const containerWidth = containerRef.current.offsetWidth;
     const contentWidth = carouselRef.current.scrollWidth;
-    setShowButtons(contentWidth > containerWidth);
+    const scrollLeft = carouselRef.current.scrollLeft;
+    const maxScrollLeft = contentWidth - containerWidth;
+
+    setShowLeftButton(scrollLeft > 0);
+    setShowRightButton(scrollLeft < maxScrollLeft);
+  };
+
+  useLayoutEffect(() => {
+    updateButtonVisibility();
   }, [selectedChips, chips]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      updateButtonVisibility();
+    };
+
+    const carousel = carouselRef.current;
+    carousel.addEventListener("scroll", handleScroll);
+
+    return () => {
+      carousel.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleChipClick = (chipId) => {
     const clickedChip = chips.find((chip) => chip.id === chipId);
@@ -99,12 +121,10 @@ const FilterMenuTags2 = () => {
               backgroundColor: "#f2f4f7",
               display: "flex",
               alignItems: "center",
-                
             }}
           >
-            
             {/* left side arrow  */}
-            {/* {showButtons && (
+            {showLeftButton && (
               <IconButton
                 onClick={scrollLeft}
                 sx={{
@@ -118,7 +138,7 @@ const FilterMenuTags2 = () => {
               >
                 <ArrowBackIosIcon />
               </IconButton>
-            )} */}
+            )}
             <Box
               ref={carouselRef}
               sx={{
@@ -194,12 +214,12 @@ const FilterMenuTags2 = () => {
               <StrategyCheck />
               <SectorSelect />
             </Box>
-            {showButtons && (
+            {showRightButton && (
               <IconButton
                 onClick={scrollRight}
-                              sx={{
-                                  width: "44px",
-                                  height:"44px",
+                sx={{
+                  width: "44px",
+                  height: "44px",
                   backgroundColor: "black",
                   color: "white",
                   borderRadius: "50%",

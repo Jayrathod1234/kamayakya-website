@@ -2,7 +2,7 @@ import React from "react";
 import { HotSlider } from "@/components.v3/common/HotSlider.jsx";
 import StockCard from "@/components.v3/common/StockCard.jsx";
 
-const HotStockSectionSlider = ({ items }) => {
+const HotStockSectionSlider = ({ items, stockSector }) => {
   return (
     <div>
       <div className="relative z-[2] pb-[110px] mt-[20px]">
@@ -23,6 +23,7 @@ const HotStockSectionSlider = ({ items }) => {
                         <StockCard
                           key={value.id} // Ensure each item has a unique key
                           {...value}
+                          stockSector={stockSector}
                         />
                       ))}
                     </HotSlider>

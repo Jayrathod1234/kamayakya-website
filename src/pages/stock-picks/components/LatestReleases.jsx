@@ -5,7 +5,7 @@ import { getLatestReleasesStockListApi } from "@/api/stock-picks";
 import { useQuery } from "@tanstack/react-query";
 import AuthContext from "@/components/AuthContext";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
-function LatestReleases({ sebiBoardType }) {
+function LatestReleases({ sebiBoardType, stockSector }) {
   const { isLoggedIn } = useContext(AuthContext);
   // Use react-query to fetch
   const {
@@ -40,6 +40,7 @@ function LatestReleases({ sebiBoardType }) {
                     <StockCard
                       key={index} // Ensure each item has a unique key
                       {...value}
+                      stockSector={stockSector}
                     />
                   ))}
                 </Slider>

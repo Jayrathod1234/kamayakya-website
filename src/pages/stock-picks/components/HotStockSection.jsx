@@ -8,7 +8,7 @@ import HotStockSectionBlur from "./HotStockSectionBlur";
 import HotStockSectionSlider from "./HotStockSectionSlider";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { Skeleton } from "@mui/material";
-const HotStockSection = ({ sebiBoardType }) => {
+const HotStockSection = ({ sebiBoardType, stockSector }) => {
   const { isLoggedIn } = useContext(AuthContext);
   // Use react-query to fetch
   const {
@@ -52,11 +52,11 @@ const HotStockSection = ({ sebiBoardType }) => {
         </div>
       ) : isLimitedView ? (
         <>
-          <HotStockSectionBlur items={items} />
+          <HotStockSectionBlur items={items} stockSector={stockSector} />
         </>
       ) : (
         <>
-          <HotStockSectionSlider items={items} />
+          <HotStockSectionSlider items={items} stockSector={stockSector} />
         </>
       )}
     </>

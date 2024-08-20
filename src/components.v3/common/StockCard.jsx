@@ -17,6 +17,7 @@ function StockCard({
   stock_tags,
   expected_returns,
   return_time,
+  stockSector,
 }) {
   let tabImage = null;
   let cardClass = "";
@@ -33,7 +34,6 @@ function StockCard({
     tabImage = "hottab";
     innerClass += "border border-warning-300";
   }
-
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
@@ -89,7 +89,7 @@ function StockCard({
 
             <div className="pt-[12px] px-[20px] pb-[20px]">
               <div className=" flex items-center gap-[8px] ">
-                {sector && (
+                {stockSector && sector && (
                   <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
                     <img
                       src="/assets/streamline_hotel-air-conditioner-solid.svg"
@@ -97,7 +97,7 @@ function StockCard({
                       className="w-3"
                     />
                     <p className="text-[10px] font-semibold text-orange-700">
-                      {sector}
+                      {stockSector[sector]}
                     </p>
                   </div>
                 )}

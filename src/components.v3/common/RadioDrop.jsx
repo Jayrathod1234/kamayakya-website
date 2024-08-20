@@ -16,17 +16,32 @@ import {
   AccessTime,
   AccessTimeFilled,
 } from "@mui/icons-material";
-export default function CustomSortMenu() {
-  const radioButtonValue = {
-    upside_left_desc: "Upside Left : High to Low",
-    upside_left_asc: "Upside Left : Low to High",
-    recency_desc: "Recency : Newest to Oldest",
-    recency_asc: "Recency : Oldest to Newest",
-    time_left_desc: "Time Left : Longest to Shortest",
-    time_left_asc: "Time Left : Shortest to Longest",
-    returns_desc: "Returns : High to Low",
-    returns_asc: "Returns : Low to High",
-  };
+export default function CustomSortMenu({ setSortValue, setSortBy, isLabel }) {
+  let radioButtonValue = null;
+  if (isLabel) {
+    radioButtonValue = {
+      upside_left_desc: "Upside Left : High to Low",
+      upside_left_asc: "Upside Left : Low to High",
+      recency_desc: "Recency : Newest to Oldest",
+      recency_asc: "Recency : Oldest to Newest",
+      time_left_desc: "Time Left : Longest to Shortest",
+      time_left_asc: "Time Left : Shortest to Longest",
+      returns_desc: "Returns : High to Low",
+      returns_asc: "Returns : Low to High",
+    };
+  } else {
+    radioButtonValue = {
+      upside_left_desc: "Upside Left",
+      upside_left_asc: "Upside Left",
+      recency_desc: "Recency",
+      recency_asc: "Recency",
+      time_left_desc: "Time Left",
+      time_left_asc: "Time Left",
+      returns_desc: "Returns",
+      returns_asc: "Returns",
+    };
+  }
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedValue, setSelectedValue] = useState("upside_left_desc");
   const handleClick = (event) => {
@@ -36,29 +51,38 @@ export default function CustomSortMenu() {
     setAnchorEl(null);
   };
   const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+    const value = event.target.value;
+    setSelectedValue(value);
+
+    const [sortBy, sortValue] = value.split(/_(?=[^_]+$)/); // Split only at the last underscore
+    setSortValue(sortValue);
+    setSortBy(sortBy);
+
     handleClose();
   };
   return (
     <Box position="relative" display="inline-block">
       {/* Sort by label */}
-      <Typography
-        variant="subtitle1"
-        style={{
-          position: "absolute",
-          top: -12,
-          left: 18,
-          zIndex: 1,
-          fontSize: "12px",
-          color: "#667085",
-          backgroundColor: "#FCFCFD",
-          padding: "2px 4px",
-          borderRadius: "17px",
-          fontWeight: 500,
-        }}
-      >
-        Sort by
-      </Typography>
+      {isLabel && (
+        <Typography
+          variant="subtitle1"
+          style={{
+            position: "absolute",
+            top: -12,
+            left: 18,
+            zIndex: 1,
+            fontSize: "12px",
+            color: "#667085",
+            backgroundColor: "#FCFCFD",
+            padding: "2px 4px",
+            borderRadius: "17px",
+            fontWeight: 500,
+          }}
+        >
+          Sort by
+        </Typography>
+      )}
+
       {/* Sort button */}
       <Button
         aria-controls="customized-menu"
@@ -71,8 +95,8 @@ export default function CustomSortMenu() {
           textTransform: "none",
           color: "#1E555C",
           fontWeight: 500,
-          padding: "11px 16px",
-          minWidth: "280px",
+          padding: isLabel ? "11px 16px" : "11px 18px", // Conditional padding
+          minWidth: isLabel ? "280px" : "157px", // Conditional minWidth
           justifyContent: "space-between",
           display: "flex",
           // marginTop: "20px",

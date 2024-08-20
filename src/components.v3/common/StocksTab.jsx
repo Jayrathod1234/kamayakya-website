@@ -53,7 +53,11 @@ function a11yProps(index) {
     "aria-controls": `custom-tabpanel-${index}`,
   };
 }
-export default function StocksTab({ setSebiBoardType }) {
+export default function StocksTab({
+  setSebiBoardType,
+  total_mainboard_stocks,
+  total_sme_stocks,
+}) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -77,7 +81,9 @@ export default function StocksTab({ setSebiBoardType }) {
           label={
             <>
               <Typography>Main Board</Typography>
-              <Typography variant="caption">12 Stocks</Typography>
+              <Typography variant="caption">
+                {total_mainboard_stocks || 0} Stocks
+              </Typography>
             </>
           }
           selected={value === 0}
@@ -87,7 +93,9 @@ export default function StocksTab({ setSebiBoardType }) {
           label={
             <>
               <Typography className="">SME Board</Typography>
-              <Typography variant="caption">14 Stocks</Typography>
+              <Typography variant="caption">
+                {total_sme_stocks || 0} Stocks
+              </Typography>
             </>
           }
           selected={value === 1}

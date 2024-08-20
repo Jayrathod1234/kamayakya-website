@@ -6,7 +6,7 @@ import DeepValue from "@/components.v3/common/DeepValue.jsx";
 import AuthContext from "@/components/AuthContext";
 import Link from "next/link";
 
-const HotStockSection = ({ items }) => {
+const HotStockSection = ({ items, stockSector }) => {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
     mp.track("contactus_clicked", {
@@ -143,7 +143,7 @@ const HotStockSection = ({ items }) => {
                                   </div>
                                   <div className="pt-[12px] px-[20px] pb-[20px]">
                                     <div className=" flex items-center gap-[8px] ">
-                                      {sector && (
+                                      {stockSector && sector && (
                                         <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
                                           <img
                                             src="/assets/streamline_hotel-air-conditioner-solid.svg"
@@ -151,7 +151,7 @@ const HotStockSection = ({ items }) => {
                                             className="w-3"
                                           />
                                           <p className="text-[10px] font-semibold text-[#A3651A]">
-                                            {sector}
+                                            {stockSector[sector]}
                                           </p>
                                         </div>
                                       )}

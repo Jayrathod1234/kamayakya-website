@@ -4,6 +4,7 @@ import {
   getStrategyTagResponse,
   getHotStockResponse,
   getAllBoardStockStockResponse,
+  getCommonDetailsResponse,
 } from "./static-response";
 
 // Latest Releases Stock List API
@@ -75,19 +76,37 @@ export const getStrategyTagListApi = async () => {
 // All Board Stock Stock List API
 export const getAllBoardStockStockListApi = async ({ params, body }) => {
   const { isLoggedIn, type, page, limit } = params;
-  const { search } = body;
+  const { search, sort_by, sort_value } = body;
   try {
     if (process.env.NEXT_PUBLIC_DEBUG) {
       const URL = isLoggedIn ? `/user/allStocks` : `/user/allStocks/guest`;
       /* ----------------------------------- API ---------------------------------- */
       const response = await axiosApi.post(
         `${URL}?type=${type}&page=${page}&limit=${limit}`,
-        { search }
+        { search, sort_by, sort_value }
       );
       return response.data;
     } else {
       //   /* ----------------------------- Static Data ---------------------------- */
       return getAllBoardStockStockResponse;
+    }
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+};
+
+export const getCommonDetailsApi = async () => {
+  try {
+    if (process.env.NEXT_PUBLIC_DEBUG) {
+      const URL = `/user/commonDetails/`;
+      /* ----------------------------------- API ---------------------------------- */
+      const response = await axiosApi.get(URL);
+      return response.data.data;
+    } else {
+      //   /* ----------------------------- Static Data ---------------------------- */
+      return getCommonDetailsResponse;
     }
   } catch (error) {
     // Handle errors if any
