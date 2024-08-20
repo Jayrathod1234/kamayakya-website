@@ -76,14 +76,15 @@ export const getStrategyTagListApi = async () => {
 // All Board Stock Stock List API
 export const getAllBoardStockStockListApi = async ({ params, body }) => {
   const { isLoggedIn, type, page, limit } = params;
-  const { search, sort_by, sort_value } = body;
+  const { search, sort_by, sort_value, recency_time, time_left_with_time } =
+    body;
   try {
     if (process.env.NEXT_PUBLIC_DEBUG) {
       const URL = isLoggedIn ? `/user/allStocks` : `/user/allStocks/guest`;
       /* ----------------------------------- API ---------------------------------- */
       const response = await axiosApi.post(
         `${URL}?type=${type}&page=${page}&limit=${limit}`,
-        { search, sort_by, sort_value }
+        { search, sort_by, sort_value, recency_time, time_left_with_time }
       );
       return response.data;
     } else {

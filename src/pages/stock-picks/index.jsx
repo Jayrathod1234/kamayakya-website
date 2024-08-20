@@ -22,6 +22,8 @@ const StockPicks = () => {
     queryFn: getCommonDetailsApi,
   });
   const {
+    min_upside_left,
+    max_upside_left,
     total_mainboard_stocks,
     total_sme_stocks,
     stock_choices: { stock_sectors } = {},
@@ -61,6 +63,8 @@ const StockPicks = () => {
       <AllBoardStockSection
         sebiBoardType={sebiBoardType}
         stockSector={stockSector}
+        min_upside_left={min_upside_left}
+        max_upside_left={max_upside_left}
       />
     </Layout>
   );

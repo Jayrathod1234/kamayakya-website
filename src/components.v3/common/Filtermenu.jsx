@@ -49,8 +49,18 @@ import FilterMenuTags2 from "./FilterMenuTags2.jsx";
 function Filtermenu({
   Filtermenu,
   FiltermenuSidebar,
+  min_upside_left,
+  max_upside_left,
   setSortValue,
   setSortBy,
+  recency,
+  setRecency,
+  timeLeft,
+  setTimeLeft,
+  handleApplyFilters,
+  handleResetFilters,
+  upsideLeft,
+  setUpsideLeft,
 }) {
   const stockList = [
     {
@@ -840,7 +850,7 @@ function Filtermenu({
             isLabel={false}
           />
           <div className="w-auto">
-            <Button
+            {/* <Button
               variant="outlined"
               onClick={toggleDrawer(true)}
               className="relative bg-white border !border-[#E4E7EC] !py-[10px] !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
@@ -852,8 +862,21 @@ function Filtermenu({
               <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 2
               </div>
-            </Button>
-            <DrawerFilter open={open} setOpen={setOpen} />
+            </Button> */}
+            <DrawerFilter
+              open={open}
+              setOpen={setOpen}
+              recency={recency}
+              setRecency={setRecency}
+              timeLeft={timeLeft}
+              setTimeLeft={setTimeLeft}
+              handleApplyFilters={handleApplyFilters}
+              handleResetFilters={handleResetFilters}
+              min_upside_left={min_upside_left}
+              max_upside_left={max_upside_left}
+              upsideLeft={upsideLeft}
+              setUpsideLeft={setUpsideLeft}
+            />
             {/* <Drawer open={open} anchor="right" onClose={() => {}}>
               <DrawerList />
             </Drawer> */}

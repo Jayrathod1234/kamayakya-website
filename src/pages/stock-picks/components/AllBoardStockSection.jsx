@@ -46,18 +46,37 @@ import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 import { useDebounce } from "../../../utils/deBounceSearch";
 import SectorFilter2 from "../../../components.v3/common/SectoreFilter2";
 import DrawerFilter from "@/components.v3/common/DrawerFilter";
-
+import { initialFilterTime } from "@/utils/constants.js";
 // import { Button } from "../../components.v2/button/button.js";
 
-function AllBoardStockSection({ sebiBoardType, stockSector }) {
+function AllBoardStockSection({
+  sebiBoardType,
+  stockSector,
+  min_upside_left,
+  max_upside_left,
+}) {
   const { isLoggedIn } = useContext(AuthContext);
   const [searchStock, setSearchStock] = useState("");
   const debouncedSearchStock = useDebounce(searchStock, 1000); // Apply debouncing
   const [sortBy, setSortBy] = useState("upside_left");
   const [sortValue, setSortValue] = useState("desc");
+  const [recency, setRecency] = useState(initialFilterTime);
+  const [timeLeft, setTimeLeft] = useState(initialFilterTime);
+  const [upsideLeft, setUpsideLeft] = useState([
+    min_upside_left,
+    max_upside_left,
+  ]);
+
+  const handleApplyFilters = () => {
+    refetch(); // Refetch data with the new applied filters
+  };
+
+  const handleResetFilters = () => {
+    refetch(); // Optionally refetch data with reset filters (if appliedFilters reset)
+  };
+
   const LIMIT = 6;
   const myObserver = useRef();
-  console.log({ sortBy });
   // Use react infinite query to fetch the list
   const {
     data: response = [],
@@ -88,13 +107,17 @@ function AllBoardStockSection({ sebiBoardType, stockSector }) {
           search: debouncedSearchStock,
           sort_by: sortBy,
           sort_value: sortValue,
+          recency_time: Object.keys(recency).filter((key) => recency[key]),
+          time_left_with_time: Object.keys(timeLeft).filter(
+            (key) => timeLeft[key]
+          ),
         },
       }),
     getNextPageParam: ({ total_pages, current_page }) => {
       // Function to determine the parameter for fetching the next page
       if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
-    enabled: !!searchStock,
+    // enabled: !!searchStock,
   });
 
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
@@ -906,7 +929,7 @@ function AllBoardStockSection({ sebiBoardType, stockSector }) {
             </div>
           </div>
           <div className="w-auto">
-            <Button
+            {/* <Button
               variant="outlined"
               onClick={toggleDrawer(true)}
               className="relative bg-white border !border-[#E4E7EC] !py-[10px] !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
@@ -918,11 +941,24 @@ function AllBoardStockSection({ sebiBoardType, stockSector }) {
               <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 1
               </div>
-            </Button>
+            </Button> */}
             {/* <Drawer open={open} anchor="right" onClose={() => {}}>
               <DrawerList />
             </Drawer> */}
-            <DrawerFilter open={open} setOpen={setOpen} />
+            <DrawerFilter
+              open={open}
+              setOpen={setOpen}
+              recency={recency}
+              setRecency={setRecency}
+              timeLeft={timeLeft}
+              setTimeLeft={setTimeLeft}
+              handleApplyFilters={handleApplyFilters}
+              handleResetFilters={handleResetFilters}
+              min_upside_left={min_upside_left}
+              max_upside_left={max_upside_left}
+              upsideLeft={upsideLeft}
+              setUpsideLeft={setUpsideLeft}
+            />
           </div>
         </div>
       </div>
@@ -938,6 +974,12 @@ function AllBoardStockSection({ sebiBoardType, stockSector }) {
             setSortValue={setSortValue}
             setSortBy={setSortBy}
             ref={filterHeaderRef}
+            recency={recency}
+            setRecency={setRecency}
+            handleApplyFilters={handleApplyFilters}
+            handleResetFilters={handleResetFilters}
+            min_upside_left={min_upside_left}
+            max_upside_left={max_upside_left}
             // className={`fixed top-0 left-0 w-full p-10 bg-orange-600 transition-transform duration-500 ${
             //   showFilterHeader ? "translate-y-0" : "-translate-y-full"
             // }`}
