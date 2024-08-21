@@ -170,7 +170,7 @@ function DrawerFilter({
           2
         </div>
       </Button>
-      <Drawer open={open} anchor="right" onClose={() => {}}>
+      <Drawer open={open} anchor="right" onClose={() => { }}>
         <Box
           sx={{ width: 400 }}
           role="presentation"
@@ -251,6 +251,17 @@ function DrawerFilter({
                         <InputAdornment position="end">%</InputAdornment>
                       ),
                     }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        
+                        '&:hover fieldset': {
+                          borderColor: '#125B54', // Color of the outline on hover
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#125B54', // Color of the outline when focused
+                        },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={2}>
@@ -267,6 +278,17 @@ function DrawerFilter({
                       endAdornment: (
                         <InputAdornment position="end">%</InputAdornment>
                       ),
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        
+                        '&:hover fieldset': {
+                          borderColor: '#125B54', // Color of the outline on hover
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#125B54', // Color of the outline when focused
+                        },
+                      },
                     }}
                   />
                 </Grid>
@@ -356,6 +378,12 @@ function DrawerFilter({
                             checked={recency[key]}
                             onChange={handleChangeRecency}
                             name={key}
+                            sx={{
+                              color: 'default', // Default color
+                              '&.Mui-checked': {
+                                color: '#125B54', // Color when checked
+                              },
+                            }}
                           />
                         }
                         label={filterTimeLabel[key]}
@@ -413,6 +441,12 @@ function DrawerFilter({
                             checked={timeLeft[key]}
                             onChange={handleChangeTimeLeft}
                             name={key}
+                            sx={{
+                              color: 'default', // Default color
+                              '&.Mui-checked': {
+                                color: '#125B54', // Color when checked
+                              },
+                            }}
                           />
                         }
                         label={filterTimeLabel[key]}
@@ -484,7 +518,19 @@ function DrawerFilter({
                         <InputAdornment position="end">%</InputAdornment>
                       ),
                     }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        
+                        '&:hover fieldset': {
+                          borderColor: '#125B54', // Color of the outline on hover
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#125B54', // Color of the outline when focused
+                        },
+                      },
+                    }}
                   />
+
                 </Grid>
                 <Grid item xs={2}>
                   <Typography align="center">to</Typography>
@@ -500,6 +546,17 @@ function DrawerFilter({
                       endAdornment: (
                         <InputAdornment position="end">%</InputAdornment>
                       ),
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        
+                        '&:hover fieldset': {
+                          borderColor: '#125B54', // Color of the outline on hover
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#125B54', // Color of the outline when focused
+                        },
+                      },
                     }}
                   />
                 </Grid>
