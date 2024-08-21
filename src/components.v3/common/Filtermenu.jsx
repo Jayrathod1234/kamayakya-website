@@ -117,54 +117,62 @@ function Filtermenu({
                   onClick={handleSearchClick}
                   className="search__button grid place-items-center w-[35px] h-[35px] cursor-pointer transition-colors duration-[0.25s] hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full "
                 >
-                  <path
-                    d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
-                    stroke="#667085"
-                    strokeWidth="1.66667"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-            </form>
-          </div>
-          <CustomSortMenu
-            setSortValue={setSortValue}
-            setSortBy={setSortBy}
-            isLabel={false}
-          />
-          <div className="w-auto">
-            <DrawerFilter
-              open={open}
-              setOpen={setOpen}
-              recency={recency}
-              setRecency={setRecency}
-              timeLeft={timeLeft}
-              setTimeLeft={setTimeLeft}
-              handleApplyFilters={handleApplyFilters}
-              handleResetFilters={handleResetFilters}
-              min_upside_left={min_upside_left}
-              max_upside_left={max_upside_left}
-              upsideLeft={upsideLeft}
-              setUpsideLeft={setUpsideLeft}
-              min_returns={min_returns}
-              max_returns={max_returns}
-              returns={returns}
-              setReturns={setReturns}
-              marketCapTypeList={marketCapTypeList}
-              marketCapType={marketCapType}
-              setMarketCapType={setMarketCapType}
-              stockRiskList={stockRiskList}
-              risk={risk}
-              setRisk={setRisk}
-              stockSector={stockSector}
-              sector={sector}
-              setSector={setSector}
-              strategyTagList={strategyTagList}
-              strategyTag={strategyTag}
-              setStrategyTag={setStrategyTag}
-              totalFilterCount={totalFilterCount}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+                      stroke="#667085"
+                      strokeWidth="1.66667"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </div>
+            <CustomSortMenu
+              setSortValue={setSortValue}
+              setSortBy={setSortBy}
+              isLabel={false}
             />
+            <div className="w-auto">
+              <DrawerFilter
+                open={open}
+                setOpen={setOpen}
+                recency={recency}
+                setRecency={setRecency}
+                timeLeft={timeLeft}
+                setTimeLeft={setTimeLeft}
+                handleApplyFilters={handleApplyFilters}
+                handleResetFilters={handleResetFilters}
+                min_upside_left={min_upside_left}
+                max_upside_left={max_upside_left}
+                upsideLeft={upsideLeft}
+                setUpsideLeft={setUpsideLeft}
+                min_returns={min_returns}
+                max_returns={max_returns}
+                returns={returns}
+                setReturns={setReturns}
+                marketCapTypeList={marketCapTypeList}
+                marketCapType={marketCapType}
+                setMarketCapType={setMarketCapType}
+                stockRiskList={stockRiskList}
+                risk={risk}
+                setRisk={setRisk}
+                stockSector={stockSector}
+                sector={sector}
+                setSector={setSector}
+                strategyTagList={strategyTagList}
+                strategyTag={strategyTag}
+                setStrategyTag={setStrategyTag}
+                totalFilterCount={totalFilterCount}
+              />
+            </div>
           </div>
         </div>
       </div>

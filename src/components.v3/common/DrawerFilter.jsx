@@ -555,7 +555,7 @@ function DrawerFilter({
                     variant="outlined"
                     size="small"
                     name="min"
-                    value={returns[0]}
+                    value={returns ? returns[0] : 0}
                     onChange={handleReturnsInputChange}
                     InputProps={{
                       endAdornment: (
@@ -572,7 +572,7 @@ function DrawerFilter({
                     variant="outlined"
                     size="small"
                     name="max"
-                    value={returns[1]}
+                    value={returns ? returns[1] : 0}
                     onChange={handleReturnsInputChange}
                     InputProps={{
                       endAdornment: (

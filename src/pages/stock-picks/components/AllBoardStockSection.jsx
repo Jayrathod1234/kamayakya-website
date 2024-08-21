@@ -268,22 +268,6 @@ function AllBoardStockSection({
                 />
               </div>
             </div>
-            <div className="w-auto">
-              <DrawerFilter
-                open={open}
-                setOpen={setOpen}
-                recency={recency}
-                setRecency={setRecency}
-                timeLeft={timeLeft}
-                setTimeLeft={setTimeLeft}
-                handleApplyFilters={handleApplyFilters}
-                handleResetFilters={handleResetFilters}
-                min_upside_left={min_upside_left}
-                max_upside_left={max_upside_left}
-                upsideLeft={upsideLeft}
-                setUpsideLeft={setUpsideLeft}
-              />
-            </div>
           </div>
           <div className="w-auto">
             <DrawerFilter
