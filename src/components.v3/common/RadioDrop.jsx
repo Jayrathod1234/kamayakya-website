@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   Typography,
   Box,
+  useMediaQuery,
 } from "@mui/material";
 import {
   ArrowDropDown,
@@ -41,7 +42,7 @@ export default function CustomSortMenu({ setSortValue, setSortBy, isLabel }) {
       returns_asc: "Returns",
     };
   }
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedValue, setSelectedValue] = useState("upside_left_desc");
   const handleClick = (event) => {
@@ -96,7 +97,7 @@ export default function CustomSortMenu({ setSortValue, setSortBy, isLabel }) {
           color: "#1E555C",
           fontWeight: 500,
           padding: isLabel ? "11px 16px" : "11px 18px", // Conditional padding
-          minWidth: isLabel ? "280px" : "157px", // Conditional minWidth
+          minWidth: isMobile ? "132px" : isLabel ? "280px" : "157px", // Conditional minWidth
           justifyContent: "space-between",
           display: "flex",
           // marginTop: "20px",

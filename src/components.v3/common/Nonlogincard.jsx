@@ -8,11 +8,11 @@ function Nonlogincard() {
       {/* blur card  */}
       <div className="flex relative">
         <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px]">
-          <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
+          <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between" >
             <div className="p-1 gap-2 flex items-center">
               <img src="/assets/noto_locked.png" alt="" className="w-[19px]" />
 
-              <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[281px]"></div>
+              <div className="h-5 bg-[#EDF0F5] rounded-[20px] sm:min-w-[281px] min-w-[125px]"></div>
             </div>
 
             <div class="tooltip">

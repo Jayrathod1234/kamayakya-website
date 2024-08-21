@@ -8,7 +8,7 @@ function Hotstockcard() {
         <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/hottab.png" alt="" className="w-[210px]" />
         </div>
-        <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-warning-300">
+        <div className="relative rounded-lg bg-white shadow-6xs border border-warning-300">
           <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
             <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis">
               Coal India

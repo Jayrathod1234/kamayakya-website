@@ -73,8 +73,8 @@ const Bannerhotstockscard = () => {
                           className="w-[160px]"
                         />
                       </div>
-                      <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-[#FEC84B]">
-                        <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
+                      <div className="relative rounded-lg bg-white shadow-6xs border border-[#FEC84B]">
+                        <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
                           <div className="p-1 gap-2 flex items-center">
                             <img
                               src="/assets/noto_locked.png"
@@ -270,8 +270,8 @@ const Bannerhotstockscard = () => {
                           className="w-[160px]"
                         />
                       </div>
-                      <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-[#FEC84B]">
-                        <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
+                      <div className="relative rounded-lg bg-white shadow-6xs border border-[#FEC84B]">
+                        <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
                           <div className="p-1 gap-2 flex items-center">
                             <img
                               src="/assets/noto_locked.png"
@@ -450,8 +450,8 @@ const Bannerhotstockscard = () => {
                           className="w-[160px]"
                         />
                       </div>
-                      <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px] border border-[#FEC84B]">
-                        <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
+                      <div className="relative rounded-lg bg-white shadow-6xs border border-[#FEC84B]">
+                        <div className="pt-[20px] px-[20px] flex gap-[36px] items-center  justify-between" >
                           <div className="p-1 gap-2 flex items-center">
                             <img
                               src="/assets/noto_locked.png"

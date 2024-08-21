@@ -113,7 +113,7 @@ const HotStockSection = ({ items, stockSector }) => {
                               </div>
                               <div className={cardClass}>
                                 <div className={innerClass}>
-                                  <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
+                                  <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between" >
                                     <div className="p-1 gap-2 flex items-center">
                                       <img
                                         src="/assets/noto_locked.png"

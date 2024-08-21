@@ -10,7 +10,7 @@ function HotNewcard() {
           <img src="/assets/hot-newtab.png" alt="" className="w-[210px]" />
         </div>
         <div className=" p-[1px] rounded-lg bg-gradient-to-r from-[#75CDC5] to-[#FDB022]">
-          <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px]">
+          <div className="relative rounded-lg bg-white shadow-6xs ">
             <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
               <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis">
                 Coal India
