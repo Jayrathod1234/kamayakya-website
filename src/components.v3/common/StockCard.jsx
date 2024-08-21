@@ -40,7 +40,7 @@ function StockCard({
     <>
       {/* new stock card  */}
       <div className=" relative main_card_carousel">
-        <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
+        <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
           )}
@@ -77,7 +77,7 @@ function StockCard({
               </div>
             ) : (
               <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
-                <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis">
+                <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1">
                   {stock_name}
                 </p>
 
@@ -117,14 +117,14 @@ function StockCard({
                 )}
               </div>
             </div>
-            <div className="px-5 pb-3">
+            <div className="sm:px-5 px-4 pb-3">
               <div className="p-[8px] rounded-xl bg-[#f7f8fa]">
                 <div className="rounded-[7px] bg-custom-gradient text-center text-white ">
                   <div className="flex justify-end px-[11px] pt-[11px]">
                     <img
                       src="/assets/streamline_target-solid.svg"
                       alt=""
-                      className="w-[18px]"
+                      className="sm:w-[18px] w-7"
                     />
                   </div>
 
@@ -133,8 +133,31 @@ function StockCard({
                       <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">
                         Upside left
                       </p>
-                      <img src="/assets/ph_info-duotone.svg" alt="" />
+                      <div className="tooltip">
+                        <img src="/assets/ph_info-duotone.svg" alt="" />
+                        <span class="tooltiptext tooltiptext2 relative ">
+                          <img
+                            src="/assets/div.png"
+                            alt=""
+                            className="absolute -top-2 left-[52px] w-4"
+                          />
+                          <div className="text-gray-800 text-2xs font-normal">
+                            Upside Left means how much the stock price could
+                            rise from its current level.
+                          </div>
+                          <div className="mt-2 p-2">
+                            <span className="text-[#108973] text-2xs font-bold">
+                              Example :
+                            </span>
+                            <p className="text-2xs text-gray-600 font-normal">
+                              If a stock's price is ₹100 and the Upside Left is
+                              20%, it might go up to ₹120.
+                            </p>
+                          </div>
+                        </span>
+                      </div>
                     </div>
+
                     <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">
                       {upside_left || 0}%
                     </h3>
@@ -152,7 +175,7 @@ function StockCard({
                   </div>
                   <div className="flex gap-[2px] items-center font-open_sans">
                     {/* green up arrow  */}
-                    <img src="/assets/Polygon 2.svg" alt="" className="w-2" />
+                    <img src="/assets/Polygon2.svg" alt="" className="w-2" />
                     {/* red down arrow  */}
                     {/* <img src="/assets/Polygon 3.svg" alt="" className="w-2" /> */}
                     {!expected_returns ? (
@@ -162,7 +185,7 @@ function StockCard({
                         {expected_returns}%
                       </p>
                     )}
-                    <span className="text-[10px] font-semibold text-[#6E6E6E]">
+                    <span className="text-[10px] font-semibold text-[#6E6E6E] line-clamp-1">
                       in less than a {return_time}
                     </span>
                   </div>

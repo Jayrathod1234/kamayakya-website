@@ -19,12 +19,12 @@ function LatestReleases({ sebiBoardType, stockSector }) {
   });
   return (
     <>
-      <div className=" pt-[339px] pb-[100px] ">
+      <div className=" sm:pt-[339px] pt-[244px] sm:pb-[100px] pb-[58px] ">
         <div className=" before:content-[''] before:bg-[url(/testimonials_texture.png)] before:absolute before:w-full before:h-full before:opacity-25 relative flex flex-col items-center justify-center text-center bg-cover">
-          <p className=" text-display-xs text-[#0C111D] font-bold font-open_sans">
+          <p className=" text-display-xs text-gray-950 font-bold">
             Latest Releases ({items.length})
           </p>
-          <p className=" text-sm font-normal text-[#475467] w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto pt-3 font-open_sans">
+          <p className=" text-md font-normal text-gray-600 text-center pt-3 font-open_sans">
             New Stocks released in the last 60 days
           </p>
 
@@ -34,7 +34,7 @@ function LatestReleases({ sebiBoardType, stockSector }) {
             </div>
           ) : (
             items.length > 0 && (
-              <div className=" mb-6 w-full">
+              <div className=" mb-6 sm:-mt-0  -mt-6  w-full">
                 <Slider>
                   {items.map((value, index) => (
                     <StockCard

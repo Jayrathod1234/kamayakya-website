@@ -26,7 +26,7 @@ const Bannerhotstockscard = () => {
   // };
   return (
     <div>
-      <div className="relative z-[2] pb-[110px] mt-[20px]">
+      <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[20px]">
         <div className="container mx-auto">
           <div className="bg-gray-150 p-[10px] rounded-[20px]">
             <div className="bg-[#fff] rounded-[20px] px-10 py-8 gap-10 text-center">
@@ -451,7 +451,7 @@ const Bannerhotstockscard = () => {
                         />
                       </div>
                       <div className="relative rounded-lg bg-white shadow-6xs border border-[#FEC84B]">
-                        <div className="pt-[20px] px-[20px] flex gap-[36px] items-center  justify-between" >
+                        <div className="pt-[20px] px-[20px] flex gap-[36px] items-center  justify-between">
                           <div className="p-1 gap-2 flex items-center">
                             <img
                               src="/assets/noto_locked.png"

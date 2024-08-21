@@ -6,11 +6,11 @@ import StockCard from "@/components.v3/common/StockCard.jsx";
 const HotStockSectionSlider = ({ items, stockSector }) => {
   return (
     <div>
-      <div className="relative z-[2] pb-[110px] mt-[20px]">
+      <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[20px]">
         <div className="sm:container sm:mx-auto mx-0">
-          <div className="bg-gray-150 py-[10px] sm:rounded-[20px] rounded-t-[20px] overflow-hidden">
+          <div className="sm:bg-gray-150 bg-transparent sm:p-2.5 p-0 sm:rounded-[20px] rounded-t-[20px] overflow-hidden">
             <div className="">
-              <div className=" pt-5  text-center rounded-[10px]">
+              <div className="bg-white bg-[url('/assets/grid.png')] bg-cover pt-5  text-center sm:rounded-[20px] rounded-t-[20px]">
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0">
                   Hot Stocks ({items?.length})
                 </h2>
@@ -18,9 +18,9 @@ const HotStockSectionSlider = ({ items, stockSector }) => {
                   Top stocks to invest in right NOW!
                 </p>
                 {items.length > 0 && (
-                  <div className=" mb-6 w-full">
+                  <div className=" mb-0 w-full">
                     <HotSlider>
-                    {/* <HotSliderN> */}
+                      {/* <HotSliderN> */}
                       {items.map((value) => (
                         <StockCard
                           key={value.id} // Ensure each item has a unique key

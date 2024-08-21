@@ -9,6 +9,7 @@ import SectorSelect from "./SectorCheck";
 const FilterCarousel = () => {
   const [selectedChips, setSelectedChips] = useState([]);
   const [showButtons, setShowButtons] = useState(false);
+  // const isMobile = useMediaQuery("(max-width:600px)");
   const [chips, setChips] = useState([
     {
       label: "Most Recent",
@@ -90,7 +91,7 @@ const FilterCarousel = () => {
     <div className="bg-white">
       <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto">
         <Box
-          sx={{ display: "flex", width: "1280px", overflow: "hidden" }}
+          sx={{ display: "flex", width: "100%", overflow: "hidden" }}
           ref={containerRef}
         >
           <Box
@@ -101,6 +102,7 @@ const FilterCarousel = () => {
               alignItems: "center",
               paddingLeft: "20px",
               paddingRight: "20px",
+              // paddingLeft: isMobile ? "20px" : "16px",
               paddingTop: "10px",
               paddingBottom: "10px",
               marginTop: "16px",
@@ -108,7 +110,7 @@ const FilterCarousel = () => {
               borderRadius: "6px",
             }}
           >
-            <div className="w-auto">
+            <div className="w-auto sm:block hidden">
               <p className="font-open_sans text-sm font-normal text-[#344054]">
                 Quick Filters:
               </p>
@@ -117,15 +119,21 @@ const FilterCarousel = () => {
               <IconButton
                 onClick={scrollLeft}
                 sx={{
+                  width: "28px",
+                  height: "28px",
                   backgroundColor: "black",
                   color: "white",
                   borderRadius: "50%",
+                  position: "absolute",
+                  left: "10%",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
                 }}
               >
-                <ArrowBackIosIcon />
+                <ArrowBackIosIcon
+                  sx={{ width: "18px", position: "absolute", left: "8px" }}
+                />
               </IconButton>
             )}
             <Box
@@ -207,15 +215,19 @@ const FilterCarousel = () => {
               <IconButton
                 onClick={scrollRight}
                 sx={{
+                  width: "28px",
+                  height: "28px",
                   backgroundColor: "black",
                   color: "white",
                   borderRadius: "50%",
+                  position: "absolute",
+                  right: "10%",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
                 }}
               >
-                <ArrowForwardIosIcon />
+                <ArrowForwardIosIcon sx={{ width: "18px" }} />
               </IconButton>
             )}
           </Box>

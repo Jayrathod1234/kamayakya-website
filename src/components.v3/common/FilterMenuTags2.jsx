@@ -12,13 +12,13 @@ const FilterMenuTags2 = () => {
   const [showRightButton, setShowRightButton] = useState(false);
   const [chips, setChips] = useState([
     {
-      label: "Most Recent",
+      label: "Most Recenttttttt",
       id: 1,
       originalIndex: 0,
       icon: "/assets/watch.svg",
     },
     {
-      label: "Value Pickkkkk",
+      label: "Value Pick",
       id: 2,
       originalIndex: 1,
       icon: "/assets/Pricing.svg",
@@ -109,7 +109,7 @@ const FilterMenuTags2 = () => {
   };
 
   return (
-    <div className="">
+    <div className="mr-auto sm:order-first order-2">
       <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px]">
         <Box
           sx={{ display: "flex", width: "757px", overflow: "hidden" }}
@@ -128,6 +128,8 @@ const FilterMenuTags2 = () => {
               <IconButton
                 onClick={scrollLeft}
                 sx={{
+                  width: "28px",
+                  height: "28px",
                   backgroundColor: "black",
                   color: "white",
                   borderRadius: "50%",
@@ -136,7 +138,9 @@ const FilterMenuTags2 = () => {
                   },
                 }}
               >
-                <ArrowBackIosIcon />
+                <ArrowBackIosIcon
+                  sx={{ width: "18px", position: "absolute", left: "8px" }}
+                />
               </IconButton>
             )}
             <Box
@@ -218,17 +222,20 @@ const FilterMenuTags2 = () => {
               <IconButton
                 onClick={scrollRight}
                 sx={{
-                  width: "44px",
-                  height: "44px",
+                  width: "28px",
+                  height: "28px",
                   backgroundColor: "black",
                   color: "white",
+
                   borderRadius: "50%",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
                 }}
               >
-                <ArrowForwardIosIcon />
+                <ArrowForwardIosIcon
+                  sx={{ width: "18px", position: "absolute" }}
+                />
               </IconButton>
             )}
           </Box>

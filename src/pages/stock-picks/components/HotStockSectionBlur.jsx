@@ -22,18 +22,18 @@ const HotStockSection = ({ items, stockSector }) => {
 
   return (
     <div>
-      <div className="relative z-[2] pb-[110px] mt-[20px]">
+      <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[20px]">
         <div className="container mx-auto">
-          <div className="bg-gray-150 p-[10px] rounded-[20px]">
-            <div className="bg-[#fff] rounded-[20px] px-10 py-8 gap-10 text-center">
+          <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none">
+            <div className="bg-[#fff] rounded-[20px] sm:px-10 px-4 sm:py-8 py-5 gap-10 text-center">
               <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0">
                 Hot Stocks ({items?.length})
               </h2>
               <p className="pt-3 font-normal text-sm text-gray-500 pb-10">
                 Top stocks to invest in right NOW!
               </p>
-              <div className="bg-white bg-[url('/assets/grid.png')] bg-cover py-[74px] px-[80px] flex items-center  rounded-[10px]">
-                <div className="sm:w-1/3 w-1/2">
+              <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:px-[80px] flex items-center  rounded-[10px]">
+                <div className="sm:w-1/3 w-full">
                   <img
                     src="/assets/noto_locked.png"
                     alt=""
@@ -113,7 +113,7 @@ const HotStockSection = ({ items, stockSector }) => {
                               </div>
                               <div className={cardClass}>
                                 <div className={innerClass}>
-                                  <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between" >
+                                  <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
                                     <div className="p-1 gap-2 flex items-center">
                                       <img
                                         src="/assets/noto_locked.png"

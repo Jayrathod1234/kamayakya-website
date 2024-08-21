@@ -34,7 +34,7 @@ function StrategyCard({ setStrategyTag, setIsChangeStrategyTag }) {
   return (
     <>
       <div className="w-[min(1280px] mx-auto overflow-hidden">
-        <p className="text-lg sm:text-xl md:text-2xl text-[#0C111D] font-bold font-open_sans text-center ">
+        <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center ">
           Discover by Strategy
         </p>
         <p className="text-sm md:text-base font-normal text-[#475467] mx-auto pt-3 mb-2 font-open_sans text-center">

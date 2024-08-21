@@ -150,7 +150,7 @@ function DrawerFilter({
           </div>
         )}
       </Button>
-      <Drawer open={open} anchor="right" onClose={() => { }}>
+      <Drawer open={open} anchor="right" onClose={() => {}}>
         <Box
           sx={{ width: 400 }}
           role="presentation"
@@ -232,13 +232,12 @@ function DrawerFilter({
                       ),
                     }}
                     sx={{
-                      '& .MuiOutlinedInput-root': {
-                        
-                        '&:hover fieldset': {
-                          borderColor: '#125B54', // Color of the outline on hover
+                      "& .MuiOutlinedInput-root": {
+                        "&:hover fieldset": {
+                          borderColor: "#125B54", // Color of the outline on hover
                         },
-                        '&.Mui-focused fieldset': {
-                          borderColor: '#125B54', // Color of the outline when focused
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#125B54", // Color of the outline when focused
                         },
                       },
                     }}
@@ -260,13 +259,12 @@ function DrawerFilter({
                       ),
                     }}
                     sx={{
-                      '& .MuiOutlinedInput-root': {
-                        
-                        '&:hover fieldset': {
-                          borderColor: '#125B54', // Color of the outline on hover
+                      "& .MuiOutlinedInput-root": {
+                        "&:hover fieldset": {
+                          borderColor: "#125B54", // Color of the outline on hover
                         },
-                        '&.Mui-focused fieldset': {
-                          borderColor: '#125B54', // Color of the outline when focused
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#125B54", // Color of the outline when focused
                         },
                       },
                     }}
@@ -359,9 +357,9 @@ function DrawerFilter({
                             onChange={handleChangeRecency}
                             name={key}
                             sx={{
-                              color: 'default', // Default color
-                              '&.Mui-checked': {
-                                color: '#125B54', // Color when checked
+                              color: "default", // Default color
+                              "&.Mui-checked": {
+                                color: "#125B54", // Color when checked
                               },
                             }}
                           />
@@ -422,9 +420,9 @@ function DrawerFilter({
                             onChange={handleChangeTimeLeft}
                             name={key}
                             sx={{
-                              color: 'default', // Default color
-                              '&.Mui-checked': {
-                                color: '#125B54', // Color when checked
+                              color: "default", // Default color
+                              "&.Mui-checked": {
+                                color: "#125B54", // Color when checked
                               },
                             }}
                           />

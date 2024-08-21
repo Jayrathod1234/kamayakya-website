@@ -6,7 +6,7 @@ function Nonlogincard() {
     <>
       {/* blur card  */}
       <div className=" relative sm:mx-auto">
-        <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
+        <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/hot-newtab.png" alt="" className="w-[210px]" />
         </div>
         <div className="relative rounded-lg bg-white shadow-6xs">
@@ -35,7 +35,7 @@ function Nonlogincard() {
           </div>
           <div className="pt-[12px] px-[20px] pb-[20px]">
             <div className=" flex items-center gap-[8px] ">
-              <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+              <div className="py-[2px] sm:pr-[8px] pr-1 sm:pl-[6px]  pl-1 rounded-2xl border border-[#FEF0C7] bg-orange-100 flex  sm:gap-4 gap-1 ">
                 <img
                   src="/assets/streamline_hotel-air-conditioner-solid.svg"
                   alt=""
@@ -45,7 +45,7 @@ function Nonlogincard() {
                   Air Conditioners
                 </p>
               </div>
-              <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+              <div className="py-[2px] sm:pr-[8px] pr-1 sm:pl-[6px]  pl-1 rounded-2xl border border-[#FEF0C7] bg-orange-100 flex  sm:gap-4 gap-1 ">
                 <img src="/assets/Component 8.svg" alt="" className="w-3" />
                 <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                   MCap:
