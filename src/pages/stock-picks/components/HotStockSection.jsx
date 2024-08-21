@@ -56,6 +56,7 @@ const HotStockSection = ({ sebiBoardType }) => {
         </>
       ) : (
         <>
+        
           <HotStockSectionSlider items={items} />
         </>
       )}

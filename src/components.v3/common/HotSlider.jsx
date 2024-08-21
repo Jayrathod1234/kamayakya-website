@@ -186,48 +186,50 @@ export function HotSlider({ children }) {
       .on("slideFocus", tweenScale);
   }, [emblaApi, tweenScale]);
 
-  return (
-    <div className={`relative w-full m-auto `}>
-      {/* gradient */}
-      <div className="h-full -left-8 md:-left-8  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r  z-20 flex flex-col justify-center items-start ">
-        <div>
-          <Button
-            onClick={() => handlePrevNext(onPrevButtonClick)}
-            variant={"default"}
-            className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
-          >
-            <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
-          </Button>
-        </div>
-      </div>
-      <div className=" -right-8  md:-right-8 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l  z-20 flex flex-col justify-center items-end">
-        <div>
-          <Button
-            onClick={() => handlePrevNext(onNextButtonClick)}
-            variant={"default"}
-            className="rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
-          >
-            <ChevronRightIcon
-              className="inline-block md:hidden"
-              fontSize="small"
-              style={{ color: "white" }}
-            />
-          </Button>
-        </div>
-      </div>
+   
 
-      <div
-        ref={emblaRef}
-        className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3`}
-      >
+    return (
+      <div className={`relative w-full m-auto `}>
+        {/* gradient */}
+        <div className="h-full left-3 md:left-0  md:w-1/3 max-w-[261px] absolute  z-20 flex flex-col justify-center ">
+          <div>
+            <Button
+              onClick={() => handlePrevNext(onPrevButtonClick)}
+              variant={"default"}
+              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
+            >
+              <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
+            </Button>
+          </div>
+        </div>
+        <div className=" right-3  md:right-0 h-full max-w-[261px] md:w-1/3  absolute z-20 flex flex-col justify-center items-center">
+          <div>
+            <Button
+              onClick={() => handlePrevNext(onNextButtonClick)}
+              variant={"default"}
+              className="rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
+            >
+              <ChevronRightIcon
+                className="inline-block md:hidden"
+                fontSize="small"
+                style={{ color: "white" }}
+              />
+            </Button>
+          </div>
+        </div>
+
         <div
-          className="flex space-x-4 carousel__container"
-          style={{ backfaceVisibility: "hidden" }}
+          ref={emblaRef}
+          className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3`}
         >
-          {children.map((carousel, index) => (
-            <CarouselItem
-              key={carousel.key}
-              className={`carousel embla__class-names flex-shrink-0 w-1/3  
+          <div
+            className="flex space-x-4 carousel__container"
+            style={{ backfaceVisibility: "hidden" }}
+          >
+            {children.map((carousel, index) => (
+              <CarouselItem
+                key={carousel.key}
+                className={`carousel embla__class-names sm:flex-shrink-0  flex-shrink sm:w-1/3  w-[324px]
                 ${
                   index === selectedIndex
                     ? ""
@@ -243,24 +245,24 @@ export function HotSlider({ children }) {
                           : ""
                       }`
                 }  transition-all duration-500 ease-in-out main_card_carousel`}
-            >
-              {carousel}
-            </CarouselItem>
+              >
+                {carousel}
+              </CarouselItem>
+            ))}
+          </div>
+        </div>
+        {/* indicator */}
+        <div className=" flex gap-4 justify-center items-center py-2 bg-white rounded-full w-auto max-w-[127px] mx-auto">
+          {scrollSnaps.map((_, index) => (
+            <div
+              onClick={() => onDotButtonClick(index)}
+              key={index}
+              className={` ${
+                index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
+              } h-[10px]  bg-gray-200 rounded-full transition-all`}
+            ></div>
           ))}
         </div>
       </div>
-      {/* indicator */}
-      <div className=" flex gap-4 justify-center items-center py-2 bg-white rounded-full w-auto max-w-32 mx-auto">
-        {scrollSnaps.map((_, index) => (
-          <div
-            onClick={() => onDotButtonClick(index)}
-            key={index}
-            className={` ${
-              index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
-            } h-[10px]  bg-gray-200 rounded-full transition-all`}
-          ></div>
-        ))}
-      </div>
-    </div>
-  );
+    );
 }

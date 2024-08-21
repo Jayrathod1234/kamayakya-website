@@ -20,7 +20,7 @@ function StockCard({
 }) {
   let tabImage = null;
   let cardClass = "";
-  let innerClass = "relative rounded-lg bg-white shadow-6xs  ";
+  let innerClass = "relative rounded-lg bg-white shadow-6xs ";
 
   if (new_stock & recommended_stock) {
     tabImage = "hot-newtab";
@@ -39,7 +39,7 @@ function StockCard({
   return (
     <>
       {/* new stock card  */}
-      <div className="flex relative main_card_carousel">
+      <div className=" relative main_card_carousel">
         <div className="absolute top-[-7px] left-1/2 -translate-x-1/2 z-[1]">
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
@@ -48,7 +48,7 @@ function StockCard({
         <div className={cardClass}>
           <div className={innerClass}>
             {is_blur ? (
-              <div className="pt-[20px] px-[20px] flex gap-[36px] items-center">
+              <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
                 <div className="p-1 gap-2 flex items-center">
                   <img
                     src="/assets/noto_locked.png"
@@ -56,7 +56,7 @@ function StockCard({
                     className="w-[19px]"
                   />
 
-                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[281px]"></div>
+                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] sm:min-w-[281px] min-w-[125px]"></div>
                 </div>
 
                 <div class="tooltip">

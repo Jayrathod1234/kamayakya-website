@@ -5,7 +5,7 @@ function StockCardSkeleton({ length }) {
   return Array.from({ length }).map((_, index) => (
     <Box key={index} className="relative rounded-lg bg-white shadow-6xs">
       <Box
-        className="relative rounded-lg bg-white shadow-6xs  border border-gray-200"
+        className="relative rounded-lg bg-white shadow-6xs border border-gray-200"
         p={2}
       >
         {/* Skeleton for the top section */}
