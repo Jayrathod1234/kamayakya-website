@@ -10,19 +10,8 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-const sectors = [
-  "Agricultural",
-  "Automobile & Ancillaries ",
-  "Banking",
-  "Consumer Durables",
-  "Derived Materials",
-  "Financial",
-  "Agricultural", // Duplicated entry as per your image
-];
-
-const SectorFilter2 = () => {
+const SectorFilter2 = ({ stockSector, sector, setSector }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [checkedItems, setCheckedItems] = useState([]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -30,15 +19,15 @@ const SectorFilter2 = () => {
 
   const handleCheckboxChange = (event) => {
     const value = event.target.name;
-    setCheckedItems((prev) =>
+    setSector((prev) =>
       prev.includes(value)
         ? prev.filter((item) => item !== value)
         : [...prev, value]
     );
   };
 
-  const filteredSectors = sectors.filter((sector) =>
-    sector.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSectors = Object.keys(stockSector).filter((key) =>
+    stockSector[key].toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -72,25 +61,27 @@ const SectorFilter2 = () => {
           },
         }}
       />
-      <List>
-        {filteredSectors.map((sector, index) => (
-          <ListItem
-            key={index}
-            sx={{ paddingY: "0px !important", paddingX: "6px !important" }}
-          >
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkedItems.includes(sector)}
-                  onChange={handleCheckboxChange}
-                  name={sector}
-                />
-              }
-              label={sector}
-            />
-          </ListItem>
-        ))}
-      </List>
+      <div style={{ maxHeight: "350px", overflowY: "auto" }}>
+        <List>
+          {filteredSectors.map((key, index) => (
+            <ListItem
+              key={index}
+              sx={{ paddingY: "0px !important", paddingX: "6px !important" }}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={sector.includes(key)}
+                    onChange={handleCheckboxChange}
+                    name={key}
+                  />
+                }
+                label={stockSector[key]}
+              />
+            </ListItem>
+          ))}
+        </List>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Box,
@@ -21,8 +21,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SectorFilter2 from "@/components.v3/common/SectoreFilter2";
-import SectorFilter from "./SizeSelector.jsx";
-import { initialFilterTime, filterTimeLabel } from "@/utils/constants.js";
+import { filterTimeLabel } from "@/utils/constants.js";
 
 function DrawerFilter({
   open,
@@ -37,6 +36,23 @@ function DrawerFilter({
   max_upside_left,
   upsideLeft,
   setUpsideLeft,
+  min_returns,
+  max_returns,
+  returns,
+  setReturns,
+  marketCapTypeList,
+  marketCapType,
+  setMarketCapType,
+  stockRiskList,
+  risk,
+  setRisk,
+  stockSector,
+  sector,
+  setSector,
+  strategyTagList,
+  strategyTag,
+  setStrategyTag,
+  totalFilterCount,
 }) {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -47,16 +63,32 @@ function DrawerFilter({
     setOpen(false);
   };
 
-  const clearAll = () => {
-    setRecency(initialFilterTime);
-    setTimeLeft(initialFilterTime);
-    handleResetFilters();
-    setOpen(false);
-  };
-
   // upside left
   const handleUpsideLeftSliderChange = (event, newValue) => {
     setUpsideLeft(newValue);
+  };
+
+  const handleUpsideLeftInputChange = (event) => {
+    event.stopPropagation();
+    const index = event.target.name === "min" ? 0 : 1;
+    const newValue = [...upsideLeft];
+    newValue[index] =
+      event.target.value === "" ? "" : Number(event.target.value);
+    setUpsideLeft(newValue);
+  };
+
+  // returns
+  const handleReturnsSliderChange = (event, newValue) => {
+    setReturns(newValue);
+  };
+
+  const handleReturnsInputChange = (event) => {
+    event.stopPropagation();
+    const index = event.target.name === "min" ? 0 : 1;
+    const newValue = [...setReturns];
+    newValue[index] =
+      event.target.value === "" ? "" : Number(event.target.value);
+    setReturns(newValue);
   };
 
   const handleChangeRecency = (event) => {
@@ -73,68 +105,14 @@ function DrawerFilter({
     });
   };
 
+  const handleChangestrategyTag = (event) => {
+    const { name, checked } = event.target;
+    setStrategyTag((prev) =>
+      checked ? [...prev, name] : prev.filter((tag) => tag !== name)
+    );
+  };
+
   const CustomSlider = styled(Slider)({
-    color: "#004d40", // Main color for the rail and thumb border
-    height: 4, // Thickness of the slider rail
-    "& .MuiSlider-thumb": {
-      height: 24,
-      width: 24,
-      backgroundColor: "#fff",
-      border: "2px solid currentColor",
-      "&:hover": {
-        boxShadow: "0 0 0 8px rgba(0, 77, 64, 0.16)", // Light shadow on hover
-      },
-      "&:focus, &:active": {
-        boxShadow: "0 0 0 14px rgba(0, 77, 64, 0.16)", // Larger shadow on active or focus
-      },
-    },
-    "& .MuiSlider-rail": {
-      color: "#004d40",
-      opacity: 1,
-    },
-    "& .MuiSlider-track": {
-      border: "none",
-    },
-  });
-
-  // Time Left
-  const [state2, setState2] = React.useState({
-    "0-3 months": false,
-    "3-6 months": false,
-    "6-12 months": false,
-    "12-18 months": false,
-    "18-24 months": false,
-    "Greater than 24 months": false,
-  });
-
-  // Total Returns
-  const [value2, setValue2] = React.useState([
-    min_upside_left,
-    max_upside_left,
-  ]);
-
-  const handleSliderChange3 = (event, newValue) => {
-    setValue2(newValue);
-  };
-
-  const handleInputChange = (event) => {
-    event.stopPropagation();
-    const index = event.target.name === "min" ? 0 : 1;
-    const newValue = [...upsideLeft];
-    newValue[index] =
-      event.target.value === "" ? "" : Number(event.target.value);
-    setUpsideLeft(newValue);
-  };
-
-  const handleInputChange3 = (event) => {
-    const index2 = event.target.name === "min" ? 0 : 1;
-    const newValue2 = [...value2];
-    newValue2[index2] =
-      event.target.value === "" ? "" : Number(event.target.value2);
-    setValue2(newValue2);
-  };
-
-  const CustomSlider2 = styled(Slider)({
     color: "#004d40", // Main color for the rail and thumb border
     height: 4, // Thickness of the slider rail
     "& .MuiSlider-thumb": {
@@ -166,9 +144,11 @@ function DrawerFilter({
       >
         <img src="/assets/filter.svg" alt="" />
         <p className="font-open_sans text-brand-500 font-medium">Filter </p>
-        <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
-          2
-        </div>
+        {totalFilterCount > 0 && (
+          <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+            {totalFilterCount}
+          </div>
+        )}
       </Button>
       <Drawer open={open} anchor="right" onClose={() => {}}>
         <Box
@@ -184,7 +164,7 @@ function DrawerFilter({
               </div>
               <div
                 className="text-[#125B54] text-sm font-semibold cursor-pointer"
-                onClick={clearAll}
+                onClick={handleResetFilters}
               >
                 Clear All
               </div>
@@ -245,7 +225,7 @@ function DrawerFilter({
                     size="small"
                     name="min"
                     value={upsideLeft[0]}
-                    onChange={handleInputChange}
+                    onChange={handleUpsideLeftInputChange}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">%</InputAdornment>
@@ -262,7 +242,7 @@ function DrawerFilter({
                     size="small"
                     name="max"
                     value={upsideLeft[1]}
-                    onChange={handleInputChange}
+                    onChange={handleUpsideLeftInputChange}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">%</InputAdornment>
@@ -462,7 +442,7 @@ function DrawerFilter({
               </IconButton>
             </Box>
 
-            <div className="pl-9">
+            {/* <div className="pl-9">
               <CustomSlider2
                 value={value2}
                 onChange={handleSliderChange3}
@@ -504,8 +484,50 @@ function DrawerFilter({
                   />
                 </Grid>
               </Grid>
-            </div>
+            </div> */}
+            <div className="pl-9">
+              <CustomSlider
+                value={returns}
+                onChange={handleReturnsSliderChange}
+                valueLabelDisplay="auto"
+                min={min_returns}
+                max={max_returns}
+              />
 
+              <Grid container spacing={2} alignItems="center" pt={2}>
+                <Grid item xs={5}>
+                  <TextField
+                    variant="outlined"
+                    size="small"
+                    name="min"
+                    value={returns[0]}
+                    onChange={handleReturnsInputChange}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">%</InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography align="center">to</Typography>
+                </Grid>
+                <Grid item xs={5}>
+                  <TextField
+                    variant="outlined"
+                    size="small"
+                    name="max"
+                    value={returns[1]}
+                    onChange={handleReturnsInputChange}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">%</InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </div>
             <div className="border-b-2 border-[#F2F4F7] pt-4"></div>
           </div>
 
@@ -556,29 +578,23 @@ function DrawerFilter({
               </AccordionSummary>
               {/* <SizeSelector /> */}
               <div class="flex pl-7 gap-4 pb-4">
-                <div class="flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-                  <img src="/assets/Group 47357.svg" />
+                {marketCapTypeList?.map((value, index) => (
+                  <div
+                    class={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                      marketCapType == value
+                        ? "bg-[#E7F8F8] border-[#108973]"
+                        : "bg-white border-[#E4E7EC]"
+                    }`}
+                    key={index}
+                    onClick={() => setMarketCapType(value)}
+                  >
+                    <img src={`/assets/${value}.svg`} alt={value} />
 
-                  <span class="pt-2 text-2xs  text-[#344054] font-normal">
-                    Small
-                  </span>
-                </div>
-
-                <div class="flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-                  <img src="/assets/Component 5.svg" />
-
-                  <span class="pt-2 text-2xs  text-[#344054] font-normal">
-                    Mid
-                  </span>
-                </div>
-
-                <div class="flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-                  <img src="/assets/Component 9.svg" />
-
-                  <span class="pt-2 text-2xs  text-[#344054] font-normal">
-                    Large
-                  </span>
-                </div>
+                    <span class="pt-2 text-2xs  text-[#344054] font-normal">
+                      {value}
+                    </span>
+                  </div>
+                ))}
               </div>
             </Accordion>
             <div className="border-b-2 border-[#F2F4F7] "></div>
@@ -633,7 +649,11 @@ function DrawerFilter({
                   </Typography>
                 </Box>
               </AccordionSummary>
-              <SectorFilter2 />
+              <SectorFilter2
+                stockSector={stockSector}
+                sector={sector}
+                setSector={setSector}
+              />
             </Accordion>
             <div className="border-b-2 border-[#F2F4F7] "></div>
           </div>
@@ -679,10 +699,29 @@ function DrawerFilter({
                   </Typography>
                 </Box>
               </AccordionSummary>
-              <SectorFilter />
+              <div className="pl-4">
+                <AccordionDetails>
+                  <FormGroup>
+                    {Object.keys(strategyTagList || {}).map((key) => (
+                      <FormControlLabel
+                        key={key}
+                        control={
+                          <Checkbox
+                            checked={strategyTag.includes(key)}
+                            onChange={handleChangestrategyTag}
+                            name={key}
+                          />
+                        }
+                        label={strategyTagList[key]}
+                      />
+                    ))}
+                  </FormGroup>
+                </AccordionDetails>
+              </div>
             </Accordion>
             <div className="border-b-2 border-[#F2F4F7] "></div>
           </div>
+
           {/*Risk */}
           <div className="pt-4 pr-6 pl-4 pb-[61px] overflow-x-hidden">
             <Accordion
@@ -738,26 +777,23 @@ function DrawerFilter({
               </AccordionSummary>
 
               <div class="flex pl-7 gap-4 pb-4">
-                <div class="flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-                  <img src="/assets/low.svg" />
-                  <span class="pt-2 text-2xs  text-[#344054] font-normal">
-                    Low
-                  </span>
-                </div>
+                {stockRiskList?.map((value, index) => (
+                  <div
+                    class={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                      risk == value
+                        ? "bg-[#E7F8F8] border-[#108973]"
+                        : "bg-white border-[#E4E7EC]"
+                    }`}
+                    key={index}
+                    onClick={() => setRisk(value)}
+                  >
+                    <img src={`/assets/${value}.svg`} alt={value} />
 
-                <div class="flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-                  <img src="/assets/medium.svg" />
-                  <span class="pt-2 text-2xs  text-[#344054] font-normal">
-                    Medium
-                  </span>
-                </div>
-
-                <div class="flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-                  <img src="/assets/High.svg" />
-                  <span class="pt-2 text-2xs  text-[#344054] font-normal">
-                    High
-                  </span>
-                </div>
+                    <span class="pt-2 text-2xs  text-[#344054] font-normal">
+                      {value}
+                    </span>
+                  </div>
+                ))}
               </div>
             </Accordion>
           </div>

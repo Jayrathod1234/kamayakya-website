@@ -1002,7 +1002,7 @@ export const getCommonDetailsResponse = {
   max_upside_left: 200,
   min_returns: 6.67,
   max_returns: 263.86,
-  total_mainboard_stocks: 16,
+  total_mainboard_stocks: 25,
   total_sme_stocks: 3,
   stock_choices: {
     stock_actions: [
@@ -1035,16 +1035,16 @@ export const getCommonDetailsResponse = {
     ],
     market_cap_types: [
       {
-        value: "Large",
-        label: "Large",
+        value: "Small",
+        label: "Small",
       },
       {
         value: "Mid",
         label: "Mid",
       },
       {
-        value: "Small",
-        label: "Small",
+        value: "Large",
+        label: "Large",
       },
     ],
     stock_sectors: [
@@ -1303,6 +1303,68 @@ export const getCommonDetailsResponse = {
       {
         value: "holding-company",
         label: "Holding company",
+      },
+    ],
+    strategy_tags: [
+      {
+        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+        name: "Value Pick",
+        slug: "value-pick",
+      },
+      {
+        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+        name: "Turnaround Story",
+        slug: "turnaround-story",
+      },
+      {
+        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+        name: "Special Situation",
+        slug: "special-situation",
+      },
+      {
+        id: "6d9fb7a0-92b3-4633-8ea9-ae86dc2bd008",
+        name: "Management Change",
+        slug: "management-change",
+      },
+      {
+        id: "ac7148dc-e122-48a8-9efb-51a02c87f518",
+        name: "Market Leadership",
+        slug: "market-leadership",
+      },
+      {
+        id: "6e29cce5-7ca8-4f00-9f8e-7ef69e66cb29",
+        name: "Industry Tailwind",
+        slug: "industry-tailwind",
+      },
+      {
+        id: "a282f6c5-0c47-451c-8d41-fd2888c7737b",
+        name: "Cyclicals",
+        slug: "cyclicals",
+      },
+      {
+        id: "43a146f9-2f69-40ba-ad48-1faba29db0a5",
+        name: "Moated",
+        slug: "moated",
+      },
+      {
+        id: "e30a5088-a98d-49d1-bcd9-29e7985e5e7f",
+        name: "Thematic Stories",
+        slug: "thematic-stories",
+      },
+      {
+        id: "18ab2bd3-6895-420f-8259-6132597cdff4",
+        name: "Future Focused",
+        slug: "future-focused",
+      },
+      {
+        id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+        name: "ESG",
+        slug: "esg",
+      },
+      {
+        id: "798c7578-de3d-475c-af72-386de9ce10c4",
+        name: "High Dividends",
+        slug: "high-dividends",
       },
     ],
   },

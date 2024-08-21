@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import StrategySlider from "@/components.v3/common/StrategySlider.jsx";
 import Discovercard from "@/components.v3/common/Discovercard";
 import DiscoverCardSkeleton from "./skeletons/DiscoverCardSkeleton";
-function StrategyCard() {
+function StrategyCard({ setStrategyTag, setIsChangeStrategyTag }) {
   /* ----------------------------- Static Strategy Tag Colors List---------------------------- */
   const colors = {
     "value-pick": "#EEF7F6",
@@ -54,6 +54,8 @@ function StrategyCard() {
               <StrategySlider>
                 {items.map((value, index) => (
                   <Discovercard
+                    setStrategyTag={setStrategyTag}
+                    setIsChangeStrategyTag={setIsChangeStrategyTag}
                     key={index} // Use the index or a unique identifier if available
                     {...value}
                     color={colors[value.slug]}

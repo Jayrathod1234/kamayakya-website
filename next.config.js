@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  images:{
-    unoptimized:true
+  reactStrictMode: false,
+  images: {
+    unoptimized: true,
   },
   async rewrites() {
     return [

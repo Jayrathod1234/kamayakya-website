@@ -76,15 +76,38 @@ export const getStrategyTagListApi = async () => {
 // All Board Stock Stock List API
 export const getAllBoardStockStockListApi = async ({ params, body }) => {
   const { isLoggedIn, type, page, limit } = params;
-  const { search, sort_by, sort_value, recency_time, time_left_with_time } =
-    body;
+  const {
+    search,
+    sort_by,
+    sort_value,
+    recency_time,
+    time_left_with_time,
+    upside_left_range,
+    total_returns_with_range,
+    market_cap_type,
+    risk,
+    sector,
+    strategy_tags,
+  } = body;
   try {
     if (process.env.NEXT_PUBLIC_DEBUG) {
       const URL = isLoggedIn ? `/user/allStocks` : `/user/allStocks/guest`;
       /* ----------------------------------- API ---------------------------------- */
       const response = await axiosApi.post(
         `${URL}?type=${type}&page=${page}&limit=${limit}`,
-        { search, sort_by, sort_value, recency_time, time_left_with_time }
+        {
+          search,
+          sort_by,
+          sort_value,
+          recency_time,
+          time_left_with_time,
+          upside_left_range,
+          total_returns_with_range,
+          market_cap_type,
+          risk,
+          sector,
+          strategy_tags,
+        }
       );
       return response.data;
     } else {

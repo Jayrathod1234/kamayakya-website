@@ -1,12 +1,29 @@
 import React from "react";
 
-function Discovercard({ name, description, image, color }) {
+function Discovercard({
+  id,
+  name,
+  description,
+  image,
+  color,
+  setStrategyTag,
+  setIsChangeStrategyTag,
+}) {
   return (
     <>
       <div className="w-1/4 discover_card_carousel">
         <a
-          href="#"
-          class="card group transition-all duration-500 education border border-gray-200"
+          class="card group transition-all duration-500 education border border-gray-200 cursor-pointer"
+          onClick={async () => {
+            await setStrategyTag((prevTags) => {
+              // Check if the id is already in the array to avoid duplicates
+              if (!prevTags.includes(id)) {
+                return [...prevTags, id]; // Append the new id to the existing array
+              }
+              return prevTags; // If id already exists, return the existing array
+            });
+            setIsChangeStrategyTag(true);
+          }}
         >
           <div className="main-card w-full relative mx-auto">
             <div
