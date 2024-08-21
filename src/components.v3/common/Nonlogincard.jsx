@@ -8,7 +8,7 @@ function Nonlogincard() {
       {/* blur card  */}
       <div className="flex relative">
         <div className="relative rounded-lg bg-white shadow-6xs min-w-[408px]">
-          <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between" >
+          <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
             <div className="p-1 gap-2 flex items-center">
               <img src="/assets/noto_locked.png" alt="" className="w-[19px]" />
 
@@ -33,7 +33,7 @@ function Nonlogincard() {
           </div>
           <div className="pt-[12px] px-[20px] pb-[20px]">
             <div className=" flex items-center gap-[8px] ">
-              <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+              <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex ">
                 <img
                   src="/assets/streamline_hotel-air-conditioner-solid.svg"
                   alt=""

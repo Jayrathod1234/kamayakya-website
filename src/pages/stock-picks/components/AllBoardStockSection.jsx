@@ -295,10 +295,11 @@ function AllBoardStockSection({
   return (
     <>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
-        <p className="text-display-xs text-[#0C111D] font-bold font-open_sans text-center sm:pb-10 pb-4">
+        <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center sm:pb-10 pb-4">
           All Mainboard Stocks
         </p>
-
+      </div>
+      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
           <div className="w-full">
             <form>
@@ -324,30 +325,32 @@ function AllBoardStockSection({
               </div>
             </form>
           </div>
-          <div className="w-auto">
-            <div className="relative flex gap-4">
-              <CustomSortMenu
-                setSortValue={setSortValue}
-                setSortBy={setSortBy}
-                isLabel={true}
+          <div className="flex gap-4">
+            <div className="w-auto">
+              <div className="relative flex gap-4">
+                <CustomSortMenu
+                  setSortValue={setSortValue}
+                  setSortBy={setSortBy}
+                  isLabel={true}
+                />
+              </div>
+            </div>
+            <div className="w-auto">
+              <DrawerFilter
+                open={open}
+                setOpen={setOpen}
+                recency={recency}
+                setRecency={setRecency}
+                timeLeft={timeLeft}
+                setTimeLeft={setTimeLeft}
+                handleApplyFilters={handleApplyFilters}
+                handleResetFilters={handleResetFilters}
+                min_upside_left={min_upside_left}
+                max_upside_left={max_upside_left}
+                upsideLeft={upsideLeft}
+                setUpsideLeft={setUpsideLeft}
               />
             </div>
-          </div>
-          <div className="w-auto">
-            <DrawerFilter
-              open={open}
-              setOpen={setOpen}
-              recency={recency}
-              setRecency={setRecency}
-              timeLeft={timeLeft}
-              setTimeLeft={setTimeLeft}
-              handleApplyFilters={handleApplyFilters}
-              handleResetFilters={handleResetFilters}
-              min_upside_left={min_upside_left}
-              max_upside_left={max_upside_left}
-              upsideLeft={upsideLeft}
-              setUpsideLeft={setUpsideLeft}
-            />
           </div>
         </div>
       </div>
@@ -356,7 +359,7 @@ function AllBoardStockSection({
       {!showFilterHeader ? (
         <>
           {/* <Filtermenu2 /> */}
-          {/* <FilterMenuTags /> */}
+          <FilterMenuTags />
         </>
       ) : (
         <>
@@ -370,9 +373,6 @@ function AllBoardStockSection({
             handleResetFilters={handleResetFilters}
             min_upside_left={min_upside_left}
             max_upside_left={max_upside_left}
-            // className={`fixed top-0 left-0 w-full p-10 bg-orange-600 transition-transform duration-500 ${
-            //   showFilterHeader ? "translate-y-0" : "-translate-y-full"
-            // }`}
             role="banner"
             aria-hidden={!showFilterHeader}
             upsideLeft={upsideLeft}

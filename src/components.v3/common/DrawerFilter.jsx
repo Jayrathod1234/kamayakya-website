@@ -166,9 +166,9 @@ function DrawerFilter({
       >
         <img src="/assets/filter.svg" alt="" />
         <p className="font-open_sans text-brand-500 font-medium">Filter </p>
-        <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+        {/* <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
           2
-        </div>
+        </div> */}
       </Button>
       <Drawer open={open} anchor="right" onClose={() => {}}>
         <Box

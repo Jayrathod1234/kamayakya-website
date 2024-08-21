@@ -64,7 +64,7 @@ export default function CustomSortMenu({ setSortValue, setSortBy, isLabel }) {
   return (
     <Box position="relative" display="inline-block">
       {/* Sort by label */}
-      {isLabel && (
+      {(isLabel || isMobile) && (
         <Typography
           variant="subtitle1"
           style={{
@@ -96,8 +96,9 @@ export default function CustomSortMenu({ setSortValue, setSortBy, isLabel }) {
           textTransform: "none",
           color: "#1E555C",
           fontWeight: 500,
-          padding: isLabel ? "11px 16px" : "11px 18px", // Conditional padding
-          minWidth: isMobile ? "132px" : isLabel ? "280px" : "157px", // Conditional minWidth
+          padding: isMobile ? "10px 11px" : isLabel ? "11px 16px" : "11px 18px", // Conditional padding
+          // padding: isLabel ? "11px 16px" : "11px 18px", // Conditional padding
+          minWidth: isMobile ? "147px" : isLabel ? "280px" : "157px", // Conditional minWidth
           justifyContent: "space-between",
           display: "flex",
           // marginTop: "20px",

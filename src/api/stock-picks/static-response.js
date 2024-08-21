@@ -262,7 +262,7 @@ export const getHotStockResponse = {
       return_time: "-194 days",
     },
   ],
-  isLimitedView: true,
+  isLimitedView: false,
 };
 
 export const getLatestReleasesStockResponse = [
