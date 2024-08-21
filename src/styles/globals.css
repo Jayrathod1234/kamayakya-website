@@ -1899,3 +1899,20 @@ header > div > div {
   overflow: visible !important;
   text-overflow: initial !important;
 }
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

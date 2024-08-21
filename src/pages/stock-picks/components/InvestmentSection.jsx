@@ -1,5 +1,6 @@
 import React from "react";
 import InvestModal from '@/components.v3/common/InvestModal'
+import { Link } from "react-scroll";
 
 function InvestmentSection() {
   const items = [
@@ -52,8 +53,8 @@ function InvestmentSection() {
         </div>
 
         {/* Always show the +9 more button */}
-        <a
-          href="#"
+        <Link
+          to={<InvestModal/>}
           className="flex flex-col items-center text-center group"
         >
           <div className="bg-white p-2 rounded-full shadow-md">
@@ -64,8 +65,8 @@ function InvestmentSection() {
               </span>
             </div>
           </div>
-          <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">+9 more</span>
-        </a>
+          <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">+17 more</span>
+        </Link>
 
         {/* Show remaining items only on larger screens */}
 

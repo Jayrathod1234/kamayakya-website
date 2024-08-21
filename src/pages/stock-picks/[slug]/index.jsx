@@ -42,13 +42,13 @@ const StockDetails = () => {
           {/* <FaqsNew /> */}
           {/* <Footer /> */}
           {/* </div> */}
-          <div className="!bg-transparent navbar !text-black"><Navbar /></div>
-          <div>
+          {/* <div className="!bg-transparent navbar !text-black"><Navbar /></div> */}
+          <div className="mb-96">
             <Stockdetails />
           </div>
 
-          <div className="  ">
-            <Footer />
+          <div className=" mt-96  ">
+            {/* <Footer /> */}
           </div>
         </>
       )}
