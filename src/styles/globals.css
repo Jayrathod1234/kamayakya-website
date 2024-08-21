@@ -1916,3 +1916,9 @@ header > div > div {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+.bg-gradient-border {
+  background: linear-gradient(to right, white, #0079EF);
+  border-radius: inherit;
+  border: 1px solid transparent; /* Adjust border width if needed */
+  background-clip: padding-box; /* Ensures gradient is visible in the border area */
+}

@@ -1,7 +1,7 @@
-import { ProgressBar } from "@react-pdf-viewer/core";
 import React, { useState } from "react";
-import StockDetailsNews from "../components.v3/common/StockDetailsNews";
-import StockDetailsTimeline from "../components.v3/common/StockDetailsTimeline";
+import StockDetailsNews from "../pages/stock-picks/[slug]/components/StockDetailsNews";
+import StockDetailsTimeline from "../pages/stock-picks/[slug]/components/StockDetailsTimeline";
+import StockDetailsProgressBar from "../pages/stock-picks/[slug]/components/StockDetailsProgressBar";
 
 function Stockdetails() {
 
@@ -12,7 +12,7 @@ function Stockdetails() {
   }
   return (
     <>
-      <div className="pt-4">
+      <div className="pt-4 ">
         <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
           <div className="items-center gap-[13px] flex p-[7px]">
             <img src="/assets/stock-details/arrow-left.svg" alt="" />
@@ -26,11 +26,11 @@ function Stockdetails() {
           </div>
           {/* details  */}
           <div className="pt-3">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
               <div className="col-span-2">
-                <div className="bg-white shadow-sm flex rounded-lg">
+                <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1">
                   <div className="px-4 pt-4 pb-3 gap-2">
-                    <div className="flex pb-2.5 items-center">
+                    <div className="flex pb-2.5 items-center justify-center sm:justify-start md:justify-start">
                       <div className="flex h-4 py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -54,146 +54,184 @@ function Stockdetails() {
                       </div>
                     </div>
                     {/* <!-- Continue your other components similarly --> */}
-                    <div className="items-center flex flex-col md:flex-row gap-4">
-                      <div className="flex w-[100px] h-[100px] md:w-[120px] md:h-[120px] justify-center items-center rounded-lg ">
-                        <img src="/assets/image 3.png" alt="" className="w-full h-full object-cover rounded-full" />
+                    <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+                      {/* Image container */}
+                      <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block">
+                        <img src="/assets/image 3.png" alt="Company Logo" className="w-full h-full object-cover rounded-full" />
                       </div>
-                      <div className="w-full md:flex-1">
+
+                      {/* Text content */}
+                      <div className="w-full">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-                          <p className="text-[#0C111D] text-ellipsis text-xl font-bold font-open_sans">
+                          <div className="flex gap-1 items-center ">
+                          <img src="/assets/image 3.png" alt="Company Logo" className="w-10 h-10 object-cover rounded-full block sm:hidden" />
+                          <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans line-clamp-1  ">
                             Shree Pushkar Chemicals & Fertilizers Ltd.
                           </p>
-                          <div className="flex justify-center items-center gap-[6px]">
-                            <p className="text-2xs text-[#475467] font-medium">
+                          </div>
+                          <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 ">
+                            <p className="text-xs md:text-2xs text-[#475467] font-medium">
                               NSE: IONEXCHANG
                             </p>
                             <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
-                            <p className="text-2xs text-[#475467] font-medium">
+                            <p className="text-xs md:text-2xs text-[#475467] font-medium">
                               BSE: 500214
                             </p>
                           </div>
                         </div>
-                        <div className="pt-1.5 flex flex-wrap gap-2">
-                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1">
+                        <div className="pt-1.5 flex gap-2 flex-wrap">
+                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
                             <img
                               src="/assets/stock-details/basil_diamond-outline.svg"
-                              alt=""
+                              alt="Tag"
+                              className="w-3 h-3 md:w-4 md:h-4"
                             />
-                            <p className="text-2xs font-normal text-[#344054] font-open_sans">
+                            <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
                               Deep Value
                             </p>
                           </div>
-                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1">
+                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
                             <img
                               src="/assets/stock-details/basil_diamond-outline.svg"
-                              alt=""
+                              alt="Tag"
+                              className="w-3 h-3 md:w-4 md:h-4"
                             />
-                            <p className="text-2xs font-normal text-[#344054] font-open_sans">
+                            <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
                               Special Situation
                             </p>
                           </div>
-                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1">
+                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center hidden sm:flex">
                             <img
                               src="/assets/stock-details/basil_diamond-outline.svg"
-                              alt=""
+                              alt="Tag"
+                              className="w-3 h-3 md:w-4 md:h-4"
                             />
-                            <p className="text-2xs font-normal text-[#344054] font-open_sans">
+                            <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
                               Market Leader
                             </p>
                           </div>
+                          <p className=" block sm:hidden text-2xs flex gap-1 text-[#039855] my-2"> <img src="/assets/Polygon2.svg" alt="" className="w-3 h-3 items-center"/> Consider Buying. Our analysis suggests potential growth.</p>
                         </div>
                       </div>
                     </div>
 
+
+                    <div className="flex flex-col sm:flex-row px-2 sm:px-4 py-2 items-start sm:items-center justify-between">
+                      <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
+                        <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
+                          <img
+                            src="/assets/stock-details/Sector icon.svg"
+                            alt=""
+                            className="w-6 h-6 sm:w-auto sm:h-auto"
+                          />
+                        </div>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-14 sm:gap-1">
+                          <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                            Engineering
+                          </p>
+                          <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
+                            Industrial Equipments
+                          </span>
+                        </div>
+                      </div>
+                      <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
+                        <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
+                          <img
+                            src="/assets/stock-details/Sector icon.svg"
+                            alt=""
+                            className="w-6 h-6 sm:w-auto sm:h-auto"
+                          />
+                        </div>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1">
+                          <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                            Mid Cap
+                          </p>
+                          <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
+                            ₹10,000 Cr. as of 16 Feb, 2024
+                          </span>
+                        </div>
+                      </div>
+                      <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex justify-items-end">
+                        <div className="flex p-1 items-center rounded-md bg-[#F9FAFB]">
+                          <img
+                            src="/assets/stock-details/Sector icon.svg"
+                            alt=""
+                            className="w-6 h-6 sm:w-auto sm:h-auto"
+                          />
+                        </div>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1">
+                          <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                            High Risk
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="pt-7">
-                  <div className=" p-4 gap-4 rounded-[10px] bg-white shadow-sm ">
-                    <div className="p-4  justify-center gap-5 rounded-[5px] border border-[#0079EF] bg-[#EFF7FF]">
-                      <div className="gap-4 items-center flex rounded-xl ">
-                        <div className="w-1/2 h-[95px] p-4  rounded-md bg-custom-gradient ">
-                          <div className="flex justify-between">
-                            <div className="flex gap-[6px]">
-                              <p className="font-open_sans text-sm font-semibold text-[#FCFCFD]">
+                <div className="flex sm:hidden gap-2 mt-5 mb-3 ">
+                  <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
+                    <img src="/assets/play1.png" alt="Play icon" className="w-5 h-5" />
+                    <span>Watch Video</span>
+                  </button>
+                  <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
+                    <img src="/assets/share2.svg" alt="Play icon" className="w-5 h-5 " />
+                    <span>Invest Now</span>
+                  </button>
+                </div>
+                <div className="pt-[20px] p-3 block sm:hidden">
+                  <h2 className="text-[#0C111D] text-[14px] leading-3 font-semibold font-open_sans ">
+                    Company Profile
+                  </h2>
+                  <p className="text-[#475467]  text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none">
+                    Shree Pushkar Chemical & Fertiliser Ltd. is a holding
+                    company, which engages in the provision of chemicals and
+                    fertilizers. It offers dye, dye intermediates, fertilizers,
+                    acids, and cattle feed supplements. The company was founded
+                    by Punit Makharia on March 29, 1993 and is headquartered in
+                    Mumbai, India.
+                  </p>
+                </div>
+                <div className="col-span-2 order-3 sm:order-2">
+                  <div className="p-4 gap-4 rounded-[10px] bg-white shadow-sm">
+                    <div className="relative p-4 gap-4 rounded-[5px] bg-[#EFF7FF] border border-transparent">
+                      {/* Gradient Border */}
+                      <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
+
+                      <div className="flex flex-col md:flex-row gap-4 md:gap-5 items-start md:items-center">
+                        <div className="w-full md:w-1/2 h-[95px] p-4 rounded-md bg-custom-gradient">
+                          <div className="flex flex-col md:flex-row justify-between">
+                            <div className="flex gap-1 items-center">
+                              <p className="font-open_sans text-sm md:text-base text-nowrap font-semibold text-[#FCFCFD]">
                                 Upside Left
                               </p>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                fill="none"
-                              >
-                                <path
-                                  d="M13.4046 11.6112C14.1188 10.5423 14.5 9.28558 14.5 8C14.5 6.27609 13.8152 4.62279 12.5962 3.40381C11.3772 2.18482 9.72391 1.5 8 1.5C6.71442 1.5 5.45772 1.88122 4.3888 2.59545C3.31988 3.30968 2.48676 4.32484 1.99479 5.51256C1.50282 6.70028 1.37409 8.00721 1.6249 9.26809C1.8757 10.529 2.49477 11.6872 3.40381 12.5962C4.31285 13.5052 5.47104 14.1243 6.73192 14.3751C7.99279 14.6259 9.29973 14.4972 10.4874 14.0052C11.6752 13.5132 12.6903 12.6801 13.4046 11.6112Z"
-                                  stroke="#E4E7EC"
-                                />
-                                <path
-                                  d="M9 11C9 11.1326 8.94732 11.2598 8.85355 11.3536C8.75979 11.4473 8.63261 11.5 8.5 11.5C8.23478 11.5 7.98043 11.3946 7.79289 11.2071C7.60536 11.0196 7.5 10.7652 7.5 10.5V8C7.36739 8 7.24021 7.94732 7.14645 7.85355C7.05268 7.75979 7 7.63261 7 7.5C7 7.36739 7.05268 7.24022 7.14645 7.14645C7.24021 7.05268 7.36739 7 7.5 7C7.76522 7 8.01957 7.10536 8.20711 7.29289C8.39464 7.48043 8.5 7.73478 8.5 8V10.5C8.63261 10.5 8.75979 10.5527 8.85355 10.6464C8.94732 10.7402 9 10.8674 9 11ZM7.75 6C7.89834 6 8.04334 5.95601 8.16668 5.8736C8.29001 5.79119 8.38614 5.67406 8.44291 5.53701C8.49967 5.39997 8.51453 5.24917 8.48559 5.10368C8.45665 4.9582 8.38522 4.82456 8.28033 4.71967C8.17544 4.61478 8.0418 4.54335 7.89632 4.51441C7.75083 4.48547 7.60003 4.50032 7.46299 4.55709C7.32594 4.61386 7.20881 4.70999 7.1264 4.83332C7.04399 4.95666 7 5.10166 7 5.25C7 5.44891 7.07902 5.63968 7.21967 5.78033C7.36032 5.92098 7.55109 6 7.75 6Z"
-                                  fill="#E4E7EC"
-                                />
-                              </svg>
+                              <img src="/assets/ph_info-duotone.svg" alt="" className="h-[17px] md:h-[20px]" />
                             </div>
-
-                            <div className="justify-end">
+                            <div className="hidden md:flex justify-end">
                               <img
                                 src="/assets/stock-details/streamline_target-solid (1).svg"
                                 alt=""
                               />
                             </div>
                           </div>
-
-                          <div className="flex items-center gap-1 text-[24px] text-white font-bold">
+                          <div className="flex flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[24px] text-white font-bold">
                             17.12%{" "}
-                            <span className="text-[12px] text-[#FCFCFD] font-medium">
+                            <span className="text-[10px] md:text-[12px] text-[#FCFCFD] font-medium">
                               likely within a year
                             </span>
                           </div>
                         </div>
-                        <div className="w-1/2 h-[95px] p-4  rounded-md bg-white ">
-                          <div className="flex justify-between">
-                            <div className="flex gap-[6px]">
-                              <p className="font-open_sans text-sm font-semibold text-[#1D2939]">
+                        <div className="w-full md:w-1/2 h-[95px] p-4 rounded-md bg-white">
+                          <div className="flex flex-col md:flex-row justify-between">
+                            <div className="flex gap-[6px] items-center">
+                              <p className="font-open_sans text-sm md:text-base font-semibold text-[#1D2939]">
                                 Total Returns
                               </p>
                             </div>
-
-                            <div className="justify-end">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                              >
-                                <g clip-path="url(#clip0_9019_370318)">
-                                  <path
-                                    d="M24.0003 15.331C23.9228 15.7198 23.8697 16.116 23.7628 16.4972C22.9672 19.3436 20.3041 21.2547 17.321 21.137C14.4385 21.0205 11.966 18.8703 11.406 15.9908C10.7041 12.3864 13.3128 8.88596 16.9716 8.52665C18.6044 8.35609 20.24 8.823 21.5377 9.83015C22.8354 10.8373 23.6951 12.307 23.9378 13.9332C23.9566 14.0584 23.9785 14.1774 24.0003 14.3V15.331ZM16.9222 18.2043C16.9222 18.4728 16.9191 18.7376 16.9222 19.0024C16.9285 19.4212 17.2241 19.731 17.6166 19.7354C18.0091 19.7398 18.3197 19.4268 18.3272 18.9955C18.3303 18.8077 18.3391 18.6199 18.3272 18.4321C18.3141 18.2687 18.3747 18.1943 18.5241 18.1229C18.8129 17.9883 19.0671 17.7893 19.2675 17.5413C19.4678 17.2933 19.609 17.0027 19.6802 16.6918C19.7514 16.3808 19.7508 16.0577 19.6783 15.747C19.6059 15.4363 19.4636 15.1463 19.2622 14.8991C18.8453 14.3839 18.2928 14.1317 17.6303 14.1129C17.4884 14.1159 17.349 14.0745 17.2316 13.9945C17.1142 13.9145 17.0247 13.7999 16.9753 13.6666C16.9202 13.5441 16.9043 13.4074 16.9298 13.2755C16.9553 13.1436 17.021 13.0228 17.1178 12.9298C17.2111 12.8218 17.3369 12.7471 17.4763 12.717C17.6156 12.687 17.761 12.7032 17.8903 12.7633C18.0668 12.8451 18.2314 12.9504 18.3797 13.0763C18.7128 13.3417 19.1228 13.3373 19.3903 13.0475C19.4576 12.9781 19.5095 12.8951 19.5424 12.8042C19.5752 12.7132 19.5885 12.6163 19.5811 12.5198C19.5738 12.4233 19.5461 12.3295 19.4998 12.2446C19.4536 12.1596 19.3898 12.0855 19.3128 12.0271C19.056 11.818 18.7503 11.6716 18.4722 11.4863C18.4027 11.4412 18.3539 11.3702 18.3366 11.2891C18.3191 11.0719 18.3335 10.8509 18.3297 10.6343C18.3222 10.203 18.0172 9.89003 17.6178 9.89567C17.2185 9.9013 16.9303 10.2087 16.9247 10.6293C16.921 10.8941 16.9247 11.1595 16.9247 11.4193C15.6778 11.8831 15.1753 13.2716 15.7503 14.3677C16.1391 15.1063 16.771 15.4825 17.6041 15.5176C17.9241 15.5313 18.1566 15.6747 18.276 15.9739C18.3297 16.097 18.3441 16.2337 18.3171 16.3653C18.2901 16.4969 18.2231 16.6169 18.1253 16.7088C17.9003 16.9417 17.6128 16.9955 17.3303 16.8559C17.1175 16.7443 16.9231 16.6005 16.7541 16.4296C16.411 16.0941 16.0041 16.0453 15.696 16.3332C15.3878 16.6212 15.401 17.0368 15.7235 17.3936C16.0499 17.759 16.4618 18.0375 16.9222 18.2043Z"
-                                    fill="#0E4943"
-                                  />
-                                  <path
-                                    d="M8.48452 23.9999V5.64055C8.39702 5.63617 8.32202 5.62991 8.24702 5.62991C7.63827 5.62991 7.0289 5.62991 6.41952 5.62991C6.0814 5.62991 5.83015 5.46215 5.72077 5.17858C5.60765 4.88249 5.68702 4.59517 5.95827 4.36481C7.56952 2.97848 9.18223 1.59486 10.7964 0.213949C11.1264 -0.067741 11.462 -0.0727488 11.7901 0.207689C13.4114 1.59194 15.0301 2.97869 16.6464 4.36794C16.9076 4.59267 16.982 4.87811 16.8758 5.16731C16.7695 5.45652 16.5164 5.62741 16.1608 5.62866C15.4895 5.62866 14.8183 5.62866 14.1095 5.62866V5.87905C14.1095 6.50503 14.1051 7.13101 14.1126 7.7526C14.1126 7.88969 14.0639 7.95542 13.9483 8.0224C11.2233 9.61364 9.79765 11.9867 9.91515 15.1435C10.0214 18.0061 11.4464 20.1445 13.9151 21.5823C14.0545 21.6631 14.117 21.7395 14.1114 21.9047C14.0983 22.2866 14.0883 22.6709 14.1114 23.0515C14.1389 23.4897 13.9958 23.8083 13.5908 23.9961L8.48452 23.9999Z"
-                                    fill="#0E4943"
-                                  />
-                                  <path
-                                    d="M4.26562 24.0017V10.7685C4.26562 10.1538 4.51563 9.89844 5.12813 9.89844H7.07812V24.0017H4.26562Z"
-                                    fill="#0E4943"
-                                  />
-                                  <path
-                                    d="M0 16.0313C0.1875 15.6263 0.506875 15.4923 0.943125 15.5092C1.55687 15.5336 2.17188 15.5155 2.8125 15.5155V23.9981H0.515625C0.289273 23.8912 0.107016 23.7089 0 23.4823L0 16.0313Z"
-                                    fill="#0E4943"
-                                  />
-                                </g>
-                                <defs>
-                                  <clipPath id="clip0_9019_370318">
-                                    <rect width="24" height="24" fill="white" />
-                                  </clipPath>
-                                </defs>
-                              </svg>
+                            <div className="hidden md:flex justify-end">
+                              <img src="/assets/Layer_1.svg" alt="" />
                             </div>
                           </div>
-
-                          <div className="flex items-center gap-1 text-[20px] text-[#344054] font-bold">
+                          <div className="flex flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] text-[#344054] font-bold">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="15"
@@ -207,18 +245,18 @@ function Stockdetails() {
                               />
                             </svg>
                             34.36%{" "}
-                            <span className="text-[12px] text-[#667085] font-medium">
+                            <span className="text-[10px] md:text-[12px] text-[#667085] font-medium">
                               in 4 months
                             </span>
                           </div>
                         </div>
                       </div>
-                      <div className="pt-5 flex justify-center text-[#344054] text-sm font-normal gap-1">
-                        <span className="text-[#0079EF] text-sm font-bold">
+                      <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base font-normal gap-1">
+                        <span className="text-[#0079EF] text-sm md:text-base font-bold">
                           ₹1Lakh{" "}
                         </span>
                         invested at current market price (CMP) can become{" "}
-                        <span className="text-[#0079EF] text-sm font-bold">
+                        <span className="text-[#0079EF] text-sm md:text-base font-bold">
                           ₹“X” Lakh
                         </span>{" "}
                         likely within a year
@@ -226,17 +264,18 @@ function Stockdetails() {
                     </div>
 
                     <div className="pt-4">
-                      <div className="px-[20px] pt-[20px] pb-4">
-                        progress bar
+                      <div className="px-4 md:px-[20px] pt-4 pb-4">
+                        <StockDetailsProgressBar />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="pt-[72px]">
-                  <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans">
+
+                <div className="pt-[72px] p-3 hidden sm:block">
+                  <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                     Company Profile
                   </h2>
-                  <p className="text-[#475467] text-justify text-[14px] font-normal font-open_sans">
+                  <p className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none">
                     Shree Pushkar Chemical & Fertiliser Ltd. is a holding
                     company, which engages in the provision of chemicals and
                     fertilizers. It offers dye, dye intermediates, fertilizers,
@@ -245,6 +284,37 @@ function Stockdetails() {
                     Mumbai, India.
                   </p>
                 </div>
+                <div className="mt-5 block sm:hidden md:hidden">
+                    <button
+                      className="w-full   p-2 rounded-lg flex justify-between items-center"
+                      onClick={toggleDropdown}
+                    >
+                      <span>TIMELINE & REPORTS (3)</span>
+                      <svg
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+                          }`}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                    {isOpen && (
+                      <div className="mt-2">
+                        {/* Timeline Content Goes Here */}
+                        <div className="p-4 border rounded-lg">
+                          <StockDetailsTimeline />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 <div className="pt-[72px]">
                   <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans">
                     News
@@ -253,11 +323,11 @@ function Stockdetails() {
                 </div>
               </div>
               {/* <!-- Continue with the rest of your content --> */}
-              <div className="relative">
-                <div className="p-4 border rounded-lg sticky top-0 h-[854px] overflow-y-auto custom-scrollbar">
+              <div className="relative hidden  sm:block">
+                <div className="p-4 border rounded-lg sticky top-0 ">
 
-                  <h2 className="font-semibold text-lg mb-4">INVESTMENT GUIDANCE</h2>
-                  <div className="flex gap-2 mb-4">
+                  <h2 className="font-semibold text-lg mb-4  hidden sm:flex">INVESTMENT GUIDANCE</h2>
+                  <div className=" gap-2 mb-4 hidden sm:flex">
                     <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
                       <img src="/assets/play1.png" alt="Play icon" className="w-5 h-5" />
                       <span>Watch Video</span>
@@ -268,28 +338,36 @@ function Stockdetails() {
                     </button>
                   </div>
 
-                  <div className="flex justify-between items-center relative pt-10" >
+                  <div className=" justify-between items-center relative pt-5 hidden sm:flex " >
                     <p className="w-2/3">
                       Consider <span className="text-blue-600 font-semibold">Buying</span>. Our analysis suggests potential growth.
                     </p>
-                    <img src="/assets/images2.png" alt="" className="absolute top-2 right-6 w-16 h-16" />
+                    <img src="/assets/images2.png" alt="" className="absolute -top-3 right-6 w-16 h-16" />
                     <img src="/assets/images3.svg" alt="" className="absolute -bottom-1 right-2 " />
                     <div className="w-1/3 flex justify-end">
                       <img src="/assets/images1.png" alt="" className=" w-[52px] h-[100px]" />
                     </div>
                   </div>
-                  <div className="">
-                    <p className="font-semibold mb-2">
-                      Don't miss out on potential gains!
-                    </p>
-                    <p className="mb-4 text-[#344054]">
-                      Upgrade now to get access to both SME and Mainboard stocks.
-                    </p>
+                  <hr className="mt-3 hidden  sm:block" />
+                  <div className="p-5 bg-gray-100 mt-2 rounded-md hidden sm:block">
+                    <div className="flex relative">
+                      <div className=" !w-[75%]">
+                        <p className="font-semibold mb-2">
+                          Don't miss out on potential gains!
+                        </p>
+                        <p className="mb-4 text-[#344054]">
+                          Upgrade now to get access to both SME and Mainboard stocks.
+                        </p>
+                      </div>
+                      <div className=" !w-[25%]">
+                        <img src="/assets/Frame.svg" alt="sss" className="absolute top-0 right-0 h-[88px] w-[78px]" />
+                      </div>
+                    </div>
+                    <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
+                      <span className="flex gap-2"><img src="/assets/white-icon.svg" alt="" />Upgrade Now</span>
+                    </button>
                   </div>
-                  <button className="w-full bg-[#125B54] text-white p-2 rounded-lg flex justify-center items-center">
-                    <span>Upgrade Now</span>
-                  </button>
-                  <div className="mt-5">
+                  <div className="mt-5 hidden sm:block">
                     <button
                       className="w-full   p-2 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
@@ -322,11 +400,8 @@ function Stockdetails() {
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
-
         </div>
       </div>
     </>

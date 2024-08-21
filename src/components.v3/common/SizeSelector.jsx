@@ -43,35 +43,7 @@ const SectorFilter = () => {
 
   return (
     <div style={{ padding: "16px" }}>
-      <TextField
-        variant="outlined"
-        fullWidth
-        value={searchTerm}
-        onChange={handleSearchChange}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <IconButton>
-                <SearchIcon style={{ color: "#667085" }} />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderColor: "#F2F4F7", // Default border color
-              padding: "0px !important",
-            },
-            // "&:hover fieldset": {
-            //   borderColor: "#1565c0", // Border color when hovered
-            // },
-            "&.Mui-focused fieldset": {
-              borderColor: "#00000", // Border color when focused
-            },
-          },
-        }}
-      />
+      
       <List>
         {filteredSectors.map((sector, index) => (
           <ListItem
@@ -84,6 +56,12 @@ const SectorFilter = () => {
                   checked={checkedItems.includes(sector)}
                   onChange={handleCheckboxChange}
                   name={sector}
+                  sx={{
+                    color: 'default', // Default color
+                    '&.Mui-checked': {
+                      color: '#125B54', // Color when checked
+                    },
+                  }}
                 />
               }
               label={sector}

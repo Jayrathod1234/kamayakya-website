@@ -5,7 +5,7 @@ function Hotcard() {
   return (
     <>
       <div className="flex relative">
-        <div className="absolute top-[17px] z-[11] left-[126px] ">
+        <div className="absolute top-[17px] z-[11] left-1/2 ">
           <img src="/assets/hottab.png" alt="" className="w-[159px]" />
         </div>
         <div className="relative rounded-lg bg-white border border-[#FEC84B] p-[15px] max-w-[308px] z-[5] scale-y-90 left-[65px]">

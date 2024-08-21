@@ -37,6 +37,7 @@ const SectorFilter2 = ({ stockSector, sector, setSector }) => {
         fullWidth
         value={searchTerm}
         onChange={handleSearchChange}
+        placeholder="Search for sectors"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -56,7 +57,7 @@ const SectorFilter2 = ({ stockSector, sector, setSector }) => {
             //   borderColor: "#1565c0", // Border color when hovered
             // },
             "&.Mui-focused fieldset": {
-              borderColor: "#00000", // Border color when focused
+              borderColor: "#125B54", // Border color when focused
             },
           },
         }}
@@ -74,6 +75,12 @@ const SectorFilter2 = ({ stockSector, sector, setSector }) => {
                     checked={sector.includes(key)}
                     onChange={handleCheckboxChange}
                     name={key}
+                    sx={{
+                      color: "default", // Default color
+                      "&.Mui-checked": {
+                        color: "#125B54", // Color when checked
+                      },
+                    }}
                   />
                 }
                 label={stockSector[key]}
