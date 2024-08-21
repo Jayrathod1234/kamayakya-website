@@ -244,7 +244,7 @@ function DrawerFilter({
                     variant="outlined"
                     size="small"
                     name="min"
-                    value={upsideLeft[0] || 0}
+                    value={upsideLeft[0]}
                     onChange={handleInputChange}
                     InputProps={{
                       endAdornment: (
@@ -261,7 +261,7 @@ function DrawerFilter({
                     variant="outlined"
                     size="small"
                     name="max"
-                    value={upsideLeft[1] || 0}
+                    value={upsideLeft[1]}
                     onChange={handleInputChange}
                     InputProps={{
                       endAdornment: (

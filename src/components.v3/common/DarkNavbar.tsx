@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Avatar, AvatarVariant } from "./avatar";
+import { Avatar, AvatarVariant } from "@/components.v2/avatar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import CloseIcon from "@mui/icons-material/Close";
@@ -39,17 +39,17 @@ import {
     User,
 } from "lucide-react";
 import { light } from "@mui/material/styles/createPalette";
-import { NavbarDropdownCard, NavbarUserCard } from "./cards";
+import { NavbarDropdownCard, NavbarUserCard } from "@/components.v2/cards";
 import AuthContext from "@/components/AuthContext";
-import SideNav from "./sidenav";
+import SideNav from "@/components.v2/sidenav";
 import { Box, IconButton } from "@mui/material";
 import { Modal } from "@nextui-org/react";
 
 import Login from "@/components/Login";
-import { LoginBtnNav } from "./login-btn-nav";
+import { LoginBtnNav } from "@/components.v2/login-btn-nav";
 import { getMixPanelClient } from "@/externals/mixpanel";
-import { Button } from "./button";
-import { ButtonVariant } from "./button/button";
+import { Button } from "@/components.v2/button";
+import { ButtonVariant } from "@/components.v2/button/button";
 
 export function Navbar() {
     const { isLoggedIn } = useContext(AuthContext);

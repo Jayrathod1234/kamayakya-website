@@ -356,7 +356,7 @@ function AllBoardStockSection({
       {!showFilterHeader ? (
         <>
           {/* <Filtermenu2 /> */}
-          {/* <FilterMenuTags /> */}
+          <FilterMenuTags />
         </>
       ) : (
         <>
