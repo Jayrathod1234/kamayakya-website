@@ -14,7 +14,7 @@ import { getCommonDetailsApi } from "@/api/stock-picks";
 const StockPicks = () => {
   // Use react-query to fetch
   const {
-    data: items = [],
+    data: items = {},
     isLoading,
     error,
   } = useQuery({
@@ -29,7 +29,6 @@ const StockPicks = () => {
     stock_choices: { stock_sectors } = {},
   } = items;
   const [sebiBoardType, setSebiBoardType] = useState("mainboard");
-
   // useCallback to memoize the setSebiBoardType function
   const handleSebiBoardTypeChange = useCallback((type) => {
     setSebiBoardType(type);

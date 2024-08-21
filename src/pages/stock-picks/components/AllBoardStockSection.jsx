@@ -985,6 +985,8 @@ function AllBoardStockSection({
             // }`}
             role="banner"
             aria-hidden={!showFilterHeader}
+            upsideLeft={upsideLeft}
+            setUpsideLeft={setUpsideLeft}
           />
         </>
       )}
