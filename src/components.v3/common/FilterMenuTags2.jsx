@@ -7,6 +7,7 @@ import StrategyCheck from "./StrategyCheck";
 import SectorSelect from "./SectorCheck";
 import CustomSortMenu from "./RadioDrop";
 import DrawerFilter from "@/components.v3/common/DrawerFilter";
+import ResCustomSort from "./ResCustomSort";
 const FilterMenuTags2 = ({
   min_upside_left,
   max_upside_left,
@@ -206,8 +207,17 @@ const FilterMenuTags2 = ({
               {isResponsive && (
                 <>
                   <CustomSortMenu
-                    sx={{ padding: isMobile ? "6px 11px" : "10px 11px" }}
+                    sx={{
+                      padding: isMobile ? "6px 11px" : "10px 11px",
+                    }}
                   />
+                  {/* <ResCustomSort
+                    sx={{
+                      padding: isMobile ? "6px 11px" : "10px 11px",
+                      display: isMobile ? "none" : "block",
+                    }}
+                  /> */}
+
                   <DrawerFilter
                     open={open}
                     setOpen={setOpen}

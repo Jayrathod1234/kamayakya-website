@@ -17,6 +17,7 @@ import {
   styled,
   Slider,
   Button,
+  useMediaQuery,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -24,8 +25,6 @@ import SectorFilter2 from "@/components.v3/common/SectoreFilter2";
 import { filterTimeLabel } from "@/utils/constants.js";
 
 function DrawerFilter({
-  open,
-  setOpen,
   recency,
   setRecency,
   handleApplyFilters,
@@ -54,16 +53,24 @@ function DrawerFilter({
   setStrategyTag,
   totalFilterCount,
 }) {
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
+  const [open, setOpen] = React.useState(false);
+  const [anchor, setAnchor] = React.useState("");
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   const handleApply = () => {
     handleApplyFilters();
     setOpen(false);
   };
 
-  // upside left
+  const toggleDrawer = (anchorVal, openVal) => () => {
+    setOpen(openVal);
+    setAnchor(anchorVal);
+  };
+
+  /**
+   * Stock price slider filter
+   * Onchange event
+   */
   const handleUpsideLeftSliderChange = (event, newValue) => {
     setUpsideLeft(newValue);
   };
@@ -77,7 +84,7 @@ function DrawerFilter({
     setUpsideLeft(newValue);
   };
 
-  // returns
+  // // returns
   const handleReturnsSliderChange = (event, newValue) => {
     setReturns(newValue);
   };
@@ -112,6 +119,8 @@ function DrawerFilter({
     );
   };
 
+  const handleCloseDrawer = (closeVal) => {};
+
   const CustomSlider = styled(Slider)({
     color: "#004d40", // Main color for the rail and thumb border
     height: 4, // Thickness of the slider rail
@@ -139,8 +148,9 @@ function DrawerFilter({
     <>
       <Button
         variant="outlined"
-        onClick={toggleDrawer(true)}
-        className="relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
+        onClick={toggleDrawer("right", true)}
+        sx={{ display: isMobile ? "none" : "block" }}
+        className="inline-block relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 rounded-md  gap-2 items-center shadow-3xs !min-w-24"
       >
         <img src="/assets/filter.svg" alt="" />
         <p className="font-open_sans text-brand-500 font-medium">Filter </p>
@@ -150,7 +160,22 @@ function DrawerFilter({
           </div>
         )}
       </Button>
-      <Drawer open={open} anchor="right" onClose={() => {}}>
+      <Button
+        variant="outlined"
+        onClick={toggleDrawer("bottom", true)}
+        sx={{ display: isMobile ? "block" : "none" }}
+        className="inline-block relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 rounded-md  gap-2 items-center shadow-3xs !min-w-24"
+      >
+        <img src="/assets/filter.svg" alt="" />
+        <p className="font-open_sans text-brand-500 font-medium">Filter B</p>
+        {totalFilterCount > 0 && (
+          <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+            {totalFilterCount}
+          </div>
+        )}
+      </Button>
+
+      <Drawer open={open} anchor={anchor} onClose={() => {}}>
         <Box
           sx={{ width: 400 }}
           role="presentation"
@@ -858,7 +883,7 @@ function DrawerFilter({
             <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
               <button
                 class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
-                onClick={toggleDrawer(false)}
+                onClick={handleCloseDrawer(false)}
               >
                 Cancel
               </button>

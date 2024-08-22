@@ -143,6 +143,7 @@ export default function CustomSortMenu({ setSortValue, setSortBy, isLabel }) {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        // sx={{ display: isMobile ? "none" : "block" }}
         PaperProps={{
           style: {
             borderRadius: "6px",
