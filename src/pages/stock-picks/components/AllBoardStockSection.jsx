@@ -14,6 +14,7 @@ import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 import { useDebounce } from "../../../utils/deBounceSearch";
 import DrawerFilter from "@/components.v3/common/DrawerFilter";
 import { initialFilterTime } from "@/utils/constants.js";
+import ResponsiveFilter from "../../../components.v3/common/ResponsiveFilter";
 
 function AllBoardStockSection({
   sebiBoardType,
@@ -258,8 +259,8 @@ function AllBoardStockSection({
               </div>
             </form>
           </div>
-          <div className="flex gap-4">
-            <div className="w-auto">
+          <div className="flex gap-4 ">
+            <div className="w-auto sm:block hidden">
               <div className="relative flex gap-4">
                 <CustomSortMenu
                   setSortValue={setSortValue}
@@ -269,7 +270,7 @@ function AllBoardStockSection({
               </div>
             </div>
           </div>
-          <div className="w-auto">
+          <div className="w-auto sm:block hidden">
             <DrawerFilter
               open={open}
               setOpen={setOpen}
@@ -309,7 +310,8 @@ function AllBoardStockSection({
       {!showFilterHeader ? (
         <>
           {/* <Filtermenu2 /> */}
-          <FilterMenuTags />
+          <ResponsiveFilter className="sm:hidden bl"/>
+          <FilterMenuTags className="sm:block hidden"/>
         </>
       ) : (
         <>

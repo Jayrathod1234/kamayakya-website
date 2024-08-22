@@ -89,7 +89,7 @@ const FilterCarousel = () => {
 
   return (
     <div className="bg-white">
-      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto">
+      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto sm:block hidden">
         <Box
           sx={{ display: "flex", width: "100%", overflow: "hidden" }}
           ref={containerRef}
@@ -129,10 +129,16 @@ const FilterCarousel = () => {
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
+                  display: { xs: "none", sm: "block" },
                 }}
               >
                 <ArrowBackIosIcon
-                  sx={{ width: "18px", position: "absolute", left: "8px" }}
+                  sx={{
+                    width: "18px",
+                    position: "absolute",
+                    left: "8px",
+                    top: "3px",
+                  }}
                 />
               </IconButton>
             )}

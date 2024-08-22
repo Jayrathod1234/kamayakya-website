@@ -1,5 +1,5 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
-import { Box, Chip, IconButton } from "@mui/material";
+import { Box, Chip, IconButton, useMediaQuery } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,6 +10,7 @@ const FilterMenuTags2 = () => {
   const [selectedChips, setSelectedChips] = useState([]);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [chips, setChips] = useState([
     {
       label: "Most Recenttttttt",
@@ -112,7 +113,7 @@ const FilterMenuTags2 = () => {
     <div className="mr-auto sm:order-first order-2">
       <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px]">
         <Box
-          sx={{ display: "flex", width: "757px", overflow: "hidden" }}
+          sx={{ display: "flex", width: "757px", overflow: {sm:"hidden", xs:"auto"} }}
           ref={containerRef}
         >
           <Box
@@ -136,6 +137,7 @@ const FilterMenuTags2 = () => {
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
+                  display: { xs: "none", sm: "block" },
                 }}
               >
                 <ArrowBackIosIcon
@@ -226,7 +228,7 @@ const FilterMenuTags2 = () => {
                   height: "28px",
                   backgroundColor: "black",
                   color: "white",
-
+                  right: "2%",
                   borderRadius: "50%",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover

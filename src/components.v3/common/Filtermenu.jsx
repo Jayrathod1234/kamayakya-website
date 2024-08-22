@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import DrawerFilter from "@/components.v3/common/DrawerFilter";
 import CustomSortMenu from "../common/RadioDrop.jsx";
 import FilterMenuTags2 from "./FilterMenuTags2.jsx";
+import ResponsiveFilter from "./ResponsiveFilter.jsx";
 
 function Filtermenu({
   Filtermenu,
@@ -88,6 +89,7 @@ function Filtermenu({
           {/* Import FilterMenuTag here */}
 
           {/* <FilterMenuTagsdummy /> */}
+          {/* <ResponsiveFilter/> */}
           <FilterMenuTags2 />
 
           <div className="flex sm:gap-[10px] gap-2 items-center ">
