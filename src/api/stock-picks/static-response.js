@@ -157,112 +157,113 @@ export const getHotStockResponse = {
       new_stock: true,
       stock_target_count: 2,
     },
-    {
-      id: "92326e51-f74f-411a-8c96-e3a1382a2b65",
-      created: "2024-08-06T14:22:55.544718+05:30",
-      stock_name: "Apple Ltd.",
-      stock_symbol: "APPL",
-      stock_exchange: "NSE",
-      stock_industry: "IT",
-      market_cap: 49392.25,
-      live_price: 5000,
-      entry_price: 5005,
-      target_price: 5555,
-      upside_left: 11.1,
-      expected_returns: 10.99,
-      time_left: 148,
-      risk: "Medium",
-      action: "BUY",
-      stock_targets: [
-        {
-          id: "b953ba9e-3e98-4ea0-bc97-78a6450e36d1",
-          created: "2024-08-06T14:48:20.433336+05:30",
-          entry_price: 5005,
-          target_price: 5555,
-          target_date: "2025-01-01",
-          gain_loss: -0.1,
-          target_met: null,
-          target_action: "BUY",
-        },
-        {
-          id: "1a18ff84-7e80-44ce-a387-e20b1a7bb471",
-          created: "2024-08-06T14:38:34.740776+05:30",
-          entry_price: 5005,
-          target_price: 5555,
-          target_date: "2025-01-01",
-          gain_loss: -0.1,
-          target_met: null,
-          target_action: "BUY",
-        },
-        {
-          id: "fe93688d-7683-4f26-a07e-34d79f6b800d",
-          created: "2024-08-06T14:22:55.642349+05:30",
-          entry_price: 5005,
-          target_price: 5555,
-          target_date: "2025-01-01",
-          gain_loss: -0.1,
-          target_met: null,
-          target_action: "BUY",
-        },
-      ],
-      stock_reports: [],
-      youtube_details: [],
-      stock_disclosures: [],
-      latest_target_price: 5555,
-      recommended_stock: true,
-      stock_tags: [
-        {
-          id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
-          name: "Turnaround Story",
-          slug: "turnaround-story",
-          created: "2024-08-05T16:00:50.385063+05:30",
-          description: "Invest in companies poised for a comeback",
-          image:
-            "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4a4c7844c7c5d23c196e36ebe55d974c856fec40e260748cef16be078542a8e0",
-        },
-        {
-          id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
-          name: "Special Situation",
-          slug: "special-situation",
-          created: "2024-08-05T16:00:50.385063+05:30",
-          description:
-            "Unique opportunities arising from corporate events or restructuring",
-          image:
-            "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8681c777d3b23aef51356521d932b9c14279addaddb4bdaab1c297e77b656e96",
-        },
-      ],
-      upside_left_time: "10 days",
-      return_time: "5 months",
-      new_stock: true,
-      stock_target_count: 3,
-    },
-    {
-      upside_left: 19.73,
-      stock_tags: [
-        {
-          id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
-          name: "Value Pick",
-          image:
-            "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2592e204b0e2170a0be533a8c08d7bc1e81cc5ca6068218ef22a672d03cdfb22",
-        },
-        {
-          id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
-          name: "ESG",
-          image:
-            "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=52a7787bab1e1e16269d2f9e23879a5ef887d023729dbb22b162882b67d40feb",
-        },
-      ],
-      sector: "chemicals",
-      stock_target_count: 2,
-      id: "a15edf01-e950-403f-894b-8cf26dc9346e",
-      new_stock: true,
-      recommended_stock: true,
-      is_blur: true,
-      upside_left_time: "10 days",
-      return_time: "-194 days",
-    },
+    
+    // {
+    //   id: "92326e51-f74f-411a-8c96-e3a1382a2b65",
+    //   created: "2024-08-06T14:22:55.544718+05:30",
+    //   stock_name: "Apple Ltd.",
+    //   stock_symbol: "APPL",
+    //   stock_exchange: "NSE",
+    //   stock_industry: "IT",
+    //   market_cap: 49392.25,
+    //   live_price: 5000,
+    //   entry_price: 5005,
+    //   target_price: 5555,
+    //   upside_left: 11.1,
+    //   expected_returns: 10.99,
+    //   time_left: 148,
+    //   risk: "Medium",
+    //   action: "BUY",
+    //   stock_targets: [
+    //     {
+    //       id: "b953ba9e-3e98-4ea0-bc97-78a6450e36d1",
+    //       created: "2024-08-06T14:48:20.433336+05:30",
+    //       entry_price: 5005,
+    //       target_price: 5555,
+    //       target_date: "2025-01-01",
+    //       gain_loss: -0.1,
+    //       target_met: null,
+    //       target_action: "BUY",
+    //     },
+    //     {
+    //       id: "1a18ff84-7e80-44ce-a387-e20b1a7bb471",
+    //       created: "2024-08-06T14:38:34.740776+05:30",
+    //       entry_price: 5005,
+    //       target_price: 5555,
+    //       target_date: "2025-01-01",
+    //       gain_loss: -0.1,
+    //       target_met: null,
+    //       target_action: "BUY",
+    //     },
+    //     {
+    //       id: "fe93688d-7683-4f26-a07e-34d79f6b800d",
+    //       created: "2024-08-06T14:22:55.642349+05:30",
+    //       entry_price: 5005,
+    //       target_price: 5555,
+    //       target_date: "2025-01-01",
+    //       gain_loss: -0.1,
+    //       target_met: null,
+    //       target_action: "BUY",
+    //     },
+    //   ],
+    //   stock_reports: [],
+    //   youtube_details: [],
+    //   stock_disclosures: [],
+    //   latest_target_price: 5555,
+    //   recommended_stock: true,
+    //   stock_tags: [
+    //     {
+    //       id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+    //       name: "Turnaround Story",
+    //       slug: "turnaround-story",
+    //       created: "2024-08-05T16:00:50.385063+05:30",
+    //       description: "Invest in companies poised for a comeback",
+    //       image:
+    //         "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4a4c7844c7c5d23c196e36ebe55d974c856fec40e260748cef16be078542a8e0",
+    //     },
+    //     {
+    //       id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+    //       name: "Special Situation",
+    //       slug: "special-situation",
+    //       created: "2024-08-05T16:00:50.385063+05:30",
+    //       description:
+    //         "Unique opportunities arising from corporate events or restructuring",
+    //       image:
+    //         "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8681c777d3b23aef51356521d932b9c14279addaddb4bdaab1c297e77b656e96",
+    //     },
+    //   ],
+    //   upside_left_time: "10 days",
+    //   return_time: "5 months",
+    //   new_stock: true,
+    //   stock_target_count: 3,
+    // },
+    // {
+    //   upside_left: 19.73,
+    //   stock_tags: [
+    //     {
+    //       id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+    //       name: "Value Pick",
+    //       image:
+    //         "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2592e204b0e2170a0be533a8c08d7bc1e81cc5ca6068218ef22a672d03cdfb22",
+    //     },
+    //     {
+    //       id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+    //       name: "ESG",
+    //       image:
+    //         "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240816%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240816T093726Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=52a7787bab1e1e16269d2f9e23879a5ef887d023729dbb22b162882b67d40feb",
+    //     },
+    //   ],
+    //   sector: "chemicals",
+    //   stock_target_count: 2,
+    //   id: "a15edf01-e950-403f-894b-8cf26dc9346e",
+    //   new_stock: true,
+    //   recommended_stock: true,
+    //   is_blur: true,
+    //   upside_left_time: "10 days",
+    //   return_time: "-194 days",
+    // },
   ],
-  isLimitedView: false,
+  isLimitedView: true,
 };
 
 export const getLatestReleasesStockResponse = [
@@ -367,268 +368,268 @@ export const getLatestReleasesStockResponse = [
     upside_left_time: "2 days",
     return_time: "No return time available",
   },
-  {
-    upside_left: null,
-    stock_tags: [
-      {
-        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
-        name: "Special Situation",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
-      },
-    ],
-    sector: "Chemicals",
-    stock_target_count: 0,
-    id: "fa6623a0-c04a-4016-b794-1f997b73f6ad",
-    new_stock: true,
-    recommended_stock: false,
-    is_blur: true,
-    upside_left_time: "2 days",
-    return_time: "No return time available",
-  },
-  {
-    upside_left: null,
-    stock_tags: [
-      {
-        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
-        name: "Value Pick",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
-      },
-    ],
-    sector: "FMCG",
-    stock_target_count: 0,
-    id: "e8fbbac8-5106-4d7b-b321-d923ceb1779c",
-    new_stock: true,
-    recommended_stock: false,
-    is_blur: true,
-    upside_left_time: "2 days",
-    return_time: "No return time available",
-  },
-  {
-    upside_left: null,
-    stock_tags: [
-      {
-        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
-        name: "Value Pick",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
-      },
-      {
-        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
-        name: "Special Situation",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
-      },
-    ],
-    sector: "Chemicals",
-    stock_target_count: 0,
-    id: "e52a274e-1a2d-4332-a050-fdc7cc42475c",
-    new_stock: true,
-    recommended_stock: false,
-    is_blur: true,
-    upside_left_time: "2 days",
-    return_time: "No return time available",
-  },
-  {
-    upside_left: 11.1,
-    stock_tags: [
-      {
-        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
-        name: "Turnaround Story",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e8428b5b1450f4e3f7019840480c3078038a2947310d8fd3687fa5439dcda30",
-      },
-      {
-        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
-        name: "Special Situation",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
-      },
-      {
-        id: "6d9fb7a0-92b3-4633-8ea9-ae86dc2bd008",
-        name: "Management Change",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/management-change.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1d2690b88d14356424608c6977057ee7693a6bd32e02c3cc9b01a20b281d52c1",
-      },
-    ],
-    sector: "IT",
-    stock_target_count: 3,
-    id: "e72fa69d-4850-4516-a592-04342586d6a8",
-    new_stock: true,
-    recommended_stock: false,
-    is_blur: true,
-    upside_left_time: "9 days",
-    return_time: "5 months",
-  },
-  {
-    upside_left: 11.1,
-    stock_tags: [
-      {
-        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
-        name: "Turnaround Story",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e8428b5b1450f4e3f7019840480c3078038a2947310d8fd3687fa5439dcda30",
-      },
-      {
-        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
-        name: "Special Situation",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
-      },
-    ],
-    sector: "IT",
-    stock_target_count: 3,
-    id: "92326e51-f74f-411a-8c96-e3a1382a2b65",
-    new_stock: true,
-    recommended_stock: true,
-    is_blur: true,
-    upside_left_time: "9 days",
-    return_time: "5 months",
-  },
-  {
-    upside_left: 20.25,
-    stock_tags: [
-      {
-        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
-        name: "Value Pick",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
-      },
-      {
-        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
-        name: "Turnaround Story",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e8428b5b1450f4e3f7019840480c3078038a2947310d8fd3687fa5439dcda30",
-      },
-      {
-        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
-        name: "Special Situation",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
-      },
-    ],
-    sector: "IT",
-    stock_target_count: 2,
-    id: "b55d775c-52b5-43b9-b83e-fe530d577b36",
-    new_stock: true,
-    recommended_stock: true,
-    is_blur: true,
-    upside_left_time: "9 days",
-    return_time: "3 months",
-  },
-  {
-    upside_left: null,
-    stock_tags: [
-      {
-        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
-        name: "Turnaround Story",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e8428b5b1450f4e3f7019840480c3078038a2947310d8fd3687fa5439dcda30",
-      },
-      {
-        id: "a282f6c5-0c47-451c-8d41-fd2888c7737b",
-        name: "Cyclicals",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/cyclicals.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=e56552582f3447e87b76e06a397ef12e6f6e152d6a696dc68436260aeb0d8a78",
-      },
-      {
-        id: "43a146f9-2f69-40ba-ad48-1faba29db0a5",
-        name: "Moated",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/moated.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=308ca6c315cebeaa8dea624771ef436767dac9383d61b35573f2f4726f782447",
-      },
-    ],
-    sector: "FMCG",
-    stock_target_count: 2,
-    id: "1208bb79-076b-4b09-92e3-7c4bdc597835",
-    new_stock: true,
-    recommended_stock: false,
-    is_blur: true,
-    upside_left_time: "9 days",
-    return_time: "No return time available",
-  },
-  {
-    upside_left: 19.73,
-    stock_tags: [
-      {
-        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
-        name: "Value Pick",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
-      },
-      {
-        id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
-        name: "ESG",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9824c9a1a66b81aab453ccab60e2d270d67fd11514989c8ff698aecdb721a3fe",
-      },
-    ],
-    sector: "Chemicals",
-    stock_target_count: 2,
-    id: "a15edf01-e950-403f-894b-8cf26dc9346e",
-    new_stock: true,
-    recommended_stock: true,
-    is_blur: true,
-    upside_left_time: "9 days",
-    return_time: "-194 days",
-  },
-  {
-    upside_left: 19.73,
-    stock_tags: [
-      {
-        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
-        name: "Value Pick",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
-      },
-      {
-        id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
-        name: "ESG",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9824c9a1a66b81aab453ccab60e2d270d67fd11514989c8ff698aecdb721a3fe",
-      },
-    ],
-    sector: "IT",
-    stock_target_count: 2,
-    id: "d4da1aab-0c22-49f7-b233-2bcd269f9dfc",
-    new_stock: true,
-    recommended_stock: true,
-    is_blur: true,
-    upside_left_time: "9 days",
-    return_time: "-194 days",
-  },
-  {
-    upside_left: 200,
-    stock_tags: [
-      {
-        id: "ac7148dc-e122-48a8-9efb-51a02c87f518",
-        name: "Market Leadership",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/market-leadership.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e9c5965cf82c7d1e4fede679e395e8781cc4e0c30b78123d6c66c50b29bcaf0",
-      },
-      {
-        id: "18ab2bd3-6895-420f-8259-6132597cdff4",
-        name: "Future Focused",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/future-focused.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1a1ef1cb612f051043dd4766b769c564f7ffdee23f96786ee8aa1c5944ad997c",
-      },
-      {
-        id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
-        name: "ESG",
-        image:
-          "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9824c9a1a66b81aab453ccab60e2d270d67fd11514989c8ff698aecdb721a3fe",
-      },
-    ],
-    sector: "Chemicals",
-    stock_target_count: 4,
-    id: "2a4714ca-9a92-4267-8a51-2d6cc60e3ce1",
-    new_stock: true,
-    recommended_stock: false,
-    is_blur: true,
-    upside_left_time: "9 days",
-    return_time: "2 days",
-  },
+  // {
+  //   upside_left: null,
+  //   stock_tags: [
+  //     {
+  //       id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+  //       name: "Special Situation",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
+  //     },
+  //   ],
+  //   sector: "Chemicals",
+  //   stock_target_count: 0,
+  //   id: "fa6623a0-c04a-4016-b794-1f997b73f6ad",
+  //   new_stock: true,
+  //   recommended_stock: false,
+  //   is_blur: true,
+  //   upside_left_time: "2 days",
+  //   return_time: "No return time available",
+  // },
+  // {
+  //   upside_left: null,
+  //   stock_tags: [
+  //     {
+  //       id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+  //       name: "Value Pick",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
+  //     },
+  //   ],
+  //   sector: "FMCG",
+  //   stock_target_count: 0,
+  //   id: "e8fbbac8-5106-4d7b-b321-d923ceb1779c",
+  //   new_stock: true,
+  //   recommended_stock: false,
+  //   is_blur: true,
+  //   upside_left_time: "2 days",
+  //   return_time: "No return time available",
+  // },
+  // {
+  //   upside_left: null,
+  //   stock_tags: [
+  //     {
+  //       id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+  //       name: "Value Pick",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
+  //     },
+  //     {
+  //       id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+  //       name: "Special Situation",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
+  //     },
+  //   ],
+  //   sector: "Chemicals",
+  //   stock_target_count: 0,
+  //   id: "e52a274e-1a2d-4332-a050-fdc7cc42475c",
+  //   new_stock: true,
+  //   recommended_stock: false,
+  //   is_blur: true,
+  //   upside_left_time: "2 days",
+  //   return_time: "No return time available",
+  // },
+  // {
+  //   upside_left: 11.1,
+  //   stock_tags: [
+  //     {
+  //       id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+  //       name: "Turnaround Story",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e8428b5b1450f4e3f7019840480c3078038a2947310d8fd3687fa5439dcda30",
+  //     },
+  //     {
+  //       id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+  //       name: "Special Situation",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
+  //     },
+  //     {
+  //       id: "6d9fb7a0-92b3-4633-8ea9-ae86dc2bd008",
+  //       name: "Management Change",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/management-change.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1d2690b88d14356424608c6977057ee7693a6bd32e02c3cc9b01a20b281d52c1",
+  //     },
+  //   ],
+  //   sector: "IT",
+  //   stock_target_count: 3,
+  //   id: "e72fa69d-4850-4516-a592-04342586d6a8",
+  //   new_stock: true,
+  //   recommended_stock: false,
+  //   is_blur: true,
+  //   upside_left_time: "9 days",
+  //   return_time: "5 months",
+  // },
+  // {
+  //   upside_left: 11.1,
+  //   stock_tags: [
+  //     {
+  //       id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+  //       name: "Turnaround Story",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e8428b5b1450f4e3f7019840480c3078038a2947310d8fd3687fa5439dcda30",
+  //     },
+  //     {
+  //       id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+  //       name: "Special Situation",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
+  //     },
+  //   ],
+  //   sector: "IT",
+  //   stock_target_count: 3,
+  //   id: "92326e51-f74f-411a-8c96-e3a1382a2b65",
+  //   new_stock: true,
+  //   recommended_stock: true,
+  //   is_blur: true,
+  //   upside_left_time: "9 days",
+  //   return_time: "5 months",
+  // },
+  // {
+  //   upside_left: 20.25,
+  //   stock_tags: [
+  //     {
+  //       id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+  //       name: "Value Pick",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
+  //     },
+  //     {
+  //       id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+  //       name: "Turnaround Story",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e8428b5b1450f4e3f7019840480c3078038a2947310d8fd3687fa5439dcda30",
+  //     },
+  //     {
+  //       id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+  //       name: "Special Situation",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=aee12d4ad44a0b241068433de011f0999ecee26d44fa78f0e4c06926fa8ec2d9",
+  //     },
+  //   ],
+  //   sector: "IT",
+  //   stock_target_count: 2,
+  //   id: "b55d775c-52b5-43b9-b83e-fe530d577b36",
+  //   new_stock: true,
+  //   recommended_stock: true,
+  //   is_blur: true,
+  //   upside_left_time: "9 days",
+  //   return_time: "3 months",
+  // },
+  // {
+  //   upside_left: null,
+  //   stock_tags: [
+  //     {
+  //       id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+  //       name: "Turnaround Story",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e8428b5b1450f4e3f7019840480c3078038a2947310d8fd3687fa5439dcda30",
+  //     },
+  //     {
+  //       id: "a282f6c5-0c47-451c-8d41-fd2888c7737b",
+  //       name: "Cyclicals",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/cyclicals.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=e56552582f3447e87b76e06a397ef12e6f6e152d6a696dc68436260aeb0d8a78",
+  //     },
+  //     {
+  //       id: "43a146f9-2f69-40ba-ad48-1faba29db0a5",
+  //       name: "Moated",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/moated.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=308ca6c315cebeaa8dea624771ef436767dac9383d61b35573f2f4726f782447",
+  //     },
+  //   ],
+  //   sector: "FMCG",
+  //   stock_target_count: 2,
+  //   id: "1208bb79-076b-4b09-92e3-7c4bdc597835",
+  //   new_stock: true,
+  //   recommended_stock: false,
+  //   is_blur: true,
+  //   upside_left_time: "9 days",
+  //   return_time: "No return time available",
+  // },
+  // {
+  //   upside_left: 19.73,
+  //   stock_tags: [
+  //     {
+  //       id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+  //       name: "Value Pick",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
+  //     },
+  //     {
+  //       id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+  //       name: "ESG",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9824c9a1a66b81aab453ccab60e2d270d67fd11514989c8ff698aecdb721a3fe",
+  //     },
+  //   ],
+  //   sector: "Chemicals",
+  //   stock_target_count: 2,
+  //   id: "a15edf01-e950-403f-894b-8cf26dc9346e",
+  //   new_stock: true,
+  //   recommended_stock: true,
+  //   is_blur: true,
+  //   upside_left_time: "9 days",
+  //   return_time: "-194 days",
+  // },
+  // {
+  //   upside_left: 19.73,
+  //   stock_tags: [
+  //     {
+  //       id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+  //       name: "Value Pick",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=557c0fb423fce417649e7596ebe8b940e2528900d95bea8bee8c0c478fa586ac",
+  //     },
+  //     {
+  //       id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+  //       name: "ESG",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9824c9a1a66b81aab453ccab60e2d270d67fd11514989c8ff698aecdb721a3fe",
+  //     },
+  //   ],
+  //   sector: "IT",
+  //   stock_target_count: 2,
+  //   id: "d4da1aab-0c22-49f7-b233-2bcd269f9dfc",
+  //   new_stock: true,
+  //   recommended_stock: true,
+  //   is_blur: true,
+  //   upside_left_time: "9 days",
+  //   return_time: "-194 days",
+  // },
+  // {
+  //   upside_left: 200,
+  //   stock_tags: [
+  //     {
+  //       id: "ac7148dc-e122-48a8-9efb-51a02c87f518",
+  //       name: "Market Leadership",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/market-leadership.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6e9c5965cf82c7d1e4fede679e395e8781cc4e0c30b78123d6c66c50b29bcaf0",
+  //     },
+  //     {
+  //       id: "18ab2bd3-6895-420f-8259-6132597cdff4",
+  //       name: "Future Focused",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/future-focused.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1a1ef1cb612f051043dd4766b769c564f7ffdee23f96786ee8aa1c5944ad997c",
+  //     },
+  //     {
+  //       id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+  //       name: "ESG",
+  //       image:
+  //         "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240815%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240815T100834Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9824c9a1a66b81aab453ccab60e2d270d67fd11514989c8ff698aecdb721a3fe",
+  //     },
+  //   ],
+  //   sector: "Chemicals",
+  //   stock_target_count: 4,
+  //   id: "2a4714ca-9a92-4267-8a51-2d6cc60e3ce1",
+  //   new_stock: true,
+  //   recommended_stock: false,
+  //   is_blur: true,
+  //   upside_left_time: "9 days",
+  //   return_time: "2 days",
+  // },
 ];
 export const getStrategyTagResponse = [
   {
@@ -1002,7 +1003,7 @@ export const getCommonDetailsResponse = {
   max_upside_left: 200,
   min_returns: 6.67,
   max_returns: 263.86,
-  total_mainboard_stocks: 25,
+  total_mainboard_stocks: 16,
   total_sme_stocks: 3,
   stock_choices: {
     stock_actions: [
@@ -1035,16 +1036,16 @@ export const getCommonDetailsResponse = {
     ],
     market_cap_types: [
       {
-        value: "Small",
-        label: "Small",
+        value: "Large",
+        label: "Large",
       },
       {
         value: "Mid",
         label: "Mid",
       },
       {
-        value: "Large",
-        label: "Large",
+        value: "Small",
+        label: "Small",
       },
     ],
     stock_sectors: [
@@ -1303,68 +1304,6 @@ export const getCommonDetailsResponse = {
       {
         value: "holding-company",
         label: "Holding company",
-      },
-    ],
-    strategy_tags: [
-      {
-        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
-        name: "Value Pick",
-        slug: "value-pick",
-      },
-      {
-        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
-        name: "Turnaround Story",
-        slug: "turnaround-story",
-      },
-      {
-        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
-        name: "Special Situation",
-        slug: "special-situation",
-      },
-      {
-        id: "6d9fb7a0-92b3-4633-8ea9-ae86dc2bd008",
-        name: "Management Change",
-        slug: "management-change",
-      },
-      {
-        id: "ac7148dc-e122-48a8-9efb-51a02c87f518",
-        name: "Market Leadership",
-        slug: "market-leadership",
-      },
-      {
-        id: "6e29cce5-7ca8-4f00-9f8e-7ef69e66cb29",
-        name: "Industry Tailwind",
-        slug: "industry-tailwind",
-      },
-      {
-        id: "a282f6c5-0c47-451c-8d41-fd2888c7737b",
-        name: "Cyclicals",
-        slug: "cyclicals",
-      },
-      {
-        id: "43a146f9-2f69-40ba-ad48-1faba29db0a5",
-        name: "Moated",
-        slug: "moated",
-      },
-      {
-        id: "e30a5088-a98d-49d1-bcd9-29e7985e5e7f",
-        name: "Thematic Stories",
-        slug: "thematic-stories",
-      },
-      {
-        id: "18ab2bd3-6895-420f-8259-6132597cdff4",
-        name: "Future Focused",
-        slug: "future-focused",
-      },
-      {
-        id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
-        name: "ESG",
-        slug: "esg",
-      },
-      {
-        id: "798c7578-de3d-475c-af72-386de9ce10c4",
-        name: "High Dividends",
-        slug: "high-dividends",
       },
     ],
   },

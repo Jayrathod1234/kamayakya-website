@@ -43,7 +43,10 @@ const StockDetails = () => {
           {/* <Footer /> */}
           {/* </div> */}
           {/* <div className="!bg-transparent navbar !text-black"><Navbar /></div> */}
-          <div className="mb-96">
+          <div className=" w-full z-[2000] sticky top-0 ">
+            <Navbar />
+          </div>
+          <div className="mb-96 mt-5">
             <Stockdetails />
           </div>
 
