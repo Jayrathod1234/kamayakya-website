@@ -94,6 +94,7 @@ function AllBoardStockSection({
     await setSector([]);
     await setStrategyTag([]);
     setOpen(false);
+    setTotalFilterCount(getFilterCount());
     refetch(); // Optionally refetch data with reset filters (if appliedFilters reset)
   };
 

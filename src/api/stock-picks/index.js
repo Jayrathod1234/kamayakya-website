@@ -56,11 +56,15 @@ export const getLatestReleasesStockListApi = async ({ isLoggedIn, type }) => {
 };
 
 // Strategy Tags API
-export const getStrategyTagListApi = async () => {
+export const getStrategyTagListApi = async ({ type }) => {
   try {
     if (process.env.NEXT_PUBLIC_DEBUG) {
       /* ----------------------------------- API ---------------------------------- */
-      const response = await axiosApi.get(`/user/strategyTags/`);
+      const response = await axiosApi.get(`/user/strategyTags`, {
+        params: {
+          type,
+        },
+      });
       return response.data.data;
     } else {
       /* ----------------------------- Static Data ---------------------------- */

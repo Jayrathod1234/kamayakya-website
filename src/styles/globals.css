@@ -1807,7 +1807,7 @@ header > div > div {
 }
 /* tab  */
 .embla {
-  min-width: 48rem;
+  min-width: 0rem;
   --slide-height: 19rem;
   --slide-spacing: 1rem;
   --slide-size: 70%;

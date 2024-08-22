@@ -9,16 +9,11 @@ import Link from "next/link";
 const HotStockSection = ({ items, stockSector }) => {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
-    mp.track("contactus_clicked", {
-      page: "Pricing_Page",
-      pagegroup: "enterprise_solution",
-    });
-    mp.track("asktheteam_loaded", {
-      page: "Pricing_Page",
-      pagegroup: "enterprise_solution",
+    mp.track("explore_plans_clicked", {
+      page: "StockPicks_Page",
     });
   };
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, handleLogin } = useContext(AuthContext);
 
   return (
     <div>
@@ -273,6 +268,7 @@ const HotStockSection = ({ items, stockSector }) => {
                                         <button
                                           className="button-82-pushable group "
                                           role="button"
+                                          onClick={handleLogin}
                                         >
                                           <span className="button-82-shadow"></span>
                                           <span className="button-82-edge"></span>

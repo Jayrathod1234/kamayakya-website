@@ -6,13 +6,16 @@ const AuthContext = createContext({
   isLoggedIn: false,
   isSubscribed: false,
   user: {
-    id:'',
+    id: "",
     username: "",
     mobile: "",
     subscription: [{ plan: "" }],
-    created:""
+    created: "",
   },
   children: null,
+  showLoginModal: false,
+  handleLogin: () => {},
+  handleCloseLoginModal: () => {},
 });
 
 // Create the provider component
@@ -20,12 +23,13 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [user, setUser] = useState({
-    id:'',
+    id: "",
     username: "",
     mobile: "",
     subscription: [{ plan: "" }],
-    created:""
+    created: "",
   });
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const refreshToken = localStorage.getItem("refresh");
 
   useEffect(() => {
@@ -86,7 +90,27 @@ export const AuthProvider = ({ children }) => {
     getUserDetails();
   }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
 
-  return <AuthContext.Provider value={{ isLoggedIn, isSubscribed, user }}>{children}</AuthContext.Provider>;
+  const handleLogin = () => {
+    setShowLoginModal(true);
+  };
+
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+  };
+  return (
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        isSubscribed,
+        user,
+        showLoginModal,
+        handleLogin,
+        handleCloseLoginModal,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

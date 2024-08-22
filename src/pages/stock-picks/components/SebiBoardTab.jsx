@@ -11,13 +11,8 @@ function SebiBoardTab({
 }) {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
-    mp.track("contactus_clicked", {
-      page: "Pricing_Page",
-      pagegroup: "enterprise_solution",
-    });
-    mp.track("asktheteam_loaded", {
-      page: "Pricing_Page",
-      pagegroup: "enterprise_solution",
+    mp.track("sebi_registered_clicked", {
+      page: "StockPicks_Page",
     });
     window.open(
       "Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",

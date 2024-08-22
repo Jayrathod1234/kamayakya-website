@@ -47,9 +47,7 @@ const StockDetails = () => {
             <Stockdetails />
           </div>
 
-          <div className=" mt-96  ">
-            {/* <Footer /> */}
-          </div>
+          <div className=" mt-96  ">{/* <Footer /> */}</div>
         </>
       )}
     </PageVisibility>
