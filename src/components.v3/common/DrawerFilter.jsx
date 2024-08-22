@@ -140,7 +140,7 @@ function DrawerFilter({
       <Button
         variant="outlined"
         onClick={toggleDrawer(true)}
-        className="relative bg-white border !border-[#E4E7EC] !py-[10px] !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
+        className="relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 rounded-md flex gap-2 items-center shadow-3xs !min-w-24"
       >
         <img src="/assets/filter.svg" alt="" />
         <p className="font-open_sans text-brand-500 font-medium">Filter </p>
@@ -224,7 +224,7 @@ function DrawerFilter({
                     variant="outlined"
                     size="small"
                     name="min"
-                    value={upsideLeft[0]}
+                    value={upsideLeft ? upsideLeft[0] : 0}
                     onChange={handleUpsideLeftInputChange}
                     InputProps={{
                       endAdornment: (
@@ -251,7 +251,7 @@ function DrawerFilter({
                     variant="outlined"
                     size="small"
                     name="max"
-                    value={upsideLeft[1]}
+                    value={upsideLeft ? upsideLeft[1] : 0}
                     onChange={handleUpsideLeftInputChange}
                     InputProps={{
                       endAdornment: (

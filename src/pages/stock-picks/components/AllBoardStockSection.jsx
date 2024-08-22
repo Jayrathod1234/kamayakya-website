@@ -270,7 +270,7 @@ function AllBoardStockSection({
               </div>
             </div>
           </div>
-          <div className="w-auto sm:block hidden">
+          <div className="w-auto sm:block hidden bg-white">
             <DrawerFilter
               open={open}
               setOpen={setOpen}
@@ -310,8 +310,38 @@ function AllBoardStockSection({
       {!showFilterHeader ? (
         <>
           {/* <Filtermenu2 /> */}
-          <ResponsiveFilter className="sm:hidden bl"/>
-          <FilterMenuTags className="sm:block hidden"/>
+          <ResponsiveFilter
+            open={open}
+            setOpen={setOpen}
+            recency={recency}
+            setRecency={setRecency}
+            timeLeft={timeLeft}
+            setTimeLeft={setTimeLeft}
+            handleApplyFilters={handleApplyFilters}
+            handleResetFilters={handleResetFilters}
+            min_upside_left={min_upside_left}
+            max_upside_left={max_upside_left}
+            upsideLeft={upsideLeft}
+            setUpsideLeft={setUpsideLeft}
+            min_returns={min_returns}
+            max_returns={max_returns}
+            returns={returns}
+            setReturns={setReturns}
+            marketCapTypeList={marketCapTypeList}
+            marketCapType={marketCapType}
+            setMarketCapType={setMarketCapType}
+            stockRiskList={stockRiskList}
+            risk={risk}
+            setRisk={setRisk}
+            stockSector={stockSector}
+            sector={sector}
+            setSector={setSector}
+            strategyTagList={strategyTagList}
+            strategyTag={strategyTag}
+            setStrategyTag={setStrategyTag}
+            totalFilterCount={totalFilterCount}
+          />
+          <FilterMenuTags />
         </>
       ) : (
         <>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useLayoutEffect } from "react";
-import { Box, Chip, IconButton } from "@mui/material";
+import { Box, Chip, IconButton, useMediaQuery } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
@@ -48,6 +48,7 @@ const FilterCarousel = () => {
 
   const carouselRef = useRef(null);
   const containerRef = useRef(null);
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   useLayoutEffect(() => {
     const containerWidth = containerRef.current.offsetWidth;
@@ -193,8 +194,11 @@ const FilterCarousel = () => {
                     paddingLeft: "16px",
                     paddingRight: "16px",
                     borderRadius: "4px",
+                    borderRadius: isMobile ? "6px" : "4px",
                     maxWidth: "179px !important",
                     height: "42px !important",
+                    border: "1px solid #E4E7EC ",
+                    // borderColor: " #E4E7EC !important ",
                     backgroundColor: selectedChips.includes(chip.id)
                       ? "#125b54"
                       : "white",
