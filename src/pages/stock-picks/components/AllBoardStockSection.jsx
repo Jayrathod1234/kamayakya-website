@@ -270,7 +270,7 @@ function AllBoardStockSection({
               </div>
             </div>
           </div>
-          <div className="w-auto sm:block hidden bg-white">
+          <div className="w-auto sm:block hidden bg-white ">
             <DrawerFilter
               open={open}
               setOpen={setOpen}
@@ -384,7 +384,10 @@ function AllBoardStockSection({
       {/* sticky filtermenu */}
 
       {/* blur card  */}
-      <div className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative " ref={xyzRef}>
+      <div
+        className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative  "
+        ref={xyzRef}
+      >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7">
             {isLoading || error ? (
