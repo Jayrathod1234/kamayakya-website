@@ -1,59 +1,16 @@
-import { useContext } from "react";
-import {
-  Button,
-  EnterpriseCard,
-  FeelingLost,
-  Footer,
-  Navbar,
-  Newsletter,
-  PlansSection,
-  Semibold,
-  SmallCaseCard,
-  Tabs,
-  Testimonials,
-  UserTypeCard,
-  UserTypeDesktopCard,
-} from "@/components.v2/index.components";
-import Image from "next/image";
-import { Open_Sans } from "next/font/google";
-import AuthContext from "@/components/AuthContext";
-import PageVisibility from "@/components/PageVisibility";
-import Stockdetails from "@/components.v2/Stockdetails";
-
+import StockDetailsSection from "./components/StockDetailsSection";
+import Layout from "../../../layout/Layout";
+import InvestmentSection from "../components/InvestmentSection";
+import ElevateSection from "../components/ElevateSection";
 const StockDetails = () => {
-  const { isLoggedIn } = useContext(AuthContext);
-
   return (
-    <PageVisibility>
-      {(isPageVisible) => (
-        <>
-          {/* {isLoggedIn ?  : ""} */}
-          {/* <div
-            style={{
-              background: "#fff",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          > */}
-
-          {/* <StockCardBlur /> */}
-          {/* <FaqsNew /> */}
-          {/* <Footer /> */}
-          {/* </div> */}
-          {/* <div className="!bg-transparent navbar !text-black"><Navbar /></div> */}
-          <div className=" w-full z-[2000] sticky top-0 ">
-            <Navbar />
-          </div>
-          <div className="mb-96 mt-5">
-            <Stockdetails />
-          </div>
-
-          <div className=" mt-96  ">{/* <Footer /> */}</div>
-        </>
-      )}
-    </PageVisibility>
+    <Layout>
+      <>
+        <div className="">
+          <StockDetailsSection />
+        </div>
+      </>
+    </Layout>
   );
 };
 
