@@ -562,6 +562,17 @@ function DrawerFilter({
                         <InputAdornment position="end">%</InputAdornment>
                       ),
                     }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        
+                        '&:hover fieldset': {
+                          borderColor: '#125B54', // Color of the outline on hover
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#125B54', // Color of the outline when focused
+                        },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={2}>
@@ -578,6 +589,17 @@ function DrawerFilter({
                       endAdornment: (
                         <InputAdornment position="end">%</InputAdornment>
                       ),
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        
+                        '&:hover fieldset': {
+                          borderColor: '#125B54', // Color of the outline on hover
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#125B54', // Color of the outline when focused
+                        },
+                      },
                     }}
                   />
                 </Grid>
@@ -765,6 +787,12 @@ function DrawerFilter({
                             checked={strategyTag.includes(key)}
                             onChange={handleChangestrategyTag}
                             name={key}
+                            sx={{
+                              color: "default", // Default color
+                              "&.Mui-checked": {
+                                color: "#125B54", // Color when checked
+                              },
+                            }}
                           />
                         }
                         label={strategyTagList[key]}
