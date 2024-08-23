@@ -28,7 +28,7 @@ function SebiBoardTab({
 
   return (
     <>
-      <div className="absolute top-[-57px] left-0 w-full h-[300px] md:h-full">
+      <div className="absolute top-[-57px] left-0 w-full sm:h-[300px] h-[335px] md:h-full">
         <video
           autoPlay
           muted

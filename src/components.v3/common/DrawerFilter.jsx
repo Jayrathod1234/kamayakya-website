@@ -63,7 +63,7 @@ function DrawerFilter({
   const [anchor, setAnchor] = React.useState("");
   const isMobile = useMediaQuery("(max-width:600px)");
   const drawerBleeding = 56;
-  // fixed drawer 
+  // fixed drawer
   const CustomTabPanel = styled(Box)(({ theme }) => ({
     height: "100%",
     overflowY: "auto", // Enable vertical scrolling
@@ -107,7 +107,7 @@ function DrawerFilter({
       "aria-controls": `vertical-tabpanel-${index}`,
     };
   }
-////
+  ////
   const handleApply = () => {
     // handleApplyFilters();
     setOpen(false);
@@ -1067,13 +1067,146 @@ function DrawerFilter({
                 </Tabs>
                 <Box sx={{ flexGrow: 1 }}>
                   <TabPanel value={value} index={0}>
-                    <CustomSlider/>
+                    <div className="overflow-x-hidden">
+                      <CustomSlider
+                        value={upsideLeft}
+                        onChange={handleUpsideLeftSliderChange}
+                        valueLabelDisplay="auto"
+                        min={min_upside_left}
+                        max={max_upside_left}
+                      />
+
+                      <Grid alignItems="center">
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            name="min"
+                            value={upsideLeft ? upsideLeft[0] : 0}
+                            onChange={handleUpsideLeftInputChange}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": {
+                                  borderColor: "#125B54", // Color of the outline on hover
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54", // Color of the outline when focused
+                                },
+                              },
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Typography align="center">to</Typography>
+                        </Grid>
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            name="max"
+                            value={upsideLeft ? upsideLeft[1] : 0}
+                            onChange={handleUpsideLeftInputChange}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": {
+                                  borderColor: "#125B54", // Color of the outline on hover
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54", // Color of the outline when focused
+                                },
+                              },
+                            }}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                    {/* <CustomSlider/> */}
                   </TabPanel>
                   <TabPanel value={value} index={1}>
                     Recency content here.
                   </TabPanel>
                   <TabPanel value={value} index={2}>
-                    Time Left content here.
+                    <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+                      <Accordion
+                        defaultExpanded
+                        sx={{
+                          boxShadow: "none !important",
+                          margin: "0px !important",
+                        }}
+                      >
+                        <AccordionSummary
+                          expandIcon={
+                            <ExpandMoreIcon
+                              sx={{
+                                rotate: "180deg",
+                                padding: "0px !important",
+                              }}
+                            />
+                          }
+                          aria-controls="recency-content"
+                          id="recency-header"
+                        >
+                          <Box display="flex" alignItems="center">
+                            <img src="/assets/hourglass-02.svg" />
+                            <Typography
+                              variant="subtitle1"
+                              ml={1}
+                              mr={1}
+                              sx={{
+                                color: "#1D2939",
+                                fontSize: "14px",
+                                fontWeight: "700",
+                              }}
+                            >
+                              Time Left
+                            </Typography>
+                            {/* <IconButton size="small">
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton> */}
+                          </Box>
+                        </AccordionSummary>
+                        <div className="pl-4">
+                          <AccordionDetails>
+                            <FormGroup>
+                              {Object.keys(timeLeft || {}).map((key) => (
+                                <FormControlLabel
+                                  key={key}
+                                  control={
+                                    <Checkbox
+                                      checked={timeLeft[key]}
+                                      onChange={handleChangeTimeLeft}
+                                      name={key}
+                                      sx={{
+                                        color: "default", // Default color
+                                        "&.Mui-checked": {
+                                          color: "#125B54", // Color when checked
+                                        },
+                                      }}
+                                    />
+                                  }
+                                  label={filterTimeLabel[key]}
+                                />
+                              ))}
+                            </FormGroup>
+                          </AccordionDetails>
+                        </div>
+                      </Accordion>
+                      <div className="border-b-2 border-[#F2F4F7] "></div>
+                    </div>
                   </TabPanel>
                   <TabPanel value={value} index={3}>
                     Total Returns content here.
