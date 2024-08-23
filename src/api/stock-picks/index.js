@@ -5,6 +5,7 @@ import {
   getHotStockResponse,
   getAllBoardStockStockResponse,
   getCommonDetailsResponse,
+  getStockDetailResponse,
 } from "./static-response";
 
 // Latest Releases Stock List API
@@ -135,6 +136,24 @@ export const getCommonDetailsApi = async () => {
     } else {
       //   /* ----------------------------- Static Data ---------------------------- */
       return getCommonDetailsResponse;
+    }
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+};
+
+export const getStockDetailApi = async ({ stockId }) => {
+  try {
+    if (process.env.NEXT_PUBLIC_DEBUG) {
+      const URL = `/user/stockDetail/${stockId}`;
+      /* ----------------------------------- API ---------------------------------- */
+      const response = await axiosApi.get(URL);
+      return response.data.data;
+    } else {
+      //   /* ----------------------------- Static Data ---------------------------- */
+      return getStockDetailResponse;
     }
   } catch (error) {
     // Handle errors if any

@@ -151,7 +151,6 @@ function AllBoardStockSection({
       // Function to determine the parameter for fetching the next page
       if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
-    // enabled: !!searchStock,
   });
 
   const items = response?.pages?.flatMap((page) => page.data) ?? [];

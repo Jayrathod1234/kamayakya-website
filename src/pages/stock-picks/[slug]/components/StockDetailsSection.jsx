@@ -4,9 +4,30 @@ import StockDetailsTimeline from "./StockDetailsTimeline";
 import StockDetailsProgressBar from "./StockDetailsProgressBar";
 import InvestmentSection from "../../components/InvestmentSection";
 import ElevateSection from "../../components/ElevateSection";
-
+import { useStockDetails } from "../contexts/StockDetailsContext";
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
+
+  const { items, isLoading, error } = useStockDetails();
+  const {
+    stock_name,
+    stock_exchange,
+    sector,
+    stock_industry,
+    market_cap,
+    live_price,
+    entry_price,
+    target_price,
+    upside_left,
+    risk,
+    action,
+    stock_tags,
+    upside_left_time,
+    stock_targets,
+    expected_returns,
+    return_time,
+    company_details,
+  } = items || {};
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -18,11 +39,11 @@ function StockDetailsSection() {
           <div className="items-center gap-[13px] flex p-[7px]">
             <img src="/assets/stock-details/arrow-left.svg" alt="" />
             <div className="text-[13px] text-[#475467] font-normal font-open_sans">
-              Track Record
+              Stocks To Buy
             </div>
             <img src="/assets/stock-details/chevron-right.svg" alt="" />
             <div className="text-[13px] text-[#475467] font-semibold">
-              Ion Exchange (India) Ltd.
+              {stock_name}
             </div>
           </div>
           {/* details  */}
@@ -82,7 +103,7 @@ function StockDetailsSection() {
                               className="w-10 h-10 object-cover rounded-full block sm:hidden"
                             />
                             <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans line-clamp-1  ">
-                              Shree Pushkar Chemicals & Fertilizers Ltd.
+                              {stock_name}
                             </p>
                           </div>
                           <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0  mx-auto sm:mx-0">
@@ -158,10 +179,10 @@ function StockDetailsSection() {
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">
                           <div className="w-full flex justify-between">
                             <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
-                              Engineering
+                              {sector}
                             </p>
                             <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
-                              Industrial Equipments
+                              {stock_industry}
                             </span>
                           </div>
                         </div>
@@ -196,7 +217,7 @@ function StockDetailsSection() {
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1 w-full">
                           <div className="w-full flex justify-between">
                             <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans ">
-                              High Risk
+                              {risk} Risk
                             </p>
                           </div>
                         </div>
@@ -279,9 +300,9 @@ function StockDetailsSection() {
                             </div>
                           </div>
                           <div className="flex flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[24px] text-white font-bold">
-                            17.12%{" "}
+                            ${upside_left} %{" "}
                             <span className="text-[10px] md:text-[12px] text-[#FCFCFD] font-medium">
-                              likely within a year
+                              likely within a {upside_left_time}
                             </span>
                           </div>
                         </div>
@@ -309,9 +330,9 @@ function StockDetailsSection() {
                                 fill="#00FF02"
                               />
                             </svg>
-                            34.36%{" "}
+                            {expected_returns}
                             <span className="text-[10px] md:text-[12px] text-[#667085] font-medium">
-                              in 4 months
+                              in {return_time}
                             </span>
                           </div>
                         </div>
@@ -430,12 +451,7 @@ function StockDetailsSection() {
                     Company Profile
                   </h2>
                   <p className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none">
-                    Shree Pushkar Chemical & Fertiliser Ltd. is a holding
-                    company, which engages in the provision of chemicals and
-                    fertilizers. It offers dye, dye intermediates, fertilizers,
-                    acids, and cattle feed supplements. The company was founded
-                    by Punit Makharia on March 29, 1993 and is headquartered in
-                    Mumbai, India.
+                    {company_details}
                   </p>
                 </div>
                 {/* Company Profile Section End  */}
