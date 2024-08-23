@@ -10,7 +10,7 @@ const HotStockSectionSlider = ({ items, stockSector }) => {
         <div className="sm:container sm:mx-auto mx-0">
           <div className="sm:bg-gray-150 bg-transparent sm:p-2.5 p-0 sm:rounded-[20px] rounded-t-[20px] overflow-hidden">
             <div className="">
-              <div className="bg-white bg-[url('/assets/grid.png')] bg-cover pt-5  text-center sm:rounded-[20px] rounded-t-[20px]">
+              <div className="bg-white bg-[url('/assets/grid.png')] bg-cover pt-5  text-center rounded-[20px]">
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0">
                   Hot Stocks ({items?.length})
                 </h2>

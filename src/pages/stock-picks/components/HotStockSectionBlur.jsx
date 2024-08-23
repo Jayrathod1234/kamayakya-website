@@ -365,18 +365,43 @@ const HotStockSection = ({ items, stockSector }) => {
             </div>
           ) : (
             <>
-              <div>
-                {items.length > 0 && (
-                  <HotSlider>
-                    {items.map((value) => (
-                      <StockCard
-                        key={value.id} // Ensure each item has a unique key
-                        {...value}
-                        stockSector={stockSector}
-                      />
-                    ))}
-                  </HotSlider>
-                )}
+              <div className="bg-white bg-[url('/assets/grid.png')] bg-cover pt-5  text-center sm:rounded-[20px] ">
+                <img
+                  src="/assets/noto_locked.png"
+                  alt=""
+                  className="w-[46px] sm:m-0 m-auto"
+                />
+                <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 sm:max-w-[324px] max-w-[372px] tracking-normal">
+                  Gain exclusive access to
+                  <span className="text-[#108973]">
+                    30+ potential multibagger picks
+                  </span>
+                  <br className="sm:block hidden"></br>with KamayaKya
+                  membership.
+                </p>
+                <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block sm:pb-0 pb-7">
+                  <ButtonnArrow
+                    onClick={handleContactButton}
+                    variant={ButtonVariant.primary}
+                    size={ButtonSize.lg}
+                  >
+                    Explore Plans
+                  </ButtonnArrow>
+                </div>
+
+                <div>
+                  {items.length > 0 && (
+                    <HotSlider>
+                      {items.map((value) => (
+                        <StockCard
+                          key={value.id} // Ensure each item has a unique key
+                          {...value}
+                          stockSector={stockSector}
+                        />
+                      ))}
+                    </HotSlider>
+                  )}
+                </div>
               </div>
             </>
           )}

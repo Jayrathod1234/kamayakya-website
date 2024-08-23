@@ -976,6 +976,8 @@ function DrawerFilter({
                   flexGrow: 1,
                   bgcolor: "background.paper",
                   display: "flex",
+                  position: "fixed",
+                  // width: "100% !important",
                   height: 400, // Set a fixed height to make sure scrolling works
                 }}
               >
@@ -987,32 +989,28 @@ function DrawerFilter({
                   aria-label="Vertical tabs example"
                   sx={{
                     borderRight: 1,
+                    width: "62% !important",
                     borderColor: "divider",
-                    justifyContent: "start !important",
+                    alignItems: "start !important",
                     // justifyContent:"start",
                     // width: 144,
-                    padding: "14px 8px 14px 16px",
+                    // padding: "14px 8px 14px 16px",
+
                     color: "#5F6368", // Match text color for tabs
                   }}
                 >
                   <Tab
                     label={
                       <Box
+                        className="items-start !important"
                         sx={{
                           display: "flex",
-                          alignItems: "center",
-                          justifyContent: "left !important",
-                          // alignItems: "start !important",
+                          alignItems: "start !important",
                           color: "#5F6368",
                           gap: "12px",
                         }}
                       >
                         Upside Left
-                        <Badge
-                          badgeContent={1}
-                          color="success"
-                          sx={{ ml: "auto", bgcolor: "#125B54 !important" }}
-                        />
                       </Box>
                     }
                     {...a11yProps(0)}
@@ -1065,9 +1063,10 @@ function DrawerFilter({
                     sx={{ color: "#5F6368" }}
                   />
                 </Tabs>
-                <Box sx={{ flexGrow: 1 }}>
+                <Box sx={{ flexGrow: 1, bgcolor: "white" }}>
                   <TabPanel value={value} index={0}>
-                    <div className="overflow-x-hidden">
+                    {/* upside left  */}
+                    <div className="">
                       <CustomSlider
                         value={upsideLeft}
                         onChange={handleUpsideLeftSliderChange}
@@ -1077,7 +1076,7 @@ function DrawerFilter({
                       />
 
                       <Grid alignItems="center">
-                        <Grid item xs={5}>
+                        <Grid item>
                           <TextField
                             variant="outlined"
                             size="small"
@@ -1137,10 +1136,8 @@ function DrawerFilter({
                     {/* <CustomSlider/> */}
                   </TabPanel>
                   <TabPanel value={value} index={1}>
-                    Recency content here.
-                  </TabPanel>
-                  <TabPanel value={value} index={2}>
-                    <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+                    {/*  Recency */}
+                    <div className="overflow-x-hidden">
                       <Accordion
                         defaultExpanded
                         sx={{
@@ -1148,47 +1145,16 @@ function DrawerFilter({
                           margin: "0px !important",
                         }}
                       >
-                        <AccordionSummary
-                          expandIcon={
-                            <ExpandMoreIcon
-                              sx={{
-                                rotate: "180deg",
-                                padding: "0px !important",
-                              }}
-                            />
-                          }
-                          aria-controls="recency-content"
-                          id="recency-header"
-                        >
-                          <Box display="flex" alignItems="center">
-                            <img src="/assets/hourglass-02.svg" />
-                            <Typography
-                              variant="subtitle1"
-                              ml={1}
-                              mr={1}
-                              sx={{
-                                color: "#1D2939",
-                                fontSize: "14px",
-                                fontWeight: "700",
-                              }}
-                            >
-                              Time Left
-                            </Typography>
-                            {/* <IconButton size="small">
-                <InfoOutlinedIcon fontSize="small" />
-              </IconButton> */}
-                          </Box>
-                        </AccordionSummary>
-                        <div className="pl-4">
-                          <AccordionDetails>
+                        <div className="pl-0">
+                          <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
-                              {Object.keys(timeLeft || {}).map((key) => (
+                              {Object.keys(recency || {}).map((key) => (
                                 <FormControlLabel
                                   key={key}
                                   control={
                                     <Checkbox
-                                      checked={timeLeft[key]}
-                                      onChange={handleChangeTimeLeft}
+                                      checked={recency[key]}
+                                      onChange={handleChangeRecency}
                                       name={key}
                                       sx={{
                                         color: "default", // Default color
@@ -1205,23 +1171,196 @@ function DrawerFilter({
                           </AccordionDetails>
                         </div>
                       </Accordion>
-                      <div className="border-b-2 border-[#F2F4F7] "></div>
                     </div>
                   </TabPanel>
+                  <TabPanel value={value} index={2}>
+                    {/* time  left  */}
+                  </TabPanel>
                   <TabPanel value={value} index={3}>
-                    Total Returns content here.
+                    {/* upside left  */}
+                    <div className="">
+                      <CustomSlider
+                        value={upsideLeft}
+                        onChange={handleUpsideLeftSliderChange}
+                        valueLabelDisplay="auto"
+                        min={min_upside_left}
+                        max={max_upside_left}
+                      />
+
+                      <Grid alignItems="center">
+                        <Grid item>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            name="min"
+                            value={upsideLeft ? upsideLeft[0] : 0}
+                            onChange={handleUpsideLeftInputChange}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": {
+                                  borderColor: "#125B54", // Color of the outline on hover
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54", // Color of the outline when focused
+                                },
+                              },
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Typography align="center">to</Typography>
+                        </Grid>
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            name="max"
+                            value={upsideLeft ? upsideLeft[1] : 0}
+                            onChange={handleUpsideLeftInputChange}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": {
+                                  borderColor: "#125B54", // Color of the outline on hover
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54", // Color of the outline when focused
+                                },
+                              },
+                            }}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
                   </TabPanel>
                   <TabPanel value={value} index={4}>
-                    Market Cap content here.
+                    {/* market cap  */}
+                    <div className=" overflow-x-hidden">
+                      <Accordion
+                        defaultExpanded
+                        sx={{
+                          boxShadow: "none !important",
+                          margin: "0px !important",
+                        }}
+                      >
+                        {/* <SizeSelector /> */}
+                        <div class="sm:flex grid   gap-4 pb-4">
+                          {marketCapTypeList?.map((value, index) => (
+                            <div
+                              class={`sm:flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                marketCapType == value
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
+                              }`}
+                              key={index}
+                              onClick={() => setMarketCapType(value)}
+                            >
+                              <img src={`/assets/${value}.svg`} alt={value} />
+
+                              <span class="pt-2 text-2xs  text-[#344054] font-normal">
+                                {value}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </Accordion>
+                    </div>
                   </TabPanel>
                   <TabPanel value={value} index={5}>
-                    Sectors content here.
+                    {/* Sectors  */}
+                    <div className=" overflow-x-hidden">
+                      <Accordion
+                        defaultExpanded
+                        sx={{
+                          boxShadow: "none !important",
+                          marginBottom: "0px !important",
+                        }}
+                      >
+                        <SectorFilter2
+                          style={{ padding: "0px !important" }}
+                          stockSector={stockSector}
+                          sector={sector}
+                          setSector={setSector}
+                        />
+                      </Accordion>
+                    </div>
                   </TabPanel>
                   <TabPanel value={value} index={6}>
-                    Strategies content here.
+                    {/* Strategies   */}
+                    <div className=" overflow-x-hidden">
+                      <Accordion
+                        defaultExpanded
+                        sx={{
+                          boxShadow: "none !important",
+                          margin: "0px !important",
+                        }}
+                      >
+                        <div className="">
+                          <AccordionDetails>
+                            <FormGroup sx={{ padding: "0px !impotant" }}>
+                              {Object.keys(strategyTagList || {}).map((key) => (
+                                <FormControlLabel
+                                  key={key}
+                                  control={
+                                    <Checkbox
+                                      checked={strategyTag.includes(key)}
+                                      onChange={handleChangestrategyTag}
+                                      name={key}
+                                    />
+                                  }
+                                  label={strategyTagList[key]}
+                                />
+                              ))}
+                            </FormGroup>
+                          </AccordionDetails>
+                        </div>
+                      </Accordion>
+                    </div>
                   </TabPanel>
                   <TabPanel value={value} index={7}>
-                    Risk content here.
+                    {/*Risk */}
+                    <div className=" overflow-x-hidden">
+                      <Accordion
+                        defaultExpanded
+                        sx={{
+                          boxShadow: "none !important",
+                          margin: "0px !important",
+                        }}
+                      >
+                        <div class="sm:flex grid gap-4 pb-4">
+                          {stockRiskList?.map((value, index) => (
+                            <div
+                              class={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                risk == value
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
+                              }`}
+                              key={index}
+                              onClick={() => setRisk(value)}
+                            >
+                              <img src={`/assets/${value}.svg`} alt={value} />
+
+                              <span class="pt-2 text-2xs  text-[#344054] font-normal">
+                                {value}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </Accordion>
+                    </div>
                   </TabPanel>
                 </Box>
               </Box>
