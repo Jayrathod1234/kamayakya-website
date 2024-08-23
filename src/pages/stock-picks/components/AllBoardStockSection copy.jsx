@@ -158,7 +158,6 @@ function AllBoardStockSection() {
 
   return (
     <>
-     
       {/* <Filtermenu Filtermenu={filteropen} FiltermenuSidebar={filtersideopen} /> */}
       {/* blur card  */}
       <div className="mt-4 bg-[#F2F4F7] py-10 px-20 relative">
@@ -196,12 +195,15 @@ function AllBoardStockSection() {
                 />
               </div>
               <div>
-                <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
+                <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans pb-3">
                   Elevate Your Investments with KamayaKya
                 </p>
-                <p className="text-lg font-normal text-white opacity-35 font-open_sans">
-                  Access Exclusive Insights with 30+ Premium SME Stock
-                  Recommendations
+                <p className="text-base sm:text-lg font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
+                  Access exclusive insights with
+                  <span className="text-white/[0.80] font-semibold leading-7">
+                    30+ Main Board and 10+ SME Premium stock
+                  </span>
+                  picks every year
                 </p>
               </div>
               <div className="relative group">

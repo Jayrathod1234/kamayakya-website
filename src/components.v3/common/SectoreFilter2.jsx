@@ -26,7 +26,7 @@ const SectorFilter2 = ({ stockSector, sector, setSector }) => {
     );
   };
 
-  const filteredSectors = Object.keys(stockSector).filter((key) =>
+  const filteredSectors = Object.keys(stockSector || {}).filter((key) =>
     stockSector[key].toLowerCase().includes(searchTerm.toLowerCase())
   );
 

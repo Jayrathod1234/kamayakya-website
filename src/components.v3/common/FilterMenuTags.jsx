@@ -1,5 +1,5 @@
 import React, { useState, useRef, useLayoutEffect } from "react";
-import { Box, Chip, IconButton } from "@mui/material";
+import { Box, Chip, IconButton, useMediaQuery } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
@@ -48,6 +48,7 @@ const FilterCarousel = () => {
 
   const carouselRef = useRef(null);
   const containerRef = useRef(null);
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   useLayoutEffect(() => {
     const containerWidth = containerRef.current.offsetWidth;
@@ -89,7 +90,7 @@ const FilterCarousel = () => {
 
   return (
     <div className="bg-white">
-      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto">
+      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto sm:block hidden">
         <Box
           sx={{ display: "flex", width: "100%", overflow: "hidden" }}
           ref={containerRef}
@@ -129,10 +130,16 @@ const FilterCarousel = () => {
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
+                  display: { xs: "none", sm: "block" },
                 }}
               >
                 <ArrowBackIosIcon
-                  sx={{ width: "18px", position: "absolute", left: "8px" }}
+                  sx={{
+                    width: "18px",
+                    position: "absolute",
+                    left: "8px",
+                    top: "3px",
+                  }}
                 />
               </IconButton>
             )}
@@ -187,8 +194,11 @@ const FilterCarousel = () => {
                     paddingLeft: "16px",
                     paddingRight: "16px",
                     borderRadius: "4px",
+                    borderRadius: isMobile ? "6px" : "4px",
                     maxWidth: "179px !important",
                     height: "42px !important",
+                    border: "1px solid #E4E7EC ",
+                    // borderColor: " #E4E7EC !important ",
                     backgroundColor: selectedChips.includes(chip.id)
                       ? "#125b54"
                       : "white",

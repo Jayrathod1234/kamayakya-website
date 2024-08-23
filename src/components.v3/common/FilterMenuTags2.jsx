@@ -1,15 +1,51 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
-import { Box, Chip, IconButton } from "@mui/material";
+import { Box, Chip, IconButton, useMediaQuery } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
 import StrategyCheck from "./StrategyCheck";
 import SectorSelect from "./SectorCheck";
-
-const FilterMenuTags2 = () => {
+import CustomSortMenu from "./RadioDrop";
+import DrawerFilter from "@/components.v3/common/DrawerFilter";
+import ResCustomSort from "./ResCustomSort";
+const FilterMenuTags2 = ({
+  min_upside_left,
+  max_upside_left,
+  setSortValue,
+  setSortBy,
+  recency,
+  setRecency,
+  timeLeft,
+  setTimeLeft,
+  handleApplyFilters,
+  handleResetFilters,
+  upsideLeft,
+  setUpsideLeft,
+  min_returns,
+  max_returns,
+  returns,
+  setReturns,
+  marketCapTypeList,
+  marketCapType,
+  setMarketCapType,
+  stockRiskList,
+  risk,
+  setRisk,
+  stockSector,
+  sector,
+  setSector,
+  strategyTagList,
+  strategyTag,
+  setStrategyTag,
+  totalFilterCount,
+  isResponsive,
+}) => {
   const [selectedChips, setSelectedChips] = useState([]);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const [open, setOpen] = useState(false);
+
   const [chips, setChips] = useState([
     {
       label: "Most Recenttttttt",
@@ -112,13 +148,18 @@ const FilterMenuTags2 = () => {
     <div className="mr-auto sm:order-first order-2">
       <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px]">
         <Box
-          sx={{ display: "flex", width: "757px", overflow: "hidden" }}
+          sx={{
+            display: "flex",
+            width: "757px",
+            overflow: { sm: "hidden", xs: "auto" },
+          }}
           ref={containerRef}
         >
           <Box
             sx={{
               width: "100%",
-              backgroundColor: "#f2f4f7",
+              // backgroundColor: "#f2f4f7",
+              backgroundColor: isMobile ? "transparent" : "#f2f4f7",
               display: "flex",
               alignItems: "center",
             }}
@@ -136,10 +177,16 @@ const FilterMenuTags2 = () => {
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
+                  display: { xs: "none", sm: "block" },
                 }}
               >
                 <ArrowBackIosIcon
-                  sx={{ width: "18px", position: "absolute", left: "8px" }}
+                  sx={{
+                    width: "18px",
+                    position: "absolute",
+                    left: "8px",
+                    top: "3px",
+                  }}
                 />
               </IconButton>
             )}
@@ -157,6 +204,54 @@ const FilterMenuTags2 = () => {
                 scrollbarWidth: "none",
               }}
             >
+              {isResponsive && (
+                <>
+                  <CustomSortMenu
+                    sx={{
+                      padding: isMobile ? "6px 11px" : "10px 11px",
+                    }}
+                  />
+                  {/* <ResCustomSort
+                    sx={{
+                      padding: isMobile ? "6px 11px" : "10px 11px",
+                      display: isMobile ? "none" : "block",
+                    }}
+                  /> */}
+
+                  <DrawerFilter
+                    open={open}
+                    setOpen={setOpen}
+                    recency={recency}
+                    setRecency={setRecency}
+                    timeLeft={timeLeft}
+                    setTimeLeft={setTimeLeft}
+                    handleApplyFilters={handleApplyFilters}
+                    handleResetFilters={handleResetFilters}
+                    min_upside_left={min_upside_left}
+                    max_upside_left={max_upside_left}
+                    upsideLeft={upsideLeft}
+                    setUpsideLeft={setUpsideLeft}
+                    min_returns={min_returns}
+                    max_returns={max_returns}
+                    returns={returns}
+                    setReturns={setReturns}
+                    marketCapTypeList={marketCapTypeList}
+                    marketCapType={marketCapType}
+                    setMarketCapType={setMarketCapType}
+                    stockRiskList={stockRiskList}
+                    risk={risk}
+                    setRisk={setRisk}
+                    stockSector={stockSector}
+                    sector={sector}
+                    setSector={setSector}
+                    strategyTagList={strategyTagList}
+                    strategyTag={strategyTag}
+                    setStrategyTag={setStrategyTag}
+                    totalFilterCount={totalFilterCount}
+                  />
+                </>
+              )}
+
               {chips.map((chip) => (
                 <Chip
                   key={chip.id}
@@ -193,9 +288,11 @@ const FilterMenuTags2 = () => {
                   sx={{
                     paddingLeft: "16px",
                     paddingRight: "16px",
-                    borderRadius: "4px",
+                    // borderRadius: "4px",
+                    borderRadius: isMobile ? "6px" : "4px",
                     maxWidth: "179px !important",
                     height: "42px !important",
+                    border: "1px solid #E4E7EC ",
                     backgroundColor: selectedChips.includes(chip.id)
                       ? "#125b54"
                       : "white",
@@ -226,7 +323,7 @@ const FilterMenuTags2 = () => {
                   height: "28px",
                   backgroundColor: "black",
                   color: "white",
-
+                  right: "2%",
                   borderRadius: "50%",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
