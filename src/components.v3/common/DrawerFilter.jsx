@@ -58,8 +58,10 @@ function DrawerFilter({
   strategyTag,
   setStrategyTag,
   totalFilterCount,
+  setOpen,
+  open,
 }) {
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
   const [anchor, setAnchor] = React.useState("");
   const isMobile = useMediaQuery("(max-width:600px)");
   const drawerBleeding = 56;
@@ -109,8 +111,12 @@ function DrawerFilter({
   }
   ////
   const handleApply = () => {
-    // handleApplyFilters();
-    setOpen(false);
+    handleApplyFilters();
+    // setOpen(false);
+  };
+  const handleClose = async () => {
+    handleResetFilters();
+    // setOpen(false);
   };
 
   const toggleDrawer = (anchorVal, openVal) => () => {
@@ -231,7 +237,7 @@ function DrawerFilter({
                   </div>
                   <div
                     className="text-[#125B54] text-sm font-semibold cursor-pointer"
-                    onClick={handleResetFilters}
+                    onClick={handleClose}
                   >
                     Clear All
                   </div>
@@ -893,7 +899,7 @@ function DrawerFilter({
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
                     class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
-                    onClick={handleCloseDrawer(false)}
+                    onClick={handleClose(false)}
                   >
                     Cancel
                   </button>
@@ -964,7 +970,7 @@ function DrawerFilter({
                   </div>
                   <div
                     className="text-[#125B54] text-sm font-semibold cursor-pointer"
-                    onClick={handleResetFilters}
+                    onClick={handleClose}
                   >
                     Clear All
                   </div>

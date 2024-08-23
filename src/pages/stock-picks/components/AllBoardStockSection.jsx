@@ -60,6 +60,7 @@ function AllBoardStockSection({
 
   const handleApplyFilters = () => {
     setTotalFilterCount(getFilterCount());
+    setOpen(false);
     refetch(); // Refetch data with the new applied filters
   };
 
