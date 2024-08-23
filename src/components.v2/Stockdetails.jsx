@@ -204,7 +204,7 @@ function Stockdetails() {
                 {/* When Small Screen Button Is Hide  */}
                 {/* Small screen show to company profile  */}
                 <div className="pt-[20px] p-3 block sm:hidden bg-white shadow mb-5">
-                  <h2 className="text-[#0C111D] text-[14px] leading-3 font-semibold font-open_sans ">
+                  <h2 className="text-[#0C111D] text-[14px] leading-3 font-bold font-open_sans ">
                     Company Profile
                   </h2>
                   <p className="text-[#475467]  text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none">

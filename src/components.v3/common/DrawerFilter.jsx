@@ -170,7 +170,7 @@ function DrawerFilter({
     );
   };
 
-  const handleCloseDrawer = (closeVal) => {};
+  const handleCloseDrawer = (closeVal) => { };
 
   const CustomSlider = styled(Slider)({
     color: "#004d40", // Main color for the rail and thumb border
@@ -217,7 +217,7 @@ function DrawerFilter({
               </div>
             )}
           </Button>
-          <Drawer open={open} anchor={anchor} onClose={() => {}}>
+          <Drawer open={open} anchor={anchor} onClose={() => { }}>
             <Box
               sx={{ width: 400 }}
               role="presentation"
@@ -664,11 +664,10 @@ function DrawerFilter({
                   <div class="flex pl-7 gap-4 pb-4">
                     {marketCapTypeList?.map((value, index) => (
                       <div
-                        class={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          marketCapType == value
+                        class={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${marketCapType == value
                             ? "bg-[#E7F8F8] border-[#108973]"
                             : "bg-white border-[#E4E7EC]"
-                        }`}
+                          }`}
                         key={index}
                         onClick={() => setMarketCapType(value)}
                       >
@@ -869,11 +868,10 @@ function DrawerFilter({
                   <div class="flex pl-7 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
-                        class={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          risk == value
+                        class={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${risk == value
                             ? "bg-[#E7F8F8] border-[#108973]"
                             : "bg-white border-[#E4E7EC]"
-                        }`}
+                          }`}
                         key={index}
                         onClick={() => setRisk(value)}
                       >
@@ -928,7 +926,7 @@ function DrawerFilter({
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
-            onClose={() => {}}
+            onClose={() => { }}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
@@ -1070,7 +1068,42 @@ function DrawerFilter({
                     <CustomSlider />
                   </TabPanel>
                   <TabPanel value={value} index={1}>
-                    Recency content here.
+                    <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+                      <Accordion
+                        defaultExpanded
+                        sx={{
+                          boxShadow: "none !important",
+                          margin: "0px !important",
+                        }}
+                      >
+                        <div className="pl-4">
+                          <AccordionDetails>
+                            <FormGroup>
+                              {Object.keys(recency || {}).map((key) => (
+                                <FormControlLabel
+                                  key={key}
+                                  control={
+                                    <Checkbox
+                                      checked={recency[key]}
+                                      onChange={handleChangeRecency}
+                                      name={key}
+                                      sx={{
+                                        color: "default", // Default color
+                                        "&.Mui-checked": {
+                                          color: "#125B54", // Color when checked
+                                        },
+                                      }}
+                                    />
+                                  }
+                                  label={filterTimeLabel[key]}
+                                />
+                              ))}
+                            </FormGroup>
+                          </AccordionDetails>
+                        </div>
+                      </Accordion>
+                      <div className="border-b-2 border-[#F2F4F7] "></div>
+                    </div>
                   </TabPanel>
                   <TabPanel value={value} index={2}>
                     Time Left content here.

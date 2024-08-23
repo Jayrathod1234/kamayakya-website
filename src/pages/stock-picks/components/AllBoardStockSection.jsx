@@ -386,7 +386,7 @@ function AllBoardStockSection({
 
       {/* blur card  */}
       <div
-        className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative  "
+        className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative sm:overflow-visible overflow-hidden "
         ref={xyzRef}
       >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
@@ -417,7 +417,7 @@ function AllBoardStockSection({
               className="max-h-[400px] w-full"
             />
           </div> */}
-          <div className="mt-11">
+          <div className="mt-11 mb-16">
             <InvestmentSection />
           </div>
           <ElevateSection />

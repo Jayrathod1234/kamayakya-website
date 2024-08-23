@@ -7,9 +7,11 @@ import { getHotStockListApi } from "@/api/stock-picks";
 import HotStockSectionBlur from "./HotStockSectionBlur";
 import HotStockSectionSlider from "./HotStockSectionSlider";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
-import { Skeleton } from "@mui/material";
+import { Skeleton, useMediaQuery } from "@mui/material";
+
 const HotStockSection = ({ sebiBoardType, stockSector }) => {
   const { isLoggedIn } = useContext(AuthContext);
+
   // Use react-query to fetch
   const {
     data: { data: items = [], is_limited_view: isLimitedView = false } = {},
@@ -20,14 +22,16 @@ const HotStockSection = ({ sebiBoardType, stockSector }) => {
     queryFn: () => getHotStockListApi({ isLoggedIn, type: sebiBoardType }),
   });
 
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <>
       {isLoading || error ? (
         <div className="relative z-[2] pb-[110px] mt-[20px]">
           <div className="container mx-auto">
             <div className="bg-gray-150 p-[10px] rounded-[20px]">
-              <div className="bg-[#fff] bg-[url('/assets/grid.png')] bg-cover rounded-[20px] px-10 py-8 gap-10 text-center">
-                <div className=" pt-5   rounded-[10px]">
+              <div className="bg-[#fff] bg-[url('/assets/grid.png')] bg-cover rounded-[20px]  gap-10 text-center">
+                <div className="pt-5 rounded-[10px]">
                   <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-center">
                     <Skeleton
                       animation="wave"
@@ -42,8 +46,8 @@ const HotStockSection = ({ sebiBoardType, stockSector }) => {
                       variant="text"
                     />
                   </p>
-                  <div className="flex gap-4">
-                    <StockCardSkeleton length={3} />
+                  <div className=" gap-4">
+                    <StockCardSkeleton length={isMobile ? 1 : 3} />
                   </div>
                 </div>
               </div>
