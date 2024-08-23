@@ -40,7 +40,7 @@ function Socials({ href, imgSrc, alt, event }: Record<string, string>) {
 
 export function Footer() {
   return (
-    <div className="bg-gradient-to-b from-[15%] from-[transparent] md:from-20% via-[#182E35] via-5% to-[#182E35] to-90%">
+    <div className="bg-gradient-to-b from-[15%] from-[transparent] md:from-20% via-[#182E35] via-5% to-[#182E35] to-90% sm:mt-0 mt-[12%]">
       <div className="h-[calc(286px+10%)] overflow-hidden w-full z-1">
         <Image alt="footer-bg" src={"/footer.webp"} width={1440} height={491} className=" w-full h-full" />
       </div>
