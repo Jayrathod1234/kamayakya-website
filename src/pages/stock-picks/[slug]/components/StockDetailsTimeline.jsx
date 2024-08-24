@@ -61,9 +61,9 @@ export default function CustomStepper() {
   };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: 'auto', pt: 4 }}>
+    <Box sx={{ maxWidth: 600, mx: 'auto', pt: 4 , backgroundColor:'white' }}>
       {allSteps.slice(0, visibleSteps).map((step, index) => (
-        <Box key={index} display="flex" alignItems="flex-start">
+        <Box key={index} display="flex" alignItems="flex-start" >
           <Box width="80px" textAlign="center" mr={2}>
             <Typography variant="body2" color="textSecondary">
               {step.date}

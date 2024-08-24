@@ -43,7 +43,7 @@ function StockDetailsSection() {
       {Object.keys(items).length === 0 || isLoading ? (
         <></>
       ) : (
-        <div className="pt-4 ">
+        <div className="pt-4 bg-[#F9FAFB] ">
           <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
             <div className="items-center gap-[13px] flex p-[7px]">
               <img src="/assets/stock-details/arrow-left.svg" alt="" />
@@ -56,7 +56,7 @@ function StockDetailsSection() {
               </div>
             </div>
             {/* details  */}
-            <div className="pt-3 ">
+            <div className="pt-3 mb-[80px] ">
               {/* Main Content  */}
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="col-span-2">
@@ -455,7 +455,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[50px] p-3 hidden sm:block">
+                  <div className="pt-[50px] bg-white p-3 hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
@@ -502,16 +502,15 @@ function StockDetailsSection() {
                   </div>
 
                   {/* When small Screen Time-line & Report Section show  */}
-                  <div className="mt-5 block sm:hidden md:hidden mb-5">
+                  <div className="mt-5 block sm:hidden md:hidden mb-5 bg-white">
                     <button
                       className="w-full   p-2 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
                     >
                       <span>TIMELINE & REPORTS (3)</span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -536,7 +535,7 @@ function StockDetailsSection() {
                   </div>
 
                   {/* News Section Start */}
-                  <div className="pt-[35px] shadow w-full">
+                  <div className="pt-[35px]  w-full bg-white">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans p-3">
                       News
                     </h2>
@@ -547,7 +546,7 @@ function StockDetailsSection() {
                 {/* <!-- Continue with the rest of your content --> */}
 
                 {/* Second Container Start */}
-                <div className="relative hidden  sm:block">
+                <div className="relative hidden  sm:block bg-white">
                   <div className="p-4 border rounded-lg sticky top-0 ">
                     <h2 className="font-semibold text-lg mb-4  hidden sm:flex">
                       INVESTMENT GUIDANCE
@@ -631,9 +630,8 @@ function StockDetailsSection() {
                       >
                         <span>TIMELINE & REPORTS (3)</span>
                         <svg
-                          className={`transform w-5 h-5 transition-transform duration-200 ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
+                          className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                            }`}
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -662,7 +660,9 @@ function StockDetailsSection() {
               </div>
             </div>
             {/* <div className="mt-11"> */}
-            <InvestmentSection />
+            <div className="mb-10">
+              <InvestmentSection />
+            </div>
             {/* </div> */}
             <ElevateSection />
           </div>
