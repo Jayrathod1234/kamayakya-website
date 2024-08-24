@@ -29,6 +29,7 @@ function StockDetailsSection() {
     expected_returns,
     return_time,
     company_details,
+    market_cap_type,
   } = items || {};
 
   const toggleDropdown = () => {
@@ -46,7 +47,14 @@ function StockDetailsSection() {
         <div className="pt-4 bg-[#F9FAFB] ">
           <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
             <div className="items-center gap-[13px] flex p-[7px]">
-              <img src="/assets/stock-details/arrow-left.svg" alt="" />
+              <img
+                src="/assets/stock-details/arrow-left.svg"
+                alt=""
+                className="cursor-pointer"
+                onClick={() => {
+                  router.push("/stock-picks");
+                }}
+              />
               <div className="text-[13px] text-[#475467] font-normal font-open_sans">
                 Stocks To Buy
               </div>
@@ -127,41 +135,27 @@ function StockDetailsSection() {
                           </div>
                           <div className="pt-1.5 flex gap- sm:gap-1.5 flex-wrap">
                             <div className="flex gap-4 w-full justify-center sm:justify-start ">
-                              <div className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
-                                <img
-                                  src="/assets/stock-details/basil_diamond-outline.svg"
-                                  alt="Tag"
-                                  className="w-3 h-3 md:w-4 md:h-4"
-                                />
-                                <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                  Deep Value
-                                </p>
-                              </div>
-                              <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
-                                <img
-                                  src="/assets/stock-details/basil_diamond-outline.svg"
-                                  alt="Tag"
-                                  className="w-3 h-3 md:w-4 md:h-4"
-                                />
-                                <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                  Special Situation
-                                </p>
-                              </div>
-                              <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center hidden sm:flex">
-                                <img
-                                  src="/assets/stock-details/basil_diamond-outline.svg"
-                                  alt="Tag"
-                                  className="w-3 h-3 md:w-4 md:h-4"
-                                />
-                                <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                  Market Leader
-                                </p>
-                              </div>
-                              <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
+                              {stock_tags.map((value, index) => (
+                                <div
+                                  key={index}
+                                  className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center"
+                                >
+                                  <img
+                                    src={value.image}
+                                    alt={value.name}
+                                    className="w-3 h-3 md:w-4 md:h-4"
+                                  />
+                                  <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                    {value.name}
+                                  </p>
+                                </div>
+                              ))}
+
+                              {/* <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
                                 <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
                                   +2
                                 </p>
-                              </div>
+                              </div> */}
                             </div>
                             <p className="block sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
                               <img
@@ -207,10 +201,15 @@ function StockDetailsSection() {
                           <div className="flex flex-row sm:flex-row items-center sm:items-start  gap-[5rem] sm:gap-1 w-full">
                             <div className="flex w-full justify-between">
                               <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
-                                Mid Cap
+                                {market_cap_type} Cap
                               </p>
                               <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
-                                ₹10,000 Cr. as of 16 Feb, 2024
+                                {market_cap} Cr. as of{" "}
+                                {new Date().toLocaleDateString("en-GB", {
+                                  day: "2-digit",
+                                  month: "short",
+                                  year: "numeric",
+                                })}
                               </span>
                             </div>
                           </div>
