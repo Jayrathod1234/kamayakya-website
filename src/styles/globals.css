@@ -1922,3 +1922,14 @@ header > div > div {
   border: 1px solid transparent; /* Adjust border width if needed */
   background-clip: padding-box; /* Ensures gradient is visible in the border area */
 }
+.css-19kzrtu{
+  padding: 14px !important;
+}
+
+.css-10d9dml-MuiTabs-indicator{
+  background-color: #0c3f3a !important;
+}
+
+/* .css-15lbh48-MuiButtonBase-root-MuiTab-root.Mui-selected{
+  color: #0c3f3a !important;
+} */

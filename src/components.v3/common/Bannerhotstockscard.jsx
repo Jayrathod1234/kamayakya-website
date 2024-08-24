@@ -256,7 +256,7 @@ const Bannerhotstockscard = () => {
                       </div>
                     </div>
                     {/* 2 with deep value drop down */}
-                    <div className="flex relative scale-x-90 left-[-38%] z-10">
+                    <div className="flex relative scale-x-90 left-[-38%] z-10 sm:block md:hidden">
                       <div className="absolute z-20 left-[7.5rem] -top-1">
                         <img
                           src="/assets/hottab.png"
