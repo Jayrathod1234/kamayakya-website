@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getStockDetailApi } from "@/api/stock-picks";
 import { useRouter } from "next/router";
+import { getStockDetailResponse } from "@/api/stock-picks/static-response.js";
 
 // Create a context
 const StockDetailsContext = createContext();
@@ -13,7 +14,7 @@ export const StockDetailsProvider = ({ children }) => {
 
   // Fetch stock details using react-query
   const {
-    data: items = {},
+    data: items = getStockDetailResponse,
     isLoading,
     error,
   } = useQuery({

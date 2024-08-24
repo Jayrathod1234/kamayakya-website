@@ -7,7 +7,6 @@ import ElevateSection from "../../components/ElevateSection";
 import { useStockDetails } from "@/contexts/StockDetailsContext";
 import { useRouter } from "next/router";
 function StockDetailsSection() {
-  console.log("===============StockDetailsSection=================");
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
 
@@ -41,8 +40,7 @@ function StockDetailsSection() {
   }
   return (
     <>
-      {/* Object.keys(items).length === 0 ||  */}
-      {isLoading ? (
+      {Object.keys(items).length === 0 || isLoading ? (
         <></>
       ) : (
         <div className="pt-4 bg-[#F9FAFB] ">
