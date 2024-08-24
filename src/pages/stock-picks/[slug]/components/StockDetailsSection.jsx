@@ -4,9 +4,8 @@ import StockDetailsTimeline from "./StockDetailsTimeline";
 import StockDetailsProgressBar from "./StockDetailsProgressBar";
 import InvestmentSection from "../../components/InvestmentSection";
 import ElevateSection from "../../components/ElevateSection";
-import { useStockDetails } from "../contexts/StockDetailsContext";
+import { useStockDetails } from "@/contexts/StockDetailsContext";
 import { useRouter } from "next/router";
-import { isNullOrUndefined } from "util";
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
