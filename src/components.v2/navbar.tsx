@@ -73,9 +73,8 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    if (pathname == '/stock-picks/[slug]' || pathname == '/stock-details') {
-      ref.current?.classList.add("detail-nav");
-    } else {
+    console.log(pathname)
+    if (pathname == '/stock-picks') {
       window.addEventListener("scroll", () => {
         if (window.scrollY > 0) {
           ref.current?.classList.add("scrolled-nav");
@@ -83,8 +82,9 @@ export function Navbar() {
           ref.current?.classList.remove("scrolled-nav");
         }
       });
+    } else {
+      ref.current?.classList.add("other-page-nav");
     }
-
   }, []);
 
   return (
