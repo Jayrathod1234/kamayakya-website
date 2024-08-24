@@ -460,10 +460,18 @@ function StockDetailsSection() {
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
-                    <p
+                    <p className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none">
+                      Shree Pushkar Chemical & Fertiliser Ltd. is a holding
+                      company, which engages in the provision of chemicals and
+                      fertilizers. It offers dye, dye intermediates,
+                      fertilizers, acids, and cattle feed supplements. The
+                      company was founded by Punit Makharia on March 29, 1993
+                      and is headquartered in Mumbai, India.
+                    </p>
+                    {/* <p
                       dangerouslySetInnerHTML={{ __html: company_details }}
                       className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none"
-                    ></p>
+                    ></p> */}
                   </div>
                   {/* Company Profile Section End  */}
 

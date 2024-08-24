@@ -2,28 +2,28 @@ import React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getNewsListApi } from "@/api/stock-picks";
 const StockDetailsNews = ({ stock_name }) => {
-  const {
-    data: response,
-    isLoading,
-    error,
-    fetchNextPage,
-    refetch,
-  } = useInfiniteQuery({
-    queryKey: ["newsList"],
-    queryFn: ({ pageParam = 1 }) =>
-      getNewsListApi({
-        page: pageParam,
-        limit: 10,
-        stock_name,
-      }),
-    getNextPageParam: (data) => {
-      console.log("===getNextPageParam====", data);
-      // Function to determine the parameter for fetching the next page
-      //   if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
-    },
-  });
+  // const {
+  //   data: response,
+  //   isLoading,
+  //   error,
+  //   fetchNextPage,
+  //   refetch,
+  // } = useInfiniteQuery({
+  //   queryKey: ["newsList"],
+  //   queryFn: ({ pageParam = 1 }) =>
+  //     getNewsListApi({
+  //       page: pageParam,
+  //       limit: 10,
+  //       stock_name,
+  //     }),
+  //   getNextPageParam: (data) => {
+  //     console.log("===getNextPageParam====", data);
+  //     // Function to determine the parameter for fetching the next page
+  //     //   if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
+  //   },
+  // });
 
-  console.log("================response================", response);
+  // console.log("================response================", response);
 
   const newsItems = [
     {
