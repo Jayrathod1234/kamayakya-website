@@ -7,6 +7,7 @@ import ElevateSection from "../../components/ElevateSection";
 import { useStockDetails } from "@/contexts/StockDetailsContext";
 import { useRouter } from "next/router";
 function StockDetailsSection() {
+  console.log("===============StockDetailsSection=================");
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
 
@@ -40,7 +41,8 @@ function StockDetailsSection() {
   }
   return (
     <>
-      {Object.keys(items).length === 0 || isLoading ? (
+      {/* Object.keys(items).length === 0 ||  */}
+      {isLoading ? (
         <></>
       ) : (
         <div className="pt-4 bg-[#F9FAFB] ">
@@ -509,8 +511,9 @@ function StockDetailsSection() {
                     >
                       <span>TIMELINE & REPORTS (3)</span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                          }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -630,8 +633,9 @@ function StockDetailsSection() {
                       >
                         <span>TIMELINE & REPORTS (3)</span>
                         <svg
-                          className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                            }`}
+                          className={`transform w-5 h-5 transition-transform duration-200 ${
+                            isOpen ? "rotate-180" : ""
+                          }`}
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"

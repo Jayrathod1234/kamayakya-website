@@ -1,64 +1,7 @@
-import { useContext } from "react";
-import NavBar2 from "../components/Navbar2";
-import NavBar from "../components.v2/navbar";
-import StockCard from "../components/StockCard";
-import FaqsNew from "./screens/FaqsNew";
-
-import {
-  Button,
-  EnterpriseCard,
-  FeelingLost,
-  Footer,
-  Navbar,
-  Newsletter,
-  PlansSection,
-  Semibold,
-  SmallCaseCard,
-  Tabs,
-  Testimonials,
-  UserTypeCard,
-  UserTypeDesktopCard,
-} from "@/components.v2/index.components";
-import Image from "next/image";
-import { Open_Sans } from "next/font/google";
-import AuthContext from "../components/AuthContext";
-import PageVisibility from "../components/PageVisibility";
-import Stockdetails from "../components.v2/Stockdetails";
+import Stockdetails from "@/pages/stock-picks/[slug]/index.jsx";
 
 const StockDetails = () => {
-  const { isLoggedIn } = useContext(AuthContext);
-
-  return (
-    <PageVisibility>
-      {(isPageVisible) => (
-        <>
-          {/* {isLoggedIn ?  : ""} */}
-          {/* <div
-            style={{
-              background: "#fff",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          > */}
-
-          {/* <StockCardBlur /> */}
-          {/* <FaqsNew /> */}
-          {/* <Footer /> */}
-          {/* </div> */}
-          <div className="!bg-transparent navbar">{/* <Navbar /> */}</div>
-          <div>
-            <Stockdetails />
-          </div>
-
-          <div className="  ">
-            <Footer />
-          </div>
-        </>
-      )}
-    </PageVisibility>
-  );
+  return <Stockdetails />;
 };
 
 export default StockDetails;
