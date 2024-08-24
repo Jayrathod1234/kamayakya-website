@@ -172,8 +172,8 @@ export default function NestedModal() {
                                         src={item.src}
                                         alt={item.name}
                                         sx={{
-                                            width: index === brokerItems.length - 1 ? 36 : 48,
-                                            height: index === brokerItems.length - 1 ? 36 : 48,
+                                            width: 48,
+                                            height: 48,
                                             mb: 1,
                                             color: index === brokerItems.length - 1 ? 'white' : 'inherit',
                                             backgroundColor: index === brokerItems.length - 1 ? '#125B54' : 'transparent', // green background for the last avatar

@@ -1,58 +1,37 @@
-import { useContext } from "react";
-import {
-  Button,
-  EnterpriseCard,
-  FeelingLost,
-  Footer,
-  Navbar,
-  Newsletter,
-  PlansSection,
-  Semibold,
-  SmallCaseCard,
-  Tabs,
-  Testimonials,
-  UserTypeCard,
-  UserTypeDesktopCard,
-} from "@/components.v2/index.components";
-import Image from "next/image";
-import { Open_Sans } from "next/font/google";
-import AuthContext from "@/components/AuthContext";
-import PageVisibility from "@/components/PageVisibility";
-import Stockdetails from "@/components.v2/Stockdetails";
-
+import StockDetailsSection from "./components/StockDetailsSection";
+import Layout from "../../../layout/Layout";
+import InvestmentSection from "../components/InvestmentSection";
+import ElevateSection from "../components/ElevateSection";
+import { useQuery } from "@tanstack/react-query";
+import { getStockDetailApi } from "@/api/stock-picks";
+import { useRouter } from "next/router";
+import { StockDetailsProvider } from "@/contexts/StockDetailsContext";
 const StockDetails = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  // const router = useRouter();
+  // const { slug } = router.query;
 
+  // const {
+  //   data: items = {},
+  //   isLoading,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["stockDetail", slug],
+  //   queryFn: () => getStockDetailApi({ stockId: slug }),
+  //   enabled: !!slug,
+  // });
   return (
-    <PageVisibility>
-      {(isPageVisible) => (
-        <>
-          {/* {isLoggedIn ?  : ""} */}
-          {/* <div
-            style={{
-              background: "#fff",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          > */}
-
-          {/* <StockCardBlur /> */}
-          {/* <FaqsNew /> */}
-          {/* <Footer /> */}
-          {/* </div> */}
-          {/* <div className="!bg-transparent navbar !text-black"><Navbar /></div> */}
-          <div className="mb-96">
-            <Stockdetails />
-          </div>
-
-          <div className=" mt-96  ">
-            {/* <Footer /> */}
-          </div>
-        </>
-      )}
-    </PageVisibility>
+    // <Layout>
+    //   <>
+    //     <div className="">
+    //       <StockDetailsSection items={items} />
+    //     </div>
+    //   </>
+    // </Layout>
+    <StockDetailsProvider>
+      <Layout>
+        <StockDetailsSection />
+      </Layout>
+    </StockDetailsProvider>
   );
 };
 

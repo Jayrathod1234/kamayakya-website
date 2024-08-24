@@ -25,9 +25,16 @@ function Stockdetails() {
           </div>
           {/* details  */}
           <div className="pt-3">
+            {/* Main Content  */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
               <div className="col-span-2">
-                <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1">
+                {/* First Content Start */}
+                <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1 relative">
+                  <img
+                    src="/assets/SellBubbleRed 1.png"
+                    alt=""
+                    className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[40px]"
+                  />
                   <div className="px-4 pt-4 pb-3 gap-2">
                     <div className="flex pb-2.5 items-center justify-center sm:justify-start md:justify-start">
                       <div className="flex h-4 py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
@@ -53,7 +60,7 @@ function Stockdetails() {
                       </div>
                     </div>
                     {/* <!-- Continue your other components similarly --> */}
-                    <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+                    <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
                       {/* Image container */}
                       <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block">
                         <img
@@ -76,7 +83,7 @@ function Stockdetails() {
                               Shree Pushkar Chemicals & Fertilizers Ltd.
                             </p>
                           </div>
-                          <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 ">
+                          <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0  mx-auto sm:mx-0">
                             <p className="text-xs md:text-2xs text-[#475467] font-medium">
                               NSE: IONEXCHANG
                             </p>
@@ -86,16 +93,43 @@ function Stockdetails() {
                             </p>
                           </div>
                         </div>
-                        <div className="pt-1.5 flex gap-2 flex-wrap">
-                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
-                            <img
-                              src="/assets/stock-details/basil_diamond-outline.svg"
-                              alt="Tag"
-                              className="w-3 h-3 md:w-4 md:h-4"
-                            />
-                            <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                              Deep Value
-                            </p>
+                        <div className="pt-1.5 flex gap- sm:gap-1.5 flex-wrap">
+                          <div className="flex gap-4 w-full justify-center sm:justify-start ">
+                            <div className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
+                              <img
+                                src="/assets/stock-details/basil_diamond-outline.svg"
+                                alt="Tag"
+                                className="w-3 h-3 md:w-4 md:h-4"
+                              />
+                              <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                Deep Value
+                              </p>
+                            </div>
+                            <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
+                              <img
+                                src="/assets/stock-details/basil_diamond-outline.svg"
+                                alt="Tag"
+                                className="w-3 h-3 md:w-4 md:h-4"
+                              />
+                              <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                Special Situation
+                              </p>
+                            </div>
+                            <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center hidden sm:flex">
+                              <img
+                                src="/assets/stock-details/basil_diamond-outline.svg"
+                                alt="Tag"
+                                className="w-3 h-3 md:w-4 md:h-4"
+                              />
+                              <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                Market Leader
+                              </p>
+                            </div>
+                            <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
+                              <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                +2
+                              </p>
+                            </div>
                           </div>
                           <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
                             <img
@@ -140,13 +174,15 @@ function Stockdetails() {
                             className="w-6 h-6 sm:w-auto sm:h-auto"
                           />
                         </div>
-                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-14 sm:gap-1">
-                          <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
-                            Engineering
-                          </p>
-                          <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
-                            Industrial Equipments
-                          </span>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">
+                          <div className="w-full flex justify-between">
+                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                              Engineering
+                            </p>
+                            <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
+                              Industrial Equipments
+                            </span>
+                          </div>
                         </div>
                       </div>
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
@@ -157,13 +193,15 @@ function Stockdetails() {
                             className="w-6 h-6 sm:w-auto sm:h-auto"
                           />
                         </div>
-                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1">
-                          <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
-                            Mid Cap
-                          </p>
-                          <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
-                            ₹10,000 Cr. as of 16 Feb, 2024
-                          </span>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start  gap-[5rem] sm:gap-1 w-full">
+                          <div className="flex w-full justify-between">
+                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                              Mid Cap
+                            </p>
+                            <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
+                              ₹10,000 Cr. as of 16 Feb, 2024
+                            </span>
+                          </div>
                         </div>
                       </div>
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex justify-items-end">
@@ -174,16 +212,20 @@ function Stockdetails() {
                             className="w-6 h-6 sm:w-auto sm:h-auto"
                           />
                         </div>
-                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1">
-                          <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
-                            High Risk
-                          </p>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1 w-full">
+                          <div className="w-full flex justify-between">
+                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans ">
+                              High Risk
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex sm:hidden gap-2 mt-5 mb-3 ">
+                {/* First Content End  */}
+                {/* When Small screen Button is Show  */}
+                <div className="flex sm:hidden gap-2 mt-5 mb-3 bg-white">
                   <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
                     <img
                       src="/assets/play1.png"
@@ -201,8 +243,10 @@ function Stockdetails() {
                     <span>Invest Now</span>
                   </button>
                 </div>
-                <div className="pt-[20px] p-3 block sm:hidden">
-                  <h2 className="text-[#0C111D] text-[14px] leading-3 font-semibold font-open_sans ">
+                {/* When Small Screen Button Is Hide  */}
+                {/* Small screen show to company profile  */}
+                <div className="pt-[20px] p-3 block sm:hidden bg-white shadow mb-5">
+                  <h2 className="text-[#0C111D] text-[14px] leading-3 font-bold font-open_sans ">
                     Company Profile
                   </h2>
                   <p className="text-[#475467]  text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none">
@@ -213,8 +257,21 @@ function Stockdetails() {
                     by Punit Makharia on March 29, 1993 and is headquartered in
                     Mumbai, India.
                   </p>
+                  <button class="flex mt-2 items-center gap-2 px-4 py-2  text-[#344054] font-medium border border-[#D0D5DD] rounded-full hover:bg-[#F9FAFB] hover:border-[#D0D5DD] transition-colors">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <circle cx="6" cy="12" r="2" />
+                      <circle cx="12" cy="12" r="2" />
+                      <circle cx="18" cy="12" r="2" />
+                    </svg>
+                  </button>
                 </div>
-                <div className="col-span-2 order-3 sm:order-2">
+                {/* Upside Left Box start */}
+                <div className=" hidden md:block col-span-2 order-3 sm:order-2">
                   <div className="p-4 gap-4 rounded-[10px] bg-white shadow-sm">
                     <div className="relative p-4 gap-4 rounded-[5px] bg-[#EFF7FF] border border-transparent">
                       {/* Gradient Border */}
@@ -298,7 +355,96 @@ function Stockdetails() {
                   </div>
                 </div>
 
-                <div className="pt-[72px] p-3 hidden sm:block">
+                {/* Small Responsive size View Open the box  */}
+                <div className="block md:hidden bg-gray-150 p-4 rounded-lg shadow-md max-w-full mx-auto ">
+                  <div className="border border-blue-600 rounded-lg">
+                    <div className="bg-custom-gradient text-white rounded-lg p-4">
+                      <div className="flex justify-between items-center">
+                        <h2 className="text-lg font-semibold flex items-center">
+                          Upside Left
+                          <img
+                            src="/assets/ph_info-duotone.svg"
+                            alt="Info Icon"
+                            className="ml-2 h-[17px] md:h-[20px]"
+                          />
+                        </h2>
+                        <img
+                          src="/assets/stock-details/streamline_target-solid (1).svg"
+                          alt=""
+                        />
+                      </div>
+                      <p className="text-4xl font-bold mt-2">157.12%</p>
+                      <p className="text-sm">in 1yr 4m</p>
+                    </div>
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center">
+                          <img src="/assets/hj1.svg" alt="" />
+                          <p className="ml-2 text-sm text-gray-800">
+                            Total Returns
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <img
+                            src="/assets/Polygon2.svg"
+                            alt="Indicator Icon"
+                            className="w-3 h-3"
+                          />
+                          <p className="text-black ml-1 text-sm">
+                            64.08%{" "}
+                            <span className="text-gray-500 text-xs">
+                              likely in 4m
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <div className="flex items-center">
+                          <img src="/assets/hj2.svg" alt="" />
+                          <p className="ml-2 text-sm text-gray-800">CAGR</p>
+                        </div>
+                        <div className="flex items-center">
+                          <img
+                            src="/assets/Polygon2.svg"
+                            alt="Indicator Icon"
+                            className="w-3 h-3"
+                          />
+                          <p className="text-black ml-1 text-sm">
+                            64.08%{" "}
+                            <span className="text-gray-500 text-xs">
+                              in 1yr 4m
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base font-normal gap-1">
+                    <span className="text-[#0079EF] text-sm md:text-base font-bold">
+                      ₹1Lakh{" "}
+                    </span>
+                    invested at current market price (CMP) can become{" "}
+                    <span className="text-[#0079EF] text-sm md:text-base font-bold">
+                      ₹“X” Lakh
+                    </span>{" "}
+                    likely within a year
+                  </div>
+                  <div className="pt-4 hidden sm:block">
+                    <div className="px-2">
+                      <StockDetailsProgressBar />
+                    </div>
+                  </div>
+                </div>
+                <div className="pt-4 block sm:hidden">
+                  <div className="px-4 md:px-[20px] pt-4 pb-4">
+                    <StockDetailsProgressBar />
+                  </div>
+                </div>
+                {/* Upside Left Box End  */}
+
+                {/* Company Profile Section start */}
+                <div className="pt-[50px] p-3 hidden sm:block">
                   <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                     Company Profile
                   </h2>
@@ -349,8 +495,11 @@ function Stockdetails() {
                   </h2>
                   <StockDetailsNews />
                 </div>
+                {/* News Section End  */}
               </div>
               {/* <!-- Continue with the rest of your content --> */}
+
+              {/* Second Container Start */}
               <div className="relative hidden  sm:block">
                 <div className="p-4 border rounded-lg sticky top-0 ">
                   <h2 className="font-semibold text-lg mb-4  hidden sm:flex">
@@ -462,6 +611,7 @@ function Stockdetails() {
                   </div>
                 </div>
               </div>
+              {/* Second Container End */}
             </div>
           </div>
         </div>

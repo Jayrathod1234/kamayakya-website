@@ -8,35 +8,28 @@ import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
-
 export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
-
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
-
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
-
   const onSelect = useCallback((emblaApi) => {
     setPrevBtnDisabled(!emblaApi.canScrollPrev());
     setNextBtnDisabled(!emblaApi.canScrollNext());
   }, []);
-
   useEffect(() => {
     if (!emblaApi) return;
-
     onSelect(emblaApi);
     emblaApi.on("reInit", onSelect).on("select", onSelect);
   }, [emblaApi, onSelect]);
-
   return {
     prevBtnDisabled,
     nextBtnDisabled,
@@ -44,11 +37,9 @@ export const usePrevNextButtons = (emblaApi, onButtonClick) => {
     onNextButtonClick,
   };
 };
-
 export const useDotButton = (emblaApi) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
-
   const onDotButtonClick = useCallback(
     (index) => {
       if (!emblaApi) return;
@@ -56,30 +47,24 @@ export const useDotButton = (emblaApi) => {
     },
     [emblaApi]
   );
-
   const onInit = useCallback((emblaApi) => {
     setScrollSnaps(emblaApi.scrollSnapList());
   }, []);
-
   const onSelect = useCallback((emblaApi) => {
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, []);
-
   useEffect(() => {
     if (!emblaApi) return;
-
     onInit(emblaApi);
     onSelect(emblaApi);
     emblaApi.on("reInit", onInit).on("reInit", onSelect).on("select", onSelect);
   }, [emblaApi, onInit, onSelect]);
-
   return {
     selectedIndex,
     scrollSnaps,
     onDotButtonClick,
   };
 };
-
 export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
   return (
     <div ref={ref} className={`carousel__item h-full ${className}`}>
@@ -87,12 +72,9 @@ export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
     </div>
   );
 });
-
 const TWEEN_FACTOR_BASE = 0.1;
-
 const numberWithinRange = (number, min, max) =>
   Math.min(Math.max(number, min), max);
-
 export function HotSlider({ children }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -103,7 +85,6 @@ export function HotSlider({ children }) {
     },
     [Autoplay({ playOnInit: false, delay: 6000 }), ClassNames()] //change carousel timer here.
   );
-
   const tweenFactor = useRef(0);
   const tweenNodes = useRef([]);
   const {
@@ -114,7 +95,6 @@ export function HotSlider({ children }) {
   } = usePrevNextButtons(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
-
   const handlePrevNext = (cb) => {
     cb();
     const mp = getMixPanelClient();
@@ -122,37 +102,29 @@ export function HotSlider({ children }) {
       page: "Pricing_Page",
     });
   };
-
   const setTweenNodes = useCallback((emblaApi) => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
       return slideNode.querySelector(".main_card_carousel");
     });
   }, []);
-
   const setTweenFactor = useCallback((emblaApi) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
-
   const tweenScale = useCallback((emblaApi, eventName) => {
     const engine = emblaApi.internalEngine();
     const scrollProgress = emblaApi.scrollProgress();
     const slidesInView = emblaApi.slidesInView();
     const isScrollEvent = eventName === "scroll";
-
     emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
       let diffToTarget = scrollSnap - scrollProgress;
       const slidesInSnap = engine.slideRegistry[snapIndex];
-
       slidesInSnap.forEach((slideIndex) => {
         if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
-
         if (engine.options.loop) {
           engine.slideLooper.loopPoints.forEach((loopItem) => {
             const target = loopItem.target();
-
             if (slideIndex === loopItem.index && target !== 0) {
               const sign = Math.sign(target);
-
               if (sign === -1) {
                 diffToTarget = scrollSnap - (1 + scrollProgress);
               }
@@ -162,7 +134,6 @@ export function HotSlider({ children }) {
             }
           });
         }
-
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
         const scale = numberWithinRange(tweenValue, 0, 1).toString();
         const tweenNode = tweenNodes.current[slideIndex];
@@ -170,14 +141,11 @@ export function HotSlider({ children }) {
       });
     });
   }, []);
-
   useEffect(() => {
     if (!emblaApi) return;
-
     setTweenNodes(emblaApi);
     setTweenFactor(emblaApi);
     tweenScale(emblaApi);
-
     emblaApi
       .on("reInit", setTweenNodes)
       .on("reInit", setTweenFactor)
@@ -185,68 +153,55 @@ export function HotSlider({ children }) {
       .on("scroll", tweenScale)
       .on("slideFocus", tweenScale);
   }, [emblaApi, tweenScale]);
-
   return (
-    <div className={`relative w-full m-auto pb-[11px] `}>
-      {/* gradient */}
-      <div className="h-full left-3 md:left-0  md:w-1/3 max-w-[261px] absolute  z-20 flex flex-col justify-center ">
-        <div>
-          <Button
-            onClick={() => handlePrevNext(onPrevButtonClick)}
-            variant={"default"}
-            className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
-          >
-            <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
-          </Button>
-        </div>
-      </div>
-      <div className=" right-3  md:right-0 h-full max-w-[261px] md:w-1/3  absolute z-20 flex flex-col justify-center items-center">
-        <div>
-          <Button
-            onClick={() => handlePrevNext(onNextButtonClick)}
-            variant={"default"}
-            className="rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
-          >
-            <ChevronRightIcon
-              className="inline-block md:hidden"
-              fontSize="small"
-              style={{ color: "white" }}
-            />
-          </Button>
-        </div>
-      </div>
-
-      <div
-        ref={emblaRef}
-        className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3`}
-      >
-        <div
-          className="flex space-x-4 carousel__container"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          {children.map((carousel, index) => (
-            <CarouselItem
-              key={carousel.key}
-              className={`carousel embla__class-names sm:flex-shrink-0  flex-shrink sm:w-1/3  w-[324px]
-                ${
-                  index === selectedIndex
-                    ? ""
-                    : index > selectedIndex
-                    ? `!scale-[0.85] ${
-                        selectedIndex + 2 == index
-                          ? "md:ml-[-2rem] lg:ml-[-3rem]"
-                          : ""
-                      }`
-                    : `!scale-[0.85] ${
-                        selectedIndex - 2 == index
-                          ? "md:mr-[-2rem] lg:mr-[-3rem]"
-                          : ""
-                      }`
-                }  transition-all duration-500 ease-in-out main_card_carousel`}
+    <div className={`relative w-full m-auto `}>
+      <div className="flex">
+        {/* left slider button */}
+        <div className="justify-center items-center flex">
+          <div>
+            <Button
+              onClick={() => handlePrevNext(onPrevButtonClick)}
+              variant={"default"}
+              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
             >
-              {carousel}
-            </CarouselItem>
-          ))}
+              <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
+            </Button>
+          </div>
+        </div>
+        {/* slider content */}
+        <div
+          ref={emblaRef}
+          className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3`}
+        >
+          <div
+            className="flex space-x-4 carousel__container"
+            style={{ backfaceVisibility: "hidden" }}
+          >
+            {children.map((carousel, index) => (
+              <CarouselItem
+                key={carousel.key}
+                className={`carousel embla__class-names`}
+              >
+                {carousel}
+              </CarouselItem>
+            ))}
+          </div>
+        </div>
+        {/* right slider button */}
+        <div className="justify-center items-center flex">
+          <div>
+            <Button
+              onClick={() => handlePrevNext(onNextButtonClick)}
+              variant={"default"}
+              className="rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
+            >
+              <ChevronRightIcon
+                className="inline-block md:hidden"
+                fontSize="small"
+                style={{ color: "white" }}
+              />
+            </Button>
+          </div>
         </div>
       </div>
       {/* indicator */}
@@ -255,7 +210,7 @@ export function HotSlider({ children }) {
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={` ${
+            className={`${
               index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
             } h-[10px]  bg-gray-200 rounded-full transition-all`}
           ></div>

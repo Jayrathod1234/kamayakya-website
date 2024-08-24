@@ -73,13 +73,18 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 0) {
-        ref.current?.classList.add("scrolled-nav");
-      } else {
-        ref.current?.classList.remove("scrolled-nav");
-      }
-    });
+    if (pathname == '/stock-picks/[slug]' || pathname == '/stock-details') {
+      ref.current?.classList.add("detail-nav");
+    } else {
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 0) {
+          ref.current?.classList.add("scrolled-nav");
+        } else {
+          ref.current?.classList.remove("scrolled-nav");
+        }
+      });
+    }
+
   }, []);
 
   return (

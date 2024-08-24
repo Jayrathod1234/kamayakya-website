@@ -5,6 +5,7 @@ import { getLatestReleasesStockListApi } from "@/api/stock-picks";
 import { useQuery } from "@tanstack/react-query";
 import AuthContext from "@/components/AuthContext";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
+import { useMediaQuery } from "@mui/material";
 function LatestReleases({ sebiBoardType, stockSector }) {
   const { isLoggedIn } = useContext(AuthContext);
   // Use react-query to fetch
@@ -17,6 +18,8 @@ function LatestReleases({ sebiBoardType, stockSector }) {
     queryFn: () =>
       getLatestReleasesStockListApi({ isLoggedIn, type: sebiBoardType }),
   });
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <>
       <div className=" sm:pt-[251px] pt-[190px] sm:pb-[100px] pb-[58px] ">
@@ -24,28 +27,44 @@ function LatestReleases({ sebiBoardType, stockSector }) {
           <p className=" text-display-xs text-gray-950 font-bold">
             Latest Releases ({items.length})
           </p>
-          <p className=" text-md font-normal text-gray-600 text-center pt-3 font-open_sans">
+          <p className=" text-md font-normal text-gray-600 text-center pt-3 font-open_sans mb-10">
             New Stocks released in the last 60 days
           </p>
 
-          {isLoading || error ? (
-            <div className="flex pb-12 pt-[60px] carousel__container gap-5">
-              <StockCardSkeleton length={5} />
+          {(isMobile && items.length <= 1) || (!isMobile && items.length <= 5) ? (
+            <div className="flex justify-center gap-5  ">
+              {isLoading || error ? (
+                <StockCardSkeleton length={1} />
+              ) : (
+                items.map((value) => (
+                  <StockCard
+                    key={value.id}
+                    {...value}
+                    stockSector={stockSector}
+                  />
+                ))
+              )}
             </div>
           ) : (
-            items.length > 0 && (
-              <div className=" mb-6 sm:-mt-0  -mt-6  w-full">
-                <Slider>
-                  {items.map((value, index) => (
-                    <StockCard
-                      key={index} // Ensure each item has a unique key
-                      {...value}
-                      stockSector={stockSector}
-                    />
-                  ))}
-                </Slider>
-              </div>
-            )
+            <div className="w-full">
+              {isLoading || error ? (
+                <div className="flex pb-12 pt-[60px] carousel__container gap-5 ">
+                  <StockCardSkeleton length={5} />
+                </div>
+              ) : (
+                items.length > 0 && (
+                  <Slider>
+                    {items.map((value) => (
+                      <StockCard
+                        key={value.id}
+                        {...value}
+                        stockSector={stockSector}
+                      />
+                    ))}
+                  </Slider>
+                )
+              )}
+            </div>
           )}
         </div>
       </div>

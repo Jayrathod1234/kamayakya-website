@@ -11,13 +11,8 @@ import DeepValue from "./DeepValue.jsx";
 const Bannerhotstockscard = () => {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
-    mp.track("contactus_clicked", {
-      page: "Pricing_Page",
-      pagegroup: "enterprise_solution",
-    });
-    mp.track("asktheteam_loaded", {
-      page: "Pricing_Page",
-      pagegroup: "enterprise_solution",
+    mp.track("explore_plans_clicked", {
+      page: "StockPicks_Page",
     });
   };
 

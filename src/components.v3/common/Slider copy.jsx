@@ -10,7 +10,6 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
 
 export const usePrevNextButtons = (emblaApi, onButtonClick) => {
-  // ... existing code
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
 
@@ -49,7 +48,6 @@ export const usePrevNextButtons = (emblaApi, onButtonClick) => {
 export const useDotButton = (emblaApi) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const onDotButtonClick = useCallback(
     (index) => {
@@ -67,30 +65,18 @@ export const useDotButton = (emblaApi) => {
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, []);
 
-  const handleResize = useCallback(() => {
-    setIsSmallScreen(window.innerWidth < 768); // Adjust based on your breakpoint
-  }, []);
-
   useEffect(() => {
     if (!emblaApi) return;
 
     onInit(emblaApi);
     onSelect(emblaApi);
     emblaApi.on("reInit", onInit).on("reInit", onSelect).on("select", onSelect);
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [emblaApi, onInit, onSelect, handleResize]);
+  }, [emblaApi, onInit, onSelect]);
 
   return {
     selectedIndex,
     scrollSnaps,
     onDotButtonClick,
-    isSmallScreen,
   };
 };
 
@@ -102,15 +88,18 @@ export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
   );
 });
 
-// ... other parts of the code ...
 const TWEEN_FACTOR_BASE = 0.1;
+
+const numberWithinRange = (number, min, max) =>
+  Math.min(Math.max(number, min), max);
 
 export function Slider({ children }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
+      // startIndex: 1,
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()]
+    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
   );
 
   const tweenFactor = useRef(0);
@@ -121,7 +110,7 @@ export function Slider({ children }) {
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-  const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } =
+  const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
   const handlePrevNext = (cb) => {
@@ -176,6 +165,7 @@ export function Slider({ children }) {
         const scale = numberWithinRange(tweenValue, 0, 1).toString();
         const tweenNode = tweenNodes.current[slideIndex];
         tweenNode.style.transform = `scale(${scale})`;
+        // tweenNode.style.transform = `scale(${scale})`;
       });
     });
   }, []);
@@ -202,20 +192,23 @@ export function Slider({ children }) {
         <div>
           <Button
             onClick={() => handlePrevNext(onPrevButtonClick)}
+            // disabled={selectedIndex == 1 ? true : prevBtnDisabled}
             variant={"default"}
-            className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
+            className=" rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
           >
             <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
           </Button>
         </div>
       </div>
-      <div className="right-4  md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-gray-100 to-transparent z-20 flex flex-col justify-center items-center">
+      <div className=" right-4  md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-gray-100 to-transparent z-20 flex flex-col justify-center items-center">
         <div>
           <Button
             onClick={() => handlePrevNext(onNextButtonClick)}
+            // disabled={selectedIndex === carouselItem.length - 2 ? true : nextBtnDisabled}
             variant={"default"}
-            className="rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
+            className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
           >
+            {/* <ChevronRightIcon className="hidden md:inline-block" fontSize="large" style={{ color: "white" }} /> */}
             <ChevronRightIcon
               className="inline-block md:hidden"
               fontSize="small"
@@ -225,15 +218,16 @@ export function Slider({ children }) {
         </div>
       </div>
 
-      <div ref={emblaRef} className={`max-w-[100vw] overflow-hidden`}>
+      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
+        {/* <div className=" overflow-hidden max-w-full"> */}
         <div
-          className="flex pb-12 pt-[60px] carousel__container"
+          className=" flex pb-12 pt-[60px] carousel__container"
           style={{ backfaceVisibility: "hidden" }}
         >
           {children.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
-              className={`carousel embla__class-names  
+              className={` carousel embla__class-names  
               ${index === selectedIndex
                   ? ""
                   : index > selectedIndex
@@ -252,27 +246,21 @@ export function Slider({ children }) {
             </CarouselItem>
           ))}
         </div>
+        {/* </div> */}
+      </div>
+      {/* indicator */}
+      <div className="flex gap-2 justify-center items-center ">
+        {scrollSnaps.slice(0, 5).map((_, index) => (
+          <div
+            onClick={() => onDotButtonClick(index)}
+            key={index}
+            className={`${index === selectedIndex ? "w-4 !bg-brand-300" : "aspect-square"
+              } h-[8px] bg-gray-200 rounded-full transition-all`}
+          ></div>
+        ))}
       </div>
 
-      {/* indicator */}
-      <div className="flex gap-2 justify-center items-center">
-        {scrollSnaps
-          .slice(0, isSmallScreen ? 5 : scrollSnaps.length) // Show 5 on small screens, all on larger screens
-          .map((_, index) => (
-            <div
-              onClick={() => onDotButtonClick(index)}
-              key={index}
-              className={`${index === selectedIndex ? "w-4 !bg-brand-300" : "aspect-square"
-                } h-[8px] bg-gray-200 rounded-full transition-all`}
-            ></div>
-          ))}
-      </div>
+
     </div>
   );
 }
-
-function numberWithinRange(number, min, max) {
-  return Math.min(Math.max(number, min), max);
-}
-
-export default Slider;

@@ -13,13 +13,8 @@ import StockCard from "@/components.v3/common/StockCard.jsx";
 const HotStockSection = ({ items, stockSector }) => {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
-    mp.track("contactus_clicked", {
-      page: "Pricing_Page",
-      pagegroup: "enterprise_solution",
-    });
-    mp.track("asktheteam_loaded", {
-      page: "Pricing_Page",
-      pagegroup: "enterprise_solution",
+    mp.track("explore_plans_clicked", {
+      page: "StockPicks_Page",
     });
   };
   const { isLoggedIn } = useContext(AuthContext);

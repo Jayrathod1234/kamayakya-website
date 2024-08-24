@@ -5,12 +5,11 @@ import Button from '@mui/material/Button';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { styled } from '@mui/system';
 
-// Customized styles
 const CustomStepConnector = styled(Box)(({ theme }) => ({
   borderLeft: `2px solid #00bfa5`,
-  height: '110px',  // Adjust to fill available space
+  height: '110px',
   marginLeft: '6px',
-  marginTop: '-5px', // Aligns with the dot
+  marginTop: '-5px',
 }));
 
 const allSteps = [
@@ -36,7 +35,6 @@ const allSteps = [
     buttonText: 'View Report',
     icon: '/assets/file.svg',
   },
-  // Additional steps here
   {
     date: '15 Jul 23',
     label: 'Quarterly Review',
@@ -56,24 +54,22 @@ const allSteps = [
 ];
 
 export default function CustomStepper() {
-  const [visibleSteps, setVisibleSteps] = React.useState(3); // Initially show 3 steps
+  const [visibleSteps, setVisibleSteps] = React.useState(3);
 
   const handleLoadMore = () => {
-    setVisibleSteps((prev) => prev + 2); // Load 2 more steps each time
+    setVisibleSteps((prev) => prev + 2);
   };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: 'auto', pt: 4 }}>
+    <Box sx={{ maxWidth: 600, mx: 'auto', pt: 4 , backgroundColor:'white' }}>
       {allSteps.slice(0, visibleSteps).map((step, index) => (
         <Box key={index} display="flex" alignItems="flex-start" >
-          {/* Date Section */}
           <Box width="80px" textAlign="center" mr={2}>
             <Typography variant="body2" color="textSecondary">
               {step.date}
             </Typography>
           </Box>
 
-          {/* Connector Line and Dot */}
           <Box display="flex" flexDirection="column" alignItems="center" position="relative" mr={2}>
             <Box
               sx={{
@@ -83,18 +79,17 @@ export default function CustomStepper() {
                 backgroundColor: index === 0 ? '#00bfa5' : '#9e9e9e',
                 position: 'relative',
                 zIndex: 1,
-                mb: '-6px', // Adjust margin to make the dot overlap the connector
+                mb: '-6px',
                 mr: '-5px',
               }}
             />
-            {<CustomStepConnector />}
+            <CustomStepConnector />
           </Box>
 
-          {/* Content Section */}
           <Box
             borderRadius="10px"
             bgcolor="background.paper"
-            maxWidth={{ xs: '100%', sm: '450px' }}  // Responsive width
+            maxWidth={{ xs: '100%', sm: '450px' }}
             width="100%"
           >
             <Typography variant="subtitle1" fontWeight="bold" display="flex" alignItems="center">
@@ -108,7 +103,7 @@ export default function CustomStepper() {
               )}
             </Typography>
 
-            <Box display="flex" alignItems="center"  gap={1}>
+            <Box display="flex" alignItems="center" gap={1}>
               <Typography variant="body2" color="black" fontWeight="bold">
                 {step.description}
               </Typography>
@@ -119,20 +114,25 @@ export default function CustomStepper() {
                 size="small"
                 sx={{
                   mt: 1,
-                  color: '#344054', // Text color
-                  border: '0.5px solid black', // Slightly thicker border for emphasis
-                  padding: '8px 16px', // Padding around text and icon
-                  borderRadius: '8px', // Rounded corners for a modern look
+                  color: '#344054',
+                  border: '0.5px solid black',
+                  padding: '8px 16px',
+                  borderRadius: '8px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px', // Gap between icon and text
-                  textTransform: 'none', // Keeps the text in its original case
-                  transition: 'background-color 0.3s, color 0.3s, filter 0.3s', // Smooth hover transition including filter for icon
+                  gap: '8px',
+                  textTransform: 'none',
+                  minWidth: '100px',
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  transition: 'background-color 0.3s, color 0.3s, filter 0.3s',
                   '&:hover': {
-                    backgroundColor: '#125B54', // Background changes to black on hover
-                    color: 'white', // Text changes to white on hover
+                    backgroundColor: '#125B54',
+                    color: 'white',
                     '& img': {
-                      filter: 'invert(1)', // Inverts the icon's color
+                      filter: 'invert(1)',
                     },
                   },
                 }}
@@ -149,23 +149,23 @@ export default function CustomStepper() {
         variant="outlined"
         onClick={handleLoadMore}
         sx={{
-          color: '#344054', // Text color
-          borderColor: '#D0D5DD', // Border color to match the light outline
-          borderRadius: '999px', // Fully rounded corners
-          padding: '8px 16px', // Padding around text and icon
-          textTransform: 'none', // Keeps the text in its original case
+          color: '#344054',
+          borderColor: '#D0D5DD',
+          borderRadius: '999px',
+          padding: '8px 16px',
+          textTransform: 'none',
           fontWeight: '500',
           display: 'flex',
           alignItems: 'center',
           marginLeft: '50px',
-          gap: '8px', // Gap between icon and text
+          gap: '8px',
           '&:hover': {
-            backgroundColor: '#F9FAFB', // Subtle hover background
-            borderColor: '#D0D5DD', // Keep border color the same on hover
+            backgroundColor: '#F9FAFB',
+            borderColor: '#D0D5DD',
           },
         }}
       >
-        <MoreHorizIcon sx={{ fontSize: '16px' }} /> {/* Ellipsis icon */}
+        <MoreHorizIcon sx={{ fontSize: '16px' }} />
         Load More
       </Button>
     </Box>

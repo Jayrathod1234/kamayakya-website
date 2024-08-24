@@ -6,7 +6,7 @@ import FilterMenuTags from "@/components.v3/common/FilterMenuTags.jsx";
 import { Slider, styled } from "@mui/material";
 import Filtermenu from "@/components.v3/common/Filtermenu.jsx";
 import CustomSortMenu from "../../../components.v3/common/RadioDrop";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import AuthContext from "@/components/AuthContext";
 import { getAllBoardStockStockListApi } from "@/api/stock-picks";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
@@ -95,6 +95,7 @@ function AllBoardStockSection({
     await setSector([]);
     await setStrategyTag([]);
     setOpen(false);
+    setTotalFilterCount(getFilterCount());
     refetch(); // Optionally refetch data with reset filters (if appliedFilters reset)
   };
 
@@ -150,7 +151,6 @@ function AllBoardStockSection({
       // Function to determine the parameter for fetching the next page
       if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
-    // enabled: !!searchStock,
   });
 
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
@@ -385,7 +385,7 @@ function AllBoardStockSection({
 
       {/* blur card  */}
       <div
-        className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative  "
+        className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative sm:overflow-visible overflow-hidden "
         ref={xyzRef}
       >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">

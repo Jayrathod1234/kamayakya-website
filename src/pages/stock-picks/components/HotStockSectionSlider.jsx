@@ -1,9 +1,10 @@
 import React from "react";
 import { HotSlider } from "@/components.v3/common/HotSlider.jsx";
 import StockCard from "@/components.v3/common/StockCard.jsx";
-// import { HotSliderN } from "../../../components.v3/common/HotSliderN";
+import { useMediaQuery } from "@mui/material";
 
 const HotStockSectionSlider = ({ items, stockSector }) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <div>
       <div className="relative z-[2] sm:pb-[100px] pb-[60px] sm:mt-5  mt-6">
@@ -21,13 +22,17 @@ const HotStockSectionSlider = ({ items, stockSector }) => {
                   <div className=" mb-0 w-full">
                     <HotSlider>
                       {/* <HotSliderN> */}
-                      {items.map((value) => (
+                      {items.map((value, index) => (
                         <StockCard
+                          className={index === 0 ? "ml-5" : ""}
                           key={value.id} // Ensure each item has a unique key
+                          style={index === 2 ? { transform: "scale(0.697)" } : {}} // Apply scale style to the third item
                           {...value}
                           stockSector={stockSector}
                         />
                       ))}
+
+
                     </HotSlider>
                   </div>
                 )}

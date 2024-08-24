@@ -1,5 +1,5 @@
 import Layout from "../../layout/Layout";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 // import dynamic from "next/dynamic";
 import SebiBoardTab from "@/pages/stock-picks/components/SebiBoardTab";
 import HotStockSection from "@/pages/stock-picks/components/HotStockSection";
@@ -10,10 +10,17 @@ import AllBoardStockSection from "@/pages/stock-picks/components/AllBoardStockSe
 import InvestmentSection from "./components/InvestmentSection";
 import { useQuery } from "@tanstack/react-query";
 import { getCommonDetailsApi } from "@/api/stock-picks";
-
+import { Modal } from "@nextui-org/react";
+import { Box, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import Login from "@/components/Login.jsx";
+import AuthContext from "@/components/AuthContext";
 const StockPicks = () => {
+  const { showLoginModal, handleCloseLoginModal } = useContext(AuthContext);
+
   const [strategyTag, setStrategyTag] = useState([]);
   const [isChangeStrategyTag, setIsChangeStrategyTag] = useState(false);
+
   // Use react-query to fetch
   const {
     data: items = {},
@@ -74,6 +81,7 @@ const StockPicks = () => {
       <LatestReleases sebiBoardType={sebiBoardType} stockSector={stockSector} />
       {/* Discover by Strategy */}
       <StrategyCard
+        sebiBoardType={sebiBoardType}
         setStrategyTag={setStrategyTag}
         setIsChangeStrategyTag={setIsChangeStrategyTag}
       />
@@ -93,6 +101,39 @@ const StockPicks = () => {
         stockRiskList={stockRiskList}
         strategyTagList={strategyTagList}
       />
+      <Modal
+        width="450px"
+        // blur
+        open={showLoginModal}
+        onClose={handleCloseLoginModal}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+          <IconButton
+            sx={{
+              width: "40px",
+              "&:hover": { background: "#fff" },
+              // alignSelf: "end",
+              right: "20px",
+            }}
+            onClick={() => handleCloseLoginModal()}
+          >
+            <CloseIcon sx={{ color: "#e81123" }} />
+          </IconButton>
+        </Box>
+
+        <Modal.Body>
+          <Login />
+        </Modal.Body>
+      </Modal>
     </Layout>
   );
 };

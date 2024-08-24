@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ProgressBarDemo from "./ProgressBarDemo";
 import ProgressBar2 from "./ProgressBar2";
 import DeepValue from "./DeepValue";
@@ -18,6 +18,9 @@ function StockCard({
   expected_returns,
   return_time,
   stockSector,
+  youtube_details,
+  className,
+  style,
 }) {
   let tabImage = null;
   let cardClass = "";
@@ -34,12 +37,12 @@ function StockCard({
     tabImage = "hottab";
     innerClass += "border border-warning-300";
   }
-  const { isLoggedIn } = useContext(AuthContext);
-
+  const { isLoggedIn, handleLogin } = useContext(AuthContext);
+  const [hovered, setHovered] = useState(false);
   return (
     <>
       {/* new stock card  */}
-      <div className=" relative main_card_carousel">
+      <div className={`relative main_card_carousel ${className}`} >
         <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
@@ -81,9 +84,52 @@ function StockCard({
                   {stock_name}
                 </p>
 
-                <div class="tooltip">
-                  <img src="/assets/play.gif" alt="" className="w-[24px]" />
-                </div>
+                {youtube_details?.[0]?.youtube_link && (
+                  <div
+                    className="relative flex items-center gap-[16px]"
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                  >
+                    {/* GIF Image */}
+                    <div
+                      className={`absolute right-0  transition-transform duration-500 ease-in-out ${
+                        hovered ? "translate-x-[-50px]" : ""
+                      } ${hovered ? "me-7" : "me-0"}`}
+                    >
+                      <a href="#">
+                        <img
+                          src="/assets/play.gif"
+                          alt="Play"
+                          className={`w-[24px] transition-transform duration-500 ease-in-out ${
+                            hovered
+                              ? "filter brightness-0 sepia opacity-100"
+                              : ""
+                          }`}
+                        />
+                      </a>
+                    </div>
+
+                    {/* Text container */}
+                    <div
+                      className={`w-full  ml-5 transition-transform duration-500 ease-in-out ${
+                        hovered
+                          ? "translate-x-0 opacity-100"
+                          : "translate-x-[50px] opacity-0"
+                      }`}
+                    >
+                      <a
+                        href={youtube_details?.[0]?.youtube_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cursor-default"
+                      >
+                        <p className="text-[14px] w-full cursor-pointer leading-[20px] text-[#125B54]">
+                          Watch Video
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -175,14 +221,29 @@ function StockCard({
                   </div>
                   <div className="flex gap-[2px] items-center font-open_sans">
                     {/* green up arrow  */}
-                    <img src="/assets/Polygon2.svg" alt="" className="w-2" />
+                    {expected_returns > 0 ? (
+                      // green up arrow
+                      <img
+                        src="/assets/Polygon2.svg"
+                        alt="Up Arrow"
+                        className="w-2"
+                      />
+                    ) : (
+                      // red down arrow
+                      <img
+                        src="/assets/Polygon 3.svg"
+                        alt="Down Arrow"
+                        className="w-2"
+                      />
+                    )}
+                    {/* <img src="/assets/Polygon2.svg" alt="" className="w-2" /> */}
                     {/* red down arrow  */}
                     {/* <img src="/assets/Polygon 3.svg" alt="" className="w-2" /> */}
-                    {!expected_returns ? (
+                    {expected_returns == null ? (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans  w-[26px] h-3 bg-[#E4E7EC] rounded-full "></p>
                     ) : (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans">
-                        {expected_returns}%
+                        {Math.abs(expected_returns)}%
                       </p>
                     )}
                     <span className="text-[10px] font-semibold text-[#6E6E6E] line-clamp-1">
@@ -208,7 +269,11 @@ function StockCard({
               <>
                 <div className="p-5">
                   {/* btn  */}
-                  <button className="button-82-pushable group " role="button">
+                  <button
+                    className="button-82-pushable group "
+                    role="button"
+                    onClick={handleLogin}
+                  >
                     <span className="button-82-shadow"></span>
                     <span className="button-82-edge"></span>
                     <span className="button-82-front button-82-front2 text flex items-center">

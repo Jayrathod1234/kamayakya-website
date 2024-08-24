@@ -1529,8 +1529,13 @@ header > div > div {
     0 18px 36px -18px rgba(0, 0, 0, 0.3);
 }
 
+.detail-nav{
+  background: #F9FAFB;
+  box-shadow: none;
+}
 
-.scrolled-nav .scrolled_hover {
+
+.scrolled-nav .scrolled_hover, .detail-nav .scrolled_hover{
   @apply hover:bg-[#EAFCFB] text-gray-800;
 }
 
@@ -1609,7 +1614,7 @@ header > div > div {
 }
 @media (max-width:600px) {
   .button-82-front.button-82-front2{
-    width: 277px;
+    width: 269px;
   }
 }
 .button-82-pushable:hover .button-82-front {
@@ -1807,7 +1812,7 @@ header > div > div {
 }
 /* tab  */
 .embla {
-  min-width: 48rem;
+  min-width: 0rem;
   --slide-height: 19rem;
   --slide-spacing: 1rem;
   --slide-size: 70%;
