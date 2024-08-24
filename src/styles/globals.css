@@ -1529,8 +1529,13 @@ header > div > div {
     0 18px 36px -18px rgba(0, 0, 0, 0.3);
 }
 
+.detail-nav{
+  background: #F9FAFB;
+  box-shadow: none;
+}
 
-.scrolled-nav .scrolled_hover {
+
+.scrolled-nav .scrolled_hover, .detail-nav .scrolled_hover{
   @apply hover:bg-[#EAFCFB] text-gray-800;
 }
 
