@@ -69,7 +69,7 @@ function LatestReleasesCard({ percentage }) {
                     <img src="/assets/streamline_target-solid.svg" alt="" />
                   </div>
 
-                  <div className="px-[16px] pb-[24px]">
+                  <div className="px-[16px] pb-[24px] grid gap-[6px]">
                     <div className="gap-[7px] items-center flex justify-center ">
                       <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">
                         Upside left
