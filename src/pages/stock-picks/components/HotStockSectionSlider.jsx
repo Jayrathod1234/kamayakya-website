@@ -22,13 +22,17 @@ const HotStockSectionSlider = ({ items, stockSector }) => {
                   <div className=" mb-0 w-full">
                     <HotSlider>
                       {/* <HotSliderN> */}
-                      {items.map((value) => (
+                      {items.map((value, index) => (
                         <StockCard
+                          className={index === 0 ? "ml-5" : ""}
                           key={value.id} // Ensure each item has a unique key
+                          style={index === 2 ? { transform: "scale(0.697)" } : {}} // Apply scale style to the third item
                           {...value}
                           stockSector={stockSector}
                         />
                       ))}
+
+
                     </HotSlider>
                   </div>
                 )}

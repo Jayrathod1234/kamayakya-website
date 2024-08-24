@@ -47,8 +47,8 @@ function SebiBoardTab({
 
       <div className="relative w-full max-w-[1280px] min-w-[328px] mx-auto px-4 max-h-[700px] md:max-h-[950px]">
         <div className="min-w-[280px] md:min-w-[470px] z-5 text-center relative">
-          <div className="pt-6 pb-5 md:pt-9 md:pb-[22px] flex justify-center">
-            <ButtonnArrow
+          <div className="pt-6 pb-5 md:pt-9 md:pb-[22px] flex justify-center ">        
+           <ButtonnArrow
               onClick={handleContactButton}
               variant={ButtonVariant.sebi}
               size={ButtonSize.lg}

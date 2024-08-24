@@ -19,6 +19,8 @@ function StockCard({
   return_time,
   stockSector,
   youtube_details,
+  className,
+  style,
 }) {
   let tabImage = null;
   let cardClass = "";
@@ -40,7 +42,7 @@ function StockCard({
   return (
     <>
       {/* new stock card  */}
-      <div className=" relative main_card_carousel">
+      <div className={`relative main_card_carousel ${className}`} >
         <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
