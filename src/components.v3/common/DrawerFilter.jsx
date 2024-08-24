@@ -1134,7 +1134,42 @@ function DrawerFilter({
                     {/* <CustomSlider/> */}
                   </TabPanel>
                   <TabPanel value={value} index={1}>
-                    Recency content here.
+                    {/*  Recency */}
+                    <div className="overflow-x-hidden">
+                      <Accordion
+                        defaultExpanded
+                        sx={{
+                          boxShadow: "none !important",
+                          margin: "0px !important",
+                        }}
+                      >
+                        <div className="pl-0">
+                          <AccordionDetails sx={{ padding: "0px" }}>
+                            <FormGroup>
+                              {Object.keys(recency || {}).map((key) => (
+                                <FormControlLabel
+                                  key={key}
+                                  control={
+                                    <Checkbox
+                                      checked={recency[key]}
+                                      onChange={handleChangeRecency}
+                                      name={key}
+                                      sx={{
+                                        color: "default", // Default color
+                                        "&.Mui-checked": {
+                                          color: "#125B54", // Color when checked
+                                        },
+                                      }}
+                                    />
+                                  }
+                                  label={filterTimeLabel[key]}
+                                />
+                              ))}
+                            </FormGroup>
+                          </AccordionDetails>
+                        </div>
+                      </Accordion>
+                    </div>
                   </TabPanel>
                   <TabPanel value={value} index={2}>
                     {/* time  left  */}

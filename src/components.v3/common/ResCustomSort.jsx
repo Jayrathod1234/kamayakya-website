@@ -43,8 +43,8 @@ function ResCustomSort(props) {
   };
 
   // This is used only for the example
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  // const container =
+    // window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Root>
