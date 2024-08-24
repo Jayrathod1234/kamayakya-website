@@ -1,4 +1,6 @@
 import { axiosApi } from "../../utils/axios";
+import axios from "axios";
+
 import {
   getLatestReleasesStockResponse,
   getStrategyTagResponse,
@@ -155,6 +157,27 @@ export const getStockDetailApi = async ({ stockId }) => {
       //   /* ----------------------------- Static Data ---------------------------- */
       return getStockDetailResponse;
     }
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+};
+
+export const getNewsListApi = async ({ stock_name, limit, cursor }) => {
+  try {
+    const response = await axios.get(
+      `https://google-news-api1.p.rapidapi.com/search?language=EN&q=${stock_name}&limit=${limit}&cursor=${cursor}`,
+      {
+        headers: {
+          "x-rapidapi-key":
+            "9c932f26cemsh6b9f2ae8de717c5p1ddf2cjsnd02177123a90",
+          "x-rapidapi-host": "google-news-api1.p.rapidapi.com",
+        },
+      }
+    );
+    console.log(response.data.news);
+    return response.data.news;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);

@@ -20,9 +20,6 @@ export const StockDetailsProvider = ({ children }) => {
     queryKey: ["stockDetail", slug],
     queryFn: () => getStockDetailApi({ stockId: slug }),
     enabled: !!slug, // Only run the query if slug is present
-    onError: () => {
-      router.push("/stock-picks");
-    },
   });
 
   return (
