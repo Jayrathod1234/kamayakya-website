@@ -83,10 +83,10 @@ const StockDetailsNews = ({ stock_name }) => {
 
   return (
     <div>
-      <div className="pt-[5px]  bg-white ">
+      <div className="pt-[5px]  ">
         {newsItems.map((item) => (
           <a key={item.id} href={item.link} className="block mb-4 group">
-            <div className="flex flex-row md:flex-row items-start md:items-center gap-4 p-4  rounded-md bg-white  cursor-pointer group-hover:bg-gray-50 transition">
+            <div className="flex flex-row md:flex-row items-start md:items-center gap-4 p-4  rounded-md  cursor-pointer group-hover:bg-white transition">
               {/* <!-- Image Section --> */}
               <div className="flex-shrink-0">
                 <img

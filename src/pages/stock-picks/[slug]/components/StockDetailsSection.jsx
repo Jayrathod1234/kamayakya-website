@@ -456,7 +456,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[50px] bg-white p-3 hidden sm:block">
+                  <div className="pt-[50px]  p-3 hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
@@ -536,7 +536,7 @@ function StockDetailsSection() {
                   </div>
 
                   {/* News Section Start */}
-                  <div className="pt-[35px]  w-full bg-white">
+                  <div className="pt-[35px]  w-full ">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans p-3">
                       News
                     </h2>
@@ -547,8 +547,8 @@ function StockDetailsSection() {
                 {/* <!-- Continue with the rest of your content --> */}
 
                 {/* Second Container Start */}
-                <div className="relative hidden  sm:block bg-white">
-                  <div className="p-4 border rounded-lg sticky top-0 ">
+                <div className="relative hidden  sm:block ">
+                  <div className="p-4 border rounded-lg sticky top-0 bg-white">
                     <h2 className="font-semibold text-lg mb-4  hidden sm:flex">
                       INVESTMENT GUIDANCE
                     </h2>
