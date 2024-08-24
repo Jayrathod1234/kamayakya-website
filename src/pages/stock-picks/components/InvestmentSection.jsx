@@ -13,7 +13,7 @@ function InvestmentSection() {
   ];
 
   return (
-    <div className="bg-gray-100 sm:pb-[100px] pb-[30px] pt-0 px-4 rounded-lg">
+    <div className="sm:pb-[100px] pb-[30px] pt-0 px-4 rounded-lg">
       <h2 className="text-center text-xl font-semibold mb-4">
         Ready to Invest?
       </h2>
