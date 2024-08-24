@@ -1307,3 +1307,112 @@ export const getCommonDetailsResponse = {
     ],
   },
 };
+
+export const getStockDetailResponse = {
+  id: "01bbe52a-248c-430d-b426-081190d0ed56",
+  created: "2022-08-06T12:10:39.378927+05:30",
+  stock_name: "Sloane Pitts Ltd.",
+  stock_symbol: "Laudantium officia",
+  stock_scrip_code: null,
+  stock_exchange: "SME-NSE",
+  stock_industry: "MAXIME REPUDIANDAE D",
+  market_cap: 3.7,
+  live_price: 300.0,
+  entry_price: 300.0,
+  target_price: 320.0,
+  upside_left: 6.67,
+  expected_returns: 6.67,
+  risk: "High",
+  action: "BUY",
+  stock_targets: [
+    {
+      id: "43315c0d-5312-4266-a811-22b4de67bc9b",
+      created: "2024-08-06T14:48:20.434331+05:30",
+      entry_price: 300.0,
+      target_price: 320.0,
+      target_date: "2024-08-31",
+      gain_loss: 0.0,
+      target_met: null,
+      target_action: "BUY",
+    },
+    {
+      id: "d54d2c3a-3a4d-47fe-a81d-4dd02a822b0f",
+      created: "2024-08-06T14:38:34.742771+05:30",
+      entry_price: 300.0,
+      target_price: 320.0,
+      target_date: "2024-08-31",
+      gain_loss: 0.0,
+      target_met: null,
+      target_action: "BUY",
+    },
+  ],
+  sector: "chemicals",
+  market_cap_type: "Large",
+  company_details: "<p>Rem aliquip mollit q.</p>",
+  stock_tags: [
+    {
+      id: "6e29cce5-7ca8-4f00-9f8e-7ef69e66cb29",
+      name: "Industry Tailwind",
+      slug: "industry-tailwind",
+      created: "2024-08-05T16:00:50.408903+05:30",
+      description: "Sectors with favorable economic conditions driving growth",
+      image:
+        "https://kamayakya.s3.amazonaws.com/strategy-tags/industry-tailwind.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240822%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240822T124631Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=d3d56f486ed3568d72cf508f818d26f57ac0d930992017695bcfcb52a203ab26",
+    },
+    {
+      id: "a282f6c5-0c47-451c-8d41-fd2888c7737b",
+      name: "Cyclicals",
+      slug: "cyclicals",
+      created: "2024-08-05T16:00:50.413513+05:30",
+      description: "Invest in industries that benefit from economic cycles",
+      image:
+        "https://kamayakya.s3.amazonaws.com/strategy-tags/cyclicals.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240822%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240822T124631Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=828d2ed0f1852168cb7e0f1e393d21f9b697c2ea3dbe9c64ddb48100af83a951",
+    },
+    {
+      id: "43a146f9-2f69-40ba-ad48-1faba29db0a5",
+      name: "Moated",
+      slug: "moated",
+      created: "2024-08-05T16:00:50.417514+05:30",
+      description:
+        "Firms with strong competitive advantages that protect their market position",
+      image:
+        "https://kamayakya.s3.amazonaws.com/strategy-tags/moated.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240822%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240822T124631Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8c8a084c67922cdae77c04456ccafd159118f00bc5e09da7f22d041eca15f83c",
+    },
+    {
+      id: "e30a5088-a98d-49d1-bcd9-29e7985e5e7f",
+      name: "Thematic Stories",
+      slug: "thematic-stories",
+      created: "2024-08-05T16:00:50.421449+05:30",
+      description: "Align investments with emerging trends and themes",
+      image:
+        "https://kamayakya.s3.amazonaws.com/strategy-tags/thematic-stories.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240822%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240822T124631Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=c91fd256899c1bdd73741cc4fd8beec369df42d5d2672b5e4cb48b0dbbc13111",
+    },
+  ],
+  upside_left_time: "2 years, 1 month",
+  return_time: "2 years, 1 month",
+  cagr_of_stock: {
+    cagr_time: "2 years, 1 month",
+    cagr_value: 3.2,
+  },
+  stock_image: null,
+  timeline: [
+    {
+      id: "ef85e490-abcf-4348-a5b3-2d7effae8c69",
+      created: "2024-08-06T12:11:01.869026+05:30",
+      type: "report",
+      report_name: "1-report",
+      document:
+        "https://kamayakya.s3.amazonaws.com/test-folder/encrypted_q_TnXsjMS.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240822%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240822T124631Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2a178c1c0be658518e115f175d18b14f76d7559614b4cf4716b54dffb9ee48c0",
+      report_date: "2024-08-01",
+      report_action_text: "time line heading",
+    },
+    {
+      id: "dbec200b-594f-4e43-b62c-991507de1173",
+      type: "youtube",
+      youtube_link: "youtube.com",
+      youtube_date: "2024-08-01",
+      youtube_title: "Youtube Title",
+      created: "2024-08-06T12:11:17.661381+05:30",
+    },
+  ],
+};

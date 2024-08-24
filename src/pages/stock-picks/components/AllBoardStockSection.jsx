@@ -6,7 +6,7 @@ import FilterMenuTags from "@/components.v3/common/FilterMenuTags.jsx";
 import { Slider, styled } from "@mui/material";
 import Filtermenu from "@/components.v3/common/Filtermenu.jsx";
 import CustomSortMenu from "../../../components.v3/common/RadioDrop";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import AuthContext from "@/components/AuthContext";
 import { getAllBoardStockStockListApi } from "@/api/stock-picks";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
@@ -151,7 +151,6 @@ function AllBoardStockSection({
       // Function to determine the parameter for fetching the next page
       if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
-    // enabled: !!searchStock,
   });
 
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
