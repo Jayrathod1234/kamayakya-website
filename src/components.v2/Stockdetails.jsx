@@ -446,7 +446,7 @@ function Stockdetails() {
                 
 
                 {/* News Section Start */}
-                <div className="pt-[35px] shadow w-full">
+                <div className="pt-[35px] w-full">
                   <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans p-3">
                     News
                   </h2>
