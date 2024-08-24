@@ -45,8 +45,8 @@ function StrategyCard({ setStrategyTag, setIsChangeStrategyTag }) {
           and to find your perfect investment match!
         </p>
       </div>
-      <div className="sm:pb-[110px] pb-[63px] sm:pl-32 sm:pr-32 pl-[26px] overflow-hidden">
-        <div className="sm:pt-10 pt-9 pb-8">
+      <div className="sm:pb-[100px] pb-[60px] sm:pl-32 sm:pr-32 pl-[26px] overflow-hidden">
+        <div className="sm:pt-10 pt-9 pb-0">
           <div className="flex justify-between gap-4">
             {isLoading || error ? (
               <DiscoverCardSkeleton length={7} />

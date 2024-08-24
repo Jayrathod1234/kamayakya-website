@@ -23,7 +23,7 @@ function Nonlogincard() {
                 alt=""
                 className="w-[24px] blur-[2px]"
               />
-              <span class="tooltiptext relative">
+              <span class="tooltiptext relative shadow-sm">
                 <img
                   src="/assets/div.png"
                   alt=""
@@ -77,14 +77,14 @@ function Nonlogincard() {
                   />
                 </div>
 
-                <div className="px-[16px] pb-[24px]">
+                <div className="px-[16px] pb-[24px] grid gap-[6px]">
                   <div className="gap-[7px] items-center flex justify-center ">
                     <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">
                       Upside left
                     </p>
                     <div className="tooltip">
                       <img src="/assets/ph_info-duotone.svg" alt="" />
-                      <span class="tooltiptext tooltiptext2 relative ">
+                      <span class="tooltiptext tooltiptext2 relative shadow-sm ">
                         <img
                           src="/assets/div.png"
                           alt=""

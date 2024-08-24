@@ -1,5 +1,5 @@
 import React from "react";
-import InvestModal from '@/components.v3/common/InvestModal'
+import InvestModal from "@/components.v3/common/InvestModal";
 import { Link } from "react-scroll";
 
 function InvestmentSection() {
@@ -13,8 +13,10 @@ function InvestmentSection() {
   ];
 
   return (
-    <div className="bg-gray-100 py-6 px-4 rounded-lg">
-      <h2 className="text-center text-xl font-semibold mb-4">Ready to Invest?</h2>
+    <div className="bg-gray-100 sm:pb-[100px] pb-[30px] pt-0 px-4 rounded-lg">
+      <h2 className="text-center text-xl font-semibold mb-4">
+        Ready to Invest?
+      </h2>
       <div className="flex justify-center gap-4 sm:gap-10">
         {items.slice(0, 3).map((item, index) => (
           <a
@@ -29,7 +31,9 @@ function InvestmentSection() {
                 className="w-12 h-12 rounded-full group-hover:opacity-80 transition-opacity duration-300"
               />
             </div>
-            <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">{item.name}</span>
+            <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">
+              {item.name}
+            </span>
           </a>
         ))}
 
@@ -47,29 +51,33 @@ function InvestmentSection() {
                   className="w-12 h-12 rounded-full group-hover:opacity-80 transition-opacity duration-300"
                 />
               </div>
-              <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">{item.name}</span>
+              <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">
+                {item.name}
+              </span>
             </a>
           ))}
         </div>
 
         {/* Always show the +9 more button */}
         <Link
-          to={<InvestModal/>}
+          to={<InvestModal />}
           className="flex flex-col items-center text-center group"
         >
           <div className="bg-white p-2 rounded-full shadow-md">
             <div className="w-12 h-12 bg-brand-500 flex justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
               <span className="font-semibold text-gray-600">
-               
-                <span className=""><InvestModal/></span>
+                <span className="">
+                  <InvestModal />
+                </span>
               </span>
             </div>
           </div>
-          <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">+17 more</span>
+          <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">
+            +17 more
+          </span>
         </Link>
 
         {/* Show remaining items only on larger screens */}
-
       </div>
     </div>
   );

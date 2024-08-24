@@ -52,7 +52,7 @@ function SebiBoardTab({
 
       <div className="relative w-full max-w-[1280px] min-w-[328px] mx-auto px-4 max-h-[700px] md:max-h-[950px]">
         <div className="min-w-[280px] md:min-w-[470px] z-5 text-center relative">
-          <div className="pt-6 pb-5 md:pt-9 md:pb-[22px] flex justify-center">
+          <div className="pt-5 pb-3 md:pt-9 md:pb-[16px] flex justify-center">
             <ButtonnArrow
               onClick={handleContactButton}
               variant={ButtonVariant.sebi}
@@ -61,7 +61,7 @@ function SebiBoardTab({
               SEBI Registered: INH000009843
             </ButtonnArrow>
           </div>
-          <h1 className="text-[28px] sm:text-[28px] md:text-[36px] lg:text-[40px] font-bold leading-[32px] md:leading-[40px] text-white mb-6 md:mb-8 flex justify-center">
+          <h1 className="text-[28px] sm:text-[28px] md:text-[36px] lg:text-[40px] font-bold leading-[32px] md:leading-[40px] text-white mb-8 md:mb-9  flex justify-center">
             Discover hidden gems! 💎
           </h1>
           <div className="flex justify-center">

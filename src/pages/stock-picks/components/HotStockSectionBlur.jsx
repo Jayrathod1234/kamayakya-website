@@ -30,7 +30,7 @@ const HotStockSection = ({ items, stockSector }) => {
       <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[20px]">
         <div className="container sm:mx-auto p-0">
           {!isMobile ? (
-            <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none">
+            <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none max-w-[1280px] mx-auto">
               <div className="bg-[#fff] rounded-[20px] sm:px-10 px-4 sm:py-8 py-5 gap-10 text-center">
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 sm:block hidden">
                   Hot Stocks ({items?.length})
@@ -138,7 +138,7 @@ const HotStockSection = ({ items, stockSector }) => {
                                             alt=""
                                             className="w-[24px] blur-[2px]"
                                           />
-                                          <span class="tooltiptext relative">
+                                          <span class="tooltiptext relative shadow-sm">
                                             <img
                                               src="/assets/div.png"
                                               alt=""
@@ -198,7 +198,7 @@ const HotStockSection = ({ items, stockSector }) => {
                                               />
                                             </div>
 
-                                            <div className="px-[16px] pb-[24px]">
+                                            <div className="px-[16px] pb-[24px] grid gap-[6px]">
                                               <div className="gap-[7px] items-center flex justify-center ">
                                                 <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">
                                                   Upside left
@@ -208,7 +208,7 @@ const HotStockSection = ({ items, stockSector }) => {
                                                     src="/assets/ph_info-duotone.svg"
                                                     alt=""
                                                   />
-                                                  <span class="tooltiptext tooltiptext2 relative ">
+                                                  <span class="tooltiptext tooltiptext2 relative shadow-sm ">
                                                     <img
                                                       src="/assets/div.png"
                                                       alt=""

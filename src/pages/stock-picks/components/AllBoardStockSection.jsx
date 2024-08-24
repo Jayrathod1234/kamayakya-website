@@ -416,7 +416,7 @@ function AllBoardStockSection({
               className="max-h-[400px] w-full"
             />
           </div> */}
-          <div className="mt-11">
+          <div className="sm:pt-[100px] pt-[60px] ">
             <InvestmentSection />
           </div>
           <ElevateSection />
