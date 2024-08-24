@@ -117,7 +117,12 @@ const StockDetailsNews = ({ stock_name }) => {
                 <img
                   src="/assets/share1.svg"
                   alt=""
-                  className="group-hover:filter group-hover:brightness-100 group-hover:invert group-hover:sepia group-hover:saturate-200 group-hover:hue-rotate-[90deg] group-hover:contrast-125 transition duration-300"
+                  className="block group-hover:hidden"
+                />
+                <img
+                  src="/assets/share3.svg"
+                  alt=""
+                  className="hidden group-hover:block"
                 />
               </div>
             </div>

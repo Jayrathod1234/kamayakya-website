@@ -649,7 +649,7 @@ function StockDetailsSection() {
                       {isOpen && (
                         <div className="mt-2">
                           {/* Timeline Content Goes Here */}
-                          <div className="p-4 border rounded-lg">
+                          <div className="p-4  rounded-lg">
                             <StockDetailsTimeline />
                           </div>
                         </div>
