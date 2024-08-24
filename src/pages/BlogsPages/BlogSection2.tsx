@@ -12,7 +12,7 @@ import { TBlog } from "@/types";
 import { Button } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import axios from "axios";
-import Lottie from "lottie-react";
+// import Lottie from "lottie-react";
 import LOADING_GIF from "../../../public/blogs/loading.json";
 import { debounce } from "@/lib/debounce";
 // { blogs, next, prev }: { blogs: Array<TBlog>; next: string | null; prev: string | null }
@@ -137,7 +137,7 @@ const BlogSection2 = () => {
               placeholder="Search for blogs"
             />
             <div className=" h-8 aspect-square">
-              {searchLoading && <Lottie className=" h-full" animationData={LOADING_GIF} />}
+              {/* {searchLoading && <Lottie className=" h-full" animationData={LOADING_GIF} />} */}
             </div>
             {/* <Input className=" h-0 w-0" type="submit" value={""} /> */}
           </form>
