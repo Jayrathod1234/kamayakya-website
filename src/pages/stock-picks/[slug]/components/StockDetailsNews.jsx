@@ -83,10 +83,10 @@ const StockDetailsNews = ({ stock_name }) => {
 
   return (
     <div>
-      <div className="pt-[5px]  bg-white ">
+      <div className="pt-[5px]  ">
         {newsItems.map((item) => (
           <a key={item.id} href={item.link} className="block mb-4 group">
-            <div className="flex flex-row md:flex-row items-start md:items-center gap-4 p-4  rounded-md bg-white  cursor-pointer group-hover:bg-gray-50 transition">
+            <div className="flex flex-row md:flex-row items-start md:items-center gap-4 p-4  rounded-md  cursor-pointer group-hover:bg-white transition">
               {/* <!-- Image Section --> */}
               <div className="flex-shrink-0">
                 <img
@@ -117,14 +117,19 @@ const StockDetailsNews = ({ stock_name }) => {
                 <img
                   src="/assets/share1.svg"
                   alt=""
-                  className="group-hover:filter group-hover:brightness-100 group-hover:invert group-hover:sepia group-hover:saturate-200 group-hover:hue-rotate-[90deg] group-hover:contrast-125 transition duration-300"
+                  className="block group-hover:hidden"
+                />
+                <img
+                  src="/assets/share3.svg"
+                  alt=""
+                  className="hidden group-hover:block"
                 />
               </div>
             </div>
           </a>
         ))}
       </div>
-      <div className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 p-4 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] mb-5">
+      <div className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 p-4 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
         <p>Load more</p>
       </div>
     </div>
