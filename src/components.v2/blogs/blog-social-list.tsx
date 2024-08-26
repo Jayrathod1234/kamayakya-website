@@ -163,7 +163,7 @@ export function CopyBlogLink({ url, size, disableTooltip }: TCopyBlogLink) {
           </CopyToClipboard>
         </TooltipTrigger>
         <TooltipContent side="right" className=" bg-black text-white border-0 p-2 max-w-[425px]">
-          <p className=" text-sm leading-6 md:w-full">Copy blog link</p>
+          <p className=" text-sm leading-6 md:w-full">Copy Blog Link</p>
           <TooltipArrow className=" fill-black" />
         </TooltipContent>
       </Tooltip>
@@ -219,7 +219,7 @@ export function BlogSocialList({ blog, size = 20, disabled }: { blog: TBlog; siz
         disableTooltip={disabled}
         className=" h-11 w-11"
         eventName="whatsappshare_clicked"
-        social="Whatsapp"
+        social="WhatsApp"
         size={size}
         url2={`whatsapp://send?text=Look%20at%20this...%20%F0%9F%91%80%0A${url + blog.slug}`}
         url={`https://web.whatsapp.com/send?text=Look%20at%20this...%20%F0%9F%91%80%0A${url + blog.slug}`}

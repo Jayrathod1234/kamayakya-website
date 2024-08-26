@@ -6,48 +6,32 @@ import {
   Text,
   Loading,
   Modal,
-  Dropdown,
 } from "@nextui-org/react";
-import { ArrowCircleUp, DocumentText, Lock, Lock1 } from "iconsax-react";
+import { ArrowCircleUp, DocumentText } from "iconsax-react";
 import axios from "axios";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {
   GET_ALL_URL,
-  GET_SPECIFIC_STOCK_URL,
-  TRACK_RECORD_FOR_ALL,
-  TRACK_RECORD_FOR_USER,
 } from "../pages/api/URLs";
 import {
   Box,
   Grid,
-  Alert,
   IconButton,
-  TextField,
   InputBase,
   SwipeableDrawer,
   List,
   ListItemButton,
-  ListItemText,
   ListItem,
   FormGroup,
   FormControl,
-  FormLabel,
   FormControlLabel,
   Checkbox,
-  FormHelperText,
   RadioGroup,
   Radio,
 } from "@mui/material";
-import SpeedIcon from "@mui/icons-material/Speed";
-import { AiOutlineFieldTime } from "react-icons/ai";
-import { FaIndustry, FaRegArrowAltCircleUp } from "react-icons/fa";
 import { MdOutlineLock, MdFilterList, MdOutlineFiberNew } from "react-icons/md";
-import { BiChevronRight } from "react-icons/bi";
-import { GrDocumentPdf } from "react-icons/gr";
 import { useRouter } from "next/router";
-import ReactCardFlip from "react-card-flip";
 import { Viewer, Worker, SpecialZoomLevel } from "@react-pdf-viewer/core";
-import { DocumentAskPasswordEvent } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import packageJson from "../../package.json";
 import AuthContext from "./AuthContext";
@@ -73,8 +57,6 @@ const StockCard = () => {
   const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
   const { isLoggedIn } = useContext(AuthContext);
   const { isSubscribed, plan } = useContext(AuthContext);
-  console.log("plan");
-  // console.log(pdfjsVersion);
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
 
@@ -132,43 +114,6 @@ const StockCard = () => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // const handleTrackRecord = async () => {
-  //   try {
-  //     const refreshToken = localStorage.getItem("refresh");
-  //
-  //     const url = isLoggedIn ? TRACK_RECORD_FOR_USER : TRACK_RECORD_FOR_ALL;
-  //
-  //     const headers = {
-  //       "Content-Type": "application/json",
-  //     };
-  //
-  //     if (isLoggedIn) {
-  //       headers.Authorization = `token ${refreshToken}`;
-  //     }
-  //
-  //     const response = await fetch(url, {
-  //       method: "GET",
-  //       headers,
-  //     });
-  //
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setRecord(data);
-  //       console.log(data);
-  //     } else {
-  //       // Handle API call error
-  //       console.error("Error Getting Track Records | Track Record Page");
-  //     }
-  //   } catch (error) {
-  //     // Handle any other error
-  //     console.error(error);
-  //     // console.log("no call");
-  //   }
-  // };
-  //
-  // useEffect(() => {
-  //   handleTrackRecord();
-  // }, [isLoggedIn]);
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -177,13 +122,11 @@ const StockCard = () => {
   const [showCert, setShowCert] = useState(false);
 
   const handleCert = () => {
-    // setShowCert(true);
     var win = window.open(
       "Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
       "_blank",
       "fullscreen=yes"
     );
-    // win.document.write('<PdfViewer pdf={PDF}/>');
   };
 
   const handleCertClose = () => {
@@ -248,20 +191,12 @@ const StockCard = () => {
     setTimeSort(event.target.value);
     setUpsideSort("");
   };
-  // React.useMemo(
-  // 	() => Array.from(timeSort)[0]?.replaceAll("_", " ") || "",
-  // 	[timeSort]
-  // );
 
   const upsideSortValue = (event) => {
     setUpsideSort(event.target.value);
     setTimeSort("");
   };
 
-  // React.useMemo(
-  // 	() => Array.from(upsideSort)[0]?.replaceAll("_", " ") || "",
-  // 	[upsideSort]
-  // );
 
   useEffect(() => {
     // console.log(selectedIndustries);
@@ -284,11 +219,6 @@ const StockCard = () => {
         }
 
         if (searchQuery.trim() !== "") {
-          // passSearchFilter =
-          //   stock.stock_name
-          //     .toLowerCase()
-          //     .includes(searchQuery.toLowerCase()) ||
-          //   stock.stock_symbol.includes(searchQuery);
 
           const lowercaseSearchQuery = searchQuery.toLowerCase();
           const lowercaseStockName = stock.stock_name.toLowerCase();
@@ -301,7 +231,6 @@ const StockCard = () => {
             (lowercaseStockSymbol !== null &&
               lowercaseStockSymbol.includes(lowercaseSearchQuery));
 
-          // console.log(searchQuery)
         }
 
         return passTimeFilter && passUpsideFilter && passSearchFilter;
@@ -435,10 +364,6 @@ const StockCard = () => {
     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
     const today = new Date();
-    // console.log(
-    // 	createdDate,
-    // 	createdDate >= twoMonthsAgo && createdDate <= today
-    // );
     return createdDate >= twoMonthsAgo && createdDate <= today;
   };
 
@@ -484,18 +409,10 @@ const StockCard = () => {
         <Box
           sx={{
             cursor: "pointer",
-            // paddingLeft: "40px",
-            // paddingRight: "40px",
-            // paddingTop: "15px",
-            // paddingBottom: "15px",
             padding: "0",
-            // marginTop: "25px",
             display: "flex",
             flexDirection: "column",
-            // backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
-            // backgroundImage: "linear-gradient(to top , #fff, #fff)",
             alignItems: "center",
-            // backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
             borderRadius: "1200.5px",
             "@media only screen and (max-width: 764px)": {
               paddingLeft: "5px",
@@ -528,7 +445,6 @@ const StockCard = () => {
           </Text>
         </Box>
         <Modal
-          // width="790px"
           blur
           open={showCert}
           onClose={handleCertClose}
@@ -558,12 +474,10 @@ const StockCard = () => {
             }}
             className="iframePdfMobile"
           />
-          {/* <Modal.Footer justify="center"> */}
           <Button
             auto
             onClick={handleCertClose}
             css={{
-              // alignSelf: "end",
               width: "100%",
               backgroundColor: "#ffa12e",
               color: "#fff",
@@ -585,7 +499,6 @@ const StockCard = () => {
           >
             Close
           </Button>
-          {/* </Modal.Footer> */}
         </Modal>
         <Text
           b
@@ -636,10 +549,6 @@ const StockCard = () => {
               paddingTop: "2px",
               display: "flex",
               alignItems: "center",
-              // "@media only screen and (max-width: 768px)": {
-              //   padding: "0px 15px",
-              //   width: "500px",
-              // },
             }}
             className="stockPicks-searchBar"
           >
@@ -649,7 +558,6 @@ const StockCard = () => {
             <InputBase
               placeholder="Ion Exchange (OR) IONEXCHANG"
               variant="standard"
-              // size="large"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               sx={{
@@ -729,9 +637,6 @@ const StockCard = () => {
               >
                 <CloseIcon />
               </ListItemButton>
-              {/*<Text b size={21} css={{ paddingLeft: "30px" }}>*/}
-              {/*  Filter by industries :*/}
-              {/*</Text>*/}
               <ListItem>
                 <FormControl
                   sx={{ mt: "5px", ml: "15px" }}
@@ -766,55 +671,7 @@ const StockCard = () => {
                   {/*<FormHelperText>Multiple Selection</FormHelperText>*/}
                 </FormControl>
               </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
-								<Dropdown>
-									<Dropdown.Button
-										flat
-										css={{
-											// height: "70px",
-											// marginLeft: "20px",
-											width: "250px",
-											backgroundColor: "#fff",
-											borderRadius: "10000px",
-											border: "2px solid #ffa12e",
-											color: "#202020",
-											fontSize: 16,
-											"@media only screen and (max-width: 768px)": {
-												width: "70%",
-												"& span": {
-													// display: "none",
-												},
-											},
-										}}
-									>
-										<FaIndustry size={20} style={{ marginRight: "0px" }} />
-										<span
-											style={{
-												marginLeft: "10px",
-												"@media only screen and (maxWidth: 600px)": {
-													marginLeft: "0px",
-												},
-											}}
-										>
-											Industries
-										</span>
-									</Dropdown.Button>
-									<Dropdown.Menu
-										selectionMode="multiple"
-										selectedKeys={selectedIndustries}
-										onSelectionChange={(keys) => setSelectedIndustries(keys)}
-									>
-										{industries.map((industry) => (
-											<Dropdown.Item
-												key={industry}
-												onClick={() => handleIndustrySelection(industry)}
-											>
-												{industry}
-											</Dropdown.Item>
-										))}
-									</Dropdown.Menu>
-								</Dropdown>
-							</ListItem> */}
+
 
               <Divider
                 css={{
@@ -825,21 +682,9 @@ const StockCard = () => {
                   margin: "20px 25px 15px",
                 }}
               />
-              {/*<Text b size={21} css={{ paddingLeft: "30px" }}>*/}
-              {/*  Sort by time left:*/}
-              {/*</Text>*/}
-              <ListItem>
+
+                <ListItem>
                 <FormControl sx={{ mt: "5px", ml: "15px" }}>
-                  {/*<FormLabel*/}
-                  {/*  id="demo-controlled-radio-buttons-group"*/}
-                  {/*  style={{*/}
-                  {/*    fontSize: "15px",*/}
-                  {/*    fontWeight: "bold",*/}
-                  {/*    color: "#106352",*/}
-                  {/*  }}*/}
-                  {/*>*/}
-                  {/*  Time left*/}
-                  {/*</FormLabel>*/}
                   <Text b size={19} css={{ paddingLeft: "30px" }}>
                     Sort by time left:
                   </Text>
@@ -859,65 +704,9 @@ const StockCard = () => {
                   </RadioGroup>
                 </FormControl>
               </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
-								<Dropdown>
-									<Dropdown.Button
-										flat
-										css={{
-											width: "250px",
-											backgroundColor: "#fff",
-											borderRadius: "10000px",
-											border: "2px solid #ffa12e",
-											color: "#202020",
-											fontSize: 16,
-											"@media only screen and (max-width: 768px)": {
-												width: "70%",
-												"& span": {
-													// display: "none",
-												},
-											},
-										}}
-									>
-										<AiOutlineFieldTime
-											size={22}
-											style={{ marginRight: "0px" }}
-										/>
-										<span
-											style={{
-												marginLeft: "10px",
-												"@media only screen and (max-width: 768px)": {
-													marginLeft: "0px",
-												},
-											}}
-										>
-											Time Left
-										</span>
-									</Dropdown.Button>
-									<Dropdown.Menu
-										aria-label="TimeActions"
-										selectionMode="single"
-										selectedKeys={timeSort}
-										onSelectionChange={(key) => setTimeSort(key)}
-									>
-										<Dropdown.Item key="ascending">
-											Earliest First
-										</Dropdown.Item>
-										<Dropdown.Item key="descending">Latest First</Dropdown.Item>
-									</Dropdown.Menu>
-								</Dropdown>
-							</ListItem> */}
+
               <ListItem>
                 <FormControl sx={{ ml: "15px" }}>
-                  {/*<FormLabel*/}
-                  {/*  id="controlled-radio-buttons"*/}
-                  {/*  style={{*/}
-                  {/*    fontSize: "15px",*/}
-                  {/*    fontWeight: "bold",*/}
-                  {/*    color: "#106352",*/}
-                  {/*  }}*/}
-                  {/*>*/}
-                  {/*  Potential upside*/}
-                  {/*</FormLabel>*/}
                   <Text b size={19} css={{ paddingLeft: "30px" }}>
                     Sort by potential upside:
                   </Text>
@@ -936,21 +725,6 @@ const StockCard = () => {
                     />
                   </RadioGroup>
 
-                  {/* {upsideSort !== "" && (
-										<Button variant="contained" onClick={handleClearSelection}>
-											Clear Selection
-										</Button>
-									)}
-									{selectedIndustries.length > 0 && (
-										<Button variant="contained" onClick={handleClearSelection}>
-											Clear Selection
-										</Button>
-									)}
-									{timeSort !== "" && (
-										<Button variant="contained" onClick={handleClearSelection}>
-											Clear Selection
-										</Button>
-									)} */}
                 </FormControl>
               </ListItem>
               <ListItem sx={{ justifyContent: "center" }}>
@@ -972,52 +746,7 @@ const StockCard = () => {
                   </Button>
                 ) : null}
               </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
-								<Dropdown>
-									<Dropdown.Button
-										flat
-										css={{
-											width: "250px",
-											backgroundColor: "#fff",
-											borderRadius: "10000px",
-											border: "2px solid #ffa12e",
-											color: "#202020",
-											fontSize: 16,
-											"@media only screen and (max-width: 768px)": {
-												width: "70%",
-												"& span": {
-													// display: "none",
-												},
-											},
-										}}
-									>
-										<Filter size={20} />
-										<span
-											style={{
-												marginLeft: "10px",
-												"@media only screen and (max-width: 768px)": {
-													marginLeft: "0px",
-												},
-											}}
-										>
-											Upside Left
-										</span>
-									</Dropdown.Button>
-									<Dropdown.Menu
-										aria-label="UpsideActions"
-										selectionMode="single"
-										selectedKeys={upsideSort}
-										onSelectionChange={setUpsideSort}
-									>
-										<Dropdown.Item key="ascending">
-											Lowest to Highest
-										</Dropdown.Item>
-										<Dropdown.Item key="descending">
-											Highest To Lowest
-										</Dropdown.Item>
-									</Dropdown.Menu>
-								</Dropdown>
-							</ListItem> */}
+
             </List>
           </SwipeableDrawer>
         </Box>
@@ -1571,13 +1300,6 @@ const StockCard = () => {
                             }}
                             size={22}
                           >
-                            {/* {stock.stock_targets.length > 0
-                            ? `${
-                                stock.stock_targets[
-                                  stock.stock_targets.length - 1
-                                ].target_price
-                              }`
-                            : `${stock.target_price}`} */}
                             {stock.latest_target_price}
                           </Text>
                         </div>
@@ -1636,8 +1358,6 @@ const StockCard = () => {
                             }}
                             size={22}
                           >
-                            {/* {`${Math.ceil(stock.time_left)}` || <Loading /> ||
-														"-"} */}
                             {(() => {
                               const timeLeft = Math.ceil(stock.time_left);
                               const years = Math.floor(timeLeft / 365);
@@ -1826,32 +1546,7 @@ const StockCard = () => {
                       )}
                     </Box>
                   </Card>
-                  {/* <Button
-									flat
-									onPress={handleCloseReports}
-									css={{
-										alignSelf: "center",
-										// width: "100%",
-										backgroundColor: "#ffa12e",
-										color: "#fff",
-										fontSize: 19,
-										marginTop: "20px",
-										borderRadius: "10px",
-										height: "50px",
-										"@media only screen and (max-width: 768px)": {
-											width: "100%",
-											fontSize: 15,
-											height: "50px",
-											marginTop: "0px",
-											borderRadius: "0px 0px 10px",
-											"& span": {
-												// display: "none",
-											},
-										},
-									}}
-								>
-									Close
-								</Button> */}
+
                 </Modal>
                 <Modal
                   // blur
@@ -2246,9 +1941,6 @@ const StockCard = () => {
             ) : (
               ""
             )}
-            {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
-            {/* {stocks.length <= 3 &&
-					Array.from({ length: 4 }).map((_, index) => ( */}
             {!isLoggedIn || !isSubscribed
               ? staticNumbers.map((number, index) => (
                 <Grid
@@ -2463,21 +2155,12 @@ const StockCard = () => {
                               }}
                               className="stocksPage-card-loginSection"
                             >
-                              {/* <Button
-																on
-																onPress={handleFirstCard}
-																css={{
-																	backgroundColor: "transparent",
-																}}
-															> */}
+
                               {isLoggedIn ? (
                                 <div
                                   style={{
                                     justifyContent: "center",
                                     textAlign: "center",
-                                    // height: "fit-content",
-                                    // maxWidth: "220px",
-                                    // maxHeight: "220px",
                                   }}
                                 >
                                   <Text
@@ -2491,10 +2174,7 @@ const StockCard = () => {
                                     }}
                                   >
                                     Unlock a world of wealth with just a click.
-                                    {/* Log in, and three free stock picks */}
-                                    {/* are your key to potential prosperity. It's */}
-                                    {/* like finding hidden gems without the */}
-                                    {/* digging! */}
+
                                   </Text>
                                   <Button
                                     // variant="contained"
@@ -2524,9 +2204,6 @@ const StockCard = () => {
                                   style={{
                                     justifyContent: "center",
                                     textAlign: "center",
-                                    // height: "fit-content",
-                                    // maxWidth: "220px",
-                                    // maxHeight: "220px",
                                   }}
                                 >
                                   <Text
@@ -2540,13 +2217,8 @@ const StockCard = () => {
                                     }}
                                   >
                                     Unlock a world of wealth with just a click.
-                                    {/* Log in, and three free stock picks */}
-                                    {/* are your key to potential prosperity. It's */}
-                                    {/* like finding hidden gems without the */}
-                                    {/* digging! */}
                                   </Text>
                                   <Button
-                                    // variant="contained"
                                     css={{
                                       width: "100%",
                                       marginTop: "10px",
@@ -2570,8 +2242,6 @@ const StockCard = () => {
                                 </div>
                               )}
 
-                              {/*<BiChevronRight size={24} color="#000000" />*/}
-                              {/* </Button> */}
                             </div>
                           </div>
                           <Divider
@@ -3139,21 +2809,11 @@ const StockCard = () => {
                             }}
                             className="stocksPage-card-loginSection"
                           >
-                            {/* <Button
-																on
-																onPress={handleFirstCard}
-																css={{
-																	backgroundColor: "transparent",
-																}}
-															> */}
                             {isLoggedIn ? (
                               <div
                                 style={{
                                   justifyContent: "center",
                                   textAlign: "center",
-                                  // height: "fit-content",
-                                  // maxWidth: "220px",
-                                  // maxHeight: "220px",
                                 }}
                               >
                                 <Text
@@ -3167,10 +2827,6 @@ const StockCard = () => {
                                   }}
                                 >
                                   Unlock a world of wealth with just a click.
-                                  {/* Log in, and three free stock picks */}
-                                  {/* are your key to potential prosperity. It's */}
-                                  {/* like finding hidden gems without the */}
-                                  {/* digging! */}
                                 </Text>
                                 <Button
                                   // variant="contained"
@@ -3200,9 +2856,6 @@ const StockCard = () => {
                                 style={{
                                   justifyContent: "center",
                                   textAlign: "center",
-                                  // height: "fit-content",
-                                  // maxWidth: "220px",
-                                  // maxHeight: "220px",
                                 }}
                               >
                                 <Text
@@ -3216,10 +2869,7 @@ const StockCard = () => {
                                   }}
                                 >
                                   Unlock a world of wealth with just a click.
-                                  {/* Log in, and three free stock picks */}
-                                  {/* are your key to potential prosperity. It's */}
-                                  {/* like finding hidden gems without the */}
-                                  {/* digging! */}
+
                                 </Text>
                                 <Button
                                   // variant="contained"
@@ -3246,8 +2896,6 @@ const StockCard = () => {
                               </div>
                             )}
 
-                            {/*<BiChevronRight size={24} color="#000000" />*/}
-                            {/* </Button> */}
                           </div>
                         </div>
                         <Divider
@@ -3780,13 +3428,6 @@ const StockCard = () => {
                             }}
                             size={22}
                           >
-                            {/* {stock.stock_targets.length > 0
-                            ? `${
-                                stock.stock_targets[
-                                  stock.stock_targets.length - 1
-                                ].target_price
-                              }`
-                            : `${stock.target_price}`} */}
                             {stock.latest_target_price}
                           </Text>
                         </div>
@@ -3845,8 +3486,7 @@ const StockCard = () => {
                             }}
                             size={22}
                           >
-                            {/* {`${Math.ceil(stock.time_left)}` || <Loading /> ||
-														"-"} */}
+
                             {(() => {
                               const timeLeft = Math.ceil(stock.time_left);
                               const years = Math.floor(timeLeft / 365);
@@ -4027,7 +3667,6 @@ const StockCard = () => {
                             // position: "absolute",
                             paddingTop: "50px",
                             paddingBottom: "50px",
-                            // left: "22.5%",
                           }}
                         >
                           No Reports Available!
@@ -4035,32 +3674,7 @@ const StockCard = () => {
                       )}
                     </Box>
                   </Card>
-                  {/* <Button
-									flat
-									onPress={handleCloseReports}
-									css={{
-										alignSelf: "center",
-										// width: "100%",
-										backgroundColor: "#ffa12e",
-										color: "#fff",
-										fontSize: 19,
-										marginTop: "20px",
-										borderRadius: "10px",
-										height: "50px",
-										"@media only screen and (max-width: 768px)": {
-											width: "100%",
-											fontSize: 15,
-											height: "50px",
-											marginTop: "0px",
-											borderRadius: "0px 0px 10px",
-											"& span": {
-												// display: "none",
-											},
-										},
-									}}
-								>
-									Close
-								</Button> */}
+
                 </Modal>
                 <Modal
                   // blur
@@ -4076,12 +3690,10 @@ const StockCard = () => {
                     alignSelf: "center",
                     alignContent: "center",
                     justifyContent: "center",
-                    // backdropFilter: "blur(8px)",
                   }}
                   className="iframePdfMobile"
                 >
                   <Worker
-                    // workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}/pdf.worker.min.js`}
                     workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
                   >
                     <Box
@@ -4090,7 +3702,6 @@ const StockCard = () => {
                         borderRadius: "15px",
                       }}
                     >
-                      {/* {console.log(PdfValue)} */}
                       <Viewer
                         fileUrl={`${PdfValue ? PdfValue : selectedReportUrl
                           }#view=FitH&toolbar=0`}
@@ -4103,7 +3714,6 @@ const StockCard = () => {
                     onPress={handleCloseModal}
                     css={{
                       alignSelf: "center",
-                      // width: "100%",
                       backgroundColor: "#ffa12e",
                       color: "#fff",
                       fontSize: 19,
@@ -4118,7 +3728,6 @@ const StockCard = () => {
                         marginTop: "0px",
                         borderRadius: "0px 0px 10px",
                         "& span": {
-                          // display: "none",
                         },
                       },
                     }}
@@ -4455,9 +4064,6 @@ const StockCard = () => {
             ) : (
               ""
             )}
-            {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
-            {/* {stocks.length <= 3 &&
-					Array.from({ length: 4 }).map((_, index) => ( */}
             {!isLoggedIn || !isSubscribed
               ? staticNumbers.map((number, index) => (
                 <Grid
@@ -4672,38 +4278,24 @@ const StockCard = () => {
                               }}
                               className="stocksPage-card-loginSection"
                             >
-                              {/* <Button
-																on
-																onPress={handleFirstCard}
-																css={{
-																	backgroundColor: "transparent",
-																}}
-															> */}
+
                               {isLoggedIn ? (
                                 <div
                                   style={{
                                     justifyContent: "center",
                                     textAlign: "center",
-                                    // height: "fit-content",
-                                    // maxWidth: "220px",
-                                    // maxHeight: "220px",
                                   }}
                                 >
                                   <Text
                                     b
                                     size={16}
                                     css={{
-                                      // maxWidth: "220px",
-                                      // lineHeight: 1
                                       textAlign: "center",
                                       marginBottom: "15px",
                                     }}
                                   >
                                     Unlock a world of wealth with just a click.
-                                    {/* Log in, and three free stock picks */}
-                                    {/* are your key to potential prosperity. It's */}
-                                    {/* like finding hidden gems without the */}
-                                    {/* digging! */}
+
                                   </Text>
                                   <Button
                                     // variant="contained"
@@ -4733,26 +4325,17 @@ const StockCard = () => {
                                   style={{
                                     justifyContent: "center",
                                     textAlign: "center",
-                                    // height: "fit-content",
-                                    // maxWidth: "220px",
-                                    // maxHeight: "220px",
                                   }}
                                 >
                                   <Text
                                     b
                                     size={16}
                                     css={{
-                                      // maxWidth: "220px",
-                                      // lineHeight: 1
                                       textAlign: "center",
                                       marginBottom: "15px",
                                     }}
                                   >
                                     Unlock a world of wealth with just a click.
-                                    {/* Log in, and three free stock picks */}
-                                    {/* are your key to potential prosperity. It's */}
-                                    {/* like finding hidden gems without the */}
-                                    {/* digging! */}
                                   </Text>
                                   <Button
                                     // variant="contained"
@@ -4778,9 +4361,6 @@ const StockCard = () => {
                                   </Button>
                                 </div>
                               )}
-
-                              {/*<BiChevronRight size={24} color="#000000" />*/}
-                              {/* </Button> */}
                             </div>
                           </div>
                           <Divider
@@ -5349,38 +4929,22 @@ const StockCard = () => {
                             }}
                             className="stocksPage-card-loginSection"
                           >
-                            {/* <Button
-																on
-																onPress={handleFirstCard}
-																css={{
-																	backgroundColor: "transparent",
-																}}
-															> */}
                             {isLoggedIn ? (
                               <div
                                 style={{
                                   justifyContent: "center",
                                   textAlign: "center",
-                                  // height: "fit-content",
-                                  // maxWidth: "220px",
-                                  // maxHeight: "220px",
                                 }}
                               >
                                 <Text
                                   b
                                   size={16}
                                   css={{
-                                    // maxWidth: "220px",
-                                    // lineHeight: 1
                                     textAlign: "center",
                                     marginBottom: "15px",
                                   }}
                                 >
                                   Unlock a world of wealth with just a click.
-                                  {/* Log in, and three free stock picks */}
-                                  {/* are your key to potential prosperity. It's */}
-                                  {/* like finding hidden gems without the */}
-                                  {/* digging! */}
                                 </Text>
                                 <Button
                                   // variant="contained"
@@ -5410,26 +4974,17 @@ const StockCard = () => {
                                 style={{
                                   justifyContent: "center",
                                   textAlign: "center",
-                                  // height: "fit-content",
-                                  // maxWidth: "220px",
-                                  // maxHeight: "220px",
                                 }}
                               >
                                 <Text
                                   b
                                   size={16}
                                   css={{
-                                    // maxWidth: "220px",
-                                    // lineHeight: 1
                                     textAlign: "center",
                                     marginBottom: "15px",
                                   }}
                                 >
                                   Unlock a world of wealth with just a click.
-                                  {/* Log in, and three free stock picks */}
-                                  {/* are your key to potential prosperity. It's */}
-                                  {/* like finding hidden gems without the */}
-                                  {/* digging! */}
                                 </Text>
                                 <Button
                                   // variant="contained"
@@ -5456,8 +5011,6 @@ const StockCard = () => {
                               </div>
                             )}
 
-                            {/*<BiChevronRight size={24} color="#000000" />*/}
-                            {/* </Button> */}
                           </div>
                         </div>
                         <Divider
