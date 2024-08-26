@@ -17,7 +17,7 @@ const StockPicks = () => {
 			{() => (
 				<>
 					{/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
-					<Navbar/>
+					<Navbar className=" bg-white"/>
 					<div
 						style={{
 							background: "#fff",
