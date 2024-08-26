@@ -24,6 +24,8 @@ import { useActivePlanContext } from "@/components/PlanContext";
 import Link from "next/link";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { usePathname, useRouter } from "next/navigation";
+import { useModal } from "@nextui-org/react";
+import SampleReportsModal from "./sample-reports-modal";
 
 type TSideNav = {
   handleLogin: () => void;
@@ -36,6 +38,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
     "Track Record": "",
     "Stocks to Buy": "",
   });
+  const { setVisible, bindings } = useModal();
   // const [activePlan, setActivePlan] = useState({
   //   id: "",
   //   plan: "",
@@ -119,6 +122,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
   }, [id, open]);
 
   return (
+    <>
     <Sheet modal={true} open={open} onOpenChange={setOpen}>
       <SheetTrigger onClick={() => setOpen(true)}>
         <Menu className="inline-block lg:hidden" />
@@ -172,6 +176,9 @@ export default function SideNav({ handleLogin }: TSideNav) {
                                 setOpen(false);
                                 setId(options.id);
                                 e.preventDefault();
+                                if(options.title==="Sample Reports"){
+                                  setVisible(true)
+                                }
                                 // if (pathname.includes("pricing") && options.id.includes("testimonials")) {
                                 //   let ele = document.querySelector(options.id);
                                 //   ele?.scrollIntoView({ behavior: "smooth" });
@@ -248,5 +255,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
         )}
       </SheetContent>
     </Sheet>
+    <SampleReportsModal setVisible={setVisible} bindings={bindings}/>
+    </>
   );
 }

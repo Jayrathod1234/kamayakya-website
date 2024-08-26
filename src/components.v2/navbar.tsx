@@ -20,7 +20,7 @@ import AuthContext from "@/components/AuthContext";
 import { HOME_OPTIONS, NAVBAR_LINKS } from "@/constants/index.constants";
 import { cn } from "@/lib/utils";
 import { Box, IconButton } from "@mui/material";
-import { Modal } from "@nextui-org/react";
+import { Modal, useModal } from "@nextui-org/react";
 import { ArrowRight } from "lucide-react";
 import { NavbarDropdownCard } from "./cards";
 import SideNav from "./sidenav";
@@ -31,6 +31,7 @@ import { Button } from "./button";
 import { ButtonVariant } from "./button/button";
 import { LoginBtnNav } from "./login-btn-nav";
 import { ScrollProgress } from "./scroll-progress";
+import SampleReportsModal from "./sample-reports-modal";
 
 /*
 For pages with white background give className=bg-white to get the green hover effect
@@ -44,7 +45,7 @@ export function Navbar({ className }: { className?: string }) {
   const pathname = router.pathname;
   const ref = useRef<HTMLDivElement | null>(null);
   const [showModal, setShowModal] = useState(false);
-
+  const { setVisible, bindings } = useModal();
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
     mp.track(event, properties);
@@ -77,6 +78,11 @@ export function Navbar({ className }: { className?: string }) {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleSampleReports = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    setVisible(true);
   };
 
   useEffect(() => {
@@ -147,7 +153,9 @@ export function Navbar({ className }: { className?: string }) {
                           : true
                       ).map((option) => (
                         <ListItem
-                          onClick={(e) => handleNavigation(option, e)}
+                          onClick={(e) =>
+                            option.title === "Sample Reports" ? handleSampleReports(e) : handleNavigation(option, e)
+                          }
                           key={option.title}
                           className=" hover:bg-gray-50 relative "
                           href={option.link}
@@ -284,6 +292,7 @@ export function Navbar({ className }: { className?: string }) {
             <Login />
           </Modal.Body>
         </Modal>
+        <SampleReportsModal setVisible={setVisible} bindings={bindings} />
       </div>
     </div>
   );
