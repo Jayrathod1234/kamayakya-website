@@ -6,6 +6,7 @@ import InvestmentSection from "../../components/InvestmentSection";
 import ElevateSection from "../../components/ElevateSection";
 import { useStockDetails } from "@/contexts/StockDetailsContext";
 import { useRouter } from "next/router";
+import Link from "next/link";
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
@@ -30,6 +31,7 @@ function StockDetailsSection() {
     return_time,
     company_details,
     market_cap_type,
+    timeline,
   } = items || {};
 
   const toggleDropdown = () => {
@@ -39,6 +41,7 @@ function StockDetailsSection() {
     router.push("/stock-picks");
     return;
   }
+  const watch_video = timeline.find((value) => value.type == "youtube");
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
@@ -236,7 +239,12 @@ function StockDetailsSection() {
                   {/* First Content End  */}
                   {/* When Small screen Button is Show  */}
                   <div className="flex sm:hidden gap-2 mt-5 mb-3 bg-white">
-                    <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
+                    <button
+                      className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                      onClick={() =>
+                        window.open(watch_video.youtube_link, "_blank")
+                      }
+                    >
                       <img
                         src="/assets/play1.png"
                         alt="Play icon"
@@ -267,7 +275,7 @@ function StockDetailsSection() {
                       company was founded by Punit Makharia on March 29, 1993
                       and is headquartered in Mumbai, India.
                     </p>
-                    <button class="flex mt-2 items-center gap-2 px-4 py-2  text-[#344054] font-medium border border-[#D0D5DD] rounded-full hover:bg-[#F9FAFB] hover:border-[#D0D5DD] transition-colors">
+                    {/* <button class="flex mt-2 items-center gap-2 px-4 py-2  text-[#344054] font-medium border border-[#D0D5DD] rounded-full hover:bg-[#F9FAFB] hover:border-[#D0D5DD] transition-colors">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-4 w-4"
@@ -278,7 +286,7 @@ function StockDetailsSection() {
                         <circle cx="12" cy="12" r="2" />
                         <circle cx="18" cy="12" r="2" />
                       </svg>
-                    </button>
+                    </button> */}
                   </div>
                   {/* Upside Left Box start */}
                   <div className=" hidden md:block col-span-2 order-3 sm:order-2">
@@ -308,7 +316,7 @@ function StockDetailsSection() {
                               </div>
                             </div>
                             <div className="flex flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[24px] text-white font-bold">
-                              ${upside_left} %{" "}
+                              {upside_left} %{" "}
                               <span className="text-[10px] md:text-[12px] text-[#FCFCFD] font-medium">
                                 likely within a {upside_left_time}
                               </span>
@@ -383,8 +391,10 @@ function StockDetailsSection() {
                             alt=""
                           />
                         </div>
-                        <p className="text-4xl font-bold mt-2">157.12%</p>
-                        <p className="text-sm">in 1yr 4m</p>
+                        <p className="text-4xl font-bold mt-2">
+                          {upside_left}%
+                        </p>
+                        <p className="text-sm">in {upside_left_time}</p>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <div className="flex justify-between items-center">
@@ -401,9 +411,9 @@ function StockDetailsSection() {
                               className="w-3 h-3"
                             />
                             <p className="text-black ml-1 text-sm">
-                              64.08%{" "}
+                              {expected_returns}
                               <span className="text-gray-500 text-xs">
-                                likely in 4m
+                                likely in {return_time}
                               </span>
                             </p>
                           </div>
@@ -492,12 +502,14 @@ function StockDetailsSection() {
                         />
                       </div>
                     </div>
-                    <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center flex">
-                      <span className="flex gap-2">
-                        <img src="/assets/white-icon.svg" alt="" />
-                        Upgrade Now
-                      </span>
-                    </button>
+                    <Link href={`/pricing`}>
+                      <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center flex">
+                        <span className="flex gap-2">
+                          <img src="/assets/white-icon.svg" alt="" />
+                          Upgrade Now
+                        </span>
+                      </button>
+                    </Link>
                   </div>
 
                   {/* When small Screen Time-line & Report Section show  */}
@@ -506,7 +518,7 @@ function StockDetailsSection() {
                       className="w-full   p-2 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
                     >
-                      <span>TIMELINE & REPORTS (3)</span>
+                      <span>TIMELINE & REPORTS ({timeline.length || 0})</span>
                       <svg
                         className={`transform w-5 h-5 transition-transform duration-200 ${
                           isOpen ? "rotate-180" : ""
@@ -528,7 +540,7 @@ function StockDetailsSection() {
                       <div className="mt-2">
                         {/* Timeline Content Goes Here */}
                         <div className="p-4 border rounded-lg">
-                          <StockDetailsTimeline />
+                          <StockDetailsTimeline timeline={timeline} />
                         </div>
                       </div>
                     )}
@@ -552,7 +564,12 @@ function StockDetailsSection() {
                       INVESTMENT GUIDANCE
                     </h2>
                     <div className=" gap-2 mb-4 hidden sm:flex">
-                      <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
+                      <button
+                        className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                        onClick={() =>
+                          window.open(watch_video.youtube_link, "_blank")
+                        }
+                      >
                         <img
                           src="/assets/play1.png"
                           alt="Play icon"
@@ -616,19 +633,21 @@ function StockDetailsSection() {
                           />
                         </div>
                       </div>
-                      <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
-                        <span className="flex gap-2">
-                          <img src="/assets/white-icon.svg" alt="" />
-                          Upgrade Now
-                        </span>
-                      </button>
+                      <Link href={`/pricing`}>
+                        <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
+                          <span className="flex gap-2">
+                            <img src="/assets/white-icon.svg" alt="" />
+                            Upgrade Now
+                          </span>
+                        </button>
+                      </Link>
                     </div>
                     <div className="mt-5 hidden sm:block">
                       <button
                         className="w-full   p-2 rounded-lg flex justify-between items-center"
                         onClick={toggleDropdown}
                       >
-                        <span>TIMELINE & REPORTS (3)</span>
+                        <span>TIMELINE & REPORTS ({timeline.length || 0})</span>
                         <svg
                           className={`transform w-5 h-5 transition-transform duration-200 ${
                             isOpen ? "rotate-180" : ""
@@ -650,7 +669,7 @@ function StockDetailsSection() {
                         <div className="mt-2">
                           {/* Timeline Content Goes Here */}
                           <div className="p-4  rounded-lg">
-                            <StockDetailsTimeline />
+                            <StockDetailsTimeline timeline={timeline} />
                           </div>
                         </div>
                       )}
