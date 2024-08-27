@@ -5,7 +5,7 @@ import ElevateSection from "../components/ElevateSection";
 import { useQuery } from "@tanstack/react-query";
 import { getStockDetailApi } from "@/api/stock-picks";
 import { useRouter } from "next/router";
-import { StockDetailsProvider } from "./contexts/StockDetailsContext";
+import { StockDetailsProvider } from "@/contexts/StockDetailsContext";
 const StockDetails = () => {
   // const router = useRouter();
   // const { slug } = router.query;
