@@ -9,8 +9,12 @@ import {
   IconButton,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useStockPicks } from "@/contexts/StockPicksContext";
+import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
-const SectorFilter2 = ({ stockSector, sector, setSector }) => {
+const SectorFilter2 = () => {
+  const { sector, setSector } = useAllBoardStock();
+  const { stockSector } = useStockPicks();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (event) => {

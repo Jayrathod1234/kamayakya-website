@@ -375,7 +375,7 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
                   fill="#344054"
                 />
               </svg>
-              <span class="tooltiptext tooltiptext2 relative ">
+              <span className="tooltiptext tooltiptext2 relative ">
                 <img
                   src="/assets/div.png"
                   alt=""
@@ -567,9 +567,9 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
               <path
                 d="M5.99992 16.6654V4.66536C5.99992 4.31174 6.14039 3.9726 6.39044 3.72256C6.64049 3.47251 6.97963 3.33203 7.33325 3.33203H12.6666C13.0202 3.33203 13.3593 3.47251 13.6094 3.72256C13.8594 3.9726 13.9999 4.31174 13.9999 4.66536V16.6654M5.99992 16.6654H13.9999M5.99992 16.6654H4.66659C4.31296 16.6654 3.97382 16.5249 3.72378 16.2748C3.47373 16.0248 3.33325 15.6857 3.33325 15.332V11.332C3.33325 10.9784 3.47373 10.6393 3.72378 10.3892C3.97382 10.1392 4.31296 9.9987 4.66659 9.9987H5.99992M13.9999 16.6654H15.3333C15.6869 16.6654 16.026 16.5249 16.2761 16.2748C16.5261 16.0248 16.6666 15.6857 16.6666 15.332V9.33203C16.6666 8.97841 16.5261 8.63927 16.2761 8.38922C16.026 8.13917 15.6869 7.9987 15.3333 7.9987H13.9999M8.66659 5.9987H11.3333M8.66659 8.66536H11.3333M8.66659 11.332H11.3333M8.66659 13.9987H11.3333"
                 stroke="#1D2939"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
             <Typography
@@ -583,26 +583,32 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
           </Box>
         </AccordionSummary>
         {/* <SizeSelector /> */}
-        <div class="flex px-7 gap-4 pb-4">
-          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-            {/* <div class=""> */}
+        <div className="flex px-7 gap-4 pb-4">
+          <div className="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+            {/* <div className=""> */}
             <img src="/assets/Group 47357.svg" />
             {/* </div> */}
-            <span class="pt-2 text-2xs  text-[#344054] font-normal">Small</span>
+            <span className="pt-2 text-2xs  text-[#344054] font-normal">
+              Small
+            </span>
           </div>
 
-          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-            {/* <div class=""> */}
+          <div className="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+            {/* <div className=""> */}
             <img src="/assets/Component 5.svg" />
             {/* </div> */}
-            <span class="pt-2 text-2xs  text-[#344054] font-normal">Mid</span>
+            <span className="pt-2 text-2xs  text-[#344054] font-normal">
+              Mid
+            </span>
           </div>
 
-          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
-            {/* <div class=""> */}
+          <div className="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+            {/* <div className=""> */}
             <img src="/assets/Component 9.svg" />
             {/* </div> */}
-            <span class="pt-2 text-2xs  text-[#344054] font-normal">Large</span>
+            <span className="pt-2 text-2xs  text-[#344054] font-normal">
+              Large
+            </span>
           </div>
         </div>
       </Accordion>
@@ -625,9 +631,9 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
               <path
                 d="M5.99992 16.6654V4.66536C5.99992 4.31174 6.14039 3.9726 6.39044 3.72256C6.64049 3.47251 6.97963 3.33203 7.33325 3.33203H12.6666C13.0202 3.33203 13.3593 3.47251 13.6094 3.72256C13.8594 3.9726 13.9999 4.31174 13.9999 4.66536V16.6654M5.99992 16.6654H13.9999M5.99992 16.6654H4.66659C4.31296 16.6654 3.97382 16.5249 3.72378 16.2748C3.47373 16.0248 3.33325 15.6857 3.33325 15.332V11.332C3.33325 10.9784 3.47373 10.6393 3.72378 10.3892C3.97382 10.1392 4.31296 9.9987 4.66659 9.9987H5.99992M13.9999 16.6654H15.3333C15.6869 16.6654 16.026 16.5249 16.2761 16.2748C16.5261 16.0248 16.6666 15.6857 16.6666 15.332V9.33203C16.6666 8.97841 16.5261 8.63927 16.2761 8.38922C16.026 8.13917 15.6869 7.9987 15.3333 7.9987H13.9999M8.66659 5.9987H11.3333M8.66659 8.66536H11.3333M8.66659 11.332H11.3333M8.66659 13.9987H11.3333"
                 stroke="#1D2939"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
             <Typography
@@ -663,14 +669,14 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
                 <path
                   d="M1.66675 9.99935C1.66675 6.07102 1.66675 4.10685 2.88675 2.88602C4.10841 1.66602 6.07175 1.66602 10.0001 1.66602C13.9284 1.66602 15.8926 1.66602 17.1126 2.88602C18.3334 4.10768 18.3334 6.07102 18.3334 9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935Z"
                   stroke="#1D2939"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                 />
                 <path
                   d="M5.8335 11.6654L7.74433 9.75453C7.9006 9.59831 8.11253 9.51054 8.3335 9.51054C8.55447 9.51054 8.76639 9.59831 8.92266 9.75453L10.2443 11.0762C10.4006 11.2324 10.6125 11.3202 10.8335 11.3202C11.0545 11.3202 11.2664 11.2324 11.4227 11.0762L14.1668 8.33203M14.1668 8.33203V10.4154M14.1668 8.33203H12.0835"
                   stroke="#1D2939"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </g>
               <defs>
@@ -690,32 +696,36 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
           </Box>
         </AccordionSummary>
 
-        <div class="flex px-7 gap-4 pb-4">
-          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+        <div className="flex px-7 gap-4 pb-4">
+          <div className="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
             <img src="/assets/low.svg" />
-            <span class="pt-2 text-2xs  text-[#344054] font-normal">Low</span>
+            <span className="pt-2 text-2xs  text-[#344054] font-normal">
+              Low
+            </span>
           </div>
 
-          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+          <div className="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
             <img src="/assets/medium.svg" />
-            <span class="pt-2 text-2xs  text-[#344054] font-normal">
+            <span className="pt-2 text-2xs  text-[#344054] font-normal">
               Medium
             </span>
           </div>
 
-          <div class="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
+          <div className="flex flex-col items-center cursor-pointer w-1/3  p-4 rounded-[7px] border border-[#E4E7EC] bg-white hover:bg-[#F9FAFB]">
             <img src="/assets/High.svg" />
-            <span class="pt-2 text-2xs  text-[#344054] font-normal">High</span>
+            <span className="pt-2 text-2xs  text-[#344054] font-normal">
+              High
+            </span>
           </div>
         </div>
       </Accordion>
       {/* button  */}
       <div className="pt-[61px]">
         <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
-          <button class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]">
+          <button className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]">
             Cancel
           </button>
-          <button class=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] ">
+          <button className=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] ">
             Apply
           </button>
         </div>

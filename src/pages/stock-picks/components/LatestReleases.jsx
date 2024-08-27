@@ -6,7 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import AuthContext from "@/components/AuthContext";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { useMediaQuery } from "@mui/material";
-function LatestReleases({ sebiBoardType, stockSector }) {
+import { useStockPicks } from "@/contexts/StockPicksContext";
+
+function LatestReleases() {
+  const { sebiBoardType } = useStockPicks();
   const { isLoggedIn } = useContext(AuthContext);
   // Use react-query to fetch
   const {
@@ -31,18 +34,13 @@ function LatestReleases({ sebiBoardType, stockSector }) {
             New Stocks released in the last 60 days
           </p>
 
-          {(isMobile && items.length <= 1) || (!isMobile && items.length <= 5) ? (
+          {(isMobile && items.length <= 1) ||
+          (!isMobile && items.length <= 5) ? (
             <div className="flex justify-center gap-5  ">
               {isLoading || error ? (
                 <StockCardSkeleton length={1} />
               ) : (
-                items.map((value) => (
-                  <StockCard
-                    key={value.id}
-                    {...value}
-                    stockSector={stockSector}
-                  />
-                ))
+                items.map((value) => <StockCard key={value.id} {...value} />)
               )}
             </div>
           ) : (
@@ -55,11 +53,7 @@ function LatestReleases({ sebiBoardType, stockSector }) {
                 items.length > 0 && (
                   <Slider>
                     {items.map((value) => (
-                      <StockCard
-                        key={value.id}
-                        {...value}
-                        stockSector={stockSector}
-                      />
+                      <StockCard key={value.id} {...value} />
                     ))}
                   </Slider>
                 )

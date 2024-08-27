@@ -8,38 +8,7 @@ import SectorSelect from "./SectorCheck";
 import CustomSortMenu from "./RadioDrop";
 import DrawerFilter from "@/components.v3/common/DrawerFilter";
 import ResCustomSort from "./ResCustomSort";
-const FilterMenuTags2 = ({
-  min_upside_left,
-  max_upside_left,
-  setSortValue,
-  setSortBy,
-  recency,
-  setRecency,
-  timeLeft,
-  setTimeLeft,
-  handleApplyFilters,
-  handleResetFilters,
-  upsideLeft,
-  setUpsideLeft,
-  min_returns,
-  max_returns,
-  returns,
-  setReturns,
-  marketCapTypeList,
-  marketCapType,
-  setMarketCapType,
-  stockRiskList,
-  risk,
-  setRisk,
-  stockSector,
-  sector,
-  setSector,
-  strategyTagList,
-  strategyTag,
-  setStrategyTag,
-  totalFilterCount,
-  isResponsive,
-}) => {
+const FilterMenuTags2 = ({ isResponsive }) => {
   const [selectedChips, setSelectedChips] = useState([]);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
@@ -218,37 +187,7 @@ const FilterMenuTags2 = ({
                     }}
                   /> */}
 
-                  <DrawerFilter
-                    open={open}
-                    setOpen={setOpen}
-                    recency={recency}
-                    setRecency={setRecency}
-                    timeLeft={timeLeft}
-                    setTimeLeft={setTimeLeft}
-                    handleApplyFilters={handleApplyFilters}
-                    handleResetFilters={handleResetFilters}
-                    min_upside_left={min_upside_left}
-                    max_upside_left={max_upside_left}
-                    upsideLeft={upsideLeft}
-                    setUpsideLeft={setUpsideLeft}
-                    min_returns={min_returns}
-                    max_returns={max_returns}
-                    returns={returns}
-                    setReturns={setReturns}
-                    marketCapTypeList={marketCapTypeList}
-                    marketCapType={marketCapType}
-                    setMarketCapType={setMarketCapType}
-                    stockRiskList={stockRiskList}
-                    risk={risk}
-                    setRisk={setRisk}
-                    stockSector={stockSector}
-                    sector={sector}
-                    setSector={setSector}
-                    strategyTagList={strategyTagList}
-                    strategyTag={strategyTag}
-                    setStrategyTag={setStrategyTag}
-                    totalFilterCount={totalFilterCount}
-                  />
+                  <DrawerFilter />
                 </>
               )}
 

@@ -3,6 +3,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Discovercard from "./Discovercard";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Button } from "../../components.v2/ui/button";
+import { useStockPicks } from "@/contexts/StockPicksContext";
 
 const usePrevNextButtons = (emblaApi) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
@@ -63,7 +64,7 @@ const NextButton = (props) => {
 };
 const DiscoverCarousel = ({ strategyTagList, colors }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ dragFree: true });
-
+  const { strategyTagList } = useStockPicks();
   const {
     prevBtnDisabled,
     nextBtnDisabled,

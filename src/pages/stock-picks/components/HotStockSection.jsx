@@ -8,8 +8,10 @@ import HotStockSectionBlur from "./HotStockSectionBlur";
 import HotStockSectionSlider from "./HotStockSectionSlider";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { Skeleton, useMediaQuery } from "@mui/material";
+import { useStockPicks } from "@/contexts/StockPicksContext";
 
-const HotStockSection = ({ sebiBoardType, stockSector }) => {
+const HotStockSection = () => {
+  const { sebiBoardType } = useStockPicks();
   const { isLoggedIn } = useContext(AuthContext);
 
   // Use react-query to fetch
@@ -56,11 +58,11 @@ const HotStockSection = ({ sebiBoardType, stockSector }) => {
         </div>
       ) : isLimitedView ? (
         <>
-          <HotStockSectionBlur items={items} stockSector={stockSector} />
+          <HotStockSectionBlur items={items} />
         </>
       ) : (
         <>
-          <HotStockSectionSlider items={items} stockSector={stockSector} />
+          <HotStockSectionSlider items={items} />
         </>
       )}
     </>

@@ -29,36 +29,39 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SectorFilter2 from "@/components.v3/common/SectoreFilter2";
 import { filterTimeLabel } from "@/utils/constants.js";
 import { BorderLeftRounded } from "@mui/icons-material";
+import { useStockPicks } from "@/contexts/StockPicksContext";
+import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
-function DrawerFilter({
-  recency,
-  setRecency,
-  handleApplyFilters,
-  handleResetFilters,
-  timeLeft,
-  setTimeLeft,
-  min_upside_left,
-  max_upside_left,
-  upsideLeft,
-  setUpsideLeft,
-  min_returns,
-  max_returns,
-  returns,
-  setReturns,
-  marketCapTypeList,
-  marketCapType,
-  setMarketCapType,
-  stockRiskList,
-  risk,
-  setRisk,
-  stockSector,
-  sector,
-  setSector,
-  strategyTagList,
-  strategyTag,
-  setStrategyTag,
-  totalFilterCount,
-}) {
+function DrawerFilter() {
+  const {
+    setStrategyTag,
+    strategyTag,
+    min_upside_left,
+    max_upside_left,
+    min_returns,
+    max_returns,
+    marketCapTypeList,
+    strategyTagList,
+    stockRiskList,
+    marketCapType,
+    setMarketCapType,
+  } = useStockPicks();
+
+  const {
+    recency,
+    setRecency,
+    timeLeft,
+    setTimeLeft,
+    upsideLeft,
+    setUpsideLeft,
+    returns,
+    setReturns,
+    totalFilterCount,
+    risk,
+    setRisk,
+    handleResetFilters,
+    handleApplyFilters,
+  } = useAllBoardStock();
   const [open, setOpen] = React.useState(false);
   const [anchor, setAnchor] = React.useState("");
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -109,8 +112,13 @@ function DrawerFilter({
   }
   ////
   const handleApply = () => {
-    // handleApplyFilters();
     setOpen(false);
+    handleApplyFilters();
+  };
+
+  const handleReset = () => {
+    setOpen(false);
+    handleResetFilters();
   };
 
   const toggleDrawer = (anchorVal, openVal) => () => {
@@ -170,7 +178,7 @@ function DrawerFilter({
     );
   };
 
-  const handleCloseDrawer = (closeVal) => { };
+  const handleCloseDrawer = (closeVal) => {};
 
   const CustomSlider = styled(Slider)({
     color: "#004d40", // Main color for the rail and thumb border
@@ -212,12 +220,12 @@ function DrawerFilter({
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium">Filter </p>
             {totalFilterCount > 0 && (
-              <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+              <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 {totalFilterCount}
               </div>
             )}
           </Button>
-          <Drawer open={open} anchor={anchor} onClose={() => { }}>
+          <Drawer open={open} anchor={anchor} onClose={() => {}}>
             <Box
               sx={{ width: 400 }}
               role="presentation"
@@ -231,7 +239,7 @@ function DrawerFilter({
                   </div>
                   <div
                     className="text-[#125B54] text-sm font-semibold cursor-pointer"
-                    onClick={handleResetFilters}
+                    onClick={handleReset}
                   >
                     Clear All
                   </div>
@@ -401,7 +409,7 @@ function DrawerFilter({
                             fill="#344054"
                           />
                         </svg>
-                        <span class="tooltiptext tooltiptext2 relative ">
+                        <span className="tooltiptext tooltiptext2 relative ">
                           <img
                             src="/assets/div.png"
                             alt=""
@@ -641,9 +649,9 @@ function DrawerFilter({
                         <path
                           d="M5.99992 16.6654V4.66536C5.99992 4.31174 6.14039 3.9726 6.39044 3.72256C6.64049 3.47251 6.97963 3.33203 7.33325 3.33203H12.6666C13.0202 3.33203 13.3593 3.47251 13.6094 3.72256C13.8594 3.9726 13.9999 4.31174 13.9999 4.66536V16.6654M5.99992 16.6654H13.9999M5.99992 16.6654H4.66659C4.31296 16.6654 3.97382 16.5249 3.72378 16.2748C3.47373 16.0248 3.33325 15.6857 3.33325 15.332V11.332C3.33325 10.9784 3.47373 10.6393 3.72378 10.3892C3.97382 10.1392 4.31296 9.9987 4.66659 9.9987H5.99992M13.9999 16.6654H15.3333C15.6869 16.6654 16.026 16.5249 16.2761 16.2748C16.5261 16.0248 16.6666 15.6857 16.6666 15.332V9.33203C16.6666 8.97841 16.5261 8.63927 16.2761 8.38922C16.026 8.13917 15.6869 7.9987 15.3333 7.9987H13.9999M8.66659 5.9987H11.3333M8.66659 8.66536H11.3333M8.66659 11.332H11.3333M8.66659 13.9987H11.3333"
                           stroke="#1D2939"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </svg>
                       <Typography
@@ -661,19 +669,20 @@ function DrawerFilter({
                     </Box>
                   </AccordionSummary>
                   {/* <SizeSelector /> */}
-                  <div class="flex pl-7 gap-4 pb-4">
+                  <div className="flex pl-7 gap-4 pb-4">
                     {marketCapTypeList?.map((value, index) => (
                       <div
-                        class={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${marketCapType == value
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                          marketCapType == value
                             ? "bg-[#E7F8F8] border-[#108973]"
                             : "bg-white border-[#E4E7EC]"
-                          }`}
+                        }`}
                         key={index}
                         onClick={() => setMarketCapType(value)}
                       >
                         <img src={`/assets/${value}.svg`} alt={value} />
 
-                        <span class="pt-2 text-2xs  text-[#344054] font-normal">
+                        <span className="pt-2 text-2xs  text-[#344054] font-normal">
                           {value}
                         </span>
                       </div>
@@ -709,7 +718,7 @@ function DrawerFilter({
                           <path
                             d="M5.21512 4.22366C10.6575 5.03937 14.9612 9.34308 15.7769 14.7854C15.8613 15.3484 15.393 15.9173 14.6666 15.9173H5.33325C4.6429 15.9173 4.08325 15.3577 4.08325 14.6673V5.33398C4.08325 4.60755 4.65221 4.13928 5.21512 4.22366Z"
                             stroke="black"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                           />
                         </g>
                         <defs>
@@ -732,11 +741,7 @@ function DrawerFilter({
                       </Typography>
                     </Box>
                   </AccordionSummary>
-                  <SectorFilter2
-                    stockSector={stockSector}
-                    sector={sector}
-                    setSector={setSector}
-                  />
+                  <SectorFilter2 />
                 </Accordion>
                 <div className="border-b-2 border-[#F2F4F7] "></div>
               </div>
@@ -766,9 +771,9 @@ function DrawerFilter({
                         <path
                           d="M6.66667 13.334L5.46083 13.9373C5.32243 14.0065 5.20602 14.1128 5.12463 14.2444C5.04324 14.376 5.00008 14.5276 5 14.6823V16.6673H15V14.6823C14.9999 14.5276 14.9568 14.376 14.8754 14.2444C14.794 14.1128 14.6776 14.0065 14.5392 13.9373L13.3333 13.334M6.66667 13.334H13.3333M6.66667 13.334L7.5 5.83398H12.5L13.3333 13.334M5 3.33398L5.41667 5.83398H14.5833L15 3.33398M8.33333 3.33398V5.83398M11.6667 3.33398V5.83398"
                           stroke="#1D2939"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </svg>
                       <Typography
@@ -834,14 +839,14 @@ function DrawerFilter({
                           <path
                             d="M1.66675 9.99935C1.66675 6.07102 1.66675 4.10685 2.88675 2.88602C4.10841 1.66602 6.07175 1.66602 10.0001 1.66602C13.9284 1.66602 15.8926 1.66602 17.1126 2.88602C18.3334 4.10768 18.3334 6.07102 18.3334 9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935Z"
                             stroke="#1D2939"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                           />
                           <path
                             d="M5.8335 11.6654L7.74433 9.75453C7.9006 9.59831 8.11253 9.51054 8.3335 9.51054C8.55447 9.51054 8.76639 9.59831 8.92266 9.75453L10.2443 11.0762C10.4006 11.2324 10.6125 11.3202 10.8335 11.3202C11.0545 11.3202 11.2664 11.2324 11.4227 11.0762L14.1668 8.33203M14.1668 8.33203V10.4154M14.1668 8.33203H12.0835"
                             stroke="#1D2939"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
                         </g>
                         <defs>
@@ -865,19 +870,20 @@ function DrawerFilter({
                     </Box>
                   </AccordionSummary>
 
-                  <div class="flex pl-7 gap-4 pb-4">
+                  <div className="flex pl-7 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
-                        class={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${risk == value
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                          risk == value
                             ? "bg-[#E7F8F8] border-[#108973]"
                             : "bg-white border-[#E4E7EC]"
-                          }`}
+                        }`}
                         key={index}
                         onClick={() => setRisk(value)}
                       >
                         <img src={`/assets/${value}.svg`} alt={value} />
 
-                        <span class="pt-2 text-2xs  text-[#344054] font-normal">
+                        <span className="pt-2 text-2xs  text-[#344054] font-normal">
                           {value}
                         </span>
                       </div>
@@ -890,13 +896,13 @@ function DrawerFilter({
               <div className="pt-[61px]">
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
-                    class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+                    className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
                     onClick={handleCloseDrawer(false)}
                   >
                     Cancel
                   </button>
                   <button
-                    class=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
+                    className=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
                     onClick={handleApply}
                   >
                     Apply
@@ -917,7 +923,7 @@ function DrawerFilter({
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium">Filter</p>
             {totalFilterCount > 0 && (
-              <div class=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+              <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 {totalFilterCount}
               </div>
             )}
@@ -926,7 +932,7 @@ function DrawerFilter({
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
-            onClose={() => { }}
+            onClose={() => {}}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
@@ -952,9 +958,9 @@ function DrawerFilter({
                     <path
                       d="M21 7L7 21M7 7L21 21"
                       stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                   <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[225px]">
@@ -962,7 +968,7 @@ function DrawerFilter({
                   </div>
                   <div
                     className="text-[#125B54] text-sm font-semibold cursor-pointer"
-                    onClick={handleResetFilters}
+                    onClick={handleReset}
                   >
                     Clear All
                   </div>
@@ -1255,10 +1261,10 @@ function DrawerFilter({
                         }}
                       >
                         {/* <SizeSelector /> */}
-                        <div class="sm:flex grid   gap-4 pb-4">
+                        <div className="sm:flex grid   gap-4 pb-4">
                           {marketCapTypeList?.map((value, index) => (
                             <div
-                              class={`sm:flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                              className={`sm:flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
                                 marketCapType == value
                                   ? "bg-[#E7F8F8] border-[#108973]"
                                   : "bg-white border-[#E4E7EC]"
@@ -1268,7 +1274,7 @@ function DrawerFilter({
                             >
                               <img src={`/assets/${value}.svg`} alt={value} />
 
-                              <span class="pt-2 text-2xs  text-[#344054] font-normal">
+                              <span className="pt-2 text-2xs  text-[#344054] font-normal">
                                 {value}
                               </span>
                             </div>
@@ -1287,12 +1293,7 @@ function DrawerFilter({
                           marginBottom: "0px !important",
                         }}
                       >
-                        <SectorFilter2
-                          style={{ padding: "0px !important" }}
-                          stockSector={stockSector}
-                          sector={sector}
-                          setSector={setSector}
-                        />
+                        <SectorFilter2 style={{ padding: "0px !important" }} />
                       </Accordion>
                     </div>
                   </TabPanel>
@@ -1338,10 +1339,10 @@ function DrawerFilter({
                           margin: "0px !important",
                         }}
                       >
-                        <div class="sm:flex grid gap-4 pb-4">
+                        <div className="sm:flex grid gap-4 pb-4">
                           {stockRiskList?.map((value, index) => (
                             <div
-                              class={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
                                 risk == value
                                   ? "bg-[#E7F8F8] border-[#108973]"
                                   : "bg-white border-[#E4E7EC]"
@@ -1351,7 +1352,7 @@ function DrawerFilter({
                             >
                               <img src={`/assets/${value}.svg`} alt={value} />
 
-                              <span class="pt-2 text-2xs  text-[#344054] font-normal">
+                              <span className="pt-2 text-2xs  text-[#344054] font-normal">
                                 {value}
                               </span>
                             </div>
@@ -1366,13 +1367,13 @@ function DrawerFilter({
               <div className="pt-[61px]">
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
-                    class="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+                    className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
                     onClick={handleCloseDrawer(false)}
                   >
                     Cancel
                   </button>
                   <button
-                    class=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
+                    className=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
                     onClick={handleApply}
                   >
                     Apply

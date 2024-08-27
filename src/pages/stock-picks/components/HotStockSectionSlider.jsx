@@ -3,7 +3,7 @@ import { HotSlider } from "@/components.v3/common/HotSlider.jsx";
 import StockCard from "@/components.v3/common/StockCard.jsx";
 import { useMediaQuery } from "@mui/material";
 
-const HotStockSectionSlider = ({ items, stockSector }) => {
+const HotStockSectionSlider = ({ items }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <div>
@@ -26,13 +26,12 @@ const HotStockSectionSlider = ({ items, stockSector }) => {
                         <StockCard
                           className={index === 0 ? "ml-5" : ""}
                           key={value.id} // Ensure each item has a unique key
-                          style={index === 2 ? { transform: "scale(0.697)" } : {}} // Apply scale style to the third item
+                          style={
+                            index === 2 ? { transform: "scale(0.697)" } : {}
+                          } // Apply scale style to the third item
                           {...value}
-                          stockSector={stockSector}
                         />
                       ))}
-
-
                     </HotSlider>
                   </div>
                 )}

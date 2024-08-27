@@ -10,37 +10,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Box, styled } from "@mui/material";
 import { Slider } from "@mui/material";
 
-function ResponsiveFilter({
-  min_upside_left,
-  max_upside_left,
-  setSortValue,
-  setSortBy,
-  recency,
-  setRecency,
-  timeLeft,
-  setTimeLeft,
-  handleApplyFilters,
-  handleResetFilters,
-  upsideLeft,
-  setUpsideLeft,
-  min_returns,
-  max_returns,
-  returns,
-  setReturns,
-  marketCapTypeList,
-  marketCapType,
-  setMarketCapType,
-  stockRiskList,
-  risk,
-  setRisk,
-  stockSector,
-  sector,
-  setSector,
-  strategyTagList,
-  strategyTag,
-  setStrategyTag,
-  totalFilterCount,
-}) {
+function ResponsiveFilter() {
   // sticky header
   const filterHeaderRef = useRef(null);
   const xyzRef = useRef(null);
@@ -78,36 +48,9 @@ function ResponsiveFilter({
             {/* </div> */}
             <FilterMenuTags2
               isResponsive={true}
-              setSortValue={setSortValue}
-              setSortBy={setSortBy}
               ref={filterHeaderRef}
-              recency={recency}
-              setRecency={setRecency}
-              handleApplyFilters={handleApplyFilters}
-              handleResetFilters={handleResetFilters}
-              min_upside_left={min_upside_left}
-              max_upside_left={max_upside_left}
               role="banner"
               aria-hidden={!showFilterHeader}
-              upsideLeft={upsideLeft}
-              setUpsideLeft={setUpsideLeft}
-              min_returns={min_returns}
-              max_returns={max_returns}
-              returns={returns}
-              setReturns={setReturns}
-              marketCapTypeList={marketCapTypeList}
-              marketCapType={marketCapType}
-              setMarketCapType={setMarketCapType}
-              stockRiskList={stockRiskList}
-              risk={risk}
-              setRisk={setRisk}
-              stockSector={stockSector}
-              sector={sector}
-              setSector={setSector}
-              strategyTagList={strategyTagList}
-              strategyTag={strategyTag}
-              setStrategyTag={setStrategyTag}
-              totalFilterCount={totalFilterCount}
             />
           </Box>
 

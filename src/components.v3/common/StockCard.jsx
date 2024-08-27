@@ -4,6 +4,8 @@ import ProgressBar2 from "./ProgressBar2";
 import DeepValue from "./DeepValue";
 import AuthContext from "@/components/AuthContext";
 import Link from "next/link";
+import { useStockPicks } from "@/contexts/StockPicksContext";
+
 function StockCard({
   id,
   stock_name,
@@ -17,11 +19,11 @@ function StockCard({
   stock_tags,
   expected_returns,
   return_time,
-  stockSector,
   youtube_details,
   className,
   style,
 }) {
+  const { stockSector } = useStockPicks();
   let tabImage = null;
   let cardClass = "";
   let innerClass = "relative rounded-lg bg-white shadow-6xs ";
@@ -42,7 +44,7 @@ function StockCard({
   return (
     <>
       {/* new stock card  */}
-      <div className={`relative main_card_carousel ${className}`} >
+      <div className={`relative main_card_carousel ${className}`}>
         <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
@@ -62,13 +64,13 @@ function StockCard({
                   <div className="h-5 bg-[#EDF0F5] rounded-[20px] sm:min-w-[281px] min-w-[125px]"></div>
                 </div>
 
-                <div class="tooltip">
+                <div className="tooltip">
                   <img
                     src="/assets/play.gif"
                     alt=""
                     className="w-[24px] blur-[2px]"
                   />
-                  <span class="tooltiptext relativec shadow-sm">
+                  <span className="tooltiptext relativec shadow-sm">
                     <img
                       src="/assets/div.png"
                       alt=""
@@ -181,7 +183,7 @@ function StockCard({
                       </p>
                       <div className="tooltip">
                         <img src="/assets/ph_info-duotone.svg" alt="" />
-                        <span class="tooltiptext tooltiptext2 relative shadow-sm">
+                        <span className="tooltiptext tooltiptext2 relative shadow-sm">
                           <img
                             src="/assets/div.png"
                             alt=""

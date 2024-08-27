@@ -4,39 +4,7 @@ import CustomSortMenu from "../common/RadioDrop.jsx";
 import FilterMenuTags2 from "./FilterMenuTags2.jsx";
 import ResponsiveFilter from "./ResponsiveFilter.jsx";
 import { useMediaQuery } from "@mui/material";
-function Filtermenu({
-  Filtermenu,
-  FiltermenuSidebar,
-  min_upside_left,
-  max_upside_left,
-  setSortValue,
-  setSortBy,
-  recency,
-  setRecency,
-  timeLeft,
-  setTimeLeft,
-  handleApplyFilters,
-  handleResetFilters,
-  upsideLeft,
-  setUpsideLeft,
-  min_returns,
-  max_returns,
-  returns,
-  setReturns,
-  marketCapTypeList,
-  marketCapType,
-  setMarketCapType,
-  stockRiskList,
-  risk,
-  setRisk,
-  stockSector,
-  sector,
-  setSector,
-  strategyTagList,
-  strategyTag,
-  setStrategyTag,
-  totalFilterCount,
-}) {
+function Filtermenu() {
   // Sidebar right side
   const [open, setOpen] = useState(false);
   // sticky header
@@ -181,43 +149,9 @@ function Filtermenu({
             </div>
             {!isMobile && (
               <>
-                <CustomSortMenu
-                  setSortValue={setSortValue}
-                  setSortBy={setSortBy}
-                  isLabel={false}
-                />
+                <CustomSortMenu isLabel={false} />
                 <div className="w-auto">
-                  <DrawerFilter
-                    open={open}
-                    setOpen={setOpen}
-                    recency={recency}
-                    setRecency={setRecency}
-                    timeLeft={timeLeft}
-                    setTimeLeft={setTimeLeft}
-                    handleApplyFilters={handleApplyFilters}
-                    handleResetFilters={handleResetFilters}
-                    min_upside_left={min_upside_left}
-                    max_upside_left={max_upside_left}
-                    upsideLeft={upsideLeft}
-                    setUpsideLeft={setUpsideLeft}
-                    min_returns={min_returns}
-                    max_returns={max_returns}
-                    returns={returns}
-                    setReturns={setReturns}
-                    marketCapTypeList={marketCapTypeList}
-                    marketCapType={marketCapType}
-                    setMarketCapType={setMarketCapType}
-                    stockRiskList={stockRiskList}
-                    risk={risk}
-                    setRisk={setRisk}
-                    stockSector={stockSector}
-                    sector={sector}
-                    setSector={setSector}
-                    strategyTagList={strategyTagList}
-                    strategyTag={strategyTag}
-                    setStrategyTag={setStrategyTag}
-                    totalFilterCount={totalFilterCount}
-                  />
+                  <DrawerFilter />
                 </div>
               </>
             )}

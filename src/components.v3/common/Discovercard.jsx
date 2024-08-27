@@ -1,19 +1,14 @@
 import React from "react";
+import { useStockPicks } from "@/contexts/StockPicksContext";
 
-function Discovercard({
-  id,
-  name,
-  description,
-  image,
-  color,
-  setStrategyTag,
-  setIsChangeStrategyTag,
-}) {
+function Discovercard({ id, name, description, image, color }) {
+  const { setStrategyTag, setIsChangeStrategyTag } = useStockPicks();
+
   return (
     <>
       <div className="md:w-1/4 sm:w-1/2 w-full discover_card_carousel">
         <a
-          class="card group transition-all duration-500 education border border-gray-200 cursor-pointer"
+          className="card group transition-all duration-500 education border border-gray-200 cursor-pointer"
           onClick={async () => {
             await setStrategyTag((prevTags) => {
               // Check if the id is already in the array to avoid duplicates
@@ -27,13 +22,13 @@ function Discovercard({
         >
           <div className="main-card w-full relative mx-auto">
             <div
-              class={`overlay-1 w-[85px] h-[85px] rounded-full top-[2px] left-1/2 -translate-x-1/2 z-[1] absolute`}
+              className={`overlay-1 w-[85px] h-[85px] rounded-full top-[2px] left-1/2 -translate-x-1/2 z-[1] absolute`}
               style={{
                 background: `${color}`,
               }}
             ></div>
             <div
-              class={` w-[86px] h-[86px]  mx-auto rounded-full flex items-center justify-center  relative z-[2]  discover_circle group-hover:!outline-white group-hover:!bg-white outline outline-2  outline-offset-4 `}
+              className={` w-[86px] h-[86px]  mx-auto rounded-full flex items-center justify-center  relative z-[2]  discover_circle group-hover:!outline-white group-hover:!bg-white outline outline-2  outline-offset-4 `}
               style={{ backgroundColor: `${color}`, outlineColor: `${color}` }}
             >
               <img src={image} alt="" className="z-[1]" />

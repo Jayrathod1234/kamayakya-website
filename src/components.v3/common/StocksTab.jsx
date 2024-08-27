@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Box, Typography } from "@mui/material";
 import { styled } from "@mui/system";
+import { useStockPicks } from "@/contexts/StockPicksContext";
 const CustomTabs = styled(Tabs)({
   backgroundColor: "#ffffff",
   color: "#000",
@@ -58,15 +59,16 @@ function a11yProps(index) {
     "aria-controls": `custom-tabpanel-${index}`,
   };
 }
-export default function StocksTab({
-  setSebiBoardType,
-  total_mainboard_stocks,
-  total_sme_stocks,
-}) {
+export default function StocksTab() {
+  const {
+    total_mainboard_stocks,
+    total_sme_stocks,
+    handleSebiBoardTypeChange,
+  } = useStockPicks();
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    setSebiBoardType(newValue === 0 ? "mainboard" : "sme");
+    handleSebiBoardTypeChange(newValue === 0 ? "mainboard" : "sme");
   };
   return (
     <Box

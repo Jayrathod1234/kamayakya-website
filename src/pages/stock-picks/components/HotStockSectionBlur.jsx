@@ -10,8 +10,10 @@ import { HotSlider } from "@/components.v3/common/HotSlider.jsx";
 import StockCard from "@/components.v3/common/StockCard.jsx";
 // import { Slider } from "@/components.v3/common/Slider.jsx";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import { useStockPicks } from "@/contexts/StockPicksContext";
+const HotStockSection = ({ items }) => {
+  const { stockSector } = useStockPicks();
 
-const HotStockSection = ({ items, stockSector }) => {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
     mp.track("explore_plans_clicked", {
@@ -128,13 +130,13 @@ const HotStockSection = ({ items, stockSector }) => {
                                           <div className="h-5 bg-gray-150 rounded-[20px] min-w-[281px]"></div>
                                         </div>
 
-                                        <div class="tooltip">
+                                        <div className="tooltip">
                                           <img
                                             src="/assets/play.gif"
                                             alt=""
                                             className="w-[24px] blur-[2px]"
                                           />
-                                          <span class="tooltiptext relative shadow-sm">
+                                          <span className="tooltiptext relative shadow-sm">
                                             <img
                                               src="/assets/div.png"
                                               alt=""
@@ -204,7 +206,7 @@ const HotStockSection = ({ items, stockSector }) => {
                                                     src="/assets/ph_info-duotone.svg"
                                                     alt=""
                                                   />
-                                                  <span class="tooltiptext tooltiptext2 relative shadow-sm ">
+                                                  <span className="tooltiptext tooltiptext2 relative shadow-sm ">
                                                     <img
                                                       src="/assets/div.png"
                                                       alt=""
@@ -392,7 +394,6 @@ const HotStockSection = ({ items, stockSector }) => {
                         <StockCard
                           key={value.id} // Ensure each item has a unique key
                           {...value}
-                          stockSector={stockSector}
                         />
                       ))}
                     </HotSlider>

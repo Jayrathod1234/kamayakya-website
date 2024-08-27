@@ -4,11 +4,7 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button.tsx";
 import StocksTab from "@/components.v3/common/StocksTab.jsx";
 
-function SebiBoardTab({
-  setSebiBoardType,
-  total_mainboard_stocks,
-  total_sme_stocks,
-}) {
+function SebiBoardTab() {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
     mp.track("sebi_registered_clicked", {
@@ -60,11 +56,7 @@ function SebiBoardTab({
             Discover hidden gems! 💎
           </h1>
           <div className="flex justify-center">
-            <StocksTab
-              setSebiBoardType={setSebiBoardType}
-              total_mainboard_stocks={total_mainboard_stocks}
-              total_sme_stocks={total_sme_stocks}
-            />
+            <StocksTab />
           </div>
         </div>
       </div>
