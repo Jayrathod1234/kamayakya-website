@@ -5,16 +5,18 @@ const CustomTabs = styled(Tabs)({
   backgroundColor: "#ffffff",
   color: "#000",
   borderRadius: "61px",
-  fontWeight: "bold",
+
   padding: "6px",
   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
   "& .MuiTabs-indicator": {
     display: "none",
   },
+  "& .MuiTab-root": {
+    fontWeight: "600 !important", // Apply to tab labels specifically
+  },
 });
 const CustomTab = styled(Tab)(({ theme, selected }) => ({
   textTransform: "none",
-  fontWeight: "bold",
   borderRadius: "47px",
   padding: "8px 40px",
   minHeight: "40px",
@@ -24,6 +26,9 @@ const CustomTab = styled(Tab)(({ theme, selected }) => ({
   transition: "0.3s",
   "& .MuiTab-labelIcon": {
     alignItems: "center",
+  },
+  "& .MuiTab-root": {
+    fontWeight: "600 !important", // Apply to tab labels specifically
   },
   // "&:hover": {
   //   backgroundColor: selected ? "#101115" : "#f0f0f0",
@@ -80,7 +85,9 @@ export default function StocksTab({
         <CustomTab
           label={
             <>
-              <Typography>Main Board</Typography>
+              <Typography className="font-semibold !important">
+                Main Board
+              </Typography>
               <Typography variant="caption">
                 {total_mainboard_stocks || 0} Stocks
               </Typography>
@@ -92,7 +99,9 @@ export default function StocksTab({
         <CustomTab
           label={
             <>
-              <Typography className="">SME Board</Typography>
+              <Typography className="font-semibold !important">
+                SME Board
+              </Typography>
               <Typography variant="caption">
                 {total_sme_stocks || 0} Stocks
               </Typography>

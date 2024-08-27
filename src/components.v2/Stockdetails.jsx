@@ -4,16 +4,15 @@ import StockDetailsTimeline from "../pages/stock-picks/[slug]/components/StockDe
 import StockDetailsProgressBar from "../pages/stock-picks/[slug]/components/StockDetailsProgressBar";
 
 function Stockdetails() {
-
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-  }
+  };
   return (
     <>
       <div className="pt-4 ">
-        <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
+        <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
           <div className="items-center gap-[13px] flex p-[7px]">
             <img src="/assets/stock-details/arrow-left.svg" alt="" />
             <div className="text-[13px] text-[#475467] font-normal font-open_sans">
@@ -31,7 +30,11 @@ function Stockdetails() {
               <div className="col-span-2">
                 {/* First Content Start */}
                 <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1 relative">
-                  <img src="/assets/SellBubbleRed 1.png" alt="" className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[40px]" />
+                  <img
+                    src="/assets/SellBubbleRed 1.png"
+                    alt=""
+                    className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[40px]"
+                  />
                   <div className="px-4 pt-4 pb-3 gap-2">
                     <div className="flex pb-2.5 items-center justify-center sm:justify-start md:justify-start">
                       <div className="flex h-4 py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
@@ -58,18 +61,24 @@ function Stockdetails() {
                     </div>
                     {/* <!-- Continue your other components similarly --> */}
                     <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
-
                       {/* Image container */}
                       <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block">
-                        <img src="/assets/image 3.png" alt="Company Logo" className="w-full h-full object-cover rounded-full" />
+                        <img
+                          src="/assets/image 3.png"
+                          alt="Company Logo"
+                          className="w-full h-full object-cover rounded-full"
+                        />
                       </div>
 
                       {/* Text content */}
                       <div className="w-full">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-                          <div className="flex gap-1 items-center  ">
-
-                            <img src="/assets/image 3.png" alt="Company Logo" className="w-10 h-10 object-cover rounded-full block sm:hidden" />
+                          <div className="flex gap-1 items-center ">
+                            <img
+                              src="/assets/image 3.png"
+                              alt="Company Logo"
+                              className="w-10 h-10 object-cover rounded-full block sm:hidden"
+                            />
                             <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans line-clamp-1  ">
                               Shree Pushkar Chemicals & Fertilizers Ltd.
                             </p>
@@ -122,14 +131,39 @@ function Stockdetails() {
                               </p>
                             </div>
                           </div>
-                          <p className="block sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
-                            <img src="/assets/Polygon2.svg" alt="" className="w-4 h-4 items-center" /> Consider Buying. Our analysis suggests potential growth.
+                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center">
+                            <img
+                              src="/assets/stock-details/basil_diamond-outline.svg"
+                              alt="Tag"
+                              className="w-3 h-3 md:w-4 md:h-4"
+                            />
+                            <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                              Special Situation
+                            </p>
+                          </div>
+                          <div className="flex rounded-[20px] border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center hidden sm:flex">
+                            <img
+                              src="/assets/stock-details/basil_diamond-outline.svg"
+                              alt="Tag"
+                              className="w-3 h-3 md:w-4 md:h-4"
+                            />
+                            <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                              Market Leader
+                            </p>
+                          </div>
+                          <p className=" block sm:hidden text-2xs flex gap-1 text-[#039855] my-2">
+                            {" "}
+                            <img
+                              src="/assets/Polygon2.svg"
+                              alt=""
+                              className="w-3 h-3 items-center"
+                            />{" "}
+                            Consider Buying. Our analysis suggests potential
+                            growth.
                           </p>
                         </div>
-
                       </div>
                     </div>
-
 
                     <div className="flex flex-col sm:flex-row px-2 sm:px-4 py-2 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
@@ -193,11 +227,19 @@ function Stockdetails() {
                 {/* When Small screen Button is Show  */}
                 <div className="flex sm:hidden gap-2 mt-5 mb-3 bg-white">
                   <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
-                    <img src="/assets/play1.png" alt="Play icon" className="w-5 h-5" />
+                    <img
+                      src="/assets/play1.png"
+                      alt="Play icon"
+                      className="w-5 h-5"
+                    />
                     <span>Watch Video</span>
                   </button>
                   <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
-                    <img src="/assets/share2.svg" alt="Play icon" className="w-5 h-5 " />
+                    <img
+                      src="/assets/share2.svg"
+                      alt="Play icon"
+                      className="w-5 h-5 "
+                    />
                     <span>Invest Now</span>
                   </button>
                 </div>
@@ -215,9 +257,7 @@ function Stockdetails() {
                     by Punit Makharia on March 29, 1993 and is headquartered in
                     Mumbai, India.
                   </p>
-                  <button
-                    class="flex mt-2 items-center gap-2 px-4 py-2  text-[#344054] font-medium border border-[#D0D5DD] rounded-full hover:bg-[#F9FAFB] hover:border-[#D0D5DD] transition-colors"
-                  >
+                  <button class="flex mt-2 items-center gap-2 px-4 py-2  text-[#344054] font-medium border border-[#D0D5DD] rounded-full hover:bg-[#F9FAFB] hover:border-[#D0D5DD] transition-colors">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-4 w-4"
@@ -244,7 +284,11 @@ function Stockdetails() {
                               <p className="font-open_sans text-sm md:text-base text-nowrap font-semibold text-[#FCFCFD]">
                                 Upside Left
                               </p>
-                              <img src="/assets/ph_info-duotone.svg" alt="" className="h-[17px] md:h-[20px]" />
+                              <img
+                                src="/assets/ph_info-duotone.svg"
+                                alt=""
+                                className="h-[17px] md:h-[20px]"
+                              />
                             </div>
                             <div className="hidden md:flex justify-end">
                               <img
@@ -318,7 +362,11 @@ function Stockdetails() {
                       <div className="flex justify-between items-center">
                         <h2 className="text-lg font-semibold flex items-center">
                           Upside Left
-                          <img src="/assets/ph_info-duotone.svg" alt="Info Icon" className="ml-2 h-[17px] md:h-[20px]" />
+                          <img
+                            src="/assets/ph_info-duotone.svg"
+                            alt="Info Icon"
+                            className="ml-2 h-[17px] md:h-[20px]"
+                          />
                         </h2>
                         <img
                           src="/assets/stock-details/streamline_target-solid (1).svg"
@@ -332,11 +380,22 @@ function Stockdetails() {
                       <div className="flex justify-between items-center">
                         <div className="flex items-center">
                           <img src="/assets/hj1.svg" alt="" />
-                          <p className="ml-2 text-sm text-gray-800">Total Returns</p>
+                          <p className="ml-2 text-sm text-gray-800">
+                            Total Returns
+                          </p>
                         </div>
                         <div className="flex items-center">
-                          <img src="/assets/Polygon2.svg" alt="Indicator Icon" className="w-3 h-3" />
-                          <p className="text-black ml-1 text-sm">64.08% <span className="text-gray-500 text-xs">likely in 4m</span></p>
+                          <img
+                            src="/assets/Polygon2.svg"
+                            alt="Indicator Icon"
+                            className="w-3 h-3"
+                          />
+                          <p className="text-black ml-1 text-sm">
+                            64.08%{" "}
+                            <span className="text-gray-500 text-xs">
+                              likely in 4m
+                            </span>
+                          </p>
                         </div>
                       </div>
                       <div className="flex justify-between items-center mt-2">
@@ -345,8 +404,17 @@ function Stockdetails() {
                           <p className="ml-2 text-sm text-gray-800">CAGR</p>
                         </div>
                         <div className="flex items-center">
-                          <img src="/assets/Polygon2.svg" alt="Indicator Icon" className="w-3 h-3" />
-                          <p className="text-black ml-1 text-sm">64.08% <span className="text-gray-500 text-xs">in 1yr 4m</span></p>
+                          <img
+                            src="/assets/Polygon2.svg"
+                            alt="Indicator Icon"
+                            className="w-3 h-3"
+                          />
+                          <p className="text-black ml-1 text-sm">
+                            64.08%{" "}
+                            <span className="text-gray-500 text-xs">
+                              in 1yr 4m
+                            </span>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -369,10 +437,10 @@ function Stockdetails() {
                   </div>
                 </div>
                 <div className="pt-4 block sm:hidden">
-                    <div className="px-4 md:px-[20px] pt-4 pb-4">
-                      <StockDetailsProgressBar />
-                    </div>
+                  <div className="px-4 md:px-[20px] pt-4 pb-4">
+                    <StockDetailsProgressBar />
                   </div>
+                </div>
                 {/* Upside Left Box End  */}
 
                 {/* Company Profile Section start */}
@@ -389,37 +457,16 @@ function Stockdetails() {
                     Mumbai, India.
                   </p>
                 </div>
-                {/* Company Profile Section End  */}
-
-                <div className="p-5 bg-gray-100 mt-2 rounded-md  block sm:hidden">
-                    <div className="flex relative">
-                      <div className=" !w-[75%]">
-                        <p className="font-semibold mb-2">
-                          Don't miss out on potential gains!
-                        </p>
-                        <p className="mb-4 text-[#344054]">
-                          Upgrade now to get access to both SME and Mainboard stocks.
-                        </p>
-                      </div>
-                      <div className=" !w-[25%]">
-                        <img src="/assets/Frame.svg" alt="sss" className="absolute top-0 right-0 h-[88px] w-[78px]" />
-                      </div>
-                    </div>
-                    <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center flex">
-                      <span className="flex gap-2"><img src="/assets/white-icon.svg" alt="" />Upgrade Now</span>
-                    </button>
-                  </div>
-
-                {/* When small Screen Time-line & Report Section show  */}
-                <div className="mt-5 block sm:hidden md:hidden mb-5">
+                <div className="mt-5 block sm:hidden md:hidden">
                   <button
                     className="w-full   p-2 rounded-lg flex justify-between items-center"
                     onClick={toggleDropdown}
                   >
                     <span>TIMELINE & REPORTS (3)</span>
                     <svg
-                      className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
-                        }`}
+                      className={`transform w-5 h-5 transition-transform duration-200 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -442,12 +489,8 @@ function Stockdetails() {
                     </div>
                   )}
                 </div>
-
-                
-
-                {/* News Section Start */}
-                <div className="pt-[35px] w-full">
-                  <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans p-3">
+                <div className="pt-[72px]">
+                  <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans">
                     News
                   </h2>
                   <StockDetailsNews />
@@ -459,27 +502,52 @@ function Stockdetails() {
               {/* Second Container Start */}
               <div className="relative hidden  sm:block">
                 <div className="p-4 border rounded-lg sticky top-0 ">
-
-                  <h2 className="font-semibold text-lg mb-4  hidden sm:flex">INVESTMENT GUIDANCE</h2>
+                  <h2 className="font-semibold text-lg mb-4  hidden sm:flex">
+                    INVESTMENT GUIDANCE
+                  </h2>
                   <div className=" gap-2 mb-4 hidden sm:flex">
                     <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
-                      <img src="/assets/play1.png" alt="Play icon" className="w-5 h-5" />
+                      <img
+                        src="/assets/play1.png"
+                        alt="Play icon"
+                        className="w-5 h-5"
+                      />
                       <span>Watch Video</span>
                     </button>
                     <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
-                      <img src="/assets/share2.svg" alt="Play icon" className="w-5 h-5 " />
+                      <img
+                        src="/assets/share2.svg"
+                        alt="Play icon"
+                        className="w-5 h-5 "
+                      />
                       <span>Invest Now</span>
                     </button>
                   </div>
 
-                  <div className=" justify-between items-center relative pt-5 hidden sm:flex " >
+                  <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
                     <p className="w-2/3">
-                      Consider <span className="text-blue-600 font-semibold">Buying</span>. Our analysis suggests potential growth.
+                      Consider{" "}
+                      <span className="text-blue-600 font-semibold">
+                        Buying
+                      </span>
+                      . Our analysis suggests potential growth.
                     </p>
-                    <img src="/assets/images2.png" alt="" className="absolute -top-3 right-6 w-16 h-16" />
-                    <img src="/assets/images3.svg" alt="" className="absolute -bottom-1 right-2 " />
+                    <img
+                      src="/assets/images2.png"
+                      alt=""
+                      className="absolute -top-3 right-6 w-16 h-16"
+                    />
+                    <img
+                      src="/assets/images3.svg"
+                      alt=""
+                      className="absolute -bottom-1 right-2 "
+                    />
                     <div className="w-1/3 flex justify-end">
-                      <img src="/assets/images1.png" alt="" className=" w-[52px] h-[100px]" />
+                      <img
+                        src="/assets/images1.png"
+                        alt=""
+                        className=" w-[52px] h-[100px]"
+                      />
                     </div>
                   </div>
                   <hr className="mt-3 hidden  sm:block" />
@@ -490,15 +558,23 @@ function Stockdetails() {
                           Don't miss out on potential gains!
                         </p>
                         <p className="mb-4 text-[#344054]">
-                          Upgrade now to get access to both SME and Mainboard stocks.
+                          Upgrade now to get access to both SME and Mainboard
+                          stocks.
                         </p>
                       </div>
                       <div className=" !w-[25%]">
-                        <img src="/assets/Frame.svg" alt="sss" className="absolute top-0 right-0 h-[88px] w-[78px]" />
+                        <img
+                          src="/assets/Frame.svg"
+                          alt="sss"
+                          className="absolute top-0 right-0 h-[88px] w-[78px]"
+                        />
                       </div>
                     </div>
                     <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
-                      <span className="flex gap-2"><img src="/assets/white-icon.svg" alt="" />Upgrade Now</span>
+                      <span className="flex gap-2">
+                        <img src="/assets/white-icon.svg" alt="" />
+                        Upgrade Now
+                      </span>
                     </button>
                   </div>
                   <div className="mt-5 hidden sm:block">
@@ -508,8 +584,9 @@ function Stockdetails() {
                     >
                       <span>TIMELINE & REPORTS (3)</span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
-                          }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"

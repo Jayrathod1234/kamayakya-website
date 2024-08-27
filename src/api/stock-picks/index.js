@@ -167,7 +167,7 @@ export const getStockDetailApi = async ({ stockId }) => {
 export const getNewsListApi = async ({ stock_name, limit, cursor }) => {
   try {
     const response = await axios.get(
-      `https://google-news-api1.p.rapidapi.com/search?language=EN&q=${stock_name}&limit=${limit}&cursor=${cursor}`,
+      `https://google-news-api1.p.rapidapi.com/search?language=EN&q=${stock_name}&limit=${limit}`,
       {
         headers: {
           "x-rapidapi-key":
