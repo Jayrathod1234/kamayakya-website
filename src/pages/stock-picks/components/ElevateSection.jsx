@@ -68,7 +68,7 @@ function ElevateSection() {
 
   return (
     <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto -mt-16  m-0">
-      <div className="p-[24px] sm:p-[56px] rounded-[20px] bg-custom-gradient-3 flex flex-col sm:flex-row items-start sm:items-center justify-between relative overflow-hidden z-[55] top-[102px]">
+      <div className="p-[24px] sm:p-[56px] rounded-[20px] bg-custom-gradient-3 flex flex-col sm:flex-row items-start sm:items-center justify-between relative overflow-hidden z-[55] top-[38px] sm:top-[102px]">
         <div className="absolute bottom-[2px] left-[20%] sm:left-[41%] -z-10">
           <img
             src="/assets/Group.png"

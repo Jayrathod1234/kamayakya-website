@@ -49,7 +49,7 @@ function StockDetailsSection() {
       {Object.keys(items).length === 0 || isLoading ? (
         <></>
       ) : (
-        <div className="pt-4 bg-[#F9FAFB] ">
+        <div className="pt-4 bg-[#F9FAFB] font-open_sans " >
           <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
             <div className="items-center gap-[13px] flex p-[7px]">
               <img
@@ -121,17 +121,17 @@ function StockDetailsSection() {
                         {/* Text content */}
                         <div className="w-full">
                           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-                            <div className="flex gap-1 items-center  ">
+                            <div className="flex gap-1 items-center max-w-[480px]">
                               <img
                                 src="/assets/image 3.png"
                                 alt="Company Logo"
                                 className="w-10 h-10 object-cover rounded-full block sm:hidden"
                               />
-                              <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans line-clamp-1  ">
+                              <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate">
                                 {stock_name}
                               </p>
                             </div>
-                            <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0  mx-auto sm:mx-0">
+                            <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
                               <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
                               <p className="text-xs md:text-2xs text-[#475467] font-medium">
                                 {stock_exchange == "BSE" ||
@@ -142,29 +142,32 @@ function StockDetailsSection() {
                               </p>
                             </div>
                           </div>
-                          <div className="pt-1.5 flex gap- sm:gap-1.5 flex-wrap">
-                            <div className="flex gap-4 w-full justify-center sm:justify-start ">
-                              {stock_tags.map((value, index) => (
-                                <div
-                                  key={index}
-                                  className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center"
-                                >
-                                  <img
-                                    src={value.image}
-                                    alt={value.name}
-                                    className="w-3 h-3 md:w-4 md:h-4"
-                                  />
-                                  <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                    {value.name}
-                                  </p>
-                                </div>
-                              ))}
 
-                              {/* <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
+                          <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap">
+                            <div className="flex gap-4 w-full justify-center sm:justify-start ">
+                              <div className="flex flex-wrap gap-4">
+                                {stock_tags.map((value, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center"
+                                  >
+                                    <img
+                                      src={value.image}
+                                      alt={value.name}
+                                      className="w-3 h-3 md:w-4 md:h-4"
+                                    />
+                                    <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                      {value.name}
+                                    </p>
+                                  </div>
+                                ))}
+
+                                {/* <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
                                 <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
                                   +2
                                 </p>
                               </div> */}
+                              </div>
                             </div>
                             <p className="block sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
                               <img
@@ -301,76 +304,174 @@ function StockDetailsSection() {
                     </button> */}
                   </div>
                   {/* Upside Left Box start */}
-                  <div className=" hidden md:block col-span-2 order-3 sm:order-2">
-                    <div className="p-4 gap-4 rounded-[10px] bg-white shadow-sm">
-                      <div className="relative p-4 gap-4 rounded-[5px] bg-[#EFF7FF] border border-transparent">
+                  <div className="hidden md:block col-span-2 order-3 sm:order-2">
+                    <div className="p-4 md:p-6 lg:p-8 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm">
+                      <div className="relative p-4 md:p-6 lg:p-8 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
                         {/* Gradient Border */}
                         <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
-                        <div className="flex flex-col md:flex-row gap-4 md:gap-5 items-start md:items-center">
-                          <div className="w-full md:w-1/2 h-[95px] p-4 rounded-md bg-custom-gradient">
-                            <div className="flex flex-col md:flex-row justify-between">
-                              <div className="flex gap-1 items-center">
-                                <p className="font-open_sans text-sm md:text-base text-nowrap font-semibold text-[#FCFCFD]">
-                                  Upside Left
-                                </p>
-                                <img
-                                  src="/assets/ph_info-duotone.svg"
-                                  alt=""
-                                  className="h-[17px] md:h-[20px]"
-                                />
+                        <div className="flex flex-col gap-4 md:gap-6 lg:gap-8">
+                          <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 w-full">
+                            {/* Upside Left Section */}
+                            <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-custom-gradient">
+                              <div className="flex flex-col md:flex-row justify-between">
+                                <div className="flex gap-1 items-center">
+                                  <p className="font-open_sans text-sm md:text-base lg:text-lg font-semibold text-[#FCFCFD]">
+                                    Upside Left
+                                  </p>
+                                  <img
+                                    src="/assets/ph_info-duotone.svg"
+                                    alt="Info"
+                                    className="h-[17px] md:h-[20px] lg:h-[24px]"
+                                  />
+                                </div>
+                                <div className="hidden md:flex justify-end">
+                                  <img
+                                    src="/assets/stock-details/streamline_target-solid (1).svg"
+                                    alt="Target"
+                                  />
+                                </div>
                               </div>
-                              <div className="hidden md:flex justify-end">
-                                <img
-                                  src="/assets/stock-details/streamline_target-solid (1).svg"
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                            <div className="flex flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[24px] text-white font-bold">
-                              {upside_left} %{" "}
-                              <span className="text-[10px] md:text-[12px] text-[#FCFCFD] font-medium">
-                                likely within a {upside_left_time}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="w-full md:w-1/2 h-[95px] p-4 rounded-md bg-white">
-                            <div className="flex flex-col md:flex-row justify-between">
-                              <div className="flex gap-[6px] items-center">
-                                <p className="font-open_sans text-sm md:text-base font-semibold text-[#1D2939]">
-                                  Total Returns
-                                </p>
-                              </div>
-                              <div className="hidden md:flex justify-end">
-                                <img src="/assets/Layer_1.svg" alt="" />
+                              <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-white font-bold">
+                                17.12%
+                                <span className="text-[10px]   text-white font-medium">
+                                  likely within a year
+                                </span>
                               </div>
                             </div>
-                            <div className="flex flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] text-[#344054] font-bold">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="15"
-                                height="11"
-                                viewBox="0 0 15 11"
-                                fill="none"
-                              >
-                                <path
-                                  d="M7.03446 0.649754C7.43652 0.0861183 8.27587 0.091733 8.67036 0.660698L14.4116 8.94137C14.8714 9.60454 14.3968 10.5111 13.5898 10.5111H1.94168C1.1286 10.5111 0.655406 9.59235 1.12758 8.93042L7.03446 0.649754Z"
-                                  fill="#00FF02"
-                                />
-                              </svg>
-                              {expected_returns}
-                              <span className="text-[10px] md:text-[12px] text-[#667085] font-medium">
-                                in {return_time}
-                              </span>
+
+                            {/* Total Returns Section */}
+                            <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-white">
+                              <div className="flex flex-col md:flex-row justify-between">
+                                <div className="flex gap-[6px] items-center">
+                                  <p className="font-open_sans text-sm md:text-base lg:text-lg font-semibold text-[#1D2939]">
+                                    Total Returns
+                                  </p>
+                                </div>
+                                <div className="hidden md:flex justify-end">
+                                  <img src="/assets/Layer_1.svg" alt="Returns Icon" />
+                                </div>
+                              </div>
+                              <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-[#344054] font-bold">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="15"
+                                  height="11"
+                                  viewBox="0 0 15 11"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M7.03446 0.649754C7.43652 0.0861183 8.27587 0.091733 8.67036 0.660698L14.4116 8.94137C14.8714 9.60454 14.3968 10.5111 13.5898 10.5111H1.94168C1.1286 10.5111 0.655406 9.59235 1.12758 8.93042L7.03446 0.649754Z"
+                                    fill="#00FF02"
+                                  />
+                                </svg>
+                                34.36%
+                                <span className="text-[10px] pt-1   text-[#667085] font-medium">
+                                  in 4 months
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Total CAGR Section */}
+                            <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-white">
+                              <div className="flex flex-col md:flex-row justify-between">
+                                <div className="flex gap-1 items-center">
+                                  <p className="font-open_sans text-sm md:text-base lg:text-lg font-semibold text-[#1D2939]">
+                                    Total CAGR
+                                  </p>
+                                  <div className="relative group">
+                                    <img
+                                      src="/assets/blackinfo.svg"
+                                      alt="Info"
+                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                    />
+                                    <div className="absolute z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
+                                      <div className="tooltip w-[300px] md:w-[395px] p-4 bg-white border border-gray-300 rounded-lg shadow-lg text-gray-800 text-sm">
+                                        <div className="tooltip-content">
+                                          <h3 className="tooltip-title text-lg font-bold text-gray-800 mb-2">Compound Annual Growth Rate</h3>
+                                          <p className="tooltip-subtitle font-bold text-blue-900">Purpose:</p>
+                                          <p className="tooltip-text my-1 text-gray-800">Shows average yearly growth of an investment.</p>
+                                          <p className="tooltip-quote italic mb-3 text-gray-600">
+                                            Imagine a tree growing a bit more each year.<br />
+                                            CAGR tells how fast it grows annually on average.
+                                          </p>
+                                          <div className="tooltip-formula flex flex-wrap bg-gray-100 p-3 rounded mb-4">
+                                            <p className="font-bold m-0 pt-5 me-5">CAGR =</p>
+                                            <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                              <span className="text-[50px] font-[50]">[</span>
+                                              <div className="flex items-center mx-2">
+                                                <div className="flex flex-col items-center">
+                                                  <div className="fraction">
+                                                    <span className="numerator text-xs">Ending Value</span>
+                                                    <span className="denominator text-xs">Starting Value</span>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <span className="text-[50px] font-[50]">]</span>
+                                              <sup className="flex items-center text-[35px] font-[50]">
+                                                <span className="text-[35px]">[</span>
+                                                <div className="flex flex-col items-center mx-2">
+                                                  <div className="fraction">
+                                                    <span className=" text-xs">1</span>
+                                                    <hr className="w-full h-[1px] bg-black" />
+                                                    <span className="denominator text-xs">No. of Years</span>
+                                                  </div>
+                                                </div>
+                                                <span className="text-[35px]">]</span>
+                                              </sup>
+                                              <span className="text-xs font-bold ml-2">-1</span>
+                                            </div>
+                                          </div>
+
+                                          <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
+                                            <p className="example-title font-bold text-[#108973] mb-2">Example :</p>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300"><strong>Start Value</strong> ₹100</div>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300"><strong>End Value after 3 years</strong> ₹150</div>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300"><strong>Total Returns over 3 years</strong> 50%</div>
+                                            <div className="example-item flex justify-between py-1"><strong>CAGR</strong> 14.47%</div>
+                                          </div>
+                                          <p className="tooltip-footer mt-4 text-xs text-gray-500">This means, on average, the investment grew about 14.47% each year</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="hidden md:flex justify-end">
+                                  <img
+                                    src="/assets/upper.svg"
+                                    alt="Target"
+                                  />
+                                </div>
+                              </div>
+                              <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-[#344054] font-bold">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="15"
+                                  height="11"
+                                  viewBox="0 0 15 11"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M7.03446 0.649754C7.43652 0.0861183 8.27587 0.091733 8.67036 0.660698L14.4116 8.94137C14.8714 9.60454 14.3968 10.5111 13.5898 10.5111H1.94168C1.1286 10.5111 0.655406 9.59235 1.12758 8.93042L7.03446 0.649754Z"
+                                    fill="#00FF02"
+                                  />
+                                </svg>
+                                64.08%
+                                <span className="text-[10px] pt-1   text-[#667085] font-medium">
+                                  in 1yr 4m
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base font-normal gap-1">
-                          <span className="text-[#0079EF] text-sm md:text-base font-bold">
+
+
+                        <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base lg:text-lg font-normal gap-1">
+                          <span className="text-[#0079EF] text-sm md:text-base lg:text-lg font-bold">
                             ₹1Lakh{" "}
                           </span>
                           invested at current market price (CMP) can become{" "}
-                          <span className="text-[#0079EF] text-sm md:text-base font-bold">
+                          <span className="text-[#0079EF] text-sm md:text-base lg:text-lg font-bold">
                             ₹“X” Lakh
                           </span>{" "}
                           likely within a year
@@ -378,12 +479,16 @@ function StockDetailsSection() {
                       </div>
 
                       <div className="pt-4">
-                        <div className="px-4 md:px-[20px] pt-4 pb-4">
+                        <div className="px-4 md:px-[20px] lg:px-[30px] pt-4 pb-4">
                           <StockDetailsProgressBar />
                         </div>
                       </div>
                     </div>
                   </div>
+
+
+
+
 
                   {/* Small Responsive size View Open the box  */}
                   <div className="block md:hidden bg-gray-150 p-4 rounded-lg shadow-md max-w-full mx-auto ">
@@ -442,6 +547,7 @@ function StockDetailsSection() {
                               className="w-3 h-3"
                             />
                             <p className="text-black ml-1 text-sm">
+
                               64.08%{" "}
                               <span className="text-gray-500 text-xs">
                                 in 1yr 4m
@@ -532,9 +638,8 @@ function StockDetailsSection() {
                     >
                       <span>TIMELINE & REPORTS ({timeline.length || 0})</span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -571,7 +676,7 @@ function StockDetailsSection() {
 
                 {/* Second Container Start */}
                 <div className="relative hidden  sm:block ">
-                  <div className="p-4 border rounded-lg sticky top-0 bg-white">
+                  <div className="p-4 border rounded-lg sticky top-16 bg-white">
                     <h2 className="font-semibold text-lg mb-4  hidden sm:flex">
                       INVESTMENT GUIDANCE
                     </h2>
@@ -661,9 +766,8 @@ function StockDetailsSection() {
                       >
                         <span>TIMELINE & REPORTS ({timeline.length || 0})</span>
                         <svg
-                          className={`transform w-5 h-5 transition-transform duration-200 ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
+                          className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                            }`}
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"

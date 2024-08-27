@@ -228,7 +228,7 @@ function AllBoardStockSection({
   });
   return (
     <>
-      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
+      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto z-[20000]">
         <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center sm:pb-10 pb-4">
           All Mainboard Stocks
         </p>

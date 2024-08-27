@@ -1938,3 +1938,18 @@ header > div > div {
 /* .css-15lbh48-MuiButtonBase-root-MuiTab-root.Mui-selected{
   color: #0c3f3a !important;
 } */
+
+.fraction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fraction .numerator {
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+}
+
+.fraction .denominator {
+  padding-top: 2px;
+}

@@ -96,7 +96,7 @@ export const useDotButton = (emblaApi) => {
 
 export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
   return (
-    <div ref={ref} className={`carousel__item h-full ${className}`}>
+    <div ref={ref} className={`carousel__item  ${className}`}>
       {children}
     </div>
   );
@@ -233,20 +233,7 @@ export function Slider({ children }) {
           {children.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
-              className={`carousel embla__class-names  
-              ${index === selectedIndex
-                  ? ""
-                  : index > selectedIndex
-                    ? `!scale-[0.85] ${selectedIndex + 2 == index
-                      ? "md:ml-[-2rem] lg:ml-[-3rem]"
-                      : ""
-                    }`
-                    : `!scale-[0.85] ${selectedIndex - 2 == index
-                      ? "md:mr-[-2rem] lg:mr-[-3rem]"
-                      : ""
-                    }`
-                }
-              `}
+              className={`carousel embla__class-names`}
             >
               {carousel}
             </CarouselItem>

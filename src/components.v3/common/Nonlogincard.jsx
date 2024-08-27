@@ -15,13 +15,13 @@ function Nonlogincard() {
               <div className="h-5 bg-[#EDF0F5] rounded-[20px] sm:min-w-[281px] min-w-[125px]"></div>
             </div>
 
-            <div class="tooltip">
+            <div className="tooltip">
               <img
                 src="/assets/play.gif"
                 alt=""
                 className="w-[24px] blur-[2px]"
               />
-              <span class="tooltiptext relative shadow-sm">
+              <span className="tooltiptext relative shadow-sm">
                 <img
                   src="/assets/div.png"
                   alt=""
