@@ -64,7 +64,6 @@ const NextButton = (props) => {
 };
 const DiscoverCarousel = ({ strategyTagList, colors }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ dragFree: true });
-  const { strategyTagList } = useStockPicks();
   const {
     prevBtnDisabled,
     nextBtnDisabled,
