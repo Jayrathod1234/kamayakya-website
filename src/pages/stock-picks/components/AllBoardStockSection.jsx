@@ -91,7 +91,7 @@ function AllBoardStockSection() {
                   name="search-stock"
                   id="default-search"
                   className="block w-full pr-[14px] pl-9 py-[12px] text-md text-gray-900 border border-[#E4E7EC] rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 shadow-3xs"
-                  placeholder="Search Stocks..."
+                  placeholder="Search Stocks by Name..."
                   value={searchStock}
                   onChange={handleSearchStock}
                 />
