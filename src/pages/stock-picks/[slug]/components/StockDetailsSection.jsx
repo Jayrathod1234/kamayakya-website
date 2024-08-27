@@ -76,9 +76,9 @@ function StockDetailsSection() {
                   {/* First Content Start */}
                   <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1 relative">
                     <img
-                      src="/assets/SellBubbleRed 1.png"
+                      src="/assets/BuyBubbleBlue.webp"
                       alt=""
-                      className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[40px]"
+                      className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[60px]"
                     />
                     <div className="px-4 pt-4 pb-3 gap-2">
                       <div className="flex pb-2.5 items-center justify-center sm:justify-start md:justify-start">
@@ -135,7 +135,7 @@ function StockDetailsSection() {
                               <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
                               <p className="text-xs md:text-2xs text-[#475467] font-medium">
                                 {stock_exchange == "BSE" ||
-                                stock_exchange == "SME-BSE"
+                                  stock_exchange == "SME-BSE"
                                   ? "BSE: "
                                   : "NSE: "}
                                 {stock_symbol}
@@ -169,7 +169,7 @@ function StockDetailsSection() {
                               </div> */}
                               </div>
                             </div>
-                            <p className="block sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
+                            <p className=" sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
                               <img
                                 src="/assets/Polygon2.svg"
                                 alt=""
@@ -270,8 +270,8 @@ function StockDetailsSection() {
                         {action == "BUY"
                           ? "Invest Now"
                           : action == "HOLD"
-                          ? "Go to Broker"
-                          : "Sell Now"}
+                            ? "Go to Broker"
+                            : "Sell Now"}
                       </span>
                       {/* <span>Invest Now</span> */}
                     </button>
@@ -316,14 +316,25 @@ function StockDetailsSection() {
                             <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-custom-gradient">
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
-                                  <p className="font-open_sans text-sm md:text-base lg:text-lg font-semibold text-[#FCFCFD]">
+                                  <p className="font-open_sans text-sm font-semibold text-[#FCFCFD]">
                                     Upside Left
                                   </p>
-                                  <img
-                                    src="/assets/ph_info-duotone.svg"
-                                    alt="Info"
-                                    className="h-[17px] md:h-[20px] lg:h-[24px]"
-                                  />
+                                  <div className="relative group">
+                                    <img
+                                      src="/assets/ph_info-duotone.svg"
+                                      alt="Info"
+                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                    />
+                                    <div className="absolute  shadow-md left-1/2 transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white  text-sm rounded-lg py-2 px-4 w-[300px]">
+                                      <div className="w-full">
+                                        <p className="text-[12px]" >Upside Left means how much the stock price could rise from its current level. </p>
+                                        <div className="p-2 bg-[#F9FAFB] rounded-md">
+                                          <h4 className="text-[#108973] text-[12px] font-extrabold">Example :</h4>
+                                          <p className="text-[12px]"> If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div className="hidden md:flex justify-end">
                                   <img
@@ -334,7 +345,7 @@ function StockDetailsSection() {
                               </div>
                               <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-white font-bold">
                                 17.12%
-                                <span className="text-[10px]   text-white font-medium">
+                                <span className="text-[10px] mt-2   text-white font-medium">
                                   likely within a year
                                 </span>
                               </div>
@@ -344,7 +355,7 @@ function StockDetailsSection() {
                             <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-white">
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
-                                  <p className="font-open_sans text-sm md:text-base lg:text-lg font-semibold text-[#1D2939]">
+                                  <p className="font-open_sans text-sm font-semibold text-[#1D2939]">
                                     Total Returns
                                   </p>
                                 </div>
@@ -366,7 +377,7 @@ function StockDetailsSection() {
                                   />
                                 </svg>
                                 34.36%
-                                <span className="text-[10px] pt-1   text-[#667085] font-medium">
+                                <span className="text-[10px]  mt-2  text-[#667085] font-medium">
                                   in 4 months
                                 </span>
                               </div>
@@ -376,65 +387,68 @@ function StockDetailsSection() {
                             <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-white">
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
-                                  <p className="font-open_sans text-sm md:text-base lg:text-lg font-semibold text-[#1D2939]">
+                                  <p className="font-open_sans text-sm font-semibold text-[#1D2939]">
                                     Total CAGR
                                   </p>
                                   <div className="relative group">
                                     <img
                                       src="/assets/blackinfo.svg"
                                       alt="Info"
-                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-help"
                                     />
-                                    <div className="absolute z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
-                                      <div className="tooltip w-[300px] md:w-[395px] p-4 bg-white border border-gray-300 rounded-lg shadow-lg text-gray-800 text-sm">
+                                    <div className="absolute shadow-md z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
+                                      <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white border border-gray-300 rounded-lg shadow-lg text-gray-800">
                                         <div className="tooltip-content">
-                                          <h3 className="tooltip-title text-lg font-bold text-gray-800 mb-2">Compound Annual Growth Rate</h3>
-                                          <p className="tooltip-subtitle font-bold text-blue-900">Purpose:</p>
-                                          <p className="tooltip-text my-1 text-gray-800">Shows average yearly growth of an investment.</p>
-                                          <p className="tooltip-quote italic mb-3 text-gray-600">
+                                          <h3 className="tooltip-title font-bold mb-2 text-[12px] text-gray-800">
+                                            Compound Annual Growth Rate
+                                          </h3>
+                                          <p className="tooltip-subtitle font-bold text-blue-900 text-[12px]">Purpose:</p>
+                                          <p className="tooltip-text my-1 text-gray-800 text-[12px]">Shows average yearly growth of an investment.</p>
+                                          <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px]">
                                             Imagine a tree growing a bit more each year.<br />
                                             CAGR tells how fast it grows annually on average.
                                           </p>
                                           <div className="tooltip-formula flex flex-wrap bg-gray-100 p-3 rounded mb-4">
-                                            <p className="font-bold m-0 pt-5 me-5">CAGR =</p>
+                                            <p className="font-bold m-0 pt-5 me-5 text-[12px]">CAGR =</p>
                                             <div className="formula flex items-center justify-center flex-wrap mt-2">
-                                              <span className="text-[50px] font-[50]">[</span>
+                                              <span className="text-[30px] font-[50]">[</span>
                                               <div className="flex items-center mx-2">
                                                 <div className="flex flex-col items-center">
                                                   <div className="fraction">
-                                                    <span className="numerator text-xs">Ending Value</span>
-                                                    <span className="denominator text-xs">Starting Value</span>
+                                                    <span className="numerator text-[12px]">Ending Value</span>
+                                                    <span className="denominator text-[12px]">Starting Value</span>
                                                   </div>
                                                 </div>
                                               </div>
-                                              <span className="text-[50px] font-[50]">]</span>
-                                              <sup className="flex items-center text-[35px] font-[50]">
-                                                <span className="text-[35px]">[</span>
+                                              <span className="text-[30px] font-[50]">]</span>
+                                              <sup className="flex items-center text-[20px] font-[50]">
+                                                <span className="text-[20px]">[</span>
                                                 <div className="flex flex-col items-center mx-2">
                                                   <div className="fraction">
-                                                    <span className=" text-xs">1</span>
-                                                    <hr className="w-full h-[1px] bg-black" />
-                                                    <span className="denominator text-xs">No. of Years</span>
+                                                    <span className="text-[12px]">1</span>
+                                                    <hr className="w-full h-[1px] bg-black mt-2" />
+                                                    <span className="denominator text-[12px] mt-2">No. of Years</span>
                                                   </div>
                                                 </div>
-                                                <span className="text-[35px]">]</span>
+                                                <span className="text-[20px]">]</span>
                                               </sup>
-                                              <span className="text-xs font-bold ml-2">-1</span>
+                                              <span className="text-[12px] font-bold ml-2">-1</span>
                                             </div>
                                           </div>
 
                                           <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
-                                            <p className="example-title font-bold text-[#108973] mb-2">Example :</p>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300"><strong>Start Value</strong> ₹100</div>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300"><strong>End Value after 3 years</strong> ₹150</div>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300"><strong>Total Returns over 3 years</strong> 50%</div>
-                                            <div className="example-item flex justify-between py-1"><strong>CAGR</strong> 14.47%</div>
+                                            <p className="example-title font-bold text-[#108973] mb-2 text-[12px]">Example :</p>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px]"><strong>Start Value</strong> ₹100</div>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px]"><strong>End Value after 3 years</strong> ₹150</div>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px]"><strong>Total Returns over 3 years</strong> 50%</div>
+                                            <div className="example-item flex justify-between py-1 text-[12px]"><strong>CAGR</strong> 14.47%</div>
                                           </div>
-                                          <p className="tooltip-footer mt-4 text-xs text-gray-500">This means, on average, the investment grew about 14.47% each year</p>
+                                          <p className="tooltip-footer mt-4 text-[12px] text-gray-500">This means, on average, the investment grew about 14.47% each year</p>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
+
                                 </div>
                                 <div className="hidden md:flex justify-end">
                                   <img
@@ -457,7 +471,7 @@ function StockDetailsSection() {
                                   />
                                 </svg>
                                 64.08%
-                                <span className="text-[10px] pt-1   text-[#667085] font-medium">
+                                <span className="text-[10px]  mt-2  text-[#667085] font-medium">
                                   in 1yr 4m
                                 </span>
                               </div>
@@ -497,11 +511,22 @@ function StockDetailsSection() {
                         <div className="flex justify-between items-center">
                           <h2 className="text-lg font-semibold flex items-center">
                             Upside Left
-                            <img
-                              src="/assets/ph_info-duotone.svg"
-                              alt="Info Icon"
-                              className="ml-2 h-[17px] md:h-[20px]"
-                            />
+                            <div className="relative group">
+                              <img
+                                src="/assets/ph_info-duotone.svg"
+                                alt="Info"
+                                className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                              />
+                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white text-black  text-sm rounded-lg py-2 px-4 w-[300px]">
+                                <div className="w-full">
+                                  <p className="text-[12px]" >Upside Left means how much the stock price could rise from its current level. </p>
+                                  <div className="p-2 bg-[#F9FAFB] rounded-md">
+                                    <h4 className="text-[#108973] text-[12px] font-extrabold">Example :</h4>
+                                    <p className="text-[12px]"> If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </h2>
                           <img
                             src="/assets/stock-details/streamline_target-solid (1).svg"
@@ -704,8 +729,8 @@ function StockDetailsSection() {
                           {action == "BUY"
                             ? "Invest Now"
                             : action == "HOLD"
-                            ? "Go to Broker"
-                            : "Sell Now"}
+                              ? "Go to Broker"
+                              : "Sell Now"}
                         </span>
                       </button>
                     </div>
@@ -724,7 +749,7 @@ function StockDetailsSection() {
                       />
                       <div className="w-1/3 flex justify-end">
                         <img
-                          src="/assets/images1.png"
+                          src="/assets/images12.webp"
                           alt=""
                           className=" w-[52px] h-[100px]"
                         />
