@@ -1,9 +1,13 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { styled } from "@mui/system";
+import Modal from "@mui/material/Modal";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 const CustomStepConnector = styled(Box)(({ theme }) => ({
   borderLeft: `2px solid #00bfa5`,
@@ -12,75 +16,75 @@ const CustomStepConnector = styled(Box)(({ theme }) => ({
   marginTop: "-5px",
 }));
 
-const allSteps = [
-  {
-    date: "12 Jun 23",
-    label: "New Target 5",
-    buttonText: "View Report",
-    icon: "/assets/file.svg",
-  },
-  {
-    date: "12 Jun 23",
-    label: "Video Released",
-    description: "Our Analysis on Exchange...",
-    buttonText: "Watch Video",
-    icon: "/assets/video.svg",
-  },
-  {
-    date: "12 Jun 23",
-    label: "Initiating Report",
-    buttonText: "View Report",
-    icon: "/assets/file.svg",
-  },
-  {
-    date: "15 Jul 23",
-    label: "Quarterly Review",
-    description: "Quarterly review meeting...",
-    buttonText: "View Review",
-    icon: "/assets/review.svg",
-  },
-  {
-    date: "20 Aug 23",
-    label: "Annual Report",
-    description: "Annual report summary...",
-    buttonText: "Read Report",
-    icon: "/assets/report.svg",
-  },
-];
-
-// Function to format date
-const formatDate = (dateString) => {
-  // Convert the input date string to a Date object
-  const date = new Date(dateString);
-
-  // Define an array of month names
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  // Get the day, month, and year from the Date object
-  const day = date.getDate();
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear().toString().slice(-2); // Get the last two digits of the year
-
-  // Format the date in '12 Jun 23' format
-  return `${day} ${month} ${year}`;
-};
-
 export default function StockDetailsTimeline({ timeline }) {
-  const [visibleSteps, setVisibleSteps] = React.useState(3);
+  const [reportOpen, setReportOpen] = useState(false); // State to manage modal visibility
+  const [reportDetail, setReportDetail] = useState(null); // State to store the PDF URL
+  const [openReportTime, setOpenReportTime] = useState(null);
+  const [visibleSteps, setVisibleSteps] = useState(3);
+  const mp = getMixPanelClient();
 
+  const handleTimeButtonClick = (step) => {
+    if (step.type == "report") {
+      const currentTime = new Date().getTime();
+      setOpenReportTime(currentTime); // Set the open time
+      mp.track("stock_report_clicked", {
+        page: "StockPicksDetail_Page",
+        report_details: step,
+      });
+      setReportDetail(step); // Set the PDF URL
+      setReportOpen(true); // Open the modal
+    } else {
+      mp.track("youtube_video_clicked", {
+        page: "StockPicksDetail_Page",
+        youtube_details: step,
+      });
+      window.open(step.youtube_link, "_blank");
+    }
+  };
+
+  const handleClose = () => {
+    if (openReportTime) {
+      const closeTime = new Date().getTime();
+      const timeSpent = (closeTime - openReportTime) / 1000; // Calculate time spent in seconds
+      mp.track("stock_report_closed", {
+        page: "StockPicksDetail_Page",
+        timeSpent: timeSpent,
+        report_details: reportDetail,
+      }); // Track the event when the PDF is closed
+    }
+    setReportOpen(false);
+    setReportDetail(null); // Set the PDF URL
+  };
+
+  // Function to format date
+  const formatDate = (dateString) => {
+    // Convert the input date string to a Date object
+    const date = new Date(dateString);
+
+    // Define an array of month names
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    // Get the day, month, and year from the Date object
+    const day = date.getDate();
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear().toString().slice(-2); // Get the last two digits of the year
+
+    // Format the date in '12 Jun 23' format
+    return `${day} ${month} ${year}`;
+  };
   // const handleLoadMore = () => {
   //   setVisibleSteps((prev) => prev + 2);
   // };
@@ -176,6 +180,9 @@ export default function StockDetailsTimeline({ timeline }) {
                   },
                 },
               }}
+              onClick={() => {
+                handleTimeButtonClick(step);
+              }}
             >
               <img
                 src={`/assets/${step.type === "report" ? "file" : "video"}.svg`}
@@ -188,6 +195,35 @@ export default function StockDetailsTimeline({ timeline }) {
         </Box>
       ))}
 
+      <Modal open={reportOpen} onClose={handleClose}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 2,
+            width: "95%",
+            height: "95%",
+            overflow: "auto",
+          }}
+        >
+          <Box display="flex" justifyContent="flex-end">
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <iframe
+            src={reportDetail?.document}
+            title="Report Document"
+            width="100%"
+            height="100%"
+            style={{ border: "none" }}
+          />
+        </Box>
+      </Modal>
       {/* <Button
         variant="outlined"
         onClick={handleLoadMore}

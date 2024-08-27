@@ -1416,3 +1416,706 @@ export const getStockDetailResponse = {
     },
   ],
 };
+export const getStockNewsResponse = [
+  {
+    title: "Edgar Bronfman Jr. Drops Pursuit of Paramount",
+    snippet:
+      "Edgar Bronfman Jr. abandoned his pursuit of Paramount on Monday, dropping his 11th-hour bid roughly a day before the deadline to submit a final offer for ...",
+    publisher: "The New York Times",
+    timestamp: "1724744880000",
+    newsUrl:
+      "https://www.nytimes.com/2024/08/26/business/bronfman-drops-paramount-pursuit.html",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iJ0NnNUJabmN4YW5aTVgyOU5SbTVVVFJDUUF4allCQ2dLTWdNQmNCQQ=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iJ0NnNUJabmN4YW5aTVgyOU5SbTVVVFJDUUF4allCQ2dLTWdNQmNCQQ",
+    },
+    hasSubnews: true,
+    subnews: [
+      {
+        title:
+          "Edgar Bronfman “Exiting” $6B Bid For Paramount, Clears Way For Skydance Merger",
+        snippet:
+          "The Paramount Global ball is back in Skydance's court as Edgar Bronfman has discontinued his short-lived $6 billion bid to take control of the Shari ...",
+        publisher: "Deadline",
+        timestamp: "1724721480000",
+        newsUrl:
+          "https://deadline.com/2024/08/edgar-bronfmanparamount-bid-dropped-1236050915/",
+      },
+      {
+        title: "Skydance Set to Seal Paramount Merger After Bronfman Drops Out",
+        snippet:
+          "Producer David Ellison's Skydance Media is set to become the new owner of Paramount Global after Seagram Co. heir Edgar Bronfman Jr. dropped out, ...",
+        publisher: "Bloomberg",
+        timestamp: "1724728440000",
+        newsUrl:
+          "https://www.bloomberg.com/news/articles/2024-08-27/edgar-bronfman-drops-out-of-bidding-war-for-paramount-global",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iMkNnNXViblZIY2pRMk5VeGFWell0VFJERUF4aW1CU2dLTWdzQmNKQ2xMQ2VaY3psSnFn=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iMkNnNXViblZIY2pRMk5VeGFWell0VFJERUF4aW1CU2dLTWdzQmNKQ2xMQ2VaY3psSnFn",
+        },
+      },
+      {
+        title: "Paramount deal: Comparing the Skydance & Bronfman bids",
+        snippet:
+          "Paramount (PARA, PARAA) is in demand. Just before closing a deal with Skydance Media, the company opted to review an offer from billionaire Edgar Bronfman ...",
+        publisher: "Yahoo Finance",
+        timestamp: "1724707669000",
+        newsUrl:
+          "https://finance.yahoo.com/video/paramount-deal-comparing-skydance-bronfman-212749190.html",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNWhXSHBUVUdRMFFtODNja2d0VFJDZkF4amlCU2dLTWdZQmtKYUdOQWM=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNWhXSHBUVUdRMFFtODNja2d0VFJDZkF4amlCU2dLTWdZQmtKYUdOQWM",
+        },
+      },
+      {
+        title:
+          "Edgar Bronfman Drops Bid for Paramount, Paving Way for Skydance Deal",
+        snippet:
+          "Edgar Bronfman Jr. has walked away from bidding for Shari Redstone's media empire, paving the way for the company to be sold to David Ellison's Skydance ...",
+        publisher: "The Wall Street Journal",
+        timestamp: "1724721840000",
+        newsUrl:
+          "https://www.wsj.com/business/media/edgar-bronfman-drops-bid-for-paramount-paving-way-for-skydance-deal-71c6bed2",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNDVZM2h3TkZwZmJIUjRaVEV6VFJESEF4aWlCU2dLTWdhcFZaTE5KUWc=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNDVZM2h3TkZwZmJIUjRaVEV6VFJESEF4aWlCU2dLTWdhcFZaTE5KUWc",
+        },
+      },
+      {
+        title:
+          "Edgar Bronfman drops Paramount bid, clearing path for Skydance deal",
+        snippet:
+          "Last week, Bronfman had proposed to take control of Paramount through a $6 billion bid, in which it would buy the media firm's controlling shareholder, ...",
+        publisher: "CNBC",
+        timestamp: "1724720400000",
+        newsUrl:
+          "https://www.cnbc.com/2024/08/27/media-exec-bronfman-pulls-out-of-race-to-acquire-paramount.html",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iMkNnNVZXa1F6U3pCTGFYQlJNVUZHVFJDZkF4ampCU2dLTWdzQlFKS2tKT2lZMERuSnVR=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iMkNnNVZXa1F6U3pCTGFYQlJNVUZHVFJDZkF4ampCU2dLTWdzQlFKS2tKT2lZMERuSnVR",
+        },
+      },
+    ],
+  },
+  {
+    title: "PDD’s $55 Billion Stock Crash Sends Warning on Chinese Economy",
+    snippet:
+      "One of the last remaining bright spots for Chinese consumption is rapidly fading, as the nation's economic malaise takes a toll on demand for even the most ...",
+    publisher: "Bloomberg",
+    timestamp: "1724731920000",
+    newsUrl:
+      "https://www.bloomberg.com/news/articles/2024-08-27/china-s-crashing-consumer-star-sounds-alarm-on-economic-growth",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNDNVa3MxUVhCdlZqaDNORGhEVFJERUF4aW1CU2dLTWdhMU1vd3lHUVU=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNDNVa3MxUVhCdlZqaDNORGhEVFJERUF4aW1CU2dLTWdhMU1vd3lHUVU",
+    },
+    hasSubnews: true,
+    subnews: [
+      {
+        title: "Temu’s global expansion now looks fraught with difficulty",
+        snippet:
+          "Temu has changed the world of online shopping. Its rapid growth means it rivals Amazon in many markets. But this week, shares of its owner PDD Holdings have ...",
+        publisher: "Financial Times",
+        timestamp: "1724744137000",
+        newsUrl:
+          "https://www.ft.com/content/ea2bf29b-dae9-4509-bf62-08805dc4560e",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNVFNWGwxY2xGQlozbDJaR0ZLVFJDS0F4aThCU2dLTWdZcE00aHduUVk=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNVFNWGwxY2xGQlozbDJaR0ZLVFJDS0F4aThCU2dLTWdZcE00aHduUVk",
+        },
+      },
+      {
+        title: "China’s Crashing Consumer Star Sounds Alarm on Economic Growth",
+        snippet:
+          "(Bloomberg) -- One of the last remaining bright spots for Chinese consumption is rapidly fading, as the nation's economic malaise takes a toll on demand for ...",
+        publisher: "Yahoo Finance",
+        timestamp: "1724731920000",
+        newsUrl:
+          "https://finance.yahoo.com/news/china-crashing-consumer-star-sounds-041258039.html",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iL0NnNVpZV05UVVhsMlpqaFRaVzlJVFJEb0FoaUFCU2dLTWdtQkFvZ0dPaVU2Z0FN=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iL0NnNVpZV05UVVhsMlpqaFRaVzlJVFJEb0FoaUFCU2dLTWdtQkFvZ0dPaVU2Z0FN",
+        },
+      },
+      {
+        title:
+          "China’s Once-Richest Person Loses $14 Billion As Temu Parent Company Falls Almost 30%",
+        snippet:
+          "The founder and former chairman of Chinese e-commerce firm PDD Holdings Colin Huang, who rose to become the richest person in China earlier this month, ...",
+        publisher: "Forbes",
+        timestamp: "1724690166000",
+        newsUrl:
+          "https://www.forbes.com/sites/maryroeloffs/2024/08/26/chinas-richest-colin-huang-loses-14-billion-temu-parent-company-pdd-holdings-shares-revenue-fall/",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNXFkSEZXV2xoM1pqZFpOa3hNVFJDUEF4akdCU2dLTWdZcFZJRHNIUWs=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNXFkSEZXV2xoM1pqZFpOa3hNVFJDUEF4akdCU2dLTWdZcFZJRHNIUWs",
+        },
+      },
+      {
+        title:
+          "Shares of Temu parent company PDD plunge almost 29%; 'too large a correction', says analyst",
+        snippet:
+          "The slump comes after the company failed to meet expectations in its second quarter results.",
+        publisher: "CNBC",
+        timestamp: "1724734127000",
+        newsUrl:
+          "https://www.cnbc.com/2024/08/27/shares-of-temu-parent-company-pdd-plunges-29percent-largest-one-day-loss.html",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNURORGt3WWkwNGNUUjFUbnBMVFJDZkF4ampCU2dLTWdZdG81SnV0UVk=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNURORGt3WWkwNGNUUjFUbnBMVFJDZkF4ampCU2dLTWdZdG81SnV0UVk",
+        },
+      },
+      {
+        title: "PDD Shares Fall as Growth Slows, Competition Intensifies",
+        snippet:
+          "Shares of Temu parent company PDD Holdings fell nearly 25% in morning trading Monday after the Chinese e-commerce giant warned that revenue growth would ...",
+        publisher: "The Information",
+        timestamp: "1724683425000",
+        newsUrl:
+          "https://www.theinformation.com/briefings/pdd-shares-fall-as-growth-slows-competition-intensifies",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNDFkWFE1YkVSRVRVUjJjV3RUVFJDZkF4ampCU2dLTWdhQkVJYnJvQVk=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNDFkWFE1YkVSRVRVUjJjV3RUVFJDZkF4ampCU2dLTWdhQkVJYnJvQVk",
+        },
+      },
+      {
+        title: "Temu Owner PDD Stock Heads for Record Plunge on Revenue Miss",
+        snippet:
+          "the Chinese owner of online retailer Temu, was falling the most on record on Monday after it reported quarterly revenue that missed analysts' expectations.",
+        publisher: "Barron's",
+        timestamp: "1724683560000",
+        newsUrl:
+          "https://www.barrons.com/articles/temu-pdd-earnings-stock-price-9a29eba0",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iI0NnNHliVFJhTm5SWGJFRkVZMWhHVFJDcUJCaXFCQ2dLTWdB=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iI0NnNHliVFJhTm5SWGJFRkVZMWhHVFJDcUJCaXFCQ2dLTWdB",
+        },
+      },
+    ],
+  },
+  {
+    title: "Chip Stocks Fall Ahead of Nvidia's Earnings Report",
+    snippet:
+      "Semiconductor stocks moved lower Monday in advance of the latest financial results from artificial intelligence darling Nvidia, set for release Wednesday.",
+    publisher: "Investopedia",
+    timestamp: "1724708552000",
+    newsUrl:
+      "https://www.investopedia.com/chip-stocks-fall-ahead-of-nvidia-earnings-report-8701535",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNURXSEozUzFOUVdGazNTelJPVFJERUF4aW1CU2dLTWdZTkJJaHMxUU0=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNURXSEozUzFOUVdGazNTelJPVFJERUF4aW1CU2dLTWdZTkJJaHMxUU0",
+    },
+    hasSubnews: true,
+    subnews: [
+      {
+        title: "Nvidia earnings may sway the market. Here's one way to hedge.",
+        snippet:
+          "Investors used to Nvidia Corp.'s blockbuster results may underprice the risk of a disappointment and its impact on the broader market, according to BofA ...",
+        publisher: "MarketWatch",
+        timestamp: "1724694780000",
+        newsUrl:
+          "https://www.marketwatch.com/story/nvidias-earnings-may-swing-the-stock-market-this-week-heres-how-to-hedge-it-bofa-global-says-7bc8311c",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNHRaamhVT1VGVWVGUTBZV2RtVFJDcUJCaXFCQ2dLTWdhOWNvWXpMUWc=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNHRaamhVT1VGVWVGUTBZV2RtVFJDcUJCaXFCQ2dLTWdhOWNvWXpMUWc",
+        },
+      },
+      {
+        title: "Nvidia sales seen doubling, but that may not impress investors",
+        snippet:
+          "STORY: It's getting harder for Nvidia to impress investors. The AI chip champion is forecast to say Wednesday that its second-quarter revenues more than ...",
+        publisher: "Yahoo Finance",
+        timestamp: "1724744694000",
+        newsUrl:
+          "https://finance.yahoo.com/video/nvidia-sales-seen-doubling-may-074454304.html",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNUJPVjlHVTNGb1IyVndTVlpSVFJDZkF4ampCU2dLTWdhbFJKeVFJUWs=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNUJPVjlHVTNGb1IyVndTVlpSVFJDZkF4ampCU2dLTWdhbFJKeVFJUWs",
+        },
+      },
+      {
+        title:
+          "BofA: How to Hedge if Nvidia’s (NASDAQ:NVDA) Q2 Results Disappoint",
+        snippet:
+          "As Nvidia ($NVDA) prepares to release its Q2 earnings results on August 28, both Bank of America (BofA) and Morgan Stanley weighed in with their ...",
+        publisher: "TipRanks",
+        timestamp: "1724698842000",
+        newsUrl:
+          "https://www.tipranks.com/news/bofa-how-to-hedge-if-nvidias-nasdaqnvda-q2-results-disappoint",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iL0NnNUxUV2xOTkRSRldISkpTMGwyVFJDV0F4anVCU2dLTWdrbFlKQ3RwU2d1a0FF=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iL0NnNUxUV2xOTkRSRldISkpTMGwyVFJDV0F4anVCU2dLTWdrbFlKQ3RwU2d1a0FF",
+        },
+      },
+      {
+        title:
+          "Markets Cheered Fed Chair Powell's Big Speech—How Will They React to Nvidia Earnings?",
+        snippet:
+          "Now that Federal Reserve Chair Jerome Powell put much of the uncertainty about the interest rate outlook to bed on Friday, Wall Street is turning its ...",
+        publisher: "Investopedia",
+        timestamp: "1724700033000",
+        newsUrl:
+          "https://www.investopedia.com/markets-focus-nvidia-earnings-after-federal-reserve-chair-powell-jackson-hole-speech-8701368",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNUplREI0YUdGNWIweEVWMVJDVFJERUF4aW1CU2dLTWdZWlFwVE1xUWM=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNUplREI0YUdGNWIweEVWMVJDVFJERUF4aW1CU2dLTWdZWlFwVE1xUWM",
+        },
+      },
+      {
+        title: "Watch Stakes Are High for Equities Ahead of Nvidia Earnings",
+        snippet: "Stakes Are High for Equities Ahead of Nvidia Earnings.",
+        publisher: "Bloomberg",
+        timestamp: "1724740020000",
+        newsUrl:
+          "https://www.bloomberg.com/news/videos/2024-08-27/stakes-are-high-for-equity-markets-ahead-of-nvidia-earnings",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iJ0NnNUZRbkJ5WWtOd1RuVnNTSEZoVFJDb0FSaXNBaWdCTWdNSklnVQ=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iJ0NnNUZRbkJ5WWtOd1RuVnNTSEZoVFJDb0FSaXNBaWdCTWdNSklnVQ",
+        },
+      },
+      {
+        title:
+          "Bank of America offers a market hedge in case Nvidia earnings disappoint this week",
+        snippet:
+          "Nvidia's earnings report on Wednesday could spark a slide for a stock market that is still fragile from the sell-off earlier this month, according to BofA.",
+        publisher: "CNBC",
+        timestamp: "1724685869000",
+        newsUrl:
+          "https://www.cnbc.com/2024/08/26/bank-of-america-offers-a-market-hedge-in-case-nvidia-earnings-disappoint-this-week.html",
+      },
+    ],
+  },
+  {
+    title: "Asian stocks slip as geopolitical fears sap confidence",
+    snippet:
+      "SINGAPORE, Aug 27 (Reuters) - Asian stocks fell on Tuesday as investors pondered looming U.S. interest rate cuts and awaited earnings from AI darling Nvidia ...",
+    publisher: "Reuters",
+    timestamp: "1724735657000",
+    newsUrl:
+      "https://www.reuters.com/markets/global-markets-wrapup-1-2024-08-27/",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNTZVR0YyWVU5UExWOHdWaTFhVFJEUkF4aVVCU2dLTWdZVllvaU5KUVk=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNTZVR0YyWVU5UExWOHdWaTFhVFJEUkF4aVVCU2dLTWdZVllvaU5KUVk",
+    },
+    hasSubnews: false,
+  },
+  {
+    title: "What Fed rate cuts mean for fixed income, small cap stocks",
+    snippet:
+      "Wall Street has its eyes dead set on July's Personal Consumption Expenditures (PCE) price index — the Federal Reserve's preferred inflation gauge — set to ...",
+    publisher: "Yahoo Finance",
+    timestamp: "1724707065000",
+    newsUrl:
+      "https://finance.yahoo.com/video/fed-rate-cuts-mean-fixed-211745288.html",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNDFWRkJ0UzNaaWNUbFBkMEZJVFJDZkF4amlCU2dLTWdhaE5wQUxIZ2s=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNDFWRkJ0UzNaaWNUbFBkMEZJVFJDZkF4amlCU2dLTWdhaE5wQUxIZ2s",
+    },
+    hasSubnews: true,
+    subnews: [
+      {
+        title: "How much will the Fed cut interest rates? Experts weigh in",
+        snippet:
+          '"The time has come" for a shift toward rate cuts, Fed Chair Jerome Powell said. But how much will rates go down?',
+        publisher: "ABC News",
+        timestamp: "1724423127000",
+        newsUrl:
+          "https://abcnews.go.com/Business/fed-cut-interest-rates-experts-weigh/story?id=113147822",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNXVWMFZMTWtKa1dXRmpOMjlNVFJDZkF4ampCU2dLTWdZVlJJN3NwUWc=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNXVWMFZMTWtKa1dXRmpOMjlNVFJDZkF4ampCU2dLTWdZVlJJN3NwUWc",
+        },
+      },
+      {
+        title:
+          "5 top money moves to consider before the Federal Reserve's first rate cut since 2020",
+        snippet:
+          "As soon as the Fed starts lowering interest rates, many types of consumer loans and savings products will be impacted. Here's how to make the most of it.",
+        publisher: "CNBC",
+        timestamp: "1724686102000",
+        newsUrl:
+          "https://www.cnbc.com/2024/08/26/top-money-moves-ahead-of-a-fed-rate-cut-according-to-experts.html",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNDJiMk5VY0cwMFRtTkRSRzFFVFJDZkF4ampCU2dLTWdZQkVZN1VEQVk=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNDJiMk5VY0cwMFRtTkRSRzFFVFJDZkF4ampCU2dLTWdZQkVZN1VEQVk",
+        },
+      },
+      {
+        title:
+          "Prediction: When the Federal Reserve Starts Cutting Rates, These 2 Stocks Will Be Massive Winners",
+        snippet:
+          "Interest rates are set to fall for the first time in more than four years, and some investments could be in a great position to win.",
+        publisher: "The Motley Fool",
+        timestamp: "1724062920000",
+        newsUrl:
+          "https://www.fool.com/investing/2024/08/19/prediction-when-the-federal-reserve-starts-cutting/",
+      },
+      {
+        title:
+          "With the Fed ready start cutting rates, what's next for stocks?",
+        snippet:
+          "With the Federal Reserve signaling a likely rate cut at its September 18 meeting, investors are adjusting their strategies in anticipation of a changing ...",
+        publisher: "Investing.com",
+        timestamp: "1724674660000",
+        newsUrl:
+          "https://www.investing.com/news/stock-market-news/with-the-fed-ready-start-cutting-rates-whats-next-for-stocks-3586776",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNVRkRFY1YW5wU1lXaHNOa3hXVFJDN0FSaU9BaWdCTWdZSm9aQkZ1Z1k=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNVRkRFY1YW5wU1lXaHNOa3hXVFJDN0FSaU9BaWdCTWdZSm9aQkZ1Z1k",
+        },
+      },
+      {
+        title:
+          "10 financial stocks that are trending in anticipation of rate cuts",
+        snippet:
+          "US Fed Chair Jerome Powell on Friday expressed that the time has come for the policy to adjust. Even though the RBI's stance has been more hawkish than the ...",
+        publisher: "The Economic Times",
+        timestamp: "1724625900000",
+        newsUrl:
+          "https://m.economictimes.com/prime/money-and-markets/10-financial-stocks-that-are-trending-in-anticipation-of-rate-cuts/primearticleshow/112775333.cms",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNDNURlpTWmxaQ1YydFBRamhtVFJEZ0F4aUFCU2dLTWdhcFZaRE5wUWc=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNDNURlpTWmxaQ1YydFBRamhtVFJEZ0F4aUFCU2dLTWdhcFZaRE5wUWc",
+        },
+      },
+      {
+        title:
+          "The Fed Rate Cutting Cycle Has Already Been Priced Into The Market",
+        snippet:
+          "8/25/24. #MACRO: $NDX, $SPX, $SOX. #STOCKS: $NVDA,. Check out My Reading The Market's Macro Subscription Service For More Content Daily, Get 35% Off The 1st ...",
+        publisher: "Monster Stock Market Commentary",
+        timestamp: "1724595597000",
+        newsUrl:
+          "https://mottcapitalmanagement.com/fed-rate-cutting-cycle-has-already-been-priced-into-the-market/",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iI0NnNTJPVU13Y0ZkM05GRk1WVzB0VFJDZUF4amtCU2dLTWdB=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iI0NnNTJPVU13Y0ZkM05GRk1WVzB0VFJDZUF4amtCU2dLTWdB",
+        },
+      },
+    ],
+  },
+  {
+    title: "Stock futures edge lower after Dow's record close: Live updates",
+    snippet:
+      "The 30-stock Dow closed at a record high on Monday, breaking with the S&P 500 and Nasdaq Composite, which were both lower.",
+    publisher: "CNBC",
+    timestamp: "1724714460000",
+    newsUrl:
+      "https://www.cnbc.com/2024/08/26/stock-market-today-live-updates.html",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNU9ZemhyYjB4QmVVZzRkVjlzVFJDZkF4ampCU2dLTWdZUlFvcUlIZ2s=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNU9ZemhyYjB4QmVVZzRkVjlzVFJDZkF4ampCU2dLTWdZUlFvcUlIZ2s",
+    },
+    hasSubnews: true,
+    subnews: [
+      {
+        title:
+          "Dow closes at new record high on rate cut rally: Here’s what’s next for Wall Street",
+        snippet:
+          "US stocks closed Monday mixed as investors looked to a key earnings report and a slew of economic data points due later this week. The Dow closed 65 points, ...",
+        publisher: "CNN",
+        timestamp: "1724702760000",
+        newsUrl:
+          "https://www.cnn.com/2024/08/26/investing/stocks-nvidia-markets/index.html",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNVBORjkwTkZVeFZ6QkNVa3RNVFJDZkF4ampCU2dLTWdZQlVKQklMZ2M=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNVBORjkwTkZVeFZ6QkNVa3RNVFJDZkF4ampCU2dLTWdZQlVKQklMZ2M",
+        },
+      },
+      {
+        title: "Stock Market News: Dow Set to Open Up",
+        snippet:
+          "Dow, S&P 500, and Nasdaq futures are rising in premarket trading Tuesday as the stock market looks to build on gains from the previous session.",
+        publisher: "Barron's",
+        timestamp: "1724746920000",
+        newsUrl:
+          "https://www.barrons.com/livecoverage/stock-market-today-082724?mod=article_inline",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNXBUVTQwY2psWWJWOWtWRnBZVFJDZkFSaS1BaWdCTWdZSklJaVVuQWs=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNXBUVTQwY2psWWJWOWtWRnBZVFJDZkFSaS1BaWdCTWdZSklJaVVuQWs",
+        },
+      },
+      {
+        title:
+          "Stock market today: S&P 500, Nasdaq slump as tech lags, Nvidia shares slip",
+        snippet:
+          "Stocks are eyeing a bid for fresh record highs after Jerome Powell made it crystal clear the Fed is ready to pivot to lowering rates in September.",
+        publisher: "Yahoo Finance",
+        timestamp: "1724697454000",
+        newsUrl:
+          "https://finance.yahoo.com/news/stock-market-today-sp-500-nasdaq-slump-as-tech-lags-nvidia-shares-slip-160224537.html",
+      },
+      {
+        title:
+          "Stock Futures Rising With Dow Chasing Record High as Investors Brace for Nvidia Earnings",
+        snippet:
+          "U.S. stocks looked set to take a breather on Tuesday, with investors seemingly unwilling to make big moves ahead of chip maker Nvidia's quarterly ...",
+        publisher: "Barron's",
+        timestamp: "1724746140000",
+        newsUrl:
+          "https://www.barrons.com/livecoverage/stock-market-today-082724/card/stock-futures-stall-as-investors-await-nvidia-earnings-7bFiKONxvwZ9GLkXoskd",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNXBUVTQwY2psWWJWOWtWRnBZVFJDZkFSaS1BaWdCTWdZSklJaVVuQWs=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNXBUVTQwY2psWWJWOWtWRnBZVFJDZkFSaS1BaWdCTWdZSklJaVVuQWs",
+        },
+      },
+      {
+        title:
+          "Dow climbs to record peak as ‘good is good again’ for stock market",
+        snippet:
+          "The Dow Jones Industrial Average rose to a record peak Monday, recovering after economic surprises to the upside were once again viewed as “good news” for ...",
+        publisher: "MarketWatch",
+        timestamp: "1724696820000",
+        newsUrl:
+          "https://www.marketwatch.com/story/dow-attempts-record-peak-as-good-is-good-again-for-stock-market-ebb6a4f3",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNDJOa1UzTm01VlZrMHRRMWgyVFJDcUJCaXFCQ2dLTWdheGc0eFFNUVk=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNDJOa1UzTm01VlZrMHRRMWgyVFJDcUJCaXFCQ2dLTWdheGc0eFFNUVk",
+        },
+      },
+      {
+        title:
+          "Dow Jones Closes Higher, But Nasdaq Tumbles; Elon Musk Makes This AI Boast As Tesla Skids (Live Coverage)",
+        snippet:
+          "The Dow Jones Industrial Average closed higher in a mixed day for the stock market Monday. Apple (AAPL) teased some iPhone news and Carl Icahn's firm ...",
+        publisher: "Investor's Business Daily",
+        timestamp: "1724703120000",
+        newsUrl:
+          "https://www.investors.com/market-trend/stock-market-today/dow-jones-nasdaq-sp500-temu-nvidia-stock/",
+        images: {
+          thumbnail:
+            "https://news.google.com/api/attachments/CC8iK0NnNHlRV3ROVFZkZmJVUjZaVEUyVFJDZ0F4amlCU2dLTWdZbE5vN3NvUWc=-w280-h168-p-df-rw",
+          thumbnailProxied:
+            "https://i.zedtranslate.com/newsimage/CC8iK0NnNHlRV3ROVFZkZmJVUjZaVEUyVFJDZ0F4amlCU2dLTWdZbE5vN3NvUWc",
+        },
+      },
+    ],
+  },
+  {
+    title:
+      "Bitcoin rally helps create more than 84,000 new crypto billionaires in a year",
+    snippet:
+      "The population of crypto millionaires in the world soared 95% over the past year, as bitcoin ETFs and other crypto assets climbed, according to a new report ...",
+    publisher: "CNBC",
+    timestamp: "1724731261000",
+    newsUrl:
+      "https://www.cnbc.com/2024/08/27/bitcoin-rally-new-crypto-billionaires.html",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNVZlbVF6TlY5d2JHdE1UbEJDVFJDZkF4ampCU2dLTWdZQlZZVE5KUWM=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNVZlbVF6TlY5d2JHdE1UbEJDVFJDZkF4ampCU2dLTWdZQlZZVE5KUWM",
+    },
+    hasSubnews: false,
+  },
+  {
+    title:
+      "Canada imposes a 100% tariff on imports of Chinese-made electric vehicles, matching the US",
+    snippet:
+      "Canada's government says it is imposing a 100% tariff on imports of Chinese-made electric vehicles that matches U.S. tariffs and follows similar plans ...",
+    publisher: "The Associated Press",
+    timestamp: "1724730060000",
+    newsUrl:
+      "https://apnews.com/article/canada-china-evs-tariffs-0cd68ba7533bc6e7111cdd5811c8889c",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNXVTMlZDTnkxQmVUQmtjM1J2VFJERUF4aW1CU2dLTWdiQk00SXpHUW8=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNXVTMlZDTnkxQmVUQmtjM1J2VFJERUF4aW1CU2dLTWdiQk00SXpHUW8",
+    },
+    hasSubnews: false,
+  },
+  {
+    title:
+      "'Corporate Greed at Its Absolute Worst': FTC Challenges Kroger Merger",
+    snippet:
+      "\"As grocery store 'price gouging' reaches the top of the political ticket, the FTC is intervening to protect consumers and workers from further harm.\"",
+    publisher: "Common Dreams",
+    timestamp: "1724703037000",
+    newsUrl: "https://www.commondreams.org/news/kroger-albertsons-merger-ftc",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNUxSMGxoZGtGUWJrWmFTV3h4VFJERUF4aW1CU2dLTWdhSnFZcmxPZ1k=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNUxSMGxoZGtGUWJrWmFTV3h4VFJERUF4aW1CU2dLTWdhSnFZcmxPZ1k",
+    },
+    hasSubnews: false,
+  },
+  {
+    title: "Apple will replace CFO Luca Maestri next year",
+    snippet:
+      "Apple announced today that Chief Financial Officer Luca Maestri will step away from his executive role, effective January 1. Kevan Parekh, Apple's current.",
+    publisher: "TechCrunch",
+    timestamp: "1724706120000",
+    newsUrl:
+      "https://techcrunch.com/2024/08/26/apple-will-replace-cfo-luca-maestri-next-year/",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNVRUR1p2TW5scVJsRjBNMHhrVFJDZkF4ampCU2dLTWdZOUlKUjFGQXM=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNVRUR1p2TW5scVJsRjBNMHhrVFJDZkF4ampCU2dLTWdZOUlKUjFGQXM",
+    },
+    hasSubnews: false,
+  },
+  {
+    title:
+      "Apparent cyberattack hits Seattle airport, causing major internet outages",
+    snippet:
+      "SEATTLE (AP) — An apparent cyberattack disrupted internet, phones, email and other systems at Seattle-Tacoma International Airport for a third day on Monday ...",
+    publisher: "PBS NewsHour",
+    timestamp: "1724706686000",
+    newsUrl:
+      "https://www.pbs.org/newshour/nation/apparent-cyberattack-hits-seattle-airport-causing-major-internet-outages",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNTJaWGhuWjJzMGJuWlJUWFpUVFJETEF4aWNCU2dLTWdhQllvb1RwUWc=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNTJaWGhuWjJzMGJuWlJUWFpUVFJETEF4aWNCU2dLTWdhQllvb1RwUWc",
+    },
+    hasSubnews: false,
+  },
+  {
+    title:
+      "Former P.F. Chang’s CEO to take helm at Red Lobster — as bankrupt chain plans to shut 23 more locations",
+    snippet:
+      "Bankrupt seafood chain Red Lobster tapped former P.F. Chang's CEO Damola Adamolekun to take over the floundering company – and announced it will shutter an ...",
+    publisher: "New York Post ",
+    timestamp: "1724706120000",
+    newsUrl:
+      "https://nypost.com/2024/08/26/business/ex-p-f-changs-ceo-to-take-helm-at-red-lobster-as-bankrupt-chain-plans-to-close-23-more-locations/",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNTNTbXh0U1ZKWFdXSkVVR1ZGVFJERUF4aW5CU2dLTWdhUkVhQm9EZ3M=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNTNTbXh0U1ZKWFdXSkVVR1ZGVFJERUF4aW5CU2dLTWdhUkVhQm9EZ3M",
+    },
+    hasSubnews: false,
+  },
+  {
+    title:
+      "Libya oil output ‘cannot be easily replaced’ during reported production halt",
+    snippet:
+      "The oil market's attention was turning to North Africa on Monday, with reports that Libya's eastern government had halted crude exports and production from ...",
+    publisher: "MarketWatch",
+    timestamp: "1724694900000",
+    newsUrl:
+      "https://www.marketwatch.com/story/libyas-oil-output-cannot-be-easily-replaced-analysts-warn-c0bdc763",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNUhWWEkyYURCcFRuUXdUV1JCVFJDcUJCaXFCQ2dLTWdZQlFZcTFUQVE=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNUhWWEkyYURCcFRuUXdUV1JCVFJDcUJCaXFCQ2dLTWdZQlFZcTFUQVE",
+    },
+    hasSubnews: false,
+  },
+  {
+    title:
+      "RealPage lawyer denies collusion with landlords to raise rents, 'open to solutions' to resolve DOJ lawsuit",
+    snippet:
+      "RealPage's lawyer denied the company was helping landlords unlawfully raise rents, as the Justice Department alleged.",
+    publisher: "USA TODAY",
+    timestamp: "1724702330000",
+    newsUrl:
+      "https://www.usatoday.com/story/money/personalfinance/real-estate/2024/08/26/realpage-antitrust-justice-department-lawsuit/74950461007/",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNWlRMGgyUms1Rlh6RktOa2hzVFJEekFoaVVCU2dLTWdZQmNKTHJwUWc=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNWlRMGgyUms1Rlh6RktOa2hzVFJEekFoaVVCU2dLTWdZQmNKTHJwUWc",
+    },
+    hasSubnews: false,
+  },
+  {
+    title: "Morning Bid: Tiptoeing nervously along US rate path",
+    snippet:
+      "Aug 27 (Reuters) - A look at the day ahead in Asian markets. World markets are entering a period of nervous uncertainty as investors try to determine ...",
+    publisher: "Reuters",
+    timestamp: "1724709120000",
+    newsUrl:
+      "https://www.reuters.com/markets/asia/global-markets-view-asia-graphic-pix-2024-08-26/",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iK0NnNTVPRlE0V1RsYVRVSlVibXd3VFJDUUF4ai1CU2dLTWdZeEFJNTJpQWc=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iK0NnNTVPRlE0V1RsYVRVSlVibXd3VFJDUUF4ai1CU2dLTWdZeEFJNTJpQWc",
+    },
+    hasSubnews: false,
+  },
+  {
+    title:
+      "Traveling over Labor Day weekend? Have a back-up plan for cancellations and delays, and be patient",
+    snippet:
+      "Labor Day weekend is the last blast of summer vacation, and that means lots of Americans will be traveling.",
+    publisher: "The Associated Press",
+    timestamp: "1724702640000",
+    newsUrl:
+      "https://apnews.com/article/labor-day-travel-flights-road-trips-81c40a034787764631c4bb640861f7c3",
+    images: {
+      thumbnail:
+        "https://news.google.com/api/attachments/CC8iJ0NnNUROa1ZsTkhwM05scEhTazFIVFJERUF4aW5CU2dLTWdPQk1BSQ=-w280-h168-p-df-rw",
+      thumbnailProxied:
+        "https://i.zedtranslate.com/newsimage/CC8iJ0NnNUROa1ZsTkhwM05scEhTazFIVFJERUF4aW5CU2dLTWdPQk1BSQ",
+    },
+    hasSubnews: false,
+  },
+];
