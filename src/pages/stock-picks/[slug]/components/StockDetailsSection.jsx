@@ -15,6 +15,7 @@ function StockDetailsSection() {
   const {
     stock_name,
     stock_exchange,
+    stock_symbol,
     sector,
     stock_industry,
     market_cap,
@@ -22,6 +23,7 @@ function StockDetailsSection() {
     entry_price,
     target_price,
     upside_left,
+    action_text,
     risk,
     action,
     stock_tags,
@@ -94,12 +96,15 @@ function StockDetailsSection() {
                               fill="#667085"
                             />
                           </svg>
-                          <p className="text-[#667085] text-xs font-semibold">
-                            Target 1 at ₹342 |{" "}
-                            <span className="text-[#F79009] font-bold">
-                              Active
-                            </span>
-                          </p>
+                          {stock_targets.length && (
+                            <p className="text-[#667085] text-xs font-semibold">
+                              Target {stock_targets.length} at ₹
+                              {stock_targets[0].target_price} |{" "}
+                              <span className="text-[#F79009] font-bold">
+                                Active
+                              </span>
+                            </p>
+                          )}
                         </div>
                       </div>
                       {/* <!-- Continue your other components similarly --> */}
@@ -127,12 +132,13 @@ function StockDetailsSection() {
                               </p>
                             </div>
                             <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0  mx-auto sm:mx-0">
-                              <p className="text-xs md:text-2xs text-[#475467] font-medium">
-                                NSE: IONEXCHANG
-                              </p>
                               <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
                               <p className="text-xs md:text-2xs text-[#475467] font-medium">
-                                BSE: 500214
+                                {stock_exchange == "BSE" ||
+                                stock_exchange == "SME-BSE"
+                                  ? "BSE: "
+                                  : "NSE: "}
+                                {stock_symbol}
                               </p>
                             </div>
                           </div>
@@ -166,8 +172,7 @@ function StockDetailsSection() {
                                 alt=""
                                 className="w-4 h-4 items-center"
                               />{" "}
-                              Consider Buying. Our analysis suggests potential
-                              growth.
+                              {action_text}
                             </p>
                           </div>
                         </div>
@@ -258,7 +263,14 @@ function StockDetailsSection() {
                         alt="Play icon"
                         className="w-5 h-5 "
                       />
-                      <span>Invest Now</span>
+                      <span>
+                        {action == "BUY"
+                          ? "Invest Now"
+                          : action == "HOLD"
+                          ? "Go to Broker"
+                          : "Sell Now"}
+                      </span>
+                      {/* <span>Invest Now</span> */}
                     </button>
                   </div>
                   {/* When Small Screen Button Is Hide  */}
@@ -583,18 +595,18 @@ function StockDetailsSection() {
                           alt="Play icon"
                           className="w-5 h-5 "
                         />
-                        <span>Invest Now</span>
+                        <span>
+                          {action == "BUY"
+                            ? "Invest Now"
+                            : action == "HOLD"
+                            ? "Go to Broker"
+                            : "Sell Now"}
+                        </span>
                       </button>
                     </div>
 
                     <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
-                      <p className="w-2/3">
-                        Consider{" "}
-                        <span className="text-blue-600 font-semibold">
-                          Buying
-                        </span>
-                        . Our analysis suggests potential growth.
-                      </p>
+                      <p className="w-2/3">{action_text}</p>
                       <img
                         src="/assets/images2.png"
                         alt=""

@@ -8,6 +8,7 @@ import {
   getAllBoardStockStockResponse,
   getCommonDetailsResponse,
   getStockDetailResponse,
+  getStockNewsResponse,
 } from "./static-response";
 
 // Latest Releases Stock List API
@@ -166,18 +167,21 @@ export const getStockDetailApi = async ({ stockId }) => {
 
 export const getNewsListApi = async ({ stock_name, limit, cursor }) => {
   try {
-    const response = await axios.get(
-      `https://google-news-api1.p.rapidapi.com/search?language=EN&q=${stock_name}&limit=${limit}`,
-      {
-        headers: {
-          "x-rapidapi-key":
-            "9c932f26cemsh6b9f2ae8de717c5p1ddf2cjsnd02177123a90",
-          "x-rapidapi-host": "google-news-api1.p.rapidapi.com",
-        },
-      }
-    );
-    console.log(response.data.news);
-    return response.data.news;
+    // const response = await axios.get(
+    //   `https://google-news-api1.p.rapidapi.com/search?language=EN&q=${stock_name}&limit=${limit}`,
+    //   {
+    //     headers: {
+    //       "x-rapidapi-key":
+    //         "433c182a9amsh51c623dae1a6153p12b3e4jsn0c44e96f58e7",
+    //       "x-rapidapi-host": "google-news-api1.p.rapidapi.com",
+    //     },
+
+    //   }
+    // );
+    // console.log(response.data.news);
+    // return response.data.news;
+
+    return getStockNewsResponse;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);

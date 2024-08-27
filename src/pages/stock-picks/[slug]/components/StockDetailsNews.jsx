@@ -1,30 +1,31 @@
 import React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getNewsListApi } from "@/api/stock-picks";
+import { formatDistanceToNow } from "date-fns";
 const StockDetailsNews = ({ stock_name }) => {
-  // const {
-  //   data: response,
-  //   isLoading,
-  //   error,
-  //   fetchNextPage,
-  //   refetch,
-  // } = useInfiniteQuery({
-  //   queryKey: ["newsList"],
-  //   queryFn: ({ pageParam = 1 }) =>
-  //     getNewsListApi({
-  //       page: pageParam,
-  //       limit: 10,
-  //       stock_name,
-  //     }),
-  //   getNextPageParam: (data) => {
-  //     console.log("===getNextPageParam====", data);
-  //     // Function to determine the parameter for fetching the next page
-  //     //   if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
-  //   },
-  // });
+  const {
+    data: response,
+    isLoading,
+    error,
+    fetchNextPage,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: ["newsList"],
+    queryFn: ({ pageParam = 1 }) =>
+      getNewsListApi({
+        page: pageParam,
+        limit: 10,
+        stock_name,
+      }),
+    getNextPageParam: (data) => {
+      console.log("===getNextPageParam====", data);
+      // Function to determine the parameter for fetching the next page
+      //   if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
+    },
+  });
 
-  // console.log("================response================", response);
-
+  const items = response?.pages?.flatMap((page) => page) ?? [];
+  console.log(items);
   const newsItems = [
     {
       id: 1,
@@ -84,14 +85,14 @@ const StockDetailsNews = ({ stock_name }) => {
   return (
     <div>
       <div className="pt-[5px]  ">
-        {newsItems.map((item) => (
-          <a key={item.id} href={item.link} className="block mb-4 group">
+        {items?.map((item, index) => (
+          <a key={index} href={item?.newsUrl} className="block mb-4 group">
             <div className="flex flex-row md:flex-row items-start md:items-center gap-4 p-4  rounded-md  cursor-pointer group-hover:bg-white transition">
               {/* <!-- Image Section --> */}
               <div className="flex-shrink-0">
                 <img
-                  src={item.image}
-                  alt="News Image"
+                  src={item?.images?.thumbnailProxied}
+                  alt={item.title}
                   className="w-[50px] h-[50px] md:w-[75px] md:h-[75px] object-cover rounded-md"
                 />
               </div>
@@ -105,9 +106,13 @@ const StockDetailsNews = ({ stock_name }) => {
                   </p>
                   {/* <!-- Meta Info --> */}
                   <div className="flex items-center gap-2 text-4xs sm:text-xs md:text-xs text-gray-500 text-nowrap">
-                    <span>{item.source}</span>
+                    <span>{item.publisher}</span>
                     <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                    <span>{item.time}</span>
+                    <span>
+                      {formatDistanceToNow(new Date(Number(item.timestamp)), {
+                        addSuffix: true,
+                      })}
+                    </span>
                   </div>
                 </div>
               </div>

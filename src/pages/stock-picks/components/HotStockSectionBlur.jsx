@@ -9,6 +9,7 @@ import { useMediaQuery } from "@mui/material";
 import { HotSlider } from "@/components.v3/common/HotSlider.jsx";
 import StockCard from "@/components.v3/common/StockCard.jsx";
 // import { Slider } from "@/components.v3/common/Slider.jsx";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 const HotStockSection = ({ items, stockSector }) => {
   const handleContactButton = () => {
