@@ -5,7 +5,7 @@ import { Link } from "react-scroll";
 function InvestmentSection() {
   const items = [
     { src: "/assets/p1.png", alt: "Groww", name: "Groww" },
-    { src: "/assets/p5.png", alt: "Zarodha", name: "Zarodha" },
+    { src: "/assets/p5.png", alt: "Zerodha", name: "Zerodha" },
     { src: "/assets/p6.png", alt: "AngelOne", name: "Angel One" },
     { src: "/assets/p2.png", alt: "Upstox", name: "Upstox" },
     { src: "/assets/p3.png", alt: "ICICIdirect", name: "ICICIdirect" },

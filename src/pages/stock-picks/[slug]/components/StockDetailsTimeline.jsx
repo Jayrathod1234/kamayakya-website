@@ -134,6 +134,7 @@ export default function StockDetailsTimeline({ timeline }) {
               fontWeight="bold"
               display="flex"
               alignItems="center"
+              color='#475467'
             >
               {step.type == "report"
                 ? step.report_action_text
@@ -159,12 +160,12 @@ export default function StockDetailsTimeline({ timeline }) {
               sx={{
                 mt: 1,
                 color: "#344054",
-                border: "0.5px solid black",
                 padding: "8px 16px",
                 borderRadius: "8px",
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
+                boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.2)", // Small box shadow
                 textTransform: "none",
                 minWidth: "100px",
                 flexShrink: 0,
