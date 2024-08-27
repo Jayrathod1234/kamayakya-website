@@ -58,7 +58,7 @@ function Hotcard() {
                 <img src="/assets/streamline_target-solid.svg" alt="" />
               </div>
 
-              <div className="px-[21px] pb-[18px]">
+              <div className="px-[21px] pb-[18px] grid gap-[6px]">
                 <div className="gap-[7px] items-center flex justify-center ">
                   <p className="text-2xs font-semibold leading-[18px] text-white font-open_sans  ">
                     Upside left

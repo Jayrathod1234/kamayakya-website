@@ -23,7 +23,7 @@ const Bannerhotstockscard = () => {
     <div>
       <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[20px]">
         <div className="container mx-auto">
-          <div className="bg-gray-150 p-[10px] rounded-[20px]">
+          <div className="bg-gray-150 p-[10px] rounded-[20px] max-w-[1280px] mx-auto">
             <div className="bg-[#fff] rounded-[20px] px-10 py-8 gap-10 text-center">
               <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0">
                 Hot Stocks (3)
@@ -86,7 +86,7 @@ const Bannerhotstockscard = () => {
                               alt=""
                               className="w-[24px] blur-[2px]"
                             />
-                            <span class="tooltiptext relative">
+                            <span class="tooltiptext relative shadow-sm">
                               <img
                                 src="/assets/div.png"
                                 alt=""
@@ -150,7 +150,7 @@ const Bannerhotstockscard = () => {
                                 />
                               </div>
 
-                              <div className="px-[16px] pb-[24px]">
+                              <div className="px-[16px] pb-[24px] grid gap-[6px]">
                                 <div className="gap-[7px] items-center flex justify-center ">
                                   <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">
                                     Upside left
@@ -160,7 +160,7 @@ const Bannerhotstockscard = () => {
                                       src="/assets/ph_info-duotone.svg"
                                       alt=""
                                     />
-                                    <span class="tooltiptext tooltiptext2 relative ">
+                                    <span class="tooltiptext tooltiptext2 relative shadow-sm ">
                                       <img
                                         src="/assets/div.png"
                                         alt=""
@@ -283,7 +283,7 @@ const Bannerhotstockscard = () => {
                               alt=""
                               className="w-[24px] blur-[2px]"
                             />
-                            <span class="tooltiptext relative">
+                            <span class="tooltiptext relative shadow-sm">
                               <img
                                 src="/assets/div.png"
                                 alt=""
@@ -330,7 +330,7 @@ const Bannerhotstockscard = () => {
                                 />
                               </div>
 
-                              <div className="px-[16px] pb-[24px]">
+                              <div className="px-[16px] pb-[24px] grid gap-[6px]">
                                 <div className="gap-[7px] items-center flex justify-center ">
                                   <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">
                                     Upside left
@@ -463,7 +463,7 @@ const Bannerhotstockscard = () => {
                               alt=""
                               className="w-[24px] blur-[2px]"
                             />
-                            <span class="tooltiptext relative">
+                            <span class="tooltiptext relative shadow-sm">
                               <img
                                 src="/assets/div.png"
                                 alt=""
@@ -510,7 +510,7 @@ const Bannerhotstockscard = () => {
                                 />
                               </div>
 
-                              <div className="px-[16px] pb-[24px]">
+                              <div className="px-[16px] pb-[24px] grid gap-[6px]">
                                 <div className="gap-[7px] items-center flex justify-center ">
                                   <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">
                                     Upside left

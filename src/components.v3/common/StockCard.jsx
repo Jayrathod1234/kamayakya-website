@@ -19,6 +19,8 @@ function StockCard({
   return_time,
   stockSector,
   youtube_details,
+  className,
+  style,
 }) {
   let tabImage = null;
   let cardClass = "";
@@ -40,7 +42,7 @@ function StockCard({
   return (
     <>
       {/* new stock card  */}
-      <div className=" relative main_card_carousel">
+      <div className={`relative main_card_carousel ${className}`} >
         <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
@@ -66,7 +68,7 @@ function StockCard({
                     alt=""
                     className="w-[24px] blur-[2px]"
                   />
-                  <span class="tooltiptext relative">
+                  <span class="tooltiptext relativec shadow-sm">
                     <img
                       src="/assets/div.png"
                       alt=""
@@ -172,14 +174,14 @@ function StockCard({
                     />
                   </div>
 
-                  <div className="px-[16px] pb-[24px]">
+                  <div className="px-[16px] pb-[24px] grid gap-[6px]">
                     <div className="gap-[7px] items-center flex justify-center ">
                       <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">
                         Upside left
                       </p>
                       <div className="tooltip">
                         <img src="/assets/ph_info-duotone.svg" alt="" />
-                        <span class="tooltiptext tooltiptext2 relative ">
+                        <span class="tooltiptext tooltiptext2 relative shadow-sm">
                           <img
                             src="/assets/div.png"
                             alt=""

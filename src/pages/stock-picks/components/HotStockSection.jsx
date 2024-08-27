@@ -29,9 +29,9 @@ const HotStockSection = ({ sebiBoardType, stockSector }) => {
       {isLoading || error ? (
         <div className="relative z-[2] pb-[110px] mt-[20px]">
           <div className="container mx-auto">
-            <div className="bg-gray-150 p-[10px] rounded-[20px]">
-              <div className="bg-[#fff] bg-[url('/assets/grid.png')] bg-cover rounded-[20px]  gap-10 text-center">
-                <div className="pt-5 rounded-[10px]">
+            <div className="bg-gray-150 p-[10px] rounded-[20px] max-w-[1280px] mx-auto">
+              <div className="bg-[#fff] bg-[url('/assets/grid.png')] bg-cover rounded-[20px] px-10 py-8 gap-10 text-center">
+                <div className=" pt-5   rounded-[10px]">
                   <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-center">
                     <Skeleton
                       animation="wave"
@@ -39,7 +39,7 @@ const HotStockSection = ({ sebiBoardType, stockSector }) => {
                       variant="text"
                     />
                   </h2>
-                  <p className="pt-3 font-normal text-sm text-gray-500 pb-6 text-center">
+                  <p className="pt-3 font-normal text-md text-gray-500 pb-6 text-center">
                     <Skeleton
                       animation="wave"
                       sx={{ borderRadius: "6px" }}
