@@ -16,28 +16,21 @@ import {
   Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
-const sectors = ["Deep Value", "Market Leader", "Special Situation", "Banking"];
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useStockPicks } from "@/contexts/StockPicksContext";
 
 export default function StrategyCheck() {
-  const [selectedSectors, setSelectedSectors] = useState([]);
+  const {
+    strategyTagList,
+    setStrategyTag,
+    strategyTag,
+    setIsChangeFilter,
+    changablestrategyTags,
+  } = useStockPicks();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
-
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (value.includes("all")) {
-      if (selectedSectors.length === sectors.length) {
-        setSelectedSectors([]);
-      } else {
-        setSelectedSectors(sectors);
-      }
-    } else {
-      setSelectedSectors(value);
-    }
-  };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -48,11 +41,13 @@ export default function StrategyCheck() {
   };
 
   const handleSelectAllClick = () => {
-    if (selectedSectors.length === sectors.length) {
-      setSelectedSectors([]);
+    const strategy_tag_list_arr = Object.keys(strategyTagList);
+    if (changablestrategyTags.length === strategy_tag_list_arr.length) {
+      setStrategyTag([]);
     } else {
-      setSelectedSectors(sectors);
+      setStrategyTag(strategy_tag_list_arr);
     }
+    setIsChangeFilter(true);
   };
 
   const handleClose = (event) => {
@@ -62,12 +57,14 @@ export default function StrategyCheck() {
     setOpen(false);
   };
 
-  const filteredSectors = sectors.filter((sector) =>
-    sector.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTags = Object.entries(strategyTagList || {}).filter(
+    ([_, value]) => {
+      return value.toLowerCase().includes(searchTerm.toLowerCase());
+    }
   );
 
   return (
-    <Box sx={{maxWidth:"148px"}}>
+    <Box sx={{ maxWidth: "148px" }}>
       <Button
         ref={anchorRef}
         variant="outlined"
@@ -75,28 +72,38 @@ export default function StrategyCheck() {
         endIcon={
           <KeyboardArrowDownIcon
             style={{
-              filter: selectedSectors.length > 0 ? "brightness(0) invert(1)" : "none",
+              filter:
+                changablestrategyTags.length > 0
+                  ? "brightness(0) invert(1)"
+                  : "none",
             }}
           />
         }
         sx={{
           justifyContent: "space-between",
           textTransform: "none",
-          color: selectedSectors.length > 0 ? "#FFFFFF" : "#1D2939",
-          borderColor: selectedSectors.length > 0 ? "#108973" : "#E4E7EC",
-          backgroundColor: selectedSectors.length > 0 ? "#125B54" : "#FFFFFF",
+          color: changablestrategyTags.length > 0 ? "#FFFFFF" : "#1D2939",
+          borderColor: changablestrategyTags.length > 0 ? "#108973" : "#E4E7EC",
+          backgroundColor:
+            changablestrategyTags.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "4px",
           padding: "7px 16px",
           fontWeight: 500,
           "&:hover": {
-            backgroundColor: selectedSectors.length > 0 ? "#125B54" : "#e7f8f8 !important",
-            borderColor: selectedSectors.length > 0 ? "#108973" : "#cbf3f0 !important",
+            backgroundColor:
+              changablestrategyTags.length > 0
+                ? "#125B54"
+                : "#e7f8f8 !important",
+            borderColor:
+              changablestrategyTags.length > 0
+                ? "#108973"
+                : "#cbf3f0 !important",
           },
         }}
       >
         <div className="flex items-center space-x-2">
           <span>Strategy</span>
-          {selectedSectors.length > 0 && (
+          {changablestrategyTags.length > 0 && (
             <span
               style={{
                 backgroundColor: "#FFFFFF",
@@ -111,13 +118,11 @@ export default function StrategyCheck() {
                 fontWeight: 200,
               }}
             >
-              {selectedSectors.length}
+              {changablestrategyTags.length}
             </span>
           )}
         </div>
       </Button>
-
-
 
       <Popper
         open={open}
@@ -139,17 +144,19 @@ export default function StrategyCheck() {
           <Grow {...TransitionProps}>
             <Paper
               sx={{
+                backgroundColor: "white",
                 borderRadius: "8px",
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
+                maxHeight: "300px", // Set a max height for the dropdown
               }}
             >
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList
-                  autoFocusItem={open}
-                  disablePadding
+                <Box
                   sx={{
                     padding: "8px",
+                    maxHeight: "250px", // Set a max height for the scrollable area
+                    overflowY: "auto", // Enable vertical scrolling
                   }}
                 >
                   <ListSubheader
@@ -165,8 +172,10 @@ export default function StrategyCheck() {
                   >
                     <TextField
                       size="small"
-                      type="Search"
+                      // select
+                      type="search"
                       placeholder="Search..."
+                      value={searchTerm}
                       onChange={handleSearch}
                       variant="outlined"
                       InputProps={{
@@ -193,7 +202,8 @@ export default function StrategyCheck() {
                       sx={{
                         cursor: "pointer",
                         color:
-                          selectedSectors.length === sectors.length
+                          changablestrategyTags.length ===
+                          strategyTagList.length
                             ? "#125B54"
                             : "#1D2939",
                         fontSize: "12px",
@@ -203,43 +213,45 @@ export default function StrategyCheck() {
                       Select All
                     </Typography>
                   </ListSubheader>
-                  {filteredSectors.map((sector, index) => (
+                  {filteredTags.map(([key, displayValue], index) => (
                     <MenuItem
-                      key={`${sector}-${index}`}
-                      value={sector}
+                      autoFocus={false}
+                      key={index}
+                      value={key}
                       onClick={() => {
-                        const currentIndex = selectedSectors.indexOf(sector);
-                        const newSelectedSectors = [...selectedSectors];
+                        const currentIndex = strategyTag.indexOf(key);
+                        const newStrategyTag = [...strategyTag];
                         if (currentIndex === -1) {
-                          newSelectedSectors.push(sector);
+                          newStrategyTag.push(key);
                         } else {
-                          newSelectedSectors.splice(currentIndex, 1);
+                          newStrategyTag.splice(currentIndex, 1);
                         }
-                        setSelectedSectors(newSelectedSectors);
+                        setStrategyTag(newStrategyTag);
+                        setIsChangeFilter(true);
                       }}
                       sx={{
                         padding: "8px",
-                        backgroundColor: selectedSectors.includes(sector)
+                        backgroundColor: strategyTag.includes(key)
                           ? "#E7F8F8"
                           : "transparent",
                         "&:hover": {
-                          backgroundColor: selectedSectors.includes(sector)
+                          backgroundColor: strategyTag.includes(key)
                             ? "#cde6e6"
                             : "#E0F7FA",
                         },
                       }}
                     >
                       <Checkbox
-                        checked={selectedSectors.indexOf(sector) > -1}
+                        checked={strategyTag.indexOf(key) > -1}
                         sx={{
-                          color: selectedSectors.includes(sector)
+                          color: strategyTag.includes(key)
                             ? "#108973 !important"
                             : "#E4E7EC",
                           padding: "0 8px 0 0",
                         }}
                       />
                       <ListItemText
-                        primary={sector}
+                        primary={displayValue}
                         sx={{
                           margin: 0,
                           fontSize: "14px",
@@ -247,7 +259,7 @@ export default function StrategyCheck() {
                       />
                     </MenuItem>
                   ))}
-                </MenuList>
+                </Box>
               </ClickAwayListener>
             </Paper>
           </Grow>

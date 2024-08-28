@@ -24,7 +24,6 @@ const HotStockSectionSlider = ({ items }) => {
                       {/* <HotSliderN> */}
                       {items.map((value, index) => (
                         <StockCard
-                          className={index === 0 ? "ml-5" : ""}
                           key={value.id} // Ensure each item has a unique key
                           style={
                             index === 2 ? { transform: "scale(0.697)" } : {}

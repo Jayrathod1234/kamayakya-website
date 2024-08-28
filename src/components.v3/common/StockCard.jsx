@@ -20,7 +20,7 @@ function StockCard({
   expected_returns,
   return_time,
   youtube_details,
-  className,
+  className = "",
   style,
 }) {
   const { stockSector } = useStockPicks();
