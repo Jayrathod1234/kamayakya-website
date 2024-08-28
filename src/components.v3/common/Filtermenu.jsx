@@ -4,7 +4,10 @@ import CustomSortMenu from "../common/RadioDrop.jsx";
 import FilterMenuTags2 from "./FilterMenuTags2.jsx";
 import ResponsiveFilter from "./ResponsiveFilter.jsx";
 import { useMediaQuery } from "@mui/material";
+import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
+
 function Filtermenu() {
+  const { searchStock, setSearchStock } = useAllBoardStock();
   // Sidebar right side
   const [open, setOpen] = useState(false);
   // sticky header
@@ -36,7 +39,6 @@ function Filtermenu() {
   }
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const [search, setSearch] = useState("");
   const inputRef = useRef(null);
   const formRef = useRef(null);
 
@@ -48,6 +50,12 @@ function Filtermenu() {
       setTimeout(() => inputRef.current.focus(), 300);
     }
   };
+
+  useEffect(() => {
+    if (searchStock) {
+      setIsExpanded(true);
+    }
+  }, []);
 
   return (
     <>
@@ -111,13 +119,13 @@ function Filtermenu() {
                 }`}
               >
                 <input
-                  type="text"
+                  type="search"
                   placeholder="Search Stocks by Name"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  value={searchStock}
+                  onChange={(e) => setSearchStock(e.target.value)}
                   onFocus={() => setIsExpanded(true)}
                   onBlur={() => {
-                    if (!search) setIsExpanded(false);
+                    if (!searchStock) setIsExpanded(false);
                   }}
                   ref={inputRef}
                   className={`search__input transition-width duration-300 ${

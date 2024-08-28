@@ -632,18 +632,21 @@ export const getLatestReleasesStockResponse = [
 ];
 export const getStrategyTagResponse = [
   {
+    id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
     name: "Value Pick",
     slug: "value-pick",
     image: "/assets/discover-by-strategy/value-pick.svg",
     description: "Discover undervalued gems with strong fundamentals.",
   },
   {
+    id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
     name: "Turnaround Story",
     slug: "turnaround-story",
     image: "/assets/discover-by-strategy/turnaround-story.svg",
     description: "Invest in companies poised for a comeback.",
   },
   {
+    id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
     name: "Special Situation",
     slug: "special-situation",
     image: "/assets/discover-by-strategy/special-situation.svg",
@@ -651,30 +654,35 @@ export const getStrategyTagResponse = [
       "Unique opportunities arising from corporate events or restructuring.",
   },
   {
+    id: "6d9fb7a0-92b3-4633-8ea9-ae86dc2bd008",
     name: "Management Change",
     slug: "management-change",
     image: "/assets/discover-by-strategy/management-change.svg",
     description: "Benefit from new leadership and strategic direction.",
   },
   {
+    id: "ac7148dc-e122-48a8-9efb-51a02c87f518",
     name: "Market Leadership",
     slug: "market-leadership",
     image: "/assets/discover-by-strategy/market-leadership.svg",
     description: "Invest in industry leaders with a strong market position.",
   },
   {
+    id: "6e29cce5-7ca8-4f00-9f8e-7ef69e66cb29",
     name: "Industry Tailwind",
     slug: "industry-tailwind",
     image: "/assets/discover-by-strategy/industry-tailwind.svg",
     description: "Sectors with favorable economic conditions driving growth.",
   },
   {
+    id: "a282f6c5-0c47-451c-8d41-fd2888c7737b",
     name: "Cyclicals",
     slug: "moated",
     image: "/assets/discover-by-strategy/cyclicals.svg",
     description: "Invest in industries that benefit from economic cycles.",
   },
   {
+    id: "43a146f9-2f69-40ba-ad48-1faba29db0a5",
     name: "Moated",
     slug: "cyclicals",
     image: "/assets/discover-by-strategy/moated.svg",
@@ -683,18 +691,21 @@ export const getStrategyTagResponse = [
   },
 
   {
+    id: "e30a5088-a98d-49d1-bcd9-29e7985e5e7f",
     name: "Thematic Stories",
     slug: "thematic-stories",
     image: "/assets/discover-by-strategy/thematic-stories.svg",
     description: "Align investments with emerging trends and themes.",
   },
   {
+    id: "18ab2bd3-6895-420f-8259-6132597cdff4",
     name: "Future Focused",
     slug: "future-focused",
     image: "/assets/discover-by-strategy/future-focused.svg",
     description: "Companies with a strong vision for long-term growth.",
   },
   {
+    id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
     name: "ESG",
     slug: "esg",
     image: "/assets/discover-by-strategy/esg.svg",
@@ -702,6 +713,7 @@ export const getStrategyTagResponse = [
       "Invest in companies with strong Environmental, Social, and Governance practices.",
   },
   {
+    id: "798c7578-de3d-475c-af72-386de9ce10c4",
     name: "High Dividends",
     slug: "high-dividends",
     image: "/assets/discover-by-strategy/high-dividends.svg",
@@ -1303,6 +1315,92 @@ export const getCommonDetailsResponse = {
       {
         value: "holding-company",
         label: "Holding company",
+      },
+    ],
+    strategy_tags: [
+      {
+        id: "178b2792-26c7-4f97-b763-bb62541f5c8e",
+        name: "Value Pick",
+        slug: "value-pick",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/value-pick.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=f33db523155cd8be7e3ad4cd251778481107534890c9d0f32694dd87a6d4dd0b",
+      },
+      {
+        id: "5b96c857-65e7-414e-91aa-bfb208fdbae1",
+        name: "Turnaround Story",
+        slug: "turnaround-story",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/turnaround-story.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=88a854d5bdb5c8f39eaa0faf0149966e36ed09bf59366bafbeda845fdee5f928",
+      },
+      {
+        id: "8241c0f4-d726-4ab5-8089-58c7fcf0980e",
+        name: "Special Situation",
+        slug: "special-situation",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/special-situation.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=0e47c199ca48bee88f0b9775c32e744a5daae661fce8f02a8fc2206906ad6186",
+      },
+      {
+        id: "6d9fb7a0-92b3-4633-8ea9-ae86dc2bd008",
+        name: "Management Change",
+        slug: "management-change",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/management-change.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=41e266baae56b7fd48880c2c032759decfa16fe15dbcff1c878dee44585f9085",
+      },
+      {
+        id: "ac7148dc-e122-48a8-9efb-51a02c87f518",
+        name: "Market Leadership",
+        slug: "market-leadership",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/market-leadership.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ca8ce1b426ab48a974937205c28e9aafd2296f06c9d9629f560629a352a36f53",
+      },
+      {
+        id: "6e29cce5-7ca8-4f00-9f8e-7ef69e66cb29",
+        name: "Industry Tailwind",
+        slug: "industry-tailwind",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/industry-tailwind.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=bf8cf486288a02abb079d932632a15ddc16eabd6b5f631cdc298ddec35f68251",
+      },
+      {
+        id: "a282f6c5-0c47-451c-8d41-fd2888c7737b",
+        name: "Cyclicals",
+        slug: "cyclicals",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/cyclicals.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6177cf288e39455a5c4cd458693d0fd04c6f2b69035fffd4bbad6e084e599589",
+      },
+      {
+        id: "43a146f9-2f69-40ba-ad48-1faba29db0a5",
+        name: "Moated",
+        slug: "moated",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/moated.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ae0202001cb4c86d6009fdfb2dbf3fda286c0499978e13eece64ed3d4b16b24f",
+      },
+      {
+        id: "e30a5088-a98d-49d1-bcd9-29e7985e5e7f",
+        name: "Thematic Stories",
+        slug: "thematic-stories",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/thematic-stories.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ed1c22bcfc0359bd5459175c6a8fd8cecd281ec0e6d9eb47752e1694543528b5",
+      },
+      {
+        id: "18ab2bd3-6895-420f-8259-6132597cdff4",
+        name: "Future Focused",
+        slug: "future-focused",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/future-focused.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=c7be88c9d4d07e949726bd88413973cc3842f0e8ca1e518afc0411b3cb5d5b66",
+      },
+      {
+        id: "124d8a4f-bcf5-4693-a351-23ee591f48db",
+        name: "ESG",
+        slug: "esg",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/esg.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=bc7fa318718fe8d65cd5aabcc21e08c07e5fbbe0e27fdf08e5b7a7cd9a996545",
+      },
+      {
+        id: "798c7578-de3d-475c-af72-386de9ce10c4",
+        name: "High Dividends",
+        slug: "high-dividends",
+        image:
+          "https://kamayakya.s3.amazonaws.com/strategy-tags/high-dividends.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SGK27ISPC7RDHGX%2F20240828%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240828T085416Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6b367de205987aed6e4a65f6123ea92ac1fbc51fcd36631d077d5c0144790a01",
       },
     ],
   },

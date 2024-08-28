@@ -94,7 +94,7 @@ export default function StockDetailsTimeline({ timeline }) {
       {timeline.map((step, index) => (
         <Box key={index} display="flex" alignItems="flex-start">
           <Box width="80px" textAlign="center" mr={2}>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" color="textSecondary" fontFamily="Open Sans">
               {formatDate(
                 step.type == "report" ? step.report_date : step.youtube_date
               )}
@@ -128,6 +128,8 @@ export default function StockDetailsTimeline({ timeline }) {
             bgcolor="background.paper"
             maxWidth={{ xs: "100%", sm: "450px" }}
             width="100%"
+            p={"5px"}
+            boxShadow="0px 2px 4px rgba(0, 0, 0, 0.1)" // Small shadow on the bottom side
           >
             <Typography
               variant="subtitle1"
@@ -135,21 +137,28 @@ export default function StockDetailsTimeline({ timeline }) {
               display="flex"
               alignItems="center"
               color='#475467'
+              fontFamily="Open Sans"
             >
               {step.type == "report"
                 ? step.report_action_text
                 : "Video Released"}
 
               {index == 0 && (
-                <Box ml={1} px={1} py={0.5} borderRadius="5px">
-                  <Typography color="orange">Active</Typography>
+                <Box
+                  ml={1}
+                  px={1}
+                  py={0.5}
+                  borderRadius="9999px"
+                  bgcolor="#FFF6EE"
+                >
+                  <Typography color="orange" fontFamily="Open Sans">Active</Typography>
                 </Box>
               )}
             </Typography>
 
             {step.youtube_title && (
               <Box display="flex" alignItems="center" gap={1}>
-                <Typography variant="body2" color="black" fontWeight="bold">
+                <Typography variant="body2" color="black" fontWeight="bold" fontFamily="Open Sans">
                   {step.youtube_title}
                 </Typography>
               </Box>
@@ -169,6 +178,7 @@ export default function StockDetailsTimeline({ timeline }) {
                 textTransform: "none",
                 minWidth: "100px",
                 flexShrink: 0,
+                fontFamily:"Open Sans",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",

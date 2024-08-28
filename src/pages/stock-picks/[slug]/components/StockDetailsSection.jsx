@@ -7,6 +7,7 @@ import ElevateSection from "../../components/ElevateSection";
 import { useStockDetails } from "@/contexts/StockDetailsContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { Tooltip } from "@mui/material";
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
@@ -49,7 +50,7 @@ function StockDetailsSection() {
       {Object.keys(items).length === 0 || isLoading ? (
         <></>
       ) : (
-        <div className="pt-4 bg-[#F9FAFB] font-open_sans " >
+        <div className="pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans " >
           <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
             <div className="items-center gap-[13px] flex p-[7px]">
               <img
@@ -75,11 +76,24 @@ function StockDetailsSection() {
                 <div className="col-span-2">
                   {/* First Content Start */}
                   <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1 relative">
+                    {/* Buy Images  */}
                     <img
                       src="/assets/BuyBubbleBlue.webp"
                       alt=""
                       className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[60px]"
                     />
+                    {/* Sell Images */}
+                    {/* <img
+                      src="/assets/SellBubbleRed.png"
+                      alt=""
+                      className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[50px]"
+                    /> */}
+                    {/* hold Images  */}
+                    {/* <img
+                      src="/assets/sellbblyellow.png"
+                      alt=""
+                      className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[50px]"
+                    /> */}
                     <div className="px-4 pt-4 pb-3 gap-2">
                       <div className="flex pb-2.5 items-center justify-center sm:justify-start md:justify-start">
                         <div className="flex h-4 py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
@@ -133,7 +147,7 @@ function StockDetailsSection() {
                             </div>
                             <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
                               <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
-                              <p className="text-xs md:text-2xs text-[#475467] font-medium">
+                              <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
                                 {stock_exchange == "BSE" ||
                                   stock_exchange == "SME-BSE"
                                   ? "BSE: "
@@ -394,56 +408,56 @@ function StockDetailsSection() {
                                     <img
                                       src="/assets/blackinfo.svg"
                                       alt="Info"
-                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-help"
+                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
                                     />
                                     <div className="absolute shadow-md z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
                                       <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white border border-gray-300 rounded-lg shadow-lg text-gray-800">
                                         <div className="tooltip-content">
-                                          <h3 className="tooltip-title font-bold mb-2 text-[12px] text-gray-800">
+                                          <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
                                             Compound Annual Growth Rate
                                           </h3>
-                                          <p className="tooltip-subtitle font-bold text-blue-900 text-[12px]">Purpose:</p>
-                                          <p className="tooltip-text my-1 text-gray-800 text-[12px]">Shows average yearly growth of an investment.</p>
-                                          <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px]">
+                                          <p className="tooltip-subtitle font-bold text-blue-900 font-open_sans text-[12px]">Purpose:</p>
+                                          <p className="tooltip-text my-1 text-gray-800 text-[12px] font-open_sans">Shows average yearly growth of an investment.</p>
+                                          <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
                                             Imagine a tree growing a bit more each year.<br />
                                             CAGR tells how fast it grows annually on average.
                                           </p>
-                                          <div className="tooltip-formula flex flex-wrap bg-gray-100 p-3 rounded mb-4">
-                                            <p className="font-bold m-0 pt-5 me-5 text-[12px]">CAGR =</p>
+                                          <div className="tooltip-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                            <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
                                             <div className="formula flex items-center justify-center flex-wrap mt-2">
-                                              <span className="text-[30px] font-[50]">[</span>
+                                              <span className="text-[30px] font-[50] font-open_sans">[</span>
                                               <div className="flex items-center mx-2">
                                                 <div className="flex flex-col items-center">
                                                   <div className="fraction">
-                                                    <span className="numerator text-[12px]">Ending Value</span>
-                                                    <span className="denominator text-[12px]">Starting Value</span>
+                                                    <span className="numerator text-[12px] font-open_sans">Ending Value</span>
+                                                    <span className="denominator text-[12px] font-open_sans">Starting Value</span>
                                                   </div>
                                                 </div>
                                               </div>
-                                              <span className="text-[30px] font-[50]">]</span>
+                                              <span className="text-[30px] font-[50] font-open_sans">]</span>
                                               <sup className="flex items-center text-[20px] font-[50]">
-                                                <span className="text-[20px]">[</span>
+                                                <span className="text-[20px] font-open_sans">[</span>
                                                 <div className="flex flex-col items-center mx-2">
                                                   <div className="fraction">
-                                                    <span className="text-[12px]">1</span>
+                                                    <span className="text-[12px] font-open_sans">1</span>
                                                     <hr className="w-full h-[1px] bg-black mt-2" />
-                                                    <span className="denominator text-[12px] mt-2">No. of Years</span>
+                                                    <span className="denominator text-[12px] mt-2 font-open_sans">No. of Years</span>
                                                   </div>
                                                 </div>
-                                                <span className="text-[20px]">]</span>
+                                                <span className="text-[20px] font-open_sans">]</span>
                                               </sup>
-                                              <span className="text-[12px] font-bold ml-2">-1</span>
+                                              <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
                                             </div>
                                           </div>
 
                                           <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
-                                            <p className="example-title font-bold text-[#108973] mb-2 text-[12px]">Example :</p>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px]"><strong>Start Value</strong> ₹100</div>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px]"><strong>End Value after 3 years</strong> ₹150</div>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px]"><strong>Total Returns over 3 years</strong> 50%</div>
-                                            <div className="example-item flex justify-between py-1 text-[12px]"><strong>CAGR</strong> 14.47%</div>
+                                            <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">Example :</p>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans"><strong>Start Value</strong> ₹100</div>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans"><strong>End Value after 3 years</strong> ₹150</div>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans"><strong>Total Returns over 3 years</strong> 50%</div>
+                                            <div className="example-item flex justify-between py-1 text-[12px] font-open_sans"><strong>CAGR</strong> 14.47%</div>
                                           </div>
-                                          <p className="tooltip-footer mt-4 text-[12px] text-gray-500">This means, on average, the investment grew about 14.47% each year</p>
+                                          <p className="tooltip-footer mt-4 text-[12px] text-gray-500 font-open_sans">This means, on average, the investment grew about 14.47% each year</p>
                                         </div>
                                       </div>
                                     </div>
@@ -509,7 +523,7 @@ function StockDetailsSection() {
                     <div className="border border-blue-600 rounded-lg">
                       <div className="bg-custom-gradient text-white rounded-lg p-4">
                         <div className="flex justify-between items-center">
-                          <h2 className="text-lg font-semibold flex items-center">
+                          <h2 className="text-lg font-open_sans font-semibold flex items-center">
                             Upside Left
                             <div className="relative group">
                               <img
@@ -519,10 +533,10 @@ function StockDetailsSection() {
                               />
                               <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white text-black  text-sm rounded-lg py-2 px-4 w-[300px]">
                                 <div className="w-full">
-                                  <p className="text-[12px]" >Upside Left means how much the stock price could rise from its current level. </p>
+                                  <p className="text-[12px] font-open_sans" >Upside Left means how much the stock price could rise from its current level.</p>
                                   <div className="p-2 bg-[#F9FAFB] rounded-md">
-                                    <h4 className="text-[#108973] text-[12px] font-extrabold">Example :</h4>
-                                    <p className="text-[12px]"> If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.</p>
+                                    <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">Example :</h4>
+                                    <p className="text-[12px] font-open_sans"> If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.</p>
                                   </div>
                                 </div>
                               </div>
@@ -533,16 +547,16 @@ function StockDetailsSection() {
                             alt=""
                           />
                         </div>
-                        <p className="text-4xl font-bold mt-2">
+                        <p className="text-4xl font-bold mt-2 font-open_sans">
                           {upside_left}%
                         </p>
-                        <p className="text-sm">in {upside_left_time}</p>
+                        <p className="text-sm font-open_sans">in {upside_left_time}</p>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center">
                             <img src="/assets/hj1.svg" alt="" />
-                            <p className="ml-2 text-sm text-gray-800">
+                            <p className="ml-2 text-sm text-gray-800 font-open_sans">
                               Total Returns
                             </p>
                           </div>
@@ -552,9 +566,9 @@ function StockDetailsSection() {
                               alt="Indicator Icon"
                               className="w-3 h-3"
                             />
-                            <p className="text-black ml-1 text-sm">
+                            <p className="text-black ml-1 text-sm font-open_sans">
                               {expected_returns}
-                              <span className="text-gray-500 text-xs">
+                              <span className="text-gray-500 text-xs font-open_sans">
                                 likely in {return_time}
                               </span>
                             </p>
@@ -563,7 +577,7 @@ function StockDetailsSection() {
                         <div className="flex justify-between items-center mt-2">
                           <div className="flex items-center">
                             <img src="/assets/hj2.svg" alt="" />
-                            <p className="ml-2 text-sm text-gray-800">CAGR</p>
+                            <p className="ml-2 text-sm text-gray-800 font-open_sans">CAGR</p>
                           </div>
                           <div className="flex items-center">
                             <img
@@ -571,10 +585,10 @@ function StockDetailsSection() {
                               alt="Indicator Icon"
                               className="w-3 h-3"
                             />
-                            <p className="text-black ml-1 text-sm">
+                            <p className="text-black ml-1 text-sm font-open_sans ">
 
                               64.08%{" "}
-                              <span className="text-gray-500 text-xs">
+                              <span className="text-gray-500 text-xs font-open_sans">
                                 in 1yr 4m
                               </span>
                             </p>
@@ -583,12 +597,12 @@ function StockDetailsSection() {
                       </div>
                     </div>
 
-                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base font-normal gap-1">
-                      <span className="text-[#0079EF] text-sm md:text-base font-bold">
+                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base font-normal gap-1 font-open_sans">
+                      <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
                         ₹1Lakh{" "}
                       </span>
                       invested at current market price (CMP) can become{" "}
-                      <span className="text-[#0079EF] text-sm md:text-base font-bold">
+                      <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
                         ₹“X” Lakh
                       </span>{" "}
                       likely within a year
@@ -629,10 +643,10 @@ function StockDetailsSection() {
                   <div className="p-5 bg-gray-100 mt-2 rounded-md  block sm:hidden">
                     <div className="flex relative">
                       <div className=" !w-[75%]">
-                        <p className="font-semibold mb-2">
+                        <p className="font-semibold mb-2 font-open_sans">
                           Don't miss out on potential gains!
                         </p>
-                        <p className="mb-4 text-[#344054]">
+                        <p className="mb-4 text-[#344054] font-open_sans">
                           Upgrade now to get access to both SME and Mainboard
                           stocks.
                         </p>
@@ -647,7 +661,7 @@ function StockDetailsSection() {
                     </div>
                     <Link href={`/pricing`}>
                       <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center flex">
-                        <span className="flex gap-2">
+                        <span className="flex gap-2 font-open_sans">
                           <img src="/assets/white-icon.svg" alt="" />
                           Upgrade Now
                         </span>
@@ -661,7 +675,7 @@ function StockDetailsSection() {
                       className="w-full   p-2 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
                     >
-                      <span>TIMELINE & REPORTS ({timeline.length || 0})</span>
+                      <span className="font-open_sans">TIMELINE & REPORTS ({timeline.length || 0})</span>
                       <svg
                         className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
                           }`}
@@ -702,11 +716,11 @@ function StockDetailsSection() {
                 {/* Second Container Start */}
                 <div className="relative hidden  sm:block ">
                   <div className="p-4 border rounded-lg sticky top-16 bg-white">
-                    <h2 className="font-semibold text-lg mb-4  hidden sm:flex">
+                    <h2 className="font-semibold font-open_sans text-lg mb-4  hidden sm:flex">
                       INVESTMENT GUIDANCE
                     </h2>
-                    <div className=" gap-2 mb-4 hidden sm:flex">
-                      <button
+                    <div className="gap-2 mb-4 hidden sm:flex">
+                       {/* <button
                         className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                         onClick={() =>
                           window.open(watch_video.youtube_link, "_blank")
@@ -718,30 +732,82 @@ function StockDetailsSection() {
                           className="w-5 h-5"
                         />
                         <span>Watch Video</span>
-                      </button>
-                      <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
-                        <img
-                          src="/assets/share2.svg"
-                          alt="Play icon"
-                          className="w-5 h-5 "
-                        />
-                        <span>
-                          {action == "BUY"
-                            ? "Invest Now"
-                            : action == "HOLD"
-                              ? "Go to Broker"
-                              : "Sell Now"}
-                        </span>
-                      </button>
+                      </button> */}
+                      {/* tooltip  Button */}
+                      <div className="flex-1 ">
+                        <div className="relative group">
+                          <button
+                            className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100"
+                          >
+                            <img
+                              src="/assets/circle-play.svg"
+                              alt="Play icon"
+                              className="w-5 h-5 "
+                            />
+                            <span className="font-medium text-gray-400">Watch Video</span>
+                          </button>
+
+                          {/* Tooltip */}
+                          <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
+                            <img
+                              src="/assets/frame123.png" // Change this to the appropriate image source
+                              alt="Video thumbnail"
+                              className="w-[128px] mb-2 mx-auto"
+                            />
+                            <p className="font-bold text-lg text-[#0C111D]">Video Under development!</p>
+                            <p className="text-sm text-[#475467]">
+                              Patience is a virtue! 🌱 Our experts are crafting something amazing just for you. Stay tuned for the big reveal! 🎬✨
+                            </p>
+                            {/* Tooltip Arrow */}
+                            <div className="absolute -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Share Button */}
+                      <div className="flex-1">
+                        <button className="w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
+                          <img
+                            src="/assets/share2.svg"
+                            alt="Share icon"
+                            className="w-5 h-5"
+                          />
+                          <span>
+                            {action === "BUY"
+                              ? "Invest Now"
+                              : action === "HOLD"
+                                ? "Go to Broker"
+                                : "Sell Now"}
+                          </span>
+                        </button>
+                      </div>
                     </div>
 
+
                     <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
-                      <p className="w-2/3">{action_text}</p>
+                      <p className="w-2/3 font-open_sans">{action_text}</p>
                       <img
                         src="/assets/images2.png"
                         alt=""
                         className="absolute -top-3 right-6 w-16 h-16"
                       />
+
+                      {/* SELL Image   */}
+
+                      {/* <img
+                        src="/assets/sellbbl.png"
+                        alt=""
+                        className="absolute -top-3 right-6 w-16 h-16"
+                      /> */}
+
+                      {/* Hold Images  */}
+
+                      {/* <img
+                        src="/assets/sellbblyellow.png"
+                        alt=""
+                        className="absolute -top-1 right-8 w-10 h-8 rotate-[-28deg]"
+                      /> */}
+
                       <img
                         src="/assets/images3.svg"
                         alt=""
@@ -759,10 +825,10 @@ function StockDetailsSection() {
                     <div className="p-5 bg-gray-100 mt-2 rounded-md hidden sm:block">
                       <div className="flex relative">
                         <div className=" !w-[75%]">
-                          <p className="font-semibold mb-2">
+                          <p className="font-semibold mb-2 font-open_sans">
                             Don't miss out on potential gains!
                           </p>
-                          <p className="mb-4 text-[#344054]">
+                          <p className="mb-4 text-[#344054] font-open_sans">
                             Upgrade now to get access to both SME and Mainboard
                             stocks.
                           </p>
@@ -777,7 +843,7 @@ function StockDetailsSection() {
                       </div>
                       <Link href={`/pricing`}>
                         <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
-                          <span className="flex gap-2">
+                          <span className="flex gap-2 font-open_sans">
                             <img src="/assets/white-icon.svg" alt="" />
                             Upgrade Now
                           </span>
@@ -789,7 +855,7 @@ function StockDetailsSection() {
                         className="w-full   p-2 rounded-lg flex justify-between items-center"
                         onClick={toggleDropdown}
                       >
-                        <span>TIMELINE & REPORTS ({timeline.length || 0})</span>
+                        <span className="font-open_sans">TIMELINE & REPORTS ({timeline.length || 0})</span>
                         <svg
                           className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
                             }`}

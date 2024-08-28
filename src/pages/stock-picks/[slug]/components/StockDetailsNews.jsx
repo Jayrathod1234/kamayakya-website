@@ -98,10 +98,10 @@ const StockDetailsNews = ({ stock_name }) => {
               </div>
 
               {/* <!-- Content Section --> */}
-              <div className="flex-1">
+              <div className="flex-1 font-open_sans">
                 <div className="flex flex-col gap-1">
                   {/* <!-- Title --> */}
-                  <p className="text-sm md:text-base font-bold text-gray-800 line-clamp-2">
+                  <p className="text-sm md:text-base font-bold text-gray-800 line-clamp-2 font-open_sans">
                     {item.title}
                   </p>
                   {/* <!-- Meta Info --> */}
@@ -134,7 +134,7 @@ const StockDetailsNews = ({ stock_name }) => {
           </a>
         ))}
       </div>
-      <div className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 p-4 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
+      <div className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-1 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
         <p>Load more</p>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 
 function Discovercard({ id, name, description, image, color }) {
-  const { setStrategyTag, setIsChangeStrategyTag } = useStockPicks();
+  const { setStrategyTag, setIsChangeFilter } = useStockPicks();
 
   return (
     <>
@@ -17,7 +17,7 @@ function Discovercard({ id, name, description, image, color }) {
               }
               return prevTags; // If id already exists, return the existing array
             });
-            setIsChangeStrategyTag(true);
+            setIsChangeFilter(true);
           }}
         >
           <div className="main-card w-full relative mx-auto">

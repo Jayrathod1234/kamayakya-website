@@ -13,14 +13,15 @@ const AllBoardStockContext = createContext();
 export const AllBoardStockProvider = ({ children }) => {
   const {
     setStrategyTag,
-    isChangeStrategyTag,
-    setIsChangeStrategyTag,
+    isChangeFilter,
+    setIsChangeFilter,
     strategyTag,
     min_upside_left,
     max_upside_left,
     sebiBoardType,
     min_returns,
     max_returns,
+    changablestrategyTags,
   } = useStockPicks();
 
   const { isLoggedIn } = useContext(AuthContext);
@@ -69,13 +70,13 @@ export const AllBoardStockProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (isChangeStrategyTag) {
+    if (isChangeFilter) {
       // Call the API
       refetch(); // Assuming `refetch` is your API call function
       setTotalFilterCount(getFilterCount());
-      setIsChangeStrategyTag(false);
+      setIsChangeFilter(false);
     }
-  }, [strategyTag, isChangeStrategyTag]); // Include `source` in the dependency array
+  }, [changablestrategyTags, isChangeFilter]); // Include `source` in the dependency array
 
   const handleResetFilters = async () => {
     await setRecency(initialFilterTime);

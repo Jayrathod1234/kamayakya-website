@@ -178,7 +178,7 @@ function DrawerFilter() {
     );
   };
 
-  const handleCloseDrawer = (closeVal) => {};
+  const handleCloseDrawer = (closeVal) => { };
 
   const CustomSlider = styled(Slider)({
     color: "#004d40", // Main color for the rail and thumb border
@@ -227,7 +227,7 @@ function DrawerFilter() {
               </div>
             )}
           </Button>
-          <Drawer open={open} anchor={anchor} onClose={() => {}}>
+          <Drawer open={open} anchor={anchor} onClose={() => { }}>
             <Box
               sx={{ width: 400 }}
               role="presentation"
@@ -249,121 +249,127 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
               </div>
               {/* upside left  */}
-              <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  mb={2}
-                  sx={{ width: 400 }}
-                >
-                  <img src="/assets/solar_graph-down-new-broken.svg" />
-                  <div className="w-[318px] flex">
-                    <Typography
-                      variant="subtitle1"
-                      ml={1}
-                      mr={1}
-                      sx={{
-                        color: "#1D2939",
-                        fontSize: "14px",
-                        fontWeight: "700",
-                      }}
-                    >
-                      Upside left
-                    </Typography>
-                    <IconButton size="small">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M13.4046 11.6112C14.1188 10.5423 14.5 9.28558 14.5 8C14.5 6.27609 13.8152 4.62279 12.5962 3.40381C11.3772 2.18482 9.72391 1.5 8 1.5C6.71442 1.5 5.45772 1.88122 4.3888 2.59545C3.31988 3.30968 2.48676 4.32484 1.99479 5.51256C1.50282 6.70028 1.37409 8.00721 1.6249 9.26809C1.8757 10.529 2.49477 11.6872 3.40381 12.5962C4.31285 13.5052 5.47104 14.1243 6.73192 14.3751C7.99279 14.6259 9.29973 14.4972 10.4874 14.0052C11.6752 13.5132 12.6903 12.6801 13.4046 11.6112Z"
-                          stroke="#D0D5DD"
-                        />
-                        <path
-                          d="M9 11C9 11.1326 8.94732 11.2598 8.85355 11.3536C8.75979 11.4473 8.63261 11.5 8.5 11.5C8.23478 11.5 7.98043 11.3946 7.79289 11.2071C7.60536 11.0196 7.5 10.7652 7.5 10.5V8C7.36739 8 7.24021 7.94732 7.14645 7.85355C7.05268 7.75979 7 7.63261 7 7.5C7 7.36739 7.05268 7.24022 7.14645 7.14645C7.24021 7.05268 7.36739 7 7.5 7C7.76522 7 8.01957 7.10536 8.20711 7.29289C8.39464 7.48043 8.5 7.73478 8.5 8V10.5C8.63261 10.5 8.75979 10.5527 8.85355 10.6464C8.94732 10.7402 9 10.8674 9 11ZM7.75 6C7.89834 6 8.04334 5.95601 8.16668 5.8736C8.29001 5.79119 8.38614 5.67406 8.44291 5.53701C8.49967 5.39997 8.51453 5.24917 8.48559 5.10368C8.45665 4.9582 8.38522 4.82456 8.28033 4.71967C8.17544 4.61478 8.0418 4.54335 7.89632 4.51441C7.75083 4.48547 7.60003 4.50032 7.46299 4.55709C7.32594 4.61386 7.20881 4.70999 7.1264 4.83332C7.04399 4.95666 7 5.10166 7 5.25C7 5.44891 7.07902 5.63968 7.21967 5.78033C7.36032 5.92098 7.55109 6 7.75 6Z"
-                          fill="#344054"
-                        />
-                      </svg>
-                    </IconButton>
-                  </div>
-
-                  <IconButton size="small">
-                    <ExpandMoreIcon fontSize="small" />
-                  </IconButton>
-                </Box>
-
-                <div className="pl-9">
-                  <CustomSlider
-                    value={upsideLeft}
-                    onChange={handleUpsideLeftSliderChange}
-                    valueLabelDisplay="auto"
-                    min={min_upside_left}
-                    max={max_upside_left}
-                  />
-
-                  <Grid container spacing={2} alignItems="center" pt={2}>
-                    <Grid item xs={5}>
-                      <TextField
-                        variant="outlined"
-                        size="small"
-                        name="min"
-                        value={upsideLeft ? upsideLeft[0] : 0}
-                        onChange={handleUpsideLeftInputChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">%</InputAdornment>
-                          ),
-                        }}
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            "&:hover fieldset": {
-                              borderColor: "#125B54", // Color of the outline on hover
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor: "#125B54", // Color of the outline when focused
-                            },
-                          },
-                        }}
+              <div className="pt-4 pr-6 pl-4 ">
+                <Accordion defaultExpanded sx={{ boxShadow: 'none' }}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Box display="flex" alignItems="center" >
+                      <img src="/assets/solar_graph-down-new-broken.svg" alt="Upside Left" />
+                      <div className=" flex">
+                        <Typography
+                          variant="subtitle1"
+                          ml={1}
+                          mr={1}
+                          sx={{
+                            color: "#1D2939",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                          }}
+                        >
+                          Upside Left
+                        </Typography>
+                        <IconButton size="small">
+                          <div className="tooltip ">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                            >
+                              <path
+                                d="M13.4046 11.6112C14.1188 10.5423 14.5 9.28558 14.5 8C14.5 6.27609 13.8152 4.62279 12.5962 3.40381C11.3772 2.18482 9.72391 1.5 8 1.5C6.71442 1.5 5.45772 1.88122 4.3888 2.59545C3.31988 3.30968 2.48676 4.32484 1.99479 5.51256C1.50282 6.70028 1.37409 8.00721 1.6249 9.26809C1.8757 10.529 2.49477 11.6872 3.40381 12.5962C4.31285 13.5052 5.47104 14.1243 6.73192 14.3751C7.99279 14.6259 9.29973 14.4972 10.4874 14.0052C11.6752 13.5132 12.6903 12.6801 13.4046 11.6112Z"
+                                stroke="#D0D5DD"
+                              />
+                              <path
+                                d="M9 11C9 11.1326 8.94732 11.2598 8.85355 11.3536C8.75979 11.4473 8.63261 11.5 8.5 11.5C8.23478 11.5 7.98043 11.3946 7.79289 11.2071C7.60536 11.0196 7.5 10.7652 7.5 10.5V8C7.36739 8 7.24021 7.94732 7.14645 7.85355C7.05268 7.75979 7 7.63261 7 7.5C7 7.36739 7.05268 7.24022 7.14645 7.14645C7.24021 7.05268 7.36739 7 7.5 7C7.76522 7 8.01957 7.10536 8.20711 7.29289C8.39464 7.48043 8.5 7.73478 8.5 8V10.5C8.63261 10.5 8.75979 10.5527 8.85355 10.6464C8.94732 10.7402 9 10.8674 9 11ZM7.75 6C7.89834 6 8.04334 5.95601 8.16668 5.8736C8.29001 5.79119 8.38614 5.67406 8.44291 5.53701C8.49967 5.39997 8.51453 5.24917 8.48559 5.10368C8.45665 4.9582 8.38522 4.82456 8.28033 4.71967C8.17544 4.61478 8.0418 4.54335 7.89632 4.51441C7.75083 4.48547 7.60003 4.50032 7.46299 4.55709C7.32594 4.61386 7.20881 4.70999 7.1264 4.83332C7.04399 4.95666 7 5.10166 7 5.25C7 5.44891 7.07902 5.63968 7.21967 5.78033C7.36032 5.92098 7.55109 6 7.75 6Z"
+                                fill="#344054"
+                              />
+                            </svg>
+                            <span className="tooltiptext tooltiptext2 relative z-[200000] ">
+                              <img
+                                src="/assets/div.png"
+                                alt=""
+                                className="absolute -top-2 left-[52px] w-4"
+                              />
+                              <div className="text-gray-800 text-2xs font-normal">
+                                Upside Left means how much the stock price could rise from its current level.
+                              </div>
+                              <div className="mt-2 p-2">
+                                <span className="text-[#108973] text-2xs font-bold">
+                                  Example :
+                                </span>
+                                <p className="text-2xs text-gray-600 font-normal">
+                                  If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                </p>
+                              </div>
+                            </span>
+                          </div>
+                        </IconButton>
+                      </div>
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="pl-9">
+                      <CustomSlider
+                        value={upsideLeft}
+                        onChange={handleUpsideLeftSliderChange}
+                        valueLabelDisplay="auto"
+                        min={min_upside_left}
+                        max={max_upside_left}
                       />
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Typography align="center">to</Typography>
-                    </Grid>
-                    <Grid item xs={5}>
-                      <TextField
-                        variant="outlined"
-                        size="small"
-                        name="max"
-                        value={upsideLeft ? upsideLeft[1] : 0}
-                        onChange={handleUpsideLeftInputChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">%</InputAdornment>
-                          ),
-                        }}
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            "&:hover fieldset": {
-                              borderColor: "#125B54", // Color of the outline on hover
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor: "#125B54", // Color of the outline when focused
-                            },
-                          },
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
-                </div>
-
-                <div className="border-b-2 border-[#F2F4F7] pt-4"></div>
+                      <Grid container spacing={2} alignItems="center" pt={2}>
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            name="min"
+                            value={upsideLeft ? upsideLeft[0] : 0}
+                            onChange={handleUpsideLeftInputChange}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                              },
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Typography align="center">to</Typography>
+                        </Grid>
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            name="max"
+                            value={upsideLeft ? upsideLeft[1] : 0}
+                            onChange={handleUpsideLeftInputChange}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                              },
+                            }}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                <div className="border-b-2 border-[#F2F4F7] "></div>
               </div>
 
               {/*  Recency */}
-              <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-4 ">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -374,7 +380,7 @@ function DrawerFilter() {
                   <AccordionSummary
                     expandIcon={
                       <ExpandMoreIcon
-                        sx={{ rotate: "180deg", padding: "0px !important" }}
+
                       />
                     }
                     aria-controls="recency-content"
@@ -394,7 +400,7 @@ function DrawerFilter() {
                       >
                         Recency
                       </Typography>
-                      <div className="tooltip">
+                      <div className="tooltip ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -411,7 +417,7 @@ function DrawerFilter() {
                             fill="#344054"
                           />
                         </svg>
-                        <span className="tooltiptext tooltiptext2 relative ">
+                        <span className="tooltiptext tooltiptext2 relative z-[200000] ">
                           <img
                             src="/assets/div.png"
                             alt=""
@@ -475,9 +481,7 @@ function DrawerFilter() {
                 >
                   <AccordionSummary
                     expandIcon={
-                      <ExpandMoreIcon
-                        sx={{ rotate: "180deg", padding: "0px !important" }}
-                      />
+                      <ExpandMoreIcon />
                     }
                     aria-controls="recency-content"
                     id="recency-header"
@@ -497,8 +501,8 @@ function DrawerFilter() {
                         Time Left
                       </Typography>
                       {/* <IconButton size="small">
-                <InfoOutlinedIcon fontSize="small" />
-              </IconButton> */}
+                    <InfoOutlinedIcon fontSize="small" />
+                  </IconButton> */}
                     </Box>
                   </AccordionSummary>
                   <div className="pl-4">
@@ -530,96 +534,88 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] "></div>
               </div>
               {/* Total Returns  */}
-              <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  mb={2}
-                  sx={{ width: 400 }}
-                >
-                  <img src="/assets/solar_graph-down-new-broken.svg" />
-                  <div className="w-[318px] flex">
-                    <Typography
-                      variant="subtitle1"
-                      ml={1}
-                      mr={1}
-                      sx={{
-                        color: "#1D2939",
-                        fontSize: "14px",
-                        fontWeight: "700",
-                      }}
-                    >
-                      Total Returns
-                    </Typography>
-                    <IconButton size="small">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M13.4046 11.6112C14.1188 10.5423 14.5 9.28558 14.5 8C14.5 6.27609 13.8152 4.62279 12.5962 3.40381C11.3772 2.18482 9.72391 1.5 8 1.5C6.71442 1.5 5.45772 1.88122 4.3888 2.59545C3.31988 3.30968 2.48676 4.32484 1.99479 5.51256C1.50282 6.70028 1.37409 8.00721 1.6249 9.26809C1.8757 10.529 2.49477 11.6872 3.40381 12.5962C4.31285 13.5052 5.47104 14.1243 6.73192 14.3751C7.99279 14.6259 9.29973 14.4972 10.4874 14.0052C11.6752 13.5132 12.6903 12.6801 13.4046 11.6112Z"
-                          stroke="#D0D5DD"
-                        />
-                        <path
-                          d="M9 11C9 11.1326 8.94732 11.2598 8.85355 11.3536C8.75979 11.4473 8.63261 11.5 8.5 11.5C8.23478 11.5 7.98043 11.3946 7.79289 11.2071C7.60536 11.0196 7.5 10.7652 7.5 10.5V8C7.36739 8 7.24021 7.94732 7.14645 7.85355C7.05268 7.75979 7 7.63261 7 7.5C7 7.36739 7.05268 7.24022 7.14645 7.14645C7.24021 7.05268 7.36739 7 7.5 7C7.76522 7 8.01957 7.10536 8.20711 7.29289C8.39464 7.48043 8.5 7.73478 8.5 8V10.5C8.63261 10.5 8.75979 10.5527 8.85355 10.6464C8.94732 10.7402 9 10.8674 9 11ZM7.75 6C7.89834 6 8.04334 5.95601 8.16668 5.8736C8.29001 5.79119 8.38614 5.67406 8.44291 5.53701C8.49967 5.39997 8.51453 5.24917 8.48559 5.10368C8.45665 4.9582 8.38522 4.82456 8.28033 4.71967C8.17544 4.61478 8.0418 4.54335 7.89632 4.51441C7.75083 4.48547 7.60003 4.50032 7.46299 4.55709C7.32594 4.61386 7.20881 4.70999 7.1264 4.83332C7.04399 4.95666 7 5.10166 7 5.25C7 5.44891 7.07902 5.63968 7.21967 5.78033C7.36032 5.92098 7.55109 6 7.75 6Z"
-                          fill="#344054"
-                        />
-                      </svg>
-                    </IconButton>
-                  </div>
+              <div className="pt-4 pr-6 pl-4  overflow-x-hidden">
+                <Accordion defaultExpanded
+                  sx={{
+                    boxShadow: "none !important",
+                    margin: "0px !important",
 
-                  <IconButton size="small">
-                    <ExpandMoreIcon fontSize="small" />
-                  </IconButton>
-                </Box>
-
-                <div className="pl-9">
-                  <CustomSlider
-                    value={returns}
-                    onChange={handleReturnsSliderChange}
-                    valueLabelDisplay="auto"
-                    min={min_returns}
-                    max={max_returns}
-                  />
-
-                  <Grid container spacing={2} alignItems="center" pt={2}>
-                    <Grid item xs={5}>
-                      <TextField
-                        variant="outlined"
-                        size="small"
-                        name="min"
-                        value={returns ? returns[0] : 0}
-                        onChange={handleReturnsInputChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">%</InputAdornment>
-                          ),
-                        }}
+                  }}>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Box display="flex" alignItems="center" >
+                      <img src="/assets/solar_graph-down-new-broken.svg" alt="Total Returns" />
+                      <div className=" flex">
+                        <Typography
+                          variant="subtitle1"
+                          ml={1}
+                          mr={1}
+                          sx={{
+                            color: "#1D2939",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                          }}
+                        >
+                          Total Returns
+                        </Typography>
+                        
+                      </div>
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="pl-9">
+                      <CustomSlider
+                        value={returns}
+                        onChange={handleReturnsSliderChange}
+                        valueLabelDisplay="auto"
+                        min={min_returns}
+                        max={max_returns}
                       />
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Typography align="center">to</Typography>
-                    </Grid>
-                    <Grid item xs={5}>
-                      <TextField
-                        variant="outlined"
-                        size="small"
-                        name="max"
-                        value={returns ? returns[1] : 0}
-                        onChange={handleReturnsInputChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">%</InputAdornment>
-                          ),
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
-                </div>
-                <div className="border-b-2 border-[#F2F4F7] pt-4"></div>
+
+                      <Grid container spacing={2} alignItems="center" pt={2}>
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            name="min"
+                            value={returns ? returns[0] : 0}
+                            onChange={handleReturnsInputChange}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                              },
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Typography align="center">to</Typography>
+                        </Grid>
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            name="max"
+                            value={returns ? returns[1] : 0}
+                            onChange={handleReturnsInputChange}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                              },
+                            }}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                <div className="border-b-2 border-[#F2F4F7] "></div>
               </div>
 
               {/* Market Cap */}
@@ -633,9 +629,7 @@ function DrawerFilter() {
                 >
                   <AccordionSummary
                     expandIcon={
-                      <ExpandMoreIcon
-                        sx={{ rotate: "180deg", margin: "0px !important" }}
-                      />
+                      <ExpandMoreIcon />
                     }
                     aria-controls="recency-content"
                     id="recency-header"
@@ -674,11 +668,10 @@ function DrawerFilter() {
                   <div className="flex pl-7 gap-4 pb-4">
                     {marketCapTypeList?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          marketCapType == value
-                            ? "bg-[#E7F8F8] border-[#108973]"
-                            : "bg-white border-[#E4E7EC]"
-                        }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${marketCapType == value
+                          ? "bg-[#E7F8F8] border-[#108973]"
+                          : "bg-white border-[#E4E7EC]"
+                          }`}
                         key={index}
                         onClick={() => setMarketCapType(value)}
                       >
@@ -704,7 +697,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ rotate: "180deg" }} />}
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -755,10 +748,11 @@ function DrawerFilter() {
                   sx={{
                     boxShadow: "none !important",
                     margin: "0px !important",
+
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ rotate: "180deg" }} />}
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -803,6 +797,12 @@ function DrawerFilter() {
                                 checked={strategyTag.includes(key)}
                                 onChange={handleChangestrategyTag}
                                 name={key}
+                                sx={{
+                                  color: "default", // Default color
+                                  "&.Mui-checked": {
+                                    color: "#125B54", // Color when checked
+                                  },
+                                }}
                               />
                             }
                             label={strategyTagList[key]}
@@ -825,7 +825,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ rotate: "180deg" }} />}
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -875,11 +875,10 @@ function DrawerFilter() {
                   <div className="flex pl-7 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          risk == value
-                            ? "bg-[#E7F8F8] border-[#108973]"
-                            : "bg-white border-[#E4E7EC]"
-                        }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${risk == value
+                          ? "bg-[#E7F8F8] border-[#108973]"
+                          : "bg-white border-[#E4E7EC]"
+                          }`}
                         key={index}
                         onClick={() => setRisk(value)}
                       >
@@ -899,7 +898,9 @@ function DrawerFilter() {
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
                     className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
-                    onClick={handleCloseDrawer(false)}
+                    onClick={() => {
+                      setOpen(false)
+                    }}
                   >
                     Cancel
                   </button>
@@ -936,7 +937,7 @@ function DrawerFilter() {
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
-            onClose={() => {}}
+            onClose={() => { }}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
@@ -1268,11 +1269,10 @@ function DrawerFilter() {
                         <div className="sm:flex grid   gap-4 pb-4">
                           {marketCapTypeList?.map((value, index) => (
                             <div
-                              className={`sm:flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                marketCapType == value
-                                  ? "bg-[#E7F8F8] border-[#108973]"
-                                  : "bg-white border-[#E4E7EC]"
-                              }`}
+                              className={`sm:flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${marketCapType == value
+                                ? "bg-[#E7F8F8] border-[#108973]"
+                                : "bg-white border-[#E4E7EC]"
+                                }`}
                               key={index}
                               onClick={() => setMarketCapType(value)}
                             >
@@ -1346,11 +1346,10 @@ function DrawerFilter() {
                         <div className="sm:flex grid gap-4 pb-4">
                           {stockRiskList?.map((value, index) => (
                             <div
-                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                risk == value
-                                  ? "bg-[#E7F8F8] border-[#108973]"
-                                  : "bg-white border-[#E4E7EC]"
-                              }`}
+                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${risk == value
+                                ? "bg-[#E7F8F8] border-[#108973]"
+                                : "bg-white border-[#E4E7EC]"
+                                }`}
                               key={index}
                               onClick={() => setRisk(value)}
                             >
@@ -1372,7 +1371,7 @@ function DrawerFilter() {
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
                     className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
-                    onClick={handleCloseDrawer(false)}
+                    onClick={() => { handleCloseDrawer(false) }}
                   >
                     Cancel
                   </button>

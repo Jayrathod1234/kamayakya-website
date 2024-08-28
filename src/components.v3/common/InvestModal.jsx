@@ -54,22 +54,21 @@ const brokerItems2 = [
   },
 ];
 
-function ChildModal({ open, handleBack }) {
+function ChildModal({ open, handleBack, handleCloseAll }) {
   return (
     <Modal
       open={open}
-      onClose={handleBack}
+      onClose={handleCloseAll}
       aria-labelledby="child-modal-title"
       aria-describedby="child-modal-description"
     >
       <Box sx={{ ...style }}>
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
           <IconButton onClick={handleBack}>
-            <ArrowBackIcon />{" "}
-            {/* Back icon to close child modal and show the nested modal */}
+            <ArrowBackIcon /> {/* Back icon to go back to parent modal */}
           </IconButton>
-          <IconButton onClick={handleBack}>
-            <CloseIcon /> {/* Close icon to close the child modal */}
+          <IconButton onClick={handleCloseAll}>
+            <CloseIcon /> {/* Close icon to close all modals */}
           </IconButton>
         </Box>
         <Grid container spacing={1}>
@@ -127,8 +126,8 @@ export default function NestedModal() {
     setModalState({ isMainModalOpen: false, isChildModalOpen: false });
   const handleChildModalOpen = () =>
     setModalState({ isMainModalOpen: false, isChildModalOpen: true });
-  const handleChildModalClose = () =>
-    setModalState({ isMainModalOpen: true, isChildModalOpen: false });
+  const handleCloseAllModals = () =>
+    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
 
   return (
     <div>
@@ -176,7 +175,7 @@ export default function NestedModal() {
             >
               Choose your broker
             </Typography>
-            <IconButton onClick={handleMainModalClose}>
+            <IconButton onClick={handleCloseAllModals}>
               <CloseIcon />
             </IconButton>
           </Box>
@@ -215,7 +214,7 @@ export default function NestedModal() {
                         index === brokerItems.length - 1 ? "white" : "inherit",
                       backgroundColor:
                         index === brokerItems.length - 1
-                          ? "#125B54"
+                          ? "#125B50"
                           : "transparent", // green background for the last avatar
                     }}
                   />
@@ -228,9 +227,11 @@ export default function NestedModal() {
           </Grid>
         </Box>
       </Modal>
+
       <ChildModal
         open={modalState.isChildModalOpen}
-        handleBack={handleChildModalClose}
+        handleBack={handleMainModalOpen}
+        handleCloseAll={handleCloseAllModals}
       />
     </div>
   );
