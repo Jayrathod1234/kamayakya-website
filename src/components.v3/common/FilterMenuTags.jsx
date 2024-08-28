@@ -98,7 +98,7 @@ const FilterCarousel = () => {
           <Box
             sx={{
               width: "100%",
-              backgroundColor: "#F0F0F0",
+              backgroundColor: "#F2F4F7",
               display: "flex",
               alignItems: "center",
               paddingLeft: "20px",

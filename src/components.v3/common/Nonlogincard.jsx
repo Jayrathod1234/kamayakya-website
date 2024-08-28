@@ -108,7 +108,7 @@ function Nonlogincard() {
                     Total Returns
                   </p>
                 </div>
-                <div className="flex gap-[2px] items-center font-open_sans">
+                <div className="flex gap-[3px] items-center font-open_sans">
                   <img src="/assets/Polygon 2.svg" alt="" className="w-2" />
                   <p className="text-2xs font-bold text-[#1D2939] font-open_sans">
                     64.08%

@@ -12,10 +12,10 @@ const HotStockSectionSlider = ({ items }) => {
           <div className="sm:bg-gray-150 bg-transparent sm:p-2.5 p-0 sm:rounded-[20px] rounded-t-[20px] overflow-hidden max-w-[1280px] mx-auto">
             <div className="">
               <div className="bg-white bg-[url('/assets/grid.png')] bg-cover pt-5  text-center rounded-[20px]">
-                <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0">
+                <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-gray-950">
                   Hot Stocks ({items?.length})
                 </h2>
-                <p className="pt-3 font-normal text-md text-gray-500 pb-6">
+                <p className="pt-3 font-normal text-md text-gray-600 pb-6">
                   Top stocks to invest in right NOW!
                 </p>
                 {items.length > 0 && (

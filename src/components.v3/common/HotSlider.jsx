@@ -134,7 +134,7 @@ export function HotSlider({ children }) {
             }
           });
         }
-        const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
+        const tweenValue = 1 - Math.abs(diffToTarget * 0.64);
         const scale = numberWithinRange(tweenValue, 0, 1).toString();
         const tweenNode = tweenNodes.current[slideIndex];
         tweenNode.style.transform = `scale(${scale})`;
@@ -174,7 +174,7 @@ export function HotSlider({ children }) {
           className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3`}
         >
           <div
-            className="flex space-x-4 carousel__container"
+            className="flex carousel__container"
             style={{ backfaceVisibility: "hidden" }}
           >
             {children.map((carousel, index) => (

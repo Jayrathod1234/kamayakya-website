@@ -155,13 +155,24 @@ export default function NestedModal() {
             boxShadow: 24,
             p: 2,
             textAlign: "center",
+            padding: "24px",
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              mb: "20px",
+            }}
+          >
             <Typography
               id="broker-modal-title"
               variant="h6"
-              sx={{ color: "#344054", fontWeight: "bold" }}
+              sx={{
+                color: "#344054",
+                fontWeight: "bold",
+                fontFamily: "Open Sans",
+              }}
             >
               Choose your broker
             </Typography>

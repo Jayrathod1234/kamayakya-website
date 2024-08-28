@@ -30,7 +30,7 @@ const HotStockSection = ({ items }) => {
           {!isMobile ? (
             <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none max-w-[1280px] mx-auto">
               <div className="bg-[#fff] rounded-[20px] sm:px-10 px-4 sm:py-8 py-5 gap-10 text-center">
-                <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 sm:block hidden">
+                <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 sm:block hidden text-gray-950">
                   Hot Stocks ({items?.length})
                 </h2>
                 <p className="pt-3 font-normal text-sm text-gray-500 pb-10 sm:block hidden">
@@ -167,7 +167,7 @@ const HotStockSection = ({ items }) => {
                                               alt=""
                                               className="w-3"
                                             />
-                                            <p className="text-[10px] font-semibold text-[#667085] flex items-center">
+                                            <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap">
                                               MCap:
                                               {is_blur ? (
                                                 <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
@@ -251,7 +251,7 @@ const HotStockSection = ({ items }) => {
                                                 Total Returns
                                               </p>
                                             </div>
-                                            <div className="flex gap-[2px] items-center font-open_sans">
+                                            <div className="flex gap-[3px] items-center font-open_sans">
                                               <img
                                                 src="/assets/Polygon 2.svg"
                                                 alt=""

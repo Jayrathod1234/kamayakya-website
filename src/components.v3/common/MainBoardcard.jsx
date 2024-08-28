@@ -7,7 +7,7 @@ function MainBoardcard() {
     <div>
       {/* new stock card  */}
       <div className="flex relative">
-        <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
+        <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/newtab.png" alt="" className="w-[210px]" />
         </div>
         <div className="relative rounded-lg bg-white shadow-6xs border border-brand-300">
@@ -75,7 +75,7 @@ function MainBoardcard() {
                     Total Returns
                   </p>
                 </div>
-                <div className="flex gap-[2px] items-center font-open_sans">
+                <div className="flex gap-[3px] items-center font-open_sans">
                   <img src="/assets/Polygon 2.svg" alt="" className="w-2" />
                   <p className="text-2xs font-bold text-gray-800 font-open_sans">
                     64.08%

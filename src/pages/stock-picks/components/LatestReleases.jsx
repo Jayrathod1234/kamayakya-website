@@ -30,7 +30,7 @@ function LatestReleases() {
           <p className=" text-display-xs text-gray-950 font-bold">
             Latest Releases ({items.length})
           </p>
-          <p className=" text-md font-normal text-gray-600 text-center pt-3 font-open_sans mb-10">
+          <p className=" text-md font-normal text-gray-600 text-center pt-3 font-open_sans">
             New Stocks released in the last 60 days
           </p>
 
@@ -46,7 +46,7 @@ function LatestReleases() {
           ) : (
             <div className="w-full">
               {isLoading || error ? (
-                <div className="flex pb-12 pt-[60px] carousel__container gap-5 ">
+                <div className="flex pb-12 !pt-[28px] carousel__container gap-5 ">
                   <StockCardSkeleton length={5} />
                 </div>
               ) : (

@@ -45,7 +45,7 @@ function StockCard({
     <>
       {/* new stock card  */}
       <div className={`relative main_card_carousel ${className}`}>
-        <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
+        <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 z-[1]">
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
           )}
@@ -151,7 +151,7 @@ function StockCard({
                 )}
                 <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
                   <img src="/assets/Component 8.svg" alt="" className="w-3" />
-                  <p className="text-[10px] font-semibold text-[#667085] flex items-center">
+                  <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap">
                     MCap:
                     {is_blur ? (
                       <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
@@ -221,7 +221,7 @@ function StockCard({
                       Total Returns
                     </p>
                   </div>
-                  <div className="flex gap-[2px] items-center font-open_sans">
+                  <div className="flex gap-[3px] items-center font-open_sans">
                     {/* green up arrow  */}
                     {expected_returns > 0 ? (
                       // green up arrow

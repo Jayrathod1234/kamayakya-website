@@ -1784,7 +1784,7 @@ header > div > div {
   display: flex;
   visibility: hidden;
   width: 140px;
-  background-color: #fff;
+  background-color: #F6F7F9;
   border: 1px solid #edf0f5;
   color: #1d2939;
   align-items: flex-start;

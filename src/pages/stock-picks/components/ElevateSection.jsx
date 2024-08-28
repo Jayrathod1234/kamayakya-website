@@ -78,7 +78,7 @@ function ElevateSection() {
         </div>
         <div>{content}</div>
         <div className="relative group mt-4 sm:mt-0 sm:ms-auto">
-          <div className="relative w-44 sm:w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA] group-hover:border-[1px] group-hover:px-4 group-hover:w-52 group-hover:-me-5 group-hover:h-10 group-hover:ms-5 group-hover:shadow-6xs">
+          <div className="relative w-44 sm:w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA] group-hover:border-[1px]  group-hover:shadow-6xs">
             <div className="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12 group-hover:hidden"></div>
             <div className="absolute flex items-center text-center justify-center text-white z-[1] opacity-90 rounded-2xl inset-0.5 bg-black group-hover:bg-transparent">
               <Link href={`/pricing`}>
@@ -102,7 +102,7 @@ function ElevateSection() {
                 </button>
               </Link>
             </div>
-            <div className="absolute transition-all duration-2000 animate-spin w-full h-[100px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden"></div>
+            <div className="absolute transition-all duration-[2500ms] animate-spin w-full h-[47px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden "></div>
           </div>
         </div>
         <div className="absolute right-[-10px] sm:right-[-31px] bottom-[-95px] z-0">

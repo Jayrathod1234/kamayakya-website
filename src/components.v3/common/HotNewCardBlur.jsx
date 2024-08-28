@@ -6,7 +6,7 @@ function Nonlogincard() {
     <>
       {/* blur card  */}
       <div className=" relative sm:mx-auto">
-        <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
+        <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/hot-newtab.png" alt="" className="w-[210px]" />
         </div>
         <div className="relative rounded-lg bg-white shadow-6xs">
@@ -121,7 +121,7 @@ function Nonlogincard() {
                     Total Returns
                   </p>
                 </div>
-                <div className="flex gap-[2px] items-center font-open_sans">
+                <div className="flex gap-[3px] items-center font-open_sans">
                   <img src="/assets/Polygon 2.svg" alt="" className="w-2" />
                   <p className="text-2xs font-bold text-[#1D2939] font-open_sans ">
                     <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#E4E7EC] rounded-full "></div>

@@ -33,10 +33,12 @@ function Discovercard({ id, name, description, image, color }) {
             >
               <img src={image} alt="" className="z-[1]" />
             </div>
-            <p className="text font-open_sans">{name}</p>
+            <p className="text font-open_sans mb-1">{name}</p>
           </div>
 
-          <p className="title max-w-[159px] font-open_sans">{description}</p>
+          <p className="title max-w-[176px] max-h-[75px] font-open_sans  ">
+            {description}
+          </p>
         </a>
       </div>
     </>

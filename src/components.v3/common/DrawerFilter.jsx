@@ -43,8 +43,6 @@ function DrawerFilter() {
     marketCapTypeList,
     strategyTagList,
     stockRiskList,
-    marketCapType,
-    setMarketCapType,
   } = useStockPicks();
 
   const {
@@ -61,6 +59,8 @@ function DrawerFilter() {
     setRisk,
     handleResetFilters,
     handleApplyFilters,
+    marketCapType,
+    setMarketCapType,
   } = useAllBoardStock();
   const [open, setOpen] = React.useState(false);
   const [anchor, setAnchor] = React.useState("");
@@ -218,7 +218,9 @@ function DrawerFilter() {
             className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 rounded-md  gap-2 items-center shadow-3xs !min-w-24"
           >
             <img src="/assets/filter.svg" alt="" />
-            <p className="font-open_sans text-brand-500 font-medium">Filter </p>
+            <p className="font-open_sans text-brand-500 font-medium normal-case">
+              Filter{" "}
+            </p>
             {totalFilterCount > 0 && (
               <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 {totalFilterCount}
@@ -918,10 +920,12 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("bottom", true)}
             sx={{ display: isMobile ? "block" : "none" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 rounded-md  gap-2 items-center shadow-3xs !min-w-24"
+            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-md  gap-2 items-center shadow-3xs !min-w-24 hover:bg-error-500"
           >
             <img src="/assets/filter.svg" alt="" />
-            <p className="font-open_sans text-brand-500 font-medium">Filter</p>
+            <p className="font-open_sans text-brand-500 font-medium normal-case">
+              Filter
+            </p>
             {totalFilterCount > 0 && (
               <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 {totalFilterCount}

@@ -69,6 +69,7 @@ export default function CustomSortMenu({ isLabel }) {
             top: -12,
             left: 18,
             zIndex: 1,
+            fontFamily: "Open Sans",
             fontSize: "12px",
             color: "#667085",
             backgroundColor: "#FCFCFD",
@@ -148,8 +149,10 @@ export default function CustomSortMenu({ isLabel }) {
               style: {
                 borderRadius: "6px",
                 width: "260px",
+                overflow: "hidden",
                 marginTop: "8px",
                 border: "1px solid #F2F4F7",
+                fontFamily: "Open Sans",
               },
             }}
           >
@@ -157,7 +160,12 @@ export default function CustomSortMenu({ isLabel }) {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-                style={{ fontWeight: 500, color: "#98A2B3" }}
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontSize: "12px",
+                  fontFamily: "Open Sans",
+                }}
               >
                 Upside Left
               </Typography>
@@ -166,10 +174,18 @@ export default function CustomSortMenu({ isLabel }) {
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem>
+                <MenuItem sx={{ height: "36px" }}>
                   <FormControlLabel
                     value="upside_left_desc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -206,6 +222,8 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#344054",
                             fontWeight: 400,
+                            fontSize: "14px",
+                            fontFamily: "Open Sans",
                           }}
                         >
                           High to Low
@@ -217,7 +235,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="upside_left_asc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -254,6 +280,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#344054",
                             fontWeight: 400,
+                            fontFamily: "Open Sans",
                           }}
                         >
                           Low to High
@@ -278,7 +305,12 @@ export default function CustomSortMenu({ isLabel }) {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-                style={{ fontWeight: 500, color: "#98A2B3" }}
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontSize: "12px",
+                  fontFamily: "Open Sans",
+                }}
               >
                 Recency
               </Typography>
@@ -290,7 +322,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="recency_desc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -320,6 +360,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#475467",
                             fontWeight: 400,
+                            fontFamily: "Open Sans",
                           }}
                         >
                           Newest to Oldest
@@ -331,7 +372,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="recency_asc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -361,6 +410,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#475467",
                             fontWeight: 400,
+                            fontFamily: "Open Sans",
                           }}
                         >
                           Oldest to Newest
@@ -375,7 +425,12 @@ export default function CustomSortMenu({ isLabel }) {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-                style={{ fontWeight: 500, color: "#98A2B3" }}
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontSize: "12px",
+                  fontFamily: "Open Sans",
+                }}
               >
                 Time Left
               </Typography>
@@ -387,7 +442,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="time_left_desc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -412,7 +475,13 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span style={{ marginLeft: "8px", color: "#1E555C" }}>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color: "#1E555C",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
                           Longest to Shortest
                         </span>
                       </Box>
@@ -422,7 +491,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="time_left_asc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -447,7 +524,13 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span style={{ marginLeft: "8px", color: "#1E555C" }}>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color: "#1E555C",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
                           Shortest to Longest
                         </span>
                       </Box>
@@ -460,7 +543,12 @@ export default function CustomSortMenu({ isLabel }) {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-                style={{ fontWeight: 500, color: "#98A2B3" }}
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontSize: "12px",
+                  fontFamily: "Open Sans",
+                }}
               >
                 Returns
               </Typography>
@@ -472,7 +560,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="returns_desc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -497,7 +593,13 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span style={{ marginLeft: "8px", color: "#1E555C" }}>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color: "#1E555C",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
                           High to Low
                         </span>
                       </Box>
@@ -507,7 +609,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="returns_asc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -532,7 +642,13 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span style={{ marginLeft: "8px", color: "#1E555C" }}>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color: "#1E555C",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
                           Low to High
                         </span>
                       </Box>
@@ -559,6 +675,7 @@ export default function CustomSortMenu({ isLabel }) {
                 borderRadius: "6px",
                 width: isMobile ? "100%" : "260px",
                 maxWidth: "100%",
+                overflow: "hidden",
                 marginTop: "8px",
                 border: "1px solid #F2F4F7",
               },
@@ -568,7 +685,11 @@ export default function CustomSortMenu({ isLabel }) {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-                style={{ fontWeight: 500, color: "#98A2B3" }}
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontFamily: "Open Sans",
+                }}
               >
                 Upside Left
               </Typography>
@@ -580,7 +701,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="upside_left_desc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -617,6 +746,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#344054",
                             fontWeight: 400,
+                            fontFamily: "Open Sans",
                           }}
                         >
                           High to Low
@@ -628,7 +758,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="upside_left_asc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -665,6 +803,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#344054",
                             fontWeight: 400,
+                            fontFamily: "Open Sans",
                           }}
                         >
                           Low to High
@@ -689,7 +828,11 @@ export default function CustomSortMenu({ isLabel }) {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-                style={{ fontWeight: 500, color: "#98A2B3" }}
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontFamily: "Open Sans",
+                }}
               >
                 Recency
               </Typography>
@@ -701,7 +844,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="recency_desc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -731,6 +882,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#475467",
                             fontWeight: 400,
+                            fontFamily: "Open Sans",
                           }}
                         >
                           Newest to Oldest
@@ -742,7 +894,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="recency_asc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -772,6 +932,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#475467",
                             fontWeight: 400,
+                            fontFamily: "Open Sans",
                           }}
                         >
                           Oldest to Newest
@@ -786,7 +947,11 @@ export default function CustomSortMenu({ isLabel }) {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-                style={{ fontWeight: 500, color: "#98A2B3" }}
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontFamily: "Open Sans",
+                }}
               >
                 Time Left
               </Typography>
@@ -798,7 +963,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="time_left_desc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -823,7 +996,13 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span style={{ marginLeft: "8px", color: "#1E555C" }}>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color: "#1E555C",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
                           Longest to Shortest
                         </span>
                       </Box>
@@ -833,7 +1012,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="time_left_asc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -858,7 +1045,13 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span style={{ marginLeft: "8px", color: "#1E555C" }}>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color: "#1E555C",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
                           Shortest to Longest
                         </span>
                       </Box>
@@ -871,7 +1064,12 @@ export default function CustomSortMenu({ isLabel }) {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-                style={{ fontWeight: 500, color: "#98A2B3" }}
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontSize: "12px",
+                  fontFamily: "Open Sans",
+                }}
               >
                 Returns
               </Typography>
@@ -883,7 +1081,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="returns_desc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -908,7 +1114,13 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span style={{ marginLeft: "8px", color: "#1E555C" }}>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color: "#1E555C",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
                           High to Low
                         </span>
                       </Box>
@@ -918,7 +1130,15 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem>
                   <FormControlLabel
                     value="returns_asc"
-                    control={<Radio color="success" />}
+                    control={
+                      <Radio
+                        color="success"
+                        sx={{
+                          position: "absolute",
+                          left: "189px",
+                        }}
+                      />
+                    }
                     label={
                       <Box display="flex" alignItems="center">
                         <svg
@@ -943,7 +1163,13 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span style={{ marginLeft: "8px", color: "#1E555C" }}>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color: "#1E555C",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
                           Low to High
                         </span>
                       </Box>

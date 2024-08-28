@@ -82,7 +82,7 @@ function AllBoardStockSection() {
               >
                 Search
               </label>
-              <div className="relative">
+              <div className="relative h-12">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none gap-2">
                   <img src="/assets/search.svg" alt="" />
                 </div>
@@ -98,14 +98,14 @@ function AllBoardStockSection() {
               </div>
             </form>
           </div>
-          <div className="flex gap-4 ">
+          <div className="flex gap-4 h-12">
             <div className="w-auto sm:block hidden">
               <div className="relative flex gap-4">
                 <CustomSortMenu isLabel={true} />
               </div>
             </div>
           </div>
-          <div className="w-auto sm:block hidden bg-white ">
+          <div className="w-auto sm:block hidden bg-white h-12 !rounded-md">
             <DrawerFilter />
           </div>
         </div>

@@ -25,7 +25,7 @@ const Bannerhotstockscard = () => {
         <div className="container mx-auto">
           <div className="bg-gray-150 p-[10px] rounded-[20px] max-w-[1280px] mx-auto">
             <div className="bg-[#fff] rounded-[20px] px-10 py-8 gap-10 text-center">
-              <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0">
+              <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-gray-950">
                 Hot Stocks (3)
               </h2>
               <p className="pt-3 font-normal text-sm text-gray-500 pb-10">
@@ -125,7 +125,7 @@ const Bannerhotstockscard = () => {
                                 alt=""
                                 className="w-3.5"
                               />
-                              <p className="text-[10px] font-semibold text-[#344054] flex gap-[3px]">
+                              <p className="text-[10px] font-semibold text-[#344054] flex gap-[3px] ">
                                 Deep Value
                                 <span className="text-[#108973] font-bold">
                                   +3

@@ -14,7 +14,7 @@ function InvestmentSection() {
 
   return (
     <div className="sm:pb-[100px] pb-[100px] pt-0 px-4 rounded-lg">
-      <h2 className="text-center text-xl font-semibold mb-4">
+      <h2 className="text-center text-xl font-semibold mb-10">
         Ready to Invest?
       </h2>
       <div className="flex justify-center gap-4 sm:gap-10">
@@ -24,14 +24,14 @@ function InvestmentSection() {
             href="#"
             className="flex flex-col items-center text-center group"
           >
-            <div className="bg-white p-2 rounded-full shadow-md">
+            <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
               <img
                 src={item.src}
                 alt={item.alt}
-                className="w-12 h-12 rounded-full group-hover:opacity-80 transition-opacity duration-300"
+                className="w-11 h-11 rounded-full group-hover:opacity-80 transition-opacity duration-300 "
               />
             </div>
-            <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">
+            <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans ">
               {item.name}
             </span>
           </a>
@@ -44,14 +44,14 @@ function InvestmentSection() {
               href="#"
               className="flex flex-col items-center text-center group"
             >
-              <div className="bg-white p-2 rounded-full shadow-md">
+              <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
                 <img
                   src={item.src}
                   alt={item.alt}
-                  className="w-12 h-12 rounded-full group-hover:opacity-80 transition-opacity duration-300"
+                  className="w-11 h-11 rounded-full group-hover:opacity-80 transition-opacity duration-300"
                 />
               </div>
-              <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">
+              <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans">
                 {item.name}
               </span>
             </a>
@@ -63,8 +63,8 @@ function InvestmentSection() {
           to={<InvestModal />}
           className="flex flex-col items-center text-center group"
         >
-          <div className="bg-white p-2 rounded-full shadow-md">
-            <div className="w-12 h-12 bg-brand-500 flex justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
+          <div className="bg-white p-4 rounded-full shadow-md">
+            <div className="w-11 h-11 bg-brand-500 flex justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
               <span className="font-semibold text-gray-600">
                 <span className="">
                   <InvestModal />
@@ -72,7 +72,7 @@ function InvestmentSection() {
               </span>
             </div>
           </div>
-          <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054]">
+          <span className="text-xs mt-2 text-[#344054] group-hover:text-[#344054] font-open_sans">
             +17 more
           </span>
         </Link>

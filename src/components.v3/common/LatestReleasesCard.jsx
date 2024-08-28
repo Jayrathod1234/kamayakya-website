@@ -6,7 +6,7 @@ function LatestReleasesCard({ percentage }) {
     <>
       <div className="main_card_carousel">
         <div className="flex relative">
-          <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 z-[1]">
+          <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 z-[1]">
             <img src="/assets/newtab.png" alt="" className="w-[210px]" />
           </div>
           <div className="relative rounded-lg bg-white border border-brand-300 min-w-[408px]">
@@ -91,7 +91,7 @@ function LatestReleasesCard({ percentage }) {
                       Total Returns
                     </p>
                   </div>
-                  <div className="flex gap-[2px] items-center font-open_sans">
+                  <div className="flex gap-[3px] items-center font-open_sans">
                     <img src="/assets/Polygon 2.svg" alt="" />
                     <p className="text-2xs font-bold text-[#1D2939] font-open_sans">
                       64.08%
