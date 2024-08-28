@@ -15,35 +15,19 @@ import {
   InputAdornment,
   Typography,
 } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchIcon from "@mui/icons-material/Search";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useStockPicks } from "@/contexts/StockPicksContext";
+import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
-const sectors = [
-  "Agricultural",
-  "Chemicals",
-  "Apparel & Accessories",
-  "Banking",
-];
+export default function SectorCheck() {
+  const { stockSector, setIsChangeFilter } = useStockPicks();
 
-export default function SectorSelect() {
-  const [selectedSectors, setSelectedSectors] = useState([]);
+  const { sector, setSector } = useAllBoardStock();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
-
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (value.includes("all")) {
-      if (selectedSectors.length === sectors.length) {
-        setSelectedSectors([]);
-      } else {
-        setSelectedSectors(sectors);
-      }
-    } else {
-      setSelectedSectors(value);
-    }
-  };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -54,11 +38,13 @@ export default function SectorSelect() {
   };
 
   const handleSelectAllClick = () => {
-    if (selectedSectors.length === sectors.length) {
-      setSelectedSectors([]);
+    const sector_list_arr = Object.keys(stockSector);
+    if (sector.length === sector_list_arr.length) {
+      setSector([]);
     } else {
-      setSelectedSectors(sectors);
+      setSector(sector_list_arr);
     }
+    setIsChangeFilter(true);
   };
 
   const handleClose = (event) => {
@@ -68,12 +54,14 @@ export default function SectorSelect() {
     setOpen(false);
   };
 
-  const filteredSectors = sectors.filter((sector) =>
-    sector.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTags = Object.entries(stockSector || {}).filter(
+    ([_, value]) => {
+      return value.toLowerCase().includes(searchTerm.toLowerCase());
+    }
   );
 
   return (
-    <Box sx={{}}>
+    <Box sx={{ maxWidth: "148px" }}>
       <Button
         ref={anchorRef}
         variant="outlined"
@@ -81,28 +69,29 @@ export default function SectorSelect() {
         endIcon={
           <KeyboardArrowDownIcon
             style={{
-              filter: selectedSectors.length > 0 ? "brightness(0) invert(1)" : "none",
+              filter: sector.length > 0 ? "brightness(0) invert(1)" : "none",
             }}
           />
         }
         sx={{
           justifyContent: "space-between",
           textTransform: "none",
-          color: selectedSectors.length > 0 ? "#FFFFFF" : "#1D2939",
-          borderColor: selectedSectors.length > 0 ? "#108973" : "#E4E7EC",
-          backgroundColor: selectedSectors.length > 0 ? "#125B54" : "#FFFFFF",
+          color: sector.length > 0 ? "#FFFFFF" : "#1D2939",
+          borderColor: sector.length > 0 ? "#108973" : "#E4E7EC",
+          backgroundColor: sector.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "4px",
           padding: "7px 16px",
           fontWeight: 500,
           "&:hover": {
-            backgroundColor: selectedSectors.length > 0 ? "#125B54" : "#e7f8f8 !important",
-            borderColor: selectedSectors.length > 0 ? "#108973" : "#cbf3f0 !important",
+            backgroundColor:
+              sector.length > 0 ? "#125B54" : "#e7f8f8 !important",
+            borderColor: sector.length > 0 ? "#108973" : "#cbf3f0 !important",
           },
         }}
       >
         <div className="flex items-center space-x-2">
           <span>Sector</span>
-          {selectedSectors.length > 0 && (
+          {sector.length > 0 && (
             <span
               style={{
                 backgroundColor: "#FFFFFF",
@@ -117,26 +106,24 @@ export default function SectorSelect() {
                 fontWeight: 200,
               }}
             >
-              {selectedSectors.length}
+              {sector.length}
             </span>
           )}
         </div>
       </Button>
+
       <Popper
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
         transition
-        placement="bottom-start" // Ensures the dropdown opens directly below the button
-        style={{
-          zIndex: 9,
-          width: 300,
-        }}
+        placement="bottom-start"
+        style={{ zIndex: 9, width: 300 }}
         modifiers={[
           {
             name: "offset",
             options: {
-              offset: [0, 4], // Adjust the offset as needed (4px gap below the button)
+              offset: [0, 4],
             },
           },
         ]}
@@ -145,17 +132,19 @@ export default function SectorSelect() {
           <Grow {...TransitionProps}>
             <Paper
               sx={{
+                backgroundColor: "white",
                 borderRadius: "8px",
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
+                maxHeight: "300px", // Set a max height for the dropdown
               }}
             >
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList
-                  autoFocusItem={open}
-                  disablePadding
+                <Box
                   sx={{
                     padding: "8px",
+                    maxHeight: "250px", // Set a max height for the scrollable area
+                    overflowY: "auto", // Enable vertical scrolling
                   }}
                 >
                   <ListSubheader
@@ -171,7 +160,10 @@ export default function SectorSelect() {
                   >
                     <TextField
                       size="small"
+                      // select
+                      type="search"
                       placeholder="Search..."
+                      value={searchTerm}
                       onChange={handleSearch}
                       variant="outlined"
                       InputProps={{
@@ -191,16 +183,14 @@ export default function SectorSelect() {
                           width: "100%",
                         },
                       }}
-                      sx={{
-                        flex: 1,
-                      }}
+                      sx={{ flex: 1 }}
                     />
                     <Typography
                       onClick={handleSelectAllClick}
                       sx={{
                         cursor: "pointer",
                         color:
-                          selectedSectors.length === sectors.length
+                          sector.length === stockSector.length
                             ? "#125B54"
                             : "#1D2939",
                         fontSize: "12px",
@@ -210,41 +200,45 @@ export default function SectorSelect() {
                       Select All
                     </Typography>
                   </ListSubheader>
-                  {filteredSectors.map((sector, index) => (
+                  {filteredTags.map(([key, displayValue], index) => (
                     <MenuItem
-                      key={`${sector}-${index}`}
-                      value={sector}
+                      autoFocus={false}
+                      key={index}
+                      value={key}
                       onClick={() => {
-                        const currentIndex = selectedSectors.indexOf(sector);
-                        const newSelectedSectors = [...selectedSectors];
+                        const currentIndex = sector.indexOf(key);
+                        const newSector = [...sector];
                         if (currentIndex === -1) {
-                          newSelectedSectors.push(sector);
+                          newSector.push(key);
                         } else {
-                          newSelectedSectors.splice(currentIndex, 1);
+                          newSector.splice(currentIndex, 1);
                         }
-                        setSelectedSectors(newSelectedSectors);
+                        setSector(newSector);
+                        setIsChangeFilter(true);
                       }}
                       sx={{
                         padding: "8px",
-                        backgroundColor: selectedSectors.includes(sector)
+                        backgroundColor: sector.includes(key)
                           ? "#E7F8F8"
                           : "transparent",
                         "&:hover": {
-                          backgroundColor: "#F0F0F0",
+                          backgroundColor: sector.includes(key)
+                            ? "#cde6e6"
+                            : "#E0F7FA",
                         },
                       }}
                     >
                       <Checkbox
-                        checked={selectedSectors.indexOf(sector) > -1}
+                        checked={sector.indexOf(key) > -1}
                         sx={{
-                          color: selectedSectors.includes(sector)
+                          color: sector.includes(key)
                             ? "#108973 !important"
                             : "#E4E7EC",
                           padding: "0 8px 0 0",
                         }}
                       />
                       <ListItemText
-                        primary={sector}
+                        primary={displayValue}
                         sx={{
                           margin: 0,
                           fontSize: "14px",
@@ -252,7 +246,7 @@ export default function SectorSelect() {
                       />
                     </MenuItem>
                   ))}
-                </MenuList>
+                </Box>
               </ClickAwayListener>
             </Paper>
           </Grow>

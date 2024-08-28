@@ -4,47 +4,20 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
 import StrategyCheck from "./StrategyCheck";
-import SectorSelect from "./SectorCheck";
+import SectorCheck from "./SectorCheck";
+import { useStockPicks } from "@/contexts/StockPicksContext";
+import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
 const FilterCarousel = () => {
-  const [selectedChips, setSelectedChips] = useState([]);
   const [showButtons, setShowButtons] = useState(false);
-  // const isMobile = useMediaQuery("(max-width:600px)");
-  const [chips, setChips] = useState([
-    {
-      label: "Most Recent",
-      id: 1,
-      originalIndex: 0,
-      icon: "/assets/watch.svg",
-    },
-    {
-      label: "Value Pick",
-      id: 2,
-      originalIndex: 1,
-      icon: "/assets/Pricing.svg",
-    },
-    {
-      label: "Market Leadership",
-      id: 3,
-      originalIndex: 2,
-      icon: "/assets/leader.svg",
-    },
-    {
-      label: "Thematic Stories",
-      id: 4,
-      originalIndex: 3,
-      icon: "/assets/bulb.svg",
-    },
-    {
-      label: "Chemicals",
-      id: 5,
-      originalIndex: 4,
-      icon: "/assets/chamical.svg",
-    },
-    { label: "Pharma", id: 6, originalIndex: 5, icon: "/assets/pharma.svg" },
-    { label: "Strategy", id: 7, originalIndex: 6 },
-    // { label: "Sector", id: 8 ,originalIndex: 7,},
-  ]);
+  const {
+    popularStrategies,
+    setStrategyTag,
+    strategyTag,
+    setIsChangeFilter,
+    changablestrategyTags,
+  } = useStockPicks();
+  const { sector } = useAllBoardStock();
 
   const carouselRef = useRef(null);
   const containerRef = useRef(null);
@@ -54,30 +27,24 @@ const FilterCarousel = () => {
     const containerWidth = containerRef.current.offsetWidth;
     const contentWidth = carouselRef.current.scrollWidth;
     setShowButtons(contentWidth > containerWidth);
-  }, [selectedChips, chips]);
+  }, [strategyTag, popularStrategies]);
 
-  const handleChipClick = (chipId) => {
-    const clickedChip = chips.find((chip) => chip.id === chipId);
-    const isSelected = selectedChips.includes(chipId);
-
-    if (isSelected) {
-      handleChipDelete(chipId);
-    } else {
-      setSelectedChips([...selectedChips, chipId]);
-      const remainingChips = chips.filter((chip) => chip.id !== chipId);
-      setChips([clickedChip, ...remainingChips]);
-    }
+  const handleChipClick = async (chipId) => {
+    await setStrategyTag((prevTags) => {
+      // Check if the id is already in the array to avoid duplicates
+      if (!prevTags.includes(chipId)) {
+        return [...prevTags, chipId]; // Append the new id to the existing array
+      }
+      return prevTags; // If id already exists, return the existing array
+    });
+    setIsChangeFilter(true);
   };
 
-  const handleChipDelete = (chipId) => {
-    setSelectedChips(selectedChips.filter((id) => id !== chipId));
-    const clickedChip = chips.find((chip) => chip.id === chipId);
-    const remainingChips = chips.filter((chip) => chip.id !== chipId);
-
-    // Insert the chip back at its original position
-    const newChips = [...remainingChips];
-    newChips.splice(clickedChip.originalIndex, 0, clickedChip);
-    setChips(newChips);
+  const handleChipDelete = async (chipId) => {
+    await setStrategyTag(
+      (prevTags) => prevTags.filter((id) => id !== chipId) // Remove the chipId from the array
+    );
+    setIsChangeFilter(true);
   };
 
   const scrollLeft = () => {
@@ -87,6 +54,13 @@ const FilterCarousel = () => {
   const scrollRight = () => {
     carouselRef.current.scrollBy({ left: 200, behavior: "smooth" });
   };
+
+  // Sort popularStrategies to show selected ones first
+  const sortedStrategies = [...(popularStrategies || [])].sort((a, b) => {
+    const aSelected = strategyTag.includes(a.id);
+    const bSelected = strategyTag.includes(b.id);
+    return aSelected === bSelected ? 0 : aSelected ? -1 : 1;
+  });
 
   return (
     <div className="bg-white">
@@ -157,34 +131,38 @@ const FilterCarousel = () => {
                 scrollbarWidth: "none",
               }}
             >
-              {chips.map((chip) => (
+              {changablestrategyTags.length > 0 && <StrategyCheck />}
+              {sector.length > 0 && <SectorCheck />}
+              {sortedStrategies?.map((chip) => (
                 <Chip
                   key={chip.id}
                   avatar={
                     <img
-                      src={chip.icon}
-                      alt={chip.label}
+                      src={chip.image}
+                      alt={chip.name}
                       style={{
                         width: 14,
                         height: 14,
-                        filter: selectedChips.includes(chip.id)
-                          ? "invert(1)"
-                          : "none",
+                        filter:
+                          strategyTag.includes(chip.id) &&
+                          chip.id == "most-recent"
+                            ? "brightness(100)"
+                            : "none",
                       }}
                     />
                   }
-                  label={chip.label}
+                  label={chip.name}
                   clickable
                   onClick={() => handleChipClick(chip.id)}
                   onDelete={
-                    selectedChips.includes(chip.id)
+                    strategyTag.includes(chip.id)
                       ? () => handleChipDelete(chip.id)
                       : undefined
                   }
                   deleteIcon={
                     <CloseIcon
                       sx={{
-                        color: selectedChips.includes(chip.id)
+                        color: strategyTag.includes(chip.id)
                           ? "white !important"
                           : "inherit",
                       }}
@@ -199,14 +177,12 @@ const FilterCarousel = () => {
                     height: "42px !important",
                     border: "1px solid #E4E7EC ",
                     // borderColor: " #E4E7EC !important ",
-                    backgroundColor: selectedChips.includes(chip.id)
+                    backgroundColor: strategyTag.includes(chip.id)
                       ? "#125b54"
                       : "white",
-                    color: selectedChips.includes(chip.id)
-                      ? "white"
-                      : "inherit",
+                    color: strategyTag.includes(chip.id) ? "white" : "inherit",
                     "&:hover": {
-                      backgroundColor: selectedChips.includes(chip.id)
+                      backgroundColor: strategyTag.includes(chip.id)
                         ? "#125b54"
                         : "#e7f8f8",
                     },
@@ -218,8 +194,8 @@ const FilterCarousel = () => {
                 />
               ))}
 
-              <StrategyCheck />
-              <SectorSelect />
+              {changablestrategyTags.length <= 0 && <StrategyCheck />}
+              {sector.length <= 0 && <SectorCheck />}
             </Box>
             {showButtons && (
               <IconButton

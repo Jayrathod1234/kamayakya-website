@@ -9,7 +9,7 @@ const StockPicksContext = createContext();
 export const StockPicksProvider = ({ children }) => {
   // State Management
   const [strategyTag, setStrategyTag] = useState([]);
-  const [isChangeStrategyTag, setIsChangeStrategyTag] = useState(false);
+  const [isChangeFilter, setIsChangeFilter] = useState(false);
   const [sebiBoardType, setSebiBoardType] = useState("mainboard");
 
   // Use react-query to fetch common details
@@ -47,8 +47,27 @@ export const StockPicksProvider = ({ children }) => {
     return acc;
   }, {});
 
+  const popularStrategies = strategy_tags?.slice(0, 5);
+  const mostRecentStrategy = {
+    id: "most-recent",
+    name: "Most Recent",
+    slug: "most-recent",
+    image: "/assets/watch.svg",
+  };
+  popularStrategies?.unshift(mostRecentStrategy);
+
   const marketCapTypeList = market_cap_types?.map((item) => item.value);
   const stockRiskList = stock_risks?.map((item) => item.value);
+
+  const changablestrategyTags = [...strategyTag];
+  /** if most-recent chip clickable */
+  if (changablestrategyTags.includes("most-recent")) {
+    const index = changablestrategyTags.indexOf("most-recent");
+
+    if (index > -1) {
+      changablestrategyTags.splice(index, 1); // Modify the copy, not the original array
+    }
+  }
 
   // Function to handle SebiBoardType change
   const handleSebiBoardTypeChange = useCallback((type) => {
@@ -58,10 +77,12 @@ export const StockPicksProvider = ({ children }) => {
   return (
     <StockPicksContext.Provider
       value={{
+        popularStrategies,
         strategyTag,
+        changablestrategyTags,
         setStrategyTag,
-        isChangeStrategyTag,
-        setIsChangeStrategyTag,
+        isChangeFilter,
+        setIsChangeFilter,
         sebiBoardType,
         total_mainboard_stocks,
         total_sme_stocks,

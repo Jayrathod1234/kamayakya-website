@@ -84,7 +84,7 @@ export const getStrategyTagListApi = async ({ type }) => {
 // All Board Stock Stock List API
 export const getAllBoardStockStockListApi = async ({ params, body }) => {
   const { isLoggedIn, type, page, limit } = params;
-  const {
+  let {
     search,
     sort_by,
     sort_value,
@@ -97,6 +97,21 @@ export const getAllBoardStockStockListApi = async ({ params, body }) => {
     sector,
     strategy_tags,
   } = body;
+
+  const changablestrategyTags = [...strategy_tags];
+
+  /** if most-recent chip clickable */
+  if (changablestrategyTags.includes("most-recent")) {
+    const index = changablestrategyTags.indexOf("most-recent");
+
+    if (index > -1) {
+      changablestrategyTags.splice(index, 1); // Modify the copy, not the original array
+    }
+
+    /** set recency desc */
+    sort_by = "recency";
+    sort_value = "desc";
+  }
   try {
     if (process.env.NEXT_PUBLIC_DEBUG) {
       const URL = isLoggedIn ? `/user/allStocks` : `/user/allStocks/guest`;
@@ -114,7 +129,7 @@ export const getAllBoardStockStockListApi = async ({ params, body }) => {
           market_cap_type,
           risk,
           sector,
-          strategy_tags,
+          strategy_tags: changablestrategyTags,
         }
       );
       return response.data;
