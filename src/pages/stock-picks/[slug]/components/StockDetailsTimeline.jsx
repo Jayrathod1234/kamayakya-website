@@ -133,7 +133,7 @@ export default function StockDetailsTimeline({ timeline }) {
             maxWidth={{ xs: "100%", sm: "450px" }}
             width="100%"
             p={"5px"}
-            boxShadow="0px 2px 4px rgba(0, 0, 0, 0.1)" // Small shadow on the bottom side
+            boxShadow="0px 2px 2px rgba(0, 0, 0, 0.1)" // Small shadow on the bottom side
           >
             <Typography
               variant="subtitle1"
