@@ -77,7 +77,7 @@ function StockDetailsSection() {
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="col-span-2">
                   {/* First Content Start */}
-                  <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1 relative">
+                  <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1 relative ">
                     {/* Buy Images  */}
                     <img
                       src="/assets/BuyBubbleBlue.webp"
@@ -126,7 +126,7 @@ function StockDetailsSection() {
                       {/* <!-- Continue your other components similarly --> */}
                       <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
                         {/* Image container */}
-                        <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block">
+                        <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block px-[24px] py-6 rounded-md  border-2 border-[#F2F4F7]">
                           <img
                             src="/assets/image 3.png"
                             alt="Company Logo"
@@ -353,8 +353,8 @@ function StockDetailsSection() {
                   </div>
                   {/* Upside Left Box start */}
                   <div className="hidden md:block col-span-2 order-3 sm:order-2">
-                    <div className="p-4 md:p-6 lg:p-8 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm">
-                      <div className="relative p-4 md:p-6 lg:p-8 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
+                    <div className="p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm mt-7">
+                      <div className="relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
                         {/* Gradient Border */}
                         <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
@@ -596,7 +596,7 @@ function StockDetailsSection() {
                           </div>
                         </div>
 
-                        <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base lg:text-lg font-normal gap-1">
+                        <div className="pt-5 text-center md:text-center text-[#344054] text-sm md:text-base  font-normal gap-1">
                           <span className="text-[#0079EF] text-sm md:text-base lg:text-lg font-bold">
                             ₹1Lakh{" "}
                           </span>
@@ -733,7 +733,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[50px]  p-3 hidden sm:block">
+                  <div className="pt-[72px]  p-3 hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
@@ -751,7 +751,7 @@ function StockDetailsSection() {
                   <div className="p-5 bg-gray-100 mt-2 rounded-md  block sm:hidden">
                     <div className="flex relative">
                       <div className=" !w-[75%]">
-                        <p className="font-semibold mb-2 font-open_sans">
+                        <p className="font-bold mb-2 font-open_sans text-xs">
                           Don't miss out on potential gains!
                         </p>
                         <p className="mb-4 text-[#344054] font-open_sans">
@@ -763,13 +763,13 @@ function StockDetailsSection() {
                         <img
                           src="/assets/Frame.svg"
                           alt="sss"
-                          className="absolute top-0 right-0 h-[88px] w-[78px]"
+                          className="absolute top-0 right-0 h-[70px] w-[78px]"
                         />
                       </div>
                     </div>
                     <Link href={`/pricing`}>
                       <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center flex">
-                        <span className="flex gap-2 font-open_sans">
+                        <span className="flex gap-2 font-open_sans text-sm font-medium">
                           <img src="/assets/white-icon.svg" alt="" />
                           Upgrade Now
                         </span>
@@ -783,7 +783,7 @@ function StockDetailsSection() {
                       className="w-full   p-2 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
                     >
-                      <span className="font-open_sans">
+                      <span className="font-open_sans text-sm font-bold">
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
@@ -826,180 +826,182 @@ function StockDetailsSection() {
 
                 {/* Second Container Start */}
                 <div className="relative hidden  sm:block ">
-                  <div className="p-4 border rounded-lg sticky top-16 bg-white">
-                    <h2 className="font-semibold font-open_sans text-lg mb-4  hidden sm:flex">
-                      INVESTMENT GUIDANCE
-                    </h2>
-                    <div className="gap-2 mb-4 hidden sm:flex">
-                      {/* Video Button logic  */}
-                      <div className="flex-1">
-                        {hasVideo ? (
-                          <button
-                            className="flex-1 w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                            onClick={() =>
-                              window.open(watch_video.youtube_link, "_blank")
-                            }
-                          >
-                            <img
-                              src="/assets/play1.png"
-                              alt="Play icon"
-                              className="w-5 h-5"
-                            />
-                            <span>Watch Video</span>
-                          </button>
-                        ) : (
-                          <div className="relative group">
-                            <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                  <div className="bg-[#EDF0F5] p-2 rounded-t-lg">
+                    <div className="p-5 border rounded-lg sticky top-16 bg-white">
+                      <h2 className="font-bold font-open_sans text-sm mb-[22px]  hidden sm:flex">
+                        INVESTMENT GUIDANCE
+                      </h2>
+                      <div className="gap-2 mb-4 hidden sm:flex">
+                        {/* Video Button logic  */}
+                        <div className="flex-1">
+                          {hasVideo ? (
+                            <button
+                              className="flex-1 w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                              onClick={() =>
+                                window.open(watch_video.youtube_link, "_blank")
+                              }
+                            >
                               <img
-                                src="/assets/circle-play.svg"
+                                src="/assets/play1.png"
                                 alt="Play icon"
                                 className="w-5 h-5"
                               />
-                              <span className="font-medium text-gray-400">
-                                Watch Video
-                              </span>
+                              <span>Watch Video</span>
                             </button>
+                          ) : (
+                            <div className="relative group">
+                              <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                                <img
+                                  src="/assets/circle-play.svg"
+                                  alt="Play icon"
+                                  className="w-5 h-5"
+                                />
+                                <span className="font-medium text-gray-400">
+                                  Watch Video
+                                </span>
+                              </button>
 
-                            {/* Tooltip */}
-                            <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
-                              <img
-                                src="/assets/frame123.png" // Change this to the appropriate image source
-                                alt="Video thumbnail"
-                                className="w-[128px] mb-2 mx-auto"
-                              />
-                              <p className="font-bold text-lg text-[#0C111D]">
-                                Video Not Available!
-                              </p>
-                              <p className="text-sm text-[#475467]">
-                                Well, this video took a permanent vacation! 😅
-                                But don’t worry, fresh content is always on the
-                                horizon. Stay tuned! 🌟
-                              </p>
-                              {/* Tooltip Arrow */}
-                              <div className="absolute -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                              {/* Tooltip */}
+                              <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
+                                <img
+                                  src="/assets/frame123.png" // Change this to the appropriate image source
+                                  alt="Video thumbnail"
+                                  className="w-[128px] mb-2 mx-auto"
+                                />
+                                <p className="font-bold text-lg text-[#0C111D]">
+                                  Video Not Available!
+                                </p>
+                                <p className="text-sm text-[#475467]">
+                                  Well, this video took a permanent vacation! 😅
+                                  But don’t worry, fresh content is always on
+                                  the horizon. Stay tuned! 🌟
+                                </p>
+                                {/* Tooltip Arrow */}
+                                <div className="absolute -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
+
+                        {/* Share Button */}
+                        <div className="flex-1">
+                          <button className="w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
+                            <img
+                              src="/assets/share2.svg"
+                              alt="Share icon"
+                              className="w-5 h-5"
+                            />
+                            <span>
+                              {action === "BUY"
+                                ? "Invest Now"
+                                : action === "HOLD"
+                                ? "Go to Broker"
+                                : "Sell Now"}
+                            </span>
+                          </button>
+                        </div>
                       </div>
 
-                      {/* Share Button */}
-                      <div className="flex-1">
-                        <button className="w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
-                          <img
-                            src="/assets/share2.svg"
-                            alt="Share icon"
-                            className="w-5 h-5"
-                          />
-                          <span>
-                            {action === "BUY"
-                              ? "Invest Now"
-                              : action === "HOLD"
-                              ? "Go to Broker"
-                              : "Sell Now"}
-                          </span>
-                        </button>
-                      </div>
-                    </div>
+                      <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
+                        <p className="w-2/3 font-open_sans">{action_text}</p>
+                        <img
+                          src="/assets/images2.png"
+                          alt=""
+                          className="absolute -top-3 right-6 w-16 h-16"
+                        />
 
-                    <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
-                      <p className="w-2/3 font-open_sans">{action_text}</p>
-                      <img
-                        src="/assets/images2.png"
-                        alt=""
-                        className="absolute -top-3 right-6 w-16 h-16"
-                      />
+                        {/* SELL Image   */}
 
-                      {/* SELL Image   */}
-
-                      {/* <img
+                        {/* <img
                         src="/assets/sellbbl.png"
                         alt=""
                         className="absolute -top-3 right-6 w-16 h-16"
                       /> */}
 
-                      {/* Hold Images  */}
+                        {/* Hold Images  */}
 
-                      {/* <img
+                        {/* <img
                         src="/assets/sellbblyellow.png"
                         alt=""
                         className="absolute -top-1 right-8 w-10 h-8 rotate-[-28deg]"
                       /> */}
 
-                      <img
-                        src="/assets/images3.svg"
-                        alt=""
-                        className="absolute -bottom-1 right-2 "
-                      />
-                      <div className="w-1/3 flex justify-end">
                         <img
-                          src="/assets/images12.webp"
+                          src="/assets/images3.svg"
                           alt=""
-                          className=" w-[52px] h-[100px]"
+                          className="absolute -bottom-1 right-2 "
                         />
-                      </div>
-                    </div>
-                    <hr className="mt-3 hidden  sm:block" />
-                    <div className="p-5 bg-gray-100 mt-2 rounded-md hidden sm:block">
-                      <div className="flex relative">
-                        <div className=" !w-[75%]">
-                          <p className="font-semibold mb-2 font-open_sans">
-                            Don't miss out on potential gains!
-                          </p>
-                          <p className="mb-4 text-[#344054] font-open_sans">
-                            Upgrade now to get access to both SME and Mainboard
-                            stocks.
-                          </p>
-                        </div>
-                        <div className=" !w-[25%]">
+                        <div className="w-1/3 flex justify-end">
                           <img
-                            src="/assets/Frame.svg"
-                            alt="sss"
-                            className="absolute top-0 right-0 h-[88px] w-[78px]"
+                            src="/assets/images12.webp"
+                            alt=""
+                            className=" w-[52px] h-[100px]"
                           />
                         </div>
                       </div>
-                      <Link href={`/pricing`}>
-                        <button className="w-full bg-[#125B54] hover:bg-[#0B3A36] hover:scale-[0.95] duration-300 text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
-                          <span className="flex gap-2 font-open_sans">
-                            <img src="/assets/white-icon.svg" alt="" />
-                            Upgrade Now
-                          </span>
-                        </button>
-                      </Link>
-                    </div>
-                    <div className="mt-5 hidden sm:block">
-                      <button
-                        className="w-full   p-2 rounded-lg flex justify-between items-center"
-                        onClick={toggleDropdown}
-                      >
-                        <span className="font-open_sans">
-                          TIMELINE & REPORTS ({timeline.length || 0})
-                        </span>
-                        <svg
-                          className={`transform w-5 h-5 transition-transform duration-200 ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </button>
-                      {isOpen && (
-                        <div className="mt-2">
-                          {/* Timeline Content Goes Here */}
-                          <div className="p-4  rounded-lg">
-                            <StockDetailsTimeline timeline={timeline} />
+                      <hr className="my-3 hidden  sm:block" />
+                      <div className="p-4 bg-gray-100 mt-2 rounded-lg hidden sm:block">
+                        <div className="flex relative !mb-[24px]">
+                          <div className=" !w-[75%]">
+                            <p className="font-bold mb-2 font-open_san text-xs">
+                              Don't miss out on potential gains!
+                            </p>
+                            <p className=" text-[#344054] font-open_sans !text-xs">
+                              Upgrade now to get access to both SME and
+                              Mainboard stocks.
+                            </p>
+                          </div>
+                          <div className=" !w-[25%]">
+                            <img
+                              src="/assets/Frame.svg"
+                              alt="sss"
+                              className="absolute top-0 right-0 h-[71px] w-[78px]"
+                            />
                           </div>
                         </div>
-                      )}
+                        <Link href={`/pricing`}>
+                          <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
+                            <span className="flex gap-2 font-open_sans  text-sm font-medium">
+                              <img src="/assets/white-icon.svg" alt="" />
+                              Upgrade Now
+                            </span>
+                          </button>
+                        </Link>
+                      </div>
+                      <div className="mt-5 hidden sm:block">
+                        <button
+                          className="w-full   p-2 rounded-lg flex justify-between items-center"
+                          onClick={toggleDropdown}
+                        >
+                          <span className="font-open_sans text-sm font-bold">
+                            TIMELINE & REPORTS ({timeline.length || 0})
+                          </span>
+                          <svg
+                            className={`transform w-5 h-5 transition-transform duration-200 ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+                        {isOpen && (
+                          <div className="mt-2">
+                            {/* Timeline Content Goes Here */}
+                            <div className="p-4  rounded-lg">
+                              <StockDetailsTimeline timeline={timeline} />
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
