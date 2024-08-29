@@ -43,6 +43,7 @@ function DrawerFilter() {
     marketCapTypeList,
     strategyTagList,
     stockRiskList,
+    sebiBoardType,
   } = useStockPicks();
 
   const {
@@ -151,7 +152,7 @@ function DrawerFilter() {
   const handleReturnsInputChange = (event) => {
     event.stopPropagation();
     const index = event.target.name === "min" ? 0 : 1;
-    const newValue = [...setReturns];
+    const newValue = [...returns];
     newValue[index] =
       event.target.value === "" ? "" : Number(event.target.value);
     setReturns(newValue);
@@ -643,72 +644,74 @@ function DrawerFilter() {
               </div>
 
               {/* Market Cap */}
-              <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
-                <Accordion
-                  defaultExpanded
-                  sx={{
-                    boxShadow: "none !important",
-                    margin: "0px !important",
-                  }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="recency-content"
-                    id="recency-header"
+              {sebiBoardType == "mainboard" && (
+                <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+                  <Accordion
+                    defaultExpanded
+                    sx={{
+                      boxShadow: "none !important",
+                      margin: "0px !important",
+                    }}
                   >
-                    <Box display="flex" alignItems="center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                      >
-                        <path
-                          d="M5.99992 16.6654V4.66536C5.99992 4.31174 6.14039 3.9726 6.39044 3.72256C6.64049 3.47251 6.97963 3.33203 7.33325 3.33203H12.6666C13.0202 3.33203 13.3593 3.47251 13.6094 3.72256C13.8594 3.9726 13.9999 4.31174 13.9999 4.66536V16.6654M5.99992 16.6654H13.9999M5.99992 16.6654H4.66659C4.31296 16.6654 3.97382 16.5249 3.72378 16.2748C3.47373 16.0248 3.33325 15.6857 3.33325 15.332V11.332C3.33325 10.9784 3.47373 10.6393 3.72378 10.3892C3.97382 10.1392 4.31296 9.9987 4.66659 9.9987H5.99992M13.9999 16.6654H15.3333C15.6869 16.6654 16.026 16.5249 16.2761 16.2748C16.5261 16.0248 16.6666 15.6857 16.6666 15.332V9.33203C16.6666 8.97841 16.5261 8.63927 16.2761 8.38922C16.026 8.13917 15.6869 7.9987 15.3333 7.9987H13.9999M8.66659 5.9987H11.3333M8.66659 8.66536H11.3333M8.66659 11.332H11.3333M8.66659 13.9987H11.3333"
-                          stroke="#1D2939"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <Typography
-                        variant="subtitle1"
-                        ml={1}
-                        mr={1}
-                        sx={{
-                          color: "#1D2939",
-                          fontSize: "14px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        Market Cap
-                      </Typography>
-                    </Box>
-                  </AccordionSummary>
-                  {/* <SizeSelector /> */}
-                  <div className="flex pl-7 gap-4 pb-4">
-                    {marketCapTypeList?.map((value, index) => (
-                      <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          marketCapType == value
-                            ? "bg-[#E7F8F8] border-[#108973]"
-                            : "bg-white border-[#E4E7EC]"
-                        }`}
-                        key={index}
-                        onClick={() => setMarketCapType(value)}
-                      >
-                        <img src={`/assets/${value}.svg`} alt={value} />
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="recency-content"
+                      id="recency-header"
+                    >
+                      <Box display="flex" alignItems="center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M5.99992 16.6654V4.66536C5.99992 4.31174 6.14039 3.9726 6.39044 3.72256C6.64049 3.47251 6.97963 3.33203 7.33325 3.33203H12.6666C13.0202 3.33203 13.3593 3.47251 13.6094 3.72256C13.8594 3.9726 13.9999 4.31174 13.9999 4.66536V16.6654M5.99992 16.6654H13.9999M5.99992 16.6654H4.66659C4.31296 16.6654 3.97382 16.5249 3.72378 16.2748C3.47373 16.0248 3.33325 15.6857 3.33325 15.332V11.332C3.33325 10.9784 3.47373 10.6393 3.72378 10.3892C3.97382 10.1392 4.31296 9.9987 4.66659 9.9987H5.99992M13.9999 16.6654H15.3333C15.6869 16.6654 16.026 16.5249 16.2761 16.2748C16.5261 16.0248 16.6666 15.6857 16.6666 15.332V9.33203C16.6666 8.97841 16.5261 8.63927 16.2761 8.38922C16.026 8.13917 15.6869 7.9987 15.3333 7.9987H13.9999M8.66659 5.9987H11.3333M8.66659 8.66536H11.3333M8.66659 11.332H11.3333M8.66659 13.9987H11.3333"
+                            stroke="#1D2939"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <Typography
+                          variant="subtitle1"
+                          ml={1}
+                          mr={1}
+                          sx={{
+                            color: "#1D2939",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                          }}
+                        >
+                          Market Cap
+                        </Typography>
+                      </Box>
+                    </AccordionSummary>
+                    {/* <SizeSelector /> */}
+                    <div className="flex pl-7 gap-4 pb-4">
+                      {marketCapTypeList?.map((value, index) => (
+                        <div
+                          className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                            marketCapType == value
+                              ? "bg-[#E7F8F8] border-[#108973]"
+                              : "bg-white border-[#E4E7EC]"
+                          }`}
+                          key={index}
+                          onClick={() => setMarketCapType(value)}
+                        >
+                          <img src={`/assets/${value}.svg`} alt={value} />
 
-                        <span className="pt-2 text-2xs  text-[#344054] font-normal">
-                          {value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </Accordion>
-                <div className="border-b-2 border-[#F2F4F7] "></div>
-              </div>
+                          <span className="pt-2 text-2xs  text-[#344054] font-normal">
+                            {value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </Accordion>
+                  <div className="border-b-2 border-[#F2F4F7] "></div>
+                </div>
+              )}
 
               {/* Sectors  */}
               <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
@@ -977,6 +980,7 @@ function DrawerFilter() {
               <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
                 <div className="justify-between absolute flex items-center w-auto gap-2 ">
                   <svg
+                    onClick={() => setOpen(false)}
                     xmlns="http://www.w3.org/2000/svg"
                     width="28"
                     height="28"
@@ -1080,16 +1084,18 @@ function DrawerFilter() {
                     label="Total Return"
                     {...a11yProps(3)}
                   />
-                  <Tab
-                    sx={{
-                      display: "flex",
-                      alignItems: "start !important",
-                      color: "#5F6368",
-                      gap: "12px",
-                    }}
-                    label="Market Cap"
-                    {...a11yProps(4)}
-                  />
+                  {sebiBoardType == "mainboard" && (
+                    <Tab
+                      sx={{
+                        display: "flex",
+                        alignItems: "start !important",
+                        color: "#5F6368",
+                        gap: "12px",
+                      }}
+                      label="Market Cap"
+                      {...a11yProps(4)}
+                    />
+                  )}
                   <Tab
                     sx={{
                       display: "flex",
@@ -1345,39 +1351,41 @@ function DrawerFilter() {
                       </Grid>
                     </div>
                   </TabPanel>
-                  <TabPanel value={value} index={4}>
-                    {/* market cap  */}
-                    <div className=" overflow-x-hidden">
-                      <Accordion
-                        defaultExpanded
-                        sx={{
-                          boxShadow: "none !important",
-                          margin: "0px !important",
-                        }}
-                      >
-                        {/* <SizeSelector /> */}
-                        <div className="sm:flex grid   gap-4 pb-4">
-                          {marketCapTypeList?.map((value, index) => (
-                            <div
-                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                marketCapType == value
-                                  ? "bg-[#E7F8F8] border-[#108973]"
-                                  : "bg-white border-[#E4E7EC]"
-                              }`}
-                              key={index}
-                              onClick={() => setMarketCapType(value)}
-                            >
-                              <img src={`/assets/${value}.svg`} alt={value} />
+                  {sebiBoardType == "mainboard" && (
+                    <TabPanel value={value} index={4}>
+                      {/* market cap  */}
+                      <div className=" overflow-x-hidden">
+                        <Accordion
+                          defaultExpanded
+                          sx={{
+                            boxShadow: "none !important",
+                            margin: "0px !important",
+                          }}
+                        >
+                          {/* <SizeSelector /> */}
+                          <div className="sm:flex grid   gap-4 pb-4">
+                            {marketCapTypeList?.map((value, index) => (
+                              <div
+                                className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                  marketCapType == value
+                                    ? "bg-[#E7F8F8] border-[#108973]"
+                                    : "bg-white border-[#E4E7EC]"
+                                }`}
+                                key={index}
+                                onClick={() => setMarketCapType(value)}
+                              >
+                                <img src={`/assets/${value}.svg`} alt={value} />
 
-                              <span className="pt-2 text-2xs  text-[#344054] font-normal">
-                                {value}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </Accordion>
-                    </div>
-                  </TabPanel>
+                                <span className="pt-2 text-2xs  text-[#344054] font-normal">
+                                  {value}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </Accordion>
+                      </div>
+                    </TabPanel>
+                  )}
                   <TabPanel value={value} index={5}>
                     {/* Sectors  */}
                     <div className=" overflow-x-hidden p-0">
@@ -1407,19 +1415,28 @@ function DrawerFilter() {
                         <div className="">
                           <AccordionDetails sx={{ padding: "0px !important" }}>
                             <FormGroup sx={{ padding: "0px !important" }}>
-                              {Object.keys(strategyTagList || {}).map((key) => (
-                                <FormControlLabel
-                                  key={key}
-                                  control={
-                                    <Checkbox
-                                      checked={strategyTag.includes(key)}
-                                      onChange={handleChangestrategyTag}
-                                      name={key}
+                              <div
+                                style={{
+                                  maxHeight: "350px",
+                                  overflowY: "auto",
+                                }}
+                              >
+                                {Object.keys(strategyTagList || {}).map(
+                                  (key) => (
+                                    <FormControlLabel
+                                      key={key}
+                                      control={
+                                        <Checkbox
+                                          checked={strategyTag.includes(key)}
+                                          onChange={handleChangestrategyTag}
+                                          name={key}
+                                        />
+                                      }
+                                      label={strategyTagList[key]}
                                     />
-                                  }
-                                  label={strategyTagList[key]}
-                                />
-                              ))}
+                                  )
+                                )}
+                              </div>
                             </FormGroup>
                           </AccordionDetails>
                         </div>

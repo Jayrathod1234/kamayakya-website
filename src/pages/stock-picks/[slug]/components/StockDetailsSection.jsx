@@ -35,6 +35,7 @@ function StockDetailsSection() {
     company_details,
     market_cap_type,
     timeline,
+    cagr_of_stock,
   } = items || {};
 
   const toggleDropdown = () => {
@@ -296,14 +297,10 @@ function StockDetailsSection() {
                     <h2 className="text-[#0C111D] text-[14px] leading-3 font-semibold font-open_sans ">
                       Company Profile
                     </h2>
-                    <p className="text-[#475467]  text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none">
-                      Shree Pushkar Chemical & Fertiliser Ltd. is a holding
-                      company, which engages in the provision of chemicals and
-                      fertilizers. It offers dye, dye intermediates,
-                      fertilizers, acids, and cattle feed supplements. The
-                      company was founded by Punit Makharia on March 29, 1993
-                      and is headquartered in Mumbai, India.
-                    </p>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: company_details }}
+                      className="text-[#475467]  text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none"
+                    ></p>
                     {/* <button class="flex mt-2 items-center gap-2 px-4 py-2  text-[#344054] font-medium border border-[#D0D5DD] rounded-full hover:bg-[#F9FAFB] hover:border-[#D0D5DD] transition-colors">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -327,7 +324,11 @@ function StockDetailsSection() {
                         <div className="flex flex-col gap-4 md:gap-6 lg:gap-8">
                           <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 w-full">
                             {/* Upside Left Section */}
-                            <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-custom-gradient">
+                            <div
+                              className={`w-full ${
+                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                            >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
                                   <p className="font-open_sans text-sm font-semibold text-[#FCFCFD]">
@@ -369,15 +370,19 @@ function StockDetailsSection() {
                                 </div>
                               </div>
                               <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-white font-bold">
-                                17.12%
+                                {upside_left}%
                                 <span className="text-[10px] mt-2   text-white font-medium">
-                                  likely within a year
+                                  likely within {upside_left_time}
                                 </span>
                               </div>
                             </div>
 
                             {/* Total Returns Section */}
-                            <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-white">
+                            <div
+                              className={`w-full ${
+                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                              } h-[95px] p-4 rounded-md bg-white`}
+                            >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
                                   <p className="font-open_sans text-sm font-semibold text-[#1D2939]">
@@ -412,142 +417,145 @@ function StockDetailsSection() {
                             </div>
 
                             {/* Total CAGR Section */}
-                            <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-white">
-                              <div className="flex flex-col md:flex-row justify-between">
-                                <div className="flex gap-1 items-center">
-                                  <p className="font-open_sans text-sm font-semibold text-[#1D2939]">
-                                    Total CAGR
-                                  </p>
-                                  <div className="relative group">
-                                    <img
-                                      src="/assets/blackinfo.svg"
-                                      alt="Info"
-                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                    />
-                                    <div className="absolute shadow-md z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
-                                      <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white border border-gray-300 rounded-lg shadow-lg text-gray-800">
-                                        <div className="tooltip-content">
-                                          <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
-                                            Compound Annual Growth Rate
-                                          </h3>
-                                          <p className="tooltip-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
-                                            Purpose:
-                                          </p>
-                                          <p className="tooltip-text my-1 text-gray-800 text-[12px] font-open_sans">
-                                            Shows average yearly growth of an
-                                            investment.
-                                          </p>
-                                          <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
-                                            Imagine a tree growing a bit more
-                                            each year.
-                                            <br />
-                                            CAGR tells how fast it grows
-                                            annually on average.
-                                          </p>
-                                          <div className="tooltip-formula flex flex-wrap bg-white p-3 rounded mb-4">
-                                            <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">
-                                              CAGR =
+                            {cagr_of_stock && (
+                              <div className="w-full md:w-1/3 h-[95px] p-4 rounded-md bg-white">
+                                <div className="flex flex-col md:flex-row justify-between">
+                                  <div className="flex gap-1 items-center">
+                                    <p className="font-open_sans text-sm font-semibold text-[#1D2939]">
+                                      Total CAGR
+                                    </p>
+                                    <div className="relative group">
+                                      <img
+                                        src="/assets/blackinfo.svg"
+                                        alt="Info"
+                                        className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                      />
+                                      <div className="absolute shadow-md z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
+                                        <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white border border-gray-300 rounded-lg shadow-lg text-gray-800">
+                                          <div className="tooltip-content">
+                                            <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
+                                              Compound Annual Growth Rate
+                                            </h3>
+                                            <p className="tooltip-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
+                                              Purpose:
                                             </p>
-                                            <div className="formula flex items-center justify-center flex-wrap mt-2">
-                                              <span className="text-[30px] font-[50] font-open_sans">
-                                                [
-                                              </span>
-                                              <div className="flex items-center mx-2">
-                                                <div className="flex flex-col items-center">
-                                                  <div className="fraction">
-                                                    <span className="numerator text-[12px] font-open_sans">
-                                                      Ending Value
-                                                    </span>
-                                                    <span className="denominator text-[12px] font-open_sans">
-                                                      Starting Value
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <span className="text-[30px] font-[50] font-open_sans">
-                                                ]
-                                              </span>
-                                              <sup className="flex items-center text-[20px] font-[50]">
-                                                <span className="text-[20px] font-open_sans">
+                                            <p className="tooltip-text my-1 text-gray-800 text-[12px] font-open_sans">
+                                              Shows average yearly growth of an
+                                              investment.
+                                            </p>
+                                            <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
+                                              Imagine a tree growing a bit more
+                                              each year.
+                                              <br />
+                                              CAGR tells how fast it grows
+                                              annually on average.
+                                            </p>
+                                            <div className="tooltip-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                              <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">
+                                                CAGR =
+                                              </p>
+                                              <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                                <span className="text-[30px] font-[50] font-open_sans">
                                                   [
                                                 </span>
-                                                <div className="flex flex-col items-center mx-2">
-                                                  <div className="fraction">
-                                                    <span className="text-[12px] font-open_sans">
-                                                      1
-                                                    </span>
-                                                    <hr className="w-full h-[1px] bg-black mt-2" />
-                                                    <span className="denominator text-[12px] mt-2 font-open_sans">
-                                                      No. of Years
-                                                    </span>
+                                                <div className="flex items-center mx-2">
+                                                  <div className="flex flex-col items-center">
+                                                    <div className="fraction">
+                                                      <span className="numerator text-[12px] font-open_sans">
+                                                        Ending Value
+                                                      </span>
+                                                      <span className="denominator text-[12px] font-open_sans">
+                                                        Starting Value
+                                                      </span>
+                                                    </div>
                                                   </div>
                                                 </div>
-                                                <span className="text-[20px] font-open_sans">
+                                                <span className="text-[30px] font-[50] font-open_sans">
                                                   ]
                                                 </span>
-                                              </sup>
-                                              <span className="text-[12px] font-bold ml-2 font-open_sans">
-                                                -1
-                                              </span>
+                                                <sup className="flex items-center text-[20px] font-[50]">
+                                                  <span className="text-[20px] font-open_sans">
+                                                    [
+                                                  </span>
+                                                  <div className="flex flex-col items-center mx-2">
+                                                    <div className="fraction">
+                                                      <span className="text-[12px] font-open_sans">
+                                                        1
+                                                      </span>
+                                                      <hr className="w-full h-[1px] bg-black mt-2" />
+                                                      <span className="denominator text-[12px] mt-2 font-open_sans">
+                                                        No. of Years
+                                                      </span>
+                                                    </div>
+                                                  </div>
+                                                  <span className="text-[20px] font-open_sans">
+                                                    ]
+                                                  </span>
+                                                </sup>
+                                                <span className="text-[12px] font-bold ml-2 font-open_sans">
+                                                  -1
+                                                </span>
+                                              </div>
                                             </div>
-                                          </div>
 
-                                          <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
-                                            <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
-                                              Example :
+                                            <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
+                                              <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
+                                                Example :
+                                              </p>
+                                              <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                                <strong>Start Value</strong>{" "}
+                                                ₹100
+                                              </div>
+                                              <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                                <strong>
+                                                  End Value after 3 years
+                                                </strong>{" "}
+                                                ₹150
+                                              </div>
+                                              <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                                <strong>
+                                                  Total Returns over 3 years
+                                                </strong>{" "}
+                                                50%
+                                              </div>
+                                              <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
+                                                <strong>CAGR</strong> 14.47%
+                                              </div>
+                                            </div>
+                                            <p className="tooltip-footer mt-4 text-[12px] text-gray-500 font-open_sans">
+                                              This means, on average, the
+                                              investment grew about 14.47% each
+                                              year
                                             </p>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                              <strong>Start Value</strong> ₹100
-                                            </div>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                              <strong>
-                                                End Value after 3 years
-                                              </strong>{" "}
-                                              ₹150
-                                            </div>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                              <strong>
-                                                Total Returns over 3 years
-                                              </strong>{" "}
-                                              50%
-                                            </div>
-                                            <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
-                                              <strong>CAGR</strong> 14.47%
-                                            </div>
                                           </div>
-                                          <p className="tooltip-footer mt-4 text-[12px] text-gray-500 font-open_sans">
-                                            This means, on average, the
-                                            investment grew about 14.47% each
-                                            year
-                                          </p>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
+                                  <div className="hidden md:flex justify-end">
+                                    <img src="/assets/upper.svg" alt="Target" />
+                                  </div>
                                 </div>
-                                <div className="hidden md:flex justify-end">
-                                  <img src="/assets/upper.svg" alt="Target" />
+                                <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-[#344054] font-bold">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="15"
+                                    height="11"
+                                    viewBox="0 0 15 11"
+                                    fill="none"
+                                  >
+                                    <path
+                                      d="M7.03446 0.649754C7.43652 0.0861183 8.27587 0.091733 8.67036 0.660698L14.4116 8.94137C14.8714 9.60454 14.3968 10.5111 13.5898 10.5111H1.94168C1.1286 10.5111 0.655406 9.59235 1.12758 8.93042L7.03446 0.649754Z"
+                                      fill="#00FF02"
+                                    />
+                                  </svg>
+                                  {cagr_of_stock.cagr_value}%
+                                  <span className="text-[10px]  mt-2  text-[#667085] font-medium">
+                                    in {cagr_of_stock.cagr_time}
+                                  </span>
                                 </div>
                               </div>
-                              <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-[#344054] font-bold">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="15"
-                                  height="11"
-                                  viewBox="0 0 15 11"
-                                  fill="none"
-                                >
-                                  <path
-                                    d="M7.03446 0.649754C7.43652 0.0861183 8.27587 0.091733 8.67036 0.660698L14.4116 8.94137C14.8714 9.60454 14.3968 10.5111 13.5898 10.5111H1.94168C1.1286 10.5111 0.655406 9.59235 1.12758 8.93042L7.03446 0.649754Z"
-                                    fill="#00FF02"
-                                  />
-                                </svg>
-                                64.08%
-                                <span className="text-[10px]  mt-2  text-[#667085] font-medium">
-                                  in 1yr 4m
-                                </span>
-                              </div>
-                            </div>
+                            )}
                           </div>
                         </div>
 
@@ -638,27 +646,29 @@ function StockDetailsSection() {
                             </p>
                           </div>
                         </div>
-                        <div className="flex justify-between items-center mt-2">
-                          <div className="flex items-center">
-                            <img src="/assets/hj2.svg" alt="" />
-                            <p className="ml-2 text-sm text-gray-800 font-open_sans">
-                              CAGR
-                            </p>
+                        {cagr_of_stock && (
+                          <div className="flex justify-between items-center mt-2">
+                            <div className="flex items-center">
+                              <img src="/assets/hj2.svg" alt="" />
+                              <p className="ml-2 text-sm text-gray-800 font-open_sans">
+                                CAGR
+                              </p>
+                            </div>
+                            <div className="flex items-center">
+                              <img
+                                src="/assets/Polygon2.svg"
+                                alt="Indicator Icon"
+                                className="w-3 h-3"
+                              />
+                              <p className="text-black ml-1 text-sm font-open_sans ">
+                                {cagr_of_stock.cagr_value} %{" "}
+                                <span className="text-gray-500 text-xs font-open_sans">
+                                  in {cagr_of_stock.cagr_time}
+                                </span>
+                              </p>
+                            </div>
                           </div>
-                          <div className="flex items-center">
-                            <img
-                              src="/assets/Polygon2.svg"
-                              alt="Indicator Icon"
-                              className="w-3 h-3"
-                            />
-                            <p className="text-black ml-1 text-sm font-open_sans ">
-                              64.08%{" "}
-                              <span className="text-gray-500 text-xs font-open_sans">
-                                in 1yr 4m
-                              </span>
-                            </p>
-                          </div>
-                        </div>
+                        )}
                       </div>
                     </div>
 
@@ -690,14 +700,10 @@ function StockDetailsSection() {
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
-                    <p className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none">
-                      Shree Pushkar Chemical & Fertiliser Ltd. is a holding
-                      company, which engages in the provision of chemicals and
-                      fertilizers. It offers dye, dye intermediates,
-                      fertilizers, acids, and cattle feed supplements. The
-                      company was founded by Punit Makharia on March 29, 1993
-                      and is headquartered in Mumbai, India.
-                    </p>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: company_details }}
+                      className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none"
+                    ></p>
                     {/* <p
                       dangerouslySetInnerHTML={{ __html: company_details }}
                       className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none"
