@@ -262,7 +262,7 @@ function StockDetailsSection() {
                   </div>
                   {/* First Content End  */}
                   {/* When Small screen Button is Show  */}
-                  <div className="flex sm:hidden gap-2 mt-5 mb-3 bg-white">
+                  <div className="flex sm:hidden gap-2 mt-5 mb-3 ">
                     <div className="flex-1">
                       {hasVideo ? (
                         <button
@@ -312,7 +312,7 @@ function StockDetailsSection() {
                         </div>
                       )}
                     </div>
-                    <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
+                    <button className="flex-1 bg-white border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
                       <img
                         src="/assets/share2.svg"
                         alt="Play icon"
