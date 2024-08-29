@@ -100,7 +100,7 @@ const FilterCarousel = () => {
                   color: "white",
                   borderRadius: "50%",
                   position: "absolute",
-                  left: "10%",
+                  left: "14%",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
@@ -207,7 +207,7 @@ const FilterCarousel = () => {
                   color: "white",
                   borderRadius: "50%",
                   position: "absolute",
-                  right: "10%",
+                  right: "14%",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },

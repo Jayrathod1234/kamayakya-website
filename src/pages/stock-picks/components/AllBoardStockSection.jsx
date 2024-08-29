@@ -71,7 +71,7 @@ function AllBoardStockSection() {
         </p>
       </div>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:gap-4 gap-0 items-center justify-between">
           <div className="w-full">
             <form>
               <label
@@ -96,7 +96,7 @@ function AllBoardStockSection() {
               </div>
             </form>
           </div>
-          <div className="flex gap-4 h-12">
+          <div className="flex sm:gap-4 gap-0 sm:h-12 h-0 ">
             <div className="w-auto sm:block hidden">
               <div className="relative flex gap-4">
                 <CustomSortMenu isLabel={true} />

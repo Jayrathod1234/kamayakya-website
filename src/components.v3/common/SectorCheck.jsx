@@ -22,8 +22,8 @@ import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
 export default function SectorCheck() {
   const { stockSector, setIsChangeFilter } = useStockPicks();
-
   const { sector, setSector } = useAllBoardStock();
+  const sector_list_arr = Object.keys(stockSector || {});
 
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
@@ -38,7 +38,6 @@ export default function SectorCheck() {
   };
 
   const handleSelectAllClick = async () => {
-    const sector_list_arr = Object.keys(stockSector);
     if (sector.length === sector_list_arr.length) {
       await setSector([]);
     } else {
@@ -81,6 +80,7 @@ export default function SectorCheck() {
           backgroundColor: sector.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "4px",
           padding: "7px 16px",
+          fontFamily: "Open Sans",
           fontWeight: 500,
           "&:hover": {
             backgroundColor:
@@ -104,6 +104,7 @@ export default function SectorCheck() {
                 height: "20px",
                 fontSize: "14px",
                 fontWeight: 200,
+                fontFamily: "Open Sans",
               }}
             >
               {sector.length}
@@ -189,15 +190,15 @@ export default function SectorCheck() {
                       onClick={handleSelectAllClick}
                       sx={{
                         cursor: "pointer",
-                        color:
-                          sector.length === stockSector.length
-                            ? "#125B54"
-                            : "#1D2939",
+                        color: "#125B54",
                         fontSize: "12px",
                         fontWeight: 600,
                       }}
                     >
-                      Select All
+                      {sector.length === sector_list_arr.length
+                        ? "Deselect"
+                        : "Select"}{" "}
+                      All
                     </Typography>
                   </ListSubheader>
                   {filteredTags.map(([key, displayValue], index) => (
@@ -218,6 +219,9 @@ export default function SectorCheck() {
                       }}
                       sx={{
                         padding: "8px",
+                        height: "36px",
+                        fontFamily: "open Sans",
+                        fontSize: "14px",
                         backgroundColor: sector.includes(key)
                           ? "#E7F8F8"
                           : "transparent",
@@ -241,7 +245,8 @@ export default function SectorCheck() {
                         primary={displayValue}
                         sx={{
                           margin: 0,
-                          fontSize: "14px",
+                          fontSize: "14px !important",
+                          fontFamily: "Open Sans !important",
                         }}
                       />
                     </MenuItem>

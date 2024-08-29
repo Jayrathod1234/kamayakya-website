@@ -178,7 +178,7 @@ function DrawerFilter() {
     );
   };
 
-  const handleCloseDrawer = (closeVal) => { };
+  const handleCloseDrawer = (closeVal) => {};
 
   const CustomSlider = styled(Slider)({
     color: "#004d40", // Main color for the rail and thumb border
@@ -227,7 +227,7 @@ function DrawerFilter() {
               </div>
             )}
           </Button>
-          <Drawer open={open} anchor={anchor} onClose={() => { }}>
+          <Drawer open={open} anchor={anchor} onClose={() => {}}>
             <Box
               sx={{ width: 400 }}
               role="presentation"
@@ -250,14 +250,17 @@ function DrawerFilter() {
               </div>
               {/* upside left  */}
               <div className="pt-4 pr-6 pl-4 ">
-                <Accordion defaultExpanded sx={{ boxShadow: 'none' }}>
+                <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    <Box display="flex" alignItems="center" >
-                      <img src="/assets/solar_graph-down-new-broken.svg" alt="Upside Left" />
+                    <Box display="flex" alignItems="center">
+                      <img
+                        src="/assets/solar_graph-down-new-broken.svg"
+                        alt="Upside Left"
+                      />
                       <div className=" flex">
                         <Typography
                           variant="subtitle1"
@@ -296,14 +299,16 @@ function DrawerFilter() {
                                 className="absolute -top-2 left-[52px] w-4"
                               />
                               <div className="text-gray-800 text-2xs font-normal">
-                                Upside Left means how much the stock price could rise from its current level.
+                                Upside Left means how much the stock price could
+                                rise from its current level.
                               </div>
                               <div className="mt-2 p-2">
                                 <span className="text-[#108973] text-2xs font-bold">
                                   Example :
                                 </span>
                                 <p className="text-2xs text-gray-600 font-normal">
-                                  If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                  If a stock's price is ₹100 and the Upside Left
+                                  is 20%, it might go up to ₹120.
                                 </p>
                               </div>
                             </span>
@@ -330,12 +335,18 @@ function DrawerFilter() {
                             value={upsideLeft ? upsideLeft[0] : 0}
                             onChange={handleUpsideLeftInputChange}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
                             }}
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
                               },
                             }}
                           />
@@ -351,12 +362,18 @@ function DrawerFilter() {
                             value={upsideLeft ? upsideLeft[1] : 0}
                             onChange={handleUpsideLeftInputChange}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
                             }}
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
                               },
                             }}
                           />
@@ -378,11 +395,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={
-                      <ExpandMoreIcon
-
-                      />
-                    }
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -480,9 +493,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={
-                      <ExpandMoreIcon />
-                    }
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -535,15 +546,19 @@ function DrawerFilter() {
               </div>
               {/* Total Returns  */}
               <div className="pt-4 pr-6 pl-4  overflow-x-hidden">
-                <Accordion defaultExpanded
+                <Accordion
+                  defaultExpanded
                   sx={{
                     boxShadow: "none !important",
                     margin: "0px !important",
-
-                  }}>
+                  }}
+                >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Box display="flex" alignItems="center" >
-                      <img src="/assets/solar_graph-down-new-broken.svg" alt="Total Returns" />
+                    <Box display="flex" alignItems="center">
+                      <img
+                        src="/assets/solar_graph-down-new-broken.svg"
+                        alt="Total Returns"
+                      />
                       <div className=" flex">
                         <Typography
                           variant="subtitle1"
@@ -557,7 +572,6 @@ function DrawerFilter() {
                         >
                           Total Returns
                         </Typography>
-                        
                       </div>
                     </Box>
                   </AccordionSummary>
@@ -580,12 +594,18 @@ function DrawerFilter() {
                             value={returns ? returns[0] : 0}
                             onChange={handleReturnsInputChange}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
                             }}
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
                               },
                             }}
                           />
@@ -601,12 +621,18 @@ function DrawerFilter() {
                             value={returns ? returns[1] : 0}
                             onChange={handleReturnsInputChange}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
                             }}
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
                               },
                             }}
                           />
@@ -628,9 +654,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={
-                      <ExpandMoreIcon />
-                    }
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -668,10 +692,11 @@ function DrawerFilter() {
                   <div className="flex pl-7 gap-4 pb-4">
                     {marketCapTypeList?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${marketCapType == value
-                          ? "bg-[#E7F8F8] border-[#108973]"
-                          : "bg-white border-[#E4E7EC]"
-                          }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                          marketCapType == value
+                            ? "bg-[#E7F8F8] border-[#108973]"
+                            : "bg-white border-[#E4E7EC]"
+                        }`}
                         key={index}
                         onClick={() => setMarketCapType(value)}
                       >
@@ -748,7 +773,6 @@ function DrawerFilter() {
                   sx={{
                     boxShadow: "none !important",
                     margin: "0px !important",
-
                   }}
                 >
                   <AccordionSummary
@@ -875,10 +899,11 @@ function DrawerFilter() {
                   <div className="flex pl-7 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${risk == value
-                          ? "bg-[#E7F8F8] border-[#108973]"
-                          : "bg-white border-[#E4E7EC]"
-                          }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                          risk == value
+                            ? "bg-[#E7F8F8] border-[#108973]"
+                            : "bg-white border-[#E4E7EC]"
+                        }`}
                         key={index}
                         onClick={() => setRisk(value)}
                       >
@@ -899,7 +924,7 @@ function DrawerFilter() {
                   <button
                     className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
                     onClick={() => {
-                      setOpen(false)
+                      setOpen(false);
                     }}
                   >
                     Cancel
@@ -937,7 +962,7 @@ function DrawerFilter() {
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
-            onClose={() => { }}
+            onClose={() => {}}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
@@ -986,11 +1011,14 @@ function DrawerFilter() {
                   bgcolor: "background.paper",
                   display: "flex",
                   position: "fixed",
-                  // width: "100% !important",
+                  alignItems: "start !important",
+                  justifyContent: "start !important",
+                  // width: "144px !important",
                   height: 400, // Set a fixed height to make sure scrolling works
                 }}
               >
                 <Tabs
+                  centered={false}
                   orientation="vertical"
                   variant="scrollable"
                   value={value}
@@ -998,81 +1026,110 @@ function DrawerFilter() {
                   aria-label="Vertical tabs example"
                   sx={{
                     borderRight: 1,
-                    width: "62% !important",
+                    // width: "62% !important",
                     borderColor: "divider",
                     alignItems: "start !important",
-                    // justifyContent:"start",
-                    // width: 144,
+                    justifyContent: "start",
+                    bgcolor: "#FAFAFA",
+                    width: 144,
+                    height: "100% !important",
                     // padding: "14px 8px 14px 16px",
 
                     color: "#5F6368", // Match text color for tabs
                   }}
                 >
                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                    }}
                     label={
-                      <Box
-                        className="items-start !important"
-                        sx={{
-                          display: "flex",
-                          alignItems: "start !important",
-                          color: "#5F6368",
-                          gap: "12px",
-                        }}
-                      >
-                        Upside Left
-                      </Box>
+                      <Box className="items-start !important">Upside Left</Box>
                     }
                     {...a11yProps(0)}
                   />
                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                    }}
                     label="Recency"
                     {...a11yProps(1)}
-                    sx={{ color: "#5F6368", justifyContent: "left !important" }}
                   />
                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                    }}
                     label="Time Left"
                     {...a11yProps(2)}
-                    sx={{ color: "#5F6368" }}
                   />
                   <Tab
-                    label={
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          color: "#5F6368",
-                        }}
-                      >
-                        Total Returns
-                        <CheckCircleIcon
-                          sx={{ ml: "auto", color: "#125B54" }}
-                        />
-                      </Box>
-                    }
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                      lineClamp: "1",
+                    }}
+                    // Total Returns
+                    label="Total Return"
                     {...a11yProps(3)}
                   />
                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                    }}
                     label="Market Cap"
                     {...a11yProps(4)}
-                    sx={{ color: "#5F6368" }}
                   />
                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                    }}
                     label="Sectors"
                     {...a11yProps(5)}
-                    sx={{ color: "#5F6368" }}
                   />
                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                    }}
                     label="Strategies"
                     {...a11yProps(6)}
-                    sx={{ color: "#5F6368" }}
                   />
                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                    }}
                     label="Risk"
                     {...a11yProps(7)}
-                    sx={{ color: "#5F6368" }}
                   />
                 </Tabs>
-                <Box sx={{ flexGrow: 1, bgcolor: "white" }}>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    bgcolor: "white",
+                    width: "246px !important",
+                  }}
+                >
                   <TabPanel value={value} index={0}>
                     {/* upside left  */}
                     <div className="">
@@ -1184,16 +1241,51 @@ function DrawerFilter() {
                   </TabPanel>
                   <TabPanel value={value} index={2}>
                     {/* time  left  */}
+                    <div className=" overflow-x-hidden">
+                      <Accordion
+                        defaultExpanded
+                        sx={{
+                          boxShadow: "none !important",
+                          margin: "0px !important",
+                        }}
+                      >
+                        <div className="pl-0">
+                          <AccordionDetails sx={{ padding: "0px" }}>
+                            <FormGroup>
+                              {Object.keys(timeLeft || {}).map((key) => (
+                                <FormControlLabel
+                                  key={key}
+                                  control={
+                                    <Checkbox
+                                      checked={timeLeft[key]}
+                                      onChange={handleChangeTimeLeft}
+                                      name={key}
+                                      sx={{
+                                        color: "default", // Default color
+                                        "&.Mui-checked": {
+                                          color: "#125B54", // Color when checked
+                                        },
+                                      }}
+                                    />
+                                  }
+                                  label={filterTimeLabel[key]}
+                                />
+                              ))}
+                            </FormGroup>
+                          </AccordionDetails>
+                        </div>
+                      </Accordion>
+                    </div>
                   </TabPanel>
                   <TabPanel value={value} index={3}>
-                    {/* upside left  */}
-                    <div className="">
+                    {/* total return  */}
+                    <div className="  ">
                       <CustomSlider
-                        value={upsideLeft}
-                        onChange={handleUpsideLeftSliderChange}
+                        value={returns}
+                        onChange={handleReturnsSliderChange}
                         valueLabelDisplay="auto"
-                        min={min_upside_left}
-                        max={max_upside_left}
+                        min={min_returns}
+                        max={max_returns}
                       />
 
                       <Grid alignItems="center">
@@ -1202,8 +1294,8 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             name="min"
-                            value={upsideLeft ? upsideLeft[0] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            value={returns ? returns[0] : 0}
+                            onChange={handleReturnsInputChange}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1214,10 +1306,10 @@ function DrawerFilter() {
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": {
-                                  borderColor: "#125B54", // Color of the outline on hover
+                                  borderColor: "#125B54",
                                 },
                                 "&.Mui-focused fieldset": {
-                                  borderColor: "#125B54", // Color of the outline when focused
+                                  borderColor: "#125B54",
                                 },
                               },
                             }}
@@ -1231,8 +1323,8 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             name="max"
-                            value={upsideLeft ? upsideLeft[1] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            value={returns ? returns[1] : 0}
+                            onChange={handleReturnsInputChange}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1243,10 +1335,10 @@ function DrawerFilter() {
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": {
-                                  borderColor: "#125B54", // Color of the outline on hover
+                                  borderColor: "#125B54",
                                 },
                                 "&.Mui-focused fieldset": {
-                                  borderColor: "#125B54", // Color of the outline when focused
+                                  borderColor: "#125B54",
                                 },
                               },
                             }}
@@ -1269,10 +1361,11 @@ function DrawerFilter() {
                         <div className="sm:flex grid   gap-4 pb-4">
                           {marketCapTypeList?.map((value, index) => (
                             <div
-                              className={`sm:flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${marketCapType == value
-                                ? "bg-[#E7F8F8] border-[#108973]"
-                                : "bg-white border-[#E4E7EC]"
-                                }`}
+                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                marketCapType == value
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
+                              }`}
                               key={index}
                               onClick={() => setMarketCapType(value)}
                             >
@@ -1289,12 +1382,13 @@ function DrawerFilter() {
                   </TabPanel>
                   <TabPanel value={value} index={5}>
                     {/* Sectors  */}
-                    <div className=" overflow-x-hidden">
+                    <div className=" overflow-x-hidden p-0">
                       <Accordion
                         defaultExpanded
                         sx={{
                           boxShadow: "none !important",
                           marginBottom: "0px !important",
+                          padding: "0px !important",
                         }}
                       >
                         <SectorFilter2 style={{ padding: "0px !important" }} />
@@ -1303,17 +1397,18 @@ function DrawerFilter() {
                   </TabPanel>
                   <TabPanel value={value} index={6}>
                     {/* Strategies   */}
-                    <div className=" overflow-x-hidden">
+                    <div className="p-0 overflow-x-hidden">
                       <Accordion
                         defaultExpanded
                         sx={{
                           boxShadow: "none !important",
                           margin: "0px !important",
+                          padding: "0px !important",
                         }}
                       >
                         <div className="">
-                          <AccordionDetails>
-                            <FormGroup sx={{ padding: "0px !impotant" }}>
+                          <AccordionDetails sx={{ padding: "0px !important" }}>
+                            <FormGroup sx={{ padding: "0px !important" }}>
                               {Object.keys(strategyTagList || {}).map((key) => (
                                 <FormControlLabel
                                   key={key}
@@ -1346,10 +1441,11 @@ function DrawerFilter() {
                         <div className="sm:flex grid gap-4 pb-4">
                           {stockRiskList?.map((value, index) => (
                             <div
-                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${risk == value
-                                ? "bg-[#E7F8F8] border-[#108973]"
-                                : "bg-white border-[#E4E7EC]"
-                                }`}
+                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                risk == value
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
+                              }`}
                               key={index}
                               onClick={() => setRisk(value)}
                             >
@@ -1368,10 +1464,12 @@ function DrawerFilter() {
               </Box>
               {/* button  */}
               <div className="pt-[61px]">
-                <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
+                <div className="flex gap-3 py-3 px-3  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
                     className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
-                    onClick={() => { handleCloseDrawer(false) }}
+                    onClick={() => {
+                      handleCloseDrawer(false);
+                    }}
                   >
                     Cancel
                   </button>

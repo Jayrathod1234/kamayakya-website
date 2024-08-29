@@ -35,7 +35,7 @@ const SectorFilter2 = () => {
   );
 
   return (
-    <div style={{ padding: "16px" }}>
+    <div className="sm:p-4 p-0">
       <TextField
         variant="outlined"
         fullWidth
@@ -44,9 +44,9 @@ const SectorFilter2 = () => {
         placeholder="Search for sectors"
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start">
+            <InputAdornment position="start" paddingLeft="0px">
               <IconButton>
-                <SearchIcon style={{ color: "#667085" }} />
+                <SearchIcon style={{ color: "#667085", paddingLeft: "0px" }} />
               </IconButton>
             </InputAdornment>
           ),

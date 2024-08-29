@@ -27,6 +27,7 @@ export default function StrategyCheck() {
     setIsChangeFilter,
     changablestrategyTags,
   } = useStockPicks();
+  const strategy_tag_list_arr = Object.keys(strategyTagList || {});
 
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
@@ -41,7 +42,6 @@ export default function StrategyCheck() {
   };
 
   const handleSelectAllClick = async () => {
-    const strategy_tag_list_arr = Object.keys(strategyTagList);
     if (changablestrategyTags.length === strategy_tag_list_arr.length) {
       await setStrategyTag([]);
     } else {
@@ -201,16 +201,16 @@ export default function StrategyCheck() {
                       onClick={handleSelectAllClick}
                       sx={{
                         cursor: "pointer",
-                        color:
-                          changablestrategyTags.length ===
-                          strategyTagList.length
-                            ? "#125B54"
-                            : "#1D2939",
+                        color: "#125B54",
                         fontSize: "12px",
                         fontWeight: 600,
                       }}
                     >
-                      Select All
+                      {changablestrategyTags.length ===
+                      strategy_tag_list_arr.length
+                        ? "Deselect"
+                        : "Select"}{" "}
+                      All
                     </Typography>
                   </ListSubheader>
                   {filteredTags.map(([key, displayValue], index) => (
@@ -231,6 +231,8 @@ export default function StrategyCheck() {
                       }}
                       sx={{
                         padding: "8px",
+                        height: "36px",
+                        fontFamily: "open Sans",
                         backgroundColor: strategyTag.includes(key)
                           ? "#E7F8F8"
                           : "transparent",
@@ -254,7 +256,7 @@ export default function StrategyCheck() {
                         primary={displayValue}
                         sx={{
                           margin: 0,
-                          fontSize: "14px",
+                          fontSize: "14px !important",
                         }}
                       />
                     </MenuItem>
