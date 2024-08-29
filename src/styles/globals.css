@@ -1955,7 +1955,9 @@ header > div > div {
 .css-1urgnq6{
   font-weight: 500;
 }
-
+.css-68wo3z-MuiButtonBase-root-MuiButton-root {
+  color: #0c3f3a !important;
+}
 .set-radio-menu .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
   top: 239px !important;
   bottom: 0px;

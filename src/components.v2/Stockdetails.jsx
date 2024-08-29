@@ -62,11 +62,11 @@ function Stockdetails() {
                     {/* <!-- Continue your other components similarly --> */}
                     <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
                       {/* Image container */}
-                      <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block">
+                      <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block flex justify-center items-center rounded-md  border-2">
                         <img
                           src="/assets/image 3.png"
                           alt="Company Logo"
-                          className="w-full h-full object-cover rounded-full"
+                          className="w-[70px] object-cover rounded-full"
                         />
                       </div>
 

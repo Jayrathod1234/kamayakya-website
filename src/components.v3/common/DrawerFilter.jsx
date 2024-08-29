@@ -944,7 +944,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("bottom", true)}
             sx={{ display: isMobile ? "block" : "none" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-md  gap-2 items-center shadow-3xs !min-w-24 hover:bg-error-500"
+            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-md  gap-2 items-center shadow-3xs !min-w-28 hover:bg-error-500"
           >
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case">
