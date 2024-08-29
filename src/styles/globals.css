@@ -1945,9 +1945,7 @@ header > div > div {
   left: 0;
 }
 
-.css-1e7g8qh-MuiButtonBase-root-MuiTab-root.Mui-selected, .css-15lbh48-MuiButtonBase-root-MuiTab-root.Mui-selected, .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected,
-.css-1vy5fwp-MuiButtonBase-root-MuiTab-root.Mui-selected,
-.css-15lpzv4-MuiButtonBase-root-MuiTab-root.Mui-selected  {
+.mobile-filter-tab .Mui-selected  {
   color:#108973 !important ;
   background-color: white !important;
   justify-content: start !important;

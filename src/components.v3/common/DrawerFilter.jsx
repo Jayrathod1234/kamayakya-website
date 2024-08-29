@@ -1022,6 +1022,7 @@ function DrawerFilter() {
                 <Tabs
                   centered={false}
                   orientation="vertical"
+                  className="mobile-filter-tab"
                   variant="scrollable"
                   value={value}
                   onChange={handleChange}
