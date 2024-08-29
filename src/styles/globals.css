@@ -1956,11 +1956,12 @@ header > div > div {
   font-weight: 500;
 }
 
-.set .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+.set-radio-menu .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
   top: 239px !important;
   bottom: 0px;
   left: 0px !important;
  border-top-left-radius: 12px ;
+
  border-top-right-radius: 12px;
 }
 
