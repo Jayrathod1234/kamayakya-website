@@ -44,7 +44,7 @@ import AuthContext from "@/components/AuthContext";
 import SideNav from "./sidenav";
 import { Box, IconButton } from "@mui/material";
 import { Modal } from "@nextui-org/react";
-
+import { useNavBar } from "@/contexts/NavBarContext.js";
 import Login from "@/components/Login";
 import { LoginBtnNav } from "./login-btn-nav";
 import { getMixPanelClient } from "@/externals/mixpanel";
@@ -53,6 +53,7 @@ import { ButtonVariant } from "./button/button";
 
 export function Navbar() {
   const { isLoggedIn } = useContext(AuthContext);
+  const { showFilterHeader } = useNavBar();
   const router = useRouter();
   const pathname = router.pathname;
   const ref = useRef<HTMLDivElement | null>(null);
@@ -73,19 +74,28 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    console.log(pathname)
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        ref.current?.classList.add("scrolled-nav");
+        ref.current?.classList.add("navbar-shadow");
+      } else {
+        ref.current?.classList.remove("scrolled-nav");
+        ref.current?.classList.remove("navbar-shadow");
+      }
+      if (showFilterHeader) {
+        ref.current?.classList.remove("navbar-shadow");
+      }
+    };
     if (pathname == '/stock-picks') {
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 0) {
-          ref.current?.classList.add("scrolled-nav");
-        } else {
-          ref.current?.classList.remove("scrolled-nav");
-        }
-      });
+      window.addEventListener("scroll", handleScroll);
     } else {
       ref.current?.classList.add("other-page-nav");
     }
-  }, []);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [showFilterHeader]);
 
   return (
     <div

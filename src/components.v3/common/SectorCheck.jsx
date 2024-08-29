@@ -37,12 +37,12 @@ export default function SectorCheck() {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleSelectAllClick = () => {
+  const handleSelectAllClick = async () => {
     const sector_list_arr = Object.keys(stockSector);
     if (sector.length === sector_list_arr.length) {
-      setSector([]);
+      await setSector([]);
     } else {
-      setSector(sector_list_arr);
+      await setSector(sector_list_arr);
     }
     setIsChangeFilter(true);
   };
@@ -205,7 +205,7 @@ export default function SectorCheck() {
                       autoFocus={false}
                       key={index}
                       value={key}
-                      onClick={() => {
+                      onClick={async () => {
                         const currentIndex = sector.indexOf(key);
                         const newSector = [...sector];
                         if (currentIndex === -1) {
@@ -213,7 +213,7 @@ export default function SectorCheck() {
                         } else {
                           newSector.splice(currentIndex, 1);
                         }
-                        setSector(newSector);
+                        await setSector(newSector);
                         setIsChangeFilter(true);
                       }}
                       sx={{

@@ -51,7 +51,7 @@ export const AllBoardStockProvider = ({ children }) => {
     Object.keys(recency).filter((key) => recency[key]).length +
     Object.keys(timeLeft).filter((key) => timeLeft[key]).length +
     sector.length +
-    strategyTag.length +
+    changablestrategyTags.length +
     (marketCapType ? 1 : 0) +
     (risk ? 1 : 0);
 

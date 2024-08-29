@@ -40,12 +40,12 @@ export default function StrategyCheck() {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleSelectAllClick = () => {
+  const handleSelectAllClick = async () => {
     const strategy_tag_list_arr = Object.keys(strategyTagList);
     if (changablestrategyTags.length === strategy_tag_list_arr.length) {
-      setStrategyTag([]);
+      await setStrategyTag([]);
     } else {
-      setStrategyTag(strategy_tag_list_arr);
+      await setStrategyTag(strategy_tag_list_arr);
     }
     setIsChangeFilter(true);
   };
@@ -218,7 +218,7 @@ export default function StrategyCheck() {
                       autoFocus={false}
                       key={index}
                       value={key}
-                      onClick={() => {
+                      onClick={async () => {
                         const currentIndex = strategyTag.indexOf(key);
                         const newStrategyTag = [...strategyTag];
                         if (currentIndex === -1) {
@@ -226,7 +226,7 @@ export default function StrategyCheck() {
                         } else {
                           newStrategyTag.splice(currentIndex, 1);
                         }
-                        setStrategyTag(newStrategyTag);
+                        await setStrategyTag(newStrategyTag);
                         setIsChangeFilter(true);
                       }}
                       sx={{

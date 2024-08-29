@@ -8,35 +8,8 @@ import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
 function Filtermenu() {
   const { searchStock, setSearchStock } = useAllBoardStock();
-  // Sidebar right side
-  const [open, setOpen] = useState(false);
   // sticky header
-  const xyzRef = useRef(null);
-  const [showFilterHeader, setShowFilterHeader] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
-  useEffect(() => {
-    const handleScroll = () => {
-      if (xyzRef.current) {
-        const rect = xyzRef.current?.getBoundingClientRect();
-        setShowFilterHeader(rect.top <= 0);
-      }
-    };
-
-    const debouncedHandleScroll = debounce(handleScroll, 100);
-    window.addEventListener("scroll", debouncedHandleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", debouncedHandleScroll);
-    };
-  }, []);
-
-  function debounce(func, delay) {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => func.apply(this, args), delay);
-    };
-  }
 
   const [isExpanded, setIsExpanded] = useState(false);
   const inputRef = useRef(null);
@@ -60,7 +33,7 @@ function Filtermenu() {
   return (
     <>
       {/* <FilterMenuTags /> */}
-      <div className="sticky top-[50px] right-0 z-[88] bg-[#f2f4f7] overflow-hidden items-center">
+      <div className="sticky top-[50px] right-0 z-[88] bg-[#f2f4f7] overflow-hidden items-center navbar-shadow">
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center pt-4">
           {/* Import FilterMenuTag here */}
 

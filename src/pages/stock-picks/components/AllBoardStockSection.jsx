@@ -10,6 +10,8 @@ import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 import DrawerFilter from "@/components.v3/common/DrawerFilter";
 import ResponsiveFilter from "../../../components.v3/common/ResponsiveFilter";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
+import { useNavBar } from "@/contexts/NavBarContext.js";
+
 function AllBoardStockSection() {
   const {
     searchStock,
@@ -19,6 +21,8 @@ function AllBoardStockSection() {
     error,
     fetchNextPage,
   } = useAllBoardStock();
+
+  const { showFilterHeader, setShowFilterHeader } = useNavBar();
 
   const myObserver = useRef();
   // Use react infinite query to fetch the list
@@ -42,13 +46,12 @@ function AllBoardStockSection() {
   // sticky header
 
   const filterHeaderRef = useRef(null);
-  const xyzRef = useRef(null);
-  const [showFilterHeader, setShowFilterHeader] = useState(false);
+  const showFilterRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (xyzRef.current) {
-        const rect = xyzRef.current?.getBoundingClientRect();
+      if (showFilterRef.current) {
+        const rect = showFilterRef.current?.getBoundingClientRect();
         setShowFilterHeader(rect.top <= 110);
       }
     };
@@ -129,7 +132,7 @@ function AllBoardStockSection() {
       {/* blur card  */}
       <div
         className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative sm:overflow-visible overflow-hidden "
-        ref={xyzRef}
+        ref={showFilterRef}
       >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-7">
