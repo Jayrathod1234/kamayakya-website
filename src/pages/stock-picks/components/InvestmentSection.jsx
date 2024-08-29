@@ -4,24 +4,26 @@ import { Link } from "react-scroll";
 
 function InvestmentSection() {
   const items = [
-    { src: "/assets/p1.png", alt: "Groww", name: "Groww" },
-    { src: "/assets/p5.png", alt: "Zerodha", name: "Zerodha" },
-    { src: "/assets/p6.png", alt: "AngelOne", name: "Angel One" },
-    { src: "/assets/p2.png", alt: "Upstox", name: "Upstox" },
-    { src: "/assets/p3.png", alt: "ICICIdirect", name: "ICICIdirect" },
-    { src: "/assets/p4.png", alt: "Kotak", name: "Kotak Securities" },
+    { src: "/assets/groww-logo-light.png", alt: "Groww", name: "Groww", url: "https://groww.in" },
+    { src: "/assets/p5.png", alt: "Zerodha", name: "Zerodha", url: "https://zerodha.com" },
+    { src: "/assets/angelone 1.webp", alt: "Angel One", name: "Angel One", url: "https://www.angelone.in" },
+    { src: "/assets/Upstocks.webp", alt: "Upstox", name: "Upstox", url: "https://upstox.com" },
+    { src: "/assets/ICICIdirect.png", alt: "ICICIdirect", name: "ICICIdirect", url: "https://www.icicidirect.com" },
+    { src: "/assets/Kotak securities.webp", alt: "Kotak", name: "Kotak Securities", url: "https://www.kotaksecurities.com" },
   ];
 
   return (
-    <div className="sm:pb-[100px] pb-[100px] pt-0 px-4 rounded-lg">
+    <div className="sm:pb-[100px] pb-[100px] pt-0 px-2 rounded-lg">
       <h2 className="text-center text-xl font-semibold mb-10">
         Ready to Invest?
       </h2>
-      <div className="flex justify-center gap-4 sm:gap-10">
+      <div className="flex justify-center gap-2 sm:gap-10">
         {items.slice(0, 3).map((item, index) => (
-          <a
+          <Link
             key={index}
-            href="#"
+            onClick={() => {
+              window.open(item.url, '_blank'); // Redirect to the specified URL
+            }}
             className="flex flex-col items-center text-center group"
           >
             <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
@@ -34,14 +36,16 @@ function InvestmentSection() {
             <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans ">
               {item.name}
             </span>
-          </a>
+          </Link>
         ))}
 
         <div className="hidden sm:flex sm:gap-10">
           {items.slice(3).map((item, index) => (
-            <a
+            <Link
               key={index}
-              href="#"
+              onClick={() => {
+                window.open(item.url, '_blank'); // Redirect to the specified URL
+              }}
               className="flex flex-col items-center text-center group"
             >
               <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
@@ -54,7 +58,7 @@ function InvestmentSection() {
               <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans">
                 {item.name}
               </span>
-            </a>
+            </Link>
           ))}
         </div>
 
