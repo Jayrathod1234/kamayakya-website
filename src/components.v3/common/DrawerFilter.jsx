@@ -178,8 +178,6 @@ function DrawerFilter() {
     );
   };
 
-  const handleCloseDrawer = (closeVal) => {};
-
   const CustomSlider = styled(Slider)({
     color: "#004d40", // Main color for the rail and thumb border
     height: 4, // Thickness of the slider rail
@@ -1468,7 +1466,7 @@ function DrawerFilter() {
                   <button
                     className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
                     onClick={() => {
-                      handleCloseDrawer(false);
+                      setOpen(false);
                     }}
                   >
                     Cancel

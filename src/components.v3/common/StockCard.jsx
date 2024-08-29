@@ -19,7 +19,7 @@ function StockCard({
   stock_tags,
   expected_returns,
   return_time,
-  youtube_details,
+  latest_youtube_video,
   className = "",
   style,
 }) {
@@ -86,7 +86,7 @@ function StockCard({
                   {stock_name}
                 </p>
 
-                {youtube_details?.[0]?.youtube_link && (
+                {latest_youtube_video?.youtube_link && (
                   <div
                     className="relative flex items-center gap-[16px]"
                     onMouseEnter={() => setHovered(true)}
@@ -120,7 +120,7 @@ function StockCard({
                       }`}
                     >
                       <a
-                        href={youtube_details?.[0]?.youtube_link}
+                        href={latest_youtube_video?.youtube_link}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="cursor-default"

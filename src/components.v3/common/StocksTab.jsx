@@ -1,64 +1,6 @@
 import React, { useState } from "react";
-import { Tabs, Tab, Box, Typography } from "@mui/material";
-import { styled } from "@mui/system";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-const CustomTabs = styled(Tabs)({
-  backgroundColor: "#ffffff",
-  color: "#000",
-  borderRadius: "61px",
 
-  padding: "6px",
-  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-  "& .MuiTabs-indicator": {
-    display: "none",
-  },
-  "& .MuiTab-root": {
-    fontWeight: "600 !important", // Apply to tab labels specifically
-  },
-});
-const CustomTab = styled(Tab)(({ theme, selected }) => ({
-  textTransform: "none",
-  borderRadius: "47px",
-  padding: "8px 40px",
-  minHeight: "40px",
-  minWidth: "120px",
-  color: selected ? "#ffffff !important" : theme?.palette?.text?.primary,
-  backgroundColor: selected ? "#101115" : "transparent",
-  transition: "0.3s",
-  "& .MuiTab-labelIcon": {
-    alignItems: "center",
-  },
-  "& .MuiTab-root": {
-    fontWeight: "600 !important", // Apply to tab labels specifically
-  },
-  // "&:hover": {
-  //   backgroundColor: selected ? "#101115" : "#f0f0f0",
-  // },
-}));
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`custom-tabpanel-${index}`}
-      aria-labelledby={`custom-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-function a11yProps(index) {
-  return {
-    id: `custom-tab-${index}`,
-    "aria-controls": `custom-tabpanel-${index}`,
-  };
-}
 export default function StocksTab() {
   const {
     total_mainboard_stocks,
@@ -66,59 +8,50 @@ export default function StocksTab() {
     handleSebiBoardTypeChange,
   } = useStockPicks();
   const [value, setValue] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    handleSebiBoardTypeChange(newValue === 0 ? "mainboard" : "sme");
+
+  const handleChange = (index) => {
+    setValue(index);
+    handleSebiBoardTypeChange(index === 0 ? "mainboard" : "sme");
   };
+
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <CustomTabs
-        value={value}
-        onChange={handleChange}
-        aria-label="rounded tabs example"
-      >
-        <CustomTab
-          label={
-            <>
-              <Typography className="font-semibold !important">
-                Main Board
-              </Typography>
-              <Typography variant="caption">
+    <div className="flex justify-center items-center w-full">
+      <div className="relative bg-white text-[#475467] rounded-[61px] p-1.5 shadow-md flex space-x-2">
+        {/* Background sliding element */}
+        <div className="relative w-fit flex justify-center">
+          <div
+            className={`absolute top-0 bottom-0 left-0 w-1/2 rounded-[47px] bg-[#101115] transition-transform duration-300 ease-in-out ${
+              value === 0 ? "transform translate-x-0" : "transform translate-x-full"
+            }`}
+          ></div>
+          <button
+            onClick={() => handleChange(0)}
+            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] flex items-center justify-center transition duration-300 ${
+              value === 0 ? "text-white" : "text-[#475467]"
+            }`}
+          >
+            <div className="flex flex-col items-center text-center">
+              <span className="font-[600] text-[16px] leading-[24px]" >Main Board</span>
+              <span className="text-[11px] font-bold">
                 {total_mainboard_stocks || 0} Stocks
-              </Typography>
-            </>
-          }
-          selected={value === 0}
-          {...a11yProps(0)}
-        />
-        <CustomTab
-          label={
-            <>
-              <Typography className="font-semibold !important">
-                SME Board
-              </Typography>
-              <Typography variant="caption">
+              </span>
+            </div>
+          </button>
+          <button
+            onClick={() => handleChange(1)}
+            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] flex items-center justify-center transition duration-300 ${
+              value === 1 ? "text-white" : "text-[#667085]"
+            }`}
+          >
+            <div className="flex flex-col items-center text-center">
+              <span className="font-[600] text-[16px] leading-[24px]">SME Board</span>
+              <span className="text-[11px] font-bold">
                 {total_sme_stocks || 0} Stocks
-              </Typography>
-            </>
-          }
-          selected={value === 1}
-          {...a11yProps(1)}
-        />
-      </CustomTabs>
-      {/* <CustomTabPanel value={value} index={0}>
-        Main Board Content
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        SME Board Content
-      </CustomTabPanel> */}
-    </Box>
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
