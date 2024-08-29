@@ -36,7 +36,7 @@ const HotStockSection = ({ items }) => {
                 <p className="pt-3 font-normal text-sm text-gray-500 pb-10 sm:block hidden">
                   Top stocks to invest in right NOW!
                 </p>
-                <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:px-[80px]  sm: sm:flex  items-center  rounded-[10px]">
+                <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:pl-[41px] pr-20  sm: sm:flex  items-center  rounded-[10px]">
                   <div className="sm:w-1/3 w-full sm:pt-0 pt-5">
                     <img
                       src="/assets/noto_locked.png"
@@ -363,13 +363,13 @@ const HotStockSection = ({ items }) => {
             </div>
           ) : (
             <>
-              <div className="bg-white bg-[url('/assets/grid.png')] bg-cover pt-5  text-center sm:rounded-[20px] ">
+              <div className="bg-white bg-[url('/assets/grid.png')] bg-cover pt-5  pb-2  text-center sm:rounded-[20px] rounded-[20px] ">
                 <img
                   src="/assets/noto_locked.png"
                   alt=""
                   className="w-[46px] sm:m-0 m-auto"
                 />
-                <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 sm:max-w-[324px] max-w-[372px] tracking-normal">
+                <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 sm:max-w-[324px]  tracking-normal">
                   Gain exclusive access to
                   <span className="text-[#108973]">
                     30+ potential multibagger picks

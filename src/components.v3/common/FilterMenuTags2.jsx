@@ -94,7 +94,8 @@ const FilterMenuTags2 = ({ isResponsive }) => {
         <Box
           sx={{
             display: "flex",
-            width: "757px",
+            width: isMobile ? "27%" : "757px",
+            // width: "757px",
             overflow: { sm: "hidden", xs: "auto" },
           }}
           ref={containerRef}
@@ -229,25 +230,32 @@ const FilterMenuTags2 = ({ isResponsive }) => {
               {changablestrategyTags.length <= 0 && <StrategyCheck />}
               {sector.length <= 0 && <SectorCheck />}
             </Box>
-            {showRightButton && (
-              <IconButton
-                onClick={scrollRight}
-                sx={{
-                  width: "28px",
-                  height: "28px",
-                  backgroundColor: "black",
-                  color: "white",
-                  right: "2%",
-                  borderRadius: "50%",
-                  "&:hover": {
-                    backgroundColor: "#333", // Darker black on hover
-                  },
-                }}
-              >
-                <ArrowForwardIosIcon
-                  sx={{ width: "18px", position: "absolute" }}
-                />
-              </IconButton>
+
+            {!isMobile ? (
+              <>
+                {showRightButton && (
+                  <IconButton
+                    onClick={scrollRight}
+                    sx={{
+                      width: "28px",
+                      height: "28px",
+                      backgroundColor: "black",
+                      color: "white",
+                      right: "2%",
+                      borderRadius: "50%",
+                      "&:hover": {
+                        backgroundColor: "#333", // Darker black on hover
+                      },
+                    }}
+                  >
+                    <ArrowForwardIosIcon
+                      sx={{ width: "18px", position: "absolute" }}
+                    />
+                  </IconButton>
+                )}
+              </>
+            ) : (
+              <></>
             )}
           </Box>
         </Box>

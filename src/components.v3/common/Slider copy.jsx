@@ -221,25 +221,28 @@ export function Slider({ children }) {
       <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
         {/* <div className=" overflow-hidden max-w-full"> */}
         <div
-          className=" flex pb-12 pt-[60px] carousel__container"
+          className=" flex pb-12 pt-[28px] carousel__container"
           style={{ backfaceVisibility: "hidden" }}
         >
           {children.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
               className={` carousel embla__class-names  
-              ${index === selectedIndex
+              ${
+                index === selectedIndex
                   ? ""
                   : index > selectedIndex
-                    ? `!scale-[0.85] ${selectedIndex + 2 == index
-                      ? "md:ml-[-2rem] lg:ml-[-3rem]"
-                      : ""
+                  ? `!scale-[0.85] ${
+                      selectedIndex + 2 == index
+                        ? "md:ml-[-2rem] lg:ml-[-3rem]"
+                        : ""
                     }`
-                    : `!scale-[0.85] ${selectedIndex - 2 == index
-                      ? "md:mr-[-2rem] lg:mr-[-3rem]"
-                      : ""
+                  : `!scale-[0.85] ${
+                      selectedIndex - 2 == index
+                        ? "md:mr-[-2rem] lg:mr-[-3rem]"
+                        : ""
                     }`
-                }
+              }
               `}
             >
               {carousel}
@@ -254,13 +257,12 @@ export function Slider({ children }) {
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={`${index === selectedIndex ? "w-4 !bg-brand-300" : "aspect-square"
-              } h-[8px] bg-gray-200 rounded-full transition-all`}
+            className={`${
+              index === selectedIndex ? "w-4 !bg-brand-300" : "aspect-square"
+            } h-[8px] bg-gray-200 rounded-full transition-all`}
           ></div>
         ))}
       </div>
-
-
     </div>
   );
 }

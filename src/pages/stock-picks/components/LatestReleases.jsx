@@ -25,7 +25,7 @@ function LatestReleases() {
 
   return (
     <>
-      <div className=" sm:pt-[239px] pt-[239px] sm:pb-[100px] pb-[58px] ">
+      <div className=" sm:pt-[324px] pt-[239px] sm:pb-[100px] pb-[58px] ">
         <div className=" before:content-[''] before:bg-[url(/testimonials_texture.png)] before:absolute before:w-full before:h-full before:opacity-25 relative flex flex-col items-center justify-center text-center bg-cover">
           <p className=" text-display-xs text-gray-950 font-bold">
             Latest Releases ({items.length})

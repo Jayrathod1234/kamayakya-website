@@ -202,7 +202,7 @@ const Bannerhotstockscard = () => {
                                   Total Returns
                                 </p>
                               </div>
-                              <div className="flex gap-[2px] items-center font-open_sans">
+                              <div className="flex gap-[3px] items-center font-open_sans">
                                 <img
                                   src="/assets/Polygon 2.svg"
                                   alt=""
@@ -382,7 +382,7 @@ const Bannerhotstockscard = () => {
                                   Total Returns
                                 </p>
                               </div>
-                              <div className="flex gap-[2px] items-center font-open_sans">
+                              <div className="flex gap-[3px] items-center font-open_sans">
                                 <img
                                   src="/assets/Polygon 2.svg"
                                   alt=""
@@ -562,7 +562,7 @@ const Bannerhotstockscard = () => {
                                   Total Returns
                                 </p>
                               </div>
-                              <div className="flex gap-[2px] items-center font-open_sans">
+                              <div className="flex gap-[3px] items-center font-open_sans">
                                 <img
                                   src="/assets/Polygon 2.svg"
                                   alt=""
