@@ -178,8 +178,6 @@ function DrawerFilter() {
     );
   };
 
-  const handleCloseDrawer = (closeVal) => { };
-
   const CustomSlider = styled(Slider)({
     color: "#004d40", // Main color for the rail and thumb border
     height: 4, // Thickness of the slider rail
@@ -227,7 +225,7 @@ function DrawerFilter() {
               </div>
             )}
           </Button>
-          <Drawer open={open} anchor={anchor} onClose={() => { }}>
+          <Drawer open={open} anchor={anchor} onClose={() => {}}>
             <Box
               sx={{ width: 400 }}
               role="presentation"
@@ -250,14 +248,17 @@ function DrawerFilter() {
               </div>
               {/* upside left  */}
               <div className="pt-4 pr-6 pl-4 ">
-                <Accordion defaultExpanded sx={{ boxShadow: 'none' }}>
+                <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    <Box display="flex" alignItems="center" >
-                      <img src="/assets/solar_graph-down-new-broken.svg" alt="Upside Left" />
+                    <Box display="flex" alignItems="center">
+                      <img
+                        src="/assets/solar_graph-down-new-broken.svg"
+                        alt="Upside Left"
+                      />
                       <div className=" flex">
                         <Typography
                           variant="subtitle1"
@@ -296,14 +297,16 @@ function DrawerFilter() {
                                 className="absolute -top-2 left-[52px] w-4"
                               />
                               <div className="text-gray-800 text-2xs font-normal">
-                                Upside Left means how much the stock price could rise from its current level.
+                                Upside Left means how much the stock price could
+                                rise from its current level.
                               </div>
                               <div className="mt-2 p-2">
                                 <span className="text-[#108973] text-2xs font-bold">
                                   Example :
                                 </span>
                                 <p className="text-2xs text-gray-600 font-normal">
-                                  If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                  If a stock's price is ₹100 and the Upside Left
+                                  is 20%, it might go up to ₹120.
                                 </p>
                               </div>
                             </span>
@@ -330,12 +333,18 @@ function DrawerFilter() {
                             value={upsideLeft ? upsideLeft[0] : 0}
                             onChange={handleUpsideLeftInputChange}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
                             }}
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
                               },
                             }}
                           />
@@ -351,12 +360,18 @@ function DrawerFilter() {
                             value={upsideLeft ? upsideLeft[1] : 0}
                             onChange={handleUpsideLeftInputChange}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
                             }}
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
                               },
                             }}
                           />
@@ -378,11 +393,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={
-                      <ExpandMoreIcon
-
-                      />
-                    }
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -480,9 +491,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={
-                      <ExpandMoreIcon />
-                    }
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -535,15 +544,19 @@ function DrawerFilter() {
               </div>
               {/* Total Returns  */}
               <div className="pt-4 pr-6 pl-4  overflow-x-hidden">
-                <Accordion defaultExpanded
+                <Accordion
+                  defaultExpanded
                   sx={{
                     boxShadow: "none !important",
                     margin: "0px !important",
-
-                  }}>
+                  }}
+                >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Box display="flex" alignItems="center" >
-                      <img src="/assets/solar_graph-down-new-broken.svg" alt="Total Returns" />
+                    <Box display="flex" alignItems="center">
+                      <img
+                        src="/assets/solar_graph-down-new-broken.svg"
+                        alt="Total Returns"
+                      />
                       <div className=" flex">
                         <Typography
                           variant="subtitle1"
@@ -557,7 +570,6 @@ function DrawerFilter() {
                         >
                           Total Returns
                         </Typography>
-                        
                       </div>
                     </Box>
                   </AccordionSummary>
@@ -580,12 +592,18 @@ function DrawerFilter() {
                             value={returns ? returns[0] : 0}
                             onChange={handleReturnsInputChange}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
                             }}
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
                               },
                             }}
                           />
@@ -601,12 +619,18 @@ function DrawerFilter() {
                             value={returns ? returns[1] : 0}
                             onChange={handleReturnsInputChange}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  %
+                                </InputAdornment>
+                              ),
                             }}
                             sx={{
                               "& .MuiOutlinedInput-root": {
                                 "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
                               },
                             }}
                           />
@@ -628,9 +652,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={
-                      <ExpandMoreIcon />
-                    }
+                    expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
                   >
@@ -668,10 +690,11 @@ function DrawerFilter() {
                   <div className="flex pl-7 gap-4 pb-4">
                     {marketCapTypeList?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${marketCapType == value
-                          ? "bg-[#E7F8F8] border-[#108973]"
-                          : "bg-white border-[#E4E7EC]"
-                          }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                          marketCapType == value
+                            ? "bg-[#E7F8F8] border-[#108973]"
+                            : "bg-white border-[#E4E7EC]"
+                        }`}
                         key={index}
                         onClick={() => setMarketCapType(value)}
                       >
@@ -748,7 +771,6 @@ function DrawerFilter() {
                   sx={{
                     boxShadow: "none !important",
                     margin: "0px !important",
-
                   }}
                 >
                   <AccordionSummary
@@ -875,10 +897,11 @@ function DrawerFilter() {
                   <div className="flex pl-7 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${risk == value
-                          ? "bg-[#E7F8F8] border-[#108973]"
-                          : "bg-white border-[#E4E7EC]"
-                          }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                          risk == value
+                            ? "bg-[#E7F8F8] border-[#108973]"
+                            : "bg-white border-[#E4E7EC]"
+                        }`}
                         key={index}
                         onClick={() => setRisk(value)}
                       >
@@ -899,7 +922,7 @@ function DrawerFilter() {
                   <button
                     className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
                     onClick={() => {
-                      setOpen(false)
+                      setOpen(false);
                     }}
                   >
                     Cancel
@@ -937,7 +960,7 @@ function DrawerFilter() {
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
-            onClose={() => { }}
+            onClose={() => {}}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
@@ -1269,10 +1292,11 @@ function DrawerFilter() {
                         <div className="sm:flex grid   gap-4 pb-4">
                           {marketCapTypeList?.map((value, index) => (
                             <div
-                              className={`sm:flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${marketCapType == value
-                                ? "bg-[#E7F8F8] border-[#108973]"
-                                : "bg-white border-[#E4E7EC]"
-                                }`}
+                              className={`sm:flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                marketCapType == value
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
+                              }`}
                               key={index}
                               onClick={() => setMarketCapType(value)}
                             >
@@ -1346,10 +1370,11 @@ function DrawerFilter() {
                         <div className="sm:flex grid gap-4 pb-4">
                           {stockRiskList?.map((value, index) => (
                             <div
-                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${risk == value
-                                ? "bg-[#E7F8F8] border-[#108973]"
-                                : "bg-white border-[#E4E7EC]"
-                                }`}
+                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                risk == value
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
+                              }`}
                               key={index}
                               onClick={() => setRisk(value)}
                             >
@@ -1371,7 +1396,9 @@ function DrawerFilter() {
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
                     className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
-                    onClick={() => { handleCloseDrawer(false) }}
+                    onClick={() => {
+                      setOpen(false);
+                    }}
                   >
                     Cancel
                   </button>
