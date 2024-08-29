@@ -46,6 +46,7 @@ function StockDetailsSection() {
     return;
   }
   const watch_video = timeline.find((value) => value.type == "youtube");
+  const hasVideo = watch_video && watch_video.youtube_link;
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
@@ -262,19 +263,55 @@ function StockDetailsSection() {
                   {/* First Content End  */}
                   {/* When Small screen Button is Show  */}
                   <div className="flex sm:hidden gap-2 mt-5 mb-3 bg-white">
-                    <button
-                      className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                      onClick={() =>
-                        window.open(watch_video.youtube_link, "_blank")
-                      }
-                    >
-                      <img
-                        src="/assets/play1.png"
-                        alt="Play icon"
-                        className="w-5 h-5"
-                      />
-                      <span>Watch Video</span>
-                    </button>
+                    <div className="flex-1">
+                      {hasVideo ? (
+                        <button
+                          className="flex-1 w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                          onClick={() =>
+                            window.open(watch_video.youtube_link, "_blank")
+                          }
+                        >
+                          <img
+                            src="/assets/play1.png"
+                            alt="Play icon"
+                            className="w-5 h-5"
+                          />
+                          <span>Watch Video</span>
+                        </button>
+                      ) : (
+                        <div className="relative group">
+                          <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                            <img
+                              src="/assets/circle-play.svg"
+                              alt="Play icon"
+                              className="w-5 h-5"
+                            />
+                            <span className="font-medium text-gray-400">
+                              Watch Video
+                            </span>
+                          </button>
+
+                          {/* Tooltip */}
+                          <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
+                            <img
+                              src="/assets/frame123.png" // Change this to the appropriate image source
+                              alt="Video thumbnail"
+                              className="w-[128px] mb-2 mx-auto"
+                            />
+                            <p className="font-bold text-lg text-[#0C111D]">
+                              Video Not Available!
+                            </p>
+                            <p className="text-sm text-[#475467]">
+                              Well, this video took a permanent vacation! 😅 But
+                              don’t worry, fresh content is always on the
+                              horizon. Stay tuned! 🌟
+                            </p>
+                            {/* Tooltip Arrow */}
+                            <div className="absolute -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                     <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
                       <img
                         src="/assets/share2.svg"
@@ -794,52 +831,55 @@ function StockDetailsSection() {
                       INVESTMENT GUIDANCE
                     </h2>
                     <div className="gap-2 mb-4 hidden sm:flex">
-                      {/* <button
-                        className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                        onClick={() =>
-                          window.open(watch_video.youtube_link, "_blank")
-                        }
-                      >
-                        <img
-                          src="/assets/play1.png"
-                          alt="Play icon"
-                          className="w-5 h-5"
-                        />
-                        <span>Watch Video</span>
-                      </button> */}
-                      {/* tooltip  Button */}
-                      <div className="flex-1 ">
-                        <div className="relative group">
-                          <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100">
+                      {/* Video Button logic  */}
+                      <div className="flex-1">
+                        {hasVideo ? (
+                          <button
+                            className="flex-1 w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            onClick={() =>
+                              window.open(watch_video.youtube_link, "_blank")
+                            }
+                          >
                             <img
-                              src="/assets/circle-play.svg"
+                              src="/assets/play1.png"
                               alt="Play icon"
-                              className="w-5 h-5 "
+                              className="w-5 h-5"
                             />
-                            <span className="font-medium text-gray-400">
-                              Watch Video
-                            </span>
+                            <span>Watch Video</span>
                           </button>
+                        ) : (
+                          <div className="relative group">
+                            <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                              <img
+                                src="/assets/circle-play.svg"
+                                alt="Play icon"
+                                className="w-5 h-5"
+                              />
+                              <span className="font-medium text-gray-400">
+                                Watch Video
+                              </span>
+                            </button>
 
-                          {/* Tooltip */}
-                          <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
-                            <img
-                              src="/assets/frame123.png" // Change this to the appropriate image source
-                              alt="Video thumbnail"
-                              className="w-[128px] mb-2 mx-auto"
-                            />
-                            <p className="font-bold text-lg text-[#0C111D]">
-                              Video Under development!
-                            </p>
-                            <p className="text-sm text-[#475467]">
-                              Patience is a virtue! 🌱 Our experts are crafting
-                              something amazing just for you. Stay tuned for the
-                              big reveal! 🎬✨
-                            </p>
-                            {/* Tooltip Arrow */}
-                            <div className="absolute -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                            {/* Tooltip */}
+                            <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
+                              <img
+                                src="/assets/frame123.png" // Change this to the appropriate image source
+                                alt="Video thumbnail"
+                                className="w-[128px] mb-2 mx-auto"
+                              />
+                              <p className="font-bold text-lg text-[#0C111D]">
+                                Video Not Available!
+                              </p>
+                              <p className="text-sm text-[#475467]">
+                                Well, this video took a permanent vacation! 😅
+                                But don’t worry, fresh content is always on the
+                                horizon. Stay tuned! 🌟
+                              </p>
+                              {/* Tooltip Arrow */}
+                              <div className="absolute -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
 
                       {/* Share Button */}
