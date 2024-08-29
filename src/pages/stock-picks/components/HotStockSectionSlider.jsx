@@ -18,18 +18,18 @@ const HotStockSectionSlider = ({ items }) => {
                 <p className="pt-3 font-normal text-md text-gray-600 pb-6">
                   Top stocks to invest in right NOW!
                 </p>
-                {items.length > 0 && (
-                  <div className=" mb-0 w-full">
+                {(isMobile && items.length <= 1) ||
+                (!isMobile && items.length <= 3) ? (
+                  <div className="flex justify-center gap-5">
+                    {items.map((value) => (
+                      <StockCard key={value.id} {...value} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="w-full">
                     <HotSlider>
-                      {/* <HotSliderN> */}
-                      {items.map((value, index) => (
-                        <StockCard
-                          key={value.id} // Ensure each item has a unique key
-                          style={
-                            index === 2 ? { transform: "scale(0.697)" } : {}
-                          } // Apply scale style to the third item
-                          {...value}
-                        />
+                      {items.map((value) => (
+                        <StockCard key={value.id} {...value} />
                       ))}
                     </HotSlider>
                   </div>

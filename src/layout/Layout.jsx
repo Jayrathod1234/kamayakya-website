@@ -13,7 +13,7 @@ const StockPicks = ({ children }) => {
             <div className=" navbar sticky top-0 z-[1111] ">
               <Navbar />
             </div>
-            <div>{children}</div>
+            {children}
             <div className="">
               <Footer />
             </div>

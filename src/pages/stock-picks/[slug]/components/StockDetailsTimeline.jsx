@@ -94,7 +94,11 @@ export default function StockDetailsTimeline({ timeline }) {
       {timeline.map((step, index) => (
         <Box key={index} display="flex" alignItems="flex-start">
           <Box width="80px" textAlign="center" mr={2}>
-            <Typography variant="body2" color="textSecondary" fontFamily="Open Sans">
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              fontFamily="Open Sans"
+            >
               {formatDate(
                 step.type == "report" ? step.report_date : step.youtube_date
               )}
@@ -136,7 +140,7 @@ export default function StockDetailsTimeline({ timeline }) {
               fontWeight="bold"
               display="flex"
               alignItems="center"
-              color='#475467'
+              color="#475467"
               fontFamily="Open Sans"
             >
               {step.type == "report"
@@ -151,14 +155,21 @@ export default function StockDetailsTimeline({ timeline }) {
                   borderRadius="9999px"
                   bgcolor="#FFF6EE"
                 >
-                  <Typography color="orange" fontFamily="Open Sans">Active</Typography>
+                  <Typography color="orange" fontFamily="Open Sans">
+                    Active
+                  </Typography>
                 </Box>
               )}
             </Typography>
 
             {step.youtube_title && (
               <Box display="flex" alignItems="center" gap={1}>
-                <Typography variant="body2" color="black" fontWeight="bold" fontFamily="Open Sans">
+                <Typography
+                  variant="body2"
+                  color="black"
+                  fontWeight="bold"
+                  fontFamily="Open Sans"
+                >
                   {step.youtube_title}
                 </Typography>
               </Box>
@@ -178,7 +189,7 @@ export default function StockDetailsTimeline({ timeline }) {
                 textTransform: "none",
                 minWidth: "100px",
                 flexShrink: 0,
-                fontFamily:"Open Sans",
+                fontFamily: "Open Sans",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
