@@ -98,6 +98,7 @@ export default function StockDetailsTimeline({ timeline }) {
               variant="body2"
               color="textSecondary"
               fontFamily="Open Sans"
+              fontSize="12px"
             >
               {formatDate(
                 step.type == "report" ? step.report_date : step.youtube_date
@@ -155,7 +156,7 @@ export default function StockDetailsTimeline({ timeline }) {
                   borderRadius="9999px"
                   bgcolor="#FFF6EE"
                 >
-                  <Typography color="orange" fontFamily="Open Sans">
+                  <Typography color="orange" fontFamily="Open Sans" fontSize="10px">
                     Active
                   </Typography>
                 </Box>
@@ -168,6 +169,7 @@ export default function StockDetailsTimeline({ timeline }) {
                   variant="body2"
                   color="black"
                   fontWeight="bold"
+                  fontSize="12px"
                   fontFamily="Open Sans"
                 >
                   {step.youtube_title}
@@ -192,6 +194,7 @@ export default function StockDetailsTimeline({ timeline }) {
                 fontFamily: "Open Sans",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
+                fontSize: "12px",
                 textOverflow: "ellipsis",
                 transition: "background-color 0.3s, color 0.3s, filter 0.3s",
                 "&:hover": {
