@@ -959,7 +959,7 @@ function StockDetailsSection() {
                         </div>
                       </div>
                       <Link href={`/pricing`}>
-                        <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
+                        <button className="w-full bg-[#125B54] hover:bg-[#0B3A36] hover:scale-[0.95] duration-300 text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
                           <span className="flex gap-2 font-open_sans">
                             <img src="/assets/white-icon.svg" alt="" />
                             Upgrade Now

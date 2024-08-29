@@ -32,7 +32,7 @@ const Modal = ({ open, handleClose, children }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0  flex items-center justify-center bg-black bg-opacity-50 ">
+    <div className="fixed inset-0 z-[50000]  flex items-center justify-center bg-black bg-opacity-50 ">
       <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]">
         <button
           onClick={handleClose}
