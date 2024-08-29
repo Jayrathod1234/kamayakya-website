@@ -10,6 +10,7 @@ import { PlanProvider } from "@/components/PlanContext";
 import { Toaster } from "@/components.v2/ui/toaster";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
+import { NavBarProvider } from "@/contexts/NavBarContext.js";
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <Suspense fallback>
           <NextUIProvider>
+          <NavBarProvider>
             <AuthProvider>
               <PlanProvider>
                 <Component {...pageProps} />
@@ -120,6 +122,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Script>
               </PlanProvider>
             </AuthProvider>
+          </NavBarProvider>
           </NextUIProvider>
         </Suspense>
       </QueryClientProvider >
