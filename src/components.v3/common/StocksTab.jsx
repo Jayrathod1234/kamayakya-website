@@ -31,7 +31,7 @@ export default function StocksTab() {
             }`}
           >
             <div className="flex flex-col items-center text-center">
-              <span className="font-[600] text-[16px] leading-[24px]" >Main Board</span>
+              <span className="font-[600] text-[16px] leading-[24px] text-nowrap" >Main Board</span>
               <span className="text-[11px] font-bold">
                 {total_mainboard_stocks || 0} Stocks
               </span>
@@ -44,7 +44,7 @@ export default function StocksTab() {
             }`}
           >
             <div className="flex flex-col items-center text-center">
-              <span className="font-[600] text-[16px] leading-[24px]">SME Board</span>
+              <span className="font-[600] text-[16px] leading-[24px] text-nowrap">SME Board</span>
               <span className="text-[11px] font-bold">
                 {total_sme_stocks || 0} Stocks
               </span>

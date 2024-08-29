@@ -66,7 +66,7 @@ export function Button({
               ? ` text-brand-400 hover:bg-red-100 disabled:border-gray-300 disabled:text-gray-300 ${loading ? " text-brand-300" : ""
               }`
               : variant === ButtonVariant.sebi
-                ? `bg-gradient-to-r from-[#10FF84]  from-[-332%]  to-[#132C3B] text-white font-medium text-sm py-2 px-4 border border-[#32D583] rounded-full flex items-center shadow-md transition ${loading ? " text-brand-300" : ""
+                ? `bg-gradient-to-r from-[#10FF84]  from-[-332%]  to-[#132C3B] text-white font-medium text-sm py-2 px-4  rounded-full flex items-center shadow-md transition ${loading ? " text-brand-300" : ""
                 }`
                 : variant === ButtonVariant.orange && customStyle;
 
