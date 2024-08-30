@@ -1,8 +1,9 @@
 import React from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 
-function Discovercard({ id, name, description, image, color }) {
-  const { setStrategyTag, setIsChangeFilter } = useStockPicks();
+function Discovercard({ id, name, description, image, color, slug }) {
+  const { setStrategyTag, setIsChangeFilter, addPopularStrategies } =
+    useStockPicks();
 
   return (
     <>
@@ -17,6 +18,8 @@ function Discovercard({ id, name, description, image, color }) {
               }
               return prevTags; // If id already exists, return the existing array
             });
+
+            addPopularStrategies(id);
             setIsChangeFilter(true);
           }}
         >

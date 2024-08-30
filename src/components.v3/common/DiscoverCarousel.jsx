@@ -78,6 +78,7 @@ const DiscoverCarousel = ({ strategyTagList, colors }) => {
       image={item.image}
       description={item.description}
       id={item.id}
+      slug={item.slug}
     />
   ));
 

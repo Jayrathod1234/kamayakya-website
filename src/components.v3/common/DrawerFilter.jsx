@@ -44,6 +44,8 @@ function DrawerFilter() {
     strategyTagList,
     stockRiskList,
     sebiBoardType,
+    addPopularStrategies,
+    removePopularStrategies,
   } = useStockPicks();
 
   const {
@@ -174,6 +176,7 @@ function DrawerFilter() {
 
   const handleChangestrategyTag = (event) => {
     const { name, checked } = event.target;
+    checked ? addPopularStrategies(name) : removePopularStrategies(name);
     setStrategyTag((prev) =>
       checked ? [...prev, name] : prev.filter((tag) => tag !== name)
     );
