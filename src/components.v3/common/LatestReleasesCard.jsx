@@ -6,7 +6,7 @@ function LatestReleasesCard({ percentage }) {
     <>
       <div className="main_card_carousel">
         <div className="flex relative">
-          <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 z-[1]">
+          <div className="absolute top-[-6px] left-1/2 -translate-x-1/2 z-[1]">
             <img src="/assets/newtab.png" alt="" className="w-[210px]" />
           </div>
           <div className="relative rounded-lg bg-white border border-brand-300 min-w-[408px]">

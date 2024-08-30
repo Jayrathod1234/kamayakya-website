@@ -160,7 +160,7 @@ const Bannerhotstockscard = () => {
                                       src="/assets/ph_info-duotone.svg"
                                       alt=""
                                     />
-                                    <span class="tooltiptext tooltiptext2 relative shadow-sm ">
+                                    <span class="tooltiptext tooltiptext2 relative shadow-3xl ">
                                       <img
                                         src="/assets/div.png"
                                         alt=""
@@ -170,7 +170,7 @@ const Bannerhotstockscard = () => {
                                         Upside Left means how much the stock
                                         price could rise from its current level.
                                       </div>
-                                      <div className="mt-2 p-2">
+                                      <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
                                         <span className="text-[#108973] text-2xs font-bold">
                                           Example :
                                         </span>
@@ -340,7 +340,7 @@ const Bannerhotstockscard = () => {
                                       src="/assets/ph_info-duotone.svg"
                                       alt=""
                                     />
-                                    <span class="tooltiptext tooltiptext2 relative ">
+                                    <span class="tooltiptext tooltiptext2 relative shadow-3xl">
                                       <img
                                         src="/assets/div.png"
                                         alt=""
@@ -350,7 +350,7 @@ const Bannerhotstockscard = () => {
                                         Upside Left means how much the stock
                                         price could rise from its current level.
                                       </div>
-                                      <div className="mt-2 p-2">
+                                      <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
                                         <span className="text-[#108973] text-2xs font-bold">
                                           Example :
                                         </span>
@@ -520,7 +520,7 @@ const Bannerhotstockscard = () => {
                                       src="/assets/ph_info-duotone.svg"
                                       alt=""
                                     />
-                                    <span class="tooltiptext tooltiptext2 relative ">
+                                    <span class="tooltiptext tooltiptext2 relative shadow-3xl">
                                       <img
                                         src="/assets/div.png"
                                         alt=""
@@ -530,7 +530,7 @@ const Bannerhotstockscard = () => {
                                         Upside Left means how much the stock
                                         price could rise from its current level.
                                       </div>
-                                      <div className="mt-2 p-2">
+                                      <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
                                         <span className="text-[#108973] text-2xs font-bold">
                                           Example :
                                         </span>

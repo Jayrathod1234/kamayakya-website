@@ -9,7 +9,7 @@
 
 const config = {
   darkMode: ["class"],
-  fill: ['hover', 'focus'],
+  fill: ["hover", "focus"],
   content: [
     "./**/*.{ts,tsx,jsx}",
     "./components/**/*.{ts,tsx}",
@@ -30,12 +30,12 @@ const config = {
       // "min-h-700": { raw: "( (min-height: 700px))" },
     },
     transitionDuration: {
-      '2000': '2000ms',
-      '700':'700ms',
-      '300':'300ms',
-      '500':'500ms',
-      '100' : '100ms',
-      '200':'200ms'
+      2000: "2000ms",
+      700: "700ms",
+      300: "300ms",
+      500: "500ms",
+      100: "100ms",
+      200: "200ms",
     },
     fontFamily: {
       open_sans: ["Open Sans", "sans-serif"],
@@ -139,6 +139,8 @@ const config = {
     },
     extend: {
       backgroundImage: {
+        "custom-gradient-arrow":
+          "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, white 70%)",
         "radial-gradient-xl":
           "radial-gradient(389.9% 150.6% at -13.33% 12.53%, rgba(100, 253, 171, 0.00) 0%, rgba(129, 184, 244, 0.40) 25.93%, rgba(196, 219, 254, 0.57) 43.63%, rgba(228, 238, 253, 0.57) 69.37%, rgba(253, 239, 255, 0.57) 79.3%, rgba(253, 239, 255, 0.00) 100%)",
         "radial-gradient":
@@ -153,6 +155,8 @@ const config = {
           "conic-gradient(from 90deg, #a8efff, #a8efff1a, 0.1turn,  a#8efff  0.15turn, #a8efff1a 0.25turn) 30",
       },
       boxShadow: {
+        "become-member":
+          "0px 0px 9.615px 0px rgba(0, 0, 0, 0.25), 0px 0px 44.904px 0px rgba(176, 252, 177, 0.30)",
         "6xs": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
         "5xs": "0px 1px 5px 0px rgba(50, 0, 0, 0.09)",
         "4xs": "0px 2px 6px 0px rgba(2, 15, 35, 0.06)",
@@ -167,7 +171,7 @@ const config = {
         "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.20)",
       },
       colors: {
-        'custom-green': '#108973',
+        "custom-green": "#108973",
         gray: {
           25: "#fcfcfd",
           50: "#f9fafb",
@@ -243,38 +247,42 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        'spin-slow': 'spin 5s linear infinite',
+        "spin-slow": "spin 5s linear infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"),
-    function({ addComponents }) {
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    function ({ addComponents }) {
       addComponents({
-        '.conic-gradient-border': {
-          position: 'relative',
-          padding: '0.5rem 1rem',
-          borderRadius: '0.375rem',
-          overflow: 'hidden',
-          background: 'transparent',
-          color: 'white', // Set text color to white
-          border: '2px solid transparent',
-          fontWeight: 'bold', // Optional: make text bold for better visibility
+        ".conic-gradient-border": {
+          position: "relative",
+          padding: "0.5rem 1rem",
+          borderRadius: "0.375rem",
+          overflow: "hidden",
+          background: "transparent",
+          color: "white", // Set text color to white
+          border: "2px solid transparent",
+          fontWeight: "bold", // Optional: make text bold for better visibility
         },
-        '.conic-gradient-border::before': {
+        ".conic-gradient-border::before": {
           content: '""',
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          width: '100%',
-          height: '100%',
-          borderRadius: 'inherit',
-          border: '2px solid',
-          borderImage: 'conic-gradient(from 0deg, #ff007a, #d400ff, #007aff, #00c5ff, #00ff8c, #ff007a) 1',
-          zIndex: '-1',
-          transition: 'border-image 1s ease-in-out',
+          position: "absolute",
+          top: "0",
+          left: "0",
+          width: "100%",
+          height: "100%",
+          borderRadius: "inherit",
+          border: "2px solid",
+          borderImage:
+            "conic-gradient(from 0deg, #ff007a, #d400ff, #007aff, #00c5ff, #00ff8c, #ff007a) 1",
+          zIndex: "-1",
+          transition: "border-image 1s ease-in-out",
         },
-        '.conic-gradient-border:hover::before': {
-          borderImage: 'conic-gradient(from 0deg, #00c5ff, #ff007a, #d400ff, #007aff, #00ff8c, #00c5ff) 1',
+        ".conic-gradient-border:hover::before": {
+          borderImage:
+            "conic-gradient(from 0deg, #00c5ff, #ff007a, #d400ff, #007aff, #00ff8c, #00c5ff) 1",
         },
       });
     },

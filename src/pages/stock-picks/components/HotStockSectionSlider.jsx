@@ -9,7 +9,7 @@ const HotStockSectionSlider = ({ items }) => {
     <div>
       <div className="relative z-[2] sm:pb-[100px] pb-[60px] sm:mt-5  mt-6">
         <div className="sm:container sm:mx-auto mx-0">
-          <div className="sm:bg-gray-150 bg-transparent sm:p-2.5 p-0 sm:rounded-[20px] rounded-t-[20px] overflow-hidden max-w-[1280px] mx-auto">
+          <div className="sm:bg-white bg-transparent sm:p-2.5 p-0 sm:rounded-[20px] rounded-t-[20px] overflow-hidden max-w-[1280px] mx-auto">
             <div className="">
               <div className="bg-white bg-[url('/assets/grid.png')] bg-cover pt-5  text-center rounded-[20px] pb-3">
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-gray-950">

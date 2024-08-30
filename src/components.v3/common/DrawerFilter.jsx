@@ -214,7 +214,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("right", true)}
             sx={{ display: isMobile ? "none" : "block" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 rounded-md  gap-2 items-center shadow-3xs !min-w-24"
+            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
           >
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case">
@@ -248,7 +248,7 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
               </div>
               {/* upside left  */}
-              <div className="pt-4 pr-6 pl-4 ">
+              <div className="pt-4 pr-6 pl-1 ">
                 <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -291,7 +291,7 @@ function DrawerFilter() {
                                 fill="#344054"
                               />
                             </svg>
-                            <span className="tooltiptext tooltiptext2 relative z-[200000] ">
+                            <span className="tooltiptext tooltiptext2 shadow-3xl relative z-[200000] ">
                               <img
                                 src="/assets/div.png"
                                 alt=""
@@ -301,8 +301,8 @@ function DrawerFilter() {
                                 Upside Left means how much the stock price could
                                 rise from its current level.
                               </div>
-                              <div className="mt-2 p-2">
-                                <span className="text-[#108973] text-2xs font-bold">
+                              <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
+                                <span className="text-[#108973] text-2xs font-bold ">
                                   Example :
                                 </span>
                                 <p className="text-2xs text-gray-600 font-normal">
@@ -385,7 +385,7 @@ function DrawerFilter() {
               </div>
 
               {/*  Recency */}
-              <div className="pt-4 pr-6 pl-4 ">
+              <div className="pt-4 pr-6 pl-2 ">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -429,7 +429,7 @@ function DrawerFilter() {
                             fill="#344054"
                           />
                         </svg>
-                        <span className="tooltiptext tooltiptext2 relative z-[200000] ">
+                        <span className="tooltiptext tooltiptext2 relative z-[200000] shadow-3xl ">
                           <img
                             src="/assets/div.png"
                             alt=""
@@ -439,8 +439,8 @@ function DrawerFilter() {
                             Recency tells you how new this stock recommendation
                             is.
                           </div>
-                          <div className="mt-2 p-2">
-                            <span className="text-[#108973] text-2xs font-bold">
+                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
+                            <span className="text-[#108973] text-2xs font-bold ">
                               Example :
                             </span>
                             <p className="text-2xs text-gray-600 font-normal">
@@ -483,7 +483,7 @@ function DrawerFilter() {
               </div>
 
               {/* Time Left  */}
-              <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -544,7 +544,7 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] "></div>
               </div>
               {/* Total Returns  */}
-              <div className="pt-4 pr-6 pl-4  overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2  overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -645,7 +645,7 @@ function DrawerFilter() {
 
               {/* Market Cap */}
               {sebiBoardType == "mainboard" && (
-                <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+                <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
                   <Accordion
                     defaultExpanded
                     sx={{
@@ -714,7 +714,7 @@ function DrawerFilter() {
               )}
 
               {/* Sectors  */}
-              <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -768,7 +768,7 @@ function DrawerFilter() {
               </div>
 
               {/* Strategies   */}
-              <div className="pt-4 pr-6 pl-4 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -841,7 +841,7 @@ function DrawerFilter() {
               </div>
 
               {/*Risk */}
-              <div className="pt-4 pr-6 pl-4 pb-[61px] overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2 pb-[61px] overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -947,7 +947,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("bottom", true)}
             sx={{ display: isMobile ? "block" : "none" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-md  gap-2 items-center shadow-3xs !min-w-28 hover:bg-error-500"
+            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-28 hover:bg-error-500"
           >
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case">

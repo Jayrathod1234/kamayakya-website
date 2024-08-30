@@ -206,18 +206,18 @@ const HotStockSection = ({ items }) => {
                                                     src="/assets/ph_info-duotone.svg"
                                                     alt=""
                                                   />
-                                                  <span className="tooltiptext tooltiptext2 relative shadow-sm ">
+                                                  <span className="tooltiptext tooltiptext2 relative shadow-3xl ">
                                                     <img
                                                       src="/assets/div.png"
                                                       alt=""
                                                       className="absolute -top-2 left-[52px] w-4"
                                                     />
-                                                    <div className="text-gray-800 text-2xs font-normal">
+                                                    <div className="text-gray-800 text-2xs font-normal ">
                                                       Upside Left means how much
                                                       the stock price could rise
                                                       from its current level.
                                                     </div>
-                                                    <div className="mt-2 p-2">
+                                                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-md">
                                                       <span className="text-[#108973] text-2xs font-bold">
                                                         Example :
                                                       </span>

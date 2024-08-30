@@ -115,6 +115,7 @@ export default function CustomSortMenu({ isLabel }) {
           display: "flex",
           // marginTop: "20px",
           border: "1px solid #B2DFDB",
+          fontFamily: "Open Sans",
         }}
       >
         <svg
@@ -177,7 +178,7 @@ export default function CustomSortMenu({ isLabel }) {
                 style={{
                   fontWeight: 500,
                   color: "#98A2B3",
-                  fontSize: "12px",
+                  fontSize: "14px",
                   fontFamily: "Open Sans",
                 }}
               >
@@ -236,7 +237,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#344054",
                             fontWeight: 400,
-                            fontSize: "14px",
+                            fontSize: "16px",
                             fontFamily: "Open Sans",
                           }}
                         >
@@ -322,7 +323,7 @@ export default function CustomSortMenu({ isLabel }) {
                 style={{
                   fontWeight: 500,
                   color: "#98A2B3",
-                  fontSize: "12px",
+                  fontSize: "14px",
                   fontFamily: "Open Sans",
                 }}
               >
@@ -442,7 +443,7 @@ export default function CustomSortMenu({ isLabel }) {
                 style={{
                   fontWeight: 500,
                   color: "#98A2B3",
-                  fontSize: "12px",
+                  fontSize: "14px",
                   fontFamily: "Open Sans",
                 }}
               >
@@ -560,7 +561,7 @@ export default function CustomSortMenu({ isLabel }) {
                 style={{
                   fontWeight: 500,
                   color: "#98A2B3",
-                  fontSize: "12px",
+                  fontSize: "14px",
                   fontFamily: "Open Sans",
                 }}
               >

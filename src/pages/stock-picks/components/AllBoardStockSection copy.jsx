@@ -162,7 +162,7 @@ function AllBoardStockSection() {
       {/* blur card  */}
       <div className="mt-4 bg-[#F2F4F7] py-10 px-20 relative">
         <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
-          <div className="grid sm:grid-cols-3 grid-cols-1 gap-7 ">
+          <div className="grid sm:grid-cols-3 grid-cols-1 gap-7  md:grid-cols-2">
             <Nonlogincard />
             <MainBoardArea />
             {stockList.map(
@@ -195,7 +195,7 @@ function AllBoardStockSection() {
                 />
               </div>
               <div>
-                <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans pb-3">
+                <p className="text-display-xs font-bold text-[#F8F8F8] font-open_sans pb-3">
                   Elevate Your Investments with KamayaKya
                 </p>
                 <p className="text-base sm:text-lg font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">

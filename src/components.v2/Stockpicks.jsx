@@ -43,7 +43,7 @@ function Stockpicks() {
               type="video/mp4"
             />
           </video>
-          <div className="absolute top-0 left-0 h-full w-full">
+          <div className="absolute top-0 left-0 h-full w-full opacity-40">
             <img
               src="/assets/bg-vector.svg"
               alt=""

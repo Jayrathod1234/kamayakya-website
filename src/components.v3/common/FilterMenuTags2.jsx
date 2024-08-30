@@ -111,29 +111,31 @@ const FilterMenuTags2 = ({ isResponsive }) => {
           >
             {/* left side arrow  */}
             {showLeftButton && (
-              <IconButton
-                onClick={scrollLeft}
-                sx={{
-                  width: "28px",
-                  height: "28px",
-                  backgroundColor: "black",
-                  color: "white",
-                  borderRadius: "50%",
-                  "&:hover": {
-                    backgroundColor: "#333", // Darker black on hover
-                  },
-                  display: { xs: "none", sm: "block" },
-                }}
-              >
-                <ArrowBackIosIcon
+              <div className="bg-custom-gradient-arrow w-10 h-10 justify-center flex items-center relative">
+                <IconButton
+                  onClick={scrollLeft}
                   sx={{
-                    width: "18px",
-                    position: "absolute",
-                    left: "8px",
-                    top: "3px",
+                    width: "28px",
+                    height: "28px",
+                    backgroundColor: "black",
+                    color: "white",
+                    borderRadius: "50%",
+                    "&:hover": {
+                      backgroundColor: "#333", // Darker black on hover
+                    },
+                    display: { xs: "none", sm: "block" },
                   }}
-                />
-              </IconButton>
+                >
+                  <ArrowBackIosIcon
+                    sx={{
+                      width: "18px",
+                      position: "absolute",
+                      left: "8px",
+                      top: "3px",
+                    }}
+                  />
+                </IconButton>
+              </div>
             )}
             <Box
               ref={carouselRef}
@@ -209,8 +211,9 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                     // borderRadius: "4px",
                     borderRadius: isMobile ? "6px" : "4px",
                     maxWidth: "179px !important",
-                    height: "42px !important",
+                    height: "38px !important",
                     border: "1px solid #E4E7EC ",
+                    fontFamily: "Open Sans",
                     backgroundColor: strategyTag.includes(chip.id)
                       ? "#125b54"
                       : "white",
@@ -219,6 +222,8 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                       backgroundColor: strategyTag.includes(chip.id)
                         ? "#125b54"
                         : "#e7f8f8",
+                      transform: "scale(000.95)", // Adjust the scale value as needed
+                      transition: "transform 0.3s ease", // Optional: Add transition for smooth scaling
                     },
                     minWidth: "auto", // Ensure text is not truncated
                     whiteSpace: "nowrap", // Prevent text wrapping
@@ -234,24 +239,27 @@ const FilterMenuTags2 = ({ isResponsive }) => {
             {!isMobile ? (
               <>
                 {showRightButton && (
-                  <IconButton
-                    onClick={scrollRight}
-                    sx={{
-                      width: "28px",
-                      height: "28px",
-                      backgroundColor: "black",
-                      color: "white",
-                      right: "2%",
-                      borderRadius: "50%",
-                      "&:hover": {
-                        backgroundColor: "#333", // Darker black on hover
-                      },
-                    }}
-                  >
-                    <ArrowForwardIosIcon
-                      sx={{ width: "18px", position: "absolute" }}
-                    />
-                  </IconButton>
+                  <div className="bg-custom-gradient-arrow w-10 h-10 justify-center flex items-center relative right-[2%]">
+                    <IconButton
+                      onClick={scrollRight}
+                      sx={{
+                        width: "28px",
+                        height: "28px",
+                        backgroundColor: "black",
+                        color: "white",
+                        right: "2%",
+                        borderRadius: "50%",
+
+                        "&:hover": {
+                          backgroundColor: "#333", // Darker black on hover
+                        },
+                      }}
+                    >
+                      <ArrowForwardIosIcon
+                        sx={{ width: "18px", position: "absolute" }}
+                      />
+                    </IconButton>
+                  </div>
                 )}
               </>
             ) : (

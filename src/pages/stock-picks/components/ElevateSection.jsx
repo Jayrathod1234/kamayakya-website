@@ -15,7 +15,7 @@ function ElevateSection() {
   // Default content and button text
   let content = (
     <>
-      <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans pb-3 tracking-normal">
+      <p className="text-display-xs font-bold text-[#F8F8F8] font-open_sans pb-3 tracking-normal">
         Elevate Your Investments with KamayaKya!
       </p>
       {/* <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
@@ -38,10 +38,10 @@ function ElevateSection() {
     if (plan === "core") {
       content = (
         <>
-          <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
+          <p className="text-display-xs font-bold text-[#F8F8F8] font-open_sans">
             Elevate Your Investments with KamayaKya!
           </p>
-          <p className="text-base sm:text-lg font-normal text-white opacity-35 font-open_sans">
+          <p className="text-base sm:text-md font-normal text-white opacity-35 font-open_sans">
             Access exclusive insights to{" "}
             <span className="text-white">10+ Premium SME </span>stock picks
             every year
@@ -52,10 +52,10 @@ function ElevateSection() {
     } else if (plan === "advance") {
       content = (
         <>
-          <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
+          <p className="text-display-xs font-bold text-[#F8F8F8] font-open_sans">
             Elevate Your Investments with KamayaKya!
           </p>
-          <p className="text-base sm:text-lg font-normal text-white opacity-35 font-open_sans">
+          <p className="text-base sm:text-md font-normal text-white opacity-35 font-open_sans">
             Access exclusive Insights to{" "}
             <span className="text-white">30+ Main Board </span>stock picks every
             year
@@ -67,9 +67,9 @@ function ElevateSection() {
   }
 
   return (
-    <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto -mt-16  m-0">
+    <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto -mt-16  m-0 ">
       <div className="p-[24px] sm:p-[56px] rounded-[20px] bg-custom-gradient-3 flex flex-col sm:flex-row items-start sm:items-center justify-between relative overflow-hidden z-[55] top-[38px] sm:top-[102px]">
-        <div className="absolute bottom-[2px] left-[20%] sm:left-[41%] -z-10">
+        <div className="absolute bottom-[2px] left-[20%] sm:left-[53%] -z-10 opacity-40">
           <img
             src="/assets/Group.png"
             alt="Decoration"
@@ -78,7 +78,7 @@ function ElevateSection() {
         </div>
         <div>{content}</div>
         <div className="relative group mt-4 sm:mt-0 sm:ms-auto">
-          <div className="relative w-44 sm:w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA] group-hover:border-[1px]  group-hover:shadow-6xs">
+          <div className="relative w-44 sm:w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA] group-hover:scale-[000.9] group-hover:duration-500  group-hover:shadow-become-member  group-hover:border-[1px]  ">
             <div className="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12 group-hover:hidden"></div>
             <div className="absolute flex items-center text-center justify-center text-white z-[1] opacity-90 rounded-2xl inset-0.5 bg-black group-hover:bg-transparent">
               <Link href={`/pricing`}>
@@ -105,11 +105,11 @@ function ElevateSection() {
             <div className="absolute transition-all duration-[2500ms] animate-spin w-full h-[47px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden "></div>
           </div>
         </div>
-        <div className="absolute right-[-10px] sm:right-[-31px] bottom-[-95px] z-0">
+        <div className="absolute right-[-10px] sm:right-[-178px] bottom-[-69px] z-0">
           <img
             src="/assets/Group 1.png"
             alt="Decoration"
-            className="w-[400px] sm:w-[620px]"
+            className="w-[400px] sm:w-[570px]"
           />
         </div>
       </div>

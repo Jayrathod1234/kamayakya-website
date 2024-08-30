@@ -80,7 +80,7 @@ function AllBoardStockSection() {
               >
                 Search
               </label>
-              <div className="relative h-12">
+              <div className="relative">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none gap-2">
                   <img src="/assets/search.svg" alt="" />
                 </div>
@@ -88,7 +88,7 @@ function AllBoardStockSection() {
                   type="search"
                   name="search-stock"
                   id="default-search"
-                  className="block w-full pr-[14px] pl-9 py-[12px] text-md text-gray-900 border border-[#E4E7EC] rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 shadow-3xs"
+                  className="block w-full pr-[14px] pl-9 py-[11px] text-md text-gray-900 border border-[#E4E7EC] rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 shadow-3xs"
                   placeholder="Search Stocks by Name..."
                   value={searchStock}
                   onChange={(e) => setSearchStock(e.target.value)}
@@ -103,7 +103,7 @@ function AllBoardStockSection() {
               </div>
             </div>
           </div>
-          <div className="w-auto sm:block hidden bg-white h-12 !rounded-md">
+          <div className="w-auto sm:block hidden bg-white h-12">
             <DrawerFilter />
           </div>
         </div>
@@ -135,7 +135,7 @@ function AllBoardStockSection() {
         ref={showFilterRef}
       >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
-          <div className="grid sm:grid-cols-3 grid-cols-1 gap-7">
+          <div className="grid sm:grid-cols-1 grid-cols-1 gap-7  md:grid-cols-2 lg:grid-cols-3">
             {isLoading || error ? (
               <StockCardSkeleton length={9} />
             ) : items.length > 0 ? (

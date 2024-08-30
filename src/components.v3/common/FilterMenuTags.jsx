@@ -171,11 +171,12 @@ const FilterCarousel = () => {
                   sx={{
                     paddingLeft: "16px",
                     paddingRight: "16px",
-                    borderRadius: "4px",
+                    borderRadius: ".5rem !important",
                     borderRadius: isMobile ? "6px" : "4px",
                     maxWidth: "179px !important",
-                    height: "42px !important",
+                    height: "38px !important",
                     border: "1px solid #E4E7EC ",
+                    fontFamily: "Open Sans",
                     // borderColor: " #E4E7EC !important ",
                     backgroundColor: strategyTag.includes(chip.id)
                       ? "#125b54"
@@ -185,6 +186,8 @@ const FilterCarousel = () => {
                       backgroundColor: strategyTag.includes(chip.id)
                         ? "#125b54"
                         : "#e7f8f8",
+                      transform: "scale(000.95)", // Adjust the scale value as needed
+                      transition: "transform 0.3s ease", // Optional: Add transition for smooth scaling
                     },
                     minWidth: "auto", // Ensure text is not truncated
                     whiteSpace: "nowrap", // Prevent text wrapping

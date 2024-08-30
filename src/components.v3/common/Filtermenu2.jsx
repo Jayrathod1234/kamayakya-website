@@ -381,10 +381,10 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
                   alt=""
                   className="absolute -top-2 left-[52px] w-4"
                 />
-                <div className="text-gray-800 text-2xs font-normal">
+                <div className="text-gray-800 text-2xs font-normal ">
                   Recency tells you how new this stock recommendation is.
                 </div>
-                <div className="mt-2 p-2">
+                <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
                   <span className="text-[#108973] text-2xs font-bold">
                     Example :
                   </span>
