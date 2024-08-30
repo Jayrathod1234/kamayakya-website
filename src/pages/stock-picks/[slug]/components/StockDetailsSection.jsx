@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StockDetailsNews from "./StockDetailsNews";
 import StockDetailsTimeline from "./StockDetailsTimeline";
 import StockDetailsProgressBar from "./StockDetailsProgressBar";
@@ -31,7 +31,7 @@ function StockDetailsSection() {
     stock_tags,
     upside_left_time,
     stock_targets,
-    expected_returns,
+    gain_loss,
     return_time,
     company_details,
     market_cap_type,
@@ -61,6 +61,19 @@ function StockDetailsSection() {
     setModalState({ isMainModalOpen: false, isChildModalOpen: true });
   const handleCloseAllModals = () =>
     setModalState({ isMainModalOpen: false, isChildModalOpen: false });
+
+  const text = company_details;
+  const [isReadMore, setIsReadMore] = useState(true);
+  const [truncatedText, setTruncatedText] = useState(text);
+  const textCount = 40;
+
+  useEffect(() => {
+    if (isReadMore && text) {
+      setTruncatedText(text.slice(0, textCount));
+    } else {
+      setTruncatedText(text);
+    }
+  }, [isReadMore, text]);
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
@@ -282,20 +295,20 @@ function StockDetailsSection() {
                     <div className="flex-1">
                       {hasVideo ? (
                         <div className="flex-1 group">
-                        <button
-                          className="flex-1 w-full bg-white group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                          onClick={() =>
-                            window.open(watch_video.youtube_link, "_blank")
-                          }
-                        >
-                          <img
-                            src="/assets/play1.png"
-                            alt="Play icon"
-                            className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
-                          />
-                          <span>Watch Video</span>
-                        </button>
-                      </div>
+                          <button
+                            className="flex-1 w-full bg-white group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            onClick={() =>
+                              window.open(watch_video.youtube_link, "_blank")
+                            }
+                          >
+                            <img
+                              src="/assets/play1.png"
+                              alt="Play icon"
+                              className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
+                            />
+                            <span>Watch Video</span>
+                          </button>
+                        </div>
                       ) : (
                         <div className="relative group">
                           <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
@@ -328,7 +341,7 @@ function StockDetailsSection() {
                             <div className="absolute  -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
                           </div>
                         </div>
-                       
+
                       )}
                     </div>
                     <div className="flex-1 group">
@@ -361,25 +374,34 @@ function StockDetailsSection() {
                   {/* When Small Screen Button Is Hide  */}
                   {/* Small screen show to company profile  */}
                   <div className="pt-[20px] p-3 block sm:hidden bg-white shadow mb-5">
-                    <h2 className="text-[#0C111D] text-[14px] leading-3 font-semibold font-open_sans ">
+                    <h2 className="text-[#0C111D] text-[14px]  font-semibold font-open_sans ">
                       Company Profile
                     </h2>
                     <p
-                      dangerouslySetInnerHTML={{ __html: company_details }}
-                      className="text-[#475467]  text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none"
+                      dangerouslySetInnerHTML={{ __html: truncatedText }}
+                      className="text-[#475467] text-justify text-[14px] font-normal font-open_sans  sm:line-clamp-none"
                     ></p>
-                    {/* <button class="flex mt-2 items-center gap-2 px-4 py-2  text-[#344054] font-medium border border-[#D0D5DD] rounded-full hover:bg-[#F9FAFB] hover:border-[#D0D5DD] transition-colors">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
+
+                    {text?.length > textCount ? (
+                      <button
+                        onClick={() => setIsReadMore(!isReadMore)}
                       >
-                        <circle cx="6" cy="12" r="2" />
-                        <circle cx="12" cy="12" r="2" />
-                        <circle cx="18" cy="12" r="2" />
-                      </svg>
-                    </button> */}
+                        {isReadMore ? (<button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
+                          <span class="text-gray-700 group-hover:text-green-700">•••</span>
+                        </button>) : (<><button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white border group border-gray-200 shadow-sm  px-6 py-3">
+                          <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-colors duration-300 group-hover:stroke-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="6 15 12 9 18 15"></polyline>
+                              <polyline points="6 9 12 3 18 9"></polyline>
+                            </svg>
+                          </div>
+                        </button>
+                        </>)}
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                    
                   </div>
                   {/* Upside Left Box start */}
                   <div className="hidden md:block col-span-2 order-3 sm:order-2">
@@ -630,7 +652,7 @@ function StockDetailsSection() {
                           </span>
                           invested at current market price (CMP) can become{" "}
                           <span className="text-[#0079EF] text-sm md:text-base lg:text-lg font-bold">
-                            ₹“X” Lakh
+                          ₹“{100000 +(1000*gain_loss)}” Lakh
                           </span>{" "}
                           likely within a year
                         </div>
@@ -704,7 +726,7 @@ function StockDetailsSection() {
                               className="w-3 h-3"
                             />
                             <p className="text-black ml-1 text-sm font-open_sans">
-                              {expected_returns}
+                              {gain_loss}
                               <span className="text-gray-500 text-xs font-open_sans">
                                 likely in {return_time}
                               </span>
@@ -743,7 +765,7 @@ function StockDetailsSection() {
                       </span>
                       invested at current market price (CMP) can become{" "}
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
-                        ₹“X” Lakh
+                        ₹“{100000 +(1000*gain_loss)}” Lakh
                       </span>{" "}
                       likely within a year
                     </div>
@@ -766,13 +788,29 @@ function StockDetailsSection() {
                       Company Profile
                     </h2>
                     <p
-                      dangerouslySetInnerHTML={{ __html: company_details }}
+                      dangerouslySetInnerHTML={{ __html: truncatedText }}
                       className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none"
                     ></p>
-                    {/* <p
-                      dangerouslySetInnerHTML={{ __html: company_details }}
-                      className="text-[#475467] text-justify text-[14px] font-normal font-open_sans line-clamp-3 sm:line-clamp-none"
-                    ></p> */}
+
+                    {text?.length > textCount ? (
+                      <button
+                        onClick={() => setIsReadMore(!isReadMore)}
+                      >
+                        {isReadMore ? (<button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
+                          <span class="text-gray-700 group-hover:text-green-700">•••</span>
+                        </button>) : (<><button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white border group border-gray-200 shadow-sm  px-6 py-3">
+                          <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-colors duration-300 group-hover:stroke-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="6 15 12 9 18 15"></polyline>
+                              <polyline points="6 9 12 3 18 9"></polyline>
+                            </svg>
+                          </div>
+                        </button>
+                        </>)}
+                      </button>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   {/* Company Profile Section End  */}
 
@@ -808,7 +846,7 @@ function StockDetailsSection() {
                   {/* When small Screen Time-line & Report Section show  */}
                   <div className="mt-5 block sm:hidden md:hidden mb-5 bg-white">
                     <button
-                      className="w-full   p-2 rounded-lg flex justify-between items-center"
+                      className="w-full   p-0 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
                     >
                       <span className="font-open_sans text-sm font-bold">
@@ -1011,7 +1049,7 @@ function StockDetailsSection() {
                       </div>
                       <div className="mt-5 hidden sm:block">
                         <button
-                          className="w-full   p-2 rounded-lg flex justify-between items-center"
+                          className="w-full   p-0 rounded-lg flex justify-between items-center"
                           onClick={toggleDropdown}
                         >
                           <span className="font-open_sans text-sm font-bold">
@@ -1037,7 +1075,7 @@ function StockDetailsSection() {
                           <div className="mt-2">
                             {/* Timeline Content Goes Here */}
                             <div className="p-4  rounded-lg">
-                              <StockDetailsTimeline timeline={timeline} />
+                              <StockDetailsTimeline timeline={timeline}  />
                             </div>
                           </div>
                         )}

@@ -8,9 +8,10 @@ import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import { steps } from "framer-motion";
 
 const CustomStepConnector = styled(Box)(({ theme }) => ({
-  borderLeft: `2px solid #00bfa5`,
+  borderLeft: `2px solid #75CDC5`,
   height: "110px",
   marginLeft: "6px",
   marginTop: "-5px",
@@ -90,18 +91,19 @@ export default function StockDetailsTimeline({ timeline }) {
   // };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto", pt: 4, backgroundColor: "white" }}>
+    <Box sx={{ maxWidth: 600, mx: "auto", pt: "20px", backgroundColor: "white" }}>
       {timeline.map((step, index) => (
         <Box key={index} display="flex" alignItems="flex-start">
-          <Box width="80px" textAlign="center" mr={2}>
+          <Box width="80px" textAlign="center" mr={2} position="relative" top="0px">
             <Typography
               variant="body2"
               color="textSecondary"
               fontFamily="Open Sans"
               fontSize="12px"
+              sx={{ whiteSpace: 'nowrap' }}
             >
               {formatDate(
-                step.type == "report" ? step.report_date : step.youtube_date
+                step.type === 'report' ? step.report_date : step.youtube_date
               )}
             </Typography>
           </Box>
@@ -115,34 +117,41 @@ export default function StockDetailsTimeline({ timeline }) {
           >
             <Box
               sx={{
-                width: "10px",
-                height: "10px",
+                width: "13px",
+                height: "13px",
                 borderRadius: "50%",
-                backgroundColor: index === 0 ? "#00bfa5" : "#9e9e9e",
+                backgroundColor: index === 0 ? "#ffff" : "#125B54",
+                border: index === 0 ? "3px solid #17756C" : "3px solid #fff",
                 position: "relative",
                 zIndex: 1,
                 mb: "-6px",
                 mr: "-5px",
               }}
             />
-            <CustomStepConnector />
+            {index !== timeline.length - 1 && <CustomStepConnector />}
           </Box>
 
           <Box
             borderRadius="10px"
-            bgcolor="background.paper"
+            bgcolor="#FCFCFD"
             maxWidth={{ xs: "100%", sm: "450px" }}
             width="100%"
             p={"5px"}
-            boxShadow="0px 2px 2px rgba(0, 0, 0, 0.1)" // Small shadow on the bottom side
+            position="relative"
+            top="-11px"
+            border="1px solid white"
+            boxShadow="0px 2px 6px 0px rgba(2, 15, 35, 0.06)" // Small shadow on the bottom side
           >
             <Typography
               variant="subtitle1"
-              fontWeight="bold"
+              fontWeight="500"
               display="flex"
               alignItems="center"
               color="#475467"
+              marginTop="3px"
               fontFamily="Open Sans"
+              fontSize="0.875rem"
+
             >
               {step.type == "report"
                 ? step.report_action_text
@@ -156,7 +165,7 @@ export default function StockDetailsTimeline({ timeline }) {
                   borderRadius="9999px"
                   bgcolor="#FFF6EE"
                 >
-                  <Typography color="orange" fontFamily="Open Sans" fontSize="10px">
+                  <Typography color="orange" fontFamily="Open Sans" fontSize="10px" fontWeight={700}>
                     Active
                   </Typography>
                 </Box>
@@ -182,11 +191,12 @@ export default function StockDetailsTimeline({ timeline }) {
               sx={{
                 mt: 1,
                 color: "#344054",
-                padding: "8px 16px",
+                padding: "7px 14px 7px 12px",
                 borderRadius: "8px",
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
+                border: '1px solid  #E4E7EC;',
                 boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.2)", // Small box shadow
                 textTransform: "none",
                 minWidth: "100px",
@@ -198,11 +208,7 @@ export default function StockDetailsTimeline({ timeline }) {
                 textOverflow: "ellipsis",
                 transition: "background-color 0.3s, color 0.3s, filter 0.3s",
                 "&:hover": {
-                  backgroundColor: "#125B54",
-                  color: "white",
-                  "& img": {
-                    filter: "invert(1)",
-                  },
+                  backgroundColor: "#CBF3F0",
                 },
               }}
               onClick={() => {

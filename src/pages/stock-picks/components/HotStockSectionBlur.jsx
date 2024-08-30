@@ -78,7 +78,7 @@ const HotStockSection = ({ items }) => {
                                 is_blur,
                                 upside_left_time,
                                 return_time,
-                                expected_returns,
+                                gain_loss,
                               },
                               index
                             ) => {
@@ -257,13 +257,13 @@ const HotStockSection = ({ items }) => {
                                                 alt=""
                                                 className="w-2"
                                               />
-                                              {!expected_returns ? (
+                                              {!gain_loss ? (
                                                 <p className="text-2xs font-bold text-gray-800 font-open_sans blur-sm">
                                                   0%
                                                 </p>
                                               ) : (
                                                 <p className="text-2xs font-bold text-gray-800 font-open_sans">
-                                                  {expected_returns}%
+                                                  {gain_loss}%
                                                 </p>
                                               )}
                                               <span className="text-[10px] font-semibold text-[#6E6E6E]">

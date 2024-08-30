@@ -17,7 +17,7 @@ function StockCard({
   sector,
   upside_left_time,
   stock_tags,
-  expected_returns,
+  gain_loss,
   return_time,
   latest_youtube_video,
   className = "",
@@ -226,7 +226,7 @@ function StockCard({
                   </div>
                   <div className="flex gap-[3px] items-center font-open_sans">
                     {/* green up arrow  */}
-                    {expected_returns > 0 ? (
+                    {gain_loss > 0 ? (
                       // green up arrow
                       <img
                         src="/assets/Polygon2.svg"
@@ -244,11 +244,11 @@ function StockCard({
                     {/* <img src="/assets/Polygon2.svg" alt="" className="w-2" /> */}
                     {/* red down arrow  */}
                     {/* <img src="/assets/Polygon 3.svg" alt="" className="w-2" /> */}
-                    {expected_returns == null ? (
+                    {gain_loss == null ? (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans  w-[26px] h-3 bg-[#E4E7EC] rounded-full "></p>
                     ) : (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans">
-                        {Math.abs(expected_returns)}%
+                        {Math.abs(gain_loss)}%
                       </p>
                     )}
                     <span className="text-[10px] font-semibold text-[#6E6E6E] line-clamp-1">

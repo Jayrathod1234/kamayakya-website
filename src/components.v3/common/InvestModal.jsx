@@ -32,7 +32,7 @@ const Modal = ({ open, handleClose, children }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50 overflow-hidden">
+    <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50 ">
       <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]">
         <button
           onClick={handleClose}
@@ -103,7 +103,7 @@ export default function NestedModal({
   return (
     <div>
       <Modal open={modalState?.isMainModalOpen} handleClose={handleMainModalClose}>
-        <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex items-center justify-center">
+        <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex items-center justify-center ">
           <div className="grid grid-cols-3 gap-2">
             {brokerItems.map((item, index) => (
               <div
