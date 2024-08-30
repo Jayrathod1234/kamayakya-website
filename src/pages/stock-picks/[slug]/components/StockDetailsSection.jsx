@@ -8,7 +8,8 @@ import ElevateSection from "../../components/ElevateSection";
 import { useStockDetails } from "@/contexts/StockDetailsContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Tooltip } from "@mui/material";
+import { ButtonBase, Tooltip } from "@mui/material";
+
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
@@ -179,7 +180,7 @@ function StockDetailsSection() {
                                 <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
                                 <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
                                   {stock_exchange == "BSE" ||
-                                    stock_exchange == "SME-BSE"
+                                  stock_exchange == "SME-BSE"
                                     ? "BSE: "
                                     : "NSE: "}
                                   {stock_symbol}
@@ -224,7 +225,6 @@ function StockDetailsSection() {
                             </div>
                           </div>
                         </div>
-
                       </div>
                     </div>
                     <div className=" rounded-lg bg-white flex flex-col sm:flex-row px-2 sm:px-4  items-start sm:items-center justify-between">
@@ -341,13 +341,12 @@ function StockDetailsSection() {
                             <div className="absolute  -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
                           </div>
                         </div>
-
                       )}
                     </div>
                     <div className="flex-1 group">
                       <button
                         className="w-full border group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 bg-white group-hover:text-white border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                        onClick={handleMainModalOpen}  // Add the onClick event to open the modal
+                        onClick={handleMainModalOpen} // Add the onClick event to open the modal
                       >
                         <img
                           src="/assets/share2.svg"
@@ -358,8 +357,8 @@ function StockDetailsSection() {
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
-                              ? "Go to Broker"
-                              : "Sell Now"}
+                            ? "Go to Broker"
+                            : "Sell Now"}
                         </span>
                       </button>
                       <InvestModal
@@ -377,6 +376,7 @@ function StockDetailsSection() {
                     <h2 className="text-[#0C111D] text-[14px]  font-semibold font-open_sans ">
                       Company Profile
                     </h2>
+
                     <p
                       dangerouslySetInnerHTML={{ __html: truncatedText }}
                       className="text-[#475467] text-justify text-[14px] font-normal font-open_sans  sm:line-clamp-none"
@@ -414,8 +414,9 @@ function StockDetailsSection() {
                           <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${
+                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -467,8 +468,9 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                                } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${
+                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                              } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -853,8 +855,9 @@ function StockDetailsSection() {
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                          }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -904,7 +907,10 @@ function StockDetailsSection() {
                               <button
                                 className="flex-1 w-full group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                                 onClick={() =>
-                                  window.open(watch_video.youtube_link, "_blank")
+                                  window.open(
+                                    watch_video.youtube_link,
+                                    "_blank"
+                                  )
                                 }
                               >
                                 <img
@@ -939,15 +945,14 @@ function StockDetailsSection() {
                                   Video Not Available!
                                 </p>
                                 <p className="text-sm text-[#475467]">
-                                  Well, this video took a permanent vacation! 😅 But
-                                  don’t worry, fresh content is always on the
-                                  horizon. Stay tuned! 🌟
+                                  Well, this video took a permanent vacation! 😅
+                                  But don’t worry, fresh content is always on
+                                  the horizon. Stay tuned! 🌟
                                 </p>
                                 {/* Tooltip Arrow */}
                                 <div className="absolute  -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
                               </div>
                             </div>
-
                           )}
                         </div>
 
@@ -966,8 +971,8 @@ function StockDetailsSection() {
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
-                                  ? "Go to Broker"
-                                  : "Sell Now"}
+                                ? "Go to Broker"
+                                : "Sell Now"}
                             </span>
                           </button>
                           <InvestModal
@@ -978,7 +983,6 @@ function StockDetailsSection() {
                             modalState={modalState}
                           />
                         </div>
-
                       </div>
 
                       <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
@@ -1056,8 +1060,9 @@ function StockDetailsSection() {
                             TIMELINE & REPORTS ({timeline.length || 0})
                           </span>
                           <svg
-                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                              }`}
+                            className={`transform w-5 h-5 transition-transform duration-200 ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"

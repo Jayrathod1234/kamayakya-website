@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "../../components.v2/ui/button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import EastIcon from "@mui/icons-material/East";
 import { EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -162,9 +164,20 @@ export function HotSlider({ children }) {
             <Button
               onClick={() => handlePrevNext(onPrevButtonClick)}
               variant={"default"}
-              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2"
+              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.95] hover:bg-[#0B3A36] transition-all duration-300 ease-in-out"
             >
-              <ChevronLeftIcon fontSize="small" style={{ color: "white" }} />
+              <div className="w-5 flex items-center justify-center relative">
+                <ChevronLeftIcon
+                  fontSize="small"
+                  style={{ color: "white" }}
+                  className="absolute !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-0"
+                />
+                <KeyboardBackspaceIcon
+                  fontSize="small"
+                  style={{ color: "white" }}
+                  className="absolute !opacity-0 !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-100"
+                />
+              </div>
             </Button>
           </div>
         </div>
@@ -193,13 +206,20 @@ export function HotSlider({ children }) {
             <Button
               onClick={() => handlePrevNext(onNextButtonClick)}
               variant={"default"}
-              className="rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
+              className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.95] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-300 ease-in-out"
             >
-              <ChevronRightIcon
-                className="inline-block md:hidden"
-                fontSize="small"
-                style={{ color: "white" }}
-              />
+              <div className="w-5 flex items-center justify-center relative">
+                <ChevronRightIcon
+                  fontSize="small"
+                  style={{ color: "white" }}
+                  className="absolute !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-0"
+                />
+                <EastIcon
+                  fontSize="small"
+                  style={{ color: "white" }}
+                  className="absolute !opacity-0 !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-100"
+                />
+              </div>
             </Button>
           </div>
         </div>

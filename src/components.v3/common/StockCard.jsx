@@ -275,7 +275,7 @@ function StockCard({
                 <div className="p-5">
                   {/* btn  */}
                   <button
-                    className="button-82-pushable group "
+                    className="button-82-pushable group  "
                     role="button"
                     onClick={handleLogin}
                   >

@@ -23,6 +23,7 @@ const FilterCarousel = () => {
   const carouselRef = useRef(null);
   const containerRef = useRef(null);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const isTab = useMediaQuery("(max-width:768px)");
 
   useLayoutEffect(() => {
     const containerWidth = containerRef.current.offsetWidth;
@@ -222,6 +223,7 @@ const FilterCarousel = () => {
                   borderRadius: "50%",
                   position: "absolute",
                   right: "14%",
+
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
