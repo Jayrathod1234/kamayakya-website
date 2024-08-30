@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-scroll"; // Adjust this import as needed
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 import { ArrowLeftIcon } from "lucide-react";
 
 const brokerItems = [
@@ -28,18 +27,28 @@ const brokerItems2 = [
 ];
 
 const Modal = ({ open, handleClose, children }) => {
+  
 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[50000]  flex items-center justify-center bg-black bg-opacity-50 ">
+    <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50 overflow-hidden">
       <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]">
         <button
           onClick={handleClose}
           className="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-            <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="size-6"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+              clipRule="evenodd"
+            />
           </svg>
         </button>
         {children}
@@ -53,27 +62,27 @@ const ChildModal = ({ open, handleBack, handleCloseAll }) => (
     <div className="flex justify-between mb-5">
       <button
         onClick={handleBack}
-        className="absolute top-3 left-3 text-gray-600 hover:text-gray-900 "
+        className="absolute top-3 left-3 text-gray-600 hover:text-gray-900"
       >
         <ArrowLeftIcon className="w-6 h-6" />
       </button>
     </div>
 
-    <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center  flex items-center justify-center">
+    <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex items-center justify-center">
       <div className="grid grid-cols-3 gap-2">
         {brokerItems2.map((item, index) => (
           <div
             key={index}
             onClick={() => {
-              window.open(item.url, '_blank'); // Redirect to the specified URL
+              window.open(item.url, '_blank');
             }}
-            className="flex flex-col items-center text-center gap-2  rounded-full p-2 cursor-pointer transition-all transform hover:scale-[0.90]  duration-200"
+            className="flex flex-col items-center text-center gap-2 rounded-full p-2 cursor-pointer transition-all transform hover:scale-[0.90] duration-200"
           >
-            <div className="!bg-gray-100  w-16 h-16 rounded-full  flex items-center justify-center ">
+            <div className="!bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center">
               <img
                 src={item.src}
                 alt={item.name}
-                className="w-11 h-11  object-contain  rounded-full"
+                className="w-11 h-11 object-contain rounded-full"
               />
             </div>
             <span className="text-gray-800 text-[12px] text-nowrap font-normal">{item.name}</span>
@@ -84,39 +93,17 @@ const ChildModal = ({ open, handleBack, handleCloseAll }) => (
   </Modal>
 );
 
-export default function NestedModal() {
-  const [modalState, setModalState] = useState({
-    isMainModalOpen: false,
-    isChildModalOpen: false,
-  });
-
-  useEffect(() => {
-    if (modalState.isMainModalOpen || modalState.isChildModalOpen) {
-      disableBodyScroll();
-    }
-    else {
-      enableBodyScroll();
-    }
-    return () => enableBodyScroll(); // Cleanup on unmount
-  }, [modalState]);
-
-  const handleMainModalOpen = () =>
-    setModalState({ isMainModalOpen: true, isChildModalOpen: false });
-  const handleMainModalClose = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
-  const handleChildModalOpen = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: true });
-  const handleCloseAllModals = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
-
+export default function NestedModal({
+  handleMainModalOpen,
+  handleMainModalClose,
+  handleChildModalOpen,
+  modalState,
+  handleCloseAllModals,
+}) {
   return (
     <div>
-       <Button onClick={handleMainModalOpen}>
-        <ChevronRightIcon className="w-10 h-10 text-white" />
-      </Button>
-
-      <Modal open={modalState.isMainModalOpen} handleClose={handleMainModalClose}>
-        <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center  flex items-center justify-center">
+      <Modal open={modalState?.isMainModalOpen} handleClose={handleMainModalClose}>
+        <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex items-center justify-center">
           <div className="grid grid-cols-3 gap-2">
             {brokerItems.map((item, index) => (
               <div
@@ -128,13 +115,14 @@ export default function NestedModal() {
                     window.open(item.url, '_blank'); // Redirect to the specified URL
                   }
                 }}
-                className="flex flex-col items-center text-center gap-2  rounded-full p-2 cursor-pointer transition-all transform hover:scale-[0.90]  duration-200"
+                className="flex flex-col items-center text-center gap-2 rounded-full p-2 cursor-pointer transition-all transform hover:scale-[0.90] duration-200"
               >
-                <div className="!bg-gray-100  w-16 h-16 rounded-full  flex items-center justify-center ">
+                <div className="!bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center">
                   <img
                     src={item.src}
                     alt={item.name}
-                      className={`w-11 h-11 object-contain rounded-full ${index === brokerItems.length - 1 ? 'bg-[#125B54] p-1' : ''}`}
+                    className={`w-11 h-11 object-contain rounded-full ${index === brokerItems.length - 1 ? 'bg-[#125B54] p-1' : ''
+                      }`}
                   />
                 </div>
                 <span className="text-gray-800 text-[12px] text-nowrap font-normal">{item.name}</span>
@@ -153,10 +141,3 @@ export default function NestedModal() {
   );
 }
 
-const disableBodyScroll = () => {
-  document.body.style.overflow = 'hidden';
-};
-
-const enableBodyScroll = () => {
-  document.body.style.overflow = 'auto';
-};
