@@ -21,6 +21,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
     strategyTag,
     setIsChangeFilter,
     changablestrategyTags,
+    removePopularStrategies,
   } = useStockPicks();
 
   const { sector } = useAllBoardStock();
@@ -67,6 +68,9 @@ const FilterMenuTags2 = ({ isResponsive }) => {
   };
 
   const handleChipDelete = async (chipId) => {
+    // Remove strategy from popularStrategies
+    removePopularStrategies(chipId);
+
     await setStrategyTag(
       (prevTags) => prevTags.filter((id) => id !== chipId) // Remove the chipId from the array
     );

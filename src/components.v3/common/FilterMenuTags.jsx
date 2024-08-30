@@ -16,6 +16,7 @@ const FilterCarousel = () => {
     strategyTag,
     setIsChangeFilter,
     changablestrategyTags,
+    removePopularStrategies,
   } = useStockPicks();
   const { sector } = useAllBoardStock();
 
@@ -41,6 +42,16 @@ const FilterCarousel = () => {
   };
 
   const handleChipDelete = async (chipId) => {
+    // Check if the strategy with chipId has is_default set to 0
+    const strategyToRemove = popularStrategies.find(
+      (strategy) => strategy.id === chipId
+    );
+
+    if (strategyToRemove && strategyToRemove.is_default === 0) {
+      // Remove strategy from popularStrategies
+      removePopularStrategies(chipId);
+    }
+
     await setStrategyTag(
       (prevTags) => prevTags.filter((id) => id !== chipId) // Remove the chipId from the array
     );
