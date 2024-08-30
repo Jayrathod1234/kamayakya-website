@@ -27,7 +27,7 @@ function StockCard({
   let tabImage = null;
   let cardClass = "";
   let innerClass = "relative rounded-lg bg-white shadow-6xs ";
-
+  let newIconClass = "-5px";
   if (new_stock & recommended_stock) {
     tabImage = "hot-newtab";
     cardClass =
@@ -35,6 +35,7 @@ function StockCard({
   } else if (new_stock) {
     tabImage = "newtab";
     innerClass += "border border-brand-300";
+    newIconClass = "-6px";
   } else if (recommended_stock) {
     tabImage = "hottab";
     innerClass += "border border-warning-300";
@@ -45,7 +46,9 @@ function StockCard({
     <>
       {/* new stock card  */}
       <div className={`relative main_card_carousel ${className}`}>
-        <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 z-[1]">
+        <div
+          className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
+        >
           {tabImage && (
             <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
           )}
