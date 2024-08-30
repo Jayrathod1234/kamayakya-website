@@ -1,5 +1,11 @@
 // src/contexts/StockPicksContext.js
-import React, { createContext, useState, useCallback, useContext } from "react";
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  useContext,
+  useEffect,
+} from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCommonDetailsApi } from "@/api/stock-picks";
 
@@ -11,6 +17,7 @@ export const StockPicksProvider = ({ children }) => {
   const [strategyTag, setStrategyTag] = useState([]);
   const [isChangeFilter, setIsChangeFilter] = useState(false);
   const [sebiBoardType, setSebiBoardType] = useState("mainboard");
+  const [popularStrategies, setPopularStrategies] = useState([]);
 
   // Use react-query to fetch common details
   const {
@@ -47,14 +54,58 @@ export const StockPicksProvider = ({ children }) => {
     return acc;
   }, {});
 
-  const popularStrategies = strategy_tags?.slice(0, 5);
-  const mostRecentStrategy = {
-    id: "most-recent",
-    name: "Most Recent",
-    slug: "most-recent",
-    image: "/assets/watch.svg",
+  useEffect(() => {
+    const initialStrategies = (strategy_tags || [])
+      .slice(0, 5)
+      .map((strategy) => ({
+        ...strategy,
+        is_default: 1,
+      }));
+
+    const mostRecentStrategy = {
+      id: "most-recent",
+      name: "Most Recent",
+      slug: "most-recent",
+      image: "/assets/watch.svg",
+      is_default: 1,
+    };
+
+    setPopularStrategies((prevStrategies) => {
+      // Ensure the most recent strategy is added only if it's not already present
+      return [mostRecentStrategy, ...initialStrategies];
+    });
+  }, [strategy_tags]); // Recalculate when strategyTag changes
+
+  const addPopularStrategies = (id) => {
+    const strategyExists = popularStrategies.some(
+      (strategy) => strategy.id === id
+    );
+    if (!strategyExists) {
+      setPopularStrategies((prevStrategies) => {
+        if (!prevStrategies.some((strategy) => strategy.id === id)) {
+          const newStrategy = strategy_tags.find(
+            (strategy) => strategy.id === id
+          );
+          newStrategy.is_default = 0;
+          return [...prevStrategies, newStrategy]; // Create a new array with the added strategy
+        }
+        return prevStrategies; // If already exists, return the current state
+      });
+    }
   };
-  popularStrategies?.unshift(mostRecentStrategy);
+
+  const removePopularStrategies = (strategyId) => {
+    // Check if the strategy with chipId has is_default set to 0
+    const strategyToRemove = popularStrategies.find(
+      (strategy) => strategy.id === strategyId
+    );
+
+    if (strategyToRemove && strategyToRemove.is_default === 0) {
+      setPopularStrategies((prevStrategies) =>
+        prevStrategies.filter((strategy) => strategy.id !== strategyId)
+      );
+    }
+  };
 
   const marketCapTypeList = market_cap_types?.map((item) => item.value);
   const stockRiskList = stock_risks?.map((item) => item.value);
@@ -77,6 +128,8 @@ export const StockPicksProvider = ({ children }) => {
   return (
     <StockPicksContext.Provider
       value={{
+        addPopularStrategies,
+        removePopularStrategies,
         popularStrategies,
         strategyTag,
         changablestrategyTags,

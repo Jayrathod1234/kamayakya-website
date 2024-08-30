@@ -23,6 +23,8 @@ export default function StrategyCheck() {
   const {
     strategyTagList,
     setStrategyTag,
+    removePopularStrategies,
+    addPopularStrategies,
     strategyTag,
     setIsChangeFilter,
     changablestrategyTags,
@@ -43,8 +45,14 @@ export default function StrategyCheck() {
 
   const handleSelectAllClick = async () => {
     if (changablestrategyTags.length === strategy_tag_list_arr.length) {
+      strategy_tag_list_arr.forEach(async (element) => {
+        await removePopularStrategies(element);
+      });
       await setStrategyTag([]);
     } else {
+      strategy_tag_list_arr.forEach(async (element) => {
+        await addPopularStrategies(element);
+      });
       await setStrategyTag(strategy_tag_list_arr);
     }
     setIsChangeFilter(true);
@@ -222,6 +230,7 @@ export default function StrategyCheck() {
                         const currentIndex = strategyTag.indexOf(key);
                         const newStrategyTag = [...strategyTag];
                         if (currentIndex === -1) {
+                          addPopularStrategies(key);
                           newStrategyTag.push(key);
                         } else {
                           newStrategyTag.splice(currentIndex, 1);

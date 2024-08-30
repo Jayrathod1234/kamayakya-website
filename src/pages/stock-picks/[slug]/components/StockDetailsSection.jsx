@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import StockDetailsNews from "./StockDetailsNews";
 import StockDetailsTimeline from "./StockDetailsTimeline";
 import StockDetailsProgressBar from "./StockDetailsProgressBar";
+import InvestModal from "@/components.v3/common/InvestModal";
 import InvestmentSection from "../../components/InvestmentSection";
 import ElevateSection from "../../components/ElevateSection";
 import { useStockDetails } from "@/contexts/StockDetailsContext";
@@ -47,6 +48,19 @@ function StockDetailsSection() {
   }
   const watch_video = timeline.find((value) => value.type == "youtube");
   const hasVideo = watch_video && watch_video.youtube_link;
+  const [modalState, setModalState] = useState({
+    isMainModalOpen: false,
+    isChildModalOpen: false,
+  });
+
+  const handleMainModalOpen = () =>
+    setModalState({ isMainModalOpen: true, isChildModalOpen: false });
+  const handleMainModalClose = () =>
+    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
+  const handleChildModalOpen = () =>
+    setModalState({ isMainModalOpen: false, isChildModalOpen: true });
+  const handleCloseAllModals = () =>
+    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
@@ -75,186 +89,188 @@ function StockDetailsSection() {
             <div className="pt-[19px] mb-[80px] ">
               {/* Main Content  */}
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="col-span-2">
+                <div className="   col-span-2">
                   {/* First Content Start */}
-                  <div className="bg-white shadow-sm flex rounded-lg order-1 sm:order-1 relative">
-                    {/* Buy Images  */}
-                    <img
-                      src="/assets/BuyBubbleBlue.webp"
-                      alt=""
-                      className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[60px]"
-                    />
-                    {/* Sell Images */}
-                    {/* <img
+                  <div className=" bg-white rounded-lg shadow-sm">
+                    <div className="flex  order-1 sm:order-1 relative ">
+                      {/* Buy Images  */}
+                      <img
+                        src="/assets/BuyBubbleBlue.webp"
+                        alt=""
+                        className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[60px]"
+                      />
+                      {/* Sell Images */}
+                      {/* <img
                       src="/assets/SellBubbleRed.png"
                       alt=""
                       className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[50px]"
                     /> */}
-                    {/* hold Images  */}
-                    {/* <img
+                      {/* hold Images  */}
+                      {/* <img
                       src="/assets/sellbblyellow.png"
                       alt=""
                       className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[50px]"
                     /> */}
-                    <div className="px-4 pt-4 pb-3 gap-2">
-                      <div className="flex pb-3.5 items-center justify-center sm:justify-start md:justify-start">
-                        <div className="flex h-4 py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="10"
-                            height="10"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            aria-label="Target Status"
-                          >
-                            <path
-                              d="M9.49739 4.75172H8.73939C8.61629 2.87982 7.12009 1.38332 5.24799 1.26022V0.502219C5.24668 0.436952 5.21984 0.374799 5.17322 0.329103C5.1266 0.283408 5.06392 0.257813 4.99864 0.257812C4.93336 0.257813 4.87068 0.283408 4.82406 0.329103C4.77744 0.374799 4.7506 0.436952 4.74929 0.502219V1.26022C2.87709 1.38332 1.38099 2.87972 1.25789 4.75172H0.499888C0.433743 4.75172 0.370307 4.778 0.323536 4.82477C0.276764 4.87154 0.250488 4.93497 0.250488 5.00112C0.250488 5.06726 0.276764 5.1307 0.323536 5.17747C0.370307 5.22424 0.433743 5.25052 0.499888 5.25052H1.25779C1.38069 7.12272 2.87689 8.61892 4.74929 8.74192V9.49992C4.7506 9.56519 4.77744 9.62734 4.82406 9.67303C4.87068 9.71873 4.93336 9.74433 4.99864 9.74433C5.06392 9.74433 5.1266 9.71873 5.17322 9.67303C5.21984 9.62734 5.24668 9.56519 5.24799 9.49992V8.74192C7.12029 8.61892 8.61649 7.12262 8.73949 5.25052H9.49739C9.56353 5.25052 9.62697 5.22424 9.67374 5.17747C9.72051 5.1307 9.74679 5.06726 9.74679 5.00112C9.74679 4.93497 9.72051 4.87154 9.67374 4.82477C9.62697 4.778 9.56353 4.75172 9.49739 4.75172ZM4.74919 7.74542C3.42799 7.62632 2.37329 6.57152 2.25429 5.25052H2.75329C2.86849 6.29892 3.70079 7.13122 4.74919 7.24642V7.74542ZM4.74919 2.75582C3.70079 2.87102 2.86849 3.70332 2.75329 4.75172H2.25429C2.37349 3.43092 3.42809 2.37602 4.74909 2.25682L4.74919 2.75582ZM5.24799 2.25692C6.56899 2.37602 7.62359 3.43092 7.74279 4.75172H7.24389C7.12869 3.70322 6.29639 2.87092 5.24799 2.75582V2.25692ZM5.24799 7.74542V7.24652C6.29639 7.13132 7.12869 6.29902 7.24389 5.25062H7.74279C7.62379 6.57152 6.56909 7.62622 5.24799 7.74542Z"
-                              fill="#667085"
-                            />
-                          </svg>
-                          {stock_targets.length && (
-                            <p className="text-[#667085] text-xs font-semibold font-open_sans">
-                              Target {stock_targets.length} at ₹
-                              {stock_targets[0].target_price} |{" "}
-                              <span className="text-[#F79009] font-bold font-open_sans">
-                                Active
-                              </span>
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      {/* <!-- Continue your other components similarly --> */}
-                      <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
-                        {/* Image container */}
-                        <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block">
-                          <img
-                            src="/assets/image 3.png"
-                            alt="Company Logo"
-                            className="w-[70px] object-cover rounded-full"
-                          />
-                        </div>
-
-                        {/* Text content */}
-                        <div className="w-full">
-                          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-                            <div className="flex gap-1 items-center max-w-[480px]">
-                              <img
-                                src="/assets/image 3.png"
-                                alt="Company Logo"
-                                className="w-10 h-10 object-cover rounded-full block sm:hidden"
+                      <div className="px-4 pt-4 pb-3 gap-2">
+                        <div className="flex pb-3.5 items-center justify-center sm:justify-start md:justify-start">
+                          <div className="flex h-4 py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="10"
+                              height="10"
+                              viewBox="0 0 10 10"
+                              fill="none"
+                              aria-label="Target Status"
+                            >
+                              <path
+                                d="M9.49739 4.75172H8.73939C8.61629 2.87982 7.12009 1.38332 5.24799 1.26022V0.502219C5.24668 0.436952 5.21984 0.374799 5.17322 0.329103C5.1266 0.283408 5.06392 0.257813 4.99864 0.257812C4.93336 0.257813 4.87068 0.283408 4.82406 0.329103C4.77744 0.374799 4.7506 0.436952 4.74929 0.502219V1.26022C2.87709 1.38332 1.38099 2.87972 1.25789 4.75172H0.499888C0.433743 4.75172 0.370307 4.778 0.323536 4.82477C0.276764 4.87154 0.250488 4.93497 0.250488 5.00112C0.250488 5.06726 0.276764 5.1307 0.323536 5.17747C0.370307 5.22424 0.433743 5.25052 0.499888 5.25052H1.25779C1.38069 7.12272 2.87689 8.61892 4.74929 8.74192V9.49992C4.7506 9.56519 4.77744 9.62734 4.82406 9.67303C4.87068 9.71873 4.93336 9.74433 4.99864 9.74433C5.06392 9.74433 5.1266 9.71873 5.17322 9.67303C5.21984 9.62734 5.24668 9.56519 5.24799 9.49992V8.74192C7.12029 8.61892 8.61649 7.12262 8.73949 5.25052H9.49739C9.56353 5.25052 9.62697 5.22424 9.67374 5.17747C9.72051 5.1307 9.74679 5.06726 9.74679 5.00112C9.74679 4.93497 9.72051 4.87154 9.67374 4.82477C9.62697 4.778 9.56353 4.75172 9.49739 4.75172ZM4.74919 7.74542C3.42799 7.62632 2.37329 6.57152 2.25429 5.25052H2.75329C2.86849 6.29892 3.70079 7.13122 4.74919 7.24642V7.74542ZM4.74919 2.75582C3.70079 2.87102 2.86849 3.70332 2.75329 4.75172H2.25429C2.37349 3.43092 3.42809 2.37602 4.74909 2.25682L4.74919 2.75582ZM5.24799 2.25692C6.56899 2.37602 7.62359 3.43092 7.74279 4.75172H7.24389C7.12869 3.70322 6.29639 2.87092 5.24799 2.75582V2.25692ZM5.24799 7.74542V7.24652C6.29639 7.13132 7.12869 6.29902 7.24389 5.25062H7.74279C7.62379 6.57152 6.56909 7.62622 5.24799 7.74542Z"
+                                fill="#667085"
                               />
-                              <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate">
-                                {stock_name}
+                            </svg>
+                            {stock_targets.length && (
+                              <p className="text-[#667085] text-xs font-semibold font-open_sans">
+                                Target {stock_targets.length} at ₹
+                                {stock_targets[0].target_price} |{" "}
+                                <span className="text-[#F79009] font-bold font-open_sans">
+                                  Active
+                                </span>
                               </p>
-                            </div>
-                            <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
-                              <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
-                              <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
-                                {stock_exchange == "BSE" ||
-                                stock_exchange == "SME-BSE"
-                                  ? "BSE: "
-                                  : "NSE: "}
-                                {stock_symbol}
-                              </p>
-                            </div>
+                            )}
+                          </div>
+                        </div>
+                        {/* <!-- Continue your other components similarly --> */}
+                        <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
+                          {/* Image container */}
+                          <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7]">
+                            <img
+                              src="/assets/image 3.png"
+                              alt="Company Logo"
+                              className="w-[92px] object-cover rounded-full"
+                            />
                           </div>
 
-                          <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap">
-                            <div className="flex gap-4 w-full justify-center sm:justify-start ">
-                              <div className="flex flex-wrap gap-4">
-                                {stock_tags.map((value, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center"
-                                  >
-                                    <img
-                                      src={value.image}
-                                      alt={value.name}
-                                      className="w-3 h-3 md:w-4 md:h-4"
-                                    />
-                                    <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                      {value.name}
-                                    </p>
-                                  </div>
-                                ))}
+                          {/* Text content */}
+                          <div className="w-full">
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                              <div className="flex gap-1 items-center max-w-[480px]">
+                                <img
+                                  src="/assets/image 3.png"
+                                  alt="Company Logo"
+                                  className="w-10 h-10 object-cover rounded-full block sm:hidden"
+                                />
+                                <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate">
+                                  {stock_name}
+                                </p>
+                              </div>
+                              <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
+                                <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
+                                <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
+                                  {stock_exchange == "BSE" ||
+                                    stock_exchange == "SME-BSE"
+                                    ? "BSE: "
+                                    : "NSE: "}
+                                  {stock_symbol}
+                                </p>
+                              </div>
+                            </div>
 
-                                {/* <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
+                            <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap">
+                              <div className="flex gap-4 w-full justify-center sm:justify-start ">
+                                <div className="flex flex-wrap gap-4">
+                                  {stock_tags.map((value, index) => (
+                                    <div
+                                      key={index}
+                                      className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center"
+                                    >
+                                      <img
+                                        src={value.image}
+                                        alt={value.name}
+                                        className="w-3 h-3 md:w-4 md:h-4"
+                                      />
+                                      <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                        {value.name}
+                                      </p>
+                                    </div>
+                                  ))}
+
+                                  {/* <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
                                 <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
                                   +2
                                 </p>
                               </div> */}
+                                </div>
                               </div>
+                              <p className=" sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
+                                <img
+                                  src="/assets/Polygon2.svg"
+                                  alt=""
+                                  className="w-4 h-4 items-center"
+                                />{" "}
+                                {action_text}
+                              </p>
                             </div>
-                            <p className=" sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
-                              <img
-                                src="/assets/Polygon2.svg"
-                                alt=""
-                                className="w-4 h-4 items-center"
-                              />{" "}
-                              {action_text}
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div className=" rounded-lg bg-white flex flex-col sm:flex-row px-2 sm:px-4  items-start sm:items-center justify-between">
+                      <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
+                        <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
+                          <img
+                            src="/assets/stock-details/Sector icon.svg"
+                            alt=""
+                            className="w-6 h-6 sm:w-auto sm:h-auto"
+                          />
+                        </div>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">
+                          <div className="w-full flex justify-between items-center">
+                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                              {sector}
                             </p>
+                            <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
+                              {stock_industry}
+                            </span>
                           </div>
                         </div>
                       </div>
-
-                      <div className="flex flex-col sm:flex-row px-2 sm:px-4 py-2 items-start sm:items-center justify-between">
-                        <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
-                          <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
-                            <img
-                              src="/assets/stock-details/Sector icon.svg"
-                              alt=""
-                              className="w-6 h-6 sm:w-auto sm:h-auto"
-                            />
-                          </div>
-                          <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">
-                            <div className="w-full flex justify-between items-center">
-                              <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
-                                {sector}
-                              </p>
-                              <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
-                                {stock_industry}
-                              </span>
-                            </div>
+                      <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
+                        <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
+                          <img
+                            src="/assets/stock-details/Sector icon.svg"
+                            alt=""
+                            className="w-6 h-6 sm:w-auto sm:h-auto"
+                          />
+                        </div>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start  gap-[5rem] sm:gap-1 w-full">
+                          <div className="flex w-full justify-between items-center">
+                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                              {market_cap_type} Cap
+                            </p>
+                            <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
+                              {market_cap} Cr. as of{" "}
+                              {new Date().toLocaleDateString("en-GB", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                              })}
+                            </span>
                           </div>
                         </div>
-                        <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
-                          <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
-                            <img
-                              src="/assets/stock-details/Sector icon.svg"
-                              alt=""
-                              className="w-6 h-6 sm:w-auto sm:h-auto"
-                            />
-                          </div>
-                          <div className="flex flex-row sm:flex-row items-center sm:items-start  gap-[5rem] sm:gap-1 w-full">
-                            <div className="flex w-full justify-between items-center">
-                              <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
-                                {market_cap_type} Cap
-                              </p>
-                              <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
-                                {market_cap} Cr. as of{" "}
-                                {new Date().toLocaleDateString("en-GB", {
-                                  day: "2-digit",
-                                  month: "short",
-                                  year: "numeric",
-                                })}
-                              </span>
-                            </div>
-                          </div>
+                      </div>
+                      <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex justify-items-end">
+                        <div className="flex p-1 items-center rounded-md bg-[#F9FAFB]">
+                          <img
+                            src="/assets/stock-details/Sector icon.svg"
+                            alt=""
+                            className="w-6 h-6 sm:w-auto sm:h-auto"
+                          />
                         </div>
-                        <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex justify-items-end">
-                          <div className="flex p-1 items-center rounded-md bg-[#F9FAFB]">
-                            <img
-                              src="/assets/stock-details/Sector icon.svg"
-                              alt=""
-                              className="w-6 h-6 sm:w-auto sm:h-auto"
-                            />
-                          </div>
-                          <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1 w-full">
-                            <div className="w-full flex justify-between items-center">
-                              <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans ">
-                                {risk} Risk
-                              </p>
-                            </div>
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1 w-full">
+                          <div className="w-full flex justify-between items-center">
+                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans ">
+                              {risk} Risk
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -262,11 +278,12 @@ function StockDetailsSection() {
                   </div>
                   {/* First Content End  */}
                   {/* When Small screen Button is Show  */}
-                  <div className="flex sm:hidden gap-2 mt-5 mb-3 bg-white">
+                  <div className="flex sm:hidden gap-2 mt-5 mb-3 ">
                     <div className="flex-1">
                       {hasVideo ? (
+                        <div className="flex-1 group">
                         <button
-                          className="flex-1 w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                          className="flex-1 w-full bg-white group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                           onClick={() =>
                             window.open(watch_video.youtube_link, "_blank")
                           }
@@ -274,10 +291,11 @@ function StockDetailsSection() {
                           <img
                             src="/assets/play1.png"
                             alt="Play icon"
-                            className="w-5 h-5"
+                            className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
                           />
                           <span>Watch Video</span>
                         </button>
+                      </div>
                       ) : (
                         <div className="relative group">
                           <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
@@ -307,26 +325,38 @@ function StockDetailsSection() {
                               horizon. Stay tuned! 🌟
                             </p>
                             {/* Tooltip Arrow */}
-                            <div className="absolute -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                            <div className="absolute  -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
                           </div>
                         </div>
+                       
                       )}
                     </div>
-                    <button className="flex-1 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
-                      <img
-                        src="/assets/share2.svg"
-                        alt="Play icon"
-                        className="w-5 h-5 "
+                    <div className="flex-1 group">
+                      <button
+                        className="w-full border group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 bg-white group-hover:text-white border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                        onClick={handleMainModalOpen}  // Add the onClick event to open the modal
+                      >
+                        <img
+                          src="/assets/share2.svg"
+                          alt="Share icon"
+                          className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
+                        />
+                        <span>
+                          {action === "BUY"
+                            ? "Invest Now"
+                            : action === "HOLD"
+                              ? "Go to Broker"
+                              : "Sell Now"}
+                        </span>
+                      </button>
+                      <InvestModal
+                        handleMainModalOpen={handleMainModalOpen}
+                        handleMainModalClose={handleMainModalClose}
+                        handleChildModalOpen={handleChildModalOpen}
+                        handleCloseAllModals={handleCloseAllModals}
+                        modalState={modalState}
                       />
-                      <span>
-                        {action == "BUY"
-                          ? "Invest Now"
-                          : action == "HOLD"
-                          ? "Go to Broker"
-                          : "Sell Now"}
-                      </span>
-                      {/* <span>Invest Now</span> */}
-                    </button>
+                    </div>
                   </div>
                   {/* When Small Screen Button Is Hide  */}
                   {/* Small screen show to company profile  */}
@@ -353,8 +383,8 @@ function StockDetailsSection() {
                   </div>
                   {/* Upside Left Box start */}
                   <div className="hidden md:block col-span-2 order-3 sm:order-2">
-                    <div className="p-4 md:p-6 lg:p-8 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm">
-                      <div className="relative p-4 md:p-6 lg:p-8 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
+                    <div className="p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm mt-7">
+                      <div className="relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
                         {/* Gradient Border */}
                         <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
@@ -362,9 +392,8 @@ function StockDetailsSection() {
                           <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -382,7 +411,7 @@ function StockDetailsSection() {
                                         <p className="text-[12px]">
                                           Upside Left means how much the stock
                                           price could rise from its current
-                                          level. 
+                                          level.
                                         </p>
                                         <div className="p-2 bg-[#F9FAFB] rounded-md">
                                           <h4 className="text-[#108973] text-[12px] font-extrabold">
@@ -416,9 +445,8 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -596,7 +624,7 @@ function StockDetailsSection() {
                           </div>
                         </div>
 
-                        <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base lg:text-lg font-normal gap-1">
+                        <div className="pt-5 text-center md:text-center text-[#344054] text-sm md:text-base  font-normal gap-1">
                           <span className="text-[#0079EF] text-sm md:text-base lg:text-lg font-bold">
                             ₹1Lakh{" "}
                           </span>
@@ -733,7 +761,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[50px]  p-3 hidden sm:block">
+                  <div className="pt-[72px]  p-3 hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
@@ -751,7 +779,7 @@ function StockDetailsSection() {
                   <div className="p-5 bg-gray-100 mt-2 rounded-md  block sm:hidden">
                     <div className="flex relative">
                       <div className=" !w-[75%]">
-                        <p className="font-semibold mb-2 font-open_sans">
+                        <p className="font-bold mb-2 font-open_sans text-xs">
                           Don't miss out on potential gains!
                         </p>
                         <p className="mb-4 text-[#344054] font-open_sans">
@@ -763,13 +791,13 @@ function StockDetailsSection() {
                         <img
                           src="/assets/Frame.svg"
                           alt="sss"
-                          className="absolute top-0 right-0 h-[88px] w-[78px]"
+                          className="absolute top-0 right-0 h-[70px] w-[78px]"
                         />
                       </div>
                     </div>
                     <Link href={`/pricing`}>
-                      <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center flex">
-                        <span className="flex gap-2 font-open_sans">
+                      <button className="w-full hover:scale-[0.95]  bg-[#125B54] hover:bg-[#0B3A36] text-white p-2 rounded-lg  justify-center items-center flex">
+                        <span className="flex gap-2 font-open_sans text-sm font-medium">
                           <img src="/assets/white-icon.svg" alt="" />
                           Upgrade Now
                         </span>
@@ -783,13 +811,12 @@ function StockDetailsSection() {
                       className="w-full   p-2 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
                     >
-                      <span className="font-open_sans">
+                      <span className="font-open_sans text-sm font-bold">
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -825,181 +852,196 @@ function StockDetailsSection() {
                 {/* <!-- Continue with the rest of your content --> */}
 
                 {/* Second Container Start */}
-                <div className="relative hidden  sm:block ">
-                  <div className="p-4 border rounded-lg sticky top-16 bg-white">
-                    <h2 className="font-semibold font-open_sans text-lg mb-4  hidden sm:flex">
-                      INVESTMENT GUIDANCE
-                    </h2>
-                    <div className="gap-2 mb-4 hidden sm:flex">
-                      {/* Video Button logic  */}
-                      <div className="flex-1">
-                        {hasVideo ? (
+                <div className="relative hidden   sm:block ">
+                  <div className="bg-[#EDF0F5] sticky top-16 p-2 rounded-t-lg">
+                    <div className="p-5 border rounded-lg  bg-white">
+                      <h2 className="font-bold font-open_sans text-sm mb-[22px]  hidden sm:flex">
+                        INVESTMENT GUIDANCE
+                      </h2>
+                      <div className="gap-2 mb-4 hidden sm:flex">
+                        {/* Video Button logic  */}
+                        <div className="flex-1">
+                          {hasVideo ? (
+                            <div className="flex-1 group">
+                              <button
+                                className="flex-1 w-full group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                                onClick={() =>
+                                  window.open(watch_video.youtube_link, "_blank")
+                                }
+                              >
+                                <img
+                                  src="/assets/play1.png"
+                                  alt="Play icon"
+                                  className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
+                                />
+                                <span>Watch Video</span>
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="relative group">
+                              <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                                <img
+                                  src="/assets/circle-play.svg"
+                                  alt="Play icon"
+                                  className="w-5 h-5"
+                                />
+                                <span className="font-medium text-gray-400">
+                                  Watch Video
+                                </span>
+                              </button>
+
+                              {/* Tooltip */}
+                              <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
+                                <img
+                                  src="/assets/frame123.png" // Change this to the appropriate image source
+                                  alt="Video thumbnail"
+                                  className="w-[128px] mb-2 mx-auto"
+                                />
+                                <p className="font-bold text-lg text-[#0C111D]">
+                                  Video Not Available!
+                                </p>
+                                <p className="text-sm text-[#475467]">
+                                  Well, this video took a permanent vacation! 😅 But
+                                  don’t worry, fresh content is always on the
+                                  horizon. Stay tuned! 🌟
+                                </p>
+                                {/* Tooltip Arrow */}
+                                <div className="absolute  -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                              </div>
+                            </div>
+
+                          )}
+                        </div>
+
+                        {/* Share Button */}
+                        <div className="flex-1 group">
                           <button
-                            className="flex-1 w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                            onClick={() =>
-                              window.open(watch_video.youtube_link, "_blank")
-                            }
+                            className="w-full border group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            onClick={handleMainModalOpen}
                           >
                             <img
-                              src="/assets/play1.png"
-                              alt="Play icon"
-                              className="w-5 h-5"
+                              src="/assets/share2.svg"
+                              alt="Share icon"
+                              className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
                             />
-                            <span>Watch Video</span>
+                            <span>
+                              {action === "BUY"
+                                ? "Invest Now"
+                                : action === "HOLD"
+                                  ? "Go to Broker"
+                                  : "Sell Now"}
+                            </span>
                           </button>
-                        ) : (
-                          <div className="relative group">
-                            <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
-                              <img
-                                src="/assets/circle-play.svg"
-                                alt="Play icon"
-                                className="w-5 h-5"
-                              />
-                              <span className="font-medium text-gray-400">
-                                Watch Video
-                              </span>
-                            </button>
-
-                            {/* Tooltip */}
-                            <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
-                              <img
-                                src="/assets/frame123.png" // Change this to the appropriate image source
-                                alt="Video thumbnail"
-                                className="w-[128px] mb-2 mx-auto"
-                              />
-                              <p className="font-bold text-lg text-[#0C111D]">
-                                Video Not Available!
-                              </p>
-                              <p className="text-sm text-[#475467]">
-                                Well, this video took a permanent vacation! 😅
-                                But don’t worry, fresh content is always on the
-                                horizon. Stay tuned! 🌟
-                              </p>
-                              {/* Tooltip Arrow */}
-                              <div className="absolute -top-2 left-[10%] transform -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-200"></div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Share Button */}
-                      <div className="flex-1">
-                        <button className="w-full border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2">
-                          <img
-                            src="/assets/share2.svg"
-                            alt="Share icon"
-                            className="w-5 h-5"
+                          <InvestModal
+                            handleMainModalOpen={handleMainModalOpen}
+                            handleMainModalClose={handleMainModalClose}
+                            handleChildModalOpen={handleChildModalOpen}
+                            handleCloseAllModals={handleCloseAllModals}
+                            modalState={modalState}
                           />
-                          <span>
-                            {action === "BUY"
-                              ? "Invest Now"
-                              : action === "HOLD"
-                              ? "Go to Broker"
-                              : "Sell Now"}
-                          </span>
-                        </button>
+                        </div>
+
                       </div>
-                    </div>
 
-                    <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
-                      <p className="w-2/3 font-open_sans">{action_text}</p>
-                      <img
-                        src="/assets/images2.png"
-                        alt=""
-                        className="absolute -top-3 right-6 w-16 h-16"
-                      />
+                      <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
+                        <p className="w-2/3 font-open_sans">{action_text}</p>
+                        <img
+                          src="/assets/BuyBubbleBlue12.webp"
+                          alt=""
+                          className="absolute -top-1 right-6 w-12 h-12 rotate-[-28deg]"
+                        />
 
-                      {/* SELL Image   */}
+                        {/* SELL Image   */}
 
-                      {/* <img
+                        {/* <img
                         src="/assets/sellbbl.png"
                         alt=""
                         className="absolute -top-3 right-6 w-16 h-16"
                       /> */}
 
-                      {/* Hold Images  */}
+                        {/* Hold Images  */}
 
-                      {/* <img
+                        {/* <img
                         src="/assets/sellbblyellow.png"
                         alt=""
                         className="absolute -top-1 right-8 w-10 h-8 rotate-[-28deg]"
                       /> */}
 
-                      <img
-                        src="/assets/images3.svg"
-                        alt=""
-                        className="absolute -bottom-1 right-2 "
-                      />
-                      <div className="w-1/3 flex justify-end">
                         <img
-                          src="/assets/images12.webp"
+                          src="/assets/images3.svg"
                           alt=""
-                          className=" w-[52px] h-[100px]"
+                          className="absolute -bottom-1 right-2 "
                         />
-                      </div>
-                    </div>
-                    <hr className="mt-3 hidden  sm:block" />
-                    <div className="p-5 bg-gray-100 mt-2 rounded-md hidden sm:block">
-                      <div className="flex relative">
-                        <div className=" !w-[75%]">
-                          <p className="font-semibold mb-2 font-open_sans">
-                            Don't miss out on potential gains!
-                          </p>
-                          <p className="mb-4 text-[#344054] font-open_sans">
-                            Upgrade now to get access to both SME and Mainboard
-                            stocks.
-                          </p>
-                        </div>
-                        <div className=" !w-[25%]">
+                        <div className="w-1/3 flex justify-end">
                           <img
-                            src="/assets/Frame.svg"
-                            alt="sss"
-                            className="absolute top-0 right-0 h-[88px] w-[78px]"
+                            src="/assets/images12.webp"
+                            alt=""
+                            className=" w-[52px] h-[100px]"
                           />
                         </div>
                       </div>
-                      <Link href={`/pricing`}>
-                        <button className="w-full bg-[#125B54] text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
-                          <span className="flex gap-2 font-open_sans">
-                            <img src="/assets/white-icon.svg" alt="" />
-                            Upgrade Now
-                          </span>
-                        </button>
-                      </Link>
-                    </div>
-                    <div className="mt-5 hidden sm:block">
-                      <button
-                        className="w-full   p-2 rounded-lg flex justify-between items-center"
-                        onClick={toggleDropdown}
-                      >
-                        <span className="font-open_sans">
-                          TIMELINE & REPORTS ({timeline.length || 0})
-                        </span>
-                        <svg
-                          className={`transform w-5 h-5 transition-transform duration-200 ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </button>
-                      {isOpen && (
-                        <div className="mt-2">
-                          {/* Timeline Content Goes Here */}
-                          <div className="p-4  rounded-lg">
-                            <StockDetailsTimeline timeline={timeline} />
+                      <hr className="my-3 hidden  sm:block" />
+                      <div className="p-4 bg-gray-100 mt-2 rounded-lg hidden sm:block">
+                        <div className="flex relative !mb-[24px]">
+                          <div className=" !w-[75%]">
+                            <p className="font-bold mb-2 font-open_san text-xs">
+                              Don't miss out on potential gains!
+                            </p>
+                            <p className=" text-[#344054] font-open_sans !text-xs">
+                              Upgrade now to get access to both SME and
+                              Mainboard stocks.
+                            </p>
+                          </div>
+                          <div className=" !w-[25%]">
+                            <img
+                              src="/assets/Frame.svg"
+                              alt="sss"
+                              className="absolute top-0 right-0 h-[71px] w-[78px]"
+                            />
                           </div>
                         </div>
-                      )}
+                        <Link href={`/pricing`}>
+                          <button className="w-full hover:scale-[0.95]  bg-[#125B54] hover:bg-[#0B3A36] duration-300 text-white p-2 rounded-lg  justify-center items-center hidden sm:flex">
+                            <span className="flex gap-2 font-open_sans  text-sm font-medium">
+                              <img src="/assets/white-icon.svg" alt="" />
+                              Upgrade Now
+                            </span>
+                          </button>
+                        </Link>
+                      </div>
+                      <div className="mt-5 hidden sm:block">
+                        <button
+                          className="w-full   p-2 rounded-lg flex justify-between items-center"
+                          onClick={toggleDropdown}
+                        >
+                          <span className="font-open_sans text-sm font-bold">
+                            TIMELINE & REPORTS ({timeline.length || 0})
+                          </span>
+                          <svg
+                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                              }`}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+                        {isOpen && (
+                          <div className="mt-2">
+                            {/* Timeline Content Goes Here */}
+                            <div className="p-4  rounded-lg">
+                              <StockDetailsTimeline timeline={timeline} />
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

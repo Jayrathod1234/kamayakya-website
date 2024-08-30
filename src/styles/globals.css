@@ -115,6 +115,7 @@ body {
   background-color: white !important;
   /* overflow-x: hidden; */
   /*overflow: scroll;*/
+  overflow-x: hidden;
 
   margin: 0;
   padding: 0;
@@ -1939,16 +1940,14 @@ header > div > div {
   padding: 14px !important;
 }
 
-.css-10d9dml-MuiTabs-indicator{
+.mobile-filter-tab .MuiTabs-indicator{
   background-color: #0c3f3a !important;
   width: 3px !important;
   border-radius: 0px 6px 6px 0px ;
   left: 0;
 }
 
-.css-1e7g8qh-MuiButtonBase-root-MuiTab-root.Mui-selected, .css-15lbh48-MuiButtonBase-root-MuiTab-root.Mui-selected, .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected,
-.css-1vy5fwp-MuiButtonBase-root-MuiTab-root.Mui-selected,
-.css-15lpzv4-MuiButtonBase-root-MuiTab-root.Mui-selected  {
+.mobile-filter-tab .Mui-selected  {
   color:#108973 !important ;
   background-color: white !important;
   justify-content: start !important;
@@ -1959,7 +1958,7 @@ header > div > div {
 .css-68wo3z-MuiButtonBase-root-MuiButton-root {
   color: #0c3f3a !important;
 }
-.set-radio-menu .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+.set-radio-menu .MuiMenu-paper{
   top: 239px !important;
   bottom: 0px;
   left: 0px !important;
