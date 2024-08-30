@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Discovercard from "./Discovercard";
+import EastIcon from "@mui/icons-material/East";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Button } from "../../components.v2/ui/button";
 import { useStockPicks } from "@/contexts/StockPicksContext";
@@ -52,11 +53,18 @@ const NextButton = (props) => {
           className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 "
         >
           {/* <ChevronRightIcon className="hidden md:inline-block" fontSize="large" style={{ color: "white" }} /> */}
-          <ChevronRightIcon
-            className="inline-block md:hidden"
-            fontSize="small"
-            style={{ color: "white" }}
-          />
+          <div className="w-5 flex items-center justify-center relative">
+            <ChevronRightIcon
+              fontSize="small"
+              style={{ color: "white" }}
+              className="absolute !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-0"
+            />
+            <EastIcon
+              fontSize="small"
+              style={{ color: "white" }}
+              className="absolute !opacity-0 !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-100"
+            />
+          </div>
         </Button>
       </div>
     </div>
