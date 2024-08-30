@@ -134,7 +134,7 @@ const StockDetailsNews = ({ stock_name }) => {
           </a>
         ))}
       </div>
-      <div className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-1 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
+      <div className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-3 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
         <p>Load more</p>
       </div>
     </div>
