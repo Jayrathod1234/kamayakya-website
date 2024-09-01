@@ -293,9 +293,9 @@ export function Carousel({ className }: { className?: string }) {
             onClick={() => onDotButtonClick(index)}
             key={index}
             className={` ${
-              index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
-            } h-[10px]  bg-gray-200 rounded-full transition-all`}
-          ></div>
+              index === selectedIndex ? " !w-6 " : " w-[10px] "
+            } h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden`}
+          ><div style={{animationDuration:"6000ms"}} className={`bg-brand-300 w-full h-full ${index === selectedIndex ? "carousel-dot-animate":" hidden"}`}></div></div>
         ))}
       </div>
     </div>

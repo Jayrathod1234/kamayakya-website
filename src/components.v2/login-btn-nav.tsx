@@ -15,7 +15,7 @@ export function LoginBtnNav({ handleLogin, arrow }: TLoginBtnNav) {
       onClick={handleLogin}
       className={` border border-brand-500 pricing bg-brand-500  hover:bg-brand-600 text-white  px-4 py-[10px] rounded-[6px] flex items-center justify-center`}
     >
-      <Avatar variant={AvatarVariant.xs} imgSrc="/avatar-login.png" />
+      <Avatar variant={AvatarVariant.xs} />
       <p className=" text-sm m-0 font-semibold">Login</p>
     </ButtonnArrow>
   );
