@@ -5,6 +5,7 @@ import DeepValue from "./DeepValue";
 import AuthContext from "@/components/AuthContext";
 import Link from "next/link";
 import { useStockPicks } from "@/contexts/StockPicksContext";
+import { StockCardProgressBar } from "./StockCardProgressBar";
 
 function StockCard({
   id,
@@ -265,7 +266,7 @@ function StockCard({
                 </>
               ) : (
                 <>
-                  <ProgressBarDemo />
+                  <StockCardProgressBar />
                 </>
               )}
             </div>
