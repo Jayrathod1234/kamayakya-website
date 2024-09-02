@@ -197,18 +197,19 @@ export default function StockDetailsTimeline({ timeline }) {
                 alignItems: "center",
                 gap: "8px",
                 border: '1px solid  #E4E7EC;',
-                boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.2)", // Small box shadow
                 textTransform: "none",
                 minWidth: "100px",
                 flexShrink: 0,
+                backgroundColor: "white",
                 fontFamily: "Open Sans",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 fontSize: "12px",
                 textOverflow: "ellipsis",
-                transition: "background-color 0.3s, color 0.3s, filter 0.3s",
+                transition: "background-color 0.3s, color 0.3s, filter 0.3s, transform 0.3s",
                 "&:hover": {
                   backgroundColor: "#CBF3F0",
+                  transform: "scale(0.95)", // Decrease size to 95% on hover
                 },
               }}
               onClick={() => {
@@ -222,6 +223,7 @@ export default function StockDetailsTimeline({ timeline }) {
               />
               {step.type == "report" ? step.report_name : "Watch Video"}
             </Button>
+
           </Box>
         </Box>
       ))}

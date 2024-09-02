@@ -272,7 +272,7 @@ function StockCard({
 
             {!isLoggedIn ? (
               <>
-                <div className="p-5">
+                <div className="p-5 text-center">
                   {/* btn  */}
                   <button
                     className="button-82-pushable group  "

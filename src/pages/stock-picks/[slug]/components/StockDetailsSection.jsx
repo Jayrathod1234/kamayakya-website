@@ -85,16 +85,21 @@ function StockDetailsSection() {
         <div className="pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
           <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
             <div className="items-center gap-[13px] flex p-[7px]">
-              <img
-                src="/assets/stock-details/arrow-left.svg"
-                alt=""
-                className="cursor-pointer"
+              <div
+                className="flex items-center cursor-pointer group"
                 onClick={() => {
                   router.push("/stock-picks");
                 }}
-              />
-              <div className="text-[13px] text-[#475467] font-normal font-open_sans">
-                Stocks To Buy
+              >
+                <img
+                  src="/assets/stock-details/arrow-left.svg"
+                  alt="Go Back"
+                  className="mr-2"
+                />
+                <div className="text-[13px] text-[#475467] font-normal font-open_sans relative">
+                  Stocks To Buy
+                  <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#475467] transition-all duration-300 group-hover:w-full"></div>
+                </div>
               </div>
               <img src="/assets/stock-details/chevron-right.svg" alt="" />
               <div className="text-[13px] text-[#475467] font-semibold">
@@ -128,8 +133,8 @@ function StockDetailsSection() {
                       className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[50px]"
                     /> */}
                       <div className="px-4 pt-4 pb-3 gap-2">
-                        <div className="flex pb-3.5 items-center justify-center sm:justify-start md:justify-start">
-                          <div className="flex h-4 py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
+                        <div className="flex pb-3.5 items-center justify-center sm:justify-start md:justify-start h-[1.5rem]">
+                          <div className="flex h-[1.5rem] py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="10"
@@ -194,7 +199,7 @@ function StockDetailsSection() {
                                 <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
                                 <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
                                   {stock_exchange == "BSE" ||
-                                  stock_exchange == "SME-BSE"
+                                    stock_exchange == "SME-BSE"
                                     ? "BSE: "
                                     : "NSE: "}
                                   {stock_symbol}
@@ -241,7 +246,7 @@ function StockDetailsSection() {
                         </div>
                       </div>
                     </div>
-                    <div className=" rounded-lg bg-white flex flex-col sm:flex-row px-2 sm:px-4  items-start sm:items-center justify-between">
+                    <div className="rounded-lg bg-white flex flex-col sm:flex-row px-2 sm:px-4 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
@@ -261,6 +266,10 @@ function StockDetailsSection() {
                           </div>
                         </div>
                       </div>
+
+                      {/* Divider */}
+                      <div className="hidden sm:block border-l border-[#E5E7EB] h-[52px] mx-4"></div>
+
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
@@ -269,7 +278,7 @@ function StockDetailsSection() {
                             className="w-6 h-6 sm:w-auto sm:h-auto"
                           />
                         </div>
-                        <div className="flex flex-row sm:flex-row items-center sm:items-start  gap-[5rem] sm:gap-1 w-full">
+                        <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                           <div className="flex w-full justify-between items-center">
                             <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
                               {market_cap_type} Cap
@@ -285,6 +294,10 @@ function StockDetailsSection() {
                           </div>
                         </div>
                       </div>
+
+                      {/* Divider */}
+                      <div className="hidden sm:block border-l border-[#E5E7EB] h-[52px] mx-4"></div>
+
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex justify-items-end">
                         <div className="flex p-1 items-center rounded-md bg-[#F9FAFB]">
                           <img
@@ -310,7 +323,7 @@ function StockDetailsSection() {
                       {hasVideo ? (
                         <div className="flex-1 group">
                           <button
-                            className="flex-1 w-full bg-white group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            className="flex-1 w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                             onClick={() =>
                               window.open(watch_video.youtube_link, "_blank")
                             }
@@ -318,7 +331,7 @@ function StockDetailsSection() {
                             <img
                               src="/assets/play1.png"
                               alt="Play icon"
-                              className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
+                              className="w-5 h-5 transition duration-300 "
                             />
                             <span>Watch Video</span>
                           </button>
@@ -359,20 +372,20 @@ function StockDetailsSection() {
                     </div>
                     <div className="flex-1 group">
                       <button
-                        className="w-full border group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 bg-white group-hover:text-white border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                        className="w-full border group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                         onClick={handleMainModalOpen} // Add the onClick event to open the modal
                       >
                         <img
                           src="/assets/share2.svg"
                           alt="Share icon"
-                          className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
+                          className="w-5 h-5 transition duration-300 "
                         />
                         <span>
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
-                            ? "Go to Broker"
-                            : "Sell Now"}
+                              ? "Go to Broker"
+                              : "Sell Now"}
                         </span>
                       </button>
                       <InvestModal
@@ -438,12 +451,11 @@ function StockDetailsSection() {
                         <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
                         <div className="flex flex-col gap-4 md:gap-6 lg:gap-8">
-                          <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 w-full">
+                          <div className="flex flex-col md:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -495,9 +507,8 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -676,14 +687,14 @@ function StockDetailsSection() {
                         </div>
 
                         <div className="pt-5 text-center md:text-center text-[#344054] text-sm md:text-base  font-normal gap-1">
-                          <span className="text-[#0079EF] text-sm md:text-base lg:text-lg font-bold">
+                          <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold">
                             ₹1Lakh{" "}
                           </span>
                           invested at current market price (CMP) can become{" "}
-                          <span className="text-[#0079EF] text-sm md:text-base lg:text-lg font-bold">
-                            ₹“{100000 + 1000 * gain_loss}” Lakh
+                          <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold">
+                            ₹{100000 + 1000 * gain_loss} Lakh
                           </span>{" "}
-                          likely within a year
+                          likely within {upside_left_time}
                         </div>
                       </div>
 
@@ -794,9 +805,9 @@ function StockDetailsSection() {
                       </span>
                       invested at current market price (CMP) can become{" "}
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
-                        ₹“{100000 + 1000 * gain_loss}” Lakh
+                        ₹{100000 + 1000 * gain_loss} Lakh
                       </span>{" "}
-                      likely within a year
+                      likely within {upside_left_time}
                     </div>
                     <div className="pt-4 hidden sm:block">
                       <div className="px-2">
@@ -896,9 +907,8 @@ function StockDetailsSection() {
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -946,7 +956,7 @@ function StockDetailsSection() {
                           {hasVideo ? (
                             <div className="flex-1 group">
                               <button
-                                className="flex-1 w-full group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                                className="flex-1 w-full group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                                 onClick={() =>
                                   window.open(
                                     watch_video.youtube_link,
@@ -957,7 +967,7 @@ function StockDetailsSection() {
                                 <img
                                   src="/assets/play1.png"
                                   alt="Play icon"
-                                  className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
+                                  className="w-5 h-5 transition duration-300 "
                                 />
                                 <span>Watch Video</span>
                               </button>
@@ -1000,20 +1010,20 @@ function StockDetailsSection() {
                         {/* Share Button */}
                         <div className="flex-1 group">
                           <button
-                            className="w-full border group-hover:text-white group-hover:bg-[#125B54] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            className="w-full border  group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                             onClick={handleMainModalOpen}
                           >
                             <img
                               src="/assets/share2.svg"
                               alt="Share icon"
-                              className="w-5 h-5 transition duration-300 group-hover:invert group-hover:brightness-0"
+                              className="w-5 h-5 transition duration-300 "
                             />
                             <span>
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
-                                ? "Go to Broker"
-                                : "Sell Now"}
+                                  ? "Go to Broker"
+                                  : "Sell Now"}
                             </span>
                           </button>
                           <InvestModal
@@ -1101,9 +1111,8 @@ function StockDetailsSection() {
                             TIMELINE & REPORTS ({timeline.length || 0})
                           </span>
                           <svg
-                            className={`transform w-5 h-5 transition-transform duration-200 ${
-                              isOpen ? "rotate-180" : ""
-                            }`}
+                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                              }`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
