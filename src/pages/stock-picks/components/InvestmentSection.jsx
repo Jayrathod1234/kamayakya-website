@@ -84,7 +84,7 @@ function InvestmentSection() {
           className="flex flex-col items-center text-center group"
         >
           <Button onClick={handleMainModalOpen}>
-            <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500 ">
+            {/* <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500 ">
 
               <div className="w-11 h-11 bg-brand-500 flex  justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
                 <span className="font-semibold text-gray-600">
@@ -94,7 +94,7 @@ function InvestmentSection() {
             </div>
             <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans">
               +17 more
-            </span>
+            </span> */}
           </Button>
           <InvestModal handleMainModalOpen={handleMainModalOpen} handleMainModalClose={handleMainModalClose} handleChildModalOpen={handleChildModalOpen} handleCloseAllModals={handleCloseAllModals} modalState={modalState} />
         </Link>

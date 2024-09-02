@@ -195,6 +195,8 @@ export const getNewsListApi = async ({ stock_name, limit, cursor }) => {
     // );
     // console.log(response.data.news);
     // return response.data.news;
+    const response = await axios.get(`https://www.businesstoday.in/topic/${stock_name}`)
+    console.log(response);
 
     return getStockNewsResponse;
   } catch (error) {
