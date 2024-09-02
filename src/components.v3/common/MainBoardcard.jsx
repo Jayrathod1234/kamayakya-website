@@ -22,7 +22,7 @@ function MainBoardcard() {
           </div>
           <div className="pt-[12px] px-[20px] pb-[20px]">
             <div className=" flex items-center gap-[8px] ">
-              <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+              <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                 <img
                   src="/assets/streamline_hotel-air-conditioner-solid.svg"
                   alt=""
@@ -32,7 +32,7 @@ function MainBoardcard() {
                   Air Conditioners
                 </p>
               </div>
-              <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+              <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                 <img src="/assets/Component 8.svg" alt="" className="w-3" />
                 <p className="text-[10px] font-semibold text-gray-500">
                   MCap:
@@ -102,12 +102,12 @@ function MainBoardcard() {
                   <img
                     src="assets/chevron-right.png"
                     alt=""
-                    className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                    className="w-4 img-1 transition-opacity duration-700 group-hover:opacity-0"
                   />
                   <img
                     src="assets/pajamas_long-arrow.svg"
                     alt=""
-                    className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
+                    className="w-5 img-2 transition-opacity duration-700 opacity-0 group-hover:opacity-100 absolute right-0"
                   />
                 </div>
               </span>

@@ -43,7 +43,7 @@ function Nonlogincard() {
                   Air Conditioners
                 </p>
               </div>
-              <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+              <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                 <img src="/assets/Component 8.svg" alt="" className="w-3" />
                 <p className="text-[10px] font-semibold text-[#667085] flex items-center">
                   MCap:

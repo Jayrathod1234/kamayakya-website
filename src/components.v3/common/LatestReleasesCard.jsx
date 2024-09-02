@@ -120,12 +120,12 @@ function LatestReleasesCard({ percentage }) {
                     <img
                       src="assets/chevron-right.png"
                       alt=""
-                      className="w-4 img-1 transition-opacity duration-300 group-hover:opacity-0"
+                      className="w-4 img-1 transition-opacity duration-700 group-hover:opacity-0"
                     />
                     <img
                       src="assets/pajamas_long-arrow.svg"
                       alt=""
-                      className="w-5 img-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 absolute right-0"
+                      className="w-5 img-2 transition-opacity duration-700 opacity-0 group-hover:opacity-100 absolute right-0"
                     />
                   </div>
                 </span>

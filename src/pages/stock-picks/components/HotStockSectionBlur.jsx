@@ -20,7 +20,7 @@ const HotStockSection = ({ items }) => {
       page: "StockPicks_Page",
     });
   };
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
@@ -150,7 +150,7 @@ const HotStockSection = ({ items }) => {
                                       <div className="pt-[12px] px-[20px] pb-[20px]">
                                         <div className=" flex items-center gap-[8px] ">
                                           {stockSector && sector && (
-                                            <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+                                            <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                                               <img
                                                 src="/assets/streamline_hotel-air-conditioner-solid.svg"
                                                 alt=""
@@ -161,7 +161,7 @@ const HotStockSection = ({ items }) => {
                                               </p>
                                             </div>
                                           )}
-                                          <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+                                          <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                                             <img
                                               src="/assets/Component 8.svg"
                                               alt=""
@@ -281,8 +281,9 @@ const HotStockSection = ({ items }) => {
                                           <div className="p-5">
                                             {/* btn  */}
                                             <button
-                                              className="button-82-pushable group "
+                                              className="button-82-pushable group"
                                               role="button"
+                                              onClick={handleLogin}
                                             >
                                               <span className="button-82-shadow"></span>
                                               <span className="button-82-edge"></span>
