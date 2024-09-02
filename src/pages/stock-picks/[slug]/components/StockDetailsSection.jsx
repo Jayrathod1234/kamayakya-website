@@ -157,17 +157,17 @@ function StockDetailsSection() {
                         {/* <!-- Continue your other components similarly --> */}
                         <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
                           {/* Image container */}
-                          <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7]">
+                          <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7] justify-center items-center">
                             <Image
                               src={
                                 stock_image
                                   ? stock_image
-                                  : "/assets/image 3.png"
+                                  : "https://www.globusspirits.com/images/logo_top.png"
                               }
                               alt="Company Logo"
                               width={92} // or use 92px for width
                               height={92} // or use 92px for height
-                              className="object-cover rounded-full"
+                              className="object-cover w-[90px]  h-[88px]"
                             />
                           </div>
 
@@ -179,12 +179,12 @@ function StockDetailsSection() {
                                   src={
                                     stock_image
                                       ? stock_image
-                                      : "/assets/image 3.png"
+                                      : "https://www.globusspirits.com/images/logo_top.png"
                                   }
                                   alt="Company Logo"
                                   width={40} // 10 * 4 (assuming 1rem = 4px)
                                   height={40} // 10 * 4
-                                  className="object-cover rounded-full block sm:hidden"
+                                  className="object-cover  block sm:hidden"
                                 />
                                 <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate">
                                   {stock_name}
