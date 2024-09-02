@@ -30,6 +30,7 @@ const config = {
       // "min-h-700": { raw: "( (min-height: 700px))" },
     },
     transitionDuration: {
+      2500: "2500ms",
       2000: "2000ms",
       700: "700ms",
       300: "300ms",

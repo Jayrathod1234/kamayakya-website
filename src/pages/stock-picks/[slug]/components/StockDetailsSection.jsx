@@ -118,7 +118,7 @@ function StockDetailsSection() {
                       <img
                         src="/assets/BuyBubbleBlue.webp"
                         alt=""
-                        className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[60px]"
+                        className="block sm:hidden absolute -top-6 right-3 w-[58px] h-[60px]"
                       />
                       {/* Sell Images */}
                       {/* <img
@@ -132,7 +132,7 @@ function StockDetailsSection() {
                       alt=""
                       className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[50px]"
                     /> */}
-                      <div className="px-4 pt-4 pb-3 gap-2">
+                      <div className="px-4 pt-4 pb-3 gap-2 w-full">
                         {!!stock_targets.length && (
                           <div className="flex pb-3.5 items-center justify-center sm:justify-start md:justify-start h-[1.5rem]">
                             <div className="flex h-[1.5rem] py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
@@ -179,8 +179,8 @@ function StockDetailsSection() {
 
                           {/* Text content */}
                           <div className="w-full">
-                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-                              <div className="flex gap-1 items-center max-w-[480px]">
+                            <div className="flex flex-col md:flex-row  items-start md:items-center gap-2">
+                              <div className="flex gap-1 items-center w-[300px]   max-w-[480px] ">
                                 <Image
                                   src={
                                     stock_image

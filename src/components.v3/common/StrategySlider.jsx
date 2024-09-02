@@ -108,7 +108,10 @@ const StrategySlider = ({ children }) => {
   return (
     <>
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container flex sm:gap-[28px] gap-12 ">
+        <div
+          className={`embla__container flex ${React.Children.count(children) < 7 ? 'gap-[100px]' : 'gap-[28px]'
+            } `}
+        >
           {children}
         </div>
       </div>

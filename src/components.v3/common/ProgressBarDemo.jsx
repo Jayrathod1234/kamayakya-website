@@ -167,7 +167,7 @@ const ProgressBarDemo = () => {
         ))}
         <div
           className="progress-bar h-[1px] bg-green-500 rounded-full"
-          style={{ width: `${75}%` }} // Use a fixed value for progress width
+          style={{ width: `${65}%` }} // Use a fixed value for progress width
         ></div>
       </div>
 
