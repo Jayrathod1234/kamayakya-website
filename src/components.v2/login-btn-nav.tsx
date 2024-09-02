@@ -20,6 +20,7 @@ export function LoginBtnNav({ handleLogin, arrow }: TLoginBtnNav) {
       page: "Pricing_Page",
       pagegroup: "enterprise_solution",
     });
+    handleLogin()
   };
   return (
     <>
@@ -28,8 +29,8 @@ export function LoginBtnNav({ handleLogin, arrow }: TLoginBtnNav) {
         onClick={handleContactButton}
         variant={ButtonVariant.primary}
         size={ButtonSize.lg}
-        // strokeStyle=" stroke-brand-400"
-        // arrowStyle="rotate-90 stroke-white"
+      // strokeStyle=" stroke-brand-400"
+      // arrowStyle="rotate-90 stroke-white"
       >
         <Avatar variant={AvatarVariant.xs} imgSrc="/avatar-login.png" />
         Login

@@ -20,7 +20,7 @@ const HotStockSection = ({ items }) => {
       page: "StockPicks_Page",
     });
   };
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
@@ -283,6 +283,7 @@ const HotStockSection = ({ items }) => {
                                             <button
                                               className="button-82-pushable group "
                                               role="button"
+                                              onClick={handleLogin}
                                             >
                                               <span className="button-82-shadow"></span>
                                               <span className="button-82-edge"></span>

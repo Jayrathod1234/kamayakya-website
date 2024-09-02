@@ -34,7 +34,7 @@ const StockPicks = () => {
         </AllBoardStockProvider>
         <Modal
           width="450px"
-          // blur
+          blur
           open={showLoginModal}
           onClose={handleCloseLoginModal}
         >
