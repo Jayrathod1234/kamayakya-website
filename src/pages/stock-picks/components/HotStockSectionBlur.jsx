@@ -150,7 +150,7 @@ const HotStockSection = ({ items }) => {
                                       <div className="pt-[12px] px-[20px] pb-[20px]">
                                         <div className=" flex items-center gap-[8px] ">
                                           {stockSector && sector && (
-                                            <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+                                            <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                                               <img
                                                 src="/assets/streamline_hotel-air-conditioner-solid.svg"
                                                 alt=""
@@ -161,7 +161,7 @@ const HotStockSection = ({ items }) => {
                                               </p>
                                             </div>
                                           )}
-                                          <div className="py-[2px] pr-[8px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]">
+                                          <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                                             <img
                                               src="/assets/Component 8.svg"
                                               alt=""
