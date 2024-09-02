@@ -102,7 +102,7 @@ function ElevateSection() {
                 </button>
               </Link>
             </div>
-            <div className="absolute transition-all duration-[2500ms] animate-spin w-full h-[47px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden "></div>
+            <div className="absolute transition-all duration-2500 animate-spin w-full h-[47px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden "></div>
           </div>
         </div>
         <div className="absolute right-[-10px] sm:right-[-178px] bottom-[-69px] z-0">
