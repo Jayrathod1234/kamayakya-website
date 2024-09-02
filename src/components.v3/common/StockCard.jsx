@@ -308,7 +308,7 @@ function StockCard({
               </>
             ) : is_blur ? (
               <>
-                <div className="p-5">
+                <div className="p-5 text-center">
                   <Link href={`/pricing`}>
                     {/* btn  */}
                     <button className="button-82-pushable group " role="button">
@@ -342,7 +342,7 @@ function StockCard({
               </>
             ) : (
               <>
-                <div className="p-5">
+                <div className="p-5 text-center">
                   <Link href={`/stock-picks/${id}`}>
                     <button
                       className="button-82-pushable group relative"

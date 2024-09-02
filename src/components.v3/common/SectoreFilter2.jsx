@@ -12,8 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
-const SectorFilter2 = () => {
-  const { sector, setSector } = useAllBoardStock();
+const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
   const { stockSector } = useStockPicks();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -23,7 +22,7 @@ const SectorFilter2 = () => {
 
   const handleCheckboxChange = (event) => {
     const value = event.target.name;
-    setSector((prev) =>
+    setTempSector((prev) =>
       prev.includes(value)
         ? prev.filter((item) => item !== value)
         : [...prev, value]
@@ -76,7 +75,7 @@ const SectorFilter2 = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={sector.includes(key)}
+                    checked={tempSector.includes(key)}
                     onChange={handleCheckboxChange}
                     name={key}
                     sx={{
