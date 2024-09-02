@@ -1447,7 +1447,7 @@ export const getStockDetailResponse = {
   ],
   sector: "chemicals",
   market_cap_type: "Large",
-  company_details: "<p>Rem aliquip mollit q.</p>",
+  company_details: "<p>Rem aliquip mollit q .</p>",
   stock_tags: [
     {
       id: "6e29cce5-7ca8-4f00-9f8e-7ef69e66cb29",
