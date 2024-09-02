@@ -1421,7 +1421,7 @@ export const getStockDetailResponse = {
   upside_left: 6.67,
   gain_loss: 6.67,
   risk: "High",
-  action_text: "Consider Buying. Our analysis suggests potential growth.",
+  action_text: "Consider Buying. Our analysis suggests potential growth .",
   action: "BUY",
   stock_targets: [
     {
