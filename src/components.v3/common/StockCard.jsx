@@ -226,7 +226,7 @@ function StockCard({
                   </div>
                   <div className="flex gap-[3px] items-center font-open_sans">
                     {/* green up arrow  */}
-                    {gain_loss > 0 ? (
+                    {gain_loss >= 0 ? (
                       // green up arrow
                       <img
                         src="/assets/Polygon2.svg"
