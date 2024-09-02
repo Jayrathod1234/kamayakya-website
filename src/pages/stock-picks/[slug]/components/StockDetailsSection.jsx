@@ -8,6 +8,7 @@ import ElevateSection from "../../components/ElevateSection";
 import { useStockDetails } from "@/contexts/StockDetailsContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 import { ButtonBase, Tooltip } from "@mui/material";
 
 function StockDetailsSection() {
@@ -38,6 +39,7 @@ function StockDetailsSection() {
     market_cap_type,
     timeline,
     cagr_of_stock,
+    stock_image,
   } = items || {};
 
   const toggleDropdown = () => {
@@ -156,10 +158,16 @@ function StockDetailsSection() {
                         <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
                           {/* Image container */}
                           <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7]">
-                            <img
-                              src="/assets/image 3.png"
+                            <Image
+                              src={
+                                stock_image
+                                  ? stock_image
+                                  : "/assets/image 3.png"
+                              }
                               alt="Company Logo"
-                              className="w-[92px] object-cover rounded-full"
+                              width={92} // or use 92px for width
+                              height={92} // or use 92px for height
+                              className="object-cover rounded-full"
                             />
                           </div>
 
@@ -167,10 +175,16 @@ function StockDetailsSection() {
                           <div className="w-full">
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                               <div className="flex gap-1 items-center max-w-[480px]">
-                                <img
-                                  src="/assets/image 3.png"
+                                <Image
+                                  src={
+                                    stock_image
+                                      ? stock_image
+                                      : "/assets/image 3.png"
+                                  }
                                   alt="Company Logo"
-                                  className="w-10 h-10 object-cover rounded-full block sm:hidden"
+                                  width={40} // 10 * 4 (assuming 1rem = 4px)
+                                  height={40} // 10 * 4
+                                  className="object-cover rounded-full block sm:hidden"
                                 />
                                 <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate">
                                   {stock_name}
@@ -383,25 +397,38 @@ function StockDetailsSection() {
                     ></p>
 
                     {text?.length > textCount ? (
-                      <button
-                        onClick={() => setIsReadMore(!isReadMore)}
-                      >
-                        {isReadMore ? (<button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
-                          <span class="text-gray-700 group-hover:text-green-700">•••</span>
-                        </button>) : (<><button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white border group border-gray-200 shadow-sm  px-6 py-3">
-                          <div class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-colors duration-300 group-hover:stroke-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <polyline points="6 15 12 9 18 15"></polyline>
-                              <polyline points="6 9 12 3 18 9"></polyline>
-                            </svg>
-                          </div>
-                        </button>
-                        </>)}
+                      <button onClick={() => setIsReadMore(!isReadMore)}>
+                        {isReadMore ? (
+                          <button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
+                            <span class="text-gray-700 group-hover:text-green-700">
+                              •••
+                            </span>
+                          </button>
+                        ) : (
+                          <>
+                            <button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white border group border-gray-200 shadow-sm  px-6 py-3">
+                              <div class="">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="w-4 h-4 transition-colors duration-300 group-hover:stroke-green-700"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <polyline points="6 15 12 9 18 15"></polyline>
+                                  <polyline points="6 9 12 3 18 9"></polyline>
+                                </svg>
+                              </div>
+                            </button>
+                          </>
+                        )}
                       </button>
                     ) : (
                       ""
                     )}
-                    
                   </div>
                   {/* Upside Left Box start */}
                   <div className="hidden md:block col-span-2 order-3 sm:order-2">
@@ -654,7 +681,7 @@ function StockDetailsSection() {
                           </span>
                           invested at current market price (CMP) can become{" "}
                           <span className="text-[#0079EF] text-sm md:text-base lg:text-lg font-bold">
-                          ₹“{100000 +(1000*gain_loss)}” Lakh
+                            ₹“{100000 + 1000 * gain_loss}” Lakh
                           </span>{" "}
                           likely within a year
                         </div>
@@ -767,7 +794,7 @@ function StockDetailsSection() {
                       </span>
                       invested at current market price (CMP) can become{" "}
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
-                        ₹“{100000 +(1000*gain_loss)}” Lakh
+                        ₹“{100000 + 1000 * gain_loss}” Lakh
                       </span>{" "}
                       likely within a year
                     </div>
@@ -795,20 +822,34 @@ function StockDetailsSection() {
                     ></p>
 
                     {text?.length > textCount ? (
-                      <button
-                        onClick={() => setIsReadMore(!isReadMore)}
-                      >
-                        {isReadMore ? (<button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
-                          <span class="text-gray-700 group-hover:text-green-700">•••</span>
-                        </button>) : (<><button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white border group border-gray-200 shadow-sm  px-6 py-3">
-                          <div class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-colors duration-300 group-hover:stroke-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <polyline points="6 15 12 9 18 15"></polyline>
-                              <polyline points="6 9 12 3 18 9"></polyline>
-                            </svg>
-                          </div>
-                        </button>
-                        </>)}
+                      <button onClick={() => setIsReadMore(!isReadMore)}>
+                        {isReadMore ? (
+                          <button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
+                            <span class="text-gray-700 group-hover:text-green-700">
+                              •••
+                            </span>
+                          </button>
+                        ) : (
+                          <>
+                            <button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white border group border-gray-200 shadow-sm  px-6 py-3">
+                              <div class="">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="w-4 h-4 transition-colors duration-300 group-hover:stroke-green-700"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <polyline points="6 15 12 9 18 15"></polyline>
+                                  <polyline points="6 9 12 3 18 9"></polyline>
+                                </svg>
+                              </div>
+                            </button>
+                          </>
+                        )}
                       </button>
                     ) : (
                       ""
@@ -1080,7 +1121,7 @@ function StockDetailsSection() {
                           <div className="mt-2">
                             {/* Timeline Content Goes Here */}
                             <div className="p-4  rounded-lg">
-                              <StockDetailsTimeline timeline={timeline}  />
+                              <StockDetailsTimeline timeline={timeline} />
                             </div>
                           </div>
                         )}
