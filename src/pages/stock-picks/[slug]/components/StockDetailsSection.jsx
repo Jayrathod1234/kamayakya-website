@@ -162,7 +162,7 @@ function StockDetailsSection() {
                               src={
                                 stock_image
                                   ? stock_image
-                                  : "https://www.globusspirits.com/images/logo_top.png"
+                                  : "/assets/image 3.png"
                               }
                               alt="Company Logo"
                               width={92} // or use 92px for width
@@ -179,7 +179,7 @@ function StockDetailsSection() {
                                   src={
                                     stock_image
                                       ? stock_image
-                                      : "https://www.globusspirits.com/images/logo_top.png"
+                                      : "/assets/image 3.png"
                                   }
                                   alt="Company Logo"
                                   width={40} // 10 * 4 (assuming 1rem = 4px)
