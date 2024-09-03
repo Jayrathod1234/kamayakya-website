@@ -217,7 +217,7 @@ const HotStockSection = ({ items }) => {
                                                       the stock price could rise
                                                       from its current level.
                                                     </div>
-                                                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 grid rounded-md">
+                                                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 grid rounded-lg">
                                                       <span className="text-[#108973] text-2xs font-bold">
                                                         Example :
                                                       </span>

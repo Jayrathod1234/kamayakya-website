@@ -293,7 +293,7 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
               </div>
               {/* upside left  */}
-              <div className="pt-4 pr-6 pl-1 ">
+              <div className="pt-4 pr-6 pl-2 ">
                 <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -314,6 +314,7 @@ function DrawerFilter() {
                             color: "#1D2939",
                             fontSize: "14px",
                             fontWeight: "700",
+                            fontFamily: "open sans",
                           }}
                         >
                           Upside Left
@@ -342,15 +343,15 @@ function DrawerFilter() {
                                 alt=""
                                 className="absolute -top-2 left-[52px] w-4"
                               />
-                              <div className="text-gray-800 text-2xs font-normal">
+                              <div className="text-gray-800 text-2xs font-normal font-open_sans">
                                 Upside Left means how much the stock price could
                                 rise from its current level.
                               </div>
                               <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
-                                <span className="text-[#108973] text-2xs font-bold ">
+                                <span className="text-[#108973] text-2xs font-bold font-open_sans">
                                   Example :
                                 </span>
-                                <p className="text-2xs text-gray-600 font-normal">
+                                <p className="text-2xs text-gray-600 font-normal font-open_sans">
                                   If a stock's price is ₹100 and the Upside Left
                                   is 20%, it might go up to ₹120.
                                 </p>
@@ -430,7 +431,7 @@ function DrawerFilter() {
               </div>
 
               {/*  Recency */}
-              <div className="pt-4 pr-6 pl-1 ">
+              <div className="pt-4 pr-6 pl-2 ">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -453,6 +454,7 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Recency
@@ -480,15 +482,15 @@ function DrawerFilter() {
                             alt=""
                             className="absolute -top-2 left-[52px] w-4"
                           />
-                          <div className="text-gray-800 text-2xs font-normal">
+                          <div className="text-gray-800 text-2xs font-normal font-open_sans">
                             Recency tells you how new this stock recommendation
                             is.
                           </div>
                           <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
-                            <span className="text-[#108973] text-2xs font-bold ">
+                            <span className="text-[#108973] text-2xs font-bold font-open_sans">
                               Example :
                             </span>
-                            <p className="text-2xs text-gray-600 font-normal">
+                            <p className="text-2xs text-gray-600 font-normal font-open_sans">
                               A stock recommended last week is more recent and
                               potentially more relevant than one recommended a
                               month ago.
@@ -510,6 +512,7 @@ function DrawerFilter() {
                                 onChange={handleChangeRecency}
                                 name={key}
                                 sx={{
+                                  fontFamily: "open sans",
                                   color: "default", // Default color
                                   "&.Mui-checked": {
                                     color: "#125B54", // Color when checked
@@ -528,7 +531,7 @@ function DrawerFilter() {
               </div>
 
               {/* Time Left  */}
-              <div className="pt-4 pr-6 pl-1 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -551,6 +554,7 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Time Left
@@ -589,7 +593,7 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] "></div>
               </div>
               {/* Total Returns  */}
-              <div className="pt-4 pr-6 pl-1  overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2  overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -612,6 +616,7 @@ function DrawerFilter() {
                             color: "#1D2939",
                             fontSize: "14px",
                             fontWeight: "700",
+                            fontFamily: "open sans",
                           }}
                         >
                           Total Returns
@@ -690,7 +695,7 @@ function DrawerFilter() {
 
               {/* Market Cap */}
               {sebiBoardType == "mainboard" && (
-                <div className="pt-4 pr-6 pl-1 overflow-x-hidden">
+                <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
                   <Accordion
                     defaultExpanded
                     sx={{
@@ -727,6 +732,7 @@ function DrawerFilter() {
                             color: "#1D2939",
                             fontSize: "14px",
                             fontWeight: "700",
+                            fontFamily: "open sans",
                           }}
                         >
                           Market Cap
@@ -759,7 +765,7 @@ function DrawerFilter() {
               )}
 
               {/* Sectors  */}
-              <div className="pt-4 pr-6 pl-1 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -801,6 +807,7 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Sectors
@@ -818,7 +825,7 @@ function DrawerFilter() {
               </div>
 
               {/* Strategies   */}
-              <div className="pt-4 pr-6 pl-1 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -855,6 +862,7 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Strategies
@@ -891,7 +899,7 @@ function DrawerFilter() {
               </div>
 
               {/*Risk */}
-              <div className="pt-4 pr-6 pl-1 pb-[61px] overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-2 pb-[61px] overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -940,6 +948,7 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Risk
