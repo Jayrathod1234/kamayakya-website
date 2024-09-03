@@ -157,6 +157,7 @@ export default function SectorCheck() {
                       display: "flex",
                       alignItems: "center",
                       gap: "8px",
+                      borderBottom: "1px solid #F2F2F2", // Add a bottom border
                     }}
                   >
                     <TextField
@@ -176,6 +177,7 @@ export default function SectorCheck() {
                             />
                           </InputAdornment>
                         ),
+                        disableUnderline: true, // This disables the underline in the standard variant
                         sx: {
                           color: "#98A2B3",
                           borderRadius: "8px",
@@ -184,7 +186,12 @@ export default function SectorCheck() {
                           width: "100%",
                         },
                       }}
-                      sx={{ flex: 1 }}
+                      sx={{
+                        flex: 1,
+                        backgroundColor: "transparent ", // Make the background transparent
+                        border: "none", // Ensure no border is shown
+                        boxShadow: "none", // Remove any shadow
+                      }}
                     />
                     <Typography
                       onClick={handleSelectAllClick}

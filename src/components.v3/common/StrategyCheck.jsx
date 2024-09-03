@@ -176,6 +176,7 @@ export default function StrategyCheck() {
                       display: "flex",
                       alignItems: "center",
                       gap: "8px",
+                      borderBottom: "1px solid #F2F2F2", // Add a bottom border
                     }}
                   >
                     <TextField
@@ -185,7 +186,7 @@ export default function StrategyCheck() {
                       placeholder="Search..."
                       value={searchTerm}
                       onChange={handleSearch}
-                      // variant="outlined"
+                      variant="standard"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -195,11 +196,9 @@ export default function StrategyCheck() {
                             />
                           </InputAdornment>
                         ),
-
+                        disableUnderline: true, // This disables the underline in the standard variant
                         sx: {
                           color: "#667085", // Adjust the text color
-                          border: "none", // Remove the border
-                          outline: "none",
                           paddingLeft: "4px", // Adjust padding to match the image
                           fontSize: "14px", // Increase font size for the text
                           width: "100%",
