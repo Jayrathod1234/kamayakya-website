@@ -1,16 +1,14 @@
 import React from "react";
 // src/types.d.ts
-import { CSSProperties } from 'react';
+import { CSSProperties } from "react";
 
 export interface CustomCSSProperties extends CSSProperties {
-  '--image-url'?: string;
-  '--hover-bg'?:string;
-  "--hover-border"?:string;
-  "--bg-img"?:string;
-  '--bg-hover-img'?:string;
+  "--image-url"?: string;
+  "--hover-bg"?: string;
+  "--hover-border"?: string;
+  "--bg-img"?: string;
+  "--bg-hover-img"?: string;
 }
-
-
 
 export type TChildren = {
   children: React.ReactNode;
@@ -31,3 +29,12 @@ export type TBlog = {
   slug: string;
   updated_at: string;
 };
+
+export type TStockCardProgressBar = {
+  width: string;
+  marginLeft: number;
+  marginRight: number;
+  className?: string;
+};
+
+export type TStockCardProgressBarSolid = TStockCardProgressBar & { currentProgress: number };

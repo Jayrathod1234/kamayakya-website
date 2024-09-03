@@ -132,6 +132,7 @@ export const getAllBoardStockStockListApi = async ({ params, body }) => {
           strategy_tags: changablestrategyTags,
         }
       );
+      console.log(response.data)
       return response.data;
     } else {
       //   /* ----------------------------- Static Data ---------------------------- */

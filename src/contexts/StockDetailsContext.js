@@ -23,6 +23,8 @@ export const StockDetailsProvider = ({ children }) => {
     enabled: !!slug, // Only run the query if slug is present
   });
 
+  console.log(items)
+
   return (
     <StockDetailsContext.Provider value={{ items, isLoading, error }}>
       {children}
