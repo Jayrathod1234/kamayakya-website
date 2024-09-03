@@ -2,8 +2,8 @@
 export const NAVBAR_LINKS = [
   {
     title: "About Us",
-    link: "/#philosophy",
-    id:"#philosophy",
+    link: "/",
+    // id:"#philosophy",
     mixpanel:{
       event:"sampleReports_clicked",
       property:{

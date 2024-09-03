@@ -1502,3 +1502,23 @@ width:20px !important;
 .scrolled-nav .scrolled_hover{
   @apply hover:bg-[#EAFCFB] text-gray-800
 }
+
+
+.carousel-dot-animate{
+  transform:scaleX(0);
+  animation-name: carousel-dot;
+  transform-origin: left;
+  animation-timing-function: linear;
+  /* animation-duration: 6s; */
+  animation-fill-mode: forwards;
+}
+
+@keyframes carousel-dot {
+  0% {
+    transform:scaleX(0);
+  }
+  100% {
+    transform:scalex(1);
+  }
+  
+}

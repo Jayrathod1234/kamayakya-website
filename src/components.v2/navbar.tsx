@@ -127,11 +127,8 @@ export function Navbar({ className }: { className?: string }) {
                   <NavigationMenuTrigger
                     onClick={(e) => {
                       e.preventDefault();
-                      if (pathname === "/") {
-                        let ele = document.querySelector("#team");
-                        ele?.scrollIntoView({ behavior: "smooth" });
-                      } else {
-                        router.push("/#team");
+                      if (pathname !== "/"){
+                        router.push("/");
                       }
                     }}
                     className=" text-gray-950 font-semibold"
@@ -188,7 +185,7 @@ export function Navbar({ className }: { className?: string }) {
                           ? "hidden"
                           : "hidden lg:flex"
                         : navigationOption.title === "Stocks to Buy"
-                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 hover:bg-[#E26103] !text-orange-500 hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
+                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-[rgba(246,135,0,1)] hover:bg-[#E26103] !text-[rgba(246,135,0,1)] hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
                         : ""
                     } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                   >
@@ -202,7 +199,7 @@ export function Navbar({ className }: { className?: string }) {
                       <NavigationMenuLink
                         className={`${navigationMenuTriggerStyle()} font-semibold text-inherit ${
                           navigationOption.title === "Stocks to Buy"
-                            ? "!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
+                            ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
                             : ""
                         }`}
                         active={pathname === navigationOption.link}
