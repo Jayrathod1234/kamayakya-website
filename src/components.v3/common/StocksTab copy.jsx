@@ -26,14 +26,12 @@ export default function StocksTab() {
           ></div>
           <button
             onClick={() => handleChange(0)}
-            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] flex items-center justify-center transition-all duration-300 ease-in-out ${
-              value === 0
-                ? "text-white bg-[#101115]"
-                : "text-[#475467] bg-transparent hover:text-[#101115] hover:bg-[#E4E7EB]"
+            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] flex items-center justify-center transition duration-300 ${
+              value === 0 ? "text-white" : "text-[#475467]"
             }`}
           >
             <div className="flex flex-col items-center text-center">
-              <span className="font-[600] text-[16px] leading-[24px] text-nowrap">Main Board</span>
+              <span className="font-[600] text-[16px] leading-[24px] text-nowrap" >Main Board</span>
               <span className="text-[11px] font-bold">
                 {total_mainboard_stocks || 0} Stocks
               </span>
@@ -41,10 +39,8 @@ export default function StocksTab() {
           </button>
           <button
             onClick={() => handleChange(1)}
-            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] flex items-center justify-center transition-all duration-300 ease-in-out ${
-              value === 1
-                ? "text-white bg-[#101115]"
-                : "text-[#475467] bg-transparent hover:text-[#101115] hover:bg-[#E4E7EB]"
+            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] flex items-center justify-center transition duration-300 ${
+              value === 1 ? "text-white" : "text-[#667085]"
             }`}
           >
             <div className="flex flex-col items-center text-center">
