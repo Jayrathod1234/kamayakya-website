@@ -430,7 +430,7 @@ function DrawerFilter() {
               </div>
 
               {/*  Recency */}
-              <div className="pt-4 pr-6 pl-2 ">
+              <div className="pt-4 pr-6 pl-1 ">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -528,7 +528,7 @@ function DrawerFilter() {
               </div>
 
               {/* Time Left  */}
-              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-1 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -589,7 +589,7 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] "></div>
               </div>
               {/* Total Returns  */}
-              <div className="pt-4 pr-6 pl-2  overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-1  overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -690,7 +690,7 @@ function DrawerFilter() {
 
               {/* Market Cap */}
               {sebiBoardType == "mainboard" && (
-                <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
+                <div className="pt-4 pr-6 pl-1 overflow-x-hidden">
                   <Accordion
                     defaultExpanded
                     sx={{
@@ -759,7 +759,7 @@ function DrawerFilter() {
               )}
 
               {/* Sectors  */}
-              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-1 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -818,7 +818,7 @@ function DrawerFilter() {
               </div>
 
               {/* Strategies   */}
-              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-1 overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
@@ -891,7 +891,7 @@ function DrawerFilter() {
               </div>
 
               {/*Risk */}
-              <div className="pt-4 pr-6 pl-2 pb-[61px] overflow-x-hidden">
+              <div className="pt-4 pr-6 pl-1 pb-[61px] overflow-x-hidden">
                 <Accordion
                   defaultExpanded
                   sx={{
