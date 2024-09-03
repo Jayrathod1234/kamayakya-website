@@ -108,7 +108,7 @@ export default function CustomSortMenu({ isLabel }) {
           textTransform: "none",
           color: "#1E555C",
           fontWeight: 500,
-          padding: isMobile ? "8px 11px" : isLabel ? "11px 16px" : "11px 18px", // Conditional padding
+          padding: isMobile ? "8px 11px" : isLabel ? "10px 16px" : "11px 18px", // Conditional padding
           // padding: isLabel ? "11px 16px" : "11px 18px", // Conditional padding
           minWidth: isMobile ? "147px" : isLabel ? "280px" : "157px", // Conditional minWidth
           justifyContent: "space-between",

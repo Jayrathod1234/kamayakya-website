@@ -73,7 +73,7 @@ function AllBoardStockSection() {
         </p>
       </div>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
-        <div className="flex flex-col sm:flex-row sm:gap-4 gap-0 items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:gap-4 gap-0 items-center justify-between ">
           <div className="w-full">
             <form>
               <label

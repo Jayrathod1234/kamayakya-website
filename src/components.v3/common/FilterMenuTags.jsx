@@ -113,6 +113,7 @@ const FilterCarousel = () => {
                   borderRadius: "50%",
                   position: "absolute",
                   left: "14%",
+                  zIndex: "9",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
