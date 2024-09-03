@@ -11,9 +11,8 @@ import {
   Popper,
   ClickAwayListener,
   Grow,
-  MenuList,
-  InputAdornment,
   Typography,
+  InputAdornment,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -71,6 +70,11 @@ export default function StrategyCheck() {
     }
   );
 
+  const commonStyles = {
+    fontFamily: "Open Sans",
+    fontSize: "14px !important",
+  };
+
   return (
     <Box sx={{ maxWidth: "148px" }}>
       <Button
@@ -88,6 +92,7 @@ export default function StrategyCheck() {
           />
         }
         sx={{
+          ...commonStyles,
           justifyContent: "space-between",
           textTransform: "none",
           color: changablestrategyTags.length > 0 ? "#FFFFFF" : "#1D2939",
@@ -117,13 +122,13 @@ export default function StrategyCheck() {
                 backgroundColor: "#FFFFFF",
                 color: "#108973",
                 borderRadius: "50%",
-                display: "flex", // Use flex to center the content
+                display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "20px", // Equal width and height for a perfect circle
+                width: "20px",
                 height: "20px",
-                fontSize: "14px",
                 fontWeight: 200,
+                ...commonStyles,
               }}
             >
               {changablestrategyTags.length}
@@ -156,33 +161,32 @@ export default function StrategyCheck() {
                 borderRadius: "8px",
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
-                maxHeight: "300px", // Set a max height for the dropdown
+                maxHeight: "300px",
               }}
             >
               <ClickAwayListener onClickAway={handleClose}>
                 <Box
                   sx={{
                     padding: "8px",
-                    maxHeight: "250px", // Set a max height for the scrollable area
-                    overflowY: "auto", // Enable vertical scrolling
+                    maxHeight: "250px",
+                    overflowY: "auto",
                   }}
                 >
                   <ListSubheader
                     disableSticky
                     sx={{
-                      backgroundColor: "#00000",
+                      backgroundColor: "transparent",
                       padding: "0",
                       marginBottom: "8px",
                       display: "flex",
                       alignItems: "center",
                       gap: "8px",
-                      borderBottom: "1px solid #F2F2F2", // Add a bottom border
+                      borderBottom: "1px solid #F2F2F2",
                     }}
                   >
                     <TextField
                       size="small"
-                      // select
-                      type="searchhhhh"
+                      type="search"
                       placeholder="Search..."
                       value={searchTerm}
                       onChange={handleSearch}
@@ -196,19 +200,19 @@ export default function StrategyCheck() {
                             />
                           </InputAdornment>
                         ),
-                        disableUnderline: true, // This disables the underline in the standard variant
+                        disableUnderline: true,
                         sx: {
-                          color: "#667085", // Adjust the text color
-                          paddingLeft: "4px", // Adjust padding to match the image
-                          fontSize: "14px", // Increase font size for the text
+                          color: "#667085",
+                          paddingLeft: "4px",
                           width: "100%",
+                          ...commonStyles,
                         },
                       }}
                       sx={{
                         flex: 1,
-                        backgroundColor: "transparent ", // Make the background transparent
-                        border: "none", // Ensure no border is shown
-                        boxShadow: "none", // Remove any shadow
+                        backgroundColor: "transparent",
+                        border: "none",
+                        boxShadow: "none",
                       }}
                     />
                     <Typography
@@ -216,8 +220,8 @@ export default function StrategyCheck() {
                       sx={{
                         cursor: "pointer",
                         color: "#125B54",
-                        fontSize: "12px",
                         fontWeight: 600,
+                        ...commonStyles,
                       }}
                     >
                       {changablestrategyTags.length ===
@@ -247,7 +251,6 @@ export default function StrategyCheck() {
                       sx={{
                         padding: "8px",
                         height: "36px",
-                        fontFamily: "open Sans",
                         backgroundColor: strategyTag.includes(key)
                           ? "#E7F8F8"
                           : "transparent",
@@ -256,6 +259,7 @@ export default function StrategyCheck() {
                             ? "#cde6e6"
                             : "#E0F7FA",
                         },
+                        ...commonStyles,
                       }}
                     >
                       <Checkbox
@@ -271,7 +275,7 @@ export default function StrategyCheck() {
                         primary={displayValue}
                         sx={{
                           margin: 0,
-                          fontSize: "14px !important",
+                          ...commonStyles,
                         }}
                       />
                     </MenuItem>

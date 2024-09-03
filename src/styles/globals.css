@@ -2004,3 +2004,8 @@ header > div > div {
     transform-origin: 0 0;
     top: 60%;
 }
+
+.css-10hburv-MuiTypography-root {
+  font-family: "Open sans",sans-serif !important;
+  font-size: 14px !important;
+}
