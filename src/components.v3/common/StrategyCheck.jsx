@@ -97,6 +97,7 @@ export default function StrategyCheck() {
           borderRadius: "4px",
           padding: "7px 16px",
           fontWeight: 500,
+
           "&:hover": {
             backgroundColor:
               changablestrategyTags.length > 0
@@ -124,6 +125,7 @@ export default function StrategyCheck() {
                 height: "20px",
                 fontSize: "14px",
                 fontWeight: 200,
+                fontFamily: "Open sans",
               }}
             >
               {changablestrategyTags.length}
@@ -175,6 +177,7 @@ export default function StrategyCheck() {
                       marginBottom: "8px",
                       display: "flex",
                       alignItems: "center",
+                      fontFamily: "open sans",
                       gap: "8px",
                       borderBottom: "1px solid #F2F2F2", // Add a bottom border
                     }}
@@ -182,7 +185,7 @@ export default function StrategyCheck() {
                     <TextField
                       size="small"
                       // select
-                      type="searchhhhh"
+                      type="search"
                       placeholder="Search..."
                       value={searchTerm}
                       onChange={handleSearch}
@@ -202,6 +205,7 @@ export default function StrategyCheck() {
                           paddingLeft: "4px", // Adjust padding to match the image
                           fontSize: "14px", // Increase font size for the text
                           width: "100%",
+                          fontFamily: "open sans",
                         },
                       }}
                       sx={{
@@ -218,6 +222,7 @@ export default function StrategyCheck() {
                         color: "#125B54",
                         fontSize: "12px",
                         fontWeight: 600,
+                        fontFamily: "Open sans ",
                       }}
                     >
                       {changablestrategyTags.length ===
@@ -247,7 +252,7 @@ export default function StrategyCheck() {
                       sx={{
                         padding: "8px",
                         height: "36px",
-                        fontFamily: "open Sans",
+                        fontFamily: "Open Sans !important", // Set font to Open Sans
                         backgroundColor: strategyTag.includes(key)
                           ? "#E7F8F8"
                           : "transparent",
@@ -265,6 +270,7 @@ export default function StrategyCheck() {
                             ? "#108973 !important"
                             : "#E4E7EC",
                           padding: "0 8px 0 0",
+                          fontFamily: "Open Sans !important", // Set font to Open Sans
                         }}
                       />
                       <ListItemText
@@ -272,6 +278,7 @@ export default function StrategyCheck() {
                         sx={{
                           margin: 0,
                           fontSize: "14px !important",
+                          fontFamily: "Open Sans !important", // Set font to Open Sans
                         }}
                       />
                     </MenuItem>

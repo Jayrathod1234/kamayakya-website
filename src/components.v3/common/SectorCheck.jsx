@@ -167,7 +167,7 @@ export default function SectorCheck() {
                       placeholder="Search..."
                       value={searchTerm}
                       onChange={handleSearch}
-                      variant="outlined"
+                      variant="standard"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
