@@ -259,7 +259,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("right", true)}
             sx={{ display: isMobile ? "none" : "block" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
+            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
           >
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case">
@@ -271,7 +271,7 @@ function DrawerFilter() {
               </div>
             )}
           </Button>
-          <Drawer open={open} anchor={anchor} onClose={() => { }}>
+          <Drawer open={open} anchor={anchor} onClose={() => {}}>
             <Box
               sx={{ width: 400 }}
               role="presentation"
@@ -517,7 +517,8 @@ function DrawerFilter() {
                                 onChange={handleChangeRecency}
                                 name={key}
                                 sx={{
-                                  fontFamily: "Open Sans, sans-serif !important", // Apply font to checkbox text
+                                  fontFamily:
+                                    "Open Sans, sans-serif !important", // Apply font to checkbox text
                                   color: "default", // Default color
                                   "&.Mui-checked": {
                                     color: "#125B54", // Color when checked
@@ -525,11 +526,16 @@ function DrawerFilter() {
                                 }}
                               />
                             }
-                            label={<span style={{ fontFamily: "Open Sans, sans-serif" }}>{filterTimeLabel[key]}</span>} // Ensure label text uses the correct font
+                            label={
+                              <span
+                                style={{ fontFamily: "Open Sans, sans-serif" }}
+                              >
+                                {filterTimeLabel[key]}
+                              </span>
+                            } // Ensure label text uses the correct font
                           />
                         ))}
                       </FormGroup>
-
                     </AccordionDetails>
                   </div>
                 </Accordion>
@@ -590,7 +596,13 @@ function DrawerFilter() {
                                 }}
                               />
                             }
-                            label={<span style={{ fontFamily: "Open Sans, sans-serif" }}>{filterTimeLabel[key]}</span>}
+                            label={
+                              <span
+                                style={{ fontFamily: "Open Sans, sans-serif" }}
+                              >
+                                {filterTimeLabel[key]}
+                              </span>
+                            }
                           />
                         ))}
                       </FormGroup>
@@ -670,7 +682,12 @@ function DrawerFilter() {
                           />
                         </Grid>
                         <Grid item xs={2}>
-                          <Typography align="center" fontFamily="Open Sans, sans-serif">to</Typography>
+                          <Typography
+                            align="center"
+                            fontFamily="Open Sans, sans-serif"
+                          >
+                            to
+                          </Typography>
                         </Grid>
                         <Grid item xs={5}>
                           <TextField
@@ -754,10 +771,11 @@ function DrawerFilter() {
                     <div className="flex pl-7 gap-4 pb-4">
                       {marketCapTypeList?.map((value, index) => (
                         <div
-                          className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempMarketCapType == value
-                            ? "bg-[#E7F8F8] border-[#108973]"
-                            : "bg-white border-[#E4E7EC]"
-                            }`}
+                          className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                            tempMarketCapType == value
+                              ? "bg-[#E7F8F8] border-[#108973]"
+                              : "bg-white border-[#E4E7EC]"
+                          }`}
                           key={index}
                           onClick={() => setTempMarketCapType(value)}
                         >
@@ -901,7 +919,9 @@ function DrawerFilter() {
                               />
                             }
                             label={
-                              <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                              <span
+                                style={{ fontFamily: "Open Sans, sans-serif" }}
+                              >
                                 {strategyTagList[key]}
                               </span>
                             }
@@ -976,10 +996,11 @@ function DrawerFilter() {
                   <div className="flex pl-7 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempRisk == value
-                          ? "bg-[#E7F8F8] border-[#108973]"
-                          : "bg-white border-[#E4E7EC]"
-                          }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                          tempRisk == value
+                            ? "bg-[#E7F8F8] border-[#108973]"
+                            : "bg-white border-[#E4E7EC]"
+                        }`}
                         key={index}
                         onClick={() => setTempRisk(value)}
                       >
@@ -1036,7 +1057,7 @@ function DrawerFilter() {
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
-            onClose={() => { }}
+            onClose={() => {}}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
@@ -1122,7 +1143,9 @@ function DrawerFilter() {
                       gap: "12px",
                     }}
                     label={
-                      <Box className="items-start !important font-open_sans">Upside Left</Box>
+                      <Box className="items-start !important font-open_sans">
+                        Upside Left
+                      </Box>
                     }
                     {...a11yProps(0)}
                   />
@@ -1254,7 +1277,12 @@ function DrawerFilter() {
                           />
                         </Grid>
                         <Grid item xs={2}>
-                          <Typography align="center" fontFamily="Open Sans, sans-serif !important">to</Typography>
+                          <Typography
+                            align="center"
+                            fontFamily="Open Sans, sans-serif !important"
+                          >
+                            to
+                          </Typography>
                         </Grid>
                         <Grid item xs={5}>
                           <TextField
@@ -1316,7 +1344,11 @@ function DrawerFilter() {
                                     />
                                   }
                                   label={
-                                    <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                                    <span
+                                      style={{
+                                        fontFamily: "Open Sans, sans-serif",
+                                      }}
+                                    >
                                       {filterTimeLabel[key]}
                                     </span>
                                   }
@@ -1358,7 +1390,11 @@ function DrawerFilter() {
                                     />
                                   }
                                   label={
-                                    <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                                    <span
+                                      style={{
+                                        fontFamily: "Open Sans, sans-serif",
+                                      }}
+                                    >
                                       {filterTimeLabel[key]}
                                     </span>
                                   }
@@ -1409,7 +1445,9 @@ function DrawerFilter() {
                           />
                         </Grid>
                         <Grid item xs={2}>
-                          <Typography align="center" fontFamily="open sans">to</Typography>
+                          <Typography align="center" fontFamily="open sans">
+                            to
+                          </Typography>
                         </Grid>
                         <Grid item xs={5}>
                           <TextField
@@ -1455,10 +1493,11 @@ function DrawerFilter() {
                           <div className="sm:flex grid   gap-4 pb-4">
                             {marketCapTypeList?.map((value, index) => (
                               <div
-                                className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempMarketCapType == value
-                                  ? "bg-[#E7F8F8] border-[#108973]"
-                                  : "bg-white border-[#E4E7EC]"
-                                  }`}
+                                className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                  tempMarketCapType == value
+                                    ? "bg-[#E7F8F8] border-[#108973]"
+                                    : "bg-white border-[#E4E7EC]"
+                                }`}
                                 key={index}
                                 onClick={() => setTempMarketCapType(value)}
                               >
@@ -1490,7 +1529,6 @@ function DrawerFilter() {
                           setSector={setSector}
                           tempSector={tempSector}
                           setTempSector={setTempSector}
-                          
                         />
                       </Accordion>
                     </div>
@@ -1529,7 +1567,11 @@ function DrawerFilter() {
                                         />
                                       }
                                       label={
-                                        <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                                        <span
+                                          style={{
+                                            fontFamily: "Open Sans, sans-serif",
+                                          }}
+                                        >
                                           {strategyTagList[key]}
                                         </span>
                                       }
@@ -1556,10 +1598,11 @@ function DrawerFilter() {
                         <div className="sm:flex grid gap-4 pb-4">
                           {stockRiskList?.map((value, index) => (
                             <div
-                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempRisk == value
-                                ? "bg-[#E7F8F8] border-[#108973]"
-                                : "bg-white border-[#E4E7EC]"
-                                }`}
+                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
+                                tempRisk == value
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
+                              }`}
                               key={index}
                               onClick={() => setTempRisk(value)}
                             >
