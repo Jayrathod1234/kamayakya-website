@@ -20,17 +20,47 @@ function InvestmentSection() {
     setModalState({ isMainModalOpen: false, isChildModalOpen: false });
 
   const items = [
-    { src: "/assets/groww-logo-light.png", alt: "Groww", name: "Groww", url: "https://groww.in" },
-    { src: "/assets/p5.png", alt: "Zerodha", name: "Zerodha", url: "https://zerodha.com" },
-    { src: "/assets/angelone 1.webp", alt: "Angel One", name: "Angel One", url: "https://www.angelone.in" },
-    { src: "/assets/Upstocks.webp", alt: "Upstox", name: "Upstox", url: "https://upstox.com" },
-    { src: "/assets/ICICIdirect.png", alt: "ICICIdirect", name: "ICICIdirect", url: "https://www.icicidirect.com" },
-    { src: "/assets/Kotak securities.webp", alt: "Kotak", name: "Kotak Securities", url: "https://www.kotaksecurities.com" },
+    {
+      src: "/assets/groww-logo-light.png",
+      alt: "Groww",
+      name: "Groww",
+      url: "https://groww.in",
+    },
+    {
+      src: "/assets/p5.png",
+      alt: "Zerodha",
+      name: "Zerodha",
+      url: "https://zerodha.com",
+    },
+    {
+      src: "/assets/angelone 1.webp",
+      alt: "Angel One",
+      name: "Angel One",
+      url: "https://www.angelone.in",
+    },
+    {
+      src: "/assets/Upstocks.webp",
+      alt: "Upstox",
+      name: "Upstox",
+      url: "https://upstox.com",
+    },
+    {
+      src: "/assets/ICICIdirect.png",
+      alt: "ICICIdirect",
+      name: "ICICIdirect",
+      url: "https://www.icicidirect.com",
+    },
+    {
+      src: "/assets/Kotak securities.webp",
+      alt: "Kotak",
+      name: "Kotak Securities",
+      url: "https://www.kotaksecurities.com",
+    },
   ];
 
   return (
     <div className="sm:pb-[100px] pb-[100px] pt-0 px-2 rounded-lg">
-      <h2 className="text-center text-xl font-semibold mb-10">
+      <h2 className="text-center text-xl font-semibold mb-10 font-open_sans">
         Ready to Invest?
       </h2>
       <div className="flex justify-center gap-4 sm:gap-10">
@@ -38,7 +68,7 @@ function InvestmentSection() {
           <Link
             key={index}
             onClick={() => {
-              window.open(item.url, '_blank'); // Redirect to the specified URL
+              window.open(item.url, "_blank"); // Redirect to the specified URL
             }}
             className="flex flex-col items-center text-center group"
           >
@@ -60,7 +90,7 @@ function InvestmentSection() {
             <Link
               key={index}
               onClick={() => {
-                window.open(item.url, '_blank'); // Redirect to the specified URL
+                window.open(item.url, "_blank"); // Redirect to the specified URL
               }}
               className="flex flex-col items-center text-center group"
             >
@@ -81,8 +111,8 @@ function InvestmentSection() {
         {/* Always show the +9 more button */}
         <Link className="flex flex-col items-center text-center group">
           <Button onClick={handleMainModalOpen}>
-            <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
-              <div className="w-11 h-11 bg-brand-500 flex justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
+            <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500 ">
+              <div className="w-11 h-11 bg-brand-500 flex  justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
                 <span className="font-semibold text-gray-600">
                   <ChevronRightIcon className="w-10 h-10 text-white" />
                 </span>

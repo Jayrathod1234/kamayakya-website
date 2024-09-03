@@ -52,7 +52,8 @@ function LatestReleases() {
               New Stocks released in the last 60 days
             </p>
 
-            {(isMobile && items.length <= 1) || (!isMobile && items.length <= 5) ? (
+            {(isMobile && items.length <= 1) ||
+            (!isMobile && items.length <= 5) ? (
               <div className="flex justify-center gap-5">
                 {isLoading || error ? (
                   <StockCardSkeleton length={1} />
@@ -80,7 +81,6 @@ function LatestReleases() {
           </div>
         )}
       </div>
-
     </>
   );
 }

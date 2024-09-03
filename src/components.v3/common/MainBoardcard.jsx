@@ -28,7 +28,7 @@ function MainBoardcard() {
                   alt=""
                   className="w-3"
                 />
-                <p className="text-[10px] font-semibold text-orange-700">
+                <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
                   Air Conditioners
                 </p>
               </div>
