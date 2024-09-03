@@ -321,7 +321,7 @@ function StockDetailsSection() {
                       {hasVideo ? (
                         <div className="flex-1 group">
                           <button
-                            className="flex-1 w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            className="flex-1 text-nowrap w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                             onClick={() =>
                               window.open(watch_video.youtube_link, "_blank")
                             }
@@ -331,18 +331,18 @@ function StockDetailsSection() {
                               alt="Play icon"
                               className="w-5 h-5 transition duration-300 "
                             />
-                            <span>Watch Video</span>
+                            <span className="text-nowrap text-[14px]">Watch Video</span>
                           </button>
                         </div>
                       ) : (
                         <div className="relative group">
-                          <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                          <button className="w-full text-nowrap  bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
                             <img
                               src="/assets/circle-play.svg"
                               alt="Play icon"
                               className="w-5 h-5"
                             />
-                            <span className="font-medium text-gray-400">
+                            <span className="font-medium text-[14px] text-gray-400 text-nowrap">
                               Watch Video
                             </span>
                           </button>
@@ -370,7 +370,7 @@ function StockDetailsSection() {
                     </div>
                     <div className="flex-1 group">
                       <button
-                        className="w-full border group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                        className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                         onClick={handleMainModalOpen} // Add the onClick event to open the modal
                       >
                         <img
@@ -378,7 +378,7 @@ function StockDetailsSection() {
                           alt="Share icon"
                           className="w-5 h-5 transition duration-300 "
                         />
-                        <span>
+                        <span className="text-nowrap text-[14px]">
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
@@ -1017,7 +1017,7 @@ function StockDetailsSection() {
                           {hasVideo ? (
                             <div className="flex-1 group">
                               <button
-                                className="flex-1 w-full group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                                className="flex-1 text-nowrap w-full group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                                 onClick={() =>
                                   window.open(
                                     watch_video.youtube_link,
@@ -1030,18 +1030,18 @@ function StockDetailsSection() {
                                   alt="Play icon"
                                   className="w-5 h-5 transition duration-300 "
                                 />
-                                <span>Watch Video</span>
+                                <span className="text-nowrap text-[14px]">Watch Video</span>
                               </button>
                             </div>
                           ) : (
                             <div className="relative group">
-                              <button className="w-full bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                              <button className="w-full bg-gray-50 rounded-lg p-[9px] flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
                                 <img
                                   src="/assets/circle-play.svg"
                                   alt="Play icon"
                                   className="w-5 h-5"
                                 />
-                                <span className="font-medium text-gray-400">
+                                <span className="text-nowrap text-[14px] font-medium text-gray-400">
                                   Watch Video
                                 </span>
                               </button>
@@ -1079,7 +1079,7 @@ function StockDetailsSection() {
                               alt="Share icon"
                               className="w-5 h-5 transition duration-300 "
                             />
-                            <span>
+                            <span className="text-nowrap text-[14px]" >
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
