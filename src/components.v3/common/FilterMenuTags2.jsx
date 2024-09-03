@@ -124,6 +124,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                     backgroundColor: "black",
                     color: "white",
                     borderRadius: "50%",
+                    top: "-2px",
                     "&:hover": {
                       backgroundColor: "#333", // Darker black on hover
                     },
@@ -252,6 +253,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                         backgroundColor: "black",
                         color: "white",
                         right: "2%",
+                        top: "-2px",
                         borderRadius: "50%",
 
                         "&:hover": {
