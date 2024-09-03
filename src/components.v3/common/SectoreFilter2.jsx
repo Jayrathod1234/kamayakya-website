@@ -65,7 +65,7 @@ const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
           },
         }}
       />
-      <div style={{ maxHeight: "350px", overflowY: "auto" }}>
+      <div style={{ maxHeight: "350px", overflowY: "auto", zIndex: "100" }}>
         <List>
           {filteredSectors.map((key, index) => (
             <ListItem

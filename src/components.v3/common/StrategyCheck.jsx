@@ -102,6 +102,7 @@ export default function StrategyCheck() {
           borderRadius: "4px",
           padding: "7px 16px",
           fontWeight: 500,
+
           "&:hover": {
             backgroundColor:
               changablestrategyTags.length > 0
@@ -180,6 +181,7 @@ export default function StrategyCheck() {
                       marginBottom: "8px",
                       display: "flex",
                       alignItems: "center",
+                      fontFamily: "open sans",
                       gap: "8px",
                       borderBottom: "1px solid #F2F2F2",
                     }}
@@ -269,6 +271,7 @@ export default function StrategyCheck() {
                             ? "#108973 !important"
                             : "#E4E7EC",
                           padding: "0 8px 0 0",
+                          fontFamily: "Open Sans !important", // Set font to Open Sans
                         }}
                       />
                       <ListItemText
