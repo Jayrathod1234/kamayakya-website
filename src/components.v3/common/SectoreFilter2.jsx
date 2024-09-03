@@ -86,7 +86,11 @@ const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
                     }}
                   />
                 }
-                label={stockSector[key]}
+                label={
+                  <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                    {stockSector[key]}
+                  </span>
+                }
               />
             </ListItem>
           ))}
