@@ -182,8 +182,8 @@ const FilterCarousel = () => {
                     />
                   }
                   sx={{
-                    paddingLeft: "16px",
-                    paddingRight: "16px",
+                    paddingLeft: "6px",
+                    paddingRight: "6px",
                     borderRadius: ".5rem !important",
                     borderRadius: isMobile ? "6px" : "4px",
                     maxWidth: "179px !important",

@@ -180,7 +180,7 @@ function StockDetailsSection() {
                           {/* Text content */}
                           <div className="w-full">
                             <div className="flex flex-col md:flex-row  items-start md:items-center gap-2">
-                              <div className="flex gap-1 items-center w-[300px]   max-w-[480px] ">
+                              <div className="flex gap-1 items-center max-w-[480px] ">
                                 <Image
                                   src={
                                     stock_image
@@ -247,6 +247,7 @@ function StockDetailsSection() {
                         </div>
                       </div>
                     </div>
+                    <hr />
                     <div className="rounded-lg bg-white flex flex-col sm:flex-row px-2 sm:px-4 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
@@ -267,9 +268,7 @@ function StockDetailsSection() {
                           </div>
                         </div>
                       </div>
-
-                      {/* Divider */}
-                      <div className="hidden sm:block border-l border-[#E5E7EB] h-[52px] mx-4"></div>
+                      
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
@@ -296,8 +295,6 @@ function StockDetailsSection() {
                         </div>
                       </div>
 
-                      {/* Divider */}
-                      <div className="hidden sm:block border-l border-[#E5E7EB] h-[52px] mx-4"></div>
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex justify-items-end">
                         <div className="flex p-1 items-center rounded-md bg-[#F9FAFB]">
@@ -1133,7 +1130,7 @@ function StockDetailsSection() {
                           <img
                             src="/assets/images12.webp"
                             alt=""
-                            className=" w-[52px] h-[100px]"
+                            className=" w-[52px] "
                           />
                         </div>
                       </div>
