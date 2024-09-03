@@ -21,7 +21,7 @@ function ElevateSection() {
       {/* <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
         Access exclusive insights with
       </p> */}
-      <p className="text-base sm:text-lg font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
+      <p className="text-base sm:text-md font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
         Access exclusive insights with
         <span className="text-white/[0.80] font-semibold leading-7">
           30+ Main Board and 10+ SME Premium stock
@@ -84,7 +84,7 @@ function ElevateSection() {
               <Link href={`/pricing`}>
                 <button
                   name="text"
-                  className="input items-center flex gap-[6px] font-medium text-md h-full opacity-90 w-full rounded-xl bg-black group-hover:bg-transparent !text-white"
+                  className="input items-center flex gap-[6px] font-medium text-md h-full opacity-90 w-full rounded-xl bg-black group-hover:bg-transparent !text-white font-open_sans"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -33,7 +33,7 @@ const HotStockSection = ({ items }) => {
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 sm:block hidden text-gray-950">
                   Hot Stocks ({items?.length})
                 </h2>
-                <p className="pt-3 font-normal text-sm text-gray-500 pb-10 sm:block hidden">
+                <p className="pt-3 font-normal text-sm text-gray-500 pb-10 sm:block hidden font-open_sans">
                   Top stocks to invest in right NOW!
                 </p>
                 <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:pl-[41px] pr-20  sm: sm:flex  items-center  rounded-[10px]">
@@ -136,7 +136,7 @@ const HotStockSection = ({ items }) => {
                                             alt=""
                                             className="w-[24px] blur-[2px]"
                                           />
-                                          <span className="tooltiptext relative shadow-sm">
+                                          <span className="tooltiptext relative shadow-3xl">
                                             <img
                                               src="/assets/div.png"
                                               alt=""
@@ -167,7 +167,7 @@ const HotStockSection = ({ items }) => {
                                               alt=""
                                               className="w-3"
                                             />
-                                            <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap">
+                                            <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap font-open_sans">
                                               MCap:
                                               {is_blur ? (
                                                 <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
@@ -217,7 +217,7 @@ const HotStockSection = ({ items }) => {
                                                       the stock price could rise
                                                       from its current level.
                                                     </div>
-                                                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-md">
+                                                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 grid rounded-md">
                                                       <span className="text-[#108973] text-2xs font-bold">
                                                         Example :
                                                       </span>

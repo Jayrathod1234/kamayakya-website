@@ -12,7 +12,7 @@ const DeepValue = ({ stock_tags }) => {
         className="py-[2px] sm:pr-[8px] pr-1 sm:pl-[6px]  pl-1 rounded-2xl border border-[#EDF0F5]  flex sm:gap-2 gap-1 items-center cursor-pointer"
       >
         <img src={stock_tags?.[0]?.image} alt="" className="w-3.5" />
-        <p className="text-[10px] font-semibold text-[#344054] flex gap-[3px] whitespace-nowrap truncate">
+        <p className="text-[10px] font-semibold text-[#344054] flex gap-[3px] whitespace-nowrap truncate font-open_sans">
           {stock_tags?.[0]?.name}
           {stock_tags_count > 1 && (
             <span className="text-[#108973] font-bold">
