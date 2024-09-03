@@ -962,9 +962,9 @@ function StockDetailsSection() {
                   </div>
 
                   {/* When small Screen Time-line & Report Section show  */}
-                  <div className="mt-5 block sm:hidden md:hidden mb-5 bg-white">
+                  <div className="mt-5 block  rounded-lg p-[24px] sm:hidden md:hidden mb-5 bg-white">
                     <button
-                      className="w-full   p-0 rounded-lg flex justify-between items-center"
+                      className="w-full    p-0 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
                     >
                       <span className="font-open_sans text-sm font-bold">
