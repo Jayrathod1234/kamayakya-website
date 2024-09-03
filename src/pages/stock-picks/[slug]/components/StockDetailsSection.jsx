@@ -200,7 +200,7 @@ function StockDetailsSection() {
                                 <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
                                 <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
                                   {stock_exchange == "BSE" ||
-                                  stock_exchange == "SME-BSE"
+                                    stock_exchange == "SME-BSE"
                                     ? "BSE: "
                                     : "NSE: "}
                                   {stock_symbol}
@@ -385,8 +385,8 @@ function StockDetailsSection() {
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
-                            ? "Go to Broker"
-                            : "Sell Now"}
+                              ? "Go to Broker"
+                              : "Sell Now"}
                         </span>
                       </button>
                       <InvestModal
@@ -455,9 +455,8 @@ function StockDetailsSection() {
                           <div className="flex flex-col md:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -472,7 +471,7 @@ function StockDetailsSection() {
                                     />
                                     <div className="absolute top-6  shadow-3xl left-[50px] transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white  text-sm rounded-lg py-2 px-4 w-[300px]">
                                       <div className="w-full grid gap-1 relative">
-                                        <img src="/assets/div.png" alt=""  className="h-8 w-5 absolute -top-4 left-[32%]"/>
+                                        <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[32%]" />
                                         <p className="text-[12px]">
                                           Upside Left means how much the stock
                                           price could rise from its current
@@ -510,9 +509,8 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -583,7 +581,7 @@ function StockDetailsSection() {
                                       />
                                       <div className="absolute top-8 z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
                                         <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white  rounded-lg shadow-3xl text-gray-800 relative">
-                                        <img src="/assets/div.png" alt=""  className="h-8 w-5 absolute -top-[11px] shadow-3xl left-[60%]"/>
+                                          <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-[11px] shadow-3xl left-[60%]" />
                                           <div className="tooltip-content">
                                             <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
                                               Compound Annual Growth Rate
@@ -764,8 +762,9 @@ function StockDetailsSection() {
                                 alt="Info"
                                 className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
                               />
-                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white text-black  text-sm rounded-lg py-2 px-4 w-[300px]">
-                                <div className="w-full">
+                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black  text-sm rounded-lg py-2 px-4 w-[300px]">
+                                <div className="w-full grid gap-1 relative">
+                                  <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[46%]" />
                                   <p className="text-[12px] font-open_sans">
                                     Upside Left means how much the stock price
                                     could rise from its current level.
@@ -972,9 +971,8 @@ function StockDetailsSection() {
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1088,8 +1086,8 @@ function StockDetailsSection() {
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
-                                ? "Go to Broker"
-                                : "Sell Now"}
+                                  ? "Go to Broker"
+                                  : "Sell Now"}
                             </span>
                           </button>
                           <InvestModal
@@ -1177,9 +1175,8 @@ function StockDetailsSection() {
                             TIMELINE & REPORTS ({timeline.length || 0})
                           </span>
                           <svg
-                            className={`transform w-5 h-5 transition-transform duration-200 ${
-                              isOpen ? "rotate-180" : ""
-                            }`}
+                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                              }`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
