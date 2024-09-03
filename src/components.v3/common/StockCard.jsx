@@ -196,7 +196,7 @@ function StockCard({
                             Upside Left means how much the stock price could
                             rise from its current level.
                           </div>
-                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-md">
+                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-lg">
                             <span className="text-[#108973] text-2xs font-bold">
                               Example :
                             </span>

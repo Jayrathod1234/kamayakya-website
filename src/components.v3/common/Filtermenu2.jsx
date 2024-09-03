@@ -252,7 +252,7 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
       }transition-all duration-500`}
     >
       {/* topbar  */}
-      <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
+      <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
         <div className="justify-between absolute flex items-center w-auto gap-2 ">
           <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">
             Filters

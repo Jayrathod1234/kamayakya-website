@@ -10,8 +10,8 @@ import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 import DrawerFilter from "@/components.v3/common/DrawerFilter";
 import ResponsiveFilter from "../../../components.v3/common/ResponsiveFilter";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
+import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useNavBar } from "@/contexts/NavBarContext.js";
-
 function AllBoardStockSection() {
   const {
     searchStock,
@@ -21,6 +21,8 @@ function AllBoardStockSection() {
     error,
     fetchNextPage,
   } = useAllBoardStock();
+
+  const { sebiBoardType } = useStockPicks();
 
   const { showFilterHeader, setShowFilterHeader } = useNavBar();
 
@@ -67,7 +69,7 @@ function AllBoardStockSection() {
     <>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto z-[20000]">
         <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center sm:pb-10 pb-4">
-          All Mainboard Stocks
+          All {sebiBoardType == "mainboard" ? "Mainboard" : "SME"} Stocks
         </p>
       </div>
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">

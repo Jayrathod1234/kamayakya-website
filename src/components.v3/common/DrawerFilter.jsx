@@ -278,7 +278,7 @@ function DrawerFilter() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* topbar  */}
-              <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
+              <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
                 <div className="justify-between absolute flex items-center w-auto gap-2 ">
                   <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">
                     Filters
@@ -293,12 +293,13 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
               </div>
               {/* upside left  */}
-              <div className="pt-4 pr-6 pl-2 ">
+              <div className="pt-0 pr-6 pl-2 ">
                 <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <img
@@ -443,6 +444,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <AccessTimeIcon fontSize="small" />
@@ -547,6 +549,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <img src="/assets/hourglass-02.svg" />
@@ -605,7 +608,10 @@ function DrawerFilter() {
                     margin: "0px !important",
                   }}
                 >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    sx={{ paddingRight: 0 }}
+                  >
                     <Box display="flex" alignItems="center">
                       <img
                         src="/assets/solar_graph-down-new-broken.svg"
@@ -708,6 +714,7 @@ function DrawerFilter() {
                     }}
                   >
                     <AccordionSummary
+                      sx={{ paddingRight: 0 }}
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="recency-content"
                       id="recency-header"
@@ -780,6 +787,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <svg
@@ -840,6 +848,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <svg
@@ -918,6 +927,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <svg
@@ -1040,7 +1050,7 @@ function DrawerFilter() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* topbar  */}
-              <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
+              <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
                 <div className="justify-between absolute flex items-center w-auto gap-2 ">
                   <svg
                     onClick={() => setOpen(false)}
