@@ -351,7 +351,7 @@ function StockDetailsSection() {
                           </button>
 
                           {/* Tooltip */}
-                          <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
+                          <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-3xl rounded-lg border border-gray-200 p-4 text-center z-10">
                             <img
                               src="/assets/frame123.png" // Change this to the appropriate image source
                               alt="Video thumbnail"
@@ -470,8 +470,9 @@ function StockDetailsSection() {
                                       alt="Info"
                                       className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
                                     />
-                                    <div className="absolute  shadow-md left-1/2 transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white  text-sm rounded-lg py-2 px-4 w-[300px]">
-                                      <div className="w-full">
+                                    <div className="absolute top-6  shadow-3xl left-[50px] transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white  text-sm rounded-lg py-2 px-4 w-[300px]">
+                                      <div className="w-full grid gap-1 relative">
+                                        <img src="/assets/div.png" alt=""  className="h-8 w-5 absolute -top-4 left-[32%]"/>
                                         <p className="text-[12px]">
                                           Upside Left means how much the stock
                                           price could rise from its current
@@ -580,8 +581,9 @@ function StockDetailsSection() {
                                         alt="Info"
                                         className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
                                       />
-                                      <div className="absolute shadow-md z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
-                                        <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white border border-gray-300 rounded-lg shadow-lg text-gray-800">
+                                      <div className="absolute top-8 z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
+                                        <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white  rounded-lg shadow-3xl text-gray-800 relative">
+                                        <img src="/assets/div.png" alt=""  className="h-8 w-5 absolute -top-[11px] shadow-3xl left-[60%]"/>
                                           <div className="tooltip-content">
                                             <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
                                               Compound Annual Growth Rate
@@ -1050,7 +1052,7 @@ function StockDetailsSection() {
                               </button>
 
                               {/* Tooltip */}
-                              <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-lg rounded-lg border border-gray-200 p-4 text-center z-10">
+                              <div className="absolute top-full left-[90%] transform -translate-x-1/2 mt-2 hidden group-hover:block w-max max-w-xs bg-white shadow-3xl rounded-lg border border-gray-200 p-4 text-center z-10">
                                 <img
                                   src="/assets/frame123.png" // Change this to the appropriate image source
                                   alt="Video thumbnail"
