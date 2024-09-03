@@ -22,12 +22,13 @@ const HotStockSection = ({ items }) => {
   };
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const isLatop = useMediaQuery("(max-width:1024px)");
 
   return (
     <div>
       <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[20px]">
         <div className="container sm:mx-auto p-0">
-          {!isMobile ? (
+          {!isLatop ? (
             <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none max-w-[1280px] mx-auto">
               <div className="bg-[#fff] rounded-[20px] sm:px-10 px-4 sm:py-8 py-5 gap-10 text-center">
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 sm:block hidden text-gray-950">
@@ -41,7 +42,7 @@ const HotStockSection = ({ items }) => {
                     <img
                       src="/assets/noto_locked.png"
                       alt=""
-                      className="w-[46px] sm:m-0 m-auto"
+                      className="w-[46px] lg:m-0 m-auto"
                     />
                     <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal">
                       Gain exclusive access to
@@ -368,9 +369,9 @@ const HotStockSection = ({ items }) => {
                 <img
                   src="/assets/noto_locked.png"
                   alt=""
-                  className="w-[46px] sm:m-0 m-auto"
+                  className="w-[46px] lg:m-0 m-auto"
                 />
-                <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 sm:max-w-[324px]  tracking-normal">
+                <p className="sm:text-display-sm lg:text-display-xs md:text-[26px] text-lg font-bold sm:leading-[38px] leading-7 lg:text-center text-center font-open_sans pt-4 lg:max-w-[745px]   tracking-normal">
                   Gain exclusive access to
                   <span className="text-[#108973]">
                     30+ potential multibagger picks
@@ -378,7 +379,7 @@ const HotStockSection = ({ items }) => {
                   <br className="sm:block hidden"></br>with KamayaKya
                   membership.
                 </p>
-                <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block sm:pb-0 pb-7">
+                <div className="  !mt-6 lg:m-0 m-auto lg:block inline-block lg:pb-0 pb-7">
                   <ButtonnArrow
                     onClick={handleContactButton}
                     variant={ButtonVariant.primary}

@@ -86,10 +86,12 @@ export default function SectorCheck() {
             backgroundColor:
               sector.length > 0 ? "#125B54" : "#e7f8f8 !important",
             borderColor: sector.length > 0 ? "#108973" : "#cbf3f0 !important",
+            transform: "scale(000.95)", // Apply scale effect on hover
+            transition: "transform 0.3s ease", // Smooth transition for the scale effect
           },
         }}
       >
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 font-open_sans text-xs">
           <span>Sector</span>
           {sector.length > 0 && (
             <span
@@ -143,7 +145,7 @@ export default function SectorCheck() {
               <ClickAwayListener onClickAway={handleClose}>
                 <Box
                   sx={{
-                    padding: "8px",
+                    padding: "0px 8px 8px 8px",
                     maxHeight: "250px", // Set a max height for the scrollable area
                     overflowY: "auto", // Enable vertical scrolling
                   }}
@@ -152,11 +154,15 @@ export default function SectorCheck() {
                     disableSticky
                     sx={{
                       backgroundColor: "#00000",
-                      padding: "0",
+                      padding: "8px 0px 2px 0px",
                       marginBottom: "8px",
                       display: "flex",
                       alignItems: "center",
                       gap: "8px",
+                      position: "sticky",
+                      backgroundColor: "#ffff",
+                      zIndex: "10",
+                      top: "0",
                       borderBottom: "1px solid #F2F2F2", // Add a bottom border
                     }}
                   >
@@ -228,7 +234,7 @@ export default function SectorCheck() {
                         padding: "8px",
                         height: "36px",
                         fontFamily: "open Sans",
-                        fontSize: "14px",
+                        fontSize: "14px !important",
                         backgroundColor: sector.includes(key)
                           ? "#E7F8F8"
                           : "transparent",
@@ -236,6 +242,10 @@ export default function SectorCheck() {
                           backgroundColor: sector.includes(key)
                             ? "#cde6e6"
                             : "#E0F7FA",
+                        },
+                        "& .MuiTypography-root": {
+                          fontSize: "14px !important",
+                          fontFamily: '"Open Sans", sans-serif !important', // Target MUI typography
                         },
                       }}
                     >
