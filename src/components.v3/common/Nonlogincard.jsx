@@ -21,7 +21,7 @@ function Nonlogincard() {
                 alt=""
                 className="w-[24px] blur-[2px]"
               />
-              <span className="tooltiptext relative shadow-sm">
+              <span className="tooltiptext relative shadow-3xl">
                 <img
                   src="/assets/div.png"
                   alt=""
@@ -81,7 +81,7 @@ function Nonlogincard() {
                           Upside Left means how much the stock price could rise
                           from its current level.
                         </div>
-                        <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-md">
+                        <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 grid  rounded-md">
                           <span className="text-[#108973] text-2xs font-bold">
                             Example :
                           </span>
