@@ -63,7 +63,7 @@ function InvestmentSection() {
       <h2 className="text-center text-xl font-semibold mb-10 font-open_sans">
         Ready to Invest?
       </h2>
-      <div className="flex justify-center gap-2 sm:gap-10">
+      <div className="flex justify-center gap-4 sm:gap-10">
         {items.slice(0, 3).map((item, index) => (
           <Link
             key={index}
@@ -72,7 +72,7 @@ function InvestmentSection() {
             }}
             className="flex flex-col items-center text-center group"
           >
-            <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
+            <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
               <img
                 src={item.src}
                 alt={item.alt}
@@ -94,7 +94,7 @@ function InvestmentSection() {
               }}
               className="flex flex-col items-center text-center group"
             >
-              <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
+              <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
                 <img
                   src={item.src}
                   alt={item.alt}
