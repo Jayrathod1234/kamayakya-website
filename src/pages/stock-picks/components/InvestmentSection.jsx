@@ -33,7 +33,7 @@ function InvestmentSection() {
       <h2 className="text-center text-xl font-semibold mb-10">
         Ready to Invest?
       </h2>
-      <div className="flex justify-center gap-2 sm:gap-10">
+      <div className="flex justify-center gap-4 sm:gap-10">
         {items.slice(0, 3).map((item, index) => (
           <Link
             key={index}
@@ -42,7 +42,7 @@ function InvestmentSection() {
             }}
             className="flex flex-col items-center text-center group"
           >
-            <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
+            <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
               <img
                 src={item.src}
                 alt={item.alt}
@@ -64,7 +64,7 @@ function InvestmentSection() {
               }}
               className="flex flex-col items-center text-center group"
             >
-              <div className="bg-white p-4 rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
+              <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
                 <img
                   src={item.src}
                   alt={item.alt}
@@ -79,16 +79,12 @@ function InvestmentSection() {
         </div>
 
         {/* Always show the +9 more button */}
-        <Link
-
-          className="flex flex-col items-center text-center group"
-        >
+        <Link className="flex flex-col items-center text-center group">
           <Button onClick={handleMainModalOpen}>
-            <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500 ">
-
-              <div className="w-11 h-11 bg-brand-500 flex  justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
+            <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
+              <div className="w-11 h-11 bg-brand-500 flex justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
                 <span className="font-semibold text-gray-600">
-                    <ChevronRightIcon className="w-10 h-10 text-white" />
+                  <ChevronRightIcon className="w-10 h-10 text-white" />
                 </span>
               </div>
             </div>
@@ -96,7 +92,13 @@ function InvestmentSection() {
               +17 more
             </span>
           </Button>
-          <InvestModal handleMainModalOpen={handleMainModalOpen} handleMainModalClose={handleMainModalClose} handleChildModalOpen={handleChildModalOpen} handleCloseAllModals={handleCloseAllModals} modalState={modalState} />
+          <InvestModal
+            handleMainModalOpen={handleMainModalOpen}
+            handleMainModalClose={handleMainModalClose}
+            handleChildModalOpen={handleChildModalOpen}
+            handleCloseAllModals={handleCloseAllModals}
+            modalState={modalState}
+          />
         </Link>
 
         {/* Show remaining items only on larger screens */}

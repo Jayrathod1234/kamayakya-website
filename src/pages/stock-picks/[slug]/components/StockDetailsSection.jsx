@@ -258,7 +258,7 @@ function StockDetailsSection() {
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">
                           <div className="w-full flex justify-between items-center">
-                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans capitalize">
                               {sector}
                             </p>
                             <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
@@ -330,7 +330,7 @@ function StockDetailsSection() {
                             }
                           >
                             <img
-                              src="/assets/play1.png"
+                              src="/assets/play-btn.svg"
                               alt="Play icon"
                               className="w-5 h-5 transition duration-300 "
                             />
@@ -1029,7 +1029,7 @@ function StockDetailsSection() {
                                 }
                               >
                                 <img
-                                  src="/assets/play1.png"
+                                  src="/assets/play-btn.svg"
                                   alt="Play icon"
                                   className="w-5 h-5 transition duration-300 "
                                 />
