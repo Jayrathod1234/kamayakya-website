@@ -751,7 +751,7 @@ function StockDetailsSection() {
 
                   {/* Small Responsive size View Open the box  */}
                   <div className="block md:hidden bg-gray-150 p-4 rounded-lg shadow-md max-w-full mx-auto ">
-                    <div className="border border-blue-600 rounded-lg">
+                    <div className=" rounded-lg">
                       <div className="bg-custom-gradient text-white rounded-lg p-4">
                         <div className="flex justify-between items-center">
                           <h2 className="text-lg font-open_sans font-semibold flex items-center">
@@ -962,7 +962,7 @@ function StockDetailsSection() {
                   </div>
 
                   {/* When small Screen Time-line & Report Section show  */}
-                  <div className="mt-5 block  rounded-lg p-[24px] sm:hidden md:hidden mb-5 bg-white">
+                  <div className="mt-5 block  rounded-lg py-[24px] px-[16px] sm:hidden md:hidden mb-5 bg-white">
                     <button
                       className="w-full    p-0 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
