@@ -181,11 +181,11 @@ export default function StrategyCheck() {
                     <TextField
                       size="small"
                       // select
-                      type="search"
+                      type="searchhhhh"
                       placeholder="Search..."
                       value={searchTerm}
                       onChange={handleSearch}
-                      variant="outlined"
+                      // variant="outlined"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -195,15 +195,22 @@ export default function StrategyCheck() {
                             />
                           </InputAdornment>
                         ),
+
                         sx: {
-                          color: "#98A2B3",
-                          borderRadius: "8px",
-                          paddingRight: "8px",
-                          fontSize: "14px",
+                          color: "#667085", // Adjust the text color
+                          border: "none", // Remove the border
+                          outline: "none",
+                          paddingLeft: "4px", // Adjust padding to match the image
+                          fontSize: "14px", // Increase font size for the text
                           width: "100%",
                         },
                       }}
-                      sx={{ flex: 1 }}
+                      sx={{
+                        flex: 1,
+                        backgroundColor: "transparent ", // Make the background transparent
+                        border: "none", // Ensure no border is shown
+                        boxShadow: "none", // Remove any shadow
+                      }}
                     />
                     <Typography
                       onClick={handleSelectAllClick}
