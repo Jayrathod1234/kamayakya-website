@@ -31,12 +31,12 @@ export default function StockDetailProgressBar({
     marginRight: 0,
   });
   const [currentProgress, setCurrentProgress] = useState(1);
-  const targets =  useMemo(()=>stock_targets.slice(1, stock_targets.length).reverse(),[stock_targets]) 
-
+  const targets = useMemo(() => stock_targets.slice(1, stock_targets.length).reverse(), [stock_targets]);
+  // const width = 
   useEffect(() => {
-    if (!ref.current || ref.current?.length <=0) return;
+    if (!ref.current || ref.current?.length <= 0) return;
     const div1 = ref.current[0];
-    const div2 = ref.current[ref.current.length-1];
+    const div2 = ref.current[ref.current.length - 1];
 
     // Get the bounding rectangles of both divs
     const rect1 = div1.getBoundingClientRect();
@@ -50,9 +50,9 @@ export default function StockDetailProgressBar({
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
     // console.log("DISTANCE",distance)
     setCurrentProgress(distance);
-    console.log(ref.current, targets)
+    console.log(ref.current, targets);
     setMargins(() => ({
-      marginLeft: ref.current[0].offsetWidth / 2.5,
+      marginLeft: 0,
       // marginRight: ref.current[targets.length - 2].offsetWidth / 2,
 
       marginRight: ref.current[ref.current.length - 2].offsetWidth / 2,
@@ -60,71 +60,80 @@ export default function StockDetailProgressBar({
   }, [ref.current, targets]);
 
   return (
-    <div className=" relative">
-      <Carousel className=" z-20 " opts={{ slidesToScroll: "auto" }}>
-        <CarouselContent>
-          <CarouselItem className={` basis-1/4 `}>
-            <StockCardTargets
-              index={0}
-              label={"Entry Price"}
-              price={entry_price}
-              date={format(new Date(entry_date), "dd MMM yyyy")}
-              status={"Completed"}
-              className=" !items-start ml-5 pl-2"
-              ref={ref}
-            />
-             {/* SOLID PROGRESS */}
-            <StockProgressBarSolid
-              width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
-              marginLeft={margins.marginLeft}
-              marginRight={margins.marginRight}
-              currentProgress={currentProgress}
-            />
-          </CarouselItem>
-          {targets.map((target: TTarget, index: number) => (
-            //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
-            <CarouselItem key={index + 1} className={` basis-1/5`}>
-              <StockCardTargets
-                index={index + 1}
-                label={"Target " + (index + 1)}
-                price={target.target_price}
-                date={format(new Date(target.created), "dd MMM yyyy")}
-                status={target.target_met ? "Completed" : null}
-                ref={ref}
-              />
-            </CarouselItem>
-          ))}
-          <CarouselItem className={` basis-1/5 `}>
-            <StockCardTargets
-              index={stock_targets.length}
-              label={"CMP"}
-              price={live_price}
-              className=""
-              date={format(new Date(), "dd MMM yyyy")}
-              status={"Completed"}
-              ref={ref}
-            />
-          </CarouselItem>
-          <CarouselItem className={` basis-1/5`}>
-            <StockCardTargets
-              index={stock_targets.length+1}
-              label={"Target"}
-              price={stock_targets[0].target_price}
-              status={stock_targets[0].target_met ? "Completed" : "Active"}
-              className=" !items-end mr-5 pr-1"
-            />
-          </CarouselItem>
-        </CarouselContent>
-        <CarouselPrevious className=" left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
-        <CarouselNext className=" right-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
-      </Carousel>
+    <div className=" relative flex justify-between">
+      <StockCardTargets
+        index={0}
+        label={"Entry Price"}
+        price={entry_price}
+        date={format(new Date(entry_date), "dd MMM yyyy")}
+        status={"Completed"}
+        className=" !items-start "
+        ref={ref}
+      />
+     
+      {targets.map((target: TTarget, index: number) => (
+        //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
+        // <CarouselItem key={index + 1} className={` basis-1/3`}>
+        <StockCardTargets
+          index={index + 1}
+          label={"Target " + (index + 1)}
+          price={target.target_price}
+          date={format(new Date(target.created), "dd MMM yyyy")}
+          status={target.target_met ? "Completed" : null}
+          ref={ref}
+        />
+        // </CarouselItem>
+      ))}
+      <StockCardTargets
+        index={stock_targets.length}
+        label={"CMP"}
+        price={live_price}
+        className=""
+        date={format(new Date(), "dd MMM yyyy")}
+        status={"Completed"}
+        ref={ref}
+      />
+      <StockCardTargets
+        index={stock_targets.length + 1}
+        label={"Target"}
+        price={stock_targets[0].target_price}
+        status={stock_targets[0].target_met ? "Completed" : "Active"}
+        className=" !items-end "
+      />
+       {/* SOLID PROGRESS */}
+       <StockProgressBarSolid
+        width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
+        marginLeft={margins.marginLeft}
+        marginRight={margins.marginRight}
+        currentProgress={currentProgress}
+      />
+
       {/*DOTTED PROGRESS  */}
       <StockProgressBarDotted
+        className=" "
         width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
         marginLeft={margins.marginLeft}
         marginRight={margins.marginRight}
       />
-     
     </div>
   );
+}
+
+{
+  /* <Carousel className=" z-20 " opts={{ slidesToScroll: "auto" }}>
+        <CarouselContent className=" justify-between">
+          <CarouselItem className={` basis-1/4 bg-purple-400`}>
+           
+          </CarouselItem>
+          
+          <CarouselItem className={` basis-1/2 bg-green-400`}>
+           
+          </CarouselItem>
+          <CarouselItem className={`basis-1/5 `}>
+            
+          </CarouselItem>
+        </CarouselContent>
+        <CarouselPrevious className=" left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
+        <CarouselNext className=" right-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
+      </Carousel> */
 }

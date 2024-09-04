@@ -690,7 +690,8 @@ function StockDetailsSection() {
                       </div>
 
                       <div className="pt-4">
-                        <div className="px-4 md:px-[20px] lg:px-[30px] pt-4 pb-4">
+                      {/* md:px-[20px] lg:px-[30px] */}
+                        <div className="px-4 md:px-5  pt-4 pb-4">
                           {/* <StockDetailsProgressBar /> */}
                           <StockDetailProgressBar live_price={live_price} entry_date={created} entry_price={entry_price} stock_targets={stock_targets}/>
                         </div>

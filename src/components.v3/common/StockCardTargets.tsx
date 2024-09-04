@@ -36,7 +36,7 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
   return (
     <div
       ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)}
-      className={cn(` relative flex flex-col  z-10 items-center`, className)}
+      className={cn(` relative flex flex-col   items-center`, className)}
     >
       <h4 className=" font-medium text-3xs text-[#667085] flex items-center">
         {label}
@@ -46,7 +46,7 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
           </span>
         ) : null}
       </h4>
-      <div className="   bg-white rounded-full flex items-center justify-center">
+      <div className=" z-20   bg-white rounded-full flex items-center justify-center">
         {getIcons(label, status as string)}
       </div>
       {isBlur ? <>
