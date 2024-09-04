@@ -34,7 +34,7 @@ function Discovercard({ id, name, description, image, color, slug }) {
               className={` w-[86px] h-[86px]  mx-auto rounded-full flex items-center justify-center  relative z-[2]  discover_circle group-hover:!outline-white group-hover:!bg-white outline outline-2  outline-offset-4 `}
               style={{ backgroundColor: `${color}`, outlineColor: `${color}` }}
             >
-              <img src={image} alt="" className="z-[1]" />
+              <img src={image} alt="" className="z-[1] w-[42px]" />
             </div>
             <p className="text font-open_sans mb-1">{name}</p>
           </div>
