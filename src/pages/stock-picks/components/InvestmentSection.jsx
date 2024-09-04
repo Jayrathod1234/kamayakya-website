@@ -59,7 +59,7 @@ function InvestmentSection() {
   ];
 
   return (
-    <div className="sm:pb-[100px] pb-[100px] pt-0 px-2 rounded-lg">
+    <div className="pb-[100px] pt-0 px-2 rounded-lg sm:pb-[100px]">
       <h2 className="text-center text-xl font-semibold mb-10 font-open_sans">
         Ready to Invest?
       </h2>
@@ -76,16 +76,16 @@ function InvestmentSection() {
               <img
                 src={item.src}
                 alt={item.alt}
-                className="w-11 h-11 rounded-full group-hover:opacity-80 transition-opacity duration-300 "
+                className="w-11 h-11 rounded-full group-hover:opacity-80 transition-opacity duration-300"
               />
             </div>
-            <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans ">
+            <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans">
               {item.name}
             </span>
           </Link>
         ))}
 
-        <div className="hidden sm:flex sm:gap-10">
+        <div className="hidden slg:flex slg:gap-10 lg:flex lg:gap-10">
           {items.slice(3).map((item, index) => (
             <Link
               key={index}
@@ -111,8 +111,8 @@ function InvestmentSection() {
         {/* Always show the +9 more button */}
         <Link className="flex flex-col items-center text-center group">
           <Button onClick={handleMainModalOpen}>
-            <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500 ">
-              <div className="w-11 h-11 bg-brand-500 flex  justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
+            <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
+              <div className="w-11 h-11 bg-brand-500 flex justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
                 <span className="font-semibold text-gray-600">
                   <ChevronRightIcon className="w-10 h-10 text-white" />
                 </span>
@@ -130,8 +130,6 @@ function InvestmentSection() {
             modalState={modalState}
           />
         </Link>
-
-        {/* Show remaining items only on larger screens */}
       </div>
     </div>
   );
