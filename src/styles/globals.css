@@ -273,6 +273,13 @@ input::-webkit-inner-spin-button {
   /* width: 300px !important; */
 }
 
+.css-9iedg7{
+  overflow: visible !important;
+}
+.css-6od3lo-MuiChip-label{
+  padding-right: 4px !important;
+
+}
 .flag-dropdown {
   background-color: #fff !important;
   border: none !important;
