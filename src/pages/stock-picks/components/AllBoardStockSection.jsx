@@ -98,14 +98,14 @@ function AllBoardStockSection() {
               </div>
             </form>
           </div>
-          <div className="flex sm:gap-4 gap-0 sm:h-12 h-0 ">
+          <div className="flex sm:gap-4 gap-0 sm:h-[46px] h-0 ">
             <div className="w-auto sm:block hidden">
               <div className="relative flex gap-4">
                 <CustomSortMenu isLabel={true} />
               </div>
             </div>
           </div>
-          <div className="w-auto sm:block hidden bg-white h-12">
+          <div className="w-auto sm:block hidden bg-white h-[46px]">
             <DrawerFilter />
           </div>
         </div>

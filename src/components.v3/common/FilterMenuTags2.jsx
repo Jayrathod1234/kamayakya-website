@@ -98,7 +98,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
         <Box
           sx={{
             display: "flex",
-            width: isMobile ? "27%" : "757px",
+            width: isMobile ? "27%" : "958px",
             // width: "757px",
             overflow: { sm: "hidden", xs: "auto" },
           }}
