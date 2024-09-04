@@ -86,16 +86,18 @@ function StockCard({
               </div>
             ) : (
               <div className="pt-[20px] px-[20px] flex items-center justify-between">
-                <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 min-w-[320px] text-left">
-                  {stock_name}
-                </p>
+                <Link href={`/stock-picks/${id}`}>
+                  <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 min-w-[320px] text-left hover:text-[#1e555c]">
+                    {stock_name}
+                  </p>
+                </Link>
                 {latest_youtube_video?.youtube_link && (
                   <div className="relative flex items-center gap-[16px]">
                     {/* GIF Image */}
                     <div
                       className={`absolute right-0 transition-transform duration-500 ease-in-out ${hovered ? "translate-x-[-85px]" : "translate-x-[-25px]"
                         } ${hovered ? "me-7" : "me-3"}`}
-                      onMouseEnter={() => setHovered(true )}
+                      onMouseEnter={() => setHovered(true)}
                       onMouseLeave={() => setHovered(false)}
                     >
                       <a href="#">

@@ -196,7 +196,7 @@ const FilterCarousel = () => {
                     paddingLeft: "8px",
                     paddingRight: "8px",
                     borderRadius: ".5rem !important",
-                    borderRadius: isMobile ? "6px" : "4px",
+                    borderRadius: isMobile ? "6px" : "0.5rem",
                     maxWidth: "200px !important",
                     height: "38px !important",
                     border: "1px solid #E4E7EC ",
