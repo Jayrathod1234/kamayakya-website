@@ -52,7 +52,7 @@ const NextButton = (props) => {
         <Button
           {...restProps}
           variant={"default"}
-          className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 group hover:scale-[0.95] hover:bg-[#0B3A36] transition-all duration-300 ease-in-out "
+          className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out "
         >
           <div className="w-5 flex items-center justify-center relative">
             <ChevronRightIcon
@@ -80,7 +80,7 @@ const PrevButton = (props) => {
         <Button
           {...restProps}
           variant={"default"}
-          className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2  group hover:scale-[0.95] hover:bg-[#0B3A36] transition-all duration-300 ease-in-out"
+          className=" rounded-full h-6 w-6 md:h-[52px] md:w-[52px] p-2  group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out"
         >
           <div className="w-5 flex items-center justify-center relative">
             <ChevronLeftIcon
@@ -108,7 +108,10 @@ const StrategySlider = ({ children }) => {
   return (
     <>
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container flex sm:gap-[28px] gap-12 ">
+        <div
+          className={`embla__container flex ${React.Children.count(children) < 7 ? 'gap-[100px]' : 'gap-[28px]'
+            } `}
+        >
           {children}
         </div>
       </div>

@@ -96,14 +96,31 @@ export default function SectorSelect() {
                 setSelectedSectors(sectors);
               }
             }}
+            style={{ paddingBottom: "6px !important" }}
           >
             <Checkbox checked={selectedSectors.length === sectors.length} />
-            <ListItemText primary="Select All" />
+            <ListItemText primary="Select All" sx={{ pb: "6px !important" }} />
           </MenuItem>
           {filteredSectors.map((sector) => (
-            <MenuItem key={sector} value={sector}>
-              <Checkbox checked={selectedSectors.indexOf(sector) > -1} />
-              <ListItemText primary={sector} />
+            <MenuItem
+              key={sector}
+              value={sector}
+              sx={{
+                fontFamily: "Open Sans, sans-serif", // Set font to Open Sans
+              }}
+            >
+              <Checkbox
+                checked={selectedSectors.indexOf(sector) > -1}
+                sx={{
+                  fontFamily: "Open Sans, sans-serif", // Set font to Open Sans
+                }}
+              />
+              <ListItemText
+                primary={sector}
+                sx={{
+                  fontFamily: "Open Sans, sans-serif", // Set font to Open Sans
+                }}
+              />
             </MenuItem>
           ))}
         </Select>

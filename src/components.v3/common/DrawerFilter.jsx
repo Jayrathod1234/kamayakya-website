@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Box,
@@ -64,11 +64,29 @@ function DrawerFilter() {
     handleApplyFilters,
     marketCapType,
     setMarketCapType,
+    sector,
+    setSector,
   } = useAllBoardStock();
-  const [open, setOpen] = React.useState(false);
-  const [anchor, setAnchor] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [anchor, setAnchor] = useState("");
   const isMobile = useMediaQuery("(max-width:600px)");
+  // Temporary state to hold the strategy tag changes
   const drawerBleeding = 56;
+  const [tempStrategyTag, setTempStrategyTag] = useState(strategyTag);
+  const [tempUpsideLeft, setTempUpsideLeft] = useState(upsideLeft);
+  const [tempRecency, setTempRecency] = useState(recency);
+  const [tempTimeLeft, setTempTimeLeft] = useState(timeLeft);
+  const [tempReturns, setTempReturns] = useState(timeLeft);
+  const [tempMarketCapType, setTempMarketCapType] = useState(marketCapType);
+  const [tempRisk, setTempRisk] = useState(risk);
+  const [tempSector, setTempSector] = useState(sector);
+
+  useEffect(() => {
+    if (open) {
+      clearValues();
+    }
+  }, [open]);
+
   // fixed drawer
   const CustomTabPanel = styled(Box)(({ theme }) => ({
     height: "100%",
@@ -113,15 +131,39 @@ function DrawerFilter() {
       "aria-controls": `vertical-tabpanel-${index}`,
     };
   }
+
+  const clearValues = () => {
+    setTempStrategyTag(strategyTag);
+    setTempUpsideLeft(upsideLeft);
+    setMarketCapType(marketCapType);
+    setTempReturns(returns);
+    setTempRecency(recency);
+    setTempTimeLeft(timeLeft);
+    setTempRisk(risk);
+    setTempSector(sector);
+  };
   ////
   const handleApply = () => {
+    setStrategyTag(tempStrategyTag);
+    setUpsideLeft(tempUpsideLeft);
+    setMarketCapType(tempMarketCapType);
+    setRecency(tempRecency);
+    setTimeLeft(tempTimeLeft);
+    setReturns(tempReturns);
+    setRisk(tempRisk);
+    setSector(tempSector);
     setOpen(false);
-    handleApplyFilters();
+    handleApplyFilters(true);
   };
 
   const handleReset = () => {
     setOpen(false);
     handleResetFilters();
+  };
+
+  const handleCancel = () => {
+    clearValues();
+    setOpen(false);
   };
 
   const toggleDrawer = (anchorVal, openVal) => () => {
@@ -134,42 +176,42 @@ function DrawerFilter() {
    * Onchange event
    */
   const handleUpsideLeftSliderChange = (event, newValue) => {
-    setUpsideLeft(newValue);
+    setTempUpsideLeft(newValue);
   };
 
   const handleUpsideLeftInputChange = (event) => {
     event.stopPropagation();
     const index = event.target.name === "min" ? 0 : 1;
-    const newValue = [...upsideLeft];
+    const newValue = [...tempUpsideLeft];
     newValue[index] =
       event.target.value === "" ? "" : Number(event.target.value);
-    setUpsideLeft(newValue);
+    setTempUpsideLeft(newValue);
   };
 
   // // returns
   const handleReturnsSliderChange = (event, newValue) => {
-    setReturns(newValue);
+    setTempReturns(newValue);
   };
 
   const handleReturnsInputChange = (event) => {
     event.stopPropagation();
     const index = event.target.name === "min" ? 0 : 1;
-    const newValue = [...returns];
+    const newValue = [...tempReturns];
     newValue[index] =
       event.target.value === "" ? "" : Number(event.target.value);
-    setReturns(newValue);
+    setTempReturns(newValue);
   };
 
   const handleChangeRecency = (event) => {
-    setRecency({
-      ...recency,
+    setTempRecency({
+      ...tempRecency,
       [event.target.name]: event.target.checked,
     });
   };
 
   const handleChangeTimeLeft = (event) => {
-    setTimeLeft({
-      ...timeLeft,
+    setTempTimeLeft({
+      ...tempTimeLeft,
       [event.target.name]: event.target.checked,
     });
   };
@@ -177,7 +219,7 @@ function DrawerFilter() {
   const handleChangestrategyTag = (event) => {
     const { name, checked } = event.target;
     checked ? addPopularStrategies(name) : removePopularStrategies(name);
-    setStrategyTag((prev) =>
+    setTempStrategyTag((prev) =>
       checked ? [...prev, name] : prev.filter((tag) => tag !== name)
     );
   };
@@ -205,7 +247,7 @@ function DrawerFilter() {
       border: "none",
     },
   });
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -217,7 +259,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("right", true)}
             sx={{ display: isMobile ? "none" : "block" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
+            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
           >
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case">
@@ -236,13 +278,13 @@ function DrawerFilter() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* topbar  */}
-              <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
+              <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
                 <div className="justify-between absolute flex items-center w-auto gap-2 ">
                   <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">
                     Filters
                   </div>
                   <div
-                    className="text-[#125B54] text-sm font-semibold cursor-pointer"
+                    className="text-[#125B54] text-sm font-open_sans font-semibold cursor-pointer"
                     onClick={handleReset}
                   >
                     Clear All
@@ -251,12 +293,13 @@ function DrawerFilter() {
                 <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
               </div>
               {/* upside left  */}
-              <div className="pt-4 pr-6 pl-1 ">
+              <div className="pt-0 pr-6 pl-2 ">
                 <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <img
@@ -272,6 +315,7 @@ function DrawerFilter() {
                             color: "#1D2939",
                             fontSize: "14px",
                             fontWeight: "700",
+                            fontFamily: "open sans",
                           }}
                         >
                           Upside Left
@@ -300,15 +344,15 @@ function DrawerFilter() {
                                 alt=""
                                 className="absolute -top-2 left-[52px] w-4"
                               />
-                              <div className="text-gray-800 text-2xs font-normal">
+                              <div className="text-gray-800 text-2xs font-normal font-open_sans">
                                 Upside Left means how much the stock price could
                                 rise from its current level.
                               </div>
-                              <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
-                                <span className="text-[#108973] text-2xs font-bold ">
+                              <div className="mt-2 p-2 bg-[#F6F7F9] rounded-[0.5rem] gap-1">
+                                <span className="text-[#108973] text-2xs font-bold font-open_sans">
                                   Example :
                                 </span>
-                                <p className="text-2xs text-gray-600 font-normal">
+                                <p className="text-2xs text-gray-600 font-normal font-open_sans">
                                   If a stock's price is ₹100 and the Upside Left
                                   is 20%, it might go up to ₹120.
                                 </p>
@@ -320,9 +364,9 @@ function DrawerFilter() {
                     </Box>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <div className="pl-9">
+                    <div className="pl-11">
                       <CustomSlider
-                        value={upsideLeft}
+                        value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
                         valueLabelDisplay="auto"
                         min={min_upside_left}
@@ -334,7 +378,7 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             name="min"
-                            value={upsideLeft ? upsideLeft[0] : 0}
+                            value={tempUpsideLeft ? tempUpsideLeft[0] : 0}
                             onChange={handleUpsideLeftInputChange}
                             InputProps={{
                               endAdornment: (
@@ -361,7 +405,7 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             name="max"
-                            value={upsideLeft ? upsideLeft[1] : 0}
+                            value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
                             onChange={handleUpsideLeftInputChange}
                             InputProps={{
                               endAdornment: (
@@ -400,6 +444,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <AccessTimeIcon fontSize="small" />
@@ -411,6 +456,7 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Recency
@@ -438,15 +484,15 @@ function DrawerFilter() {
                             alt=""
                             className="absolute -top-2 left-[52px] w-4"
                           />
-                          <div className="text-gray-800 text-2xs font-normal">
+                          <div className="text-gray-800 text-2xs font-normal font-open_sans">
                             Recency tells you how new this stock recommendation
                             is.
                           </div>
-                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
-                            <span className="text-[#108973] text-2xs font-bold ">
+                          <div className="mt-2 p-2 bg-[#F6F7F9] rounded-[0.5rem]  gap-1">
+                            <span className="text-[#108973] text-2xs font-bold font-open_sans">
                               Example :
                             </span>
-                            <p className="text-2xs text-gray-600 font-normal">
+                            <p className="text-2xs text-gray-600 font-normal font-open_sans">
                               A stock recommended last week is more recent and
                               potentially more relevant than one recommended a
                               month ago.
@@ -456,18 +502,23 @@ function DrawerFilter() {
                       </div>
                     </Box>
                   </AccordionSummary>
-                  <div className="pl-4">
+                  <div className="pl-7">
                     <AccordionDetails>
                       <FormGroup>
-                        {Object.keys(recency || {}).map((key) => (
+                        {Object.keys(tempRecency || {}).map((key) => (
                           <FormControlLabel
                             key={key}
+                            sx={{
+                              fontFamily: "Open Sans, sans-serif !important", // Apply font to label text
+                            }}
                             control={
                               <Checkbox
-                                checked={recency[key]}
+                                checked={tempRecency[key]}
                                 onChange={handleChangeRecency}
                                 name={key}
                                 sx={{
+                                  fontFamily:
+                                    "Open Sans, sans-serif !important", // Apply font to checkbox text
                                   color: "default", // Default color
                                   "&.Mui-checked": {
                                     color: "#125B54", // Color when checked
@@ -475,7 +526,13 @@ function DrawerFilter() {
                                 }}
                               />
                             }
-                            label={filterTimeLabel[key]}
+                            label={
+                              <span
+                                style={{ fontFamily: "Open Sans, sans-serif" }}
+                              >
+                                {filterTimeLabel[key]}
+                              </span>
+                            } // Ensure label text uses the correct font
                           />
                         ))}
                       </FormGroup>
@@ -498,6 +555,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <img src="/assets/hourglass-02.svg" />
@@ -509,6 +567,7 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Time Left
@@ -518,15 +577,15 @@ function DrawerFilter() {
                   </IconButton> */}
                     </Box>
                   </AccordionSummary>
-                  <div className="pl-4">
+                  <div className="pl-7">
                     <AccordionDetails>
                       <FormGroup>
-                        {Object.keys(timeLeft || {}).map((key) => (
+                        {Object.keys(tempTimeLeft || {}).map((key) => (
                           <FormControlLabel
                             key={key}
                             control={
                               <Checkbox
-                                checked={timeLeft[key]}
+                                checked={tempTimeLeft[key]}
                                 onChange={handleChangeTimeLeft}
                                 name={key}
                                 sx={{
@@ -537,7 +596,13 @@ function DrawerFilter() {
                                 }}
                               />
                             }
-                            label={filterTimeLabel[key]}
+                            label={
+                              <span
+                                style={{ fontFamily: "Open Sans, sans-serif" }}
+                              >
+                                {filterTimeLabel[key]}
+                              </span>
+                            }
                           />
                         ))}
                       </FormGroup>
@@ -555,7 +620,10 @@ function DrawerFilter() {
                     margin: "0px !important",
                   }}
                 >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    sx={{ paddingRight: 0 }}
+                  >
                     <Box display="flex" alignItems="center">
                       <img
                         src="/assets/solar_graph-down-new-broken.svg"
@@ -570,6 +638,7 @@ function DrawerFilter() {
                             color: "#1D2939",
                             fontSize: "14px",
                             fontWeight: "700",
+                            fontFamily: "open sans",
                           }}
                         >
                           Total Returns
@@ -578,9 +647,9 @@ function DrawerFilter() {
                     </Box>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <div className="pl-9">
+                    <div className="pl-11">
                       <CustomSlider
-                        value={returns}
+                        value={tempReturns}
                         onChange={handleReturnsSliderChange}
                         valueLabelDisplay="auto"
                         min={min_returns}
@@ -593,7 +662,7 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             name="min"
-                            value={returns ? returns[0] : 0}
+                            value={tempReturns ? tempReturns[0] : 0}
                             onChange={handleReturnsInputChange}
                             InputProps={{
                               endAdornment: (
@@ -613,14 +682,19 @@ function DrawerFilter() {
                           />
                         </Grid>
                         <Grid item xs={2}>
-                          <Typography align="center">to</Typography>
+                          <Typography
+                            align="center"
+                            fontFamily="Open Sans, sans-serif"
+                          >
+                            to
+                          </Typography>
                         </Grid>
                         <Grid item xs={5}>
                           <TextField
                             variant="outlined"
                             size="small"
                             name="max"
-                            value={returns ? returns[1] : 0}
+                            value={tempReturns ? tempReturns[1] : 0}
                             onChange={handleReturnsInputChange}
                             InputProps={{
                               endAdornment: (
@@ -657,6 +731,7 @@ function DrawerFilter() {
                     }}
                   >
                     <AccordionSummary
+                      sx={{ paddingRight: 0 }}
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="recency-content"
                       id="recency-header"
@@ -685,6 +760,7 @@ function DrawerFilter() {
                             color: "#1D2939",
                             fontSize: "14px",
                             fontWeight: "700",
+                            fontFamily: "open sans",
                           }}
                         >
                           Market Cap
@@ -692,20 +768,20 @@ function DrawerFilter() {
                       </Box>
                     </AccordionSummary>
                     {/* <SizeSelector /> */}
-                    <div className="flex pl-7 gap-4 pb-4">
+                    <div className="flex pl-11 gap-4 pb-4">
                       {marketCapTypeList?.map((value, index) => (
                         <div
                           className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                            marketCapType == value
+                            tempMarketCapType == value
                               ? "bg-[#E7F8F8] border-[#108973]"
                               : "bg-white border-[#E4E7EC]"
                           }`}
                           key={index}
-                          onClick={() => setMarketCapType(value)}
+                          onClick={() => setTempMarketCapType(value)}
                         >
                           <img src={`/assets/${value}.svg`} alt={value} />
 
-                          <span className="pt-2 text-2xs  text-[#344054] font-normal">
+                          <span className="pt-2 text-2xs font-open_sans text-[#344054] font-normal">
                             {value}
                           </span>
                         </div>
@@ -729,6 +805,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <svg
@@ -759,13 +836,19 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Sectors
                       </Typography>
                     </Box>
                   </AccordionSummary>
-                  <SectorFilter2 />
+                  <SectorFilter2
+                    sector={sector}
+                    setSector={setSector}
+                    tempSector={tempSector}
+                    setTempSector={setTempSector}
+                  />
                 </Accordion>
                 <div className="border-b-2 border-[#F2F4F7] "></div>
               </div>
@@ -783,6 +866,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <svg
@@ -808,13 +892,14 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Strategies
                       </Typography>
                     </Box>
                   </AccordionSummary>
-                  <div className="pl-4">
+                  <div className="pl-7">
                     <AccordionDetails>
                       <FormGroup>
                         {Object.keys(strategyTagList || {}).map((key) => (
@@ -822,7 +907,7 @@ function DrawerFilter() {
                             key={key}
                             control={
                               <Checkbox
-                                checked={strategyTag.includes(key)}
+                                checked={tempStrategyTag.includes(key)}
                                 onChange={handleChangestrategyTag}
                                 name={key}
                                 sx={{
@@ -833,7 +918,13 @@ function DrawerFilter() {
                                 }}
                               />
                             }
-                            label={strategyTagList[key]}
+                            label={
+                              <span
+                                style={{ fontFamily: "Open Sans, sans-serif" }}
+                              >
+                                {strategyTagList[key]}
+                              </span>
+                            }
                           />
                         ))}
                       </FormGroup>
@@ -856,6 +947,7 @@ function DrawerFilter() {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="recency-content"
                     id="recency-header"
+                    sx={{ paddingRight: 0 }}
                   >
                     <Box display="flex" alignItems="center">
                       <svg
@@ -893,6 +985,7 @@ function DrawerFilter() {
                           color: "#1D2939",
                           fontSize: "14px",
                           fontWeight: "700",
+                          fontFamily: "open sans",
                         }}
                       >
                         Risk
@@ -900,20 +993,20 @@ function DrawerFilter() {
                     </Box>
                   </AccordionSummary>
 
-                  <div className="flex pl-7 gap-4 pb-4">
+                  <div className="flex pl-11 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
                         className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          risk == value
+                          tempRisk == value
                             ? "bg-[#E7F8F8] border-[#108973]"
                             : "bg-white border-[#E4E7EC]"
                         }`}
                         key={index}
-                        onClick={() => setRisk(value)}
+                        onClick={() => setTempRisk(value)}
                       >
                         <img src={`/assets/${value}.svg`} alt={value} />
 
-                        <span className="pt-2 text-2xs  text-[#344054] font-normal">
+                        <span className="pt-2 text-2xs  font-open_sans text-[#344054] font-normal">
                           {value}
                         </span>
                       </div>
@@ -926,15 +1019,13 @@ function DrawerFilter() {
               <div className="pt-[61px]">
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
-                    className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
-                    onClick={() => {
-                      setOpen(false);
-                    }}
+                    className="  text-[#344054] font-semibold font-open_sans  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+                    onClick={handleCancel}
                   >
                     Cancel
                   </button>
                   <button
-                    className=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
+                    className=" font-semibold text-white py-2 font-open_sans px-4 bg-[#125B54] rounded-lg w-[170px] "
                     onClick={handleApply}
                   >
                     Apply
@@ -957,7 +1048,7 @@ function DrawerFilter() {
               Filter
             </p>
             {totalFilterCount > 0 && (
-              <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+              <div className=" bg-[#135B54] font-open_sans text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 {totalFilterCount}
               </div>
             )}
@@ -980,7 +1071,7 @@ function DrawerFilter() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* topbar  */}
-              <div className="py-4 px-6  sticky top-0 bg-white z-50  ">
+              <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
                 <div className="justify-between absolute flex items-center w-auto gap-2 ">
                   <svg
                     onClick={() => setOpen(false)}
@@ -1002,7 +1093,7 @@ function DrawerFilter() {
                     Filters
                   </div>
                   <div
-                    className="text-[#125B54] text-sm font-semibold cursor-pointer"
+                    className="text-[#125B54] font-open_sans text-sm font-semibold cursor-pointer"
                     onClick={handleReset}
                   >
                     Clear All
@@ -1052,7 +1143,9 @@ function DrawerFilter() {
                       gap: "12px",
                     }}
                     label={
-                      <Box className="items-start !important">Upside Left</Box>
+                      <Box className="items-start !important font-open_sans">
+                        Upside Left
+                      </Box>
                     }
                     {...a11yProps(0)}
                   />
@@ -1062,6 +1155,7 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
+                      fontFamily: "Open Sans, sans-serif !important",
                     }}
                     label="Recency"
                     {...a11yProps(1)}
@@ -1072,6 +1166,7 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
+                      fontFamily: "Open Sans, sans-serif !important",
                     }}
                     label="Time Left"
                     {...a11yProps(2)}
@@ -1083,6 +1178,7 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       lineClamp: "1",
+                      fontFamily: "Open Sans, sans-serif !important",
                     }}
                     // Total Returns
                     label="Total Return"
@@ -1095,6 +1191,7 @@ function DrawerFilter() {
                         alignItems: "start !important",
                         color: "#5F6368",
                         gap: "12px",
+                        fontFamily: "Open Sans, sans-serif !important",
                       }}
                       label="Market Cap"
                       {...a11yProps(4)}
@@ -1106,6 +1203,7 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
+                      fontFamily: "Open Sans, sans-serif !important",
                     }}
                     label="Sectors"
                     {...a11yProps(5)}
@@ -1116,6 +1214,7 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
+                      fontFamily: "Open Sans, sans-serif !important",
                     }}
                     label="Strategies"
                     {...a11yProps(6)}
@@ -1126,6 +1225,7 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
+                      fontFamily: "Open Sans, sans-serif !important",
                     }}
                     label="Risk"
                     {...a11yProps(7)}
@@ -1142,7 +1242,7 @@ function DrawerFilter() {
                     {/* upside left  */}
                     <div className="">
                       <CustomSlider
-                        value={upsideLeft}
+                        value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
                         valueLabelDisplay="auto"
                         min={min_upside_left}
@@ -1155,7 +1255,7 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             name="min"
-                            value={upsideLeft ? upsideLeft[0] : 0}
+                            value={tempUpsideLeft ? tempUpsideLeft[0] : 0}
                             onChange={handleUpsideLeftInputChange}
                             InputProps={{
                               endAdornment: (
@@ -1177,14 +1277,19 @@ function DrawerFilter() {
                           />
                         </Grid>
                         <Grid item xs={2}>
-                          <Typography align="center">to</Typography>
+                          <Typography
+                            align="center"
+                            fontFamily="Open Sans, sans-serif !important"
+                          >
+                            to
+                          </Typography>
                         </Grid>
                         <Grid item xs={5}>
                           <TextField
                             variant="outlined"
                             size="small"
                             name="max"
-                            value={upsideLeft ? upsideLeft[1] : 0}
+                            value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
                             onChange={handleUpsideLeftInputChange}
                             InputProps={{
                               endAdornment: (
@@ -1222,12 +1327,12 @@ function DrawerFilter() {
                         <div className="pl-0">
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
-                              {Object.keys(recency || {}).map((key) => (
+                              {Object.keys(tempRecency || {}).map((key) => (
                                 <FormControlLabel
                                   key={key}
                                   control={
                                     <Checkbox
-                                      checked={recency[key]}
+                                      checked={tempRecency[key]}
                                       onChange={handleChangeRecency}
                                       name={key}
                                       sx={{
@@ -1238,7 +1343,15 @@ function DrawerFilter() {
                                       }}
                                     />
                                   }
-                                  label={filterTimeLabel[key]}
+                                  label={
+                                    <span
+                                      style={{
+                                        fontFamily: "Open Sans, sans-serif",
+                                      }}
+                                    >
+                                      {filterTimeLabel[key]}
+                                    </span>
+                                  }
                                 />
                               ))}
                             </FormGroup>
@@ -1260,12 +1373,12 @@ function DrawerFilter() {
                         <div className="pl-0">
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
-                              {Object.keys(timeLeft || {}).map((key) => (
+                              {Object.keys(tempTimeLeft || {}).map((key) => (
                                 <FormControlLabel
                                   key={key}
                                   control={
                                     <Checkbox
-                                      checked={timeLeft[key]}
+                                      checked={tempTimeLeft[key]}
                                       onChange={handleChangeTimeLeft}
                                       name={key}
                                       sx={{
@@ -1276,7 +1389,15 @@ function DrawerFilter() {
                                       }}
                                     />
                                   }
-                                  label={filterTimeLabel[key]}
+                                  label={
+                                    <span
+                                      style={{
+                                        fontFamily: "Open Sans, sans-serif",
+                                      }}
+                                    >
+                                      {filterTimeLabel[key]}
+                                    </span>
+                                  }
                                 />
                               ))}
                             </FormGroup>
@@ -1289,7 +1410,7 @@ function DrawerFilter() {
                     {/* total return  */}
                     <div className="  ">
                       <CustomSlider
-                        value={returns}
+                        value={tempReturns}
                         onChange={handleReturnsSliderChange}
                         valueLabelDisplay="auto"
                         min={min_returns}
@@ -1302,7 +1423,7 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             name="min"
-                            value={returns ? returns[0] : 0}
+                            value={tempReturns ? tempReturns[0] : 0}
                             onChange={handleReturnsInputChange}
                             InputProps={{
                               endAdornment: (
@@ -1324,14 +1445,16 @@ function DrawerFilter() {
                           />
                         </Grid>
                         <Grid item xs={2}>
-                          <Typography align="center">to</Typography>
+                          <Typography align="center" fontFamily="open sans">
+                            to
+                          </Typography>
                         </Grid>
                         <Grid item xs={5}>
                           <TextField
                             variant="outlined"
                             size="small"
                             name="max"
-                            value={returns ? returns[1] : 0}
+                            value={tempReturns ? tempReturns[1] : 0}
                             onChange={handleReturnsInputChange}
                             InputProps={{
                               endAdornment: (
@@ -1371,16 +1494,16 @@ function DrawerFilter() {
                             {marketCapTypeList?.map((value, index) => (
                               <div
                                 className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                  marketCapType == value
+                                  tempMarketCapType == value
                                     ? "bg-[#E7F8F8] border-[#108973]"
                                     : "bg-white border-[#E4E7EC]"
                                 }`}
                                 key={index}
-                                onClick={() => setMarketCapType(value)}
+                                onClick={() => setTempMarketCapType(value)}
                               >
                                 <img src={`/assets/${value}.svg`} alt={value} />
 
-                                <span className="pt-2 text-2xs  text-[#344054] font-normal">
+                                <span className="pt-2 text-2xs font-open_sans  text-[#344054] font-normal">
                                   {value}
                                 </span>
                               </div>
@@ -1401,7 +1524,12 @@ function DrawerFilter() {
                           padding: "0px !important",
                         }}
                       >
-                        <SectorFilter2 style={{ padding: "0px !important" }} />
+                        <SectorFilter2
+                          sector={sector}
+                          setSector={setSector}
+                          tempSector={tempSector}
+                          setTempSector={setTempSector}
+                        />
                       </Accordion>
                     </div>
                   </TabPanel>
@@ -1431,12 +1559,22 @@ function DrawerFilter() {
                                       key={key}
                                       control={
                                         <Checkbox
-                                          checked={strategyTag.includes(key)}
+                                          checked={tempStrategyTag.includes(
+                                            key
+                                          )}
                                           onChange={handleChangestrategyTag}
                                           name={key}
                                         />
                                       }
-                                      label={strategyTagList[key]}
+                                      label={
+                                        <span
+                                          style={{
+                                            fontFamily: "Open Sans, sans-serif",
+                                          }}
+                                        >
+                                          {strategyTagList[key]}
+                                        </span>
+                                      }
                                     />
                                   )
                                 )}
@@ -1461,16 +1599,16 @@ function DrawerFilter() {
                           {stockRiskList?.map((value, index) => (
                             <div
                               className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                risk == value
+                                tempRisk == value
                                   ? "bg-[#E7F8F8] border-[#108973]"
                                   : "bg-white border-[#E4E7EC]"
                               }`}
                               key={index}
-                              onClick={() => setRisk(value)}
+                              onClick={() => setTempRisk(value)}
                             >
                               <img src={`/assets/${value}.svg`} alt={value} />
 
-                              <span className="pt-2 text-2xs  text-[#344054] font-normal">
+                              <span className="pt-2 text-2xs font-open_sans text-[#344054] font-normal">
                                 {value}
                               </span>
                             </div>
@@ -1485,15 +1623,13 @@ function DrawerFilter() {
               <div className="pt-[61px]">
                 <div className="flex gap-3 py-3 px-3  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
-                    className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
-                    onClick={() => {
-                      setOpen(false);
-                    }}
+                    className="  text-[#344054] font-semibold font-open_sans py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+                    onClick={handleCancel}
                   >
                     Cancel
                   </button>
                   <button
-                    className=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
+                    className=" font-semibold text-white font-open_sans py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
                     onClick={handleApply}
                   >
                     Apply

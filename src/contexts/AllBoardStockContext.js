@@ -65,7 +65,7 @@ export const AllBoardStockProvider = ({ children }) => {
   }, [min_returns, max_returns]);
 
   const handleApplyFilters = () => {
-    setTotalFilterCount(getFilterCount());
+    setIsChangeFilter(true);
     refetch(); // Refetch data with the new applied filters
   };
 

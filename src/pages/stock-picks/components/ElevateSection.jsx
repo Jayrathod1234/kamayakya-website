@@ -21,7 +21,7 @@ function ElevateSection() {
       {/* <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
         Access exclusive insights with
       </p> */}
-      <p className="text-base sm:text-lg font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
+      <p className="text-base sm:text-md font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
         Access exclusive insights with
         <span className="text-white/[0.80] font-semibold leading-7">
           30+ Main Board and 10+ SME Premium stock
@@ -80,11 +80,11 @@ function ElevateSection() {
         <div className="relative group mt-4 sm:mt-0 sm:ms-auto">
           <div className="relative w-44 sm:w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA] group-hover:scale-[000.9] group-hover:duration-500  group-hover:shadow-become-member  group-hover:border-[1px]  ">
             <div className="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12 group-hover:hidden"></div>
-            <div className="absolute flex items-center text-center justify-center text-white z-[1] opacity-90 rounded-2xl inset-0.5 bg-black group-hover:bg-transparent">
+            <div className="absolute flex items-center text-center justify-center text-white z-[1] opacity-90 rounded-[0.6rem] inset-0.5 bg-black group-hover:bg-transparent">
               <Link href={`/pricing`}>
                 <button
                   name="text"
-                  className="input items-center flex gap-[6px] font-medium text-md h-full opacity-90 w-full rounded-xl bg-black group-hover:bg-transparent !text-white"
+                  className="input items-center flex gap-[6px] font-medium text-md h-full opacity-90 w-full rounded-xl bg-black group-hover:bg-transparent !text-white font-open_sans"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@ function ElevateSection() {
                 </button>
               </Link>
             </div>
-            <div className="absolute transition-all duration-[2500ms] animate-spin w-full h-[47px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden "></div>
+            <div className="absolute transition-all duration-2500 animate-spin w-full h-[47px] bg-gradient-to-r from-white to-black blur-[30px] group-hover:hidden "></div>
           </div>
         </div>
         <div className="absolute right-[-10px] sm:right-[-178px] bottom-[-69px] z-0">

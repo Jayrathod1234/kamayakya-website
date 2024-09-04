@@ -161,12 +161,12 @@ export function HotSlider({ children }) {
     <div className={`relative w-full m-auto `}>
       <div className="flex">
         {/* left slider button */}
-        <div className="justify-center items-center flex">
+        <div className="justify-center items-center flex ">
           <div>
             <Button
               onClick={() => handlePrevNext(onPrevButtonClick)}
               variant={"default"}
-              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.95] hover:bg-[#0B3A36] transition-all duration-300 ease-in-out"
+              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out absolute top-[45%] z-[9] left-5"
             >
               <div className="w-5 flex items-center justify-center relative">
                 <ChevronLeftIcon
@@ -186,7 +186,7 @@ export function HotSlider({ children }) {
         {/* slider content */}
         <div
           ref={emblaRef}
-          className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3`}
+          className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3 relative`}
         >
           <div
             className="flex carousel__container"
@@ -208,7 +208,7 @@ export function HotSlider({ children }) {
             <Button
               onClick={() => handlePrevNext(onNextButtonClick)}
               variant={"default"}
-              className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.95] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-300 ease-in-out"
+              className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.90] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-500 ease-in-out absolute top-[45%] z-[9] right-5"
             >
               <div className="w-5 flex items-center justify-center relative">
                 <ChevronRightIcon

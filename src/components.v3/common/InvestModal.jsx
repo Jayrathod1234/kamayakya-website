@@ -23,7 +23,7 @@ const brokerItems2 = [
   { src: "/assets/AxisDirect.webp", alt: "AxisDirect", name: "AxisDirect", url: "https://www.axisdirect.in" },
   { src: "/assets/Geojit.webp", alt: "Geojit", name: "Geojit", url: "https://www.geojit.com" },
   { src: "/assets/Fyers.webp", alt: "Fyers", name: "Fyers", url: "https://www.fyers.in" },
-  { src: "https://s3-alpha-sig.figma.com/img/fdda/de25/9d78e1e3d0583fe1ddbdac0a25fd0a26?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ovB4ydW~XHKYxvw3-v71E4IjSaDKfPnlLv1-sbKkvan9J31IBPUqZwE7d0SV3-9FScPQXtXqQQ~vv9q2Xd4I-vcQY5MFlqeqw6qC6bIP2juaawLajzusqCflLN0eGWtPVqEvpXemJovPSZKE5pwC9jj0AC-81Fq3qdhDQd7yPhIempI0YbUAAjuDzI1s0svl3J7G6EBxV7QB8CNwNL7~1VGbXoXAbZyR9RS2VaiK80vhDkhF3nL6qSh-H1a3gdsST~~eLUaCFMIC8y4a-JvQhWSwlWSkB7EOfKZ9qxCv1Ki8C1EmXUZBTX4s5qqbT8NGf4O4pLu40X8G4jH105fdmg", alt: "Choice Broking", name: "Choice Broking", url: "https://www.choicebroking.in" },
+  { src: "/assets/Choice.webp", alt: "Choice Broking", name: "Choice Broking", url: "https://www.choicebroking.in" },
 ];
 
 const Modal = ({ open, handleClose, children }) => {

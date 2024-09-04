@@ -23,6 +23,8 @@ const FilterCarousel = () => {
   const carouselRef = useRef(null);
   const containerRef = useRef(null);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const isLatopbig = useMediaQuery("(max-width:1440px)");
+  const isLatop = useMediaQuery("(max-width:1024px)");
   const isTab = useMediaQuery("(max-width:768px)");
 
   useLayoutEffect(() => {
@@ -90,8 +92,9 @@ const FilterCarousel = () => {
               paddingLeft: "20px",
               paddingRight: "20px",
               // paddingLeft: isMobile ? "20px" : "16px",
-              paddingTop: "10px",
-              paddingBottom: "10px",
+              paddingTop: "0px",
+              paddingBottom: "0px",
+              // position: "relative",
               marginTop: "16px",
               marginBottom: "16px",
               borderRadius: "6px",
@@ -112,7 +115,16 @@ const FilterCarousel = () => {
                   color: "white",
                   borderRadius: "50%",
                   position: "absolute",
-                  left: "14%",
+                  // top: "15px",
+                  left: isTab
+                    ? "15%"
+                    : isLatop
+                    ? "11.8%"
+                    : isLatopbig
+                    ? "3%"
+                    : "14%",
+                  //  left: "14%",
+                  zIndex: "9",
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover
                   },
@@ -222,7 +234,14 @@ const FilterCarousel = () => {
                   color: "white",
                   borderRadius: "50%",
                   position: "absolute",
-                  right: "14%",
+                  // top: "15px",
+                  right: isTab
+                    ? "1%"
+                    : isLatop
+                    ? "2%"
+                    : isLatopbig
+                    ? "3%"
+                    : "14%",
 
                   "&:hover": {
                     backgroundColor: "#333", // Darker black on hover

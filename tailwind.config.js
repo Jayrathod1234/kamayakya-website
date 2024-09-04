@@ -30,6 +30,7 @@ const config = {
       // "min-h-700": { raw: "( (min-height: 700px))" },
     },
     transitionDuration: {
+      2500: "2500ms",
       2000: "2000ms",
       700: "700ms",
       300: "300ms",
@@ -140,7 +141,7 @@ const config = {
     extend: {
       backgroundImage: {
         "custom-gradient-arrow":
-          "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, white 70%)",
+          " linear-gradient(90deg, hsl(216deg 23.81% 95.88% / 0%), #f2f4f7 31%)",
         "radial-gradient-xl":
           "radial-gradient(389.9% 150.6% at -13.33% 12.53%, rgba(100, 253, 171, 0.00) 0%, rgba(129, 184, 244, 0.40) 25.93%, rgba(196, 219, 254, 0.57) 43.63%, rgba(228, 238, 253, 0.57) 69.37%, rgba(253, 239, 255, 0.57) 79.3%, rgba(253, 239, 255, 0.00) 100%)",
         "radial-gradient":
@@ -168,7 +169,7 @@ const config = {
         lg: "0px 12px 16px -4px rgba(16, 24, 40, 0.10), 0px 4px 6px -2px rgba(16, 24, 40, 0.05)",
         xl: "0px 20px 24px -4px rgba(16, 24, 40, 0.10), 0px 8px 8px -4px rgba(16, 24, 40, 0.04)",
         "2xl": "0px 24px 48px -12px rgba(16, 24, 40, 0.25)",
-        "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.20)",
+        "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.40)",
       },
       colors: {
         "custom-green": "#108973",

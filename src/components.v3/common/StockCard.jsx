@@ -125,13 +125,19 @@ function StockCard({
               <div className=" flex items-center gap-[8px] ">
                 {stockSector && sector && (
                   <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
-                    <img src="/assets/streamline_hotel-air-conditioner-solid.svg" alt="" className="w-3" />
-                    <p className="text-[10px] font-semibold text-orange-700">{stockSector[sector]}</p>
+                    <img
+                      src="/assets/streamline_hotel-air-conditioner-solid.svg"
+                      alt=""
+                      className="w-3"
+                    />
+                    <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
+                      {stockSector[sector]}
+                    </p>
                   </div>
                 )}
                 <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                   <img src="/assets/Component 8.svg" alt="" className="w-3" />
-                  <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap">
+                  <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap font-open_sans">
                     MCap:
                     {is_blur ? (
                       <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
@@ -160,8 +166,10 @@ function StockCard({
                           <div className="text-gray-800 text-2xs font-normal ">
                             Upside Left means how much the stock price could rise from its current level.
                           </div>
-                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-md">
-                            <span className="text-[#108973] text-2xs font-bold">Example :</span>
+                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-lg">
+                            <span className="text-[#108973] text-2xs font-bold">
+                              Example :
+                            </span>
                             <p className="text-2xs text-gray-600 font-normal">
                               If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
                             </p>
@@ -183,7 +191,7 @@ function StockCard({
                   </div>
                   <div className="flex gap-[3px] items-center font-open_sans">
                     {/* green up arrow  */}
-                    {gain_loss > 0 ? (
+                    {gain_loss >= 0 ? (
                       // green up arrow
                       <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2" />
                     ) : (
@@ -226,7 +234,7 @@ function StockCard({
 
             {!isLoggedIn ? (
               <>
-                <div className="p-5">
+                <div className="p-5 text-center">
                   {/* btn  */}
                   <button className="button-82-pushable group  " role="button" onClick={handleLogin}>
                     <span className="button-82-shadow"></span>
@@ -252,7 +260,7 @@ function StockCard({
               </>
             ) : is_blur ? (
               <>
-                <div className="p-5">
+                <div className="p-5 text-center">
                   <Link href={`/pricing`}>
                     {/* btn  */}
                     <button className="button-82-pushable group " role="button">
@@ -280,7 +288,7 @@ function StockCard({
               </>
             ) : (
               <>
-                <div className="p-5">
+                <div className="p-5 text-center">
                   <Link href={`/stock-picks/${id}`}>
                     <button className="button-82-pushable group relative" role="button">
                       <span className="button-82-shadow"></span>

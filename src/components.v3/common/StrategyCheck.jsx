@@ -11,9 +11,8 @@ import {
   Popper,
   ClickAwayListener,
   Grow,
-  MenuList,
-  InputAdornment,
   Typography,
+  InputAdornment,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -71,6 +70,11 @@ export default function StrategyCheck() {
     }
   );
 
+  const commonStyles = {
+    fontFamily: "Open Sans",
+    fontSize: "14px !important",
+  };
+
   return (
     <Box sx={{ maxWidth: "148px" }}>
       <Button
@@ -88,6 +92,7 @@ export default function StrategyCheck() {
           />
         }
         sx={{
+          ...commonStyles,
           justifyContent: "space-between",
           textTransform: "none",
           color: changablestrategyTags.length > 0 ? "#FFFFFF" : "#1D2939",
@@ -97,6 +102,7 @@ export default function StrategyCheck() {
           borderRadius: "4px",
           padding: "7px 16px",
           fontWeight: 500,
+
           "&:hover": {
             backgroundColor:
               changablestrategyTags.length > 0
@@ -106,10 +112,12 @@ export default function StrategyCheck() {
               changablestrategyTags.length > 0
                 ? "#108973"
                 : "#cbf3f0 !important",
+            transform: "scale(000.95)", // Apply scale effect on hover
+            transition: "transform 0.3s ease", // Smooth transition for the scale effect
           },
         }}
       >
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 font-open_sans text-xs">
           <span>Strategy</span>
           {changablestrategyTags.length > 0 && (
             <span
@@ -117,13 +125,13 @@ export default function StrategyCheck() {
                 backgroundColor: "#FFFFFF",
                 color: "#108973",
                 borderRadius: "50%",
-                display: "flex", // Use flex to center the content
+                display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "20px", // Equal width and height for a perfect circle
+                width: "20px",
                 height: "20px",
-                fontSize: "14px",
                 fontWeight: 200,
+                ...commonStyles,
               }}
             >
               {changablestrategyTags.length}
@@ -156,13 +164,13 @@ export default function StrategyCheck() {
                 borderRadius: "8px",
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
-                maxHeight: "300px", // Set a max height for the dropdown
+                maxHeight: "300px",
               }}
             >
               <ClickAwayListener onClickAway={handleClose}>
                 <Box
                   sx={{
-                    padding: "8px",
+                    padding: "0px 8px 8px 8px",
                     maxHeight: "250px", // Set a max height for the scrollable area
                     overflowY: "auto", // Enable vertical scrolling
                   }}
@@ -171,21 +179,26 @@ export default function StrategyCheck() {
                     disableSticky
                     sx={{
                       backgroundColor: "#00000",
-                      padding: "0",
+                      padding: "8px 0px 2px 0px",
                       marginBottom: "8px",
                       display: "flex",
                       alignItems: "center",
+                      fontFamily: "open sans",
                       gap: "8px",
+                      position: "sticky",
+                      top: "0",
+                      backgroundColor: "#ffff",
+                      zIndex: "10",
+                      borderBottom: "1px solid #F2F2F2", // Add a bottom border
                     }}
                   >
                     <TextField
                       size="small"
-                      // select
                       type="search"
                       placeholder="Search..."
                       value={searchTerm}
                       onChange={handleSearch}
-                      variant="outlined"
+                      variant="standard"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -195,23 +208,29 @@ export default function StrategyCheck() {
                             />
                           </InputAdornment>
                         ),
+                        disableUnderline: true,
                         sx: {
-                          color: "#98A2B3",
-                          borderRadius: "8px",
-                          paddingRight: "8px",
-                          fontSize: "14px",
+                          color: "#667085",
+                          paddingLeft: "4px",
                           width: "100%",
+                          ...commonStyles,
                         },
                       }}
-                      sx={{ flex: 1 }}
+                      sx={{
+                        flex: 1,
+                        backgroundColor: "transparent",
+                        border: "none",
+                        boxShadow: "none",
+                      }}
                     />
                     <Typography
                       onClick={handleSelectAllClick}
                       sx={{
                         cursor: "pointer",
                         color: "#125B54",
-                        fontSize: "12px",
                         fontWeight: 600,
+                        paddingBottom: "6px",
+                        ...commonStyles,
                       }}
                     >
                       {changablestrategyTags.length ===
@@ -241,7 +260,8 @@ export default function StrategyCheck() {
                       sx={{
                         padding: "8px",
                         height: "36px",
-                        fontFamily: "open Sans",
+
+                        fontFamily: "Open Sans !important", // Set font to Open Sans
                         backgroundColor: strategyTag.includes(key)
                           ? "#E7F8F8"
                           : "transparent",
@@ -249,6 +269,10 @@ export default function StrategyCheck() {
                           backgroundColor: strategyTag.includes(key)
                             ? "#cde6e6"
                             : "#E0F7FA",
+                        },
+                        "& .MuiTypography-root": {
+                          fontSize: "14px !important",
+                          fontFamily: '"Open Sans", sans-serif !important', // Target MUI typography
                         },
                       }}
                     >
@@ -259,13 +283,14 @@ export default function StrategyCheck() {
                             ? "#108973 !important"
                             : "#E4E7EC",
                           padding: "0 8px 0 0",
+                          fontFamily: "Open Sans !important", // Set font to Open Sans
                         }}
                       />
                       <ListItemText
                         primary={displayValue}
                         sx={{
                           margin: 0,
-                          fontSize: "14px !important",
+                          ...commonStyles,
                         }}
                       />
                     </MenuItem>

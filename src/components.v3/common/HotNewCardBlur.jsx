@@ -23,7 +23,7 @@ function Nonlogincard() {
                 alt=""
                 className="w-[24px] blur-[2px]"
               />
-              <span class="tooltiptext relative shadow-sm">
+              <span class="tooltiptext relative shadow-3xl">
                 <img
                   src="/assets/div.png"
                   alt=""

@@ -12,8 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
-const SectorFilter2 = () => {
-  const { sector, setSector } = useAllBoardStock();
+const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
   const { stockSector } = useStockPicks();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -23,7 +22,7 @@ const SectorFilter2 = () => {
 
   const handleCheckboxChange = (event) => {
     const value = event.target.name;
-    setSector((prev) =>
+    setTempSector((prev) =>
       prev.includes(value)
         ? prev.filter((item) => item !== value)
         : [...prev, value]
@@ -35,7 +34,7 @@ const SectorFilter2 = () => {
   );
 
   return (
-    <div className="sm:p-4 p-0">
+    <div className=" p-0 pl-11">
       <TextField
         variant="outlined"
         fullWidth
@@ -44,29 +43,33 @@ const SectorFilter2 = () => {
         placeholder="Search for sectors"
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start" paddingLeft="0px">
-              <IconButton>
-                <SearchIcon style={{ color: "#667085", paddingLeft: "0px" }} />
+            <InputAdornment position="start" sx={{ marginLeft: 1 }}>
+              <IconButton sx={{ padding: 0 }}>
+                <SearchIcon style={{ color: "#667085" }} />
               </IconButton>
             </InputAdornment>
           ),
         }}
         sx={{
           "& .MuiOutlinedInput-root": {
+            height: "36px", // Adjust the height as needed
+            padding: "0px", // Remove padding
             "& fieldset": {
               borderColor: "#F2F4F7", // Default border color
-              padding: "0px !important",
+              padding: "0px !important", // Remove padding inside the fieldset
             },
-            // "&:hover fieldset": {
-            //   borderColor: "#1565c0", // Border color when hovered
-            // },
             "&.Mui-focused fieldset": {
               borderColor: "#125B54", // Border color when focused
             },
           },
+          "& .MuiInputBase-input": {
+            padding: "8px", // Adjust padding inside the input
+            fontSize: "14px", // Adjust font size as needed
+          },
         }}
       />
-      <div style={{ maxHeight: "350px", overflowY: "auto" }}>
+
+      <div style={{ maxHeight: "350px", overflowY: "auto", zIndex: "100" }}>
         <List>
           {filteredSectors.map((key, index) => (
             <ListItem
@@ -76,7 +79,7 @@ const SectorFilter2 = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={sector.includes(key)}
+                    checked={tempSector.includes(key)}
                     onChange={handleCheckboxChange}
                     name={key}
                     sx={{
@@ -87,7 +90,11 @@ const SectorFilter2 = () => {
                     }}
                   />
                 }
-                label={stockSector[key]}
+                label={
+                  <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                    {stockSector[key]}
+                  </span>
+                }
               />
             </ListItem>
           ))}

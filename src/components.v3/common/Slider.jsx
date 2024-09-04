@@ -205,7 +205,7 @@ export function Slider({ children }) {
           <Button
             onClick={() => handlePrevNext(onPrevButtonClick)}
             variant={"default"}
-            className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.95] hover:bg-[#0B3A36] transition-all duration-300 ease-in-out"
+            className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out"
           >
             <div className="w-5 flex items-center justify-center relative">
               <ChevronLeftIcon
@@ -227,7 +227,7 @@ export function Slider({ children }) {
           <Button
             onClick={() => handlePrevNext(onNextButtonClick)}
             variant={"default"}
-            className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.95] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-300 ease-in-out"
+            className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.90] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-500 ease-in-out"
           >
             <div className="w-5 flex items-center justify-center relative">
               <ChevronRightIcon

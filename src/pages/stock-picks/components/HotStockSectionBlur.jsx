@@ -22,18 +22,19 @@ const HotStockSection = ({ items }) => {
   };
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const isLatop = useMediaQuery("(max-width:1024px)");
 
   return (
     <div>
       <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[20px]">
         <div className="container sm:mx-auto p-0">
-          {!isMobile ? (
+          {!isLatop ? (
             <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none max-w-[1280px] mx-auto">
               <div className="bg-[#fff] rounded-[20px] sm:px-10 px-4 sm:py-8 py-5 gap-10 text-center">
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 sm:block hidden text-gray-950">
                   Hot Stocks ({items?.length})
                 </h2>
-                <p className="pt-3 font-normal text-sm text-gray-500 pb-10 sm:block hidden">
+                <p className="pt-3 font-normal text-sm text-gray-500 pb-10 sm:block hidden font-open_sans">
                   Top stocks to invest in right NOW!
                 </p>
                 <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:pl-[41px] pr-20  sm: sm:flex  items-center  rounded-[10px]">
@@ -41,7 +42,7 @@ const HotStockSection = ({ items }) => {
                     <img
                       src="/assets/noto_locked.png"
                       alt=""
-                      className="w-[46px] sm:m-0 m-auto"
+                      className="w-[46px] lg:m-0 m-auto"
                     />
                     <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal">
                       Gain exclusive access to
@@ -136,7 +137,7 @@ const HotStockSection = ({ items }) => {
                                             alt=""
                                             className="w-[24px] blur-[2px]"
                                           />
-                                          <span className="tooltiptext relative shadow-sm">
+                                          <span className="tooltiptext relative shadow-3xl">
                                             <img
                                               src="/assets/div.png"
                                               alt=""
@@ -167,7 +168,7 @@ const HotStockSection = ({ items }) => {
                                               alt=""
                                               className="w-3"
                                             />
-                                            <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap">
+                                            <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap font-open_sans">
                                               MCap:
                                               {is_blur ? (
                                                 <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
@@ -217,7 +218,7 @@ const HotStockSection = ({ items }) => {
                                                       the stock price could rise
                                                       from its current level.
                                                     </div>
-                                                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-md">
+                                                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 grid rounded-lg">
                                                       <span className="text-[#108973] text-2xs font-bold">
                                                         Example :
                                                       </span>
@@ -368,9 +369,9 @@ const HotStockSection = ({ items }) => {
                 <img
                   src="/assets/noto_locked.png"
                   alt=""
-                  className="w-[46px] sm:m-0 m-auto"
+                  className="w-[46px] lg:m-0 m-auto"
                 />
-                <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 sm:max-w-[324px]  tracking-normal">
+                <p className="sm:text-display-sm lg:text-display-xs md:text-[26px] text-lg font-bold sm:leading-[38px] leading-7 lg:text-center text-center font-open_sans pt-4 lg:max-w-[745px]   tracking-normal">
                   Gain exclusive access to
                   <span className="text-[#108973]">
                     30+ potential multibagger picks
@@ -378,7 +379,7 @@ const HotStockSection = ({ items }) => {
                   <br className="sm:block hidden"></br>with KamayaKya
                   membership.
                 </p>
-                <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block sm:pb-0 pb-7">
+                <div className="  !mt-6 lg:m-0 m-auto lg:block inline-block lg:pb-0 pb-7">
                   <ButtonnArrow
                     onClick={handleContactButton}
                     variant={ButtonVariant.primary}

@@ -108,7 +108,7 @@ export default function CustomSortMenu({ isLabel }) {
           textTransform: "none",
           color: "#1E555C",
           fontWeight: 500,
-          padding: isMobile ? "8px 11px" : isLabel ? "11px 16px" : "11px 18px", // Conditional padding
+          padding: isMobile ? "8px 11px" : isLabel ? "10px 16px" : "8px 18px", // Conditional padding
           // padding: isLabel ? "11px 16px" : "11px 18px", // Conditional padding
           minWidth: isMobile ? "147px" : isLabel ? "280px" : "157px", // Conditional minWidth
           justifyContent: "space-between",
@@ -237,7 +237,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#344054",
                             fontWeight: 400,
-                            fontSize: "16px",
+                            fontSize: "14px",
                             fontFamily: "Open Sans",
                           }}
                         >
@@ -295,6 +295,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#344054",
                             fontWeight: 400,
+                            fontSize: "14px",
                             fontFamily: "Open Sans",
                           }}
                         >
@@ -376,6 +377,7 @@ export default function CustomSortMenu({ isLabel }) {
                             color: "#475467",
                             fontWeight: 400,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Newest to Oldest
@@ -426,6 +428,7 @@ export default function CustomSortMenu({ isLabel }) {
                             color: "#475467",
                             fontWeight: 400,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Oldest to Newest
@@ -495,6 +498,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#1E555C",
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Longest to Shortest
@@ -544,6 +548,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#1E555C",
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Shortest to Longest
@@ -613,6 +618,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#1E555C",
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           High to Low
@@ -662,6 +668,7 @@ export default function CustomSortMenu({ isLabel }) {
                             marginLeft: "8px",
                             color: "#1E555C",
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Low to High

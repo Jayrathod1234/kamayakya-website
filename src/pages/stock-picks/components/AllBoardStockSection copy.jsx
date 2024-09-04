@@ -198,7 +198,7 @@ function AllBoardStockSection() {
                 <p className="text-display-xs font-bold text-[#F8F8F8] font-open_sans pb-3">
                   Elevate Your Investments with KamayaKya
                 </p>
-                <p className="text-base sm:text-lg font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
+                <p className="text-base sm:text-md font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
                   Access exclusive insights with
                   <span className="text-white/[0.80] font-semibold leading-7">
                     30+ Main Board and 10+ SME Premium stock
