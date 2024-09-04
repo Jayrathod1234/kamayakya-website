@@ -348,7 +348,7 @@ function DrawerFilter() {
                                 Upside Left means how much the stock price could
                                 rise from its current level.
                               </div>
-                              <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
+                              <div className="mt-2 p-2 bg-[#F6F7F9] rounded-[0.5rem] gap-1">
                                 <span className="text-[#108973] text-2xs font-bold font-open_sans">
                                   Example :
                                 </span>
@@ -488,7 +488,7 @@ function DrawerFilter() {
                             Recency tells you how new this stock recommendation
                             is.
                           </div>
-                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1">
+                          <div className="mt-2 p-2 bg-[#F6F7F9] rounded-[0.5rem]  gap-1">
                             <span className="text-[#108973] text-2xs font-bold font-open_sans">
                               Example :
                             </span>
