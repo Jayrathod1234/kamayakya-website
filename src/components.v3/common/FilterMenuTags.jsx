@@ -193,11 +193,11 @@ const FilterCarousel = () => {
                     />
                   }
                   sx={{
-                    paddingLeft: "16px",
-                    paddingRight: "16px",
+                    paddingLeft: "8px",
+                    paddingRight: "8px",
                     borderRadius: ".5rem !important",
                     borderRadius: isMobile ? "6px" : "4px",
-                    maxWidth: "179px !important",
+                    maxWidth: "200px !important",
                     height: "38px !important",
                     border: "1px solid #E4E7EC ",
                     fontFamily: "Open Sans",
@@ -213,9 +213,11 @@ const FilterCarousel = () => {
                       transform: "scale(000.95)", // Adjust the scale value as needed
                       transition: "transform 0.3s ease", // Optional: Add transition for smooth scaling
                     },
+
                     minWidth: "auto", // Ensure text is not truncated
                     whiteSpace: "nowrap", // Prevent text wrapping
                     overflow: "visible", // Ensure full visibility of text
+                    textOverflow: "ellipsis", // Add ellipsis for truncated text
                     display: "inline-flex", // Allow the chip to grow based on content
                   }}
                 />

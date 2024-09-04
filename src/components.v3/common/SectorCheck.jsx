@@ -79,7 +79,8 @@ export default function SectorCheck() {
           borderColor: sector.length > 0 ? "#108973" : "#E4E7EC",
           backgroundColor: sector.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "4px",
-          padding: "7px 16px",
+          height: "38px",
+          padding: "7px 12px",
           fontFamily: "Open Sans",
           fontWeight: 500,
           "&:hover": {

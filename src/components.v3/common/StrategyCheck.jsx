@@ -100,7 +100,8 @@ export default function StrategyCheck() {
           backgroundColor:
             changablestrategyTags.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "4px",
-          padding: "7px 16px",
+          height: "38px",
+          padding: "7px 12px",
           fontWeight: 500,
 
           "&:hover": {
