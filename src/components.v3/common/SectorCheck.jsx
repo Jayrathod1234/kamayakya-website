@@ -204,8 +204,10 @@ export default function SectorCheck() {
                       sx={{
                         cursor: "pointer",
                         color: "#125B54",
-                        fontSize: "12px",
+                        fontSize: "14px",
                         fontWeight: 600,
+                        fontFamily: "open sans",
+                        paddingBottom: "6px",
                       }}
                     >
                       {sector.length === sector_list_arr.length

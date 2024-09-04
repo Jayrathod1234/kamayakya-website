@@ -229,6 +229,7 @@ export default function StrategyCheck() {
                         cursor: "pointer",
                         color: "#125B54",
                         fontWeight: 600,
+                        paddingBottom: "6px",
                         ...commonStyles,
                       }}
                     >

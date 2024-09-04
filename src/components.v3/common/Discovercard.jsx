@@ -39,7 +39,7 @@ function Discovercard({ id, name, description, image, color, slug }) {
             <p className="text font-open_sans mb-1">{name}</p>
           </div>
 
-          <p className="title max-w-[176px] max-h-[75px] font-open_sans line-clamp-4 ">
+          <p className="title max-w-[176px] max-h-[75px] font-open_sans leading-4 line-clamp-3 text-ellipsis text-xs ">
             {description}
           </p>
         </a>
