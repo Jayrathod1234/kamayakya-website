@@ -364,7 +364,7 @@ function DrawerFilter() {
                     </Box>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <div className="pl-9">
+                    <div className="pl-11">
                       <CustomSlider
                         value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
@@ -502,7 +502,7 @@ function DrawerFilter() {
                       </div>
                     </Box>
                   </AccordionSummary>
-                  <div className="pl-4">
+                  <div className="pl-7">
                     <AccordionDetails>
                       <FormGroup>
                         {Object.keys(tempRecency || {}).map((key) => (
@@ -577,7 +577,7 @@ function DrawerFilter() {
                   </IconButton> */}
                     </Box>
                   </AccordionSummary>
-                  <div className="pl-4">
+                  <div className="pl-7">
                     <AccordionDetails>
                       <FormGroup>
                         {Object.keys(tempTimeLeft || {}).map((key) => (
@@ -647,7 +647,7 @@ function DrawerFilter() {
                     </Box>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <div className="pl-9">
+                    <div className="pl-11">
                       <CustomSlider
                         value={tempReturns}
                         onChange={handleReturnsSliderChange}
@@ -768,7 +768,7 @@ function DrawerFilter() {
                       </Box>
                     </AccordionSummary>
                     {/* <SizeSelector /> */}
-                    <div className="flex pl-7 gap-4 pb-4">
+                    <div className="flex pl-11 gap-4 pb-4">
                       {marketCapTypeList?.map((value, index) => (
                         <div
                           className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
@@ -899,7 +899,7 @@ function DrawerFilter() {
                       </Typography>
                     </Box>
                   </AccordionSummary>
-                  <div className="pl-4">
+                  <div className="pl-7">
                     <AccordionDetails>
                       <FormGroup>
                         {Object.keys(strategyTagList || {}).map((key) => (
@@ -993,7 +993,7 @@ function DrawerFilter() {
                     </Box>
                   </AccordionSummary>
 
-                  <div className="flex pl-7 gap-4 pb-4">
+                  <div className="flex pl-11 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
                         className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
