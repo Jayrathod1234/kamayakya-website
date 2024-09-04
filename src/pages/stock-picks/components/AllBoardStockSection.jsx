@@ -137,7 +137,7 @@ function AllBoardStockSection() {
         ref={showFilterRef}
       >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
-          <div className="grid sm:grid-cols-1 grid-cols-1 gap-7  md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid sm:grid-cols-1 grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
             {isLoading || error ? (
               <StockCardSkeleton length={9} />
             ) : items.length > 0 ? (

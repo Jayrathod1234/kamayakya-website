@@ -45,7 +45,8 @@ function StockCard({
   return (
     <>
       {/* new stock card  */}
-      <div className={`relative max-w-[406px] w-[406px] main_card_carousel ${className}`}>
+      <div className={`relative max-w-[400px] w-[400px] sm:max-w-[406px] sm:w-[406px] md:max-w-[360px] md:w-[360px] slg:max-w-[380px] slg:w-[380px] lg:max-w-[406px] lg:w-[406px] 
+        ${className}  main_card_carousel `}>
         <div
           className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
         >
@@ -64,7 +65,7 @@ function StockCard({
                     className="w-[19px]"
                   />
 
-                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] sm:min-w-[281px] min-w-[125px]"></div>
+                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[200px] md:min-w-[200px] slg:min-w-[200px] lg:min-w-[200px]"></div>
                 </div>
 
                 <div className="tooltip">
