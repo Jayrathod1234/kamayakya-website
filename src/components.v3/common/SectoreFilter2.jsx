@@ -43,7 +43,7 @@ const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
         placeholder="Search for sectors"
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start" sx={{ marginLeft: 0 }}>
+            <InputAdornment position="start" sx={{ marginLeft: 1 }}>
               <IconButton sx={{ padding: 0 }}>
                 <SearchIcon style={{ color: "#667085" }} />
               </IconButton>
