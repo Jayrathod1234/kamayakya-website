@@ -43,28 +43,32 @@ const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
         placeholder="Search for sectors"
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start" paddingLeft="0px">
-              <IconButton>
-                <SearchIcon style={{ color: "#667085", paddingLeft: "0px" }} />
+            <InputAdornment position="start" sx={{ marginLeft: 0 }}>
+              <IconButton sx={{ padding: 0 }}>
+                <SearchIcon style={{ color: "#667085" }} />
               </IconButton>
             </InputAdornment>
           ),
         }}
         sx={{
           "& .MuiOutlinedInput-root": {
+            height: "36px", // Adjust the height as needed
+            padding: "0px", // Remove padding
             "& fieldset": {
               borderColor: "#F2F4F7", // Default border color
-              padding: "0px !important",
+              padding: "0px !important", // Remove padding inside the fieldset
             },
-            // "&:hover fieldset": {
-            //   borderColor: "#1565c0", // Border color when hovered
-            // },
             "&.Mui-focused fieldset": {
               borderColor: "#125B54", // Border color when focused
             },
           },
+          "& .MuiInputBase-input": {
+            padding: "8px", // Adjust padding inside the input
+            fontSize: "14px", // Adjust font size as needed
+          },
         }}
       />
+
       <div style={{ maxHeight: "350px", overflowY: "auto", zIndex: "100" }}>
         <List>
           {filteredSectors.map((key, index) => (
