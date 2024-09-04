@@ -115,7 +115,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
           >
             {/* left side arrow  */}
             {showLeftButton && (
-              <div className="bg-custom-gradient-arrow sm:w-10 sm:h-10 w-0 h-0 justify-center flex items-center relative">
+              <div className="sm:bg-transparent bg-custom-gradient-arrow sm:w-10 sm:h-10 w-0 h-0 justify-center flex items-center relative mt-1">
                 <IconButton
                   onClick={scrollLeft}
                   sx={{
@@ -244,7 +244,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
             {!isMobile ? (
               <>
                 {showRightButton && (
-                  <div className="sm:bg-transparent bg-custom-gradient-arrow  w-10 h-10 justify-center flex items-center relative right-[2%]">
+                  <div className="sm:bg-transparent bg-custom-gradient-arrow sm:w-10 sm:h-10 w-0 h-0  justify-center flex items-center relative right-[2%] mt-1">
                     <IconButton
                       onClick={scrollRight}
                       sx={{

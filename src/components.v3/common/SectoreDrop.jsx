@@ -96,9 +96,10 @@ export default function SectorSelect() {
                 setSelectedSectors(sectors);
               }
             }}
+            style={{ paddingBottom: "6px !important" }}
           >
             <Checkbox checked={selectedSectors.length === sectors.length} />
-            <ListItemText primary="Select All" />
+            <ListItemText primary="Select All" sx={{ pb: "6px !important" }} />
           </MenuItem>
           {filteredSectors.map((sector) => (
             <MenuItem
