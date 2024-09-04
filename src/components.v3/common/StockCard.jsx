@@ -85,43 +85,37 @@ function StockCard({
                 </div>
               </div>
             ) : (
-              <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
+              <div className="pt-[20px] px-[20px] flex items-center justify-between">
                 <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 min-w-[320px] text-left">
                   {stock_name}
                 </p>
-
                 {latest_youtube_video?.youtube_link && (
-                  <div
-                    className="relative flex items-center gap-[16px]"
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
-                  >
+                  <div className="relative flex items-center gap-[16px]">
                     {/* GIF Image */}
                     <div
-                      className={`absolute right-0  transition-transform duration-500 ease-in-out ${
-                        hovered ? "translate-x-[-50px]" : ""
-                      } ${hovered ? "me-7" : "me-0"}`}
+                      className={`absolute right-0 transition-transform duration-500 ease-in-out ${hovered ? "translate-x-[-85px]" : "translate-x-[-25px]"
+                        } ${hovered ? "me-7" : "me-3"}`}
+                      onMouseEnter={() => setHovered(true )}
+                      onMouseLeave={() => setHovered(false)}
                     >
                       <a href="#">
                         <img
                           src="/assets/play.gif"
                           alt="Play"
-                          className={`w-[24px] transition-transform duration-500 ease-in-out ${
-                            hovered
-                              ? "filter brightness-0 sepia opacity-100"
-                              : ""
-                          }`}
+                          className={`w-[24px] transition-transform duration-500 ease-in-out ${hovered
+                            ? "filter brightness-0 sepia opacity-100"
+                            : ""
+                            }`}
                         />
                       </a>
                     </div>
 
                     {/* Text container */}
                     <div
-                      className={`w-full  ml-5 transition-transform duration-500 ease-in-out ${
-                        hovered
-                          ? "translate-x-0 opacity-100"
-                          : "translate-x-[50px] opacity-0"
-                      }`}
+                      className={`transition-transform duration-500 ease-in-out ${hovered
+                        ? "-translate-x-6 opacity-100 "
+                        : "translate-x-[50px] opacity-0"
+                        }`}
                     >
                       <a
                         href={latest_youtube_video?.youtube_link}
@@ -129,13 +123,14 @@ function StockCard({
                         rel="noopener noreferrer"
                         className="cursor-default"
                       >
-                        <p className="text-[14px] w-full cursor-pointer leading-[20px] text-[#125B54]">
+                        <p className="text-[14px] w-full  text-nowrap leading-[20px] text-[#125B54]">
                           Watch Video
                         </p>
                       </a>
                     </div>
                   </div>
                 )}
+
               </div>
             )}
 
