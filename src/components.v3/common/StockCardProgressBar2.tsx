@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from "react";
+import React, { forwardRef, useCallback, useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import {
   Carousel,
@@ -16,6 +16,9 @@ import Circle from "@mui/icons-material/Circle";
 import StockProgressBarDotted from "./StockProgressBarDotted";
 import StockProgressBarSolid from "./StockProgressBarSolid";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { debounce } from "@/lib/debounce";
+
 const targets = [
   { price: 3725, label: "Target-2", date: "Jan 2024", status: "Completed" },
   // { price: 3740, label: "Target-3", date: "Feb 2024", status: "Completed" },
@@ -33,6 +36,7 @@ const dates = ["Jan 2024", "Feb 2024", "Mar 2024"];
 type TStockCardProgressBarSection = {
   live_price: number;
   entry_price: number;
+  entry_date: string;
   stock_targets: any;
 };
 type TStockCardTargetsProps = {
@@ -93,63 +97,45 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
   );
 });
 
-export default function StockCardProgressBarSection({
+export default function StockCardProgressBarSection2({
   live_price,
   entry_price,
+  entry_date,
   stock_targets,
 }: TStockCardProgressBarSection) {
   const [api, setApi] = React.useState<CarouselApi>();
-  const [scrollProgress, setScrollProgress] = useState(0);
   const ref = useRef<Array<HTMLDivElement>>([]);
   const [margins, setMargins] = useState({
     marginLeft: 0,
     marginRight: 0,
   });
   const [currentSlidesInView, setCurrentSlidesInView] = useState<Array<number | null>>([]);
-  const [currentProgress, setCurrentProgress] = useState(0);
+  const [currentProgress, setCurrentProgress] = useState(1);
+  const targets = useMemo(() => stock_targets.reverse(), []);
 
   useEffect(() => {
     if (!api) return;
     api.on("scroll", () => {
       let currentSlideInView = api.slidesInView();
+
       setCurrentSlidesInView(
         currentSlideInView.length > 3 ? [...currentSlideInView.slice(0, 3)] : [...currentSlideInView]
       );
-      console.log("SLIDES IN VIEW", api.slidesInView());
-      const progress = Math.max(0, Math.min(1, api.scrollProgress()));
-      setScrollProgress(progress * 100);
     });
   }, [api]);
 
   useEffect(() => {
-    if (!api) return;
-    // api.on("scroll", () => {
-    let currentSlideInView = api.slidesInView();
-    setCurrentSlidesInView(
-      currentSlideInView.length > 3 ? [...currentSlideInView.slice(0, 3)] : [...currentSlideInView]
-    );
-    console.log("SLIDES IN VIEW", api.slidesInView());
-    const progress = Math.max(0, Math.min(1, api.scrollProgress()));
-    setScrollProgress(progress * 100);
-    // });
-  }, [api]);
-  //  console.log(scrollProgress)
-
-  useEffect(() => {
     console.log(currentSlidesInView, "INVOKED");
-    if (currentSlidesInView.length == 0) return;
+    if (!currentSlidesInView || currentSlidesInView?.length == 0) return;
     // let currentPointsProgress = currentSlidesInView.reduce(
     //   (acc: number, current) => (targets[current as number]?.status === "Completed" ? acc + 1 : acc),
     //   0
     // );
     let currentPointsProgress = currentSlidesInView.reduce((acc: number, current) => {
-      console.log(current);
       let ele = ref.current[current as number];
       let statusEle = ele ? ele.querySelector(".status") : "Active";
-      console.log("STATUS", statusEle);
       return !statusEle ? acc + 1 : acc;
     }, 0);
-    console.log(currentPointsProgress, ref.current[1]);
     setCurrentProgress(((currentPointsProgress - 1) / (currentSlidesInView.length - 1)) * 100);
   }, [currentSlidesInView]);
 
@@ -157,10 +143,10 @@ export default function StockCardProgressBarSection({
     if (!ref.current) return;
     setMargins(() => ({
       marginLeft: ref.current[0].offsetWidth / 2,
-      marginRight: ref.current[targets.length + 2 - 1].offsetWidth / 2,
+      marginRight: ref.current[targets.length - 2].offsetWidth / 2,
     }));
   }, [ref.current]);
-  console.log(margins.marginRight);
+
   return (
     // <div className=" pt-5 pb-4">
     <div className=" relative">
@@ -171,46 +157,48 @@ export default function StockCardProgressBarSection({
               index={0}
               label={"Entry Price"}
               price={entry_price}
-              date={new Date().toString()}
+              date={format(new Date(entry_date), "dd MMM yyyy")}
               status={"Completed"}
               className=" !items-start ml-5 pl-2"
               ref={ref}
             />
           </CarouselItem>
-          {targets.map((target, index) => (
-            //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
-            // ${
-            //   targets.length >= 4 ? (currentSlidesInView.length >= 4 ? " basis-1/3" : "basis-1/2") : "basis-1/2"
-            // }
-            <CarouselItem key={index + 1} className={` basis-1/3 justify-between`}>
-              <StockCardTargets
-                index={index + 1}
-                label={target.label}
-                price={target.price}
-                date={target.date}
-                status={target.status}
-                ref={ref}
-              />
-            </CarouselItem>
-          ))}
-          <CarouselItem className={` basis-1/3 `}>
+          {targets
+            .filter((_, index) => index < targets.length - 1)
+            .map((target, index) => (
+              //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
+              // ${
+              //   targets.length >= 4 ? (currentSlidesInView.length >= 4 ? " basis-1/3" : "basis-1/2") : "basis-1/2"
+              // }
+              <CarouselItem key={index + 1} className={` basis-1/3`}>
+                <StockCardTargets
+                  index={index + 1}
+                  label={"Target " + (index + 1)}
+                  price={target.target_price}
+                  date={format(new Date(target.created), "dd MMM yyyy")}
+                  status={target.target_met ? "Completed" : null}
+                  ref={ref}
+                />
+              </CarouselItem>
+            ))}
+          <CarouselItem className={` basis-1/4 `}>
             <StockCardTargets
-              index={targets.length + 1}
+              index={targets.length}
               label={"CMP"}
               price={live_price}
               className=""
-              date={new Date().getMonth().toString() as string}
+              date={format(new Date(), "dd MMM yyyy")}
               status={"Completed"}
               ref={ref}
             />
           </CarouselItem>
           <CarouselItem className={` basis-1/3`}>
             <StockCardTargets
-              index={targets.length + 2}
+              index={targets.length}
               label={"Target"}
-              price={stock_targets[0].target_price}
+              price={targets[targets.length - 1].target_price}
               // date={stock_targets[0].target_date}
-              status={stock_targets[0].met ? "Completed" : "Active"}
+              status={targets[targets.length - 1].met ? "Completed" : "Active"}
               className=" !items-end mr-5 pr-1"
               // ref={ref}
             />
@@ -231,6 +219,7 @@ export default function StockCardProgressBarSection({
         marginLeft={margins.marginLeft}
         marginRight={margins.marginRight}
         currentProgress={currentProgress}
+        scaleVariant={true}
       />
     </div>
   );

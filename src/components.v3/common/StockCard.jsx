@@ -5,7 +5,10 @@ import DeepValue from "./DeepValue";
 import AuthContext from "@/components/AuthContext";
 import Link from "next/link";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import StockCardProgressBarSection from "./StockCardProgressBar";
+import StockCardProgressBarSection from "./StockCardProgressBarSection";
+import StockCardProgressBarBlurSection from "./StockCardProgressBarBlurSection";
+import StockCardProgressBarSection2 from "./StockCardProgressBar2";
+
 
 function StockCard({
   id,
@@ -24,6 +27,7 @@ function StockCard({
   stock_targets,
   live_price,
   entry_price,
+  created,
   className = "",
   style,
 }) {
@@ -204,7 +208,8 @@ function StockCard({
             <div className="pt-5 pb-[10px] pr-5">
               {is_blur ? (
                 <>
-                  <ProgressBar2 />
+                  {/* <ProgressBar2 /> */}
+                  <StockCardProgressBarBlurSection/>
                 </>
               ) : (
                 <>
@@ -212,6 +217,7 @@ function StockCard({
                   <StockCardProgressBarSection
                     live_price={live_price}
                     entry_price={entry_price}
+                    entry_date = {created}
                     stock_targets={stock_targets}
                   />
                 </>

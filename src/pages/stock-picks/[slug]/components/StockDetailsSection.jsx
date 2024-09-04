@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { ButtonBase, Tooltip } from "@mui/material";
+import StockDetailProgressBar from "./StockDetailProgressBar";
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -40,6 +41,7 @@ function StockDetailsSection() {
     timeline,
     cagr_of_stock,
     stock_image,
+    created,
   } = items || {};
 
   const toggleDropdown = () => {
@@ -689,7 +691,8 @@ function StockDetailsSection() {
 
                       <div className="pt-4">
                         <div className="px-4 md:px-[20px] lg:px-[30px] pt-4 pb-4">
-                          <StockDetailsProgressBar />
+                          {/* <StockDetailsProgressBar /> */}
+                          <StockDetailProgressBar live_price={live_price} entry_date={created} entry_price={entry_price} stock_targets={stock_targets}/>
                         </div>
                       </div>
                     </div>

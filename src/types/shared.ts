@@ -37,4 +37,4 @@ export type TStockCardProgressBar = {
   className?: string;
 };
 
-export type TStockCardProgressBarSolid = TStockCardProgressBar & { currentProgress: number };
+export type TStockCardProgressBarSolid = TStockCardProgressBar & { currentProgress: number;scaleVariant?:boolean };

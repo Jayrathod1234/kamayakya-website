@@ -8,7 +8,9 @@ export default function StockProgressBarSolid({
   marginRight,
   currentProgress,
   className,
+  scaleVariant,
 }: TStockCardProgressBarSolid) {
+  const style = scaleVariant ? {transform:`scaleX(${currentProgress}%)`}:{width:`${currentProgress}px`}
   return (
     <div
       style={{
@@ -18,7 +20,9 @@ export default function StockProgressBarSolid({
       }}
       className={cn("  h-[0px] w-full absolute  top-[40%] z-10", className)}
     >
-      <div style={{ width: `${currentProgress}%` }} className=" h-[2px] bg-[#32D583]"></div>
+      {/* `${currentProgress}${scaleVariant ? "%":"px"}` */}
+      {/* transform:`scaleX(${currentProgress}%)` */}
+      <div style={style} className={` h-[2px] bg-[#32D583] origin-left  transition-all`}></div>
     </div>
   );
 }

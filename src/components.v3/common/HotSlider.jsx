@@ -10,6 +10,8 @@ import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
+import CarouselIndicator from '@/components.v3/common/CarouselIndicator'
+
 export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
@@ -227,13 +229,7 @@ export function HotSlider({ children }) {
       {/* indicator */}
       <div className=" flex gap-4 justify-center items-center py-2 bg-white rounded-full w-auto max-w-[127px] mx-auto">
       {scrollSnaps.map((_, index) => (
-          <div
-            onClick={() => onDotButtonClick(index)}
-            key={index}
-            className={` ${
-              index === selectedIndex ? " !w-6 " : " w-[10px] "
-            } h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden`}
-          ><div style={{animationDuration:"6000ms"}} className={`bg-brand-300 w-full h-full ${index === selectedIndex ? "carousel-dot-animate":" hidden"}`}></div></div>
+         <CarouselIndicator onClick={() => onDotButtonClick(index)} index={index} selectedIndex={selectedIndex} />
         ))}
 
       </div>
