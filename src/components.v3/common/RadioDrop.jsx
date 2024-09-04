@@ -162,7 +162,7 @@ export default function CustomSortMenu({ isLabel }) {
             // sx={{ display: isMobile ? "none" : "block" }}
             PaperProps={{
               style: {
-                background: "red",
+                // background: "red",
                 borderRadius: "6px",
                 width: "260px",
                 overflow: "hidden",
