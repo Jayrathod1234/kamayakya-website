@@ -225,17 +225,19 @@ export function HotSlider({ children }) {
         </div>
       </div>
       {/* indicator */}
-      <div className=" flex gap-4 justify-center items-center py-2 bg-white rounded-full w-auto max-w-[127px] mx-auto">
+      <div className="flex gap-4 justify-center items-center py-2 bg-white rounded-full w-auto max-w-[227px] mx-auto">
         {scrollSnaps.map((_, index) => (
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={`${
-              index === selectedIndex ? "w-6 !bg-brand-300" : "aspect-square"
-            } h-[10px]  bg-gray-200 rounded-full transition-all`}
+            className={`${index === selectedIndex
+                ? "w-5 h-3  bg-brand-300 rounded-md"
+                : "w-3 bg-gray-200 rounded-full"
+              } aspect-square  `}
           ></div>
         ))}
       </div>
+
     </div>
   );
 }
