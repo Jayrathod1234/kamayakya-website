@@ -77,7 +77,7 @@ const FilterCarousel = () => {
   });
 
   return (
-    <div className="bg-white">
+    <div className="bg-red-400">
       <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto sm:block hidden">
         <Box
           sx={{ display: "flex", width: "100%", overflow: "hidden" }}
@@ -193,11 +193,11 @@ const FilterCarousel = () => {
                     />
                   }
                   sx={{
-                    paddingLeft: "16px",
-                    paddingRight: "16px",
+                    paddingLeft: "8px",
+                    paddingRight: "8px",
                     borderRadius: ".5rem !important",
                     borderRadius: isMobile ? "6px" : "4px",
-                    maxWidth: "179px !important",
+                    maxWidth: "200px !important",
                     height: "38px !important",
                     border: "1px solid #E4E7EC ",
                     fontFamily: "Open Sans",
@@ -205,7 +205,7 @@ const FilterCarousel = () => {
                     backgroundColor: strategyTag.includes(chip.id)
                       ? "#125b54"
                       : "white",
-                    color: strategyTag.includes(chip.id) ? "white" : "inherit",
+                    color: strategyTag.includes(chip.id) ? "white" : "#1D2939",
                     "&:hover": {
                       backgroundColor: strategyTag.includes(chip.id)
                         ? "#125b54"
@@ -215,7 +215,9 @@ const FilterCarousel = () => {
                     },
                     minWidth: "auto", // Ensure text is not truncated
                     whiteSpace: "nowrap", // Prevent text wrapping
-                    overflow: "visible", // Ensure full visibility of text
+                    // overflow: "visible", // Ensure full visibility of text
+                    overflow: "hidden", // Hide overflow text
+                    textOverflow: "ellipsis", // Add ellipsis for truncated text
                     display: "inline-flex", // Allow the chip to grow based on content
                   }}
                 />

@@ -85,7 +85,7 @@ function StockCard({
               </div>
             ) : (
               <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
-                <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1">
+                <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 min-w-[320px] text-left">
                   {stock_name}
                 </p>
 

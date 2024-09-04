@@ -133,9 +133,9 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                 >
                   <ArrowBackIosIcon
                     sx={{
-                      width: "18px",
+                      width: "12px",
                       position: "absolute",
-                      left: "8px",
+                      left: "10px",
                       top: "3px",
                     }}
                   />
@@ -262,7 +262,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                       }}
                     >
                       <ArrowForwardIosIcon
-                        sx={{ width: "18px", position: "absolute" }}
+                        sx={{ width: "12px", position: "absolute" }}
                       />
                     </IconButton>
                   </div>
