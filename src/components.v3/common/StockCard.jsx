@@ -45,7 +45,7 @@ function StockCard({
   return (
     <>
       {/* new stock card  */}
-      <div className={`relative main_card_carousel ${className}`}>
+      <div className={`relative max-w-[406px] w-[406px] main_card_carousel ${className}`}>
         <div
           className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
         >
