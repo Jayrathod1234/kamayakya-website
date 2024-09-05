@@ -75,7 +75,7 @@ function AllBoardStockSection() {
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
         <div className="flex flex-col sm:flex-row sm:gap-4 gap-0 items-center justify-between ">
           <div className="w-full">
-            <form>
+            <div>
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white ml-2 shadow-3xs"
@@ -96,7 +96,7 @@ function AllBoardStockSection() {
                   onChange={(e) => setSearchStock(e.target.value)}
                 />
               </div>
-            </form>
+            </div>
           </div>
           <div className="flex sm:gap-4 gap-0 sm:h-[46px] h-0 ">
             <div className="w-auto sm:block hidden">
