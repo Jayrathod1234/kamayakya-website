@@ -6,7 +6,6 @@ import { useMediaQuery } from "@mui/material";
 const HotStockSectionSlider = ({ items }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   return (
-    <div>
       <div className="relative z-[2] sm:pb-[100px] pb-[60px] sm:mt-5  mt-6">
         <div className="sm:container sm:mx-auto mx-0">
           <div className="sm:bg-white bg-transparent sm:p-2.5 p-0 sm:rounded-[20px] rounded-t-[20px] overflow-hidden max-w-[1280px] mx-auto">
@@ -39,7 +38,6 @@ const HotStockSectionSlider = ({ items }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

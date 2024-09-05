@@ -11,18 +11,36 @@ import { Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "@/components/Login.jsx";
 import AuthContext from "@/components/AuthContext";
-import { StockPicksProvider } from "@/contexts/StockPicksContext";
+import { StockPicksProvider,useStockPicks } from "@/contexts/StockPicksContext";
 import { AllBoardStockProvider } from "@/contexts/AllBoardStockContext";
+import { useQuery } from "@tanstack/react-query";
+import { getHotStockListApi } from "@/api/stock-picks";
+import { useMediaQuery } from "@mui/material";
+
+
 const StockPicks = () => {
-  const { showLoginModal, handleCloseLoginModal } = useContext(AuthContext);
+  const { showLoginModal, handleCloseLoginModal,isLoggedIn } = useContext(AuthContext);
+
+  const { sebiBoardType } = useStockPicks();
+  const isMobile = useMediaQuery("(max-width:600px)");
+
+  // Use react-query to fetch
+  const {
+    data: { data: items = [], is_limited_view: isLimitedView = false } = {},
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["hotStock", sebiBoardType, isLoggedIn],
+    queryFn: () => getHotStockListApi({ isLoggedIn, type: sebiBoardType }),
+  });
+
   return (
-    <StockPicksProvider>
       <Layout>
-        <div className=" font-open_sans h-[805px] relative">
+        <div className={`font-open_sans h-[805px] relative ${(isMobile && items.length <= 1) || (!isMobile && items.length <= 3) ? "mb-48": "mb-60"}`} >
           {/* SebiBoardTab */}
           <SebiBoardTab />
           {/* Bannerhotstockscard */}
-          <HotStockSection />
+          <HotStockSection items={items} isLimitedView={isLimitedView} isLoading={isLoading} error={error} />
         </div>
         {/* Latest Releases  */}
         <LatestReleases />
@@ -66,8 +84,13 @@ const StockPicks = () => {
           </Modal.Body>
         </Modal>
       </Layout>
-    </StockPicksProvider>
   );
 };
 
-export default StockPicks;
+export default function StockPicksPage() {
+  return (
+    <StockPicksProvider>
+      <StockPicks />
+    </StockPicksProvider>
+  );
+}
