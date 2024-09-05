@@ -740,7 +740,7 @@ function StockDetailsSection() {
                         </div>
                       </div>
 
-                      <div className="pt-4">
+                      <div className="pt-4 bg-white">
                       {/* md:px-[20px] lg:px-[30px] */}
                         <div className="px-4 md:px-5  pt-4 pb-4">
                           {/* <StockDetailsProgressBar /> */}
@@ -874,15 +874,17 @@ function StockDetailsSection() {
                       </span>{" "}
                       likely within {upside_left_time}
                     </div>
-                    <div className="pt-4 hidden sm:block">
+                    <div className="pt-4 hidden sm:block bg-white">
                       <div className="px-2">
-                        <StockDetailsProgressBar />
+                      <StockDetailProgressBar live_price={live_price} entry_date={created} entry_price={entry_price} stock_targets={stock_targets}/>
+                        {/* <StockDetailsProgressBar /> */}
                       </div>
                     </div>
                   </div>
-                  <div className="pt-4 block sm:hidden">
+                  <div className="pt-4 block sm:hidden bg-white">
                     <div className="px-4 md:px-[20px] pt-4 pb-4">
-                      <StockDetailsProgressBar />
+                      {/* <StockDetailsProgressBar /> */}
+                      <StockDetailProgressBar live_price={live_price} entry_date={created} entry_price={entry_price} stock_targets={stock_targets}/>
                     </div>
                   </div>
                   {/* Upside Left Box End  */}

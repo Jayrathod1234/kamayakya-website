@@ -5,6 +5,9 @@ import StockProgressBarDotted from "@/components.v3/common/StockProgressBarDotte
 import StockProgressBarSolid from "@/components.v3/common/StockProgressBarSolid";
 import { format } from "date-fns";
 import StockCardTargets from "@/components.v3/common/StockCardTargets";
+import { debounce } from "@/lib/debounce";
+import { useStockProgressBar } from "@/utils/useStockProgressBar";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type TStockCardProgressBarSection = {
   live_price: number;
@@ -25,115 +28,149 @@ export default function StockDetailProgressBar({
   entry_date,
   stock_targets,
 }: TStockCardProgressBarSection) {
-  const ref = useRef<Array<HTMLDivElement>>([]);
-  const [margins, setMargins] = useState({
-    marginLeft: 0,
-    marginRight: 0,
-  });
-  const [currentProgress, setCurrentProgress] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
   const targets = useMemo(() => stock_targets.slice(1, stock_targets.length).reverse(), [stock_targets]);
-  // const width = 
+  const { margins, currentProgress, dottedLineWidth, ref, targetRef } = useStockProgressBar();
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const handleScroll = (direction: number) => {
+    const container = containerRef.current;
+    const scrollAmount = 150; // Width of one item
+    if (!container) return;
+    container.scrollBy({
+      left: scrollAmount * direction,
+      behavior: "smooth",
+    });
+  };
+
+  const checkScrollability = () => {
+    const container = containerRef.current;
+    if (container) {
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(container.scrollLeft < container.scrollWidth - container.clientWidth);
+    }
+  };
+
   useEffect(() => {
-    if (!ref.current || ref.current?.length <= 0) return;
-    const div1 = ref.current[0];
-    const div2 = ref.current[ref.current.length - 1];
-
-    // Get the bounding rectangles of both divs
-    const rect1 = div1.getBoundingClientRect();
-    const rect2 = div2.getBoundingClientRect();
-
-    // Calculate the distance between the centers of the two divs
-    const distanceX = rect2.left + rect2.width / 1.2 - (rect1.left + rect1.width / 2);
-    const distanceY = rect2.top + rect2.height / 2 - (rect1.top + rect1.height / 2);
-
-    // Calculate the Euclidean distance
-    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    // console.log("DISTANCE",distance)
-    setCurrentProgress(distance);
-    console.log(ref.current, targets);
-    setMargins(() => ({
-      marginLeft: 0,
-      // marginRight: ref.current[targets.length - 2].offsetWidth / 2,
-
-      marginRight: ref.current[ref.current.length - 2].offsetWidth / 2,
-    }));
-  }, [ref.current, targets]);
-
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("scroll", checkScrollability);
+      checkScrollability();
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", checkScrollability);
+      }
+    };
+  }, []);
   return (
-    <div className=" relative flex justify-between">
-      <StockCardTargets
-        index={0}
-        label={"Entry Price"}
-        price={entry_price}
-        date={format(new Date(entry_date), "dd MMM yyyy")}
-        status={"Completed"}
-        className=" !items-start "
-        ref={ref}
-      />
-     
-      {targets.map((target: TTarget, index: number) => (
-        //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
-        // <CarouselItem key={index + 1} className={` basis-1/3`}>
-        <StockCardTargets
-          index={index + 1}
-          label={"Target " + (index + 1)}
-          price={target.target_price}
-          date={format(new Date(target.created), "dd MMM yyyy")}
-          status={target.target_met ? "Completed" : null}
-          ref={ref}
-        />
-        // </CarouselItem>
-      ))}
-      <StockCardTargets
-        index={stock_targets.length}
-        label={"CMP"}
-        price={live_price}
-        className=""
-        date={format(new Date(), "dd MMM yyyy")}
-        status={"Completed"}
-        ref={ref}
-      />
-      <StockCardTargets
-        index={stock_targets.length + 1}
-        label={"Target"}
-        price={stock_targets[0].target_price}
-        status={stock_targets[0].target_met ? "Completed" : "Active"}
-        className=" !items-end "
-      />
-       {/* SOLID PROGRESS */}
-       <StockProgressBarSolid
-        width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
-        marginLeft={margins.marginLeft}
-        marginRight={margins.marginRight}
-        currentProgress={currentProgress}
-      />
+    <div className=" relative w-full">
+      <button
+        style={{ display: canScrollLeft ? "flex" : "none" }}
+        onClick={() => handleScroll(-1)}
+        className="absolute -left-5 top-[40%] transform -translate-y-1/2 z-30 h-6 w-6 bg-white rounded-full flex items-center justify-center  disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]"
+        disabled={!canScrollLeft}
+      >
+        <ChevronLeft className=" h-4 w-4" />
+      </button>
+      <button
+        style={{ display: canScrollRight ? "flex" : "none" }}
+        onClick={() => handleScroll(1)}
+        className="absolute right-0 top-[40%] transform -translate-y-1/2 z-30 bg-white rounded-full  h-6 w-6 flex items-center justify-center  disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]"
+        disabled={!canScrollRight}
+      >
+        <ChevronRight className=" h-4 w-4" />
+      </button>
+      <div
+        ref={containerRef}
+        className={`flex ${targets.length <= 4 ? "justify-between" : ""} relative overflow-x-auto scroll-smooth`}
+        style={{
+          scrollSnapType: "x mandatory",
+          scrollPadding: "0 24px",
+        }}
+      >
+        <div style={{ flex: "0 0 150px", scrollSnapAlign: "start" }}>
+          <StockCardTargets
+            index={0}
+            label={"Entry Price"}
+            price={entry_price}
+            date={format(new Date(entry_date), "dd MMM yyyy")}
+            status={"Completed"}
+            className=" !items-start w-[90px]"
+            ref={ref}
+            showToolTip
+            tooltipContent={
+              <p className=" p-4 text-2xs max-w-[300px] whitespace-normal">
+                The price at which the stock recommendation was given by KamayaKya. You can buy the stock as long as the
+                action is 'Buy'.
+              </p>
+            }
+          />
+        </div>
+        {targets.map((target: TTarget, index: number) => (
+          //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
+          // <CarouselItem key={index + 1} className={` basis-1/3`}>
+          <div style={{ flex: "0 0 150px", scrollSnapAlign: "start" }}>
+            <StockCardTargets
+              index={index + 1}
+              label={"Target " + (index + 1)}
+              price={target.target_price}
+              date={format(new Date(target.created), "dd MMM yyyy")}
+              status={target.target_met ? "Completed" : null}
+              ref={ref}
+              className=" w-[90px]"
+            />
+          </div>
+          // </CarouselItem>
+        ))}
 
-      {/*DOTTED PROGRESS  */}
-      <StockProgressBarDotted
-        className=" "
-        width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
-        marginLeft={margins.marginLeft}
-        marginRight={margins.marginRight}
-      />
+        <div style={{ flex: "0 0 150px", scrollSnapAlign: "start" }}>
+          <StockCardTargets
+            index={stock_targets.length}
+            label={"CMP"}
+            price={live_price}
+            className=" w-[90px]"
+            date={format(new Date(), "dd MMM yyyy")}
+            status={"Completed"}
+            ref={ref}
+            showToolTip
+            tooltipContent={
+              <div className=" p-4 max-w-[300px]">
+                <h3 className=" text-2xs font-bold">Current Market Price</h3>
+                <p className=" text-2xs">
+                  The current or live price at which the stock is trading on the NSE or BSE exchange.
+                </p>
+              </div>
+            }
+          />
+        </div>
+        <div style={{ flex: "0 0 90px", scrollSnapAlign: "start" }}>
+          <StockCardTargets
+            index={0}
+            label={"Target"}
+            price={stock_targets[0].target_price}
+            status={stock_targets[0].target_met ? "Completed" : "Active"}
+            className=" !items-end  w-[90px]"
+            ref={targetRef}
+          />
+        </div>
+        {/* SOLID PROGRESS */}
+        <StockProgressBarSolid
+          width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
+          marginLeft={margins.marginLeft}
+          marginRight={margins.marginRight}
+          currentProgress={currentProgress}
+        />
+
+        {/*DOTTED PROGRESS  */}
+        <StockProgressBarDotted
+          className=" "
+          width={dottedLineWidth}
+          marginLeft={margins.marginLeft}
+          marginRight={margins.marginRight}
+        />
+      </div>
     </div>
   );
-}
-
-{
-  /* <Carousel className=" z-20 " opts={{ slidesToScroll: "auto" }}>
-        <CarouselContent className=" justify-between">
-          <CarouselItem className={` basis-1/4 bg-purple-400`}>
-           
-          </CarouselItem>
-          
-          <CarouselItem className={` basis-1/2 bg-green-400`}>
-           
-          </CarouselItem>
-          <CarouselItem className={`basis-1/5 `}>
-            
-          </CarouselItem>
-        </CarouselContent>
-        <CarouselPrevious className=" left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
-        <CarouselNext className=" right-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
-      </Carousel> */
 }

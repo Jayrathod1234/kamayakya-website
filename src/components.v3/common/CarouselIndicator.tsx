@@ -1,6 +1,13 @@
 import React from "react";
 
-export default function CarouselIndicator({ onClick, index, selectedIndex, animationDuration }) {
+type TCarouselIndicator = {
+  onClick:()=>void;
+  index:number;
+  selectedIndex:number;
+  animationDuration?:string;
+}
+
+export default function CarouselIndicator({ onClick, index, selectedIndex, animationDuration }:TCarouselIndicator) {
   return (
     <div
       onClick={onClick}

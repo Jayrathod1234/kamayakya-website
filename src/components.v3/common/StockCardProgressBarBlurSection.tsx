@@ -5,6 +5,7 @@ import StockProgressBarDotted from "./StockProgressBarDotted";
 import StockProgressBarSolid from "./StockProgressBarSolid";
 import { format } from "date-fns";
 import StockCardTargets from "./StockCardTargets";
+import { useStockProgressBar } from "@/utils/useStockProgressBar";
 
 type TStockCardProgressBarSection = {
   live_price: number;
@@ -20,49 +21,50 @@ type TTarget = {
 };
 
 export default function StockCardProgressBarBlurSection() {
-  const ref = useRef<Array<HTMLDivElement>>([]);
-  const [margins, setMargins] = useState({
-    marginLeft: 0,
-    marginRight: 0,
-  });
-  const [currentProgress, setCurrentProgress] = useState(1);
+  // const ref = useRef<Array<HTMLDivElement>>([]);
+  const { ref, targetRef, margins, dottedLineWidth, currentProgress } = useStockProgressBar();
+  // const [margins, setMargins] = useState({
+  //   marginLeft: 0,
+  //   marginRight: 0,
+  // });
+  // const [currentProgress, setCurrentProgress] = useState(1);
   const targets: TTarget[] = [
-    // { target_met: "25 May 2024", target_price: 500, created: "28 May 2024" },
+    // { target_met: "25 May 2024", target_price: 500, created: "28 May 2024" }
   ];
-  const stock_targets = [{ target_met: "", target_price: 500, created: "28 May 2024" },]
-  const live_price = 500
-  const entry_price = 250
+  const stock_targets = [{ target_met: "", target_price: 500, created: "28 May 2024" }];
+  const live_price = 500;
+  const entry_price = 250;
   const entry_date = new Date();
-  
 
-  useEffect(() => {
-    if (!ref.current || ref.current?.length <=0) return;
-    const div1 = ref.current[0];
-    const div2 = ref.current[ref.current.length-1];
+  // useEffect(() => {
+  //   if (!ref.current || ref.current?.length <=0) return;
+  //   const div1 = ref.current[0];
+  //   const div2 = ref.current[ref.current.length-1];
 
-    // Get the bounding rectangles of both divs
-    const rect1 = div1.getBoundingClientRect();
-    const rect2 = div2.getBoundingClientRect();
+  //   // Get the bounding rectangles of both divs
+  //   const rect1 = div1.getBoundingClientRect();
+  //   const rect2 = div2.getBoundingClientRect();
 
-    // Calculate the distance between the centers of the two divs
-    const distanceX = rect2.left + rect2.width / 1.2 - (rect1.left + rect1.width / 2);
-    const distanceY = rect2.top + rect2.height / 2 - (rect1.top + rect1.height / 2);
+  //   // Calculate the distance between the centers of the two divs
+  //   const distanceX = rect2.left + rect2.width / 1.2 - (rect1.left + rect1.width / 2);
+  //   const distanceY = rect2.top + rect2.height / 2 - (rect1.top + rect1.height / 2);
 
-    // Calculate the Euclidean distance
-    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    // console.log("DISTANCE",distance)
-    setCurrentProgress(distance);
-    console.log(ref.current, targets)
-    setMargins(() => ({
-      marginLeft: ref.current[0].offsetWidth / 2.5,
-      // marginRight: ref.current[targets.length - 2].offsetWidth / 2,
+  //   // Calculate the Euclidean distance
+  //   const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+  //   // console.log("DISTANCE",distance)
+  //   setCurrentProgress(distance);
+  //   console.log("BLUR SECTION",ref.current, targets)
+  //   setMargins(() => ({
+  //     marginLeft: ref.current[0].offsetWidth *3,
+  //     // marginRight: ref.current[targets.length - 2].offsetWidth / 2,
 
-      marginRight: ref.current[ref.current.length - 2].offsetWidth / 2,
-    }));
-  }, [ref.current, targets]);
+  //     marginRight: ref.current[ref.current.length - 2].offsetWidth *3 ,
+  //   }));
+  // }, []);
 
   return (
-    <div className=" relative">
+    // 
+    <div className=" relative ml-5 pl-2 mr-5 ">
       <Carousel className=" z-20 " opts={{ slidesToScroll: 3 }}>
         <CarouselContent>
           <CarouselItem className={` basis-1/3 `}>
@@ -73,7 +75,7 @@ export default function StockCardProgressBarBlurSection() {
               price={entry_price}
               date={format(new Date(entry_date), "dd MMM yyyy")}
               status={"Completed"}
-              className=" !items-start ml-5 pl-2"
+              className=" !items-start "
               ref={ref}
             />
             {/* SOLID PROGRESS */}
@@ -82,6 +84,12 @@ export default function StockCardProgressBarBlurSection() {
               marginLeft={margins.marginLeft}
               marginRight={margins.marginRight}
               currentProgress={currentProgress}
+            />
+            {/*DOTTED PROGRESS  */}
+            <StockProgressBarDotted
+              width={dottedLineWidth}
+              marginLeft={margins.marginLeft}
+              marginRight={margins.marginRight}
             />
           </CarouselItem>
           {targets.map((target: TTarget, index: number) => (
@@ -112,23 +120,18 @@ export default function StockCardProgressBarBlurSection() {
           <CarouselItem className={` basis-1/3`}>
             <StockCardTargets
               isBlur
-              index={targets.length + 1}
+              index={0}
               label={"Target"}
               price={stock_targets[0].target_price}
               status={stock_targets[0].target_met ? "Completed" : "Active"}
-              className=" !items-end mr-5 pr-1"
+              className=" !items-end "
+              ref={targetRef}
             />
           </CarouselItem>
         </CarouselContent>
         <CarouselPrevious className=" left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
         <CarouselNext className=" right-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
       </Carousel>
-      {/*DOTTED PROGRESS  */}
-      <StockProgressBarDotted
-        width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
-        marginLeft={margins.marginLeft}
-        marginRight={margins.marginRight}
-      />
     </div>
   );
 }

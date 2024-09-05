@@ -19,13 +19,15 @@ const StockDetailsNews = ({ stock_name }) => {
       }),
     getNextPageParam: (data) => {
       console.log("===getNextPageParam====", data);
+      const {meta} = data
       // Function to determine the parameter for fetching the next page
-      //   if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
+        if ((meta.found/meta.limit) > meta.page) return meta.page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
   });
-
-  const items = response?.pages?.flatMap((page) => page) ?? [];
-  console.log(items);
+  // const [news,setNews] = useState()
+  // const items = response?.pages?.flatMap((page) => page) ?? [];
+  const items = response?.pages?.flatMap(page=>page.data)
+  console.log(items,response)
   const newsItems = [
     {
       id: 1,
@@ -86,12 +88,12 @@ const StockDetailsNews = ({ stock_name }) => {
     <div>
       <div className="pt-[5px]  ">
         {items?.map((item, index) => (
-          <a key={index} href={item?.newsUrl} className="block mb-4 group">
+          <a target="_blank" key={index} href={item?.url} className="block mb-4 group">
             <div className="flex flex-row md:flex-row items-start md:items-center gap-4 p-4  rounded-md  cursor-pointer group-hover:bg-white transition">
               {/* <!-- Image Section --> */}
               <div className="flex-shrink-0">
                 <img
-                  src={item?.images?.thumbnailProxied}
+                  src={item?.image_url}
                   alt={item.title}
                   className="w-[50px] h-[50px] md:w-[75px] md:h-[75px] object-cover rounded-md"
                 />
@@ -106,10 +108,10 @@ const StockDetailsNews = ({ stock_name }) => {
                   </p>
                   {/* <!-- Meta Info --> */}
                   <div className="flex items-center gap-2 text-4xs sm:text-xs md:text-xs text-gray-500 text-nowrap">
-                    <span>{item.publisher}</span>
+                    <span>{item.source}</span>
                     <div className="w-1 h-1 rounded-full bg-gray-400"></div>
                     <span>
-                      {formatDistanceToNow(new Date(Number(item.timestamp)), {
+                      {formatDistanceToNow(new Date(item.published_at), {
                         addSuffix: true,
                       })}
                     </span>
@@ -134,7 +136,7 @@ const StockDetailsNews = ({ stock_name }) => {
           </a>
         ))}
       </div>
-      <div className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-3 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
+      <div onClick={fetchNextPage} className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-3 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
         <p>Load more</p>
       </div>
     </div>

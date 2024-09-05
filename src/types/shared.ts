@@ -31,7 +31,7 @@ export type TBlog = {
 };
 
 export type TStockCardProgressBar = {
-  width: string;
+  width: string | number;
   marginLeft: number;
   marginRight: number;
   className?: string;

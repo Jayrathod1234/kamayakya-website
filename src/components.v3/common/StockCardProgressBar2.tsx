@@ -18,6 +18,7 @@ import StockProgressBarSolid from "./StockProgressBarSolid";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { debounce } from "@/lib/debounce";
+import StockCardTargets from "./StockCardTargets";
 
 const targets = [
   { price: 3725, label: "Target-2", date: "Jan 2024", status: "Completed" },
@@ -32,6 +33,12 @@ const targets = [
 const prices = [3725, 3740, 4470, 5364];
 const labels = ["Target-2", "Target-3", "CMP", "Target-4"];
 const dates = ["Jan 2024", "Feb 2024", "Mar 2024"];
+
+type TTarget = {
+  target_met: string;
+  created: string;
+  target_price: number;
+};
 
 type TStockCardProgressBarSection = {
   live_price: number;
@@ -48,54 +55,7 @@ type TStockCardTargetsProps = {
   className?: string;
   // ref: React.MutableRefObject<HTMLDivElement[]>;
 };
-const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(function StockCardTargets(props, ref) {
-  let { index, label, price, date, status, className } = props;
-  const refs = ref as React.MutableRefObject<HTMLDivElement[]>;
-  return (
-    <div
-      ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)}
-      className={cn(
-        ` relative flex flex-col  z-10 ${index === targets.length - 1 ? "items-center" : "items-center"}`,
-        className
-      )}
-    >
-      <h4 className=" font-medium text-3xs text-[#667085] flex items-center">
-        {/* {index == 0 ? (
-          "Entry Point"
-        ) : ( */}
-        <>
-          {label}
-          {label.includes("Target") && status === "Completed" ? (
-            <span>
-              <Check className=" text-[#12B76A]" size={12} />
-            </span>
-          ) : null}
-        </>
-        {/* )} */}
-      </h4>
-      <div className="   bg-white rounded-full flex items-center justify-center">
-        {index === 0 ? (
-          <span className=" bg-[#04B9F9] rounded-full h-3 w-3 flex items-center justify-center">
-            <EastIcon className="!h-3 !w-3 text-white" fontSize="small" />
-          </span>
-        ) : (
-          <>
-            {status === "Active" && (
-              <GpsFixedIcon fontSize={"small"} className="QontoStepIcon-lastStepIcon text-[#FF7F09] !h-3 !w-3" />
-            )}
-            {label === "CMP" && <Circle className=" text-[#1D9387] !h-3 !w-3" fontSize="small" />}
-            {label.includes("Target") && status === "Completed" ? (
-              <AdjustIcon fontSize={"small"} className=" text-[#1ACE1B] QontoStepIcon-completedIcon !h-3 !w-3" />
-            ) : null}
-          </>
-        )}
-      </div>
-      <h4 className=" text-[#344054] font-semibold text-sm mt-[6px] mb-0">₹{index === 0 ? price : price}</h4>
-      {status === "Active" ? <p className=" text-[#FF7F09] text-3xs status">{status}</p> : null}
-      {date ? <p className=" text-[#98A2B3] text-3xs whitespace-nowrap">{date}</p> : null}
-    </div>
-  );
-});
+
 
 export default function StockCardProgressBarSection2({
   live_price,
@@ -164,8 +124,8 @@ export default function StockCardProgressBarSection2({
             />
           </CarouselItem>
           {targets
-            .filter((_, index) => index < targets.length - 1)
-            .map((target, index) => (
+            .filter((_:unknown, index:number) => index < targets.length - 1)
+            .map((target:TTarget, index:number) => (
               //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
               // ${
               //   targets.length >= 4 ? (currentSlidesInView.length >= 4 ? " basis-1/3" : "basis-1/2") : "basis-1/2"
