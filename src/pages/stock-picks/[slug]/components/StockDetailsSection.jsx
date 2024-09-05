@@ -326,7 +326,7 @@ function StockDetailsSection() {
                   </div>
                   {/* First Content End  */}
                   {/* When Small screen Button is Show  */}
-                  <div className="flex sm:hidden gap-2 mt-5 mb-3 ">
+                  <div className="flex sm:hidden gap-3 mt-5 mb-5 ">
                     <div className="flex-1">
                       {hasVideo ? (
                         <div className="flex-1 group">
