@@ -108,7 +108,7 @@ export default function CustomSortMenu({ isLabel }) {
           textTransform: "none",
           color: "#1E555C",
           fontWeight: 500,
-          padding: isMobile ? "8px 11px" : isLabel ? "10px 16px" : "8px 18px", // Conditional padding
+          padding: isMobile ? "10px 11px" : isLabel ? "10px 16px" : "8px 18px", // Conditional padding
           // padding: isLabel ? "11px 16px" : "11px 18px", // Conditional padding
           minWidth: isMobile ? "147px" : isLabel ? "280px" : "157px", // Conditional minWidth
           justifyContent: "space-between",
@@ -700,10 +700,11 @@ export default function CustomSortMenu({ isLabel }) {
             // sx={{ display: isMobile ? "none" : "block" }}
             PaperProps={{
               style: {
-                borderRadius: "12px",
+                // background: "blue",
+                borderRadius: "12px 12px 0px 0px",
                 width: isMobile ? "100%" : "260px",
                 maxWidth: "100%",
-                overflow: "hidden",
+                overflowY: "auto",
                 marginTop: "8px",
                 border: "1px solid #F2F4F7",
               },

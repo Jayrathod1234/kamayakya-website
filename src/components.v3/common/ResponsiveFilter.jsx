@@ -40,7 +40,7 @@ function ResponsiveFilter() {
             overflow: "hidden",
           }}
         >
-          <Box className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center pt-4">
+          <Box className="sm:w-[min(1280px,calc(100%-25px))] w-0 min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center pt-4">
             {/* <CustomSortMenu /> */}
 
             {/* <div className="w-auto sm:block hidden"> */}

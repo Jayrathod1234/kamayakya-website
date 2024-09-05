@@ -25,7 +25,7 @@ function LatestReleases() {
 
   return (
     <>
-      <div className="sm:pt-[385px] pt-[289px] sm:pb-[100px] pb-[58px]">
+      <div className="sm:pt-[385px] pt-[334px] sm:pb-[100px] pb-[58px]">
         {items.length === 0 ? (
           <div className="pt-5 w-full flex flex-col items-center justify-center text-center">
             <p className="text-display-xs text-gray-950 font-bold">

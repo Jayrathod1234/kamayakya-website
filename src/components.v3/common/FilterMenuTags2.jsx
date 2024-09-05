@@ -218,9 +218,9 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                     paddingLeft: "16px",
                     paddingRight: "16px",
                     // borderRadius: "4px",
-                    borderRadius: isMobile ? "6px" : "4px",
+                    borderRadius: isMobile ? "6px" : "0.5rem",
                     maxWidth: "179px !important",
-                    height: "38px !important",
+                    height: "46px !important",
                     border: "1px solid #E4E7EC ",
                     fontFamily: "Open Sans",
                     backgroundColor: strategyTag.includes(chip.id)
