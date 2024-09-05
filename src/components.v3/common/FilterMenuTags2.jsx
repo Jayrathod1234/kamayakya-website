@@ -94,15 +94,16 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
 
   return (
     <div
-      className={`mr-auto sm:order-first order-2 transition-all duration-500 ease-linear ${
+      style={{ scrollbarWidth: "none" }}
+      className={`mr-auto sm:order-first order-2 transition-all duration-500 ease-linear overflow-x-scroll   ${
         isExpanded ? "lg:w-[58%]" : "lg:w-[74%]"
       }`}
     >
-      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] lg:w-[100%]">
+      <div className="sm:w-[min(1280px,calc(100%-25px))] w-full  min-w-[328px] lg:w-[100%]">
         <Box
           sx={{
             display: "flex",
-            width: isMobile ? "27%" : "100%",
+            width: isMobile ? "100%" : "100%",
             // width: "757px",
             overflow: { sm: "hidden", xs: "auto" },
           }}

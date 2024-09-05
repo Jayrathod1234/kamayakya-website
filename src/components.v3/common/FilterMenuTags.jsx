@@ -30,7 +30,7 @@ const FilterCarousel = () => {
   useLayoutEffect(() => {
     const containerWidth = containerRef.current.offsetWidth;
     const contentWidth = carouselRef.current.scrollWidth;
-    setShowButtons(contentWidth > containerWidth);
+    setShowButtons(contentWidth > 1193);
   }, [strategyTag, popularStrategies]);
 
   const handleChipClick = async (chipId) => {

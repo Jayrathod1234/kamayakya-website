@@ -36,11 +36,12 @@ function ResponsiveFilter() {
         <Box
           sx={{
             display: "flex",
-            width: "375px",
-            overflow: "hidden",
+            width: "100%",
+            overflow: "scroll",
+            scrollbarWidth: "none",
           }}
         >
-          <Box className="sm:w-[min(1280px,calc(100%-25px))] w-0 min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center pt-4">
+          <Box className="w-[min(1280px,calc(100%-25px))]  min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center pt-4">
             {/* <CustomSortMenu /> */}
 
             {/* <div className="w-auto sm:block hidden"> */}
