@@ -100,7 +100,7 @@ export default function StrategyCheck() {
           backgroundColor:
             changablestrategyTags.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "0.5rem",
-          height: "38px",
+          height: "46px",
           padding: "7px 12px",
           fontWeight: 500,
 
@@ -147,7 +147,7 @@ export default function StrategyCheck() {
         role={undefined}
         transition
         placement="bottom-start"
-        style={{ zIndex: 9, width: 300 }}
+        style={{ zIndex: 111, width: 300 }}
         modifiers={[
           {
             name: "offset",

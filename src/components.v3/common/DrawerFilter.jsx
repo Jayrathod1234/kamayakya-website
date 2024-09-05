@@ -1141,6 +1141,7 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
+                      minHeight: "0px",
                     }}
                     label={
                       <Box className="items-start !important font-open_sans capitalize">
@@ -1157,6 +1158,7 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Recency"
                     {...a11yProps(1)}
@@ -1169,6 +1171,7 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Time Left"
                     {...a11yProps(2)}
@@ -1182,6 +1185,7 @@ function DrawerFilter() {
                       lineClamp: "1",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     // Total Returns
                     label="Total Return"
@@ -1196,6 +1200,7 @@ function DrawerFilter() {
                         gap: "12px",
                         fontFamily: "Open Sans, sans-serif !important",
                         textTransform: "capitalize",
+                        minHeight: "0px",
                       }}
                       label="Market Cap"
                       {...a11yProps(4)}
@@ -1209,6 +1214,7 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Sectors"
                     {...a11yProps(5)}
@@ -1221,6 +1227,7 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Strategies"
                     {...a11yProps(6)}
@@ -1233,6 +1240,7 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Risk"
                     {...a11yProps(7)}

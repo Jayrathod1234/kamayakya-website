@@ -79,7 +79,7 @@ export default function SectorCheck() {
           borderColor: sector.length > 0 ? "#108973" : "#E4E7EC",
           backgroundColor: sector.length > 0 ? "#125B54" : "#FFFFFF",
           borderRadius: "0.5rem",
-          height: "38px",
+          height: "46px",
           padding: "7px 12px",
           fontFamily: "Open Sans",
           fontWeight: 500,
@@ -122,7 +122,7 @@ export default function SectorCheck() {
         role={undefined}
         transition
         placement="bottom-start"
-        style={{ zIndex: 9, width: 300 }}
+        style={{ zIndex: 111, width: 300 }}
         modifiers={[
           {
             name: "offset",
