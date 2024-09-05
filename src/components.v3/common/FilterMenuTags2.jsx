@@ -94,7 +94,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
 
   return (
     <div
-      className={`mr-auto sm:order-first order-2 transition-all duration-500 ease-linear ${
+      className={`mr-auto sm:order-first order-2 transition-all duration-300 ease-linear ${
         isExpanded ? "lg:w-[58%]" : "lg:w-[74%]"
       }`}
     >

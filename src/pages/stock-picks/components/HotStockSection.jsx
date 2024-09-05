@@ -41,7 +41,7 @@ const HotStockSection = () => {
                       variant="text"
                     />
                   </h2>
-                  <p className="pt-3 font-normal text-md text-gray-600 pb-6 text-center">
+                  <p className="pt-3 font-normal text-md text-gray-600 pb-6 text-center text-[16px] font-open_sans">
                     <Skeleton
                       animation="wave"
                       sx={{ borderRadius: "6px" }}

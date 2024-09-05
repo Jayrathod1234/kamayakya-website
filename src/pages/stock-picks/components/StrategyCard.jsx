@@ -41,7 +41,7 @@ function StrategyCard() {
         <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center ">
           Discover by Strategy
         </p>
-        <p className="text-sm md:text-base font-normal text-[#475467] mx-auto pt-3 mb-2 font-open_sans text-center">
+        <p className="text-md md:text-md font-normal text-[#475467] mx-auto pt-3 mb-2 font-open_sans text-center">
           Screen stocks with KamayaKya's strategy tags to{" "}
           <span className="text-[#F79009] font-semibold">
             understand why each stock was chosen
