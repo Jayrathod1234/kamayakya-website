@@ -29,8 +29,8 @@ function HotNewcard() {
                           : ""
                       }`}
                       // Update hover state when mouse enters or leaves the image
-                      onMouseEnter={() => setHovered(true)}
-                      onMouseLeave={() => setHovered(false)}
+                      // onMouseEnter={() => setHovered(true)}
+                      // onMouseLeave={() => setHovered(false)}
                     />
                   </a>
                 </div>
