@@ -29,7 +29,7 @@ function Stockpicks() {
   };
   return (
     <>
-      <div className=" font-open_sans h-[805px] relative">
+      <div className=" font-open_sans sm:h-[805px] h-0 relative">
         <div className="absolute top-[-56px] left-0 h-full w-full">
           <video
             autoPlay
