@@ -84,11 +84,11 @@ function StockCard({
                     alt=""
                     className="w-[24px] blur-[2px]"
                   />
-                  <span className="tooltiptext relative shadow-sm ">
+                  <span className="tooltiptext -left-5 relative shadow-sm z-[200000]">
                     <img
                       src="/assets/div.png"
                       alt=""
-                      className="absolute -top-2 left-[52px] w-4"
+                      className="absolute -top-2 left-[89px] w-4"
                     />
                     Please become a member to watch this video.
                   </span>
@@ -200,17 +200,17 @@ function StockCard({
                       </p>
 
                       {/* Tooltip (Visible on large screens only) */}
-                      <div className="tooltip relative hidden sm:block">
+                      <div className="tooltip  relative hidden sm:block">
                         <img
                           src="/assets/ph_info-duotone.svg"
                           alt="info icon"
                           className="cursor-pointer hidden sm:block"
                         />
-                        <span className="tooltiptext tooltiptext2 relative shadow-3xl">
+                        <span className="tooltiptext  tooltiptext2 !-left-5 relative shadow-3xl">
                           <img
                             src="/assets/div.png"
                             alt=""
-                            className="absolute -top-2 left-[52px] w-4"
+                            className="absolute -top-2 left-[57%] w-4"
                           />
                           <div className="text-gray-800 text-2xs font-normal">
                             Upside Left means how much the stock price could rise from its current level.
