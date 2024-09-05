@@ -1110,7 +1110,7 @@ function DrawerFilter() {
                   alignItems: "start !important",
                   justifyContent: "start !important",
                   // width: "144px !important",
-                  height: 400, // Set a fixed height to make sure scrolling works
+                  height: "100%", // Set a fixed height to make sure scrolling works
                 }}
               >
                 <Tabs
@@ -1128,7 +1128,7 @@ function DrawerFilter() {
                     alignItems: "start !important",
                     justifyContent: "start",
                     bgcolor: "#FAFAFA",
-                    width: 144,
+                    width: 121,
                     height: "100% !important",
                     // padding: "14px 8px 14px 16px",
 
@@ -1143,7 +1143,7 @@ function DrawerFilter() {
                       gap: "12px",
                     }}
                     label={
-                      <Box className="items-start !important font-open_sans">
+                      <Box className="items-start !important font-open_sans capitalize">
                         Upside Left
                       </Box>
                     }
@@ -1156,6 +1156,7 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
                     }}
                     label="Recency"
                     {...a11yProps(1)}
@@ -1167,6 +1168,7 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
                     }}
                     label="Time Left"
                     {...a11yProps(2)}
@@ -1179,6 +1181,7 @@ function DrawerFilter() {
                       gap: "12px",
                       lineClamp: "1",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
                     }}
                     // Total Returns
                     label="Total Return"
@@ -1192,6 +1195,7 @@ function DrawerFilter() {
                         color: "#5F6368",
                         gap: "12px",
                         fontFamily: "Open Sans, sans-serif !important",
+                        textTransform: "capitalize",
                       }}
                       label="Market Cap"
                       {...a11yProps(4)}
@@ -1204,6 +1208,7 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
                     }}
                     label="Sectors"
                     {...a11yProps(5)}
@@ -1215,6 +1220,7 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
                     }}
                     label="Strategies"
                     {...a11yProps(6)}
@@ -1226,6 +1232,7 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
                     }}
                     label="Risk"
                     {...a11yProps(7)}
@@ -1524,12 +1531,14 @@ function DrawerFilter() {
                           padding: "0px !important",
                         }}
                       >
-                        <SectorFilter2
-                          sector={sector}
-                          setSector={setSector}
-                          tempSector={tempSector}
-                          setTempSector={setTempSector}
-                        />
+                        <div className="pl-0">
+                          <SectorFilter2
+                            sector={sector}
+                            setSector={setSector}
+                            tempSector={tempSector}
+                            setTempSector={setTempSector}
+                          />
+                        </div>
                       </Accordion>
                     </div>
                   </TabPanel>

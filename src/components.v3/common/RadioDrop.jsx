@@ -157,14 +157,18 @@ export default function CustomSortMenu({ isLabel }) {
             id="customized-menu"
             anchorEl={anchorEl}
             keepMounted
+            disableScrollLock
             open={Boolean(anchorEl)}
             onClose={handleClose}
             // sx={{ display: isMobile ? "none" : "block" }}
             PaperProps={{
               style: {
+                position: "absolute",
                 // background: "red",
                 borderRadius: "6px",
                 width: "260px",
+                top: 0,
+                left: 0,
                 overflow: "hidden",
                 marginTop: "8px",
                 border: "1px solid #F2F4F7",
