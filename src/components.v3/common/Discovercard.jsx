@@ -2,7 +2,7 @@ import React from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 
 function Discovercard({ id, name, description, image, color, slug }) {
-  const { setStrategyTag, setIsChangeFilter, addPopularStrategies } =
+  const { setStrategyTag, setIsChangeFilter, addPopularStrategies,allBoardStockRef } =
     useStockPicks();
 
   return (
@@ -21,6 +21,10 @@ function Discovercard({ id, name, description, image, color, slug }) {
 
             addPopularStrategies(id);
             setIsChangeFilter(true);
+
+            if (allBoardStockRef.current) {
+              allBoardStockRef.current.scrollIntoView({ behavior: "smooth" });
+            }
           }}
         >
           <div className="main-card w-full relative mx-auto">

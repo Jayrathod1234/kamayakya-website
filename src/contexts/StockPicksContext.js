@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useRef,
 } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCommonDetailsApi } from "@/api/stock-picks";
@@ -18,6 +19,7 @@ export const StockPicksProvider = ({ children }) => {
   const [isChangeFilter, setIsChangeFilter] = useState(false);
   const [sebiBoardType, setSebiBoardType] = useState("mainboard");
   const [popularStrategies, setPopularStrategies] = useState([]);
+  const allBoardStockRef = useRef(null);
 
   // Use react-query to fetch common details
   const {
@@ -148,6 +150,7 @@ export const StockPicksProvider = ({ children }) => {
         max_upside_left,
         min_returns,
         max_returns,
+        allBoardStockRef,
         isLoading,
         error,
       }}

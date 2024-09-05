@@ -29,7 +29,7 @@ const HotStockSection = ({items,isLimitedView,isLoading,error}) => {
                       variant="text"
                     />
                   </p>
-                  <div className=" gap-4">
+                  <div className=" gap-4 flex ">
                     <StockCardSkeleton length={isMobile ? 1 : 3} />
                   </div>
                 </div>
