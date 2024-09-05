@@ -13,11 +13,11 @@ function Filtermenu() {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const inputRef = useRef(null);
-  const formRef = useRef(null);
 
   // Function to handle click on the search button
   const handleSearchClick = () => {
     setIsExpanded(!isExpanded);
+
     if (!isExpanded) {
       // Focus the input when it expands
       setTimeout(() => inputRef.current.focus(), 300);
@@ -36,34 +36,32 @@ function Filtermenu() {
       <div className="sticky top-[50px] right-0 z-[88] bg-[#f2f4f7] overflow-hidden items-center navbar-shadow">
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center pt-4">
           {/* <ResponsiveFilter/> */}
-          <FilterMenuTags2 isResponsive={isMobile} />
+          <FilterMenuTags2 isResponsive={isMobile} isExpanded={isExpanded} />
 
           <div className="flex sm:gap-[10px] gap-2 items-center ">
             <div className=" items-center">
-              <form
-                ref={formRef}
-                className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC] transition linear bg-white focus:border-red-800 ${
-                  isExpanded ? "w-full" : "w-auto"
-                }`}
+              <div
+                onClick={handleSearchClick}
+                className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC]  bg-white`}
+                style={{ width: isExpanded ? "100%" : "auto" }} // This ensures that width expands correctly
               >
                 <input
+                  onClick={(e) => e.stopPropagation()}
                   type="search"
                   placeholder="Search Stocks by Name"
                   value={searchStock}
                   onChange={(e) => setSearchStock(e.target.value)}
                   onFocus={() => setIsExpanded(true)}
-                  onBlur={() => {
-                    if (!searchStock) setIsExpanded(false);
-                  }}
                   ref={inputRef}
-                  className={`search__input transition-width duration-300 ${
-                    isExpanded ? "w-full px-2" : "w-0"
-                  }`}
+                  className={`transition-all duration-500 ease-linear bg-white`}
+                  style={{
+                    display: isExpanded ? "block" : "none",
+                    width: isExpanded ? "100%" : "0px",
+                  }} // Set input width to full when expanded
                 />
                 <button
                   type="button"
-                  onClick={handleSearchClick}
-                  className="search__button grid place-items-center w-[35px] h-[35px] cursor-pointer transition-colors duration-[0.25s] hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full "
+                  className="search__button grid place-items-center transition-all duration-500 ease-linear w-[35px] h-[35px] cursor-pointer hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full ml-auto"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +79,7 @@ function Filtermenu() {
                     />
                   </svg>
                 </button>
-              </form>
+              </div>
             </div>
             {!isMobile && (
               <>
