@@ -10,7 +10,7 @@ import DrawerFilter from "@/components.v3/common/DrawerFilter";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
-const FilterMenuTags2 = ({ isResponsive }) => {
+const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -93,12 +93,16 @@ const FilterMenuTags2 = ({ isResponsive }) => {
   });
 
   return (
-    <div className="mr-auto sm:order-first order-2">
-      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px]">
+    <div
+      className={`mr-auto sm:order-first order-2 transition-all duration-500 ease-linear ${
+        isExpanded ? "lg:w-[58%]" : "lg:w-[74%]"
+      }`}
+    >
+      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] lg:w-[100%]">
         <Box
           sx={{
             display: "flex",
-            width: isMobile ? "27%" : "958px",
+            width: isMobile ? "27%" : "100%",
             // width: "757px",
             overflow: { sm: "hidden", xs: "auto" },
           }}
