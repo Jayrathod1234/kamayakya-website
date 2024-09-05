@@ -99,7 +99,7 @@ export default function StrategyCheck() {
           borderColor: changablestrategyTags.length > 0 ? "#108973" : "#E4E7EC",
           backgroundColor:
             changablestrategyTags.length > 0 ? "#125B54" : "#FFFFFF",
-          borderRadius: "4px",
+          borderRadius: "0.5rem",
           height: "38px",
           padding: "7px 12px",
           fontWeight: 500,
@@ -162,7 +162,7 @@ export default function StrategyCheck() {
             <Paper
               sx={{
                 backgroundColor: "white",
-                borderRadius: "8px",
+                borderRadius: "0.5rem",
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
                 maxHeight: "300px",

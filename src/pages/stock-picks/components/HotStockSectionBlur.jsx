@@ -46,7 +46,7 @@ const HotStockSection = ({ items }) => {
                     />
                     <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal">
                       Gain exclusive access to
-                      <span className="text-[#108973]">
+                      <span className="text-[#108973] pl-1">
                         30+ potential multibagger picks
                       </span>
                       <br className="sm:block hidden"></br>with KamayaKya
