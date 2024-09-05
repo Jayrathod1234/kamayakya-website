@@ -256,7 +256,8 @@ function StockDetailsSection() {
                         </div>
                       </div>
                     </div>
-                    <hr class="border-t border-[rgba(0, 0, 0, 0.05)]" />
+                    <hr className="opacity-95" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }} />
+
                     <div className="rounded-lg bg-white flex flex-col sm:flex-row px-2 sm:px-4 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
