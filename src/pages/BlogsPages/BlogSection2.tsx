@@ -71,13 +71,7 @@ const BlogSection2 = () => {
   const fetchBlogs = async () => {
     try {
       setIsLoadingBlogs(true);
-      const response = await axios.get(`${GET_BLOGS}?limit=10&offset=0`, {
-        // method: "GET",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-        // next: { revalidate: 500 },
-      });
+      const response = await axios.get(`${GET_BLOGS}?limit=10&offset=0`);
       // if (response.ok) {
       const data = response.data;
       setBlogs(data.results);
@@ -157,9 +151,11 @@ const BlogSection2 = () => {
           </div>
         </div>
         {!search ? (
-          <div className=" flex items-center justify-center gap-x-4 ">
+          <div className=" flex items-center justify-center gap-x-4  ">
             {prevPage && <ButtonnArrow
               disabled={!prevPage}
+              arrowPosition="start"
+              arrowStyle=" rotate-180"
               onClick={() => handlePrevNext(prevPage as string)}
               startIcon={<ChevronLeft size={16} />}
               variant={ButtonVariant.primary}

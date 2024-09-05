@@ -6,11 +6,11 @@ import {DocumentText, LockCircle,} from "iconsax-react";
 import FaqsNew from "@/pages/screens/FaqsNew";
 import AuthContext from "@/components/AuthContext";
 import {TRACK_RECORD_FOR_ALL, TRACK_RECORD_FOR_USER} from "@/pages/api/URLs";
-import Footer from "@/pages/screens/Footer";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "@/components/Login";
 import SMEToggle from "@/components/SMEToggle";
+import { Footer } from "@/components.v2/footer";
 
 const TrackPage = () => {
     const [flipStates, setFlipStates] = useState(Array(8).fill(false));

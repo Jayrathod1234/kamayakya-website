@@ -1,8 +1,6 @@
 import type { NextPage } from "next";
 import React, { useContext } from "react";
-import NavBar from "@/components/Navbar";
-import NavBar2 from "@/components/Navbar2";
-import Footer from "@/pages/screens/Footer";
+import { Navbar,Footer } from "@/components.v2/index.components";
 import FaqsNew from "@/pages/screens/FaqsNew";
 import Testimonials from "@/pages/screens/Testimonials";
 import AuthProvider from "@/components/AuthContext";
@@ -19,11 +17,11 @@ import Section7 from "@/pages/AboutPages/Section7";
 import HotStocks from "@/pages/screens/HotStocks";
 
 const Home: NextPage = () => {
-	const { isLoggedIn, isSubscribed } = useContext(AuthProvider);
+  const { isLoggedIn, isSubscribed } = useContext(AuthProvider);
 
 	return (
 		<>
-			{isLoggedIn ? <NavBar2  /> : <NavBar />}
+			<Navbar className=" bg-white"/>
 			<HomePage />
 			<Section1 />
 			<Section3 />

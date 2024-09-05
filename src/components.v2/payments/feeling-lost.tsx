@@ -70,7 +70,7 @@ export function FeelingLost() {
                     // }
                     onClick={handleContactUsModal}
                     strokeStyle=" !stroke-brand-500 group-hover/btn-arrow:!stroke-white"
-                    className="!py-[14px] md:py-[auto] bg-brand-100 text-brand-500 hover:border hover:border-brand-300 hover:bg-transparent hover:text-brand-100"
+                    className="!py-[14px] md:py-[auto] px-4 bg-brand-100 text-brand-500 hover:border hover:border-brand-300 hover:bg-transparent hover:text-brand-100 "
                     variant={ButtonVariant.secondary}
                     size={ButtonSize.lg}
                   >

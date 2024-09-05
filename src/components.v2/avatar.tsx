@@ -16,7 +16,7 @@ type TAvatar = {
   customImgSize?:number
 };
 
-export function Avatar({ variant = AvatarVariant.sm, imgSrc="/avatar-card.png", className, imgClassName,customImgSize }: TAvatar) {
+export function Avatar({ variant = AvatarVariant.sm, imgSrc="/avatar-card.webp", className, imgClassName,customImgSize }: TAvatar) {
   const size =
     variant == AvatarVariant.sm
       ? " h-9 w-9"

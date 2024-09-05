@@ -1,7 +1,7 @@
 import { ChevronRight, icons } from "lucide-react";
 import React from "react";
 import { format } from "date-fns";
-import { Button, ButtonnArrow } from "../button";
+import { ButtonnArrow } from "../button";
 import { ButtonVariant } from "../button/button";
 import Image from "next/image";
 import { TBlog } from "@/types";
@@ -42,8 +42,10 @@ export function BlogCardLg({ blog }: { blog: TBlog }) {
           </h2>
           <div
             
-            className=" mt-2 line-clamp-2 md:line-clamp-[6] text-gray-950 opacity-60"
-          ><div dangerouslySetInnerHTML={{ __html: blog.description }}></div></div>
+            className=" mt-2 line-clamp-2 md:line-clamp-[6] text-gray-950 opacity-60 max-h-[168px]"
+          >
+            <p>{blog.subtext}</p>
+          </div>
         </div>
         <div className=" mt-auto">
           <ButtonnArrow
