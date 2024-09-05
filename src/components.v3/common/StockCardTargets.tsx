@@ -27,7 +27,7 @@ const getIcons = (label: string, status: string) => {
         className=" text-[#1ACE1B] QontoStepIcon-completedIcon !h-3 !w-3 border border-white"
       />
     );
-  if (label === "CMP") return <Circle className=" text-[#1D9387] !h-3 !w-3 border border-white" fontSize="small" />;
+  if (label === "CMP") return <Circle className=" text-[#1D9387] !h-3 !w-3 border border-white rounded-full relative" fontSize="small" />;
   if (status === "Active")
     return (
       <GpsFixedIcon
@@ -90,7 +90,7 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
           </TooltipProvider>
         )}
       </h4>
-      <div ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)} className=" z-20   bg-white rounded-full flex items-center justify-center">
+      <div ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)} className={` z-20 ${label==="CMP" ? "cmp-pulse":""}   bg-white rounded-full flex items-center justify-center`}>
         {getIcons(label, status as string)}
       </div>
       {isBlur ? (

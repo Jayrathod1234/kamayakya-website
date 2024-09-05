@@ -196,7 +196,7 @@ export const getNewsListApi = async ({ stock_name, limit, cursor,page }) => {
     // );
     // console.log(response.data.news);
     // return response.data.news;
-    const response = await axios.get(`https://api.marketaux.com/v1/news/all?search="${stock_name}"&language=en&page=${page}&api_token=`)
+    const response = await axios.get(`https://api.marketaux.com/v1/news/all?search="${stock_name}"&language=en&page=${page}&api_token=${process.env.NEXT_MARKET_AUX_TOKEN}`)
     console.log(response);
 
     return response.data;
