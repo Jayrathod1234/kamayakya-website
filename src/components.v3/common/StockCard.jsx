@@ -56,7 +56,7 @@ function StockCard({
     <>
       {/* new stock card  */}
       <div
-        className={`relative min-w-[320px]  
+        className={`relative min-w-[330px]  
         ${className}  main_card_carousel `}
       >
         <div
@@ -99,7 +99,7 @@ function StockCard({
             ) : (
               <div className="pt-[20px] px-[20px] flex items-center justify-between overflow-hidden">
                 <Link href={`/stock-picks/${id}`}>
-                  <p className={`text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${hovered ? "max-w-60" : "max-w-64"}`}>
+                  <p className={`text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${hovered ? "max-w-[170px]" : "max-w-52"}`}>
                     {stock_name}
                   </p>
                 </Link>
