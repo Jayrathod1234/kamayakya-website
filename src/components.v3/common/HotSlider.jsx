@@ -233,6 +233,7 @@ export function HotSlider({ children }) {
         ))}
 
       </div>
+
     </div>
   );
 }

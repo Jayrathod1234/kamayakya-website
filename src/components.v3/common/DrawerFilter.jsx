@@ -266,7 +266,7 @@ function DrawerFilter() {
               Filter{" "}
             </p>
             {totalFilterCount > 0 && (
-              <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+              <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex font-open_sans">
                 {totalFilterCount}
               </div>
             )}
@@ -1110,7 +1110,7 @@ function DrawerFilter() {
                   alignItems: "start !important",
                   justifyContent: "start !important",
                   // width: "144px !important",
-                  height: 400, // Set a fixed height to make sure scrolling works
+                  height: "100%", // Set a fixed height to make sure scrolling works
                 }}
               >
                 <Tabs
@@ -1128,7 +1128,7 @@ function DrawerFilter() {
                     alignItems: "start !important",
                     justifyContent: "start",
                     bgcolor: "#FAFAFA",
-                    width: 144,
+                    width: 121,
                     height: "100% !important",
                     // padding: "14px 8px 14px 16px",
 
@@ -1141,9 +1141,10 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
+                      minHeight: "0px",
                     }}
                     label={
-                      <Box className="items-start !important font-open_sans">
+                      <Box className="items-start !important font-open_sans capitalize">
                         Upside Left
                       </Box>
                     }
@@ -1156,6 +1157,8 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Recency"
                     {...a11yProps(1)}
@@ -1167,6 +1170,8 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Time Left"
                     {...a11yProps(2)}
@@ -1179,6 +1184,8 @@ function DrawerFilter() {
                       gap: "12px",
                       lineClamp: "1",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     // Total Returns
                     label="Total Return"
@@ -1192,6 +1199,8 @@ function DrawerFilter() {
                         color: "#5F6368",
                         gap: "12px",
                         fontFamily: "Open Sans, sans-serif !important",
+                        textTransform: "capitalize",
+                        minHeight: "0px",
                       }}
                       label="Market Cap"
                       {...a11yProps(4)}
@@ -1204,6 +1213,8 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Sectors"
                     {...a11yProps(5)}
@@ -1215,6 +1226,8 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Strategies"
                     {...a11yProps(6)}
@@ -1226,6 +1239,8 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
                     }}
                     label="Risk"
                     {...a11yProps(7)}
@@ -1238,7 +1253,7 @@ function DrawerFilter() {
                     width: "246px !important",
                   }}
                 >
-                  <TabPanel value={value} index={0}>
+                  <TabPanel value={value} index={0} className="scrolllab">
                     {/* upside left  */}
                     <div className="">
                       <CustomSlider
@@ -1249,7 +1264,7 @@ function DrawerFilter() {
                         max={max_upside_left}
                       />
 
-                      <Grid alignItems="center">
+                      <Grid alignItems="center" overflowX="hidden">
                         <Grid item>
                           <TextField
                             variant="outlined"
@@ -1406,7 +1421,7 @@ function DrawerFilter() {
                       </Accordion>
                     </div>
                   </TabPanel>
-                  <TabPanel value={value} index={3}>
+                  <TabPanel value={value} index={3} className="scrolllab">
                     {/* total return  */}
                     <div className="  ">
                       <CustomSlider
@@ -1490,7 +1505,7 @@ function DrawerFilter() {
                           }}
                         >
                           {/* <SizeSelector /> */}
-                          <div className="sm:flex grid   gap-4 pb-4">
+                          <div className="sm:flex grid   gap-4 pb-4 ">
                             {marketCapTypeList?.map((value, index) => (
                               <div
                                 className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
@@ -1524,12 +1539,14 @@ function DrawerFilter() {
                           padding: "0px !important",
                         }}
                       >
-                        <SectorFilter2
-                          sector={sector}
-                          setSector={setSector}
-                          tempSector={tempSector}
-                          setTempSector={setTempSector}
-                        />
+                        <div className="pl-0">
+                          <SectorFilter2
+                            sector={sector}
+                            setSector={setSector}
+                            tempSector={tempSector}
+                            setTempSector={setTempSector}
+                          />
+                        </div>
                       </Accordion>
                     </div>
                   </TabPanel>

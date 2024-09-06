@@ -88,8 +88,8 @@ const StockDetailsNews = ({ stock_name }) => {
     <div>
       <div className="pt-[5px]  ">
         {items?.map((item, index) => (
-          <a target="_blank" key={index} href={item?.url} className="block mb-4 group">
-            <div className="flex flex-row md:flex-row items-start md:items-center gap-4 p-4  rounded-md  cursor-pointer group-hover:bg-white transition">
+          <a key={index} target="_blank" href={item?.newsUrl} className="block  group">
+            <div className="flex flex-row md:flex-row items-start md:items-center gap-4 py-4 px-1 rounded-md  cursor-pointer group-hover:bg-white transition">
               {/* <!-- Image Section --> */}
               <div className="flex-shrink-0">
                 <img
@@ -103,11 +103,11 @@ const StockDetailsNews = ({ stock_name }) => {
               <div className="flex-1 font-open_sans">
                 <div className="flex flex-col gap-1">
                   {/* <!-- Title --> */}
-                  <p className="text-sm md:text-base font-bold text-gray-800 line-clamp-2 font-open_sans">
+                  <p className="text-2xs md:text-base font-bold text-gray-800 line-clamp-2 font-open_sans">
                     {item.title}
                   </p>
                   {/* <!-- Meta Info --> */}
-                  <div className="flex items-center gap-2 text-4xs sm:text-xs md:text-xs text-gray-500 text-nowrap">
+                  <div className="flex items-center gap-2 text-2xs sm:text-2xs md:text-2xs text-gray-500 text-nowrap">
                     <span>{item.source}</span>
                     <div className="w-1 h-1 rounded-full bg-gray-400"></div>
                     <span>
@@ -137,7 +137,7 @@ const StockDetailsNews = ({ stock_name }) => {
         ))}
       </div>
       <div onClick={fetchNextPage} className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-3 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
-        <p>Load more</p>
+        <p className="font-open_sans text-sm font-semibold">Load more</p>
       </div>
     </div>
   );

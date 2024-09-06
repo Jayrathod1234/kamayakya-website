@@ -34,7 +34,7 @@ const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
   );
 
   return (
-    <div className=" p-0 pl-11">
+    <div className="sm:pl-7 pl-0">
       <TextField
         variant="outlined"
         fullWidth

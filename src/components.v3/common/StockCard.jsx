@@ -50,12 +50,29 @@ function StockCard({
   }
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const [hovered, setHovered] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       {/* new stock card  */}
-      <div className={`relative main_card_carousel max-w-[408px] ${className}`}>
-        <div className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}>
-          {tabImage && <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />}
+      <div
+        className={`relative min-w-[330px]  
+        ${className}  main_card_carousel `}
+      >
+        <div
+          className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
+        >
+          {tabImage && (
+            <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
+          )}
         </div>
         <div className={cardClass}>
           <div className={innerClass}>
@@ -64,21 +81,36 @@ function StockCard({
                 <div className="p-1 gap-2 flex items-center">
                   <img src="/assets/noto_locked.png" alt="" className="w-[19px]" />
 
-                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] sm:min-w-[281px] min-w-[125px]"></div>
+                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[200px] md:min-w-[200px] slg:min-w-[200px] lg:min-w-[200px]"></div>
                 </div>
 
                 <div className="tooltip">
-                  <img src="/assets/play.gif" alt="" className="w-[24px] blur-[2px]" />
-                  <span className="tooltiptext relativec shadow-sm">
-                    <img src="/assets/div.png" alt="" className="absolute -top-2 left-[52px] w-4" />
+                  <img
+                    src="/assets/play.gif"
+                    alt=""
+                    className="w-[24px] blur-[2px]"
+                  />
+                  <span className="tooltiptext -left-5 relative shadow-sm z-[200000]">
+                    <img
+                      src="/assets/div.png"
+                      alt=""
+                      className="absolute -top-2 left-[89px] w-4"
+                    />
                     Please become a member to watch this video.
                   </span>
                 </div>
               </div>
             ) : (
-              <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
-                <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1">{stock_name}</p>
-
+              <div className="pt-[20px] px-[20px] flex items-center justify-between overflow-hidden">
+                <Link href={`/stock-picks/${id}`}>
+                  <p
+                    className={`text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
+                      hovered ? "max-w-[170px]" : "max-w-52"
+                    }`}
+                  >
+                    {stock_name}
+                  </p>
+                </Link>
                 {latest_youtube_video?.youtube_link && (
                   <div
                     className="relative flex items-center gap-[16px]"
@@ -87,11 +119,19 @@ function StockCard({
                   >
                     {/* GIF Image */}
                     <div
-                      className={`absolute right-0  transition-transform duration-500 ease-in-out ${
-                        hovered ? "translate-x-[-50px]" : ""
-                      } ${hovered ? "me-7" : "me-0"}`}
+                      className={`absolute right-0 transition-transform duration-500 ease-in-out ${
+                        hovered ? "translate-x-[-65px]" : "translate-x-[5px]"
+                      } ${hovered ? "me-7" : "me-3"}`}
                     >
-                      <a href="#">
+                      <div
+                        className="w-full cursor-pointer"
+                        onClick={() =>
+                          window.open(
+                            latest_youtube_video?.youtube_link,
+                            "_blank"
+                          )
+                        }
+                      >
                         <img
                           src="/assets/play.gif"
                           alt="Play"
@@ -99,13 +139,15 @@ function StockCard({
                             hovered ? "filter brightness-0 sepia opacity-100" : ""
                           }`}
                         />
-                      </a>
+                      </div>
                     </div>
 
                     {/* Text container */}
                     <div
-                      className={`w-full  ml-5 transition-transform duration-500 ease-in-out ${
-                        hovered ? "translate-x-0 opacity-100" : "translate-x-[50px] opacity-0"
+                      className={`transition-transform duration-500 ease-in-out ${
+                        hovered
+                          ? "-translate-x-1 opacity-100"
+                          : "translate-x-[80px] opacity-0"
                       }`}
                     >
                       <a
@@ -114,7 +156,9 @@ function StockCard({
                         rel="noopener noreferrer"
                         className="cursor-default"
                       >
-                        <p className="text-[14px] w-full cursor-pointer leading-[20px] text-[#125B54]">Watch Video</p>
+                        <p className="text-[14px] w-full cursor-pointer text-nowrap leading-[20px] text-[#125B54]">
+                          Watch Video
+                        </p>
                       </a>
                     </div>
                   </div>
@@ -138,7 +182,7 @@ function StockCard({
                 )}
                 <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                   <img src="/assets/Component 8.svg" alt="" className="w-3" />
-                  <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap font-open_sans">
+                  <p className="text-[7px] font-semibold text-[#667085] flex items-center whitespace-nowrap font-open_sans">
                     MCap:
                     {is_blur ? (
                       <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
@@ -154,20 +198,37 @@ function StockCard({
               <div className="p-[8px] rounded-xl bg-[#f7f8fa]">
                 <div className="rounded-[7px] bg-custom-gradient text-center text-white ">
                   <div className="flex justify-end px-[11px] pt-[11px]">
-                    <img src="/assets/streamline_target-solid.svg" alt="" className="sm:w-[18px] w-7" />
+                    <img
+                      src="/assets/streamline_target-solid.svg"
+                      alt=""
+                      className="sm:w-7 w-[18px]"
+                    />
                   </div>
 
                   <div className="px-[16px] pb-[24px] grid gap-[6px]">
-                    <div className="gap-[7px] items-center flex justify-center ">
-                      <p className="text-md font-semibold leading-[18px] text-white font-open_sans  ">Upside left</p>
-                      <div className="tooltip">
-                        <img src="/assets/ph_info-duotone.svg" alt="" />
-                        <span className="tooltiptext tooltiptext2 relative shadow-3xl">
-                          <img src="/assets/div.png" alt="" className="absolute -top-2 left-[52px] w-4" />
-                          <div className="text-gray-800 text-2xs font-normal ">
-                            Upside Left means how much the stock price could rise from its current level.
+                    <div className="gap-[7px] items-center flex justify-center">
+                      <p className="text-md font-semibold leading-[18px] text-white font-open_sans">
+                        Upside left
+                      </p>
+
+                      {/* Tooltip (Visible on large screens only) */}
+                      <div className="tooltip  relative hidden sm:block">
+                        <img
+                          src="/assets/ph_info-duotone.svg"
+                          alt="info icon"
+                          className="cursor-pointer hidden sm:block"
+                        />
+                        <span className="tooltiptext  tooltiptext2 !-left-5 relative shadow-3xl">
+                          <img
+                            src="/assets/div.png"
+                            alt=""
+                            className="absolute -top-2 left-[57%] w-4"
+                          />
+                          <div className="text-gray-800 text-2xs font-normal">
+                            Upside Left means how much the stock price could
+                            rise from its current level.
                           </div>
-                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1  rounded-lg">
+                          <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 rounded-lg">
                             <span className="text-[#108973] text-2xs font-bold">
                               Example :
                             </span>
@@ -177,12 +238,59 @@ function StockCard({
                           </div>
                         </span>
                       </div>
+
+                      {/* Modal Trigger (Visible on small screens only) */}
+                      <div className="sm:hidden block">
+                        <img
+                          src="/assets/ph_info-duotone.svg"
+                          alt="info icon"
+                          className="cursor-pointer"
+                          onClick={openModal}
+                        />
+                      </div>
                     </div>
 
-                    <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">{upside_left || 0}%</h3>
-                    <p className="text-2xs font-medium text-[#E4E7EC] font-open_sans">
+                    <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">
+                      {upside_left || 0}%
+                    </h3>
+                    <p className="text-2xs font-normal text-[#E4E7EC] font-open_sans">
                       likely within a {upside_left_time}
                     </p>
+
+                    {/* Modal (only opens on small screens) */}
+                    {isModalOpen && (
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
+                        <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
+                          {/* Modal Header */}
+                          <div className="w-full flex justify-between items-center">
+                            <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
+                              Upside Left
+                            </h3>
+                            <button
+                              className="text-[30px] text-gray-500 hover:text-gray-700 align-top font-open_sans"
+                              onClick={closeModal}
+                            >
+                              &times;
+                            </button>
+                          </div>
+
+                          {/* Modal Body */}
+                          <div className="mt-2 text-gray-800 text-sm text-left font-open_sans">
+                            Upside Left means how much the stock price could
+                            rise from its current level.
+                          </div>
+                          <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left ">
+                            <span className="text-[#108973] text-sm font-bold text-left font-open_sans">
+                              Example :
+                            </span>
+                            <p className="text-sm text-gray-600 mt-1 text-left font-open_sans">
+                              If a stock's price is ₹100 and the Upside Left is
+                              20%, it might go up to ₹120.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-between pt-[8px] px-[9px] ">
@@ -190,7 +298,7 @@ function StockCard({
                     <img src="/assets/Layer_1.svg" alt="" className="w-3.5" />
                     <p className="text-[11px] font-semibold text-gray-700 font-open_sans">Total Returns</p>
                   </div>
-                  <div className="flex gap-[3px] items-center font-open_sans">
+                  <div className="flex gap-[3px] items-center font-open_sans max-w-[150px] whitespace-nowrap">
                     {/* green up arrow  */}
                     {gain_loss >= 0 ? (
                       // green up arrow

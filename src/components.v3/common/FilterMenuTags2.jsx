@@ -10,7 +10,7 @@ import DrawerFilter from "@/components.v3/common/DrawerFilter";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
-const FilterMenuTags2 = ({ isResponsive }) => {
+const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -93,12 +93,17 @@ const FilterMenuTags2 = ({ isResponsive }) => {
   });
 
   return (
-    <div className="mr-auto sm:order-first order-2">
-      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px]">
+    <div
+      style={{ scrollbarWidth: "none" }}
+      className={`mr-auto sm:order-first order-2 transition-all duration-500 ease-linear overflow-x-scroll   ${
+        isExpanded ? "lg:w-[58%]" : "lg:w-[74%]"
+      }`}
+    >
+      <div className="sm:w-[min(1280px,calc(100%-25px))] w-full  min-w-[328px] lg:w-[100%]">
         <Box
           sx={{
             display: "flex",
-            width: isMobile ? "27%" : "757px",
+            width: isMobile ? "100%" : "100%",
             // width: "757px",
             overflow: { sm: "hidden", xs: "auto" },
           }}
@@ -115,7 +120,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
           >
             {/* left side arrow  */}
             {showLeftButton && (
-              <div className="sm:bg-transparent bg-custom-gradient-arrow sm:w-10 sm:h-10 w-0 h-0 justify-center flex items-center relative mt-1">
+              <div className="sm:bg-transparent bg-custom-gradient-arrow-left sm:w-10 sm:h-12 w-0 h-0 justify-center flex items-center relative mt-1 right-[-11px] z-[1]">
                 <IconButton
                   onClick={scrollLeft}
                   sx={{
@@ -125,6 +130,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                     color: "white",
                     borderRadius: "50%",
                     top: "-2px",
+                    right: "12px",
                     "&:hover": {
                       backgroundColor: "#333", // Darker black on hover
                     },
@@ -133,10 +139,10 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                 >
                   <ArrowBackIosIcon
                     sx={{
-                      width: "18px",
+                      width: "12px",
                       position: "absolute",
-                      left: "8px",
-                      top: "3px",
+                      left: "10px",
+                      top: "1.5px",
                     }}
                   />
                 </IconButton>
@@ -214,9 +220,9 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                     paddingLeft: "16px",
                     paddingRight: "16px",
                     // borderRadius: "4px",
-                    borderRadius: isMobile ? "6px" : "4px",
-                    maxWidth: "179px !important",
-                    height: "38px !important",
+                    borderRadius: isMobile ? "6px" : "0.5rem",
+                    // maxWidth: "179px !important",
+                    height: "46px !important",
                     border: "1px solid #E4E7EC ",
                     fontFamily: "Open Sans",
                     backgroundColor: strategyTag.includes(chip.id)
@@ -244,7 +250,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
             {!isMobile ? (
               <>
                 {showRightButton && (
-                  <div className="sm:bg-transparent bg-custom-gradient-arrow sm:w-10 sm:h-10 w-0 h-0  justify-center flex items-center relative right-[2%] mt-1">
+                  <div className="sm:bg-transparent bg-custom-gradient-arrow-right sm:w-10 sm:h-12 w-0 h-0  justify-center flex items-center relative right-[2%] mt-1">
                     <IconButton
                       onClick={scrollRight}
                       sx={{
@@ -252,7 +258,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                         height: "28px",
                         backgroundColor: "black",
                         color: "white",
-                        right: "2%",
+                        right: "-14%",
                         top: "-2px",
                         borderRadius: "50%",
 
@@ -262,7 +268,7 @@ const FilterMenuTags2 = ({ isResponsive }) => {
                       }}
                     >
                       <ArrowForwardIosIcon
-                        sx={{ width: "18px", position: "absolute" }}
+                        sx={{ width: "12px", position: "absolute" }}
                       />
                     </IconButton>
                   </div>

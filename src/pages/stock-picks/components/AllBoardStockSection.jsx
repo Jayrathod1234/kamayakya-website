@@ -22,7 +22,7 @@ function AllBoardStockSection() {
     fetchNextPage,
   } = useAllBoardStock();
 
-  const { sebiBoardType } = useStockPicks();
+  const { sebiBoardType,allBoardStockRef } = useStockPicks();
 
   const { showFilterHeader, setShowFilterHeader } = useNavBar();
 
@@ -67,7 +67,7 @@ function AllBoardStockSection() {
 
   return (
     <>
-      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto z-[20000]">
+      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto z-[20000]" ref={allBoardStockRef}>
         <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center sm:pb-10 pb-4">
           All {sebiBoardType == "mainboard" ? "Mainboard" : "SME"} Stocks
         </p>
@@ -75,7 +75,7 @@ function AllBoardStockSection() {
       <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
         <div className="flex flex-col sm:flex-row sm:gap-4 gap-0 items-center justify-between ">
           <div className="w-full">
-            <form>
+            <div>
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white ml-2 shadow-3xs"
@@ -96,16 +96,16 @@ function AllBoardStockSection() {
                   onChange={(e) => setSearchStock(e.target.value)}
                 />
               </div>
-            </form>
+            </div>
           </div>
-          <div className="flex sm:gap-4 gap-0 sm:h-12 h-0 ">
+          <div className="flex sm:gap-4 gap-0 sm:h-[46px] h-0 ">
             <div className="w-auto sm:block hidden">
               <div className="relative flex gap-4">
                 <CustomSortMenu isLabel={true} />
               </div>
             </div>
           </div>
-          <div className="w-auto sm:block hidden bg-white h-12">
+          <div className="w-auto sm:block hidden bg-white h-[46px]">
             <DrawerFilter />
           </div>
         </div>
@@ -133,11 +133,11 @@ function AllBoardStockSection() {
 
       {/* blur card  */}
       <div
-        className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative sm:overflow-visible overflow-hidden "
+        className=" bg-[#F2F4F7] py-10  relative sm:overflow-visible overflow-hidden "
         ref={showFilterRef}
       >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
-          <div className="grid sm:grid-cols-1 grid-cols-1 gap-7  md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-auto-fill gap-4">
             {isLoading || error ? (
               <StockCardSkeleton length={9} />
             ) : items.length > 0 ? (

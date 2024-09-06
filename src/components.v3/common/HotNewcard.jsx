@@ -11,7 +11,7 @@ function HotNewcard() {
         </div>
         <div className=" p-[1px] rounded-lg bg-gradient-to-r from-[#75CDC5] to-[#FDB022]">
           <div className="relative rounded-lg bg-white shadow-6xs ">
-            <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
+            <div className="pt-[20px] px-[20px] flex items-center justify-between">
               <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis">
                 Coal India
               </p>
@@ -29,8 +29,8 @@ function HotNewcard() {
                           : ""
                       }`}
                       // Update hover state when mouse enters or leaves the image
-                      onMouseEnter={() => setHovered(true)}
-                      onMouseLeave={() => setHovered(false)}
+                      // onMouseEnter={() => setHovered(true)}
+                      // onMouseLeave={() => setHovered(false)}
                     />
                   </a>
                 </div>
@@ -108,7 +108,7 @@ function HotNewcard() {
                     <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">
                       12.24%
                     </h3>
-                    <p className="text-2xs font-medium text-[#E4E7EC] font-open_sans">
+                    <p className="text-2xs font-normal text-[#E4E7EC] font-open_sans">
                       likely within a year
                     </p>
                   </div>

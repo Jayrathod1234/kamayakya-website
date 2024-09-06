@@ -78,6 +78,7 @@
     "react-scroll": "^1.8.9",
     "react-slick": "^0.30.2",
     "react-social-icons": "^5.15.0",
+    "react-tooltip": "^5.28.0",
     "react-type-animation": "^3.1.0",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.1.9",

@@ -99,8 +99,9 @@ export default function StrategyCheck() {
           borderColor: changablestrategyTags.length > 0 ? "#108973" : "#E4E7EC",
           backgroundColor:
             changablestrategyTags.length > 0 ? "#125B54" : "#FFFFFF",
-          borderRadius: "4px",
-          padding: "7px 16px",
+          borderRadius: "0.5rem",
+          height: "46px",
+          padding: "7px 12px",
           fontWeight: 500,
 
           "&:hover": {
@@ -130,7 +131,8 @@ export default function StrategyCheck() {
                 alignItems: "center",
                 width: "20px",
                 height: "20px",
-                fontWeight: 200,
+                fontWeight: 700,
+                fontSize: "13px",
                 ...commonStyles,
               }}
             >
@@ -146,7 +148,7 @@ export default function StrategyCheck() {
         role={undefined}
         transition
         placement="bottom-start"
-        style={{ zIndex: 9, width: 300 }}
+        style={{ zIndex: 111, width: 300 }}
         modifiers={[
           {
             name: "offset",
@@ -161,7 +163,7 @@ export default function StrategyCheck() {
             <Paper
               sx={{
                 backgroundColor: "white",
-                borderRadius: "8px",
+                borderRadius: "0.5rem",
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
                 overflow: "hidden",
                 maxHeight: "300px",

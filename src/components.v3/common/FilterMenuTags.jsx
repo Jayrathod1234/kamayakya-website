@@ -30,7 +30,7 @@ const FilterCarousel = () => {
   useLayoutEffect(() => {
     const containerWidth = containerRef.current.offsetWidth;
     const contentWidth = carouselRef.current.scrollWidth;
-    setShowButtons(contentWidth > containerWidth);
+    setShowButtons(contentWidth > 1193);
   }, [strategyTag, popularStrategies]);
 
   const handleChipClick = async (chipId) => {
@@ -78,7 +78,7 @@ const FilterCarousel = () => {
 
   return (
     <div className="bg-white">
-      <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto sm:block hidden">
+      <div className="sm:w-[min(1280px,calc(100%-25px))] w-0 min-w-[328px] mx-auto sm:block hidden">
         <Box
           sx={{ display: "flex", width: "100%", overflow: "hidden" }}
           ref={containerRef}
@@ -193,12 +193,12 @@ const FilterCarousel = () => {
                     />
                   }
                   sx={{
-                    paddingLeft: "16px",
-                    paddingRight: "16px",
+                    paddingLeft: "8px",
+                    paddingRight: "8px",
                     borderRadius: ".5rem !important",
-                    borderRadius: isMobile ? "6px" : "4px",
-                    maxWidth: "179px !important",
-                    height: "38px !important",
+                    borderRadius: isMobile ? "6px" : "0.5rem",
+                    maxWidth: "200px !important",
+                    height: "46px !important",
                     border: "1px solid #E4E7EC ",
                     fontFamily: "Open Sans",
                     // borderColor: " #E4E7EC !important ",
@@ -213,9 +213,11 @@ const FilterCarousel = () => {
                       transform: "scale(000.95)", // Adjust the scale value as needed
                       transition: "transform 0.3s ease", // Optional: Add transition for smooth scaling
                     },
+
                     minWidth: "auto", // Ensure text is not truncated
                     whiteSpace: "nowrap", // Prevent text wrapping
                     overflow: "visible", // Ensure full visibility of text
+                    textOverflow: "ellipsis", // Add ellipsis for truncated text
                     display: "inline-flex", // Allow the chip to grow based on content
                   }}
                 />

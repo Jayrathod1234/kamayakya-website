@@ -79,14 +79,43 @@ function StockDetailsSection() {
       setTruncatedText(text);
     }
   }, [isReadMore, text]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const [showAll, setShowAll] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Handle resizing to check if it's mobile view
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Handle button click to toggle visibility of all tags
+  const handleShowAll = () => {
+    setShowAll(!showAll);
+  };
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
         <></>
       ) : (
         <div className="pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
-          <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="items-center gap-[13px] flex p-[7px]">
+          <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
+            <div className="items-center gap-[13px] flex p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px]">
               <div
                 className="flex items-center cursor-pointer group"
                 onClick={() => {
@@ -109,12 +138,12 @@ function StockDetailsSection() {
               </div>
             </div>
             {/* details  */}
-            <div className="pt-[19px] mb-[80px] ">
+            <div className="pt-[19px] mb-[80px]  ">
               {/* Main Content  */}
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="   col-span-2">
                   {/* First Content Start */}
-                  <div className=" bg-white rounded-lg shadow-sm">
+                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto bg-white rounded-lg shadow-sm">
                     <div className="flex  order-1 sm:order-1 relative ">
                       {/* Buy Images  */}
                       <img
@@ -165,7 +194,7 @@ function StockDetailsSection() {
                         {/* <!-- Continue your other components similarly --> */}
                         <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
                           {/* Image container */}
-                          <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7] justify-center items-center">
+                          <div className="flex-shrink-0 w-[120px] h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7] justify-center items-center">
                             <Image
                               src={
                                 stock_image
@@ -194,13 +223,13 @@ function StockDetailsSection() {
                                   height={40} // 10 * 4
                                   className="object-cover  block sm:hidden"
                                 />
-                                <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate">
+                                <p className="text-[#0C111D] text-xl md:text-xl font-bold font-open_sans truncate leading-[30px]">
                                   {stock_name}
                                 </p>
                               </div>
                               <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
-                                <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
-                                <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
+                                {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
+                                <p className="text-2xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
                                     stock_exchange == "SME-BSE"
                                     ? "BSE: "
@@ -211,45 +240,61 @@ function StockDetailsSection() {
                             </div>
 
                             <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap">
-                              <div className="flex gap-4 w-full justify-center sm:justify-start ">
-                                <div className="flex flex-wrap gap-4">
-                                  {stock_tags.map((value, index) => (
+                              <div className="flex gap-4 w-full justify-center sm:justify-start">
+                                <div className="flex flex-wrap gap-[8px] sm:gap-[8px] ">
+                                  {/* Show all chips in tablet size and larger, and only 2 chips in mobile size */}
+                                  {stock_tags.slice(0, showAll || !isMobile ? stock_tags.length : 2).map((value, index) => (
                                     <div
                                       key={index}
-                                      className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center"
+                                      className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-2 pl-2 gap-[2px] items-center"
                                     >
                                       <img
                                         src={value.image}
                                         alt={value.name}
                                         className="w-3 h-3 md:w-4 md:h-4"
                                       />
-                                      <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                      <p className="text-2xs md:text-2xs font-normal text-[#344054] font-open_sans">
                                         {value.name}
                                       </p>
                                     </div>
                                   ))}
 
-                                  {/* <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
-                                <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                  +2
-                                </p>
-                              </div> */}
+                                  {/* Show "2+" button only on mobile size and if there are more than 2 stock tags */}
+                                  {!showAll && stock_tags.length > 2 && isMobile && (
+                                    <button
+                                      onClick={handleShowAll}
+                                      className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-2 pl-2.5 gap-1 items-center flex sm:hidden"
+                                    >
+                                      <p className="text-2xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                        +{stock_tags.length - 2}
+                                      </p>
+                                    </button>
+                                  )}
                                 </div>
+
+
                               </div>
-                              <p className=" sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
-                                <img
-                                  src="/assets/Polygon2.svg"
-                                  alt=""
-                                  className="w-4 h-4 items-center"
-                                />{" "}
-                                {action_text}
+                              <p className="sm:hidden text-sm items-center font-open_sans flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
+                                {/* Conditionally show either text or image */}
+                                {action_text ? (
+                                  <>
+                                    <img
+                                      src="/assets/Polygon2.svg"
+                                      alt=""
+                                      className="w-4 h-4 items-center"
+                                    />
+                                    {action_text}
+                                  </>
+                                ) : null}
                               </p>
+
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <hr />
+                    <hr className="opacity-95" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }} />
+
                     <div className="rounded-lg bg-white flex flex-col sm:flex-row px-2 sm:px-4 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
@@ -261,7 +306,7 @@ function StockDetailsSection() {
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">
                           <div className="w-full flex justify-between items-center">
-                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans capitalize">
+                            <p className="text-[#475467] text-2xs sm:text-sm font-semibold font-open_sans capitalize">
                               {sector}
                             </p>
                             <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
@@ -270,7 +315,7 @@ function StockDetailsSection() {
                           </div>
                         </div>
                       </div>
-                      
+
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
@@ -282,7 +327,7 @@ function StockDetailsSection() {
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                           <div className="flex w-full justify-between items-center">
-                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                            <p className="text-[#475467] text-2xs sm:text-sm font-semibold font-open_sans">
                               {market_cap_type} Cap
                             </p>
                             <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
@@ -308,7 +353,7 @@ function StockDetailsSection() {
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1 w-full">
                           <div className="w-full flex justify-between items-center">
-                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans ">
+                            <p className="text-[#475467] text-2xs sm:text-sm font-semibold font-open_sans ">
                               {risk} Risk
                             </p>
                           </div>
@@ -318,12 +363,12 @@ function StockDetailsSection() {
                   </div>
                   {/* First Content End  */}
                   {/* When Small screen Button is Show  */}
-                  <div className="flex sm:hidden gap-2 mt-5 mb-3 ">
+                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto flex sm:hidden gap-3 mt-5 mb-5 ">
                     <div className="flex-1">
                       {hasVideo ? (
                         <div className="flex-1 group">
                           <button
-                            className="flex-1 text-nowrap w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            className="flex-1 text-nowrap w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
                             onClick={() =>
                               window.open(watch_video.youtube_link, "_blank")
                             }
@@ -333,18 +378,18 @@ function StockDetailsSection() {
                               alt="Play icon"
                               className="w-5 h-5 transition duration-300 "
                             />
-                            <span className="text-nowrap text-[14px]">Watch Video</span>
+                            <span className="text-nowrap text-[16px]">Watch Video</span>
                           </button>
                         </div>
                       ) : (
                         <div className="relative group">
-                          <button className="w-full text-nowrap  bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                          <button className="w-full text-nowrap  bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed py-[10px] px-2">
                             <img
                               src="/assets/circle-play.svg"
                               alt="Play icon"
                               className="w-5 h-5"
                             />
-                            <span className="font-medium text-[14px] text-gray-400 text-nowrap">
+                            <span className="font-medium text-[16px] text-gray-400 text-nowrap">
                               Watch Video
                             </span>
                           </button>
@@ -372,7 +417,7 @@ function StockDetailsSection() {
                     </div>
                     <div className="flex-1 group">
                       <button
-                        className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                        className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
                         onClick={handleMainModalOpen} // Add the onClick event to open the modal
                       >
                         <img
@@ -380,7 +425,7 @@ function StockDetailsSection() {
                           alt="Share icon"
                           className="w-5 h-5 transition duration-300 "
                         />
-                        <span className="text-nowrap text-[14px]">
+                        <span className="text-nowrap text-[16px]">
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
@@ -400,13 +445,13 @@ function StockDetailsSection() {
                   {/* When Small Screen Button Is Hide  */}
                   {/* Small screen show to company profile  */}
                   <div className="pt-[20px] p-3 block sm:hidden bg-white shadow mb-5">
-                    <h2 className="text-[#0C111D] text-[14px]  font-semibold font-open_sans ">
+                    <h2 className="text-[#0C111D] text-[14px]  font-bold font-open_sans ">
                       Company Profile
                     </h2>
 
                     <p
                       dangerouslySetInnerHTML={{ __html: truncatedText }}
-                      className="text-[#475467] text-justify text-[14px] font-normal font-open_sans  sm:line-clamp-none"
+                      className="text-[#475467] text-justify !text-[14px] font-normal !font-open_sans  sm:line-clamp-none"
                     ></p>
 
                     {text?.length > textCount ? (
@@ -446,7 +491,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box start */}
                   <div className="hidden md:block col-span-2 order-3 sm:order-2">
                     <div className="p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm mt-7">
-                      <div className="relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
+                      <div className="bg-[url('/assets/bigFrame.png')] bg-cover bg-right relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
                         {/* Gradient Border */}
                         <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
@@ -500,7 +545,7 @@ function StockDetailsSection() {
                               </div>
                               <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-white font-bold">
                                 {upside_left}%
-                                <span className="text-[10px] mt-2   text-white font-medium">
+                                <span className="text-[12px] mt-2   text-white font-medium">
                                   likely within {upside_left_time}
                                 </span>
                               </div>
@@ -558,7 +603,7 @@ function StockDetailsSection() {
                                   </>
                                 )}
                                 {Math.abs(gain_loss)}%
-                                <span className="text-[10px]  mt-2  text-[#667085] font-medium">
+                                <span className="text-[12px]  mt-2  text-[#667085] font-medium">
                                   in {return_time}
                                 </span>
                               </div>
@@ -751,56 +796,99 @@ function StockDetailsSection() {
                   </div>
 
                   {/* Small Responsive size View Open the box  */}
-                  <div className="block md:hidden bg-gray-150 p-4 rounded-lg shadow-md max-w-full mx-auto ">
-                    <div className=" rounded-lg">
+                  <div className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5">
+                    <div className="  rounded-lg">
                       <div className="bg-custom-gradient text-white rounded-lg p-4">
                         <div className="flex justify-between items-center">
-                          <h2 className="text-lg font-open_sans font-semibold flex items-center">
+                          <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
                             Upside Left
-                            <div className="relative group">
+
+                            {/* Tooltip for large screens and Modal Trigger for small screens */}
+                            <div className="relative group hidden sm:block">
+                              {/* Tooltip (Visible on large screens) */}
                               <img
                                 src="/assets/ph_info-duotone.svg"
                                 alt="Info"
                                 className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
                               />
-                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black  text-sm rounded-lg py-2 px-4 w-[300px]">
+                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
                                 <div className="w-full grid gap-1 relative">
                                   <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[46%]" />
                                   <p className="text-[12px] font-open_sans">
-                                    Upside Left means how much the stock price
-                                    could rise from its current level.
+                                    Upside Left means how much the stock price could rise from its current level.
                                   </p>
                                   <div className="p-2 bg-[#F9FAFB] rounded-md">
                                     <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">
                                       Example :
                                     </h4>
                                     <p className="text-[12px] font-open_sans">
-                                      {" "}
-                                      If a stock's price is ₹100 and the Upside
-                                      Left is 20%, it might go up to ₹120.
+                                      If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
                                     </p>
                                   </div>
                                 </div>
                               </div>
                             </div>
+
+                            {/* Modal Trigger for small screens */}
+                            <div className="sm:hidden">
+                              <img
+                                src="/assets/ph_info-duotone.svg"
+                                alt="Info"
+                                className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                onClick={openModal}
+                              />
+                            </div>
                           </h2>
+
                           <img
                             src="/assets/stock-details/streamline_target-solid (1).svg"
                             alt=""
                           />
                         </div>
-                        <p className="text-4xl font-bold mt-2 font-open_sans">
-                          {upside_left}%
-                        </p>
-                        <p className="text-sm font-open_sans">
-                          in {upside_left_time}
-                        </p>
+
+                        {/* Modal for small screens */}
+                        {isModalOpen && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
+                            <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
+                              {/* Modal Header */}
+                              <div className="w-full flex justify-between items-center gap-1">
+                                <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">Upside Left</h3>
+                                <button
+                                  className="text-[30px] text-gray-500 hover:text-gray-700"
+                                  onClick={closeModal}
+                                >
+                                  &times;
+                                </button>
+                              </div>
+
+                              {/* Modal Body */}
+                              <div className="mt-2 text-gray-800 text-sm font-open_sans">
+                                Upside Left means how much the stock price could rise from its current level.
+                              </div>
+                              <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
+                                <span className="text-[#108973] text-sm font-bold font-open_sans">Example :</span>
+                                <p className="text-sm text-gray-600 mt-1 font-open_sans">
+                                  If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="flex items-center gap-2">
+                          <p className="text-display-xs font-bold  font-open_sans">
+                            {upside_left}%
+                          </p>
+                          <p className="text-sm font-open_sans mt-1">
+                            in {upside_left_time}
+                          </p>
+                        </div>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center">
                             <img src="/assets/hj1.svg" alt="" />
-                            <p className="ml-2 text-sm text-gray-800 font-open_sans">
+                            <p className="ml-2 text-3xs text-gray-800 font-open_sans">
                               Total Returns
                             </p>
                           </div>
@@ -820,9 +908,9 @@ function StockDetailsSection() {
                                 className="w-2"
                               />
                             )}
-                            <p className="text-black ml-1 text-sm font-open_sans">
+                            <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
                               {gain_loss}% {""}
-                              <span className="text-gray-500 text-xs font-open_sans">
+                              <span className="text-gray-500 text-2xs font-open_sans">
                                 likely in {return_time}
                               </span>
                             </p>
@@ -832,7 +920,7 @@ function StockDetailsSection() {
                           <div className="flex justify-between items-center mt-2">
                             <div className="flex items-center">
                               <img src="/assets/hj2.svg" alt="" />
-                              <p className="ml-2 text-sm text-gray-800 font-open_sans">
+                              <p className="ml-2 text-3xs text-gray-800 font-open_sans">
                                 CAGR
                               </p>
                             </div>
@@ -852,9 +940,9 @@ function StockDetailsSection() {
                                   className="w-2"
                                 />
                               )}
-                              <p className="text-black ml-1 text-sm font-open_sans ">
+                              <p className="text-black ml-1 text-2xs font-open_sans font-[700] ">
                                 {cagr_of_stock.cagr_value}%{" "}
-                                <span className="text-gray-500 text-xs font-open_sans">
+                                <span className="text-gray-500 text-2xs font-open_sans">
                                   in {cagr_of_stock.cagr_time}
                                 </span>
                               </p>
@@ -881,9 +969,8 @@ function StockDetailsSection() {
                       </div>
                     </div>
                   </div>
-                  <div className="pt-4 block sm:hidden bg-white">
-                    <div className="px-4 md:px-[20px] pt-4 pb-4">
-                      {/* <StockDetailsProgressBar /> */}
+                  <div className=" block sm:hidden">
+                    <div className="px-4 md:px-[20px] pt-4 pb-4 bg-white">
                       <StockDetailProgressBar live_price={live_price} entry_date={created} entry_price={entry_price} stock_targets={stock_targets}/>
                     </div>
                   </div>
@@ -935,13 +1022,13 @@ function StockDetailsSection() {
                   </div>
                   {/* Company Profile Section End  */}
 
-                  <div className="p-5 bg-gray-100 mt-2 rounded-md  block sm:hidden">
+                  <div className="p-5 bg-gray-100 mt-5 rounded-md  block sm:hidden sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
                     <div className="flex relative">
                       <div className=" !w-[75%]">
-                        <p className="font-bold mb-2 font-open_sans text-xs">
+                        <p className="font-bold mb-2 font-open_sans text-xs text-[0.813rem]">
                           Don't miss out on potential gains!
                         </p>
-                        <p className="mb-4 text-[#344054] font-open_sans">
+                        <p className="mb-4 text-[#344054] font-open_sans text-[0.813rem]">
                           Upgrade now to get access to both SME and Mainboard
                           stocks.
                         </p>
@@ -1000,8 +1087,8 @@ function StockDetailsSection() {
                   </div>
 
                   {/* News Section Start */}
-                  <div className="pt-[35px]  w-full ">
-                    <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans p-3">
+                  <div className=" sm:pt-[78px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
+                    <h2 className="text-[#0C111D] text-[14px] font-semibold font-open_sans px-1">
                       News
                     </h2>
                     <StockDetailsNews stock_name={stock_name} />

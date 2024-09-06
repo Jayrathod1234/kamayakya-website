@@ -15,7 +15,7 @@ function ElevateSection() {
   // Default content and button text
   let content = (
     <>
-      <p className="text-display-xs font-bold text-[#F8F8F8] font-open_sans pb-3 tracking-normal">
+      <p className="sm:text-display-xs text-xl sm:font-semibold font-bold text-[#F8F8F8] font-open_sans sm:pb-3 pb-2 tracking-normal">
         Elevate Your Investments with KamayaKya!
       </p>
       {/* <p className="text-display-xs font-semibold text-[#F8F8F8] font-open_sans">
@@ -23,10 +23,10 @@ function ElevateSection() {
       </p> */}
       <p className="text-base sm:text-md font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
         Access exclusive insights with
-        <span className="text-white/[0.80] font-semibold leading-7">
-          30+ Main Board and 10+ SME Premium stock
+        <span className="text-white/[0.80] font-semibold leading-7 px-1">
+          30+ Main Board and 10+ SME Premium
         </span>
-        picks every year
+        stock picks every year
       </p>
     </>
   );
@@ -68,7 +68,7 @@ function ElevateSection() {
 
   return (
     <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto -mt-16  m-0 ">
-      <div className="p-[24px] sm:p-[56px] rounded-[20px] bg-custom-gradient-3 flex flex-col sm:flex-row items-start sm:items-center justify-between relative overflow-hidden z-[55] top-[38px] sm:top-[102px]">
+      <div className="p-[24px] sm:p-[56px] sm:rounded-[20px] rounded-[10px] bg-custom-gradient-3 flex flex-col sm:flex-row items-start sm:items-center justify-between relative overflow-hidden z-[55] top-[38px] sm:top-[102px]">
         <div className="absolute bottom-[2px] left-[20%] sm:left-[53%] -z-10 opacity-40">
           <img
             src="/assets/Group.png"
@@ -77,8 +77,8 @@ function ElevateSection() {
           />
         </div>
         <div>{content}</div>
-        <div className="relative group mt-4 sm:mt-0 sm:ms-auto">
-          <div className="relative w-44 sm:w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA] group-hover:scale-[000.9] group-hover:duration-500  group-hover:shadow-become-member  group-hover:border-[1px]  ">
+        <div className="relative group mt-8 sm:mt-0 sm:ms-auto">
+          <div className="relative w-[12.5rem] sm:w-48 h-12 opacity-90 border-[1px] border-transparent duration-300 overflow-hidden rounded-xl bg-black z-10 group-hover:bg-transparent group-hover:border-[#03D6DA] group-hover:scale-[000.9] group-hover:duration-500  group-hover:shadow-become-member  group-hover:border-[1px]  ">
             <div className="absolute z-10 -translate-x-44 group-hover:translate-x-[30rem] ease-in transition-all duration-700 h-full w-44 bg-gradient-to-r from-gray-500 to-white/10 opacity-30 -skew-x-12 group-hover:hidden"></div>
             <div className="absolute flex items-center text-center justify-center text-white z-[1] opacity-90 rounded-[0.6rem] inset-0.5 bg-black group-hover:bg-transparent">
               <Link href={`/pricing`}>

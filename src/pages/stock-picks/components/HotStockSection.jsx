@@ -1,29 +1,10 @@
 import React, { useContext } from "react";
-import { HotSlider } from "@/components.v3/common/HotSlider.jsx";
-import { useQuery } from "@tanstack/react-query";
-import AuthContext from "@/components/AuthContext";
-import StockCard from "@/components.v3/common/StockCard.jsx";
-import { getHotStockListApi } from "@/api/stock-picks";
 import HotStockSectionBlur from "./HotStockSectionBlur";
 import HotStockSectionSlider from "./HotStockSectionSlider";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { Skeleton, useMediaQuery } from "@mui/material";
-import { useStockPicks } from "@/contexts/StockPicksContext";
 
-const HotStockSection = () => {
-  const { sebiBoardType } = useStockPicks();
-  const { isLoggedIn } = useContext(AuthContext);
-
-  // Use react-query to fetch
-  const {
-    data: { data: items = [], is_limited_view: isLimitedView = false } = {},
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["hotStock", sebiBoardType, isLoggedIn],
-    queryFn: () => getHotStockListApi({ isLoggedIn, type: sebiBoardType }),
-  });
-
+const HotStockSection = ({ items, isLimitedView, isLoading, error }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
@@ -48,7 +29,7 @@ const HotStockSection = () => {
                       variant="text"
                     />
                   </p>
-                  <div className=" gap-4">
+                  <div className=" gap-4 flex ">
                     <StockCardSkeleton length={isMobile ? 1 : 3} />
                   </div>
                 </div>
