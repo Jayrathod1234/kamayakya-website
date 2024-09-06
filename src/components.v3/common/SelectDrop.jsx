@@ -16,7 +16,7 @@ const SelectDrop = ({ options, onSelect }) => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 w-full bg-white border border-gray-200 hover: py-2.5 pr-3 pl-4 rounded shadow-3xs leading-tight cursor-pointer"
       >
-        <span className="font-open_sans text-sm text-gray-800 font-medium">
+        <span className="font-open_sans text-sm text-gray-800 font-medium bg-black">
           {selectedOption ? selectedOption.label : "Sector"}
         </span>
         <img src="/assets/down-arrow1.svg" alt="" className="w-4 h-4" />

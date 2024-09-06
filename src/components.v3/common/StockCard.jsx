@@ -55,8 +55,10 @@ function StockCard({
   return (
     <>
       {/* new stock card  */}
-      <div className={`relative max-w-[360px] w-[360px] sm:max-w-[406px] sm:w-[406px] md:max-w-[360px] md:w-[360px] slg:max-w-[380px] slg:w-[380px] lg:max-w-[406px] lg:w-[406px] 
-        ${className}  main_card_carousel `}>
+      <div
+        className={`relative min-w-[320px]  
+        ${className}  main_card_carousel `}
+      >
         <div
           className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
         >
@@ -111,8 +113,14 @@ function StockCard({
                     <div
                       className={`absolute right-0 transition-transform duration-500 ease-in-out ${hovered ? "translate-x-[-65px]" : "translate-x-[5px]"} ${hovered ? "me-7" : "me-3"}`}
                     >
-                      <div className="w-full cursor-pointer"
-                        onClick={() => window.open(latest_youtube_video?.youtube_link, '_blank')}
+                      <div
+                        className="w-full cursor-pointer"
+                        onClick={() =>
+                          window.open(
+                            latest_youtube_video?.youtube_link,
+                            "_blank"
+                          )
+                        }
                       >
                         <img
                           src="/assets/play.gif"
@@ -204,12 +212,16 @@ function StockCard({
                             className="absolute -top-2 left-[57%] w-4"
                           />
                           <div className="text-gray-800 text-2xs font-normal">
-                            Upside Left means how much the stock price could rise from its current level.
+                            Upside Left means how much the stock price could
+                            rise from its current level.
                           </div>
                           <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 rounded-lg">
-                            <span className="text-[#108973] text-2xs font-bold">Example :</span>
+                            <span className="text-[#108973] text-2xs font-bold">
+                              Example :
+                            </span>
                             <p className="text-2xs text-gray-600 font-normal">
-                              If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                              If a stock's price is ₹100 and the Upside Left is
+                              20%, it might go up to ₹120.
                             </p>
                           </div>
                         </span>
@@ -239,7 +251,9 @@ function StockCard({
                         <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
                           {/* Modal Header */}
                           <div className="w-full flex justify-between items-center">
-                            <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">Upside Left</h3>
+                            <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
+                              Upside Left
+                            </h3>
                             <button
                               className="text-[30px] text-gray-500 hover:text-gray-700 align-top font-open_sans"
                               onClick={closeModal}
@@ -250,19 +264,22 @@ function StockCard({
 
                           {/* Modal Body */}
                           <div className="mt-2 text-gray-800 text-sm text-left font-open_sans">
-                            Upside Left means how much the stock price could rise from its current level.
+                            Upside Left means how much the stock price could
+                            rise from its current level.
                           </div>
                           <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left ">
-                            <span className="text-[#108973] text-sm font-bold text-left font-open_sans">Example :</span>
+                            <span className="text-[#108973] text-sm font-bold text-left font-open_sans">
+                              Example :
+                            </span>
                             <p className="text-sm text-gray-600 mt-1 text-left font-open_sans">
-                              If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                              If a stock's price is ₹100 and the Upside Left is
+                              20%, it might go up to ₹120.
                             </p>
                           </div>
                         </div>
                       </div>
                     )}
                   </div>
-
                 </div>
                 <div className="flex justify-between pt-[8px] px-[9px] ">
                   <div className="flex gap-[3px] items-center">

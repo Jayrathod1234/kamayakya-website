@@ -1253,7 +1253,7 @@ function DrawerFilter() {
                     width: "246px !important",
                   }}
                 >
-                  <TabPanel value={value} index={0}>
+                  <TabPanel value={value} index={0} className="scrolllab">
                     {/* upside left  */}
                     <div className="">
                       <CustomSlider
@@ -1264,7 +1264,7 @@ function DrawerFilter() {
                         max={max_upside_left}
                       />
 
-                      <Grid alignItems="center">
+                      <Grid alignItems="center" overflowX="hidden">
                         <Grid item>
                           <TextField
                             variant="outlined"
@@ -1421,7 +1421,7 @@ function DrawerFilter() {
                       </Accordion>
                     </div>
                   </TabPanel>
-                  <TabPanel value={value} index={3}>
+                  <TabPanel value={value} index={3} className="scrolllab">
                     {/* total return  */}
                     <div className="  ">
                       <CustomSlider
@@ -1505,7 +1505,7 @@ function DrawerFilter() {
                           }}
                         >
                           {/* <SizeSelector /> */}
-                          <div className="sm:flex grid   gap-4 pb-4">
+                          <div className="sm:flex grid   gap-4 pb-4 ">
                             {marketCapTypeList?.map((value, index) => (
                               <div
                                 className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${

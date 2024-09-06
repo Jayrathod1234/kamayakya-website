@@ -139,6 +139,9 @@ const config = {
       },
     },
     extend: {
+      gridTemplateColumns: {
+        "auto-fill": "repeat(auto-fill, minmax(320px, 1fr))",
+      },
       backgroundImage: {
         "custom-gradient-arrow-left":
           " linear-gradient(270deg, hsl(216deg 23.81% 95.88% / 0%), #f2f4f7 31%)",

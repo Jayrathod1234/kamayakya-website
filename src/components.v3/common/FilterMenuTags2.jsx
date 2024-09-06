@@ -120,7 +120,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
           >
             {/* left side arrow  */}
             {showLeftButton && (
-              <div className="sm:bg-transparent bg-custom-gradient-arrow sm:w-10 sm:h-10 w-0 h-0 justify-center flex items-center relative mt-1">
+              <div className="sm:bg-transparent bg-custom-gradient-arrow-left sm:w-10 sm:h-12 w-0 h-0 justify-center flex items-center relative mt-1 right-[-11px] z-[1]">
                 <IconButton
                   onClick={scrollLeft}
                   sx={{
@@ -130,6 +130,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                     color: "white",
                     borderRadius: "50%",
                     top: "-2px",
+                    right: "12px",
                     "&:hover": {
                       backgroundColor: "#333", // Darker black on hover
                     },
@@ -141,7 +142,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                       width: "12px",
                       position: "absolute",
                       left: "10px",
-                      top: "3px",
+                      top: "1.5px",
                     }}
                   />
                 </IconButton>
@@ -220,7 +221,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                     paddingRight: "16px",
                     // borderRadius: "4px",
                     borderRadius: isMobile ? "6px" : "0.5rem",
-                    maxWidth: "179px !important",
+                    // maxWidth: "179px !important",
                     height: "46px !important",
                     border: "1px solid #E4E7EC ",
                     fontFamily: "Open Sans",
@@ -249,7 +250,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
             {!isMobile ? (
               <>
                 {showRightButton && (
-                  <div className="sm:bg-transparent bg-custom-gradient-arrow sm:w-10 sm:h-10 w-0 h-0  justify-center flex items-center relative right-[2%] mt-1">
+                  <div className="sm:bg-transparent bg-custom-gradient-arrow-right sm:w-10 sm:h-12 w-0 h-0  justify-center flex items-center relative right-[2%] mt-1">
                     <IconButton
                       onClick={scrollRight}
                       sx={{
@@ -257,7 +258,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                         height: "28px",
                         backgroundColor: "black",
                         color: "white",
-                        right: "2%",
+                        right: "-14%",
                         top: "-2px",
                         borderRadius: "50%",
 

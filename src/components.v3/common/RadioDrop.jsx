@@ -106,6 +106,7 @@ export default function CustomSortMenu({ isLabel }) {
           backgroundColor: "#E3F6F5",
           borderRadius: "8px",
           textTransform: "none",
+          height: "46px",
           color: "#1E555C",
           fontWeight: 500,
           padding: isMobile ? "10px 11px" : isLabel ? "10px 16px" : "8px 18px", // Conditional padding

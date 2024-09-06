@@ -133,11 +133,11 @@ function AllBoardStockSection() {
 
       {/* blur card  */}
       <div
-        className=" bg-[#F2F4F7] py-10 sm:px-20 px-0 relative sm:overflow-visible overflow-hidden "
+        className=" bg-[#F2F4F7] py-10  relative sm:overflow-visible overflow-hidden "
         ref={showFilterRef}
       >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
-          <div className="grid sm:grid-cols-1 grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
+          <div className="grid grid-cols-auto-fill gap-4">
             {isLoading || error ? (
               <StockCardSkeleton length={9} />
             ) : items.length > 0 ? (
