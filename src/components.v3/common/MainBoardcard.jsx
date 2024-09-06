@@ -63,7 +63,7 @@ function MainBoardcard() {
                   <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">
                     12.24%
                   </h3>
-                  <p className="text-2xs font-medium text-[#E4E7EC] font-open_sans">
+                  <p className="text-2xs font-normal text-[#E4E7EC] font-open_sans">
                     likely within a year
                   </p>
                 </div>

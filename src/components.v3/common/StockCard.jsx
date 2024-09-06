@@ -201,7 +201,7 @@ function StockCard({
                     <img
                       src="/assets/streamline_target-solid.svg"
                       alt=""
-                      className="sm:w-[18px] w-7"
+                      className="sm:w-7 w-[18px]"
                     />
                   </div>
 
@@ -254,7 +254,7 @@ function StockCard({
                     <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">
                       {upside_left || 0}%
                     </h3>
-                    <p className="text-2xs font-medium text-[#E4E7EC] font-open_sans">
+                    <p className="text-2xs font-normal text-[#E4E7EC] font-open_sans">
                       likely within a {upside_left_time}
                     </p>
 
@@ -301,7 +301,7 @@ function StockCard({
                       Total Returns
                     </p>
                   </div>
-                  <div className="flex gap-[3px] items-center font-open_sans">
+                  <div className="flex gap-[3px] items-center font-open_sans max-w-[150px] whitespace-nowrap">
                     {/* green up arrow  */}
                     {gain_loss >= 0 ? (
                       // green up arrow

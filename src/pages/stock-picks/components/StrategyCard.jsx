@@ -41,7 +41,7 @@ function StrategyCard() {
         <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center ">
           Discover by Strategy
         </p>
-        <p className="text-md md:text-md font-normal text-[#475467] mx-auto pt-3 mb-2 font-open_sans text-center">
+        <p className="text-sm md:text-md font-normal text-[#475467] mx-auto pt-3 mb-2 font-open_sans text-center">
           Screen stocks with KamayaKya's strategy tags to{" "}
           <span className="text-[#F79009] font-semibold">
             understand why each stock was chosen
@@ -50,7 +50,7 @@ function StrategyCard() {
         </p>
       </div>
       <div className="sm:pb-[100px] pb-[60px] sm:pl-32 sm:pr-32 pl-[26px] overflow-hidden">
-        <div className="sm:pt-10 pt-9 pb-0">
+        <div className="sm:pt-9 pt-6 pb-0">
           <div className="flex justify-between gap-4 ">
             {isLoading || error ? (
               <DiscoverCardSkeleton length={7} />

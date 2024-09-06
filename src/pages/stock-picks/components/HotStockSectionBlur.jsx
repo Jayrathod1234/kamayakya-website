@@ -26,7 +26,7 @@ const HotStockSection = ({ items }) => {
 
   return (
     <div>
-      <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[20px]">
+      <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[24px]">
         <div className="container sm:mx-auto p-0">
           {!isLatop ? (
             <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none max-w-[1280px] mx-auto">
@@ -42,7 +42,7 @@ const HotStockSection = ({ items }) => {
                     <img
                       src="/assets/noto_locked.png"
                       alt=""
-                      className="w-[46px] lg:m-0 m-auto"
+                      className="sm:w-[46px] w-[56px] lg:m-0 m-auto"
                     />
                     <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal text-[#0C111D]">
                       Gain exclusive access to
@@ -252,7 +252,7 @@ const HotStockSection = ({ items }) => {
                                                 Total Returns
                                               </p>
                                             </div>
-                                            <div className="flex gap-[3px] items-center font-open_sans">
+                                            <div className="flex gap-[3px] items-center font-open_sans max-w-[150px] whitespace-nowrap">
                                               <img
                                                 src="/assets/Polygon 2.svg"
                                                 alt=""
@@ -369,17 +369,17 @@ const HotStockSection = ({ items }) => {
                 <img
                   src="/assets/noto_locked.png"
                   alt=""
-                  className="w-[46px] lg:m-0 m-auto"
+                  className="sm:w-[46px] w-[56px] lg:m-0 m-auto"
                 />
                 <p className="sm:text-display-sm lg:text-display-xs md:text-[26px] text-lg font-bold sm:leading-[38px] leading-7 lg:text-center text-center font-open_sans pt-4 lg:max-w-[745px]   tracking-normal">
                   Gain exclusive access to
-                  <span className="text-[#108973]">
+                  <span className="text-[#108973] pl-1">
                     30+ potential multibagger picks
                   </span>
                   <br className="sm:block hidden"></br>with KamayaKya
                   membership.
                 </p>
-                <div className="  !mt-6 lg:m-0 m-auto lg:block inline-block lg:pb-0 pb-7">
+                <div className="  sm:!mt-6 !mt-3 lg:m-0 m-auto lg:block inline-block lg:pb-0 pb-7">
                   <ButtonnArrow
                     onClick={handleContactButton}
                     variant={ButtonVariant.primary}

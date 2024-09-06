@@ -61,8 +61,8 @@ export default function CustomSortMenu({ isLabel }) {
     handleClose();
   };
   const Puller = styled("div")(({ theme }) => ({
-    width: 30,
-    height: 6,
+    width: 45,
+    height: 5,
     backgroundColor: grey[300],
     borderRadius: 3,
     position: "absolute",
@@ -711,8 +711,8 @@ export default function CustomSortMenu({ isLabel }) {
               },
             }}
           >
-            <Puller />
-            <Box px={2} py={1}>
+            <Puller sx={{ bgcolor: "#B1B1B1" }} />
+            <Box px={2} py={1} sx={{ paddingTop: "16px" }}>
               <Typography
                 variant="subtitle1"
                 gutterBottom
@@ -720,6 +720,7 @@ export default function CustomSortMenu({ isLabel }) {
                   fontWeight: 500,
                   color: "#98A2B3",
                   fontFamily: "Open Sans",
+                  fontSize: "12px",
                 }}
               >
                 Upside Left
@@ -775,9 +776,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#344054",
-                            fontWeight: 400,
+                            color: "#17172E",
+                            fontWeight: 600,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           High to Low
@@ -832,9 +834,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#344054",
-                            fontWeight: 400,
+                            color: "#17172E",
+                            fontWeight: 600,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Low to High
@@ -854,6 +857,7 @@ export default function CustomSortMenu({ isLabel }) {
                   fontWeight: 500,
                   color: "#98A2B3",
                   fontFamily: "Open Sans",
+                  fontSize: "12px",
                 }}
               >
                 Recency
@@ -902,9 +906,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
-                            fontWeight: 400,
+                            color: "#17172E",
+                            fontWeight: 600,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Newest to Oldest
@@ -952,9 +957,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
-                            fontWeight: 400,
+                            color: "#17172E",
+                            fontWeight: 600,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Oldest to Newest
@@ -973,6 +979,7 @@ export default function CustomSortMenu({ isLabel }) {
                   fontWeight: 500,
                   color: "#98A2B3",
                   fontFamily: "Open Sans",
+                  fontSize: "12px",
                 }}
               >
                 Time Left
@@ -1021,8 +1028,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#1E555C",
+                            color: "#17172E",
+                            fontWeight: 600,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Longest to Shortest
@@ -1070,8 +1079,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#1E555C",
+                            color: "#17172E",
+                            fontWeight: 600,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Shortest to Longest
@@ -1089,8 +1100,8 @@ export default function CustomSortMenu({ isLabel }) {
                 style={{
                   fontWeight: 500,
                   color: "#98A2B3",
-                  fontSize: "12px",
                   fontFamily: "Open Sans",
+                  fontSize: "12px",
                 }}
               >
                 Returns
@@ -1139,8 +1150,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#1E555C",
+                            color: "#17172E",
+                            fontWeight: 600,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           High to Low
@@ -1188,8 +1201,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#1E555C",
+                            color: "#17172E",
+                            fontWeight: 600,
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Low to High
