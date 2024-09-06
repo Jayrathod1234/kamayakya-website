@@ -36,7 +36,7 @@ const StockPicks = () => {
 
   return (
       <Layout>
-        <div className={`font-open_sans h-[805px] relative ${(isMobile && items.length <= 1) || (!isMobile && items.length <= 3) ? "mb-48": "mb-60"}`} >
+        <div className={`font-open_sans h-[805px] relative ${(isMobile && items.length <= 1) || (!isMobile && items.length <= 3) ? "mb-60": "mb-60"}`} >
           {/* SebiBoardTab */}
           <SebiBoardTab />
           {/* Bannerhotstockscard */}
