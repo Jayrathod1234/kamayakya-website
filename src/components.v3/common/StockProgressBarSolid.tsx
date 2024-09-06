@@ -10,6 +10,7 @@ export default function StockProgressBarSolid({
   className,
   scaleVariant,
 }: TStockCardProgressBarSolid) {
+  console.log("CURRENT PROGRESS",currentProgress)
   const style = scaleVariant ? {transform:`scaleX(${currentProgress}%)`}:{width:`${currentProgress}px`}
   return (
     <div

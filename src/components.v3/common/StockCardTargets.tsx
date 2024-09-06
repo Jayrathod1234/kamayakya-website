@@ -90,7 +90,7 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
           </TooltipProvider>
         )}
       </h4>
-      <div ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)} className={` z-20 ${label==="CMP" ? "cmp-pulse":""}   bg-white rounded-full flex items-center justify-center`}>
+      <div ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)} className={` z-20 ${label==="CMP" ? "cmp-pulse":""} ${label==="CMP" && isBlur ? "top-for-blur":""}    bg-white rounded-full flex items-center justify-center`}>
         {getIcons(label, status as string)}
       </div>
       {isBlur ? (

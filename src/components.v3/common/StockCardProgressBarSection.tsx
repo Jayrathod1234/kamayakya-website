@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useLayoutEffect, useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
 import StockProgressBarDotted from "./StockProgressBarDotted";
@@ -26,43 +26,21 @@ export default function StockCardProgressBarSection({
   entry_date,
   stock_targets,
 }: TStockCardProgressBarSection) {
-  // const ref = useRef<Array<HTMLDivElement>>([]);
-  // const [margins, setMargins] = useState({
-  //   marginLeft: 0,
-  //   marginRight: 0,
-  // });
+  // const live_price=2500
   const { ref, targetRef, margins, dottedLineWidth, currentProgress } = useStockProgressBar();
-  // const [currentProgress, setCurrentProgress] = useState(1);
   const targets = useMemo(() => stock_targets.slice(1, stock_targets.length).reverse(), [stock_targets]);
+  const [position,setPosition] = useState(0)
+  const calculateLivePricePosition = ()=>{
+    const position = (live_price - entry_price) / (stock_targets[0].target_price - entry_price) * 100;
+    setPosition(-position-200)
+  }
 
-  // useEffect(() => {
-  //   if (!ref.current || ref.current?.length <=0) return;
-  //   const div1 = ref.current[0];
-  //   const div2 = ref.current[ref.current.length-1];
-
-  //   // Get the bounding rectangles of both divs
-  //   const rect1 = div1.getBoundingClientRect();
-  //   const rect2 = div2.getBoundingClientRect();
-
-  //   // Calculate the distance between the centers of the two divs
-  //   const distanceX = rect2.left + rect2.width / 1.2 - (rect1.left + rect1.width / 2);
-  //   const distanceY = rect2.top + rect2.height / 2 - (rect1.top + rect1.height / 2);
-
-  //   // Calculate the Euclidean distance
-  //   const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-  //   // console.log("DISTANCE",distance)
-  //   setCurrentProgress(distance);
-  //   console.log("STOCK CARD PROGRESS",ref.current, targets)
-  //   setMargins(() => ({
-  //     marginLeft: 0,
-  //     // marginRight: ref.current[targets.length - 2].offsetWidth / 2,
-
-  //     marginRight: ref.current[ref.current.length - 2].offsetWidth / 2,
-  //   }));
-  // }, [ref.current, targets]);
-
+  useLayoutEffect(()=>{
+    calculateLivePricePosition()
+  },[live_price])
+  console.log("POSITION",position)
   return (
-    <div className=" relative px-4">
+    <div className=" relative px-4 ">
       <Carousel className=" z-20 " opts={{ slidesToScroll: 3 }}>
         <CarouselContent>
           <CarouselItem className={` basis-1/3 `}>
@@ -82,7 +60,20 @@ export default function StockCardProgressBarSection({
                 </p>
               }
             />
-            
+            {/* SOLID PROGRESS */}
+            <StockProgressBarSolid
+              width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
+              marginLeft={margins.marginLeft}
+              marginRight={margins.marginRight}
+              currentProgress={currentProgress}
+            />
+            {/*DOTTED PROGRESS  */}
+            <StockProgressBarDotted
+              // `calc(100% - ${margins.marginLeft + margins.marginRight}px)`
+              width={dottedLineWidth}
+              marginLeft={margins.marginLeft}
+              marginRight={margins.marginRight}
+            />
           </CarouselItem>
           {targets.map((target: TTarget, index: number) => (
             //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
@@ -102,9 +93,10 @@ export default function StockCardProgressBarSection({
               index={stock_targets.length}
               label={"CMP"}
               price={live_price}
-              className=""
+              className={`relative translate-x-[${position}%]`}
               date={format(new Date(), "dd MMM yyyy")}
               status={"Completed"}
+              
               ref={ref}
             />
           </CarouselItem>
@@ -122,20 +114,6 @@ export default function StockCardProgressBarSection({
         <CarouselPrevious className=" h-6 w-6 p-1 left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
         <CarouselNext className=" h-6 w-6 p-1 right-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
       </Carousel>
-      {/* SOLID PROGRESS */}
-      <StockProgressBarSolid
-              width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
-              marginLeft={margins.marginLeft}
-              marginRight={margins.marginRight}
-              currentProgress={currentProgress}
-            />
-            {/*DOTTED PROGRESS  */}
-            <StockProgressBarDotted
-              // `calc(100% - ${margins.marginLeft + margins.marginRight}px)`
-              width={dottedLineWidth}
-              marginLeft={margins.marginLeft}
-              marginRight={margins.marginRight}
-            />
     </div>
   );
 }

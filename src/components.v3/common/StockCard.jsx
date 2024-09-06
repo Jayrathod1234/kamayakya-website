@@ -30,6 +30,7 @@ function StockCard({
   created,
   className = "",
   style,
+  emblaApi,
 }) {
   const { stockSector } = useStockPicks();
   let tabImage = null;
@@ -217,7 +218,7 @@ function StockCard({
               {is_blur ? (
                 <>
                   {/* <ProgressBar2 /> */}
-                  <StockCardProgressBarBlurSection/>
+                  <StockCardProgressBarBlurSection emblaApi={emblaApi}/>
                 </>
               ) : (
                 <>
@@ -227,6 +228,7 @@ function StockCard({
                     entry_price={entry_price}
                     entry_date = {created}
                     stock_targets={stock_targets}
+                    emblaApi={emblaApi}
                   />
                 </>
               )}

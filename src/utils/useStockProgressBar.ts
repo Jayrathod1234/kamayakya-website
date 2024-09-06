@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-
+import { useCallback, useEffect, useRef, useState } from "react";
+import {EmblaCarouselType} from 'embla-carousel'
 // function debounce(func:()=>void,delay=500){
 //   let timer:number;
 //   return function(event){
@@ -8,8 +8,7 @@ import { useEffect, useRef, useState } from "react";
 //   };
 // }
 
-
-export const useStockProgressBar = () => {
+export const useStockProgressBar = (emblaApi?:EmblaCarouselType) => {
   const ref = useRef<Array<HTMLDivElement>>([]);
   const targetRef = useRef<Array<HTMLDivElement>>([]);
   const [margins, setMargins] = useState({
@@ -18,14 +17,13 @@ export const useStockProgressBar = () => {
   });
   const [currentProgress, setCurrentProgress] = useState(1);
   const [dottedLineWidth, setDottedLineWidth] = useState(0);
-  const isFirstRender = useRef(true);
 
-  const calculateDistance = () => {
+  const calculateDistance = useCallback(() => {
     if (ref.current?.length <= 0 && targetRef.current?.length <= 0) return;
-    console.log(targetRef.current);
     const entryDiv = ref.current[0];
     const cmpDiv = ref.current[ref.current.length - 1];
     const targetDiv = targetRef.current[0];
+    if (!entryDiv && !cmpDiv && !targetDiv) return;
     // Get the bounding rectangles of both divs
     const entryRect = entryDiv.getBoundingClientRect();
     const cmpRect = cmpDiv.getBoundingClientRect();
@@ -36,6 +34,7 @@ export const useStockProgressBar = () => {
 
     // Calculate the Euclidean distance
     const DistanceBtwEntryCmp = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
     setCurrentProgress(DistanceBtwEntryCmp);
 
     // Calculate the distance between the centers of entry point and cmp
@@ -50,23 +49,39 @@ export const useStockProgressBar = () => {
       marginLeft: 0,
       marginRight: ref.current[ref.current.length - 2].offsetWidth / 2,
     }));
-  };
+  }, []);
 
   useEffect(() => {
     // const debouncedCalculateDistance = () => , 2000);
     const handleResize = () => {
       calculateDistance();
     };
-    if (isFirstRender) {
-      isFirstRender.current = false;
-      handleResize();
-    }
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      isFirstRender.current = true;
-    };
-  }, [ref.current, targetRef.current]);
 
-  return { margins, currentProgress, dottedLineWidth, ref, targetRef };
+    handleResize();
+    const resizeObserver = new ResizeObserver((entries) => {
+      requestAnimationFrame(() => {
+        for (const entry of entries) {
+          handleResize();
+        }
+      });
+    });
+
+    const progress_containers = document.querySelectorAll(".progress_container");
+    progress_containers.forEach((progress_container) => {
+      resizeObserver.observe(progress_container);
+    });
+    console.log("EMBLA API", emblaApi);
+    if (!emblaApi) return;
+    emblaApi.on("reInit", handleResize).on("resize", handleResize).on("scroll", handleResize);
+
+    // window.addEventListener("resize", handleResize);
+    return () => {
+      progress_containers.forEach((progress_container) => {
+        resizeObserver.unobserve(progress_container);
+      });
+      // window.removeEventListener("resize", handleResize);
+    };
+  }, [ref.current?.length, targetRef.current?.length, emblaApi]);
+
+  return { margins, currentProgress, dottedLineWidth, ref, targetRef, calculateDistance };
 };

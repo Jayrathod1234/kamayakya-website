@@ -6,6 +6,7 @@ import StockProgressBarSolid from "./StockProgressBarSolid";
 import { format } from "date-fns";
 import StockCardTargets from "./StockCardTargets";
 import { useStockProgressBar } from "@/utils/useStockProgressBar";
+import { EmblaCarouselType } from "embla-carousel";
 
 type TStockCardProgressBarSection = {
   live_price: number;
@@ -20,16 +21,16 @@ type TTarget = {
   target_price: number;
 };
 
-export default function StockCardProgressBarBlurSection() {
+export default function StockCardProgressBarBlurSection({emblaApi}:{emblaApi:EmblaCarouselType}) {
   // const ref = useRef<Array<HTMLDivElement>>([]);
-  const { ref, targetRef, margins, dottedLineWidth, currentProgress } = useStockProgressBar();
+  const { ref, targetRef, margins, dottedLineWidth, currentProgress } = useStockProgressBar(emblaApi);
   // const [margins, setMargins] = useState({
   //   marginLeft: 0,
   //   marginRight: 0,
   // });
   // const [currentProgress, setCurrentProgress] = useState(1);
   const targets: TTarget[] = [
-    // { target_met: "25 May 2024", target_price: 500, created: "28 May 2024" }
+    { target_met: "25 May 2024", target_price: 500, created: "28 May 2024" }
   ];
   const stock_targets = [{ target_met: "", target_price: 500, created: "28 May 2024" }];
   const live_price = 500;
@@ -64,7 +65,7 @@ export default function StockCardProgressBarBlurSection() {
 
   return (
     // 
-    <div className=" relative ml-5 pl-2 mr-5 ">
+    <div className="progress_container relative ml-5 pl-2 mr-5 ">
       <Carousel className=" z-20 " opts={{ slidesToScroll: 3 }}>
         <CarouselContent>
           <CarouselItem className={` basis-1/3 `}>

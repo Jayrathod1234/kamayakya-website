@@ -2041,7 +2041,7 @@ header > div > div {
   /* width: 1rem; */
   display:block;
   background: currentColor;
-  top:50%;
+  top:38%;
   left:50%;
   border-radius: 50%;
   transform:translate(-50%,-40%);
@@ -2049,7 +2049,11 @@ header > div > div {
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
-
+.top-for-blur.cmp-pulse::before{
+ 
+  top:48%;
+ 
+}
 
 @keyframes  pulse {
   from{
