@@ -221,13 +221,13 @@ function StockDetailsSection() {
                                   height={40} // 10 * 4
                                   className="object-cover  block sm:hidden"
                                 />
-                                <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate leading-[30px]">
+                                <p className="text-[#0C111D] text-xl md:text-xl font-bold font-open_sans truncate leading-[30px]">
                                   {stock_name}
                                 </p>
                               </div>
                               <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
                                 {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
-                                <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
+                                <p className="text-2xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
                                     stock_exchange == "SME-BSE"
                                     ? "BSE: "
@@ -304,7 +304,7 @@ function StockDetailsSection() {
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">
                           <div className="w-full flex justify-between items-center">
-                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans capitalize">
+                            <p className="text-[#475467] text-2xs sm:text-sm font-semibold font-open_sans capitalize">
                               {sector}
                             </p>
                             <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
@@ -325,7 +325,7 @@ function StockDetailsSection() {
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                           <div className="flex w-full justify-between items-center">
-                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans">
+                            <p className="text-[#475467] text-2xs sm:text-sm font-semibold font-open_sans">
                               {market_cap_type} Cap
                             </p>
                             <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
@@ -351,7 +351,7 @@ function StockDetailsSection() {
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1 w-full">
                           <div className="w-full flex justify-between items-center">
-                            <p className="text-[#475467] text-xs sm:text-sm font-medium font-open_sans ">
+                            <p className="text-[#475467] text-2xs sm:text-sm font-semibold font-open_sans ">
                               {risk} Risk
                             </p>
                           </div>
@@ -366,7 +366,7 @@ function StockDetailsSection() {
                       {hasVideo ? (
                         <div className="flex-1 group">
                           <button
-                            className="flex-1 text-nowrap w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            className="flex-1 text-nowrap w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
                             onClick={() =>
                               window.open(watch_video.youtube_link, "_blank")
                             }
@@ -376,18 +376,18 @@ function StockDetailsSection() {
                               alt="Play icon"
                               className="w-5 h-5 transition duration-300 "
                             />
-                            <span className="text-nowrap text-[14px]">Watch Video</span>
+                            <span className="text-nowrap text-[16px]">Watch Video</span>
                           </button>
                         </div>
                       ) : (
                         <div className="relative group">
-                          <button className="w-full text-nowrap  bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed">
+                          <button className="w-full text-nowrap  bg-gray-50 rounded-lg p-2 flex items-center justify-center gap-2 hover:bg-gray-100 cursor-not-allowed py-[10px] px-2">
                             <img
                               src="/assets/circle-play.svg"
                               alt="Play icon"
                               className="w-5 h-5"
                             />
-                            <span className="font-medium text-[14px] text-gray-400 text-nowrap">
+                            <span className="font-medium text-[16px] text-gray-400 text-nowrap">
                               Watch Video
                             </span>
                           </button>
@@ -415,7 +415,7 @@ function StockDetailsSection() {
                     </div>
                     <div className="flex-1 group">
                       <button
-                        className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                        className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
                         onClick={handleMainModalOpen} // Add the onClick event to open the modal
                       >
                         <img
@@ -423,7 +423,7 @@ function StockDetailsSection() {
                           alt="Share icon"
                           className="w-5 h-5 transition duration-300 "
                         />
-                        <span className="text-nowrap text-[14px]">
+                        <span className="text-nowrap text-[16px]">
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
@@ -443,13 +443,13 @@ function StockDetailsSection() {
                   {/* When Small Screen Button Is Hide  */}
                   {/* Small screen show to company profile  */}
                   <div className="pt-[20px] p-3 block sm:hidden bg-white shadow mb-5">
-                    <h2 className="text-[#0C111D] text-[14px]  font-semibold font-open_sans ">
+                    <h2 className="text-[#0C111D] text-[14px]  font-bold font-open_sans ">
                       Company Profile
                     </h2>
 
                     <p
                       dangerouslySetInnerHTML={{ __html: truncatedText }}
-                      className="text-[#475467] text-justify text-[14px] font-normal font-open_sans  sm:line-clamp-none"
+                      className="text-[#475467] text-justify !text-[14px] font-normal !font-open_sans  sm:line-clamp-none"
                     ></p>
 
                     {text?.length > textCount ? (
@@ -796,7 +796,7 @@ function StockDetailsSection() {
                     <div className="  rounded-lg">
                       <div className="bg-custom-gradient text-white rounded-lg p-4">
                         <div className="flex justify-between items-center">
-                          <h2 className="text-lg font-open_sans font-semibold flex items-center gap-1">
+                          <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
                             Upside Left
 
                             {/* Tooltip for large screens and Modal Trigger for small screens */}
@@ -872,7 +872,7 @@ function StockDetailsSection() {
                         )}
 
                         <div className="flex items-center gap-2">
-                          <p className="text-4xl font-bold  font-open_sans">
+                          <p className="text-display-xs font-bold  font-open_sans">
                             {upside_left}%
                           </p>
                           <p className="text-sm font-open_sans mt-1">
@@ -884,7 +884,7 @@ function StockDetailsSection() {
                         <div className="flex justify-between items-center">
                           <div className="flex items-center">
                             <img src="/assets/hj1.svg" alt="" />
-                            <p className="ml-2 text-sm text-gray-800 font-open_sans">
+                            <p className="ml-2 text-3xs text-gray-800 font-open_sans">
                               Total Returns
                             </p>
                           </div>
@@ -904,9 +904,9 @@ function StockDetailsSection() {
                                 className="w-2"
                               />
                             )}
-                            <p className="text-black ml-1 text-sm font-open_sans font-[700]">
+                            <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
                               {gain_loss}% {""}
-                              <span className="text-gray-500 text-xs font-open_sans">
+                              <span className="text-gray-500 text-2xs font-open_sans">
                                 likely in {return_time}
                               </span>
                             </p>
@@ -916,7 +916,7 @@ function StockDetailsSection() {
                           <div className="flex justify-between items-center mt-2">
                             <div className="flex items-center">
                               <img src="/assets/hj2.svg" alt="" />
-                              <p className="ml-2 text-sm text-gray-800 font-open_sans">
+                              <p className="ml-2 text-3xs text-gray-800 font-open_sans">
                                 CAGR
                               </p>
                             </div>
@@ -936,9 +936,9 @@ function StockDetailsSection() {
                                   className="w-2"
                                 />
                               )}
-                              <p className="text-black ml-1 text-sm font-open_sans font-[700] ">
+                              <p className="text-black ml-1 text-2xs font-open_sans font-[700] ">
                                 {cagr_of_stock.cagr_value}%{" "}
-                                <span className="text-gray-500 text-xs font-open_sans">
+                                <span className="text-gray-500 text-2xs font-open_sans">
                                   in {cagr_of_stock.cagr_time}
                                 </span>
                               </p>
@@ -1083,7 +1083,7 @@ function StockDetailsSection() {
 
                   {/* News Section Start */}
                   <div className=" sm:pt-[78px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-                    <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans px-1">
+                    <h2 className="text-[#0C111D] text-[14px] font-semibold font-open_sans px-1">
                       News
                     </h2>
                     <StockDetailsNews stock_name={stock_name} />
