@@ -92,8 +92,8 @@ function StockDetailsSection() {
         <></>
       ) : (
         <div className="pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
-          <div className="relative w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="items-center gap-[13px] flex p-[7px]">
+          <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
+            <div className="items-center gap-[13px] flex p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px]">
               <div
                 className="flex items-center cursor-pointer group"
                 onClick={() => {
@@ -116,12 +116,12 @@ function StockDetailsSection() {
               </div>
             </div>
             {/* details  */}
-            <div className="pt-[19px] mb-[80px] ">
+            <div className="pt-[19px] mb-[80px]  ">
               {/* Main Content  */}
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="   col-span-2">
                   {/* First Content Start */}
-                  <div className=" bg-white rounded-lg shadow-sm">
+                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto bg-white rounded-lg shadow-sm">
                     <div className="flex  order-1 sm:order-1 relative ">
                       {/* Buy Images  */}
                       <img
@@ -201,13 +201,13 @@ function StockDetailsSection() {
                                   height={40} // 10 * 4
                                   className="object-cover  block sm:hidden"
                                 />
-                                <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate">
+                                <p className="text-[#0C111D] text-lg md:text-xl font-bold font-open_sans truncate leading-[30px]">
                                   {stock_name}
                                 </p>
                               </div>
                               <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
                                 {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
-                                <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
+                                <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
                                     stock_exchange == "SME-BSE"
                                     ? "BSE: "
@@ -332,7 +332,7 @@ function StockDetailsSection() {
                   </div>
                   {/* First Content End  */}
                   {/* When Small screen Button is Show  */}
-                  <div className="flex sm:hidden gap-3 mt-5 mb-5 ">
+                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto flex sm:hidden gap-3 mt-5 mb-5 ">
                     <div className="flex-1">
                       {hasVideo ? (
                         <div className="flex-1 group">
@@ -514,7 +514,7 @@ function StockDetailsSection() {
                               </div>
                               <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-white font-bold">
                                 {upside_left}%
-                                <span className="text-[10px] mt-2   text-white font-medium">
+                                <span className="text-[12px] mt-2   text-white font-medium">
                                   likely within {upside_left_time}
                                 </span>
                               </div>
@@ -572,7 +572,7 @@ function StockDetailsSection() {
                                   </>
                                 )}
                                 {Math.abs(gain_loss)}%
-                                <span className="text-[10px]  mt-2  text-[#667085] font-medium">
+                                <span className="text-[12px]  mt-2  text-[#667085] font-medium">
                                   in {return_time}
                                 </span>
                               </div>
@@ -935,7 +935,7 @@ function StockDetailsSection() {
                       </div>
                     </div>
                   </div>
-                  <div className="pt-4 block sm:hidden">
+                  <div className=" block sm:hidden">
                     <div className="px-4 md:px-[20px] pt-4 pb-4 bg-white">
                       <StockDetailsProgressBar />
                     </div>
@@ -988,7 +988,7 @@ function StockDetailsSection() {
                   </div>
                   {/* Company Profile Section End  */}
 
-                  <div className="p-5 bg-gray-100 mt-2 rounded-md  block sm:hidden">
+                  <div className="p-5 bg-gray-100 mt-5 rounded-md  block sm:hidden sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
                     <div className="flex relative">
                       <div className=" !w-[75%]">
                         <p className="font-bold mb-2 font-open_sans text-xs text-[0.813rem]">
@@ -1053,8 +1053,8 @@ function StockDetailsSection() {
                   </div>
 
                   {/* News Section Start */}
-                  <div className="pt-[35px]  w-full ">
-                    <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans p-3">
+                  <div className="  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
+                    <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans px-1">
                       News
                     </h2>
                     <StockDetailsNews stock_name={stock_name} />
