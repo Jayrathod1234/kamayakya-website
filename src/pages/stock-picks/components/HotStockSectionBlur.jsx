@@ -30,11 +30,11 @@ const HotStockSection = ({ items }) => {
         <div className="container sm:mx-auto p-0">
           {!isLatop ? (
             <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none max-w-[1280px] mx-auto">
-              <div className="bg-[#fff] rounded-[20px] sm:px-10 px-4 sm:py-8 py-5 gap-10 text-center">
+              <div className="bg-[#fff] rounded-[20px] sm:px-10 px-4 sm:pt-10 pb-8 py-5 gap-10 text-center">
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 sm:block hidden text-gray-950">
                   Hot Stocks ({items?.length})
                 </h2>
-                <p className="pt-3 font-normal text-sm text-gray-500 pb-10 sm:block hidden font-open_sans">
+                <p className="pt-3 font-normal text-md text-gray-500 pb-10 sm:block hidden font-open_sans">
                   Top stocks to invest in right NOW!
                 </p>
                 <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:pl-[41px] pr-20  sm: sm:flex  items-center  rounded-[10px]">
@@ -44,7 +44,7 @@ const HotStockSection = ({ items }) => {
                       alt=""
                       className="w-[46px] lg:m-0 m-auto"
                     />
-                    <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal">
+                    <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal text-[#0C111D]">
                       Gain exclusive access to
                       <span className="text-[#108973] pl-1">
                         30+ potential multibagger picks
@@ -157,7 +157,7 @@ const HotStockSection = ({ items }) => {
                                                 alt=""
                                                 className="w-3"
                                               />
-                                              <p className="text-[10px] font-semibold text-[#A3651A]">
+                                              <p className="text-[7px] font-bold text-[#A3651A] font-open_sans">
                                                 {stockSector[sector]}
                                               </p>
                                             </div>

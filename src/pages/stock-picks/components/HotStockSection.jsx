@@ -4,7 +4,7 @@ import HotStockSectionSlider from "./HotStockSectionSlider";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { Skeleton, useMediaQuery } from "@mui/material";
 
-const HotStockSection = ({items,isLimitedView,isLoading,error}) => {
+const HotStockSection = ({ items, isLimitedView, isLoading, error }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
 
   return (

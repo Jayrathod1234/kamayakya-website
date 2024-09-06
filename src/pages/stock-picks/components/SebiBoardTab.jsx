@@ -52,7 +52,7 @@ function SebiBoardTab() {
               SEBI Registered: INH000009843
             </ButtonnArrow>
           </div>
-          <h1 className="text-[26px] sm:text-[28px] md:text-[36px] lg:text-[40px] font-bold leading-[32px] md:leading-[40px] text-white mb-8 md:mb-8  flex justify-center">
+          <h1 className="text-[26px] sm:text-[28px] md:text-[36px] lg:text-[30px] font-bold leading-[32px] md:leading-[38px] text-white mb-9 md:mb-9  flex justify-center">
             Discover hidden gems! 💎
           </h1>
           <div className="flex justify-center">
