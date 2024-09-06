@@ -131,7 +131,8 @@ export default function StrategyCheck() {
                 alignItems: "center",
                 width: "20px",
                 height: "20px",
-                fontWeight: 200,
+                fontWeight: 700,
+                fontSize: "13px",
                 ...commonStyles,
               }}
             >

@@ -105,8 +105,8 @@ export default function SectorCheck() {
                 alignItems: "center",
                 width: "20px", // Equal width and height for a perfect circle
                 height: "20px",
-                fontSize: "14px",
-                fontWeight: 200,
+                fontSize: "13px",
+                fontWeight: 700,
                 fontFamily: "Open Sans",
               }}
             >

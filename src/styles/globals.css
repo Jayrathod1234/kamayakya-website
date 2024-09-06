@@ -1974,9 +1974,17 @@ header > div > div {
 .css-1urgnq6{
   font-weight: 500;
 }
+.css-4m5wpg{
+  padding-right: 0px !important;
+  /* overflow-y: hidden !important; */
+}
+.scrolllab{
+  overflow-x:hidden;
+}
 .css-68wo3z-MuiButtonBase-root-MuiButton-root {
   color: #0c3f3a !important;
 }
+
 .set-radio-menu .MuiMenu-paper{
   top: 239px !important;
   bottom: 0px;

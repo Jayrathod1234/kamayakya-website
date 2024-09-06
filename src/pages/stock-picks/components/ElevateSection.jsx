@@ -23,10 +23,10 @@ function ElevateSection() {
       </p> */}
       <p className="text-base sm:text-md font-normal text-white/[0.64] font-open_sans leading-7 tracking-normal">
         Access exclusive insights with
-        <span className="text-white/[0.80] font-semibold leading-7">
-          30+ Main Board and 10+ SME Premium stock
+        <span className="text-white/[0.80] font-semibold leading-7 px-1">
+          30+ Main Board and 10+ SME Premium
         </span>
-        picks every year
+        stock picks every year
       </p>
     </>
   );
