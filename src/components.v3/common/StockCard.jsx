@@ -97,7 +97,7 @@ function StockCard({
             ) : (
               <div className="pt-[20px] px-[20px] flex items-center justify-between overflow-hidden">
                 <Link href={`/stock-picks/${id}`}>
-                  <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1  text-left hover:text-[#1e555c]">
+                  <p className={`text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${hovered ? "max-w-60" : "max-w-64"}`}>
                     {stock_name}
                   </p>
                 </Link>
@@ -109,9 +109,7 @@ function StockCard({
                   >
                     {/* GIF Image */}
                     <div
-                      className={`absolute right-0  transition-transform duration-500 ease-in-out ${hovered ? "translate-x-[-65px]" : "translate-x-[5px]"
-                        } ${hovered ? "me-7" : "me-3"}`}
-
+                      className={`absolute right-0 transition-transform duration-500 ease-in-out ${hovered ? "translate-x-[-65px]" : "translate-x-[5px]"} ${hovered ? "me-7" : "me-3"}`}
                     >
                       <div className="w-full cursor-pointer"
                         onClick={() => window.open(latest_youtube_video?.youtube_link, '_blank')}
@@ -119,21 +117,14 @@ function StockCard({
                         <img
                           src="/assets/play.gif"
                           alt="Play"
-                          className={`w-[24px] transition-transform duration-500 ease-in-out ${hovered
-                            ? "filter brightness-0 sepia opacity-100"
-                            : ""
-                            }`}
-
+                          className={`w-[24px] transition-transform duration-500 ease-in-out ${hovered ? "filter brightness-0 sepia opacity-100" : ""}`}
                         />
                       </div>
                     </div>
 
                     {/* Text container */}
                     <div
-                      className={`  transition-transform duration-500 ease-in-out ${hovered
-                        ? "-translate-x-1 opacity-100 "
-                        : "translate-x-[80px] opacity-0"
-                        }`}
+                      className={`transition-transform duration-500 ease-in-out ${hovered ? "-translate-x-1 opacity-100" : "translate-x-[80px] opacity-0"}`}
                     >
                       <a
                         href={latest_youtube_video?.youtube_link}
@@ -148,8 +139,8 @@ function StockCard({
                     </div>
                   </div>
                 )}
-
               </div>
+
             )}
 
             <div className="pt-[12px] px-[20px] pb-[20px]">

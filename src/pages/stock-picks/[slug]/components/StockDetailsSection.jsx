@@ -172,7 +172,7 @@ function StockDetailsSection() {
                         {/* <!-- Continue your other components similarly --> */}
                         <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
                           {/* Image container */}
-                          <div className="flex-shrink-0 w-[80px] h-[80px] md:w-[120px] md:h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7] justify-center items-center">
+                          <div className="flex-shrink-0 w-[120px] h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7] justify-center items-center">
                             <Image
                               src={
                                 stock_image
@@ -206,7 +206,7 @@ function StockDetailsSection() {
                                 </p>
                               </div>
                               <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
-                                <div className="w-1 h-1 rounded-full bg-[#98A2B3]"></div>
+                                {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
                                 <p className="text-xs md:text-2xs text-[#475467] font-medium font-open_sans">
                                   {stock_exchange == "BSE" ||
                                     stock_exchange == "SME-BSE"
@@ -243,14 +243,20 @@ function StockDetailsSection() {
                               </div> */}
                                 </div>
                               </div>
-                              <p className=" sm:hidden text-sm items-center flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
-                                <img
-                                  src="/assets/Polygon2.svg"
-                                  alt=""
-                                  className="w-4 h-4 items-center"
-                                />{" "}
-                                {action_text}
+                              <p className="sm:hidden text-sm items-center font-open_sans flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
+                                {/* Conditionally show either text or image */}
+                                {action_text ? (
+                                  <>
+                                    <img
+                                      src="/assets/Polygon2.svg"
+                                      alt=""
+                                      className="w-4 h-4 items-center"
+                                    />
+                                    {action_text}
+                                  </>
+                                ) : null}
                               </p>
+
                             </div>
                           </div>
                         </div>
@@ -757,11 +763,11 @@ function StockDetailsSection() {
                   </div>
 
                   {/* Small Responsive size View Open the box  */}
-                  <div className="block md:hidden bg-gray-150 p-4 rounded-lg shadow-md max-w-full mx-auto ">
+                  <div className="block md:hidden bg-gray-150 p-4 rounded-lg shadow-md max-w-full mx-auto mt-5">
                     <div className=" rounded-lg">
                       <div className="bg-custom-gradient text-white rounded-lg p-4">
                         <div className="flex justify-between items-center">
-                          <h2 className="text-lg font-open_sans font-semibold flex items-center">
+                          <h2 className="text-lg font-open_sans font-semibold flex items-center gap-1">
                             Upside Left
 
                             {/* Tooltip for large screens and Modal Trigger for small screens */}
@@ -812,7 +818,7 @@ function StockDetailsSection() {
                           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
                             <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
                               {/* Modal Header */}
-                              <div className="w-full flex justify-between items-center">
+                              <div className="w-full flex justify-between items-center gap-1">
                                 <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">Upside Left</h3>
                                 <button
                                   className="text-[30px] text-gray-500 hover:text-gray-700"
@@ -836,12 +842,14 @@ function StockDetailsSection() {
                           </div>
                         )}
 
-                        <p className="text-4xl font-bold mt-2 font-open_sans">
-                          {upside_left}%
-                        </p>
-                        <p className="text-sm font-open_sans">
-                          in {upside_left_time}
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-4xl font-bold  font-open_sans">
+                            {upside_left}%
+                          </p>
+                          <p className="text-sm font-open_sans mt-1">
+                            in {upside_left_time}
+                          </p>
+                        </div>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <div className="flex justify-between items-center">
@@ -867,7 +875,7 @@ function StockDetailsSection() {
                                 className="w-2"
                               />
                             )}
-                            <p className="text-black ml-1 text-sm font-open_sans">
+                            <p className="text-black ml-1 text-sm font-open_sans font-[700]">
                               {gain_loss}% {""}
                               <span className="text-gray-500 text-xs font-open_sans">
                                 likely in {return_time}
@@ -899,7 +907,7 @@ function StockDetailsSection() {
                                   className="w-2"
                                 />
                               )}
-                              <p className="text-black ml-1 text-sm font-open_sans ">
+                              <p className="text-black ml-1 text-sm font-open_sans font-[700] ">
                                 {cagr_of_stock.cagr_value}%{" "}
                                 <span className="text-gray-500 text-xs font-open_sans">
                                   in {cagr_of_stock.cagr_time}
@@ -928,7 +936,7 @@ function StockDetailsSection() {
                     </div>
                   </div>
                   <div className="pt-4 block sm:hidden">
-                    <div className="px-4 md:px-[20px] pt-4 pb-4">
+                    <div className="px-4 md:px-[20px] pt-4 pb-4 bg-white">
                       <StockDetailsProgressBar />
                     </div>
                   </div>
@@ -983,10 +991,10 @@ function StockDetailsSection() {
                   <div className="p-5 bg-gray-100 mt-2 rounded-md  block sm:hidden">
                     <div className="flex relative">
                       <div className=" !w-[75%]">
-                        <p className="font-bold mb-2 font-open_sans text-xs">
+                        <p className="font-bold mb-2 font-open_sans text-xs text-[0.813rem]">
                           Don't miss out on potential gains!
                         </p>
-                        <p className="mb-4 text-[#344054] font-open_sans">
+                        <p className="mb-4 text-[#344054] font-open_sans text-[0.813rem]">
                           Upgrade now to get access to both SME and Mainboard
                           stocks.
                         </p>
