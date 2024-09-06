@@ -99,7 +99,11 @@ function StockCard({
             ) : (
               <div className="pt-[20px] px-[20px] flex items-center justify-between overflow-hidden">
                 <Link href={`/stock-picks/${id}`}>
-                  <p className={`text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${hovered ? "max-w-[170px]" : "max-w-52"}`}>
+                  <p
+                    className={`text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
+                      hovered ? "max-w-[170px]" : "max-w-52"
+                    }`}
+                  >
                     {stock_name}
                   </p>
                 </Link>
@@ -111,7 +115,9 @@ function StockCard({
                   >
                     {/* GIF Image */}
                     <div
-                      className={`absolute right-0 transition-transform duration-500 ease-in-out ${hovered ? "translate-x-[-65px]" : "translate-x-[5px]"} ${hovered ? "me-7" : "me-3"}`}
+                      className={`absolute right-0 transition-transform duration-500 ease-in-out ${
+                        hovered ? "translate-x-[-65px]" : "translate-x-[5px]"
+                      } ${hovered ? "me-7" : "me-3"}`}
                     >
                       <div
                         className="w-full cursor-pointer"
@@ -125,14 +131,22 @@ function StockCard({
                         <img
                           src="/assets/play.gif"
                           alt="Play"
-                          className={`w-[24px] transition-transform duration-500 ease-in-out ${hovered ? "filter brightness-0 sepia opacity-100" : ""}`}
+                          className={`w-[24px] transition-transform duration-500 ease-in-out ${
+                            hovered
+                              ? "filter brightness-0 sepia opacity-100"
+                              : ""
+                          }`}
                         />
                       </div>
                     </div>
 
                     {/* Text container */}
                     <div
-                      className={`transition-transform duration-500 ease-in-out ${hovered ? "-translate-x-1 opacity-100" : "translate-x-[80px] opacity-0"}`}
+                      className={`transition-transform duration-500 ease-in-out ${
+                        hovered
+                          ? "-translate-x-1 opacity-100"
+                          : "translate-x-[80px] opacity-0"
+                      }`}
                     >
                       <a
                         href={latest_youtube_video?.youtube_link}
@@ -148,7 +162,6 @@ function StockCard({
                   </div>
                 )}
               </div>
-
             )}
 
             <div className="pt-[12px] px-[20px] pb-[20px]">
@@ -167,7 +180,7 @@ function StockCard({
                 )}
                 <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                   <img src="/assets/Component 8.svg" alt="" className="w-3" />
-                  <p className="text-[10px] font-semibold text-[#667085] flex items-center whitespace-nowrap font-open_sans">
+                  <p className="text-[7px] font-semibold text-[#667085] flex items-center whitespace-nowrap font-open_sans">
                     MCap:
                     {is_blur ? (
                       <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
@@ -188,7 +201,7 @@ function StockCard({
                     <img
                       src="/assets/streamline_target-solid.svg"
                       alt=""
-                      className="sm:w-[18px] w-7"
+                      className="sm:w-7 w-[18px]"
                     />
                   </div>
 
@@ -241,7 +254,7 @@ function StockCard({
                     <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">
                       {upside_left || 0}%
                     </h3>
-                    <p className="text-2xs font-medium text-[#E4E7EC] font-open_sans">
+                    <p className="text-2xs font-normal text-[#E4E7EC] font-open_sans">
                       likely within a {upside_left_time}
                     </p>
 
@@ -288,7 +301,7 @@ function StockCard({
                       Total Returns
                     </p>
                   </div>
-                  <div className="flex gap-[3px] items-center font-open_sans">
+                  <div className="flex gap-[3px] items-center font-open_sans max-w-[150px] whitespace-nowrap">
                     {/* green up arrow  */}
                     {gain_loss >= 0 ? (
                       // green up arrow

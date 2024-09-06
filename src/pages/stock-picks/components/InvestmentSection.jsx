@@ -60,7 +60,7 @@ function InvestmentSection() {
 
   return (
     <div className="pb-[100px] pt-0 px-2 rounded-lg sm:pb-[100px]">
-      <h2 className="text-center text-xl font-semibold mb-10 font-open_sans">
+      <h2 className="text-center text-sm font-bold sm:mb-10 mb-5 font-open_sans">
         Ready to Invest?
       </h2>
       <div className="flex justify-center gap-4 sm:gap-10">
