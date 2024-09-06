@@ -8,10 +8,10 @@ import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { useMediaQuery } from "@mui/material";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 
-function LatestReleases() {
+function LatestReleases({ isLimitedView }) {
   const { sebiBoardType } = useStockPicks();
   const { isLoggedIn } = useContext(AuthContext);
-  
+
   // Use react-query to fetch
   const {
     data: items = [],
@@ -42,7 +42,11 @@ function LatestReleases() {
 
   return (
     <>
-      <div className="sm:pb-[100px] pb-[58px]">
+      <div
+        className={`sm:pb-[100px] pb-[58px] ${
+          isLimitedView ? "sm:pt-[200px] pt-[100px]" : ""
+        }`}
+      >
         {items.length === 0 ? (
           <div className="pt-5 w-full flex flex-col items-center justify-center text-center">
             <p className="text-display-xs text-gray-950 font-bold">
@@ -65,9 +69,14 @@ function LatestReleases() {
             <p className="text-display-xs text-gray-950 font-bold">
               Latest Releases ({items.length})
             </p>
-            <p className={`text-md font-normal text-gray-600 text-center pt-3 font-open_sans ${
-              (isMobile && items.length <= 1) || (!isMobile && items.length <= 5) ? 'mb-6' : ''
-            }`}>
+            <p
+              className={`text-md font-normal text-gray-600 text-center pt-3 font-open_sans ${
+                (isMobile && items.length <= 1) ||
+                (!isMobile && items.length <= 5)
+                  ? "mb-6"
+                  : ""
+              }`}
+            >
               New Stocks released in the last 60 days
             </p>
 
