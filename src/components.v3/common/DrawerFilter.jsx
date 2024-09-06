@@ -266,7 +266,7 @@ function DrawerFilter() {
               Filter{" "}
             </p>
             {totalFilterCount > 0 && (
-              <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+              <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex font-open_sans">
                 {totalFilterCount}
               </div>
             )}
