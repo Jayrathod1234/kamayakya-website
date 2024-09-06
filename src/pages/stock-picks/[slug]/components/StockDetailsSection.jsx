@@ -86,6 +86,26 @@ function StockDetailsSection() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const [showAll, setShowAll] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Handle resizing to check if it's mobile view
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Handle button click to toggle visibility of all tags
+  const handleShowAll = () => {
+    setShowAll(!showAll);
+  };
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
@@ -218,30 +238,39 @@ function StockDetailsSection() {
                             </div>
 
                             <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap">
-                              <div className="flex gap-4 w-full justify-center sm:justify-start ">
-                                <div className="flex flex-wrap gap-4">
-                                  {stock_tags.map((value, index) => (
+                              <div className="flex gap-4 w-full justify-center sm:justify-start">
+                                <div className="flex flex-wrap gap-[8px] sm:gap-[8px] ">
+                                  {/* Show all chips in tablet size and larger, and only 2 chips in mobile size */}
+                                  {stock_tags.slice(0, showAll || !isMobile ? stock_tags.length : 2).map((value, index) => (
                                     <div
                                       key={index}
-                                      className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-3 pl-2.5 gap-1 items-center"
+                                      className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-2 pl-2 gap-[2px] items-center"
                                     >
                                       <img
                                         src={value.image}
                                         alt={value.name}
                                         className="w-3 h-3 md:w-4 md:h-4"
                                       />
-                                      <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                      <p className="text-2xs md:text-2xs font-normal text-[#344054] font-open_sans">
                                         {value.name}
                                       </p>
                                     </div>
                                   ))}
 
-                                  {/* <div className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-3 pl-2.5 gap-1 items-center flex sm:hidden">
-                                <p className="text-xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                  +2
-                                </p>
-                              </div> */}
+                                  {/* Show "2+" button only on mobile size and if there are more than 2 stock tags */}
+                                  {!showAll && stock_tags.length > 2 && isMobile && (
+                                    <button
+                                      onClick={handleShowAll}
+                                      className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-2 pl-2.5 gap-1 items-center flex sm:hidden"
+                                    >
+                                      <p className="text-2xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                        +{stock_tags.length - 2}
+                                      </p>
+                                    </button>
+                                  )}
                                 </div>
+
+
                               </div>
                               <p className="sm:hidden text-sm items-center font-open_sans flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
                                 {/* Conditionally show either text or image */}
@@ -460,7 +489,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box start */}
                   <div className="hidden md:block col-span-2 order-3 sm:order-2">
                     <div className="p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm mt-7">
-                      <div className="relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
+                      <div className="bg-[url('/assets/bigFrame.png')] bg-cover bg-right relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[5px] bg-[#EFF7FF] border border-transparent">
                         {/* Gradient Border */}
                         <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
@@ -763,8 +792,8 @@ function StockDetailsSection() {
                   </div>
 
                   {/* Small Responsive size View Open the box  */}
-                  <div className="block md:hidden bg-gray-150 p-4 rounded-lg shadow-md max-w-full mx-auto mt-5">
-                    <div className=" rounded-lg">
+                  <div className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5">
+                    <div className="  rounded-lg">
                       <div className="bg-custom-gradient text-white rounded-lg p-4">
                         <div className="flex justify-between items-center">
                           <h2 className="text-lg font-open_sans font-semibold flex items-center gap-1">
@@ -1053,7 +1082,7 @@ function StockDetailsSection() {
                   </div>
 
                   {/* News Section Start */}
-                  <div className="  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
+                  <div className=" sm:pt-[78px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans px-1">
                       News
                     </h2>
