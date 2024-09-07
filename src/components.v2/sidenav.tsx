@@ -65,7 +65,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
           "Stocks to Buy": response.data?.recentBuyRecommendedCount + " New Stocks",
         });
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const fetchActivePlan = async () => {
@@ -84,7 +84,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
         const duration = durationDays > 90 ? "1year" : durationDays > 365 ? "3year" : "3months";
         // setActivePlan({ ...response.data.current_active_subscription, duration });
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -111,9 +111,9 @@ export default function SideNav({ handleLogin }: TSideNav) {
   return (
     <Sheet modal={true} open={open} onOpenChange={setOpen}>
       <SheetTrigger onClick={() => setOpen(true)}>
-        <Menu className="inline-block lg:hidden" />
+        <Menu className="inline-block lg:hidden  !z-[500]" />
       </SheetTrigger>
-      <SheetContent className=" z-50 pricing flex flex-col p-0 overflow-y-scroll pr-0">
+      <SheetContent className=" !z-[5000] pricing flex flex-col p-0 overflow-y-scroll pr-0">
         {/* <SheetHeader> */}
         <div className="  p-4">
           <Image
@@ -137,8 +137,8 @@ export default function SideNav({ handleLogin }: TSideNav) {
                         {HOME_OPTIONS.filter((options) =>
                           isLoggedIn
                             ? options.title !== "Sample Reports" &&
-                              options.title !== "Performance" &&
-                              options.title !== "Hot Stocks"
+                            options.title !== "Performance" &&
+                            options.title !== "Hot Stocks"
                             : true
                         ).map((options) => (
                           <Link
@@ -168,9 +168,8 @@ export default function SideNav({ handleLogin }: TSideNav) {
                 <Link onClick={() => handleEvent(nav.mixpanel.event, nav.mixpanel.property)} key={nav.title} className=" text-inherit" href={nav.link}>
                   <li
                     key={nav.title}
-                    className={` text-md flex justify-between items-center font-medium py-3 px-4 m-0 ${
-                      nav.title === "About Us" ? "!hidden" : ""
-                    }`}
+                    className={` text-md flex justify-between items-center font-medium py-3 px-4 m-0 ${nav.title === "About Us" ? "!hidden" : ""
+                      }`}
                   >
                     <p className=" text-inherit">{nav.title}</p>
                     {stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"] ? (
@@ -185,8 +184,8 @@ export default function SideNav({ handleLogin }: TSideNav) {
         {isLoggedIn ? (
           <div className=" pt-4 mt-auto">
             {plan &&
-            (plan.toLowerCase() === "free" || plan.toLowerCase() === "advanced" || plan.toLowerCase() === "core") ? (
-              <div onClick={()=>setOpen(false)} className=" px-4">
+              (plan.toLowerCase() === "free" || plan.toLowerCase() === "advanced" || plan.toLowerCase() === "core") ? (
+              <div onClick={() => setOpen(false)} className=" px-4">
                 <MissOutBanner />
               </div>
             ) : null}

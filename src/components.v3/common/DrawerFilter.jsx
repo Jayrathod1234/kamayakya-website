@@ -12,6 +12,7 @@ import {
   AccordionDetails,
   FormGroup,
   FormControlLabel,
+  totalFilterCount,
   Checkbox,
   Drawer,
   styled,
@@ -246,11 +247,35 @@ function DrawerFilter() {
     "& .MuiSlider-track": {
       border: "none",
     },
+    "& .MuiSlider-mark": {
+      width: "9px",
+      height: "9px",
+      borderRadius: "50%",
+      backgroundColor: "#b0bec5", // Dot color when not active
+    },
   });
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const marks = [
+    {
+      value: 0,
+    },
+    {
+      value: 25,
+    },
+    {
+      value: 50,
+    },
+    {
+      value: 75,
+    },
+    {
+      value: 100,
+    },
+  ];
   return (
     <>
       {!isMobile ? (
@@ -368,9 +393,16 @@ function DrawerFilter() {
                       <CustomSlider
                         value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
+                        // valueLabelDisplay="auto"
+                        // min={min_upside_left}
+                        // max={max_upside_left}
                         valueLabelDisplay="auto"
-                        min={min_upside_left}
-                        max={max_upside_left}
+                        aria-label="custom slider"
+                        defaultValue={50}
+                        marks={marks}
+                        step={null}
+                        min={0}
+                        max={100}
                       />
                       <Grid container spacing={2} alignItems="center" pt={2}>
                         <Grid item xs={5}>
@@ -1019,13 +1051,13 @@ function DrawerFilter() {
               <div className="pt-[61px]">
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
-                    className="  text-[#344054] font-semibold font-open_sans  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+                    className="  text-[#344054] font-semibold font-open_sans  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px] hover:scale-[000.95] duration-500 "
                     onClick={handleCancel}
                   >
                     Cancel
                   </button>
                   <button
-                    className=" font-semibold text-white py-2 font-open_sans px-4 bg-[#125B54] rounded-lg w-[170px] "
+                    className=" font-semibold text-white py-2 font-open_sans px-4 bg-[#125B54] rounded-lg w-[170px] hover:scale-[000.95] duration-500 "
                     onClick={handleApply}
                   >
                     Apply
@@ -1149,6 +1181,11 @@ function DrawerFilter() {
                       </Box>
                     }
                     {...a11yProps(0)}
+                    // {totalFilterCount > 0 && (
+                    //   <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex font-open_sans">
+                    //     {totalFilterCount}
+                    //   </div>
+                    // )}
                   />
                   <Tab
                     sx={{
@@ -1259,9 +1296,16 @@ function DrawerFilter() {
                       <CustomSlider
                         value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
+                        // valueLabelDisplay="auto"
+                        // min={min_upside_left}
+                        // max={max_upside_left}
                         valueLabelDisplay="auto"
-                        min={min_upside_left}
-                        max={max_upside_left}
+                        aria-label="custom slider"
+                        defaultValue={50}
+                        marks={marks}
+                        step={null}
+                        min={0}
+                        max={100}
                       />
 
                       <Grid alignItems="center" overflowX="hidden">

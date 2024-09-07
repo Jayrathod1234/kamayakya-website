@@ -44,14 +44,16 @@ const HotStockSection = ({ items }) => {
                       alt=""
                       className="sm:w-[46px] w-[56px] lg:m-0 m-auto"
                     />
+
                     <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal text-[#0C111D]">
                       Gain exclusive access to
-                      <span className="text-[#108973] pl-1">
+                      <span className="text-[#108973] pl-1 pr-1">
                         30+ potential multibagger picks
                       </span>
                       <br className="sm:block hidden"></br>with KamayaKya
                       membership.
                     </p>
+
                     <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block">
                       <ButtonnArrow
                         onClick={handleContactButton}
@@ -61,6 +63,22 @@ const HotStockSection = ({ items }) => {
                         Explore Plans
                       </ButtonnArrow>
                     </div>
+
+                    {/* non log in user 3 stock add   */}
+                    {/* <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal text-[#0C111D]">
+                      Log in and unlock <br className="sm:block hidden"></br>3
+                      <span className="text-[#108973] pl-1 pr-1">HOT</span>
+                      stocks for <br className="sm:block hidden"></br>Free
+                    </p>
+                    <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block">
+                      <ButtonnArrow
+                        onClick={handleContactButton}
+                        variant={ButtonVariant.primary}
+                        size={ButtonSize.lg}
+                      >
+                        Get Free Stocks
+                      </ButtonnArrow>
+                    </div> */}
                   </div>
 
                   <>
@@ -373,7 +391,7 @@ const HotStockSection = ({ items }) => {
                 />
                 <p className="sm:text-display-sm lg:text-display-xs md:text-[26px] text-lg font-bold sm:leading-[38px] leading-7 lg:text-center text-center font-open_sans pt-4 lg:max-w-[745px]   tracking-normal">
                   Gain exclusive access to
-                  <span className="text-[#108973] pl-1">
+                  <span className="text-[#108973] pl-1 pr-1">
                     30+ potential multibagger picks
                   </span>
                   <br className="sm:block hidden"></br>with KamayaKya
