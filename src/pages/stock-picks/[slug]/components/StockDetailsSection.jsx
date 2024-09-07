@@ -794,93 +794,95 @@ function StockDetailsSection() {
                   {/* Small Responsive size View Open the box  */}
                   <div className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5">
                     <div className="  rounded-lg">
-                      <div className="bg-custom-gradient text-white rounded-lg p-4">
-                        <div className="flex justify-between items-center">
-                          <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
-                            Upside Left
+                      <div className="bg-white rounded-t-lg p-4">
+                        <div className="bg-custom-gradient text-white rounded-lg p-4">
+                          <div className="flex justify-between items-center">
+                            <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
+                              Upside Left
 
-                            {/* Tooltip for large screens and Modal Trigger for small screens */}
-                            <div className="relative group hidden sm:block">
-                              {/* Tooltip (Visible on large screens) */}
-                              <img
-                                src="/assets/ph_info-duotone.svg"
-                                alt="Info"
-                                className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                              />
-                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
-                                <div className="w-full grid gap-1 relative">
-                                  <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[46%]" />
-                                  <p className="text-[12px] font-open_sans">
-                                    Upside Left means how much the stock price could rise from its current level.
-                                  </p>
-                                  <div className="p-2 bg-[#F9FAFB] rounded-md">
-                                    <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">
-                                      Example :
-                                    </h4>
+                              {/* Tooltip for large screens and Modal Trigger for small screens */}
+                              <div className="relative group hidden sm:block">
+                                {/* Tooltip (Visible on large screens) */}
+                                <img
+                                  src="/assets/ph_info-duotone.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                />
+                                <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
+                                  <div className="w-full grid gap-1 relative">
+                                    <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[46%]" />
                                     <p className="text-[12px] font-open_sans">
-                                      If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                      Upside Left means how much the stock price could rise from its current level.
                                     </p>
+                                    <div className="p-2 bg-[#F9FAFB] rounded-md">
+                                      <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">
+                                        Example :
+                                      </h4>
+                                      <p className="text-[12px] font-open_sans">
+                                        If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
 
-                            {/* Modal Trigger for small screens */}
-                            <div className="sm:hidden">
-                              <img
-                                src="/assets/ph_info-duotone.svg"
-                                alt="Info"
-                                className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                onClick={openModal}
-                              />
-                            </div>
-                          </h2>
-
-                          <img
-                            src="/assets/stock-details/streamline_target-solid (1).svg"
-                            alt=""
-                          />
-                        </div>
-
-                        {/* Modal for small screens */}
-                        {isModalOpen && (
-                          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
-                            <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
-                              {/* Modal Header */}
-                              <div className="w-full flex justify-between items-center gap-1">
-                                <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">Upside Left</h3>
-                                <button
-                                  className="text-[30px] text-gray-500 hover:text-gray-700"
-                                  onClick={closeModal}
-                                >
-                                  &times;
-                                </button>
+                              {/* Modal Trigger for small screens */}
+                              <div className="sm:hidden">
+                                <img
+                                  src="/assets/ph_info-duotone.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                  onClick={openModal}
+                                />
                               </div>
+                            </h2>
 
-                              {/* Modal Body */}
-                              <div className="mt-2 text-gray-800 text-sm font-open_sans">
-                                Upside Left means how much the stock price could rise from its current level.
-                              </div>
-                              <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
-                                <span className="text-[#108973] text-sm font-bold font-open_sans">Example :</span>
-                                <p className="text-sm text-gray-600 mt-1 font-open_sans">
-                                  If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
-                                </p>
-                              </div>
-                            </div>
+                            <img
+                              src="/assets/stock-details/streamline_target-solid (1).svg"
+                              alt=""
+                            />
                           </div>
-                        )}
 
-                        <div className="flex items-center gap-2">
-                          <p className="text-display-xs font-bold  font-open_sans">
-                            {upside_left}%
-                          </p>
-                          <p className="text-sm font-open_sans mt-1">
-                            in {upside_left_time}
-                          </p>
+                          {/* Modal for small screens */}
+                          {isModalOpen && (
+                            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
+                              <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
+                                {/* Modal Header */}
+                                <div className="w-full flex justify-between items-center gap-1">
+                                  <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">Upside Left</h3>
+                                  <button
+                                    className="text-[30px] text-gray-500 hover:text-gray-700"
+                                    onClick={closeModal}
+                                  >
+                                    &times;
+                                  </button>
+                                </div>
+
+                                {/* Modal Body */}
+                                <div className="mt-2 text-gray-800 text-sm font-open_sans">
+                                  Upside Left means how much the stock price could rise from its current level.
+                                </div>
+                                <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
+                                  <span className="text-[#108973] text-sm font-bold font-open_sans">Example :</span>
+                                  <p className="text-sm text-gray-600 mt-1 font-open_sans">
+                                    If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="flex items-center gap-2">
+                            <p className="text-display-xs font-bold  font-open_sans">
+                              {upside_left}%
+                            </p>
+                            <p className="text-sm font-open_sans mt-1">
+                              in {upside_left_time}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <div className="bg-gray-50 p-4 rounded-lg">
+                      <div className="bg-gray-50 px-4 pb-2 rounded-lg">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center">
                             <img src="/assets/hj1.svg" alt="" />
@@ -948,7 +950,7 @@ function StockDetailsSection() {
                       </div>
                     </div>
 
-                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base font-normal gap-1 font-open_sans">
+                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base leading-6 font-normal  gap-1 font-open_sans">
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
                         ₹1Lakh{" "}
                       </span>
@@ -1074,7 +1076,7 @@ function StockDetailsSection() {
                     {isOpen && (
                       <div className="mt-2">
                         {/* Timeline Content Goes Here */}
-                        <div className="p-4 border rounded-lg">
+                        <div className="">
                           <StockDetailsTimeline timeline={timeline} />
                         </div>
                       </div>
@@ -1094,7 +1096,7 @@ function StockDetailsSection() {
 
                 {/* Second Container Start */}
                 <div className="relative hidden   sm:block ">
-                  <div className="bg-[#EDF0F5] sticky top-16 p-2 rounded-t-lg">
+                  <div className="bg-[#EDF0F5] sticky top-16 p-2 rounded-lg">
                     <div className="p-5 border rounded-lg  bg-white">
                       <h2 className="font-bold font-open_sans text-sm mb-[22px]  hidden sm:flex">
                         INVESTMENT GUIDANCE
