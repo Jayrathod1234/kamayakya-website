@@ -243,7 +243,7 @@ function StockDetailsSection() {
                       <img
                         src="/assets/BuyBubbleBlue.webp"
                         alt=""
-                        className="block sm:hidden absolute -top-6 right-3 w-[58px] h-[60px]"
+                        className="block sm:hidden absolute -top-5 right-2 w-[58px] h-[60px]"
                       />
                       {/* Sell Images */}
                       {/* <img
