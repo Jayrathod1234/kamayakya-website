@@ -23,7 +23,7 @@ type TTarget = {
 
 export default function StockCardProgressBarBlurSection({emblaApi}:{emblaApi:EmblaCarouselType}) {
   // const ref = useRef<Array<HTMLDivElement>>([]);
-  const { ref, targetRef, margins, dottedLineWidth, currentProgress } = useStockProgressBar(emblaApi);
+  const { ref, targetRef, margins, dottedLineWidth, currentProgress,cmpRef } = useStockProgressBar(emblaApi);
   // const [margins, setMargins] = useState({
   //   marginLeft: 0,
   //   marginRight: 0,
@@ -109,13 +109,13 @@ export default function StockCardProgressBarBlurSection({emblaApi}:{emblaApi:Emb
           ))}
           <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets
-              index={stock_targets.length}
+              index={0}
               label={"CMP"}
               price={live_price}
               isBlur
               date={format(new Date(), "dd MMM yyyy")}
               status={"Completed"}
-              ref={ref}
+              ref={cmpRef}
             />
           </CarouselItem>
           <CarouselItem className={` basis-1/3`}>

@@ -38,3 +38,11 @@ export type TStockCardProgressBar = {
 };
 
 export type TStockCardProgressBarSolid = TStockCardProgressBar & { currentProgress: number;scaleVariant?:boolean };
+
+
+export type TTarget = {
+  status: string;
+  date: string;
+  price: number;
+  label:string;
+};

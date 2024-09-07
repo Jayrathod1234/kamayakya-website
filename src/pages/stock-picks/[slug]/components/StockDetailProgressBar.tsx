@@ -8,18 +8,13 @@ import StockCardTargets from "@/components.v3/common/StockCardTargets";
 import { debounce } from "@/lib/debounce";
 import { useStockProgressBar } from "@/utils/useStockProgressBar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { TTarget } from "@/types/shared";
 
 type TStockCardProgressBarSection = {
   live_price: number;
   entry_price: number;
   entry_date: string;
   stock_targets: any;
-};
-
-type TTarget = {
-  target_met: string;
-  created: string;
-  target_price: number;
 };
 
 export default function StockDetailProgressBar({
@@ -29,8 +24,8 @@ export default function StockDetailProgressBar({
   stock_targets,
 }: TStockCardProgressBarSection) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const targets = useMemo(() => stock_targets.slice(1, stock_targets.length).reverse(), [stock_targets]);
-  const { margins, currentProgress, dottedLineWidth, ref, targetRef } = useStockProgressBar();
+  const [targets,setTargets] = useState<TTarget[]>([])
+  const { margins, currentProgress, dottedLineWidth, ref, targetRef,cmpRef } = useStockProgressBar();
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
@@ -64,6 +59,16 @@ export default function StockDetailProgressBar({
       }
     };
   }, []);
+
+
+  useEffect(()=>{
+    let targets = [...stock_targets].sort((a,b)=>a.target_price-b.target_price) ;
+    targets = targets.map((item:any,index:any)=>({label:`Target ${index+1}`,date:format(new Date(item.created), "dd MMM yyyy"), price:item.target_price, status:item.target_met ? "Completed":"Active"}))
+    targets = targets.slice(0, stock_targets.length-1)
+    targets.push({label:'CMP',price:live_price, date:format(new Date(), "dd MMM yyyy"),status:'Completed'})
+    setTargets(targets.sort((a,b)=>a.price-b.price))
+  },[])
+
   return (
     <div className=" relative w-full">
       <button
@@ -113,19 +118,19 @@ export default function StockDetailProgressBar({
           // <CarouselItem key={index + 1} className={` basis-1/3`}>
           <div style={{ flex: "0 0 150px", scrollSnapAlign: "start" }}>
             <StockCardTargets
-              index={index + 1}
-              label={"Target " + (index + 1)}
-              price={target.target_price}
-              date={format(new Date(target.created), "dd MMM yyyy")}
-              status={target.target_met ? "Completed" : null}
-              ref={ref}
+              index={target.label.includes("CMP") ? 0:index + 1}
+              label={target.label}
+              price={target.price}
+              date={target.date}
+              status={target.status}
+              ref={target.label.includes("CMP")?cmpRef:ref}
               className=" w-[90px]"
             />
           </div>
           // </CarouselItem>
         ))}
 
-        <div style={{ flex: "0 0 150px", scrollSnapAlign: "start" }}>
+        {/* <div style={{ flex: "0 0 150px", scrollSnapAlign: "start" }}>
           <StockCardTargets
             index={stock_targets.length}
             label={"CMP"}
@@ -144,7 +149,7 @@ export default function StockDetailProgressBar({
               </div>
             }
           />
-        </div>
+        </div> */}
         <div style={{ flex: "0 0 90px", scrollSnapAlign: "start" }}>
           <StockCardTargets
             index={0}

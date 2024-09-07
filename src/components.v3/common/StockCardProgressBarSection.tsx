@@ -6,6 +6,7 @@ import StockProgressBarSolid from "./StockProgressBarSolid";
 import { format } from "date-fns";
 import StockCardTargets from "./StockCardTargets";
 import { useStockProgressBar } from "@/utils/useStockProgressBar";
+import { TTarget } from "@/types/shared";
 
 type TStockCardProgressBarSection = {
   live_price: number;
@@ -14,11 +15,7 @@ type TStockCardProgressBarSection = {
   stock_targets: any;
 };
 
-type TTarget = {
-  target_met: string;
-  created: string;
-  target_price: number;
-};
+
 
 export default function StockCardProgressBarSection({
   live_price,
@@ -27,18 +24,27 @@ export default function StockCardProgressBarSection({
   stock_targets,
 }: TStockCardProgressBarSection) {
   // const live_price=2500
-  const { ref, targetRef, margins, dottedLineWidth, currentProgress } = useStockProgressBar();
-  const targets = useMemo(() => stock_targets.slice(1, stock_targets.length).reverse(), [stock_targets]);
-  const [position,setPosition] = useState(0)
-  const calculateLivePricePosition = ()=>{
-    const position = (live_price - entry_price) / (stock_targets[0].target_price - entry_price) * 100;
-    setPosition(-position-200)
-  }
+  const { ref, targetRef, margins, dottedLineWidth, currentProgress,cmpRef } = useStockProgressBar();
+  const [targets,setTargets] = useState<TTarget[]>([])
+  // const [position,setPosition] = useState(0)
+  // const calculateLivePricePosition = ()=>{
+  //   const position = (live_price - entry_price) / (stock_targets[0].target_price - entry_price) * 100;
+  //   setPosition(-position-200)
+  // }
 
-  useLayoutEffect(()=>{
-    calculateLivePricePosition()
-  },[live_price])
-  console.log("POSITION",position)
+  // useLayoutEffect(()=>{
+  //   calculateLivePricePosition()
+  // },[live_price])
+  // console.log("POSITION",position)
+
+  useEffect(()=>{
+    let targets = [...stock_targets].sort((a,b)=>a.target_price-b.target_price) ;
+    targets = targets.map((item:any,index:any)=>({label:`Target ${index+1}`,date:format(new Date(item.created), "dd MMM yyyy"), price:item.target_price, status:item.target_met ? "Completed":"Active"}))
+    targets = targets.slice(0, stock_targets.length-1)
+    targets.push({label:'CMP',price:live_price, date:format(new Date(), "dd MMM yyyy"),status:'Completed'})
+    setTargets(targets.sort((a,b)=>a.price-b.price))
+  },[])
+
   return (
     <div className=" relative px-4 ">
       <Carousel className=" z-20 " opts={{ slidesToScroll: 3 }}>
@@ -79,27 +85,26 @@ export default function StockCardProgressBarSection({
             //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
             <CarouselItem key={index + 1} className={` basis-1/3`}>
               <StockCardTargets
-                index={index + 1}
-                label={"Target " + (index + 1)}
-                price={target.target_price}
-                date={format(new Date(target.created), "dd MMM yyyy")}
-                status={target.target_met ? "Completed" : null}
-                ref={ref}
+                index={target.label.includes( "CMP" )?0: index + 1}
+                label={target.label}
+                price={target.price}
+                date={target.date}
+                status={target.status}
+                ref={target.label.includes( "CMP") ? cmpRef : ref}
               />
             </CarouselItem>
           ))}
-          <CarouselItem className={` basis-1/3 `}>
+          {/* <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets
               index={stock_targets.length}
               label={"CMP"}
               price={live_price}
-              className={`relative translate-x-[${position}%]`}
+              // className={`relative translate-x-[${position}%]`}
               date={format(new Date(), "dd MMM yyyy")}
               status={"Completed"}
-              
               ref={ref}
             />
-          </CarouselItem>
+          </CarouselItem> */}
           <CarouselItem className={` basis-1/3`}>
             <StockCardTargets
               ref={targetRef}

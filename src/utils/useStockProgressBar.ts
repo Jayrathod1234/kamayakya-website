@@ -10,6 +10,7 @@ import {EmblaCarouselType} from 'embla-carousel'
 
 export const useStockProgressBar = (emblaApi?:EmblaCarouselType) => {
   const ref = useRef<Array<HTMLDivElement>>([]);
+  const cmpRef = useRef<Array<HTMLDivElement>>([]);
   const targetRef = useRef<Array<HTMLDivElement>>([]);
   const [margins, setMargins] = useState({
     marginLeft: 0,
@@ -19,11 +20,13 @@ export const useStockProgressBar = (emblaApi?:EmblaCarouselType) => {
   const [dottedLineWidth, setDottedLineWidth] = useState(0);
 
   const calculateDistance = useCallback(() => {
-    if (ref.current?.length <= 0 && targetRef.current?.length <= 0) return;
+    if (ref.current?.length <= 0 && targetRef.current?.length <= 0 && cmpRef.current?.length <= 0) return;
+    console.log(cmpRef.current)
     const entryDiv = ref.current[0];
-    const cmpDiv = ref.current[ref.current.length - 1];
+    const cmpDiv = cmpRef.current[0];
     const targetDiv = targetRef.current[0];
-    if (!entryDiv && !cmpDiv && !targetDiv) return;
+    console.log(cmpDiv)
+    if (!entryDiv || !cmpDiv || !targetDiv) return;
     // Get the bounding rectangles of both divs
     const entryRect = entryDiv.getBoundingClientRect();
     const cmpRect = cmpDiv.getBoundingClientRect();
@@ -47,7 +50,7 @@ export const useStockProgressBar = (emblaApi?:EmblaCarouselType) => {
     setDottedLineWidth(DistanceBtwEntryTarget);
     setMargins(() => ({
       marginLeft: 0,
-      marginRight: ref.current[ref.current.length - 2].offsetWidth / 2,
+      marginRight: targetRef.current[0].offsetWidth / 2,
     }));
   }, []);
 
@@ -58,30 +61,31 @@ export const useStockProgressBar = (emblaApi?:EmblaCarouselType) => {
     };
 
     handleResize();
-    const resizeObserver = new ResizeObserver((entries) => {
-      requestAnimationFrame(() => {
-        for (const entry of entries) {
-          handleResize();
-        }
-      });
-    });
+    window.addEventListener("resize", handleResize);
+    // const resizeObserver = new ResizeObserver((entries) => {
+    //   requestAnimationFrame(() => {
+    //     for (const entry of entries) {
+    //       handleResize();
+    //     }
+    //   });
+    // });
 
-    const progress_containers = document.querySelectorAll(".progress_container");
-    progress_containers.forEach((progress_container) => {
-      resizeObserver.observe(progress_container);
-    });
+    // const progress_containers = document.querySelectorAll(".progress_container");
+    // progress_containers.forEach((progress_container) => {
+    //   resizeObserver.observe(progress_container);
+    // });
     console.log("EMBLA API", emblaApi);
     if (!emblaApi) return;
     emblaApi.on("reInit", handleResize).on("resize", handleResize).on("scroll", handleResize);
 
-    // window.addEventListener("resize", handleResize);
+   
     return () => {
-      progress_containers.forEach((progress_container) => {
-        resizeObserver.unobserve(progress_container);
-      });
-      // window.removeEventListener("resize", handleResize);
+      // progress_containers.forEach((progress_container) => {
+      //   resizeObserver.unobserve(progress_container);
+      // });
+      window.removeEventListener("resize", handleResize);
     };
-  }, [ref.current?.length, targetRef.current?.length, emblaApi]);
+  }, [ref.current?.length, targetRef.current?.length,cmpRef.current?.length, emblaApi]);
 
-  return { margins, currentProgress, dottedLineWidth, ref, targetRef, calculateDistance };
+  return { margins, currentProgress, dottedLineWidth, ref, targetRef, calculateDistance,cmpRef };
 };
