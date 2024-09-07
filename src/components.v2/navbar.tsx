@@ -58,6 +58,7 @@ export function Navbar() {
   const pathname = router.pathname;
   const ref = useRef<HTMLDivElement | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [isSticky, setIsSticky] = useState(pathname == '/stock-picks');
 
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
@@ -76,9 +77,16 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
+        if (pathname == '/stock-picks') {
+          setIsSticky(false)
+        }
         ref.current?.classList.add("scrolled-nav");
         ref.current?.classList.add("navbar-shadow");
       } else {
+        if (pathname == '/stock-picks') {
+          setIsSticky(true)
+        }
+
         ref.current?.classList.remove("scrolled-nav");
         ref.current?.classList.remove("navbar-shadow");
       }
@@ -231,7 +239,7 @@ export function Navbar() {
             </NavigationMenu>
           </div>
         </div>
-        <div className=" flex items-center justify-center gap-x-4 lg:hidden">
+        <div className={`flex items-center justify-center gap-x-4 lg:hidden ${isSticky ? 'bg-white rounded' : ''}`}>
           {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
           <SideNav handleLogin={handleLogin} />
         </div>

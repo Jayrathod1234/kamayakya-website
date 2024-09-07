@@ -45,40 +45,50 @@ const HotStockSection = ({ items }) => {
                       className="sm:w-[46px] w-[56px] lg:m-0 m-auto"
                     />
 
-                    <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal text-[#0C111D]">
-                      Gain exclusive access to
-                      <span className="text-[#108973] pl-1 pr-1">
-                        30+ potential multibagger picks
-                      </span>
-                      <br className="sm:block hidden"></br>with KamayaKya
-                      membership.
-                    </p>
+                    {isLoggedIn ? (
+                      <>
+                        <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal text-[#0C111D]">
+                          Gain exclusive access to
+                          <span className="text-[#108973] pl-1 pr-1">
+                            30+ potential multibagger picks
+                          </span>
+                          <br className="sm:block hidden"></br>with KamayaKya
+                          membership.
+                        </p>
 
-                    <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block">
-                      <ButtonnArrow
-                        onClick={handleContactButton}
-                        variant={ButtonVariant.primary}
-                        size={ButtonSize.lg}
-                      >
-                        Explore Plans
-                      </ButtonnArrow>
-                    </div>
+                        <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block">
+                          <Link href={`/pricing`}>
+                            <ButtonnArrow
+                              onClick={handleContactButton}
+                              variant={ButtonVariant.primary}
+                              size={ButtonSize.lg}
+                            >
+                              Explore Plans
+                            </ButtonnArrow>
+                          </Link>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {/* non log in user 3 stock add   */}
 
-                    {/* non log in user 3 stock add   */}
-                    {/* <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal text-[#0C111D]">
-                      Log in and unlock <br className="sm:block hidden"></br>3
-                      <span className="text-[#108973] pl-1 pr-1">HOT</span>
-                      stocks for <br className="sm:block hidden"></br>Free
-                    </p>
-                    <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block">
-                      <ButtonnArrow
-                        onClick={handleContactButton}
-                        variant={ButtonVariant.primary}
-                        size={ButtonSize.lg}
-                      >
-                        Get Free Stocks
-                      </ButtonnArrow>
-                    </div> */}
+                        <p className="sm:text-display-sm text-lg font-bold sm:leading-[38px] leading-7 sm:text-left text-center font-open_sans pt-4 max-w-[324px] tracking-normal text-[#0C111D]">
+                          Log in and unlock{" "}
+                          <br className="sm:block hidden"></br>3
+                          <span className="text-[#108973] pl-1 pr-1">HOT</span>
+                          stocks for <br className="sm:block hidden"></br>Free
+                        </p>
+                        <div className="  !mt-6 sm:m-0 m-auto sm:block inline-block">
+                          <ButtonnArrow
+                            onClick={handleLogin}
+                            variant={ButtonVariant.primary}
+                            size={ButtonSize.lg}
+                          >
+                            Get Free Stocks
+                          </ButtonnArrow>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   <>
@@ -270,7 +280,7 @@ const HotStockSection = ({ items }) => {
                                                 Total Returns
                                               </p>
                                             </div>
-                                            <div className="flex gap-[3px] items-center font-open_sans max-w-[150px] whitespace-nowrap">
+                                            <div className="flex gap-[3px] items-center font-open_sans sm:max-w-[150px] max-w-[164px] whitespace-nowrap">
                                               <img
                                                 src="/assets/Polygon 2.svg"
                                                 alt=""
