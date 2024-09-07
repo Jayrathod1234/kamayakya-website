@@ -241,7 +241,7 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#344054",
+                            color: "#475467",
                             fontWeight: 400,
                             fontSize: "14px",
                             fontFamily: "Open Sans",
@@ -299,7 +299,7 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#344054",
+                            color: "#475467",
                             fontWeight: 400,
                             fontSize: "14px",
                             fontFamily: "Open Sans",
@@ -502,7 +502,7 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#1E555C",
+                            color: "#475467",
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -552,7 +552,7 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#1E555C",
+                            color: "#475467",
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -622,7 +622,7 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#1E555C",
+                            color: "#475467",
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -672,7 +672,7 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#1E555C",
+                            color: "#475467",
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}

@@ -722,10 +722,10 @@ function Filtermenu2({ Filtermenu, FiltermenuSidebar }) {
       {/* button  */}
       <div className="pt-[61px]">
         <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
-          <button className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]">
+          <button className="  text-[#344054] font-semibold  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px] focus:scale-[000.95] duration-500">
             Cancel
           </button>
-          <button className=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] ">
+          <button className=" font-semibold text-white py-2 px-4 bg-[#125B54] rounded-lg w-[170px] focus:scale-[000.95] duration-500">
             Apply
           </button>
         </div>
