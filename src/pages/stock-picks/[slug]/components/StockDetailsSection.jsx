@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import StockDetailsNews from "./StockDetailsNews";
 import StockDetailsTimeline from "./StockDetailsTimeline";
 import StockDetailsProgressBar from "./StockDetailsProgressBar";
@@ -62,8 +62,32 @@ function StockDetailsSection() {
     setModalState({ isMainModalOpen: false, isChildModalOpen: false });
   const handleChildModalOpen = () =>
     setModalState({ isMainModalOpen: false, isChildModalOpen: true });
-  const handleCloseAllModals = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
+  const handleCloseAllModals = useCallback(
+    () => setModalState({ isMainModalOpen: false, isChildModalOpen: false }),
+    []
+  );
+
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        handleCloseAllModals(); // Close all modals on Esc key press
+      }
+    };
+
+    if (modalState.isMainModalOpen || modalState.isChildModalOpen) {
+      document.body.style.overflow = "hidden"; // Disable background scroll
+      window.addEventListener("keydown", handleEsc); // Add event listener for Esc key
+    } else {
+      document.body.style.overflow = ""; // Re-enable scroll when modals are closed
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // Clean up scroll settings
+      window.removeEventListener("keydown", handleEsc); // Remove event listener on cleanup
+    };
+  }, [modalState.isMainModalOpen, modalState.isChildModalOpen, handleCloseAllModals]);
+
+
 
   const text = company_details;
   const [isReadMore, setIsReadMore] = useState(true);
@@ -1161,15 +1185,15 @@ function StockDetailsSection() {
                         {/* Share Button */}
                         <div className="flex-1 group">
                           <button
-                            className="w-full border  group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            className="w-full border group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                             onClick={handleMainModalOpen}
                           >
                             <img
                               src="/assets/share2.svg"
                               alt="Share icon"
-                              className="w-5 h-5 transition duration-300 "
+                              className="w-5 h-5 transition duration-300"
                             />
-                            <span className="text-nowrap text-[14px]" >
+                            <span className="text-nowrap text-[14px]">
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
@@ -1177,6 +1201,7 @@ function StockDetailsSection() {
                                   : "Sell Now"}
                             </span>
                           </button>
+
                           <InvestModal
                             handleMainModalOpen={handleMainModalOpen}
                             handleMainModalClose={handleMainModalClose}
