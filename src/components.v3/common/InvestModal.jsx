@@ -27,7 +27,28 @@ const brokerItems2 = [
 ];
 
 const Modal = ({ open, handleClose, children }) => {
-  
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === 'Escape') {
+        handleClose(); // Close modal on Esc key press
+      }
+    };
+
+    if (open) {
+      document.body.style.overflow = "hidden"; // Disable background scroll
+      window.addEventListener('keydown', handleEsc); // Add event listener for Esc key
+    } else {
+      document.body.style.overflow = ""; // Re-enable scroll when modal is closed
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // Clean up overflow
+      window.removeEventListener('keydown', handleEsc); // Remove event listener
+    };
+  }, [open, handleClose]);
+
+  if (!open) return null;
+
 
   if (!open) return null;
 

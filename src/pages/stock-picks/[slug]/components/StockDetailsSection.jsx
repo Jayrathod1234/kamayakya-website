@@ -125,13 +125,13 @@ function StockDetailsSection() {
                   alt="Go Back"
                   className="mr-2"
                 />
-                <div className="text-[13px] text-[#475467] font-normal font-open_sans relative">
+                <div className="text-[13px] text-[#475467] font-normal font-open_sans relative text-nowrap me-1 max-w-[83px]">
                   Stocks To Buy
                   <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#475467] transition-all duration-300 group-hover:w-full"></div>
                 </div>
               </div>
               <img src="/assets/stock-details/chevron-right.svg" alt="" />
-              <div className="text-[13px] text-[#475467] font-semibold">
+              <div className="text-[13px] text-[#475467] font-semibold max-[138px] truncate">
                 {stock_name}
               </div>
             </div>
