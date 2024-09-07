@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { ArrowLeftIcon } from "lucide-react";
 
 const brokerItems = [
@@ -29,31 +28,28 @@ const brokerItems2 = [
 const Modal = ({ open, handleClose, children }) => {
   useEffect(() => {
     const handleEsc = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         handleClose(); // Close modal on Esc key press
       }
     };
 
     if (open) {
       document.body.style.overflow = "hidden"; // Disable background scroll
-      window.addEventListener('keydown', handleEsc); // Add event listener for Esc key
+      window.addEventListener("keydown", handleEsc); // Add event listener for Esc key
     } else {
       document.body.style.overflow = ""; // Re-enable scroll when modal is closed
     }
 
     return () => {
-      document.body.style.overflow = ""; // Clean up overflow
-      window.removeEventListener('keydown', handleEsc); // Remove event listener
+      document.body.style.overflow = ""; // Clean up scroll settings
+      window.removeEventListener("keydown", handleEsc); // Remove event listener
     };
   }, [open, handleClose]);
 
   if (!open) return null;
 
-
-  if (!open) return null;
-
   return (
-    <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50 ">
+    <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]">
         <button
           onClick={handleClose}
@@ -115,12 +111,34 @@ const ChildModal = ({ open, handleBack, handleCloseAll }) => (
 );
 
 export default function NestedModal({
+  modalState,
   handleMainModalOpen,
   handleMainModalClose,
   handleChildModalOpen,
-  modalState,
   handleCloseAllModals,
 }) {
+
+  // Handle ESC key press and disable/enable background scroll
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        handleCloseAllModals(); // Close all modals on Esc key press
+      }
+    };
+
+    if (modalState.isMainModalOpen || modalState.isChildModalOpen) {
+      document.body.style.overflow = "hidden"; // Disable background scroll
+      window.addEventListener("keydown", handleEsc); // Add event listener for Esc key
+    } else {
+      document.body.style.overflow = ""; // Re-enable scroll when modal is closed
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // Clean up scroll settings
+      window.removeEventListener("keydown", handleEsc); // Remove event listener
+    };
+  }, [modalState.isMainModalOpen, modalState.isChildModalOpen, handleCloseAllModals]);
+
   return (
     <div>
       <Modal open={modalState?.isMainModalOpen} handleClose={handleMainModalClose}>
@@ -161,4 +179,3 @@ export default function NestedModal({
     </div>
   );
 }
-
