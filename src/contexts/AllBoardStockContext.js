@@ -87,7 +87,7 @@ export const AllBoardStockProvider = ({ children }) => {
     await setRisk("");
     await setSector([]);
     await setStrategyTag([]);
-    setOpen(false);
+    // setOpen(false);
     setTotalFilterCount(0);
     refetch(); // Optionally refetch data with reset filters (if appliedFilters reset)
   };
