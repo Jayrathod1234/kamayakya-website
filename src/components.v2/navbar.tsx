@@ -239,7 +239,7 @@ export function Navbar() {
             </NavigationMenu>
           </div>
         </div>
-        <div className={`flex items-center justify-center gap-x-4 lg:hidden ${isSticky ? 'bg-white rounded' : ''}`}>
+        <div className={`flex items-center justify-center gap-x-4 lg:hidden ${isSticky ? '' : ''}`}>
           {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
           <SideNav handleLogin={handleLogin} />
         </div>

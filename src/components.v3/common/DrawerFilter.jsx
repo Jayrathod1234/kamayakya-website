@@ -1405,6 +1405,7 @@ function DrawerFilter() {
                                   }
                                   label={
                                     <span
+                                      className="!items-start flex"
                                       style={{
                                         fontFamily: "Open Sans, sans-serif",
                                       }}
