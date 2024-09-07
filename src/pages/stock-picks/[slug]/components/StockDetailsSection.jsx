@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useRef, useState } from "react";
 import StockDetailsNews from "./StockDetailsNews";
 import StockDetailsTimeline from "./StockDetailsTimeline";
 import StockDetailsProgressBar from "./StockDetailsProgressBar";
@@ -62,7 +62,7 @@ function StockDetailsSection() {
     setModalState({ isMainModalOpen: false, isChildModalOpen: false });
   const handleChildModalOpen = () =>
     setModalState({ isMainModalOpen: false, isChildModalOpen: true });
-  const handleCloseAllModals = useCallback  (
+  const handleCloseAllModals = useCallback(
     () => setModalState({ isMainModalOpen: false, isChildModalOpen: false }),
     []
   );
@@ -130,14 +130,55 @@ function StockDetailsSection() {
   const handleShowAll = () => {
     setShowAll(!showAll);
   };
+  const [activeTab, setActiveTab] = useState("Summary");
+
+  const tabs = ["Summary", "Upside Left", "Reports", "News"];
+
+  const newsRef = useRef(null);
+  const summaryRef = useRef(null)
+  const UpsideLeftRef = useRef(null)
+  const ReportsRef = useRef(null)
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+
+    let element = null;
+
+    switch (tab) {
+      case 'News':
+        element = newsRef.current;
+        break;
+      case 'Summary':
+        element = summaryRef.current;
+        break;
+      case 'Upside Left':
+        element = UpsideLeftRef.current;
+        break;
+      case 'Reports':
+        element = ReportsRef.current;
+        break;
+      default:
+        console.warn('Unknown tab:', tab);
+        break;
+    }
+
+    const offset = 130; // Change this value as needed
+
+    if (element) {
+      const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: elementTop - offset,
+        behavior: 'smooth'
+      });
+    }
+  };
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
         <></>
       ) : (
-        <div className="pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
+        <div className="pt-0 sm:pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
           <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="items-center gap-[13px] flex p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
+            <div className="items-center gap-[13px]  p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto hidden sm:flex">
               <div
                 className="flex items-center cursor-pointer group"
                 onClick={() => {
@@ -159,13 +200,44 @@ function StockDetailsSection() {
                 {stock_name}
               </div>
             </div>
+
+            {/* small screen banner of top navbar-tabs  */}
+            <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-14  z-50 ">
+              {/* Back Button */}
+              <div
+                className=""
+                onClick={() => router.push("/stock-picks")}
+              >
+                <img
+                  src="/assets/stock-details/arrow-left.svg"
+                  alt="Go Back"
+                  className="pl-[16px] pt-2 pr-3"
+                />
+              </div>
+              {/* Tab Items */}
+              <div className="flex  ">
+                {tabs.map((tab) => (
+                  <a
+                    key={tab}
+
+                    onClick={() => handleTabClick(tab)}
+                    className={`pb-2 ${activeTab === tab
+                      ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
+                      : "text-gray-500 px-[10px] py-[18px] text-sm"
+                      }`}
+                  >
+                    {tab}
+                  </a>
+                ))}
+              </div>
+            </div>
             {/* details  */}
             <div className="pt-[19px] mb-[80px]  ">
               {/* Main Content  */}
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="   col-span-2">
                   {/* First Content Start */}
-                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto bg-white rounded-lg shadow-sm">
+                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto bg-white rounded-lg shadow-sm" ref={summaryRef}>
                     <div className="flex  order-1 sm:order-1 relative ">
                       {/* Buy Images  */}
                       <img
@@ -253,7 +325,7 @@ function StockDetailsSection() {
                                 {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
                                 <p className="text-2xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
-                                  stock_exchange == "SME-BSE"
+                                    stock_exchange == "SME-BSE"
                                     ? "BSE: "
                                     : "NSE: "}
                                   {stock_symbol}
@@ -460,8 +532,8 @@ function StockDetailsSection() {
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
-                            ? "Go to Broker"
-                            : "Sell Now"}
+                              ? "Go to Broker"
+                              : "Sell Now"}
                         </span>
                       </button>
                       <InvestModal
@@ -530,9 +602,8 @@ function StockDetailsSection() {
                           <div className="flex flex-col md:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -589,9 +660,8 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -835,7 +905,7 @@ function StockDetailsSection() {
                   </div>
 
                   {/* Small Responsive size View Open the box  */}
-                  <div className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5">
+                  <div className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5" ref={UpsideLeftRef}>
                     <div className="  rounded-lg">
                       <div className="bg-white rounded-t-lg p-4">
                         <div className="bg-custom-gradient text-white rounded-lg p-4">
@@ -1092,7 +1162,7 @@ function StockDetailsSection() {
                   </div>
 
                   {/* When small Screen Time-line & Report Section show  */}
-                  <div className="mt-5 block  rounded-lg py-[24px] px-[16px] sm:hidden md:hidden mb-5 bg-white">
+                  <div className="mt-5 block  rounded-lg py-[24px] px-[16px] sm:hidden md:hidden mb-5 bg-white" ref={ReportsRef}>
                     <button
                       className="w-full    p-0 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
@@ -1101,9 +1171,8 @@ function StockDetailsSection() {
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1128,7 +1197,7 @@ function StockDetailsSection() {
                   </div>
 
                   {/* News Section Start */}
-                  <div className=" sm:pt-[72px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
+                  <div className=" sm:pt-[72px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto " ref={newsRef}>
                     <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-semibold font-open_sans px-1">
                       News
                     </h2>
@@ -1217,8 +1286,8 @@ function StockDetailsSection() {
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
-                                ? "Go to Broker"
-                                : "Sell Now"}
+                                  ? "Go to Broker"
+                                  : "Sell Now"}
                             </span>
                           </button>
 
@@ -1307,9 +1376,8 @@ function StockDetailsSection() {
                             TIMELINE & REPORTS ({timeline.length || 0})
                           </span>
                           <svg
-                            className={`transform w-5 h-5 transition-transform duration-200 ${
-                              isOpen ? "rotate-180" : ""
-                            }`}
+                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                              }`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"

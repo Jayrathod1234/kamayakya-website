@@ -18,14 +18,14 @@ const StockDetailsNews = ({ stock_name }) => {
         stock_name,
       }),
     getNextPageParam: (data) => {
-      console.log("===getNextPageParam====", data);
+      // console.log("===getNextPageParam====", data);
       // Function to determine the parameter for fetching the next page
       //   if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
   });
 
   const items = response?.pages?.flatMap((page) => page) ?? [];
-  console.log(items);
+  // console.log(items);
   const newsItems = [
     {
       id: 1,
