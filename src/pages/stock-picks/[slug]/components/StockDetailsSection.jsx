@@ -137,7 +137,7 @@ function StockDetailsSection() {
       ) : (
         <div className="pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
           <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="items-center gap-[13px] flex p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px]">
+            <div className="items-center gap-[13px] flex p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
               <div
                 className="flex items-center cursor-pointer group"
                 onClick={() => {
