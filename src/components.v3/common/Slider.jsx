@@ -264,7 +264,7 @@ export function Slider({ children }) {
       {/* indicator */}
       <div className="flex gap-2 justify-center items-center">
         {scrollSnaps
-          .slice(0, isSmallScreen ? 5 : scrollSnaps.length) // Show 5 on small screens, all on larger screens
+          .slice(0, scrollSnaps.length) // Show 5 on small screens, all on larger screens
           .map((_, index) => (
             <div
               onClick={() => onDotButtonClick(index)}
