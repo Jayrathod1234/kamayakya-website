@@ -22,7 +22,7 @@ function AllBoardStockSection() {
     fetchNextPage,
   } = useAllBoardStock();
 
-  const { sebiBoardType,allBoardStockRef } = useStockPicks();
+  const { sebiBoardType, allBoardStockRef } = useStockPicks();
 
   const { showFilterHeader, setShowFilterHeader } = useNavBar();
 
@@ -67,7 +67,10 @@ function AllBoardStockSection() {
 
   return (
     <>
-      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto z-[20000]" ref={allBoardStockRef}>
+      <div
+        className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto z-[20000]"
+        ref={allBoardStockRef}
+      >
         <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center sm:pb-10 pb-4">
           All {sebiBoardType == "mainboard" ? "Mainboard" : "SME"} Stocks
         </p>
@@ -137,7 +140,7 @@ function AllBoardStockSection() {
         ref={showFilterRef}
       >
         <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
-          <div className="grid grid-cols-auto-fill gap-4">
+          <div className="grid grid-cols-auto-fill gap-x-5 gap-y-6">
             {isLoading || error ? (
               <StockCardSkeleton length={9} />
             ) : items.length > 0 ? (

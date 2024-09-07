@@ -28,7 +28,7 @@ const DeepValue = ({ stock_tags }) => {
       </div>
       {stock_tags_count > 1 && isOpen && (
         <>
-          <div className="absolute top-5 left-16 z-[1] shadow">
+          <div className="absolute top-5 left-8 z-[1] shadow">
             <img
               src="/assets/stock-details/div.png"
               alt=""
@@ -36,7 +36,7 @@ const DeepValue = ({ stock_tags }) => {
               className="w-4"
             />
           </div>
-          <ul className="absolute p-3 w-[175px] gap-3 bg-white border border-[#EDF0F5] rounded-lg shadow m-0 mt-2 z-[2]">
+          <ul className="absolute p-3 w-[175px] gap-3 bg-white border border-[#EDF0F5] rounded-lg shadow m-0 mt-2 z-[2] right-[-18%]">
             {stock_tags.slice(1).map((value, index) => {
               return (
                 <li

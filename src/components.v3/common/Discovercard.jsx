@@ -51,7 +51,7 @@ function Discovercard({ id, name, description, image, color, slug }) {
           </div>
 
           <p
-            className="title max-w-[176px] max-h-[75px] font-open_sans leading-4 line-clamp-3 text-ellipsis text-xs"
+            className="title max-w-[176px] max-h-[75px] font-open_sans leading-4 line-clamp-2 text-ellipsis text-xs"
             data-tooltip-id={`tooltip-${id}`}
             data-tooltip-content={description}
           >

@@ -1156,11 +1156,12 @@ function DrawerFilter() {
                   sx={{
                     borderRight: 1,
                     // width: "62% !important",
-                    borderColor: "divider",
+                    // borderColor: "divider",
                     alignItems: "start !important",
                     justifyContent: "start",
                     bgcolor: "#FAFAFA",
                     width: 121,
+                    borderRightColor: "#fff",
                     height: "100% !important",
                     // padding: "14px 8px 14px 16px",
 

@@ -301,7 +301,7 @@ function StockCard({
                       Total Returns
                     </p>
                   </div>
-                  <div className="flex gap-[3px] items-center font-open_sans max-w-[150px] whitespace-nowrap">
+                  <div className="flex gap-[3px] items-center font-open_sans sm:max-w-[167px] max-w-[164px] whitespace-nowrap">
                     {/* green up arrow  */}
                     {gain_loss >= 0 ? (
                       // green up arrow
