@@ -25,7 +25,7 @@ export default function StockDetailProgressBar({
 }: TStockCardProgressBarSection) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [targets,setTargets] = useState<TTarget[]>([])
-  const { margins, currentProgress, dottedLineWidth, ref, targetRef,cmpRef } = useStockProgressBar();
+  const { margins, currentProgress, dottedLineWidth, ref, targetRef,cmpRef } = useStockProgressBar(null,targets);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 

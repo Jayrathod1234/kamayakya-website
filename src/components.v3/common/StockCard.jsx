@@ -322,7 +322,7 @@ function StockCard({
                 </div>
               </div>
             </div>
-            <div className="pt-5 pb-[10px] pr-5">
+            <div className="pt-5 pb-[10px]">
               {is_blur ? (
                 <>
                   {/* <ProgressBar2 /> */}

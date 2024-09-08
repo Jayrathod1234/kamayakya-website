@@ -47,10 +47,11 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
   let { index, label, price, date, status, className, isBlur, showToolTip, tooltipContent } = props;
   const refs = ref as React.MutableRefObject<HTMLDivElement[]>;
   const [open, setOpen] = useState(false);
+  // console.log(label,index)
   return (
     <div
-      
-      className={cn(` relative flex flex-col   items-center`, className)}
+    
+      className={cn(` relative flex flex-col items-center`, className)}
     >
       <h4 className=" font-medium text-3xs text-[#667085] flex items-center whitespace-nowrap gap-x-[2px]">
         <span>{label}</span>
@@ -90,7 +91,7 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
           </TooltipProvider>
         )}
       </h4>
-      <div ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)} className={` z-20 ${label==="CMP" ? "cmp-pulse":""} ${label==="CMP" && isBlur ? "top-for-blur":""}    bg-white rounded-full flex items-center justify-center`}>
+      <div ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)}  className={` z-20 ${label==="CMP" ? "cmp-pulse":""} ${label==="CMP" && isBlur ? "top-for-blur":""}    bg-white rounded-full flex items-center justify-center`}>
         {getIcons(label, status as string)}
       </div>
       {isBlur ? (
