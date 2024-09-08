@@ -7,6 +7,8 @@ import { format } from "date-fns";
 import StockCardTargets from "./StockCardTargets";
 import { useStockProgressBar } from "@/utils/useStockProgressBar";
 import { EmblaCarouselType } from "embla-carousel";
+import { useFormattedTargets } from "@/utils/useFormattedTargets";
+import { TTarget } from "@/types/shared";
 
 type TStockCardProgressBarSection = {
   live_price: number;
@@ -15,62 +17,34 @@ type TStockCardProgressBarSection = {
   stock_targets: any;
 };
 
-type TTarget = {
-  target_met: string;
-  created: string;
-  target_price: number;
-};
+const stock_targets = [{ target_met: "", target_price: 600, created: "28 May 2024" }];
+const live_price = 500;
+const entry_price = 250;
+const entry_date = new Date().toISOString();
 
-export default function StockCardProgressBarBlurSection({emblaApi}:{emblaApi:EmblaCarouselType}) {
+export default function StockCardProgressBarBlurSection({ emblaApi }: { emblaApi: EmblaCarouselType }) {
   // const ref = useRef<Array<HTMLDivElement>>([]);
-  const { ref, targetRef, margins, dottedLineWidth, currentProgress,cmpRef } = useStockProgressBar(emblaApi);
-  // const [margins, setMargins] = useState({
-  //   marginLeft: 0,
-  //   marginRight: 0,
-  // });
-  // const [currentProgress, setCurrentProgress] = useState(1);
-  const targets: TTarget[] = [
-    { target_met: "25 May 2024", target_price: 500, created: "28 May 2024" }
-  ];
-  const stock_targets = [{ target_met: "", target_price: 500, created: "28 May 2024" }];
-  const live_price = 500;
-  const entry_price = 250;
-  const entry_date = new Date();
+  const { targetIndex, targets, cmpIndex } = useFormattedTargets({
+    stock_targets,
+    entry_date,
+    entry_price,
+    live_price,
+  });
+  const { ref, margins, dottedLineWidth, currentProgress, cmpMarginRight } = useStockProgressBar({
+    emblaApi,
+    targets,
+    targetIndex,
+    cmpIndex,
+  });
 
-  // useEffect(() => {
-  //   if (!ref.current || ref.current?.length <=0) return;
-  //   const div1 = ref.current[0];
-  //   const div2 = ref.current[ref.current.length-1];
-
-  //   // Get the bounding rectangles of both divs
-  //   const rect1 = div1.getBoundingClientRect();
-  //   const rect2 = div2.getBoundingClientRect();
-
-  //   // Calculate the distance between the centers of the two divs
-  //   const distanceX = rect2.left + rect2.width / 1.2 - (rect1.left + rect1.width / 2);
-  //   const distanceY = rect2.top + rect2.height / 2 - (rect1.top + rect1.height / 2);
-
-  //   // Calculate the Euclidean distance
-  //   const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-  //   // console.log("DISTANCE",distance)
-  //   setCurrentProgress(distance);
-  //   console.log("BLUR SECTION",ref.current, targets)
-  //   setMargins(() => ({
-  //     marginLeft: ref.current[0].offsetWidth *3,
-  //     // marginRight: ref.current[targets.length - 2].offsetWidth / 2,
-
-  //     marginRight: ref.current[ref.current.length - 2].offsetWidth *3 ,
-  //   }));
-  // }, []);
 
   return (
-    // 
+    //
     <div className="progress_container relative ml-5 pl-2 mr-5 ">
       <Carousel className=" z-20 " opts={{ slidesToScroll: 3 }}>
         <CarouselContent>
-          <CarouselItem className={` basis-1/3 `}>
+          {/* <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets
-              isBlur
               index={0}
               label={"Entry Price"}
               price={entry_price}
@@ -78,60 +52,76 @@ export default function StockCardProgressBarBlurSection({emblaApi}:{emblaApi:Emb
               status={"Completed"}
               className=" !items-start "
               ref={ref}
+              showToolTip
+              tooltipContent={
+                <p className=" p-4 text-2xs max-w-[300px] whitespace-normal">
+                  The price at which the stock recommendation was given by KamayaKya. You can buy the stock as long as
+                  the action is 'Buy'.
+                </p>
+              }
             />
-            {/* SOLID PROGRESS */}
-            <StockProgressBarSolid
-              width={`calc(100% - ${margins.marginLeft + margins.marginRight}px)`}
-              marginLeft={margins.marginLeft}
-              marginRight={margins.marginRight}
-              currentProgress={currentProgress}
-            />
-            {/*DOTTED PROGRESS  */}
-            <StockProgressBarDotted
-              width={dottedLineWidth}
-              marginLeft={margins.marginLeft}
-              marginRight={margins.marginRight}
-            />
-          </CarouselItem>
+           
+          </CarouselItem> */}
           {targets.map((target: TTarget, index: number) => (
             //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
-            <CarouselItem key={index + 1} className={` basis-1/3`}>
+            <CarouselItem key={index} className={` basis-1/3 `}>
               <StockCardTargets
-                isBlur
-                index={index + 1}
-                label={"Target " + (index + 1)}
-                price={target.target_price}
-                date={format(new Date(target.created), "dd MMM yyyy")}
-                status={target.target_met ? "Completed" : null}
+                // target.label.includes("CMP") ? 0 :
+                index={index}
+                // className={`${label===""}`}
+                label={target.label}
+                price={target.price}
+                date={index !== targetIndex ? target.date : ""}
+                status={target.status}
+                // target.label.includes("CMP") ? cmpRef :
                 ref={ref}
+                isBlur
               />
+              {index === 0 && (
+                <>
+                  {/* SOLID PROGRESS */}
+                  <StockProgressBarSolid
+                    width={`calc(100% - ${margins.marginLeft + cmpMarginRight}px)`}
+                    marginLeft={margins.marginLeft}
+                    marginRight={cmpMarginRight}
+                    currentProgress={currentProgress}
+                  />
+                  {/*DOTTED PROGRESS  */}
+                  <StockProgressBarDotted
+                    // `calc(100% - ${margins.marginLeft + margins.marginRight}px)`
+                    width={dottedLineWidth}
+                    marginLeft={margins.marginLeft}
+                    marginRight={margins.marginRight}
+                  />
+                </>
+              )}
             </CarouselItem>
           ))}
-          <CarouselItem className={` basis-1/3 `}>
+          {/* <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets
-              index={0}
+              index={stock_targets.length}
               label={"CMP"}
               price={live_price}
-              isBlur
+              // className={`relative translate-x-[${position}%]`}
               date={format(new Date(), "dd MMM yyyy")}
               status={"Completed"}
-              ref={cmpRef}
+              ref={ref}
             />
-          </CarouselItem>
-          <CarouselItem className={` basis-1/3`}>
+          </CarouselItem> */}
+          {/* <CarouselItem className={` basis-1/3`}>
             <StockCardTargets
-              isBlur
+              ref={targetRef}
               index={0}
               label={"Target"}
               price={stock_targets[0].target_price}
               status={stock_targets[0].target_met ? "Completed" : "Active"}
-              className=" !items-end "
-              ref={targetRef}
+              // className=" !items-end "
             />
           </CarouselItem>
+         */}
         </CarouselContent>
-        <CarouselPrevious className=" left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
-        <CarouselNext className=" right-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280F]" />
+        <CarouselPrevious className=" h-6 w-6 p-1 left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+        <CarouselNext className=" h-6 w-6 p-1 right-[16px] top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
       </Carousel>
     </div>
   );
