@@ -64,7 +64,7 @@ function StockCard({
     <>
       {/* new stock card  */}
       <div
-        className={`relative min-w-[330px]  
+        className={`relative min-w-[330px] max-w-[408px]  
         ${className}  main_card_carousel `}
       >
         <div

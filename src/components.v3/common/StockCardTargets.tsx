@@ -51,7 +51,7 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
   return (
     <div
     
-      className={cn(` relative flex flex-col items-center`, className)}
+      className={cn(` relative flex flex-col items-center w-[90px]`, className)}
     >
       <h4 className=" font-medium text-3xs text-[#667085] flex items-center whitespace-nowrap gap-x-[2px]">
         <span>{label}</span>

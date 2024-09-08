@@ -97,9 +97,9 @@ export default function StockCardProgressBarSection({
   // }, [stock_targets, live_price, entry_price, entry_date]);
 
   return (
-    <div className=" relative ">
+    <div className=" relative  pl-4">
       <Carousel className=" z-20 " opts={{ slidesToScroll: 3 }}>
-        <CarouselContent>
+        <CarouselContent className=" justify-between">
           {/* <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets
               index={0}
@@ -121,7 +121,7 @@ export default function StockCardProgressBarSection({
           </CarouselItem> */}
           {targets.map((target: TTarget, index: number) => (
             //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
-            <CarouselItem key={index} className={` basis-1/3 `}>
+            <CarouselItem key={index} className={`${index == targets.length-1 ? "basis-1/3":" basis-1/3 "}`}>
               <StockCardTargets
                 // target.label.includes("CMP") ? 0 :
                 index={index}
