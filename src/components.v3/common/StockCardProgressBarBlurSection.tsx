@@ -40,9 +40,9 @@ export default function StockCardProgressBarBlurSection({ emblaApi }: { emblaApi
 
   return (
     //
-    <div className="progress_container relative ml-5 pl-2 mr-5 ">
+    <div className="progress_container relative pl-4 ">
       <Carousel className=" z-20 " opts={{ slidesToScroll: 3 }}>
-        <CarouselContent>
+        <CarouselContent className=" justify-between">
           {/* <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets
               index={0}
@@ -85,6 +85,7 @@ export default function StockCardProgressBarBlurSection({ emblaApi }: { emblaApi
                     marginLeft={margins.marginLeft}
                     marginRight={cmpMarginRight}
                     currentProgress={currentProgress}
+                    className=" top-[41%]"
                   />
                   {/*DOTTED PROGRESS  */}
                   <StockProgressBarDotted
@@ -92,6 +93,7 @@ export default function StockCardProgressBarBlurSection({ emblaApi }: { emblaApi
                     width={dottedLineWidth}
                     marginLeft={margins.marginLeft}
                     marginRight={margins.marginRight}
+                    className="top-[41%]"
                   />
                 </>
               )}
