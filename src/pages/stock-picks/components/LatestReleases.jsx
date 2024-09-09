@@ -102,6 +102,7 @@ function LatestReleases({ isLimitedView }) {
                           className="w-[330px]"
                           key={value.id}
                           {...value}
+                          isCarousal={true}
                         />
                       ))}
                     </Slider>
