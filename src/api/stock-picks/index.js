@@ -144,10 +144,10 @@ export const getAllBoardStockStockListApi = async ({ params, body }) => {
   }
 };
 
-export const getCommonDetailsApi = async () => {
+export const getCommonDetailsApi = async ({ type }) => {
   try {
     if (process.env.NEXT_PUBLIC_DEBUG) {
-      const URL = `/user/commonDetails/`;
+      const URL = `/user/commonDetails?type=${type}`;
       /* ----------------------------------- API ---------------------------------- */
       const response = await axiosApi.get(URL);
       return response.data.data;

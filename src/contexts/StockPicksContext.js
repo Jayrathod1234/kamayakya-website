@@ -28,8 +28,8 @@ export const StockPicksProvider = ({ children }) => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["commonDetails"],
-    queryFn: getCommonDetailsApi,
+    queryKey: ["commonDetails", sebiBoardType],
+    queryFn: () => getCommonDetailsApi({ type: sebiBoardType }),
   });
 
   const {
