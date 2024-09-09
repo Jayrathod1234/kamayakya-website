@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   MenuItem,
   Checkbox,
@@ -36,7 +36,9 @@ export default function SectorCheck() {
   const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
   };
-
+  useEffect(() => {
+    document.addEventListener("scroll", handleClose);
+  }, []);
   const handleSelectAllClick = async () => {
     if (sector.length === sector_list_arr.length) {
       await setSector([]);
