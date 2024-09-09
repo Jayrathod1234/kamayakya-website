@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useRef, useState } from "react";
 import StockDetailsNews from "./StockDetailsNews";
 import StockDetailsTimeline from "./StockDetailsTimeline";
 import StockDetailsProgressBar from "./StockDetailsProgressBar";
@@ -62,8 +62,32 @@ function StockDetailsSection() {
     setModalState({ isMainModalOpen: false, isChildModalOpen: false });
   const handleChildModalOpen = () =>
     setModalState({ isMainModalOpen: false, isChildModalOpen: true });
-  const handleCloseAllModals = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
+  const handleCloseAllModals = useCallback(
+    () => setModalState({ isMainModalOpen: false, isChildModalOpen: false }),
+    []
+  );
+
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        handleCloseAllModals(); // Close all modals on Esc key press
+      }
+    };
+
+    if (modalState.isMainModalOpen || modalState.isChildModalOpen) {
+      document.body.style.overflow = "hidden"; // Disable background scroll
+      window.addEventListener("keydown", handleEsc); // Add event listener for Esc key
+    } else {
+      document.body.style.overflow = ""; // Re-enable scroll when modals are closed
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // Clean up scroll settings
+      window.removeEventListener("keydown", handleEsc); // Remove event listener on cleanup
+    };
+  }, [modalState.isMainModalOpen, modalState.isChildModalOpen, handleCloseAllModals]);
+
+
 
   const text = company_details;
   const [isReadMore, setIsReadMore] = useState(true);
@@ -106,14 +130,55 @@ function StockDetailsSection() {
   const handleShowAll = () => {
     setShowAll(!showAll);
   };
+  const [activeTab, setActiveTab] = useState("Summary");
+
+  const tabs = ["Summary", "Upside Left", "Reports", "News"];
+
+  const newsRef = useRef(null);
+  const summaryRef = useRef(null)
+  const UpsideLeftRef = useRef(null)
+  const ReportsRef = useRef(null)
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+
+    let element = null;
+
+    switch (tab) {
+      case 'News':
+        element = newsRef.current;
+        break;
+      case 'Summary':
+        element = summaryRef.current;
+        break;
+      case 'Upside Left':
+        element = UpsideLeftRef.current;
+        break;
+      case 'Reports':
+        element = ReportsRef.current;
+        break;
+      default:
+        console.warn('Unknown tab:', tab);
+        break;
+    }
+
+    const offset = 130; // Change this value as needed
+
+    if (element) {
+      const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: elementTop - offset,
+        behavior: 'smooth'
+      });
+    }
+  };
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
         <></>
       ) : (
-        <div className="pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
+        <div className="pt-0 sm:pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
           <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="items-center gap-[13px] flex p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px]">
+            <div className="items-center gap-[13px]  p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto hidden sm:flex">
               <div
                 className="flex items-center cursor-pointer group"
                 onClick={() => {
@@ -125,14 +190,45 @@ function StockDetailsSection() {
                   alt="Go Back"
                   className="mr-2"
                 />
-                <div className="text-[13px] text-[#475467] font-normal font-open_sans relative">
+                <div className="text-[13px] text-[#475467] font-normal font-open_sans relative text-nowrap me-1 max-w-[83px]">
                   Stocks To Buy
                   <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#475467] transition-all duration-300 group-hover:w-full"></div>
                 </div>
               </div>
               <img src="/assets/stock-details/chevron-right.svg" alt="" />
-              <div className="text-[13px] text-[#475467] font-semibold">
+              <div className="text-[13px] text-[#475467] font-semibold max-[138px] truncate">
                 {stock_name}
+              </div>
+            </div>
+
+            {/* small screen banner of top navbar-tabs  */}
+            <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-14  z-50 ">
+              {/* Back Button */}
+              <div
+                className=""
+                onClick={() => router.push("/stock-picks")}
+              >
+                <img
+                  src="/assets/stock-details/arrow-left.svg"
+                  alt="Go Back"
+                  className="pl-[16px] pt-2 pr-3"
+                />
+              </div>
+              {/* Tab Items */}
+              <div className="flex  ">
+                {tabs.map((tab) => (
+                  <a
+                    key={tab}
+
+                    onClick={() => handleTabClick(tab)}
+                    className={`pb-2 ${activeTab === tab
+                      ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
+                      : "text-gray-500 px-[10px] py-[18px] text-sm"
+                      }`}
+                  >
+                    {tab}
+                  </a>
+                ))}
               </div>
             </div>
             {/* details  */}
@@ -141,13 +237,13 @@ function StockDetailsSection() {
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="   col-span-2">
                   {/* First Content Start */}
-                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto bg-white rounded-lg shadow-sm">
+                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto bg-white rounded-lg shadow-sm" ref={summaryRef}>
                     <div className="flex  order-1 sm:order-1 relative ">
                       {/* Buy Images  */}
                       <img
                         src="/assets/BuyBubbleBlue.webp"
                         alt=""
-                        className="block sm:hidden absolute -top-6 right-3 w-[58px] h-[60px]"
+                        className="block sm:hidden absolute -top-5 right-2 w-[58px] h-[60px]"
                       />
                       {/* Sell Images */}
                       {/* <img
@@ -229,7 +325,7 @@ function StockDetailsSection() {
                                 {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
                                 <p className="text-2xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
-                                  stock_exchange == "SME-BSE"
+                                    stock_exchange == "SME-BSE"
                                     ? "BSE: "
                                     : "NSE: "}
                                   {stock_symbol}
@@ -436,8 +532,8 @@ function StockDetailsSection() {
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
-                            ? "Go to Broker"
-                            : "Sell Now"}
+                              ? "Go to Broker"
+                              : "Sell Now"}
                         </span>
                       </button>
                       <InvestModal
@@ -506,9 +602,8 @@ function StockDetailsSection() {
                           <div className="flex flex-col md:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -565,9 +660,8 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -811,105 +905,97 @@ function StockDetailsSection() {
                   </div>
 
                   {/* Small Responsive size View Open the box  */}
-                  <div className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5">
+                  <div className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5" ref={UpsideLeftRef}>
                     <div className="  rounded-lg">
-                      <div className="bg-custom-gradient text-white rounded-lg p-4">
-                        <div className="flex justify-between items-center">
-                          <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
-                            Upside Left
-                            {/* Tooltip for large screens and Modal Trigger for small screens */}
-                            <div className="relative group hidden sm:block">
-                              {/* Tooltip (Visible on large screens) */}
-                              <img
-                                src="/assets/ph_info-duotone.svg"
-                                alt="Info"
-                                className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                              />
-                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
-                                <div className="w-full grid gap-1 relative">
-                                  <img
-                                    src="/assets/div.png"
-                                    alt=""
-                                    className="h-8 w-5 absolute -top-4 left-[46%]"
-                                  />
-                                  <p className="text-[12px] font-open_sans">
-                                    Upside Left means how much the stock price
-                                    could rise from its current level.
-                                  </p>
-                                  <div className="p-2 bg-[#F9FAFB] rounded-md">
-                                    <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">
-                                      Example :
-                                    </h4>
+                      <div className="bg-white rounded-t-lg p-4">
+                        <div className="bg-custom-gradient text-white rounded-lg p-4">
+                          <div className="flex justify-between items-center">
+                            <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
+                              Upside Left
+
+                              {/* Tooltip for large screens and Modal Trigger for small screens */}
+                              <div className="relative group hidden sm:block">
+                                {/* Tooltip (Visible on large screens) */}
+                                <img
+                                  src="/assets/ph_info-duotone.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                />
+                                <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
+                                  <div className="w-full grid gap-1 relative">
+                                    <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[46%]" />
                                     <p className="text-[12px] font-open_sans">
-                                      If a stock's price is ₹100 and the Upside
-                                      Left is 20%, it might go up to ₹120.
+                                      Upside Left means how much the stock price could rise from its current level.
                                     </p>
+                                    <div className="p-2 bg-[#F9FAFB] rounded-md">
+                                      <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">
+                                        Example :
+                                      </h4>
+                                      <p className="text-[12px] font-open_sans">
+                                        If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            {/* Modal Trigger for small screens */}
-                            <div className="sm:hidden">
-                              <img
-                                src="/assets/ph_info-duotone.svg"
-                                alt="Info"
-                                className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                onClick={openModal}
-                              />
-                            </div>
-                          </h2>
 
-                          <img
-                            src="/assets/stock-details/streamline_target-solid (1).svg"
-                            alt=""
-                          />
-                        </div>
+                              {/* Modal Trigger for small screens */}
+                              <div className="sm:hidden">
+                                <img
+                                  src="/assets/ph_info-duotone.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                  onClick={openModal}
+                                />
+                              </div>
+                            </h2>
 
-                        {/* Modal for small screens */}
-                        {isModalOpen && (
-                          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
-                            <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
-                              {/* Modal Header */}
-                              <div className="w-full flex justify-between items-center gap-1">
-                                <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
-                                  Upside Left
-                                </h3>
-                                <button
-                                  className="text-[30px] text-gray-500 hover:text-gray-700"
-                                  onClick={closeModal}
-                                >
-                                  &times;
-                                </button>
-                              </div>
-
-                              {/* Modal Body */}
-                              <div className="mt-2 text-gray-800 text-sm font-open_sans">
-                                Upside Left means how much the stock price could
-                                rise from its current level.
-                              </div>
-                              <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
-                                <span className="text-[#108973] text-sm font-bold font-open_sans">
-                                  Example :
-                                </span>
-                                <p className="text-sm text-gray-600 mt-1 font-open_sans">
-                                  If a stock's price is ₹100 and the Upside Left
-                                  is 20%, it might go up to ₹120.
-                                </p>
-                              </div>
-                            </div>
+                            <img
+                              src="/assets/stock-details/streamline_target-solid (1).svg"
+                              alt=""
+                            />
                           </div>
-                        )}
 
-                        <div className="flex items-center gap-2">
-                          <p className="text-display-xs font-bold  font-open_sans">
-                            {upside_left}%
-                          </p>
-                          <p className="text-sm font-open_sans mt-1">
-                            in {upside_left_time}
-                          </p>
+                          {/* Modal for small screens */}
+                          {isModalOpen && (
+                            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
+                              <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
+                                {/* Modal Header */}
+                                <div className="w-full flex justify-between items-center gap-1">
+                                  <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">Upside Left</h3>
+                                  <button
+                                    className="text-[30px] text-gray-500 hover:text-gray-700"
+                                    onClick={closeModal}
+                                  >
+                                    &times;
+                                  </button>
+                                </div>
+
+                                {/* Modal Body */}
+                                <div className="mt-2 text-gray-800 text-sm font-open_sans">
+                                  Upside Left means how much the stock price could rise from its current level.
+                                </div>
+                                <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
+                                  <span className="text-[#108973] text-sm font-bold font-open_sans">Example :</span>
+                                  <p className="text-sm text-gray-600 mt-1 font-open_sans">
+                                    If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="flex items-center gap-2">
+                            <p className="text-display-xs font-bold  font-open_sans">
+                              {upside_left}%
+                            </p>
+                            <p className="text-sm font-open_sans mt-1">
+                              in {upside_left_time}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <div className="bg-gray-50 p-4 rounded-lg">
+                      <div className="bg-gray-50 px-4 pb-2 rounded-lg">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center">
                             <img src="/assets/hj1.svg" alt="" />
@@ -977,7 +1063,7 @@ function StockDetailsSection() {
                       </div>
                     </div>
 
-                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base font-normal gap-1 font-open_sans">
+                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base leading-6 font-normal  gap-1 font-open_sans">
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
                         ₹1Lakh{" "}
                       </span>
@@ -1001,7 +1087,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[72px]  p-3 hidden sm:block">
+                  <div className="pt-[72px]  px-3 hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
@@ -1076,7 +1162,7 @@ function StockDetailsSection() {
                   </div>
 
                   {/* When small Screen Time-line & Report Section show  */}
-                  <div className="mt-5 block  rounded-lg py-[24px] px-[16px] sm:hidden md:hidden mb-5 bg-white">
+                  <div className="mt-5 block  rounded-lg py-[24px] px-[16px] sm:hidden md:hidden mb-5 bg-white" ref={ReportsRef}>
                     <button
                       className="w-full    p-0 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
@@ -1085,9 +1171,8 @@ function StockDetailsSection() {
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1104,7 +1189,7 @@ function StockDetailsSection() {
                     {isOpen && (
                       <div className="mt-2">
                         {/* Timeline Content Goes Here */}
-                        <div className="p-4 border rounded-lg">
+                        <div className="">
                           <StockDetailsTimeline timeline={timeline} />
                         </div>
                       </div>
@@ -1112,8 +1197,8 @@ function StockDetailsSection() {
                   </div>
 
                   {/* News Section Start */}
-                  <div className=" sm:pt-[78px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-                    <h2 className="text-[#0C111D] text-[14px] font-semibold font-open_sans px-1">
+                  <div className=" sm:pt-[72px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto " ref={newsRef}>
+                    <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-semibold font-open_sans px-1">
                       News
                     </h2>
                     <StockDetailsNews stock_name={stock_name} />
@@ -1124,7 +1209,7 @@ function StockDetailsSection() {
 
                 {/* Second Container Start */}
                 <div className="relative hidden   sm:block ">
-                  <div className="bg-[#EDF0F5] sticky top-16 p-2 rounded-t-lg">
+                  <div className="bg-[#EDF0F5] sticky top-16 p-2 rounded-lg">
                     <div className="p-5 border rounded-lg  bg-white">
                       <h2 className="font-bold font-open_sans text-sm mb-[22px]  hidden sm:flex">
                         INVESTMENT GUIDANCE
@@ -1148,9 +1233,7 @@ function StockDetailsSection() {
                                   alt="Play icon"
                                   className="w-5 h-5 transition duration-300 "
                                 />
-                                <span className="text-nowrap text-[14px]">
-                                  Watch Video
-                                </span>
+                                <span className="text-nowrap text-[16px]">Watch Video</span>
                               </button>
                             </div>
                           ) : (
@@ -1161,7 +1244,7 @@ function StockDetailsSection() {
                                   alt="Play icon"
                                   className="w-5 h-5"
                                 />
-                                <span className="text-nowrap text-[14px] font-medium text-gray-400">
+                                <span className="text-nowrap text-[16px] font-medium text-gray-400">
                                   Watch Video
                                 </span>
                               </button>
@@ -1191,22 +1274,23 @@ function StockDetailsSection() {
                         {/* Share Button */}
                         <div className="flex-1 group">
                           <button
-                            className="w-full border  group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            className="w-full border group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                             onClick={handleMainModalOpen}
                           >
                             <img
                               src="/assets/share2.svg"
                               alt="Share icon"
-                              className="w-5 h-5 transition duration-300 "
+                              className="w-5 h-5 transition duration-300"
                             />
-                            <span className="text-nowrap text-[14px]">
+                            <span className="text-nowrap text-[16px]">
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
-                                ? "Go to Broker"
-                                : "Sell Now"}
+                                  ? "Go to Broker"
+                                  : "Sell Now"}
                             </span>
                           </button>
+
                           <InvestModal
                             handleMainModalOpen={handleMainModalOpen}
                             handleMainModalClose={handleMainModalClose}
@@ -1292,9 +1376,8 @@ function StockDetailsSection() {
                             TIMELINE & REPORTS ({timeline.length || 0})
                           </span>
                           <svg
-                            className={`transform w-5 h-5 transition-transform duration-200 ${
-                              isOpen ? "rotate-180" : ""
-                            }`}
+                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                              }`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"

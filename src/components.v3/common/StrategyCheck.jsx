@@ -242,61 +242,63 @@ export default function StrategyCheck() {
                       All
                     </Typography>
                   </ListSubheader>
-                  {filteredTags.map(([key, displayValue], index) => (
-                    <MenuItem
-                      autoFocus={false}
-                      key={index}
-                      value={key}
-                      onClick={async () => {
-                        const currentIndex = strategyTag.indexOf(key);
-                        const newStrategyTag = [...strategyTag];
-                        if (currentIndex === -1) {
-                          addPopularStrategies(key);
-                          newStrategyTag.push(key);
-                        } else {
-                          newStrategyTag.splice(currentIndex, 1);
-                        }
-                        await setStrategyTag(newStrategyTag);
-                        setIsChangeFilter(true);
-                      }}
-                      sx={{
-                        padding: "8px",
-                        height: "36px",
+                  {filteredTags.length
+                    ? filteredTags.map(([key, displayValue], index) => (
+                        <MenuItem
+                          autoFocus={false}
+                          key={index}
+                          value={key}
+                          onClick={async () => {
+                            const currentIndex = strategyTag.indexOf(key);
+                            const newStrategyTag = [...strategyTag];
+                            if (currentIndex === -1) {
+                              addPopularStrategies(key);
+                              newStrategyTag.push(key);
+                            } else {
+                              newStrategyTag.splice(currentIndex, 1);
+                            }
+                            await setStrategyTag(newStrategyTag);
+                            setIsChangeFilter(true);
+                          }}
+                          sx={{
+                            padding: "8px",
+                            height: "36px",
 
-                        fontFamily: "Open Sans !important", // Set font to Open Sans
-                        backgroundColor: strategyTag.includes(key)
-                          ? "#E7F8F8"
-                          : "transparent",
-                        "&:hover": {
-                          backgroundColor: strategyTag.includes(key)
-                            ? "#cde6e6"
-                            : "#E0F7FA",
-                        },
-                        "& .MuiTypography-root": {
-                          fontSize: "14px !important",
-                          fontFamily: '"Open Sans", sans-serif !important', // Target MUI typography
-                        },
-                      }}
-                    >
-                      <Checkbox
-                        checked={strategyTag.indexOf(key) > -1}
-                        sx={{
-                          color: strategyTag.includes(key)
-                            ? "#108973 !important"
-                            : "#E4E7EC",
-                          padding: "0 8px 0 0",
-                          fontFamily: "Open Sans !important", // Set font to Open Sans
-                        }}
-                      />
-                      <ListItemText
-                        primary={displayValue}
-                        sx={{
-                          margin: 0,
-                          ...commonStyles,
-                        }}
-                      />
-                    </MenuItem>
-                  ))}
+                            fontFamily: "Open Sans !important", // Set font to Open Sans
+                            backgroundColor: strategyTag.includes(key)
+                              ? "#E7F8F8"
+                              : "transparent",
+                            "&:hover": {
+                              backgroundColor: strategyTag.includes(key)
+                                ? "#cde6e6"
+                                : "#E0F7FA",
+                            },
+                            "& .MuiTypography-root": {
+                              fontSize: "14px !important",
+                              fontFamily: '"Open Sans", sans-serif !important', // Target MUI typography
+                            },
+                          }}
+                        >
+                          <Checkbox
+                            checked={strategyTag.indexOf(key) > -1}
+                            sx={{
+                              color: strategyTag.includes(key)
+                                ? "#108973 !important"
+                                : "#E4E7EC",
+                              padding: "0 8px 0 0",
+                              fontFamily: "Open Sans !important", // Set font to Open Sans
+                            }}
+                          />
+                          <ListItemText
+                            primary={displayValue}
+                            sx={{
+                              margin: 0,
+                              ...commonStyles,
+                            }}
+                          />
+                        </MenuItem>
+                      ))
+                    : "No Strategy Tag Found"}
                 </Box>
               </ClickAwayListener>
             </Paper>

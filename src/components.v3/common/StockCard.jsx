@@ -100,8 +100,8 @@ function StockCard({
               <div className="pt-[20px] px-[20px] flex items-center justify-between overflow-hidden">
                 <Link href={`/stock-picks/${id}`}>
                   <p
-                    className={`text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
-                      hovered ? "max-w-[170px]" : "max-w-52"
+                    className={`text-gray-950 text-md font-bold leading-7 text-ellipsis font-open_sans line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
+                      hovered ? "max-w-[170px]" : "max-w-60"
                     }`}
                   >
                     {stock_name}

@@ -12,7 +12,6 @@ import {
   AccordionDetails,
   FormGroup,
   FormControlLabel,
-  totalFilterCount,
   Checkbox,
   Drawer,
   styled,
@@ -47,6 +46,7 @@ function DrawerFilter() {
     sebiBoardType,
     addPopularStrategies,
     removePopularStrategies,
+    changablestrategyTags,
   } = useStockPicks();
 
   const {
@@ -185,7 +185,7 @@ function DrawerFilter() {
     const index = event.target.name === "min" ? 0 : 1;
     const newValue = [...tempUpsideLeft];
     newValue[index] =
-      event.target.value === "" ? "" : Number(event.target.value);
+      event.target.value === "" ? "" : parseFloat(event.target.value);
     setTempUpsideLeft(newValue);
   };
 
@@ -199,7 +199,7 @@ function DrawerFilter() {
     const index = event.target.name === "min" ? 0 : 1;
     const newValue = [...tempReturns];
     newValue[index] =
-      event.target.value === "" ? "" : Number(event.target.value);
+      event.target.value === "" ? "" : parseFloat(event.target.value);
     setTempReturns(newValue);
   };
 
@@ -259,23 +259,22 @@ function DrawerFilter() {
     setValue(newValue);
   };
 
-  const marks = [
-    {
-      value: 0,
-    },
-    {
-      value: 25,
-    },
-    {
-      value: 50,
-    },
-    {
-      value: 75,
-    },
-    {
-      value: 100,
-    },
-  ];
+  const generateMarks = (min, max, numberOfMarks) => {
+    const stepSize = (max - min) / (numberOfMarks - 1);
+    const marksArray = [];
+
+    for (let i = 0; i < numberOfMarks; i++) {
+      const value = min + i * stepSize;
+      marksArray.push({ value });
+    }
+
+    return marksArray;
+  };
+
+  const upside_left_marks = generateMarks(min_upside_left, max_upside_left, 5);
+
+  const returns_marks = generateMarks(min_returns, max_returns, 5);
+
   return (
     <>
       {!isMobile ? (
@@ -394,21 +393,22 @@ function DrawerFilter() {
                         value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
                         // valueLabelDisplay="auto"
-                        // min={min_upside_left}
-                        // max={max_upside_left}
+                        min={min_upside_left}
+                        max={max_upside_left}
                         valueLabelDisplay="auto"
                         aria-label="custom slider"
                         defaultValue={50}
-                        marks={marks}
+                        marks={upside_left_marks}
                         step={null}
-                        min={0}
-                        max={100}
+                        // min={0}
+                        // max={100}
                       />
                       <Grid container spacing={2} alignItems="center" pt={2}>
                         <Grid item xs={5}>
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="min"
                             value={tempUpsideLeft ? tempUpsideLeft[0] : 0}
                             onChange={handleUpsideLeftInputChange}
@@ -436,6 +436,7 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="max"
                             value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
                             onChange={handleUpsideLeftInputChange}
@@ -686,6 +687,7 @@ function DrawerFilter() {
                         valueLabelDisplay="auto"
                         min={min_returns}
                         max={max_returns}
+                        marks={returns_marks}
                       />
 
                       <Grid container spacing={2} alignItems="center" pt={2}>
@@ -693,6 +695,7 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="min"
                             value={tempReturns ? tempReturns[0] : 0}
                             onChange={handleReturnsInputChange}
@@ -725,6 +728,7 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="max"
                             value={tempReturns ? tempReturns[1] : 0}
                             onChange={handleReturnsInputChange}
@@ -1160,11 +1164,10 @@ function DrawerFilter() {
                     alignItems: "start !important",
                     justifyContent: "start",
                     bgcolor: "#FAFAFA",
-                    width: 121,
+                    width: 143,
                     borderRightColor: "#fff",
                     height: "100% !important",
                     // padding: "14px 8px 14px 16px",
-
                     color: "#5F6368", // Match text color for tabs
                   }}
                 >
@@ -1177,17 +1180,37 @@ function DrawerFilter() {
                       minHeight: "0px",
                     }}
                     label={
-                      <Box className="items-start !important font-open_sans capitalize">
+                      <Box className="items-start !important font-open_sans capitalize flex">
                         Upside Left
+                        {!(
+                          upsideLeft[0] === min_upside_left &&
+                          upsideLeft[1] === max_upside_left
+                        ) && (
+                          <>
+                            <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </div>
+                          </>
+                        )}
                       </Box>
                     }
                     {...a11yProps(0)}
-                    // {totalFilterCount > 0 && (
-                    //   <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex font-open_sans">
-                    //     {totalFilterCount}
-                    //   </div>
-                    // )}
                   />
+
                   <Tab
                     sx={{
                       display: "flex",
@@ -1198,7 +1221,23 @@ function DrawerFilter() {
                       textTransform: "capitalize",
                       minHeight: "0px",
                     }}
-                    label="Recency"
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Recency
+                          {!!Object.keys(recency).filter((key) => recency[key])
+                            .length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {
+                                Object.keys(recency).filter(
+                                  (key) => recency[key]
+                                ).length
+                              }
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
                     {...a11yProps(1)}
                   />
                   <Tab
@@ -1211,7 +1250,24 @@ function DrawerFilter() {
                       textTransform: "capitalize",
                       minHeight: "0px",
                     }}
-                    label="Time Left"
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Time Left
+                          {!!Object.keys(timeLeft).filter(
+                            (key) => timeLeft[key]
+                          ).length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {
+                                Object.keys(timeLeft).filter(
+                                  (key) => timeLeft[key]
+                                ).length
+                              }
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
                     {...a11yProps(2)}
                   />
                   <Tab
@@ -1226,7 +1282,35 @@ function DrawerFilter() {
                       minHeight: "0px",
                     }}
                     // Total Returns
-                    label="Total Return"
+                    label={
+                      <Box className="items-start !important font-open_sans capitalize flex">
+                        Total Return
+                        {!(
+                          returns[0] === min_returns &&
+                          returns[1] === max_returns
+                        ) && (
+                          <>
+                            <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </div>
+                          </>
+                        )}
+                      </Box>
+                    }
                     {...a11yProps(3)}
                   />
                   {sebiBoardType == "mainboard" && (
@@ -1240,7 +1324,32 @@ function DrawerFilter() {
                         textTransform: "capitalize",
                         minHeight: "0px",
                       }}
-                      label="Market Cap"
+                      label={
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Market Cap
+                          {!!marketCapType && (
+                            <>
+                              <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="18"
+                                  height="18"
+                                  viewBox="0 0 12 12"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                    stroke="white"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
+                              </div>
+                            </>
+                          )}
+                        </Box>
+                      }
                       {...a11yProps(4)}
                     />
                   )}
@@ -1254,7 +1363,18 @@ function DrawerFilter() {
                       textTransform: "capitalize",
                       minHeight: "0px",
                     }}
-                    label="Sectors"
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Sectors
+                          {!!sector.length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {sector.length}
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
                     {...a11yProps(5)}
                   />
                   <Tab
@@ -1267,7 +1387,18 @@ function DrawerFilter() {
                       textTransform: "capitalize",
                       minHeight: "0px",
                     }}
-                    label="Strategies"
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Strategies
+                          {!!changablestrategyTags.length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {changablestrategyTags.length}
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
                     {...a11yProps(6)}
                   />
                   <Tab
@@ -1280,7 +1411,32 @@ function DrawerFilter() {
                       textTransform: "capitalize",
                       minHeight: "0px",
                     }}
-                    label="Risk"
+                    label={
+                      <Box className="items-start !important font-open_sans capitalize flex">
+                        Risk
+                        {!!risk && (
+                          <>
+                            <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </div>
+                          </>
+                        )}
+                      </Box>
+                    }
                     {...a11yProps(7)}
                   />
                 </Tabs>
@@ -1298,15 +1454,15 @@ function DrawerFilter() {
                         value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
                         // valueLabelDisplay="auto"
-                        // min={min_upside_left}
-                        // max={max_upside_left}
+                        min={min_upside_left}
+                        max={max_upside_left}
                         valueLabelDisplay="auto"
                         aria-label="custom slider"
                         defaultValue={50}
-                        marks={marks}
+                        marks={upside_left_marks}
                         step={null}
-                        min={0}
-                        max={100}
+                        // min={0}
+                        // max={100}
                       />
 
                       <Grid alignItems="center" overflowX="hidden">
@@ -1314,6 +1470,7 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="min"
                             value={tempUpsideLeft ? tempUpsideLeft[0] : 0}
                             onChange={handleUpsideLeftInputChange}
@@ -1348,6 +1505,7 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="max"
                             value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
                             onChange={handleUpsideLeftInputChange}
@@ -1476,6 +1634,7 @@ function DrawerFilter() {
                         valueLabelDisplay="auto"
                         min={min_returns}
                         max={max_returns}
+                        marks={returns_marks}
                       />
 
                       <Grid alignItems="center">
@@ -1483,6 +1642,7 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="min"
                             value={tempReturns ? tempReturns[0] : 0}
                             onChange={handleReturnsInputChange}
@@ -1514,6 +1674,7 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="max"
                             value={tempReturns ? tempReturns[1] : 0}
                             onChange={handleReturnsInputChange}
@@ -1625,6 +1786,12 @@ function DrawerFilter() {
                                           checked={tempStrategyTag.includes(
                                             key
                                           )}
+                                          sx={{
+                                            color: "default", // Default color
+                                            "&.Mui-checked": {
+                                              color: "#125B54", // Color when checked
+                                            },
+                                          }}
                                           onChange={handleChangestrategyTag}
                                           name={key}
                                         />
