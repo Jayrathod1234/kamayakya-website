@@ -104,7 +104,6 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
           sx={{
             display: "flex",
             width: isMobile ? "100%" : "100%",
-            // width: "757px",
             overflow: { sm: "hidden", xs: "auto" },
           }}
           ref={containerRef}
@@ -112,7 +111,6 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
           <Box
             sx={{
               width: "100%",
-              // backgroundColor: "#f2f4f7",
               backgroundColor: isMobile ? "transparent" : "#f2f4f7",
               display: "flex",
               alignItems: "center",
