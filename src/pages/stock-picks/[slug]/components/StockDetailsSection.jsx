@@ -1087,7 +1087,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[72px]  px-3 hidden sm:block">
+                  <div className="pt-[72px]  px-[4px] hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
@@ -1198,7 +1198,7 @@ function StockDetailsSection() {
 
                   {/* News Section Start */}
                   <div className=" sm:pt-[72px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto " ref={newsRef}>
-                    <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-semibold font-open_sans px-1">
+                    <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-semibold font-open_sans px-1 mb-0">
                       News
                     </h2>
                     <StockDetailsNews stock_name={stock_name} />

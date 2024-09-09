@@ -139,7 +139,7 @@ function AllBoardStockSection() {
         className=" bg-[#F2F4F7] py-10  relative sm:overflow-visible overflow-hidden "
         ref={showFilterRef}
       >
-        <div className="w-[min(1280px,calc(100%-32px))]  mx-auto">
+        <div className="w-full sm:px-0 px-[1px] sm:w-[min(1280px,calc(100%-32px))]  mx-auto">
           <div className="grid grid-cols-auto-fill gap-x-5 gap-y-6">
             {isLoading || error ? (
               <StockCardSkeleton length={9} />

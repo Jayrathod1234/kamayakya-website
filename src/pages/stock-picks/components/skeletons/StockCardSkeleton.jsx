@@ -3,7 +3,7 @@ import { Skeleton, Box } from "@mui/material";
 
 function StockCardSkeleton({ length }) {
   return Array.from({ length }).map((_, index) => (
-    <Box key={index} className="relative rounded-lg bg-white shadow-6xs">
+    <Box key={index} className="relative w-[300px] rounded-lg bg-white shadow-6xs">
       <Box
         className="relative rounded-lg bg-white shadow-6xs border border-gray-200"
         p={2}

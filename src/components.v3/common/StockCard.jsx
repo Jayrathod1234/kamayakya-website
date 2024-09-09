@@ -22,6 +22,7 @@ function StockCard({
   latest_youtube_video,
   className = "",
   style,
+  isCarousal = false
 }) {
   const { stockSector } = useStockPicks();
   let tabImage = null;
@@ -56,8 +57,8 @@ function StockCard({
     <>
       {/* new stock card  */}
       <div
-        className={`relative min-w-[330px]  
-        ${className}  main_card_carousel `}
+        className={`relative   
+        ${className}  main_card_carousel ${isCarousal ? "min-w-[360px] sm:min-w-[404px]":"min-w-[330px]"}`}
       >
         <div
           className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
