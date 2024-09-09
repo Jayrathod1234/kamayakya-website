@@ -37,7 +37,7 @@ function LatestReleases({ isLimitedView }) {
   } else if (isminlaptop) {
     cardsToShow = 3;
   } else if (islaptop) {
-    cardsToShow = 3;
+    cardsToShow = 4;
   }
 
   return (

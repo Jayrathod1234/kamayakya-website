@@ -1,11 +1,17 @@
 import { useContext } from "react";
 
 import { Footer, Navbar } from "@/components.v2/index.components";
-
+import { useMediaQuery } from "@mui/material";
+import { useRouter } from "next/router";
 const StockPicks = ({ children }) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+
+  const router = useRouter();
+  const pathname = router.pathname;
+  console.log({pathname})
   return (
       <>
-          <div className=" navbar sticky top-0 z-[1111] ">
+          <div className={`navbar  z-[1111] ${isMobile && pathname == "/stock-picks/[slug]" ?'':'sticky top-0'}`}    >
             <Navbar />
           </div>
           {children}

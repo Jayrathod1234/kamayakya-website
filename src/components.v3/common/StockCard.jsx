@@ -103,9 +103,8 @@ function StockCard({
               <div className="pt-[20px] px-[20px] flex items-center justify-between overflow-hidden">
                 <Link href={`/stock-picks/${id}`}>
                   <p
-                    className={`text-gray-950 text-md font-bold leading-7 text-ellipsis font-open_sans line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
-                      hovered ? "max-w-[170px]" : "max-w-60"
-                    }`}
+                    className={`text-gray-950 text-md font-bold leading-7 text-ellipsis font-open_sans line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${hovered ? "max-w-[170px]" : "max-w-60"
+                      }`}
                   >
                     {stock_name}
                   </p>
@@ -118,9 +117,8 @@ function StockCard({
                   >
                     {/* GIF Image */}
                     <div
-                      className={`absolute right-0 transition-transform duration-500 ease-in-out ${
-                        hovered ? "translate-x-[-65px]" : "translate-x-[5px]"
-                      } ${hovered ? "me-7" : "me-3"}`}
+                      className={`absolute right-0 transition-transform duration-500 ease-in-out ${hovered ? "translate-x-[-65px]" : "translate-x-[5px]"
+                        } ${hovered ? "me-7" : "me-3"}`}
                     >
                       <div
                         className="w-full cursor-pointer"
@@ -134,22 +132,20 @@ function StockCard({
                         <img
                           src="/assets/play.gif"
                           alt="Play"
-                          className={`w-[24px] transition-transform duration-500 ease-in-out ${
-                            hovered
+                          className={`w-[24px] transition-transform duration-500 ease-in-out ${hovered
                               ? "filter brightness-0 sepia opacity-100"
                               : ""
-                          }`}
+                            }`}
                         />
                       </div>
                     </div>
 
                     {/* Text container */}
                     <div
-                      className={`transition-transform duration-500 ease-in-out ${
-                        hovered
+                      className={`transition-transform duration-500 ease-in-out ${hovered
                           ? "-translate-x-1 opacity-100"
                           : "translate-x-[80px] opacity-0"
-                      }`}
+                        }`}
                     >
                       <a
                         href={latest_youtube_video?.youtube_link}
@@ -263,7 +259,7 @@ function StockCard({
 
                     {/* Modal (only opens on small screens) */}
                     {isModalOpen && (
-                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm sm:hidden">
                         <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
                           {/* Modal Header */}
                           <div className="w-full flex justify-between items-center">
@@ -280,16 +276,14 @@ function StockCard({
 
                           {/* Modal Body */}
                           <div className="mt-2 text-gray-800 text-sm text-left font-open_sans">
-                            Upside Left means how much the stock price could
-                            rise from its current level.
+                            Upside Left means how much the stock price could rise from its current level.
                           </div>
                           <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left ">
                             <span className="text-[#108973] text-sm font-bold text-left font-open_sans">
                               Example :
                             </span>
                             <p className="text-sm text-gray-600 mt-1 text-left font-open_sans">
-                              If a stock's price is ₹100 and the Upside Left is
-                              20%, it might go up to ₹120.
+                              If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
                             </p>
                           </div>
                         </div>

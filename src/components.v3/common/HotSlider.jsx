@@ -155,6 +155,16 @@ export function HotSlider({ children }) {
       .on("scroll", tweenScale)
       .on("slideFocus", tweenScale);
   }, [emblaApi, tweenScale]);
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const timer = setInterval(() => {
+      if (!emblaApi) return;
+      emblaApi.scrollNext();
+    }, 6000); // Matches the autoplay delay
+
+    return () => clearInterval(timer);
+  }, [emblaApi]);
   return (
     <div className={`relative w-full m-auto `}>
       <div className="flex">
@@ -230,13 +240,21 @@ export function HotSlider({ children }) {
           <div
             onClick={() => onDotButtonClick(index)}
             key={index}
-            className={`${index === selectedIndex
-                ? "w-5 h-3  bg-brand-300 rounded-md"
-                : "w-3 bg-gray-200 rounded-full"
-              } aspect-square  `}
-          ></div>
+            className={`relative bg-gray-200 rounded-md overflow-hidden ${index === selectedIndex ? "bg-brand-300 w-4 h-2" : "w-2 h-2"}`}
+          >
+            {/* Progress bar inside the indicator */}
+            <div
+              className={`absolute left-0 top-0 h-full bg-brand-300 ${index === selectedIndex ? "animate-fill" : ""}`}
+              style={{
+                animationDuration: `6000ms`, // Match the autoplay delay, for example, 6 seconds
+                animationTimingFunction: "linear",
+                animationIterationCount: "1", // The fill animation will happen only once per indicator
+              }}
+            ></div>
+          </div>
         ))}
       </div>
+
 
     </div>
   );

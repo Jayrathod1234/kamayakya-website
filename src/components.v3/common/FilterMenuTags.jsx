@@ -197,6 +197,7 @@ const FilterCarousel = () => {
                           chip.id == "most-recent"
                             ? "brightness(100)"
                             : "none",
+                        gap:"1px"
                       }}
                     />
                   }
@@ -211,12 +212,13 @@ const FilterCarousel = () => {
                   deleteIcon={
                     <CloseIcon
                       sx={{
-                        color: strategyTag.includes(chip.id)
-                          ? "white !important"
-                          : "inherit",
+                        color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
+                        backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
+                        borderRadius: "50%", // Make it rounded
+                        padding: "4px", // Add padding for spacing
                       }}
                     />
-                  }
+                  }                  
                   sx={{
                     paddingLeft: "8px",
                     paddingRight: "8px",
