@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Menu,
@@ -60,6 +60,9 @@ export default function CustomSortMenu({ isLabel }) {
 
     handleClose();
   };
+  useEffect(() => {
+    document.addEventListener("scroll", handleClose);
+  }, []);
   const Puller = styled("div")(({ theme }) => ({
     width: 45,
     height: 5,
@@ -216,7 +219,8 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "189px",
+                          left: "199px",
+                          padding: "0px",
                         }}
                       />
                     }
@@ -278,7 +282,8 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "189px",
+                          left: "199px",
+                          padding: "0px",
                         }}
                       />
                     }
@@ -370,7 +375,8 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "189px",
+                          left: "199px",
+                          padding: "0px",
                         }}
                       />
                     }
@@ -425,7 +431,8 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "189px",
+                          left: "199px",
+                          padding: "0px",
                         }}
                       />
                     }
@@ -500,7 +507,8 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "189px",
+                          left: "199px",
+                          padding: "0px",
                         }}
                       />
                     }
@@ -554,7 +562,8 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "189px",
+                          left: "199px",
+                          padding: "0px",
                         }}
                       />
                     }
@@ -624,7 +633,8 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "189px",
+                          left: "199px",
+                          padding: "0px",
                         }}
                       />
                     }
@@ -678,7 +688,8 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "189px",
+                          left: "199px",
+                          padding: "0px",
                         }}
                       />
                     }

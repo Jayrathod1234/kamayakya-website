@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   MenuItem,
   Checkbox,
@@ -41,7 +41,9 @@ export default function StrategyCheck() {
   const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
   };
-
+  useEffect(() => {
+    document.addEventListener("scroll", handleClose);
+  }, []);
   const handleSelectAllClick = async () => {
     if (changablestrategyTags.length === strategy_tag_list_arr.length) {
       strategy_tag_list_arr.forEach(async (element) => {
