@@ -117,6 +117,7 @@ export default function CustomSortMenu({ isLabel }) {
           // marginTop: "20px",
           border: "1px solid #B2DFDB",
           fontFamily: "Open Sans",
+          letterSpacing: "0px !important",
         }}
       >
         <svg
@@ -131,7 +132,14 @@ export default function CustomSortMenu({ isLabel }) {
             fill="#0C111D"
           />
         </svg>
-        <span style={{ color: "#1E555C", fontWeight: 600 }}>
+        <span
+          style={{
+            color: "#1E555C",
+            fontWeight: 600,
+            fontSize: "14px",
+            letterSpacing: "0px !important",
+          }}
+        >
           {radioButtonValue[selectedValue]}
         </span>
         <svg
@@ -195,7 +203,12 @@ export default function CustomSortMenu({ isLabel }) {
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem sx={{ height: "36px" }}>
+                <MenuItem
+                  sx={{
+                    height: "36px",
+                    marginBottom: "10px",
+                  }}
+                >
                   <FormControlLabel
                     value="upside_left_desc"
                     control={
@@ -208,7 +221,7 @@ export default function CustomSortMenu({ isLabel }) {
                       />
                     }
                     label={
-                      <Box display="flex" alignItems="center">
+                      <Box display="flex" alignItems="center" sx={{}}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -253,7 +266,11 @@ export default function CustomSortMenu({ isLabel }) {
                     }
                   />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
                   <FormControlLabel
                     value="upside_left_asc"
                     control={
@@ -341,7 +358,11 @@ export default function CustomSortMenu({ isLabel }) {
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem>
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
                   <FormControlLabel
                     value="recency_desc"
                     control={
@@ -392,7 +413,11 @@ export default function CustomSortMenu({ isLabel }) {
                     }
                   />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
                   <FormControlLabel
                     value="recency_asc"
                     control={
@@ -463,7 +488,11 @@ export default function CustomSortMenu({ isLabel }) {
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem>
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
                   <FormControlLabel
                     value="time_left_desc"
                     control={
@@ -513,7 +542,11 @@ export default function CustomSortMenu({ isLabel }) {
                     }
                   />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
                   <FormControlLabel
                     value="time_left_asc"
                     control={
@@ -633,7 +666,11 @@ export default function CustomSortMenu({ isLabel }) {
                     }
                   />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
                   <FormControlLabel
                     value="returns_asc"
                     control={
@@ -698,6 +735,12 @@ export default function CustomSortMenu({ isLabel }) {
             open={Boolean(anchorEl)}
             anchor={anchorEl}
             onClose={handleClose}
+            ModalProps={{
+              keepMounted: true, // Keeps mounted so you can style it
+              sx: {
+                backdropFilter: "blur(2px)", // Apply blur effect when drawer is open
+              },
+            }}
             // sx={{ display: isMobile ? "none" : "block" }}
             PaperProps={{
               style: {

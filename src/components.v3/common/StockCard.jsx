@@ -204,7 +204,7 @@ function StockCard({
                     <img
                       src="/assets/streamline_target-solid.svg"
                       alt=""
-                      className="sm:w-7 w-[18px]"
+                      className="sm:w-[18px] w-[18px]"
                     />
                   </div>
 

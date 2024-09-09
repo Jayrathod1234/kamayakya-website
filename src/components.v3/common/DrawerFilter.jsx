@@ -295,7 +295,17 @@ function DrawerFilter() {
               </div>
             )}
           </Button>
-          <Drawer open={open} anchor={anchor} onClose={() => {}}>
+          <Drawer
+            open={open}
+            anchor={anchor}
+            onClose={() => {}}
+            ModalProps={{
+              keepMounted: true, // Keeps mounted so you can style it
+              sx: {
+                backdropFilter: "blur(2px)", // Apply blur effect when drawer is open
+              },
+            }}
+          >
             <Box
               sx={{ width: 400 }}
               role="presentation"
@@ -1094,6 +1104,12 @@ function DrawerFilter() {
             open={open}
             anchor={anchor}
             onClose={() => {}}
+            ModalProps={{
+              keepMounted: true, // Keeps mounted so you can style it
+              sx: {
+                backdropFilter: "blur(2px)", // Apply blur effect when drawer is open
+              },
+            }}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
@@ -1164,7 +1180,7 @@ function DrawerFilter() {
                     alignItems: "start !important",
                     justifyContent: "start",
                     bgcolor: "#FAFAFA",
-                    width: 143,
+                    width: 149,
                     borderRightColor: "#fff",
                     height: "100% !important",
                     // padding: "14px 8px 14px 16px",
@@ -1178,6 +1194,7 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">
@@ -1220,6 +1237,7 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     label={
                       <>
@@ -1249,6 +1267,7 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     label={
                       <>
@@ -1280,6 +1299,7 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     // Total Returns
                     label={
@@ -1323,6 +1343,7 @@ function DrawerFilter() {
                         fontFamily: "Open Sans, sans-serif !important",
                         textTransform: "capitalize",
                         minHeight: "0px",
+                        width: "100%",
                       }}
                       label={
                         <Box className="items-start !important font-open_sans capitalize flex">
@@ -1362,6 +1383,7 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     label={
                       <>
@@ -1386,6 +1408,7 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     label={
                       <>
@@ -1410,6 +1433,7 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">
@@ -1554,6 +1578,7 @@ function DrawerFilter() {
                                       onChange={handleChangeRecency}
                                       name={key}
                                       sx={{
+                                        padding: "0px 9px 9px",
                                         color: "default", // Default color
                                         "&.Mui-checked": {
                                           color: "#125B54", // Color when checked
@@ -1563,7 +1588,7 @@ function DrawerFilter() {
                                   }
                                   label={
                                     <span
-                                      className="flex items-center"
+                                      className="flex items-start"
                                       style={{
                                         fontFamily: "Open Sans, sans-serif",
                                       }}
@@ -1571,9 +1596,6 @@ function DrawerFilter() {
                                       {filterTimeLabel[key]}
                                     </span>
                                   }
-                                  sx={{
-                                    alignItems: "flex-start", // Ensure label starts at the top
-                                  }}
                                 />
                               ))}
                             </FormGroup>
@@ -1604,6 +1626,7 @@ function DrawerFilter() {
                                       onChange={handleChangeTimeLeft}
                                       name={key}
                                       sx={{
+                                        padding: "0px 9px 9px",
                                         color: "default", // Default color
                                         "&.Mui-checked": {
                                           color: "#125B54", // Color when checked

@@ -449,10 +449,12 @@ body::-webkit-scrollbar-button {
 }
 
 /* filter right side margin  */
-/* .css-j204z7-MuiFormControlLabel-root{
-  margin-right: 0px !important;
-} */
-
+.css-j204z7-MuiFormControlLabel-root{
+  align-items: flex-start !important;
+}
+.css-1jqe0d7-MuiButtonBase-root-MuiCheckbox-root {
+  padding: 0px 9px 9px !important;
+}
 
 .my-navbar-collapse.nextui-c-iTPCAT-dusCa-isOpen-true {
   top: 0;
@@ -1961,7 +1963,10 @@ header > div > div {
   background-clip: padding-box; /* Ensures gradient is visible in the border area */
 }
 .css-19kzrtu{
-  padding: 14px !important;
+  padding: 22px 29px 14px 14px !important;
+}
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root, .css-68wo3z-MuiButtonBase-root-MuiButton-root{
+  letter-spacing: 0px !important;
 }
 
 .mobile-filter-tab .MuiTabs-indicator{
@@ -1975,7 +1980,7 @@ header > div > div {
   color:#108973 !important ;
   background-color: white !important;
   justify-content: start !important;
-  padding: 12px 44px 12px 17px !important;
+  padding: 12px 44px 12px 12px !important;
 }
 .css-1urgnq6{
   font-weight: 500;

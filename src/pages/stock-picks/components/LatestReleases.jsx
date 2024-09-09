@@ -83,7 +83,10 @@ function LatestReleases({ isLimitedView }) {
             {items.length <= cardsToShow ? (
               <div className="flex justify-center gap-5">
                 {isLoading || error ? (
-                  <StockCardSkeleton length={cardsToShow} />
+                  <StockCardSkeleton
+                    className="sm:w-[404px] w-[358px]"
+                    length={cardsToShow}
+                  />
                 ) : (
                   items.map((value) => <StockCard key={value.id} {...value} />)
                 )}
@@ -91,8 +94,11 @@ function LatestReleases({ isLimitedView }) {
             ) : (
               <div className="w-full">
                 {isLoading || error ? (
-                  <div className="flex pb-12 !pt-[28px] carousel__container justify-center gap-5">
-                    <StockCardSkeleton length={cardsToShow} />
+                  <div className="flex pb-12 !pt-[40px] carousel__container justify-center gap-5">
+                    <StockCardSkeleton
+                      className="sm:w-[404px] w-[358px]"
+                      length={cardsToShow}
+                    />
                   </div>
                 ) : (
                   items.length > 0 && (
