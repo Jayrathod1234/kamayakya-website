@@ -129,13 +129,12 @@ const HotStockSection = ({ items }) => {
                               }
                               return (
                                 <div
-                                  className={`flex relative ${
-                                    index == 0
+                                  className={`flex relative ${index == 0
                                       ? `scale-75 left-[-10%]`
                                       : index == 1
-                                      ? `scale-x-90 left-[-38%] z-10`
-                                      : `scale-75 left-[-70%]`
-                                  }`}
+                                        ? `scale-x-90 left-[-38%] z-10`
+                                        : `scale-75 left-[-70%]`
+                                    }`}
                                 >
                                   <div className="absolute z-10 left-[7.5rem] -top-1">
                                     {tabImage && (
@@ -171,8 +170,7 @@ const HotStockSection = ({ items }) => {
                                               alt=""
                                               className="absolute -top-2 left-[52px] w-4"
                                             />
-                                            Please become a member to watch this
-                                            video.
+                                            Please login  to watch this video.
                                           </span>
                                         </div>
                                       </div>

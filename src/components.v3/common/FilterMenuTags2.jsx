@@ -209,11 +209,12 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                   }
                   deleteIcon={
                     <CloseIcon
-                      sx={{
-                        color: strategyTag.includes(chip.id)
-                          ? "white !important"
-                          : "inherit",
-                      }}
+                    sx={{
+                      color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
+                      backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
+                      borderRadius: "50%", // Make it rounded
+                      padding: "4px", // Add padding for spacing
+                    }}
                     />
                   }
                   sx={{

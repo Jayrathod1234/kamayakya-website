@@ -37,12 +37,12 @@ function SearchPage() {
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
   return (
     <>
-      <div class="">
+      <div class=" px-[16px]  ">
         {/* <!-- Stock Search --> */}
-        <div class="flex items-center bg-white shadow-md rounded-lg">
+        <div class="flex items-center bg-white sticky top-0 shadow-lg my-[16px]  rounded-[6px]">
           {/* <!-- Left icon --> */}
           <span
-            class="pl-[14px] text-green-800"
+            class="pl-[14px] text-green-800 "
             onClick={() => setSearchPageOpen(false)}
           >
             {/* <!-- Use any icon, like FontAwesome or HeroIcons (example: HeroIcons) --> */}
@@ -111,75 +111,74 @@ function SearchPage() {
             const href = !isLoggedIn
               ? "#"
               : value.is_blur
-              ? `/pricing`
-              : `/stock-picks/${value.id}`;
+                ? `/pricing`
+                : `/stock-picks/${value.id}`;
             const onClick = !isLoggedIn ? handleLogin : undefined;
             return (
               <Link key={index} href={href}>
                 <div
-                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                  class="grid grid-cols-1  "
                   onClick={onClick}
                 >
-                  <div class="bg-white shadow rounded-lg p-3  items-center space-x-4">
-                    {stockSector && value.sector && (
-                      <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]  flex-shrink-0 max-w-[114px] w-full">
-                        <img
-                          src="/assets/streamline_hotel-air-conditioner-solid.svg"
-                          alt=""
-                          className="w-3"
-                        />
-
-                        <p className="text-[10px] font-semibold text-[#A3651A]">
-                          {stockSector[value.sector]}
-                        </p>
-                      </div>
-                    )}
-
-                    <div class=" items-center pt-2.5 !ml-0 flex">
-                      <div className=" gap-[10px] items-center">
-                        {value.stock_image ? (
+                  <div className=" shadow  !rounded-lg">
+                    <div class="bg-white mt-1   p-3  items-center space-x-4">
+                      {stockSector && value.sector && (
+                        <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]  flex-shrink-0 max-w-[142px]">
                           <img
-                            src={value.stock_image}
-                            className="w-9 h-9 rounded-lg"
+                            src="/assets/streamline_hotel-air-conditioner-solid.svg"
+                            alt=""
+                            className="w-3"
                           />
-                        ) : (
-                          <div className="w-9 h-9 rounded-lg bg-[#D9D9D9]"></div>
-                        )}
-                      </div>
-                      <div className="ml-[10px]">
-                        {value.is_blur ? (
-                          <h2 class="text-md font-medium text-[#0C111D] font-open_sans mb-0">
-                            -
-                          </h2>
-                        ) : (
-                          <h2 class="text-md font-medium text-[#0C111D] font-open_sans mb-0">
-                            {" "}
-                            {value.stock_name}
-                          </h2>
-                        )}
 
-                        <div class="flex items-center space-x-4 text-2xs mt-[2px]">
-                          <div class="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
-                            Upside Left:
-                            <span class="text-green-600 font-bold text-sm">
-                              {value.upside_left || 0}%
-                            </span>
-                          </div>
-                          <div class="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
-                            Total Returns:
-                            <span
-                              class={`${
-                                value.gain_loss >= 0
+                          <p className="text-[10px] font-semibold text-[#A3651A] text-nowrap font-open_sans">
+                            {stockSector[value.sector]}
+                          </p>
+                        </div>
+                      )}
+
+                      <div class=" items-center pt-2.5 !ml-0 flex">
+                        <div className=" gap-[10px] items-center">
+                          {value.stock_image ? (
+                            <img
+                              src={value.stock_image}
+                              className="w-9 h-9 rounded-lg"
+                            />
+                          ) : (
+                            <div className="w-9 h-9 rounded-lg bg-[#D9D9D9]"></div>
+                          )}
+                        </div>
+                        <div className="ml-[10px]">
+                          {value.is_blur ? (
+                            <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[200px] md:min-w-[200px] slg:min-w-[200px] lg:min-w-[200px]"></div>
+                          ) : (
+                            <h2 class="text-md font-medium text-[#0C111D] font-open_sans mb-0">
+                              {" "}
+                              {value.stock_name}
+                            </h2>
+                          )}
+
+                          <div class="flex items-center space-x-4 text-2xs mt-[2px]">
+                            <div class="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
+                              Upside Left:
+                              <span class="text-green-600 font-bold text-sm">
+                                {value.upside_left || 0}%
+                              </span>
+                            </div>
+                            <div class="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
+                              Total Returns:
+                              <span
+                                class={`${value.gain_loss >= 0
                                   ? "text-green-600"
                                   : "text-red-600"
-                              } font-bold text-sm`}
-                            >
-                              {value.gain_loss == null ? (
-                                <>-</>
-                              ) : (
-                                <>{value.gain_loss}%</>
-                              )}
-                            </span>
+                                  } font-bold text-sm`}
+                              >
+                                {value.gain_loss == null ? (
+                                  <>-</>
+                                ) : (
+                                  <>{value.gain_loss}%</>
+                                )}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -192,13 +191,15 @@ function SearchPage() {
         ) : (
           <>
             {/* not Found  */}
-            <div className="flex justify-center items-center">
-              <img src="/assets/not-found.svg" />
-            </div>
-            <div className="pt-2.5 text-center">
-              <p className="font-open_sans text-sm font-normal text-[#667085]">
-                No Results Found!
-              </p>
+            <div className="my-[230px] ">
+              <div className="flex justify-center items-center ">
+                <img src="/assets/not-found.svg" />
+              </div>
+              <div className="pt-2.5 text-center">
+                <p className="font-open_sans text-sm font-normal text-[#667085]">
+                  No Results Found!
+                </p>
+              </div>
             </div>
           </>
         )}

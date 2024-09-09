@@ -51,23 +51,25 @@ const Modal = ({ open, handleClose, children }) => {
   return (
     <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]">
-        <button
-          onClick={handleClose}
-          className="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="size-6"
+        <div className="w-8 h-8 rounded-full border border-[#F2F4F7] absolute top-3 right-3 flex items-center justify-center" >
+          <button
+            onClick={handleClose}
+            className=" text-gray-600 hover:text-gray-900"
           >
-            <path
-              fillRule="evenodd"
-              d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="#667085"
+              className="size-6"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
         {children}
       </div>
     </div>
@@ -142,7 +144,8 @@ export default function NestedModal({
   return (
     <div>
       <Modal open={modalState?.isMainModalOpen} handleClose={handleMainModalClose}>
-        <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex items-center justify-center ">
+        <h1 className="text-[20px] font-bold text-[#101828] !text-left">Choose your broker</h1>
+        <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex flex-col items-center justify-center ">
           <div className="grid grid-cols-3 gap-2">
             {brokerItems.map((item, index) => (
               <div

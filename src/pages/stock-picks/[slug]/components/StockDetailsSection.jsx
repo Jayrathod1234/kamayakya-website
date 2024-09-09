@@ -135,9 +135,10 @@ function StockDetailsSection() {
   const tabs = ["Summary", "Upside Left", "Reports", "News"];
 
   const newsRef = useRef(null);
-  const summaryRef = useRef(null)
-  const UpsideLeftRef = useRef(null)
-  const ReportsRef = useRef(null)
+  const summaryRef = useRef(null);
+  const UpsideLeftRef = useRef(null);
+  const ReportsRef = useRef(null);
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
 
@@ -161,7 +162,8 @@ function StockDetailsSection() {
         break;
     }
 
-    const offset = 130; // Change this value as needed
+    // Set the offset dynamically based on the active tab
+    const offset = tab === activeTab ? 0    : 80;
 
     if (element) {
       const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
@@ -202,7 +204,7 @@ function StockDetailsSection() {
             </div>
 
             {/* small screen banner of top navbar-tabs  */}
-            <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-14  z-50 ">
+            <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-0  z-50 ">
               {/* Back Button */}
               <div
                 className=""
