@@ -140,9 +140,12 @@ function AllBoardStockSection() {
         ref={showFilterRef}
       >
         <div className="w-full sm:px-0 px-[1px] sm:w-[min(1280px,calc(100%-32px))]  mx-auto">
-          <div className="grid grid-cols-auto-fill gap-x-5 gap-y-6">
+          <div className="grid grid-cols-auto-fill gap-x-5 gap-y-[1.8rem]">
             {isLoading || error ? (
-              <StockCardSkeleton length={9} />
+              <StockCardSkeleton
+                className="sm:w-[404px] w-[358px]"
+                length={9}
+              />
             ) : items.length > 0 ? (
               items.map((value, index) => (
                 <StockCard

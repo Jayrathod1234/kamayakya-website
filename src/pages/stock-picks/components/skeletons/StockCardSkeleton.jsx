@@ -1,15 +1,18 @@
 import React from "react";
 import { Skeleton, Box } from "@mui/material";
 
-function StockCardSkeleton({ length }) {
+function StockCardSkeleton({ length, className }) {
   return Array.from({ length }).map((_, index) => (
-    <Box key={index} className="relative w-[300px] rounded-lg bg-white shadow-6xs">
+    <Box
+      key={index}
+      className={`${className} relative  rounded-lg bg-white shadow-6xs`}
+    >
       <Box
         className="relative rounded-lg bg-white shadow-6xs border border-gray-200"
         p={2}
       >
         {/* Skeleton for the top section */}
-        <Box className="pt-[20px] px-[20px] flex gap-[18px] items-center">
+        <Box className="pt-[20px] px-[10px] flex gap-[18px] items-center ">
           <Skeleton
             animation="wave"
             variant="circular"
@@ -32,7 +35,7 @@ function StockCardSkeleton({ length }) {
         </Box>
 
         {/* Skeleton for the middle section */}
-        <Box className="pt-[12px] px-[20px] pb-[20px]">
+        <Box className="pt-[12px] px-[16px] pb-[20px]">
           <Box className="flex items-center gap-[8px]">
             <Skeleton
               animation="wave"
@@ -59,7 +62,7 @@ function StockCardSkeleton({ length }) {
         </Box>
 
         {/* Skeleton for the Upside left section */}
-        <Box className="px-5 pb-3">
+        <Box className="px-4 pb-3 max-auto">
           <Box className="p-[8px] rounded-xl ">
             <Box className="rounded-[7px] text-center text-white">
               <Skeleton
@@ -74,7 +77,7 @@ function StockCardSkeleton({ length }) {
         </Box>
 
         {/* Skeleton for Progress Bar */}
-        <Box className="pt-5 pb-[10px] pr-5">
+        <Box className="pt-5 pb-[10px]  max-auto">
           <Skeleton
             animation="wave"
             variant="rectangular"
@@ -84,7 +87,7 @@ function StockCardSkeleton({ length }) {
         </Box>
 
         {/* Skeleton for the button */}
-        <Box className="p-5">
+        <Box className="pt-5 pb-[10px] max-auto">
           <Skeleton
             animation="wave"
             sx={{ borderRadius: "5px" }}

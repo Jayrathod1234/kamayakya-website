@@ -247,7 +247,7 @@ export function Slider({ children }) {
 
       <div ref={emblaRef} className={`max-w-[100vw] overflow-hidden`}>
         <div
-          className="flex pb-12 pt-[28px] carousel__container"
+          className="flex pb-12 pt-[40px] carousel__container"
           style={{ backfaceVisibility: "hidden" }}
         >
           {children.map((carousel, index) => (
