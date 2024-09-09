@@ -30,6 +30,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
   const containerRef = useRef(null);
 
   const updateButtonVisibility = () => {
+    if (!containerRef.current || !carouselRef.current) return;
     const containerWidth = containerRef.current.offsetWidth;
     const contentWidth = carouselRef.current.scrollWidth;
     const scrollLeft = carouselRef.current.scrollLeft;
@@ -49,6 +50,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
     };
 
     const carousel = carouselRef.current;
+    if (!carousel) return;
     carousel.addEventListener("scroll", handleScroll);
 
     return () => {
