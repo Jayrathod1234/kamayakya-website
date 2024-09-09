@@ -98,7 +98,7 @@ export default function StockCardProgressBarSection({
 
   return (
     <div className=" relative  pl-4">
-      <Carousel className=" z-20 " opts={{ slidesToScroll: 3 }}>
+      <Carousel className=" z-10 " opts={{ slidesToScroll: 3 }}>
         <CarouselContent className=" justify-between">
           {/* <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets

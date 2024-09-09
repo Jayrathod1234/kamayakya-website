@@ -35,14 +35,14 @@ export const useStockProgressBar = ({
   const calculateDistance = useCallback(() => {
     // console.log("CALCULATE DISTANCE CALLED");
     if (ref.current?.length == 0 && !ref.current[cmpIndex] && !ref.current[targetIndex]) return;
-    console.log("CONTROL REACHED");
+    // console.log("CONTROL REACHED");
     // console.log(cmpRef.current)
     const entryDiv = ref.current[0];
     const cmpDiv = ref.current[cmpIndex];
     const targetDiv = ref.current[targetIndex];
-    console.log(entryDiv,cmpDiv,targetDiv)
+    // console.log(entryDiv,cmpDiv,targetDiv)
     if (!entryDiv || !cmpDiv || !targetDiv) return;
-    console.log("CONROL REACHED HERE")
+    // console.log("CONROL REACHED HERE")
     // Get the bounding rectangles of both divs
     const entryRect = entryDiv.getBoundingClientRect();
     const cmpRect = cmpDiv.getBoundingClientRect();
@@ -53,7 +53,7 @@ export const useStockProgressBar = ({
 
     // Calculate the Euclidean distance
     const DistanceBtwEntryCmp = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    console.log("DISTANCEBetweenEntryCmpDISTANCEBetweenEntryCmp", DistanceBtwEntryCmp)
+    // console.log("DISTANCEBetweenEntryCmpDISTANCEBetweenEntryCmp", DistanceBtwEntryCmp)
     setCurrentProgress(DistanceBtwEntryCmp);
 
     // Calculate the distance between the centers of entry point and cmp
@@ -62,7 +62,7 @@ export const useStockProgressBar = ({
 
     // Calculate the Euclidean distance
     const DistanceBtwEntryTarget = Math.sqrt(distanceX2 * distanceX2 + distanceY2 * distanceY2);
-    console.log("DISTANCEBetweenEntryCmpDISTANCEBetweenEntryCmp", DistanceBtwEntryTarget);
+    // console.log("DISTANCEBetweenEntryCmpDISTANCEBetweenEntryCmp", DistanceBtwEntryTarget);
     setDottedLineWidth(DistanceBtwEntryTarget);
     setMargins(() => ({
       marginLeft: ref.current[0].offsetWidth / 0.25,
@@ -73,7 +73,7 @@ export const useStockProgressBar = ({
 
   useEffect(() => {
     const handleResize = () => {
-      console.log("RESIZE CALLED", cmpIndex, targetIndex);
+      // console.log("RESIZE CALLED", cmpIndex, targetIndex);
       calculateDistance();
     };
 
