@@ -139,7 +139,7 @@ export default function SectorCheck() {
                 backgroundColor: "white",
                 borderRadius: "0.5rem",
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
-                overflow: "hidden",
+                // overflow: "hidden",
                 maxHeight: "300px", // Set a max height for the dropdown
               }}
             >

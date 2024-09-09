@@ -98,7 +98,11 @@ function LatestReleases({ isLimitedView }) {
                   items.length > 0 && (
                     <Slider>
                       {items.map((value) => (
-                        <StockCard key={value.id} {...value} />
+                        <StockCard
+                          className="w-[330px]"
+                          key={value.id}
+                          {...value}
+                        />
                       ))}
                     </Slider>
                   )

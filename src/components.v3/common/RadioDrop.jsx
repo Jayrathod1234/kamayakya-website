@@ -65,8 +65,8 @@ export default function CustomSortMenu({ isLabel }) {
     height: 5,
     backgroundColor: grey[300],
     borderRadius: 3,
-    position: "absolute",
-    top: 8,
+    position: "fixed",
+    // top: 8,
     left: "calc(50% - 15px)",
     ...theme.applyStyles("dark", {
       backgroundColor: "gray",
@@ -738,7 +738,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "304px",
+                          left: "291px",
                         }}
                       />
                     }
@@ -796,7 +796,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "304px",
+                          left: "291px",
                         }}
                       />
                     }
@@ -875,7 +875,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "304px",
+                          left: "291px",
                         }}
                       />
                     }
@@ -926,7 +926,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "304px",
+                          left: "291px",
                         }}
                       />
                     }
@@ -997,7 +997,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "304px",
+                          left: "291px",
                         }}
                       />
                     }
@@ -1048,7 +1048,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "304px",
+                          left: "291px",
                         }}
                       />
                     }
@@ -1119,7 +1119,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "304px",
+                          left: "291px",
                         }}
                       />
                     }
@@ -1170,7 +1170,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
-                          left: "304px",
+                          left: "291px",
                         }}
                       />
                     }
