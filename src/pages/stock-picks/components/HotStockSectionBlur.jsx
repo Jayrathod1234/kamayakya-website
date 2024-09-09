@@ -408,13 +408,15 @@ const HotStockSection = ({ items }) => {
                   membership.
                 </p>
                 <div className="  sm:!mt-6 !mt-3 lg:m-0 m-auto lg:block inline-block lg:pb-0 pb-7">
-                  <ButtonnArrow
-                    onClick={handleContactButton}
-                    variant={ButtonVariant.primary}
-                    size={ButtonSize.lg}
-                  >
-                    Explore Plans
-                  </ButtonnArrow>
+                  <Link href={`/pricing`}>
+                    <ButtonnArrow
+                      onClick={handleContactButton}
+                      variant={ButtonVariant.primary}
+                      size={ButtonSize.lg}
+                    >
+                      Explore Plans
+                    </ButtonnArrow>
+                  </Link>
                 </div>
 
                 <div>

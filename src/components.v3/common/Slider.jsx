@@ -144,6 +144,45 @@ export function Slider({ children }) {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
 
+  // const tweenScale = useCallback((emblaApi, eventName) => {
+  //   const engine = emblaApi.internalEngine();
+  //   const scrollProgress = emblaApi.scrollProgress();
+  //   const slidesInView = emblaApi.slidesInView();
+  //   const isScrollEvent = eventName === "scroll";
+
+  //   emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+  //     let diffToTarget = scrollSnap - scrollProgress;
+  //     const slidesInSnap = engine.slideRegistry[snapIndex];
+
+  //     slidesInSnap.forEach((slideIndex) => {
+  //       if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
+
+  //       if (engine.options.loop) {
+  //         engine.slideLooper.loopPoints.forEach((loopItem) => {
+  //           const target = loopItem.target();
+
+  //           if (slideIndex === loopItem.index && target !== 0) {
+  //             const sign = Math.sign(target);
+
+  //             if (sign === -1) {
+  //               diffToTarget = scrollSnap - (1 + scrollProgress);
+  //             }
+  //             if (sign === 1) {
+  //               diffToTarget = scrollSnap + (1 - scrollProgress);
+  //             }
+  //           }
+  //         });
+  //       }
+
+  //       const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
+  //       const scale = numberWithinRange(tweenValue, 0, 1).toString();
+  //       const tweenNode = tweenNodes.current[slideIndex];
+  //       console.log({ scale });
+  //       tweenNode.style.transform = `scale(${scale})`;
+  //     });
+  //   });
+  // }, []);
+
   const tweenScale = useCallback((emblaApi, eventName) => {
     const engine = emblaApi.internalEngine();
     const scrollProgress = emblaApi.scrollProgress();
@@ -174,14 +213,24 @@ export function Slider({ children }) {
           });
         }
 
+        // Calculate the scale factor based on the distance to the target (snap point)
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-        const scale = numberWithinRange(tweenValue, 0, 1).toString();
+
+        const scale = numberWithinRange(tweenValue, 0, 1); // Ensures a smooth scale between 0.85 and 1
         const tweenNode = tweenNodes.current[slideIndex];
-        tweenNode.style.transform = `scale(${scale})`;
+        const parentNode = tweenNode.parentNode;
+        // Apply scaling transformation
+        tweenNode.style.transform = `scaleY(${scale})`;
+
+        tweenNode.style.marginLeft = "14px";
+        tweenNode.style.marginRight = "14px";
+
+        // // Optionally apply other effects, like opacity or blur, based on the scale
+        // const opacity = numberWithinRange(tweenValue, 0.5, 1); // Opacity reduces on the sides
+        // tweenNode.style.opacity = opacity;
       });
     });
   }, []);
-
   useEffect(() => {
     if (!emblaApi) return;
 
