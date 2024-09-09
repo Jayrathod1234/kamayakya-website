@@ -1563,7 +1563,7 @@ function DrawerFilter() {
                                   }
                                   label={
                                     <span
-                                      className="!items-start flex"
+                                      className="flex items-center"
                                       style={{
                                         fontFamily: "Open Sans, sans-serif",
                                       }}
@@ -1571,6 +1571,9 @@ function DrawerFilter() {
                                       {filterTimeLabel[key]}
                                     </span>
                                   }
+                                  sx={{
+                                    alignItems: "flex-start", // Ensure label starts at the top
+                                  }}
                                 />
                               ))}
                             </FormGroup>
