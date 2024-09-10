@@ -80,12 +80,11 @@ export const useStockProgressBar = ({
     };
 
     window.addEventListener("resize", handleResize);
-
-    handleResize();
+    if(targets?.length) handleResize();
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [cmpIndex, targetIndex]);
+  }, [cmpIndex, targetIndex,targets?.length]);
 
   useEffect(() => {
     if (!emblaApi) return;
