@@ -80,7 +80,7 @@ function StockCard({
                     className="w-[19px]"
                   />
 
-                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[200px] md:min-w-[200px] slg:min-w-[200px] lg:min-w-[200px]"></div>
+                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[206px] md:min-w-[200px] slg:min-w-[208px] lg:min-w-[271px]"></div>
                 </div>
 
                 <div className="tooltip">
@@ -99,6 +99,15 @@ function StockCard({
                       ? "Please become a member to watch this video."
                       : "Please login  to watch this video."}
                   </span>
+
+                  {/* <span className="tooltiptext -left-5 relative shadow-sm z-[200000]">
+                    <img
+                      src="/assets/div.png"
+                      alt=""
+                      className="absolute -top-2 left-[89px] w-4"
+                    />
+                    Please login to watch this video.
+                  </span> */}
                 </div>
               </div>
             ) : (

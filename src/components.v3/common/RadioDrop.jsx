@@ -110,7 +110,7 @@ export default function CustomSortMenu({ isLabel }) {
           borderRadius: "8px",
           textTransform: "none",
           height: "46px",
-          color: "#1E555C",
+          color: "#0C111D",
           fontWeight: 500,
           padding: isMobile ? "10px 11px" : isLabel ? "10px 16px" : "8px 18px", // Conditional padding
           // padding: isLabel ? "11px 16px" : "11px 18px", // Conditional padding
@@ -137,7 +137,7 @@ export default function CustomSortMenu({ isLabel }) {
         </svg>
         <span
           style={{
-            color: "#1E555C",
+            color: "#0C111D",
             fontWeight: 600,
             fontSize: "14px",
             letterSpacing: "0px !important",

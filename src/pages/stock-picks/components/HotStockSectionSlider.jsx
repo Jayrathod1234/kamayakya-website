@@ -21,16 +21,14 @@ const HotStockSectionSlider = ({ items }) => {
               (!isMobile && items.length <= 3) ? (
                 <div className="flex justify-center gap-5">
                   {items.map((value) => (
-                    <StockCard key={value.id} {...value} 
-                    isCarousal={true}
-                    />
+                    <StockCard key={value.id} {...value} isCarousal={true} />
                   ))}
                 </div>
               ) : (
                 <div className="w-full">
                   <HotSlider>
                     {items.map((value) => (
-                      <StockCard key={value.id} {...value} isCarousal={true}/>
+                      <StockCard key={value.id} {...value} isCarousal={true} />
                     ))}
                   </HotSlider>
                 </div>
