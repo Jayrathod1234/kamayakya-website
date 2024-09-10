@@ -48,7 +48,7 @@ export const useStockProgressBar = ({
     const cmpRect = cmpDiv.getBoundingClientRect();
     const targetRect = targetDiv.getBoundingClientRect();
     // Calculate the distance between the centers of entry point and cmp
-    const distanceX = cmpRect.left + cmpRect.width / 1.2 - (entryRect.left + entryRect.width / 2);
+    const distanceX = cmpRect.left + cmpRect.width / 1.4 - (entryRect.left + entryRect.width / 2);
     const distanceY = cmpRect.top + cmpRect.height / 2 - (entryRect.top + entryRect.height / 2);
 
     // Calculate the Euclidean distance
