@@ -46,11 +46,22 @@ const Modal = ({ open, handleClose, children }) => {
     };
   }, [open, handleClose]);
 
+  const handleBackgroundClick = (event) => {
+    // Close the modal if clicked outside the content area
+    if (event.target.id === "modal-background") {
+      handleClose();
+    }
+  };
+
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]">
+    <div
+      id="modal-background"
+      className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50"
+      onClick={handleBackgroundClick}
+    >
+      <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]" onClick={(e) => e.stopPropagation()}>
         <div className="w-8 h-8 rounded-full border border-[#F2F4F7] absolute top-3 right-3 flex items-center justify-center" >
           <button
             onClick={handleClose}
