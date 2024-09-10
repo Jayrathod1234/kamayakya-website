@@ -37,13 +37,13 @@ function SearchPage() {
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
   return (
     <>
-      <div class=" bg-[#F2F4F7] h-screen overflow-hidden ">
+      <div className=" bg-[#F2F4F7] h-screen overflow-hidden ">
         {/* <!-- Stock Search --> */}
         <div className="bg-[#F2F4F7] p-4 sticky top-0 right-0 left-0">
-          <div class="flex items-center bg-white   rounded-[6px] shadow-2xs">
+          <div className="flex items-center bg-white   rounded-[6px] shadow-2xs">
             {/* <!-- Left icon --> */}
             <span
-              class="pl-[14px] text-green-800 "
+              className="pl-[14px] text-green-800 "
               onClick={() => setSearchPageOpen(false)}
             >
               {/* <!-- Use any icon, like FontAwesome or HeroIcons (example: HeroIcons) --> */}
@@ -68,7 +68,7 @@ function SearchPage() {
             <input
               type="search"
               placeholder="Search Stocks by Name..."
-              class="w-full py-2.5 pl-2 text-gray-500 focus:outline-none rounded-r-lg bg-white"
+              className="w-full py-2.5 pl-2 text-gray-500 focus:outline-none rounded-r-lg bg-white"
               value={searchStock}
               onChange={(e) => setSearchStock(e.target.value)}
             />
@@ -120,11 +120,11 @@ function SearchPage() {
             return (
               <Link key={index} href={href}>
                 <div
-                  class="grid grid-cols-1  pr-[15px] pl-[17px]"
+                  className="grid grid-cols-1  pr-[15px] pl-[17px]"
                   onClick={onClick}
                 >
                   <div className=" shadow  !rounded-lg">
-                    <div class="bg-white    p-3  items-center space-x-4 border-b-2 border-[#F2F4F7]">
+                    <div className="bg-white    p-3  items-center space-x-4 border-b-2 border-[#F2F4F7]">
                       {stockSector && value.sector && (
                         <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px]  flex-shrink-0 max-w-[105px]">
                           <img
@@ -139,7 +139,7 @@ function SearchPage() {
                         </div>
                       )}
 
-                      <div class=" items-center pt-2.5 !ml-0 flex">
+                      <div className=" items-center pt-2.5 !ml-0 flex">
                         <div className=" gap-[10px] items-center">
                           {value.stock_image ? (
                             <img
@@ -160,17 +160,17 @@ function SearchPage() {
                             </h2>
                           )}
 
-                          <div class="flex items-center space-x-4 text-2xs mt-[2px]">
-                            <div class="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
+                          <div className="flex items-center space-x-4 text-2xs mt-[2px]">
+                            <div className="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
                               Upside Left:
-                              <span class="text-green-600 font-bold text-sm">
+                              <span className="text-green-600 font-bold text-sm">
                                 {value.upside_left || 0}%
                               </span>
                             </div>
-                            <div class="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
+                            <div className="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
                               Total Returns:
                               <span
-                                class={`${
+                                className={`${
                                   value.gain_loss >= 0
                                     ? "text-green-600"
                                     : "text-red-600"

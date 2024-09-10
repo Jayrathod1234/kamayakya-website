@@ -146,7 +146,7 @@ function StockDetailsSection() {
   const handleShowAll = () => {
     setShowAll(!showAll);
   };
-  const [activeTab, setActiveTab] = useState("Summary");
+const [activeTab, setActiveTab] = useState("Summary");
   const tabs = ["Summary", "Upside Left", "Reports", "News"];
   const newsRef = useRef(null);
   const summaryRef = useRef(null)
@@ -172,8 +172,10 @@ function StockDetailsSection() {
         console.warn('Unknown tab:', tab);
         break;
     }
-    const offset = 130; // Change this value as needed
+    const offset = 80; // Change this value as needed
     if (element) {
+  console.log(element)
+  console.log(element.getBoundingClientRect())
       const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
         top: elementTop - offset,
@@ -181,6 +183,36 @@ function StockDetailsSection() {
       });
     }
   };
+
+  // Scroll listener to detect section in view
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.pageYOffset + 100; // Add offset for when to consider a section visible
+      const summaryTop = summaryRef.current?.offsetTop || 0;
+      const UpsideLeftTop = UpsideLeftRef.current?.offsetTop || 0;
+      const ReportsTop = ReportsRef.current?.offsetTop || 0;
+      const newsTop = newsRef.current?.offsetTop || 0;
+
+      // Logic to determine which tab to activate based on scroll position
+      if (scrollPosition >= newsTop) {
+        setActiveTab('News');
+      } else if (scrollPosition >= ReportsTop) {
+        setActiveTab('Reports');
+      } else if (scrollPosition >= UpsideLeftTop) {
+        setActiveTab('Upside Left');
+      } else if (scrollPosition >= summaryTop) {
+        setActiveTab('Summary');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
@@ -227,10 +259,11 @@ function StockDetailsSection() {
                   <a
                     key={tab}
                     onClick={() => handleTabClick(tab)}
-                    className={`pb-2 ${activeTab === tab
-                      ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
-                      : "text-gray-500 px-[10px] py-[18px] text-sm"
-                      }`}
+                    className={`pb-2 ${
+                      activeTab === tab
+                        ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
+                        : "text-gray-500 px-[10px] py-[18px] text-sm"
+                    }`}
                   >
                     {tab}
                   </a>
@@ -335,7 +368,7 @@ function StockDetailsSection() {
                                 {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
                                 <p className="text-2xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
-                                    stock_exchange == "SME-BSE"
+                                  stock_exchange == "SME-BSE"
                                     ? "BSE: "
                                     : "NSE: "}
                                   {stock_symbol}
@@ -542,8 +575,8 @@ function StockDetailsSection() {
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
-                              ? "Go to Broker"
-                              : "Sell Now"}
+                            ? "Go to Broker"
+                            : "Sell Now"}
                         </span>
                       </button>
                       <InvestModal
@@ -612,8 +645,9 @@ function StockDetailsSection() {
                           <div className="flex flex-col md:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${
+                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -670,8 +704,9 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                                } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${
+                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                              } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -1200,8 +1235,9 @@ function StockDetailsSection() {
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                          }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1321,8 +1357,8 @@ function StockDetailsSection() {
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
-                                  ? "Go to Broker"
-                                  : "Sell Now"}
+                                ? "Go to Broker"
+                                : "Sell Now"}
                             </span>
                           </button>
 
@@ -1411,8 +1447,9 @@ function StockDetailsSection() {
                             TIMELINE & REPORTS ({timeline.length || 0})
                           </span>
                           <svg
-                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                              }`}
+                            className={`transform w-5 h-5 transition-transform duration-200 ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
