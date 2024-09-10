@@ -466,6 +466,9 @@ body::-webkit-scrollbar-button {
 .css-1cgx7kx-MuiTabs-scroller{
   width: 100% !important;
 }
+.color-block{
+  background: #000 !important;
+}
 a {
   color: inherit;
   text-decoration: none;
