@@ -8,17 +8,20 @@ const StockPicks = ({ children }) => {
 
   const router = useRouter();
   const pathname = router.pathname;
-  console.log({pathname})
   return (
-      <>
-          <div className={`navbar  z-[1111] ${isMobile && pathname == "/stock-picks/[slug]" ?'':'sticky top-0'}`}    >
-            <Navbar />
-          </div>
-          {children}
-          <div className="">
-            <Footer />
-          </div>
-      </>
+    <>
+      <div
+        className={`navbar  z-[1111] ${
+          isMobile && pathname == "/stock-picks/[slug]" ? "" : "sticky top-0"
+        }`}
+      >
+        <Navbar />
+      </div>
+      {children}
+      <div className="">
+        <Footer />
+      </div>
+    </>
   );
 };
 

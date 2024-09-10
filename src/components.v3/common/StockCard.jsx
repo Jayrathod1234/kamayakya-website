@@ -5,7 +5,7 @@ import DeepValue from "./DeepValue";
 import AuthContext from "@/components/AuthContext";
 import Link from "next/link";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-
+import { Modal } from "@nextui-org/react";
 function StockCard({
   id,
   stock_name,
@@ -46,7 +46,7 @@ function StockCard({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-    document.body.classList.add("overflow-hidden");
+    // document.body.classList.add("overflow-hidden");
     setIsModalOpen(true);
   };
 
@@ -275,39 +275,41 @@ function StockCard({
                     </p>
 
                     {/* Modal (only opens on small screens) */}
-                    {isModalOpen && (
-                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm sm:hidden ">
-                        <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
-                          {/* Modal Header */}
-                          <div className="w-full flex justify-between items-center">
-                            <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
-                              Upside Left
-                            </h3>
-                            <button
-                              className="text-[30px] text-gray-500 hover:text-gray-700 align-top font-open_sans"
-                              onClick={closeModal}
-                            >
-                              &times;
-                            </button>
-                          </div>
-
-                          {/* Modal Body */}
-                          <div className="mt-2 text-gray-800 text-sm text-left font-open_sans">
-                            Upside Left means how much the stock price could
-                            rise from its current level.
-                          </div>
-                          <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left ">
-                            <span className="text-[#108973] text-sm font-bold text-left font-open_sans">
-                              Example :
-                            </span>
-                            <p className="text-sm text-gray-600 mt-1 text-left font-open_sans">
-                              If a stock's price is ₹100 and the Upside Left is
-                              20%, it might go up to ₹120.
-                            </p>
-                          </div>
-                        </div>
+                    <Modal
+                      blur
+                      width="450px"
+                      open={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      className="flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
+                    >
+                      {/* Modal Header */}
+                      <div className="w-full flex justify-between items-center">
+                        <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
+                          Upside Left
+                        </h3>
+                        <button
+                          className="text-[30px] text-gray-500 hover:text-gray-700 align-top font-open_sans"
+                          onClick={() => setIsModalOpen(false)}
+                        >
+                          &times;
+                        </button>
                       </div>
-                    )}
+
+                      {/* Modal Body */}
+                      <div className="mt-2 text-gray-800 text-sm text-left font-open_sans">
+                        Upside Left means how much the stock price could rise
+                        from its current level.
+                      </div>
+                      <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left ">
+                        <span className="text-[#108973] text-sm font-bold text-left font-open_sans">
+                          Example :
+                        </span>
+                        <p className="text-sm text-gray-600 mt-1 text-left font-open_sans">
+                          If a stock's price is ₹100 and the Upside Left is 20%,
+                          it might go up to ₹120.
+                        </p>
+                      </div>
+                    </Modal>
                   </div>
                 </div>
                 <div className="flex justify-between pt-[8px] px-[9px] ">

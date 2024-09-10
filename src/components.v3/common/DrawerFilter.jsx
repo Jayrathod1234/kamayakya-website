@@ -313,7 +313,9 @@ function DrawerFilter() {
           <Drawer
             open={open}
             anchor={anchor}
-            onClose={() => {}}
+            onClose={() => {
+              setOpen(false);
+            }}
             ModalProps={{
               keepMounted: true, // Keeps mounted so you can style it
               sx: {
@@ -1118,7 +1120,9 @@ function DrawerFilter() {
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
-            onClose={() => {}}
+            onClose={() => {
+              setOpen(false);
+            }}
             ModalProps={{
               keepMounted: true, // Keeps mounted so you can style it
               sx: {
