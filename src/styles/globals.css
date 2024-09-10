@@ -1787,7 +1787,7 @@ header > div > div {
 }
 
 .main-card {
-  transform: translateY(30px);
+  transform: translateY(16px);
 }
 
 .card:hover .main-card {

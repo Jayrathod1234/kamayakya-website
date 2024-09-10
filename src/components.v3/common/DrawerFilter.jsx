@@ -910,10 +910,9 @@ function DrawerFilter() {
                     </Box>
                   </AccordionSummary>
                   <SectorFilter2
-                    sector={sector}
-                    setSector={setSector}
                     tempSector={tempSector}
                     setTempSector={setTempSector}
+                    isMobile={isMobile}
                   />
                 </Accordion>
                 <div className="border-b-2 border-[#F2F4F7] "></div>
@@ -1922,10 +1921,9 @@ function DrawerFilter() {
                       >
                         <div className="pl-0">
                           <SectorFilter2
-                            sector={sector}
-                            setSector={setSector}
                             tempSector={tempSector}
                             setTempSector={setTempSector}
+                            isMobile={isMobile}
                           />
                         </div>
                       </Accordion>
