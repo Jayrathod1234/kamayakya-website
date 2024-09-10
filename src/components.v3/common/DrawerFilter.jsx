@@ -1185,6 +1185,9 @@ function DrawerFilter() {
                     height: "100% !important",
                     // padding: "14px 8px 14px 16px",
                     color: "#5F6368", // Match text color for tabs
+                    "& .MuiTabs-scroller": {
+                      width: "100% !important",
+                    },
                   }}
                 >
                   <Tab
