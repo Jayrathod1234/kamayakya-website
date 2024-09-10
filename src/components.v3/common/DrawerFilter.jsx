@@ -1569,6 +1569,65 @@ function DrawerFilter() {
                         <div className="pl-0">
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    checked={
+                                      Object.keys(tempRecency).length ===
+                                      Object.keys(tempRecency).filter(
+                                        (key) => tempRecency[key]
+                                      ).length
+                                    }
+                                    onClick={() => {
+                                      if (
+                                        Object.keys(tempRecency).length ===
+                                        Object.keys(tempRecency).filter(
+                                          (key) => tempRecency[key]
+                                        ).length
+                                      ) {
+                                        const updatedRecency = Object.keys(
+                                          tempRecency
+                                        ).reduce((acc, key) => {
+                                          acc[key] = false;
+                                          return acc;
+                                        }, {});
+                                        setTempRecency(updatedRecency);
+                                      } else {
+                                        const updatedRecency = Object.keys(
+                                          tempRecency
+                                        ).reduce((acc, key) => {
+                                          acc[key] = true;
+                                          return acc;
+                                        }, {});
+                                        setTempRecency(updatedRecency);
+                                      }
+                                    }}
+                                    sx={{
+                                      padding: "0px 9px 9px",
+                                      color: "default", // Default color
+                                      "&.Mui-checked": {
+                                        color: "#125B54", // Color when checked
+                                      },
+                                    }}
+                                  />
+                                }
+                                label={
+                                  <span
+                                    className="flex items-start"
+                                    style={{
+                                      fontFamily: "Open Sans, sans-serif",
+                                    }}
+                                  >
+                                    {Object.keys(tempRecency).length ===
+                                    Object.keys(tempRecency).filter(
+                                      (key) => tempRecency[key]
+                                    ).length
+                                      ? "Deselect"
+                                      : "Select"}{" "}
+                                    All
+                                  </span>
+                                }
+                              />
                               {Object.keys(tempRecency || {}).map((key) => (
                                 <FormControlLabel
                                   key={key}
@@ -1617,6 +1676,66 @@ function DrawerFilter() {
                         <div className="pl-0">
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    checked={
+                                      Object.keys(tempTimeLeft).length ===
+                                      Object.keys(tempTimeLeft).filter(
+                                        (key) => tempTimeLeft[key]
+                                      ).length
+                                    }
+                                    onClick={() => {
+                                      if (
+                                        Object.keys(tempTimeLeft).length ===
+                                        Object.keys(tempTimeLeft).filter(
+                                          (key) => tempTimeLeft[key]
+                                        ).length
+                                      ) {
+                                        const updatedTempTimeLeft = Object.keys(
+                                          tempTimeLeft
+                                        ).reduce((acc, key) => {
+                                          acc[key] = false;
+                                          return acc;
+                                        }, {});
+                                        setTempTimeLeft(updatedTempTimeLeft);
+                                      } else {
+                                        const updatedTempTimeLeft = Object.keys(
+                                          tempTimeLeft
+                                        ).reduce((acc, key) => {
+                                          acc[key] = true;
+                                          return acc;
+                                        }, {});
+                                        setTempTimeLeft(updatedTempTimeLeft);
+                                      }
+                                    }}
+                                    sx={{
+                                      padding: "0px 9px 9px",
+                                      color: "default", // Default color
+                                      "&.Mui-checked": {
+                                        color: "#125B54", // Color when checked
+                                      },
+                                    }}
+                                  />
+                                }
+                                label={
+                                  <span
+                                    className="flex items-start"
+                                    style={{
+                                      fontFamily: "Open Sans, sans-serif",
+                                    }}
+                                  >
+                                    {Object.keys(tempTimeLeft).length ===
+                                    Object.keys(tempTimeLeft).filter(
+                                      (key) => tempTimeLeft[key]
+                                    ).length
+                                      ? "Deselect"
+                                      : "Select"}{" "}
+                                    All
+                                  </span>
+                                }
+                              />
+
                               {Object.keys(tempTimeLeft || {}).map((key) => (
                                 <FormControlLabel
                                   key={key}
