@@ -216,8 +216,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="upside_left_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",
@@ -294,8 +297,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="upside_left_asc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",
@@ -402,8 +408,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="recency_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",
@@ -469,8 +478,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="recency_asc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",
@@ -556,8 +568,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="time_left_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",
@@ -622,8 +637,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="time_left_asc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",
@@ -704,8 +722,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="returns_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",
@@ -770,8 +791,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="returns_asc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",
@@ -885,11 +909,14 @@ export default function CustomSortMenu({ isLabel }) {
                     value="upside_left_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
-                          top: "9%",
                           left: "291px",
+                          top: "9%",
                         }}
                       />
                     }
@@ -959,8 +986,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="upside_left_asc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "291px",
                           top: "9%",
@@ -1054,8 +1084,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="recency_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "291px",
                           top: "9%",
@@ -1117,8 +1150,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="recency_asc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "291px",
                           top: "9%",
@@ -1200,8 +1236,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="time_left_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "291px",
                           top: "9%",
@@ -1263,8 +1302,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="time_left_asc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "291px",
                           top: "9%",
@@ -1346,8 +1388,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="returns_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "291px",
                           top: "9%",
@@ -1409,8 +1454,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="returns_asc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "291px",
                           top: "9%",
