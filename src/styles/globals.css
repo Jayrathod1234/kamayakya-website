@@ -463,20 +463,7 @@ body::-webkit-scrollbar-button {
   height: 100vh;
   z-index: 9999;
 }
-.css-1cgx7kx-MuiTabs-scroller{
-  width: 100% !important;
-}
-.MuiTabs-scroller{
-  width: 100% !important;
-}
-.MuiTabs-hideScrollbar{
-  width: 100% !important;
 
-}
-.MuiTabs-scrollableY{
-  width: 100% !important;
-
-}
 a {
   color: inherit;
   text-decoration: none;
