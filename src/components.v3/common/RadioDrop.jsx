@@ -235,21 +235,33 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -258,7 +270,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
+                            color:
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054",
                             fontWeight: 400,
                             fontSize: "14px",
                             fontFamily: "Open Sans",
@@ -298,21 +313,33 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -321,7 +348,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
+                            color:
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054",
                             fontWeight: 400,
                             fontSize: "14px",
                             fontFamily: "Open Sans",
@@ -391,14 +421,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M13.3125 11.375L10.5 10.4375V6.51739M18 9.5C18 5.35786 14.6421 2 10.5 2C6.35786 2 3 5.35786 3 9.5C3 13.6421 6.35786 17 10.5 17C10.9807 17 11.4507 16.9548 11.9063 16.8684"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18.5 14.5L15.875 17M15.875 17L13 14.5M15.875 17L15.875 11"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -407,7 +445,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
+                            color:
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#344054",
                             fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -447,14 +488,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M13.3125 11.375L10.5 10.4375V6.51739M18 9.5C18 5.35786 14.6421 2 10.5 2C6.35786 2 3 5.35786 3 9.5C3 13.6421 6.35786 17 10.5 17C10.9807 17 11.4507 16.9548 11.9063 16.8684"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18.5 14.5L15.875 12M15.875 12L13 14.5M15.875 12L15.875 18"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -463,7 +512,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
+                            color:
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#344054",
                             fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -523,14 +575,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M14.9956 16.6429C14.9956 17.1162 14.6146 17.5 14.1445 17.5H6.05944C5.58941 17.5 5.20837 17.1162 5.20837 16.6429V14.3531C5.20837 14.1701 5.26651 13.992 5.37428 13.8447L7.8151 10.5085C8.03632 10.2061 8.03632 9.79391 7.8151 9.49154L5.37428 6.15534C5.26651 6.00804 5.20837 5.82986 5.20837 5.64689V3.35714C5.20837 2.88376 5.58941 2.5 6.05944 2.5H14.3573C14.8273 2.5 15.2084 2.88376 15.2084 3.35714V5.64689C15.2084 5.82986 15.1502 6.00804 15.0425 6.15534L12.5882 9.50993C12.3735 9.8034 12.3666 10.2015 12.571 10.5024M8.1871 5.07143H12.2297"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "time_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M17 12.8333L15.0909 14.5M15.0909 14.5L13 12.8333M15.0909 14.5L15.0909 10.5"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "time_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -539,7 +599,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
+                            color:
+                              selectedValue === "time_left_desc"
+                                ? "#108973"
+                                : "#344054",
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -578,14 +641,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M14.9956 16.6429C14.9956 17.1162 14.6146 17.5 14.1445 17.5H6.05944C5.58941 17.5 5.20837 17.1162 5.20837 16.6429V14.3531C5.20837 14.1701 5.26651 13.992 5.37428 13.8447L7.8151 10.5085C8.03632 10.2061 8.03632 9.79391 7.8151 9.49154L5.37428 6.15534C5.26651 6.00804 5.20837 5.82986 5.20837 5.64689V3.35714C5.20837 2.88376 5.58941 2.5 6.05944 2.5H14.3573C14.8273 2.5 15.2084 2.88376 15.2084 3.35714V5.64689C15.2084 5.82986 15.1502 6.00804 15.0425 6.15534L12.5882 9.50993C12.3735 9.8034 12.3666 10.2015 12.571 10.5024M8.1871 5.07143H12.2297"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "time_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M17 12.8333L15.0909 14.5M15.0909 14.5L13 12.8333M15.0909 14.5L15.0909 10.5"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "time_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -594,7 +665,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
+                            color:
+                              selectedValue === "time_left_asc"
+                                ? "#108973"
+                                : "#344054",
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -649,14 +723,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "returns_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "returns_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -665,7 +747,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
+                            color:
+                              selectedValue === "returns_desc"
+                                ? "#108973"
+                                : "#344054",
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -704,14 +789,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -720,7 +813,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#475467",
+                            color:
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#344054",
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -792,6 +888,7 @@ export default function CustomSortMenu({ isLabel }) {
                         color="success"
                         sx={{
                           position: "absolute",
+                          top: "9%",
                           left: "291px",
                         }}
                       />
@@ -807,21 +904,33 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -830,7 +939,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#17172E",
+                            color:
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#17172E",
                             fontWeight: 600,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -851,6 +963,7 @@ export default function CustomSortMenu({ isLabel }) {
                         sx={{
                           position: "absolute",
                           left: "291px",
+                          top: "9%",
                         }}
                       />
                     }
@@ -865,21 +978,33 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
-                            stroke="#344054"
+                            stroke={
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -888,7 +1013,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#17172E",
+                            color:
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#17172E",
                             fontWeight: 600,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -930,6 +1058,7 @@ export default function CustomSortMenu({ isLabel }) {
                         sx={{
                           position: "absolute",
                           left: "291px",
+                          top: "9%",
                         }}
                       />
                     }
@@ -944,14 +1073,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M13.3125 11.375L10.5 10.4375V6.51739M18 9.5C18 5.35786 14.6421 2 10.5 2C6.35786 2 3 5.35786 3 9.5C3 13.6421 6.35786 17 10.5 17C10.9807 17 11.4507 16.9548 11.9063 16.8684"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18.5 14.5L15.875 17M15.875 17L13 14.5M15.875 17L15.875 11"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -960,7 +1097,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#17172E",
+                            color:
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#17172E",
                             fontWeight: 600,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -981,6 +1121,7 @@ export default function CustomSortMenu({ isLabel }) {
                         sx={{
                           position: "absolute",
                           left: "291px",
+                          top: "9%",
                         }}
                       />
                     }
@@ -995,14 +1136,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M13.3125 11.375L10.5 10.4375V6.51739M18 9.5C18 5.35786 14.6421 2 10.5 2C6.35786 2 3 5.35786 3 9.5C3 13.6421 6.35786 17 10.5 17C10.9807 17 11.4507 16.9548 11.9063 16.8684"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18.5 14.5L15.875 12M15.875 12L13 14.5M15.875 12L15.875 18"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1011,7 +1160,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#17172E",
+                            color:
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#17172E",
                             fontWeight: 600,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -1052,6 +1204,7 @@ export default function CustomSortMenu({ isLabel }) {
                         sx={{
                           position: "absolute",
                           left: "291px",
+                          top: "9%",
                         }}
                       />
                     }
@@ -1066,14 +1219,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M14.9956 16.6429C14.9956 17.1162 14.6146 17.5 14.1445 17.5H6.05944C5.58941 17.5 5.20837 17.1162 5.20837 16.6429V14.3531C5.20837 14.1701 5.26651 13.992 5.37428 13.8447L7.8151 10.5085C8.03632 10.2061 8.03632 9.79391 7.8151 9.49154L5.37428 6.15534C5.26651 6.00804 5.20837 5.82986 5.20837 5.64689V3.35714C5.20837 2.88376 5.58941 2.5 6.05944 2.5H14.3573C14.8273 2.5 15.2084 2.88376 15.2084 3.35714V5.64689C15.2084 5.82986 15.1502 6.00804 15.0425 6.15534L12.5882 9.50993C12.3735 9.8034 12.3666 10.2015 12.571 10.5024M8.1871 5.07143H12.2297"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "time_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M17 12.8333L15.0909 14.5M15.0909 14.5L13 12.8333M15.0909 14.5L15.0909 10.5"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "time_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1082,7 +1243,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#17172E",
+                            color:
+                              selectedValue === "time_left_desc"
+                                ? "#108973"
+                                : "#17172E",
                             fontWeight: 600,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -1103,6 +1267,7 @@ export default function CustomSortMenu({ isLabel }) {
                         sx={{
                           position: "absolute",
                           left: "291px",
+                          top: "9%",
                         }}
                       />
                     }
@@ -1117,14 +1282,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M14.9956 16.6429C14.9956 17.1162 14.6146 17.5 14.1445 17.5H6.05944C5.58941 17.5 5.20837 17.1162 5.20837 16.6429V14.3531C5.20837 14.1701 5.26651 13.992 5.37428 13.8447L7.8151 10.5085C8.03632 10.2061 8.03632 9.79391 7.8151 9.49154L5.37428 6.15534C5.26651 6.00804 5.20837 5.82986 5.20837 5.64689V3.35714C5.20837 2.88376 5.58941 2.5 6.05944 2.5H14.3573C14.8273 2.5 15.2084 2.88376 15.2084 3.35714V5.64689C15.2084 5.82986 15.1502 6.00804 15.0425 6.15534L12.5882 9.50993C12.3735 9.8034 12.3666 10.2015 12.571 10.5024M8.1871 5.07143H12.2297"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "time_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M17 12.8333L15.0909 14.5M15.0909 14.5L13 12.8333M15.0909 14.5L15.0909 10.5"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "time_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1133,7 +1306,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#17172E",
+                            color:
+                              selectedValue === "time_left_asc"
+                                ? "#108973"
+                                : "#17172E",
                             fontWeight: 600,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -1174,6 +1350,7 @@ export default function CustomSortMenu({ isLabel }) {
                         sx={{
                           position: "absolute",
                           left: "291px",
+                          top: "9%",
                         }}
                       />
                     }
@@ -1188,14 +1365,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "returns_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "returns_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1204,7 +1389,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#17172E",
+                            color:
+                              selectedValue === "returns_desc"
+                                ? "#108973"
+                                : "#17172E",
                             fontWeight: 600,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
@@ -1225,6 +1413,7 @@ export default function CustomSortMenu({ isLabel }) {
                         sx={{
                           position: "absolute",
                           left: "291px",
+                          top: "9%",
                         }}
                       />
                     }
@@ -1239,14 +1428,22 @@ export default function CustomSortMenu({ isLabel }) {
                         >
                           <path
                             d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
                             d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
-                            stroke="#475467"
+                            stroke={
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
                             strokeWidth="1.2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1255,7 +1452,10 @@ export default function CustomSortMenu({ isLabel }) {
                         <span
                           style={{
                             marginLeft: "8px",
-                            color: "#17172E",
+                            color:
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#17172E",
                             fontWeight: 600,
                             fontFamily: "Open Sans",
                             fontSize: "14px",

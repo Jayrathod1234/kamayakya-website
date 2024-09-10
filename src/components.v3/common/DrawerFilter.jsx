@@ -1193,8 +1193,8 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
-                      minHeight: "0px",
                       width: "100%",
+                      whiteSpace: "nowrap",
                     }}
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">
@@ -1236,8 +1236,9 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-                      minHeight: "0px",
+
                       width: "100%",
+                      whiteSpace: "nowrap",
                     }}
                     label={
                       <>
@@ -1266,8 +1267,9 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-                      minHeight: "0px",
+
                       width: "100%",
+                      whiteSpace: "nowrap",
                     }}
                     label={
                       <>
@@ -1298,8 +1300,9 @@ function DrawerFilter() {
                       lineClamp: "1",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-                      minHeight: "0px",
+
                       width: "100%",
+                      whiteSpace: "nowrap",
                     }}
                     // Total Returns
                     label={
@@ -1342,8 +1345,9 @@ function DrawerFilter() {
                         gap: "12px",
                         fontFamily: "Open Sans, sans-serif !important",
                         textTransform: "capitalize",
-                        minHeight: "0px",
+
                         width: "100%",
+                        whiteSpace: "nowrap",
                       }}
                       label={
                         <Box className="items-start !important font-open_sans capitalize flex">
@@ -1382,8 +1386,9 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-                      minHeight: "0px",
+
                       width: "100%",
+                      whiteSpace: "nowrap",
                     }}
                     label={
                       <>
@@ -1407,8 +1412,9 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-                      minHeight: "0px",
+
                       width: "100%",
+                      whiteSpace: "nowrap",
                     }}
                     label={
                       <>
@@ -1432,8 +1438,9 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-                      minHeight: "0px",
+
                       width: "100%",
+                      whiteSpace: "nowrap",
                     }}
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">

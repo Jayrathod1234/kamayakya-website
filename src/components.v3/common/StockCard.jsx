@@ -46,10 +46,12 @@ function StockCard({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
+    document.body.classList.add("overflow-hidden");
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
+    document.body.classList.remove("overflow-hidden");
     setIsModalOpen(false);
   };
 
@@ -95,7 +97,9 @@ function StockCard({
                       alt=""
                       className="absolute -top-2 left-[89px] w-4"
                     />
-                    Please become a member to watch this video.
+                    {isLoggedIn
+                      ? "Please become a member to watch this video."
+                      : "Please login  to watch this video."}
                   </span>
 
                   {/* <span className="tooltiptext -left-5 relative shadow-sm z-[200000]">
@@ -224,13 +228,13 @@ function StockCard({
                       </p>
 
                       {/* Tooltip (Visible on large screens only) */}
-                      <div className="tooltip  relative hidden sm:block">
+                      <div className="tooltip relative hidden sm:block">
                         <img
                           src="/assets/ph_info-duotone.svg"
                           alt="info icon"
                           className="cursor-pointer hidden sm:block"
                         />
-                        <span className="tooltiptext  tooltiptext2 !-left-5 relative shadow-3xl">
+                        <span className="tooltiptext tooltiptext2 !-left-5 relative shadow-3xl">
                           <img
                             src="/assets/div.png"
                             alt=""
@@ -253,7 +257,7 @@ function StockCard({
                       </div>
 
                       {/* Modal Trigger (Visible on small screens only) */}
-                      <div className="sm:hidden block">
+                      <div className="sm:hidden block ">
                         <img
                           src="/assets/ph_info-duotone.svg"
                           alt="info icon"
@@ -272,7 +276,7 @@ function StockCard({
 
                     {/* Modal (only opens on small screens) */}
                     {isModalOpen && (
-                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm sm:hidden">
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm sm:hidden ">
                         <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
                           {/* Modal Header */}
                           <div className="w-full flex justify-between items-center">
