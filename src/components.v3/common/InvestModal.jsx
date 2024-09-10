@@ -58,7 +58,7 @@ const Modal = ({ open, handleClose, children }) => {
   return (
     <div
       id="modal-background"
-      className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
       onClick={handleBackgroundClick}
     >
       <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]" onClick={(e) => e.stopPropagation()}>
