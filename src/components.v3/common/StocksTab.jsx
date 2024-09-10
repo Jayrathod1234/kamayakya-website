@@ -28,7 +28,7 @@ export default function StocksTab() {
           ></div>
           <button
             onClick={() => handleChange(0)}
-            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] flex items-center justify-center transition-all duration-300 ease-in-out ${
+            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] w-[168px] flex items-center justify-center transition-all duration-300 ease-in-out ${
               value === 0
                 ? "text-white bg-[#101115]"
                 : "text-[#475467] bg-transparent hover:text-[#101115] hover:bg-[#E4E7EB]"
@@ -45,10 +45,10 @@ export default function StocksTab() {
           </button>
           <button
             onClick={() => handleChange(1)}
-            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] flex items-center justify-center transition-all duration-300 ease-in-out ${
+            className={`relative z-10 text-sm font-semibold font-open_sans rounded-[47px] py-2 px-10 min-h-[40px] min-w-[120px] w-[168px] flex items-center justify-center transition-all duration-300 ease-in-out ${
               value === 1
                 ? "text-white bg-[#101115]"
-                : "text-[#475467] bg-transparent hover:text-[#101115] hover:bg-[#E4E7EB] "
+                : "text-[#475467] bg-transparent hover:text-[#101115] hover:bg-[#E4E7EB]  "
             }`}
           >
             <div className="flex flex-col items-center text-center">

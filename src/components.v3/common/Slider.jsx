@@ -188,21 +188,19 @@ export function Slider({ children }) {
     const scrollProgress = emblaApi.scrollProgress();
     const slidesInView = emblaApi.slidesInView();
     const isScrollEvent = eventName === "scroll";
-
+  
     emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
       let diffToTarget = scrollSnap - scrollProgress;
       const slidesInSnap = engine.slideRegistry[snapIndex];
-
+  
       slidesInSnap.forEach((slideIndex) => {
         if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
-
+  
         if (engine.options.loop) {
           engine.slideLooper.loopPoints.forEach((loopItem) => {
             const target = loopItem.target();
-
             if (slideIndex === loopItem.index && target !== 0) {
               const sign = Math.sign(target);
-
               if (sign === -1) {
                 diffToTarget = scrollSnap - (1 + scrollProgress);
               }
@@ -212,25 +210,30 @@ export function Slider({ children }) {
             }
           });
         }
-
+  
         // Calculate the scale factor based on the distance to the target (snap point)
-        const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-
-        const scale = numberWithinRange(tweenValue, 0, 1); // Ensures a smooth scale between 0.85 and 1
+        const tweenValue = 1 - Math.abs(diffToTarget * 1); // Stronger scaling effect
+        
+        // Set scale range for the side cards to be between 0.25 and 1 (even smaller side cards)
+        const scale = numberWithinRange(tweenValue, 0, 2); 
+        
         const tweenNode = tweenNodes.current[slideIndex];
-        const parentNode = tweenNode.parentNode;
-        // Apply scaling transformation
+        // Apply scaling only to Y-axis to affect height but not width
         tweenNode.style.transform = `scaleY(${scale})`;
-
+  
+        // Reset margin adjustments to avoid width changes
         tweenNode.style.marginLeft = "14px";
         tweenNode.style.marginRight = "14px";
-
-        // // Optionally apply other effects, like opacity or blur, based on the scale
-        // const opacity = numberWithinRange(tweenValue, 0.5, 1); // Opacity reduces on the sides
-        // tweenNode.style.opacity = opacity;
+  
+        // Optionally apply other effects, like opacity or blur, based on the scale
+        const opacity = numberWithinRange(tweenValue, 0.4, 1); // Opacity reduces on the sides
+        tweenNode.style.opacity = opacity;
       });
     });
   }, []);
+  
+  
+  
   useEffect(() => {
     if (!emblaApi) return;
 
