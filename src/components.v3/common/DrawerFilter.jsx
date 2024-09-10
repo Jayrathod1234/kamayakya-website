@@ -1570,6 +1570,7 @@ function DrawerFilter() {
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
                               <FormControlLabel
+                                className="flex items-start"
                                 control={
                                   <Checkbox
                                     checked={
