@@ -1929,6 +1929,7 @@ function DrawerFilter() {
                                 {Object.keys(strategyTagList || {}).map(
                                   (key) => (
                                     <FormControlLabel
+                                      className="!flex !items-start"
                                       key={key}
                                       control={
                                         <Checkbox
@@ -1936,6 +1937,7 @@ function DrawerFilter() {
                                             key
                                           )}
                                           sx={{
+                                            padding: "0px 9px 9px",
                                             color: "default", // Default color
                                             "&.Mui-checked": {
                                               color: "#125B54", // Color when checked
