@@ -1570,7 +1570,7 @@ function DrawerFilter() {
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
                               <FormControlLabel
-                                className="flex items-start"
+                                className="!flex !items-start"
                                 control={
                                   <Checkbox
                                     checked={
@@ -1631,6 +1631,7 @@ function DrawerFilter() {
                               />
                               {Object.keys(tempRecency || {}).map((key) => (
                                 <FormControlLabel
+                                  className="!flex !items-start"
                                   key={key}
                                   control={
                                     <Checkbox
@@ -1678,6 +1679,7 @@ function DrawerFilter() {
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
                               <FormControlLabel
+                                className="!flex !items-start"
                                 control={
                                   <Checkbox
                                     checked={
@@ -1739,6 +1741,7 @@ function DrawerFilter() {
 
                               {Object.keys(tempTimeLeft || {}).map((key) => (
                                 <FormControlLabel
+                                  className="!flex !items-start"
                                   key={key}
                                   control={
                                     <Checkbox
