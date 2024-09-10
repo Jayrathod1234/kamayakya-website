@@ -95,7 +95,9 @@ function StockCard({
                       alt=""
                       className="absolute -top-2 left-[89px] w-4"
                     />
-                    Please become a member to watch this video.
+                    {isLoggedIn
+                      ? "Please become a member to watch this video."
+                      : "Please login  to watch this video."}
                   </span>
 
                   {/* <span className="tooltiptext -left-5 relative shadow-sm z-[200000]">
