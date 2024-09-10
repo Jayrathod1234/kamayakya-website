@@ -32,6 +32,51 @@ import { BorderLeftRounded } from "@mui/icons-material";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
+// fixed drawer
+const CustomTabPanel = styled(Box)(({ theme }) => ({
+  height: "100%",
+  overflowY: "auto", // Enable vertical scrolling
+  paddingRight: theme.spacing(1.5), // Add padding to the right
+  "&::-webkit-scrollbar": {
+    width: "8px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#108973 !important", // Match scrollbar color
+    borderRadius: "0px 6px 6px 0px",
+  },
+  "&::-webkit-scrollbar-track": {
+    backgroundColor: "#108973 !important",
+  },
+}));
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <CustomTabPanel
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      <Box sx={{ p: 3 }}>
+        <Typography style={{ color: "#2A837B" }}>{children}</Typography>{" "}
+        {/* Match text color */}
+      </Box>
+    </CustomTabPanel>
+  );
+}
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
+
 function DrawerFilter() {
   const {
     setStrategyTag,
@@ -87,51 +132,6 @@ function DrawerFilter() {
       clearValues();
     }
   }, [open]);
-
-  // fixed drawer
-  const CustomTabPanel = styled(Box)(({ theme }) => ({
-    height: "100%",
-    overflowY: "auto", // Enable vertical scrolling
-    paddingRight: theme.spacing(1.5), // Add padding to the right
-    "&::-webkit-scrollbar": {
-      width: "8px",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "#108973 !important", // Match scrollbar color
-      borderRadius: "0px 6px 6px 0px",
-    },
-    "&::-webkit-scrollbar-track": {
-      backgroundColor: "#108973 !important",
-    },
-  }));
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-    return (
-      <CustomTabPanel
-        role="tabpanel"
-        hidden={value !== index}
-        id={`vertical-tabpanel-${index}`}
-        aria-labelledby={`vertical-tab-${index}`}
-        {...other}
-      >
-        <Box sx={{ p: 3 }}>
-          <Typography style={{ color: "#2A837B" }}>{children}</Typography>{" "}
-          {/* Match text color */}
-        </Box>
-      </CustomTabPanel>
-    );
-  }
-  TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-  };
-  function a11yProps(index) {
-    return {
-      id: `vertical-tab-${index}`,
-      "aria-controls": `vertical-tabpanel-${index}`,
-    };
-  }
 
   const clearValues = () => {
     setTempStrategyTag(strategyTag);
@@ -1200,9 +1200,6 @@ function DrawerFilter() {
                     height: "100% !important",
                     // padding: "14px 8px 14px 16px",
                     color: "#5F6368", // Match text color for tabs
-                    "& .MuiTabs-scroller": {
-                      width: "100% !important",
-                    },
                   }}
                 >
                   <Tab
@@ -1211,8 +1208,8 @@ function DrawerFilter() {
                       alignItems: "start !important",
                       color: "#5F6368",
                       gap: "12px",
+                      minHeight: "0px",
                       width: "100%",
-                      whiteSpace: "nowrap",
                     }}
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">
@@ -1254,9 +1251,8 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-
+                      minHeight: "0px",
                       width: "100%",
-                      whiteSpace: "nowrap",
                     }}
                     label={
                       <>
@@ -1285,9 +1281,8 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-
+                      minHeight: "0px",
                       width: "100%",
-                      whiteSpace: "nowrap",
                     }}
                     label={
                       <>
@@ -1318,9 +1313,8 @@ function DrawerFilter() {
                       lineClamp: "1",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-
+                      minHeight: "0px",
                       width: "100%",
-                      whiteSpace: "nowrap",
                     }}
                     // Total Returns
                     label={
@@ -1363,9 +1357,8 @@ function DrawerFilter() {
                         gap: "12px",
                         fontFamily: "Open Sans, sans-serif !important",
                         textTransform: "capitalize",
-
+                        minHeight: "0px",
                         width: "100%",
-                        whiteSpace: "nowrap",
                       }}
                       label={
                         <Box className="items-start !important font-open_sans capitalize flex">
@@ -1404,9 +1397,8 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-
+                      minHeight: "0px",
                       width: "100%",
-                      whiteSpace: "nowrap",
                     }}
                     label={
                       <>
@@ -1430,9 +1422,8 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-
+                      minHeight: "0px",
                       width: "100%",
-                      whiteSpace: "nowrap",
                     }}
                     label={
                       <>
@@ -1456,9 +1447,8 @@ function DrawerFilter() {
                       gap: "12px",
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
-
+                      minHeight: "0px",
                       width: "100%",
-                      whiteSpace: "nowrap",
                     }}
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">
