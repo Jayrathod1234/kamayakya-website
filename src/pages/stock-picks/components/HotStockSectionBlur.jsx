@@ -429,7 +429,7 @@ const HotStockSection = ({ items }) => {
                       <span className="text-[#108973] pl-1 pr-1">HOT</span>
                       stocks for <br className="sm:block hidden"></br>Free
                     </p>
-                    <div className="!mt-4 sm:m-0 m-auto sm:block inline-block">
+                    <div className="sm:!mt-6 !mt-3 lg:m-0 m-auto lg:block inline-block lg:pb-0 pb-7">
                       <ButtonnArrow
                         onClick={handleLogin}
                         variant={ButtonVariant.primary}
