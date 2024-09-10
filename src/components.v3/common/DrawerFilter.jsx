@@ -181,7 +181,7 @@ function DrawerFilter() {
   };
 
   const handleUpsideLeftInputChange = (event) => {
-    // event.stopPropagation();
+    event.stopPropagation();
     const index = event.target.name === "min" ? 0 : 1;
     const newValue = [...tempUpsideLeft];
     newValue[index] =
