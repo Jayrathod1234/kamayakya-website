@@ -157,6 +157,21 @@ function DrawerFilter() {
     handleApplyFilters(true);
   };
 
+  const handleSelectAllStrategies = () => {
+    const strategy_tag_list_arr = Object.keys(strategyTagList || {});
+
+    if (tempStrategyTag.length === strategy_tag_list_arr.length) {
+      strategy_tag_list_arr.forEach(async (element) => {
+        await removePopularStrategies(element);
+      });
+      setTempStrategyTag([]);
+    } else {
+      strategy_tag_list_arr.forEach(async (element) => {
+        await addPopularStrategies(element);
+      });
+      setTempStrategyTag(strategy_tag_list_arr);
+    }
+  };
   const handleReset = () => {
     setOpen(false);
     handleResetFilters();
@@ -180,13 +195,13 @@ function DrawerFilter() {
     setTempUpsideLeft(newValue);
   };
 
-  const handleUpsideLeftInputChange = (event) => {
-    event.stopPropagation();
-    const index = event.target.name === "min" ? 0 : 1;
-    const newValue = [...tempUpsideLeft];
-    newValue[index] =
-      event.target.value === "" ? "" : parseFloat(event.target.value);
-    setTempUpsideLeft(newValue);
+  const handleUpsideLeftInputChange = (event, type) => {
+    let inputValue = event?.target?.value;
+    if (type == "min") {
+      setTempUpsideLeft([inputValue, tempUpsideLeft[1]]);
+    } else {
+      setTempUpsideLeft([tempUpsideLeft[0], inputValue]);
+    }
   };
 
   // // returns
@@ -194,13 +209,13 @@ function DrawerFilter() {
     setTempReturns(newValue);
   };
 
-  const handleReturnsInputChange = (event) => {
-    event.stopPropagation();
-    const index = event.target.name === "min" ? 0 : 1;
-    const newValue = [...tempReturns];
-    newValue[index] =
-      event.target.value === "" ? "" : parseFloat(event.target.value);
-    setTempReturns(newValue);
+  const handleReturnsInputChange = (event, type) => {
+    let inputValue = event?.target?.value;
+    if (type == "min") {
+      setTempReturns([inputValue, tempUpsideLeft[1]]);
+    } else {
+      setTempReturns([tempUpsideLeft[0], inputValue]);
+    }
   };
 
   const handleChangeRecency = (event) => {
@@ -419,9 +434,10 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             type="number"
-                            name="min"
                             value={tempUpsideLeft ? tempUpsideLeft[0] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            onChange={(e) =>
+                              handleUpsideLeftInputChange(e, "min")
+                            }
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -447,9 +463,10 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             type="number"
-                            name="max"
                             value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            onChange={(e) =>
+                              handleUpsideLeftInputChange(e, "max")
+                            }
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -706,9 +723,8 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             type="number"
-                            name="min"
                             value={tempReturns ? tempReturns[0] : 0}
-                            onChange={handleReturnsInputChange}
+                            onChange={(e) => handleReturnsInputChange(e, "min")}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -739,9 +755,8 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             type="number"
-                            name="max"
                             value={tempReturns ? tempReturns[1] : 0}
-                            onChange={handleReturnsInputChange}
+                            onChange={(e) => handleReturnsInputChange(e, "max")}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1495,9 +1510,10 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             type="number"
-                            name="min"
                             value={tempUpsideLeft ? tempUpsideLeft[0] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            onChange={(e) =>
+                              handleUpsideLeftInputChange(e, "min")
+                            }
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1530,9 +1546,10 @@ function DrawerFilter() {
                             variant="outlined"
                             size="small"
                             type="number"
-                            name="max"
                             value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            onChange={(e) =>
+                              handleUpsideLeftInputChange(e, "max")
+                            }
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1794,7 +1811,7 @@ function DrawerFilter() {
                             type="number"
                             name="min"
                             value={tempReturns ? tempReturns[0] : 0}
-                            onChange={handleReturnsInputChange}
+                            onChange={(e) => handleReturnsInputChange(e, "min")}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1826,7 +1843,7 @@ function DrawerFilter() {
                             type="number"
                             name="max"
                             value={tempReturns ? tempReturns[1] : 0}
-                            onChange={handleReturnsInputChange}
+                            onChange={(e) => handleReturnsInputChange(e, "max")}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1926,6 +1943,40 @@ function DrawerFilter() {
                                   overflowY: "auto",
                                 }}
                               >
+                                <FormControlLabel
+                                  className="!flex !items-start"
+                                  control={
+                                    <Checkbox
+                                      checked={
+                                        tempStrategyTag.length ===
+                                        Object.keys(strategyTagList || {})
+                                          .length
+                                      }
+                                      onClick={handleSelectAllStrategies}
+                                      sx={{
+                                        padding: "0px 9px 9px",
+                                        color: "default", // Default color
+                                        "&.Mui-checked": {
+                                          color: "#125B54", // Color when checked
+                                        },
+                                      }}
+                                    />
+                                  }
+                                  label={
+                                    <span
+                                      className="flex items-start"
+                                      style={{
+                                        fontFamily: "Open Sans, sans-serif",
+                                      }}
+                                    >
+                                      {tempStrategyTag.length ===
+                                      Object.keys(strategyTagList || {}).length
+                                        ? "Deselect"
+                                        : "Select"}{" "}
+                                      All
+                                    </span>
+                                  }
+                                />
                                 {Object.keys(strategyTagList || {}).map(
                                   (key) => (
                                     <FormControlLabel
