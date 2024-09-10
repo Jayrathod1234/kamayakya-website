@@ -1,32 +1,19 @@
 import { axiosApi } from "../../utils/axios";
 import axios from "axios";
 
-import {
-  getLatestReleasesStockResponse,
-  getStrategyTagResponse,
-  getHotStockResponse,
-  getAllBoardStockStockResponse,
-  getCommonDetailsResponse,
-  getStockDetailResponse,
-  getStockNewsResponse,
-} from "./static-response";
+import { getStockNewsResponse } from "./static-response";
 
 // Latest Releases Stock List API
 export const getHotStockListApi = async ({ isLoggedIn, type }) => {
   try {
-    if (process.env.NEXT_PUBLIC_DEBUG) {
-      const URL = isLoggedIn ? `/user/hotStock` : `/user/hotStock/guest`;
-      /* ----------------------------------- API ---------------------------------- */
-      const response = await axiosApi.get(URL, {
-        params: {
-          type,
-        },
-      });
-      return response.data;
-    } else {
-      /* ----------------------------- Static Data ---------------------------- */
-      return getHotStockResponse;
-    }
+    const URL = isLoggedIn ? `/user/hotStock` : `/user/hotStock/guest`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL, {
+      params: {
+        type,
+      },
+    });
+    return response.data;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);
@@ -37,21 +24,16 @@ export const getHotStockListApi = async ({ isLoggedIn, type }) => {
 // Latest Releases Stock List API
 export const getLatestReleasesStockListApi = async ({ isLoggedIn, type }) => {
   try {
-    if (process.env.NEXT_PUBLIC_DEBUG) {
-      const URL = isLoggedIn
-        ? `/user/latestRelease`
-        : `/user/latestRelease/guest`;
-      /* ----------------------------------- API ---------------------------------- */
-      const response = await axiosApi.get(URL, {
-        params: {
-          type,
-        },
-      });
-      return response.data.data;
-    } else {
-      /* ----------------------------- Static Data ---------------------------- */
-      return getLatestReleasesStockResponse;
-    }
+    const URL = isLoggedIn
+      ? `/user/latestRelease`
+      : `/user/latestRelease/guest`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL, {
+      params: {
+        type,
+      },
+    });
+    return response.data.data;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);
@@ -62,18 +44,13 @@ export const getLatestReleasesStockListApi = async ({ isLoggedIn, type }) => {
 // Strategy Tags API
 export const getStrategyTagListApi = async ({ type }) => {
   try {
-    if (process.env.NEXT_PUBLIC_DEBUG) {
-      /* ----------------------------------- API ---------------------------------- */
-      const response = await axiosApi.get(`/user/strategyTags`, {
-        params: {
-          type,
-        },
-      });
-      return response.data.data;
-    } else {
-      /* ----------------------------- Static Data ---------------------------- */
-      return getStrategyTagResponse;
-    }
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(`/user/strategyTags`, {
+      params: {
+        type,
+      },
+    });
+    return response.data.data;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);
@@ -113,30 +90,25 @@ export const getAllBoardStockStockListApi = async ({ params, body }) => {
     sort_value = "desc";
   }
   try {
-    if (process.env.NEXT_PUBLIC_DEBUG) {
-      const URL = isLoggedIn ? `/user/allStocks` : `/user/allStocks/guest`;
-      /* ----------------------------------- API ---------------------------------- */
-      const response = await axiosApi.post(
-        `${URL}?type=${type}&page=${page}&limit=${limit}`,
-        {
-          search,
-          sort_by,
-          sort_value,
-          recency_time,
-          time_left_with_time,
-          upside_left_range,
-          total_returns_with_range,
-          market_cap_type,
-          risk,
-          sector,
-          strategy_tags: changablestrategyTags,
-        }
-      );
-      return response.data;
-    } else {
-      //   /* ----------------------------- Static Data ---------------------------- */
-      return getAllBoardStockStockResponse;
-    }
+    const URL = isLoggedIn ? `/user/allStocks` : `/user/allStocks/guest`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.post(
+      `${URL}?type=${type}&page=${page}&limit=${limit}`,
+      {
+        search,
+        sort_by,
+        sort_value,
+        recency_time,
+        time_left_with_time,
+        upside_left_range,
+        total_returns_with_range,
+        market_cap_type,
+        risk,
+        sector,
+        strategy_tags: changablestrategyTags,
+      }
+    );
+    return response.data;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);
@@ -146,15 +118,10 @@ export const getAllBoardStockStockListApi = async ({ params, body }) => {
 
 export const getCommonDetailsApi = async ({ type }) => {
   try {
-    if (process.env.NEXT_PUBLIC_DEBUG) {
-      const URL = `/user/commonDetails?type=${type}`;
-      /* ----------------------------------- API ---------------------------------- */
-      const response = await axiosApi.get(URL);
-      return response.data.data;
-    } else {
-      //   /* ----------------------------- Static Data ---------------------------- */
-      return getCommonDetailsResponse;
-    }
+    const URL = `/user/commonDetails?type=${type}`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL);
+    return response.data.data;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);
@@ -164,15 +131,10 @@ export const getCommonDetailsApi = async ({ type }) => {
 
 export const getStockDetailApi = async ({ stockId }) => {
   try {
-    if (process.env.NEXT_PUBLIC_DEBUG) {
-      const URL = `/user/stockDetail/${stockId}`;
-      /* ----------------------------------- API ---------------------------------- */
-      const response = await axiosApi.get(URL);
-      return response.data.data;
-    } else {
-      //   /* ----------------------------- Static Data ---------------------------- */
-      return getStockDetailResponse;
-    }
+    const URL = `/user/stockDetail/${stockId}`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL);
+    return response.data.data;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);

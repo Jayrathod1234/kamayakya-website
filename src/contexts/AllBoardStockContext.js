@@ -106,6 +106,7 @@ export const AllBoardStockProvider = ({ children }) => {
         sortBy,
         sortValue,
         debouncedSearchStock,
+        isLoggedIn,
       },
     ],
     queryFn: ({ pageParam = 1 }) =>

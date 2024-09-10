@@ -216,8 +216,11 @@ export default function CustomSortMenu({ isLabel }) {
                     value="upside_left_desc"
                     control={
                       <Radio
-                        color="success"
                         sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
                           position: "absolute",
                           left: "199px",
                           padding: "0px",

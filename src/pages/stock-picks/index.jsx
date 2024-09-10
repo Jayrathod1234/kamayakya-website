@@ -57,7 +57,6 @@ const StockPicks = () => {
             >
               {/* SebiBoardTab */}
               <SebiBoardTab />
-              {/* Bannerhotstockscard */}
               <HotStockSection
                 items={items}
                 isLimitedView={isLimitedView}
