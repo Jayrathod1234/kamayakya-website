@@ -98,7 +98,7 @@ export default function StockCardProgressBarSection({
 
   return (
     <div className=" relative  pl-4">
-      <Carousel className=" z-10 " opts={{ slidesToScroll: 3 }}>
+      <Carousel className=" z-10 " opts={{ slidesToScroll: 3,startIndex:targetIndex }}>
         <CarouselContent className=" justify-between">
           {/* <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets
@@ -128,7 +128,7 @@ export default function StockCardProgressBarSection({
                 // className={`${label===""}`}
                 label={target.label}
                 price={target.price}
-                date={index !== targetIndex ? target.date : ""}
+                date={target.status==="Completed" ? target.date : ""}
                 status={target.status}
                 // target.label.includes("CMP") ? cmpRef :
                 ref={ref}

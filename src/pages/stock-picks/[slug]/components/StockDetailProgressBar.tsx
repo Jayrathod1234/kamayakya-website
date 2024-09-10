@@ -40,7 +40,7 @@ export default function StockDetailProgressBar({
  
   return (
     <div className=" relative w-full">
-      <Carousel className=" z-20 w-full" opts={{ slidesToScroll: 3, align:"center" }}>
+      <Carousel className=" z-20 w-full" opts={{ slidesToScroll: 3, align:"center",startIndex:targetIndex }}>
         <CarouselContent className="  justify-between">
           {targets.map((target: TTarget, index: number) => (
             //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time

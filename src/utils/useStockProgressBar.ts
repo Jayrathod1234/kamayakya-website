@@ -69,7 +69,7 @@ export const useStockProgressBar = ({
       marginRight: ref.current[targetIndex].offsetWidth / 0.18,
     }));
     setCmpMarginRight(ref.current[cmpIndex].offsetWidth);
-  }, [cmpIndex, targetIndex]);
+  }, [cmpIndex, targetIndex,cmpMarginRight,margins.marginLeft]);
 
   useEffect(() => {
     const handleResize = () => {

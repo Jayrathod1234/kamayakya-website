@@ -59,7 +59,7 @@ export const useFormattedTargets = ({
       const latestTargetIndex = updatedTargets.findIndex((item) => item.label === latestTarget.label);
       setTargetIndex(latestTargetIndex);
 
-      console.log("TARGETS UPDATED", updatedTargets[latestTargetIndex], updatedTargets);
+      // console.log("TARGETS UPDATED", updatedTargets[latestTargetIndex], updatedTargets);
     }
   }, [stock_targets, live_price, entry_price, entry_date]);
 

@@ -37,7 +37,7 @@ export default function StockCardProgressBarBlurSection({ emblaApi }: { emblaApi
     cmpIndex,
   });
 
-
+  console.log("MARGIN LEFT",margins)
   return (
     //
     <div className=" relative pl-4 ">
