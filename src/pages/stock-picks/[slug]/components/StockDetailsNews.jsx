@@ -88,7 +88,7 @@ const StockDetailsNews = ({ stock_name }) => {
     <div>
       <div className="pt-[5px]  ">
         {items?.map((item, index) => (
-          <a key={index} target="_blank" href={item?.newsUrl} className="block  group">
+          <a key={index} target="_blank" href={item?.url} className="block  group">
             <div className="flex flex-row md:flex-row items-start md:items-center gap-4 py-4 px-1 rounded-md  cursor-pointer group-hover:bg-white transition">
               {/* <!-- Image Section --> */}
               <div className="flex-shrink-0">

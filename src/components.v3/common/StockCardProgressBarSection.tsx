@@ -132,8 +132,11 @@ export default function StockCardProgressBarSection({
                 status={target.status}
                 // target.label.includes("CMP") ? cmpRef :
                 ref={ref}
-                tooltipContent={}
-                showToolTip
+                tooltipContent={<p className=" p-4 text-2xs max-w-[300px] whitespace-normal">
+                  The price at which the stock recommendation was given by KamayaKya. You can buy the stock as long as
+                  the action is 'Buy'.
+                </p>}
+                showToolTip={target.label==="Entry Price"}
               />
               {index === 0 && (
                 <>

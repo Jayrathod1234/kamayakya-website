@@ -49,9 +49,19 @@ export default function StockDetailProgressBar({
                 index={index}
                 label={target.label}
                 price={target.price}
-                date={index !== targetIndex ? target.date : ""}
+                date={target.status === "Completed" ? target.date : ""}
                 status={target.status}
                 ref={ref}
+                tooltipContent={
+                  target.label === "Entry Price" ? <p className=" p-4 text-2xs max-w-[300px] whitespace-normal">
+                  The price at which the stock recommendation was given by KamayaKya. You can buy the stock as long as
+                  the action is 'Buy'.
+                </p> : target.label === "CMP" ? <div className=" p-4 max-w-[300px]">
+                  <h3 className=" text-2xs font-bold">Current Market Price</h3>
+                  <p className=" text-2xs">The current or live price at which the stock is trading on the NSE or BSE exchange.</p>
+                </div>:null
+                }
+                showToolTip={target.label==="Entry Price" || target.label==="CMP"}
               />
               {index === 0 && (
                 <>
