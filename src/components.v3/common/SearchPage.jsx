@@ -37,7 +37,7 @@ function SearchPage() {
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
   return (
     <>
-      <div class=" bg-[#F2F4F7]  ">
+      <div class=" bg-[#F2F4F7] h-screen ">
         {/* <!-- Stock Search --> */}
         <div className="bg-[#F2F4F7] p-4 sticky top-0 right-0 left-0">
           <div class="flex items-center bg-white   rounded-[6px] shadow-2xs">
@@ -73,7 +73,7 @@ function SearchPage() {
               onChange={(e) => setSearchStock(e.target.value)}
             />
             {/* close icon in serach bar  */}
-            <div className="pr-3">
+            {/* <div className="pr-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -89,7 +89,7 @@ function SearchPage() {
                   stroke-linejoin="round"
                 />
               </svg>
-            </div>
+            </div> */}
           </div>
         </div>
 
