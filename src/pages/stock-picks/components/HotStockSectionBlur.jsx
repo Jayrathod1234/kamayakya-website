@@ -400,25 +400,46 @@ const HotStockSection = ({ items }) => {
                   alt=""
                   className="sm:w-[46px] w-[56px] lg:m-0 m-auto"
                 />
-                <p className="sm:text-display-sm lg:text-display-xs md:text-[26px] text-lg font-bold sm:leading-[38px] leading-7 lg:text-center text-center font-open_sans pt-4 lg:max-w-[745px]   tracking-normal">
-                  Gain exclusive access to
-                  <span className="text-[#108973] pl-1 pr-1">
-                    30+ potential multibagger picks
-                  </span>
-                  <br className="sm:block hidden"></br>with KamayaKya
-                  membership.
-                </p>
-                <div className="  sm:!mt-6 !mt-3 lg:m-0 m-auto lg:block inline-block lg:pb-0 pb-7">
-                  <Link href={`/pricing`}>
-                    <ButtonnArrow
-                      onClick={handleContactButton}
-                      variant={ButtonVariant.primary}
-                      size={ButtonSize.lg}
-                    >
-                      Explore Plans
-                    </ButtonnArrow>
-                  </Link>
-                </div>
+                {isLoggedIn ? (
+                  <>
+                    <p className="sm:text-display-sm lg:text-display-xs md:text-[26px] text-lg font-bold sm:leading-[38px] leading-7 lg:text-center text-center font-open_sans pt-4 lg:max-w-[745px]   tracking-normal">
+                      Gain exclusive access to
+                      <span className="text-[#108973] pl-1 pr-1">
+                        30+ potential multibagger picks
+                      </span>
+                      <br className="sm:block hidden"></br>with KamayaKya
+                      membership.
+                    </p>
+                    <div className="  sm:!mt-6 !mt-3 lg:m-0 m-auto lg:block inline-block lg:pb-0 pb-7">
+                      <Link href={`/pricing`}>
+                        <ButtonnArrow
+                          onClick={handleContactButton}
+                          variant={ButtonVariant.primary}
+                          size={ButtonSize.lg}
+                        >
+                          Explore Plans
+                        </ButtonnArrow>
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="sm:text-display-sm lg:text-display-xs md:text-[26px] text-lg font-bold sm:leading-[38px] leading-7 lg:text-center text-center font-open_sans pt-4 lg:max-w-[745px]   tracking-normal">
+                      Log in and unlock <br className="sm:block hidden"></br>3
+                      <span className="text-[#108973] pl-1 pr-1">HOT</span>
+                      stocks for <br className="sm:block hidden"></br>Free
+                    </p>
+                    <div className="!mt-4 sm:m-0 m-auto sm:block inline-block">
+                      <ButtonnArrow
+                        onClick={handleLogin}
+                        variant={ButtonVariant.primary}
+                        size={ButtonSize.lg}
+                      >
+                        Get Free Stocks
+                      </ButtonnArrow>
+                    </div>
+                  </>
+                )}
 
                 <div>
                   {items.length > 0 && (

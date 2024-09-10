@@ -1577,6 +1577,7 @@ function DrawerFilter() {
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
                               <FormControlLabel
+                                className="!flex !items-start"
                                 control={
                                   <Checkbox
                                     checked={
@@ -1637,6 +1638,7 @@ function DrawerFilter() {
                               />
                               {Object.keys(tempRecency || {}).map((key) => (
                                 <FormControlLabel
+                                  className="!flex !items-start"
                                   key={key}
                                   control={
                                     <Checkbox
@@ -1684,6 +1686,7 @@ function DrawerFilter() {
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
                               <FormControlLabel
+                                className="!flex !items-start"
                                 control={
                                   <Checkbox
                                     checked={
@@ -1745,6 +1748,7 @@ function DrawerFilter() {
 
                               {Object.keys(tempTimeLeft || {}).map((key) => (
                                 <FormControlLabel
+                                  className="!flex !items-start"
                                   key={key}
                                   control={
                                     <Checkbox
@@ -1932,6 +1936,7 @@ function DrawerFilter() {
                                 {Object.keys(strategyTagList || {}).map(
                                   (key) => (
                                     <FormControlLabel
+                                      className="!flex !items-start"
                                       key={key}
                                       control={
                                         <Checkbox
@@ -1939,6 +1944,7 @@ function DrawerFilter() {
                                             key
                                           )}
                                           sx={{
+                                            padding: "0px 9px 9px",
                                             color: "default", // Default color
                                             "&.Mui-checked": {
                                               color: "#125B54", // Color when checked
