@@ -1196,6 +1196,7 @@ function DrawerFilter() {
                       width: "100%",
                       whiteSpace: "nowrap",
                     }}
+                    class={`color-block`}
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">
                         Upside Left
