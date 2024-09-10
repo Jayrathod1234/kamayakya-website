@@ -74,7 +74,9 @@ export const useStockProgressBar = ({
   useEffect(() => {
     const handleResize = () => {
       // console.log("RESIZE CALLED", cmpIndex, targetIndex);
-      calculateDistance();
+      requestAnimationFrame(() => {
+        calculateDistance();
+      });
     };
 
     window.addEventListener("resize", handleResize);

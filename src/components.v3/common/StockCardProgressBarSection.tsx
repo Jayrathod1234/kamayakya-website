@@ -132,6 +132,8 @@ export default function StockCardProgressBarSection({
                 status={target.status}
                 // target.label.includes("CMP") ? cmpRef :
                 ref={ref}
+                tooltipContent={}
+                showToolTip
               />
               {index === 0 && (
                 <>
