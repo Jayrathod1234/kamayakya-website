@@ -620,9 +620,9 @@ function DrawerFilter() {
                   </IconButton> */}
                     </Box>
                   </AccordionSummary>
-                  <div className="pl-7">
+                  <div className="pl-7 ">
                     <AccordionDetails>
-                      <FormGroup>
+                      <FormGroup className="">
                         {Object.keys(tempTimeLeft || {}).map((key) => (
                           <FormControlLabel
                             key={key}
@@ -646,6 +646,9 @@ function DrawerFilter() {
                                 {filterTimeLabel[key]}
                               </span>
                             }
+                            sx={{
+                              height: "42px",
+                            }}
                           />
                         ))}
                       </FormGroup>
@@ -1615,6 +1618,7 @@ function DrawerFilter() {
                                     }}
                                     sx={{
                                       padding: "0px 9px 9px",
+
                                       color: "default", // Default color
                                       "&.Mui-checked": {
                                         color: "#125B54", // Color when checked
@@ -1641,7 +1645,7 @@ function DrawerFilter() {
                               />
                               {Object.keys(tempRecency || {}).map((key) => (
                                 <FormControlLabel
-                                  className="!flex !items-start"
+                                  className="!flex !items-start py-[7px]"
                                   key={key}
                                   control={
                                     <Checkbox
@@ -1751,7 +1755,7 @@ function DrawerFilter() {
 
                               {Object.keys(tempTimeLeft || {}).map((key) => (
                                 <FormControlLabel
-                                  className="!flex !items-start"
+                                  className="!flex !items-start py-[7px]"
                                   key={key}
                                   control={
                                     <Checkbox
@@ -1939,7 +1943,7 @@ function DrawerFilter() {
                                 {Object.keys(strategyTagList || {}).map(
                                   (key) => (
                                     <FormControlLabel
-                                      className="!flex !items-start"
+                                      className="!flex !items-start py-[7px]"
                                       key={key}
                                       control={
                                         <Checkbox
