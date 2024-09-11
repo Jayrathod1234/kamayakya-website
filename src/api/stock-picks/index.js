@@ -142,7 +142,7 @@ export const getStockDetailApi = async ({ stockId }) => {
   }
 };
 
-export const getNewsListApi = async ({ stock_name, limit, cursor }) => {
+export const getNewsListApi = async ({ stock_name, limit, cursor,page }) => {
   try {
     // const response = await axios.get(
     //   `https://google-news-api1.p.rapidapi.com/search?language=EN&q=${stock_name}&limit=${limit}`,
@@ -157,8 +157,11 @@ export const getNewsListApi = async ({ stock_name, limit, cursor }) => {
     // );
     // console.log(response.data.news);
     // return response.data.news;
+   
+    const response = await axios.get(`https://api.marketaux.com/v1/news/all?search="${stock_name}"&language=en&page=${page}&sort=published_at&api_token=${process.env.NEXT_PUBLIC_MARKET_AUX_TOKEN}`)
+    console.log(response);
 
-    return getStockNewsResponse;
+    return response.data;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);

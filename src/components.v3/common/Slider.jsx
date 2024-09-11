@@ -10,7 +10,7 @@ import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
-
+import CarouselIndicator from "@/components.v3/common/CarouselIndicator";
 export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   // ... existing code
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
@@ -117,14 +117,8 @@ export function Slider({ children }) {
 
   const tweenFactor = useRef(0);
   const tweenNodes = useRef([]);
-  const {
-    prevBtnDisabled,
-    nextBtnDisabled,
-    onPrevButtonClick,
-    onNextButtonClick,
-  } = usePrevNextButtons(emblaApi);
-  const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } =
-    useDotButton(emblaApi);
+  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
+  const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } = useDotButton(emblaApi);
 
   const handlePrevNext = (cb) => {
     cb();
@@ -303,11 +297,11 @@ export function Slider({ children }) {
           style={{ backfaceVisibility: "hidden" }}
         >
           {children.map((carousel, index) => (
-            <CarouselItem
-              key={carousel.key}
-              className={`carousel embla__class-names`}
-            >
-              {carousel}
+            <CarouselItem key={carousel.key} className={`carousel embla__class-names`}>
+              {/* {carousel(emblaApi)} */}
+              {React.cloneElement(carousel, {
+                emblaApi: emblaApi, // Add any prop you want to pass
+              })}
             </CarouselItem>
           ))}
         </div>
@@ -318,13 +312,7 @@ export function Slider({ children }) {
         {scrollSnaps
           .slice(0, scrollSnaps.length) // Show 5 on small screens, all on larger screens
           .map((_, index) => (
-            <div
-              onClick={() => onDotButtonClick(index)}
-              key={index}
-              className={`${
-                index === selectedIndex ? "w-4 !bg-brand-300" : "aspect-square"
-              } h-[8px] bg-gray-200 rounded-full transition-all`}
-            ></div>
+            <CarouselIndicator onClick={() => onDotButtonClick(index)} index={index} selectedIndex={selectedIndex} />
           ))}
       </div>
     </div>

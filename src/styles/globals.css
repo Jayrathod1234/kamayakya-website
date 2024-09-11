@@ -2044,3 +2044,58 @@ header > div > div {
   font-family: "Open sans",sans-serif !important;
   font-size: 14px !important;
 }
+
+
+
+.carousel-dot-animate{
+  transform:scaleX(0);
+  animation-name: carousel-dot;
+  transform-origin: left;
+  animation-timing-function: linear;
+  /* animation-duration: 6s; */
+  animation-fill-mode: forwards;
+}
+
+@keyframes carousel-dot {
+  0% {
+    transform:scaleX(0);
+  }
+  100% {
+    transform:scalex(1);
+  }
+  
+}
+
+.cmp-pulse::before{
+  content:'';
+  position:absolute;
+  padding:0.8em;
+  z-index: -1;
+  /* height: 1rem; */
+  /* width: 1rem; */
+  display:block;
+  background: currentColor;
+  top:38%;
+  left:50%;
+  border-radius: 50%;
+  transform:translate(-50%,-40%);
+  animation-name: pulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.top-for-blur.cmp-pulse::before{
+ 
+  top:48%;
+ 
+}
+
+@keyframes  pulse {
+  from{
+    transform:translate(-50%,-40%) scale(0);
+    opacity: 1;
+  }
+  to{
+    transform:translate(-50%,-40%) scale(1);
+    opacity: 0;
+  }
+}

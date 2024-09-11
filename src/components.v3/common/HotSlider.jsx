@@ -10,6 +10,8 @@ import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
+import CarouselIndicator from '@/components.v3/common/CarouselIndicator'
+
 export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
@@ -85,7 +87,7 @@ export function HotSlider({ children }) {
       startIndex: 1,
       containScroll: "trimSnaps",
     },
-    [Autoplay({ playOnInit: false, delay: 6000 }), ClassNames()] //change carousel timer here.
+    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef([]);
@@ -205,7 +207,9 @@ export function HotSlider({ children }) {
                 key={carousel.key}
                 className={`carousel embla__class-names`}
               >
-                {carousel}
+                {React.cloneElement(carousel,{
+                  emblaApi:emblaApi
+                })}
               </CarouselItem>
             ))}
           </div>
@@ -235,24 +239,11 @@ export function HotSlider({ children }) {
         </div>
       </div>
       {/* indicator */}
-      <div className="flex gap-4 justify-center items-center py-2 bg-white rounded-full w-auto max-w-[227px] mx-auto">
-        {scrollSnaps.map((_, index) => (
-          <div
-            onClick={() => onDotButtonClick(index)}
-            key={index}
-            className={`relative bg-gray-200 rounded-md overflow-hidden ${index === selectedIndex ? "bg-brand-300 w-4 h-2" : "w-2 h-2"}`}
-          >
-            {/* Progress bar inside the indicator */}
-            <div
-              className={`absolute left-0 top-0 h-full bg-brand-300 ${index === selectedIndex ? "animate-fill" : ""}`}
-              style={{
-                animationDuration: `6000ms`, // Match the autoplay delay, for example, 6 seconds
-                animationTimingFunction: "linear",
-                animationIterationCount: "1", // The fill animation will happen only once per indicator
-              }}
-            ></div>
-          </div>
+      <div className=" flex gap-4 justify-center items-center p-[6px] bg-white rounded-full w-auto max-w-fit mx-auto">
+      {scrollSnaps.map((_, index) => (
+         <CarouselIndicator onClick={() => onDotButtonClick(index)} index={index} selectedIndex={selectedIndex} />
         ))}
+
       </div>
 
 
