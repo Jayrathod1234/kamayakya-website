@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useRef, useState } from "react";
 import StockDetailsNews from "./StockDetailsNews";
 import StockDetailsTimeline from "./StockDetailsTimeline";
 import StockDetailsProgressBar from "./StockDetailsProgressBar";
@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { ButtonBase, Tooltip } from "@mui/material";
+import { Modal } from "@nextui-org/react";
 import StockDetailProgressBar from "./StockDetailProgressBar";
 
 function StockDetailsSection() {
@@ -51,7 +52,7 @@ function StockDetailsSection() {
     router.push("/stock-picks");
     return;
   }
-  const watch_video = timeline.find((value) => value.type == "youtube");
+  const watch_video = timeline?.find((value) => value.type == "youtube");
   const hasVideo = watch_video && watch_video.youtube_link;
   const [modalState, setModalState] = useState({
     isMainModalOpen: false,
@@ -64,8 +65,34 @@ function StockDetailsSection() {
     setModalState({ isMainModalOpen: false, isChildModalOpen: false });
   const handleChildModalOpen = () =>
     setModalState({ isMainModalOpen: false, isChildModalOpen: true });
-  const handleCloseAllModals = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
+  const handleCloseAllModals = useCallback(
+    () => setModalState({ isMainModalOpen: false, isChildModalOpen: false }),
+    []
+  );
+
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        handleCloseAllModals(); // Close all modals on Esc key press
+      }
+    };
+
+    if (modalState.isMainModalOpen || modalState.isChildModalOpen) {
+      document.body.style.overflow = "hidden"; // Disable background scroll
+      window.addEventListener("keydown", handleEsc); // Add event listener for Esc key
+    } else {
+      document.body.style.overflow = ""; // Re-enable scroll when modals are closed
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // Clean up scroll settings
+      window.removeEventListener("keydown", handleEsc); // Remove event listener on cleanup
+    };
+  }, [
+    modalState.isMainModalOpen,
+    modalState.isChildModalOpen,
+    handleCloseAllModals,
+  ]);
 
   const text = company_details;
   const [isReadMore, setIsReadMore] = useState(true);
@@ -80,14 +107,25 @@ function StockDetailsSection() {
     }
   }, [isReadMore, text]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenCagr, setIsModalOpenCagr] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
+  };
+  const openModalCagr = () => {
+    setIsModalOpenCagr(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const closeModalCagr = () => {
+    setIsModalOpenCagr(false);
+  };
+
+  // Prevent background scrolling when the modal is open
+  useEffect(() => {}, [isModalOpen]);
   const [showAll, setShowAll] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -108,14 +146,88 @@ function StockDetailsSection() {
   const handleShowAll = () => {
     setShowAll(!showAll);
   };
+  const [activeTab, setActiveTab] = useState("Summary");
+  const [isManualScroll, setIsManualScroll] = useState(false); // Flag to prevent scroll effect temporarily
+  const tabs = ["Summary", "Upside Left", "Reports", "News"];
+  const newsRef = useRef(null);
+  const summaryRef = useRef(null);
+  const UpsideLeftRef = useRef(null);
+  const ReportsRef = useRef(null);
+  const handleTabClick = (tab) => {
+    setIsManualScroll(true); // Disable scroll handling
+    setActiveTab(tab);
+    let element = null;
+    switch (tab) {
+      case "News":
+        element = newsRef.current;
+        break;
+      case "Summary":
+        element = summaryRef.current;
+        break;
+      case "Upside Left":
+        element = UpsideLeftRef.current;
+        break;
+      case "Reports":
+        element = ReportsRef.current;
+        break;
+      default:
+        console.warn("Unknown tab:", tab);
+        break;
+    }
+    const offset = 80; // Change this value as needed
+    if (element) {
+      const elementTop =
+        element.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: elementTop - offset,
+        behavior: "smooth",
+      });
+    }
+
+    // Re-enable scroll handling after the smooth scroll completes
+    setTimeout(() => {
+      setIsManualScroll(false);
+    }, 500); // Adjust the delay if needed
+  };
+
+  // Scroll listener to detect section in view
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isManualScroll) return; // Skip handling scroll if a tab click is in progress
+      const scrollPosition = window.pageYOffset + 80; // Add offset for when to consider a section visible
+      const summaryTop = summaryRef.current?.offsetTop || 0;
+      const UpsideLeftTop = UpsideLeftRef.current?.offsetTop || 0;
+      const ReportsTop = ReportsRef.current?.offsetTop || 0;
+      const newsTop = newsRef.current?.offsetTop || 0;
+
+      // Logic to determine which tab to activate based on scroll position
+      if (newsRef.current && scrollPosition >= newsTop) {
+        setActiveTab("News");
+      } else if (ReportsRef.current && scrollPosition >= ReportsTop) {
+        setActiveTab("Reports");
+      } else if (UpsideLeftRef.current && scrollPosition >= UpsideLeftTop) {
+        setActiveTab("Upside Left");
+      } else if (summaryRef.current && scrollPosition >= summaryTop) {
+        setActiveTab("Summary");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isManualScroll]);
+
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
         <></>
       ) : (
-        <div className="pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
+        <div className="pt-0 sm:pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
           <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="items-center gap-[13px] flex p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px]">
+            <div className="items-center gap-[13px]  p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto hidden sm:flex">
               <div
                 className="flex items-center cursor-pointer group"
                 onClick={() => {
@@ -127,14 +239,42 @@ function StockDetailsSection() {
                   alt="Go Back"
                   className="mr-2"
                 />
-                <div className="text-[13px] text-[#475467] font-normal font-open_sans relative">
+                <div className="text-[13px] text-[#475467] font-normal font-open_sans relative text-nowrap me-1 max-w-[83px]">
                   Stocks To Buy
                   <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#475467] transition-all duration-300 group-hover:w-full"></div>
                 </div>
               </div>
               <img src="/assets/stock-details/chevron-right.svg" alt="" />
-              <div className="text-[13px] text-[#475467] font-semibold">
+              <div className="text-[13px] text-[#475467] font-semibold max-[138px] truncate">
                 {stock_name}
+              </div>
+            </div>
+
+            {/* small screen banner of top navbar-tabs  */}
+            <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-0  z-50 ">
+              {/* Back Button */}
+              <div className="" onClick={() => router.push("/stock-picks")}>
+                <img
+                  src="/assets/stock-details/arrow-left.svg"
+                  alt="Go Back"
+                  className="pl-[16px] pt-2 pr-3"
+                />
+              </div>
+              {/* Tab Items */}
+              <div className="flex  ">
+                {tabs.map((tab) => (
+                  <a
+                    key={tab}
+                    onClick={() => handleTabClick(tab)}
+                    className={`pb-2 ${
+                      activeTab === tab
+                        ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
+                        : "text-gray-500 px-[10px] py-[18px] text-sm"
+                    }`}
+                  >
+                    {tab}
+                  </a>
+                ))}
               </div>
             </div>
             {/* details  */}
@@ -143,13 +283,17 @@ function StockDetailsSection() {
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="   col-span-2">
                   {/* First Content Start */}
-                  <div className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto bg-white rounded-lg shadow-sm">
+                  <div
+                    className="sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto bg-white rounded-lg shadow-sm"
+                    ref={summaryRef}
+                    id="summary-section"
+                  >
                     <div className="flex  order-1 sm:order-1 relative ">
                       {/* Buy Images  */}
                       <img
                         src="/assets/BuyBubbleBlue.webp"
                         alt=""
-                        className="block sm:hidden absolute -top-6 right-3 w-[58px] h-[60px]"
+                        className="block sm:hidden absolute -top-5 right-2 w-[58px] h-[60px]"
                       />
                       {/* Sell Images */}
                       {/* <img
@@ -223,7 +367,7 @@ function StockDetailsSection() {
                                   height={40} // 10 * 4
                                   className="object-cover  block sm:hidden"
                                 />
-                                <p className="text-[#0C111D] text-xl md:text-xl font-bold font-open_sans truncate leading-[30px]">
+                                <p className="text-[#0C111D] text-xl md:text-xl font-bold font-open_sans truncate leading-[30px] sm:max-w-[420px]  max-w-[311px]">
                                   {stock_name}
                                 </p>
                               </div>
@@ -231,7 +375,7 @@ function StockDetailsSection() {
                                 {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
                                 <p className="text-2xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
-                                    stock_exchange == "SME-BSE"
+                                  stock_exchange == "SME-BSE"
                                     ? "BSE: "
                                     : "NSE: "}
                                   {stock_symbol}
@@ -243,36 +387,43 @@ function StockDetailsSection() {
                               <div className="flex gap-4 w-full justify-center sm:justify-start">
                                 <div className="flex flex-wrap gap-[8px] sm:gap-[8px] ">
                                   {/* Show all chips in tablet size and larger, and only 2 chips in mobile size */}
-                                  {stock_tags.slice(0, showAll || !isMobile ? stock_tags.length : 2).map((value, index) => (
-                                    <div
-                                      key={index}
-                                      className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-2 pl-2 gap-[2px] items-center"
-                                    >
-                                      <img
-                                        src={value.image}
-                                        alt={value.name}
-                                        className="w-3 h-3 md:w-4 md:h-4"
-                                      />
-                                      <p className="text-2xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                        {value.name}
-                                      </p>
-                                    </div>
-                                  ))}
+                                  {stock_tags
+                                    .slice(
+                                      0,
+                                      showAll || !isMobile
+                                        ? stock_tags.length
+                                        : 2
+                                    )
+                                    .map((value, index) => (
+                                      <div
+                                        key={index}
+                                        className="flex rounded-[20px] text-nowrap border border-gray-300 py-1.5 pr-2 pl-2 gap-[2px] items-center"
+                                      >
+                                        <img
+                                          src={value.image}
+                                          alt={value.name}
+                                          className="w-3 h-3 md:w-4 md:h-4"
+                                        />
+                                        <p className="text-2xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                          {value.name}
+                                        </p>
+                                      </div>
+                                    ))}
 
                                   {/* Show "2+" button only on mobile size and if there are more than 2 stock tags */}
-                                  {!showAll && stock_tags.length > 2 && isMobile && (
-                                    <button
-                                      onClick={handleShowAll}
-                                      className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-2 pl-2.5 gap-1 items-center flex sm:hidden"
-                                    >
-                                      <p className="text-2xs md:text-2xs font-normal text-[#344054] font-open_sans">
-                                        +{stock_tags.length - 2}
-                                      </p>
-                                    </button>
-                                  )}
+                                  {!showAll &&
+                                    stock_tags.length > 2 &&
+                                    isMobile && (
+                                      <button
+                                        onClick={handleShowAll}
+                                        className="rounded-[15px] bg-[#E7F8F8] py-1.5 pr-2 pl-2.5 gap-1 items-center flex sm:hidden"
+                                      >
+                                        <p className="text-2xs md:text-2xs font-normal text-[#344054] font-open_sans">
+                                          +{stock_tags.length - 2}
+                                        </p>
+                                      </button>
+                                    )}
                                 </div>
-
-
                               </div>
                               <p className="sm:hidden text-sm items-center font-open_sans flex mt-5 gap-1 text-[#039855] my-2 mx-auto">
                                 {/* Conditionally show either text or image */}
@@ -287,13 +438,15 @@ function StockDetailsSection() {
                                   </>
                                 ) : null}
                               </p>
-
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <hr className="opacity-95" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }} />
+                    <hr
+                      className="opacity-95"
+                      style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
+                    />
 
                     <div className="rounded-lg bg-white flex flex-col sm:flex-row px-2 sm:px-4 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
@@ -315,7 +468,6 @@ function StockDetailsSection() {
                           </div>
                         </div>
                       </div>
-
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
@@ -341,7 +493,6 @@ function StockDetailsSection() {
                           </div>
                         </div>
                       </div>
-
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex justify-items-end">
                         <div className="flex p-1 items-center rounded-md bg-[#F9FAFB]">
@@ -378,7 +529,9 @@ function StockDetailsSection() {
                               alt="Play icon"
                               className="w-5 h-5 transition duration-300 "
                             />
-                            <span className="text-nowrap text-[16px]">Watch Video</span>
+                            <span className="text-nowrap text-[16px]">
+                              Watch Video
+                            </span>
                           </button>
                         </div>
                       ) : (
@@ -415,7 +568,7 @@ function StockDetailsSection() {
                         </div>
                       )}
                     </div>
-                    <div className="flex-1 group">
+                    <div className="flex-1 group ">
                       <button
                         className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
                         onClick={handleMainModalOpen} // Add the onClick event to open the modal
@@ -429,17 +582,10 @@ function StockDetailsSection() {
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
-                              ? "Go to Broker"
-                              : "Sell Now"}
+                            ? "Go to Broker"
+                            : "Sell Now"}
                         </span>
                       </button>
-                      <InvestModal
-                        handleMainModalOpen={handleMainModalOpen}
-                        handleMainModalClose={handleMainModalClose}
-                        handleChildModalOpen={handleChildModalOpen}
-                        handleCloseAllModals={handleCloseAllModals}
-                        modalState={modalState}
-                      />
                     </div>
                   </div>
                   {/* When Small Screen Button Is Hide  */}
@@ -499,8 +645,9 @@ function StockDetailsSection() {
                           <div className="flex flex-col md:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${
+                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -515,7 +662,11 @@ function StockDetailsSection() {
                                     />
                                     <div className="absolute top-6  shadow-3xl left-[50px] transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white  text-sm rounded-lg py-2 px-4 w-[300px]">
                                       <div className="w-full grid gap-1 relative">
-                                        <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[32%]" />
+                                        <img
+                                          src="/assets/div.png"
+                                          alt=""
+                                          className="h-8 w-5 absolute -top-4 left-[32%]"
+                                        />
                                         <p className="text-[12px]">
                                           Upside Left means how much the stock
                                           price could rise from its current
@@ -553,8 +704,9 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                                } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${
+                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                              } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -625,7 +777,11 @@ function StockDetailsSection() {
                                       />
                                       <div className="absolute top-8 z-[10000] left-[10%] transform -translate-x-[60%] mb-2 hidden group-hover:block text-white text-sm rounded py-1 px-2">
                                         <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white  rounded-lg shadow-3xl text-gray-800 relative">
-                                          <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-[11px] shadow-3xl left-[60%]" />
+                                          <img
+                                            src="/assets/div.png"
+                                            alt=""
+                                            className="h-8 w-5 absolute -top-[11px] shadow-3xl left-[60%]"
+                                          />
                                           <div className="tooltip-content">
                                             <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
                                               Compound Annual Growth Rate
@@ -796,95 +952,115 @@ function StockDetailsSection() {
                   </div>
 
                   {/* Small Responsive size View Open the box  */}
-                  <div className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5">
+                  <div
+                    className="block bg-[url('/assets/bigFrame.png')] bg-cover bg-no-repeat bg-center md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5"
+                    ref={UpsideLeftRef}
+                    id="upside-left-section"
+                  >
                     <div className="  rounded-lg">
-                      <div className="bg-custom-gradient text-white rounded-lg p-4">
-                        <div className="flex justify-between items-center">
-                          <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
-                            Upside Left
-
-                            {/* Tooltip for large screens and Modal Trigger for small screens */}
-                            <div className="relative group hidden sm:block">
-                              {/* Tooltip (Visible on large screens) */}
-                              <img
-                                src="/assets/ph_info-duotone.svg"
-                                alt="Info"
-                                className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                              />
-                              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
-                                <div className="w-full grid gap-1 relative">
-                                  <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[46%]" />
-                                  <p className="text-[12px] font-open_sans">
-                                    Upside Left means how much the stock price could rise from its current level.
-                                  </p>
-                                  <div className="p-2 bg-[#F9FAFB] rounded-md">
-                                    <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">
-                                      Example :
-                                    </h4>
+                      <div className="bg-white rounded-t-lg p-4">
+                        <div className="bg-custom-gradient text-white rounded-lg p-4">
+                          <div className="flex justify-between items-center">
+                            <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
+                              Upside Left
+                              {/* Tooltip for large screens and Modal Trigger for small screens */}
+                              <div className="relative group hidden sm:block">
+                                {/* Tooltip (Visible on large screens) */}
+                                <img
+                                  src="/assets/ph_info-duotone.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                />
+                                <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
+                                  <div className="w-full grid gap-1 relative">
+                                    <img
+                                      src="/assets/div.png"
+                                      alt=""
+                                      className="h-8 w-5 absolute -top-4 left-[46%]"
+                                    />
                                     <p className="text-[12px] font-open_sans">
-                                      If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                      Upside Left means how much the stock price
+                                      could rise from its current level.
                                     </p>
+                                    <div className="p-2 bg-[#F9FAFB] rounded-md">
+                                      <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">
+                                        Example :
+                                      </h4>
+                                      <p className="text-[12px] font-open_sans">
+                                        If a stock's price is ₹100 and the
+                                        Upside Left is 20%, it might go up to
+                                        ₹120.
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-
-                            {/* Modal Trigger for small screens */}
-                            <div className="sm:hidden">
-                              <img
-                                src="/assets/ph_info-duotone.svg"
-                                alt="Info"
-                                className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                onClick={openModal}
-                              />
-                            </div>
-                          </h2>
-
-                          <img
-                            src="/assets/stock-details/streamline_target-solid (1).svg"
-                            alt=""
-                          />
-                        </div>
-
-                        {/* Modal for small screens */}
-                        {isModalOpen && (
-                          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
-                            <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
-                              {/* Modal Header */}
-                              <div className="w-full flex justify-between items-center gap-1">
-                                <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">Upside Left</h3>
-                                <button
-                                  className="text-[30px] text-gray-500 hover:text-gray-700"
-                                  onClick={closeModal}
-                                >
-                                  &times;
-                                </button>
+                              {/* Modal Trigger for small screens */}
+                              <div className="sm:hidden">
+                                <img
+                                  src="/assets/ph_info-duotone.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                  onClick={openModal}
+                                />
                               </div>
+                            </h2>
 
-                              {/* Modal Body */}
-                              <div className="mt-2 text-gray-800 text-sm font-open_sans">
-                                Upside Left means how much the stock price could rise from its current level.
-                              </div>
-                              <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
-                                <span className="text-[#108973] text-sm font-bold font-open_sans">Example :</span>
-                                <p className="text-sm text-gray-600 mt-1 font-open_sans">
-                                  If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
-                                </p>
-                              </div>
-                            </div>
+                            <img
+                              src="/assets/stock-details/streamline_target-solid (1).svg"
+                              alt=""
+                            />
                           </div>
-                        )}
 
-                        <div className="flex items-center gap-2">
-                          <p className="text-display-xs font-bold  font-open_sans">
-                            {upside_left}%
-                          </p>
-                          <p className="text-sm font-open_sans mt-1">
-                            in {upside_left_time}
-                          </p>
+                          {/* Modal for small screens */}
+
+                          <Modal
+                            blur
+                            width="450px"
+                            open={isModalOpen}
+                            onClose={() => setIsModalOpen(false)}
+                            className="flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
+                          >
+                            {/* Modal Header */}
+                            <div className="w-full flex justify-between items-center gap-1">
+                              <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
+                                Upside Left
+                              </h3>
+                              <button
+                                className="text-[30px] text-gray-500 hover:text-gray-700"
+                                onClick={closeModal}
+                              >
+                                &times;
+                              </button>
+                            </div>
+
+                            {/* Modal Body */}
+                            <div className="mt-2 text-gray-800 text-sm font-open_sans">
+                              Upside Left means how much the stock price could
+                              rise from its current level.
+                            </div>
+                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
+                              <span className="text-[#108973] text-sm font-bold font-open_sans">
+                                Example :
+                              </span>
+                              <p className="text-sm text-gray-600 mt-1 font-open_sans">
+                                If a stock's price is ₹100 and the Upside Left
+                                is 20%, it might go up to ₹120.
+                              </p>
+                            </div>
+                          </Modal>
+
+                          <div className="flex items-center gap-2">
+                            <p className="text-display-xs font-bold  font-open_sans">
+                              {upside_left}%
+                            </p>
+                            <p className="text-sm font-open_sans mt-1">
+                              in {upside_left_time}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <div className="bg-gray-50 p-4 rounded-lg">
+                      <div className="bg-gray-50 px-4 pb-2 rounded-lg">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center">
                             <img src="/assets/hj1.svg" alt="" />
@@ -923,6 +1099,132 @@ function StockDetailsSection() {
                               <p className="ml-2 text-3xs text-gray-800 font-open_sans">
                                 CAGR
                               </p>
+                              <div className="sm:hidden">
+                                <img
+                                  src="/assets/blackinfo.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                  onClick={openModalCagr}
+                                />
+                              </div>
+                              <Modal
+                                blur
+                                width="450px"
+                                open={isModalOpenCagr}
+                                onClose={() => setIsModalOpenCagr(false)}
+                                className="relative flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
+                              >
+                                {/* Close Icon Button */}
+                                <button
+                                  onClick={() => setIsModalOpenCagr(false)}
+                                  className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none"
+                                  aria-label="Close modal"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M6 18L18 6M6 6l12 12"
+                                    />
+                                  </svg>
+                                </button>
+
+                                {/* Modal Content */}
+                                {/* Modal Header */}
+                                <h3 className="modal-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
+                                  Compound Annual Growth Rate
+                                </h3>
+                                <p className="modal-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
+                                  Purpose:
+                                </p>
+                                <p className="modal-text my-1 text-gray-800 text-[12px] font-open_sans">
+                                  Shows average yearly growth of an investment.
+                                </p>
+                                <p className="modal-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
+                                  Imagine a tree growing a bit more each year.
+                                  <br />
+                                  CAGR tells how fast it grows annually on
+                                  average.
+                                </p>
+                                <div className="modal-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                  <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">
+                                    CAGR =
+                                  </p>
+                                  <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                    <span className="text-[30px] font-[50] font-open_sans">
+                                      [
+                                    </span>
+                                    <div className="flex items-center mx-2">
+                                      <div className="flex flex-col items-center">
+                                        <div className="fraction">
+                                          <span className="numerator text-[12px] font-open_sans">
+                                            Ending Value
+                                          </span>
+                                          <span className="denominator text-[12px] font-open_sans">
+                                            Starting Value
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <span className="text-[30px] font-[50] font-open_sans">
+                                      ]
+                                    </span>
+                                    <sup className="flex items-center text-[20px] font-[50]">
+                                      <span className="text-[20px] font-open_sans">
+                                        [
+                                      </span>
+                                      <div className="flex flex-col items-center mx-2">
+                                        <div className="fraction">
+                                          <span className="text-[12px] font-open_sans">
+                                            1
+                                          </span>
+                                          <hr className="w-full h-[1px] bg-black mt-2" />
+                                          <span className="denominator text-[12px] mt-2 font-open_sans">
+                                            No. of Years
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <span className="text-[20px] font-open_sans">
+                                        ]
+                                      </span>
+                                    </sup>
+                                    <span className="text-[12px] font-bold ml-2 font-open_sans">
+                                      -1
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div className="modal-example bg-gray-50 p-3 rounded mb-4">
+                                  <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
+                                    Example:
+                                  </p>
+                                  <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                    <strong>Start Value</strong> ₹100
+                                  </div>
+                                  <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                    <strong>End Value after 3 years</strong>{" "}
+                                    ₹150
+                                  </div>
+                                  <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                    <strong>Total Returns over 3 years</strong>{" "}
+                                    50%
+                                  </div>
+                                  <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
+                                    <strong>CAGR</strong> 14.47%
+                                  </div>
+                                </div>
+                                <p className="modal-footer mt-4 text-[12px] text-gray-500 font-open_sans">
+                                  This means, on average, the investment grew
+                                  about 14.47% each year
+                                </p>
+                              </Modal>
                             </div>
                             <div className="flex items-center">
                               {cagr_of_stock.cagr_value >= 0 ? (
@@ -952,7 +1254,7 @@ function StockDetailsSection() {
                       </div>
                     </div>
 
-                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base font-normal gap-1 font-open_sans">
+                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base leading-6 font-normal  gap-1 font-open_sans">
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
                         ₹1Lakh{" "}
                       </span>
@@ -977,7 +1279,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[72px]  p-3 hidden sm:block">
+                  <div className="pt-[72px]  px-[4px] hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
@@ -1052,7 +1354,11 @@ function StockDetailsSection() {
                   </div>
 
                   {/* When small Screen Time-line & Report Section show  */}
-                  <div className="mt-5 block  rounded-lg py-[24px] px-[16px] sm:hidden md:hidden mb-5 bg-white">
+                  <div
+                    className="mt-5 block  rounded-lg py-[24px] px-[16px] sm:hidden md:hidden mb-5 bg-white"
+                    ref={ReportsRef}
+                    id="reports-section"
+                  >
                     <button
                       className="w-full    p-0 rounded-lg flex justify-between items-center"
                       onClick={toggleDropdown}
@@ -1061,8 +1367,9 @@ function StockDetailsSection() {
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                          }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1079,7 +1386,7 @@ function StockDetailsSection() {
                     {isOpen && (
                       <div className="mt-2">
                         {/* Timeline Content Goes Here */}
-                        <div className="p-4 border rounded-lg">
+                        <div className="">
                           <StockDetailsTimeline timeline={timeline} />
                         </div>
                       </div>
@@ -1087,8 +1394,12 @@ function StockDetailsSection() {
                   </div>
 
                   {/* News Section Start */}
-                  <div className=" sm:pt-[78px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-                    <h2 className="text-[#0C111D] text-[14px] font-semibold font-open_sans px-1">
+                  <div
+                    className=" sm:pt-[72px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto "
+                    ref={newsRef}
+                    id="news-section"
+                  >
+                    <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-semibold font-open_sans px-1 mb-0">
                       News
                     </h2>
                     <StockDetailsNews stock_name={stock_name} />
@@ -1099,7 +1410,7 @@ function StockDetailsSection() {
 
                 {/* Second Container Start */}
                 <div className="relative hidden   sm:block ">
-                  <div className="bg-[#EDF0F5] sticky top-16 p-2 rounded-t-lg">
+                  <div className="bg-[#EDF0F5] sticky top-16 p-2 rounded-lg">
                     <div className="p-5 border rounded-lg  bg-white">
                       <h2 className="font-bold font-open_sans text-sm mb-[22px]  hidden sm:flex">
                         INVESTMENT GUIDANCE
@@ -1123,7 +1434,9 @@ function StockDetailsSection() {
                                   alt="Play icon"
                                   className="w-5 h-5 transition duration-300 "
                                 />
-                                <span className="text-nowrap text-[14px]">Watch Video</span>
+                                <span className="text-nowrap text-[16px]">
+                                  Watch Video
+                                </span>
                               </button>
                             </div>
                           ) : (
@@ -1134,7 +1447,7 @@ function StockDetailsSection() {
                                   alt="Play icon"
                                   className="w-5 h-5"
                                 />
-                                <span className="text-nowrap text-[14px] font-medium text-gray-400">
+                                <span className="text-nowrap text-[16px] font-medium text-gray-400">
                                   Watch Video
                                 </span>
                               </button>
@@ -1164,22 +1477,23 @@ function StockDetailsSection() {
                         {/* Share Button */}
                         <div className="flex-1 group">
                           <button
-                            className="w-full border  group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                            className="w-full border group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                             onClick={handleMainModalOpen}
                           >
                             <img
                               src="/assets/share2.svg"
                               alt="Share icon"
-                              className="w-5 h-5 transition duration-300 "
+                              className="w-5 h-5 transition duration-300"
                             />
-                            <span className="text-nowrap text-[14px]" >
+                            <span className="text-nowrap text-[16px]">
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
-                                  ? "Go to Broker"
-                                  : "Sell Now"}
+                                ? "Go to Broker"
+                                : "Sell Now"}
                             </span>
                           </button>
+
                           <InvestModal
                             handleMainModalOpen={handleMainModalOpen}
                             handleMainModalClose={handleMainModalClose}
@@ -1265,8 +1579,9 @@ function StockDetailsSection() {
                             TIMELINE & REPORTS ({timeline.length || 0})
                           </span>
                           <svg
-                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                              }`}
+                            className={`transform w-5 h-5 transition-transform duration-200 ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -1302,6 +1617,13 @@ function StockDetailsSection() {
             {/* </div> */}
             <ElevateSection />
           </div>
+          <InvestModal
+            handleMainModalOpen={handleMainModalOpen}
+            handleMainModalClose={handleMainModalClose}
+            handleChildModalOpen={handleChildModalOpen}
+            handleCloseAllModals={handleCloseAllModals}
+            modalState={modalState}
+          />
         </div>
       )}
     </>

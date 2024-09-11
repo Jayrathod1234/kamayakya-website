@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   MenuItem,
   Checkbox,
@@ -36,7 +36,9 @@ export default function SectorCheck() {
   const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
   };
-
+  useEffect(() => {
+    document.addEventListener("scroll", handleClose);
+  }, []);
   const handleSelectAllClick = async () => {
     if (sector.length === sector_list_arr.length) {
       await setSector([]);
@@ -139,7 +141,7 @@ export default function SectorCheck() {
                 backgroundColor: "white",
                 borderRadius: "0.5rem",
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
-                overflow: "hidden",
+                // overflow: "hidden",
                 maxHeight: "300px", // Set a max height for the dropdown
               }}
             >
@@ -217,60 +219,71 @@ export default function SectorCheck() {
                       All
                     </Typography>
                   </ListSubheader>
-                  {filteredTags.map(([key, displayValue], index) => (
-                    <MenuItem
-                      autoFocus={false}
-                      key={index}
-                      value={key}
-                      onClick={async () => {
-                        const currentIndex = sector.indexOf(key);
-                        const newSector = [...sector];
-                        if (currentIndex === -1) {
-                          newSector.push(key);
-                        } else {
-                          newSector.splice(currentIndex, 1);
-                        }
-                        await setSector(newSector);
-                        setIsChangeFilter(true);
-                      }}
-                      sx={{
-                        padding: "8px",
-                        height: "36px",
-                        fontFamily: "open Sans",
-                        fontSize: "14px !important",
-                        backgroundColor: sector.includes(key)
-                          ? "#E7F8F8"
-                          : "transparent",
-                        "&:hover": {
+                  {filteredTags.length
+                    ? filteredTags.map(([key, displayValue], index) => (
+                      <MenuItem
+                        autoFocus={false}
+                        key={index}
+                        value={key}
+                        onClick={async () => {
+                          const currentIndex = sector.indexOf(key);
+                          const newSector = [...sector];
+                          if (currentIndex === -1) {
+                            newSector.push(key);
+                          } else {
+                            newSector.splice(currentIndex, 1);
+                          }
+                          await setSector(newSector);
+                          setIsChangeFilter(true);
+                        }}
+                        sx={{
+                          padding: "8px",
+                          height: "36px",
+                          fontFamily: "open Sans",
+                          fontSize: "14px !important",
                           backgroundColor: sector.includes(key)
-                            ? "#cde6e6"
-                            : "#E0F7FA",
-                        },
-                        "& .MuiTypography-root": {
-                          fontSize: "14px !important",
-                          fontFamily: '"Open Sans", sans-serif !important', // Target MUI typography
-                        },
+                            ? "#E7F8F8"
+                            : "transparent",
+                          "&:hover": {
+                            backgroundColor: sector.includes(key)
+                              ? "#cde6e6"
+                              : "#E0F7FA",
+                          },
+                          "& .MuiTypography-root": {
+                            fontSize: "14px !important",
+                            fontFamily: '"Open Sans", sans-serif !important', // Target MUI typography
+                          },
+                        }}
+                      >
+                        <Checkbox
+                          checked={sector.indexOf(key) > -1}
+                          sx={{
+                            color: sector.includes(key)
+                              ? "#108973 !important"
+                              : "#E4E7EC",
+                            padding: "0 8px 0 0",
+                          }}
+                        />
+                        <ListItemText
+                          primary={displayValue}
+                          sx={{
+                            margin: 0,
+                            fontSize: "14px !important",
+                            fontFamily: "Open Sans !important",
+                          }}
+                        />
+                      </MenuItem>
+                    ))
+                    : <Typography
+                      sx={{
+                        fontSize: "14px",
+                        fontFamily: '"Open Sans", sans-serif',
+                        textAlign: "center",
+                        padding: "8px",
                       }}
-                    >
-                      <Checkbox
-                        checked={sector.indexOf(key) > -1}
-                        sx={{
-                          color: sector.includes(key)
-                            ? "#108973 !important"
-                            : "#E4E7EC",
-                          padding: "0 8px 0 0",
-                        }}
-                      />
-                      <ListItemText
-                        primary={displayValue}
-                        sx={{
-                          margin: 0,
-                          fontSize: "14px !important",
-                          fontFamily: "Open Sans !important",
-                        }}
-                      />
-                    </MenuItem>
-                  ))}
+                    >No Sector Found
+                    </Typography>
+                  }
                 </Box>
               </ClickAwayListener>
             </Paper>

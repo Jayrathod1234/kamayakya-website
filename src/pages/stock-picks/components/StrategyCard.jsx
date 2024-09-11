@@ -50,7 +50,7 @@ function StrategyCard() {
         </p>
       </div>
       <div className="sm:pb-[100px] pb-[60px] sm:pl-32 sm:pr-32 pl-[26px] overflow-hidden">
-        <div className="sm:pt-9 pt-6 pb-0">
+        <div className="sm:pt-[40px] pt-6 pb-0">
           <div className="flex justify-between gap-4 ">
             {isLoading || error ? (
               <DiscoverCardSkeleton length={7} />

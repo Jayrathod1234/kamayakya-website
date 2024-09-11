@@ -87,7 +87,7 @@ export const AllBoardStockProvider = ({ children }) => {
     await setRisk("");
     await setSector([]);
     await setStrategyTag([]);
-    setOpen(false);
+    // setOpen(false);
     setTotalFilterCount(0);
     refetch(); // Optionally refetch data with reset filters (if appliedFilters reset)
   };
@@ -106,13 +106,14 @@ export const AllBoardStockProvider = ({ children }) => {
         sortBy,
         sortValue,
         debouncedSearchStock,
+        isLoggedIn,
       },
     ],
     queryFn: ({ pageParam = 1 }) =>
       getAllBoardStockStockListApi({
         params: {
           page: pageParam,
-          limit: 6,
+          limit: 9,
           isLoggedIn,
           type: sebiBoardType,
         },

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { ArrowLeftIcon } from "lucide-react";
 
 const brokerItems = [
@@ -27,30 +26,61 @@ const brokerItems2 = [
 ];
 
 const Modal = ({ open, handleClose, children }) => {
-  
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        handleClose(); // Close modal on Esc key press
+      }
+    };
+
+    if (open) {
+      document.body.style.overflow = "hidden"; // Disable background scroll
+      window.addEventListener("keydown", handleEsc); // Add event listener for Esc key
+    } else {
+      document.body.style.overflow = ""; // Re-enable scroll when modal is closed
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // Clean up scroll settings
+      window.removeEventListener("keydown", handleEsc); // Remove event listener
+    };
+  }, [open, handleClose]);
+
+  const handleBackgroundClick = (event) => {
+    // Close the modal if clicked outside the content area
+    if (event.target.id === "modal-background") {
+      handleClose();
+    }
+  };
 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50 ">
-      <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]">
-        <button
-          onClick={handleClose}
-          className="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="size-6"
+    <div
+      id="modal-background"
+      className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
+      onClick={handleBackgroundClick}
+    >
+      <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]" onClick={(e) => e.stopPropagation()}>
+        <div className="w-8 h-8 rounded-full border border-[#F2F4F7] absolute top-3 right-3 flex items-center justify-center" >
+          <button
+            onClick={handleClose}
+            className=" text-gray-600 hover:text-gray-900"
           >
-            <path
-              fillRule="evenodd"
-              d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="#667085"
+              className="size-6"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
         {children}
       </div>
     </div>
@@ -94,16 +124,39 @@ const ChildModal = ({ open, handleBack, handleCloseAll }) => (
 );
 
 export default function NestedModal({
+  modalState,
   handleMainModalOpen,
   handleMainModalClose,
   handleChildModalOpen,
-  modalState,
   handleCloseAllModals,
 }) {
+
+  // Handle ESC key press and disable/enable background scroll
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        handleCloseAllModals(); // Close all modals on Esc key press
+      }
+    };
+
+    if (modalState.isMainModalOpen || modalState.isChildModalOpen) {
+      document.body.style.overflow = "hidden"; // Disable background scroll
+      window.addEventListener("keydown", handleEsc); // Add event listener for Esc key
+    } else {
+      document.body.style.overflow = ""; // Re-enable scroll when modal is closed
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // Clean up scroll settings
+      window.removeEventListener("keydown", handleEsc); // Remove event listener
+    };
+  }, [modalState.isMainModalOpen, modalState.isChildModalOpen, handleCloseAllModals]);
+
   return (
     <div>
       <Modal open={modalState?.isMainModalOpen} handleClose={handleMainModalClose}>
-        <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex items-center justify-center ">
+        <h1 className="text-[20px] font-bold text-[#101828] !text-left">Choose your broker</h1>
+        <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex flex-col items-center justify-center ">
           <div className="grid grid-cols-3 gap-2">
             {brokerItems.map((item, index) => (
               <div
@@ -140,4 +193,3 @@ export default function NestedModal({
     </div>
   );
 }
-

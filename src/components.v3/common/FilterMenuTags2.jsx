@@ -30,6 +30,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
   const containerRef = useRef(null);
 
   const updateButtonVisibility = () => {
+    if (!containerRef.current || !carouselRef.current) return;
     const containerWidth = containerRef.current.offsetWidth;
     const contentWidth = carouselRef.current.scrollWidth;
     const scrollLeft = carouselRef.current.scrollLeft;
@@ -49,6 +50,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
     };
 
     const carousel = carouselRef.current;
+    if (!carousel) return;
     carousel.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -104,7 +106,6 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
           sx={{
             display: "flex",
             width: isMobile ? "100%" : "100%",
-            // width: "757px",
             overflow: { sm: "hidden", xs: "auto" },
           }}
           ref={containerRef}
@@ -112,7 +113,6 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
           <Box
             sx={{
               width: "100%",
-              // backgroundColor: "#f2f4f7",
               backgroundColor: isMobile ? "transparent" : "#f2f4f7",
               display: "flex",
               alignItems: "center",
@@ -209,11 +209,12 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                   }
                   deleteIcon={
                     <CloseIcon
-                      sx={{
-                        color: strategyTag.includes(chip.id)
-                          ? "white !important"
-                          : "inherit",
-                      }}
+                    sx={{
+                      color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
+                      backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
+                      borderRadius: "50%", // Make it rounded
+                      padding: "4px", // Add padding for spacing
+                    }}
                     />
                   }
                   sx={{

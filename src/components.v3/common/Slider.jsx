@@ -138,26 +138,63 @@ export function Slider({ children }) {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
 
+  // const tweenScale = useCallback((emblaApi, eventName) => {
+  //   const engine = emblaApi.internalEngine();
+  //   const scrollProgress = emblaApi.scrollProgress();
+  //   const slidesInView = emblaApi.slidesInView();
+  //   const isScrollEvent = eventName === "scroll";
+
+  //   emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+  //     let diffToTarget = scrollSnap - scrollProgress;
+  //     const slidesInSnap = engine.slideRegistry[snapIndex];
+
+  //     slidesInSnap.forEach((slideIndex) => {
+  //       if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
+
+  //       if (engine.options.loop) {
+  //         engine.slideLooper.loopPoints.forEach((loopItem) => {
+  //           const target = loopItem.target();
+
+  //           if (slideIndex === loopItem.index && target !== 0) {
+  //             const sign = Math.sign(target);
+
+  //             if (sign === -1) {
+  //               diffToTarget = scrollSnap - (1 + scrollProgress);
+  //             }
+  //             if (sign === 1) {
+  //               diffToTarget = scrollSnap + (1 - scrollProgress);
+  //             }
+  //           }
+  //         });
+  //       }
+
+  //       const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
+  //       const scale = numberWithinRange(tweenValue, 0, 1).toString();
+  //       const tweenNode = tweenNodes.current[slideIndex];
+  //       console.log({ scale });
+  //       tweenNode.style.transform = `scale(${scale})`;
+  //     });
+  //   });
+  // }, []);
+
   const tweenScale = useCallback((emblaApi, eventName) => {
     const engine = emblaApi.internalEngine();
     const scrollProgress = emblaApi.scrollProgress();
     const slidesInView = emblaApi.slidesInView();
     const isScrollEvent = eventName === "scroll";
-
+  
     emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
       let diffToTarget = scrollSnap - scrollProgress;
       const slidesInSnap = engine.slideRegistry[snapIndex];
-
+  
       slidesInSnap.forEach((slideIndex) => {
         if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
-
+  
         if (engine.options.loop) {
           engine.slideLooper.loopPoints.forEach((loopItem) => {
             const target = loopItem.target();
-
             if (slideIndex === loopItem.index && target !== 0) {
               const sign = Math.sign(target);
-
               if (sign === -1) {
                 diffToTarget = scrollSnap - (1 + scrollProgress);
               }
@@ -167,15 +204,30 @@ export function Slider({ children }) {
             }
           });
         }
-
-        const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-        const scale = numberWithinRange(tweenValue, 0, 1).toString();
+  
+        // Calculate the scale factor based on the distance to the target (snap point)
+        const tweenValue = 1 - Math.abs(diffToTarget * 1); // Stronger scaling effect
+        
+        // Set scale range for the side cards to be between 0.25 and 1 (even smaller side cards)
+        const scale = numberWithinRange(tweenValue, 0, 2); 
+        
         const tweenNode = tweenNodes.current[slideIndex];
-        tweenNode.style.transform = `scale(${scale})`;
+        // Apply scaling only to Y-axis to affect height but not width
+        tweenNode.style.transform = `scaleY(${scale})`;
+  
+        // Reset margin adjustments to avoid width changes
+        tweenNode.style.marginLeft = "14px";
+        tweenNode.style.marginRight = "14px";
+  
+        // Optionally apply other effects, like opacity or blur, based on the scale
+        const opacity = numberWithinRange(tweenValue, 0.4, 1); // Opacity reduces on the sides
+        tweenNode.style.opacity = opacity;
       });
     });
   }, []);
-
+  
+  
+  
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -240,7 +292,10 @@ export function Slider({ children }) {
       </div>
 
       <div ref={emblaRef} className={`max-w-[100vw] overflow-hidden`}>
-        <div className="flex pb-12 pt-[28px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
+        <div
+          className="flex pb-12 pt-[40px] carousel__container"
+          style={{ backfaceVisibility: "hidden" }}
+        >
           {children.map((carousel, index) => (
             <CarouselItem key={carousel.key} className={`carousel embla__class-names`}>
               {/* {carousel(emblaApi)} */}
@@ -255,7 +310,7 @@ export function Slider({ children }) {
       {/* indicator */}
       <div className="flex gap-2 justify-center items-center">
         {scrollSnaps
-          .slice(0, isSmallScreen ? 5 : scrollSnaps.length) // Show 5 on small screens, all on larger screens
+          .slice(0, scrollSnaps.length) // Show 5 on small screens, all on larger screens
           .map((_, index) => (
             <CarouselIndicator onClick={() => onDotButtonClick(index)} index={index} selectedIndex={selectedIndex} />
           ))}

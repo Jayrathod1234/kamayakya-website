@@ -86,7 +86,7 @@ const StockDetailsNews = ({ stock_name }) => {
 
   return (
     <div>
-      <div className="pt-[5px]  ">
+      <div className="sm:pt-[12px] pt-[0px]  ">
         {items?.map((item, index) => (
           <a key={index} target="_blank" href={item?.newsUrl} className="block  group">
             <div className="flex flex-row md:flex-row items-start md:items-center gap-4 py-4 px-1 rounded-md  cursor-pointer group-hover:bg-white transition">
@@ -95,7 +95,7 @@ const StockDetailsNews = ({ stock_name }) => {
                 <img
                   src={item?.image_url}
                   alt={item.title}
-                  className="w-[50px] h-[50px] md:w-[75px] md:h-[75px] object-cover rounded-md"
+                  className="w-[80px] h-[60px] md:w-[80px] md:h-[60px] object-cover rounded-md"
                 />
               </div>
 
@@ -103,7 +103,7 @@ const StockDetailsNews = ({ stock_name }) => {
               <div className="flex-1 font-open_sans">
                 <div className="flex flex-col gap-1">
                   {/* <!-- Title --> */}
-                  <p className="text-2xs md:text-base font-bold text-gray-800 line-clamp-2 font-open_sans">
+                  <p className="text-2xs sm:text-sm font-medium text-gray-800 line-clamp-2 font-open_sans">
                     {item.title}
                   </p>
                   {/* <!-- Meta Info --> */}

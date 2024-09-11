@@ -20,6 +20,7 @@ export const StockPicksProvider = ({ children }) => {
   const [sebiBoardType, setSebiBoardType] = useState("mainboard");
   const [popularStrategies, setPopularStrategies] = useState([]);
   const allBoardStockRef = useRef(null);
+  const [searchPageOpen, setSearchPageOpen] = useState(false);
 
   // Use react-query to fetch common details
   const {
@@ -27,8 +28,8 @@ export const StockPicksProvider = ({ children }) => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["commonDetails"],
-    queryFn: getCommonDetailsApi,
+    queryKey: ["commonDetails", sebiBoardType],
+    queryFn: () => getCommonDetailsApi({ type: sebiBoardType }),
   });
 
   const {
@@ -151,6 +152,8 @@ export const StockPicksProvider = ({ children }) => {
         min_returns,
         max_returns,
         allBoardStockRef,
+        searchPageOpen,
+        setSearchPageOpen,
         isLoading,
         error,
       }}

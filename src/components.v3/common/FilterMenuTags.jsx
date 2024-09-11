@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { Box, Chip, IconButton, useMediaQuery } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -9,7 +9,8 @@ import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
 const FilterCarousel = () => {
-  const [showButtons, setShowButtons] = useState(false);
+  const [showLeftButton, setShowLeftButton] = useState(false);
+  const [showRightButton, setShowRightButton] = useState(false);
   const {
     popularStrategies,
     setStrategyTag,
@@ -27,11 +28,35 @@ const FilterCarousel = () => {
   const isLatop = useMediaQuery("(max-width:1024px)");
   const isTab = useMediaQuery("(max-width:768px)");
 
-  useLayoutEffect(() => {
-    const containerWidth = containerRef.current.offsetWidth;
+  const updateButtonVisibility = () => {
+    const containerWidth = containerRef.current.offsetWidth - 100;
     const contentWidth = carouselRef.current.scrollWidth;
-    setShowButtons(contentWidth > 1193);
+    const scrollLeft = carouselRef.current.scrollLeft;
+    const maxScrollLeft = contentWidth - containerWidth;
+
+    // Show the left button if the scroll position is greater than 0
+    setShowLeftButton(scrollLeft > 0);
+
+    // Show the right button if the scroll position is less than the max scroll
+    setShowRightButton(scrollLeft < maxScrollLeft);
+  };
+
+  useLayoutEffect(() => {
+    updateButtonVisibility();
   }, [strategyTag, popularStrategies]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      updateButtonVisibility();
+    };
+
+    const carousel = carouselRef.current;
+    carousel.addEventListener("scroll", handleScroll);
+
+    return () => {
+      carousel.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleChipClick = async (chipId) => {
     await setStrategyTag((prevTags) => {
@@ -105,7 +130,7 @@ const FilterCarousel = () => {
                 Quick Filters:
               </p>
             </div>
-            {showButtons && (
+            {showLeftButton && (
               <IconButton
                 onClick={scrollLeft}
                 sx={{
@@ -172,6 +197,7 @@ const FilterCarousel = () => {
                           chip.id == "most-recent"
                             ? "brightness(100)"
                             : "none",
+                        gap:"1px"
                       }}
                     />
                   }
@@ -186,12 +212,13 @@ const FilterCarousel = () => {
                   deleteIcon={
                     <CloseIcon
                       sx={{
-                        color: strategyTag.includes(chip.id)
-                          ? "white !important"
-                          : "inherit",
+                        color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
+                        backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
+                        borderRadius: "50%", // Make it rounded
+                        padding: "4px", // Add padding for spacing
                       }}
                     />
-                  }
+                  }                  
                   sx={{
                     paddingLeft: "8px",
                     paddingRight: "8px",
@@ -226,7 +253,7 @@ const FilterCarousel = () => {
               {changablestrategyTags.length <= 0 && <StrategyCheck />}
               {sector.length <= 0 && <SectorCheck />}
             </Box>
-            {showButtons && (
+            {showRightButton && (
               <IconButton
                 onClick={scrollRight}
                 sx={{

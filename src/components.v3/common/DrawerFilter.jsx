@@ -32,6 +32,51 @@ import { BorderLeftRounded } from "@mui/icons-material";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
+// fixed drawer
+const CustomTabPanel = styled(Box)(({ theme }) => ({
+  height: "100%",
+  overflowY: "auto", // Enable vertical scrolling
+  paddingRight: theme.spacing(1.5), // Add padding to the right
+  "&::-webkit-scrollbar": {
+    width: "8px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#108973 !important", // Match scrollbar color
+    borderRadius: "0px 6px 6px 0px",
+  },
+  "&::-webkit-scrollbar-track": {
+    backgroundColor: "#108973 !important",
+  },
+}));
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <CustomTabPanel
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      <Box sx={{ p: 3 }}>
+        <Typography style={{ color: "#2A837B" }}>{children}</Typography>{" "}
+        {/* Match text color */}
+      </Box>
+    </CustomTabPanel>
+  );
+}
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
+
 function DrawerFilter() {
   const {
     setStrategyTag,
@@ -46,6 +91,7 @@ function DrawerFilter() {
     sebiBoardType,
     addPopularStrategies,
     removePopularStrategies,
+    changablestrategyTags,
   } = useStockPicks();
 
   const {
@@ -87,51 +133,6 @@ function DrawerFilter() {
     }
   }, [open]);
 
-  // fixed drawer
-  const CustomTabPanel = styled(Box)(({ theme }) => ({
-    height: "100%",
-    overflowY: "auto", // Enable vertical scrolling
-    paddingRight: theme.spacing(1.5), // Add padding to the right
-    "&::-webkit-scrollbar": {
-      width: "8px",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "#108973 !important", // Match scrollbar color
-      borderRadius: "0px 6px 6px 0px",
-    },
-    "&::-webkit-scrollbar-track": {
-      backgroundColor: "#108973 !important",
-    },
-  }));
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-    return (
-      <CustomTabPanel
-        role="tabpanel"
-        hidden={value !== index}
-        id={`vertical-tabpanel-${index}`}
-        aria-labelledby={`vertical-tab-${index}`}
-        {...other}
-      >
-        <Box sx={{ p: 3 }}>
-          <Typography style={{ color: "#2A837B" }}>{children}</Typography>{" "}
-          {/* Match text color */}
-        </Box>
-      </CustomTabPanel>
-    );
-  }
-  TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-  };
-  function a11yProps(index) {
-    return {
-      id: `vertical-tab-${index}`,
-      "aria-controls": `vertical-tabpanel-${index}`,
-    };
-  }
-
   const clearValues = () => {
     setTempStrategyTag(strategyTag);
     setTempUpsideLeft(upsideLeft);
@@ -156,6 +157,21 @@ function DrawerFilter() {
     handleApplyFilters(true);
   };
 
+  const handleSelectAllStrategies = () => {
+    const strategy_tag_list_arr = Object.keys(strategyTagList || {});
+
+    if (tempStrategyTag.length === strategy_tag_list_arr.length) {
+      strategy_tag_list_arr.forEach(async (element) => {
+        await removePopularStrategies(element);
+      });
+      setTempStrategyTag([]);
+    } else {
+      strategy_tag_list_arr.forEach(async (element) => {
+        await addPopularStrategies(element);
+      });
+      setTempStrategyTag(strategy_tag_list_arr);
+    }
+  };
   const handleReset = () => {
     setOpen(false);
     handleResetFilters();
@@ -179,13 +195,13 @@ function DrawerFilter() {
     setTempUpsideLeft(newValue);
   };
 
-  const handleUpsideLeftInputChange = (event) => {
-    event.stopPropagation();
-    const index = event.target.name === "min" ? 0 : 1;
-    const newValue = [...tempUpsideLeft];
-    newValue[index] =
-      event.target.value === "" ? "" : Number(event.target.value);
-    setTempUpsideLeft(newValue);
+  const handleUpsideLeftInputChange = (event, type) => {
+    let inputValue = event?.target?.value;
+    if (type == "min") {
+      setTempUpsideLeft([inputValue, tempUpsideLeft[1]]);
+    } else {
+      setTempUpsideLeft([tempUpsideLeft[0], inputValue]);
+    }
   };
 
   // // returns
@@ -193,13 +209,13 @@ function DrawerFilter() {
     setTempReturns(newValue);
   };
 
-  const handleReturnsInputChange = (event) => {
-    event.stopPropagation();
-    const index = event.target.name === "min" ? 0 : 1;
-    const newValue = [...tempReturns];
-    newValue[index] =
-      event.target.value === "" ? "" : Number(event.target.value);
-    setTempReturns(newValue);
+  const handleReturnsInputChange = (event, type) => {
+    let inputValue = event?.target?.value;
+    if (type == "min") {
+      setTempReturns([inputValue, tempUpsideLeft[1]]);
+    } else {
+      setTempReturns([tempUpsideLeft[0], inputValue]);
+    }
   };
 
   const handleChangeRecency = (event) => {
@@ -246,11 +262,34 @@ function DrawerFilter() {
     "& .MuiSlider-track": {
       border: "none",
     },
+    "& .MuiSlider-mark": {
+      width: "9px",
+      height: "9px",
+      borderRadius: "50%",
+      backgroundColor: "#b0bec5", // Dot color when not active
+    },
   });
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const generateMarks = (min, max, numberOfMarks) => {
+    const stepSize = (max - min) / (numberOfMarks - 1);
+    const marksArray = [];
+
+    for (let i = 0; i < numberOfMarks; i++) {
+      const value = min + i * stepSize;
+      marksArray.push({ value });
+    }
+
+    return marksArray;
+  };
+
+  const upside_left_marks = generateMarks(min_upside_left, max_upside_left, 5);
+
+  const returns_marks = generateMarks(min_returns, max_returns, 5);
+
   return (
     <>
       {!isMobile ? (
@@ -271,7 +310,19 @@ function DrawerFilter() {
               </div>
             )}
           </Button>
-          <Drawer open={open} anchor={anchor} onClose={() => {}}>
+          <Drawer
+            open={open}
+            anchor={anchor}
+            onClose={() => {
+              setOpen(false);
+            }}
+            ModalProps={{
+              keepMounted: true, // Keeps mounted so you can style it
+              sx: {
+                backdropFilter: "blur(2px)", // Apply blur effect when drawer is open
+              },
+            }}
+          >
             <Box
               sx={{ width: 400 }}
               role="presentation"
@@ -368,18 +419,27 @@ function DrawerFilter() {
                       <CustomSlider
                         value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
-                        valueLabelDisplay="auto"
+                        // valueLabelDisplay="auto"
                         min={min_upside_left}
                         max={max_upside_left}
+                        valueLabelDisplay="auto"
+                        aria-label="custom slider"
+                        defaultValue={50}
+                        marks={upside_left_marks}
+                        step={null}
+                        // min={0}
+                        // max={100}
                       />
                       <Grid container spacing={2} alignItems="center" pt={2}>
                         <Grid item xs={5}>
                           <TextField
                             variant="outlined"
                             size="small"
-                            name="min"
+                            type="number"
                             value={tempUpsideLeft ? tempUpsideLeft[0] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            onChange={(e) =>
+                              handleUpsideLeftInputChange(e, "min")
+                            }
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -404,9 +464,11 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
-                            name="max"
+                            type="number"
                             value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            onChange={(e) =>
+                              handleUpsideLeftInputChange(e, "max")
+                            }
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -577,9 +639,9 @@ function DrawerFilter() {
                   </IconButton> */}
                     </Box>
                   </AccordionSummary>
-                  <div className="pl-7">
+                  <div className="pl-7 ">
                     <AccordionDetails>
-                      <FormGroup>
+                      <FormGroup className="">
                         {Object.keys(tempTimeLeft || {}).map((key) => (
                           <FormControlLabel
                             key={key}
@@ -603,6 +665,9 @@ function DrawerFilter() {
                                 {filterTimeLabel[key]}
                               </span>
                             }
+                            sx={{
+                              height: "42px",
+                            }}
                           />
                         ))}
                       </FormGroup>
@@ -654,6 +719,7 @@ function DrawerFilter() {
                         valueLabelDisplay="auto"
                         min={min_returns}
                         max={max_returns}
+                        marks={returns_marks}
                       />
 
                       <Grid container spacing={2} alignItems="center" pt={2}>
@@ -661,9 +727,9 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
-                            name="min"
+                            type="number"
                             value={tempReturns ? tempReturns[0] : 0}
-                            onChange={handleReturnsInputChange}
+                            onChange={(e) => handleReturnsInputChange(e, "min")}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -693,9 +759,9 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
-                            name="max"
+                            type="number"
                             value={tempReturns ? tempReturns[1] : 0}
-                            onChange={handleReturnsInputChange}
+                            onChange={(e) => handleReturnsInputChange(e, "max")}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -844,10 +910,9 @@ function DrawerFilter() {
                     </Box>
                   </AccordionSummary>
                   <SectorFilter2
-                    sector={sector}
-                    setSector={setSector}
                     tempSector={tempSector}
                     setTempSector={setTempSector}
+                    isMobile={isMobile}
                   />
                 </Accordion>
                 <div className="border-b-2 border-[#F2F4F7] "></div>
@@ -1019,13 +1084,13 @@ function DrawerFilter() {
               <div className="pt-[61px]">
                 <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
                   <button
-                    className="  text-[#344054] font-semibold font-open_sans  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+                    className="  text-[#344054] font-semibold font-open_sans  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px] hover:scale-[000.95] duration-500 "
                     onClick={handleCancel}
                   >
                     Cancel
                   </button>
                   <button
-                    className=" font-semibold text-white py-2 font-open_sans px-4 bg-[#125B54] rounded-lg w-[170px] "
+                    className=" font-semibold text-white py-2 font-open_sans px-4 bg-[#125B54] rounded-lg w-[170px] hover:scale-[000.95] duration-500 "
                     onClick={handleApply}
                   >
                     Apply
@@ -1057,7 +1122,15 @@ function DrawerFilter() {
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
-            onClose={() => {}}
+            onClose={() => {
+              setOpen(false);
+            }}
+            ModalProps={{
+              keepMounted: true, // Keeps mounted so you can style it
+              sx: {
+                backdropFilter: "blur(2px)", // Apply blur effect when drawer is open
+              },
+            }}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
@@ -1124,14 +1197,14 @@ function DrawerFilter() {
                   sx={{
                     borderRight: 1,
                     // width: "62% !important",
-                    borderColor: "divider",
+                    // borderColor: "divider",
                     alignItems: "start !important",
                     justifyContent: "start",
                     bgcolor: "#FAFAFA",
-                    width: 121,
+                    width: 149,
+                    borderRightColor: "#fff",
                     height: "100% !important",
                     // padding: "14px 8px 14px 16px",
-
                     color: "#5F6368", // Match text color for tabs
                   }}
                 >
@@ -1142,14 +1215,40 @@ function DrawerFilter() {
                       color: "#5F6368",
                       gap: "12px",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     label={
-                      <Box className="items-start !important font-open_sans capitalize">
+                      <Box className="items-start !important font-open_sans capitalize flex">
                         Upside Left
+                        {!(
+                          upsideLeft[0] === min_upside_left &&
+                          upsideLeft[1] === max_upside_left
+                        ) && (
+                          <>
+                            <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </div>
+                          </>
+                        )}
                       </Box>
                     }
                     {...a11yProps(0)}
                   />
+
                   <Tab
                     sx={{
                       display: "flex",
@@ -1159,8 +1258,25 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
-                    label="Recency"
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Recency
+                          {!!Object.keys(recency).filter((key) => recency[key])
+                            .length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {
+                                Object.keys(recency).filter(
+                                  (key) => recency[key]
+                                ).length
+                              }
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
                     {...a11yProps(1)}
                   />
                   <Tab
@@ -1172,8 +1288,26 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
-                    label="Time Left"
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Time Left
+                          {!!Object.keys(timeLeft).filter(
+                            (key) => timeLeft[key]
+                          ).length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {
+                                Object.keys(timeLeft).filter(
+                                  (key) => timeLeft[key]
+                                ).length
+                              }
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
                     {...a11yProps(2)}
                   />
                   <Tab
@@ -1186,9 +1320,38 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
                     // Total Returns
-                    label="Total Return"
+                    label={
+                      <Box className="items-start !important font-open_sans capitalize flex">
+                        Total Return
+                        {!(
+                          returns[0] === min_returns &&
+                          returns[1] === max_returns
+                        ) && (
+                          <>
+                            <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </div>
+                          </>
+                        )}
+                      </Box>
+                    }
                     {...a11yProps(3)}
                   />
                   {sebiBoardType == "mainboard" && (
@@ -1201,8 +1364,34 @@ function DrawerFilter() {
                         fontFamily: "Open Sans, sans-serif !important",
                         textTransform: "capitalize",
                         minHeight: "0px",
+                        width: "100%",
                       }}
-                      label="Market Cap"
+                      label={
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Market Cap
+                          {!!marketCapType && (
+                            <>
+                              <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="18"
+                                  height="18"
+                                  viewBox="0 0 12 12"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                    stroke="white"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
+                              </div>
+                            </>
+                          )}
+                        </Box>
+                      }
                       {...a11yProps(4)}
                     />
                   )}
@@ -1215,8 +1404,20 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
-                    label="Sectors"
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Sectors
+                          {!!sector.length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {sector.length}
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
                     {...a11yProps(5)}
                   />
                   <Tab
@@ -1228,8 +1429,20 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
-                    label="Strategies"
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Strategies
+                          {!!changablestrategyTags.length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {changablestrategyTags.length}
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
                     {...a11yProps(6)}
                   />
                   <Tab
@@ -1241,8 +1454,34 @@ function DrawerFilter() {
                       fontFamily: "Open Sans, sans-serif !important",
                       textTransform: "capitalize",
                       minHeight: "0px",
+                      width: "100%",
                     }}
-                    label="Risk"
+                    label={
+                      <Box className="items-start !important font-open_sans capitalize flex">
+                        Risk
+                        {!!risk && (
+                          <>
+                            <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </div>
+                          </>
+                        )}
+                      </Box>
+                    }
                     {...a11yProps(7)}
                   />
                 </Tabs>
@@ -1259,9 +1498,16 @@ function DrawerFilter() {
                       <CustomSlider
                         value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
-                        valueLabelDisplay="auto"
+                        // valueLabelDisplay="auto"
                         min={min_upside_left}
                         max={max_upside_left}
+                        valueLabelDisplay="auto"
+                        aria-label="custom slider"
+                        defaultValue={50}
+                        marks={upside_left_marks}
+                        step={null}
+                        // min={0}
+                        // max={100}
                       />
 
                       <Grid alignItems="center" overflowX="hidden">
@@ -1269,9 +1515,11 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
-                            name="min"
+                            type="number"
                             value={tempUpsideLeft ? tempUpsideLeft[0] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            onChange={(e) =>
+                              handleUpsideLeftInputChange(e, "min")
+                            }
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1303,9 +1551,11 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
-                            name="max"
+                            type="number"
                             value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
-                            onChange={handleUpsideLeftInputChange}
+                            onChange={(e) =>
+                              handleUpsideLeftInputChange(e, "max")
+                            }
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1342,8 +1592,70 @@ function DrawerFilter() {
                         <div className="pl-0">
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
+                              <FormControlLabel
+                                className="!flex !items-start"
+                                control={
+                                  <Checkbox
+                                    checked={
+                                      Object.keys(tempRecency).length ===
+                                      Object.keys(tempRecency).filter(
+                                        (key) => tempRecency[key]
+                                      ).length
+                                    }
+                                    onClick={() => {
+                                      if (
+                                        Object.keys(tempRecency).length ===
+                                        Object.keys(tempRecency).filter(
+                                          (key) => tempRecency[key]
+                                        ).length
+                                      ) {
+                                        const updatedRecency = Object.keys(
+                                          tempRecency
+                                        ).reduce((acc, key) => {
+                                          acc[key] = false;
+                                          return acc;
+                                        }, {});
+                                        setTempRecency(updatedRecency);
+                                      } else {
+                                        const updatedRecency = Object.keys(
+                                          tempRecency
+                                        ).reduce((acc, key) => {
+                                          acc[key] = true;
+                                          return acc;
+                                        }, {});
+                                        setTempRecency(updatedRecency);
+                                      }
+                                    }}
+                                    sx={{
+                                      padding: "0px 9px 9px",
+
+                                      color: "default", // Default color
+                                      "&.Mui-checked": {
+                                        color: "#125B54", // Color when checked
+                                      },
+                                    }}
+                                  />
+                                }
+                                label={
+                                  <span
+                                    className="flex items-start"
+                                    style={{
+                                      fontFamily: "Open Sans, sans-serif",
+                                    }}
+                                  >
+                                    {Object.keys(tempRecency).length ===
+                                    Object.keys(tempRecency).filter(
+                                      (key) => tempRecency[key]
+                                    ).length
+                                      ? "Deselect"
+                                      : "Select"}{" "}
+                                    All
+                                  </span>
+                                }
+                              />
                               {Object.keys(tempRecency || {}).map((key) => (
                                 <FormControlLabel
+                                  className="!flex !items-start py-[7px]"
                                   key={key}
                                   control={
                                     <Checkbox
@@ -1351,6 +1663,7 @@ function DrawerFilter() {
                                       onChange={handleChangeRecency}
                                       name={key}
                                       sx={{
+                                        padding: "0px 9px 9px",
                                         color: "default", // Default color
                                         "&.Mui-checked": {
                                           color: "#125B54", // Color when checked
@@ -1360,6 +1673,7 @@ function DrawerFilter() {
                                   }
                                   label={
                                     <span
+                                      className="flex items-start"
                                       style={{
                                         fontFamily: "Open Sans, sans-serif",
                                       }}
@@ -1388,8 +1702,70 @@ function DrawerFilter() {
                         <div className="pl-0">
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
+                              <FormControlLabel
+                                className="!flex !items-start"
+                                control={
+                                  <Checkbox
+                                    checked={
+                                      Object.keys(tempTimeLeft).length ===
+                                      Object.keys(tempTimeLeft).filter(
+                                        (key) => tempTimeLeft[key]
+                                      ).length
+                                    }
+                                    onClick={() => {
+                                      if (
+                                        Object.keys(tempTimeLeft).length ===
+                                        Object.keys(tempTimeLeft).filter(
+                                          (key) => tempTimeLeft[key]
+                                        ).length
+                                      ) {
+                                        const updatedTempTimeLeft = Object.keys(
+                                          tempTimeLeft
+                                        ).reduce((acc, key) => {
+                                          acc[key] = false;
+                                          return acc;
+                                        }, {});
+                                        setTempTimeLeft(updatedTempTimeLeft);
+                                      } else {
+                                        const updatedTempTimeLeft = Object.keys(
+                                          tempTimeLeft
+                                        ).reduce((acc, key) => {
+                                          acc[key] = true;
+                                          return acc;
+                                        }, {});
+                                        setTempTimeLeft(updatedTempTimeLeft);
+                                      }
+                                    }}
+                                    sx={{
+                                      padding: "0px 9px 9px",
+                                      color: "default", // Default color
+                                      "&.Mui-checked": {
+                                        color: "#125B54", // Color when checked
+                                      },
+                                    }}
+                                  />
+                                }
+                                label={
+                                  <span
+                                    className="flex items-start"
+                                    style={{
+                                      fontFamily: "Open Sans, sans-serif",
+                                    }}
+                                  >
+                                    {Object.keys(tempTimeLeft).length ===
+                                    Object.keys(tempTimeLeft).filter(
+                                      (key) => tempTimeLeft[key]
+                                    ).length
+                                      ? "Deselect"
+                                      : "Select"}{" "}
+                                    All
+                                  </span>
+                                }
+                              />
+
                               {Object.keys(tempTimeLeft || {}).map((key) => (
                                 <FormControlLabel
+                                  className="!flex !items-start py-[7px]"
                                   key={key}
                                   control={
                                     <Checkbox
@@ -1397,6 +1773,7 @@ function DrawerFilter() {
                                       onChange={handleChangeTimeLeft}
                                       name={key}
                                       sx={{
+                                        padding: "0px 9px 9px",
                                         color: "default", // Default color
                                         "&.Mui-checked": {
                                           color: "#125B54", // Color when checked
@@ -1430,6 +1807,7 @@ function DrawerFilter() {
                         valueLabelDisplay="auto"
                         min={min_returns}
                         max={max_returns}
+                        marks={returns_marks}
                       />
 
                       <Grid alignItems="center">
@@ -1437,9 +1815,10 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="min"
                             value={tempReturns ? tempReturns[0] : 0}
-                            onChange={handleReturnsInputChange}
+                            onChange={(e) => handleReturnsInputChange(e, "min")}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1468,9 +1847,10 @@ function DrawerFilter() {
                           <TextField
                             variant="outlined"
                             size="small"
+                            type="number"
                             name="max"
                             value={tempReturns ? tempReturns[1] : 0}
-                            onChange={handleReturnsInputChange}
+                            onChange={(e) => handleReturnsInputChange(e, "max")}
                             InputProps={{
                               endAdornment: (
                                 <InputAdornment position="end">
@@ -1541,10 +1921,9 @@ function DrawerFilter() {
                       >
                         <div className="pl-0">
                           <SectorFilter2
-                            sector={sector}
-                            setSector={setSector}
                             tempSector={tempSector}
                             setTempSector={setTempSector}
+                            isMobile={isMobile}
                           />
                         </div>
                       </Accordion>
@@ -1570,15 +1949,57 @@ function DrawerFilter() {
                                   overflowY: "auto",
                                 }}
                               >
+                                <FormControlLabel
+                                  className="!flex !items-start"
+                                  control={
+                                    <Checkbox
+                                      checked={
+                                        tempStrategyTag.length ===
+                                        Object.keys(strategyTagList || {})
+                                          .length
+                                      }
+                                      onClick={handleSelectAllStrategies}
+                                      sx={{
+                                        padding: "0px 9px 9px",
+                                        color: "default", // Default color
+                                        "&.Mui-checked": {
+                                          color: "#125B54", // Color when checked
+                                        },
+                                      }}
+                                    />
+                                  }
+                                  label={
+                                    <span
+                                      className="flex items-start"
+                                      style={{
+                                        fontFamily: "Open Sans, sans-serif",
+                                      }}
+                                    >
+                                      {tempStrategyTag.length ===
+                                      Object.keys(strategyTagList || {}).length
+                                        ? "Deselect"
+                                        : "Select"}{" "}
+                                      All
+                                    </span>
+                                  }
+                                />
                                 {Object.keys(strategyTagList || {}).map(
                                   (key) => (
                                     <FormControlLabel
+                                      className="!flex !items-start py-[7px]"
                                       key={key}
                                       control={
                                         <Checkbox
                                           checked={tempStrategyTag.includes(
                                             key
                                           )}
+                                          sx={{
+                                            padding: "0px 9px 9px",
+                                            color: "default", // Default color
+                                            "&.Mui-checked": {
+                                              color: "#125B54", // Color when checked
+                                            },
+                                          }}
                                           onChange={handleChangestrategyTag}
                                           name={key}
                                         />

@@ -10,9 +10,8 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 
-const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
+const SectorFilter2 = ({ tempSector, setTempSector, isMobile }) => {
   const { stockSector } = useStockPicks();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -29,9 +28,18 @@ const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
     );
   };
 
-  const filteredSectors = Object.keys(stockSector || {}).filter((key) =>
+  const stock_sector_list = Object.keys(stockSector || {});
+  const filteredSectors = stock_sector_list.filter((key) =>
     stockSector[key].toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleSelectAllClick = async () => {
+    if (tempSector.length === stock_sector_list.length) {
+      await setTempSector([]);
+    } else {
+      await setTempSector(stock_sector_list);
+    }
+  };
 
   return (
     <div className="sm:pl-7 pl-0">
@@ -71,18 +79,49 @@ const SectorFilter2 = ({ sector, setSector, tempSector, setTempSector }) => {
 
       <div style={{ maxHeight: "350px", overflowY: "auto", zIndex: "100" }}>
         <List>
+          {isMobile && !searchTerm && (
+            <ListItem
+              sx={{ paddingY: "0px !important", paddingX: "6px !important" }}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={tempSector.length === stock_sector_list.length}
+                    onChange={handleSelectAllClick}
+                    sx={{
+                      color: "default", // Default color
+                      "&.Mui-checked": {
+                        color: "#125B54", // Color when checked
+                      },
+                    }}
+                  />
+                }
+                label={
+                  <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                    {tempSector.length === stock_sector_list.length
+                      ? "Deselect"
+                      : "Select"}{" "}
+                    All
+                  </span>
+                }
+              />
+            </ListItem>
+          )}
+
           {filteredSectors.map((key, index) => (
             <ListItem
               key={index}
               sx={{ paddingY: "0px !important", paddingX: "6px !important" }}
             >
               <FormControlLabel
+                className="!flex !items-start py-[7px]"
                 control={
                   <Checkbox
                     checked={tempSector.includes(key)}
                     onChange={handleCheckboxChange}
                     name={key}
                     sx={{
+                      padding: "0px 9px 9px",
                       color: "default", // Default color
                       "&.Mui-checked": {
                         color: "#125B54", // Color when checked

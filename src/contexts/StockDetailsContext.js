@@ -14,7 +14,7 @@ export const StockDetailsProvider = ({ children }) => {
 
   // Fetch stock details using react-query
   const {
-    data: items = getStockDetailResponse,
+    data: items = {},
     isLoading,
     error,
   } = useQuery({

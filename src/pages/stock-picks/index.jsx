@@ -19,12 +19,13 @@ import { AllBoardStockProvider } from "@/contexts/AllBoardStockContext";
 import { useQuery } from "@tanstack/react-query";
 import { getHotStockListApi } from "@/api/stock-picks";
 import { useMediaQuery } from "@mui/material";
+import SearchPage from "../../components.v3/common/SearchPage";
 
 const StockPicks = () => {
   const { showLoginModal, handleCloseLoginModal, isLoggedIn } =
     useContext(AuthContext);
 
-  const { sebiBoardType } = useStockPicks();
+  const { sebiBoardType, searchPageOpen } = useStockPicks();
   const isMobile = useMediaQuery("(max-width:600px)");
 
   // Use react-query to fetch
@@ -38,32 +39,43 @@ const StockPicks = () => {
   });
 
   return (
-    <Layout>
-      <div
-        className={`font-open_sans h-[805px] relative ${
-          (isMobile && items.length <= 1) || (!isMobile && items.length <= 3)
-            ? "mb-48"
-            : "mb-60"
-        }`}
-      >
-        {/* SebiBoardTab */}
-        <SebiBoardTab />
-        {/* Bannerhotstockscard */}
-        <HotStockSection
-          items={items}
-          isLimitedView={isLimitedView}
-          isLoading={isLoading}
-          error={error}
-        />
-      </div>
-      {/* Latest Releases  */}
-      <LatestReleases isLimitedView={isLimitedView} />
-      {/* Discover by Strategy */}
-      <StrategyCard />
-      {/* All Mainboard Stocks */}
-      <AllBoardStockProvider>
-        <AllBoardStockSection />
-      </AllBoardStockProvider>
+    <>
+      {isMobile && searchPageOpen ? (
+        <AllBoardStockProvider>
+          <SearchPage />
+        </AllBoardStockProvider>
+      ) : (
+        <>
+          <Layout>
+            <div
+              className={`font-open_sans h-[805px] relative ${
+                (isMobile && items.length <= 1) ||
+                (!isMobile && items.length <= 3)
+                  ? "mb-48"
+                  : "mb-60"
+              }`}
+            >
+              {/* SebiBoardTab */}
+              <SebiBoardTab />
+              <HotStockSection
+                items={items}
+                isLimitedView={isLimitedView}
+                isLoading={isLoading}
+                error={error}
+              />
+            </div>
+            {/* Latest Releases  */}
+            <LatestReleases isLimitedView={isLimitedView} />
+            {/* Discover by Strategy */}
+            <StrategyCard />
+            {/* All Mainboard Stocks */}
+            <AllBoardStockProvider>
+              <AllBoardStockSection />
+            </AllBoardStockProvider>
+          </Layout>
+        </>
+      )}
+
       <Modal
         width="450px"
         blur
@@ -97,7 +109,7 @@ const StockPicks = () => {
           <Login />
         </Modal.Body>
       </Modal>
-    </Layout>
+    </>
   );
 };
 

@@ -5,9 +5,13 @@ import FilterMenuTags2 from "./FilterMenuTags2.jsx";
 import ResponsiveFilter from "./ResponsiveFilter.jsx";
 import { useMediaQuery } from "@mui/material";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
+import SearchPage from "./SearchPage.jsx";
+import { useStockPicks } from "@/contexts/StockPicksContext";
 
 function Filtermenu() {
   const { searchStock, setSearchStock } = useAllBoardStock();
+  const { setSearchPageOpen } = useStockPicks();
+
   // sticky header
   const isMobile = useMediaQuery("(max-width:600px)");
 
@@ -40,46 +44,79 @@ function Filtermenu() {
 
           <div className="flex sm:gap-[10px] gap-2 items-center ">
             <div className=" items-center">
-              <div
-                onClick={handleSearchClick}
-                className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC]  bg-white h-[46px]`}
-                style={{ width: isExpanded ? "100%" : "auto" }} // This ensures that width expands correctly
-              >
-                <input
-                  onClick={(e) => e.stopPropagation()}
-                  type="search"
-                  placeholder="Search Stocks by Name"
-                  value={searchStock}
-                  onChange={(e) => setSearchStock(e.target.value)}
-                  onFocus={() => setIsExpanded(true)}
-                  ref={inputRef}
-                  className={`transition-all duration-500 ease-linear bg-white`}
-                  style={{
-                    display: isExpanded ? "block" : "none",
-                    width: isExpanded ? "100%" : "0px",
-                  }} // Set input width to full when expanded
-                />
-                <button
-                  type="button"
-                  className="search__button grid place-items-center transition-all duration-500 ease-linear w-[35px] h-[35px] cursor-pointer hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full ml-auto"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
+              {!isMobile ? (
+                <>
+                  <div
+                    onClick={handleSearchClick}
+                    className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC]  bg-white h-[46px]`}
+                    style={{ width: isExpanded ? "100%" : "auto" }} // This ensures that width expands correctly
                   >
-                    <path
-                      d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
-                      stroke="#667085"
-                      strokeWidth="1.66667"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                    <input
+                      onClick={(e) => e.stopPropagation()}
+                      type="search"
+                      placeholder="Search Stocks by Name"
+                      value={searchStock}
+                      onChange={(e) => setSearchStock(e.target.value)}
+                      onFocus={() => setIsExpanded(true)}
+                      ref={inputRef}
+                      className={`transition-all duration-500 ease-linear bg-white`}
+                      style={{
+                        display: isExpanded ? "block" : "none",
+                        width: isExpanded ? "100%" : "0px",
+                      }} // Set input width to full when expanded
                     />
-                  </svg>
-                </button>
-              </div>
+                    <button
+                      type="button"
+                      className="search__button grid place-items-center transition-all duration-500 ease-linear w-[35px] h-[35px] cursor-pointer hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full ml-auto"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                      >
+                        <path
+                          d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+                          stroke="#667085"
+                          strokeWidth="1.66667"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC]  bg-white h-[46px]`}
+                    onClick={() => setSearchPageOpen(true)}
+                    style={{}} // This ensures that width expands correctly
+                  >
+                    <button
+                      type="button"
+                      className="search__button grid place-items-center transition-all duration-500 ease-linear w-[35px] h-[35px] cursor-pointer hover:text-[#e3e3e3] bg-[rgba(0, 0, 0, 0.1)] rounded-full ml-auto"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                      >
+                        <path
+                          d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z"
+                          stroke="#667085"
+                          strokeWidth="1.66667"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
             {!isMobile && (
               <>

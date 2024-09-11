@@ -5,7 +5,7 @@ import DeepValue from "./DeepValue";
 import AuthContext from "@/components/AuthContext";
 import Link from "next/link";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import StockCardProgressBarSection from "./StockCardProgressBarSection";
+import { Modal } from "@nextui-org/react";import StockCardProgressBarSection from "./StockCardProgressBarSection";
 import StockCardProgressBarBlurSection from "./StockCardProgressBarBlurSection";
 import StockCardProgressBarSection2 from "./StockCardProgressBar2";
 
@@ -30,6 +30,7 @@ function StockCard({
   created,
   className = "",
   style,
+  isCarousal = false,
   emblaApi,
 }) {
   const { stockSector } = useStockPicks();
@@ -53,10 +54,12 @@ function StockCard({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
+    // document.body.classList.add("overflow-hidden");
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
+    document.body.classList.remove("overflow-hidden");
     setIsModalOpen(false);
   };
 
@@ -64,8 +67,10 @@ function StockCard({
     <>
       {/* new stock card  */}
       <div
-        className={`relative min-w-[330px]  
-        ${className}  main_card_carousel `}
+        className={`relative   
+        ${className}  main_card_carousel ${
+          isCarousal ? "min-w-[360px] sm:min-w-[404px]" : "min-w-[330px]"
+        }`}
       >
         <div
           className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
@@ -81,7 +86,7 @@ function StockCard({
                 <div className="p-1 gap-2 flex items-center">
                   <img src="/assets/noto_locked.png" alt="" className="w-[19px]" />
 
-                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[200px] md:min-w-[200px] slg:min-w-[200px] lg:min-w-[200px]"></div>
+                  <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[206px] md:min-w-[200px] slg:min-w-[208px] lg:min-w-[271px]"></div>
                 </div>
 
                 <div className="tooltip">
@@ -96,16 +101,27 @@ function StockCard({
                       alt=""
                       className="absolute -top-2 left-[89px] w-4"
                     />
-                    Please become a member to watch this video.
+                    {isLoggedIn
+                      ? "Please become a member to watch this video."
+                      : "Please login  to watch this video."}
                   </span>
+
+                  {/* <span className="tooltiptext -left-5 relative shadow-sm z-[200000]">
+                    <img
+                      src="/assets/div.png"
+                      alt=""
+                      className="absolute -top-2 left-[89px] w-4"
+                    />
+                    Please login to watch this video.
+                  </span> */}
                 </div>
               </div>
             ) : (
               <div className="pt-[20px] px-[20px] flex items-center justify-between overflow-hidden">
                 <Link href={`/stock-picks/${id}`}>
                   <p
-                    className={`text-gray-950 text-lg font-bold leading-7 text-ellipsis line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
-                      hovered ? "max-w-[170px]" : "max-w-52"
+                    className={`text-gray-950 text-md font-bold leading-7 text-ellipsis font-open_sans line-clamp-1 max-w-56 text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
+                      hovered ? "max-w-[170px]" : "max-w-60"
                     }`}
                   >
                     {stock_name}
@@ -201,7 +217,7 @@ function StockCard({
                     <img
                       src="/assets/streamline_target-solid.svg"
                       alt=""
-                      className="sm:w-7 w-[18px]"
+                      className="sm:w-[18px] w-[18px]"
                     />
                   </div>
 
@@ -212,13 +228,13 @@ function StockCard({
                       </p>
 
                       {/* Tooltip (Visible on large screens only) */}
-                      <div className="tooltip  relative hidden sm:block">
+                      <div className="tooltip relative hidden sm:block">
                         <img
                           src="/assets/ph_info-duotone.svg"
                           alt="info icon"
                           className="cursor-pointer hidden sm:block"
                         />
-                        <span className="tooltiptext  tooltiptext2 !-left-5 relative shadow-3xl">
+                        <span className="tooltiptext tooltiptext2 !-left-5 relative shadow-3xl">
                           <img
                             src="/assets/div.png"
                             alt=""
@@ -240,7 +256,7 @@ function StockCard({
                       </div>
 
                       {/* Modal Trigger (Visible on small screens only) */}
-                      <div className="sm:hidden block">
+                      <div className="sm:hidden block ">
                         <img
                           src="/assets/ph_info-duotone.svg"
                           alt="info icon"
@@ -258,39 +274,41 @@ function StockCard({
                     </p>
 
                     {/* Modal (only opens on small screens) */}
-                    {isModalOpen && (
-                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
-                        <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
-                          {/* Modal Header */}
-                          <div className="w-full flex justify-between items-center">
-                            <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
-                              Upside Left
-                            </h3>
-                            <button
-                              className="text-[30px] text-gray-500 hover:text-gray-700 align-top font-open_sans"
-                              onClick={closeModal}
-                            >
-                              &times;
-                            </button>
-                          </div>
-
-                          {/* Modal Body */}
-                          <div className="mt-2 text-gray-800 text-sm text-left font-open_sans">
-                            Upside Left means how much the stock price could
-                            rise from its current level.
-                          </div>
-                          <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left ">
-                            <span className="text-[#108973] text-sm font-bold text-left font-open_sans">
-                              Example :
-                            </span>
-                            <p className="text-sm text-gray-600 mt-1 text-left font-open_sans">
-                              If a stock's price is ₹100 and the Upside Left is
-                              20%, it might go up to ₹120.
-                            </p>
-                          </div>
-                        </div>
+                    <Modal
+                      blur
+                      width="450px"
+                      open={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      className="flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
+                    >
+                      {/* Modal Header */}
+                      <div className="w-full flex justify-between items-center">
+                        <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
+                          Upside Left
+                        </h3>
+                        <button
+                          className="text-[30px] text-gray-500 hover:text-gray-700 align-top font-open_sans"
+                          onClick={() => setIsModalOpen(false)}
+                        >
+                          &times;
+                        </button>
                       </div>
-                    )}
+
+                      {/* Modal Body */}
+                      <div className="mt-2 text-gray-800 text-sm text-left font-open_sans">
+                        Upside Left means how much the stock price could rise
+                        from its current level.
+                      </div>
+                      <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left ">
+                        <span className="text-[#108973] text-sm font-bold text-left font-open_sans">
+                          Example :
+                        </span>
+                        <p className="text-sm text-gray-600 mt-1 text-left font-open_sans">
+                          If a stock's price is ₹100 and the Upside Left is 20%,
+                          it might go up to ₹120.
+                        </p>
+                      </div>
+                    </Modal>
                   </div>
                 </div>
                 <div className="flex justify-between pt-[8px] px-[9px] ">
@@ -298,7 +316,7 @@ function StockCard({
                     <img src="/assets/Layer_1.svg" alt="" className="w-3.5" />
                     <p className="text-[11px] font-semibold text-gray-700 font-open_sans">Total Returns</p>
                   </div>
-                  <div className="flex gap-[3px] items-center font-open_sans max-w-[150px] whitespace-nowrap">
+                  <div className="flex gap-[3px] items-center font-open_sans sm:max-w-[167px] max-w-[164px] whitespace-nowrap">
                     {/* green up arrow  */}
                     {gain_loss >= 0 ? (
                       // green up arrow

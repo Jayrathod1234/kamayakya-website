@@ -157,6 +157,16 @@ export function HotSlider({ children }) {
       .on("scroll", tweenScale)
       .on("slideFocus", tweenScale);
   }, [emblaApi, tweenScale]);
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const timer = setInterval(() => {
+      if (!emblaApi) return;
+      emblaApi.scrollNext();
+    }, 6000); // Matches the autoplay delay
+
+    return () => clearInterval(timer);
+  }, [emblaApi]);
   return (
     <div className={`relative w-full m-auto `}>
       <div className="flex">
@@ -233,6 +243,7 @@ export function HotSlider({ children }) {
         ))}
 
       </div>
+
 
     </div>
   );

@@ -12,7 +12,7 @@ function Nonlogincard() {
             <div className="p-1 gap-2 flex items-center">
               <img src="/assets/noto_locked.png" alt="" className="w-[19px]" />
 
-              <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[200px] md:min-w-[200px] slg:min-w-[200px] lg:min-w-[200px]"></div>
+              <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[206px] md:min-w-[200px] slg:min-w-[208px] lg:min-w-[271px]"></div>
             </div>
 
             <div className="tooltip">

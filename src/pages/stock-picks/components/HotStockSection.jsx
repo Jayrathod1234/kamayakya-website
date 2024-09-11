@@ -10,10 +10,10 @@ const HotStockSection = ({ items, isLimitedView, isLoading, error }) => {
   return (
     <>
       {isLoading || error ? (
-        <div className="relative z-[2] pb-[110px] mt-[20px]">
+        <div className="relative z-[2]  mt-[20px]">
           <div className="container mx-auto">
             <div className="bg-gray-150 p-[10px] rounded-[20px] max-w-[1280px] mx-auto">
-              <div className="bg-[#fff] bg-[url('/assets/grid.png')] bg-cover rounded-[20px] px-10 py-8 gap-10 text-center">
+              <div className="bg-[#fff] bg-[url('/assets/grid.png')] bg-cover rounded-[20px] px-2 py-3 gap-10 text-center">
                 <div className=" pt-5   rounded-[10px]">
                   <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-center text-gray-950">
                     <Skeleton
@@ -29,8 +29,11 @@ const HotStockSection = ({ items, isLimitedView, isLoading, error }) => {
                       variant="text"
                     />
                   </p>
-                  <div className=" gap-4 flex ">
-                    <StockCardSkeleton length={isMobile ? 1 : 3} />
+                  <div className=" gap-4  flex ">
+                    <StockCardSkeleton
+                      length={isMobile ? 1 : 3}
+                      className="sm:w-[404px] w-[274px]"
+                    />
                   </div>
                 </div>
               </div>
