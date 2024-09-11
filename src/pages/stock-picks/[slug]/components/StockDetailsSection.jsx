@@ -174,8 +174,6 @@ const [activeTab, setActiveTab] = useState("Summary");
     }
     const offset = 80; // Change this value as needed
     if (element) {
-  console.log(element)
-  console.log(element.getBoundingClientRect())
       const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
         top: elementTop - offset,
@@ -561,7 +559,7 @@ const [activeTab, setActiveTab] = useState("Summary");
                         </div>
                       )}
                     </div>
-                    <div className="flex-1 group">
+                    <div className="flex-1 group z-[1000] backdrop-blur-sm">
                       <button
                         className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
                         onClick={handleMainModalOpen} // Add the onClick event to open the modal
@@ -585,6 +583,7 @@ const [activeTab, setActiveTab] = useState("Summary");
                         handleChildModalOpen={handleChildModalOpen}
                         handleCloseAllModals={handleCloseAllModals}
                         modalState={modalState}
+                        
                       />
                     </div>
                   </div>

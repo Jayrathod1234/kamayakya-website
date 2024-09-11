@@ -11,13 +11,14 @@ const StockPicks = ({ children }) => {
   return (
     <>
       <div
-        className={`navbar  z-[1111] ${
-          isMobile && pathname == "/stock-picks/[slug]" ? "" : "sticky top-0"
-        }`}
+        className={`navbar  z-[1111] ${isMobile && pathname == "/stock-picks/[slug]" ? "" : "sticky top-0"
+          }`}
       >
         <Navbar />
+      </div >
+      <div className="z-[20000]">
+        {children}
       </div>
-      {children}
       <div className="">
         <Footer />
       </div>
