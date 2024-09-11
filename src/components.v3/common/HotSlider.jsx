@@ -155,16 +155,16 @@ export function HotSlider({ children }) {
       .on("scroll", tweenScale)
       .on("slideFocus", tweenScale);
   }, [emblaApi, tweenScale]);
-  useEffect(() => {
-    if (!emblaApi) return;
+  // useEffect(() => {
+  //   if (!emblaApi) return;
 
-    const timer = setInterval(() => {
-      if (!emblaApi) return;
-      emblaApi.scrollNext();
-    }, 6000); // Matches the autoplay delay
+  //   const timer = setInterval(() => {
+  //     if (!emblaApi) return;
+  //     emblaApi.scrollNext();
+  //   }, 6000); // Matches the autoplay delay
 
-    return () => clearInterval(timer);
-  }, [emblaApi]);
+  //   return () => clearInterval(timer);
+  // }, [emblaApi]);
   return (
     <div className={`relative w-full m-auto `}>
       <div className="flex">
@@ -235,24 +235,17 @@ export function HotSlider({ children }) {
         </div>
       </div>
       {/* indicator */}
-      <div className="flex gap-4 justify-center items-center py-2 bg-white rounded-full w-auto max-w-[227px] mx-auto">
-        {scrollSnaps.map((_, index) => (
-          <div
-            onClick={() => onDotButtonClick(index)}
-            key={index}
-            className={`relative bg-gray-200 rounded-md overflow-hidden ${index === selectedIndex ? "bg-brand-300 w-4 h-2" : "w-2 h-2"}`}
-          >
-            {/* Progress bar inside the indicator */}
+      <div className="flex gap-2 justify-center items-center bg-white sm:max-w-[700px] sm:w-[200px] max-w-[360px] w-[150px] p-2   rounded-full mx-auto">
+        {scrollSnaps
+          .slice(0, scrollSnaps.length) // Show 5 on small screens, all on larger screens
+          .map((_, index) => (
             <div
-              className={`absolute left-0 top-0 h-full bg-brand-300 ${index === selectedIndex ? "animate-fill" : ""}`}
-              style={{
-                animationDuration: `6000ms`, // Match the autoplay delay, for example, 6 seconds
-                animationTimingFunction: "linear",
-                animationIterationCount: "1", // The fill animation will happen only once per indicator
-              }}
+              onClick={() => onDotButtonClick(index)}
+              key={index}
+              className={`${index === selectedIndex ? "w-4 !bg-brand-300" : "aspect-square"
+                } h-[8px] bg-gray-200 rounded-full transition-all`}
             ></div>
-          </div>
-        ))}
+          ))}
       </div>
 
 
