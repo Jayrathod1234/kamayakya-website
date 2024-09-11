@@ -5,7 +5,11 @@ import DeepValue from "./DeepValue";
 import AuthContext from "@/components/AuthContext";
 import Link from "next/link";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import { Modal } from "@nextui-org/react";
+import { Modal } from "@nextui-org/react";import StockCardProgressBarSection from "./StockCardProgressBarSection";
+import StockCardProgressBarBlurSection from "./StockCardProgressBarBlurSection";
+import StockCardProgressBarSection2 from "./StockCardProgressBar2";
+
+
 function StockCard({
   id,
   stock_name,
@@ -20,9 +24,14 @@ function StockCard({
   gain_loss,
   return_time,
   latest_youtube_video,
+  stock_targets,
+  live_price,
+  entry_price,
+  created,
   className = "",
   style,
   isCarousal = false,
+  emblaApi,
 }) {
   const { stockSector } = useStockPicks();
   let tabImage = null;
@@ -31,8 +40,7 @@ function StockCard({
   let newIconClass = "-5px";
   if (new_stock & recommended_stock) {
     tabImage = "hot-newtab";
-    cardClass =
-      "p-[1px] rounded-lg bg-gradient-to-r from-[#FDB022] to-[#75CDC5]";
+    cardClass = "p-[1px] rounded-lg bg-gradient-to-r from-[#FDB022] to-[#75CDC5]";
   } else if (new_stock) {
     tabImage = "newtab";
     innerClass += "border border-brand-300";
@@ -76,11 +84,7 @@ function StockCard({
             {is_blur ? (
               <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
                 <div className="p-1 gap-2 flex items-center">
-                  <img
-                    src="/assets/noto_locked.png"
-                    alt=""
-                    className="w-[19px]"
-                  />
+                  <img src="/assets/noto_locked.png" alt="" className="w-[19px]" />
 
                   <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[206px] md:min-w-[200px] slg:min-w-[208px] lg:min-w-[271px]"></div>
                 </div>
@@ -148,9 +152,7 @@ function StockCard({
                           src="/assets/play.gif"
                           alt="Play"
                           className={`w-[24px] transition-transform duration-500 ease-in-out ${
-                            hovered
-                              ? "filter brightness-0 sepia opacity-100"
-                              : ""
+                            hovered ? "filter brightness-0 sepia opacity-100" : ""
                           }`}
                         />
                       </div>
@@ -205,9 +207,7 @@ function StockCard({
                     )}
                   </p>
                 </div>
-                {stock_tags?.length > 0 && (
-                  <DeepValue stock_tags={stock_tags} />
-                )}
+                {stock_tags?.length > 0 && <DeepValue stock_tags={stock_tags} />}
               </div>
             </div>
             <div className="sm:px-5 px-4 pb-3">
@@ -249,8 +249,7 @@ function StockCard({
                               Example :
                             </span>
                             <p className="text-2xs text-gray-600 font-normal">
-                              If a stock's price is ₹100 and the Upside Left is
-                              20%, it might go up to ₹120.
+                              If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
                             </p>
                           </div>
                         </span>
@@ -315,26 +314,16 @@ function StockCard({
                 <div className="flex justify-between pt-[8px] px-[9px] ">
                   <div className="flex gap-[3px] items-center">
                     <img src="/assets/Layer_1.svg" alt="" className="w-3.5" />
-                    <p className="text-[11px] font-semibold text-gray-700 font-open_sans">
-                      Total Returns
-                    </p>
+                    <p className="text-[11px] font-semibold text-gray-700 font-open_sans">Total Returns</p>
                   </div>
                   <div className="flex gap-[3px] items-center font-open_sans sm:max-w-[167px] max-w-[164px] whitespace-nowrap">
                     {/* green up arrow  */}
                     {gain_loss >= 0 ? (
                       // green up arrow
-                      <img
-                        src="/assets/Polygon2.svg"
-                        alt="Up Arrow"
-                        className="w-2"
-                      />
+                      <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2" />
                     ) : (
                       // red down arrow
-                      <img
-                        src="/assets/Polygon 3.svg"
-                        alt="Down Arrow"
-                        className="w-2"
-                      />
+                      <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
                     )}
                     {/* <img src="/assets/Polygon2.svg" alt="" className="w-2" /> */}
                     {/* red down arrow  */}
@@ -342,9 +331,7 @@ function StockCard({
                     {gain_loss == null ? (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans  w-[26px] h-3 bg-[#E4E7EC] rounded-full "></p>
                     ) : (
-                      <p className="text-2xs font-bold text-gray-800 font-open_sans">
-                        {Math.abs(gain_loss)}%
-                      </p>
+                      <p className="text-2xs font-bold text-gray-800 font-open_sans">{Math.abs(gain_loss)}%</p>
                     )}
                     <span className="text-[10px] font-semibold text-[#6E6E6E] line-clamp-1">
                       in less than a {return_time}
@@ -353,14 +340,22 @@ function StockCard({
                 </div>
               </div>
             </div>
-            <div className="pt-5 pb-[10px] pr-5">
+            <div className="pt-5 pb-[10px]">
               {is_blur ? (
                 <>
-                  <ProgressBar2 />
+                  {/* <ProgressBar2 /> */}
+                  <StockCardProgressBarBlurSection emblaApi={emblaApi}/>
                 </>
               ) : (
                 <>
-                  <ProgressBarDemo />
+                  {/* <ProgressBarDemo/> */}
+                  <StockCardProgressBarSection
+                    live_price={live_price}
+                    entry_price={entry_price}
+                    entry_date = {created}
+                    stock_targets={stock_targets}
+                    emblaApi={emblaApi}
+                  />
                 </>
               )}
             </div>
@@ -369,22 +364,12 @@ function StockCard({
               <>
                 <div className="p-5 text-center">
                   {/* btn  */}
-                  <button
-                    className="button-82-pushable group  "
-                    role="button"
-                    onClick={handleLogin}
-                  >
+                  <button className="button-82-pushable group  " role="button" onClick={handleLogin}>
                     <span className="button-82-shadow"></span>
                     <span className="button-82-edge"></span>
                     <span className="button-82-front button-82-front2 text flex items-center">
-                      <img
-                        src="/assets/noto_locked.png"
-                        alt=""
-                        className="w-4"
-                      />
-                      <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                        Log In to Get 3 Hot Stocks
-                      </p>
+                      <img src="/assets/noto_locked.png" alt="" className="w-4" />
+                      <p className="text-[13px] font-bold text-[#125B54] font-open_sans">Log In to Get 3 Hot Stocks</p>
                       <div className="relative w-5">
                         <img
                           src="assets/chevron-right.png"
@@ -410,14 +395,8 @@ function StockCard({
                       <span className="button-82-shadow"></span>
                       <span className="button-82-edge"></span>
                       <span className="button-82-front button-82-front2 text flex items-center">
-                        <img
-                          src="/assets/noto_locked.png"
-                          alt=""
-                          className="w-4"
-                        />
-                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                          Become a Member
-                        </p>
+                        <img src="/assets/noto_locked.png" alt="" className="w-4" />
+                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">Become a Member</p>
                         <div className="relative w-5">
                           <img
                             src="assets/chevron-right.png"
@@ -439,16 +418,11 @@ function StockCard({
               <>
                 <div className="p-5 text-center">
                   <Link href={`/stock-picks/${id}`}>
-                    <button
-                      className="button-82-pushable group relative"
-                      role="button"
-                    >
+                    <button className="button-82-pushable group relative" role="button">
                       <span className="button-82-shadow"></span>
                       <span className="button-82-edge"></span>
                       <span className="button-82-front button-82-front2 text flex items-center">
-                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                          View Reports & Details
-                        </p>
+                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">View Reports & Details</p>
                         <div className="relative w-5">
                           <img
                             src="assets/chevron-right.png"
