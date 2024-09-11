@@ -18,7 +18,7 @@ const StockDetailsNews = ({ stock_name }) => {
         stock_name,
       }),
     getNextPageParam: (data) => {
-      console.log("===getNextPageParam====", data);
+      // console.log("===getNextPageParam====", data);
       const {meta} = data
       // Function to determine the parameter for fetching the next page
         if ((meta.found/meta.limit) > meta.page) return meta.page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
@@ -27,7 +27,7 @@ const StockDetailsNews = ({ stock_name }) => {
   // const [news,setNews] = useState()
   // const items = response?.pages?.flatMap((page) => page) ?? [];
   const items = response?.pages?.flatMap(page=>page.data)
-  console.log(items,response)
+  // console.log(items,response)
   const newsItems = [
     {
       id: 1,
