@@ -584,13 +584,6 @@ function StockDetailsSection() {
                             : "Sell Now"}
                         </span>
                       </button>
-                      <InvestModal
-                        handleMainModalOpen={handleMainModalOpen}
-                        handleMainModalClose={handleMainModalClose}
-                        handleChildModalOpen={handleChildModalOpen}
-                        handleCloseAllModals={handleCloseAllModals}
-                        modalState={modalState}
-                      />
                     </div>
                   </div>
                   {/* When Small Screen Button Is Hide  */}
@@ -1619,6 +1612,13 @@ function StockDetailsSection() {
             {/* </div> */}
             <ElevateSection />
           </div>
+          <InvestModal
+            handleMainModalOpen={handleMainModalOpen}
+            handleMainModalClose={handleMainModalClose}
+            handleChildModalOpen={handleChildModalOpen}
+            handleCloseAllModals={handleCloseAllModals}
+            modalState={modalState}
+          />
         </div>
       )}
     </>
