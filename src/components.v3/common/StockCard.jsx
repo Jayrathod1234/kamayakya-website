@@ -121,7 +121,7 @@ function StockCard({
                 <Link href={`/stock-picks/${id}`}>
                   <p
                     className={`text-gray-950 text-md font-bold leading-7  font-open_sans line-clamp-1  text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
-                      latest_youtube_video?.youtube_link ? hovered ? "max-w-[230px]" : "max-w-80" : "max-w-full"
+                      latest_youtube_video?.youtube_link ? hovered ? "max-w-[210px] sm:max-w-[225px]" : "max-w-80" : "max-w-full"
                     }`}
                   >
                     {stock_name}
