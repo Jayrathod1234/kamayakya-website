@@ -110,7 +110,7 @@ function Nonlogincard() {
                     12.24%
                   </h3>
                   <p className="text-2xs font-normal text-[#E4E7EC] font-open_sans">
-                    likely within a year
+                    likely within year
                   </p>
                 </div>
               </div>
@@ -127,7 +127,7 @@ function Nonlogincard() {
                     <div className=" ms-1 -me-1 w-[47px] h-[12px] bg-[#E4E7EC] rounded-full "></div>
                   </p>
                   <span className="text-[10px] font-semibold text-[#6E6E6E]">
-                    in less than a month
+                    in less than month
                   </span>
                 </div>
               </div>

@@ -216,7 +216,7 @@ const HotStocks = () => {
                             12.24%
                           </Typography>
                           <Typography variant="body2">
-                            likely within a year
+                            likely within year
                           </Typography>
                         </Box>
 
@@ -268,7 +268,7 @@ const HotStocks = () => {
                               variant="caption"
                               sx={{ color: "#6E6E6E" }}
                             >
-                              in less than a month
+                              in less than month
                             </Typography>
                           </Box>
                         </Box>

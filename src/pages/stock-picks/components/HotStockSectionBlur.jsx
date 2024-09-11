@@ -265,8 +265,7 @@ const HotStockSection = ({ items }) => {
                                                 {upside_left || 0}%
                                               </h3>
                                               <p className="text-2xs font-normal text-[#E4E7EC] font-open_sans">
-                                                likely within a{" "}
-                                                {upside_left_time}
+                                                likely within {upside_left_time}
                                               </p>
                                             </div>
                                           </div>
@@ -297,7 +296,7 @@ const HotStockSection = ({ items }) => {
                                                 </p>
                                               )}
                                               <span className="text-[10px] font-semibold text-[#6E6E6E]">
-                                                in less than a {return_time}
+                                                in less than {return_time}
                                               </span>
                                             </div>
                                           </div>

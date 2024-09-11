@@ -69,7 +69,7 @@ function Hotcard() {
                   12.24%
                 </h3>
                 <p className="text-[9px] font-normal text-[#E4E7EC]">
-                  likely within a year
+                  likely within year
                 </p>
               </div>
             </div>
@@ -84,7 +84,7 @@ function Hotcard() {
                 <img src="/assets/Polygon 2.svg" alt="" />
                 <p className="text-[9px] font-bold text-[#1D2939]">64.08%</p>
                 <span className="text-[7px] font-semibold text-[#6E6E6E]">
-                  in less than a month
+                  in less than month
                 </span>
               </div>
             </div>

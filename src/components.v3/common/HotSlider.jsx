@@ -10,7 +10,7 @@ import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
-import CarouselIndicator from '@/components.v3/common/CarouselIndicator'
+import CarouselIndicator from "@/components.v3/common/CarouselIndicator";
 
 export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
@@ -102,8 +102,8 @@ export function HotSlider({ children }) {
   const handlePrevNext = (cb) => {
     cb();
     const mp = getMixPanelClient();
-    mp.track("testimonialsnav_clicked", {
-      page: "Pricing_Page",
+    mp.track("hotstock_clicked", {
+      page: "StockPicks_Page",
     });
   };
   const setTweenNodes = useCallback((emblaApi) => {
@@ -207,8 +207,8 @@ export function HotSlider({ children }) {
                 key={carousel.key}
                 className={`carousel embla__class-names`}
               >
-                {React.cloneElement(carousel,{
-                  emblaApi:emblaApi
+                {React.cloneElement(carousel, {
+                  emblaApi: emblaApi,
                 })}
               </CarouselItem>
             ))}
@@ -240,13 +240,14 @@ export function HotSlider({ children }) {
       </div>
       {/* indicator */}
       <div className=" flex gap-4 justify-center items-center p-[6px] bg-white rounded-full w-auto max-w-fit mx-auto">
-      {scrollSnaps.map((_, index) => (
-         <CarouselIndicator onClick={() => onDotButtonClick(index)} index={index} selectedIndex={selectedIndex} />
+        {scrollSnaps.map((_, index) => (
+          <CarouselIndicator
+            onClick={() => onDotButtonClick(index)}
+            index={index}
+            selectedIndex={selectedIndex}
+          />
         ))}
-
       </div>
-
-
     </div>
   );
 }

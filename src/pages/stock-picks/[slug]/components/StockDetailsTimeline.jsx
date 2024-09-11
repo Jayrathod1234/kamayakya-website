@@ -91,19 +91,27 @@ export default function StockDetailsTimeline({ timeline }) {
   // };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto", pt: "20px", backgroundColor: "white" }}>
+    <Box
+      sx={{ maxWidth: 600, mx: "auto", pt: "20px", backgroundColor: "white" }}
+    >
       {timeline.map((step, index) => (
         <Box key={index} display="flex" alignItems="flex-start">
-          <Box width="80px" textAlign="center" mr={2} position="relative" top="0px">
+          <Box
+            width="80px"
+            textAlign="center"
+            mr={2}
+            position="relative"
+            top="0px"
+          >
             <Typography
               variant="body2"
               color="textSecondary"
               fontFamily="Open Sans"
               fontSize="12px"
-              sx={{ whiteSpace: 'nowrap' }}
+              sx={{ whiteSpace: "nowrap" }}
             >
               {formatDate(
-                step.type === 'report' ? step.report_date : step.youtube_date
+                step.type === "report" ? step.report_date : step.youtube_date
               )}
             </Typography>
           </Box>
@@ -151,13 +159,12 @@ export default function StockDetailsTimeline({ timeline }) {
               marginTop="3px"
               fontFamily="Open Sans"
               fontSize="0.875rem"
-
             >
               {step.type == "report"
                 ? step.report_action_text
                 : "Video Released"}
 
-              {index == 0 && (
+              {index == 0 && step.type === "report" && (
                 <Box
                   ml={1}
                   px={1}
@@ -165,7 +172,12 @@ export default function StockDetailsTimeline({ timeline }) {
                   borderRadius="9999px"
                   bgcolor="#FFF6EE"
                 >
-                  <Typography color="orange" fontFamily="Open Sans" fontSize="10px" fontWeight={700}>
+                  <Typography
+                    color="orange"
+                    fontFamily="Open Sans"
+                    fontSize="10px"
+                    fontWeight={700}
+                  >
                     Active
                   </Typography>
                 </Box>
@@ -201,7 +213,7 @@ export default function StockDetailsTimeline({ timeline }) {
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
-                border: '1px solid  #E4E7EC;',
+                border: "1px solid  #E4E7EC;",
                 textTransform: "none",
                 minWidth: "100px",
                 flexShrink: 0,
@@ -211,7 +223,8 @@ export default function StockDetailsTimeline({ timeline }) {
                 overflow: "hidden",
                 fontSize: "12px",
                 textOverflow: "ellipsis",
-                transition: "background-color 0.3s, color 0.3s, filter 0.3s, transform 0.3s",
+                transition:
+                  "background-color 0.3s, color 0.3s, filter 0.3s, transform 0.3s",
                 "&:hover": {
                   backgroundColor: "#CBF3F0",
                   transform: "scale(0.95)", // Decrease size to 95% on hover
@@ -228,7 +241,6 @@ export default function StockDetailsTimeline({ timeline }) {
               />
               {step.type == "report" ? step.report_name : "Watch Video"}
             </Button>
-
           </Box>
         </Box>
       ))}

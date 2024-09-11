@@ -37,11 +37,11 @@ const DeepValue = ({ stock_tags }) => {
             />
           </div>
           <ul className="absolute p-3 w-[175px] gap-3 bg-white border border-[#EDF0F5] rounded-lg shadow m-0 mt-2 z-[2] right-[-18%]">
-            {stock_tags.slice(1).map((value, index) => {
+            {stock_tags.map((value, index) => {
               return (
                 <li
                   className={`flex items-center gap-2 text-2xs text-[#1D2939] font-medium font-open_sans m-0 cursor-pointer ${
-                    stock_tags_count - 2 != index ? `pb-3` : ``
+                    stock_tags_count - 1 != index ? `pb-3` : ``
                   }`}
                 >
                   <img src={value.image} className="h-4 w-4" alt="" />
