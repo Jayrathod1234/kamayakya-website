@@ -135,12 +135,12 @@ export default function CustomSortMenu({ isLabel }) {
             fill="#0C111D"
           />
         </svg>
-        <span
+        <span className="tracking-normal"
           style={{
             color: "#0C111D",
             fontWeight: 600,
             fontSize: "14px",
-            letterSpacing: "0px !important",
+            
           }}
         >
           {radioButtonValue[selectedValue]}
