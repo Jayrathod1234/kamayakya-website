@@ -27,7 +27,8 @@ const getIcons = (label: string, status: string) => {
         className=" text-[#1ACE1B] QontoStepIcon-completedIcon !h-3 !w-3 border border-white"
       />
     );
-  if (label === "CMP") return <Circle className=" text-[#1D9387] !h-3 !w-3 border border-white rounded-full relative" fontSize="small" />;
+  if (label === "CMP")
+    return <Circle className=" text-[#1D9387] !h-3 !w-3 border border-white rounded-full relative" fontSize="small" />;
   if (status === "Active")
     return (
       <GpsFixedIcon
@@ -37,9 +38,9 @@ const getIcons = (label: string, status: string) => {
     );
   if (label.includes("Entry"))
     return (
-      <span className=" bg-[#04B9F9] rounded-full h-3 w-3 flex items-center justify-center border border-white">
-        <EastIcon className="!h-3 !w-3 text-white" fontSize="small" />
-      </span>
+      // <span className=" bg-[#04B9F9] rounded-full h-3 w-3 flex items-center justify-center border border-white">
+      <img height={30} width={30} src="/assets/entry_marker.svg" className=" h-full w-full" />
+      // </span>
     );
 };
 
@@ -47,11 +48,9 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
   let { index, label, price, date, status, className, isBlur, showToolTip, tooltipContent } = props;
   const refs = ref as React.MutableRefObject<HTMLDivElement[]>;
   const [open, setOpen] = useState(false);
+  // console.log(label,index)
   return (
-    <div
-      
-      className={cn(` relative flex flex-col   items-center`, className)}
-    >
+    <div className={cn(` relative flex flex-col items-center w-[90px]`, className)}>
       <h4 className=" font-medium text-3xs text-[#667085] flex items-center whitespace-nowrap gap-x-[2px]">
         <span>{label}</span>
         {label.includes("Target") && status === "Completed" ? (
@@ -65,15 +64,22 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
               <TooltipTrigger
                 onClick={(e) => {
                   e.preventDefault();
-                  setOpen(true)
+                  setOpen(true);
                 }}
                 className="  h-4 w-4"
               >
                 <img className="" height={16} width={16} src="/assets/blackinfo.svg" />
               </TooltipTrigger>
               <TooltipContent className=" rounded-lg shadow-lg px-0 py-0" side="bottom">
-                <Arrow asChild color="white"  stroke="1" strokeWidth={1} >
-                  <svg className=" rotate-180 -my-[9.5px]  pt-[10px]" width="17" height="26" viewBox="0 0 17 17" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <Arrow asChild color="white" stroke="1" strokeWidth={1}>
+                  <svg
+                    className=" rotate-180 -my-[9.5px]  pt-[10px]"
+                    width="17"
+                    height="26"
+                    viewBox="0 0 17 17"
+                    fill="white"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M0.5 8L16.5 8L9.91421 1.41421C9.13317 0.633164 7.86684 0.633164 7.08579 1.41421L0.5 8Z"
                       fill="white"
@@ -90,7 +96,12 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
           </TooltipProvider>
         )}
       </h4>
-      <div ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)} className={` z-20 ${label==="CMP" ? "cmp-pulse":""} ${label==="CMP" && isBlur ? "top-for-blur":""}    bg-white rounded-full flex items-center justify-center`}>
+      <div
+        ref={(el) => (refs ? (refs.current[index] = el as HTMLDivElement) : null)}
+        className={` z-20 ${label === "CMP" ? "cmp-pulse" : ""} ${
+          label === "CMP" && isBlur ? "top-for-blur" : ""
+        }    bg-white rounded-full flex items-center justify-center h-3 w-3`}
+      >
         {getIcons(label, status as string)}
       </div>
       {isBlur ? (

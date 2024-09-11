@@ -87,7 +87,7 @@ export function HotSlider({ children }) {
       startIndex: 1,
       containScroll: "trimSnaps",
     },
-    [Autoplay({ playOnInit: false, delay: 6000 }), ClassNames()] //change carousel timer here.
+    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef([]);
@@ -207,7 +207,9 @@ export function HotSlider({ children }) {
                 key={carousel.key}
                 className={`carousel embla__class-names`}
               >
-                {carousel}
+                {React.cloneElement(carousel,{
+                  emblaApi:emblaApi
+                })}
               </CarouselItem>
             ))}
           </div>
