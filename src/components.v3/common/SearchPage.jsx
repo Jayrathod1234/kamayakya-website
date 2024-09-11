@@ -37,7 +37,7 @@ function SearchPage() {
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
   return (
     <>
-      <div className=" bg-[#F2F4F7] h-screen overflow-hidden ">
+      <div className={`bg-[#F2F4F7] h-screen ${items.length > 0? 'overflow-auto': 'overflow-hidden'}  `}>
         {/* <!-- Stock Search --> */}
         <div className="bg-[#F2F4F7] p-4 sticky top-0 right-0 left-0 ">
           <div className="flex items-center bg-white   rounded-[6px] shadow-2xs">

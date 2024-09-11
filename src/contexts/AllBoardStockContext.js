@@ -113,7 +113,7 @@ export const AllBoardStockProvider = ({ children }) => {
       getAllBoardStockStockListApi({
         params: {
           page: pageParam,
-          limit: 6,
+          limit: 9,
           isLoggedIn,
           type: sebiBoardType,
         },
