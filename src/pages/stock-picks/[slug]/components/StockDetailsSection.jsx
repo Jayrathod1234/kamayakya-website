@@ -123,7 +123,7 @@ function StockDetailsSection() {
   };
 
   // Prevent background scrolling when the modal is open
-  useEffect(() => {}, [isModalOpen]);
+  useEffect(() => { }, [isModalOpen]);
   const [showAll, setShowAll] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -264,11 +264,10 @@ function StockDetailsSection() {
                   <a
                     key={tab}
                     onClick={() => handleTabClick(tab)}
-                    className={`pb-2 ${
-                      activeTab === tab
-                        ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
-                        : "text-gray-500 px-[10px] py-[18px] text-sm"
-                    }`}
+                    className={`pb-2 ${activeTab === tab
+                      ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
+                      : "text-gray-500 px-[10px] py-[18px] text-sm"
+                      }`}
                   >
                     {tab}
                   </a>
@@ -373,7 +372,7 @@ function StockDetailsSection() {
                                 {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
                                 <p className="text-2xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
-                                  stock_exchange == "SME-BSE"
+                                    stock_exchange == "SME-BSE"
                                     ? "BSE: "
                                     : "NSE: "}
                                   {stock_symbol}
@@ -580,8 +579,8 @@ function StockDetailsSection() {
                           {action === "BUY"
                             ? "Invest Now"
                             : action === "HOLD"
-                            ? "Go to Broker"
-                            : "Sell Now"}
+                              ? "Go to Broker"
+                              : "Sell Now"}
                         </span>
                       </button>
                     </div>
@@ -643,9 +642,8 @@ function StockDetailsSection() {
                           <div className="flex flex-col md:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
                             {/* Upside Left Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-custom-gradient`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-1 items-center">
@@ -702,9 +700,8 @@ function StockDetailsSection() {
 
                             {/* Total Returns Section */}
                             <div
-                              className={`w-full ${
-                                cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-white`}
+                              className={`w-full ${cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
+                                } h-[95px] p-4 rounded-md bg-white`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-[6px] items-center">
@@ -1095,6 +1092,112 @@ function StockDetailsSection() {
                               <p className="ml-2 text-3xs text-gray-800 font-open_sans">
                                 CAGR
                               </p>
+                              <div className="relative group hidden sm:block">
+                                {/* Tooltip (Visible on large screens) */}
+                                <img
+                                  src="/assets/blackinfo.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                />
+                                <div className="absolute left-1/2 transform -translate-x-1/3 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
+                                  <div className="tooltip-content">
+                                    <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
+                                      Compound Annual Growth Rate
+                                    </h3>
+                                    <p className="tooltip-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
+                                      Purpose:
+                                    </p>
+                                    <p className="tooltip-text my-1 text-gray-800 text-[12px] font-open_sans">
+                                      Shows average yearly growth of an
+                                      investment.
+                                    </p>
+                                    <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
+                                      Imagine a tree growing a bit more
+                                      each year.
+                                      <br />
+                                      CAGR tells how fast it grows
+                                      annually on average.
+                                    </p>
+                                    <div className="tooltip-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                      <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">
+                                        CAGR =
+                                      </p>
+                                      <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                        <span className="text-[30px] font-[50] font-open_sans">
+                                          [
+                                        </span>
+                                        <div className="flex items-center mx-2">
+                                          <div className="flex flex-col items-center">
+                                            <div className="fraction">
+                                              <span className="numerator text-[12px] font-open_sans">
+                                                Ending Value
+                                              </span>
+                                              <span className="denominator text-[12px] font-open_sans">
+                                                Starting Value
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <span className="text-[30px] font-[50] font-open_sans">
+                                          ]
+                                        </span>
+                                        <sup className="flex items-center text-[20px] font-[50]">
+                                          <span className="text-[20px] font-open_sans">
+                                            [
+                                          </span>
+                                          <div className="flex flex-col items-center mx-2">
+                                            <div className="fraction">
+                                              <span className="text-[12px] font-open_sans">
+                                                1
+                                              </span>
+                                              <hr className="w-full h-[1px] bg-black mt-2" />
+                                              <span className="denominator text-[12px] mt-2 font-open_sans">
+                                                No. of Years
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <span className="text-[20px] font-open_sans">
+                                            ]
+                                          </span>
+                                        </sup>
+                                        <span className="text-[12px] font-bold ml-2 font-open_sans">
+                                          -1
+                                        </span>
+                                      </div>
+                                    </div>
+
+                                    <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
+                                      <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
+                                        Example :
+                                      </p>
+                                      <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                        <strong>Start Value</strong>{" "}
+                                        ₹100
+                                      </div>
+                                      <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                        <strong>
+                                          End Value after 3 years
+                                        </strong>{" "}
+                                        ₹150
+                                      </div>
+                                      <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                        <strong>
+                                          Total Returns over 3 years
+                                        </strong>{" "}
+                                        50%
+                                      </div>
+                                      <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
+                                        <strong>CAGR</strong> 14.47%
+                                      </div>
+                                    </div>
+                                    <p className="tooltip-footer mt-4 text-[12px] text-gray-500 font-open_sans">
+                                      This means, on average, the
+                                      investment grew about 14.47% each
+                                      year
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
                               <div className="sm:hidden">
                                 <img
                                   src="/assets/blackinfo.svg"
@@ -1103,6 +1206,7 @@ function StockDetailsSection() {
                                   onClick={openModalCagr}
                                 />
                               </div>
+
                               <Modal
                                 blur
                                 width="450px"
@@ -1362,9 +1466,8 @@ function StockDetailsSection() {
                         TIMELINE & REPORTS ({timeline.length || 0})
                       </span>
                       <svg
-                        className={`transform w-5 h-5 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                          }`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1484,8 +1587,8 @@ function StockDetailsSection() {
                               {action === "BUY"
                                 ? "Invest Now"
                                 : action === "HOLD"
-                                ? "Go to Broker"
-                                : "Sell Now"}
+                                  ? "Go to Broker"
+                                  : "Sell Now"}
                             </span>
                           </button>
 
@@ -1574,9 +1677,8 @@ function StockDetailsSection() {
                             TIMELINE & REPORTS ({timeline.length || 0})
                           </span>
                           <svg
-                            className={`transform w-5 h-5 transition-transform duration-200 ${
-                              isOpen ? "rotate-180" : ""
-                            }`}
+                            className={`transform w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                              }`}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
