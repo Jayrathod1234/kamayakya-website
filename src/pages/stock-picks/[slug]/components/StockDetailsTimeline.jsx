@@ -155,10 +155,16 @@ export default function StockDetailsTimeline({ timeline }) {
               fontWeight="500"
               display="flex"
               alignItems="center"
+              minWidth={"155px"}
               color="#475467"
               marginTop="3px"
               fontFamily="Open Sans"
               fontSize="0.875rem"
+              sx={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
             >
               {step.type == "report"
                 ? step.report_action_text
