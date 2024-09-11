@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { ButtonBase, Tooltip } from "@mui/material";
+import { Modal } from "@nextui-org/react";
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -104,28 +105,25 @@ function StockDetailsSection() {
     }
   }, [isReadMore, text]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenCagr, setIsModalOpenCagr] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
+  };
+  const openModalCagr = () => {
+    setIsModalOpenCagr(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  // Prevent background scrolling when the modal is open
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
+  const closeModalCagr = () => {
+    setIsModalOpenCagr(false);
+  };
 
-    // Clean up by removing the class when the component unmounts
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, [isModalOpen]);
+  // Prevent background scrolling when the modal is open
+  useEffect(() => {}, [isModalOpen]);
   const [showAll, setShowAll] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -568,7 +566,7 @@ function StockDetailsSection() {
                         </div>
                       )}
                     </div>
-                    <div className="flex-1 group z-[1000] backdrop-blur-sm">
+                    <div className="flex-1 group ">
                       <button
                         className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
                         onClick={handleMainModalOpen} // Add the onClick event to open the modal
@@ -1018,39 +1016,42 @@ function StockDetailsSection() {
                           </div>
 
                           {/* Modal for small screens */}
-                          {isModalOpen && (
-                            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
-                              <div className="flex flex-col items-start p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full">
-                                {/* Modal Header */}
-                                <div className="w-full flex justify-between items-center gap-1">
-                                  <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
-                                    Upside Left
-                                  </h3>
-                                  <button
-                                    className="text-[30px] text-gray-500 hover:text-gray-700"
-                                    onClick={closeModal}
-                                  >
-                                    &times;
-                                  </button>
-                                </div>
 
-                                {/* Modal Body */}
-                                <div className="mt-2 text-gray-800 text-sm font-open_sans">
-                                  Upside Left means how much the stock price
-                                  could rise from its current level.
-                                </div>
-                                <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
-                                  <span className="text-[#108973] text-sm font-bold font-open_sans">
-                                    Example :
-                                  </span>
-                                  <p className="text-sm text-gray-600 mt-1 font-open_sans">
-                                    If a stock's price is ₹100 and the Upside
-                                    Left is 20%, it might go up to ₹120.
-                                  </p>
-                                </div>
-                              </div>
+                          <Modal
+                            blur
+                            width="450px"
+                            open={isModalOpen}
+                            onClose={() => setIsModalOpen(false)}
+                            className="flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
+                          >
+                            {/* Modal Header */}
+                            <div className="w-full flex justify-between items-center gap-1">
+                              <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
+                                Upside Left
+                              </h3>
+                              <button
+                                className="text-[30px] text-gray-500 hover:text-gray-700"
+                                onClick={closeModal}
+                              >
+                                &times;
+                              </button>
                             </div>
-                          )}
+
+                            {/* Modal Body */}
+                            <div className="mt-2 text-gray-800 text-sm font-open_sans">
+                              Upside Left means how much the stock price could
+                              rise from its current level.
+                            </div>
+                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
+                              <span className="text-[#108973] text-sm font-bold font-open_sans">
+                                Example :
+                              </span>
+                              <p className="text-sm text-gray-600 mt-1 font-open_sans">
+                                If a stock's price is ₹100 and the Upside Left
+                                is 20%, it might go up to ₹120.
+                              </p>
+                            </div>
+                          </Modal>
 
                           <div className="flex items-center gap-2">
                             <p className="text-display-xs font-bold  font-open_sans">
@@ -1101,6 +1102,132 @@ function StockDetailsSection() {
                               <p className="ml-2 text-3xs text-gray-800 font-open_sans">
                                 CAGR
                               </p>
+                              <div className="sm:hidden">
+                                <img
+                                  src="/assets/blackinfo.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                  onClick={openModalCagr}
+                                />
+                              </div>
+                              <Modal
+                                blur
+                                width="450px"
+                                open={isModalOpenCagr}
+                                onClose={() => setIsModalOpenCagr(false)}
+                                className="relative flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
+                              >
+                                {/* Close Icon Button */}
+                                <button
+                                  onClick={() => setIsModalOpenCagr(false)}
+                                  className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none"
+                                  aria-label="Close modal"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M6 18L18 6M6 6l12 12"
+                                    />
+                                  </svg>
+                                </button>
+
+                                {/* Modal Content */}
+                                {/* Modal Header */}
+                                <h3 className="modal-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
+                                  Compound Annual Growth Rate
+                                </h3>
+                                <p className="modal-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
+                                  Purpose:
+                                </p>
+                                <p className="modal-text my-1 text-gray-800 text-[12px] font-open_sans">
+                                  Shows average yearly growth of an investment.
+                                </p>
+                                <p className="modal-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
+                                  Imagine a tree growing a bit more each year.
+                                  <br />
+                                  CAGR tells how fast it grows annually on
+                                  average.
+                                </p>
+                                <div className="modal-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                  <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">
+                                    CAGR =
+                                  </p>
+                                  <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                    <span className="text-[30px] font-[50] font-open_sans">
+                                      [
+                                    </span>
+                                    <div className="flex items-center mx-2">
+                                      <div className="flex flex-col items-center">
+                                        <div className="fraction">
+                                          <span className="numerator text-[12px] font-open_sans">
+                                            Ending Value
+                                          </span>
+                                          <span className="denominator text-[12px] font-open_sans">
+                                            Starting Value
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <span className="text-[30px] font-[50] font-open_sans">
+                                      ]
+                                    </span>
+                                    <sup className="flex items-center text-[20px] font-[50]">
+                                      <span className="text-[20px] font-open_sans">
+                                        [
+                                      </span>
+                                      <div className="flex flex-col items-center mx-2">
+                                        <div className="fraction">
+                                          <span className="text-[12px] font-open_sans">
+                                            1
+                                          </span>
+                                          <hr className="w-full h-[1px] bg-black mt-2" />
+                                          <span className="denominator text-[12px] mt-2 font-open_sans">
+                                            No. of Years
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <span className="text-[20px] font-open_sans">
+                                        ]
+                                      </span>
+                                    </sup>
+                                    <span className="text-[12px] font-bold ml-2 font-open_sans">
+                                      -1
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div className="modal-example bg-gray-50 p-3 rounded mb-4">
+                                  <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
+                                    Example:
+                                  </p>
+                                  <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                    <strong>Start Value</strong> ₹100
+                                  </div>
+                                  <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                    <strong>End Value after 3 years</strong>{" "}
+                                    ₹150
+                                  </div>
+                                  <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                    <strong>Total Returns over 3 years</strong>{" "}
+                                    50%
+                                  </div>
+                                  <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
+                                    <strong>CAGR</strong> 14.47%
+                                  </div>
+                                </div>
+                                <p className="modal-footer mt-4 text-[12px] text-gray-500 font-open_sans">
+                                  This means, on average, the investment grew
+                                  about 14.47% each year
+                                </p>
+                              </Modal>
                             </div>
                             <div className="flex items-center">
                               {cagr_of_stock.cagr_value >= 0 ? (

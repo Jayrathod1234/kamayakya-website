@@ -39,7 +39,7 @@ function SearchPage() {
     <>
       <div className=" bg-[#F2F4F7] h-screen overflow-hidden ">
         {/* <!-- Stock Search --> */}
-        <div className="bg-[#F2F4F7] p-4 sticky top-0 right-0 left-0">
+        <div className="bg-[#F2F4F7] p-4 sticky top-0 right-0 left-0 w-full">
           <div className="flex items-center bg-white   rounded-[6px] shadow-2xs">
             {/* <!-- Left icon --> */}
             <span
@@ -65,30 +65,33 @@ function SearchPage() {
             </span>
 
             {/* <!-- Input field --> */}
-            <input
-              type="search"
-              placeholder="Search Stocks by Name..."
-              className="w-full py-2.5 pl-2 text-gray-500 focus:outline-none rounded-r-lg bg-white"
-              value={searchStock}
-              onChange={(e) => setSearchStock(e.target.value)}
-            />
-            {/* close icon in serach bar  */}
-            <div className="pr-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <path
-                  d="M12 4L4 12M4 4L12 12"
-                  stroke="#667085"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+            <div className="flex items-center border rounded-lg w-full">
+              <input
+                type="text"
+                placeholder="Search Stocks by Name..."
+                className="w-full py-2.5 pl-2 text-gray-500 focus:outline-none rounded-r-lg bg-white"
+                value={searchStock}
+                onChange={(e) => setSearchStock(e.target.value)}
+              />
+              {searchStock && (
+                <div className="pr-3 cursor-pointer" onClick={() => setSearchStock("")}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M12 4L4 12M4 4L12 12"
+                      stroke="#667085"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -114,8 +117,8 @@ function SearchPage() {
             const href = !isLoggedIn
               ? "#"
               : value.is_blur
-              ? `/pricing`
-              : `/stock-picks/${value.id}`;
+                ? `/pricing`
+                : `/stock-picks/${value.id}`;
             const onClick = !isLoggedIn ? handleLogin : undefined;
             return (
               <Link key={index} href={href}>
@@ -170,11 +173,10 @@ function SearchPage() {
                             <div className="text-[#98A2B3] font-medium font-open_sans flex gap-2 items-center">
                               Total Returns:
                               <span
-                                className={`${
-                                  value.gain_loss >= 0
+                                className={`${value.gain_loss >= 0
                                     ? "text-green-600"
                                     : "text-red-600"
-                                } font-bold text-sm`}
+                                  } font-bold text-sm`}
                               >
                                 {value.gain_loss == null ? (
                                   <>-</>
