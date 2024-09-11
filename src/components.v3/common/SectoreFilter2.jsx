@@ -114,12 +114,14 @@ const SectorFilter2 = ({ tempSector, setTempSector, isMobile }) => {
               sx={{ paddingY: "0px !important", paddingX: "6px !important" }}
             >
               <FormControlLabel
+                className="!flex !items-start py-[7px]"
                 control={
                   <Checkbox
                     checked={tempSector.includes(key)}
                     onChange={handleCheckboxChange}
                     name={key}
                     sx={{
+                      padding: "0px 9px 9px",
                       color: "default", // Default color
                       "&.Mui-checked": {
                         color: "#125B54", // Color when checked

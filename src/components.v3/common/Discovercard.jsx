@@ -13,7 +13,7 @@ function Discovercard({ id, name, description, image, color, slug }) {
 
   return (
     <>
-      <div className="md:w-1/4 sm:w-1/2 w-full discover_card_carousel">
+      <div className="sm:w-1/2 w-full discover_card_carousel">
         <a
           className="card group transition-all duration-500 education border border-gray-200 cursor-pointer"
           onClick={async () => {

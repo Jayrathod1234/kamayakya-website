@@ -49,7 +49,7 @@ function StockDetailsSection() {
     router.push("/stock-picks");
     return;
   }
-  const watch_video = timeline.find((value) => value.type == "youtube");
+  const watch_video = timeline?.find((value) => value.type == "youtube");
   const hasVideo = watch_video && watch_video.youtube_link;
   const [modalState, setModalState] = useState({
     isMainModalOpen: false,
@@ -146,71 +146,80 @@ function StockDetailsSection() {
   const handleShowAll = () => {
     setShowAll(!showAll);
   };
-const [activeTab, setActiveTab] = useState("Summary");
+  const [activeTab, setActiveTab] = useState("Summary");
+  const [isManualScroll, setIsManualScroll] = useState(false); // Flag to prevent scroll effect temporarily
   const tabs = ["Summary", "Upside Left", "Reports", "News"];
   const newsRef = useRef(null);
-  const summaryRef = useRef(null)
-  const UpsideLeftRef = useRef(null)
-  const ReportsRef = useRef(null)
+  const summaryRef = useRef(null);
+  const UpsideLeftRef = useRef(null);
+  const ReportsRef = useRef(null);
   const handleTabClick = (tab) => {
+    setIsManualScroll(true); // Disable scroll handling
     setActiveTab(tab);
     let element = null;
     switch (tab) {
-      case 'News':
+      case "News":
         element = newsRef.current;
         break;
-      case 'Summary':
+      case "Summary":
         element = summaryRef.current;
         break;
-      case 'Upside Left':
+      case "Upside Left":
         element = UpsideLeftRef.current;
         break;
-      case 'Reports':
+      case "Reports":
         element = ReportsRef.current;
         break;
       default:
-        console.warn('Unknown tab:', tab);
+        console.warn("Unknown tab:", tab);
         break;
     }
     const offset = 80; // Change this value as needed
     if (element) {
-      const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+      const elementTop =
+        element.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
         top: elementTop - offset,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
+
+    // Re-enable scroll handling after the smooth scroll completes
+    setTimeout(() => {
+      setIsManualScroll(false);
+    }, 500); // Adjust the delay if needed
   };
 
   // Scroll listener to detect section in view
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.pageYOffset + 100; // Add offset for when to consider a section visible
+      if (isManualScroll) return; // Skip handling scroll if a tab click is in progress
+      const scrollPosition = window.pageYOffset + 80; // Add offset for when to consider a section visible
       const summaryTop = summaryRef.current?.offsetTop || 0;
       const UpsideLeftTop = UpsideLeftRef.current?.offsetTop || 0;
       const ReportsTop = ReportsRef.current?.offsetTop || 0;
       const newsTop = newsRef.current?.offsetTop || 0;
 
       // Logic to determine which tab to activate based on scroll position
-      if (scrollPosition >= newsTop) {
-        setActiveTab('News');
-      } else if (scrollPosition >= ReportsTop) {
-        setActiveTab('Reports');
-      } else if (scrollPosition >= UpsideLeftTop) {
-        setActiveTab('Upside Left');
-      } else if (scrollPosition >= summaryTop) {
-        setActiveTab('Summary');
+      if (newsRef.current && scrollPosition >= newsTop) {
+        setActiveTab("News");
+      } else if (ReportsRef.current && scrollPosition >= ReportsTop) {
+        setActiveTab("Reports");
+      } else if (UpsideLeftRef.current && scrollPosition >= UpsideLeftTop) {
+        setActiveTab("Upside Left");
+      } else if (summaryRef.current && scrollPosition >= summaryTop) {
+        setActiveTab("Summary");
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Cleanup the event listener on component unmount
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
-  
+  }, [isManualScroll]);
+
   return (
     <>
       {Object.keys(items).length === 0 || isLoading ? (
@@ -583,7 +592,6 @@ const [activeTab, setActiveTab] = useState("Summary");
                         handleChildModalOpen={handleChildModalOpen}
                         handleCloseAllModals={handleCloseAllModals}
                         modalState={modalState}
-                        
                       />
                     </div>
                   </div>
