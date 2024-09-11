@@ -117,14 +117,20 @@ export function Slider({ children }) {
 
   const tweenFactor = useRef(0);
   const tweenNodes = useRef([]);
-  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
-  const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } = useDotButton(emblaApi);
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+  const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } =
+    useDotButton(emblaApi);
 
   const handlePrevNext = (cb) => {
     cb();
     const mp = getMixPanelClient();
-    mp.track("testimonialsnav_clicked", {
-      page: "Pricing_Page",
+    mp.track("latest_releases_clicked", {
+      page: "StockPicks_Page",
     });
   };
 
@@ -182,14 +188,14 @@ export function Slider({ children }) {
     const scrollProgress = emblaApi.scrollProgress();
     const slidesInView = emblaApi.slidesInView();
     const isScrollEvent = eventName === "scroll";
-  
+
     emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
       let diffToTarget = scrollSnap - scrollProgress;
       const slidesInSnap = engine.slideRegistry[snapIndex];
-  
+
       slidesInSnap.forEach((slideIndex) => {
         if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
-  
+
         if (engine.options.loop) {
           engine.slideLooper.loopPoints.forEach((loopItem) => {
             const target = loopItem.target();
@@ -204,30 +210,25 @@ export function Slider({ children }) {
             }
           });
         }
-  
-        // Calculate the scale factor based on the distance to the target (snap point)
-        const tweenValue = 1 - Math.abs(diffToTarget * 1); // Stronger scaling effect
-        
-        // Set scale range for the side cards to be between 0.25 and 1 (even smaller side cards)
-        const scale = numberWithinRange(tweenValue, 0, 2); 
-        
+
+        // Stronger scaling effect for center/side differentiation
+        const tweenValue = 1 - Math.abs(diffToTarget * 1.5);
+
+        // Set scale range for Y-axis (height) and X-axis (width) independently
+        const scaleY = numberWithinRange(tweenValue, 0.86, 1.5); // Smaller side cards height, larger center card
+        const scaleX = numberWithinRange(tweenValue, 0.86, 1.5); // Decrease side card width to 0.6, center card remains large
+
         const tweenNode = tweenNodes.current[slideIndex];
-        // Apply scaling only to Y-axis to affect height but not width
-        tweenNode.style.transform = `scaleY(${scale})`;
-  
-        // Reset margin adjustments to avoid width changes
-        tweenNode.style.marginLeft = "14px";
-        tweenNode.style.marginRight = "14px";
-  
-        // Optionally apply other effects, like opacity or blur, based on the scale
-        const opacity = numberWithinRange(tweenValue, 0.4, 1); // Opacity reduces on the sides
-        tweenNode.style.opacity = opacity;
+        // Apply scaling to both X and Y axes
+        tweenNode.style.transform = `scale(${scaleX}, ${scaleY})`;
+
+        // Keep consistent margin adjustments
+        // tweenNode.style.marginLeft = "14px";
+        // tweenNode.style.marginRight = "14px";
       });
     });
   }, []);
-  
-  
-  
+
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -246,7 +247,7 @@ export function Slider({ children }) {
   return (
     <div className={`relative w-screen m-auto`}>
       {/* gradient */}
-      <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center ">
+      {/* <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center ">
         <div>
           <Button
             onClick={() => handlePrevNext(onPrevButtonClick)}
@@ -289,15 +290,55 @@ export function Slider({ children }) {
             </div>
           </Button>
         </div>
-      </div>
+      </div> */}
 
-      <div ref={emblaRef} className={`max-w-[100vw] overflow-hidden`}>
+      <Button
+        onClick={() => handlePrevNext(onPrevButtonClick)}
+        variant={"default"}
+        className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out absolute left-5 sm:left-[340px] top-1/2 -translate-y-1/2 z-[99]"
+      >
+        <div className="w-5 flex items-center justify-center relative">
+          <ChevronLeftIcon
+            fontSize="small"
+            style={{ color: "white" }}
+            className="absolute !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-0"
+          />
+          <KeyboardBackspaceIcon
+            fontSize="small"
+            style={{ color: "white" }}
+            className="absolute !opacity-0 !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-100"
+          />
+        </div>
+      </Button>
+      <Button
+        onClick={() => handlePrevNext(onNextButtonClick)}
+        variant={"default"}
+        className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.90] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-500 ease-in-out absolute right-5 sm:right-[340px] top-1/2 -translate-y-1/2 z-[99]"
+      >
+        <div className="w-5 flex items-center justify-center relative">
+          <ChevronRightIcon
+            fontSize="small"
+            style={{ color: "white" }}
+            className="absolute !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-0"
+          />
+          <EastIcon
+            fontSize="small"
+            style={{ color: "white" }}
+            className="absolute !opacity-0 !transition-opacity !duration-300 !ease-in-out group-hover:!opacity-100"
+          />
+        </div>
+      </Button>
+
+      <div ref={emblaRef} className={`max-w-[1200px] mx-auto overflow-hidden`}>
         <div
           className="flex pb-12 pt-[40px] carousel__container"
           style={{ backfaceVisibility: "hidden" }}
         >
           {children.map((carousel, index) => (
-            <CarouselItem key={carousel.key} className={`carousel embla__class-names`}>
+            <CarouselItem
+              key={carousel.key}
+              className={`carousel embla__class-names`}
+            >
               {/* {carousel(emblaApi)} */}
               {React.cloneElement(carousel, {
                 emblaApi: emblaApi, // Add any prop you want to pass
@@ -312,7 +353,11 @@ export function Slider({ children }) {
         {scrollSnaps
           .slice(0, scrollSnaps.length) // Show 5 on small screens, all on larger screens
           .map((_, index) => (
-            <CarouselIndicator onClick={() => onDotButtonClick(index)} index={index} selectedIndex={selectedIndex} />
+            <CarouselIndicator
+              onClick={() => onDotButtonClick(index)}
+              index={index}
+              selectedIndex={selectedIndex}
+            />
           ))}
       </div>
     </div>
