@@ -266,16 +266,8 @@ export default function CustomSortMenu({ isLabel }) {
                           />
                         </svg>
                         <span
-                          style={{
-                            marginLeft: "8px",
-                            color:
-                              selectedValue === "upside_left_desc"
-                                ? "#108973"
-                                : "#344054",
-                            fontWeight: 400,
-                            fontSize: "14px",
-                            fontFamily: "Open Sans",
-                          }}
+                        className={`ml-2 ${selectedValue === "upside_left_desc"? "text-[#108973]" :"text-[#344054] "} !font-normal text-sm/5 font-open_sans`}
+                       
                         >
                           High to Low
                         </span>
