@@ -31,18 +31,16 @@ export const useStockProgressBar = ({
   const [cmpMarginRight, setCmpMarginRight] = useState(0);
   const [currentProgress, setCurrentProgress] = useState(1);
   const [dottedLineWidth, setDottedLineWidth] = useState(0);
-  // requestAnimationFrame(
+
   const calculateDistance = useCallback(() => {
-    // console.log("CALCULATE DISTANCE CALLED");
     if (ref.current?.length == 0 && !ref.current[cmpIndex] && !ref.current[targetIndex]) return;
-    // console.log("CONTROL REACHED");
-    // console.log(cmpRef.current)
+
     const entryDiv = ref.current[0];
     const cmpDiv = ref.current[cmpIndex];
     const targetDiv = ref.current[targetIndex];
-    // console.log(entryDiv,cmpDiv,targetDiv)
+
     if (!entryDiv || !cmpDiv || !targetDiv) return;
-    // console.log("CONROL REACHED HERE")
+
     // Get the bounding rectangles of both divs
     const entryRect = entryDiv.getBoundingClientRect();
     const cmpRect = cmpDiv.getBoundingClientRect();
@@ -50,41 +48,40 @@ export const useStockProgressBar = ({
     // Calculate the distance between the centers of entry point and cmp
     const distanceX = cmpRect.left + cmpRect.width / 1.4 - (entryRect.left + entryRect.width / 2);
     const distanceY = cmpRect.top + cmpRect.height / 2 - (entryRect.top + entryRect.height / 2);
-
+    console.log(distanceX,distanceY)
     // Calculate the Euclidean distance
     const DistanceBtwEntryCmp = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    // console.log("DISTANCEBetweenEntryCmpDISTANCEBetweenEntryCmp", DistanceBtwEntryCmp)
+
     setCurrentProgress(DistanceBtwEntryCmp);
 
     // Calculate the distance between the centers of entry point and cmp
     const distanceX2 = targetRect.left + targetRect.width / 1.2 - (entryRect.left + entryRect.width / 2);
     const distanceY2 = targetRect.top + targetRect.height / 2 - (entryRect.top + entryRect.height / 2);
-
+    console.log(distanceX2,distanceY2)
     // Calculate the Euclidean distance
     const DistanceBtwEntryTarget = Math.sqrt(distanceX2 * distanceX2 + distanceY2 * distanceY2);
-    // console.log("DISTANCEBetweenEntryCmpDISTANCEBetweenEntryCmp", DistanceBtwEntryTarget);
+
     setDottedLineWidth(DistanceBtwEntryTarget);
     setMargins(() => ({
       marginLeft: ref.current[0].offsetWidth / 0.25,
       marginRight: ref.current[targetIndex].offsetWidth / 0.18,
     }));
     setCmpMarginRight(ref.current[cmpIndex].offsetWidth);
-  }, [cmpIndex, targetIndex,cmpMarginRight,margins.marginLeft]);
+  }, [cmpIndex, targetIndex]);
 
   useEffect(() => {
     const handleResize = () => {
-      // console.log("RESIZE CALLED", cmpIndex, targetIndex);
       requestAnimationFrame(() => {
         calculateDistance();
       });
     };
 
     window.addEventListener("resize", handleResize);
-    if(targets?.length) handleResize();
+    setTimeout(handleResize, 1000);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [cmpIndex, targetIndex,targets?.length]);
+  }, [calculateDistance]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -101,7 +98,8 @@ export const useStockProgressBar = ({
     return () => {
       emblaApi.off("init", handleEmblaInit).off("resize", handleResizeOrScroll).off("scroll", handleResizeOrScroll);
     };
-  }, [cmpIndex, targetIndex, emblaApi]);
+  }, [emblaApi, calculateDistance]);
+  // console.log("TARGET INDEX",targetIndex)
 
   return {
     margins,

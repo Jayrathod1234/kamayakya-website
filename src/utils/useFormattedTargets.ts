@@ -1,6 +1,7 @@
+//Optimized format
 import { TTarget } from "@/types/shared";
 import { format, parse } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 export const useFormattedTargets = ({
   stock_targets,
@@ -8,7 +9,7 @@ export const useFormattedTargets = ({
   live_price,
   entry_price,
 }: {
-  stock_targets: any;
+  stock_targets: any[];
   entry_date: string;
   live_price: number;
   entry_price: number;
@@ -16,52 +17,50 @@ export const useFormattedTargets = ({
   const [targets, setTargets] = useState<TTarget[]>([]);
   const [targetIndex, setTargetIndex] = useState(0);
   const [cmpIndex, setCmpIndex] = useState(0);
-  useEffect(() => {
-    // Sort and map the stock targets
-    let updatedTargets = [...stock_targets]
-      .sort((a, b) => a.target_price - b.target_price)
-      .map((item: any, index: any) => ({
+
+  const formatDate = useCallback((date: Date | string) => format(new Date(date), "dd MMM yyyy"), []);
+
+  const sortedStockTargets = useMemo(() => 
+    [...stock_targets].sort((a, b) => a.target_price - b.target_price)
+      .map((item, index) => ({
         label: `Target ${index + 1}`,
-        date: format(new Date(item.created), "dd MMM yyyy"),
+        date: formatDate(item.created),
         price: item.target_price,
         status: item.target_met ? "Completed" : "Active",
-      }));
+      })),
+    [stock_targets, formatDate]
+  );
 
-    // Add CMP and Entry Price targets
-    updatedTargets.push(
-      { label: "CMP", price: live_price, date: format(new Date(), "dd MMM yyyy"), status: "Completed" },
-      {
-        label: "Entry Price",
-        price: entry_price,
-        date: format(new Date(entry_date), "dd MMM yyyy"),
-        status: "Completed",
-      }
-    );
+  const additionalTargets = useMemo(() => [
+    { label: "CMP", price: live_price, date: formatDate(new Date()), status: "Completed" },
+    { label: "Entry Price", price: entry_price, date: formatDate(entry_date), status: "Completed" },
+  ], [live_price, entry_price, entry_date, formatDate]);
 
-    // Set the sorted targets
-    updatedTargets = updatedTargets.sort((a, b) => a.price - b.price);
+  useEffect(() => {
+    const updatedTargets = [...sortedStockTargets, ...additionalTargets].sort((a, b) => a.price - b.price);
     setTargets(updatedTargets);
 
     if (updatedTargets.length > 0) {
-      // Find the index of CMP
-      const cmpIndex = updatedTargets.findIndex((target) => target.label === "CMP");
-      setCmpIndex(cmpIndex);
+      const newCmpIndex = updatedTargets.findIndex((target) => target.label === "CMP");
+      setCmpIndex(newCmpIndex);
 
-      // Filter and sort to get the latest target
       const targetObjects = updatedTargets.filter((item) => item.label.startsWith("Target"));
+      //get latest target index
       const latestTarget = targetObjects.sort((a, b) => {
         const dateA = parse(a.date, "dd MMM yyyy", new Date());
         const dateB = parse(b.date, "dd MMM yyyy", new Date());
-        return dateB.getTime() - dateA.getTime() === 0 ? -1 : dateB.getTime() - dateA.getTime();
+        const dateDiff = dateB.getTime() - dateA.getTime();
+        if (dateDiff === 0) {
+          // If dates are the same, sort by target number (descending)
+          return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
+        }
+        return dateDiff;
       })[0];
 
-      // Find the index of the latest target and set it
-      const latestTargetIndex = updatedTargets.findIndex((item) => item.label === latestTarget.label);
+      const latestTargetIndex = updatedTargets.findIndex((item) => item.label === latestTarget?.label);
       setTargetIndex(latestTargetIndex);
-
-      // console.log("TARGETS UPDATED", updatedTargets[latestTargetIndex], updatedTargets);
     }
-  }, [stock_targets, live_price, entry_price, entry_date]);
+  }, [sortedStockTargets, additionalTargets]);
 
   return { targets, cmpIndex, targetIndex };
 };
