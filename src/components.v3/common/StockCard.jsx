@@ -69,7 +69,7 @@ function StockCard({
       <div
         className={`relative   
         ${className}  main_card_carousel ${
-          isCarousal ? "min-w-[360px] sm:min-w-[404px]" : "min-w-[330px]"
+          isCarousal ? "min-w-[360px] sm:max-w-[404px] max-w-[360px]  sm:min-w-[404px]" : "min-w-[330px]"
         }`}
       >
         <div
