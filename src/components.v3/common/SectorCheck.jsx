@@ -281,7 +281,7 @@ export default function SectorCheck() {
                         textAlign: "center",
                         padding: "8px",
                       }}
-                    >No Sector Found
+                    >No sector found
                     </Typography>
                   }
                 </Box>

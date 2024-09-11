@@ -309,7 +309,7 @@ export default function StrategyCheck() {
                         padding: "8px",
                       }}
                     >
-                      No Strategy Tag Found
+                      No strategy tag found
                     </Typography>
                   )}
 
