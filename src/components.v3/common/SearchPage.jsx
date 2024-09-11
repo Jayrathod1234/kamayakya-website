@@ -39,7 +39,7 @@ function SearchPage() {
     <>
       <div className=" bg-[#F2F4F7] h-screen overflow-hidden ">
         {/* <!-- Stock Search --> */}
-        <div className="bg-[#F2F4F7] p-4 sticky top-0 right-0 left-0 w-full">
+        <div className="bg-[#F2F4F7] p-4 sticky top-0 right-0 left-0 ">
           <div className="flex items-center bg-white   rounded-[6px] shadow-2xs">
             {/* <!-- Left icon --> */}
             <span
@@ -65,7 +65,7 @@ function SearchPage() {
             </span>
 
             {/* <!-- Input field --> */}
-            <div className="flex items-center border rounded-lg w-full">
+            <div className="flex items-center  rounded-lg w-full">
               <input
                 type="text"
                 placeholder="Search Stocks by Name..."
