@@ -692,7 +692,7 @@ function StockDetailsSection() {
                               </div>
                               <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-white font-bold">
                                 {upside_left}%
-                                <span className="text-[12px] mt-2   text-white font-medium">
+                                <span className="text-[12px] mt-2  line-clamp-2  text-white font-medium">
                                   likely within {upside_left_time}
                                 </span>
                               </div>
@@ -750,7 +750,7 @@ function StockDetailsSection() {
                                   </>
                                 )}
                                 {Math.abs(gain_loss)}%
-                                <span className="text-[12px]  mt-2  text-[#667085] font-medium">
+                                <span className="text-[12px]  mt-2  text-[#667085] font-medium line-clamp-2">
                                   in {return_time}
                                 </span>
                               </div>
@@ -915,7 +915,7 @@ function StockDetailsSection() {
                                     </>
                                   )}
                                   {Math.abs(cagr_of_stock.cagr_value)}%
-                                  <span className="text-[10px]  mt-2  text-[#667085] font-medium">
+                                  <span className="text-[10px]  mt-2  text-[#667085] font-medium  line-clamp-2">
                                     in {cagr_of_stock.cagr_time}
                                   </span>
                                 </div>
