@@ -225,10 +225,6 @@ export function Slider({ children }) {
         // Keep consistent margin adjustments
         // tweenNode.style.marginLeft = "14px";
         // tweenNode.style.marginRight = "14px";
-
-        // Optionally, adjust opacity for side cards to fade them out more
-        // const opacity = numberWithinRange(tweenValue, 0.2, 1); // Lower opacity for smaller side cards
-        // tweenNode.style.opacity = opacity;
       });
     });
   }, []);
