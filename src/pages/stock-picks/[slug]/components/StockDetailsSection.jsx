@@ -658,7 +658,7 @@ function StockDetailsSection() {
                                       alt="Info"
                                       className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
                                     />
-                                    <div className="absolute top-6  shadow-3xl left-[50px] transform -translate-x-1/2 mt-2 z-10 hidden group-hover:block bg-white  text-sm rounded-lg py-2 px-4 w-[300px]">
+                                    <div className="absolute z-[999] top-6   shadow-3xl left-[50px] transform -translate-x-1/2 mt-2 hidden group-hover:block bg-white  text-sm rounded-lg py-2 px-4 w-[300px]">
                                       <div className="w-full grid gap-1 relative">
                                         <img
                                           src="/assets/div.png"
