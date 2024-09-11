@@ -135,7 +135,7 @@ export default function StockDetailsTimeline({ timeline }) {
             borderRadius="10px"
             bgcolor="#FCFCFD"
             maxWidth={{ xs: "100%", sm: "450px" }}
-            width="100%"
+            width="200px"
             p={"5px"}
             position="relative"
             top="-11px"
@@ -180,6 +180,11 @@ export default function StockDetailsTimeline({ timeline }) {
                   fontWeight="bold"
                   fontSize="12px"
                   fontFamily="Open Sans"
+                  sx={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
                 >
                   {step.youtube_title}
                 </Typography>
