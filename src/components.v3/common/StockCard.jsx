@@ -9,6 +9,7 @@ import { Modal } from "@nextui-org/react";
 import StockCardProgressBarSection from "./StockCardProgressBarSection";
 import StockCardProgressBarBlurSection from "./StockCardProgressBarBlurSection";
 import StockCardProgressBarSection2 from "./StockCardProgressBar2";
+import { Tooltip } from "@mui/material";
 
 function StockCard({
   id,
@@ -128,7 +129,11 @@ function StockCard({
                 <Link href={`/stock-picks/${id}`}>
                   <p
                     className={`text-gray-950 text-md font-bold leading-7  font-open_sans line-clamp-1  text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
-                      latest_youtube_video?.youtube_link ? hovered ? "max-w-[210px] sm:max-w-[225px]" : "max-w-80" : "max-w-full"
+                      latest_youtube_video?.youtube_link
+                        ? hovered
+                          ? "max-w-[210px] sm:max-w-[225px]"
+                          : "max-w-80"
+                        : "max-w-full"
                     }`}
                   >
                     {stock_name}
@@ -200,9 +205,19 @@ function StockCard({
                       alt=""
                       className="w-3"
                     />
-                    <p className="text-[10px]  font-semibold text-orange-700 font-open_sans">
-                      {stockSector[sector]}
-                    </p>
+                    {stock_tags?.length > 0 ? (
+                      <Tooltip title={stockSector[sector] ?? ""}>
+                        <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
+                          {stockSector[sector]?.length > 10
+                            ? `${stockSector[sector].substring(0, 10)}...`
+                            : stockSector[sector]}
+                        </p>
+                      </Tooltip>
+                    ) : (
+                      <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
+                        {stockSector[sector]}
+                      </p>
+                    )}
                   </div>
                 )}
                 <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
