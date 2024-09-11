@@ -215,8 +215,8 @@ export function Slider({ children }) {
         const tweenValue = 1 - Math.abs(diffToTarget * 1.5);
 
         // Set scale range for Y-axis (height) and X-axis (width) independently
-        const scaleY = numberWithinRange(tweenValue, 0.1, 1.5); // Smaller side cards height, larger center card
-        const scaleX = numberWithinRange(tweenValue, 0.6, 1.5); // Decrease side card width to 0.6, center card remains large
+        const scaleY = numberWithinRange(tweenValue, 0.86, 1.5); // Smaller side cards height, larger center card
+        const scaleX = numberWithinRange(tweenValue, 0.86, 1.5); // Decrease side card width to 0.6, center card remains large
 
         const tweenNode = tweenNodes.current[slideIndex];
         // Apply scaling to both X and Y axes
@@ -329,7 +329,7 @@ export function Slider({ children }) {
         </div>
       </Button>
 
-      <div ref={emblaRef} className={`max-w-[1280px] mx-auto overflow-hidden`}>
+      <div ref={emblaRef} className={`max-w-[1200px] mx-auto overflow-hidden`}>
         <div
           className="flex pb-12 pt-[40px] carousel__container"
           style={{ backfaceVisibility: "hidden" }}
