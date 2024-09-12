@@ -267,7 +267,6 @@ export default function CustomSortMenu({ isLabel }) {
                         </svg>
                         <span
                         className={`ml-2 ${selectedValue === "upside_left_desc"? "text-[#108973]" :"text-[#344054] "} !font-normal text-sm/5 font-open_sans`}
-                       
                         >
                           High to Low
                         </span>
@@ -957,7 +956,7 @@ export default function CustomSortMenu({ isLabel }) {
                               selectedValue === "upside_left_desc"
                                 ? "#108973"
                                 : "#17172E",
-                            fontWeight: 600,
+                            fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -1034,7 +1033,7 @@ export default function CustomSortMenu({ isLabel }) {
                               selectedValue === "upside_left_asc"
                                 ? "#108973"
                                 : "#17172E",
-                            fontWeight: 600,
+                            fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -1121,7 +1120,7 @@ export default function CustomSortMenu({ isLabel }) {
                               selectedValue === "recency_desc"
                                 ? "#108973"
                                 : "#17172E",
-                            fontWeight: 600,
+                            fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -1187,7 +1186,7 @@ export default function CustomSortMenu({ isLabel }) {
                               selectedValue === "recency_asc"
                                 ? "#108973"
                                 : "#17172E",
-                            fontWeight: 600,
+                            fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -1273,7 +1272,7 @@ export default function CustomSortMenu({ isLabel }) {
                               selectedValue === "time_left_desc"
                                 ? "#108973"
                                 : "#17172E",
-                            fontWeight: 600,
+                            fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -1339,7 +1338,7 @@ export default function CustomSortMenu({ isLabel }) {
                               selectedValue === "time_left_asc"
                                 ? "#108973"
                                 : "#17172E",
-                            fontWeight: 600,
+                            fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -1425,7 +1424,7 @@ export default function CustomSortMenu({ isLabel }) {
                               selectedValue === "returns_desc"
                                 ? "#108973"
                                 : "#17172E",
-                            fontWeight: 600,
+                            fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}
@@ -1491,7 +1490,7 @@ export default function CustomSortMenu({ isLabel }) {
                               selectedValue === "returns_asc"
                                 ? "#108973"
                                 : "#17172E",
-                            fontWeight: 600,
+                            fontWeight: 400,
                             fontFamily: "Open Sans",
                             fontSize: "14px",
                           }}

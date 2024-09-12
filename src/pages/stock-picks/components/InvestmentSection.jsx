@@ -109,7 +109,7 @@ function InvestmentSection() {
         </div>
 
         {/* Always show the +9 more button */}
-        <Link className="flex flex-col items-center text-center group">
+        <div className="flex flex-col items-center text-center group">
           <button onClick={handleMainModalOpen}>
             <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
               <div className="w-11 h-11 bg-brand-500 flex justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
@@ -129,7 +129,7 @@ function InvestmentSection() {
             handleCloseAllModals={handleCloseAllModals}
             modalState={modalState}
           />
-        </Link>
+        </div>
       </div>
     </div>
   );
