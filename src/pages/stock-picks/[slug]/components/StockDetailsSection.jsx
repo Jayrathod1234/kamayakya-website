@@ -1098,7 +1098,7 @@ function StockDetailsSection() {
                             )}
                             <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
                               {Math.abs(gain_loss)}% {""}
-                              <span className="text-gray-500 text-2xs font-open_sans">
+                              <span className="text-gray-500 text-2xs font-open_sans font-semibold">
                                 in {return_time}
                               </span>
                             </p>
@@ -1359,7 +1359,7 @@ function StockDetailsSection() {
                               )}
                               <p className="text-black ml-1 text-2xs font-open_sans font-[700] ">
                                 {cagr_of_stock.cagr_value}%{" "}
-                                <span className="text-gray-500 text-2xs font-open_sans">
+                                <span className="text-gray-500 text-2xs font-open_sans font-semibold">
                                   in {cagr_of_stock.cagr_time}
                                 </span>
                               </p>
