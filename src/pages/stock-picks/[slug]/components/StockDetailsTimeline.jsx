@@ -108,7 +108,7 @@ export default function StockDetailsTimeline({ timeline }) {
               color="textSecondary"
               fontFamily="Open Sans"
               fontSize="12px"
-              sx={{ whiteSpace: "nowrap" }}
+              sx={{ whiteSpace: "nowrap" , marginTop:"-2px !important"}}
             >
               {formatDate(
                 step.type === "report" ? step.report_date : step.youtube_date
@@ -146,13 +146,13 @@ export default function StockDetailsTimeline({ timeline }) {
             width="200px"
             p={"5px"}
             position="relative"
-            top="-11px"
+            top="-13px"
             border="1px solid white"
             boxShadow="0px 2px 6px 0px rgba(2, 15, 35, 0.06)" // Small shadow on the bottom side
           >
             <Typography
               variant="subtitle1"
-              fontWeight="500"
+              fontWeight="500 !important"
               display="flex"
               alignItems="center"
               minWidth={"155px"}
@@ -164,6 +164,7 @@ export default function StockDetailsTimeline({ timeline }) {
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
+                font:'500 !important'
               }}
             >
               {step.type == "report"
