@@ -32,7 +32,6 @@ import { BorderLeftRounded } from "@mui/icons-material";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { background } from "@chakra-ui/react";
-import zIndex from "@mui/material/styles/zIndex";
 
 // fixed drawer
 const CustomTabPanel = styled(Box)(({ theme }) => ({
