@@ -174,7 +174,8 @@ function StockCard({
 
                     {/* Text container */}
                     <div
-                      className={` pointer-events-none transition-transform duration-500 ease-in-out ${
+                      onClick={()=>window.open(latest_youtube_video?.youtube_link,"_blank")}
+                      className={`transition-transform duration-500 ease-in-out ${
                         hovered
                           ? "-translate-x-1 opacity-100"
                           : "translate-x-[80px] opacity-0"
@@ -184,7 +185,7 @@ function StockCard({
                         href={latest_youtube_video?.youtube_link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="cursor-default pointer-events-auto"
+                        className="cursor-default"
                       >
                         <p className="text-[14px] w-full cursor-pointer text-nowrap leading-[20px] text-[#125B54]">
                           Watch Video
