@@ -1963,7 +1963,7 @@ header > div > div {
   background-clip: padding-box; /* Ensures gradient is visible in the border area */
 }
 .css-19kzrtu{
-  padding: 22px 39px 14px 14px !important;
+  padding: 11px 14px 14px 14px !important;
 }
 .css-1rwt2y5-MuiButtonBase-root-MuiButton-root, .css-68wo3z-MuiButtonBase-root-MuiButton-root{
   letter-spacing: 0px !important;
@@ -1984,7 +1984,8 @@ header > div > div {
   color:#108973 !important ;
   background-color: white !important;
   justify-content: start !important;
-  padding: 12px 44px 12px 12px !important;
+  padding: 14px 8px 14px 16px !important;
+  max-width:144px;
 }
 .css-1urgnq6{
   font-weight: 500;
@@ -2098,4 +2099,8 @@ header > div > div {
     transform:translate(-50%,-40%) scale(1);
     opacity: 0;
   }
+}
+
+.MuiDrawer-root > .css-9emuhu-MuiPaper-root-MuiDrawer-paper{
+  background:transparent !important;
 }

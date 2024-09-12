@@ -1139,13 +1139,15 @@ function DrawerFilter() {
             }}
           >
             <Box
+            className=" !rounded-xl"
               sx={{ height: 597, bgcolor: "white" }}
               role="presentation"
               onClick={(e) => e.stopPropagation()}
             >
               {/* topbar  */}
-              <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
-                <div className="justify-between absolute flex items-center w-auto gap-2 ">
+              <div className="pt-4   sticky top-0 bg-white z-50 rounded-t-2xl ">
+                <div className=" px-6 justify-between absolute flex items-center w-full gap-x-2 ">
+                  <div className=" flex items-center gap-x-3">
                   <svg
                     onClick={() => setOpen(false)}
                     xmlns="http://www.w3.org/2000/svg"
@@ -1165,8 +1167,9 @@ function DrawerFilter() {
                   <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[225px]">
                     Filters
                   </div>
+                  </div>
                   <div
-                    className="text-[#125B54] font-open_sans text-sm font-semibold cursor-pointer"
+                    className="text-[#125B54] font-open_sans text-sm font-semibold cursor-pointer whitespace-nowrap"
                     onClick={handleReset}
                   >
                     Clear All
@@ -1184,6 +1187,7 @@ function DrawerFilter() {
                   justifyContent: "start !important",
                   // width: "144px !important",
                   height: "100%", // Set a fixed height to make sure scrolling works
+                  width:"100%",
                 }}
               >
                 <Tabs
@@ -1513,6 +1517,7 @@ function DrawerFilter() {
                       <Grid alignItems="center" overflowX="hidden">
                         <Grid item>
                           <TextField
+                            className=" w-full"
                             variant="outlined"
                             size="small"
                             type="number"
@@ -1521,6 +1526,7 @@ function DrawerFilter() {
                               handleUpsideLeftInputChange(e, "min")
                             }
                             InputProps={{
+                              className:"!border-[#F2F4F7] !rounded-lg !w-full",
                               endAdornment: (
                                 <InputAdornment position="end">
                                   %
@@ -1539,8 +1545,9 @@ function DrawerFilter() {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid className=" !my-2" item xs={2}>
                           <Typography
+                            className=" !text-xs text-[#98A2B3]"
                             align="center"
                             fontFamily="Open Sans, sans-serif !important"
                           >
@@ -1549,6 +1556,7 @@ function DrawerFilter() {
                         </Grid>
                         <Grid item xs={5}>
                           <TextField
+                            className="w-full"
                             variant="outlined"
                             size="small"
                             type="number"
@@ -1557,6 +1565,7 @@ function DrawerFilter() {
                               handleUpsideLeftInputChange(e, "max")
                             }
                             InputProps={{
+                              className:"!border-[#F2F4F7] !rounded-lg !w-full",
                               endAdornment: (
                                 <InputAdornment position="end">
                                   %
@@ -1593,7 +1602,7 @@ function DrawerFilter() {
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
                               <FormControlLabel
-                                className="!flex !items-start"
+                                className="!flex !items-start pb-[11px] !m-0 !mb-1 !border-b !border-b-[#F2F4F7]"
                                 control={
                                   <Checkbox
                                     checked={
@@ -1627,18 +1636,19 @@ function DrawerFilter() {
                                       }
                                     }}
                                     sx={{
-                                      padding: "0px 9px 9px",
+                                      padding: "1px 9px 0px 0px",
 
                                       color: "default", // Default color
                                       "&.Mui-checked": {
                                         color: "#125B54", // Color when checked
                                       },
+                                      '& .MuiSvgIcon-root': { fontSize: 16 }
                                     }}
                                   />
                                 }
                                 label={
                                   <span
-                                    className="flex items-start"
+                                    className="flex items-start !text-sm"
                                     style={{
                                       fontFamily: "Open Sans, sans-serif",
                                     }}
@@ -1655,7 +1665,7 @@ function DrawerFilter() {
                               />
                               {Object.keys(tempRecency || {}).map((key) => (
                                 <FormControlLabel
-                                  className="!flex !items-start py-[7px]"
+                                  className="!flex !items-start py-[11px] !m-0 !mb-1"
                                   key={key}
                                   control={
                                     <Checkbox
@@ -1663,17 +1673,18 @@ function DrawerFilter() {
                                       onChange={handleChangeRecency}
                                       name={key}
                                       sx={{
-                                        padding: "0px 9px 9px",
+                                        padding: "1px 9px 0px 0px",
                                         color: "default", // Default color
                                         "&.Mui-checked": {
                                           color: "#125B54", // Color when checked
                                         },
+                                        '& .MuiSvgIcon-root': { fontSize: 16 }
                                       }}
                                     />
                                   }
                                   label={
                                     <span
-                                      className="flex items-start"
+                                      className="flex items-start text-sm"
                                       style={{
                                         fontFamily: "Open Sans, sans-serif",
                                       }}
@@ -1703,7 +1714,7 @@ function DrawerFilter() {
                           <AccordionDetails sx={{ padding: "0px" }}>
                             <FormGroup>
                               <FormControlLabel
-                                className="!flex !items-start"
+                                className="!flex !items-start !pb-[11px] !m-0 !mb-1 !border-b !border-b-[#F2F4F7]"
                                 control={
                                   <Checkbox
                                     checked={
@@ -1737,17 +1748,18 @@ function DrawerFilter() {
                                       }
                                     }}
                                     sx={{
-                                      padding: "0px 9px 9px",
+                                      padding: "1px 9px 0px 0px",
                                       color: "default", // Default color
                                       "&.Mui-checked": {
                                         color: "#125B54", // Color when checked
                                       },
+                                      '& .MuiSvgIcon-root': { fontSize: 16 }
                                     }}
                                   />
                                 }
                                 label={
                                   <span
-                                    className="flex items-start"
+                                    className="flex items-start !text-sm"
                                     style={{
                                       fontFamily: "Open Sans, sans-serif",
                                     }}
@@ -1765,24 +1777,27 @@ function DrawerFilter() {
 
                               {Object.keys(tempTimeLeft || {}).map((key) => (
                                 <FormControlLabel
-                                  className="!flex !items-start py-[7px]"
+                                  className="!flex !items-start !py-[11px] !m-0 !mb-1"
                                   key={key}
                                   control={
                                     <Checkbox
+                                      className=" !border-green-400 "
                                       checked={tempTimeLeft[key]}
                                       onChange={handleChangeTimeLeft}
                                       name={key}
                                       sx={{
-                                        padding: "0px 9px 9px",
+                                        padding: "1px 9px 0px 0px",
                                         color: "default", // Default color
                                         "&.Mui-checked": {
                                           color: "#125B54", // Color when checked
                                         },
+                                        '& .MuiSvgIcon-root': { fontSize: 16 }
                                       }}
                                     />
                                   }
                                   label={
                                     <span
+                                      className="flex !text-sm !items-start"
                                       style={{
                                         fontFamily: "Open Sans, sans-serif",
                                       }}
@@ -1813,6 +1828,7 @@ function DrawerFilter() {
                       <Grid alignItems="center">
                         <Grid item>
                           <TextField
+                          className=" w-full"
                             variant="outlined"
                             size="small"
                             type="number"
@@ -1820,6 +1836,7 @@ function DrawerFilter() {
                             value={tempReturns ? tempReturns[0] : 0}
                             onChange={(e) => handleReturnsInputChange(e, "min")}
                             InputProps={{
+                              className:"!border-[#F2F4F7] !rounded-lg !w-full",
                               endAdornment: (
                                 <InputAdornment position="end">
                                   %
@@ -1839,12 +1856,13 @@ function DrawerFilter() {
                           />
                         </Grid>
                         <Grid item xs={2}>
-                          <Typography align="center" fontFamily="open sans">
+                          <Typography className=" !my-2 text-xs text-[#98A2B3]" align="center" fontFamily="open sans">
                             to
                           </Typography>
                         </Grid>
                         <Grid item xs={5}>
                           <TextField
+                            className="w-full"
                             variant="outlined"
                             size="small"
                             type="number"
@@ -1852,6 +1870,7 @@ function DrawerFilter() {
                             value={tempReturns ? tempReturns[1] : 0}
                             onChange={(e) => handleReturnsInputChange(e, "max")}
                             InputProps={{
+                              className:"!border-[#F2F4F7] !rounded-lg !w-full",
                               endAdornment: (
                                 <InputAdornment position="end">
                                   %
@@ -1944,13 +1963,14 @@ function DrawerFilter() {
                           <AccordionDetails sx={{ padding: "0px !important" }}>
                             <FormGroup sx={{ padding: "0px !important" }}>
                               <div
+                                // className=" !scroll-m-0"
                                 style={{
                                   maxHeight: "350px",
                                   overflowY: "auto",
                                 }}
                               >
                                 <FormControlLabel
-                                  className="!flex !items-start"
+                                  className="!flex !items-start !pb-[11px] !m-0 !mb-1 !border-b !border-b-[#F2F4F7]"
                                   control={
                                     <Checkbox
                                       checked={
@@ -1960,17 +1980,18 @@ function DrawerFilter() {
                                       }
                                       onClick={handleSelectAllStrategies}
                                       sx={{
-                                        padding: "0px 9px 9px",
+                                        padding: "1px 9px 0px 0px",
                                         color: "default", // Default color
                                         "&.Mui-checked": {
                                           color: "#125B54", // Color when checked
                                         },
+                                        '& .MuiSvgIcon-root': { fontSize: 16 }
                                       }}
                                     />
                                   }
                                   label={
                                     <span
-                                      className="flex items-start"
+                                      className="flex items-start text-sm "
                                       style={{
                                         fontFamily: "Open Sans, sans-serif",
                                       }}
@@ -1986,7 +2007,7 @@ function DrawerFilter() {
                                 {Object.keys(strategyTagList || {}).map(
                                   (key) => (
                                     <FormControlLabel
-                                      className="!flex !items-start py-[7px]"
+                                      className="!flex !items-start !py-[11px] !m-0 !mb-1"
                                       key={key}
                                       control={
                                         <Checkbox
@@ -1994,11 +2015,12 @@ function DrawerFilter() {
                                             key
                                           )}
                                           sx={{
-                                            padding: "0px 9px 9px",
+                                            padding: "1px 9px 0px 0px",
                                             color: "default", // Default color
                                             "&.Mui-checked": {
                                               color: "#125B54", // Color when checked
                                             },
+                                            '& .MuiSvgIcon-root': { fontSize: 16 }
                                           }}
                                           onChange={handleChangestrategyTag}
                                           name={key}
@@ -2006,6 +2028,7 @@ function DrawerFilter() {
                                       }
                                       label={
                                         <span
+                                        className=" flex items-start !text-sm"
                                           style={{
                                             fontFamily: "Open Sans, sans-serif",
                                           }}
@@ -2058,16 +2081,16 @@ function DrawerFilter() {
                 </Box>
               </Box>
               {/* button  */}
-              <div className="pt-[61px]">
-                <div className="flex gap-3 py-3 px-3  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
+              <div className=" fixed bottom-0 w-full">
+                <div className="flex gap-x-3 py-3 px-3  border-t-2 border-[#F2F4F7]  bg-white  justify-between  ">
                   <button
-                    className="  text-[#344054] font-semibold font-open_sans py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px]"
+                    className="  text-[#344054] font-semibold font-open_sans py-2 px-4 border border-[#D0D5DD]  rounded-lg w-full flex-1"
                     onClick={handleCancel}
                   >
                     Cancel
                   </button>
                   <button
-                    className=" font-semibold text-white font-open_sans py-2 px-4 bg-[#125B54] rounded-lg w-[170px] "
+                    className=" font-semibold text-white font-open_sans py-2 px-4 bg-[#125B54] rounded-lg w-full flex-1 "
                     onClick={handleApply}
                   >
                     Apply
