@@ -336,7 +336,7 @@ function StockDetailsSection() {
                           </div>
                         )}
                         {/* <!-- Continue your other components similarly --> */}
-                        <div className=" flex flex-col md:flex-row gap-4 items-start md:items-center">
+                        <div className=" flex flex-col md:flex-row gap-4 items-center md:items-center">
                           {/* Image container */}
                           <div className="flex-shrink-0 w-[120px] h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7] justify-center items-center">
                             <Image
@@ -383,7 +383,7 @@ function StockDetailsSection() {
                             </div>
 
                             <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap">
-                              <div className="flex gap-4 w-full justify-center sm:justify-start">
+                              <div className="flex gap-4 w-full justify-center sm:justify-start md:justify-start">
                                 <div className="flex flex-wrap gap-[8px] sm:gap-[8px] items-center justify-center ">
                                   {/* Show all chips in tablet size and larger, and only 2 chips in mobile size */}
                                   {stock_tags
