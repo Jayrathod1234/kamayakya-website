@@ -2101,6 +2101,6 @@ header > div > div {
   }
 }
 
-.MuiDrawer-root > .css-9emuhu-MuiPaper-root-MuiDrawer-paper{
+.mobile__filter > .MuiPaper-root{
   background:transparent !important;
 }

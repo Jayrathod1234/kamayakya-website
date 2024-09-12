@@ -31,6 +31,8 @@ import { filterTimeLabel } from "@/utils/constants.js";
 import { BorderLeftRounded } from "@mui/icons-material";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
+import { background } from "@chakra-ui/react";
+import zIndex from "@mui/material/styles/zIndex";
 
 // fixed drawer
 const CustomTabPanel = styled(Box)(({ theme }) => ({
@@ -241,7 +243,7 @@ function DrawerFilter() {
   };
 
   const CustomSlider = styled(Slider)({
-    color: "#004d40", // Main color for the rail and thumb border
+    color: "#125B54", // Main color for the rail and thumb border
     height: 4, // Thickness of the slider rail
     "& .MuiSlider-thumb": {
       height: 24,
@@ -254,19 +256,23 @@ function DrawerFilter() {
       "&:focus, &:active": {
         boxShadow: "0 0 0 14px rgba(0, 77, 64, 0.16)", // Larger shadow on active or focus
       },
+      zIndex:2,
     },
     "& .MuiSlider-rail": {
-      color: "#004d40",
+      color: "#E4E7EC",
       opacity: 1,
     },
     "& .MuiSlider-track": {
       border: "none",
+      color:"#125B54",
+      zIndex:1
     },
     "& .MuiSlider-mark": {
       width: "9px",
       height: "9px",
       borderRadius: "50%",
-      backgroundColor: "#b0bec5", // Dot color when not active
+      backgroundColor: "#E4E7EC", // Dot color when not active
+      zIndex:0
     },
   });
   const [value, setValue] = useState(0);
@@ -417,6 +423,7 @@ function DrawerFilter() {
                   <AccordionDetails>
                     <div className="pl-11">
                       <CustomSlider
+                        
                         value={tempUpsideLeft}
                         onChange={handleUpsideLeftSliderChange}
                         // valueLabelDisplay="auto"
@@ -1119,6 +1126,7 @@ function DrawerFilter() {
             )}
           </Button>
           <Drawer
+            className="mobile__filter"
             styled={{ BorderLeftRounded: "12px !important" }}
             open={open}
             anchor={anchor}
@@ -1129,14 +1137,17 @@ function DrawerFilter() {
               keepMounted: true, // Keeps mounted so you can style it
               sx: {
                 backdropFilter: "blur(2px)", // Apply blur effect when drawer is open
+               
               },
+              
             }}
             styles={{
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
                 overflow: "visible",
-              },
+              }
             }}
+         
           >
             <Box
             className=" !rounded-xl"
