@@ -148,8 +148,8 @@ function StockCard({
                     {/* GIF Image */}
                     <div
                       className={`absolute right-0 transition-transform duration-500 ease-in-out ${
-                        hovered ? "translate-x-[-65px]" : "translate-x-[5px]"
-                      } ${hovered ? "me-7" : "me-3"}`}
+                        hovered ? "md:translate-x-[-65px]" : "translate-x-[5px]"
+                      } ${hovered ? "md:me-7" : "me-3"}`}
                     >
                       <div
                         className="w-full cursor-pointer"
@@ -165,7 +165,7 @@ function StockCard({
                           alt="Play"
                           className={`w-[24px] transition-transform duration-500 ease-in-out ${
                             hovered
-                              ? "filter brightness-0 sepia opacity-100"
+                              ? "md:filter md:brightness-0 md:sepia md:opacity-100"
                               : ""
                           }`}
                         />
@@ -174,10 +174,9 @@ function StockCard({
 
                     {/* Text container */}
                     <div
-                      onClick={()=>window.open(latest_youtube_video?.youtube_link,"_blank")}
-                      className={`transition-transform duration-500 ease-in-out ${
+                      className={` pointer-events-none transition-transform duration-500 ease-in-out ${
                         hovered
-                          ? "-translate-x-1 opacity-100"
+                          ? "md:-translate-x-1 md:opacity-100"
                           : "translate-x-[80px] opacity-0"
                       }`}
                     >
@@ -185,7 +184,7 @@ function StockCard({
                         href={latest_youtube_video?.youtube_link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="cursor-default"
+                        className="cursor-default pointer-events-auto"
                       >
                         <p className="text-[14px] w-full cursor-pointer text-nowrap leading-[20px] text-[#125B54]">
                           Watch Video
