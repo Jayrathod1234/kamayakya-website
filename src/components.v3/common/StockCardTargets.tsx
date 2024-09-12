@@ -39,7 +39,7 @@ const getIcons = (label: string, status: string) => {
   if (label.includes("Entry"))
     return (
       // <span className=" bg-[#04B9F9] rounded-full h-3 w-3 flex items-center justify-center border border-white">
-      <img height={30} width={30} src="/assets/entry_marker.svg" className=" h-full w-full" />
+      <img height={30} width={30} src="/assets/entry point.svg" className=" h-full w-full" />
       // </span>
     );
 };
