@@ -16,3 +16,7 @@ export const filterTimeLabel = {
   eighteen_to_twentyFour: "18-24 months",
   greater_than_twentyFour: "Greater than 24 months",
 };
+
+export const sectorIcons = {
+
+}
