@@ -425,10 +425,10 @@ function StockDetailsSection() {
                                     )}
                                 </div>
                               </div>
-                              <div className="w-full  flex justify-center bg-[#F6FEF9] my-4 !line-clamp-1 truncate">
-                                <p className="sm:hidden text-sm items-center font-open_sans py-1 flex  gap-1 text-[#039855]  ">
-                                  {/* Conditionally show either text or image */}
                                   {action_text ? (
+                              <div className="w-full text-center  items-center flex !justify-center bg-[#F6FEF9] my-4  truncate">
+                                <p className="sm:hidden text-sm items-center font-open_sans py-1 flex  gap-1 text-[#039855] text-center ">
+                                  {/* Conditionally show either text or image */}
                                     <>
                                       <img
                                         src="/assets/Polygon2.svg"
@@ -437,9 +437,9 @@ function StockDetailsSection() {
                                       />
                                       {action_text}
                                     </>
-                                  ) : null}
                                 </p>
                               </div>
+                                  ) : <></>}
                             </div>
                           </div>
                         </div>
@@ -450,7 +450,7 @@ function StockDetailsSection() {
                       style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
                     />
 
-                    <div className="rounded-lg bg-white flex flex-col sm:flex-row px-4 sm:px-4 items-start sm:items-center justify-between">
+                    <div className="rounded-lg bg-white flex flex-col sm:flex-row py-[0.5rem] px-4 sm:px-4 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
