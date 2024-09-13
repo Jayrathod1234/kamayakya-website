@@ -11,6 +11,8 @@ import StockCard from "@/components.v3/common/StockCard.jsx";
 // import { Slider } from "@/components.v3/common/Slider.jsx";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { useStockPicks } from "@/contexts/StockPicksContext";
+import { sectorIcons } from "@/utils/constants.js";
+
 const HotStockSection = ({ items }) => {
   const { stockSector } = useStockPicks();
 
@@ -182,7 +184,7 @@ const HotStockSection = ({ items }) => {
                                           {stockSector && sector && (
                                             <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                                               <img
-                                                src="/assets/streamline_hotel-air-conditioner-solid.svg"
+                                                 src={`/sector-images/${sectorIcons[sector]}`}
                                                 alt=""
                                                 className="w-3"
                                               />

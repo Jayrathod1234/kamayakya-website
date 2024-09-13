@@ -12,6 +12,8 @@ import Image from "next/image";
 import { ButtonBase, Tooltip } from "@mui/material";
 import { Modal } from "@nextui-org/react";
 import StockDetailProgressBar from "./StockDetailProgressBar";
+import { sectorIcons } from "@/utils/constants.js";
+
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -454,9 +456,9 @@ function StockDetailsSection() {
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
-                            src="/assets/stock-details/Sector icon.svg"
+                             src={`/sector-images/${sectorIcons[sector]}`}
                             alt=""
-                            className="sm:w-8 sm:h-8 w-auto h-auto"
+                            className="sm:w-8 sm:h-8 w-4 h-4"
                           />
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">

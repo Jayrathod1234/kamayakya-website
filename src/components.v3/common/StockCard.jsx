@@ -10,6 +10,8 @@ import StockCardProgressBarSection from "./StockCardProgressBarSection";
 import StockCardProgressBarBlurSection from "./StockCardProgressBarBlurSection";
 import StockCardProgressBarSection2 from "./StockCardProgressBar2";
 import { Tooltip } from "@mui/material";
+import { sectorIcons } from "@/utils/constants.js";
+
 
 function StockCard({
   id,
@@ -201,7 +203,7 @@ function StockCard({
                 {stockSector && sector && (
                   <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                     <img
-                      src="/assets/streamline_hotel-air-conditioner-solid.svg"
+                      src={`/sector-images/${sectorIcons[sector]}`}
                       alt=""
                       className="w-3"
                     />
