@@ -204,7 +204,7 @@ function StockCard({
                 {stockSector && sector && (
                   <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                     <img
-                      src={`/sector-images/${sectorIcons[sector]}`}
+                      src={`/sector_images_mustard/${sectorIcons[sector]}`}
                       alt=""
                       className="w-3 "
                     />

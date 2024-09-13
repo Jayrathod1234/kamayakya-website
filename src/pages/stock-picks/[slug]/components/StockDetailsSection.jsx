@@ -457,7 +457,7 @@ function StockDetailsSection() {
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
-                             src={`/sector-images/${sectorIcons[sector]}`}
+                             src={`/sector_images_green/${sectorIcons[sector]}`}
                             alt=""
                             className="sm:w-8 sm:h-8 w-4 h-4"
                           />
