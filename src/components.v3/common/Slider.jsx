@@ -112,7 +112,7 @@ export function Slider({ children }) {
     {
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()]
+    [Autoplay({ playOnInit: true, delay: 6000,stopOnInteraction:false }), ClassNames()]
   );
 
   const tweenFactor = useRef(0);

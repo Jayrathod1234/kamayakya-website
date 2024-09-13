@@ -87,7 +87,10 @@ export function HotSlider({ children }) {
       startIndex: 1,
       containScroll: "trimSnaps",
     },
-    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
+    [
+      Autoplay({ playOnInit: true, delay: 6000, stopOnInteraction: false }),
+      ClassNames(),
+    ] //change carousel timer here.
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef([]);
@@ -220,7 +223,7 @@ export function HotSlider({ children }) {
             <Button
               onClick={() => handlePrevNext(onNextButtonClick)}
               variant={"default"}
-              className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.90] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-500 ease-in-out absolute top-[45%] z-[9] right-5"
+              className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.90] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-500 ease-in-out absolute top-[43%] z-[9] right-5"
             >
               <div className="w-5 flex items-center justify-center relative">
                 <ChevronRightIcon
