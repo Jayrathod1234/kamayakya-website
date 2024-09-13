@@ -98,7 +98,7 @@ export const useDotButton = (emblaApi) => {
 
 export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
   return (
-    <div ref={ref} className={`carousel__item  ${className}`}>
+    <div ref={ref} className={`carousel__item stock__card-slider  ${className}`}>
       {children}
     </div>
   );

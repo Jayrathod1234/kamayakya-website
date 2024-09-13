@@ -39,6 +39,7 @@ export default function StockCardProgressBarSection({
     cmpIndex,
     targetIndex,
   });
+
   // const [position,setPosition] = useState(0)
   // const calculateLivePricePosition = ()=>{
   //   const position = (live_price - entry_price) / (stock_targets[0].target_price - entry_price) * 100;
@@ -98,7 +99,7 @@ export default function StockCardProgressBarSection({
 
   return (
     <div className=" relative  pl-4">
-      <Carousel className=" z-10 " opts={{ slidesToScroll: 3,startIndex:targetIndex }}>
+      <Carousel className=" z-10 " opts={{ slidesToScroll: 3, startIndex: targetIndex }}>
         <CarouselContent className=" justify-between">
           {/* <CarouselItem className={` basis-1/3 `}>
             <StockCardTargets
@@ -121,27 +122,30 @@ export default function StockCardProgressBarSection({
           </CarouselItem> */}
           {targets.map((target: TTarget, index: number) => (
             //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time
-            <CarouselItem key={index} className={`${index == targets.length-1 ? "basis-1/3":" basis-1/3 "}`}>
+            <CarouselItem key={index} className={`${index == targets.length - 1 ? "basis-1/3" : " basis-1/3 "}`}>
               <StockCardTargets
                 // target.label.includes("CMP") ? 0 :
                 index={index}
                 // className={`${label===""}`}
                 label={target.label}
                 price={target.price}
-                date={target.status==="Completed" ? target.date : ""}
+                date={target.status === "Completed" ? target.date : ""}
                 status={target.status}
                 // target.label.includes("CMP") ? cmpRef :
                 ref={ref}
-                tooltipContent={<p className=" p-4 text-2xs max-w-[300px] whitespace-normal">
-                  The price at which the stock recommendation was given by KamayaKya. You can buy the stock as long as
-                  the action is 'Buy'.
-                </p>}
-                showToolTip={target.label==="Entry Price"}
+                tooltipContent={
+                  <p className=" p-4 text-2xs max-w-[300px] whitespace-normal">
+                    The price at which the stock recommendation was given by KamayaKya. You can buy the stock as long as
+                    the action is 'Buy'.
+                  </p>
+                }
+                showToolTip={target.label === "Entry Price"}
               />
               {index === 0 && (
                 <>
                   {/* SOLID PROGRESS */}
                   <StockProgressBarSolid
+                    className=" solid__line"
                     width={`calc(100% - ${margins.marginLeft + cmpMarginRight}px)`}
                     marginLeft={margins.marginLeft}
                     marginRight={cmpMarginRight}
@@ -149,6 +153,7 @@ export default function StockCardProgressBarSection({
                   />
                   {/*DOTTED PROGRESS  */}
                   <StockProgressBarDotted
+                    className="dotted__line"
                     // `calc(100% - ${margins.marginLeft + margins.marginRight}px)`
                     width={dottedLineWidth}
                     marginLeft={margins.marginLeft}

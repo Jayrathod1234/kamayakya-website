@@ -48,7 +48,7 @@ export const useStockProgressBar = ({
     // Calculate the distance between the centers of entry point and cmp
     const distanceX = cmpRect.left + cmpRect.width / 1.4 - (entryRect.left + entryRect.width / 2);
     const distanceY = cmpRect.top + cmpRect.height / 2 - (entryRect.top + entryRect.height / 2);
-    console.log(distanceX,distanceY)
+    // console.log(distanceX,distanceY)
     // Calculate the Euclidean distance
     const DistanceBtwEntryCmp = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
@@ -57,11 +57,15 @@ export const useStockProgressBar = ({
     // Calculate the distance between the centers of entry point and cmp
     const distanceX2 = targetRect.left + targetRect.width / 1.2 - (entryRect.left + entryRect.width / 2);
     const distanceY2 = targetRect.top + targetRect.height / 2 - (entryRect.top + entryRect.height / 2);
-    console.log(distanceX2,distanceY2)
+    
     // Calculate the Euclidean distance
     const DistanceBtwEntryTarget = Math.sqrt(distanceX2 * distanceX2 + distanceY2 * distanceY2);
 
     setDottedLineWidth(DistanceBtwEntryTarget);
+    // setMargins(() => ({
+    //   marginLeft: ref.current[0].offsetWidth / 0.25,
+    //   marginRight: ref.current[targetIndex].offsetWidth / 0.18,
+    // }));
     setMargins(() => ({
       marginLeft: ref.current[0].offsetWidth / 0.25,
       marginRight: ref.current[targetIndex].offsetWidth / 0.18,
@@ -94,7 +98,7 @@ export const useStockProgressBar = ({
       // console.log("Embla resize/scroll detected, recalculating distance...");
       calculateDistance();
     };
-    emblaApi.on("reInit", handleEmblaInit).on("resize", handleResizeOrScroll).on("scroll", handleResizeOrScroll);
+    emblaApi.on("reInit", handleEmblaInit).on("resize", handleResizeOrScroll).on("scroll", handleResizeOrScroll).on("slidesInView",handleResizeOrScroll)
     return () => {
       emblaApi.off("init", handleEmblaInit).off("resize", handleResizeOrScroll).off("scroll", handleResizeOrScroll);
     };
