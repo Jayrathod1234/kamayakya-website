@@ -425,10 +425,10 @@ function StockDetailsSection() {
                                     )}
                                 </div>
                               </div>
-                              <div className="w-full  flex justify-center bg-[#F6FEF9] my-4 !line-clamp-1 truncate">
-                                <p className="sm:hidden text-sm items-center font-open_sans py-1 flex  gap-1 text-[#039855]  ">
-                                  {/* Conditionally show either text or image */}
                                   {action_text ? (
+                              <div className="w-full text-center  items-center flex !justify-center bg-[#F6FEF9] my-4  truncate">
+                                <p className="sm:hidden text-sm items-center font-open_sans py-1 flex  gap-1 text-[#039855] text-center ">
+                                  {/* Conditionally show either text or image */}
                                     <>
                                       <img
                                         src="/assets/Polygon2.svg"
@@ -437,9 +437,9 @@ function StockDetailsSection() {
                                       />
                                       {action_text}
                                     </>
-                                  ) : null}
                                 </p>
                               </div>
+                                  ) : <></>}
                             </div>
                           </div>
                         </div>
@@ -450,7 +450,7 @@ function StockDetailsSection() {
                       style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
                     />
 
-                    <div className="rounded-lg bg-white flex flex-col sm:flex-row px-4 sm:px-4 items-start sm:items-center justify-between">
+                    <div className="rounded-lg bg-white flex flex-col sm:flex-row py-[0.5rem] px-4 sm:px-4 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
@@ -1047,12 +1047,12 @@ function StockDetailsSection() {
                             </div>
 
                             {/* Modal Body */}
-                            <div className="mt-2 text-gray-800 text-sm font-open_sans">
+                            <div className="mt-2 text-left text-gray-800 text-sm font-open_sans">
                               Upside Left means how much the stock price could
                               rise from its current level.
                             </div>
-                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full">
-                              <span className="text-[#108973] text-sm font-bold font-open_sans">
+                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left">
+                              <span className=" text-[#108973] text-sm font-bold font-open_sans">
                                 Example :
                               </span>
                               <p className="text-sm text-gray-600 mt-1 font-open_sans">
@@ -1098,7 +1098,7 @@ function StockDetailsSection() {
                             )}
                             <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
                               {Math.abs(gain_loss)}% {""}
-                              <span className="text-gray-500 text-2xs font-open_sans">
+                              <span className="text-gray-500 text-2xs font-open_sans font-semibold">
                                 in {return_time}
                               </span>
                             </p>
@@ -1256,13 +1256,13 @@ function StockDetailsSection() {
                                 <h3 className="modal-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
                                   Compound Annual Growth Rate
                                 </h3>
-                                <p className="modal-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
+                                <p className="modal-subtitle text-left font-bold text-blue-900 font-open_sans text-[12px]">
                                   Purpose:
                                 </p>
-                                <p className="modal-text my-1 text-gray-800 text-[12px] font-open_sans">
+                                <p className="modal-text my-1 text-left text-gray-800 text-[12px] font-open_sans">
                                   Shows average yearly growth of an investment.
                                 </p>
-                                <p className="modal-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
+                                <p className="modal-quote italic text-left mb-3 text-gray-600 text-[12px] font-open_sans">
                                   Imagine a tree growing a bit more each year.
                                   <br />
                                   CAGR tells how fast it grows annually on
@@ -1316,7 +1316,7 @@ function StockDetailsSection() {
                                   </div>
                                 </div>
 
-                                <div className="modal-example bg-gray-50 p-3 rounded mb-4">
+                                <div className="modal-example bg-gray-50 p-3 text-left rounded mb-4">
                                   <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
                                     Example:
                                   </p>
@@ -1359,7 +1359,7 @@ function StockDetailsSection() {
                               )}
                               <p className="text-black ml-1 text-2xs font-open_sans font-[700] ">
                                 {cagr_of_stock.cagr_value}%{" "}
-                                <span className="text-gray-500 text-2xs font-open_sans">
+                                <span className="text-gray-500 text-2xs font-open_sans font-semibold">
                                   in {cagr_of_stock.cagr_time}
                                 </span>
                               </p>
