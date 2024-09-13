@@ -41,8 +41,7 @@ function StockCard({
   let newIconClass = "-5px";
   if (new_stock & recommended_stock) {
     tabImage = "hot-newtab";
-    cardClass =
-      "p-[1px] rounded-lg bg-gradient-to-r from-[#FDB022] to-[#75CDC5]";
+    cardClass = "p-[1px] rounded-lg bg-gradient-to-r from-[#FDB022] to-[#75CDC5]";
   } else if (new_stock) {
     tabImage = "newtab";
     innerClass += "border border-brand-300";
@@ -71,47 +70,27 @@ function StockCard({
       <div
         className={`relative   
         ${className}  main_card_carousel ${
-          isCarousal
-            ? "min-w-[360px] sm:max-w-[404px] max-w-[360px]  sm:min-w-[404px]"
-            : "min-w-[330px]"
+          isCarousal ? "min-w-[360px] sm:max-w-[404px] max-w-[360px]  sm:min-w-[404px]" : "min-w-[330px]"
         }`}
       >
-        <div
-          className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
-        >
-          {tabImage && (
-            <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
-          )}
+        <div className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}>
+          {tabImage && <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />}
         </div>
         <div className={cardClass}>
           <div className={innerClass}>
             {is_blur ? (
               <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
                 <div className="p-1 gap-2 flex items-center">
-                  <img
-                    src="/assets/noto_locked.png"
-                    alt=""
-                    className="w-[19px]"
-                  />
+                  <img src="/assets/noto_locked.png" alt="" className="w-[19px]" />
 
                   <div className="h-5 bg-[#EDF0F5] rounded-[20px] min-w-[200px] sm:min-w-[206px] md:min-w-[200px] slg:min-w-[208px] lg:min-w-[271px]"></div>
                 </div>
 
                 <div className="tooltip">
-                  <img
-                    src="/assets/play.gif"
-                    alt=""
-                    className="w-[24px] blur-[2px]"
-                  />
+                  <img src="/assets/play.gif" alt="" className="w-[24px] blur-[2px]" />
                   <span className="tooltiptext -left-5 relative shadow-sm z-[200000]">
-                    <img
-                      src="/assets/div.png"
-                      alt=""
-                      className="absolute -top-2 left-[89px] w-4"
-                    />
-                    {isLoggedIn
-                      ? "Please become a member to watch this video."
-                      : "Please login  to watch this video."}
+                    <img src="/assets/div.png" alt="" className="absolute -top-2 left-[89px] w-4" />
+                    {isLoggedIn ? "Please become a member to watch this video." : "Please login  to watch this video."}
                   </span>
 
                   {/* <span className="tooltiptext -left-5 relative shadow-sm z-[200000]">
@@ -141,44 +120,40 @@ function StockCard({
                 </Link>
                 {latest_youtube_video?.youtube_link && (
                   <div
-                    className="relative flex items-center gap-[16px]"
+                    className="group/watch-video relative flex items-center gap-[16px]"
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                   >
                     {/* GIF Image */}
                     <div
-                      className={`absolute right-0 transition-transform duration-500 ease-in-out ${
-                        hovered ? "md:translate-x-[-65px]" : "translate-x-[5px]"
-                      } ${hovered ? "md:me-7" : "me-3"}`}
+                      className={`absolute right-0 transition-transform duration-500 ease-in-out 
+                      translate-x-[5px]
+                      me-3
+                      md:group-hover/watch-video:translate-x-[-65px]
+                      md:group-hover/watch-video:me-7
+                      
+                      `}
                     >
                       <div
                         className="w-full cursor-pointer"
-                        onClick={() =>
-                          window.open(
-                            latest_youtube_video?.youtube_link,
-                            "_blank"
-                          )
-                        }
+                        onClick={() => window.open(latest_youtube_video?.youtube_link, "_blank")}
                       >
                         <img
                           src="/assets/play.gif"
                           alt="Play"
-                          className={`w-[24px] transition-transform duration-500 ease-in-out ${
-                            hovered
-                              ? "md:filter md:brightness-0 md:sepia md:opacity-100"
-                              : ""
-                          }`}
+                          className={`w-[24px] transition-transform duration-500 ease-in-out 
+                          md:group-hover/watch-video:filter md:group-hover/watch-video:brightness-0 md:group-hover/watch-video:sepia md:group-hover/watch-video:opacity-100
+                          `}
                         />
                       </div>
                     </div>
 
                     {/* Text container */}
                     <div
-                      className={` pointer-events-none transition-transform duration-500 ease-in-out ${
-                        hovered
-                          ? "md:-translate-x-1 md:opacity-100"
-                          : "translate-x-[80px] opacity-0"
-                      }`}
+                      className={` pointer-events-none transition-transform duration-500 ease-in-out 
+                      md:group-hover/watch-video:translate-x-1 md:group-hover/watch-video:opacity-100
+                      translate-x-[80px] opacity-0
+                      `}
                     >
                       <a
                         href={latest_youtube_video?.youtube_link}
@@ -200,11 +175,7 @@ function StockCard({
               <div className=" flex items-center gap-[8px] ">
                 {stockSector && sector && (
                   <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
-                    <img
-                      src="/assets/streamline_hotel-air-conditioner-solid.svg"
-                      alt=""
-                      className="w-3"
-                    />
+                    <img src="/assets/streamline_hotel-air-conditioner-solid.svg" alt="" className="w-3" />
                     {stock_tags?.length > 0 ? (
                       <Tooltip title={stockSector[sector] ?? ""}>
                         <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
@@ -214,9 +185,7 @@ function StockCard({
                         </p>
                       </Tooltip>
                     ) : (
-                      <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
-                        {stockSector[sector]}
-                      </p>
+                      <p className="text-[10px] font-semibold text-orange-700 font-open_sans">{stockSector[sector]}</p>
                     )}
                   </div>
                 )}
@@ -231,27 +200,19 @@ function StockCard({
                     )}
                   </p>
                 </div>
-                {stock_tags?.length > 0 && (
-                  <DeepValue stock_tags={stock_tags} />
-                )}
+                {stock_tags?.length > 0 && <DeepValue stock_tags={stock_tags} />}
               </div>
             </div>
             <div className="sm:px-5 px-4 pb-3">
               <div className="p-[8px] rounded-xl bg-[#f7f8fa]">
                 <div className="rounded-[7px] bg-custom-gradient text-center text-white ">
                   <div className="flex justify-end px-[11px] pt-[11px]">
-                    <img
-                      src="/assets/streamline_target-solid.svg"
-                      alt=""
-                      className="sm:w-[18px] w-[18px]"
-                    />
+                    <img src="/assets/streamline_target-solid.svg" alt="" className="sm:w-[18px] w-[18px]" />
                   </div>
 
                   <div className="px-[16px] pb-[24px] grid gap-[6px]">
                     <div className="gap-[7px] items-center flex justify-center">
-                      <p className="text-md font-semibold leading-[18px] text-white font-open_sans">
-                        Upside left
-                      </p>
+                      <p className="text-md font-semibold leading-[18px] text-white font-open_sans">Upside left</p>
 
                       {/* Tooltip (Visible on large screens only) */}
                       <div className="tooltip relative hidden sm:block">
@@ -261,22 +222,14 @@ function StockCard({
                           className="cursor-pointer hidden sm:block"
                         />
                         <span className="tooltiptext tooltiptext2 !-left-5 relative shadow-3xl">
-                          <img
-                            src="/assets/div.png"
-                            alt=""
-                            className="absolute -top-2 left-[57%] w-4"
-                          />
+                          <img src="/assets/div.png" alt="" className="absolute -top-2 left-[57%] w-4" />
                           <div className="text-gray-800 text-2xs font-normal">
-                            Upside Left means how much the stock price could
-                            rise from its current level.
+                            Upside Left means how much the stock price could rise from its current level.
                           </div>
                           <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 rounded-lg">
-                            <span className="text-[#108973] text-2xs font-bold">
-                              Example :
-                            </span>
+                            <span className="text-[#108973] text-2xs font-bold">Example :</span>
                             <p className="text-2xs text-gray-600 font-normal">
-                              If a stock's price is ₹100 and the Upside Left is
-                              20%, it might go up to ₹120.
+                              If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
                             </p>
                           </div>
                         </span>
@@ -293,9 +246,7 @@ function StockCard({
                       </div>
                     </div>
 
-                    <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">
-                      {upside_left || 0}%
-                    </h3>
+                    <h3 className="text-[36px] font-bold leading-[33px] m-0 font-open_sans">{upside_left || 0}%</h3>
                     <p className="text-2xs font-normal text-[#E4E7EC] font-open_sans">
                       likely within {upside_left_time}
                     </p>
@@ -323,16 +274,12 @@ function StockCard({
 
                       {/* Modal Body */}
                       <div className="mt-2 text-gray-800 text-sm text-left font-open_sans">
-                        Upside Left means how much the stock price could rise
-                        from its current level.
+                        Upside Left means how much the stock price could rise from its current level.
                       </div>
                       <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left ">
-                        <span className="text-[#108973] text-sm font-bold text-left font-open_sans">
-                          Example :
-                        </span>
+                        <span className="text-[#108973] text-sm font-bold text-left font-open_sans">Example :</span>
                         <p className="text-sm text-gray-600 mt-1 text-left font-open_sans">
-                          If a stock's price is ₹100 and the Upside Left is 20%,
-                          it might go up to ₹120.
+                          If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
                         </p>
                       </div>
                     </Modal>
@@ -341,26 +288,16 @@ function StockCard({
                 <div className="flex justify-between pt-[8px] px-[9px] ">
                   <div className="flex gap-[3px] items-center">
                     <img src="/assets/Layer_1.svg" alt="" className="w-3.5" />
-                    <p className="text-[11px] font-semibold text-gray-700 font-open_sans">
-                      Total Returns
-                    </p>
+                    <p className="text-[11px] font-semibold text-gray-700 font-open_sans">Total Returns</p>
                   </div>
                   <div className="flex gap-[3px] items-center font-open_sans sm:max-w-[167px] max-w-[164px] whitespace-nowrap">
                     {/* green up arrow  */}
                     {gain_loss >= 0 ? (
                       // green up arrow
-                      <img
-                        src="/assets/Polygon2.svg"
-                        alt="Up Arrow"
-                        className="w-2"
-                      />
+                      <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2" />
                     ) : (
                       // red down arrow
-                      <img
-                        src="/assets/Polygon 3.svg"
-                        alt="Down Arrow"
-                        className="w-2"
-                      />
+                      <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
                     )}
                     {/* <img src="/assets/Polygon2.svg" alt="" className="w-2" /> */}
                     {/* red down arrow  */}
@@ -368,9 +305,7 @@ function StockCard({
                     {gain_loss == null ? (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans  w-[26px] h-3 bg-[#E4E7EC] rounded-full "></p>
                     ) : (
-                      <p className="text-2xs font-bold text-gray-800 font-open_sans">
-                        {Math.abs(gain_loss)}%
-                      </p>
+                      <p className="text-2xs font-bold text-gray-800 font-open_sans">{Math.abs(gain_loss)}%</p>
                     )}
                     <span className="text-[10px] font-semibold text-[#6E6E6E] line-clamp-1">
                       in less than {return_time}
@@ -403,22 +338,12 @@ function StockCard({
               <>
                 <div className="p-5 text-center">
                   {/* btn  */}
-                  <button
-                    className="button-82-pushable group  "
-                    role="button"
-                    onClick={handleLogin}
-                  >
+                  <button className="button-82-pushable group  " role="button" onClick={handleLogin}>
                     <span className="button-82-shadow"></span>
                     <span className="button-82-edge"></span>
                     <span className="button-82-front button-82-front2 text flex items-center">
-                      <img
-                        src="/assets/noto_locked.png"
-                        alt=""
-                        className="w-4"
-                      />
-                      <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                        Log In to Get 3 Hot Stocks
-                      </p>
+                      <img src="/assets/noto_locked.png" alt="" className="w-4" />
+                      <p className="text-[13px] font-bold text-[#125B54] font-open_sans">Log In to Get 3 Hot Stocks</p>
                       <div className="relative w-5">
                         <img
                           src="assets/chevron-right.png"
@@ -444,14 +369,8 @@ function StockCard({
                       <span className="button-82-shadow"></span>
                       <span className="button-82-edge"></span>
                       <span className="button-82-front button-82-front2 text flex items-center">
-                        <img
-                          src="/assets/noto_locked.png"
-                          alt=""
-                          className="w-4"
-                        />
-                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                          Become a Member
-                        </p>
+                        <img src="/assets/noto_locked.png" alt="" className="w-4" />
+                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">Become a Member</p>
                         <div className="relative w-5">
                           <img
                             src="assets/chevron-right.png"
@@ -473,16 +392,11 @@ function StockCard({
               <>
                 <div className="p-5 text-center">
                   <Link href={`/stock-picks/${id}`}>
-                    <button
-                      className="button-82-pushable group relative"
-                      role="button"
-                    >
+                    <button className="button-82-pushable group relative" role="button">
                       <span className="button-82-shadow"></span>
                       <span className="button-82-edge"></span>
                       <span className="button-82-front button-82-front2 text flex items-center">
-                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">
-                          View Reports & Details
-                        </p>
+                        <p className="text-[13px] font-bold text-[#125B54] font-open_sans">View Reports & Details</p>
                         <div className="relative w-5">
                           <img
                             src="assets/chevron-right.png"

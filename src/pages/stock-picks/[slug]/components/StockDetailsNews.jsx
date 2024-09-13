@@ -136,7 +136,7 @@ const StockDetailsNews = ({ stock_name }) => {
       </div>
       <div
         onClick={fetchNextPage}
-        className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-3 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] "
+        className=" rounded-[4px] flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-3 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] "
       >
         <p className="font-open_sans text-sm font-semibold">Load more</p>
       </div>
