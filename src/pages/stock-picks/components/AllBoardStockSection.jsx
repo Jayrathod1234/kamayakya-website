@@ -148,8 +148,8 @@ function AllBoardStockSection() {
               />
             ) : items.length > 0 ? (
               items.map((value, index) => (
-                
                 <StockCard
+                  className="sm:mx-0 mx-[15px]"
                   key={index} // Ensure each item has a unique key
                   {...value}
                 />

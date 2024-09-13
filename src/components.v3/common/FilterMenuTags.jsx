@@ -197,7 +197,7 @@ const FilterCarousel = () => {
                           chip.id == "most-recent"
                             ? "brightness(100)"
                             : "none",
-                        gap:"1px"
+                        gap: "1px",
                       }}
                     />
                   }
@@ -212,13 +212,15 @@ const FilterCarousel = () => {
                   deleteIcon={
                     <CloseIcon
                       sx={{
-                        color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
+                        color: strategyTag.includes(chip.id)
+                          ? "white !important"
+                          : "inherit",
                         backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
                         borderRadius: "50%", // Make it rounded
                         padding: "4px", // Add padding for spacing
                       }}
                     />
-                  }                  
+                  }
                   sx={{
                     paddingLeft: "8px",
                     paddingRight: "8px",
@@ -226,7 +228,9 @@ const FilterCarousel = () => {
                     borderRadius: isMobile ? "6px" : "0.5rem",
                     maxWidth: "200px !important",
                     height: "46px !important",
-                    border: "1px solid #E4E7EC ",
+                    // border: "1px solid #E4E7EC ",
+                    borderColor:
+                      changablestrategyTags.length > 0 ? "#108973" : "#108973",
                     fontFamily: "Open Sans",
                     // borderColor: " #E4E7EC !important ",
                     backgroundColor: strategyTag.includes(chip.id)
