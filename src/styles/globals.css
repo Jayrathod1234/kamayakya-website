@@ -2106,3 +2106,8 @@ header > div > div {
 .mobile__filter > .MuiPaper-root{
   background:transparent !important;
 }
+
+.stock__card-slider:not(.is-snapped) .solid__line,.stock__card-slider:not(.is-snapped) .dotted__line{
+  transform: scaleX(1.15);
+  transform-origin: left;
+}
