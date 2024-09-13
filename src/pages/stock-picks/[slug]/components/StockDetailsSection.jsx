@@ -428,10 +428,10 @@ function StockDetailsSection() {
                                     )}
                                 </div>
                               </div>
-                                  {action_text ? (
-                              <div className="w-full text-center  items-center flex !justify-center bg-[#F6FEF9] my-4  truncate">
-                                <p className="sm:hidden text-sm items-center font-open_sans py-1 flex  gap-1 text-[#039855] text-center ">
-                                  {/* Conditionally show either text or image */}
+                              {action_text ? (
+                                <div className="w-full text-center  items-center flex !justify-center bg-[#F6FEF9] my-4  truncate">
+                                  <p className="sm:hidden text-sm items-center font-open_sans py-1 flex  gap-1 text-[#039855] text-center ">
+                                    {/* Conditionally show either text or image */}
                                     <>
                                       <img
                                         src="/assets/Polygon2.svg"
@@ -440,9 +440,11 @@ function StockDetailsSection() {
                                       />
                                       {action_text}
                                     </>
-                                </p>
-                              </div>
-                                  ) : <></>}
+                                  </p>
+                                </div>
+                              ) : (
+                                <></>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -600,13 +602,13 @@ function StockDetailsSection() {
                   {/* Small screen show to company profile  */}
                   <div className="pt-[20px] p-4 block sm:hidden bg-white  mb-5">
                     <div className="pl-1 w-[min(1280px,calc(100%-32px))] min-w-[328px]  ">
-                      <h2 className="text-[#0C111D] text-[14px]  font-bold font-open_sans ">
+                      <h2 className="text-[#0C111D] text-[14px]  font-bold font-open_sans uppercase">
                         Company Profile
                       </h2>
 
                       <p
                         dangerouslySetInnerHTML={{ __html: truncatedText }}
-                        className="text-[#475467] text-justify !text-[14px] font-normal !font-open_sans  sm:line-clamp-none"
+                        className="text-[#475467] text-justify !text-[14px] font-bold !font-open_sans  sm:line-clamp-none capitalize"
                       ></p>
 
                       {text?.length > textCount ? (
@@ -968,7 +970,7 @@ function StockDetailsSection() {
 
                   {/* Small Responsive size View Open the box  */}
                   <div
-                    className="block rounded-lg md:hidden bg-gray-150 p-4  shadow-md max-w-full mx-auto mt-5"
+                    className="block rounded-lg md:hidden bg-[#eff7ff] p-4  shadow-md max-w-full mx-auto mt-5"
                     ref={UpsideLeftRef}
                     id="upside-left-section"
                   >

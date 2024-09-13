@@ -28,7 +28,7 @@ const HotStockSection = ({ items }) => {
 
   return (
     <div>
-      <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[24px]">
+      <div className="relative z-[2] sm:pb-[60px] pb-[100px] mt-[24px]">
         <div className="container sm:mx-auto p-0">
           {!isLatop ? (
             <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none max-w-[1280px] mx-auto">
