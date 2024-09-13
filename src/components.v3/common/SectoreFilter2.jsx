@@ -81,23 +81,26 @@ const SectorFilter2 = ({ tempSector, setTempSector, isMobile }) => {
         <List>
           {isMobile && !searchTerm && (
             <ListItem
-              sx={{ paddingY: "0px !important", paddingX: "6px !important" }}
+              sx={{ paddingY: "11px !important", paddingX: "0px !important",marginBottom:'4px !important' }}
             >
               <FormControlLabel
+                className="!flex !items-start "
                 control={
                   <Checkbox
                     checked={tempSector.length === stock_sector_list.length}
                     onChange={handleSelectAllClick}
                     sx={{
+                      padding:"1px 9px 9px",
                       color: "default", // Default color
                       "&.Mui-checked": {
                         color: "#125B54", // Color when checked
                       },
+                      '& .MuiSvgIcon-root': { fontSize: 16 }
                     }}
                   />
                 }
                 label={
-                  <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                  <span className="flex items-start text-sm" style={{ fontFamily: "Open Sans, sans-serif" }}>
                     {tempSector.length === stock_sector_list.length
                       ? "Deselect"
                       : "Select"}{" "}
@@ -111,26 +114,27 @@ const SectorFilter2 = ({ tempSector, setTempSector, isMobile }) => {
           {filteredSectors.map((key, index) => (
             <ListItem
               key={index}
-              sx={{ paddingY: "0px !important", paddingX: "6px !important" }}
+              sx={{ paddingY: "11px !important", paddingX: "0px !important",marginBottom:"4px !important" }}
             >
               <FormControlLabel
-                className="!flex !items-start py-[7px]"
+                className="!flex !items-start "
                 control={
                   <Checkbox
                     checked={tempSector.includes(key)}
                     onChange={handleCheckboxChange}
                     name={key}
                     sx={{
-                      padding: "0px 9px 9px",
+                      padding: "1px 9px 0px ",
                       color: "default", // Default color
                       "&.Mui-checked": {
                         color: "#125B54", // Color when checked
                       },
+                      '& .MuiSvgIcon-root': { fontSize: 16 }
                     }}
                   />
                 }
                 label={
-                  <span style={{ fontFamily: "Open Sans, sans-serif" }}>
+                  <span className="flex items-start text-sm" style={{ fontFamily: "Open Sans, sans-serif" }}>
                     {stockSector[key]}
                   </span>
                 }

@@ -19,21 +19,20 @@ const StockDetailsNews = ({ stock_name }) => {
       }),
     getNextPageParam: (data) => {
       // console.log("===getNextPageParam====", data);
-      const {meta} = data
+      const { meta } = data;
       // Function to determine the parameter for fetching the next page
-        if ((meta.found/meta.limit) > meta.page) return meta.page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
+      if (meta.found / meta.limit > meta.page) return meta.page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
   });
   // const [news,setNews] = useState()
   // const items = response?.pages?.flatMap((page) => page) ?? [];
-  const items = response?.pages?.flatMap(page=>page.data)
+  const items = response?.pages?.flatMap((page) => page.data);
   // console.log(items,response)
   const newsItems = [
     {
       id: 1,
       image: "/assets/image1.png",
-      title:
-        "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
+      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
       source: "The Hindu Businessline",
       time: "4 hours ago",
       link: "/news/vidhi-specialty-food-approval",
@@ -49,8 +48,7 @@ const StockDetailsNews = ({ stock_name }) => {
     {
       id: 3,
       image: "/assets/image1.png",
-      title:
-        "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
+      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
       source: "The Hindu Businessline",
       time: "4 hours ago",
       link: "/news/vidhi-specialty-food-approval",
@@ -58,8 +56,7 @@ const StockDetailsNews = ({ stock_name }) => {
     {
       id: 4,
       image: "/assets/image1.png",
-      title:
-        "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
+      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
       source: "The Hindu Businessline",
       time: "4 hours ago",
       link: "/news/vidhi-specialty-food-approval",
@@ -67,8 +64,7 @@ const StockDetailsNews = ({ stock_name }) => {
     {
       id: 5,
       image: "/assets/image1.png",
-      title:
-        "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
+      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
       source: "The Hindu Businessline",
       time: "4 hours ago",
       link: "/news/vidhi-specialty-food-approval",
@@ -76,13 +72,23 @@ const StockDetailsNews = ({ stock_name }) => {
     {
       id: 6,
       image: "/assets/image1.png",
-      title:
-        "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
+      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
       source: "The Hindu Businessline",
       time: "4 hours ago",
       link: "/news/vidhi-specialty-food-approval",
     },
   ];
+
+  if (!items || items?.length === 0) {
+    return (
+      <div className=" pt-3 ">
+        <div className=" py-6 md:py-[72px] flex flex-col items-center justify-center bg-white rounded-[10px]">
+          <img width={102} height={90} className=" w-full h-full max-w-[102px] max-h-[90px]" src="/assets/no_news.svg"/>
+          <p className=" text-2xs text-gray-600 text-center max-w-[188px]">Recent news are not available for this stock.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -121,22 +127,17 @@ const StockDetailsNews = ({ stock_name }) => {
 
               {/* <!-- Arrow/Action Icon --> */}
               <div className="flex items-center justify-end md:flex group pt-5 sm:pt-0">
-                <img
-                  src="/assets/share1.svg"
-                  alt=""
-                  className="block group-hover:hidden"
-                />
-                <img
-                  src="/assets/share3.svg"
-                  alt=""
-                  className="hidden group-hover:block"
-                />
+                <img src="/assets/share1.svg" alt="" className="block group-hover:hidden" />
+                <img src="/assets/share3.svg" alt="" className="hidden group-hover:block" />
               </div>
             </div>
           </a>
         ))}
       </div>
-      <div onClick={fetchNextPage} className="flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-3 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] ">
+      <div
+        onClick={fetchNextPage}
+        className=" rounded-[4px] flex text-lg flex-row md:flex-row items-start md:items-center justify-center gap-4 px-4 py-3 border  bg-white  cursor-pointer hover:bg-gray-50 transition text-[#125B54] "
+      >
         <p className="font-open_sans text-sm font-semibold">Load more</p>
       </div>
     </div>

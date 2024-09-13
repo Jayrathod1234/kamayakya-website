@@ -163,7 +163,7 @@ export function Carousel({ className }: { className?: string }) {
       // startIndex: 1,
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
+    [Autoplay({ playOnInit: true, delay: 6000,stopOnInteraction:false }), ClassNames()] //change carousel timer here.
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
