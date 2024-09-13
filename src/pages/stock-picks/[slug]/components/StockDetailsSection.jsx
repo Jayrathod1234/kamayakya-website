@@ -701,7 +701,7 @@ function StockDetailsSection() {
                                   />
                                 </div>
                               </div>
-                              <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-white font-bold">
+                              <div className="flex pt-4 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[20px] text-white font-bold">
                                 {upside_left}%
                                 <span className="text-[12px] mt-2  line-clamp-2  text-white font-medium">
                                   likely within {upside_left_time}
@@ -728,7 +728,7 @@ function StockDetailsSection() {
                                   />
                                 </div>
                               </div>
-                              <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-[#344054] font-bold">
+                              <div className="flex pt-4 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[20px] text-[#344054] font-bold">
                                 {gain_loss >= 0 ? (
                                   <>
                                     <svg
@@ -893,7 +893,7 @@ function StockDetailsSection() {
                                     <img src="/assets/upper.svg" alt="Target" />
                                   </div>
                                 </div>
-                                <div className="flex pt-2 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[24px] text-[#344054] font-bold">
+                                <div className="flex pt-4 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[20px] text-[#344054] font-bold">
                                   {cagr_of_stock.cagr_value >= 0 ? (
                                     <>
                                       <svg
