@@ -47,7 +47,7 @@ export const sectorIcons = {
     "glass-glass-products"  :   "Glass & Glass Products.svg",
     "healthcare"  :   "Healthcare.svg",
     "hotels-restaurants"  :   "Hotels & Restaurants.svg",
-    "infrastructure-developers-operators"  :   "Infrastructure Developers & Operators.svg",
+    "infrastructure"  :   "Infrastructure Developers & Operators.svg",
     "insurance"  :   "Insurance.svg",
     "it"  :   "IT.svg",
     "logistics"  :   "Logistics.svg",

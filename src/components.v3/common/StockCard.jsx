@@ -206,7 +206,7 @@ function StockCard({
                     <img
                       src={`/sector-images/${sectorIcons[sector]}`}
                       alt=""
-                      className="w-3"
+                      className="w-3 "
                     />
                     {stock_tags?.length > 0 ? (
                       <Tooltip title={stockSector[sector] ?? ""}>

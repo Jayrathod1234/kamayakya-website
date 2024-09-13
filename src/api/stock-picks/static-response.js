@@ -1177,7 +1177,7 @@ export const getCommonDetailsResponse = {
         label: "Hotels & Restaurants",
       },
       {
-        value: "infrastructure-developers-operators",
+        value: "infrastructure",
         label: "Infrastructure Developers & Operators",
       },
       {
