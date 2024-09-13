@@ -19,7 +19,7 @@ export default function StockProgressBarSolid({
         marginLeft,
         marginRight,
       }}
-      className={cn("  h-[0px] w-full absolute  top-[40%] z-10", className)}
+      className={cn(" solid__line  h-[0px] w-full absolute  top-[40%] z-10", className)}
     >
       {/* `${currentProgress}${scaleVariant ? "%":"px"}` */}
       {/* transform:`scaleX(${currentProgress}%)` */}

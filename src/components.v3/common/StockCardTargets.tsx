@@ -106,7 +106,7 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
       </div>
       {isBlur ? (
         <>
-          <div className=" h-[16px] w-1/2 bg-slate-300 mt-[6px] rounded-full"></div>
+          <div className=" h-[16px] w-1/2 bg-[#eef0f6] mt-[6px] rounded-full"></div>
           {/* <div className=" h-[11px] w-3/4 bg-slate-300 mt-1 rounded-full"></div> */}
           {status === "Active" ? <p className=" text-[#FF7F09] text-3xs status">{status}</p> : null}
         </>

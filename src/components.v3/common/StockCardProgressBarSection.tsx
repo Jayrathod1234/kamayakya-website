@@ -145,7 +145,7 @@ export default function StockCardProgressBarSection({
                 <>
                   {/* SOLID PROGRESS */}
                   <StockProgressBarSolid
-                    className=" solid__line"
+                    
                     width={`calc(100% - ${margins.marginLeft + cmpMarginRight}px)`}
                     marginLeft={margins.marginLeft}
                     marginRight={cmpMarginRight}
@@ -153,7 +153,7 @@ export default function StockCardProgressBarSection({
                   />
                   {/*DOTTED PROGRESS  */}
                   <StockProgressBarDotted
-                    className="dotted__line"
+                    
                     // `calc(100% - ${margins.marginLeft + margins.marginRight}px)`
                     width={dottedLineWidth}
                     marginLeft={margins.marginLeft}
