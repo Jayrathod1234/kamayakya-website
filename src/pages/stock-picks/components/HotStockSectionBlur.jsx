@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useMediaQuery } from "@mui/material";
 import { HotSlider } from "@/components.v3/common/HotSlider.jsx";
 import StockCard from "@/components.v3/common/StockCard.jsx";
+import StockCardProgressBarBlurSection from "@/components.v3/common/StockCardProgressBarBlurSection"
 // import { Slider } from "@/components.v3/common/Slider.jsx";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { useStockPicks } from "@/contexts/StockPicksContext";
@@ -303,7 +304,7 @@ const HotStockSection = ({ items }) => {
                                         </div>
                                       </div>
                                       <div className="pt-5 pb-[10px] pr-5">
-                                        <ProgressBar2 />
+                                        <StockCardProgressBarBlurSection/>
                                       </div>
                                       {!isLoggedIn ? (
                                         <>
