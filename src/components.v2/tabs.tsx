@@ -25,9 +25,11 @@ type TTabs = {
   tabListClassname?: string;
   tabTriggerClassname?: string;
   activeValue?:string;
+  responsive?:boolean;
 };
 
 export function Tabs({
+  responsive=false,
   variant,
   options,
   defaultOption,
@@ -37,9 +39,9 @@ export function Tabs({
   tabListClassname,
   tabTriggerClassname,
 }: TTabs) {
-  const parentPadding = variant === TabsVariant.md ? "p-1 " : variant === TabsVariant.lg ? "py-2 px-[2px]" : "";
+  const parentPadding = variant === TabsVariant.md ? "p-1 " : variant === TabsVariant.lg && responsive ? " p-1 sm:py-2 sm:px-[2px]" : "py-2 px-[2px]";
   const childrenSize =
-    variant === TabsVariant.md ? "px-4 py-2 text-sm " : variant === TabsVariant.lg ? " px-5 py-3 text-md" : "";
+    variant === TabsVariant.md ? "px-4 py-2 text-sm " : variant === TabsVariant.lg && responsive ? " px-4 py-2 text-sm sm:px-5 sm:py-3 sm:text-md" : "px-5 py-3 text-md";
   const { isLoggedIn } = useContext(AuthContext);
   const { activePlan } = useActivePlanContext();
 

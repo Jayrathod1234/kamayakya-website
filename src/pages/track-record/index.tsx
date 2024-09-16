@@ -83,7 +83,15 @@ const Filters = () => {
   );
 };
 
-const Marker = ({ label, icon, tooltipContent }: { label: string; icon: string; tooltipContent?: React.ReactNode }) => {
+const Marker = ({
+  label,
+  icon,
+  tooltipContent,
+}: {
+  label: string;
+  icon: string | React.ReactNode;
+  tooltipContent?: React.ReactNode;
+}) => {
   const [open, setOpen] = useState(false);
   return (
     <div className=" flex items-center gap-x-1">
@@ -205,7 +213,8 @@ export default function TrackRecord() {
             <main className=" mt-[110px]">
               <div className=" flex justify-center">
                 <Tabs
-                  className=" dark hidden sm:block"
+                  responsive={true}
+                  className=" dark block"
                   tabTriggerClassname={` `}
                   variant={TabsVariant.lg}
                   defaultOption="all"
@@ -217,7 +226,7 @@ export default function TrackRecord() {
                   setSelectedOption={setCurrentTabSelected}
                   activeValue={currentTabSelected}
                 />
-                <Tabs
+                {/* <Tabs
                   className=" dark block sm:hidden"
                   tabTriggerClassname={` `}
                   variant={TabsVariant.md}
@@ -229,7 +238,7 @@ export default function TrackRecord() {
                   ]}
                   setSelectedOption={setCurrentTabSelected}
                   activeValue={currentTabSelected}
-                />
+                /> */}
               </div>
             </main>
             <div className=" mt-5">

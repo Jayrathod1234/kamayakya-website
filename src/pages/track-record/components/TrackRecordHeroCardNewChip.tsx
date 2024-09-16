@@ -51,40 +51,43 @@ export function TrackRecordHeroCardNewChip() {
     e.preventDefault();
     setOpenDropDown(true);
   };
-  console.log(",mobiole", isMobile)
+  console.log(",mobiole", isMobile);
   if (isMobile) {
-    console.log("ISMONILE")
+    console.log("ISMONILE");
     return (
       <Drawer>
         <DrawerTrigger asChild>
-        <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
-      3 New <span className="hidden sm:inline-block">Recommendations</span>
-    </button>
+          <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
+            3 New <span className="hidden sm:inline-block">Recommendations</span>
+          </button>
         </DrawerTrigger>
-        <DrawerContent className=" ">
-          <div className="mx-auto w-full max-w-sm px-4 py-2">
-            <DrawerHeader>
-              <DrawerTitle>Move Goal</DrawerTitle>
-              <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+        <DrawerContent className=" rounded-t-[20px] ">
+          <div className="mx-auto w-full px-4 py-2">
+            <DrawerHeader className=" px-0 gap-3">
+              <div className=" h-[160px] w-full bg-[linear-gradient(180deg,#FDC451_0%,#F8AB2B_100%)] rounded-[6px] flex justify-center items-end">
+                <img src="/assets/buyActionCall.png" height={151} width={151} alt="buy-action-call" />
+              </div>
+              <p className=" text-left font-bold px-4  text-lg text-[rgba(12,17,29,1)]">New Stock Picks</p>
             </DrawerHeader>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eum itaque soluta odio dolores amet vitae esse quos corrupti totam?</div>
-            <DrawerFooter>
-              <button>Submit</button>
-              <DrawerClose asChild>
-                <button>Cancel</button>
-              </DrawerClose>
-            </DrawerFooter>
+            <div className=" mt-2">
+              <ul>
+                <li className=" px-4 py-[10px]"></li>
+              </ul>
+            </div>
+            
           </div>
         </DrawerContent>
       </Drawer>
     );
   }
-  console.log("NOT MOBILE")
+  console.log("NOT MOBILE");
 
   return (
     <HoverCard open={openDropDown} openDelay={0} onOpenChange={setOpenDropDown}>
       <HoverCardTrigger onClick={onTriggerEleClick} asChild>
-        <Chip />
+        <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
+          3 New <span className="hidden sm:inline-block">Recommendations</span>
+        </button>
       </HoverCardTrigger>
       <HoverCardContent className="w-56 rounded-lg py-[6px] px-1">
         <ChipItem label={"Ion Exchange (India) Ltd."} />
