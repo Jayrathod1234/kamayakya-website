@@ -1500,11 +1500,11 @@ function StockDetailsSection() {
 
                   {/* News Section Start */}
                   <div
-                    className=" sm:pt-[72px] pt-0  sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto "
+                    className=" sm:pt-[72px] pt-0  sm:w-full md:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto "
                     ref={newsRef}
                     id="news-section"
                   >
-                    <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-semibold font-open_sans px-1 mb-0">
+                    <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-bold max-sm:uppercase sm:font-semibold font-open_sans px-1 mb-0">
                       News
                     </h2>
                     <StockDetailsNews stock_name={stock_name} />

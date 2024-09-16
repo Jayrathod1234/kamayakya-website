@@ -132,7 +132,7 @@ const HotStockSection = ({ items }) => {
                               }
                               return (
                                 <div
-                                  className={`flex relative ${
+                                  className={`flex stock__hero-bar relative  ${
                                     index == 0
                                       ? `scale-75 left-[-10%]`
                                       : index == 1

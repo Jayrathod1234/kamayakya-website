@@ -82,7 +82,7 @@ const StockDetailsNews = ({ stock_name }) => {
   if (!items || items?.length === 0) {
     return (
       <div className=" pt-3 ">
-        <div className=" py-6 md:py-[72px] flex flex-col items-center justify-center bg-white rounded-[10px]">
+        <div className=" py-[2.5rem] sm:py-[72px] flex flex-col items-center justify-center bg-[#F9FAFB] sm:bg-white sm:rounded-[10px]">
           <img width={102} height={90} className=" w-full h-full max-w-[102px] max-h-[90px]" src="/assets/no_news.svg"/>
           <p className=" text-2xs text-gray-600 text-center max-w-[188px]">Recent news are not available for this stock.</p>
         </div>

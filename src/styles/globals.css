@@ -2111,3 +2111,35 @@ header > div > div {
   transform: scaleX(1.15);
   transform-origin: left;
 }
+
+
+.stock__hero-bar:nth-child(1) .solid__line:nth-child(2){
+  transform: scaleX(1.2);
+  transform-origin: left;
+}
+.stock__hero-bar:nth-child(1) .dotted__line:nth-child(3){
+  transform: scaleX(1.32);
+  transform-origin: left;
+}
+
+.stock__hero-bar:nth-child(2) .solid__line:nth-child(2){
+  transform: scaleX(1);
+  transform-origin: left;
+ 
+}
+
+.stock__hero-bar:nth-child(2) .dotted__line:nth-child(3){
+  transform: scaleX(1.12);
+  transform-origin: left;
+ 
+}
+
+.stock__hero-bar:nth-child(3) .solid__line:nth-child(2){
+  transform: scaleX(1.2);
+  transform-origin: left;
+}
+.stock__hero-bar:nth-child(3) .dotted__line:nth-child(3){
+  transform: scaleX(1.32);
+  transform-origin: left;
+}
+
