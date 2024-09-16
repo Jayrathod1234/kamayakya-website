@@ -4,7 +4,8 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import { TPlanDuration } from "@/types/components/payments";
 import AuthContext from "@/components/AuthContext";
 import { useActivePlanContext } from "@/components/PlanContext";
-
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 export enum TabsVariant {
   md,
   lg,
@@ -19,11 +20,24 @@ type TTabs = {
   variant: TabsVariant;
   options?: Array<TTabOption>;
   defaultOption?: string;
-  setSelectedOption?: React.Dispatch<React.SetStateAction<TPlanDuration>>;
+  setSelectedOption?: React.Dispatch<React.SetStateAction< | string>>;
+  className?: string;
+  tabListClassname?: string;
+  tabTriggerClassname?: string;
+  activeValue?:string;
 };
 
-export function Tabs({ variant, options, defaultOption, setSelectedOption }: TTabs) {
-  const parentPadding = variant === TabsVariant.md ? "p-1 " : variant === TabsVariant.lg ? "p-[12px]" : "";
+export function Tabs({
+  variant,
+  options,
+  defaultOption,
+  activeValue,
+  setSelectedOption,
+  className,
+  tabListClassname,
+  tabTriggerClassname,
+}: TTabs) {
+  const parentPadding = variant === TabsVariant.md ? "p-1 " : variant === TabsVariant.lg ? "py-2 px-[2px]" : "";
   const childrenSize =
     variant === TabsVariant.md ? "px-4 py-2 text-sm " : variant === TabsVariant.lg ? " px-5 py-3 text-md" : "";
   const { isLoggedIn } = useContext(AuthContext);
@@ -51,16 +65,29 @@ export function Tabs({ variant, options, defaultOption, setSelectedOption }: TTa
     <ShadCnTab
       onValueChange={onValueChange}
       defaultValue={defaultOption}
-      className={` bg-gray-150 w-fit flex rounded-full ${parentPadding}`}
+      className={cn(` bg-gray-150 tab__container w-fit flex rounded-full h-fit overflow-hidden ${parentPadding}`, className)}
     >
-      <TabsList className=" bg-transparent">
+      <TabsList className={cn(" bg-transparent dark:bg-white", tabListClassname)}>
         {options &&
           options.map((tabs) => (
             <TabsTrigger
-              className={` ${childrenSize} text-gray-500 rounded-full hover:bg-gray-50 data-[state=active]:text-gray-950 data-[state=active]:font-medium`}
+              // style={{
+              //   transformStyle: "preserve-3d",
+              // }}
+              className={cn(
+                ` ${childrenSize} group-tab data-[state=active]:bg-transparent ${activeValue === tabs.value ? "data-[state=active]:shadow-[0px_4px_6px_-2px_rgba(16,24,40,0.05),0px_12px_16px_-4px_rgba(16,24,40,0.1)]":""}   relative text-gray-500 rounded-full hover:bg-gray-50 dark:hover:bg-[rgba(237,240,245,1)] data-[state=active]:text-gray-950 data-[state=active]:font-medium `,
+                tabTriggerClassname
+              )}
               value={tabs.value}
             >
-              {tabs.label}
+              {activeValue === tabs.value && (
+                <motion.div
+                  layoutId="clickedbutton"
+                  transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                  className={cn("absolute inset-0 bg-white dark:bg-black rounded-full ", tabTriggerClassname)}
+                />
+              )}
+              <span className={`relative block text-black  ${activeValue===tabs.value ? "dark:text-white":"dark:text-black"}  `}>{tabs.label}</span>
             </TabsTrigger>
           ))}
       </TabsList>

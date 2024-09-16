@@ -1,7 +1,6 @@
 import React from "react";
 // src/types.d.ts
 import { CSSProperties } from "react";
-
 export interface CustomCSSProperties extends CSSProperties {
   "--image-url"?: string;
   "--hover-bg"?: string;
@@ -37,12 +36,13 @@ export type TStockCardProgressBar = {
   className?: string;
 };
 
-export type TStockCardProgressBarSolid = TStockCardProgressBar & { currentProgress: number;scaleVariant?:boolean };
-
+export type TStockCardProgressBarSolid = TStockCardProgressBar & { currentProgress: number; scaleVariant?: boolean };
 
 export type TTarget = {
   status: string;
   date: string;
   price: number;
-  label:string;
+  label: string;
 };
+
+

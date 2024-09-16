@@ -58,7 +58,7 @@ export function Navbar() {
   const pathname = router.pathname;
   const ref = useRef<HTMLDivElement | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [isSticky, setIsSticky] = useState(pathname == '/stock-picks');
+  const [isSticky, setIsSticky] = useState(pathname == '/stock-picks' || pathname === "/track-record");
 
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
@@ -77,13 +77,13 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
-        if (pathname == '/stock-picks') {
+        if (pathname == '/stock-picks' || pathname === "/track-record") {
           setIsSticky(false)
         }
         ref.current?.classList.add("scrolled-nav");
         ref.current?.classList.add("navbar-shadow");
       } else {
-        if (pathname == '/stock-picks') {
+        if (pathname == '/stock-picks' || pathname === "/track-record") {
           setIsSticky(true)
         }
 
@@ -94,7 +94,7 @@ export function Navbar() {
         ref.current?.classList.remove("navbar-shadow");
       }
     };
-    if (pathname == '/stock-picks') {
+    if (pathname == '/stock-picks' || pathname === "/track-record") {
       window.addEventListener("scroll", handleScroll);
     } else {
       ref.current?.classList.add("other-page-nav");
