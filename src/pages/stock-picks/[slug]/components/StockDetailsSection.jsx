@@ -457,19 +457,21 @@ function StockDetailsSection() {
 
                     <div className="rounded-lg bg-white flex flex-col sm:flex-row py-[0.5rem] px-4 sm:px-4 items-start sm:items-center justify-between">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
-                        <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
+                        <div className="flex h-7 w-7 p-[6px] min-w-7 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
+                            height={16}
+                            width={16}
                              src={`/sector_images_green/${sectorIcons[sector]}`}
                             alt=""
-                            className="sm:w-8 sm:h-8 w-4 h-4"
+                            className="!w-4 !h-4 !object-cover"
                           />
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-[6.5rem] sm:gap-1 w-full">
-                          <div className="w-full flex justify-between items-center">
+                          <div className="w-full flex justify-between items-baseline gap-x-1">
                             <p className="text-[#475467] text-2xs sm:text-sm font-semibold sm:font-medium font-open_sans capitalize">
                               {sector}
                             </p>
-                            <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
+                            <span className="text-[#667085] inline-block text-ellipsis text-2xs font-normal font-open_sans">
                               {stock_industry}
                             </span>
                           </div>
@@ -477,19 +479,19 @@ function StockDetailsSection() {
                       </div>
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
-                        <div className="flex p-1 justify-center items-center rounded-md bg-[#F9FAFB]">
+                        <div className="flex h-7 w-7 p-[6px] min-w-7 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
                             src="/assets/line.svg"
                             alt=""
-                            className="sm:w-8 sm:h-8 w-auto h-auto"
+                            className=" !h-4 !w-4 !object-cover"
                           />
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
-                          <div className="flex w-full justify-between items-center">
+                          <div className="flex w-full justify-between items-baseline gap-x-1">
                             <p className="text-[#475467] text-2xs sm:text-sm font-semibold sm:font-medium font-open_sans">
                               {market_cap_type} Cap
                             </p>
-                            <span className="text-[#667085] text-ellipsis text-2xs font-normal font-open_sans">
+                            <span className="text-[#667085] inline-block text-ellipsis text-2xs font-normal font-open_sans">
                               {market_cap} Cr. as of{" "}
                               {new Date().toLocaleDateString("en-GB", {
                                 day: "2-digit",
@@ -502,11 +504,11 @@ function StockDetailsSection() {
                       </div>
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex ">
-                        <div className="flex p-1 items-center rounded-md bg-[#F9FAFB]">
+                        <div className="flex p-[6px] h-7 w-7 min-w-7 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
                             src="/assets/ant-design_stock-outlined.svg"
                             alt=""
-                            className="sm:w-8 sm:h-8 w-auto h-auto"
+                            className="!w-4 !h-4 !object-cover"
                           />
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start justify-between gap-10 sm:gap-1 w-full">
