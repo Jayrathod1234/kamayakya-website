@@ -34,10 +34,28 @@ export const TrackRecordHeroCard = ({
   bestStocks,
   worstStocks,
 }: TTrackRecordHeroCard) => {
+  const { isLoggedIn } = useContext(AuthContext);
   const recommendationLabel =
     type === "LIVE" ? `${recommendation} Live Recommendations` : `${recommendation} Exits (past)`;
   return (
-    <div className=" p-4 bg-gray-50 rounded-[10px] w-full  z-10">
+    <div className=" p-4 bg-gray-50 rounded-[10px] w-full  z-10 relative ">
+      {!isLoggedIn ? (
+        <div className="  h-full w-full absolute flex items-center justify-center top-0 left-0 z-40">
+          <div className="group/lock cursor-pointer shadow-[0px_0px_40px_-9px_rgba(19,135,137,0.46),0px_4px_40px_12px_rgba(118,237,223,0.05)]  overflow-hidden  flex items-center gap-x-[10px] transition-[width] duration-300 h-[56px] w-[56px] hover:w-[234px]   bg-[rgba(255,255,255,1)] rounded-[10px] border border-brand-300">
+            <img
+              height={36}
+              width={36}
+              className=" object-contain ml-[10px] h-9 w-9"
+              src="/assets/noto_locked.png"
+              alt="lock"
+            />
+            <p className=" text-gray-950 font-semibold whitespace-nowrap opacity-0 group-hover/lock:opacity-100 transition-all duration-300">
+              Unlock Now for Free
+            </p>
+          </div>
+        </div>
+      ) : null}
+
       {/* top section */}
       <div className=" flex justify-between">
         <div className=" flex items-center">

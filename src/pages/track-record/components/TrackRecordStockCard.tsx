@@ -13,6 +13,8 @@ import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
 import { useTrackRecord } from "@/contexts/trackRecordContext";
 import { abbreviateTime } from "@/lib/date-formatter";
+import { useContext } from "react";
+import AuthContext from "@/components/AuthContext";
 
 ChartJS.register({
   LineElement,
@@ -42,16 +44,16 @@ function generateRandomData() {
 
 const data = generateRandomData();
 
-
-const getMascotImg = (action:string)=>{
-  switch(action){
-    case "BUY":return "/assets/buyActionCall.png";
-  case "HOLD":return "/assets/hold_call.png";
-  case "SELL":return "/assets/sell_call.png";
+const getMascotImg = (action: string) => {
+  switch (action) {
+    case "BUY":
+      return "/assets/buyActionCall.png";
+    case "HOLD":
+      return "/assets/hold_call.png";
+    case "SELL":
+      return "/assets/sell_call.png";
   }
-  
-}
-
+};
 
 export const TrackRecordStockCard = ({
   action,
@@ -70,8 +72,7 @@ export const TrackRecordStockCard = ({
   upside_left,
   upside_left_time,
 }) => {
-
-
+  const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   const img = new Image();
   img.src = "/assets/entry point.svg";
   const img2 = new Image();
@@ -153,11 +154,11 @@ export const TrackRecordStockCard = ({
       {/* TOP SECTION */}
       <div className=" flex gap-x-2 items-center justify-between">
         <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate">{stock_name}</h4>
-        <a href={latest_youtube_video?.youtube_title} target="_blank">
-        <div className=" group/watch-video flex items-center  gap-x-[6px] cursor-pointer duration-300 w-[28px] overflow-hidden hover:w-[128px] transition-all" >
-          <img height={28} width={28} className=" h-7 w-7" src="/assets/play.gif" />
-          <p className="whitespace-nowrap">Watch Video</p>
-        </div>
+        <a className=" text-inherit" href={latest_youtube_video?.youtube_title} target="_blank">
+          <div className=" group/watch-video flex items-center  gap-x-[6px] cursor-pointer duration-300 w-[28px] overflow-hidden hover:w-[128px] transition-all">
+            <img height={28} width={28} className=" h-7 w-7" src="/assets/play.gif" />
+            <p className="whitespace-nowrap">Watch Video</p>
+          </div>
         </a>
       </div>
 
@@ -221,13 +222,28 @@ export const TrackRecordStockCard = ({
       </div>
       {/* CHART SECTION END */}
       {/* BOTTOM SECTION */}
-      <div className="p-1 pr-4 rounded-[4px] flex gap-x-4">
+      <div className="p-1 pr-4 rounded-[4px] flex gap-x-4 bg-[rgba(249,250,251,1)]">
         {/* Total Returns */}
-        <div className={`  rounded-lg ${is_returns_positive ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]": "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"} px-3 py-2`}>
+        <div
+          className={`  rounded-lg ${
+            is_returns_positive
+              ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
+              : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
+          } px-3 py-2`}
+        >
           <p className=" text-4xs font-bold text-white">Total Returns</p>
-          <div className=" flex gap-x-[2px]">
-            <img width={15} height={11} src={is_returns_positive ? "/assets/Polygon2.svg":"/assets/Polygon 3.svg"} alt="" />
-            <p className=" text-xl font-bold text-white m-0">{total_returns}%</p>
+          <div className={` flex gap-x-[2px] ${!isLoggedIn || (!isSubscribed && action === "BUY") ? "pt-[5px]":""}`}>
+            <img
+              width={15}
+              height={11}
+              src={is_returns_positive ? "/assets/Polygon2.svg" : "/assets/Polygon 3.svg"}
+              alt=""
+            />
+            {!isLoggedIn || (!isSubscribed && action === "BUY") ? (
+              <div className=" h-5 w-[93px] bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0"></div>
+            ) : (
+              <p className=" text-xl font-bold text-white m-0">{total_returns}%</p>
+            )}
           </div>
           <span className=" text-3xs font-semibold whitespace-nowrap text-white">in {abbreviateTime(return_time)}</span>
         </div>
@@ -256,7 +272,6 @@ export const TrackRecordStockCard = ({
           <p className=" text-3xs font-semibold text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
         </div>
         <div className=" ml-auto mt-auto">
-          
           <img height={72} width={72} src={getMascotImg(action)} alt="action-mascot" />
         </div>
         {/* Upside Left End  */}

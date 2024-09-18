@@ -5,9 +5,9 @@ export const axiosApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASEPATH,
 });
 if (typeof window !== "undefined") {
-  axiosApi.defaults.headers.common[
-    "Authorization"
-  ] = `token ${localStorage.getItem("refresh")}`;
+  if (localStorage.getItem("refresh")) {
+    axiosApi.defaults.headers.common["Authorization"] = `token ${localStorage.getItem("refresh")}`;
+  }
 }
 
 axiosApi.interceptors.response.use(

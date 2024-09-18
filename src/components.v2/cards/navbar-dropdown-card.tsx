@@ -67,7 +67,7 @@ export function NavbarDropdownCard({
         {triggerElement}
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className=" w-[319px] md:w-auto rounded-[6px] border border-gray-150 shadow-[0px_4px_6px_rgba(0,0,0,0.09)]"
+        className=" w-[319px] md:w-auto z-[5001] rounded-[6px] border border-gray-150 shadow-[0px_4px_6px_rgba(0,0,0,0.09)]"
         side={side}
         sideOffset={sideOffset}
       >

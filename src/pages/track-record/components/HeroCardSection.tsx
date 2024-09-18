@@ -18,19 +18,19 @@ export function HeroCardSection() {
     <div className=" sm:p-[10px] bg-gray-150 rounded-[20px] flex flex-col gap-y-[10px] lg:flex-row gap-[10px] sm:main-container relative z-20">
       <TrackRecordHeroCard
         type={"LIVE"}
-        recommendation={trackRecordDashboardStats.live_recommendations.live_stock_count}
-        averageReturns={trackRecordDashboardStats.live_recommendations.average_live_returns}
-        stockPerformance={trackRecordDashboardStats.live_recommendations.stock_performance}
-        bestStocks={trackRecordDashboardStats.live_recommendations.top_gainer}
-        worstStocks={trackRecordDashboardStats.live_recommendations.top_loser}
+        recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
+        averageReturns={trackRecordDashboardStats?.live_recommendations?.average_live_returns}
+        stockPerformance={trackRecordDashboardStats?.live_recommendations?.stock_performance}
+        bestStocks={trackRecordDashboardStats?.live_recommendations?.top_gainer}
+        worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
       />
       <TrackRecordHeroCard
         type={"EXIT"}
-        recommendation={trackRecordDashboardStats.exits_stock.exit_stock_count}
-        averageReturns={trackRecordDashboardStats.exits_stock.average_exit_returns}
-        stockPerformance={trackRecordDashboardStats.exits_stock.stock_performance}
-        bestStocks={trackRecordDashboardStats.exits_stock.best_exit}
-        worstStocks={trackRecordDashboardStats.exits_stock.worst_exit}
+        recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
+        averageReturns={trackRecordDashboardStats?.exits_stock?.average_exit_returns}
+        stockPerformance={trackRecordDashboardStats?.exits_stock?.stock_performance}
+        bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
+        worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
       />
     </div>
   );

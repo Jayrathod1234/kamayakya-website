@@ -1309,7 +1309,7 @@ header > div > div {
   }
 }
 
-.pricing * {
+.pricing *,.open_sans * {
   @apply font-open_sans !important;
   letter-spacing: normal !important;
 }

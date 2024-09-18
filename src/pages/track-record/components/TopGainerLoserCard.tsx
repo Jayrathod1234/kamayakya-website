@@ -61,19 +61,33 @@ const CHART_OPTION = {
   },
 };
 
-
-
-export const TopGainerLoserCard = ({type,isBest,stockStat,  action = "BUY" }: {  action?: string }) => {
-  const {isLoggedIn,isSubscribed} = useContext(AuthContext);
-  const isBlur = !isLoggedIn || (action==="BUY" && isLoggedIn && !isSubscribed)
-  let label = type==="LIVE" ? isBest ? "Top Gainer" : "Top Loser" :""
-  label = type==="EXIT" ? isBest ? "Best Exit":"Worst Exit":label
+export const TopGainerLoserCard = ({ type, isBest, stockStat }: { action?: string }) => {
+  const { isLoggedIn, isSubscribed } = useContext(AuthContext);
+  const isBlur = !isLoggedIn || (stockStat.action === "BUY" && isLoggedIn && !isSubscribed);
+  let label = type === "LIVE" ? (isBest ? "Top Gainer" : "Top Loser") : "";
+  label = type === "EXIT" ? (isBest ? "Best Exit" : "Worst Exit") : label;
+  let actionImgSrc = stockStat
+    ? stockStat.action === "BUY"
+      ? "./assets/Buy.png"
+      : stockStat.action === "SELL"
+      ? "./assets/Sell.png"
+      : stockStat.action === "HOLD"
+      ? "./assets/Hold.png"
+      : null
+    : null;
   return (
     <div
       className="group/gainer-loser transition-[shadow] duration-150 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
  flex flex-col bg-white rounded-[9px] p-4 h-fit sm:h-[176px] flex-1 relative cursor-pointer min-w-0 "
     >
-      <img width={39} height={29} className=" absolute right-0 top-[-0.5rem]" src="/assets/sellbblyellow.png" alt="" />
+      {actionImgSrc && <img
+        width={39}
+        height={29}
+        className=" absolute right-0 top-[-0.5rem]"
+        src={actionImgSrc}
+        alt={stockStat.action}
+      />}
+      
       <div className=" flex flex-col justify-center sm:flex-row sm:justify-between items-center gap-x-[3.81px]">
         <div className=" flex items-center">
           <p className=" font-semibold text-sm text-[rgba(29,41,57,1)] group-hover/gainer-loser:text-brand-400 whitespace-nowrap ">
@@ -119,11 +133,21 @@ export const TopGainerLoserCard = ({type,isBest,stockStat,  action = "BUY" }: { 
       </div>
       <div className=" mt-auto">
         <div className=" flex items-center gap-x-[2px] max-sm:justify-center ">
-          <img width={15} height={11} className=" !w-[15px] !h-[11px]" src={stockStat.is_gain_loss_positive ? "/assets/Polygon2.svg":"/assets/Polygon 3.svg"} alt="" />
+          <img
+            width={15}
+            height={11}
+            className=" !w-[15px] !h-[11px]"
+            src={stockStat?.is_gain_loss_positive ?? true ? "/assets/Polygon2.svg" : "/assets/Polygon 3.svg"}
+            alt=""
+          />
           {isBlur ? (
             <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
           ) : (
-            <p className={` text-display-xs font-bold  whitespace-nowrap ${stockStat.is_gain_loss_positive ? "text-[rgba(18,183,106,1)]":"text-[rgba(240,68,56,1)]"} `}>
+            <p
+              className={` text-display-xs font-bold  whitespace-nowrap ${
+                stockStat.is_gain_loss_positive ? "text-[rgba(18,183,106,1)]" : "text-[rgba(240,68,56,1)]"
+              } `}
+            >
               {stockStat.gain_loss && stockStat.gain_loss}%{" "}
               <span className=" text-3xs font-semibold text-[rgba(73,70,70,1)] hidden sm:inline-block  ">
                 {stockStat.return_time && `in ${abbreviateTime(stockStat.return_time)}`}
@@ -131,27 +155,32 @@ export const TopGainerLoserCard = ({type,isBest,stockStat,  action = "BUY" }: { 
             </p>
           )}
         </div>
-        <div className={`flex items-center gap-y-[10px] ${isBlur ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row" :"flex-wrap "}  gap-x-3  justify-center sm:justify-between`}>
+        <div
+          className={`flex items-center gap-y-[10px] ${
+            isBlur ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row" : "flex-wrap "
+          }  gap-x-3  justify-center sm:justify-between`}
+        >
           {isBlur ? (
-            <div className=" min-w-0 w-full max-w-[120px] h-[14px] flex items-center mt-[6px] sm:m-0">
-              <img height={18} width={18} src="/assets/noto_locked.png" alt="lock" />
-              <div className=" w-full h-full bg-[rgba(248,248,248,1)] rounded-full"></div>
+            <div className=" min-w-0 w-full max-w-[120px] h-[18px] flex items-center justify-center sm:m-0">
+              <img className=" object-contain inline-block h-[18px] w-[18px]" height={18} width={18} src="/assets/noto_locked.png" alt="lock" />
+              <div className=" w-full h-[14px] bg-[rgba(248,248,248,1)] rounded-full mt-[6px]"></div>
             </div>
           ) : (
             <p className="sm:flex-1 text-sm font-normal text-[rgba(52,64,84,1)] truncate w-full text-center sm:text-left">
               {stockStat.stock_name}
             </p>
           )}
-          {stockStat.target_status==="active" ?  <div className="py-[2px] px-2.5 rounded-full bg-[#FFF6EE] w-fit">
-            <p className="text-[#667085] text-4xs font-semibold whitespace-nowrap">
-              {stockStat.target_number} | <span className="text-[#F79009] font-bold">{"Active"}</span>
-            </p>
-          </div> :  <div className="py-[2px] px-2.5 rounded-full bg-[rgba(242,244,247,1)] w-fit">
-            <p className="text-[rgba(102,112,133,1)] text-3xs font-bold whitespace-nowrap">
-              Inactive
-            </p>
-          </div>}
-         
+          {stockStat?.target_status === "active" ? (
+            <div className="py-[2px] px-2.5 rounded-full bg-[#FFF6EE] w-fit">
+              <p className="text-[#667085] text-4xs font-semibold whitespace-nowrap">
+                {stockStat.target_number} | <span className="text-[#F79009] font-bold">{"Active"}</span>
+              </p>
+            </div>
+          ) : (
+            <div className="py-[2px] px-2.5 rounded-full bg-[rgba(242,244,247,1)] w-fit">
+              <p className="text-[rgba(102,112,133,1)] text-3xs font-bold whitespace-nowrap">Inactive</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

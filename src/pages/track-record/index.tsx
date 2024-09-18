@@ -183,7 +183,7 @@ const TrackRecordTabSection = () => {
         options={[
           { label: "All Boards", value: "" },
           { label: "Main Board", value: "mainboard" },
-          { label: "SME Board", value: "smeboard" },
+          { label: "SME Board", value: "sme" },
         ]}
         setSelectedOption={setSebiBoardType}
         activeValue={sebiBoardType}
@@ -236,7 +236,7 @@ export default function TrackRecord() {
   return (
     <StockPicksProvider>
       <TrackRecordProvider>
-        <div className=" relative">
+        <div className=" relative open_sans">
           <Layout>
             {/* navbar would come here */}
             <div className=" relative h-full bg-[length:100vw_616px]">
