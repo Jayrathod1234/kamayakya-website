@@ -2,17 +2,18 @@
 import { ButtonnArrow } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Tabs, TabsVariant } from "@/components.v2/tabs";
-import CustomSortMenu from "../../components.v3/common/RadioDrop";
+import CustomSortMenu from "./components/RadioDrop";
 // import StockCardSkeleton from "/skeletons/StockCardSkeleton";
 // import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
-import DrawerFilter from "@/components.v3/common/DrawerFilter";
-import ResponsiveFilter from "../../components.v3/common/ResponsiveFilter";
-import FilterMenuTags from "@/components.v3/common/FilterMenuTags.jsx";
-import Filtermenu from "@/components.v3/common/Filtermenu.jsx";
+import DrawerFilter from "./components/DrawerFilter";
+import ResponsiveFilter from "./components/ResponsiveFilter";
+import FilterMenuTags from "./components/FilterMenuTags";
+import Filtermenu from "./components/FilterMenu";
 import { AllBoardStockProvider } from "../../contexts/AllBoardStockContext";
 import { StockPicksProvider } from "@/contexts/StockPicksContext";
 import React, { useEffect, useRef, useState } from "react";
-import { TrackRecordHeroCard } from "./components/TrackRecordHeroCard";
+
+import { HeroCardSection } from "./components/HeroCardSection";
 import { TrackRecordStockCard } from "./components/TrackRecordStockCard";
 import { useNavBar } from "@/contexts/NavBarContext";
 import Layout from "@/layout/Layout";
@@ -21,13 +22,15 @@ import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import AdjustIcon from "@mui/icons-material/Adjust";
 import Circle from "@mui/icons-material/Circle";
 import { Arrow } from "@radix-ui/react-tooltip";
+import { TrackRecordProvider, useTrackRecord } from "@/contexts/trackRecordContext";
+import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 const Filters = () => {
-  const [searchStock, setSearchStock] = useState("");
+  const { searchStock, setSearchStock } = useTrackRecord();
   const filterHeaderRef = useRef<null>(null);
   const { showFilterHeader } = useNavBar();
   return (
     <>
-      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
+      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto mt-5">
         <div className="flex flex-col sm:flex-row sm:gap-4 gap-0 items-center justify-between ">
           <div className="w-full">
             <div>
@@ -71,12 +74,12 @@ const Filters = () => {
         <>
           {/* <Filtermenu2 /> */}
           <ResponsiveFilter />
-          <FilterMenuTags />
+          <FilterMenuTags ref={filterHeaderRef} />
         </>
       ) : (
         <>
           {/* ref={filterHeaderRef} */}
-          <Filtermenu />
+          <Filtermenu ref={filterHeaderRef} role="banner" aria-hidden={!showFilterHeader} />
         </>
       )}
     </>
@@ -153,8 +156,62 @@ const MarkerSection = () => {
   return;
 };
 
+const TrackRecordList = () => {
+  const { response } = useTrackRecord();
+  const items = response?.pages?.flatMap((page) => page.data) ?? [];
+  console.log(items);
+  return (
+    <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
+      {items.map((item) => (
+        <TrackRecordStockCard key={item.id} {...item} />
+      ))}
+    </div>
+  );
+};
+
+const TrackRecordTabSection = () => {
+  const { sebiBoardType, setSebiBoardType } = useTrackRecord();
+  console.log(sebiBoardType);
+  return (
+    <div className=" flex justify-center">
+      <Tabs
+        responsive={true}
+        className=" dark block"
+        tabTriggerClassname={` `}
+        variant={TabsVariant.lg}
+        defaultOption="all"
+        options={[
+          { label: "All Boards", value: "" },
+          { label: "Main Board", value: "mainboard" },
+          { label: "SME Board", value: "smeboard" },
+        ]}
+        setSelectedOption={setSebiBoardType}
+        activeValue={sebiBoardType}
+      />
+    </div>
+  );
+};
+
+const MyObserver = () => {
+  const { fetchNextPage } = useTrackRecord();
+  const myObserver = useRef();
+  useEffect(() => {
+    // Start observing the element referenced by observerElem.current
+    if (myObserver.current) {
+      onScrollPaginationFunction(fetchNextPage).observe(myObserver.current);
+    }
+    // Clean up function to stop observing when component unmounts
+    return () => {
+      if (myObserver.current) {
+        onScrollPaginationFunction(fetchNextPage).unobserve(myObserver.current);
+      }
+    };
+  }, [fetchNextPage]);
+  return <div className=" h-1 w-full " ref={myObserver}></div>;
+};
+
 export default function TrackRecord() {
-  const [currentTabSelected, setCurrentTabSelected] = useState("all");
+  // const [currentTabSelected, setCurrentTabSelected] = useState("all");
   const showFilterRef = useRef(null);
   const { setShowFilterHeader } = useNavBar();
   useEffect(() => {
@@ -172,9 +229,13 @@ export default function TrackRecord() {
     };
   }, []);
 
+  // Scroll Function
+
+  // console.log(response);
+
   return (
     <StockPicksProvider>
-      <AllBoardStockProvider>
+      <TrackRecordProvider>
         <div className=" relative">
           <Layout>
             {/* navbar would come here */}
@@ -203,50 +264,20 @@ export default function TrackRecord() {
               </div>
               {/* hero text section end */}
               {/* hero chart section */}
-              <div className=" sm:p-[10px] bg-gray-150 rounded-[20px] flex flex-col gap-y-[10px] lg:flex-row gap-[10px] sm:main-container relative z-20">
-                <TrackRecordHeroCard />
-                <TrackRecordHeroCard />
-              </div>
+              <HeroCardSection />
               {/* hero chart section end  */}
             </div>
             {/* Main Section  */}
-            <main className=" mt-[110px]">
-              <div className=" flex justify-center">
-                <Tabs
-                  responsive={true}
-                  className=" dark block"
-                  tabTriggerClassname={` `}
-                  variant={TabsVariant.lg}
-                  defaultOption="all"
-                  options={[
-                    { label: "All Boards", value: "all" },
-                    { label: "Main Board", value: "Main Board" },
-                    { label: "SME Board", value: "SME Board" },
-                  ]}
-                  setSelectedOption={setCurrentTabSelected}
-                  activeValue={currentTabSelected}
-                />
-                {/* <Tabs
-                  className=" dark block sm:hidden"
-                  tabTriggerClassname={` `}
-                  variant={TabsVariant.md}
-                  defaultOption="all"
-                  options={[
-                    { label: "All Boards", value: "all" },
-                    { label: "Main Board", value: "Main Board" },
-                    { label: "SME Board", value: "SME Board" },
-                  ]}
-                  setSelectedOption={setCurrentTabSelected}
-                  activeValue={currentTabSelected}
-                /> */}
-              </div>
+            <main className=" mt-[110px] ">
+              <TrackRecordTabSection />
             </main>
-            <div className=" mt-5">
-              <Filters />
-            </div>
+            <Filters />
+            {/* <div className=" mt-5">
+             
+            </div> */}
             {/* Stock Lists */}
             <section className="  bg-[linear-gradient(180deg,#EDF0F5_0%,rgba(242,244,247,0.5)_100%)]">
-              <div ref={showFilterRef} className="main-container">
+              <div ref={showFilterRef} className="main-container relative">
                 <div className=" flex items-center justify-between sm:justify-normal sm:gap-x-10 py-5">
                   <Marker
                     label="Entry Point"
@@ -294,16 +325,14 @@ export default function TrackRecord() {
                     }
                   />
                 </div>
-                <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
-                  <TrackRecordStockCard /> <TrackRecordStockCard /> <TrackRecordStockCard /> <TrackRecordStockCard />
-                  <TrackRecordStockCard /> <TrackRecordStockCard />
-                </div>
+                <TrackRecordList />
+                <MyObserver/>
               </div>
             </section>
             {/* Stock Lists end */}
           </Layout>
         </div>
-      </AllBoardStockProvider>
+      </TrackRecordProvider>
     </StockPicksProvider>
   );
 }

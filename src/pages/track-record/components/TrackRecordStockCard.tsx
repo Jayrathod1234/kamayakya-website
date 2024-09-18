@@ -11,6 +11,8 @@ import {
 import { Line } from "react-chartjs-2";
 import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
+import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { abbreviateTime } from "@/lib/date-formatter";
 
 ChartJS.register({
   LineElement,
@@ -41,8 +43,35 @@ function generateRandomData() {
 const data = generateRandomData();
 
 
+const getMascotImg = (action:string)=>{
+  switch(action){
+    case "BUY":return "/assets/buyActionCall.png";
+  case "HOLD":return "/assets/hold_call.png";
+  case "SELL":return "/assets/sell_call.png";
+  }
+  
+}
 
-export const TrackRecordStockCard = () => {
+
+export const TrackRecordStockCard = ({
+  action,
+  is_returns_positive,
+  latest_target_price,
+  latest_youtube_video,
+  new_stock,
+  recommended_stock,
+  return_time,
+  sector,
+  stock_name,
+  stock_tags,
+  target_number,
+  target_status,
+  total_returns,
+  upside_left,
+  upside_left_time,
+}) => {
+
+
   const img = new Image();
   img.src = "/assets/entry point.svg";
   const img2 = new Image();
@@ -123,11 +152,13 @@ export const TrackRecordStockCard = () => {
     <div className=" p-5 bg-white max-h-[451px] lg:max-w-[630px] rounded-lg overflow-hidden">
       {/* TOP SECTION */}
       <div className=" flex gap-x-2 items-center justify-between">
-        <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate">Ion Exchange (India) Ltd.</h4>
+        <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate">{stock_name}</h4>
+        <a href={latest_youtube_video?.youtube_title} target="_blank">
         <div className=" group/watch-video flex items-center  gap-x-[6px] cursor-pointer duration-300 w-[28px] overflow-hidden hover:w-[128px] transition-all" >
           <img height={28} width={28} className=" h-7 w-7" src="/assets/play.gif" />
           <p className="whitespace-nowrap">Watch Video</p>
         </div>
+        </a>
       </div>
 
       <div className=" mt-3 border border-[#FEF0C7] px-[6px] py-[2px] rounded w-fit">
@@ -192,13 +223,13 @@ export const TrackRecordStockCard = () => {
       {/* BOTTOM SECTION */}
       <div className="p-1 pr-4 rounded-[4px] flex gap-x-4">
         {/* Total Returns */}
-        <div className="  rounded-lg bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)] px-3 py-2">
+        <div className={`  rounded-lg ${is_returns_positive ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]": "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"} px-3 py-2`}>
           <p className=" text-4xs font-bold text-white">Total Returns</p>
           <div className=" flex gap-x-[2px]">
-            <img width={15} height={11} src="/assets/Polygon2.svg" alt="" />
-            <p className=" text-xl font-bold text-white m-0">118.34%</p>
+            <img width={15} height={11} src={is_returns_positive ? "/assets/Polygon2.svg":"/assets/Polygon 3.svg"} alt="" />
+            <p className=" text-xl font-bold text-white m-0">{total_returns}%</p>
           </div>
-          <span className=" text-3xs font-semibold whitespace-nowrap text-white">in 9m, 10d</span>
+          <span className=" text-3xs font-semibold whitespace-nowrap text-white">in {abbreviateTime(return_time)}</span>
         </div>
         {/* Total Returns End*/}
         {/* Upside Left */}
@@ -221,11 +252,12 @@ export const TrackRecordStockCard = () => {
               </Tooltip>
             </TooltipProvider>
           </div>
-          <p className=" text-xl font-bold text-[rgba(16,24,40,1)]">34.16%</p>
-          <p className=" text-3xs font-semibold text-[rgba(110,110,110,1)]">expected in 4 months</p>
+          <p className=" text-xl font-bold text-[rgba(16,24,40,1)]">{upside_left}%</p>
+          <p className=" text-3xs font-semibold text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
         </div>
-        <div className=" ml-auto">
-          <img src="/assets/hold_call.png" alt="" />
+        <div className=" ml-auto mt-auto">
+          
+          <img height={72} width={72} src={getMascotImg(action)} alt="action-mascot" />
         </div>
         {/* Upside Left End  */}
       </div>

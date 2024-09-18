@@ -10,6 +10,9 @@ import {
   ArcElement,
 } from "chart.js";
 import annotationPlugin, { AnnotationOptions, LabelAnnotationOptions } from "chartjs-plugin-annotation";
+import { useContext } from "react";
+import AuthContext from "@/components/AuthContext";
+import { abbreviateTime } from "@/lib/date-formatter";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -58,7 +61,13 @@ const CHART_OPTION = {
   },
 };
 
-export const TopGainerLoserCard = ({ isBlur = true, action = "BUY" }: { isBlur: boolean; action: string }) => {
+
+
+export const TopGainerLoserCard = ({type,isBest,stockStat,  action = "BUY" }: {  action?: string }) => {
+  const {isLoggedIn,isSubscribed} = useContext(AuthContext);
+  const isBlur = !isLoggedIn || (action==="BUY" && isLoggedIn && !isSubscribed)
+  let label = type==="LIVE" ? isBest ? "Top Gainer" : "Top Loser" :""
+  label = type==="EXIT" ? isBest ? "Best Exit":"Worst Exit":label
   return (
     <div
       className="group/gainer-loser transition-[shadow] duration-150 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
@@ -68,7 +77,7 @@ export const TopGainerLoserCard = ({ isBlur = true, action = "BUY" }: { isBlur: 
       <div className=" flex flex-col justify-center sm:flex-row sm:justify-between items-center gap-x-[3.81px]">
         <div className=" flex items-center">
           <p className=" font-semibold text-sm text-[rgba(29,41,57,1)] group-hover/gainer-loser:text-brand-400 whitespace-nowrap ">
-            Top Gainer
+            {label}
           </p>
           <svg
             className=" opacity-0 group-hover/gainer-loser:opacity-100   translate-x-[-2px] group-hover/gainer-loser:translate-x-[0px] transition-transform duration-300 ease-[cubic-bezier(0.215,0.61,0.355,1)]"
@@ -109,15 +118,15 @@ export const TopGainerLoserCard = ({ isBlur = true, action = "BUY" }: { isBlur: 
         </div>
       </div>
       <div className=" mt-auto">
-        <div className=" flex gap-x-[2px] max-sm:justify-center ">
-          <img width={15} height={11} src="/assets/Polygon2.svg" alt="" />
+        <div className=" flex items-center gap-x-[2px] max-sm:justify-center ">
+          <img width={15} height={11} className=" !w-[15px] !h-[11px]" src={stockStat.is_gain_loss_positive ? "/assets/Polygon2.svg":"/assets/Polygon 3.svg"} alt="" />
           {isBlur ? (
             <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
           ) : (
-            <p className=" text-display-xs font-bold text-[rgba(18,183,106,1)]">
-              118.34%{" "}
-              <span className=" text-3xs font-semibold text-[rgba(73,70,70,1)] whitespace-nowrap hidden sm:inline-block">
-                in 9m, 10d
+            <p className={` text-display-xs font-bold  whitespace-nowrap ${stockStat.is_gain_loss_positive ? "text-[rgba(18,183,106,1)]":"text-[rgba(240,68,56,1)]"} `}>
+              {stockStat.gain_loss && stockStat.gain_loss}%{" "}
+              <span className=" text-3xs font-semibold text-[rgba(73,70,70,1)] hidden sm:inline-block  ">
+                {stockStat.return_time && `in ${abbreviateTime(stockStat.return_time)}`}
               </span>
             </p>
           )}
@@ -130,15 +139,19 @@ export const TopGainerLoserCard = ({ isBlur = true, action = "BUY" }: { isBlur: 
             </div>
           ) : (
             <p className="sm:flex-1 text-sm font-normal text-[rgba(52,64,84,1)] truncate w-full text-center sm:text-left">
-              Ion Exchange (India) Ltd.
+              {stockStat.stock_name}
             </p>
           )}
-
-          <div className="py-[2px] px-2.5 rounded-full bg-[#FFF6EE] w-fit">
+          {stockStat.target_status==="active" ?  <div className="py-[2px] px-2.5 rounded-full bg-[#FFF6EE] w-fit">
             <p className="text-[#667085] text-4xs font-semibold whitespace-nowrap">
-              Target | <span className="text-[#F79009] font-bold">Active</span>
+              {stockStat.target_number} | <span className="text-[#F79009] font-bold">{"Active"}</span>
             </p>
-          </div>
+          </div> :  <div className="py-[2px] px-2.5 rounded-full bg-[rgba(242,244,247,1)] w-fit">
+            <p className="text-[rgba(102,112,133,1)] text-3xs font-bold whitespace-nowrap">
+              Inactive
+            </p>
+          </div>}
+         
         </div>
       </div>
     </div>
