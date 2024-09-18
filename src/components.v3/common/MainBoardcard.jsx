@@ -10,7 +10,7 @@ function MainBoardcard() {
         <div className="absolute top-[-6px] left-1/2 -translate-x-1/2 z-[1]">
           <img src="/assets/newtab.png" alt="" className="w-[210px]" />
         </div>
-        <div className="relative rounded-lg bg-white shadow-6xs border border-brand-300">
+        <div className="relative rounded-lg bg-white shadow-6xs border border-brand-300 !mx-[15px]">
           <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
             <p className="text-gray-950 text-lg font-bold leading-7 text-ellipsis">
               Coal India

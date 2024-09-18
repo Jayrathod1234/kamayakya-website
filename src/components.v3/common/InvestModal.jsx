@@ -2,27 +2,112 @@ import React, { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "lucide-react";
 
 const brokerItems = [
-  { src: "/assets/groww-logo-light.png", alt: "Groww", name: "Groww", url: "https://groww.in" },
-  { src: "/assets/p5.png", alt: "Zerodha", name: "Zerodha", url: "https://zerodha.com" },
-  { src: "/assets/angelone 1.webp", alt: "Angel One", name: "Angel One", url: "https://www.angelone.in" },
-  { src: "/assets/Upstocks.webp", alt: "Upstox", name: "Upstox", url: "https://upstox.com" },
-  { src: "/assets/ICICIdirect.png", alt: "ICICIdirect", name: "ICICIdirect", url: "https://www.icicidirect.com" },
-  { src: "/assets/Kotak securities.webp", alt: "Kotak", name: "Kotak Securities", url: "https://www.kotaksecurities.com" },
-  { src: "/assets/HDfc Securities.webp", alt: "HDFC Securities", name: "HDFC Securities", url: "https://www.hdfcsec.com" },
-  { src: "/assets/Motilal Oswal.webp", alt: "Motilal Oswal", name: "Motilal Oswal", url: "https://www.motilaloswal.com" },
-  { src: "/assets/p9.png", alt: "+9 more", name: "+9 more", url: "#" }, // This can open the child modal
+  {
+    src: "/assets/groww-logo-light.png",
+    alt: "Groww",
+    name: "Groww",
+    url: "https://groww.in",
+  },
+  {
+    src: "/assets/p5.png",
+    alt: "Zerodha",
+    name: "Zerodha",
+    url: "https://zerodha.com",
+  },
+  {
+    src: "/assets/angelone 1.webp",
+    alt: "Angel One",
+    name: "Angel One",
+    url: "https://www.angelone.in",
+  },
+  {
+    src: "/assets/Upstocks.webp",
+    alt: "Upstox",
+    name: "Upstox",
+    url: "https://upstox.com",
+  },
+  {
+    src: "/assets/ICICIdirect.png",
+    alt: "ICICIdirect",
+    name: "ICICIdirect",
+    url: "https://www.icicidirect.com",
+  },
+  {
+    src: "/assets/Kotak securities.webp",
+    alt: "Kotak",
+    name: "Kotak Securities",
+    url: "https://www.kotaksecurities.com",
+  },
+  {
+    src: "/assets/HDfc Securities.webp",
+    alt: "HDFC Securities",
+    name: "HDFC Securities",
+    url: "https://www.hdfcsec.com",
+  },
+  {
+    src: "/assets/Motilal Oswal.webp",
+    alt: "Motilal Oswal",
+    name: "Motilal Oswal",
+    url: "https://www.motilaloswal.com",
+  },
+  { is_chevron: true, name: "+9 more" }, // This can open the child modal
 ];
 
 const brokerItems2 = [
-  { src: "/assets/Paytm Money.webp", alt: "Paytm Money", name: "Paytm Money", url: "https://www.paytmmoney.com" },
-  { src: "/assets/Sharekhan.webp", alt: "Sharekhan", name: "Sharekhan", url: "https://www.sharekhan.com" },
-  { src: "/assets/Dhan.webp", alt: "Dhan", name: "Dhan", url: "https://dhan.co" },
-  { src: "/assets/5paisa.webp", alt: "5paisa", name: "5paisa", url: "https://www.5paisa.com" },
-  { src: "/assets/IIFL Securities.webp", alt: "IIFL Securities", name: "IIFL Securities", url: "https://www.indiainfoline.com" },
-  { src: "/assets/AxisDirect.webp", alt: "AxisDirect", name: "AxisDirect", url: "https://www.axisdirect.in" },
-  { src: "/assets/Geojit.webp", alt: "Geojit", name: "Geojit", url: "https://www.geojit.com" },
-  { src: "/assets/Fyers.webp", alt: "Fyers", name: "Fyers", url: "https://www.fyers.in" },
-  { src: "/assets/Choice.webp", alt: "Choice Broking", name: "Choice Broking", url: "https://www.choicebroking.in" },
+  {
+    src: "/assets/Paytm Money.webp",
+    alt: "Paytm Money",
+    name: "Paytm Money",
+    url: "https://www.paytmmoney.com",
+  },
+  {
+    src: "/assets/Sharekhan.webp",
+    alt: "Sharekhan",
+    name: "Sharekhan",
+    url: "https://www.sharekhan.com",
+  },
+  {
+    src: "/assets/Dhan.webp",
+    alt: "Dhan",
+    name: "Dhan",
+    url: "https://dhan.co",
+  },
+  {
+    src: "/assets/5paisa.webp",
+    alt: "5paisa",
+    name: "5paisa",
+    url: "https://www.5paisa.com",
+  },
+  {
+    src: "/assets/IIFL Securities.webp",
+    alt: "IIFL Securities",
+    name: "IIFL Securities",
+    url: "https://www.indiainfoline.com",
+  },
+  {
+    src: "/assets/AxisDirect.webp",
+    alt: "AxisDirect",
+    name: "AxisDirect",
+    url: "https://www.axisdirect.in",
+  },
+  {
+    src: "/assets/Geojit.webp",
+    alt: "Geojit",
+    name: "Geojit",
+    url: "https://www.geojit.com",
+  },
+  {
+    src: "/assets/Fyers.webp",
+    alt: "Fyers",
+    name: "Fyers",
+    url: "https://www.fyers.in",
+  },
+  {
+    src: "/assets/Choice.webp",
+    alt: "Choice Broking",
+    name: "Choice Broking",
+    url: "https://www.choicebroking.in",
+  },
 ];
 
 const Modal = ({ open, handleClose, children }) => {
@@ -61,8 +146,11 @@ const Modal = ({ open, handleClose, children }) => {
       className="fixed inset-0 z-[50000] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
       onClick={handleBackgroundClick}
     >
-      <div className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]" onClick={(e) => e.stopPropagation()}>
-        <div className="w-8 h-8 rounded-full border border-[#F2F4F7] absolute top-3 right-3 flex items-center justify-center" >
+      <div
+        className="bg-white rounded-lg shadow-lg p-6 relative w-[350px] max-w-[352px]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="w-8 h-8 rounded-full border border-[#F2F4F7] absolute top-3 right-3 flex items-center justify-center">
           <button
             onClick={handleClose}
             className=" text-gray-600 hover:text-gray-900"
@@ -104,7 +192,7 @@ const ChildModal = ({ open, handleBack, handleCloseAll }) => (
           <div
             key={index}
             onClick={() => {
-              window.open(item.url, '_blank');
+              window.open(item.url, "_blank");
             }}
             className="flex flex-col items-center text-center gap-2 rounded-full p-2 cursor-pointer transition-all transform hover:scale-[0.90] duration-200"
           >
@@ -112,10 +200,12 @@ const ChildModal = ({ open, handleBack, handleCloseAll }) => (
               <img
                 src={item.src}
                 alt={item.name}
-                className="w-11 h-11 object-contain rounded-full"
+                className="w-11 h-11 object-cover rounded-full"
               />
             </div>
-            <span className="text-gray-800 text-[12px] text-nowrap font-normal">{item.name}</span>
+            <span className="text-gray-800 text-[12px] text-nowrap font-normal">
+              {item.name}
+            </span>
           </div>
         ))}
       </div>
@@ -130,7 +220,6 @@ export default function NestedModal({
   handleChildModalOpen,
   handleCloseAllModals,
 }) {
-
   // Handle ESC key press and disable/enable background scroll
   useEffect(() => {
     const handleEsc = (event) => {
@@ -150,12 +239,21 @@ export default function NestedModal({
       document.body.style.overflow = ""; // Clean up scroll settings
       window.removeEventListener("keydown", handleEsc); // Remove event listener
     };
-  }, [modalState.isMainModalOpen, modalState.isChildModalOpen, handleCloseAllModals]);
+  }, [
+    modalState.isMainModalOpen,
+    modalState.isChildModalOpen,
+    handleCloseAllModals,
+  ]);
 
   return (
     <div>
-      <Modal open={modalState?.isMainModalOpen} handleClose={handleMainModalClose}>
-        <h1 className="text-[20px] font-bold text-[#101828] !text-left">Choose your broker</h1>
+      <Modal
+        open={modalState?.isMainModalOpen}
+        handleClose={handleMainModalClose}
+      >
+        <h1 className="text-[20px] font-bold text-[#101828] !text-left">
+          Choose your broker
+        </h1>
         <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex flex-col items-center justify-center ">
           <div className="grid grid-cols-3 gap-2">
             {brokerItems.map((item, index) => (
@@ -165,20 +263,52 @@ export default function NestedModal({
                   if (index === brokerItems.length - 1) {
                     handleChildModalOpen(); // Open the child modal if it's the last index
                   } else {
-                    window.open(item.url, '_blank'); // Redirect to the specified URL
+                    window.open(item.url, "_blank"); // Redirect to the specified URL
                   }
                 }}
                 className="flex flex-col items-center text-center gap-2 rounded-full p-2 cursor-pointer transition-all transform hover:scale-[0.90] duration-200"
               >
                 <div className="!bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center">
-                  <img
-                    src={item.src}
-                    alt={item.name}
-                    className={`w-11 h-11 object-contain rounded-full ${index === brokerItems.length - 1 ? 'bg-[#125B54] p-1' : ''
+                  {item.is_chevron ? (
+                    <>
+                      <div
+                        className={`w-11 h-11 object-cover rounded-full ${
+                          index === brokerItems.length - 1
+                            ? "bg-[#125B54] p-2"
+                            : ""
+                        }`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="28"
+                          height="28"
+                          viewBox="0 0 28 28"
+                          fill="none"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M18.667 14C18.667 14.3094 18.5441 14.6062 18.3253 14.825L12.4919 20.6583C12.0363 21.1139 11.2976 21.1139 10.842 20.6583C10.3864 20.2027 10.3864 19.464 10.842 19.0084L15.8504 14L10.842 8.99162C10.3864 8.53601 10.3864 7.79732 10.842 7.34171C11.2976 6.8861 12.0363 6.8861 12.4919 7.34171L18.3253 13.175C18.5441 13.3938 18.667 13.6906 18.667 14Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </div>
+                    </>
+                  ) : (
+                    <img
+                      src={item.src}
+                      alt={item.name}
+                      className={`w-11 h-11 object-cover rounded-full ${
+                        index === brokerItems.length - 1
+                          ? "bg-[#125B54] p-1"
+                          : ""
                       }`}
-                  />
+                    />
+                  )}
                 </div>
-                <span className="text-gray-800 text-[12px] text-nowrap font-normal">{item.name}</span>
+                <span className="text-gray-800 text-[12px] text-nowrap font-normal">
+                  {item.name}
+                </span>
               </div>
             ))}
           </div>

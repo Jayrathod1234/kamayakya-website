@@ -136,7 +136,7 @@ export default function CustomSortMenu({ isLabel }) {
           />
         </svg>
         <span className="tracking-normal text-[#0C111D] font-semibold text-[14px] "
-          
+
         >
           {radioButtonValue[selectedValue]}
         </span>
@@ -266,7 +266,7 @@ export default function CustomSortMenu({ isLabel }) {
                           />
                         </svg>
                         <span
-                        className={`ml-2 ${selectedValue === "upside_left_desc"? "text-[#108973]" :"text-[#344054] "} !font-normal text-sm/5 font-open_sans`}
+                          className={`ml-2 ${selectedValue === "upside_left_desc" ? "text-[#108973]" : "text-[#344054] "} !font-normal text-sm/5 font-open_sans`}
                         >
                           High to Low
                         </span>
@@ -850,24 +850,21 @@ export default function CustomSortMenu({ isLabel }) {
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
-            anchor={anchorEl}
             onClose={handleClose}
-            ModalProps={{
-              keepMounted: true, // Keeps mounted so you can style it
-              sx: {
-                backdropFilter: "blur(2px)", // Apply blur effect when drawer is open
-              },
-            }}
-            // sx={{ display: isMobile ? "none" : "block" }}
             PaperProps={{
               style: {
-                // background: "blue",
                 borderRadius: "12px 12px 0px 0px",
                 width: isMobile ? "100%" : "260px",
                 maxWidth: "100%",
                 overflowY: "auto",
                 marginTop: "8px",
                 border: "1px solid #F2F4F7",
+              },
+            }}
+            BackdropProps={{
+              sx: {
+                backdropFilter: "blur(2px) !important",
+                backgroundColor: "rgba(0, 0, 0, 0.2)", // Adjust as needed
               },
             }}
           >

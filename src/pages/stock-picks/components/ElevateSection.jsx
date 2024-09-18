@@ -49,7 +49,7 @@ function ElevateSection() {
         </>
       );
       buttonText = "Upgrade Now";
-    } else if (plan === "advance") {
+    } else if (plan === "advanced") {
       content = (
         <>
           <p className="text-display-xs font-bold text-[#F8F8F8] font-open_sans">

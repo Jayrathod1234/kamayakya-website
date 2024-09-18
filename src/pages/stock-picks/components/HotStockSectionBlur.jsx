@@ -12,6 +12,8 @@ import StockCardProgressBarBlurSection from "@/components.v3/common/StockCardPro
 // import { Slider } from "@/components.v3/common/Slider.jsx";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { useStockPicks } from "@/contexts/StockPicksContext";
+import { sectorIcons } from "@/utils/constants.js";
+
 const HotStockSection = ({ items }) => {
   const { stockSector } = useStockPicks();
 
@@ -27,7 +29,7 @@ const HotStockSection = ({ items }) => {
 
   return (
     <div>
-      <div className="relative z-[2] sm:pb-[110px] pb-[60px] mt-[24px]">
+      <div className="relative z-[2] sm:pb-[60px] pb-[100px] mt-[24px]">
         <div className="container sm:mx-auto p-0">
           {!isLatop ? (
             <div className="bg-gray-150 p-[10px] rounded-[20px] sm:block none max-w-[1280px] mx-auto">
@@ -183,7 +185,7 @@ const HotStockSection = ({ items }) => {
                                           {stockSector && sector && (
                                             <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                                               <img
-                                                src="/assets/streamline_hotel-air-conditioner-solid.svg"
+                                                 src={`/sector-images/${sectorIcons[sector]}`}
                                                 alt=""
                                                 className="w-3"
                                               />

@@ -52,7 +52,7 @@ const StockPicks = () => {
                 (isMobile && items.length <= 1) ||
                 (!isMobile && items.length <= 3)
                   ? "mb-48"
-                  : "mb-60"
+                  : "mb-44"
               }`}
             >
               {/* SebiBoardTab */}
