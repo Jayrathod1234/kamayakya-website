@@ -14,6 +14,7 @@ import { Modal } from "@nextui-org/react";
 import StockDetailProgressBar from "./StockDetailProgressBar";
 import { sectorIcons } from "@/utils/constants.js";
 import Banner from "./Banner";
+import {Breadcrumb} from '../../../../components.v3/common/Breadcrumb'
 
 
 function StockDetailsSection() {
@@ -231,27 +232,8 @@ function StockDetailsSection() {
       ) : (
         <div className="pt-0 sm:pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
           <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="items-center gap-[13px]  p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto hidden sm:flex">
-              <div
-                className="flex items-center cursor-pointer group"
-                onClick={() => {
-                  router.push("/stock-picks");
-                }}
-              >
-                <img
-                  src="/assets/stock-details/arrow-left.svg"
-                  alt="Go Back"
-                  className="mr-2"
-                />
-                <div className="text-[13px] text-[#475467] font-normal font-open_sans relative text-nowrap me-1 max-w-[83px]">
-                  Stocks To Buy
-                  <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#475467] transition-all duration-300 group-hover:w-full"></div>
-                </div>
-              </div>
-              <img src="/assets/stock-details/chevron-right.svg" alt="" />
-              <div className="text-[13px] text-[#475467] font-semibold max-[138px] truncate">
-                {stock_name}
-              </div>
+            <div className="items-center gap-[13px]  p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto hidden sm:flex"> 
+              <Breadcrumb data={{previousPath:[{path:"Stock Picks", link:'/stock-picks'}],activePath:stock_name}}/>
             </div>
 
             {/* small screen banner of top navbar-tabs  */}

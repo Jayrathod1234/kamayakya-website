@@ -15,6 +15,7 @@ import { useTrackRecord } from "@/contexts/trackRecordContext";
 import { abbreviateTime } from "@/lib/date-formatter";
 import { useContext } from "react";
 import AuthContext from "@/components/AuthContext";
+import { useRouter } from "next/router";
 
 ChartJS.register({
   LineElement,
@@ -149,6 +150,8 @@ export const TrackRecordStockCard = ({
     },
   };
 
+  const router = useRouter();
+
   return (
     <div className=" p-5 bg-white max-h-[451px] lg:max-w-[630px] rounded-lg overflow-hidden">
       {/* TOP SECTION */}
@@ -277,7 +280,7 @@ export const TrackRecordStockCard = ({
         {/* Upside Left End  */}
       </div>
       <div className=" pt-5">
-        <button className="button-82-pushable group " role="button">
+        <button onClick={()=>router.push("/track-record/1")} className="button-82-pushable group " role="button">
           <span className="button-82-shadow"></span>
           <span className="button-82-edge"></span>
           <span className="button-82-front button-82-front2 text flex items-center">

@@ -13,6 +13,7 @@ import annotationPlugin, { AnnotationOptions, LabelAnnotationOptions } from "cha
 import { useContext } from "react";
 import AuthContext from "@/components/AuthContext";
 import { abbreviateTime } from "@/lib/date-formatter";
+import { TargetChip } from "@/components.v3/common/TargetChip";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -171,15 +172,9 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat }: { action?: strin
             </p>
           )}
           {stockStat?.target_status === "active" ? (
-            <div className="py-[2px] px-2.5 rounded-full bg-[#FFF6EE] w-fit">
-              <p className="text-[#667085] text-4xs font-semibold whitespace-nowrap">
-                {stockStat.target_number} | <span className="text-[#F79009] font-bold">{"Active"}</span>
-              </p>
-            </div>
+            <TargetChip active target_number={stockStat.target_number}/>
           ) : (
-            <div className="py-[2px] px-2.5 rounded-full bg-[rgba(242,244,247,1)] w-fit">
-              <p className="text-[rgba(102,112,133,1)] text-3xs font-bold whitespace-nowrap">Inactive</p>
-            </div>
+            <TargetChip active={false}/>
           )}
         </div>
       </div>

@@ -16,7 +16,7 @@ const StockPicks = ({ children }) => {
       >
         <Navbar />
       </div >
-      <div className="z-[20000]">
+      <div className="z-[20000] open_sans">
         {children}
       </div>
       <div className="">
