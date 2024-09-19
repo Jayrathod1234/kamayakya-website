@@ -250,6 +250,8 @@ const FilterCarousel = () => {
                     overflow: "visible", // Ensure full visibility of text
                     textOverflow: "ellipsis", // Add ellipsis for truncated text
                     display: "inline-flex", // Allow the chip to grow based on content
+                    fontSize:14,
+                    fontWeight:500
                   }}
                 />
               ))}

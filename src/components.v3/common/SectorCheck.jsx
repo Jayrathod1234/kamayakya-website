@@ -70,6 +70,7 @@ export default function SectorCheck() {
         endIcon={
           <KeyboardArrowDownIcon
             style={{
+              marginLeft:"-4px",
               filter: sector.length > 0 ? "brightness(0) invert(1)" : "none",
             }}
           />
@@ -94,8 +95,8 @@ export default function SectorCheck() {
           },
         }}
       >
-        <div className="flex items-center space-x-2 font-open_sans text-xs">
-          <span>Sector</span>
+        <div className="flex items-center space-x-1 font-open_sans text-xs">
+          <span className=" font-medium text-sm">Sector</span>
           {sector.length > 0 && (
             <span
               style={{
@@ -107,7 +108,7 @@ export default function SectorCheck() {
                 alignItems: "center",
                 width: "20px", // Equal width and height for a perfect circle
                 height: "20px",
-                fontSize: "13px",
+                fontSize: "14px",
                 fontWeight: 700,
                 fontFamily: "Open Sans",
               }}

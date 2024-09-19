@@ -241,6 +241,8 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                     whiteSpace: "nowrap", // Prevent text wrapping
                     overflow: "visible", // Ensure full visibility of text
                     display: "inline-flex", // Allow the chip to grow based on content
+                    fontSize:"14px",
+                    fontWeight:500
                   }}
                 />
               ))}
