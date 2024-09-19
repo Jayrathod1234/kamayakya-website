@@ -2,18 +2,65 @@ import React from "react";
 import Layout from "../../../layout/Layout";
 import { Breadcrumb } from "@/components.v3/common/Breadcrumb";
 import { TargetChip } from "@/components.v3/common/TargetChip";
+import { cn } from "@/lib/utils";
+import { abbreviateTime } from "@/lib/date-formatter";
+
+const PerformanceMetricCard = ({
+  className,
+  iconContainerClass,
+  iconSrc,
+  is_gain_loss_positive = true,
+  isBlur,
+  gain_loss = "24.53",
+  return_time = "1 year",
+}) => {
+  return (
+    <div className={cn(" p-4 rounded-md border border-[#F2F4F7] flex flex-col min-h-[100px] flex-1", className)}>
+      <div className=" flex justify-between items-center">
+        <p className=" text-sm font-semibold">Total Returns</p>
+        <div className={cn(" rounded-md p-2 max-h-10 max-w-10 bg-[#F9FAFB]", iconContainerClass)}>
+          <img src={iconSrc} alt="" />
+        </div>
+      </div>
+      <div className=" flex items-center gap-x-[2px] max-sm:justify-center mt-auto">
+        <img
+          width={15}
+          height={11}
+          className=" !w-[15px] !h-[11px]"
+          src={is_gain_loss_positive ?? true ? "/assets/Polygon2.svg" : "/assets/Polygon 3.svg"}
+          alt=""
+        />
+        {isBlur ? (
+          <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
+        ) : (
+          <p
+            className={` text-xl font-bold  whitespace-nowrap ${
+              is_gain_loss_positive ? "text-[rgba(18,183,106,1)]" : "text-[rgba(240,68,56,1)]"
+            } `}
+          >
+            {gain_loss && gain_loss}%{" "}
+            <span className=" text-2xs font-semibold text-[rgba(73,70,70,1)] hidden sm:inline-block  ">
+              {return_time && `in ${abbreviateTime(return_time)}`}
+            </span>
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default function Page() {
   return (
     <div>
-      <Layout>
+      {/* <Layout> */}
         <div className=" bg-[#F9FAFB]">
           <div className=" main-container mt-4 mb-3 ">
             <Breadcrumb
               data={{ previousPath: [{ path: "Track Record", link: "/track-record" }], activePath: "Stock" }}
             />
           </div>
-          <div className=" flex main-container">
-            <div className=" flex-1">
+          <div className=" grid grid-cols-2 main-container h-[150vh] relative">
+            <div className=" flex-1  bg-red-300">
               <div className=" bg-white rounded-[10px]">
                 <div className=" p-4 pb-3 border-b border-b-[#F2F4F7]">
                   <TargetChip target_number="Target 1" active activeIcon />
@@ -97,11 +144,20 @@ export default function Page() {
                   </div>
                 </div>
               </div>
+              <div className=" p-4 bg-white rounded-[10px]">
+                <div className=" flex justify-between gap-x-4">
+                  <PerformanceMetricCard />
+                  <PerformanceMetricCard />
+                  <PerformanceMetricCard />
+                </div>
+              </div>
             </div>
-            <div></div>
+            <div className=" bg-red-500 relative overflow-y-auto">
+                  <div className=" bg-green-300 sticky h-4 top-0">INVESTMENT</div>
+            </div>
           </div>
         </div>
-      </Layout>
+      {/* </Layout> */}
     </div>
   );
 }
