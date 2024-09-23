@@ -14,7 +14,7 @@ import { Modal } from "@nextui-org/react";
 import StockDetailProgressBar from "./StockDetailProgressBar";
 import { sectorIcons } from "@/utils/constants.js";
 import Banner from "./Banner";
-
+import {Breadcrumb} from '@/components.v3/common/Breadcrumb'
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -231,8 +231,8 @@ function StockDetailsSection() {
       ) : (
         <div className="pt-0 sm:pt-4 bg-gray-200 sm:bg-[#F9FAFB] font-open_sans ">
           <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
-            <div className="items-center gap-[13px]  p-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto hidden sm:flex">
-              <div
+            <div className="items-center gap-[13px]  py-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto hidden sm:flex">
+              {/* <div
                 className="flex items-center cursor-pointer group"
                 onClick={() => {
                   router.push("/stock-picks");
@@ -251,7 +251,8 @@ function StockDetailsSection() {
               <img src="/assets/stock-details/chevron-right.svg" alt="" />
               <div className="text-[13px] text-[#475467] font-semibold max-[138px] truncate">
                 {stock_name}
-              </div>
+              </div> */}
+              <Breadcrumb data={{ previousPath:[{link:'/stock-picks',path:'Stocks To Buy'}],activePath:stock_name}}/>
             </div>
 
             {/* small screen banner of top navbar-tabs  */}
@@ -311,10 +312,10 @@ function StockDetailsSection() {
                       alt=""
                       className="block sm:hidden absolute -top-3 right-6 w-[58px] h-[50px]"
                     /> */}
-                      <div className="px-4 pt-4 pb-3 gap-2 w-full">
+                      <div className="sm:px-4 pt-4 sm:pb-3 gap-2 w-full">
                         {!!stock_targets.length && (
-                          <div className="flex pb-3.5 items-center justify-center sm:justify-start md:justify-start h-[1.5rem]">
-                            <div className="flex h-[1.5rem] py-1 px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
+                          <div className="flex pb-[13px] sm:pb-3.5 items-center justify-center md:justify-start">
+                            <div className="flex py-[2px] px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="10"
@@ -329,7 +330,7 @@ function StockDetailsSection() {
                                 />
                               </svg>
 
-                              <p className="text-[#667085] text-xs font-semibold font-open_sans">
+                              <p className="text-[#667085] text-4xs font-semibold font-open_sans">
                                 Target {stock_targets.length} at ₹
                                 {stock_targets[0].target_price} |{" "}
                                 <span className="text-[#F79009] font-bold font-open_sans">
@@ -342,7 +343,7 @@ function StockDetailsSection() {
                         {/* <!-- Continue your other components similarly --> */}
                         <div className=" flex flex-col md:flex-row gap-4 items-center md:items-center">
                           {/* Image container */}
-                          <div className="flex-shrink-0 w-[120px] h-[120px] hidden  sm:block px-[12px] py-3 rounded-md  border-2 border-[#F2F4F7] justify-center items-center">
+                          <div className="hidden !w-[100px] !h-[100px] min-w-[100px]  sm:flex  rounded-md  border border-[#F2F4F7] justify-center items-center">
                             <Image
                               src={
                                 stock_image
@@ -350,34 +351,47 @@ function StockDetailsSection() {
                                   : "/assets/image 3.png"
                               }
                               alt="Company Logo"
-                              width={92} // or use 92px for width
-                              height={92} // or use 92px for height
-                              className="object-cover w-[90px]  h-[88px]"
+                              width={70} // or use 92px for width
+                              height={66} // or use 92px for height
+                              className="w-[70px]  h-[66px] object-cover"
                             />
                           </div>
 
                           {/* Text content */}
-                          <div className="w-full">
-                            <div className="flex flex-col md:flex-row  items-center md:items-center gap-2">
-                              <div className="flex gap-1 items-center max-w-[480px] ">
-                                <Image
-                                  src={
-                                    stock_image
-                                      ? stock_image
-                                      : "/assets/image 3.png"
-                                  }
-                                  alt="Company Logo"
-                                  width={40} // 10 * 4 (assuming 1rem = 4px)
-                                  height={40} // 10 * 4
-                                  className="object-cover h-[40px] w-[40px]  block sm:hidden"
-                                />
-                                <p className="text-[#0C111D] text-xl md:text-xl font-bold font-open_sans truncate leading-[30px] sm:max-w-[420px]  max-w-[311px]">
-                                  {stock_name}
-                                </p>
+                          <div className="w-full flex flex-col justify-between min-w-0 max-md:items-center max-md:text-center ">
+                            <div className="flex flex-col md:flex-row  items-baseline gap-2 min-w-0 w-full">
+                              <div className="flex gap-1  items-center px-4 sm:px-0 min-w-0 w-full max-md:mx-auto">
+                                
+                                <div className=" flex items-baseline max-md:justify-center min-w-0 w-full gap-x-2">
+                                <div className=" sm:hidden">
+                                <div className=" h-7 w-7 rounded-md border border-[#F2F4F7] flex  items-center justify-center">
+                                  <Image
+                                    src={
+                                      stock_image
+                                        ? stock_image
+                                        : "/assets/image 3.png"
+                                    }
+                                    alt="Company Logo"
+                                    width={20} // 10 * 4 (assuming 1rem = 4px)
+                                    height={20} // 10 * 4
+                                    className="object-cover h-[20px] w-[20px]  block sm:hidden"
+                                  />
+                                </div>
+                                </div>
+                                <p className="text-center md:text-start  text-[#0C111D] text-xl md:text-xl font-bold font-open_sans whitespace-nowrap truncate leading-[30px] min-w-0 ">
+                                    {stock_name}
+                                    
+                                </p><p className="hidden md:inline-block text-2xs md:text-2xs text-[#475467] font-medium font-open_sans whitespace-nowrap leading-[18px]">
+                                  {stock_exchange == "BSE" ||
+                                  stock_exchange == "SME-BSE"
+                                    ? `BSE: ${stock_scrip_code}`
+                                    : `NSE: ${stock_symbol}`}
+                                </p></div>
+                                
                               </div>
-                              <div className="flex justify-center items-center gap-[6px] pl-1/2 sm:pl-0 mx-auto sm:mx-0 whitespace-nowrap">
+                              <div className="flex  justify-center  gap-[6px] pl-1/2 sm:pl-0 max-md:mx-auto whitespace-nowrap">
                                 {/* <div className="w-1 h-1 sm:block hidden rounded-full bg-[#98A2B3]"></div> */}
-                                <p className="text-2xs md:text-2xs text-[#475467] font-medium font-open_sans leading-[18px]">
+                                <p className="text-2xs md:hidden text-[#475467] font-medium font-open_sans leading-[18px]">
                                   {stock_exchange == "BSE" ||
                                   stock_exchange == "SME-BSE"
                                     ? `BSE: ${stock_scrip_code}`
@@ -386,9 +400,9 @@ function StockDetailsSection() {
                               </div>
                             </div>
 
-                            <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap">
-                              <div className="flex gap-4 w-full justify-center sm:justify-start md:justify-start">
-                                <div className="flex flex-wrap gap-[8px] sm:gap-[8px] items-center justify-center ">
+                            <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap w-full">
+                              <div className="flex gap-4 w-full justify-center  md:justify-start">
+                                <div className="flex flex-wrap gap-[8px] sm:gap-[8px] items-center ">
                                   {/* Show all chips in tablet size and larger, and only 2 chips in mobile size */}
                                   {stock_tags
                                     .slice(
@@ -429,7 +443,7 @@ function StockDetailsSection() {
                                 </div>
                               </div>
                               {action_text ? (
-                                <div className="w-full text-center  items-center flex !justify-center bg-[#F6FEF9] my-4  truncate">
+                                <div className=" sm:hidden w-full text-center  items-center flex !justify-center bg-[#F6FEF9] my-4  truncate">
                                   <p className="sm:hidden text-sm items-center font-open_sans py-1 flex  gap-1 text-[#039855] text-center ">
                                     {/* Conditionally show either text or image */}
                                     <>
@@ -455,7 +469,7 @@ function StockDetailsSection() {
                       style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
                     />
 
-                    <div className="rounded-lg bg-white flex flex-col sm:flex-row py-[0.5rem] px-4 sm:px-4 items-start sm:items-center justify-between">
+                    <div className="rounded-lg bg-white flex flex-col sm:flex-row py-[0.5rem] px-4 sm:px-4 items-start sm:items-center justify-between flex-wrap gap-x-4">
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex h-7 w-7 p-[6px] min-w-7 justify-center items-center rounded-md bg-[#F9FAFB]">
                           <img
@@ -649,21 +663,22 @@ function StockDetailsSection() {
                     </div>
                   </div>
                   {/* Upside Left Box start */}
-                  <div className="hidden md:block col-span-2 order-3 sm:order-2">
-                    <div className="p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm mt-7">
+                  <div className="hidden sm:block col-span-2 order-3 sm:order-2">
+                    <div className="p-4 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm mt-7">
                       <div className=" relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-lg bg-[#EFF7FF] border border-transparent">
                         {/* Gradient Border */}
                         <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
                         <div className="flex flex-col gap-4 md:gap-6 lg:gap-8">
-                          <div className="flex flex-col md:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
+                          <div className="flex flex-col sm:flex-row gap-4 md:gap-4 lg:gap-4 w-full">
                             {/* Upside Left Section */}
                             <div
                               className={`w-full ${
                                 cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-custom-gradient`}
+                              }  p-4 pt-2 pr-2  rounded-md bg-custom-gradient flex flex-col max-h-[95px]`}
                             >
                               <div className="flex flex-col md:flex-row justify-between">
+                              <div className=" flex justify-between w-full">
                                 <div className="flex gap-1 items-center">
                                   <p className="font-open_sans text-sm font-semibold text-[#FCFCFD]">
                                     Upside Left
@@ -701,16 +716,21 @@ function StockDetailsSection() {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="hidden md:flex justify-end">
+                                <div className="hidden sm:flex justify-end">
+                                <div className="p-2">
                                   <img
                                     src="/assets/stock-details/streamline_target-solid (1).svg"
                                     alt="Target"
+                                    height={21}
+                                    width={21}
                                   />
+                                  </div>
+                                </div>
                                 </div>
                               </div>
-                              <div className="flex pt-4 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[20px] text-white font-bold">
+                              <div className="flex mt-auto flex-col sm:flex-row items-start sm:items-baseline gap-1 text-[16px] sm:text-display-xs text-white font-bold">
                                 {upside_left}%
-                                <span className="text-[12px] mt-2  line-clamp-2  text-white font-medium">
+                                <span className="text-[12px] truncate whitespace-nowrap  text-white font-medium">
                                   likely within {upside_left_time}
                                 </span>
                               </div>
@@ -720,22 +740,26 @@ function StockDetailsSection() {
                             <div
                               className={`w-full ${
                                 cagr_of_stock ? "md:w-1/3" : "md:w-1/2"
-                              } h-[95px] p-4 rounded-md bg-white`}
+                              }   p-4 pt-2 pr-2 rounded-md bg-white flex flex-col max-h-[95px]`}
                             >
-                              <div className="flex flex-col md:flex-row justify-between">
+                              <div className="flex flex-col sm:flex-row justify-between">
+                              <div className=" flex justify-between  w-full">
                                 <div className="flex gap-[6px] items-center">
                                   <p className="font-open_sans text-sm font-semibold text-[#1D2939]">
                                     Total Returns
                                   </p>
                                 </div>
-                                <div className="hidden md:flex justify-end">
+                                <div className="hidden sm:flex justify-end bg-[#F9FAFB] p-2 rounded-md">
                                   <img
                                     src="/assets/Layer_1.svg"
                                     alt="Returns Icon"
+                                    className=" h-6 w-6"
                                   />
                                 </div>
+                                </div>
                               </div>
-                              <div className="flex pt-4 flex-col md:flex-row items-start md:items-center gap-1 text-[16px] md:text-[20px] lg:text-[20px] text-[#344054] font-bold">
+                              <div className="flex mt-auto flex-col sm:flex-row items-start sm:items-center gap-1 text-[16px] sm:text-[20px] lg:text-[20px] text-[#344054] font-bold">
+                                
                                 {gain_loss >= 0 ? (
                                   <>
                                     <svg
@@ -768,10 +792,13 @@ function StockDetailsSection() {
                                     </svg>
                                   </>
                                 )}
+                                <div className=" flex items-baseline gap-x-1">
                                 {Math.abs(gain_loss)}% {""}
-                                <span className="text-[12px]  mt-2  text-[#667085] font-medium line-clamp-2">
+                                
+                                <span className="text-[12px]  text-[#667085] font-medium line-clamp-1">
                                   in {return_time}
                                 </span>
+                                </div>
                               </div>
                             </div>
 
@@ -972,7 +999,7 @@ function StockDetailsSection() {
 
                   {/* Small Responsive size View Open the box  */}
                   <div
-                    className="block rounded-lg md:hidden bg-[#eff7ff] p-4  shadow-md max-w-full mx-auto mt-5"
+                    className="block rounded-lg sm:hidden bg-[#eff7ff] p-4  shadow-md max-w-full mx-auto mt-5"
                     ref={UpsideLeftRef}
                     id="upside-left-section"
                   >
@@ -1105,7 +1132,7 @@ function StockDetailsSection() {
                             )}
                             <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
                               {Math.abs(gain_loss)}% {""}
-                              <span className="text-gray-500 text-2xs font-open_sans font-semibold">
+                              <span className="text-gray-500 text-4xs font-open_sans font-semibold">
                                 in {return_time}
                               </span>
                             </p>
@@ -1411,7 +1438,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[72px]  px-[4px] hidden sm:block">
+                  <div className="pt-[70px]  px-[4px] hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">
                       Company Profile
                     </h2>
@@ -1502,11 +1529,11 @@ function StockDetailsSection() {
 
                   {/* News Section Start */}
                   <div
-                    className=" sm:pt-[72px] pt-0  sm:w-full md:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto "
+                    className=" sm:pt-[72px] pt-0  sm:w-full  mx-auto sm:mx-0 "
                     ref={newsRef}
                     id="news-section"
                   >
-                    <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-bold max-sm:uppercase sm:font-semibold font-open_sans px-1 mb-0">
+                    <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-bold max-sm:uppercase sm:font-semibold font-open_sans mb-0 px-4 sm:px-0">
                       News
                     </h2>
                     <StockDetailsNews stock_name={stock_name} />
@@ -1522,9 +1549,9 @@ function StockDetailsSection() {
                       <h2 className="font-bold font-open_sans text-sm mb-[22px]  hidden sm:flex">
                         INVESTMENT GUIDANCE
                       </h2>
-                      <div className="gap-2 mb-4 hidden sm:flex">
+                      <div className="gap-2 mb-4 hidden sm:flex flex-wrap">
                         {/* Video Button logic  */}
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-fit">
                           {hasVideo ? (
                             <div className="flex-1 group">
                               <button
@@ -1582,7 +1609,7 @@ function StockDetailsSection() {
                         </div>
 
                         {/* Share Button */}
-                        <div className="flex-1 group">
+                        <div className="flex-1 group min-w-fit">
                           <button
                             className="w-full border group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                             onClick={handleMainModalOpen}
@@ -1611,42 +1638,13 @@ function StockDetailsSection() {
                         </div>
                       </div>
 
-                      <div className=" justify-between items-center relative pt-5 hidden sm:flex ">
-                        <p className="w-2/3 font-open_sans">{action_text}</p>
+                      <div className=" justify-between items-center gap-x-5 relative pt-2 hidden sm:flex  w-full">
+                        <p className=" font-open_sans whitespace-normal break-all text-sm line-clamp-3">{action_text} </p>
                         <img
-                          src="/assets/BuyBubbleBlue12.webp"
+                          src="/assets/details_buy_mascot.png"
                           alt=""
-                          className="absolute -top-1 right-6 w-12 h-12 rotate-[-28deg]"
+                          className=" object-contain right-6 w-[81px] h-[120px] "
                         />
-
-                        {/* SELL Image   */}
-
-                        {/* <img
-                        src="/assets/sellbbl.png"
-                        alt=""
-                        className="absolute -top-3 right-6 w-16 h-16"
-                      /> */}
-
-                        {/* Hold Images  */}
-
-                        {/* <img
-                        src="/assets/sellbblyellow.png"
-                        alt=""
-                        className="absolute -top-1 right-8 w-10 h-8 rotate-[-28deg]"
-                      /> */}
-
-                        <img
-                          src="/assets/images3.svg"
-                          alt=""
-                          className="absolute -bottom-1 right-2 "
-                        />
-                        <div className="w-1/3 flex justify-end">
-                          <img
-                            src="/assets/images12.webp"
-                            alt=""
-                            className=" w-[52px] "
-                          />
-                        </div>
                       </div>
                       <hr className="my-3 hidden  sm:block" />
                       <div>
@@ -1678,9 +1676,9 @@ function StockDetailsSection() {
                           </svg>
                         </button>
                         {isOpen && (
-                          <div className="mt-2">
+                          <div className="">
                             {/* Timeline Content Goes Here */}
-                            <div className="p-4  rounded-lg">
+                            <div className="  rounded-lg">
                               <StockDetailsTimeline timeline={timeline} />
                             </div>
                           </div>
