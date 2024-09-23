@@ -353,7 +353,7 @@ function StockDetailsSection() {
                               alt="Company Logo"
                               width={70} // or use 92px for width
                               height={66} // or use 92px for height
-                              className="w-[70px]  h-[66px] object-cover"
+                              className="w-[70px]  h-[66px] object-contain"
                             />
                           </div>
 
@@ -362,7 +362,7 @@ function StockDetailsSection() {
                             <div className="flex flex-col md:flex-row  items-baseline gap-2 min-w-0 w-full">
                               <div className="flex gap-1  items-center px-4 sm:px-0 min-w-0 w-full max-md:mx-auto">
                                 
-                                <div className=" flex items-baseline max-md:justify-center min-w-0 w-full gap-x-2">
+                                <div className=" flex items-center sm:items-baseline max-md:justify-center min-w-0 w-full gap-x-2">
                                 <div className=" sm:hidden">
                                 <div className=" h-7 w-7 rounded-md border border-[#F2F4F7] flex  items-center justify-center">
                                   <Image
@@ -374,7 +374,7 @@ function StockDetailsSection() {
                                     alt="Company Logo"
                                     width={20} // 10 * 4 (assuming 1rem = 4px)
                                     height={20} // 10 * 4
-                                    className="object-cover h-[20px] w-[20px]  block sm:hidden"
+                                    className="object-contain h-[20px] w-[20px]  block sm:hidden"
                                   />
                                 </div>
                                 </div>
