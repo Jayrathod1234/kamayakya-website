@@ -12,14 +12,24 @@ import {
 } from "@/components.v2/ui/drawer";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components.v2/ui/hover-card";
 import { useMediaQuery } from "@mui/material";
+import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-const ChipItem = ({ label }: { label: string }) => {
+const ChipItem = ({ label, img, id }: { label: string; img: string | null; id: string }) => {
+  const router = useRouter();
+
+  const handleRouting = () => router.push(`/track-record/${id}`);
+
   return (
-    <div className="!p-0 rounded-[4px]  hover:!bg-[rgba(244,255,255,1)] flex items-center">
+    <div onClick={handleRouting} className="!p-0 rounded-[4px]  hover:!bg-[rgba(244,255,255,1)] flex items-center">
       {/* image container */}
       <div className=" p-2 w-fit">
-        <div className=" h-6 w-6 bg-red-400"></div>
+        {img ? (
+          <img className=" object-contain" src={img} height={30} width={30} alt="stock-image" />
+        ) : (
+          <div className=" h-6 w-6 bg-red-400"></div>
+        )}
       </div>
       {/* image container end */}
       <ButtonnArrow
@@ -44,14 +54,16 @@ const Chip = () => {
   );
 };
 
-export function TrackRecordHeroCardNewChip() {
+export function TrackRecordHeroCardNewChip({ newRecommendation }) {
   const [openDropDown, setOpenDropDown] = useState(false);
   const isMobile = useMediaQuery("(max-width:640px)");
   const onTriggerEleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     setOpenDropDown(true);
   };
-  console.log(",mobiole", isMobile);
+  const router = useRouter();
+
+  
   if (isMobile) {
     console.log("ISMONILE");
     return (
@@ -69,12 +81,18 @@ export function TrackRecordHeroCardNewChip() {
               </div>
               <p className=" text-left font-bold px-4  text-lg text-[rgba(12,17,29,1)]">New Stock Picks</p>
             </DrawerHeader>
-            <div className=" mt-2">
-              <ul>
-                <li className=" px-4 py-[10px]"></li>
+            <div className=" ">
+              <ul className=" !m-0">
+                {
+                  newRecommendation.map(recommendation=> <li onClick={()=>router.push(`/track-record/${recommendation.id}`)} className=" px-4 py-[10px] flex gap-x-2 items-center">
+                    <img height={28} width={28} src={recommendation.stock_image} alt="stock-image" />
+                    <p className=" text-sm text-gray-700">{recommendation.stock_name}</p>
+                    <ArrowRight color="#475467" className=" ml-auto" height={16} width={16}/>
+                  </li>)
+                }
+               
               </ul>
             </div>
-            
           </div>
         </DrawerContent>
       </Drawer>
@@ -90,9 +108,9 @@ export function TrackRecordHeroCardNewChip() {
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="w-56 rounded-lg py-[6px] px-1">
-        <ChipItem label={"Ion Exchange (India) Ltd."} />
-        <ChipItem label={"Tata Motors Ltd."} />
-        <ChipItem label={"Shree Pushkar Chemicals & Fertilisers ltd"} />
+        {newRecommendation?.map((recommendation) => (
+          <ChipItem id={recommendation.id} label={recommendation.stock_name} img={recommendation.stock_image} />
+        ))}
       </HoverCardContent>
     </HoverCard>
   );

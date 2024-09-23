@@ -57,6 +57,7 @@ const getMascotImg = (action: string) => {
 };
 
 export const TrackRecordStockCard = ({
+  id,
   action,
   is_returns_positive,
   latest_target_price,
@@ -232,7 +233,7 @@ export const TrackRecordStockCard = ({
             is_returns_positive
               ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
               : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
-          } px-3 py-2`}
+          } px-3 py-2 min-w-[140px]`}
         >
           <p className=" text-4xs font-bold text-white">Total Returns</p>
           <div className={` flex gap-x-[2px] ${!isLoggedIn || (!isSubscribed && action === "BUY") ? "pt-[5px]":""}`}>
@@ -280,7 +281,7 @@ export const TrackRecordStockCard = ({
         {/* Upside Left End  */}
       </div>
       <div className=" pt-5">
-        <button onClick={()=>router.push("/track-record/1")} className="button-82-pushable group " role="button">
+        <button onClick={()=>router.push(`/track-record/${id}`)} className="button-82-pushable group " role="button">
           <span className="button-82-shadow"></span>
           <span className="button-82-edge"></span>
           <span className="button-82-front button-82-front2 text flex items-center">

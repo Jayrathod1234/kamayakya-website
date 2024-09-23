@@ -23,6 +23,7 @@ export function HeroCardSection() {
         stockPerformance={trackRecordDashboardStats?.live_recommendations?.stock_performance}
         bestStocks={trackRecordDashboardStats?.live_recommendations?.top_gainer}
         worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
+        newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_new_recommendations}
       />
       <TrackRecordHeroCard
         type={"EXIT"}
@@ -31,6 +32,7 @@ export function HeroCardSection() {
         stockPerformance={trackRecordDashboardStats?.exits_stock?.stock_performance}
         bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
         worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
+        newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
       />
     </div>
   );

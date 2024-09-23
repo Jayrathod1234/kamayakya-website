@@ -72,3 +72,17 @@ export const getAllTrackRecordStockListApi = async ({ params, body }) => {
     throw error;
   }
 };
+
+
+export const getTrackDetailApi = async ({ stockId }) => {
+  try {
+    const URL = `/user/detailedView/${stockId}`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL);
+    return response.data.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+};

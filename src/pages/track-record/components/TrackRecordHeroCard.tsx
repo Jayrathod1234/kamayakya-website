@@ -17,6 +17,12 @@ interface IBestWorstStocks {
   [k: string]: string | number;
 }
 
+interface INewRecommendation {
+  id:string;
+  stock_name:string;
+  stock_image:string | null;
+}
+
 type TTrackRecordHeroCard = {
   type: string;
   recommendation: number;
@@ -24,6 +30,7 @@ type TTrackRecordHeroCard = {
   stockPerformance: IStockPerformace;
   bestStocks: IBestWorstStocks;
   worstStocks: IBestWorstStocks;
+  newRecommendation:INewRecommendation[];
 };
 
 export const TrackRecordHeroCard = ({
@@ -33,6 +40,7 @@ export const TrackRecordHeroCard = ({
   stockPerformance,
   bestStocks,
   worstStocks,
+  newRecommendation,
 }: TTrackRecordHeroCard) => {
   const { isLoggedIn } = useContext(AuthContext);
   const recommendationLabel =
@@ -69,7 +77,7 @@ export const TrackRecordHeroCard = ({
           <p className=" text-md font-bold mr-2 whitespace-nowrap truncate">{recommendationLabel} </p>
           <img height={20} width={20} src="/assets/pulse.gif" alt="" />
         </div>
-        <TrackRecordHeroCardNewChip />
+        <TrackRecordHeroCardNewChip newRecommendation={newRecommendation} />
       </div>
       {/* top section end */}
       {/* Middle Section */}

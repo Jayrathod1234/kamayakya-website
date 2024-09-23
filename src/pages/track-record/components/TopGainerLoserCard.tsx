@@ -14,6 +14,7 @@ import { useContext } from "react";
 import AuthContext from "@/components/AuthContext";
 import { abbreviateTime } from "@/lib/date-formatter";
 import { TargetChip } from "@/components.v3/common/TargetChip";
+import { useRouter } from "next/router";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -62,7 +63,7 @@ const CHART_OPTION = {
   },
 };
 
-export const TopGainerLoserCard = ({ type, isBest, stockStat }: { action?: string }) => {
+export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string }) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   const isBlur = !isLoggedIn || (stockStat.action === "BUY" && isLoggedIn && !isSubscribed);
   let label = type === "LIVE" ? (isBest ? "Top Gainer" : "Top Loser") : "";
@@ -76,19 +77,24 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat }: { action?: strin
       ? "./assets/Hold.png"
       : null
     : null;
+  const router = useRouter()
+
   return (
     <div
+      onClick={()=>router.push(`/track-record/${stockStat.id}`)}
       className="group/gainer-loser transition-[shadow] duration-150 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
  flex flex-col bg-white rounded-[9px] p-4 h-fit sm:h-[176px] flex-1 relative cursor-pointer min-w-0 "
     >
-      {actionImgSrc && <img
-        width={39}
-        height={29}
-        className=" absolute right-0 top-[-0.5rem]"
-        src={actionImgSrc}
-        alt={stockStat.action}
-      />}
-      
+      {actionImgSrc && (
+        <img
+          width={39}
+          height={29}
+          className=" absolute right-0 top-[-0.5rem]"
+          src={actionImgSrc}
+          alt={stockStat.action}
+        />
+      )}
+
       <div className=" flex flex-col justify-center sm:flex-row sm:justify-between items-center gap-x-[3.81px]">
         <div className=" flex items-center">
           <p className=" font-semibold text-sm text-[rgba(29,41,57,1)] group-hover/gainer-loser:text-brand-400 whitespace-nowrap ">
@@ -163,7 +169,13 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat }: { action?: strin
         >
           {isBlur ? (
             <div className=" min-w-0 w-full max-w-[120px] h-[18px] flex items-center justify-center sm:m-0">
-              <img className=" object-contain inline-block h-[18px] w-[18px]" height={18} width={18} src="/assets/noto_locked.png" alt="lock" />
+              <img
+                className=" object-contain inline-block h-[18px] w-[18px]"
+                height={18}
+                width={18}
+                src="/assets/noto_locked.png"
+                alt="lock"
+              />
               <div className=" w-full h-[14px] bg-[rgba(248,248,248,1)] rounded-full mt-[6px]"></div>
             </div>
           ) : (
@@ -172,9 +184,9 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat }: { action?: strin
             </p>
           )}
           {stockStat?.target_status === "active" ? (
-            <TargetChip active target_number={stockStat.target_number}/>
+            <TargetChip active target_number={stockStat.target_number} />
           ) : (
-            <TargetChip active={false}/>
+            <TargetChip active={false} />
           )}
         </div>
       </div>
