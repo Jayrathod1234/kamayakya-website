@@ -78,11 +78,11 @@ export default function StockDetailsTimeline({ timeline }) {
   // };
 
   return (
-    <Box className="flex flex-col justify-center" sx={{ pt: "30.8px", backgroundColor: "white" }}>
+    <div className="flex flex-col justify-center pt-[30.8px] bg-white min-w-0" >
       {timeline.map((step, index) => (
-        <Box className=" relative" key={index} display="flex" alignItems="flex-start">
+        <div className=" relative grid grid-cols-[74px_10px_1fr] md:grid-cols-[26px_1fr] lg:grid-cols-[74px_10px_1fr] w-full min-w-0" key={index} >
           {/* Date component for large screen */}
-          <Box textAlign={"left"} className="block md:hidden lg:block mr-[22px]" position="relative" top="0px">
+          <Box textAlign={"left"} className="block md:hidden lg:block " position="relative" top="0px">
             <Typography
               variant="body2"
               color="textSecondary"
@@ -94,9 +94,7 @@ export default function StockDetailsTimeline({ timeline }) {
             </Typography>
           </Box>
           {/* Date component end */}
-          {index !== timeline.length - 1 && (
-            <div className=" absolute w-[2px] h-full left-[82.5px] md:left-[6px] lg:left-[82.5px] bg-brand-300">{/*line*/}</div>
-          )}
+          
           <Box display="flex" flexDirection="column" alignItems="center" position="relative" >
           {/* Marker component */}
             <Box
@@ -113,9 +111,12 @@ export default function StockDetailsTimeline({ timeline }) {
                 // mr: "-5px",
               }}
             />
+            {index !== timeline.length - 1 && (
+            <div className=" absolute w-[2px] h-full  bg-brand-300">{/*line*/}</div>
+          )}
           </Box>
           {/* Marker component end */}
-          <div className=" flex flex-col gap-y-1 w-full ml-4 min-w-0">
+          <div className=" flex flex-col gap-y-1 w-full min-w-0 pl-[21px]">
             <Box className="hidden md:block lg:hidden" textAlign={"left"} mr={2} position="relative" top="0px">
               <Typography
                 variant="body2"
@@ -129,11 +130,11 @@ export default function StockDetailsTimeline({ timeline }) {
             </Box>
             <Box
               className=" mt-[4px] sm:mt-0 "
-              borderRadius="10px"
+              borderRadius="8px"
               bgcolor="#FCFCFD"
               // maxWidth={{ xs: "100%" }}
               width={"100%"}
-              p={"5px"}
+              p={"8px"}
               mb={"16px"}
               // mt={"4px"}
               position="relative"
@@ -228,7 +229,7 @@ export default function StockDetailsTimeline({ timeline }) {
               </Button>
             </Box>
           </div>
-        </Box>
+        </div>
       ))}
 
       <Modal open={reportOpen} onClose={handleClose}>
@@ -283,6 +284,6 @@ export default function StockDetailsTimeline({ timeline }) {
         <MoreHorizIcon sx={{ fontSize: "16px" }} />
         Load More
       </Button> */}
-    </Box>
+    </div>
   );
 }

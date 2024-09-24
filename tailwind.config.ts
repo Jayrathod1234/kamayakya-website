@@ -23,6 +23,7 @@ const config = {
     },
     fontFamily: {
       open_sans: ["open_sans", "sans-serif"],
+      open_sans_italic:["Open Sans Italic","sans-serif"]
     },
     fontSize: {
       "4xs": [
