@@ -129,13 +129,13 @@ export default function StockDetailsTimeline({ timeline }) {
               </Typography>
             </Box>
             <Box
-              className=" mt-[4px] sm:mt-0 "
+              className=" -mt-4 md:mt-0 lg:-mt-4  "
               borderRadius="8px"
               bgcolor="#FCFCFD"
               // maxWidth={{ xs: "100%" }}
               width={"100%"}
               p={"8px"}
-              mb={"16px"}
+              mb={"28px"}              
               // mt={"4px"}
               position="relative"
               // top="-13px"
