@@ -12,7 +12,7 @@ import { steps } from "framer-motion";
 
 const CustomStepConnector = styled(Box)(({ theme }) => ({
   borderLeft: `2px solid #75CDC5`,
-  height: "110px",
+  height: "100%",
   marginLeft: "6px",
   marginTop: "-5px",
 }));
@@ -63,23 +63,10 @@ export default function StockDetailsTimeline({ timeline }) {
     const date = new Date(dateString);
 
     // Define an array of month names
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     // Get the day, month, and year from the Date object
-    const day = date.getDate();
+    const day = date.getDate().toString().padStart(2,"0") 
     const month = monthNames[date.getMonth()];
     const year = date.getFullYear().toString().slice(-2); // Get the last two digits of the year
 
@@ -91,39 +78,27 @@ export default function StockDetailsTimeline({ timeline }) {
   // };
 
   return (
-    <Box
-      sx={{ maxWidth: 600, mx: "auto", pt: "20px", backgroundColor: "white" }}
-    >
+    <div className="flex flex-col justify-center pt-[30.8px] bg-white min-w-0" >
       {timeline.map((step, index) => (
-        <Box key={index} display="flex" alignItems="flex-start">
-          <Box
-            width="80px"
-            textAlign="center"
-            mr={2}
-            position="relative"
-            top="0px"
-          >
+        <div className=" relative grid grid-cols-[74px_10px_1fr] md:grid-cols-[26px_1fr] lg:grid-cols-[74px_10px_1fr] w-full min-w-0" key={index} >
+          {/* Date component for large screen */}
+          <Box textAlign={"left"} className="block md:hidden lg:block " position="relative" top="0px">
             <Typography
               variant="body2"
               color="textSecondary"
               fontFamily="Open Sans"
               fontSize="12px"
-              sx={{ whiteSpace: "nowrap" , marginTop:"-2px !important"}}
+              sx={{ whiteSpace: "nowrap", marginTop: "-2px !important" }}
             >
-              {formatDate(
-                step.type === "report" ? step.report_date : step.youtube_date
-              )}
+              {formatDate(step.type === "report" ? step.report_date : step.youtube_date)}
             </Typography>
           </Box>
-
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            position="relative"
-            mr={2}
-          >
+          {/* Date component end */}
+          
+          <Box display="flex" flexDirection="column" alignItems="center" position="relative" >
+          {/* Marker component */}
             <Box
+              className=""
               sx={{
                 width: "13px",
                 height: "13px",
@@ -132,124 +107,129 @@ export default function StockDetailsTimeline({ timeline }) {
                 border: index === 0 ? "3px solid #17756C" : "3px solid #fff",
                 position: "relative",
                 zIndex: 1,
-                mb: "-6px",
-                mr: "-5px",
+                // mb: "-6px",
+                // mr: "-5px",
               }}
             />
-            {index !== timeline.length - 1 && <CustomStepConnector />}
+            {index !== timeline.length - 1 && (
+            <div className=" absolute w-[2px] h-full  bg-brand-300">{/*line*/}</div>
+          )}
           </Box>
-
-          <Box
-            borderRadius="10px"
-            bgcolor="#FCFCFD"
-            maxWidth={{ xs: "100%", sm: "450px" }}
-            width="200px"
-            p={"5px"}
-            position="relative"
-            top="-13px"
-            border="1px solid white"
-            boxShadow="0px 2px 6px 0px rgba(2, 15, 35, 0.06)" // Small shadow on the bottom side
-          >
-            <Typography
-              variant="subtitle1"
-              fontWeight="500 !important"
-              display="flex"
-              alignItems="center"
-              minWidth={"155px"}
-              color="#475467"
-              marginTop="3px"
-              fontFamily="Open Sans"
-              fontSize="0.875rem"
-              sx={{
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                font:'500 !important'
-              }}
+          {/* Marker component end */}
+          <div className=" flex flex-col gap-y-1 w-full min-w-0 pl-[21px]">
+            <Box className="hidden md:block lg:hidden" textAlign={"left"} mr={2} position="relative" top="0px">
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                fontFamily="Open Sans"
+                fontSize="12px"
+                sx={{ whiteSpace: "nowrap", marginTop: "-2px !important" }}
+              >
+                {formatDate(step.type === "report" ? step.report_date : step.youtube_date)}
+              </Typography>
+            </Box>
+            <Box
+              className=" mt-[4px] sm:mt-0 "
+              borderRadius="8px"
+              bgcolor="#FCFCFD"
+              // maxWidth={{ xs: "100%" }}
+              width={"100%"}
+              p={"8px"}
+              mb={"16px"}
+              // mt={"4px"}
+              position="relative"
+              // top="-13px"
+              border="1px solid white"
+              boxShadow="0px 2px 6px 0px rgba(2, 15, 35, 0.06)" // Small shadow on the bottom side
             >
-              {step.type == "report"
-                ? step.report_action_text
-                : "Video Released"}
+              <Typography
+                variant="subtitle1"
+                fontWeight="500 !important"
+                display="flex"
+                alignItems="center"
+                width={"100%"}
+                // minWidth={"155px"}
+                color="#475467"
+                marginTop="3px"
+                fontFamily="Open Sans"
+                fontSize="0.875rem"
+                sx={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  font: "500 !important",
+                }}
+              >
+                {step.type == "report" ? step.report_action_text : "Video Released"}
 
-              {index == 0 && step.type === "report" && (
-                <Box
-                  ml={1}
-                  px={1}
-                  py={0.5}
-                  borderRadius="9999px"
-                  bgcolor="#FFF6EE"
-                >
+                {index == 0 && step.type === "report" && (
+                  <Box ml={1} px={1} py={0.5} borderRadius="9999px" bgcolor="#FFF6EE">
+                    <Typography color="orange" fontFamily="Open Sans" fontSize="10px" fontWeight={700}>
+                      Active
+                    </Typography>
+                  </Box>
+                )}
+              </Typography>
+
+              {step.youtube_title && (
+                <Box display="flex" alignItems="center" gap={1}>
                   <Typography
-                    color="orange"
+                    variant="body2"
+                    color="black"
+                    fontWeight="bold"
+                    fontSize="12px"
                     fontFamily="Open Sans"
-                    fontSize="10px"
-                    fontWeight={700}
+                    sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
                   >
-                    Active
+                    {step.youtube_title}
                   </Typography>
                 </Box>
               )}
-            </Typography>
 
-            {step.youtube_title && (
-              <Box display="flex" alignItems="center" gap={1}>
-                <Typography
-                  variant="body2"
-                  color="black"
-                  fontWeight="bold"
-                  fontSize="12px"
-                  fontFamily="Open Sans"
-                  sx={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
-                  {step.youtube_title}
-                </Typography>
-              </Box>
-            )}
-
-            <Button
-              size="small"
-              sx={{
-                mt: 1,
-                color: "#344054",
-                padding: "7px 14px 7px 12px",
-                borderRadius: "8px",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                border: "1px solid  #E4E7EC;",
-                textTransform: "none",
-                minWidth: "100px",
-                flexShrink: 0,
-                backgroundColor: "white",
-                fontFamily: "Open Sans",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                fontSize: "12px",
-                textOverflow: "ellipsis",
-                transition:
-                  "background-color 0.3s, color 0.3s, filter 0.3s, transform 0.3s",
-                "&:hover": {
-                  backgroundColor: "#CBF3F0",
-                  transform: "scale(0.95)", // Decrease size to 95% on hover
-                },
-              }}
-              onClick={() => {
-                handleTimeButtonClick(step);
-              }}
-            >
-              <img
-                src={`/assets/${step.type === "report" ? "file" : "video"}.svg`}
-                alt={step.label}
-                style={{ width: "20px", height: "20px" }}
-              />
-              {step.type == "report" ? step.report_name : "Watch Video"}
-            </Button>
-          </Box>
-        </Box>
+              <Button
+                size="small"
+                sx={{
+                  mt: 1,
+                  color: "#344054",
+                  padding: "7px 14px 7px 12px",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  border: "1px solid  #E4E7EC;",
+                  textTransform: "none",
+                  minWidth: "100px",
+                  flexShrink: 0,
+                  backgroundColor: "white",
+                  fontFamily: "Open Sans",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  fontSize: "12px",
+                  textOverflow: "ellipsis",
+                  transition: "background-color 0.3s, color 0.3s, filter 0.3s, transform 0.3s",
+                  "&:hover": {
+                    backgroundColor: "#CBF3F0",
+                    transform: "scale(0.95)", // Decrease size to 95% on hover
+                  },
+                }}
+                onClick={() => {
+                  handleTimeButtonClick(step);
+                }}
+              >
+                <img
+                  src={`/assets/${step.type === "report" ? "file" : "video"}.svg`}
+                  alt={step.label}
+                  style={{ width: "20px", height: "20px" }}
+                />
+                {step.type == "report" ? step.report_name : "Watch Video"}
+              </Button>
+            </Box>
+          </div>
+        </div>
       ))}
 
       <Modal open={reportOpen} onClose={handleClose}>
@@ -304,6 +284,6 @@ export default function StockDetailsTimeline({ timeline }) {
         <MoreHorizIcon sx={{ fontSize: "16px" }} />
         Load More
       </Button> */}
-    </Box>
+    </div>
   );
 }

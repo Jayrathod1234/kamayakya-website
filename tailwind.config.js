@@ -40,6 +40,7 @@ const config = {
     },
     fontFamily: {
       open_sans: ["Open Sans", "sans-serif"],
+      open_sans_italic:["Open Sans Italic","sans-serif"]
     },
     fontSize: {
       "4xs": [

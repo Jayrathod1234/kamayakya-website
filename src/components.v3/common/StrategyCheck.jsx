@@ -86,6 +86,7 @@ export default function StrategyCheck() {
         endIcon={
           <KeyboardArrowDownIcon
             style={{
+              marginLeft:"-4px",
               filter:
                 changablestrategyTags.length > 0
                   ? "brightness(0) invert(1)"
@@ -105,7 +106,7 @@ export default function StrategyCheck() {
           height: "46px",
           padding: "7px 12px",
           fontWeight: 500,
-
+          
           "&:hover": {
             backgroundColor:
               changablestrategyTags.length > 0
@@ -120,11 +121,12 @@ export default function StrategyCheck() {
           },
         }}
       >
-        <div className="flex items-center space-x-2 font-open_sans text-xs">
-          <span>Strategy</span>
+        <div className="flex items-center space-x-1 font-open_sans text-xs">
+          <span className="  text-sm font-medium">Strategy</span>
           {changablestrategyTags.length > 0 && (
             <span
               style={{
+                ...commonStyles,
                 backgroundColor: "#FFFFFF",
                 color: "#108973",
                 borderRadius: "50%",
@@ -134,8 +136,8 @@ export default function StrategyCheck() {
                 width: "20px",
                 height: "20px",
                 fontWeight: 700,
-                fontSize: "13px",
-                ...commonStyles,
+                fontSize: "14px",
+               
               }}
             >
               {changablestrategyTags.length}

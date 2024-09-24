@@ -27,6 +27,12 @@
   src: url("../../public/fonts/OpenSans-VariableFont_wdthwght.ttf");
 }
 
+@font-face {
+  font-family: "Open Sans Italic";
+  src: url("../../public/fonts/OpenSans-Italic-VariableFont_wdthwght.ttf");
+}
+
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;

@@ -1111,15 +1111,15 @@ function DrawerFilter() {
           <Button
             variant="outlined"
             onClick={toggleDrawer("bottom", true)}
-            sx={{ display: isMobile ? "block" : "none" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-28 hover:bg-error-500"
+            sx={{ display: isMobile ? "block" : "none", paddingInline:"10px",minWidth:"fit-content" }}
+            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0   !rounded-[6px]  gap-2 items-center shadow-3xs  hover:bg-error-500"
           >
-            <img src="/assets/filter.svg" alt="" />
-            <p className="font-open_sans text-brand-500 font-medium normal-case">
+            <img height={16} width={16} src="/assets/filter.svg" alt="" />
+            <p className="font-open_sans text-brand-500 font-medium normal-case text-sm">
               Filter
             </p>
             {totalFilterCount > 0 && (
-              <div className=" bg-[#135B54] font-open_sans text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+              <div className=" bg-[#135B54] font-open_sans text-white px-2 text-sm font-bold rounded-full w-6  h-6 justify-center items-center flex ">
                 {totalFilterCount}
               </div>
             )}
