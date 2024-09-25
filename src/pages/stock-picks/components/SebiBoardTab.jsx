@@ -25,11 +25,23 @@ function SebiBoardTab() {
           muted
           playsInline
           loop
-          className="h-full w-full object-cover"
+          className="hidden sm:block h-full w-full object-cover"
         >
           <source
             src="/assets/-7d58-4850-b149-dc7147331e8d.mp4"
             type="video/mp4"
+          />
+        </video>
+        <video
+          autoPlay
+          muted
+          playsInline
+          loop
+          className="block sm:hidden h-full w-full object-cover"
+        >
+          <source
+            src="/assets/mobile_hero_bg.webm"
+            type="video/webm"
           />
         </video>
         <div className="absolute top-0 left-0 h-full w-full opacity-40">

@@ -82,7 +82,7 @@ function StockCard({
           className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
         >
           {tabImage && (
-            <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
+            <img src={`/assets/${tabImage}.webp`} alt="" className="w-[210px] h-5 object-contain" />
           )}
         </div>
         <div className={cardClass}>
