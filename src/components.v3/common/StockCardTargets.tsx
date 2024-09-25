@@ -3,7 +3,7 @@ import React, { forwardRef, useState } from "react";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import AdjustIcon from "@mui/icons-material/Adjust";
 import EastIcon from "@mui/icons-material/East";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import Circle from "@mui/icons-material/Circle";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
 import { Arrow } from "@radix-ui/react-tooltip";
@@ -29,11 +29,11 @@ const getIcons = (label: string, status: string) => {
     );
   if (label === "CMP")
     return <Circle className=" text-[#1D9387] !h-3 !w-3 border border-white rounded-full relative" fontSize="small" />;
-  if (status === "Active")
+  if (status === "Active" || status==="Inactive")
     return (
       <GpsFixedIcon
         fontSize={"small"}
-        className="QontoStepIcon-lastStepIcon text-[#FF7F09] !h-3 !w-3 border border-white"
+        className={`QontoStepIcon-lastStepIcon ${status==="Active" ? "text-[#FF7F09]":" text-gray-300"}  !h-3 !w-3 border border-white`}
       />
     );
   if (label.includes("Entry"))
@@ -53,10 +53,16 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
     <div className={cn(` relative flex flex-col items-center w-[90px]`, className)}>
       <h4 className=" font-medium text-3xs text-[#667085] flex items-center whitespace-nowrap gap-x-[2px]">
         <span>{label}</span>
-        {label.includes("Target") && status === "Completed" ? (
-          <span>
-            <Check className=" text-[#12B76A]" size={12} />
-          </span>
+        {label.includes("Target") ? (
+          status === "Completed" ? (
+            <span>
+              <Check className=" text-[#12B76A]" size={12} />
+            </span>
+          ) : status === "Inactive" ? (
+            <span>
+              <X className=" text-[#D92D20]" size={12} />
+            </span>
+          ) : null
         ) : null}
         {showToolTip && (
           <TooltipProvider delayDuration={0}>
@@ -113,7 +119,7 @@ const StockCardTargets = forwardRef<HTMLDivElement[], TStockCardTargetsProps>(fu
       ) : (
         <>
           <h4 className=" text-[#344054] font-semibold text-sm mt-[6px] mb-0">₹{price}</h4>
-          {status === "Active" ? <p className=" text-[#FF7F09] text-3xs status">{status}</p> : null}
+          {status === "Active" || status === "Inactive" ? <p className={` ${status === "Active" ?"text-[#FF7F09]" :"text-[#858D9B]"} text-3xs status`}>{status}</p> : null}
           {date ? <p className=" text-[#98A2B3] text-3xs whitespace-nowrap">{date}</p> : null}
         </>
       )}

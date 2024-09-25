@@ -1,3 +1,4 @@
+"use client";
 import React, { use, useCallback, useEffect, useRef, useState } from "react";
 import StockDetailsNews from "../../stock-picks/[slug]/components/StockDetailsNews";
 import StockDetailsTimeline from "../../stock-picks/[slug]/components/StockDetailsTimeline";
@@ -6,7 +7,7 @@ import InvestmentSection from "../../stock-picks/components/InvestmentSection";
 import ElevateSection from "../../stock-picks/components/ElevateSection";
 import { useStockDetails } from "@/contexts/StockDetailsContext";
 import { useRouter } from "next/router";
-import Image from "next/image";
+// import Image from "next/image";
 import { Modal } from "@nextui-org/react";
 import { sectorIcons } from "@/utils/constants.js";
 import Banner from "../../stock-picks/[slug]/components/Banner";
@@ -16,7 +17,125 @@ import { Arrow } from "@radix-ui/react-tooltip";
 import { useQuery } from "@tanstack/react-query";
 import { getTrackDetailApi } from "@/api/track-record";
 import StockPerformanceCard from "./components/StockPerformanceCard";
+import LegendSection from "../components/LegendSection";
+import {
+  Chart as ChartJS,
+  LineElement,
+  Tooltip as ChartTooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  ArcElement,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
+import ProjectedInvestmentGrowth from './components/ProjectedInvestmentGrowth';
+ChartJS.register({
+  LineElement,
+  ChartTooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  ArcElement,
+  annotationPlugin,
+});
+
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateRandomData() {
+  const data = [];
+  for (let i = 1; i <= 15; i++) {
+    // Generate a random count value between 10 and 50
+    const count = getRandomInt(20, 80);
+
+    data.push({ year: i.toString(), count: count.toString() });
+  }
+  return data;
+}
+
+const data = generateRandomData();
+
 function StockDetailsSection() {
+  const img = new Image();
+  img.src = "/assets/entry point.svg";
+  const img2 = new Image();
+  img2.src = "/assets/typcn_tick (1).svg";
+
+  const markerAnnotation: AnnotationOptions = {
+    type: "label",
+    padding: 0,
+    content: img,
+    yValue: 20,
+    xValue: 1,
+    height: 14,
+    width: 14,
+    backgroundColor: "white",
+  };
+
+  const targetAnnotation: AnnotationOptions = {
+    type: "line",
+    borderColor: "#99D9D4",
+    borderWidth: 1,
+    borderDash: [6, 6],
+    scaleID: "y",
+    value: 20,
+    label: {
+      display: true,
+      content: "Target ",
+      backgroundColor: "transparent",
+      color: "#12B76A",
+      position: "end",
+      xAdjust: 50,
+      font: {
+        size: 10,
+      },
+    },
+  };
+
+  const targetAnnotation2: AnnotationOptions = {
+    type: "line",
+    borderColor: "#99D9D4",
+    borderWidth: 1,
+    borderDash: [6, 6],
+    scaleID: "y",
+    value: 15,
+    label: {
+      display: true,
+      content: "Target ",
+      backgroundColor: "transparent",
+      color: "#12B76A",
+      position: "end",
+      xAdjust: 50,
+      font: {
+        size: 10,
+      },
+    },
+  };
+
+  const targetIconAnnotation: AnnotationOptions = {
+    type: "line",
+    borderColor: "#99D9D4",
+    borderWidth: 0,
+    borderDash: [6, 6],
+    scaleID: "y",
+    value: 20,
+    label: {
+      display: true,
+      content: img2,
+      backgroundColor: "transparent",
+      // color: "#12B76A",
+      position: "end",
+      xAdjust: 65,
+      yAdjust: -2,
+      height: 16,
+      width: 16,
+    },
+  };
+
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
   const { slug } = router.query;
@@ -322,7 +441,7 @@ function StockDetailsSection() {
                         <div className=" flex flex-col md:flex-row gap-4 items-center md:items-center">
                           {/* Image container */}
                           <div className="hidden !w-[100px] !h-[100px] min-w-[100px]  sm:flex  rounded-md  border border-[#F2F4F7] justify-center items-center">
-                            <Image
+                            <img
                               src={stock_image ? stock_image : "/assets/image 3.png"}
                               alt="Company Logo"
                               width={70} // or use 92px for width
@@ -338,7 +457,7 @@ function StockDetailsSection() {
                                 <div className=" flex items-center sm:items-baseline max-md:justify-center min-w-0 w-full gap-x-2">
                                   <div className=" sm:hidden">
                                     <div className=" h-7 w-7 rounded-md border border-[#F2F4F7] flex  items-center justify-center">
-                                      <Image
+                                      <img
                                         src={stock_image ? stock_image : "/assets/image 3.png"}
                                         alt="Company Logo"
                                         width={20} // 10 * 4 (assuming 1rem = 4px)
@@ -590,7 +709,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box start */}
                   <div className="hidden sm:block col-span-2 order-3 sm:order-2">
                     <div className="p-4 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm mt-7">
-                      <div className=" relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-lg bg-[#EFF7FF] border border-transparent">
+                      <div className=" relative  gap-4 lg:gap-6 rounded-lg bg-white border border-transparent">
                         {/* Gradient Border */}
                         <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
@@ -600,20 +719,25 @@ function StockDetailsSection() {
                               cagr_of_stock ? "grid-cols-3 lg:grid-cols-3" : "grid-cols-2 lg:grid-cols-2"
                             } md:grid-cols-2 gap-4 md:gap-4 lg:gap-4 w-full`}
                           >
-                              {/* Total Returns Section */}
-                              <StockPerformanceCard
-                              className={ gain_loss > 0 ? "bg-custom-gradient":"bg-[linear-gradient(108.17deg,#FF9E9E_-3.69%,#E53A3A_92.32%)]"}
+                            {/* Total Returns Section */}
+                            <StockPerformanceCard
+                              className={
+                                gain_loss > 0
+                                  ? "bg-custom-gradient"
+                                  : "bg-[linear-gradient(108.17deg,#FF9E9E_-3.69%,#E53A3A_92.32%)]"
+                              }
                               label={"Total Returns"}
-                              icon={<img src="/assets/Layer_1.svg" alt="Returns Icon" className=" h-6 w-6" />}
+                              icon={<img src="/assets/Layer_1_white.svg" alt="Returns Icon" className=" h-6 w-6" />}
                               value={gain_loss}
                               time={return_time}
                               valueClassname={" text-white"}
                               timeClassname={"text-white"}
                             />
 
-
                             {/* Upside Left Section */}
                             <StockPerformanceCard
+                              className={" border border-[#F2F4F7]"}
+                              labelClassname={" text-[#1D2939]"}
                               label={"Upside Left"}
                               icon={
                                 <img
@@ -630,25 +754,25 @@ function StockDetailsSection() {
                                   className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
                                 />
                               }
-                              tooltipContent={<div className="w-full grid gap-1 relative">
-                                <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[32%]" />
-                                <p className="text-[12px]">
-                                  Upside Left means how much the stock price could rise from its current level.
-                                </p>
-                                <div className="p-2 bg-[#F9FAFB] rounded-md">
-                                  <h4 className="text-[#108973] text-[12px] font-extrabold">Example :</h4>
+                              tooltipContent={
+                                <div className="w-full grid gap-1 relative">
+                                  <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[32%]" />
                                   <p className="text-[12px]">
-                                    {" "}
-                                    If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                    Upside Left means how much the stock price could rise from its current level.
                                   </p>
+                                  <div className="p-2 bg-[#F9FAFB] rounded-md">
+                                    <h4 className="text-[#108973] text-[12px] font-extrabold">Example :</h4>
+                                    <p className="text-[12px]">
+                                      {" "}
+                                      If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>}
+                              }
                               tooltip={true}
                               value={upside_left}
                               time={upside_left_time}
                             />
-
-                          
 
                             {/* Total CAGR Section */}
                             {cagr_of_stock && (
@@ -746,127 +870,109 @@ function StockDetailsSection() {
                             )}
                           </div>
                         </div>
-
-                        <div className="pt-5 text-center md:text-center text-[#344054] text-sm md:text-base  font-normal gap-1">
-                          <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold">₹100000 </span>
-                          invested at current market price (CMP) can become{" "}
-                          <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold whitespace-nowrap">
-                            ₹{100000 + 1000 * upside_left} Lakh
-                          </span>{" "}
-                          likely within {upside_left_time}
+                        <div className=" mt-5">
+                          <ProjectedInvestmentGrowth action={action} upside_left={upside_left} upside_left_time={upside_left_time}/>
                         </div>
+                        <LegendSection className=" sm:justify-center pt-6 pb-0" />
                       </div>
 
-                      <div className="pt-4 bg-white">
-                        {/* md:px-[20px] lg:px-[30px] */}
-                        <div className="  pt-4 pb-4">{/* <StockDetailsProgressBar /> */}</div>
+                      <div className="pt-[13px] bg-white">
+                        {/* CHART SECTION */}
+                        <div className=" relative h-[383px] w-full py-5">
+                          <Line
+                            className=""
+                            options={{
+                              layout: {
+                                padding: {
+                                  right: 60,
+                                },
+                              },
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              plugins: {
+                                legend: {
+                                  display: false,
+                                },
+                                annotation: {
+                                  clip: false,
+                                  annotations: {
+                                    markerAnnotation,
+                                    targetAnnotation,
+                                    targetAnnotation2,
+                                    targetIconAnnotation,
+                                  },
+                                },
+                              },
+                              scales: {
+                                x: {
+                                  grid: {
+                                    color: "#f7f7f7",
+                                  },
+                                },
+                                y: {
+                                  grid: {
+                                    color: "#f7f7f7",
+                                  },
+                                },
+                              },
+                            }}
+                            data={{
+                              labels: data.map((x) => x.year),
+                              datasets: [
+                                {
+                                  label: "Dimensions",
+                                  data: data.map((row) => row.count),
+                                  borderColor: "#00645A",
+                                  pointStyle: false,
+                                  tension: 0,
+                                  borderWidth: 1,
+                                },
+                              ],
+                            }}
+                          />
+                        </div>
+                        {/* CHART SECTION END */}
                       </div>
                     </div>
                   </div>
 
                   {/* Small Responsive size View Open the box  */}
                   <div
-                    className="block rounded-lg sm:hidden bg-[#eff7ff] p-4  shadow-md max-w-full mx-auto mt-5"
+                    className="block rounded-lg sm:hidden bg-white p-4  shadow-md max-w-full mx-auto mt-5"
                     ref={UpsideLeftRef}
                     id="upside-left-section"
                   >
-                    <div className="  rounded-lg">
-                      <div className="bg-white rounded-t-lg p-4">
-                        <div className="bg-custom-gradient text-white rounded-lg p-4">
-                          <div className="flex justify-between items-center">
-                            <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
-                              Upside Left
-                              {/* Tooltip for large screens and Modal Trigger for small screens */}
-                              <div className="relative group hidden sm:block">
-                                {/* Tooltip (Visible on large screens) */}
-                                <img
-                                  src="/assets/ph_info-duotone.svg"
-                                  alt="Info"
-                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                />
-                                <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
-                                  <div className="w-full grid gap-1 relative">
-                                    <img src="/assets/div.png" alt="" className="h-8 w-5 absolute -top-4 left-[46%]" />
-                                    <p className="text-[12px] font-open_sans">
-                                      Upside Left means how much the stock price could rise from its current level.
-                                    </p>
-                                    <div className="p-2 bg-[#F9FAFB] rounded-md">
-                                      <h4 className="text-[#108973] text-[12px] font-extrabold font-open_sans">
-                                        Example :
-                                      </h4>
-                                      <p className="text-[12px] font-open_sans">
-                                        If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              {/* Modal Trigger for small screens */}
-                              <div className="sm:hidden">
-                                <img
-                                  src="/assets/ph_info-duotone.svg"
-                                  alt="Info"
-                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                  onClick={openModal}
-                                />
-                              </div>
-                            </h2>
-
-                            <img src="/assets/stock-details/streamline_target-solid (1).svg" alt="" />
-                          </div>
-
-                          {/* Modal for small screens */}
-
-                          <Modal
-                            blur
-                            width="450px"
-                            open={isModalOpen}
-                            onClose={() => setIsModalOpen(false)}
-                            className="flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
-                          >
-                            {/* Modal Header */}
-                            <div className="w-full flex justify-between items-center gap-1">
-                              <h3 className="text-xl font-bold leading-[30px] text-[#101828] m-0 font-open_sans">
-                                Upside Left
-                              </h3>
-                              <button className="text-[30px] text-gray-500 hover:text-gray-700" onClick={closeModal}>
-                                &times;
-                              </button>
-                            </div>
-
-                            {/* Modal Body */}
-                            <div className="mt-2 text-left text-gray-800 text-sm font-open_sans">
-                              Upside Left means how much the stock price could rise from its current level.
-                            </div>
-                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left">
-                              <span className=" text-[#108973] text-sm font-bold font-open_sans">Example :</span>
-                              <p className="text-sm text-gray-600 mt-1 font-open_sans">
-                                If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
-                              </p>
-                            </div>
-                          </Modal>
-
-                          <div className="flex items-center gap-2">
-                            <p className="text-display-xs font-bold  font-open_sans">{upside_left}%</p>
-                            <p className="text-sm font-open_sans mt-1">likely within {upside_left_time}</p>
-                          </div>
-                        </div>
+                    <div className="  rounded-2xl border border-[#F2F4F7] bg-[#F9FAFB]">
+                      <div className="bg-[F9FAFB] rounded-t-2xl p-2">
+                      <StockPerformanceCard
+                              className={
+                                gain_loss > 0
+                                  ? "bg-custom-gradient rounded-[10px]"
+                                  : "bg-[linear-gradient(108.17deg,#FF9E9E_-3.69%,#E53A3A_92.32%)] rounded-[10px]"
+                              }
+                              label={"Total Returns"}
+                              icon={<img src="/assets/Layer_1.svg" alt="Returns Icon" className=" h-6 w-6" />}
+                              value={gain_loss}
+                              time={return_time}
+                              valueClassname={" text-white"}
+                              timeClassname={"text-white"}
+                            />
                       </div>
-                      <div className="bg-white px-5 pb-2 rounded-b-lg">
+                      <div className="bg-[F9FAFB] px-4 pb-2 rounded-b-2xl">
                         <div className="flex justify-between items-center">
                           <div className="flex items-center">
-                            <img src="/assets/hj1.svg" alt="" />
-                            <p className="ml-2 text-3xs text-gray-800 font-open_sans">Total Returns</p>
+                            <img height={14} width={14} className=" object-contain" src="/assets/hj1.svg" alt="" />
+                            <p className="ml-[10px] text-3xs text-gray-800 font-open_sans">Total Returns</p>
                           </div>
                           <div className="flex items-center">
                             {gain_loss >= 0 ? (
                               // green up arrow
-                              <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2" />
+                              <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2 h-[6px]" />
                             ) : (
                               // red down arrow
-                              <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
+                              <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2 h-[6px]" />
                             )}
-                            <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
+                            <p className="text-[#1D2939] ml-1 text-2xs font-open_sans font-[700]">
                               {Math.abs(gain_loss)}% {""}
                               <span className="text-gray-500 text-4xs font-open_sans font-semibold">
                                 in {return_time}
@@ -1083,7 +1189,7 @@ function StockDetailsSection() {
                       </div>
                     </div>
 
-                    <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base leading-6 font-normal  gap-1 font-open_sans">
+                    <div className="pt-6 text-center md:text-left text-[#344054] text-sm md:text-base leading-6 font-normal  gap-1 font-open_sans">
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">₹100000 </span>
                       invested at current market price (CMP) can become{" "}
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
@@ -1091,12 +1197,64 @@ function StockDetailsSection() {
                       </span>{" "}
                       likely within {upside_left_time}
                     </div>
-                    <div className="pt-4 hidden sm:block bg-white">
-                      <div className="">{/* <StockDetailsProgressBar /> */}</div>
+                    <div className="pt-6 block sm:hidden bg-white">
+                      <div className=""><div className=" relative h-[250px] w-full py-5">
+                          <Line
+                            className=""
+                            options={{
+                              layout: {
+                                padding: {
+                                  right: 60,
+                                },
+                              },
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              plugins: {
+                                legend: {
+                                  display: false,
+                                },
+                                annotation: {
+                                  clip: false,
+                                  annotations: {
+                                    markerAnnotation,
+                                    targetAnnotation,
+                                    targetAnnotation2,
+                                    targetIconAnnotation,
+                                  },
+                                },
+                              },
+                              scales: {
+                                x: {
+                                  grid: {
+                                    color: "#f7f7f7",
+                                  },
+                                },
+                                y: {
+                                  grid: {
+                                    color: "#f7f7f7",
+                                  },
+                                },
+                              },
+                            }}
+                            data={{
+                              labels: data.map((x) => x.year),
+                              datasets: [
+                                {
+                                  label: "Dimensions",
+                                  data: data.map((row) => row.count),
+                                  borderColor: "#00645A",
+                                  pointStyle: false,
+                                  tension: 0,
+                                  borderWidth: 1,
+                                },
+                              ],
+                            }}
+                          />
+                        </div></div>
                     </div>
                   </div>
                   <div className=" block sm:hidden">
-                    <div className="px-4 md:px-[20px] pt-4 pb-4 bg-white"></div>
+                  
                   </div>
                   {/* Upside Left Box End  */}
 
@@ -1306,7 +1464,7 @@ function StockDetailsSection() {
                           {action_text}{" "}
                         </p>
                         <img
-                          src="/assets/details_buy_mascot.png"
+                          src={ action === "BUY" ? "/assets/details_buy_mascot.png" : action === "HOLD" ? "/assets/details_hold_mascot.png":"/assets/details_sell_mascot.png"}
                           alt=""
                           className=" object-contain right-6 w-[81px] h-[120px] "
                         />

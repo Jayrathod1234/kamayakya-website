@@ -908,8 +908,14 @@ function StockDetailsSection() {
                       <div className="bg-white rounded-t-lg p-4">
                         <div className="bg-custom-gradient text-white rounded-lg p-4">
                           <div className="flex justify-between items-center">
-                            <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
+                            <h2 className="text-sm font-open_sans font-semibold flex items-center gap-x-1">
                               Upside Left
+                              <img
+                                  src="/assets/ph_info-duotone.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] object-contain mt-[-1px] cursor-pointer"
+                                  onClick={openModal}
+                                />
                               {/* Tooltip for large screens and Modal Trigger for small screens */}
                               <div className="relative group hidden sm:block">
                                 {/* Tooltip (Visible on large screens) */}
@@ -936,14 +942,9 @@ function StockDetailsSection() {
                                 </div>
                               </div>
                               {/* Modal Trigger for small screens */}
-                              <div className="sm:hidden">
-                                <img
-                                  src="/assets/ph_info-duotone.svg"
-                                  alt="Info"
-                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                  onClick={openModal}
-                                />
-                              </div>
+                              {/* <div className="sm:hidden">
+                             
+                              </div> */}
                             </h2>
 
                             <img src="/assets/stock-details/streamline_target-solid (1).svg" alt="" />
@@ -972,7 +973,7 @@ function StockDetailsSection() {
                             <div className="mt-2 text-left text-gray-800 text-sm font-open_sans">
                               Upside Left means how much the stock price could rise from its current level.
                             </div>
-                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left">
+                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left flex-1">
                               <span className=" text-[#108973] text-sm font-bold font-open_sans">Example :</span>
                               <p className="text-sm text-gray-600 mt-1 font-open_sans">
                                 If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
@@ -980,7 +981,7 @@ function StockDetailsSection() {
                             </div>
                           </Modal>
 
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 truncate">
                             <p className="text-display-xs font-bold  font-open_sans">{upside_left}%</p>
                             <p className="text-sm font-open_sans mt-1">likely within {upside_left_time}</p>
                           </div>

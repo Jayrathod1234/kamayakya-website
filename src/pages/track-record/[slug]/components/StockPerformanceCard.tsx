@@ -32,33 +32,34 @@ export default function StockPerformanceCard({
   icon,
   valueClassname,
   timeClassname,
+  labelClassname,
 }) {
   return (
     <div
       className={cn(
         `w-full min-w-[150px]  ${
           cagr_of_stock ? "md:col-span-full lg:col-span-1" : ""
-        }  p-4 pt-2 pr-2  rounded-md bg-white flex flex-col max-h-[95px]`,
+        }  p-4 pt-2 pr-2 pb-4  rounded-lg bg-white flex flex-col max-h-[100px]`,
         className
       )}
     >
       <div className="flex flex-col md:flex-row justify-between">
         <div className=" flex justify-between w-full">
           <div className="flex gap-1 items-center">
-            <p className="font-open_sans text-sm font-semibold text-[#FCFCFD]">{label}</p>
+            <p className={cn("font-open_sans text-sm font-semibold text-[#FCFCFD]",labelClassname)}>{label}</p>
             <div className="relative">
               {tooltip ? (
                 <StockPerformanceCardTooltip tooltipContent={tooltipContent} tooltipTrigger={tooltipTrigger} />
               ) : null}
             </div>
           </div>
-          <div className="hidden sm:flex justify-end">
+          <div className="flex justify-end">
             <div className="p-2">{icon}</div>
           </div>
         </div>
       </div>
-      <div className={cn("flex mt-auto flex-col sm:flex-row items-start sm:items-center gap-1 text-[16px] sm:text-[20px] lg:text-[20px] text-[#344054] font-bold",valueClassname)}>
-        {value >= 0 ? (
+      <div className={cn("flex mt-auto flex-row items-center gap-1 text-[24px] sm:text-[30px]  text-[#344054] font-bold",valueClassname)}>
+        {label === "Upside Left" ? null : value >= 0 ? (
           <>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" viewBox="0 0 15 11" fill="none">
               <path
@@ -86,7 +87,7 @@ export default function StockPerformanceCard({
         )}
         <div className=" flex items-baseline gap-x-1">
           {Math.abs(value)}% {""}
-          <span className={cn("text-[12px]  text-[#667085] font-medium line-clamp-1",timeClassname)}>in {time}</span>
+          <span className={cn("text-[12px]  text-[#667085] sm:font-medium line-clamp-1",timeClassname)}>in {time}</span>
         </div>
       </div>
     </div>

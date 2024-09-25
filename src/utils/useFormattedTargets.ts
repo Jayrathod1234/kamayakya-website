@@ -26,7 +26,7 @@ export const useFormattedTargets = ({
         label: `Target ${index + 1}`,
         date: formatDate(item.created),
         price: item.target_price,
-        status: item.target_met ? "Completed" : "Active",
+        status: item.target_met ? "Completed" : new Date() < new Date(item.target_date) ? "Active": "Inactive",
       })),
     [stock_targets, formatDate]
   );
