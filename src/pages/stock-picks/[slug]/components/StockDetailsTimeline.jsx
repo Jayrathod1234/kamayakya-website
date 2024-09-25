@@ -76,13 +76,13 @@ export default function StockDetailsTimeline({ timeline }) {
   // const handleLoadMore = () => {
   //   setVisibleSteps((prev) => prev + 2);
   // };
-
+  
   return (
-    <div className="flex flex-col justify-center pt-[30.8px] bg-white min-w-0" >
+    <div className="flex flex-col justify-center pt-[30.8px] bg-white min-w-0 items-center" >
       {timeline.map((step, index) => (
-        <div className=" relative grid grid-cols-[74px_10px_1fr] md:grid-cols-[26px_1fr] lg:grid-cols-[74px_10px_1fr] w-full min-w-0" key={index} >
+        <div className=" relative grid grid-cols-[.8fr_10px_1fr] md:grid-cols-[26px_1fr] lg:grid-cols-[74px_10px_1fr] w-full min-w-0" key={index} >
           {/* Date component for large screen */}
-          <Box textAlign={"left"} className="block md:hidden lg:block " position="relative" top="0px">
+          <Box textAlign={"left"} className="block justify-self-end pr-[21px] lg:justify-self-start lg:pr-0 md:hidden lg:block " position="relative" top="0px">
             <Typography
               variant="body2"
               color="textSecondary"
@@ -129,7 +129,7 @@ export default function StockDetailsTimeline({ timeline }) {
               </Typography>
             </Box>
             <Box
-              className=" -mt-4 md:mt-0 lg:-mt-4  "
+              className=" -mt-4 max-sm:max-w-fit md:mt-0 lg:-mt-4  "
               borderRadius="8px"
               bgcolor="#FCFCFD"
               // maxWidth={{ xs: "100%" }}
