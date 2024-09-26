@@ -37,3 +37,6 @@ export function HeroCardSection() {
     </div>
   );
 }
+
+
+export default HeroCardSection

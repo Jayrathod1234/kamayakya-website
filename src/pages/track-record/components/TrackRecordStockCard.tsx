@@ -344,3 +344,6 @@ export const TrackRecordStockCard = ({
     </div>
   );
 };
+
+
+export default TrackRecordStockCard

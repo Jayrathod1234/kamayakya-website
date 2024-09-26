@@ -120,3 +120,6 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
     </HoverCard>
   );
 }
+
+
+export default TrackRecordHeroCardNewChip

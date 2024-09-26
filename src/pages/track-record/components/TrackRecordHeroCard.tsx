@@ -95,3 +95,5 @@ export const TrackRecordHeroCard = ({
     </div>
   );
 };
+
+export default TrackRecordHeroCard

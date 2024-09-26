@@ -42,3 +42,5 @@ export const AverageReturnCard = ({ type, averageReturns }) => {
     </TooltipProvider>
   );
 };
+
+export default AverageReturnCard

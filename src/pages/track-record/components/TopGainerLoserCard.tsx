@@ -193,3 +193,5 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string
     </div>
   );
 };
+
+export default TopGainerLoserCard;

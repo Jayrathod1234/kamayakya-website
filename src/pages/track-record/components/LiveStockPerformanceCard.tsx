@@ -91,3 +91,5 @@ export function LiveStockPerformanceCard({ type, performance }) {
     </div>
   );
 }
+
+export default LiveStockPerformanceCard
