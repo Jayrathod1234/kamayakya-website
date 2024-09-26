@@ -273,6 +273,16 @@ function DrawerFilter() {
       backgroundColor: "#E4E7EC", // Dot color when not active
       zIndex:0
     },
+    '& .MuiSlider-valueLabel': {
+      display:"none",
+      transform: 'translateY(100%)',
+      '&::before': {   top:-8, },
+      '&.MuiSlider-valueLabelOpen': {
+        display:'block',
+      transform: 'translateY(140%)',
+      zIndex:1000
+    },
+    }
   });
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
