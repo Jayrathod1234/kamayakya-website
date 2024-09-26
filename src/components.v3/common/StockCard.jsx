@@ -153,7 +153,7 @@ function StockCard({
                       translate-x-[5px]
                       me-3
                       md:group-hover/watch-video:translate-x-[-65px]
-                      md:group-hover/watch-video:me-7
+                      md:group-hover/watch-video:me-[18px]
                       
                       `}
                     >
