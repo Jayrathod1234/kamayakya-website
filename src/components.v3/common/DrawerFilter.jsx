@@ -274,12 +274,9 @@ function DrawerFilter() {
       zIndex:0
     },
     '& .MuiSlider-valueLabel': {
-      display:"none",
-      transform: 'translateY(100%)',
-      '&::before': {   top:-8, },
+        zIndex:1000,
       '&.MuiSlider-valueLabelOpen': {
-        display:'block',
-      transform: 'translateY(140%)',
+       
       zIndex:1000
     },
     }
@@ -1208,6 +1205,7 @@ function DrawerFilter() {
                   // width: "144px !important",
                   height: "100%", // Set a fixed height to make sure scrolling works
                   width:"100%",
+                  zIndex:60,
                 }}
               >
                 <Tabs
@@ -1516,7 +1514,7 @@ function DrawerFilter() {
                     width: "246px !important",
                   }}
                 >
-                  <TabPanel value={value} index={0} className="scrolllab">
+                  <TabPanel value={value} index={0} className="scrolllab z-[60] !overflow-visible">
                     {/* upside left  */}
                     <div className="">
                       <CustomSlider

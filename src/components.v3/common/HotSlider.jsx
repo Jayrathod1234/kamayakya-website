@@ -172,14 +172,14 @@ export function HotSlider({ children }) {
   // }, [emblaApi]);
   return (
     <div className={`relative w-full m-auto `}>
-      <div className="flex">
+      <div className="flex ">
         {/* left slider button */}
         <div className="justify-center items-center flex ">
           <div>
             <Button
               onClick={() => handlePrevNext(onPrevButtonClick)}
               variant={"default"}
-              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out absolute top-[45%] z-[9] left-5"
+              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out absolute top-[43%] z-[9] left-5"
             >
               <div className="w-5 flex items-center justify-center relative">
                 <ChevronLeftIcon

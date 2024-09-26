@@ -7,6 +7,7 @@ import AuthContext from "@/components/AuthContext";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { useMediaQuery } from "@mui/material";
 import { useStockPicks } from "@/contexts/StockPicksContext";
+import { HotSlider } from "../../../components.v3/common/HotSlider";
 
 function LatestReleases({ isLimitedView }) {
   const { sebiBoardType } = useStockPicks();
@@ -102,7 +103,8 @@ function LatestReleases({ isLimitedView }) {
                   </div>
                 ) : (
                   items.length > 0 && (
-                    <Slider>
+                    <div className=" w-full max-w-[1280px] mx-auto mt-10">
+                    <HotSlider>
                       {items.map((value) => (
                         <StockCard
                           className="w-[330px]"
@@ -111,7 +113,8 @@ function LatestReleases({ isLimitedView }) {
                           isCarousal={true}
                         />
                       ))}
-                    </Slider>
+                    </HotSlider>
+                    </div>
                   )
                 )}
               </div>
