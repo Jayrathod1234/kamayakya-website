@@ -1,6 +1,6 @@
 "use client";
 import { ButtonnArrow } from "@/components.v2/button";
-import { ButtonVariant } from "@/components.v2/button/button";
+import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import { Tabs, TabsVariant } from "@/components.v2/tabs";
 import CustomSortMenu from "./components/RadioDrop";
 // import StockCardSkeleton from "/skeletons/StockCardSkeleton";
@@ -20,6 +20,9 @@ import Layout from "@/layout/Layout";
 import { TrackRecordProvider, useTrackRecord } from "@/contexts/trackRecordContext";
 import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 import LegendSection from "./components/LegendSection";
+import SebiBoardTab from '../stock-picks/components/SebiBoardTab'
+import { getMixPanelClient } from "@/externals/mixpanel";
+
 
 const Filters = () => {
   const { searchStock, setSearchStock } = useTrackRecord();
@@ -142,6 +145,19 @@ export default function TrackRecord() {
   // const [currentTabSelected, setCurrentTabSelected] = useState("all");
   const showFilterRef = useRef(null);
   const { setShowFilterHeader } = useNavBar();
+  const handleContactButton = () => {
+    const mp = getMixPanelClient();
+    mp.track("sebi_registered_clicked", {
+      page: "TrackRecord_Page",
+    });
+    window.open(
+      "Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
+      "_blank",
+      "fullscreen=yes"
+    );
+  };
+
+
   useEffect(() => {
     const handleScroll = () => {
       if (showFilterRef.current) {
@@ -172,14 +188,16 @@ export default function TrackRecord() {
               {/* hero text section */}
               <div className=" py-9 flex flex-col items-center justify-center relative z-10">
                 {/* Sebi chip */}
-                <div className=" border max-w-fit rounded-full border-lime-400 z-10">
-                  <ButtonnArrow
-                    className=" !py-[6px] !px-4 bg-[rgba(16,137,115,0.2)] hover:scale-100 hover:bg-[rgba(16,137,115,0.2)]  rounded-full"
-                    variant={ButtonVariant.custom}
-                  >
-                    <p className=" font-semibold text-sm text-white">SEBI Registered: INH000009843</p>
-                  </ButtonnArrow>
-                </div>
+            
+                <div className="pt-5 pb-3 md:pt-9 md:pb-[16px] flex justify-center">
+            <ButtonnArrow
+              onClick={handleContactButton}
+              variant={ButtonVariant.sebi}
+              size={ButtonSize.lg}
+            >
+              SEBI Registered: INH000009843
+            </ButtonnArrow>
+          </div>
                 {/* Sebi chip end */}
                 {/* heading and subtext */}
                 <h1 className=" text-display-lg font-bold text-white mt-4 mb-3 z-10 text-center">

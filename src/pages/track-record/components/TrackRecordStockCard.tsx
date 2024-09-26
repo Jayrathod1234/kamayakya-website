@@ -16,6 +16,11 @@ import { abbreviateTime } from "@/lib/date-formatter";
 import { useContext } from "react";
 import AuthContext from "@/components/AuthContext";
 import { useRouter } from "next/router";
+import { useStockPicks } from "@/contexts/StockPicksContext";
+import { sectorIcons } from "@/utils/constants.js";
+import DeepValue from "../../../components.v3/common/DeepValue";
+import { Tooltip as MuiTooltip } from "@mui/material";
+import { TargetChip } from "@/components.v3/common/TargetChip";
 
 ChartJS.register({
   LineElement,
@@ -73,8 +78,11 @@ export const TrackRecordStockCard = ({
   total_returns,
   upside_left,
   upside_left_time,
+  // market_cap,
 }) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
+  const isBlur = !isLoggedIn;
+  const { stockSector } = useStockPicks();
   const img = new Image();
   img.src = "/assets/entry point.svg";
   const img2 = new Image();
@@ -152,12 +160,13 @@ export const TrackRecordStockCard = ({
   };
 
   const router = useRouter();
-
+  
   return (
     <div className=" p-5 bg-white max-h-[451px] lg:max-w-[630px] rounded-lg overflow-hidden">
       {/* TOP SECTION */}
       <div className=" flex gap-x-2 items-center justify-between">
-        <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate">{stock_name}</h4>
+        {isBlur || !stock_name ? <div className="flex items-center w-full"> <img height={28} width={28} src="/assets/noto_locked.png" alt="" /><div className=" h-5 w-1/2 rounded-full bg-[#EDF0F5]"></div></div>:<h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate">{stock_name}</h4>}
+        
         <a className=" text-inherit" href={latest_youtube_video?.youtube_title} target="_blank">
           <div className=" group/watch-video flex items-center  gap-x-[6px] cursor-pointer duration-300 w-[28px] overflow-hidden hover:w-[128px] transition-all">
             <img height={28} width={28} className=" h-7 w-7" src="/assets/play.gif" />
@@ -166,8 +175,38 @@ export const TrackRecordStockCard = ({
         </a>
       </div>
 
-      <div className=" mt-3 border border-[#FEF0C7] px-[6px] py-[2px] rounded w-fit">
-        <p className=" text-[#A3651A] font-semibold text-[10px]">Engineering</p>
+      <div className="pt-[12px]">
+        <div className=" flex items-center gap-[8px] ">
+          {stockSector && sector && (
+            <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
+              <img src={`/sector_images_mustard/${sectorIcons[sector]}`} alt="" className="w-3 " />
+              {stock_tags?.length > 0 ? (
+                <MuiTooltip title={stockSector[sector] ?? ""}>
+                  <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
+                    {stockSector[sector]?.length > 10
+                      ? `${stockSector[sector].substring(0, 10)}...`
+                      : stockSector[sector]}
+                  </p>
+                </MuiTooltip>
+              ) : (
+                <p className="text-[10px] font-semibold text-orange-700 font-open_sans">{stockSector[sector]}</p>
+              )}
+            </div>
+          )}
+          <TargetChip containerClass="py-[3px] px-2 h-6 items-center border border-[#FEF0DF]" activeIconClass=" h-[10px] w-[10px]" activeIcon target_number={`${target_number} at ${latest_target_price ? `₹${latest_target_price}`:""}`} active={target_status==="active" ? true:false}/>
+          {/* <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
+            <img src="/assets/Component 8.svg" alt="" className="w-3" />
+            <p className="text-[10px] font-semibold text-[#667085] flex !items-center whitespace-nowrap font-open_sans">
+              MCap:
+              {is_blur ? (
+                <div className="  w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
+              ) : (
+                <span className="">₹ {market_cap}</span>
+              )}
+            </p>
+          </div> */}
+          {stock_tags?.length > 0 && <DeepValue stock_tags={stock_tags} />}
+        </div>
       </div>
       {/* TOP SECTION  END*/}
       {/* CHART SECTION */}
@@ -236,7 +275,7 @@ export const TrackRecordStockCard = ({
           } px-3 py-2 min-w-[140px]`}
         >
           <p className=" text-4xs font-bold text-white">Total Returns</p>
-          <div className={` flex gap-x-[2px] ${!isLoggedIn || (!isSubscribed && action === "BUY") ? "pt-[5px]":""}`}>
+          <div className={` flex gap-x-[2px] ${!isLoggedIn || (!isSubscribed && action === "BUY") ? "pt-[5px]" : ""}`}>
             <img
               width={15}
               height={11}
@@ -281,7 +320,7 @@ export const TrackRecordStockCard = ({
         {/* Upside Left End  */}
       </div>
       <div className=" pt-5">
-        <button onClick={()=>router.push(`/track-record/${id}`)} className="button-82-pushable group " role="button">
+        <button onClick={() => router.push(`/track-record/${id}`)} className="button-82-pushable group " role="button">
           <span className="button-82-shadow"></span>
           <span className="button-82-edge"></span>
           <span className="button-82-front button-82-front2 text flex items-center">

@@ -19,7 +19,7 @@ import React, { useState } from "react";
 const ChipItem = ({ label, img, id }: { label: string; img: string | null; id: string }) => {
   const router = useRouter();
 
-  const handleRouting = () => router.push(`/track-record/${id}`);
+  const handleRouting = () => id ? router.push(`/track-record/${id}`):null;
 
   return (
     <div onClick={handleRouting} className="!p-0 rounded-[4px]  hover:!bg-[rgba(244,255,255,1)] flex items-center">
@@ -28,7 +28,9 @@ const ChipItem = ({ label, img, id }: { label: string; img: string | null; id: s
         {img ? (
           <img className=" object-contain" src={img} height={30} width={30} alt="stock-image" />
         ) : (
-          <div className=" h-6 w-6 bg-red-400"></div>
+          <div className=" h-6 w-6 bg-[#FFF1CE] rounded-full flex items-center justify-center">
+            <img height={15} width={15} src="/assets/noto_locked.png" alt="" />
+          </div>
         )}
       </div>
       {/* image container end */}
@@ -38,9 +40,10 @@ const ChipItem = ({ label, img, id }: { label: string; img: string | null; id: s
         variant={ButtonVariant.custom}
         className=" group/chip  min-w-0 w-full justify-between !items-center hover:scale-100 bg-transparent hover:bg-transparent !p-0 !py-0 !pr-3"
       >
-        <p className="!text-2xs  text-gray-700 font-normal group-hover/chip:text-brand-400 group-hover/chip:font-semibold truncate">
+        {label ?  <p className="!text-2xs  text-gray-700 font-normal group-hover/chip:text-brand-400 group-hover/chip:font-semibold truncate">
           {label}
-        </p>
+        </p>:<span className=" bg-[#EDF0F5] rounded-full h-[15px] w-1/2"></span>}
+       
       </ButtonnArrow>
     </div>
   );
@@ -85,8 +88,10 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
               <ul className=" !m-0">
                 {
                   newRecommendation.map(recommendation=> <li onClick={()=>router.push(`/track-record/${recommendation.id}`)} className=" px-4 py-[10px] flex gap-x-2 items-center">
-                    <img height={28} width={28} src={recommendation.stock_image} alt="stock-image" />
-                    <p className=" text-sm text-gray-700">{recommendation.stock_name}</p>
+                    {recommendation.stock_name ? <><img height={28} width={28} src={recommendation.stock_image} alt="stock-image" />
+                    <p className=" text-sm text-gray-700">{recommendation.stock_name}</p></>:<>
+                    <span className=" flex items-center justify-center bg-[#FFF1CE] rounded-full"><img height={15} width={15} src="/assets/noto_locked.png" alt="" /></span>
+                    </>}
                     <ArrowRight color="#475467" className=" ml-auto" height={16} width={16}/>
                   </li>)
                 }
