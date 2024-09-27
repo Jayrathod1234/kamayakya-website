@@ -290,7 +290,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
             )} */}
             </CarouselContent>
             <CarouselPrevious className=" h-7 w-7 p-1 left-[0px] top-[50%] disabled:hidden border-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-black  hover:text-white   bg-black text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
-            <CarouselNext className=" h-7 w-7 p-1 right-[24px] top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+            <CarouselNext className=" h-7 w-7 p-1 right-[0px] top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
             </Carousel>
           </Box>
         </Box>
