@@ -41,7 +41,7 @@ function ResponsiveFilter() {
             scrollbarWidth: "none",
           }}
         >
-          <Box className="w-[min(1280px,calc(100%-25px))]  min-w-[328px] mx-auto   pb-[20px] px-0 flex gap-1 items-center pt-4">
+          <Box className="w-[min(1280px,calc(100%-32px))]  min-w-[328px] mx-auto   pb-[20px] px-0 flex gap-1 items-center pt-4">
             {/* <CustomSortMenu /> */}
 
             {/* <div className="w-auto sm:block hidden"> */}

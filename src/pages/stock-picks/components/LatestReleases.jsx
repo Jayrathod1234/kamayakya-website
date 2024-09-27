@@ -103,17 +103,17 @@ function LatestReleases({ isLimitedView }) {
                   </div>
                 ) : (
                   items.length > 0 && (
-                    <div className=" w-full max-w-[1280px] mx-auto mt-10">
-                    <HotSlider>
+                    <div className=" w-full max-w-[1230px] mx-auto mt-10">
+                    <Slider>
                       {items.map((value) => (
                         <StockCard
-                          className="w-[330px]"
+                          // className="w-[330px]"
                           key={value.id}
                           {...value}
                           isCarousal={true}
                         />
                       ))}
-                    </HotSlider>
+                    </Slider>
                     </div>
                   )
                 )}

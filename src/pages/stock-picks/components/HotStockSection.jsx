@@ -32,7 +32,7 @@ const HotStockSection = ({ items, isLimitedView, isLoading, error }) => {
                   <div className=" gap-4  flex ">
                     <StockCardSkeleton
                       length={isMobile ? 1 : 3}
-                      className="sm:w-[404px] w-[274px]"
+                      className={` ${isMobile ? "w-[320px] mx-auto" :"w-[calc(100%/3)]" }`}
                     />
                   </div>
                 </div>

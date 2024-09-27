@@ -310,7 +310,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("right", true)}
             sx={{ display: isMobile ? "none" : "block" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
+            className="!flex h-full relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
           >
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case">
@@ -1119,7 +1119,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("bottom", true)}
             sx={{ display: isMobile ? "block" : "none", paddingInline:"10px",minWidth:"fit-content" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0   !rounded-[6px]  gap-2 items-center shadow-3xs  hover:bg-error-500"
+            className="!flex h-full relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0   !rounded-[6px]  gap-2 items-center shadow-3xs  hover:bg-error-500"
           >
             <img height={16} width={16} src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case text-sm">

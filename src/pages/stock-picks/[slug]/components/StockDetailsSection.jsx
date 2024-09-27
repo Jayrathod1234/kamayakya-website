@@ -1251,7 +1251,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[70px]  px-[4px] hidden sm:block">
+                  <div className="pt-[70px] hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">Company Profile</h2>
                     <p
                       dangerouslySetInnerHTML={{ __html: truncatedText }}
