@@ -2149,3 +2149,13 @@ header > div > div {
   transform-origin: left;
 }
 
+
+/* .sticky_filter-carousel  > div:first-child{
+  @apply sm:order-1 order-2 ;
+} */
+
+@media screen and (max-width: 690px) {
+  .stock__list {
+    grid-template-columns: 408px;
+  }
+}

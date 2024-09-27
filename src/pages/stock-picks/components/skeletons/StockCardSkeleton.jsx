@@ -5,7 +5,7 @@ function StockCardSkeleton({ length, className }) {
   return Array.from({ length }).map((_, index) => (
     <Box
       key={index}
-      className={`${className} relative  rounded-lg bg-white shadow-6xs w-fit`}
+      className={`${className} relative  rounded-lg bg-white shadow-6xs w-full`}
     >
       <Box
         className="relative rounded-lg bg-white shadow-6xs border border-gray-200"
