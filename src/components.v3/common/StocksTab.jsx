@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
+import {Tabs, TabsVariant} from '@/components.v2/tabs'
 
 export default function StocksTab() {
   const {
@@ -7,16 +8,32 @@ export default function StocksTab() {
     total_sme_stocks,
     handleSebiBoardTypeChange,
   } = useStockPicks();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState("mainboard");
 
   const handleChange = (index) => {
     setValue(index);
     handleSebiBoardTypeChange(index === 0 ? "mainboard" : "sme");
   };
 
+  useEffect(()=>{
+    handleSebiBoardTypeChange(value);
+  },[value])
+
   return (
     <div className="flex justify-center items-center w-full">
-      
+       <Tabs
+        responsive={true}
+        className=" dark block"
+        tabTriggerClassname={` `}
+        variant={TabsVariant.lg}
+        defaultOption="mainboard"
+        options={[
+          { label: <div><h4>MainBoard</h4><p>{total_mainboard_stocks || 0} Stocks</p> </div>, value: "mainboard" },
+          { label: "SME Board", value: "sme" },
+        ]}
+        setSelectedOption={setValue}
+        activeValue={value}
+      />
     </div>
   );
 }
