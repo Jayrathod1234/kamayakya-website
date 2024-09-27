@@ -5,7 +5,7 @@ function StockCardSkeleton({ length, className }) {
   return Array.from({ length }).map((_, index) => (
     <Box
       key={index}
-      className={`${className} relative  rounded-lg bg-white shadow-6xs`}
+      className={`${className} relative  rounded-lg bg-white shadow-6xs w-fit`}
     >
       <Box
         className="relative rounded-lg bg-white shadow-6xs border border-gray-200"
@@ -23,7 +23,7 @@ function StockCardSkeleton({ length, className }) {
             animation="wave"
             sx={{ borderRadius: "6px" }}
             variant="text"
-            width={240}
+            width={"80%"}
             height={30}
           />
           <Skeleton
@@ -41,21 +41,21 @@ function StockCardSkeleton({ length, className }) {
               animation="wave"
               sx={{ borderRadius: "20px" }}
               variant="rectangular"
-              width={100}
+              width={"39%"}
               height={20}
             />
             <Skeleton
               animation="wave"
               sx={{ borderRadius: "20px" }}
               variant="rectangular"
-              width={100}
+              width={"39%"}
               height={20}
             />
             <Skeleton
               animation="wave"
               sx={{ borderRadius: "20px" }}
               variant="rectangular"
-              width={100}
+              width={"39%"}
               height={20}
             />
           </Box>

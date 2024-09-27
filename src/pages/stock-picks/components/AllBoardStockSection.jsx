@@ -143,7 +143,7 @@ function AllBoardStockSection() {
           <div className="grid grid-cols-auto-fill gap-x-5 gap-y-[1.8rem]">
             {isLoading || error ? (
               <StockCardSkeleton
-                className="sm:w-[404px] w-[358px]"
+                className="sm:w-full w-[320px] mx-auto "
                 length={9}
               />
             ) : items.length > 0 ? (
@@ -156,8 +156,8 @@ function AllBoardStockSection() {
               ))
             ) : (
               <>
-                <div></div>
-                <div className="text-center">No stock found</div>
+                {/* <div></div> */}
+                <div className="text-center col-span-full">No stock found</div>
               </>
             )}
           </div>
