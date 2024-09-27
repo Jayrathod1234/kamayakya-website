@@ -2150,6 +2150,16 @@ header > div > div {
 }
 
 
+/* .sticky_filter-carousel  > div:first-child{
+  @apply sm:order-1 order-2 ;
+} */
+
+@media screen and (max-width: 690px) {
+  .stock__list {
+    grid-template-columns: 408px;
+  }
+}
+
 .dark.tab__container{
   background-color: white;
   border:1px solid rgba(237, 240, 245, 1);
