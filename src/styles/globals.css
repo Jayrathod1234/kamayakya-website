@@ -2156,6 +2156,6 @@ header > div > div {
 
 @media screen and (max-width: 690px) {
   .stock__list {
-    grid-template-columns: 408px;
+    grid-template-columns: clamp(320px,calc(100% - 32px),406px);
   }
 }
