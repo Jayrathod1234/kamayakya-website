@@ -86,7 +86,7 @@ export function Tabs({
                 <motion.div
                   layoutId="clickedbutton"
                   transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                  className={cn("absolute inset-0 bg-white dark:bg-black rounded-full ", tabTriggerClassname)}
+                  className={cn("absolute inset-0 bg-white dark:bg-[#0C111D] rounded-full ", tabTriggerClassname)}
                 />
               )}
               <span className={`relative block text-black  ${activeValue===tabs.value ? "dark:text-white":"dark:text-black"}  `}>{tabs.label}</span>

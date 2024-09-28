@@ -103,7 +103,7 @@ function LatestReleases({ isLimitedView }) {
                   </div>
                 ) : (
                   items.length > 0 && (
-                    <div className=" w-full max-w-[1260px]  mx-auto mt-10">
+                    <div className=" w-full max-w-[1260px]  mx-auto">
                     <Slider>
                       {items.map((value) => (
                         <StockCard
