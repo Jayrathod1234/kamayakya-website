@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import Section1 from "./AboutPages/Section1";
 import Section2 from "./AboutPages/Section2";
-import NavBar from "../components/Navbar";
+// import NavBar from "../components.v2/Navbar";
 import Section3 from "./AboutPages/Section3";
 import Section4 from "./AboutPages/Section4";
 import Section5 from "./AboutPages/Section5";
@@ -14,6 +14,7 @@ import AuthContext from "@/components/AuthContext";
 import HeaderFuture from "@/pages/AboutPages/HeaderFuture";
 import HeaderCards from "@/pages/AboutPages/HeaderCards";
 import Head from "next/head";
+import { Navbar } from "@/components.v2/navbar";
 
 const AboutCompany = () => {
     const {isLoggedIn} = useContext(AuthContext);
@@ -26,7 +27,8 @@ const AboutCompany = () => {
                     content="Kamayakya, your trusted SEBI Registered Stock Market Advisory Company. Join us on your financial journey for expert guidance, compliance assurance and excellent returns."
                 />
             </Head>
-            {isLoggedIn ? <NavBar2/> : <NavBar/>}
+            {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
+            <Navbar/>
             <Section1/>
             <Section3/>
             <Section2/>

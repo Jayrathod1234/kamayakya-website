@@ -5,7 +5,7 @@ const Arrow = ({ arrowStyle, strokeStyle }: { arrowStyle?: string; strokeStyle?:
   <div className={`${arrowStyle}`}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="15"
+      width="18"
       height="16"
       viewBox="0 0 15 16"
       fill="none"
@@ -39,7 +39,7 @@ export function ButtonnArrow({
   disabled = false,
   size,
   className,
-  arrowStyle = "stroke-white",
+  arrowStyle = " stroke-white",
   strokeStyle = "stroke-white",
   arrowPosition = "end",
   ...rest
@@ -52,13 +52,9 @@ export function ButtonnArrow({
       {...rest}
       className={`group/btn-arrow flex items-center justify-center font-semibold px-3  ${className}`}
     >
-      {arrowPosition == "start" ? (
-        <Arrow arrowStyle={arrowStyle} strokeStyle={strokeStyle} />
-      ) : null}
+      {arrowPosition == "start" ? <Arrow arrowStyle={arrowStyle} strokeStyle={strokeStyle} /> : null}
       {children}
-      {arrowPosition == "end" ? (
-        <Arrow arrowStyle={arrowStyle} strokeStyle={strokeStyle} />
-      ) : null}
+      {arrowPosition == "end" ? <Arrow arrowStyle={arrowStyle} strokeStyle={strokeStyle} /> : null}
     </Button>
   );
 }

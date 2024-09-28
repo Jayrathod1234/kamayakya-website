@@ -1,12 +1,13 @@
 import React, {useContext} from "react";
 import {Text} from "@nextui-org/react";
 import AuthContext from "@/components/AuthContext";
-import NavBar2 from "@/components/Navbar2";
-import NavBar from "@/components/Navbar";
+// import NavBar2 from "@/components/Navbar2";
+// import NavBar from "@/components/Navbar";
 import FaqsNew from "./screens/FaqsNew";
-import Footer from "./screens/Footer";
+import {Footer} from "@/components.v2/footer";
 import {Box} from "@mui/material";
 import Head from "next/head";
+import { Navbar } from "@/components.v2/navbar";
 
 const TermsAndCond = () => {
     const {isLoggedIn} = useContext(AuthContext);
@@ -19,7 +20,8 @@ const TermsAndCond = () => {
                     content="Uncover KamayaKya's Terms and Conditions that reflect our commitment to transparency, trust and your financial success."
                 />
             </Head>
-            {isLoggedIn ? <NavBar2/> : <NavBar/>}
+            {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
+            <Navbar className=" bg-white"/>
             <Box
                 sx={{
                     // paddingTop: "30px",

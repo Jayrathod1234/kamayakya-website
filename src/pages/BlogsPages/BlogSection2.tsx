@@ -9,7 +9,7 @@ import { BlogCardLg, BlogCardSm } from "@/components.v2/blogs";
 import { Input } from "@/components.v2/ui/input";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { TBlog } from "@/types";
-import { Button } from "@/components.v2/button";
+import { Button, ButtonnArrow } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import axios from "axios";
 // import Lottie from "lottie-react";
@@ -71,13 +71,7 @@ const BlogSection2 = () => {
   const fetchBlogs = async () => {
     try {
       setIsLoadingBlogs(true);
-      const response = await axios.get(`${GET_BLOGS}?limit=10&offset=0`, {
-        // method: "GET",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-        // next: { revalidate: 500 },
-      });
+      const response = await axios.get(`${GET_BLOGS}?limit=10&offset=0`);
       // if (response.ok) {
       const data = response.data;
       setBlogs(data.results);
@@ -157,25 +151,27 @@ const BlogSection2 = () => {
           </div>
         </div>
         {!search ? (
-          <div className=" flex items-center justify-center gap-x-4 ">
-            {prevPage && <Button
+          <div className=" flex items-center justify-center gap-x-4  ">
+            {prevPage && <ButtonnArrow
               disabled={!prevPage}
+              arrowPosition="start"
+              arrowStyle=" rotate-180"
               onClick={() => handlePrevNext(prevPage as string)}
               startIcon={<ChevronLeft size={16} />}
               variant={ButtonVariant.primary}
-              customStyle=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+              className=" !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
             >
               Prev
-            </Button>}
-            {nextPage &&  <Button
+            </ButtonnArrow>}
+            {nextPage &&  <ButtonnArrow
               disabled={!nextPage}
               onClick={() => handlePrevNext(nextPage as string)}
               endIcon={<ChevronRight size={16} />}
               variant={ButtonVariant.primary}
-              customStyle="  !w-fit !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
+              className=" !px-4 !py-2 disabled:!border-brand-300 disabled:!text-brand-400 disabled:bg-white disabled:opacity-100"
             >
               Next
-            </Button>}
+            </ButtonnArrow>}
             
           </div>
         ) : null}

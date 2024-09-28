@@ -51,7 +51,7 @@ export function UserTypeCard({ imgSrc, title, attributes, btnText, icon }: TUser
           onClick={handleCheckPlan}
           size={ButtonSize.md}
           variant={ButtonVariant.primary}
-          customStyle=" !px-3 !py-2 gap-[6px] min-w-[141px]"
+          className=" !px-3 !py-2 gap-[6px] min-w-[141px]"
         >
           <p className="truncate text-sm">{btnText}</p>
           <Image alt="arrow-icon" height={18} width={18} src={"/icons/arrow-down.svg"} />

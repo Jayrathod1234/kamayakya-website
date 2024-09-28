@@ -1,14 +1,12 @@
 import { useContext } from "react";
-import NavBar2 from "../components/Navbar2";
-import NavBar from "../components/Navbar";
+import {Navbar} from '../components.v2/navbar'
 import StockCard from "../components/StockCard";
 import FaqsNew from "./screens/FaqsNew";
-import Footer from "./screens/Footer";
 import AuthContext from "../components/AuthContext";
 import StockCardSME from "../components/StockCardSME";
 import PageVisibility from "../components/PageVisibility";
 import Head from "next/head";
-
+import {Footer} from '../components.v2/footer'
 const SME = () => {
 	const { isLoggedIn } = useContext(AuthContext);
 
@@ -23,7 +21,8 @@ const SME = () => {
 							content="Checkout KamayaKya's SME stocks recommendations and get maximum benefits and subscribe now to fuel your financial growth."
 						/>
 					</Head>
-					{isLoggedIn ? <NavBar2 /> : <NavBar />}
+					{/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}
+					<Navbar className=" bg-white"/>
 					<div
 						style={{
 							background: "#fff",
@@ -36,7 +35,7 @@ const SME = () => {
 						<StockCardSME />
 						{/* <StockCardBlur /> */}
 						<FaqsNew />
-						<Footer />
+						<Footer/>
 					</div>
 				</>
 			)}

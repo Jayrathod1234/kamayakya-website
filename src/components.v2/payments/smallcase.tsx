@@ -1,4 +1,4 @@
-import { Button } from "@/components.v2/button";
+import { Button, ButtonnArrow } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { MoveRight } from "lucide-react";
@@ -26,17 +26,18 @@ export function SmallCaseCard() {
           Get access to professionally created basket of NSE stocks. Invest in multiple stocks in 1 click{" "}
         </p>
         <div className=" mt-6 md:mt-[41px]">
-          <Button
-            endIcon={<MoveRight className=" text-inherit" />}
+          <ButtonnArrow
+            // endIcon={<MoveRight className=" text-inherit" />}
             onClick={handleSmallCaseClick}
             variant={ButtonVariant.primary}
             size={ButtonSize.lg}
-            customStyle=" bg-white hover:bg-brand-300 !border-white hover:!border-brand-300 text-brand-500 "
+            strokeStyle="  stroke-brand-500 group-hover:stroke-brand-500"
+            className=" bg-white hover:bg-brand-300 !border-white hover:!border-brand-300 text-brand-500 "
           >
             <Link className=" text-inherit" target="_blank" href={"https://kamayakya.smallcase.com/#portfolios"}>
-              <p className=" ">Go to smallcase</p>
+              <p className="font-semibold ">Go to smallcase</p>
             </Link>
-          </Button>
+          </ButtonnArrow>
           <p className=" text-2xs text-[rgba(255,255,255,0.64)] mt-[6px]">*No BSE and SME Stocks</p>
         </div>
       </div>
