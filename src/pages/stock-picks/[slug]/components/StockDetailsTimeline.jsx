@@ -80,9 +80,9 @@ export default function StockDetailsTimeline({ timeline }) {
   return (
     <div className="flex flex-col justify-center pt-[30.8px] bg-white min-w-0 items-center" >
       {timeline.map((step, index) => (
-        <div className=" relative grid grid-cols-[.8fr_10px_1fr] md:grid-cols-[26px_1fr] lg:grid-cols-[74px_10px_1fr] w-full min-w-0" key={index} >
+        <div className=" relative grid grid-cols-[minmax(70px,.1fr)_10px_1fr] md:grid-cols-[26px_1fr] lg:grid-cols-[74px_10px_1fr] w-full min-w-0" key={index} >
           {/* Date component for large screen */}
-          <Box textAlign={"left"} className="block justify-self-end pr-[21px] lg:justify-self-start lg:pr-0 md:hidden lg:block " position="relative" top="0px">
+          <Box textAlign={"left"} className="block justify-self-start pr-[21px] lg:justify-self-start lg:pr-0 md:hidden lg:block " position="relative" top="0px">
             <Typography
               variant="body2"
               color="textSecondary"
@@ -116,7 +116,7 @@ export default function StockDetailsTimeline({ timeline }) {
           )}
           </Box>
           {/* Marker component end */}
-          <div className=" flex flex-col gap-y-1 w-full min-w-0 pl-[21px]">
+          <div className=" flex flex-col gap-y-1 w-full min-w-0 pl-[21px] md:pl-3 lg:pl-[21px]">
             <Box className="hidden md:block lg:hidden" textAlign={"left"} mr={2} position="relative" top="0px">
               <Typography
                 variant="body2"
@@ -129,7 +129,7 @@ export default function StockDetailsTimeline({ timeline }) {
               </Typography>
             </Box>
             <Box
-              className=" -mt-4 max-sm:max-w-fit md:mt-0 lg:-mt-4  "
+              className=" -mt-4 max-md:max-w-fit md:mt-0 lg:-mt-4 "
               borderRadius="8px"
               bgcolor="#FCFCFD"
               // maxWidth={{ xs: "100%" }}
@@ -143,10 +143,11 @@ export default function StockDetailsTimeline({ timeline }) {
               boxShadow="0px 2px 6px 0px rgba(2, 15, 35, 0.06)" // Small shadow on the bottom side
             >
               <Typography
+                className="flex flex-wrap  "
                 variant="subtitle1"
                 fontWeight="500 !important"
-                display="flex"
-                alignItems="center"
+                // display="flex"
+                // alignItems="center"
                 width={"100%"}
                 // minWidth={"155px"}
                 color="#475467"
@@ -191,8 +192,10 @@ export default function StockDetailsTimeline({ timeline }) {
               )}
 
               <Button
+                className="  min-w-0 max-w-fit"
                 size="small"
                 sx={{
+              
                   mt: 1,
                   color: "#344054",
                   padding: "7px 14px 7px 12px",
@@ -202,14 +205,14 @@ export default function StockDetailsTimeline({ timeline }) {
                   gap: "8px",
                   border: "1px solid  #E4E7EC;",
                   textTransform: "none",
-                  minWidth: "100px",
-                  flexShrink: 0,
+                  // minWidth: "0px",
+                  // flexShrink: 0,
                   backgroundColor: "white",
                   fontFamily: "Open Sans",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
+                  // whiteSpace: "nowrap",
+                  // overflow: "hidden",
                   fontSize: "12px",
-                  textOverflow: "ellipsis",
+                  // textOverflow: "ellipsis",
                   transition: "background-color 0.3s, color 0.3s, filter 0.3s, transform 0.3s",
                   "&:hover": {
                     backgroundColor: "#CBF3F0",
@@ -225,7 +228,7 @@ export default function StockDetailsTimeline({ timeline }) {
                   alt={step.label}
                   style={{ width: "20px", height: "20px" }}
                 />
-                {step.type == "report" ? step.report_name : "Watch Video"}
+                <p className=" text-2xs font-medium truncate">{step.type == "report" ? step.report_name : "Watch Video"}</p>
               </Button>
             </Box>
           </div>

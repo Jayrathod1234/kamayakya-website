@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import {Tabs, TabsVariant} from '@/components.v2/tabs'
 
+
 export default function StocksTab() {
   const {
     total_mainboard_stocks,
@@ -16,20 +17,26 @@ export default function StocksTab() {
   };
 
   useEffect(()=>{
-    handleSebiBoardTypeChange(value);
+    const timeout = setTimeout(()=>{
+      handleSebiBoardTypeChange(value);
+    },600)
+    
+    return ()=>clearTimeout(timeout)
+
   },[value])
 
   return (
     <div className="flex justify-center items-center w-full">
        <Tabs
-        responsive={true}
-        className=" dark block"
-        tabTriggerClassname={` `}
+        responsive={false}
+        className=" dark block bg-white py-4"
+        tabListClassname={"dark"}
+        tabTriggerClassname={` dark:data-[state=active]:bg-transparent px-8 sm:px-10 `}
         variant={TabsVariant.lg}
         defaultOption="mainboard"
         options={[
-          { label: <div><h4>MainBoard</h4><p>{total_mainboard_stocks || 0} Stocks</p> </div>, value: "mainboard" },
-          { label: "SME Board", value: "sme" },
+          { label: <div><h4 className={` text-sm sm:text-md font-semibold m-0 ${value === "mainboard" ?"text-white" :"text-[#475467]"}`}>Main Board</h4><p className={` text-3xs font-bold ${value === "mainboard" ?"text-gray-300" :"text-[#667085]"} `}>{total_mainboard_stocks || 0} Stocks</p> </div>, value: "mainboard" },
+          { label:<div><h4 className={`text-sm sm:text-md font-semibold m-0 ${value === "sme" ?"text-white" :"text-[#475467]"}`}>SME Board</h4><p className={` text-3xs font-bold ${value === "sme" ?"text-gray-300" :"text-[#667085]"} `}>{total_sme_stocks || 0} Stocks</p> </div>, value: "sme" },
         ]}
         setSelectedOption={setValue}
         activeValue={value}

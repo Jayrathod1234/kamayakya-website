@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HotSlider } from "@/components.v3/common/HotSlider.jsx";
 import StockCard from "@/components.v3/common/StockCard.jsx";
 import { useMediaQuery } from "@mui/material";
-
+import { useStockPicks } from "../../../contexts/StockPicksContext";
 const HotStockSectionSlider = ({ items }) => {
+  const [carouselItem,setCarouselItems] = useState(items)
+  const {sebiBoardType} = useStockPicks()
   const isMobile = useMediaQuery("(max-width:600px)");
+
+  useEffect(()=>{
+    console.log("ITEMS==>", items)
+    if(items.length <=3){
+      setCarouselItems([...items,...items])
+    }else{
+      setCarouselItems(items)
+    }
+  },[items,sebiBoardType])
   
   return (
     <div className="relative z-[2] sm:pb-[0px]  sm:mt-5  mt-6">
@@ -19,19 +30,19 @@ const HotStockSectionSlider = ({ items }) => {
                 Top stocks to invest in right NOW!
               </p>
               {(isMobile && items.length <= 1) ||
-              (!isMobile && items.length <= 3) ? (
+              (!isMobile && items.length <= 2) ? (
                 <div className="flex justify-center gap-5">
                   {items && items.map((value) => (
                     <StockCard key={value.id} {...value} isCarousal={true} />
                   ))}
                 </div>
               ) : (
-                <div className="w-full">
-                  <HotSlider>
-                    {items && items.map((value) => (
-                      <StockCard key={value.id} {...value} isCarousal={true} />
+                <div className="w-full max-w-[1280px] mx-auto">
+                  {carouselItem && carouselItem.length > 0 && <HotSlider>
+                    {carouselItem && carouselItem.map((value,index) => (
+                      <StockCard key={value.id+index} {...value} isCarousal={true} />
                     ))}
-                  </HotSlider>
+                  </HotSlider>}
                 </div>
               )}
             </div>

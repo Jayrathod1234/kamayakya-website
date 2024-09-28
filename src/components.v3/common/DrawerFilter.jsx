@@ -2099,7 +2099,7 @@ function DrawerFilter() {
                 </Box>
               </Box>
               {/* button  */}
-              <div className=" fixed bottom-0 w-full">
+              <div className=" fixed bottom-0 w-full z-[60]">
                 <div className="flex gap-x-3 py-3 px-3  border-t-2 border-[#F2F4F7]  bg-white  justify-between  ">
                   <button
                     className="  text-[#344054] font-semibold font-open_sans py-2 px-4 border border-[#D0D5DD]  rounded-lg w-full flex-1"

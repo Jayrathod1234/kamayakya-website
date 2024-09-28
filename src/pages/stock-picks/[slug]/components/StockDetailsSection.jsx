@@ -460,7 +460,7 @@ function StockDetailsSection() {
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex h-7 w-7 p-[6px] min-w-7 justify-center items-center rounded-md bg-[#F9FAFB]">
-                          <img src="/assets/line.svg" alt="" className=" !h-4 !w-4 !object-cover" />
+                          <img src={`/assets/${market_cap_type || "line"}.svg`} alt="" className=" !h-4 !w-4 !object-contain" />
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                           <div className="flex w-full justify-between items-baseline gap-x-1">
@@ -874,10 +874,10 @@ function StockDetailsSection() {
                         </div>
 
                         <div className="pt-5 text-center md:text-center text-[#344054] text-sm md:text-base  font-normal gap-1">
-                          <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold">₹100000 </span>
+                          <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold">₹1,00,000 </span>
                           invested at current market price (CMP) can become{" "}
                           <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold whitespace-nowrap">
-                            ₹{100000 + 1000 * upside_left} Lakh
+                            ₹{(100000 + 1000 * upside_left).toLocaleString("hi")}
                           </span>{" "}
                           likely within {upside_left_time}
                         </div>
@@ -1219,10 +1219,10 @@ function StockDetailsSection() {
                     </div>
 
                     <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base leading-6 font-normal  gap-1 font-open_sans">
-                      <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">₹100000 </span>
+                      <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">₹1,00,000 </span>
                       invested at current market price (CMP) can become{" "}
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
-                        ₹{100000 + 1000 * upside_left} Lakh
+                        ₹{(100000 + 1000 * upside_left).toLocaleString('hi')} 
                       </span>{" "}
                       likely within {upside_left_time}
                     </div>
@@ -1451,14 +1451,14 @@ function StockDetailsSection() {
                         </div>
                       </div>
 
-                      <div className=" justify-between items-center gap-x-5 relative pt-2 hidden sm:flex  w-full">
-                        <p className=" font-open_sans whitespace-normal break-all text-sm line-clamp-3">
+                      <div className=" justify-between items-center gap-x-5 relative pt-2 hidden sm:flex flex-wrap  w-full">
+                        <p className=" font-open_sans whitespace-normal text-sm flex-1">
                           {action_text}{" "}
                         </p>
                         <img
                           src="/assets/details_buy_mascot.png"
                           alt=""
-                          className=" object-contain right-6 w-[81px] h-[120px] "
+                          className=" object-contain right-6 w-[81px] h-[120px] flex-[0.5] "
                         />
                       </div>
                       <hr className="my-3 hidden  sm:block" />

@@ -71,7 +71,7 @@ export const useDotButton = (emblaApi) => {
 };
 export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
   return (
-    <div ref={ref} className={`carousel__item stock__card-slider h-full ${className}`}>
+    <div ref={ref} className={`carousel__item stock__card-slider ${className}`}>
       {children}
     </div>
   );
@@ -141,10 +141,13 @@ export function HotSlider({ children }) {
             }
           });
         }
-        const tweenValue = 1 - Math.abs(diffToTarget * 0.64);
-        const scale = numberWithinRange(tweenValue, 0, 1).toString();
+        const tweenValue = 1 - Math.abs(diffToTarget * 1.5);
+        // const scale = numberWithinRange(tweenValue, 0, 1).toString();
+        const scaleY = numberWithinRange(tweenValue, 0.86, 1.5); // Smaller side cards height, larger center card
+        const scaleX = numberWithinRange(tweenValue, 0.86, 1.5); // Decrease side card width to 0.6, center card remains large
+
         const tweenNode = tweenNodes.current[slideIndex];
-        tweenNode.style.transform = `scale(${scale})`;
+        tweenNode.style.transform = `scale(${scaleX}, ${scaleY})`;
       });
     });
   }, []);
