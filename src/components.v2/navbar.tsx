@@ -111,7 +111,7 @@ export function Navbar({ className }: { className?: string }) {
       }
     };
     // if (pathname == '/stock-picks') {
-    //   window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleScroll);
     // } else {
     //   ref.current?.classList.add("other-page-nav");
     // }
