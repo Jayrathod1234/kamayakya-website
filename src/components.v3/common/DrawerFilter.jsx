@@ -273,6 +273,13 @@ function DrawerFilter() {
       backgroundColor: "#E4E7EC", // Dot color when not active
       zIndex:0
     },
+    '& .MuiSlider-valueLabel': {
+        zIndex:1000,
+      '&.MuiSlider-valueLabelOpen': {
+       
+      zIndex:1000
+    },
+    }
   });
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
@@ -303,7 +310,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("right", true)}
             sx={{ display: isMobile ? "none" : "block" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
+            className="!flex h-full relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
           >
             <img src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case">
@@ -1112,7 +1119,7 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("bottom", true)}
             sx={{ display: isMobile ? "block" : "none", paddingInline:"10px",minWidth:"fit-content" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0   !rounded-[6px]  gap-2 items-center shadow-3xs  hover:bg-error-500"
+            className="!flex h-full relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0   !rounded-[6px]  gap-2 items-center shadow-3xs  hover:bg-error-500"
           >
             <img height={16} width={16} src="/assets/filter.svg" alt="" />
             <p className="font-open_sans text-brand-500 font-medium normal-case text-sm">
@@ -1198,6 +1205,7 @@ function DrawerFilter() {
                   // width: "144px !important",
                   height: "100%", // Set a fixed height to make sure scrolling works
                   width:"100%",
+                  zIndex:60,
                 }}
               >
                 <Tabs
@@ -1506,7 +1514,7 @@ function DrawerFilter() {
                     width: "246px !important",
                   }}
                 >
-                  <TabPanel value={value} index={0} className="scrolllab">
+                  <TabPanel value={value} index={0} className="scrolllab z-[60] !overflow-visible">
                     {/* upside left  */}
                     <div className="">
                       <CustomSlider
@@ -2091,7 +2099,7 @@ function DrawerFilter() {
                 </Box>
               </Box>
               {/* button  */}
-              <div className=" fixed bottom-0 w-full">
+              <div className=" fixed bottom-0 w-full z-[60]">
                 <div className="flex gap-x-3 py-3 px-3  border-t-2 border-[#F2F4F7]  bg-white  justify-between  ">
                   <button
                     className="  text-[#344054] font-semibold font-open_sans py-2 px-4 border border-[#D0D5DD]  rounded-lg w-full flex-1"

@@ -140,24 +140,24 @@ function AllBoardStockSection() {
         ref={showFilterRef}
       >
         <div className="w-full sm:px-0 px-[1px] sm:w-[min(1280px,calc(100%-32px))]  mx-auto">
-          <div className="grid grid-cols-auto-fill gap-x-5 gap-y-[1.8rem]">
+          <div className="grid stock__list justify-center grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-x-5 gap-y-[1.8rem]">
             {isLoading || error ? (
               <StockCardSkeleton
-                className="sm:w-[404px] w-[358px]"
+                className="sm:w-full w-[320px] mx-auto "
                 length={9}
               />
             ) : items.length > 0 ? (
               items.map((value, index) => (
                 <StockCard
-                  className="sm:mx-0 mx-[15px]"
+                  className="sm:mx-0   place-self-center w-full"
                   key={index} // Ensure each item has a unique key
                   {...value}
                 />
               ))
             ) : (
               <>
-                <div></div>
-                <div className="text-center">No stock found</div>
+                {/* <div></div> */}
+                <div className="text-center col-span-full">No stock found</div>
               </>
             )}
           </div>

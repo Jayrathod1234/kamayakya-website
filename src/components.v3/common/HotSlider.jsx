@@ -71,7 +71,7 @@ export const useDotButton = (emblaApi) => {
 };
 export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
   return (
-    <div ref={ref} className={`carousel__item stock__card-slider h-full ${className}`}>
+    <div ref={ref} className={`carousel__item stock__card-slider ${className}`}>
       {children}
     </div>
   );
@@ -141,10 +141,13 @@ export function HotSlider({ children }) {
             }
           });
         }
-        const tweenValue = 1 - Math.abs(diffToTarget * 0.64);
-        const scale = numberWithinRange(tweenValue, 0, 1).toString();
+        const tweenValue = 1 - Math.abs(diffToTarget * 1.5);
+        // const scale = numberWithinRange(tweenValue, 0, 1).toString();
+        const scaleY = numberWithinRange(tweenValue, 0.86, 1.5); // Smaller side cards height, larger center card
+        const scaleX = numberWithinRange(tweenValue, 0.86, 1.5); // Decrease side card width to 0.6, center card remains large
+
         const tweenNode = tweenNodes.current[slideIndex];
-        tweenNode.style.transform = `scale(${scale})`;
+        tweenNode.style.transform = `scale(${scaleX}, ${scaleY})`;
       });
     });
   }, []);
@@ -172,14 +175,14 @@ export function HotSlider({ children }) {
   // }, [emblaApi]);
   return (
     <div className={`relative w-full m-auto `}>
-      <div className="flex">
+      <div className="flex ">
         {/* left slider button */}
         <div className="justify-center items-center flex ">
           <div>
             <Button
               onClick={() => handlePrevNext(onPrevButtonClick)}
               variant={"default"}
-              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out absolute top-[45%] z-[9] left-5"
+              className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out absolute top-[43%] z-[9] left-5"
             >
               <div className="w-5 flex items-center justify-center relative">
                 <ChevronLeftIcon

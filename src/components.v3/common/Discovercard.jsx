@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
@@ -10,21 +10,22 @@ function Discovercard({ id, name, description, image, color, slug }) {
     addPopularStrategies,
     allBoardStockRef,
   } = useStockPicks();
-
+  const [active,setActive] = useState(false)
   return (
     <>
       <div className="sm:w-1/2 w-full discover_card_carousel">
         <a
-          className="card group transition-all duration-500 education border border-gray-200 cursor-pointer"
+          className={`card  ${active ? "active ":""} group transition-all duration-500 education border border-gray-200 cursor-pointer `}
           onClick={async () => {
             await setStrategyTag((prevTags) => {
               // Check if the id is already in the array to avoid duplicates
               if (!prevTags.includes(id)) {
+                // setActive(true)
                 return [...prevTags, id]; // Append the new id to the existing array
               }
               return prevTags; // If id already exists, return the existing array
             });
-
+            // setActive(prev=>!prev)
             addPopularStrategies(id);
             setIsChangeFilter(true);
 

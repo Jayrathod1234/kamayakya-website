@@ -248,7 +248,7 @@ export function Slider({ children }) {
   }, [emblaApi, tweenScale]);
 
   return (
-    <div className={`relative w-screen m-auto`}>
+    <div className={`relative w-full m-auto`}>
       {/* gradient */}
       {/* <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center ">
         <div>
@@ -298,7 +298,7 @@ export function Slider({ children }) {
       <Button
         onClick={() => handlePrevNext(onPrevButtonClick)}
         variant={"default"}
-        className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out absolute left-8 2xl:left-[350px] top-1/2 -translate-y-1/2 z-[99]"
+        className="rounded-full md:h-[52px] md:w-[52px] h-6 w-6 p-2 group hover:scale-[0.90] hover:bg-[#0B3A36] transition-all duration-500 ease-in-out absolute left-[16px]  top-1/2 -translate-y-1/2 z-[99]"
       >
         <div className="w-5 flex items-center justify-center relative">
           <ChevronLeftIcon
@@ -316,7 +316,7 @@ export function Slider({ children }) {
       <Button
         onClick={() => handlePrevNext(onNextButtonClick)}
         variant={"default"}
-        className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.90] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-500 ease-in-out absolute right-5 2xl:right-[352px] top-1/2 -translate-y-1/2 z-[99]"
+        className="rounded-full md:h-[52px] md:w-[52px] hover:scale-[0.90] h-6 w-6 p-2 group hover:bg-[#0B3A36]  transition-all duration-500 ease-in-out absolute right-[16px] top-1/2 -translate-y-1/2 z-[99]"
       >
         <div className="w-5 flex items-center justify-center relative">
           <ChevronRightIcon

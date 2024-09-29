@@ -17,7 +17,7 @@ type TStockCardProgressBarSection = {
   stock_targets: any;
 };
 
-const stock_targets = [{ target_met: "", target_price: 600, created: "28 May 2024" }];
+const stock_targets = [{ target_met: "", target_price: 600, created: "28 Nov 2024",target_date:new Date(new Date().setDate(new Date().getDate()+2)) }];
 const live_price = 500;
 const entry_price = 250;
 const entry_date = new Date().toISOString();

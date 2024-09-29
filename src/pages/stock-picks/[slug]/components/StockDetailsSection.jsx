@@ -460,7 +460,7 @@ function StockDetailsSection() {
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex h-7 w-7 p-[6px] min-w-7 justify-center items-center rounded-md bg-[#F9FAFB]">
-                          <img src="/assets/line.svg" alt="" className=" !h-4 !w-4 !object-cover" />
+                          <img src={`/assets/${market_cap_type || "line"}.svg`} alt="" className=" !h-4 !w-4 !object-contain" />
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                           <div className="flex w-full justify-between items-baseline gap-x-1">
@@ -874,10 +874,10 @@ function StockDetailsSection() {
                         </div>
 
                         <div className="pt-5 text-center md:text-center text-[#344054] text-sm md:text-base  font-normal gap-1">
-                          <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold">₹100000 </span>
+                          <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold">₹1,00,000 </span>
                           invested at current market price (CMP) can become{" "}
                           <span className="text-[#0079EF] text-sm md:text-base lg:text-sm font-bold whitespace-nowrap">
-                            ₹{100000 + 1000 * upside_left} Lakh
+                            ₹{(100000 + 1000 * upside_left).toLocaleString("hi")}
                           </span>{" "}
                           likely within {upside_left_time}
                         </div>
@@ -908,8 +908,14 @@ function StockDetailsSection() {
                       <div className="bg-white rounded-t-lg p-4">
                         <div className="bg-custom-gradient text-white rounded-lg p-4">
                           <div className="flex justify-between items-center">
-                            <h2 className="text-sm font-open_sans font-semibold flex items-center gap-1">
+                            <h2 className="text-sm font-open_sans font-semibold flex items-center gap-x-1">
                               Upside Left
+                              <img
+                                  src="/assets/ph_info-duotone.svg"
+                                  alt="Info"
+                                  className="h-[17px] md:h-[20px] lg:h-[24px] object-contain mt-[-1px] cursor-pointer"
+                                  onClick={openModal}
+                                />
                               {/* Tooltip for large screens and Modal Trigger for small screens */}
                               <div className="relative group hidden sm:block">
                                 {/* Tooltip (Visible on large screens) */}
@@ -936,14 +942,9 @@ function StockDetailsSection() {
                                 </div>
                               </div>
                               {/* Modal Trigger for small screens */}
-                              <div className="sm:hidden">
-                                <img
-                                  src="/assets/ph_info-duotone.svg"
-                                  alt="Info"
-                                  className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                  onClick={openModal}
-                                />
-                              </div>
+                              {/* <div className="sm:hidden">
+                             
+                              </div> */}
                             </h2>
 
                             <img src="/assets/stock-details/streamline_target-solid (1).svg" alt="" />
@@ -972,7 +973,7 @@ function StockDetailsSection() {
                             <div className="mt-2 text-left text-gray-800 text-sm font-open_sans">
                               Upside Left means how much the stock price could rise from its current level.
                             </div>
-                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left">
+                            <div className="mt-4 p-4 bg-[#F6F7F9] rounded-lg w-full text-left flex-1">
                               <span className=" text-[#108973] text-sm font-bold font-open_sans">Example :</span>
                               <p className="text-sm text-gray-600 mt-1 font-open_sans">
                                 If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
@@ -980,7 +981,7 @@ function StockDetailsSection() {
                             </div>
                           </Modal>
 
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 truncate">
                             <p className="text-display-xs font-bold  font-open_sans">{upside_left}%</p>
                             <p className="text-sm font-open_sans mt-1">likely within {upside_left_time}</p>
                           </div>
@@ -1218,10 +1219,10 @@ function StockDetailsSection() {
                     </div>
 
                     <div className="pt-5 text-center md:text-left text-[#344054] text-sm md:text-base leading-6 font-normal  gap-1 font-open_sans">
-                      <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">₹100000 </span>
+                      <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">₹1,00,000 </span>
                       invested at current market price (CMP) can become{" "}
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
-                        ₹{100000 + 1000 * upside_left} Lakh
+                        ₹{(100000 + 1000 * upside_left).toLocaleString('hi')} 
                       </span>{" "}
                       likely within {upside_left_time}
                     </div>
@@ -1250,7 +1251,7 @@ function StockDetailsSection() {
                   {/* Upside Left Box End  */}
 
                   {/* Company Profile Section start */}
-                  <div className="pt-[70px]  px-[4px] hidden sm:block">
+                  <div className="pt-[70px] hidden sm:block">
                     <h2 className="text-[#0C111D] text-[20px] font-semibold font-open_sans ">Company Profile</h2>
                     <p
                       dangerouslySetInnerHTML={{ __html: truncatedText }}
@@ -1450,14 +1451,14 @@ function StockDetailsSection() {
                         </div>
                       </div>
 
-                      <div className=" justify-between items-center gap-x-5 relative pt-2 hidden sm:flex  w-full">
-                        <p className=" font-open_sans whitespace-normal break-all text-sm line-clamp-3">
+                      <div className=" justify-between items-center gap-x-5 relative pt-2 hidden sm:flex flex-wrap  w-full">
+                        <p className=" font-open_sans whitespace-normal text-sm flex-1">
                           {action_text}{" "}
                         </p>
                         <img
                           src="/assets/details_buy_mascot.png"
                           alt=""
-                          className=" object-contain right-6 w-[81px] h-[120px] "
+                          className=" object-contain right-6 w-[81px] h-[120px] flex-[0.5] "
                         />
                       </div>
                       <hr className="my-3 hidden  sm:block" />

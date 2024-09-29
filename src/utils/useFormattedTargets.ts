@@ -19,15 +19,17 @@ export const useFormattedTargets = ({
   const [cmpIndex, setCmpIndex] = useState(0);
 
   const formatDate = useCallback((date: Date | string) => format(new Date(date), "dd MMM yyyy"), []);
-
+  
   const sortedStockTargets = useMemo(() => 
     [...stock_targets].sort((a, b) => a.target_price - b.target_price)
-      .map((item, index) => ({
+      .map((item, index) => {
+        console.log(new Date(), new Date(item.target_date),item.target_date)
+        return {
         label: `Target ${index + 1}`,
         date: formatDate(item.created),
         price: item.target_price,
-        status: item.target_met ? "Completed" : "Active",
-      })),
+        status: item.target_met ? "Completed" : new Date() < new Date(item.target_date) ? "Active": "Inactive",
+      }}),
     [stock_targets, formatDate]
   );
 

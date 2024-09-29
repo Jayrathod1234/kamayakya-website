@@ -82,7 +82,7 @@ function StockCard({
           className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}
         >
           {tabImage && (
-            <img src={`/assets/${tabImage}.png`} alt="" className="w-[210px]" />
+            <img src={`/assets/${tabImage}.webp`} alt="" className="w-[210px] h-5 object-contain" />
           )}
         </div>
         <div className={cardClass}>
@@ -153,7 +153,7 @@ function StockCard({
                       translate-x-[5px]
                       me-3
                       md:group-hover/watch-video:translate-x-[-65px]
-                      md:group-hover/watch-video:me-7
+                      md:group-hover/watch-video:me-[18px]
                       
                       `}
                     >
@@ -226,11 +226,11 @@ function StockCard({
                 <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                   <img src="/assets/Component 8.svg" alt="" className="w-3" />
                   <p className="text-[10px] font-semibold text-[#667085] flex !items-center whitespace-nowrap font-open_sans">
-                    MCap:
+                    MCap :{" "}
                     {is_blur ? (
                       <div className="  w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                     ) : (
-                      <span className="">₹ {market_cap}</span>
+                      <span className="ml-[2px]">₹{market_cap}</span>
                     )}
                   </p>
                 </div>
