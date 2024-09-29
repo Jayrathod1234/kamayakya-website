@@ -44,7 +44,7 @@ function LatestReleases({ isLimitedView }) {
   return (
     <>
       <div
-        className={`sm:pb-[100px] pb-[58px] ${
+        className={`sm:pb-[100px] pb-[58px] sm:pt-[68px] pt-[26px]  ${
           isLimitedView ? "sm:pt-[200px] pt-[0px]" : ""
         }`}
       >

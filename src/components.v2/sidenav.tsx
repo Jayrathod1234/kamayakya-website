@@ -125,7 +125,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
     <>
     <Sheet modal={true} open={open} onOpenChange={setOpen}>
       <SheetTrigger onClick={() => setOpen(true)}>
-        <Menu className="inline-block lg:hidden  !z-[500]" />
+        <Menu className="inline-block lg:hidden text-[var(--sidenav-hamburger-color)] " />
       </SheetTrigger>
       <SheetContent className=" z-50 pricing gap-0 flex flex-col p-0 pr-0">
         <SheetHeader>
@@ -216,7 +216,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                       nav.title === "About Us" ? "!hidden" : ""
                     }`}
                   >
-                    <p className={` text-[#475467] ${pathname.includes(nav.link)?"text-black":""}`}>{nav.title}</p>
+                    <p className={` text-[#475467] ${pathname?.includes(nav.link)?"text-black":""}`}>{nav.title}</p>
                     {stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"] ? (
                       <NewStockbadge label={stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"]} />
                     ) : null}

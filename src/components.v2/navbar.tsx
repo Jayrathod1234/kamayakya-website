@@ -97,17 +97,19 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
         //   setIsSticky(false)
         // }
         ref.current?.classList.add("scrolled-nav");
-        // ref.current?.classList.add("navbar-shadow");
+        ref.current?.classList.add("navbar-shadow");
       } else {
         // if (pathname == '/stock-picks') {
         //   setIsSticky(true)
         // }
 
         ref.current?.classList.remove("scrolled-nav");
-        // ref.current?.classList.remove("navbar-shadow");
+        ref.current?.classList.remove("navbar-shadow");
       }
       if (showFilterHeader) {
         ref.current?.classList.remove("navbar-shadow");
+      }else{
+        ref.current?.classList.add("navbar-shadow");
       }
     };
     // if (pathname == '/stock-picks') {
@@ -225,7 +227,7 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
                       <NavigationMenuLink
                         className={cn(`${navigationMenuTriggerStyle()} font-semibold text-inherit ${
                           navigationOption.title === "Stocks to Buy"
-                            ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
+                            ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] data-[active]:border-none"
                             : ""
                         }`,navigationLinkClassName)}
                         active={pathname === navigationOption.link}
@@ -239,7 +241,7 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
             </NavigationMenu>
           </div>
         </div>
-        <div className={`flex items-center justify-center gap-x-4 lg:hidden ${isSticky ? ' text-white rounded' : ''}`}>
+        <div className={`flex items-center justify-center gap-x-4 lg:hidden `}>
           {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
           <SideNav handleLogin={handleLogin} />
         </div>

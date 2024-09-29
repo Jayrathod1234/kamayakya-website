@@ -1095,7 +1095,7 @@ function DrawerFilter() {
 
               {/* button  */}
               <div className="pt-[61px]">
-                <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
+                <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] z-40 fixed bg-white bottom-0 ">
                   <button
                     className="  text-[#344054] font-semibold font-open_sans  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px] hover:scale-[000.95] duration-500 "
                     onClick={handleCancel}
@@ -1831,7 +1831,7 @@ function DrawerFilter() {
                       </Accordion>
                     </div>
                   </TabPanel>
-                  <TabPanel value={value} index={3} className="scrolllab">
+                  <TabPanel value={value} index={3} className="scrolllab z-[60] !overflow-visible">
                     {/* total return  */}
                     <div className="  ">
                       <CustomSlider
@@ -1841,6 +1841,7 @@ function DrawerFilter() {
                         min={min_returns}
                         max={max_returns}
                         marks={returns_marks}
+                        aria-label="custom slider"
                       />
 
                       <Grid alignItems="center">

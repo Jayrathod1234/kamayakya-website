@@ -73,7 +73,7 @@ function Filtermenu() {
   return (
     <>
       {/* <FilterMenuTags /> */}
-      <div className="sticky top-[50px] right-0 z-[88] bg-[#f2f4f7] overflow-hidden items-center navbar-shadow">
+      <div className="sticky top-[54px] right-0 z-[49] bg-[#f2f4f7] overflow-hidden items-center navbar-shadow">
         <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto  py-[10px] px-0 flex gap-1 items-center pt-4">
           {/* <ResponsiveFilter/> */}
           {/* <FilterMenuTags2 isResponsive={isMobile} isExpanded={isExpanded} /> */}
