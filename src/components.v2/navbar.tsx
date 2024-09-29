@@ -106,6 +106,7 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
         ref.current?.classList.remove("scrolled-nav");
         ref.current?.classList.remove("navbar-shadow");
       }
+      console.log("SHOW FILTER HEADER", showFilterHeader)
       if (showFilterHeader) {
         ref.current?.classList.remove("navbar-shadow");
       }else{
