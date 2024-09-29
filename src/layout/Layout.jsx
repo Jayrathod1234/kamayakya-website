@@ -14,7 +14,7 @@ const StockPicks = ({ children }) => {
         className={`navbar  z-[1111] ${isMobile && pathname == "/stock-picks/[slug]" ? "" : "sticky top-0"
           }`}
       >
-        <Navbar />
+        <Navbar navigationLinkClassName=" text-white hover:text-inherit data-[state=open]:text-gray-900" />
       </div >
       <div className="z-[20000]">
         {children}

@@ -41,7 +41,7 @@ eg: <Navbar className="bg-white"/>
 To change the hover effects, look for navigationMenuTriggerStyle in navigation-menu.tsx
 */
 
-export function Navbar({ className }: { className?: string }) {
+export function Navbar({ className, navigationLinkClassName }: { className?: string;navigationLinkClassName?:string }) {
   const { isLoggedIn } = useContext(AuthContext);
   const { showFilterHeader } = useNavBar();
   const router = useRouter();
@@ -157,7 +157,7 @@ export function Navbar({ className }: { className?: string }) {
                         router.push("/");
                       }
                     }}
-                    className=" text-gray-950 font-semibold"
+                    className={cn(" text-gray-950 font-semibold",navigationLinkClassName)}
                   >
                     About Us
                   </NavigationMenuTrigger>
@@ -223,11 +223,11 @@ export function Navbar({ className }: { className?: string }) {
                       passHref
                     >
                       <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} font-semibold text-inherit ${
+                        className={cn(`${navigationMenuTriggerStyle()} font-semibold text-inherit ${
                           navigationOption.title === "Stocks to Buy"
                             ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
                             : ""
-                        }`}
+                        }`,navigationLinkClassName)}
                         active={pathname === navigationOption.link}
                       >
                         {navigationOption.title}
