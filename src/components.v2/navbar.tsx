@@ -97,21 +97,21 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
         //   setIsSticky(false)
         // }
         ref.current?.classList.add("scrolled-nav");
-        ref.current?.classList.add("navbar-shadow");
+        // ref.current?.classList.add("navbar-shadow");
       } else {
         // if (pathname == '/stock-picks') {
         //   setIsSticky(true)
         // }
 
         ref.current?.classList.remove("scrolled-nav");
-        ref.current?.classList.remove("navbar-shadow");
+        // ref.current?.classList.remove("navbar-shadow");
       }
       console.log("SHOW FILTER HEADER", showFilterHeader)
-      if (showFilterHeader) {
-        ref.current?.classList.remove("navbar-shadow");
-      }else{
-        ref.current?.classList.add("navbar-shadow");
-      }
+      // if (showFilterHeader) {
+      //   ref.current?.classList.remove("navbar-shadow");
+      // }else{
+      //   ref.current?.classList.add("navbar-shadow");
+      // }
     };
     // if (pathname == '/stock-picks') {
       window.addEventListener("scroll", handleScroll);
