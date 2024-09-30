@@ -211,7 +211,7 @@ function Filtermenu() {
                           <>
                             <div
                               onClick={handleSearchClick}
-                              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC]  bg-white h-[46px]`}
+                              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-lg border border-[#E4E7EC]  bg-white h-[46px]`}
                               style={{ width: isExpanded ? "236px" : "auto" }} // This ensures that width expands correctly
                             >
                               <input
@@ -253,7 +253,7 @@ function Filtermenu() {
                         ) : (
                           <>
                             <div
-                              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-md border border-[#E4E7EC]  bg-white h-[46px]`}
+                              className={`search inline-flex items-center text-black px-1 py-[3px] rounded-lg border border-[#E4E7EC]  bg-white h-[46px]`}
                               onClick={() => setSearchPageOpen(true)}
                               style={{}} // This ensures that width expands correctly
                             >
