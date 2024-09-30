@@ -137,7 +137,7 @@ function DrawerFilter() {
   const clearValues = () => {
     setTempStrategyTag(strategyTag);
     setTempUpsideLeft(upsideLeft);
-    setMarketCapType(marketCapType);
+    setTempMarketCapType(marketCapType);
     setTempReturns(returns);
     setTempRecency(recency);
     setTempTimeLeft(timeLeft);
@@ -240,6 +240,12 @@ function DrawerFilter() {
       checked ? [...prev, name] : prev.filter((tag) => tag !== name)
     );
   };
+
+  const handleMarketCap = (value)=>{
+    setTempMarketCapType(prev=>{
+      console.log(prev.includes(value),[...prev.filter(val=>val!=value)],[...prev,value])
+      return (prev.includes(value) ? [...prev.filter(val=>val !=value)]:[...prev,value])})
+  }
 
   const CustomSlider = styled(Slider)({
     color: "#125B54", // Main color for the rail and thumb border
@@ -851,12 +857,12 @@ function DrawerFilter() {
                       {marketCapTypeList?.map((value, index) => (
                         <div
                           className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                            tempMarketCapType == value
+                            tempMarketCapType.includes(value)
                               ? "bg-[#E7F8F8] border-[#108973]"
                               : "bg-white border-[#E4E7EC]"
                           }`}
                           key={index}
-                          onClick={() => setTempMarketCapType(value)}
+                          onClick={()=>handleMarketCap(value)}
                         >
                           <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -1927,12 +1933,12 @@ function DrawerFilter() {
                             {marketCapTypeList?.map((value, index) => (
                               <div
                                 className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                  tempMarketCapType == value
+                                  tempMarketCapType.includes(value)
                                     ? "bg-[#E7F8F8] border-[#108973]"
                                     : "bg-white border-[#E4E7EC]"
                                 }`}
                                 key={index}
-                                onClick={() => setTempMarketCapType(value)}
+                                onClick={() => handleMarketCap(value)}
                               >
                                 <img src={`/assets/${value}.svg`} alt={value} />
 
