@@ -247,6 +247,12 @@ function DrawerFilter() {
       return (prev.includes(value) ? [...prev.filter(val=>val !=value)]:[...prev,value])})
   }
 
+  const handleRisk = (value)=>{
+    setTempRisk(prev=>{
+      console.log(prev.includes(value),[...prev.filter(val=>val!=value)],[...prev,value])
+      return (prev.includes(value) ? [...prev.filter(val=>val !=value)]:[...prev,value])})
+  }
+
   const CustomSlider = styled(Slider)({
     color: "#125B54", // Main color for the rail and thumb border
     height: 4, // Thickness of the slider rail
@@ -1081,12 +1087,12 @@ function DrawerFilter() {
                     {stockRiskList?.map((value, index) => (
                       <div
                         className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          tempRisk == value
+                          tempRisk.includes(value)
                             ? "bg-[#E7F8F8] border-[#108973]"
                             : "bg-white border-[#E4E7EC]"
                         }`}
                         key={index}
-                        onClick={() => setTempRisk(value)}
+                        onClick={() => handleRisk(value)}
                       >
                         <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -2085,12 +2091,12 @@ function DrawerFilter() {
                           {stockRiskList?.map((value, index) => (
                             <div
                               className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                tempRisk == value
+                                tempRisk.includes(value)
                                   ? "bg-[#E7F8F8] border-[#108973]"
                                   : "bg-white border-[#E4E7EC]"
                               }`}
                               key={index}
-                              onClick={() => setTempRisk(value)}
+                              onClick={() => handleRisk(value)}
                             >
                               <img src={`/assets/${value}.svg`} alt={value} />
 
