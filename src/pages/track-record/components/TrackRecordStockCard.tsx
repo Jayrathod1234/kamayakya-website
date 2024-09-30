@@ -13,7 +13,7 @@ import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
 import { useTrackRecord } from "@/contexts/trackRecordContext";
 import { abbreviateTime } from "@/lib/date-formatter";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "@/components/AuthContext";
 import { useRouter } from "next/router";
 import { useStockPicks } from "@/contexts/StockPicksContext";
@@ -21,6 +21,8 @@ import { sectorIcons } from "@/utils/constants.js";
 import DeepValue from "../../../components.v3/common/DeepValue";
 import { Tooltip as MuiTooltip } from "@mui/material";
 import { TargetChip } from "@/components.v3/common/TargetChip";
+import { useQuery } from "@tanstack/react-query";
+import { getBseLivePrice } from "@/api/track-record";
 
 ChartJS.register({
   LineElement,
@@ -78,11 +80,19 @@ export const TrackRecordStockCard = ({
   total_returns,
   upside_left,
   upside_left_time,
+  stock_live_prices
   // market_cap,
 }) => {
+  const {sebiBoardType} = useTrackRecord();
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
   const { stockSector } = useStockPicks();
+  const { status, data, error, isFetching } = useQuery({
+    queryKey: ['bseLivePrice',sebiBoardType],
+    queryFn: ()=>getBseLivePrice(sebiBoardType),
+    // Refetch the data every second
+    refetchInterval: 1000 * 10,
+  })
   const img = new Image();
   img.src = "/assets/entry point.svg";
   const img2 = new Image();
@@ -179,6 +189,15 @@ export const TrackRecordStockCard = ({
     bgColor = "bg-warning-300";
   }
 
+  // if (status === 'pending') return <h1>Loading...</h1>
+  // if (status === 'error') return <span>Error: {error.message}</span>
+  console.log("DATA==>", data)
+  useEffect(()=>{
+    if(!stock_live_prices) return
+    if(!data)return
+    console.log("DATA@",data)
+    stock_live_prices.push(...data)
+  },[data])
   return (
     <div className={`p-[1px] ${bgColor} rounded-lg relative flex justify-center lg:max-w-[630px]`}>
       {tabImage && <img src={`/assets/${tabImage}.webp`} alt="" className="w-[210px] h-5 object-contain absolute -top-[6px]" />}
@@ -245,7 +264,7 @@ export const TrackRecordStockCard = ({
         {/* TOP SECTION  END*/}
         {/* CHART SECTION */}
         <div className=" relative h-[180px] w-full py-5">
-          <Line
+          {data && data.length > 0 ? <Line
             className=""
             options={{
               layout: {
@@ -283,11 +302,11 @@ export const TrackRecordStockCard = ({
               },
             }}
             data={{
-              labels: data.map((x) => x.year),
+              labels: data[0].stock_live_data.map((x) => x?.time || x?.date),
               datasets: [
                 {
                   label: "Dimensions",
-                  data: data.map((row) => row.count),
+                  data: data[0].stock_live_data.map((row) => row.price),
                   borderColor: "#00645A",
                   pointStyle: false,
                   tension: 0,
@@ -295,7 +314,8 @@ export const TrackRecordStockCard = ({
                 },
               ],
             }}
-          />
+          />:null}
+         
         </div>
         {/* CHART SECTION END */}
         {/* BOTTOM SECTION */}

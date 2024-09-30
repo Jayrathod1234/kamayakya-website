@@ -86,3 +86,17 @@ export const getTrackDetailApi = async ({ stockId }) => {
     throw error;
   }
 };
+
+export const getBseLivePrice = async(sebiBoardType)=>{
+  try {
+    const URL = `/user/nseStocksLivePrice?type=${sebiBoardType}`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL);
+    console.log(response)
+    return response.data.bse_stocks_live_price_data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}
