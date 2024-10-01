@@ -126,7 +126,7 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
             <Image alt="rupee_icon" width={52} height={61.28} src={"/pricing/rupee_hero_icon.svg"} />
           </div>
         </div>
-      <Navbar />
+      <Navbar/>
       <main className="  main-container relative z-10">
         <BlogSection2  />
         {/* <FaqsNew /> */}

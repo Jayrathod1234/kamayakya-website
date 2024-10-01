@@ -78,7 +78,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
           "Stocks to Buy": response.data?.recentBuyRecommendedCount + " New Stocks",
         });
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const fetchActivePlan = async () => {
@@ -97,7 +97,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
         const duration = durationDays > 90 ? "1year" : durationDays > 365 ? "3year" : "3months";
         // setActivePlan({ ...response.data.current_active_subscription, duration });
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
     <>
     <Sheet modal={true} open={open} onOpenChange={setOpen}>
       <SheetTrigger onClick={() => setOpen(true)}>
-        <Menu className="inline-block lg:hidden" />
+        <Menu className="inline-block lg:hidden text-[var(--sidenav-hamburger-color)] " />
       </SheetTrigger>
       <SheetContent className=" z-50 pricing gap-0 flex flex-col p-0 pr-0">
         <SheetHeader>
@@ -158,8 +158,8 @@ export default function SideNav({ handleLogin }: TSideNav) {
                         {HOME_OPTIONS.filter((options) =>
                           isLoggedIn
                             ? options.title !== "Sample Reports" &&
-                              options.title !== "Performance" &&
-                              options.title !== "Hot Stocks"
+                            options.title !== "Performance" &&
+                            options.title !== "Hot Stocks"
                             : true
                         ).map((options) => (
                           <Link
@@ -216,7 +216,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                       nav.title === "About Us" ? "!hidden" : ""
                     }`}
                   >
-                    <p className={` text-[#475467] ${pathname.includes(nav.link)?"text-black":""}`}>{nav.title}</p>
+                    <p className={` text-[#475467] ${pathname?.includes(nav.link)?"text-black":""}`}>{nav.title}</p>
                     {stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"] ? (
                       <NewStockbadge label={stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"]} />
                     ) : null}

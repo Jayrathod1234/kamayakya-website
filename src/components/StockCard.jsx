@@ -729,8 +729,8 @@ const StockCard = () => {
               </ListItem>
               <ListItem sx={{ justifyContent: "center" }}>
                 {upsideSort !== "" ||
-                  selectedIndustries.length > 0 ||
-                  timeSort !== "" ? (
+                selectedIndustries.length > 0 ||
+                timeSort !== "" ? (
                   <Button
                     auto
                     onPress={handleClearSelection}
@@ -765,17 +765,25 @@ const StockCard = () => {
           }
         />
       </p>
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 5, mt: 5 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          mb: 5,
+          mt: 5,
+        }}
+      >
         <Box
           onClick={() => handleToggle(true)}
           sx={{
-            cursor: 'pointer',
+            cursor: "pointer",
             padding: 2,
             borderRadius: 1,
-            backgroundColor: showSME ? 'primary.main' : 'grey.300',
-            color: showSME ? 'white' : 'black',
+            backgroundColor: showSME ? "primary.main" : "grey.300",
+            color: showSME ? "white" : "black",
             marginRight: 2,
-            textAlign: 'center',
+            textAlign: "center",
           }}
         >
           Main Board Stocks
@@ -783,12 +791,12 @@ const StockCard = () => {
         <Box
           onClick={() => handleToggle(false)}
           sx={{
-            cursor: 'pointer',
+            cursor: "pointer",
             padding: 2,
             borderRadius: 1,
-            backgroundColor: !showSME ? 'primary.main' : 'grey.300',
-            color: !showSME ? 'white' : 'black',
-            textAlign: 'center',
+            backgroundColor: !showSME ? "primary.main" : "grey.300",
+            color: !showSME ? "white" : "black",
+            textAlign: "center",
           }}
         >
           SME Board Stocks
@@ -796,7 +804,11 @@ const StockCard = () => {
       </Box>
       {showSME ? (
         <Box
-          sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Grid
             container
@@ -1364,137 +1376,138 @@ const StockCard = () => {
                               const months = Math.floor((timeLeft % 365) / 30);
                               const days = Math.floor((timeLeft % 365) % 30);
 
-                              if (timeLeft < 30) {
-                                return `${days} days`;
-                              } else if (years === 0) {
-                                return `${months} month${months !== 1 ? "s" : ""
+                                if (timeLeft < 30) {
+                                  return `${days} days`;
+                                } else if (years === 0) {
+                                  return `${months} month${
+                                    months !== 1 ? "s" : ""
                                   }`;
-                              } else {
-                                return `${years} yr ${months} mo.`;
-                              }
-                            })() || <Loading /> ||
-                              "-"}
-                          </Text>
+                                } else {
+                                  return `${years} yr ${months} mo.`;
+                                }
+                              })() || <Loading /> ||
+                                "-"}
+                            </Text>
+                          </div>
                         </div>
-                      </div>
+                      </Box>
                     </Box>
-                  </Box>
-                  <Box
-                    sx={{
-                      bottom: "5px",
-                      width: "85%",
-                      marginBottom: "25px",
-                      "@media only screen and (max-width: 768px)": {
-                        width: "90%",
-                        // height: "50px",
-                        justifyContent: "center",
-                      },
-                    }}
-                  >
-                    <Button
-                      auto
-                      onPress={() => handleOpenReports(stock)}
-                      css={{
-                        top: "0px",
-                        alignSelf: "center",
-                        width: "100%",
-                        borderRadius: "10000px",
-                        color: "#000",
-                        backgroundImage:
-                          "linear-gradient(to top , #FF9D28, #ffa736)",
-                        fontSize: 18,
-                        "@media only screen and (max-width: 768px)": {
-                          fontSize: 18,
-                          lineHeight: 1,
-                          height: "40px",
-                          color: "black",
-                        },
-                      }}
-                    >
-                      View reports
-                    </Button>
-                    <Button
-                      auto
-                      onPress={() => handleOpenDisclosure(stock)}
-                      css={{
-                        top: "10px",
-                        // marginTop: "10%",
-                        color: "#106052",
-                        width: "100%",
-                        borderRadius: "10000px",
-                        backgroundColor: "#fff",
-                        // backgroundImage:
-                        //   "linear-gradient(to top , #106052, #0f734d)",
-                        fontSize: 15,
-                        height: "20px",
-                        "@media only screen and (max-width: 768px)": {
-                          top: "10px",
-                          lineHeight: 1,
-                          height: "20px",
-                          fontSize: 15,
-                        },
-                      }}
-                    >
-                      Disclosure
-                    </Button>
-                  </Box>
-                </Card>
-                <Modal
-                  // blur
-                  open={showReportsModal}
-                  onClose={handleCloseReports}
-                  aria-labelledby="modal-title"
-                  aria-describedby="modal-description"
-                  css={{
-                    width: "100%",
-                    borderRadius: "15px",
-                    background: "transparent",
-                    boxShadow: "none",
-                    // backdropFilter: "blur(8px)",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className="iframePdfMobile"
-                >
-                  <Card
-                    css={{
-                      height: "fit-content",
-                      width: "fit-content",
-                      maxWidth: "80rem",
-                      minWidth: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      padding: "50px 30px",
-                      borderRadius: "25px",
-                      // backgroundImage: "url(symbol-scatter-haikei-3.svg)",
-                      objectPosition: "center",
-                      backgroundPositionY: "center",
-                      backgroundSize: "cover",
-                      "@media only screen and (max-width: 764px)": {
-                        minWidth: "100px",
-                        width: "100vw !important",
-                      },
-                    }}
-                  >
-                    <IconButton
-                      sx={{ position: "absolute", top: "5px", right: "5px" }}
-                      onClick={handleCloseReports}
-                    >
-                      <CloseIcon color="error" />
-                    </IconButton>
                     <Box
                       sx={{
-                        width: "100%",
-                        // height: "350px",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "20px",
+                        bottom: "5px",
+                        width: "85%",
+                        marginBottom: "25px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "90%",
+                          // height: "50px",
+                          justifyContent: "center",
+                        },
                       }}
                     >
-                      <Text b size={27}>
-                        {selectedStock?.stock_name}
-                      </Text>
+                      <Button
+                        auto
+                        onPress={() => handleOpenReports(stock)}
+                        css={{
+                          top: "0px",
+                          alignSelf: "center",
+                          width: "100%",
+                          borderRadius: "10000px",
+                          color: "#000",
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                          fontSize: 18,
+                          "@media only screen and (max-width: 768px)": {
+                            fontSize: 18,
+                            lineHeight: 1,
+                            height: "40px",
+                            color: "black",
+                          },
+                        }}
+                      >
+                        View reports
+                      </Button>
+                      <Button
+                        auto
+                        onPress={() => handleOpenDisclosure(stock)}
+                        css={{
+                          top: "10px",
+                          // marginTop: "10%",
+                          color: "#106052",
+                          width: "100%",
+                          borderRadius: "10000px",
+                          backgroundColor: "#fff",
+                          // backgroundImage:
+                          //   "linear-gradient(to top , #106052, #0f734d)",
+                          fontSize: 15,
+                          height: "20px",
+                          "@media only screen and (max-width: 768px)": {
+                            top: "10px",
+                            lineHeight: 1,
+                            height: "20px",
+                            fontSize: 15,
+                          },
+                        }}
+                      >
+                        Disclosure
+                      </Button>
+                    </Box>
+                  </Card>
+                  <Modal
+                    // blur
+                    open={showReportsModal}
+                    onClose={handleCloseReports}
+                    aria-labelledby="modal-title"
+                    aria-describedby="modal-description"
+                    css={{
+                      width: "100%",
+                      borderRadius: "15px",
+                      background: "transparent",
+                      boxShadow: "none",
+                      // backdropFilter: "blur(8px)",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    className="iframePdfMobile"
+                  >
+                    <Card
+                      css={{
+                        height: "fit-content",
+                        width: "fit-content",
+                        maxWidth: "80rem",
+                        minWidth: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        padding: "50px 30px",
+                        borderRadius: "25px",
+                        // backgroundImage: "url(symbol-scatter-haikei-3.svg)",
+                        objectPosition: "center",
+                        backgroundPositionY: "center",
+                        backgroundSize: "cover",
+                        "@media only screen and (max-width: 764px)": {
+                          minWidth: "100px",
+                          width: "100vw !important",
+                        },
+                      }}
+                    >
+                      <IconButton
+                        sx={{ position: "absolute", top: "5px", right: "5px" }}
+                        onClick={handleCloseReports}
+                      >
+                        <CloseIcon color="error" />
+                      </IconButton>
+                      <Box
+                        sx={{
+                          width: "100%",
+                          // height: "350px",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "20px",
+                        }}
+                      >
+                        <Text b size={27}>
+                          {selectedStock?.stock_name}
+                        </Text>
 
                       {selectedStock?.stock_reports?.length > 0 ? (
                         selectedStock.stock_reports.map((report) => (
@@ -1580,40 +1593,40 @@ const StockCard = () => {
                       <Viewer
                         fileUrl={`${PdfValue ? PdfValue : selectedReportUrl
                           }#view=FitH&toolbar=0`}
-                        onDocumentAskPassword={handleAskPassword}
-                      />
-                    </Box>
-                  </Worker>
-                  <Button
-                    flat
-                    onPress={handleCloseModal}
-                    css={{
-                      alignSelf: "center",
-                      // width: "100%",
-                      backgroundColor: "#ffa12e",
-                      color: "#fff",
-                      fontSize: 19,
-                      marginTop: "20px",
-                      borderRadius: "10px",
-                      height: "50px",
-                      width: "100%",
-                      "@media only screen and (max-width: 768px)": {
-                        width: "100%",
-                        fontSize: 15,
+                          onDocumentAskPassword={handleAskPassword}
+                        />
+                      </Box>
+                    </Worker>
+                    <Button
+                      flat
+                      onPress={handleCloseModal}
+                      css={{
+                        alignSelf: "center",
+                        // width: "100%",
+                        backgroundColor: "#ffa12e",
+                        color: "#fff",
+                        fontSize: 19,
+                        marginTop: "20px",
+                        borderRadius: "10px",
                         height: "50px",
-                        marginTop: "0px",
-                        borderRadius: "0px 0px 10px",
-                        "& span": {
-                          // display: "none",
+                        width: "100%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                          fontSize: 15,
+                          height: "50px",
+                          marginTop: "0px",
+                          borderRadius: "0px 0px 10px",
+                          "& span": {
+                            // display: "none",
+                          },
                         },
-                      },
-                    }}
-                  >
-                    Close
-                  </Button>
-                </Modal>
-              </Grid>
-            ))}
+                      }}
+                    >
+                      Close
+                    </Button>
+                  </Modal>
+                </Grid>
+              ))}
             {!isLoggedIn || !isSubscribed ? (
               <Grid>
                 <Card
@@ -1943,197 +1956,201 @@ const StockCard = () => {
             )}
             {!isLoggedIn || !isSubscribed
               ? staticNumbers.map((number, index) => (
-                <Grid
-                  // key={stock.id}
-                  key={index}
-                  item
-                  xs={"auto"}
-                  sm={"auto"}
-                  md={"auto"}
-                  lg={"auto"}
-                  style={{ alignItems: "center" }}
-                >
-                  <Card
-                    variant="flat"
-                    css={{
-                      height: "617px",
-                      width: "285px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      backgroundColor: "#fff",
-                      borderRadius: "40px",
-                      border: "4px solid",
-                      borderColor: "#ffa12e",
-                      marginBottom: "20px",
-                      boxShadow: "none",
-                      filter: "none",
-                      "@media only screen and (max-width: 768px)": {
-                        width: "95vw",
-                        maxWidth: "620px",
-                        height: "auto",
-                        borderRadius: "35px",
-                        border: "4px solid",
-                        borderColor: "#ffa12e",
-                        paddingBottom: "30px",
-                        marginBottom: "0px",
-                      },
-                    }}
+                  <Grid
+                    // key={stock.id}
+                    key={index}
+                    item
+                    xs={"auto"}
+                    sm={"auto"}
+                    md={"auto"}
+                    lg={"auto"}
+                    style={{ alignItems: "center" }}
                   >
-                    <Box
-                      sx={{
-                        marginLeft: "5%",
-                        marginRight: "5%",
-                        marginTop: "20px",
-                        marginBottom: "20px",
-                        width: "90%",
+                    <Card
+                      variant="flat"
+                      css={{
+                        height: "617px",
+                        width: "285px",
                         display: "flex",
                         flexDirection: "column",
-                        justifyContent: "center",
                         alignItems: "center",
+                        backgroundColor: "#fff",
+                        borderRadius: "40px",
+                        border: "4px solid",
+                        borderColor: "#ffa12e",
+                        marginBottom: "20px",
+                        boxShadow: "none",
+                        filter: "none",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "95vw",
+                          maxWidth: "620px",
+                          height: "auto",
+                          borderRadius: "35px",
+                          border: "4px solid",
+                          borderColor: "#ffa12e",
+                          paddingBottom: "30px",
+                          marginBottom: "0px",
+                        },
                       }}
                     >
                       <Box
                         sx={{
-                          marginTop: "5px",
+                          marginLeft: "5%",
+                          marginRight: "5%",
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          width: "90%",
                           display: "flex",
                           flexDirection: "column",
-                          textAlign: "center",
-                          backgroundColor: "#fff",
-                          marginBottom: "15px",
-                          width: "90%",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                          },
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            zIndex: 0,
-                            width: "100%",
-                            paddingTop: "7.5px",
-                            paddingBottom: "7.5px",
-                            paddingLeft: "5px",
-                            paddingRight: "5px",
-                            backgroundImage:
-                              "linear-gradient(to top , #FF9D28, #ffa736)",
-                            marginBottom: "15px",
-                            marginTop: "5px",
-                            borderRadius: "10000px",
-                            lineHeight: 1,
-                          }}
-                        >
-                          <Text
-                            b
-                            size={14}
-                            color="Black"
-                            css={{ lineHeight: 1 }}
-                          >
-                            {/* {stock.stock_industry} */}
-                            {`<Industry>`}
-                          </Text>
-                        </Box>
-                        <Text
-                          b
-                          size={26}
-                          css={{
-                            minWidth: "100%",
-                            maxWidth: "100%",
-                            textAlign: "center",
-                            lineHeight: 1.2,
-                            position: "relative",
-                            zIndex: 0,
-                            "@media only screen and (max-width: 768px)": {
-                              fontSize: 20,
-                            },
-                          }}
-                        >
-                          {`KamayaKya`}
-                        </Text>
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backdropFilter: "blur(8px)",
-                            zIndex: 0,
-                            WebkitBackdropFilter: "blur(8px)",
-                            margin: "15px",
-                            "@media only screen and (max-width: 768px)": {
-                              margin: "0px",
-                            },
-                          }}
-                        >{` `}</Box>
-                      </Box>
-                      <Box
-                        sx={{
-                          zIndex: 1,
-                          width: "90%",
-                          backgroundImage:
-                            "linear-gradient(to top , #106052, #0f734d)",
-                          borderRadius: "17.5px",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
                           justifyContent: "center",
-                          paddingTop: "20px",
-                          paddingBottom: "20px",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                          },
+                          alignItems: "center",
                         }}
                       >
-                        <Text
-                          b
-                          size={20}
-                          color="#fff"
-                          css={{
-                            lineHeight: 1.5,
+                        <Box
+                          sx={{
+                            marginTop: "5px",
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "center",
+                            backgroundColor: "#fff",
+                            marginBottom: "15px",
+                            width: "90%",
+                            "@media only screen and (max-width: 768px)": {
+                              width: "100%",
+                            },
                           }}
                         >
-                          Upside Left
-                        </Text>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <ArrowCircleUp size={25} color="#fff" />
+                          <Box
+                            sx={{
+                              zIndex: 0,
+                              width: "100%",
+                              paddingTop: "7.5px",
+                              paddingBottom: "7.5px",
+                              paddingLeft: "5px",
+                              paddingRight: "5px",
+                              backgroundImage:
+                                "linear-gradient(to top , #FF9D28, #ffa736)",
+                              marginBottom: "15px",
+                              marginTop: "5px",
+                              borderRadius: "10000px",
+                              lineHeight: 1,
+                            }}
+                          >
+                            <Text
+                              b
+                              size={14}
+                              color="Black"
+                              css={{ lineHeight: 1 }}
+                            >
+                              {/* {stock.stock_industry} */}
+                              {`<Industry>`}
+                            </Text>
+                          </Box>
                           <Text
                             b
-                            size={48}
-                            color="#fff"
+                            size={26}
                             css={{
-                              lineHeight: 1,
-                              marginLeft: "3px",
-                              marginRight: "3px",
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              textAlign: "center",
+                              lineHeight: 1.2,
+                              position: "relative",
+                              zIndex: 0,
                               "@media only screen and (max-width: 768px)": {
-                                fontSize: 55,
+                                fontSize: 20,
                               },
                             }}
                           >
-                            {`${number}`}
+                            {`KamayaKya`}
                           </Text>
-                          <span style={{ fontSize: 25, color: "#FFF" }}>%</span>
-                        </div>
-                      </Box>
-
-                      <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
-                        <div
-                          style={{
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              backdropFilter: "blur(8px)",
+                              zIndex: 0,
+                              WebkitBackdropFilter: "blur(8px)",
+                              margin: "15px",
+                              "@media only screen and (max-width: 768px)": {
+                                margin: "0px",
+                              },
+                            }}
+                          >{` `}</Box>
+                        </Box>
+                        <Box
+                          sx={{
+                            zIndex: 1,
+                            width: "90%",
+                            backgroundImage:
+                              "linear-gradient(to top , #106052, #0f734d)",
+                            borderRadius: "17.5px",
                             display: "flex",
-                            width: "100%",
                             flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            paddingTop: "20px",
+                            paddingBottom: "20px",
+                            "@media only screen and (max-width: 768px)": {
+                              width: "100%",
+                            },
                           }}
                         >
-                          <Divider
-                            height={4}
-                            style={{
-                              backgroundColor: "#ffa736",
-                              marginTop: "30px",
-                              marginBottom: "10px",
-                              width: "50px",
-                              alignSelf: "center",
+                          <Text
+                            b
+                            size={20}
+                            color="#fff"
+                            css={{
+                              lineHeight: 1.5,
                             }}
-                          />
+                          >
+                            Upside Left
+                          </Text>
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <ArrowCircleUp size={25} color="#fff" />
+                            <Text
+                              b
+                              size={48}
+                              color="#fff"
+                              css={{
+                                lineHeight: 1,
+                                marginLeft: "3px",
+                                marginRight: "3px",
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 55,
+                                },
+                              }}
+                            >
+                              {`${number}`}
+                            </Text>
+                            <span style={{ fontSize: 25, color: "#FFF" }}>
+                              %
+                            </span>
+                          </div>
+                        </Box>
+
+                        <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              width: "100%",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Divider
+                              height={4}
+                              style={{
+                                backgroundColor: "#ffa736",
+                                marginTop: "30px",
+                                marginBottom: "10px",
+                                width: "50px",
+                                alignSelf: "center",
+                              }}
+                            />
 
                           <div
                             style={{
@@ -2262,532 +2279,562 @@ const StockCard = () => {
               ))
               : ""}
 
-            {isSubscribed && plan === "advanced" ? (() => {
-              return <>
-                <Grid>
-                  <Card
-                    isHoverable
-                    css={{
-                      height: "575px",
-                      width: "285px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      borderRadius: "35px",
-                      background: "#fff",
-                      filter: "none",
-                      justifyContent: "center",
-                      paddingTop: "50px",
-                      paddingBottom: "50px",
-                      paddingLeft: "15px",
-                      paddingRight: "15px",
-                      backgroundImage:
-                        "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
-                    }}
-                    className="stocksPage-subscribe-mobile"
+            {isSubscribed && plan === "advanced"
+              ? (() => {
+                  return (
+                    <>
+                      <Grid>
+                        <Card
+                          isHoverable
+                          css={{
+                            height: "575px",
+                            width: "285px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            borderRadius: "35px",
+                            background: "#fff",
+                            filter: "none",
+                            justifyContent: "center",
+                            paddingTop: "50px",
+                            paddingBottom: "50px",
+                            paddingLeft: "15px",
+                            paddingRight: "15px",
+                            backgroundImage:
+                              "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
+                          }}
+                          className="stocksPage-subscribe-mobile"
+                        >
+                          <div className="cr cr-top cr-right cr-sticky cr-subscription">
+                            VIP+
+                          </div>
+                          <img
+                            src="kamayakya-logo-white-vip.png"
+                            style={{ marginTop: "5px", width: "75%" }}
+                            alt="kamayakya"
+                          />
+
+                          <Divider
+                            css={{
+                              background: "#fff",
+                              opacity: "0.5",
+                              width: "30px",
+                              height: "3px",
+                              marginTop: "20px",
+                            }}
+                          />
+
+                          <Box
+                            sx={{
+                              width: "100%",
+                              alignSelf: "start",
+                              marginTop: "20px",
+                              marginBottom: "10px",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              paddingLeft: "30px",
+                              paddingRight: "30px",
+                            }}
+                          >
+                            <CheckCircleIcon
+                              sx={{
+                                marginRight: "10px",
+                                color: "#fff",
+                                fontSize: 20,
+                                alignSelf: "start",
+                                marginTop: "5px",
+                                opacity: 0.9,
+                              }}
+                            />
+                            <Text
+                              b
+                              color="#fff"
+                              size={20}
+                              css={{ lineHeight: 1.2, opacity: 0.9 }}
+                            >
+                              2-4 individual stock picks every month
+                            </Text>
+                          </Box>
+                          <Box
+                            sx={{
+                              width: "100%",
+                              alignSelf: "start",
+                              marginBottom: "10px",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              paddingLeft: "30px",
+                              paddingRight: "30px",
+                            }}
+                          >
+                            <CheckCircleIcon
+                              sx={{
+                                marginRight: "10px",
+                                color: "#fff",
+                                fontSize: 20,
+                                alignSelf: "start",
+                                marginTop: "5px",
+                                opacity: 0.9,
+                              }}
+                            />
+                            <Text
+                              b
+                              color="#fff"
+                              size={20}
+                              css={{ lineHeight: 1.2, opacity: 0.9 }}
+                            >
+                              NSE + BSE + SME stock picks
+                            </Text>
+                          </Box>
+                          <Box
+                            sx={{
+                              width: "100%",
+                              alignSelf: "start",
+                              // marginTop: "20px",
+                              marginBottom: "10px",
+                              // marginLeft: "5%",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              paddingLeft: "30px",
+                              paddingRight: "30px",
+                            }}
+                          >
+                            <CheckCircleIcon
+                              sx={{
+                                marginRight: "10px",
+                                color: "#fff",
+                                fontSize: 20,
+                                alignSelf: "start",
+                                marginTop: "5px",
+                                opacity: 0.9,
+                              }}
+                            />
+                            <Text
+                              b
+                              color="#fff"
+                              size={20}
+                              css={{ lineHeight: 1.2, opacity: 0.9 }}
+                            >
+                              WhatsApp & Email updates
+                            </Text>
+                          </Box>
+                          <Divider
+                            css={{
+                              background: "#fff",
+                              opacity: "0.5",
+                              width: "30px",
+                              height: "3px",
+                              marginTop: "20px",
+                              marginBottom: "20px",
+                            }}
+                          />
+                          <Button
+                            // variant="contained"
+                            css={{
+                              width: "75%",
+                              background:
+                                "linear-gradient(to top , #fb7716,#fe9807)",
+                              paddingTop: "5px",
+                              paddingBottom: "5px",
+                              borderRadius: "10000px",
+                              boxShadow: "none",
+                              "&:hover": {
+                                backgroundImage:
+                                  "linear-gradient(to top , #FF9D28, #ffa736)",
+                              },
+                            }}
+                            onClick={handleLoginOrSubForSubscribeNow}
+                          >
+                            <Text b color="#FFF" size={18}>
+                              Subscribe Now
+                            </Text>
+                          </Button>
+                          <Modal
+                            width="450px"
+                            open={showLoginModalForSubscribe}
+                            onClose={handleCloseLoginModalForSubscribeNow}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                              }}
+                            >
+                              <img
+                                src="kmk-k.png"
+                                style={{ maxWidth: "260px" }}
+                              />
+                              <IconButton
+                                sx={{
+                                  width: "40px",
+                                  "&:hover": { background: "#fff" },
+                                  // alignSelf: "end",
+                                  right: "20px",
+                                }}
+                                onClick={() =>
+                                  handleCloseLoginModalForSubscribeNow()
+                                }
+                              >
+                                <CloseIcon sx={{ color: "#e81123" }} />
+                              </IconButton>
+                            </Box>
+
+                            <Modal.Body>
+                              <LoginForSubsribe />
+                            </Modal.Body>
+                          </Modal>
+
+                          <Text
+                            b
+                            size={20}
+                            color="#fff"
+                            css={{
+                              textAlign: "center",
+                              marginTop: "10px",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: "20px",
+                              },
+                            }}
+                          >
+                            for ₹
+                            <span
+                              style={{
+                                color: "#fff",
+                                fontSize: 30,
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              15,000/year
+                            </span>
+                          </Text>
+
+                          <Text
+                            b
+                            size={18}
+                            color="#FFF"
+                            css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
+                          >
+                            inclusive of taxes
+                          </Text>
+                          <Text
+                            b
+                            size={14}
+                            color="#fff"
+                            css={{
+                              textDecoration: "underline",
+                              position: "absolute",
+                              bottom: "35px",
+                              cursor: "pointer",
+                              // mt: "10px",
+                              lineHeight: 1,
+                              opacity: 1,
+                              "@media only screen and (max-width: 768px)": {
+                                marginTop: "20px",
+                                marginBottom: "20px",
+                                bottom: "0px",
+                              },
+                            }}
+                            onClick={handleShowWhyModal}
+                          >
+                            Why do we charge annually?
+                          </Text>
+                          <Modal
+                            open={showWhyModal}
+                            onClose={handleWhyModalClose}
+                            css={{
+                              justifyContent: "center",
+                              background: "transparent",
+                              alignItems: "center",
+                              boxShadow: "none",
+                            }}
+                          >
+                            <Card
+                              css={{
+                                padding: "50px 50px",
+                                width: "550px",
+                                "@media only screen and (max-width: 768px)": {
+                                  width: "95%",
+                                },
+                              }}
+                            >
+                              <IconButton
+                                sx={{
+                                  position: "absolute",
+                                  top: "5px",
+                                  right: "5px",
+                                }}
+                                onClick={handleWhyModalClose}
+                              >
+                                <CloseIcon color="error" />
+                              </IconButton>
+                              <Text b size={21} css={{ textAlign: "start" }}>
+                                Why do we charge annually?
+                              </Text>
+                              <br />
+                              <Text
+                                b
+                                css={{ lineHeight: 1.2, textAlign: "start" }}
+                              >
+                                We understand that effective investing requires
+                                time and patience, which is why we exclusively
+                                offer an annual plan. Our strategy reflects our
+                                ethos that long-term commitment is key to
+                                unlocking the true potential of
+                                your investments.
+                              </Text>
+                            </Card>
+                          </Modal>
+                        </Card>
+                        <Modal
+                          blur
+                          width="450px"
+                          open={showLoginModal}
+                          onClose={handleCloseLoginModal}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                              width: "100%",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                            }}
+                          >
+                            <img
+                              src="kmk-k.png"
+                              style={{ maxWidth: "260px" }}
+                            />
+                            <IconButton
+                              sx={{
+                                width: "40px",
+                                "&:hover": { background: "#fff" },
+                                // alignSelf: "end",
+                                right: "20px",
+                              }}
+                              onClick={() => handleCloseLoginModal()}
+                            >
+                              <CloseIcon sx={{ color: "#e81123" }} />
+                            </IconButton>
+                          </Box>
+
+                          <Modal.Body>
+                            <Login />
+                          </Modal.Body>
+                        </Modal>
+                      </Grid>
+                    </>
+                  );
+                })()
+              : null}
+
+            {isSubscribed && plan === "advanced"
+              ? staticNumbers.map((number, index) => (
+                  <Grid
+                    // key={stock.id}
+                    key={index}
+                    item
+                    xs={"auto"}
+                    sm={"auto"}
+                    md={"auto"}
+                    lg={"auto"}
+                    style={{ alignItems: "center" }}
                   >
-                    <div className="cr cr-top cr-right cr-sticky cr-subscription">
-                      VIP+
-                    </div>
-                    <img
-                      src="kamayakya-logo-white-vip.png"
-                      style={{ marginTop: "5px", width: "75%" }}
-                      alt="kamayakya"
-                    />
-
-                    <Divider
+                    <Card
+                      variant="flat"
                       css={{
-                        background: "#fff",
-                        opacity: "0.5",
-                        width: "30px",
-                        height: "3px",
-                        marginTop: "20px",
-                      }}
-                    />
-
-                    <Box
-                      sx={{
-                        width: "100%",
-                        alignSelf: "start",
-                        marginTop: "20px",
-                        marginBottom: "10px",
+                        height: "575px",
+                        width: "285px",
                         display: "flex",
-                        flexDirection: "row",
+                        flexDirection: "column",
                         alignItems: "center",
-                        paddingLeft: "30px",
-                        paddingRight: "30px",
-                      }}
-                    >
-                      <CheckCircleIcon
-                        sx={{
-                          marginRight: "10px",
-                          color: "#fff",
-                          fontSize: 20,
-                          alignSelf: "start",
-                          marginTop: "5px",
-                          opacity: 0.9,
-                        }}
-                      />
-                      <Text
-                        b
-                        color="#fff"
-                        size={20}
-                        css={{ lineHeight: 1.2, opacity: 0.9 }}
-                      >
-                        2-4 individual stock picks every month
-                      </Text>
-                    </Box>
-                    <Box
-                      sx={{
-                        width: "100%",
-                        alignSelf: "start",
-                        marginBottom: "10px",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        paddingLeft: "30px",
-                        paddingRight: "30px",
-                      }}
-                    >
-                      <CheckCircleIcon
-                        sx={{
-                          marginRight: "10px",
-                          color: "#fff",
-                          fontSize: 20,
-                          alignSelf: "start",
-                          marginTop: "5px",
-                          opacity: 0.9,
-                        }}
-                      />
-                      <Text
-                        b
-                        color="#fff"
-                        size={20}
-                        css={{ lineHeight: 1.2, opacity: 0.9 }}
-                      >
-                        NSE + BSE + SME stock picks
-                      </Text>
-                    </Box>
-                    <Box
-                      sx={{
-                        width: "100%",
-                        alignSelf: "start",
-                        // marginTop: "20px",
-                        marginBottom: "10px",
-                        // marginLeft: "5%",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        paddingLeft: "30px",
-                        paddingRight: "30px",
-                      }}
-                    >
-                      <CheckCircleIcon
-                        sx={{
-                          marginRight: "10px",
-                          color: "#fff",
-                          fontSize: 20,
-                          alignSelf: "start",
-                          marginTop: "5px",
-                          opacity: 0.9,
-                        }}
-                      />
-                      <Text
-                        b
-                        color="#fff"
-                        size={20}
-                        css={{ lineHeight: 1.2, opacity: 0.9 }}
-                      >
-                        WhatsApp & Email updates
-                      </Text>
-                    </Box>
-                    <Divider
-                      css={{
-                        background: "#fff",
-                        opacity: "0.5",
-                        width: "30px",
-                        height: "3px",
-                        marginTop: "20px",
+                        backgroundColor: "#fff",
+                        borderRadius: "40px",
+                        border: "4px solid",
+                        borderColor: "#ffa12e",
                         marginBottom: "20px",
-                      }}
-                    />
-                    <Button
-                      // variant="contained"
-                      css={{
-                        width: "75%",
-                        background: "linear-gradient(to top , #fb7716,#fe9807)",
-                        paddingTop: "5px",
-                        paddingBottom: "5px",
-                        borderRadius: "10000px",
                         boxShadow: "none",
-                        "&:hover": {
-                          backgroundImage:
-                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                        filter: "none",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "95vw",
+                          maxWidth: "620px",
+                          height: "auto",
+                          borderRadius: "35px",
+                          border: "4px solid",
+                          borderColor: "#ffa12e",
+                          paddingBottom: "30px",
+                          marginBottom: "0px",
                         },
                       }}
-                      onClick={handleLoginOrSubForSubscribeNow}
-                    >
-                      <Text b color="#FFF" size={18}>
-                        Subscribe Now
-                      </Text>
-                    </Button>
-                    <Modal
-                      width="450px"
-                      open={showLoginModalForSubscribe}
-                      onClose={handleCloseLoginModalForSubscribeNow}
                     >
                       <Box
                         sx={{
+                          marginLeft: "5%",
+                          marginRight: "5%",
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          width: "90%",
                           display: "flex",
-                          flexDirection: "row",
-                          width: "100%",
-                          justifyContent: "space-between",
+                          flexDirection: "column",
+                          justifyContent: "center",
                           alignItems: "center",
                         }}
                       >
-                        <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-                        <IconButton
+                        <Box
                           sx={{
-                            width: "40px",
-                            "&:hover": { background: "#fff" },
-                            // alignSelf: "end",
-                            right: "20px",
-                          }}
-                          onClick={() => handleCloseLoginModalForSubscribeNow()}
-                        >
-                          <CloseIcon sx={{ color: "#e81123" }} />
-                        </IconButton>
-                      </Box>
-
-                      <Modal.Body>
-                        <LoginForSubsribe />
-                      </Modal.Body>
-                    </Modal>
-
-                    <Text
-                      b
-                      size={20}
-                      color="#fff"
-                      css={{
-                        textAlign: "center",
-                        marginTop: "10px",
-                        "@media only screen and (max-width: 768px)": {
-                          fontSize: "20px",
-                        },
-                      }}
-                    >
-                      for ₹
-                      <span
-                        style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
-                      >
-                        15,000/year
-                      </span>
-                    </Text>
-
-                    <Text
-                      b
-                      size={18}
-                      color="#FFF"
-                      css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
-                    >
-                      inclusive of taxes
-                    </Text>
-                    <Text
-                      b
-                      size={14}
-                      color="#fff"
-                      css={{
-                        textDecoration: "underline",
-                        position: "absolute",
-                        bottom: "35px",
-                        cursor: "pointer",
-                        // mt: "10px",
-                        lineHeight: 1,
-                        opacity: 1,
-                        "@media only screen and (max-width: 768px)": {
-                          marginTop: "20px",
-                          marginBottom: "20px",
-                          bottom: "0px",
-                        },
-                      }}
-                      onClick={handleShowWhyModal}
-                    >
-                      Why do we charge annually?
-                    </Text>
-                    <Modal
-                      open={showWhyModal}
-                      onClose={handleWhyModalClose}
-                      css={{
-                        justifyContent: "center",
-                        background: "transparent",
-                        alignItems: "center",
-                        boxShadow: "none",
-                      }}
-                    >
-                      <Card
-                        css={{
-                          padding: "50px 50px",
-                          width: "550px",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "95%",
-                          },
-                        }}
-                      >
-                        <IconButton
-                          sx={{ position: "absolute", top: "5px", right: "5px" }}
-                          onClick={handleWhyModalClose}
-                        >
-                          <CloseIcon color="error" />
-                        </IconButton>
-                        <Text b size={21} css={{ textAlign: "start" }}>
-                          Why do we charge annually?
-                        </Text>
-                        <br />
-                        <Text b css={{ lineHeight: 1.2, textAlign: "start" }}>
-                          We understand that effective investing requires time and
-                          patience, which is why we exclusively offer an annual
-                          plan. Our strategy reflects our ethos that long-term
-                          commitment is key to unlocking the true potential of
-                          your investments.
-                        </Text>
-                      </Card>
-                    </Modal>
-                  </Card>
-                  <Modal
-                    blur
-                    width="450px"
-                    open={showLoginModal}
-                    onClose={handleCloseLoginModal}
-                  >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-                      <IconButton
-                        sx={{
-                          width: "40px",
-                          "&:hover": { background: "#fff" },
-                          // alignSelf: "end",
-                          right: "20px",
-                        }}
-                        onClick={() => handleCloseLoginModal()}
-                      >
-                        <CloseIcon sx={{ color: "#e81123" }} />
-                      </IconButton>
-                    </Box>
-
-                    <Modal.Body>
-                      <Login />
-                    </Modal.Body>
-                  </Modal>
-                </Grid>
-              </>
-            })() : null}
-
-            {isSubscribed && plan === "advanced" ? staticNumbers.map((number, index) => (
-              <Grid
-                // key={stock.id}
-                key={index}
-                item
-                xs={"auto"}
-                sm={"auto"}
-                md={"auto"}
-                lg={"auto"}
-                style={{ alignItems: "center" }}
-              >
-                <Card
-                  variant="flat"
-                  css={{
-                    height: "575px",
-                    width: "285px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    backgroundColor: "#fff",
-                    borderRadius: "40px",
-                    border: "4px solid",
-                    borderColor: "#ffa12e",
-                    marginBottom: "20px",
-                    boxShadow: "none",
-                    filter: "none",
-                    "@media only screen and (max-width: 768px)": {
-                      width: "95vw",
-                      maxWidth: "620px",
-                      height: "auto",
-                      borderRadius: "35px",
-                      border: "4px solid",
-                      borderColor: "#ffa12e",
-                      paddingBottom: "30px",
-                      marginBottom: "0px",
-                    },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      marginLeft: "5%",
-                      marginRight: "5%",
-                      marginTop: "20px",
-                      marginBottom: "20px",
-                      width: "90%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        marginTop: "5px",
-                        display: "flex",
-                        flexDirection: "column",
-                        textAlign: "center",
-                        backgroundColor: "#fff",
-                        marginBottom: "15px",
-                        width: "90%",
-                        "@media only screen and (max-width: 768px)": {
-                          width: "100%",
-                        },
-                      }}
-                    >
-                      <div
-                        className="cr cr-top cr-right cr-sticky cr-subscription"
-                        style={{ zIndex: 10 }}
-                      >
-                        SME
-                      </div>
-                      <Box
-                        sx={{
-                          zIndex: 0,
-                          width: "100%",
-                          paddingTop: "7.5px",
-                          paddingBottom: "7.5px",
-                          paddingLeft: "5px",
-                          paddingRight: "5px",
-                          backgroundImage:
-                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                          marginBottom: "15px",
-                          marginTop: "5px",
-                          borderRadius: "10000px",
-                          lineHeight: 1,
-                        }}
-                      >
-                        <Text
-                          b
-                          size={14}
-                          color="Black"
-                          css={{ lineHeight: 1 }}
-                        >
-                          {/* {stock.stock_industry} */}
-                          {`<Industry>`}
-                        </Text>
-                      </Box>
-                      <Text
-                        b
-                        size={26}
-                        css={{
-                          minWidth: "100%",
-                          maxWidth: "100%",
-                          textAlign: "center",
-                          lineHeight: 1.2,
-                          position: "relative",
-                          zIndex: 0,
-                          "@media only screen and (max-width: 768px)": {
-                            fontSize: 20,
-                          },
-                        }}
-                      >
-                        {`KamayaKya`}
-                      </Text>
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          backdropFilter: "blur(8px)",
-                          zIndex: 0,
-                          WebkitBackdropFilter: "blur(8px)",
-                          margin: "15px",
-                          "@media only screen and (max-width: 768px)": {
-                            margin: "0px",
-                          },
-                        }}
-                      >{` `}</Box>
-                    </Box>
-                    <Box
-                      sx={{
-                        zIndex: 1,
-                        width: "90%",
-                        backgroundImage:
-                          "linear-gradient(to top , #106052, #0f734d)",
-                        borderRadius: "17.5px",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingTop: "20px",
-                        paddingBottom: "20px",
-                        "@media only screen and (max-width: 768px)": {
-                          width: "100%",
-                        },
-                      }}
-                    >
-                      <Text
-                        b
-                        size={20}
-                        color="#fff"
-                        css={{
-                          lineHeight: 1.5,
-                        }}
-                      >
-                        Upside Left
-                      </Text>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <ArrowCircleUp size={25} color="#fff" />
-                        <Text
-                          b
-                          size={48}
-                          color="#fff"
-                          css={{
-                            lineHeight: 1,
-                            marginLeft: "3px",
-                            marginRight: "3px",
+                            marginTop: "5px",
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "center",
+                            backgroundColor: "#fff",
+                            marginBottom: "15px",
+                            width: "90%",
                             "@media only screen and (max-width: 768px)": {
-                              fontSize: 55,
+                              width: "100%",
                             },
                           }}
                         >
-                          {`${number}`}
-                        </Text>
-                        <span style={{ fontSize: 25, color: "#FFF" }}>%</span>
-                      </div>
-                    </Box>
-
-                    <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "100%",
-                          flexDirection: "column",
-                        }}
-                      >
-                        <Divider
-                          height={4}
-                          style={{
-                            backgroundColor: "#ffa736",
-                            marginTop: "30px",
-                            marginBottom: "10px",
-                            width: "50px",
-                            alignSelf: "center",
+                          <div
+                            className="cr cr-top cr-right cr-sticky cr-subscription"
+                            style={{ zIndex: 10 }}
+                          >
+                            SME
+                          </div>
+                          <Box
+                            sx={{
+                              zIndex: 0,
+                              width: "100%",
+                              paddingTop: "7.5px",
+                              paddingBottom: "7.5px",
+                              paddingLeft: "5px",
+                              paddingRight: "5px",
+                              backgroundImage:
+                                "linear-gradient(to top , #FF9D28, #ffa736)",
+                              marginBottom: "15px",
+                              marginTop: "5px",
+                              borderRadius: "10000px",
+                              lineHeight: 1,
+                            }}
+                          >
+                            <Text
+                              b
+                              size={14}
+                              color="Black"
+                              css={{ lineHeight: 1 }}
+                            >
+                              {/* {stock.stock_industry} */}
+                              {`<Industry>`}
+                            </Text>
+                          </Box>
+                          <Text
+                            b
+                            size={26}
+                            css={{
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              textAlign: "center",
+                              lineHeight: 1.2,
+                              position: "relative",
+                              zIndex: 0,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 20,
+                              },
+                            }}
+                          >
+                            {`KamayaKya`}
+                          </Text>
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              backdropFilter: "blur(8px)",
+                              zIndex: 0,
+                              WebkitBackdropFilter: "blur(8px)",
+                              margin: "15px",
+                              "@media only screen and (max-width: 768px)": {
+                                margin: "0px",
+                              },
+                            }}
+                          >{` `}</Box>
+                        </Box>
+                        <Box
+                          sx={{
+                            zIndex: 1,
+                            width: "90%",
+                            backgroundImage:
+                              "linear-gradient(to top , #106052, #0f734d)",
+                            borderRadius: "17.5px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            paddingTop: "20px",
+                            paddingBottom: "20px",
+                            "@media only screen and (max-width: 768px)": {
+                              width: "100%",
+                            },
                           }}
-                        />
+                        >
+                          <Text
+                            b
+                            size={20}
+                            color="#fff"
+                            css={{
+                              lineHeight: 1.5,
+                            }}
+                          >
+                            Upside Left
+                          </Text>
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <ArrowCircleUp size={25} color="#fff" />
+                            <Text
+                              b
+                              size={48}
+                              color="#fff"
+                              css={{
+                                lineHeight: 1,
+                                marginLeft: "3px",
+                                marginRight: "3px",
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 55,
+                                },
+                              }}
+                            >
+                              {`${number}`}
+                            </Text>
+                            <span style={{ fontSize: 25, color: "#FFF" }}>
+                              %
+                            </span>
+                          </div>
+                        </Box>
+
+                        <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              width: "100%",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Divider
+                              height={4}
+                              style={{
+                                backgroundColor: "#ffa736",
+                                marginTop: "30px",
+                                marginBottom: "10px",
+                                width: "50px",
+                                alignSelf: "center",
+                              }}
+                            />
 
                         <div
                           style={{
@@ -2915,16 +2962,15 @@ const StockCard = () => {
               </Grid>
             ))
               : ""}
-
-
           </Grid>
-
-
-
         </Box>
       ) : (
         <Box
-          sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Grid
             container
@@ -3493,137 +3539,138 @@ const StockCard = () => {
                               const months = Math.floor((timeLeft % 365) / 30);
                               const days = Math.floor((timeLeft % 365) % 30);
 
-                              if (timeLeft < 30) {
-                                return `${days} days`;
-                              } else if (years === 0) {
-                                return `${months} month${months !== 1 ? "s" : ""
+                                if (timeLeft < 30) {
+                                  return `${days} days`;
+                                } else if (years === 0) {
+                                  return `${months} month${
+                                    months !== 1 ? "s" : ""
                                   }`;
-                              } else {
-                                return `${years} yr ${months} mo.`;
-                              }
-                            })() || <Loading /> ||
-                              "-"}
-                          </Text>
+                                } else {
+                                  return `${years} yr ${months} mo.`;
+                                }
+                              })() || <Loading /> ||
+                                "-"}
+                            </Text>
+                          </div>
                         </div>
-                      </div>
+                      </Box>
                     </Box>
-                  </Box>
-                  <Box
-                    sx={{
-                      bottom: "5px",
-                      width: "85%",
-                      marginBottom: "25px",
-                      "@media only screen and (max-width: 768px)": {
-                        width: "90%",
-                        // height: "50px",
-                        justifyContent: "center",
-                      },
-                    }}
-                  >
-                    <Button
-                      auto
-                      onPress={() => handleOpenReports(stock)}
-                      css={{
-                        top: "0px",
-                        alignSelf: "center",
-                        width: "100%",
-                        borderRadius: "10000px",
-                        color: "#000",
-                        backgroundImage:
-                          "linear-gradient(to top , #FF9D28, #ffa736)",
-                        fontSize: 18,
-                        "@media only screen and (max-width: 768px)": {
-                          fontSize: 18,
-                          lineHeight: 1,
-                          height: "40px",
-                          color: "black",
-                        },
-                      }}
-                    >
-                      View reports
-                    </Button>
-                    <Button
-                      auto
-                      onPress={() => handleOpenDisclosure(stock)}
-                      css={{
-                        top: "10px",
-                        // marginTop: "10%",
-                        color: "#106052",
-                        width: "100%",
-                        borderRadius: "10000px",
-                        backgroundColor: "#fff",
-                        // backgroundImage:
-                        //   "linear-gradient(to top , #106052, #0f734d)",
-                        fontSize: 15,
-                        height: "20px",
-                        "@media only screen and (max-width: 768px)": {
-                          top: "10px",
-                          lineHeight: 1,
-                          height: "20px",
-                          fontSize: 15,
-                        },
-                      }}
-                    >
-                      Disclosure
-                    </Button>
-                  </Box>
-                </Card>
-                <Modal
-                  // blur
-                  open={showReportsModal}
-                  onClose={handleCloseReports}
-                  aria-labelledby="modal-title"
-                  aria-describedby="modal-description"
-                  css={{
-                    width: "100%",
-                    borderRadius: "15px",
-                    background: "transparent",
-                    boxShadow: "none",
-                    // backdropFilter: "blur(8px)",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className="iframePdfMobile"
-                >
-                  <Card
-                    css={{
-                      height: "fit-content",
-                      width: "fit-content",
-                      maxWidth: "80rem",
-                      minWidth: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      padding: "50px 30px",
-                      borderRadius: "25px",
-                      // backgroundImage: "url(symbol-scatter-haikei-3.svg)",
-                      objectPosition: "center",
-                      backgroundPositionY: "center",
-                      backgroundSize: "cover",
-                      "@media only screen and (max-width: 764px)": {
-                        minWidth: "100px",
-                        width: "100vw !important",
-                      },
-                    }}
-                  >
-                    <IconButton
-                      sx={{ position: "absolute", top: "5px", right: "5px" }}
-                      onClick={handleCloseReports}
-                    >
-                      <CloseIcon color="error" />
-                    </IconButton>
                     <Box
                       sx={{
-                        width: "100%",
-                        // height: "350px",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "20px",
+                        bottom: "5px",
+                        width: "85%",
+                        marginBottom: "25px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "90%",
+                          // height: "50px",
+                          justifyContent: "center",
+                        },
                       }}
                     >
-                      <Text b size={27}>
-                        {selectedStock?.stock_name}
-                      </Text>
+                      <Button
+                        auto
+                        onPress={() => handleOpenReports(stock)}
+                        css={{
+                          top: "0px",
+                          alignSelf: "center",
+                          width: "100%",
+                          borderRadius: "10000px",
+                          color: "#000",
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                          fontSize: 18,
+                          "@media only screen and (max-width: 768px)": {
+                            fontSize: 18,
+                            lineHeight: 1,
+                            height: "40px",
+                            color: "black",
+                          },
+                        }}
+                      >
+                        View reports
+                      </Button>
+                      <Button
+                        auto
+                        onPress={() => handleOpenDisclosure(stock)}
+                        css={{
+                          top: "10px",
+                          // marginTop: "10%",
+                          color: "#106052",
+                          width: "100%",
+                          borderRadius: "10000px",
+                          backgroundColor: "#fff",
+                          // backgroundImage:
+                          //   "linear-gradient(to top , #106052, #0f734d)",
+                          fontSize: 15,
+                          height: "20px",
+                          "@media only screen and (max-width: 768px)": {
+                            top: "10px",
+                            lineHeight: 1,
+                            height: "20px",
+                            fontSize: 15,
+                          },
+                        }}
+                      >
+                        Disclosure
+                      </Button>
+                    </Box>
+                  </Card>
+                  <Modal
+                    // blur
+                    open={showReportsModal}
+                    onClose={handleCloseReports}
+                    aria-labelledby="modal-title"
+                    aria-describedby="modal-description"
+                    css={{
+                      width: "100%",
+                      borderRadius: "15px",
+                      background: "transparent",
+                      boxShadow: "none",
+                      // backdropFilter: "blur(8px)",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    className="iframePdfMobile"
+                  >
+                    <Card
+                      css={{
+                        height: "fit-content",
+                        width: "fit-content",
+                        maxWidth: "80rem",
+                        minWidth: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        padding: "50px 30px",
+                        borderRadius: "25px",
+                        // backgroundImage: "url(symbol-scatter-haikei-3.svg)",
+                        objectPosition: "center",
+                        backgroundPositionY: "center",
+                        backgroundSize: "cover",
+                        "@media only screen and (max-width: 764px)": {
+                          minWidth: "100px",
+                          width: "100vw !important",
+                        },
+                      }}
+                    >
+                      <IconButton
+                        sx={{ position: "absolute", top: "5px", right: "5px" }}
+                        onClick={handleCloseReports}
+                      >
+                        <CloseIcon color="error" />
+                      </IconButton>
+                      <Box
+                        sx={{
+                          width: "100%",
+                          // height: "350px",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "20px",
+                        }}
+                      >
+                        <Text b size={27}>
+                          {selectedStock?.stock_name}
+                        </Text>
 
                       {selectedStock?.stock_reports?.length > 0 ? (
                         selectedStock.stock_reports.map((report) => (
@@ -4066,197 +4113,201 @@ const StockCard = () => {
             )}
             {!isLoggedIn || !isSubscribed
               ? staticNumbers.map((number, index) => (
-                <Grid
-                  // key={stock.id}
-                  key={index}
-                  item
-                  xs={"auto"}
-                  sm={"auto"}
-                  md={"auto"}
-                  lg={"auto"}
-                  style={{ alignItems: "center" }}
-                >
-                  <Card
-                    variant="flat"
-                    css={{
-                      height: "617px",
-                      width: "285px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      backgroundColor: "#fff",
-                      borderRadius: "40px",
-                      border: "4px solid",
-                      borderColor: "#ffa12e",
-                      marginBottom: "20px",
-                      boxShadow: "none",
-                      filter: "none",
-                      "@media only screen and (max-width: 768px)": {
-                        width: "95vw",
-                        maxWidth: "620px",
-                        height: "auto",
-                        borderRadius: "35px",
-                        border: "4px solid",
-                        borderColor: "#ffa12e",
-                        paddingBottom: "30px",
-                        marginBottom: "0px",
-                      },
-                    }}
+                  <Grid
+                    // key={stock.id}
+                    key={index}
+                    item
+                    xs={"auto"}
+                    sm={"auto"}
+                    md={"auto"}
+                    lg={"auto"}
+                    style={{ alignItems: "center" }}
                   >
-                    <Box
-                      sx={{
-                        marginLeft: "5%",
-                        marginRight: "5%",
-                        marginTop: "20px",
-                        marginBottom: "20px",
-                        width: "90%",
+                    <Card
+                      variant="flat"
+                      css={{
+                        height: "617px",
+                        width: "285px",
                         display: "flex",
                         flexDirection: "column",
-                        justifyContent: "center",
                         alignItems: "center",
+                        backgroundColor: "#fff",
+                        borderRadius: "40px",
+                        border: "4px solid",
+                        borderColor: "#ffa12e",
+                        marginBottom: "20px",
+                        boxShadow: "none",
+                        filter: "none",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "95vw",
+                          maxWidth: "620px",
+                          height: "auto",
+                          borderRadius: "35px",
+                          border: "4px solid",
+                          borderColor: "#ffa12e",
+                          paddingBottom: "30px",
+                          marginBottom: "0px",
+                        },
                       }}
                     >
                       <Box
                         sx={{
-                          marginTop: "5px",
+                          marginLeft: "5%",
+                          marginRight: "5%",
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          width: "90%",
                           display: "flex",
                           flexDirection: "column",
-                          textAlign: "center",
-                          backgroundColor: "#fff",
-                          marginBottom: "15px",
-                          width: "90%",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                          },
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            zIndex: 0,
-                            width: "100%",
-                            paddingTop: "7.5px",
-                            paddingBottom: "7.5px",
-                            paddingLeft: "5px",
-                            paddingRight: "5px",
-                            backgroundImage:
-                              "linear-gradient(to top , #FF9D28, #ffa736)",
-                            marginBottom: "15px",
-                            marginTop: "5px",
-                            borderRadius: "10000px",
-                            lineHeight: 1,
-                          }}
-                        >
-                          <Text
-                            b
-                            size={14}
-                            color="Black"
-                            css={{ lineHeight: 1 }}
-                          >
-                            {/* {stock.stock_industry} */}
-                            {`<Industry>`}
-                          </Text>
-                        </Box>
-                        <Text
-                          b
-                          size={26}
-                          css={{
-                            minWidth: "100%",
-                            maxWidth: "100%",
-                            textAlign: "center",
-                            lineHeight: 1.2,
-                            position: "relative",
-                            zIndex: 0,
-                            "@media only screen and (max-width: 768px)": {
-                              fontSize: 20,
-                            },
-                          }}
-                        >
-                          {`KamayaKya`}
-                        </Text>
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backdropFilter: "blur(8px)",
-                            zIndex: 0,
-                            WebkitBackdropFilter: "blur(8px)",
-                            margin: "15px",
-                            "@media only screen and (max-width: 768px)": {
-                              margin: "0px",
-                            },
-                          }}
-                        >{` `}</Box>
-                      </Box>
-                      <Box
-                        sx={{
-                          zIndex: 1,
-                          width: "90%",
-                          backgroundImage:
-                            "linear-gradient(to top , #106052, #0f734d)",
-                          borderRadius: "17.5px",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
                           justifyContent: "center",
-                          paddingTop: "20px",
-                          paddingBottom: "20px",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                          },
+                          alignItems: "center",
                         }}
                       >
-                        <Text
-                          b
-                          size={20}
-                          color="#fff"
-                          css={{
-                            lineHeight: 1.5,
+                        <Box
+                          sx={{
+                            marginTop: "5px",
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "center",
+                            backgroundColor: "#fff",
+                            marginBottom: "15px",
+                            width: "90%",
+                            "@media only screen and (max-width: 768px)": {
+                              width: "100%",
+                            },
                           }}
                         >
-                          Upside Left
-                        </Text>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <ArrowCircleUp size={25} color="#fff" />
+                          <Box
+                            sx={{
+                              zIndex: 0,
+                              width: "100%",
+                              paddingTop: "7.5px",
+                              paddingBottom: "7.5px",
+                              paddingLeft: "5px",
+                              paddingRight: "5px",
+                              backgroundImage:
+                                "linear-gradient(to top , #FF9D28, #ffa736)",
+                              marginBottom: "15px",
+                              marginTop: "5px",
+                              borderRadius: "10000px",
+                              lineHeight: 1,
+                            }}
+                          >
+                            <Text
+                              b
+                              size={14}
+                              color="Black"
+                              css={{ lineHeight: 1 }}
+                            >
+                              {/* {stock.stock_industry} */}
+                              {`<Industry>`}
+                            </Text>
+                          </Box>
                           <Text
                             b
-                            size={48}
-                            color="#fff"
+                            size={26}
                             css={{
-                              lineHeight: 1,
-                              marginLeft: "3px",
-                              marginRight: "3px",
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              textAlign: "center",
+                              lineHeight: 1.2,
+                              position: "relative",
+                              zIndex: 0,
                               "@media only screen and (max-width: 768px)": {
-                                fontSize: 55,
+                                fontSize: 20,
                               },
                             }}
                           >
-                            {`${number}`}
+                            {`KamayaKya`}
                           </Text>
-                          <span style={{ fontSize: 25, color: "#FFF" }}>%</span>
-                        </div>
-                      </Box>
-
-                      <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
-                        <div
-                          style={{
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              backdropFilter: "blur(8px)",
+                              zIndex: 0,
+                              WebkitBackdropFilter: "blur(8px)",
+                              margin: "15px",
+                              "@media only screen and (max-width: 768px)": {
+                                margin: "0px",
+                              },
+                            }}
+                          >{` `}</Box>
+                        </Box>
+                        <Box
+                          sx={{
+                            zIndex: 1,
+                            width: "90%",
+                            backgroundImage:
+                              "linear-gradient(to top , #106052, #0f734d)",
+                            borderRadius: "17.5px",
                             display: "flex",
-                            width: "100%",
                             flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            paddingTop: "20px",
+                            paddingBottom: "20px",
+                            "@media only screen and (max-width: 768px)": {
+                              width: "100%",
+                            },
                           }}
                         >
-                          <Divider
-                            height={4}
-                            style={{
-                              backgroundColor: "#ffa736",
-                              marginTop: "30px",
-                              marginBottom: "10px",
-                              width: "50px",
-                              alignSelf: "center",
+                          <Text
+                            b
+                            size={20}
+                            color="#fff"
+                            css={{
+                              lineHeight: 1.5,
                             }}
-                          />
+                          >
+                            Upside Left
+                          </Text>
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <ArrowCircleUp size={25} color="#fff" />
+                            <Text
+                              b
+                              size={48}
+                              color="#fff"
+                              css={{
+                                lineHeight: 1,
+                                marginLeft: "3px",
+                                marginRight: "3px",
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 55,
+                                },
+                              }}
+                            >
+                              {`${number}`}
+                            </Text>
+                            <span style={{ fontSize: 25, color: "#FFF" }}>
+                              %
+                            </span>
+                          </div>
+                        </Box>
+
+                        <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              width: "100%",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Divider
+                              height={4}
+                              style={{
+                                backgroundColor: "#ffa736",
+                                marginTop: "30px",
+                                marginBottom: "10px",
+                                width: "50px",
+                                alignSelf: "center",
+                              }}
+                            />
 
                           <div
                             style={{
@@ -4381,533 +4432,562 @@ const StockCard = () => {
               ))
               : ""}
 
+            {isSubscribed && plan === "core"
+              ? (() => {
+                  return (
+                    <>
+                      <Grid>
+                        <Card
+                          isHoverable
+                          css={{
+                            height: "575px",
+                            width: "285px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            borderRadius: "35px",
+                            background: "#fff",
+                            filter: "none",
+                            justifyContent: "center",
+                            paddingTop: "50px",
+                            paddingBottom: "50px",
+                            paddingLeft: "15px",
+                            paddingRight: "15px",
+                            backgroundImage:
+                              "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
+                          }}
+                          className="stocksPage-subscribe-mobile"
+                        >
+                          <div className="cr cr-top cr-right cr-sticky cr-subscription">
+                            VIP+
+                          </div>
+                          <img
+                            src="kamayakya-logo-white-vip.png"
+                            style={{ marginTop: "5px", width: "75%" }}
+                            alt="kamayakya"
+                          />
 
-            {isSubscribed && plan === "core" ? (() => {
-              return <>
-                <Grid>
-                  <Card
-                    isHoverable
-                    css={{
-                      height: "575px",
-                      width: "285px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      borderRadius: "35px",
-                      background: "#fff",
-                      filter: "none",
-                      justifyContent: "center",
-                      paddingTop: "50px",
-                      paddingBottom: "50px",
-                      paddingLeft: "15px",
-                      paddingRight: "15px",
-                      backgroundImage:
-                        "linear-gradient(to top , #105B54, #0F734D, #0F734D)",
-                    }}
-                    className="stocksPage-subscribe-mobile"
+                          <Divider
+                            css={{
+                              background: "#fff",
+                              opacity: "0.5",
+                              width: "30px",
+                              height: "3px",
+                              marginTop: "20px",
+                            }}
+                          />
+
+                          <Box
+                            sx={{
+                              width: "100%",
+                              alignSelf: "start",
+                              marginTop: "20px",
+                              marginBottom: "10px",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              paddingLeft: "30px",
+                              paddingRight: "30px",
+                            }}
+                          >
+                            <CheckCircleIcon
+                              sx={{
+                                marginRight: "10px",
+                                color: "#fff",
+                                fontSize: 20,
+                                alignSelf: "start",
+                                marginTop: "5px",
+                                opacity: 0.9,
+                              }}
+                            />
+                            <Text
+                              b
+                              color="#fff"
+                              size={20}
+                              css={{ lineHeight: 1.2, opacity: 0.9 }}
+                            >
+                              2-4 individual stock picks every month
+                            </Text>
+                          </Box>
+                          <Box
+                            sx={{
+                              width: "100%",
+                              alignSelf: "start",
+                              marginBottom: "10px",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              paddingLeft: "30px",
+                              paddingRight: "30px",
+                            }}
+                          >
+                            <CheckCircleIcon
+                              sx={{
+                                marginRight: "10px",
+                                color: "#fff",
+                                fontSize: 20,
+                                alignSelf: "start",
+                                marginTop: "5px",
+                                opacity: 0.9,
+                              }}
+                            />
+                            <Text
+                              b
+                              color="#fff"
+                              size={20}
+                              css={{ lineHeight: 1.2, opacity: 0.9 }}
+                            >
+                              NSE + BSE + SME stock picks
+                            </Text>
+                          </Box>
+                          <Box
+                            sx={{
+                              width: "100%",
+                              alignSelf: "start",
+                              // marginTop: "20px",
+                              marginBottom: "10px",
+                              // marginLeft: "5%",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              paddingLeft: "30px",
+                              paddingRight: "30px",
+                            }}
+                          >
+                            <CheckCircleIcon
+                              sx={{
+                                marginRight: "10px",
+                                color: "#fff",
+                                fontSize: 20,
+                                alignSelf: "start",
+                                marginTop: "5px",
+                                opacity: 0.9,
+                              }}
+                            />
+                            <Text
+                              b
+                              color="#fff"
+                              size={20}
+                              css={{ lineHeight: 1.2, opacity: 0.9 }}
+                            >
+                              WhatsApp & Email updates
+                            </Text>
+                          </Box>
+                          <Divider
+                            css={{
+                              background: "#fff",
+                              opacity: "0.5",
+                              width: "30px",
+                              height: "3px",
+                              marginTop: "20px",
+                              marginBottom: "20px",
+                            }}
+                          />
+                          <Button
+                            // variant="contained"
+                            css={{
+                              width: "75%",
+                              background:
+                                "linear-gradient(to top , #fb7716,#fe9807)",
+                              paddingTop: "5px",
+                              paddingBottom: "5px",
+                              borderRadius: "10000px",
+                              boxShadow: "none",
+                              "&:hover": {
+                                backgroundImage:
+                                  "linear-gradient(to top , #FF9D28, #ffa736)",
+                              },
+                            }}
+                            onClick={handleLoginOrSubForSubscribeNow}
+                          >
+                            <Text b color="#FFF" size={18}>
+                              Subscribe Now
+                            </Text>
+                          </Button>
+                          <Modal
+                            width="450px"
+                            open={showLoginModalForSubscribe}
+                            onClose={handleCloseLoginModalForSubscribeNow}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                              }}
+                            >
+                              <img
+                                src="kmk-k.png"
+                                style={{ maxWidth: "260px" }}
+                              />
+                              <IconButton
+                                sx={{
+                                  width: "40px",
+                                  "&:hover": { background: "#fff" },
+                                  // alignSelf: "end",
+                                  right: "20px",
+                                }}
+                                onClick={() =>
+                                  handleCloseLoginModalForSubscribeNow()
+                                }
+                              >
+                                <CloseIcon sx={{ color: "#e81123" }} />
+                              </IconButton>
+                            </Box>
+
+                            <Modal.Body>
+                              <LoginForSubsribe />
+                            </Modal.Body>
+                          </Modal>
+
+                          <Text
+                            b
+                            size={20}
+                            color="#fff"
+                            css={{
+                              textAlign: "center",
+                              marginTop: "10px",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: "20px",
+                              },
+                            }}
+                          >
+                            for ₹
+                            <span
+                              style={{
+                                color: "#fff",
+                                fontSize: 30,
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              15,000/year
+                            </span>
+                          </Text>
+
+                          <Text
+                            b
+                            size={18}
+                            color="#FFF"
+                            css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
+                          >
+                            inclusive of taxes
+                          </Text>
+                          <Text
+                            b
+                            size={14}
+                            color="#fff"
+                            css={{
+                              textDecoration: "underline",
+                              position: "absolute",
+                              bottom: "35px",
+                              cursor: "pointer",
+                              // mt: "10px",
+                              lineHeight: 1,
+                              opacity: 1,
+                              "@media only screen and (max-width: 768px)": {
+                                marginTop: "20px",
+                                marginBottom: "20px",
+                                bottom: "0px",
+                              },
+                            }}
+                            onClick={handleShowWhyModal}
+                          >
+                            Why do we charge annually?
+                          </Text>
+                          <Modal
+                            open={showWhyModal}
+                            onClose={handleWhyModalClose}
+                            css={{
+                              justifyContent: "center",
+                              background: "transparent",
+                              alignItems: "center",
+                              boxShadow: "none",
+                            }}
+                          >
+                            <Card
+                              css={{
+                                padding: "50px 50px",
+                                width: "550px",
+                                "@media only screen and (max-width: 768px)": {
+                                  width: "95%",
+                                },
+                              }}
+                            >
+                              <IconButton
+                                sx={{
+                                  position: "absolute",
+                                  top: "5px",
+                                  right: "5px",
+                                }}
+                                onClick={handleWhyModalClose}
+                              >
+                                <CloseIcon color="error" />
+                              </IconButton>
+                              <Text b size={21} css={{ textAlign: "start" }}>
+                                Why do we charge annually?
+                              </Text>
+                              <br />
+                              <Text
+                                b
+                                css={{ lineHeight: 1.2, textAlign: "start" }}
+                              >
+                                We understand that effective investing requires
+                                time and patience, which is why we exclusively
+                                offer an annual plan. Our strategy reflects our
+                                ethos that long-term commitment is key to
+                                unlocking the true potential of
+                                your investments.
+                              </Text>
+                            </Card>
+                          </Modal>
+                        </Card>
+                        <Modal
+                          blur
+                          width="450px"
+                          open={showLoginModal}
+                          onClose={handleCloseLoginModal}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                              width: "100%",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                            }}
+                          >
+                            <img
+                              src="kmk-k.png"
+                              style={{ maxWidth: "260px" }}
+                            />
+                            <IconButton
+                              sx={{
+                                width: "40px",
+                                "&:hover": { background: "#fff" },
+                                // alignSelf: "end",
+                                right: "20px",
+                              }}
+                              onClick={() => handleCloseLoginModal()}
+                            >
+                              <CloseIcon sx={{ color: "#e81123" }} />
+                            </IconButton>
+                          </Box>
+
+                          <Modal.Body>
+                            <Login />
+                          </Modal.Body>
+                        </Modal>
+                      </Grid>
+                    </>
+                  );
+                })()
+              : null}
+
+            {isSubscribed && plan === "core"
+              ? staticNumbers.map((number, index) => (
+                  <Grid
+                    // key={stock.id}
+                    key={index}
+                    item
+                    xs={"auto"}
+                    sm={"auto"}
+                    md={"auto"}
+                    lg={"auto"}
+                    style={{ alignItems: "center" }}
                   >
-                    <div className="cr cr-top cr-right cr-sticky cr-subscription">
-                      VIP+
-                    </div>
-                    <img
-                      src="kamayakya-logo-white-vip.png"
-                      style={{ marginTop: "5px", width: "75%" }}
-                      alt="kamayakya"
-                    />
-
-                    <Divider
+                    <Card
+                      variant="flat"
                       css={{
-                        background: "#fff",
-                        opacity: "0.5",
-                        width: "30px",
-                        height: "3px",
-                        marginTop: "20px",
-                      }}
-                    />
-
-                    <Box
-                      sx={{
-                        width: "100%",
-                        alignSelf: "start",
-                        marginTop: "20px",
-                        marginBottom: "10px",
+                        height: "575px",
+                        width: "285px",
                         display: "flex",
-                        flexDirection: "row",
+                        flexDirection: "column",
                         alignItems: "center",
-                        paddingLeft: "30px",
-                        paddingRight: "30px",
-                      }}
-                    >
-                      <CheckCircleIcon
-                        sx={{
-                          marginRight: "10px",
-                          color: "#fff",
-                          fontSize: 20,
-                          alignSelf: "start",
-                          marginTop: "5px",
-                          opacity: 0.9,
-                        }}
-                      />
-                      <Text
-                        b
-                        color="#fff"
-                        size={20}
-                        css={{ lineHeight: 1.2, opacity: 0.9 }}
-                      >
-                        2-4 individual stock picks every month
-                      </Text>
-                    </Box>
-                    <Box
-                      sx={{
-                        width: "100%",
-                        alignSelf: "start",
-                        marginBottom: "10px",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        paddingLeft: "30px",
-                        paddingRight: "30px",
-                      }}
-                    >
-                      <CheckCircleIcon
-                        sx={{
-                          marginRight: "10px",
-                          color: "#fff",
-                          fontSize: 20,
-                          alignSelf: "start",
-                          marginTop: "5px",
-                          opacity: 0.9,
-                        }}
-                      />
-                      <Text
-                        b
-                        color="#fff"
-                        size={20}
-                        css={{ lineHeight: 1.2, opacity: 0.9 }}
-                      >
-                        NSE + BSE + SME stock picks
-                      </Text>
-                    </Box>
-                    <Box
-                      sx={{
-                        width: "100%",
-                        alignSelf: "start",
-                        // marginTop: "20px",
-                        marginBottom: "10px",
-                        // marginLeft: "5%",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        paddingLeft: "30px",
-                        paddingRight: "30px",
-                      }}
-                    >
-                      <CheckCircleIcon
-                        sx={{
-                          marginRight: "10px",
-                          color: "#fff",
-                          fontSize: 20,
-                          alignSelf: "start",
-                          marginTop: "5px",
-                          opacity: 0.9,
-                        }}
-                      />
-                      <Text
-                        b
-                        color="#fff"
-                        size={20}
-                        css={{ lineHeight: 1.2, opacity: 0.9 }}
-                      >
-                        WhatsApp & Email updates
-                      </Text>
-                    </Box>
-                    <Divider
-                      css={{
-                        background: "#fff",
-                        opacity: "0.5",
-                        width: "30px",
-                        height: "3px",
-                        marginTop: "20px",
+                        backgroundColor: "#fff",
+                        borderRadius: "40px",
+                        border: "4px solid",
+                        borderColor: "#ffa12e",
                         marginBottom: "20px",
-                      }}
-                    />
-                    <Button
-                      // variant="contained"
-                      css={{
-                        width: "75%",
-                        background: "linear-gradient(to top , #fb7716,#fe9807)",
-                        paddingTop: "5px",
-                        paddingBottom: "5px",
-                        borderRadius: "10000px",
                         boxShadow: "none",
-                        "&:hover": {
-                          backgroundImage:
-                            "linear-gradient(to top , #FF9D28, #ffa736)",
+                        filter: "none",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "95vw",
+                          maxWidth: "620px",
+                          height: "auto",
+                          borderRadius: "35px",
+                          border: "4px solid",
+                          borderColor: "#ffa12e",
+                          paddingBottom: "30px",
+                          marginBottom: "0px",
                         },
                       }}
-                      onClick={handleLoginOrSubForSubscribeNow}
-                    >
-                      <Text b color="#FFF" size={18}>
-                        Subscribe Now
-                      </Text>
-                    </Button>
-                    <Modal
-                      width="450px"
-                      open={showLoginModalForSubscribe}
-                      onClose={handleCloseLoginModalForSubscribeNow}
                     >
                       <Box
                         sx={{
+                          marginLeft: "5%",
+                          marginRight: "5%",
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          width: "90%",
                           display: "flex",
-                          flexDirection: "row",
-                          width: "100%",
-                          justifyContent: "space-between",
+                          flexDirection: "column",
+                          justifyContent: "center",
                           alignItems: "center",
                         }}
                       >
-                        <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-                        <IconButton
+                        <Box
                           sx={{
-                            width: "40px",
-                            "&:hover": { background: "#fff" },
-                            // alignSelf: "end",
-                            right: "20px",
-                          }}
-                          onClick={() => handleCloseLoginModalForSubscribeNow()}
-                        >
-                          <CloseIcon sx={{ color: "#e81123" }} />
-                        </IconButton>
-                      </Box>
-
-                      <Modal.Body>
-                        <LoginForSubsribe />
-                      </Modal.Body>
-                    </Modal>
-
-                    <Text
-                      b
-                      size={20}
-                      color="#fff"
-                      css={{
-                        textAlign: "center",
-                        marginTop: "10px",
-                        "@media only screen and (max-width: 768px)": {
-                          fontSize: "20px",
-                        },
-                      }}
-                    >
-                      for ₹
-                      <span
-                        style={{ color: "#fff", fontSize: 30, lineHeight: 1.2 }}
-                      >
-                        15,000/year
-                      </span>
-                    </Text>
-
-                    <Text
-                      b
-                      size={18}
-                      color="#FFF"
-                      css={{ mt: "0px", opacity: 0.75, lineHeight: 1 }}
-                    >
-                      inclusive of taxes
-                    </Text>
-                    <Text
-                      b
-                      size={14}
-                      color="#fff"
-                      css={{
-                        textDecoration: "underline",
-                        position: "absolute",
-                        bottom: "35px",
-                        cursor: "pointer",
-                        // mt: "10px",
-                        lineHeight: 1,
-                        opacity: 1,
-                        "@media only screen and (max-width: 768px)": {
-                          marginTop: "20px",
-                          marginBottom: "20px",
-                          bottom: "0px",
-                        },
-                      }}
-                      onClick={handleShowWhyModal}
-                    >
-                      Why do we charge annually?
-                    </Text>
-                    <Modal
-                      open={showWhyModal}
-                      onClose={handleWhyModalClose}
-                      css={{
-                        justifyContent: "center",
-                        background: "transparent",
-                        alignItems: "center",
-                        boxShadow: "none",
-                      }}
-                    >
-                      <Card
-                        css={{
-                          padding: "50px 50px",
-                          width: "550px",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "95%",
-                          },
-                        }}
-                      >
-                        <IconButton
-                          sx={{ position: "absolute", top: "5px", right: "5px" }}
-                          onClick={handleWhyModalClose}
-                        >
-                          <CloseIcon color="error" />
-                        </IconButton>
-                        <Text b size={21} css={{ textAlign: "start" }}>
-                          Why do we charge annually?
-                        </Text>
-                        <br />
-                        <Text b css={{ lineHeight: 1.2, textAlign: "start" }}>
-                          We understand that effective investing requires time and
-                          patience, which is why we exclusively offer an annual
-                          plan. Our strategy reflects our ethos that long-term
-                          commitment is key to unlocking the true potential of
-                          your investments.
-                        </Text>
-                      </Card>
-                    </Modal>
-                  </Card>
-                  <Modal
-                    blur
-                    width="450px"
-                    open={showLoginModal}
-                    onClose={handleCloseLoginModal}
-                  >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
-                      <IconButton
-                        sx={{
-                          width: "40px",
-                          "&:hover": { background: "#fff" },
-                          // alignSelf: "end",
-                          right: "20px",
-                        }}
-                        onClick={() => handleCloseLoginModal()}
-                      >
-                        <CloseIcon sx={{ color: "#e81123" }} />
-                      </IconButton>
-                    </Box>
-
-                    <Modal.Body>
-                      <Login />
-                    </Modal.Body>
-                  </Modal>
-                </Grid>
-              </>
-            })() : null}
-
-            {isSubscribed && plan === "core" ? staticNumbers.map((number, index) => (
-              <Grid
-                // key={stock.id}
-                key={index}
-                item
-                xs={"auto"}
-                sm={"auto"}
-                md={"auto"}
-                lg={"auto"}
-                style={{ alignItems: "center" }}
-              >
-                <Card
-                  variant="flat"
-                  css={{
-                    height: "575px",
-                    width: "285px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    backgroundColor: "#fff",
-                    borderRadius: "40px",
-                    border: "4px solid",
-                    borderColor: "#ffa12e",
-                    marginBottom: "20px",
-                    boxShadow: "none",
-                    filter: "none",
-                    "@media only screen and (max-width: 768px)": {
-                      width: "95vw",
-                      maxWidth: "620px",
-                      height: "auto",
-                      borderRadius: "35px",
-                      border: "4px solid",
-                      borderColor: "#ffa12e",
-                      paddingBottom: "30px",
-                      marginBottom: "0px",
-                    },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      marginLeft: "5%",
-                      marginRight: "5%",
-                      marginTop: "20px",
-                      marginBottom: "20px",
-                      width: "90%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        marginTop: "5px",
-                        display: "flex",
-                        flexDirection: "column",
-                        textAlign: "center",
-                        backgroundColor: "#fff",
-                        marginBottom: "15px",
-                        width: "90%",
-                        "@media only screen and (max-width: 768px)": {
-                          width: "100%",
-                        },
-                      }}
-                    >
-                      <div
-                        className="cr cr-top cr-right cr-sticky cr-subscription"
-                        style={{ zIndex: 10 }}
-                      >
-                        SME
-                      </div>
-                      <Box
-                        sx={{
-                          zIndex: 0,
-                          width: "100%",
-                          paddingTop: "7.5px",
-                          paddingBottom: "7.5px",
-                          paddingLeft: "5px",
-                          paddingRight: "5px",
-                          backgroundImage:
-                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                          marginBottom: "15px",
-                          marginTop: "5px",
-                          borderRadius: "10000px",
-                          lineHeight: 1,
-                        }}
-                      >
-                        <Text
-                          b
-                          size={14}
-                          color="Black"
-                          css={{ lineHeight: 1 }}
-                        >
-                          {/* {stock.stock_industry} */}
-                          {`<Industry>`}
-                        </Text>
-                      </Box>
-                      <Text
-                        b
-                        size={26}
-                        css={{
-                          minWidth: "100%",
-                          maxWidth: "100%",
-                          textAlign: "center",
-                          lineHeight: 1.2,
-                          position: "relative",
-                          zIndex: 0,
-                          "@media only screen and (max-width: 768px)": {
-                            fontSize: 20,
-                          },
-                        }}
-                      >
-                        {`KamayaKya`}
-                      </Text>
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          backdropFilter: "blur(8px)",
-                          zIndex: 0,
-                          WebkitBackdropFilter: "blur(8px)",
-                          margin: "15px",
-                          "@media only screen and (max-width: 768px)": {
-                            margin: "0px",
-                          },
-                        }}
-                      >{` `}</Box>
-                    </Box>
-                    <Box
-                      sx={{
-                        zIndex: 1,
-                        width: "90%",
-                        backgroundImage:
-                          "linear-gradient(to top , #106052, #0f734d)",
-                        borderRadius: "17.5px",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingTop: "20px",
-                        paddingBottom: "20px",
-                        "@media only screen and (max-width: 768px)": {
-                          width: "100%",
-                        },
-                      }}
-                    >
-                      <Text
-                        b
-                        size={20}
-                        color="#fff"
-                        css={{
-                          lineHeight: 1.5,
-                        }}
-                      >
-                        Upside Left
-                      </Text>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <ArrowCircleUp size={25} color="#fff" />
-                        <Text
-                          b
-                          size={48}
-                          color="#fff"
-                          css={{
-                            lineHeight: 1,
-                            marginLeft: "3px",
-                            marginRight: "3px",
+                            marginTop: "5px",
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "center",
+                            backgroundColor: "#fff",
+                            marginBottom: "15px",
+                            width: "90%",
                             "@media only screen and (max-width: 768px)": {
-                              fontSize: 55,
+                              width: "100%",
                             },
                           }}
                         >
-                          {`${number}`}
-                        </Text>
-                        <span style={{ fontSize: 25, color: "#FFF" }}>%</span>
-                      </div>
-                    </Box>
-
-                    <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "100%",
-                          flexDirection: "column",
-                        }}
-                      >
-                        <Divider
-                          height={4}
-                          style={{
-                            backgroundColor: "#ffa736",
-                            marginTop: "30px",
-                            marginBottom: "10px",
-                            width: "50px",
-                            alignSelf: "center",
+                          <div
+                            className="cr cr-top cr-right cr-sticky cr-subscription"
+                            style={{ zIndex: 10 }}
+                          >
+                            SME
+                          </div>
+                          <Box
+                            sx={{
+                              zIndex: 0,
+                              width: "100%",
+                              paddingTop: "7.5px",
+                              paddingBottom: "7.5px",
+                              paddingLeft: "5px",
+                              paddingRight: "5px",
+                              backgroundImage:
+                                "linear-gradient(to top , #FF9D28, #ffa736)",
+                              marginBottom: "15px",
+                              marginTop: "5px",
+                              borderRadius: "10000px",
+                              lineHeight: 1,
+                            }}
+                          >
+                            <Text
+                              b
+                              size={14}
+                              color="Black"
+                              css={{ lineHeight: 1 }}
+                            >
+                              {/* {stock.stock_industry} */}
+                              {`<Industry>`}
+                            </Text>
+                          </Box>
+                          <Text
+                            b
+                            size={26}
+                            css={{
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              textAlign: "center",
+                              lineHeight: 1.2,
+                              position: "relative",
+                              zIndex: 0,
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 20,
+                              },
+                            }}
+                          >
+                            {`KamayaKya`}
+                          </Text>
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              backdropFilter: "blur(8px)",
+                              zIndex: 0,
+                              WebkitBackdropFilter: "blur(8px)",
+                              margin: "15px",
+                              "@media only screen and (max-width: 768px)": {
+                                margin: "0px",
+                              },
+                            }}
+                          >{` `}</Box>
+                        </Box>
+                        <Box
+                          sx={{
+                            zIndex: 1,
+                            width: "90%",
+                            backgroundImage:
+                              "linear-gradient(to top , #106052, #0f734d)",
+                            borderRadius: "17.5px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            paddingTop: "20px",
+                            paddingBottom: "20px",
+                            "@media only screen and (max-width: 768px)": {
+                              width: "100%",
+                            },
                           }}
-                        />
+                        >
+                          <Text
+                            b
+                            size={20}
+                            color="#fff"
+                            css={{
+                              lineHeight: 1.5,
+                            }}
+                          >
+                            Upside Left
+                          </Text>
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <ArrowCircleUp size={25} color="#fff" />
+                            <Text
+                              b
+                              size={48}
+                              color="#fff"
+                              css={{
+                                lineHeight: 1,
+                                marginLeft: "3px",
+                                marginRight: "3px",
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 55,
+                                },
+                              }}
+                            >
+                              {`${number}`}
+                            </Text>
+                            <span style={{ fontSize: 25, color: "#FFF" }}>
+                              %
+                            </span>
+                          </div>
+                        </Box>
+
+                        <Box sx={{ minWidth: "90%", maxWidth: "90%" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              width: "100%",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Divider
+                              height={4}
+                              style={{
+                                backgroundColor: "#ffa736",
+                                marginTop: "30px",
+                                marginBottom: "10px",
+                                width: "50px",
+                                alignSelf: "center",
+                              }}
+                            />
 
                         <div
                           style={{

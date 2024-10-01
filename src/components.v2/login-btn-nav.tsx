@@ -9,6 +9,18 @@ type TLoginBtnNav = {
 };
 
 export function LoginBtnNav({ handleLogin, arrow }: TLoginBtnNav) {
+  // const handleContactButton = () => {
+  //   const mp = getMixPanelClient();
+  //   mp.track("contactus_clicked", {
+  //     page: "Pricing_Page",
+  //     pagegroup: "enterprise_solution",
+  //   });
+  //   mp.track("asktheteam_loaded", {
+  //     page: "Pricing_Page",
+  //     pagegroup: "enterprise_solution",
+  //   });
+  //   handleLogin()
+  // };
   return (
     <ButtonnArrow
       variant={ButtonVariant.custom}

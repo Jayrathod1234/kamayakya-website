@@ -1,660 +1,331 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Button, Dropdown, Navbar, Text } from "@nextui-org/react";
-import { useRouter } from "next/router";
-import {
-	IconButton,
-	Box,
-	List,
-	ListItemText,
-	ListItemButton,
-	useMediaQuery,
-	SwipeableDrawer,
-	ListItemIcon,
-} from "@mui/material";
-import { RxHamburgerMenu } from "react-icons/rx";
+"use client";
 import CloseIcon from "@mui/icons-material/Close";
-import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
-import { Book, Home2 } from "iconsax-react";
-import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
-import MoneyRoundedIcon from "@mui/icons-material/MoneyRounded";
-import { BiLogIn } from "react-icons/bi";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useRef, useState } from "react";
+// import { Avatar, AvatarVariant } from "./avatar";
 
-const NavBar2 = () => {
-	// const isMobile = useMediaQuery("(max-width:940px)");
-	const isMobile = useMediaQuery("(max-width:1280px)");
-	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components.v2/ui/navigation-menu";
 
-	const toggleDrawer = () => {
-		setIsDrawerOpen(!isDrawerOpen);
-	};
+import AuthContext from "@/components/AuthContext";
+import { HOME_OPTIONS, NAVBAR_LINKS } from "@/constants/index.constants";
+import { cn } from "@/lib/utils";
+import { Box, IconButton } from "@mui/material";
+import { Modal } from "@nextui-org/react";
+import { ArrowRight } from "lucide-react";
+// import { NavbarDropdownCard } from "./cards";
+// import SideNav from "./sidenav";
 
-	const router = useRouter();
+import Login from "@/components/Login";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import { LoginBtnNav } from "@/components.v2/login-btn-nav";
+import SideNav from "@/components.v2/sidenav";
+import { Button } from "@/components.v2/button";
+import { ButtonVariant } from "@/components.v2/button/button";
+import { NavbarDropdownCard } from "@/components.v2/cards";
+import { Avatar, AvatarVariant } from "@/components.v2/avatar";
+// import { Button } from "./button";
+// import { ButtonVariant } from "./button/button";
+// import { LoginBtnNav } from "./login-btn-nav";
+// import { ScrollProgress } from "./scroll-progress";
 
-	const handleStockPicks = () => {
-		router.push("/stock-picks");
-	};
+export default function Navbar({ className }: { className?: string }) {
+  const { isLoggedIn } = useContext(AuthContext);
+  const router = useRouter();
+  const pathname = router.pathname;
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
-	const handleTrack = () => {
-		router.push("/track-record");
-	};
+  const handleEvent = (event: string, properties: Record<string, string>) => {
+    const mp = getMixPanelClient();
+    mp.track(event, properties);
+  };
 
-	const handleSettings = () => {
-		router.push("/user-profile");
-	};
+  const handleLogin = () => {
+    handleEvent("login_clicked", { page: "Pricing_Page" });
+    setShowModal(true);
+  };
 
-	const handleLogoutClick = () => {
-		localStorage.removeItem("access");
-		localStorage.removeItem("refresh");
-		// if(window.location.pathname === "/") {
-		// window.location.reload();
-		// }
-		// else{
-		router.push("/");
-		// }
-	};
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
-	const ourStockPicks = () => {
-		router.push("/stock-picks");
-	};
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 0) {
+        ref.current?.classList.add("scrolled-nav");
+      } else {
+        ref.current?.classList.remove("scrolled-nav");
+      }
+    });
+  }, []);
 
-	const trackRecord = () => {
-		router.push("/track-record");
-	};
-	const smeCorner = () => {
-		router.push("/sme");
-	};
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        " group/nav sticky left-0 right-0 top-0 z-50 transition-all duration-500 overflow-visible",
+        className
+      )}
+    >
+      {/* <ScrollProgress/> */}
+      <div className="flex py-2 justify-between items-center main-container overflow-visible">
+        <div className=" flex flex-row items-center justify-center">
+          <div className=" mb-1 mr-3 lg:mr-10">
+            <Link
+              onClick={() =>
+                handleEvent("Kamayakya_logo_clicked", { page: "Pricing_Page" })
+              }
+              href={"/"}
+            >
+              <Image
+                className=" inline-block md:hidden h-full w-full"
+                src="/KKLogoK.svg"
+                alt="KamayaKya-logo"
+                width={20}
+                height={25}
+                priority
+              />
+              <Image
+                className=" hidden md:inline-block"
+                src="/KKLogo.svg"
+                alt="KamayaKya-logo"
+                width={125.54}
+                height={24}
+                priority
+              />
+            </Link>
+          </div>
+          <div className="relative">
+            <NavigationMenu delayDuration={0} className=" ">
+              <NavigationMenuList className=" m-0 ">
+                <NavigationMenuItem className=" m-0 hidden lg:flex">
+                  <NavigationMenuTrigger className=" text-gray-950 font-semibold">
+                    {isLoggedIn ? "About Us" : "Home"}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className=" w-auto">
+                    {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
+                    <ul
+                      className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${isLoggedIn ? "grid-rows-4" : "grid-rows-3"
+                        } gap-3 m-0 p-6  ${isLoggedIn
+                          ? "lg:w-[700px]"
+                          : "md:w-[620px] lg:w-[900px]"
+                        }  `}
+                    >
+                      {HOME_OPTIONS.filter((options) =>
+                        isLoggedIn
+                          ? options.title !== "Sample Reports" &&
+                          options.title !== "Performance" &&
+                          options.title !== "Hot Stocks"
+                          : true
+                      ).map((option) => (
+                        <ListItem
+                          onClick={(e) => {
+                            handleEvent(
+                              option.mixpanel.event,
+                              option.mixpanel.property
+                            );
+                            if (option.id) {
+                              e.preventDefault();
+                              let ele = document.querySelector(option.id);
+                              ele?.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                          key={option.title}
+                          className=" hover:bg-gray-50 relative "
+                          href={option.link}
+                          icon={option.icon}
+                          title={option.title}
+                          id={option?.id}
+                        // endIcon={option?.endIcon}
+                        >
+                          {option.subtitle}
+                        </ListItem>
+                      ))}
+                      <li
+                        className={`hidden lg:block  row-span-full row-start-1`}
+                      >
+                        <Image
+                          className=" object-cover h-full w-full rounded-xl"
+                          src={"/pricing/home-hover.png"}
+                          height={284}
+                          width={284}
+                          alt="nav-img"
+                        />
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                {NAVBAR_LINKS.map((navigationOption) => (
+                  <NavigationMenuItem
+                    className={` m-0 ${(navigationOption.title !== "Track Record" &&
+                      navigationOption.title !== "Stocks to Buy") ||
+                      !isLoggedIn
+                      ? navigationOption.title === "Stocks to Buy"
+                        ? "hidden"
+                        : "hidden lg:flex"
+                      : navigationOption.title === "Stocks to Buy"
+                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 hover:bg-[#E26103] !text-orange-500 hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
+                        : ""
+                      } ${navigationOption.title === "About Us" ? "!hidden" : ""
+                      }`}
+                  >
+                    <Link
+                      className=" !text-inherit"
+                      onClick={() =>
+                        handleEvent(
+                          navigationOption.mixpanel.event,
+                          navigationOption.mixpanel.property
+                        )
+                      }
+                      href={navigationOption.link}
+                      legacyBehavior
+                      passHref
+                    >
+                      <NavigationMenuLink
+                        className={`${navigationMenuTriggerStyle()} font-semibold text-inherit ${navigationOption.title === "Stocks to Buy"
+                          ? "!text-orange-500 !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
+                          : ""
+                          }`}
+                        active={pathname === navigationOption.link}
+                      >
+                        {navigationOption.title}
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+        </div>
+        <div className=" flex items-center justify-center gap-x-4 lg:hidden">
+          {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
+          <SideNav handleLogin={handleLogin} />
+        </div>
+        <div className="hidden px-2 lg:flex items-center">
+          <Link href={"/stock-picks"}>
+            <Button
+              variant={ButtonVariant.custom}
+              className={`!text-sm  border pricing border-orange-500  ${isLoggedIn
+                ? "bg-orange-500 text-white  hover:bg-[#f98800] mr-6 "
+                : " text-orange-500 hover:text-[#E26103] hover:border-[#E26103] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+                }  !px-4 !py-[10px] rounded-[6px]`}
+            >
+              Stocks to Buy
+            </Button>
+          </Link>
 
-	const handlePricing = () => {
-		scrolltoHash("pricing");
-	};
+          {isLoggedIn ? (
+            <NavbarDropdownCard
+              triggerElement={
+                <Avatar
+                  className=" transition-all border-[1.38px] border-[#EDF0F5] hover:border-[4px] hover:scale-[1.05]"
+                  variant={AvatarVariant.md}
+                />
+              }
+              userCard={true}
+            />
+          ) : (
+            <LoginBtnNav handleLogin={handleLogin} arrow />
+          )}
+        </div>
+        <Modal
+          width="450px"
+          blur
+          open={showModal}
+          onClose={handleCloseModal}
+          css={{
+            // marginLeft: "2.5vw",
+            marginLeft: "0",
+            "@media only screen and (max-width: 764px)": {
+              width: "100vw",
+              alignSelf: "center",
+              // marginLeft: "2.5vw",
+            },
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <img src="kmk-k.png" style={{ width: "50px" }} />
+            <IconButton
+              sx={{
+                width: "40px",
+                "&:hover": { background: "#fff" },
+                // alignSelf: "end",
+                right: "0px",
+                paddingTop: "20px",
+                paddingRight: "30px",
+              }}
+              onClick={() => handleCloseModal()}
+            >
+              <CloseIcon sx={{ color: "#e81123" }} />
+            </IconButton>
+          </Box>
 
-	const handlePhilosophy = () => {
-		scrolltoHash("philosophy");
-	};
+          <Modal.Body>
+            <Login />
+          </Modal.Body>
+        </Modal>
+      </div>
+    </div>
+  );
+}
 
-	// const handleAboutUs = () => {
-	//   router.push("/about-company");
-	// };
+interface CustomProps extends React.ComponentPropsWithoutRef<"a"> {
+  icon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+  title?: string;
+}
 
-	const handleHome = () => {
-		router.push("/");
-	};
-
-	// const handleBlog = () => {
-	//   router.push("/blogs-page");
-	// };
-
-	const handleMenuAction = (actionKey: React.Key) => {
-		switch (actionKey) {
-			case "handleHome":
-				handleHome();
-				break;
-			case "handlePricing":
-				handlePricing();
-				break;
-			case "handleAboutUs":
-				handlePhilosophy();
-				break;
-			// case "handleAboutUs":
-			//   handleAboutUs();
-			//   break;
-			// case "handleBlog":
-			//   handleBlog();
-			//   break;
-			case "handleSMECorner":
-				smeCorner();
-				break;
-			case "handleTrack":
-				handleTrack();
-				break;
-			case "handleStockPicks":
-				handleStockPicks();
-				break;
-			case "settings":
-				handleSettings();
-				break;
-			case "handleLogoutClick":
-				handleLogoutClick();
-				break;
-			default:
-				break;
-		}
-	};
-
-	const [activeLink, setActiveLink] = useState("home");
-
-	const scrolltoHash = function (element_id: string) {
-		const element = document.getElementById(element_id);
-
-		if (window.location.pathname !== "/" && element_id === "philosophy") {
-			router.push("/#philosophy");
-		} else if ( element_id === "pricing") {
-			// Redirect to home page
-			router.push("/pricing");
-		} else if (window.location.pathname !== "/" && element_id === "home") {
-			// Redirect to home page
-			router.push("/");
-		} else if (window.location.pathname === "/" && element_id === "home") {
-			window.scrollTo({
-				top: 0,
-				behavior: "smooth", // Optional: Smooth scrolling behavior
-			});
-		}else if(element_id === "blogs-page"){
-			router.push("/blogs-page");
-		} else {
-			console.log(window.location.pathname)
-			element?.scrollIntoView({ behavior: "smooth" });
-		}
-	};
-
-	function updateActiveLink() {
-		const sections = document.querySelectorAll("section[id]");
-
-		// Check if there are sections with id attribute
-		if (sections.length === 0) {
-			return;
-		}
-
-		let closestSection = sections[0];
-		let shortestDistance = Math.abs(sections[0].getBoundingClientRect().top);
-
-		sections.forEach((section) => {
-			const distance = Math.abs(section.getBoundingClientRect().top);
-			if (distance < shortestDistance) {
-				shortestDistance = distance;
-				closestSection = section;
-			}
-		});
-
-		const activeLinkId = closestSection.getAttribute("id");
-		if (window.location.pathname === "/") {
-			setActiveLink(activeLinkId || "");
-		} else {
-			setActiveLink("");
-		}
-	}
-
-	// Attach scroll event listener to window
-	window.addEventListener("scroll", updateActiveLink);
-
-	useEffect(() => {
-		updateActiveLink();
-	}, []);
-
-	return (
-		// <Container>
-		<Navbar
-			// variant="static"
-			variant={"sticky"}
-			maxWidth={"fluid"}
-			disableShadow={true}
-			height={100}
-			css={{
-				marginTop: 0,
-				zIndex: 1000,
-				$$navbarBackgroundColor: "transparent",
-				$$navbarBlurBackgroundColor: "none",
-				".nextui-navbar-container": {
-					backgroundColor: "#fff",
-					backdropFilter: "none",
-					boxShadow: "none",
-					boxSizing: "content-box",
-				},
-				".nextui-c-hhqfap-kAwfsS-disableShadow-false": {
-					boxShadow: "none",
-				},
-				"@media only screen and (max-width: 764px)": {
-					height: "80px",
-				},
-			}}
-		>
-			<Navbar.Brand
-				css={{
-					cursor: "pointer",
-					// w: "350px",
-					zIndex: 99,
-					"@media only screen and (max-width: 764px)": {
-						// w: "195px",
-						// h: '55px',
-						h: "50px",
-						// w: "122%",
-						left: 15,
-					},
-					// position: "fixed",
-				}}
-			>
-				<img
-					// onClick={() => handleHome()}
-					onClick={() => scrolltoHash("home")}
-					// src={
-					// 	activeLink === "whyUs"
-					// 		? "./kamayakya-logo-white.png"
-					// 		: "./kmk-logo.png"
-					// }
-					src="./kmk-logo (1).png"
-					alt="logo"
-					// width="220px"
-					// height="60px"
-					// height="100%"
-					className="logoNavbar"
-				/>
-			</Navbar.Brand>
-			<Navbar.Content
-				activeColor="warning"
-				hideIn="md"
-				variant="underline-rounded"
-			>
-				<Navbar.Link
-					// isActive={
-					// 	typeof window !== "undefined" && window.location.pathname === "/"
-					// }
-					// onClick={() => handleHome()}
-					isActive={typeof window !== "undefined" && activeLink === "home"}
-					onClick={() => scrolltoHash("home")}
-				>
-					<Text b size={16} css={{ lineHeight: 5 }}>
-						Home
-					</Text>
-				</Navbar.Link>
-				{/* <Navbar.Link
-					// isActive={
-					// 	typeof window !== "undefined" &&
-					// 	window.location.pathname === "/about-company"
-					// }
-					// onClick={() => handlePhilosophy()}
-					isActive={
-						typeof window !== "undefined" && activeLink === "philosophy"
-					}
-					onClick={() => scrolltoHash("philosophy")}
-				>
-					<Text b size={16} css={{ lineHeight: 5 }}>
-						About Us
-					</Text>
-				</Navbar.Link> */}
-				<Navbar.Link
-					// isActive={
-					// 	typeof window !== "undefined" &&
-					// 	window.location.pathname === "/about-company"
-					// }
-					// onClick={() => handlePhilosophy()}
-					isActive={typeof window !== "undefined" && activeLink === "pricing"}
-					onClick={() => scrolltoHash("pricing")}
-				>
-					<Text b size={16} css={{ lineHeight: 5 }}>
-						Pricing
-					</Text>
-				</Navbar.Link>
-				{/* <Navbar.Link
-					isActive={
-						typeof window !== "undefined" &&
-						window.location.pathname === "/blogs-page"
-					}
-					onClick={() => handleBlog()}
-				>
-					<Text b size={16} css={{ lineHeight: 5 }}>
-						Blogs
-					</Text>
-				</Navbar.Link> */}
-
-				<Navbar.Link
-					// isActive={
-					// 	typeof window !== "undefined" &&
-					// 	window.location.pathname === "/track-record"
-					// }
-					onClick={() => {
-						trackRecord();
-						// toggleDrawer();
-					}}
-				>
-					{/* <Text b size={16} css={{ lineHeight: 5 }}> */}
-					<Box
-						sx={{
-							border: "2px solid #094f48",
-							borderRadius: "1000px",
-							padding: "0px 8px",
-							lineHeight: 2,
-							background:
-								window.location.pathname === "/track-record"
-									? "#094f48"
-									: "#fff",
-							color:
-								window.location.pathname === "/track-record" ? "#fff" : "#000",
-						}}
-					>
-						Track Record
-					</Box>
-					{/* </Text> */}
-				</Navbar.Link>
-				<Navbar.Link
-					// isActive={
-					//   typeof window !== "undefined" && window.location.pathname === "/sme"
-					// }
-					onClick={smeCorner}
-				>
-					<Box
-						sx={{
-							border: "2px solid #094f48",
-							borderRadius: "1000px",
-							padding: "0px 8px",
-							lineHeight: 2,
-							display: "flex",
-							gap: "5px",
-							alignItems: "center",
-							background:
-								window.location.pathname === "/sme" ? "#094f48" : "#fff",
-							color: window.location.pathname === "/sme" ? "#fff" : "#000",
-						}}
-					>
-						<TrendingUpRoundedIcon sx={{ fontSize: 30, color: "#FB9E29" }} />
-						{/* <Text b size={16} css={{ lineHeight: 5, paddingLeft: "5px" }}> */}
-						SME Corner
-						{/* </Text> */}
-					</Box>
-				</Navbar.Link>
-				<Navbar.Link
-					// isActive={
-					// 	typeof window !== "undefined" &&
-					// 	window.location.pathname === "/about-company"
-					// }
-					// onClick={() => handlePhilosophy()}
-					isActive={typeof window !== "undefined" && activeLink === "blogs-page"}
-					onClick={() => scrolltoHash("blogs-page")}
-				>
-					<Text b size={16} css={{ lineHeight: 5 }}>
-						Blogs
-					</Text>
-				</Navbar.Link>
-			</Navbar.Content>
-			{/* </div> */}
-			<Navbar.Content hideIn={"md"}>
-				<Navbar.Item hideIn="sm">
-					{typeof window !== "undefined" &&
-					window.location.pathname !== "/stock-picks" ? (
-						<Button
-							auto
-							size={"lg"}
-							color={"success"}
-							onClick={ourStockPicks}
-							css={{
-								backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-								borderRadius: "10000px",
-								fontSize: "large",
-							}}
-						>
-							<span style={{ fontSize: 20 }}>Stocks To Buy</span>
-						</Button>
-					) : (
-						<Button
-							auto
-							size={"lg"}
-							color={"success"}
-							onClick={handleTrack}
-							css={{
-								backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
-								borderRadius: "10000px",
-								fontSize: "large",
-								opacity: "0",
-								// display: "none",
-							}}
-						>
-							<span style={{ fontSize: 20 }}>Track record</span>
-						</Button>
-					)}
-				</Navbar.Item>
-				{/* <Navbar.Item>
-					<Button
-						auto
-						onPress={handleLogoutClick}
-						css={{ backgroundColor: "#0a5b53" }}
-					>
-						Logout
-					</Button>
-				</Navbar.Item> */}
-				<Dropdown placement="bottom-right">
-					<Navbar.Item>
-						<Dropdown.Trigger>
-							<Avatar
-								// bordered
-								as="button"
-								// color="warning"
-								size="md"
-								src="UserAvatar-lion.png"
-								style={{
-									border: "1.5px solid #6A7046",
-									padding: "2.5px",
-									backgroundColor: "white",
-								}}
-							/>
-						</Dropdown.Trigger>
-					</Navbar.Item>
-					<Dropdown.Menu
-						aria-label="User menu actions"
-						color="success"
-						onAction={(actionKey) => handleMenuAction(actionKey)}
-					>
-						<Dropdown.Item key="handleHome">Home</Dropdown.Item>
-						<Dropdown.Item key="handleAboutUs">About us</Dropdown.Item>
-						<Dropdown.Item key="handlePricing">Pricing</Dropdown.Item>
-						{/* <Dropdown.Item key="handleBlog">Blogs</Dropdown.Item> */}
-						<Dropdown.Item key="handleTrack">Track record</Dropdown.Item>
-						<Dropdown.Item key="handleSMECorner">SME Corner</Dropdown.Item>
-						<Dropdown.Item key="handleStockPicks">Stocks to Buy</Dropdown.Item>
-						<Dropdown.Item key="settings" withDivider>
-							Profile
-						</Dropdown.Item>
-						{/* <Dropdown.Item key="purchase" withDivider color="warning">
-							Subscribe
-						</Dropdown.Item> */}
-						<Dropdown.Item key="handleLogoutClick" withDivider color="error">
-							Log Out
-						</Dropdown.Item>
-					</Dropdown.Menu>
-				</Dropdown>
-			</Navbar.Content>
-
-			{/* <Navbar.Collapse>
-				<Navbar.CollapseItem onClick={handleTrack}>
-					Track Record
-				</Navbar.CollapseItem>
-				<Navbar.CollapseItem onClick={handleStockPicks}>
-					Stock Picks
-				</Navbar.CollapseItem>
-				<Navbar.CollapseItem onClick={handleHome}>Home</Navbar.CollapseItem>
-				<Navbar.CollapseItem onClick={handleAboutUs}>
-					About Us
-				</Navbar.CollapseItem>
-				<Navbar.CollapseItem onClick={handleBlog}>Blogs</Navbar.CollapseItem>
-				<Navbar.CollapseItem onClick={handleLogoutClick}>
-					Subscribe
-				</Navbar.CollapseItem>
-			</Navbar.Collapse> */}
-
-			{isMobile && (
-				<IconButton
-					aria-label="toggle navigation"
-					onClick={toggleDrawer}
-					sx={{
-						position: "fixed",
-						top: "20px",
-						right: "20px",
-						zIndex: 9999,
-					}}
-				>
-					<RxHamburgerMenu size={24} />
-				</IconButton>
-			)}
-			<SwipeableDrawer
-				anchor="right"
-				open={isDrawerOpen}
-				onOpen={() => setIsDrawerOpen(true)}
-				onClose={toggleDrawer}
-				sx={{
-					width: "100vw",
-					maxWidth: "100%",
-					"& .MuiDrawer-paper": {
-						width: "100vw",
-						maxWidth: "100%",
-					},
-				}}
-			>
-				<List>
-					<ListItemButton
-						onClick={() => {
-							toggleDrawer();
-						}}
-						sx={{ justifyContent: "end" }}
-					>
-						<CloseIcon />
-					</ListItemButton>
-					<ListItemButton
-						onClick={() => {
-							handleHome();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon sx={{ paddingLeft: "4px" }}>
-							<Home2 size={30} style={{ color: "#FB9E29" }} />
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							Home
-						</Text>
-					</ListItemButton>
-					<ListItemButton
-						onClick={() => {
-							// handleAboutUs();
-							handlePhilosophy();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon sx={{ paddingLeft: "4px" }}>
-							<GroupsOutlinedIcon
-								sx={{ fontSize: 30 }}
-								style={{ color: "#FB9E29" }}
-							/>
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							About Us
-						</Text>
-					</ListItemButton>
-					<ListItemButton
-						onClick={() => {
-							// handleBlog();
-							handlePricing();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon sx={{ paddingLeft: "4px" }}>
-							<Book size={30} style={{ color: "#FB9E29" }} />
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							Pricing
-						</Text>
-					</ListItemButton>
-					{/* <ListItemButton
-						onClick={() => {
-							// handleBlog();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon sx={{ paddingLeft: "4px" }}>
-							<Book size={30} style={{ color: "#FB9E29" }} />
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							Blogs
-						</Text>
-					</ListItemButton> */}
-					<ListItemButton
-						onClick={() => {
-							trackRecord();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon sx={{ paddingLeft: "4px" }}>
-							<TrendingUpRoundedIcon
-								sx={{ fontSize: 30 }}
-								style={{ color: "#FB9E29" }}
-							/>
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							Track Record
-						</Text>
-					</ListItemButton>
-					<ListItemButton
-							onClick={() => {
-								scrolltoHash("blogs-page");
-								toggleDrawer();
-							}}
-						>
-							<ListItemIcon sx={{ paddingLeft: "4px" }}>
-								<Book size={30} style={{ color: "#FB9E29" }} />
-							</ListItemIcon>
-							<Text b className="drawerElementText">
-								Blogs
-							</Text>
-						</ListItemButton>
-					<ListItemButton
-						onClick={() => {
-							smeCorner();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon sx={{ paddingLeft: "4px" }}>
-							<MoneyRoundedIcon
-								sx={{ fontSize: 30 }}
-								style={{ color: "#FB9E29" }}
-							/>
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							SME Corner
-						</Text>
-					</ListItemButton>
-					<ListItemButton
-						onClick={() => {
-							ourStockPicks();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon sx={{ paddingLeft: "4px" }}>
-							<MoneyRoundedIcon
-								sx={{ fontSize: 30 }}
-								style={{ color: "#FB9E29" }}
-							/>
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							Stocks To Buy
-						</Text>
-					</ListItemButton>
-					<ListItemButton
-						onClick={() => {
-							handleSettings();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon>
-							<BiLogIn size={30} style={{ color: "#FB9E29" }} />
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							Profile
-						</Text>
-					</ListItemButton>
-					<ListItemButton
-						onClick={() => {
-							handleLogoutClick();
-							toggleDrawer();
-						}}
-					>
-						<ListItemIcon>
-							<BiLogIn size={30} style={{ color: "#FB9E29" }} />
-						</ListItemIcon>
-						<Text b className="drawerElementText">
-							Logout
-						</Text>
-					</ListItemButton>
-				</List>
-			</SwipeableDrawer>
-		</Navbar>
-		// </Container>
-	);
-};
-
-export default NavBar2;
+const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
+  ({ className, icon, endIcon, title, children, ...props }, ref) => {
+    return (
+      <li className="relative m-0 group/list ">
+        <NavigationMenuLink asChild>
+          <a
+            ref={ref}
+            className={cn(
+              "flex select-none gap-x-2 rounded-md p-3 pl-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground relative  ",
+              className
+            )}
+            {...props}
+          >
+            <div>{icon}</div>
+            <div>
+              <div className="text-sm font-medium leading-none text-gray-950 mb-1 flex gap-x-2 items-center">
+                <span className=" whitespace-nowrap font-semibold">
+                  {title}
+                </span>
+                <span className=" invisible group-hover/list:visible">
+                  {endIcon || (
+                    <ArrowRight size={12} className=" text-gray-400" />
+                  )}
+                </span>
+              </div>
+              <p className="line-clamp-2 leading-snug text-gray-500 text-2xs">
+                {children}
+              </p>
+            </div>
+          </a>
+        </NavigationMenuLink>
+      </li>
+    );
+  }
+);
+ListItem.displayName = "ListItem";

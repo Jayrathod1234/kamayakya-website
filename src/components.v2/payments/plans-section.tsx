@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useContext, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { Button, ButtonSize, ButtonVariant } from "../button/button";
 import { Tabs, TabsVariant } from "../tabs";
 import { PlanCardDesktop, PriceStrikeThrough } from "./plan-card-desktop";
@@ -168,7 +168,7 @@ export function PlansSection() {
             src={"/save_33.png"}
             alt="save-33%"
           />
-          <Tabs setSelectedOption={setCurrentTab} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
+          <Tabs setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
           <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" />
         </div>
       </div>

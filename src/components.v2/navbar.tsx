@@ -18,13 +18,14 @@ import {
 
 import AuthContext from "@/components/AuthContext";
 import { HOME_OPTIONS, NAVBAR_LINKS } from "@/constants/index.constants";
-import { cn } from "@/lib/utils";
+
+import { light } from "@mui/material/styles/createPalette";
 import { Box, IconButton } from "@mui/material";
 import { Modal, useModal } from "@nextui-org/react";
 import { ArrowRight } from "lucide-react";
 import { NavbarDropdownCard } from "./cards";
 import SideNav from "./sidenav";
-
+import { useNavBar } from "@/contexts/NavBarContext.js";
 import Login from "@/components/Login";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { Button } from "./button";
@@ -32,6 +33,7 @@ import { ButtonVariant } from "./button/button";
 import { LoginBtnNav } from "./login-btn-nav";
 import { ScrollProgress } from "./scroll-progress";
 import SampleReportsModal from "./sample-reports-modal";
+import { cn } from "@/lib/utils";
 
 /*
 For pages with white background give className=bg-white to get the green hover effect
@@ -39,13 +41,16 @@ eg: <Navbar className="bg-white"/>
 To change the hover effects, look for navigationMenuTriggerStyle in navigation-menu.tsx
 */
 
-export function Navbar({ className }: { className?: string }) {
+export function Navbar({ className, navigationLinkClassName }: { className?: string;navigationLinkClassName?:string }) {
   const { isLoggedIn } = useContext(AuthContext);
+  const { showFilterHeader } = useNavBar();
   const router = useRouter();
   const pathname = router.pathname;
   const ref = useRef<HTMLDivElement | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const { setVisible, bindings } = useModal();
+  const { setVisible, bindings } = useModal();  
+  const [isSticky, setIsSticky] = useState(pathname == '/stock-picks');
+
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
     mp.track(event, properties);
@@ -86,14 +91,38 @@ export function Navbar({ className }: { className?: string }) {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       if (window.scrollY > 0) {
+        // if (pathname == '/stock-picks') {
+        //   setIsSticky(false)
+        // }
         ref.current?.classList.add("scrolled-nav");
+        // ref.current?.classList.add("navbar-shadow");
       } else {
+        // if (pathname == '/stock-picks') {
+        //   setIsSticky(true)
+        // }
+
         ref.current?.classList.remove("scrolled-nav");
+        // ref.current?.classList.remove("navbar-shadow");
       }
-    });
-  }, []);
+      console.log("SHOW FILTER HEADER", showFilterHeader)
+      // if (showFilterHeader) {
+      //   ref.current?.classList.remove("navbar-shadow");
+      // }else{
+      //   ref.current?.classList.add("navbar-shadow");
+      // }
+    };
+    // if (pathname == '/stock-picks') {
+      window.addEventListener("scroll", handleScroll);
+    // } else {
+    //   ref.current?.classList.add("other-page-nav");
+    // }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [showFilterHeader]);
 
   return (
     <div ref={ref} className={cn(" group/nav sticky left-0 right-0 top-0 z-50 overflow-visible pricing", className)}>
@@ -131,7 +160,7 @@ export function Navbar({ className }: { className?: string }) {
                         router.push("/");
                       }
                     }}
-                    className=" text-gray-950 font-semibold"
+                    className={cn(" text-gray-950 font-semibold",navigationLinkClassName)}
                   >
                     About Us
                   </NavigationMenuTrigger>
@@ -145,8 +174,8 @@ export function Navbar({ className }: { className?: string }) {
                       {HOME_OPTIONS.filter((options) =>
                         isLoggedIn
                           ? options.title !== "Sample Reports" &&
-                            options.title !== "Performance" &&
-                            options.title !== "Hot Stocks"
+                          options.title !== "Performance" &&
+                          options.title !== "Hot Stocks"
                           : true
                       ).map((option) => (
                         <ListItem
@@ -159,7 +188,7 @@ export function Navbar({ className }: { className?: string }) {
                           icon={option.icon}
                           title={option.title}
                           id={option?.id}
-                          // endIcon={option?.endIcon}
+                        // endIcon={option?.endIcon}
                         >
                           {option.subtitle}
                         </ListItem>
@@ -197,11 +226,11 @@ export function Navbar({ className }: { className?: string }) {
                       passHref
                     >
                       <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} font-semibold text-inherit ${
+                        className={cn(`${navigationMenuTriggerStyle()} font-semibold text-inherit ${
                           navigationOption.title === "Stocks to Buy"
-                            ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)]"
+                            ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] data-[active]:border-none"
                             : ""
-                        }`}
+                        }`,navigationLinkClassName)}
                         active={pathname === navigationOption.link}
                       >
                         {navigationOption.title}
@@ -213,7 +242,7 @@ export function Navbar({ className }: { className?: string }) {
             </NavigationMenu>
           </div>
         </div>
-        <div className=" flex items-center justify-center gap-x-4 lg:hidden">
+        <div className={`flex items-center justify-center gap-x-4 lg:hidden `}>
           {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
           <SideNav handleLogin={handleLogin} />
         </div>
@@ -322,7 +351,9 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
                   {endIcon || <ArrowRight size={12} className=" text-gray-400" />}
                 </span>
               </div>
-              <p className="line-clamp-2 leading-snug text-gray-500 text-2xs">{children}</p>
+              <p className="line-clamp-2 leading-snug text-gray-500 text-2xs">
+                {children}
+              </p>
             </div>
           </a>
         </NavigationMenuLink>

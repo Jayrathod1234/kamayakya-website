@@ -9,6 +9,7 @@
 
 const config = {
   darkMode: ["class"],
+  fill: ["hover", "focus"],
   content: [
     "./**/*.{ts,tsx,jsx}",
     "./components/**/*.{ts,tsx}",
@@ -21,15 +22,25 @@ const config = {
     screens: {
       phone: "497px",
       sm: "640px",
-      md: "768px",
+      md: "769px",
       slg: "900px",
-      lg: "1024px",
+      lg: "1025px",
       xl: "1280px",
       "2xl": "1536px",
       // "min-h-700": { raw: "( (min-height: 700px))" },
     },
+    transitionDuration: {
+      2500: "2500ms",
+      2000: "2000ms",
+      700: "700ms",
+      300: "300ms",
+      500: "500ms",
+      100: "100ms",
+      200: "200ms",
+    },
     fontFamily: {
       open_sans: ["Open Sans", "sans-serif"],
+      open_sans_italic:["Open Sans Italic","sans-serif"]
     },
     fontSize: {
       "4xs": [
@@ -129,15 +140,30 @@ const config = {
       },
     },
     extend: {
+      gridTemplateColumns: {
+        "auto-fill": "repeat(auto-fill, minmax(320px, 1fr))",
+      },
       backgroundImage: {
+        "custom-gradient-arrow-left":
+          " linear-gradient(270deg, hsl(216deg 23.81% 95.88% / 0%), #f2f4f7 31%)",
+        "custom-gradient-arrow-right":
+          " linear-gradient(90deg, hsl(216deg 23.81% 95.88% / 0%), #f2f4f7 31%)",
         "radial-gradient-xl":
           "radial-gradient(389.9% 150.6% at -13.33% 12.53%, rgba(100, 253, 171, 0.00) 0%, rgba(129, 184, 244, 0.40) 25.93%, rgba(196, 219, 254, 0.57) 43.63%, rgba(228, 238, 253, 0.57) 69.37%, rgba(253, 239, 255, 0.57) 79.3%, rgba(253, 239, 255, 0.00) 100%)",
         "radial-gradient":
           "radial-gradient(348.84% 134.74% at -1.18% 22.73%, rgba(255, 255, 255, 0.00) 0%, rgba(164, 233, 255, 0.40) 19%, rgba(155, 226, 249, 0.57) 43.63%, rgba(197, 255, 224, 0.57) 57.07%, rgba(203, 255, 224, 0.57) 69.37%, rgba(229, 255, 223, 0.57) 79.3%, rgba(255, 255, 255, 0.00) 100%)",
         "custom-gradient":
           "linear-gradient(314deg, #125B54 6.46%, #12ADB7 113.37%)",
+        "custom-gradient-3":
+          "linear-gradient(272deg, #125B54 18.54%, #092E2B 107.09%)",
+        "blue-gradient":
+          "linear-gradient(314deg, ##0079EF 6.46%, ##0079EF30 113.37%,#FFFFFF)",
+        "border-image":
+          "conic-gradient(from 90deg, #a8efff, #a8efff1a, 0.1turn,  a#8efff  0.15turn, #a8efff1a 0.25turn) 30",
       },
       boxShadow: {
+        "become-member":
+          "0px 0px 9.615px 0px rgba(0, 0, 0, 0.25), 0px 0px 44.904px 0px rgba(176, 252, 177, 0.30)",
         "6xs": "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
         "5xs": "0px 1px 5px 0px rgba(50, 0, 0, 0.09)",
         "4xs": "0px 2px 6px 0px rgba(2, 15, 35, 0.06)",
@@ -149,9 +175,10 @@ const config = {
         lg: "0px 12px 16px -4px rgba(16, 24, 40, 0.10), 0px 4px 6px -2px rgba(16, 24, 40, 0.05)",
         xl: "0px 20px 24px -4px rgba(16, 24, 40, 0.10), 0px 8px 8px -4px rgba(16, 24, 40, 0.04)",
         "2xl": "0px 24px 48px -12px rgba(16, 24, 40, 0.25)",
-        "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.20)",
+        "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.40)",
       },
       colors: {
+        "custom-green": "#108973",
         gray: {
           25: "#fcfcfd",
           50: "#f9fafb",
@@ -227,15 +254,56 @@ const config = {
           "0%": { transform: "translateX(-4px)" },
           "100%": { transform: "translateX(0px)" },
         },
+         fill: {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        move:'move 0.15s ease-in-out forwards'
+        move:'move 0.15s ease-in-out forwards',
+        "spin-slow": "spin 5s linear infinite",
+        "fill": 'fill 6s linear forwards',
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    function ({ addComponents }) {
+      addComponents({
+        ".conic-gradient-border": {
+          position: "relative",
+          padding: "0.5rem 1rem",
+          borderRadius: "0.375rem",
+          overflow: "hidden",
+          background: "transparent",
+          color: "white", // Set text color to white
+          border: "2px solid transparent",
+          fontWeight: "bold", // Optional: make text bold for better visibility
+        },
+        ".conic-gradient-border::before": {
+          content: '""',
+          position: "absolute",
+          top: "0",
+          left: "0",
+          width: "100%",
+          height: "100%",
+          borderRadius: "inherit",
+          border: "2px solid",
+          borderImage:
+            "conic-gradient(from 0deg, #ff007a, #d400ff, #007aff, #00c5ff, #00ff8c, #ff007a) 1",
+          zIndex: "-1",
+          transition: "border-image 1s ease-in-out",
+        },
+        ".conic-gradient-border:hover::before": {
+          borderImage:
+            "conic-gradient(from 0deg, #00c5ff, #ff007a, #d400ff, #007aff, #00ff8c, #00c5ff) 1",
+        },
+      });
+    },
+  ],
 };
 
 export default config;

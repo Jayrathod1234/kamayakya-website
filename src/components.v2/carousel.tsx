@@ -145,8 +145,8 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
   };
 };
 
-export const CarouselItem = React.forwardRef(
-  ({ children, className, ref }: TChildren & { className?: string; ref: any }) => {
+export const CarouselItem = React.forwardRef< HTMLDivElement,TChildren & { className?: string; }>(
+  ({ children, className, },ref ) => {
     return (
       <div ref={ref} className={`carousel__item h-full ${className}`}>
         {children}
@@ -165,7 +165,7 @@ export function Carousel({ className }: { className?: string }) {
       // startIndex: 1,
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 6000 }), ClassNames()] //change carousel timer here.
+    [Autoplay({ playOnInit: true, delay: 6000,stopOnInteraction:false }), ClassNames()] //change carousel timer here.
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
@@ -223,6 +223,7 @@ export function Carousel({ className }: { className?: string }) {
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
         const scale = numberWithinRange(tweenValue, 0, 1).toString();
         const tweenNode = tweenNodes.current[slideIndex];
+        // console.log("🚀 ~ slidesInSnap.forEach ~ tweenNode:", tweenNode);
         tweenNode.style.transform = `scale(${scale})`;
       });
     });
@@ -267,17 +268,19 @@ export function Carousel({ className }: { className?: string }) {
 
       <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
         {/* <div className=" overflow-hidden max-w-full"> */}
-        <div className=" flex pb-12 pt-[60px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
+        <div
+          className=" flex pb-12 pt-[40px] carousel__container"
+          style={{ backfaceVisibility: "hidden" }}
+        >
           {carouselItem.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
-              className={` carousel embla__class-names  flex-[0_0_25%]
-              ${
-                ""
+              className={` carousel embla__class-names  
+              ${""
                 // index === selectedIndex ? "" : index > selectedIndex
                 //  ? " !scale-75 md:ml-[-2rem] lg:ml-[-4rem]"
                 //  : " !scale-75 md:mr-[-2rem] lg:mr-[-4rem]"
-              }
+                }
               `}
             >
               {carousel}

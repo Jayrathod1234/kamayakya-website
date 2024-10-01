@@ -23,6 +23,7 @@ const config = {
     },
     fontFamily: {
       open_sans: ["open_sans", "sans-serif"],
+      open_sans_italic:["Open Sans Italic","sans-serif"]
     },
     fontSize: {
       "4xs": [
@@ -122,6 +123,7 @@ const config = {
       },
     },
     extend: {
+     
       backgroundImage: {
         "radial-gradient-xl":
           "radial-gradient(389.9% 150.6% at -13.33% 12.53%, rgba(100, 253, 171, 0.00) 0%, rgba(129, 184, 244, 0.40) 25.93%, rgba(196, 219, 254, 0.57) 43.63%, rgba(228, 238, 253, 0.57) 69.37%, rgba(253, 239, 255, 0.57) 79.3%, rgba(253, 239, 255, 0.00) 100%)",
@@ -219,6 +221,14 @@ const config = {
           "0%": { transform: "translateX(-4px)" },
           "100%": { transform: "translateX(0px)" },
         },
+        "fill" : {
+          from :{
+            width: "0%"
+          },
+          to :{
+            width: "100%"
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

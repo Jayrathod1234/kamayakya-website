@@ -50,7 +50,7 @@ export const BILLING_URL_RAZORPAY = `${USER_URL}/razorpay_transaction/`;
 //Blogs URL
 export const GET_BLOGS = `${USER_URL}/all_blogs`;
 export const GET_SPECIFIC_BLOG = `${USER_URL}/blog/`;
-export const SEARCH_BLOG = `${USER_URL}/search_blog`
+export const SEARCH_BLOG = `${USER_URL}/search_blog`;
 
 //Track Records
 export const TRACK_RECORD_FOR_ALL = `${USER_URL}/getTrackRecordForAll`;
@@ -73,9 +73,9 @@ export const SUBS_URL1 = `${USER_URL1}/subscribe/`;
 export const CODE_VALID = `${USER_URL}/validate_discount_code/`;
 
 //Pricings apis
-export const PLANS_URL = `${USER_URL}/subscription_plans`
-export const ACTIVE_PLAN_URL = `${USER_URL}/active_subscription`
-export const NEWSLETTER_SUBSCRIBE_URL = `${USER_URL}/newsletter_subscribe/`
-export const CONTACT_URL = `${USER_URL}/contact_us/`
-export const BILLING_DETAILS = `${USER_URL}/plan_price/`
-export const RECOMMENDATION_COUNTS = `${USER_URL}/get_recent_recommendation_count/` 
+export const PLANS_URL = `${USER_URL}/subscription_plans`;
+export const ACTIVE_PLAN_URL = `${USER_URL}/active_subscription`;
+export const NEWSLETTER_SUBSCRIBE_URL = `${USER_URL}/newsletter_subscribe/`;
+export const CONTACT_URL = `${USER_URL}/contact_us/`;
+export const BILLING_DETAILS = `${USER_URL}/plan_price/`;
+export const RECOMMENDATION_COUNTS = `${USER_URL}/get_recent_recommendation_count/`;
