@@ -1,13 +1,13 @@
-import { ArrowRight } from "lucide-react";
 
 export const NAVBAR_LINKS = [
   {
     title: "About Us",
-    link: "/#philosophy",
-    mixpanel: {
-      event: "sampleReports_clicked",
-      property: {
-        page: "Pricing_Page"
+    link: "/",
+    // id:"#philosophy",
+    mixpanel:{
+      event:"sampleReports_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },
@@ -44,10 +44,20 @@ export const NAVBAR_LINKS = [
   {
     title: "Stocks to Buy",
     link: "/stock-picks",
-    mixpanel: {
-      event: "stockstobuy_clicked",
-      property: {
-        page: "Pricing_Page"
+    mixpanel:{
+      event:"stockstobuy_clicked",
+      property:{
+        page:"Pricing_Page"
+      }
+    }
+  },
+  {
+    title: "Blogs",
+    link: "/blogs-page",
+    mixpanel:{
+      event:"blogs_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },
@@ -168,10 +178,11 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#philosophy",
-    mixpanel: {
-      event: "philosophy_clicked",
-      property: {
-        page: "Pricing_Page"
+    id:"#philosophy",
+    mixpanel:{
+      event:"philosophy_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },
@@ -230,10 +241,11 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#philosophy",
-    mixpanel: {
-      event: "sampleReports_clicked",
-      property: {
-        page: "Pricing_Page"
+    id:"#philosophy",
+    mixpanel:{
+      event:"sampleReports_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },
@@ -293,10 +305,11 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#whyUs",
-    mixpanel: {
-      event: "trustus_clicked",
-      property: {
-        page: "Pricing_Page"
+    id:"#whyUs",
+    mixpanel:{
+      event:"trustus_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },
@@ -345,10 +358,11 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#team",
-    mixpanel: {
-      event: "team_clicked",
-      property: {
-        page: "Pricing_Page"
+    id:"#team",
+    mixpanel:{
+      event:"team_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },
@@ -599,11 +613,12 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: "",
-    mixpanel: {
-      event: "howitworks_clicked",
-      property: {
-        page: "Pricing_Page"
+    link: "/#howItWorks",
+    id:"#howItWorks",
+    mixpanel:{
+      event:"howitworks_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },
@@ -656,10 +671,11 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#hotStocks",
-    mixpanel: {
-      event: "hotstocks_clicked",
-      property: {
-        page: "Pricing_Page"
+    id:"#hotStocks",
+    mixpanel:{
+      event:"hotstocks_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },
@@ -725,7 +741,7 @@ export const HOME_OPTIONS = [
         </defs>
       </svg>
     ),
-    link: '',
+    link:'/#testimonials',
     id: "#testimonials",
     mixpanel: {
       event: "testimonials_clicked",
@@ -836,10 +852,11 @@ export const HOME_OPTIONS = [
       </svg>
     ),
     link: "/#FAQs",
-    mixpanel: {
-      event: "faq_clicked",
-      property: {
-        page: "Pricing_Page"
+    id:"#FAQs",
+    mixpanel:{
+      event:"faq_clicked",
+      property:{
+        page:"Pricing_Page"
       }
     }
   },

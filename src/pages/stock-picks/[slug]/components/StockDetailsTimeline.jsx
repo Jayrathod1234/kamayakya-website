@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -76,6 +76,24 @@ export default function StockDetailsTimeline({ timeline }) {
   // const handleLoadMore = () => {
   //   setVisibleSteps((prev) => prev + 2);
   // };
+
+  // useEffect(()=>{
+  //   console.log("REPORT DETIAL",reportDetail)
+  //   let report = document.querySelector("#report");
+  //   const pdf = report ? report.contents().find('body') : null;
+  //   // const embed = report.querySelector("embed")
+  //   // console.log(report)
+  //   // console.log(embed)
+  //   if(pdf && pdf.querySelector('#password')){
+  //     pdf.querySelector('#password').value = 'yourPassword';
+  //     pdf.querySelector('#password')?.dispatchEvent(new Event('input'));
+      
+  //     // If there's a submit button, click it
+  //     pdf.querySelector('#submit')?.click();
+  //   }
+   
+
+  // },[reportDetail])
   
   return (
     <div className="flex flex-col justify-center pt-[30.8px] bg-white min-w-0 items-center" >
@@ -256,6 +274,7 @@ export default function StockDetailsTimeline({ timeline }) {
             </IconButton>
           </Box>
           <iframe
+            id="report"
             src={reportDetail?.document}
             title="Report Document"
             width="100%"

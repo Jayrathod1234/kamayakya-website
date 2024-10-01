@@ -137,7 +137,7 @@ function DrawerFilter() {
   const clearValues = () => {
     setTempStrategyTag(strategyTag);
     setTempUpsideLeft(upsideLeft);
-    setMarketCapType(marketCapType);
+    setTempMarketCapType(marketCapType);
     setTempReturns(returns);
     setTempRecency(recency);
     setTempTimeLeft(timeLeft);
@@ -240,6 +240,18 @@ function DrawerFilter() {
       checked ? [...prev, name] : prev.filter((tag) => tag !== name)
     );
   };
+
+  const handleMarketCap = (value)=>{
+    setTempMarketCapType(prev=>{
+      console.log(prev.includes(value),[...prev.filter(val=>val!=value)],[...prev,value])
+      return (prev.includes(value) ? [...prev.filter(val=>val !=value)]:[...prev,value])})
+  }
+
+  const handleRisk = (value)=>{
+    setTempRisk(prev=>{
+      console.log(prev.includes(value),[...prev.filter(val=>val!=value)],[...prev,value])
+      return (prev.includes(value) ? [...prev.filter(val=>val !=value)]:[...prev,value])})
+  }
 
   const CustomSlider = styled(Slider)({
     color: "#125B54", // Main color for the rail and thumb border
@@ -851,12 +863,12 @@ function DrawerFilter() {
                       {marketCapTypeList?.map((value, index) => (
                         <div
                           className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                            tempMarketCapType == value
+                            tempMarketCapType.includes(value)
                               ? "bg-[#E7F8F8] border-[#108973]"
                               : "bg-white border-[#E4E7EC]"
                           }`}
                           key={index}
-                          onClick={() => setTempMarketCapType(value)}
+                          onClick={()=>handleMarketCap(value)}
                         >
                           <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -1075,12 +1087,12 @@ function DrawerFilter() {
                     {stockRiskList?.map((value, index) => (
                       <div
                         className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          tempRisk == value
+                          tempRisk.includes(value)
                             ? "bg-[#E7F8F8] border-[#108973]"
                             : "bg-white border-[#E4E7EC]"
                         }`}
                         key={index}
-                        onClick={() => setTempRisk(value)}
+                        onClick={() => handleRisk(value)}
                       >
                         <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -1095,7 +1107,7 @@ function DrawerFilter() {
 
               {/* button  */}
               <div className="pt-[61px]">
-                <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
+                <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] z-40 fixed bg-white bottom-0 ">
                   <button
                     className="  text-[#344054] font-semibold font-open_sans  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px] hover:scale-[000.95] duration-500 "
                     onClick={handleCancel}
@@ -1831,7 +1843,7 @@ function DrawerFilter() {
                       </Accordion>
                     </div>
                   </TabPanel>
-                  <TabPanel value={value} index={3} className="scrolllab">
+                  <TabPanel value={value} index={3} className="scrolllab z-[60] !overflow-visible">
                     {/* total return  */}
                     <div className="  ">
                       <CustomSlider
@@ -1841,6 +1853,7 @@ function DrawerFilter() {
                         min={min_returns}
                         max={max_returns}
                         marks={returns_marks}
+                        aria-label="custom slider"
                       />
 
                       <Grid alignItems="center">
@@ -1926,12 +1939,12 @@ function DrawerFilter() {
                             {marketCapTypeList?.map((value, index) => (
                               <div
                                 className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                  tempMarketCapType == value
+                                  tempMarketCapType.includes(value)
                                     ? "bg-[#E7F8F8] border-[#108973]"
                                     : "bg-white border-[#E4E7EC]"
                                 }`}
                                 key={index}
-                                onClick={() => setTempMarketCapType(value)}
+                                onClick={() => handleMarketCap(value)}
                               >
                                 <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -2078,12 +2091,12 @@ function DrawerFilter() {
                           {stockRiskList?.map((value, index) => (
                             <div
                               className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                tempRisk == value
+                                tempRisk.includes(value)
                                   ? "bg-[#E7F8F8] border-[#108973]"
                                   : "bg-white border-[#E4E7EC]"
                               }`}
                               key={index}
-                              onClick={() => setTempRisk(value)}
+                              onClick={() => handleRisk(value)}
                             >
                               <img src={`/assets/${value}.svg`} alt={value} />
 

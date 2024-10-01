@@ -187,11 +187,11 @@ export function PlanCardDesktop({
           disabled={ctaDisabled}
           variant={btnVariant}
           size={ButtonSize.lg}
-          customStyle={`border disabled:bg-gray-100 disabled:border-gray-100 disabled:text-gray-300 disabled:opacity-1  ${
+          className={`border disabled:bg-gray-100 disabled:border-gray-100 disabled:text-gray-300 disabled:opacity-1  ${
             btnVariant === ButtonVariant.primary ? "border-2 " : " border-brand-300"
           }  `}
         >
-          <span className=" font-medium"> {btnText} </span>
+          <span className=""> {btnText} </span>
         </Button>
         <Warn>{warnMessage}</Warn>
       </div>

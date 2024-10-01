@@ -1125,7 +1125,7 @@ const StockCardSME = () => {
                         <Box
                             sx={{
                                 position: "absolute",
-                                zIndex: 99,
+                                zIndex: 10,
                                 padding: "2px 20px",
                                 borderRadius: "20px",
                                 background: "#fff",

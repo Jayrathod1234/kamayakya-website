@@ -6,48 +6,32 @@ import {
   Text,
   Loading,
   Modal,
-  Dropdown,
 } from "@nextui-org/react";
-import { ArrowCircleUp, DocumentText, Lock, Lock1 } from "iconsax-react";
+import { ArrowCircleUp, DocumentText } from "iconsax-react";
 import axios from "axios";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {
   GET_ALL_URL,
-  GET_SPECIFIC_STOCK_URL,
-  TRACK_RECORD_FOR_ALL,
-  TRACK_RECORD_FOR_USER,
 } from "../pages/api/URLs";
 import {
   Box,
   Grid,
-  Alert,
   IconButton,
-  TextField,
   InputBase,
   SwipeableDrawer,
   List,
   ListItemButton,
-  ListItemText,
   ListItem,
   FormGroup,
   FormControl,
-  FormLabel,
   FormControlLabel,
   Checkbox,
-  FormHelperText,
   RadioGroup,
   Radio,
 } from "@mui/material";
-import SpeedIcon from "@mui/icons-material/Speed";
-import { AiOutlineFieldTime } from "react-icons/ai";
-import { FaIndustry, FaRegArrowAltCircleUp } from "react-icons/fa";
 import { MdOutlineLock, MdFilterList, MdOutlineFiberNew } from "react-icons/md";
-import { BiChevronRight } from "react-icons/bi";
-import { GrDocumentPdf } from "react-icons/gr";
 import { useRouter } from "next/router";
-import ReactCardFlip from "react-card-flip";
 import { Viewer, Worker, SpecialZoomLevel } from "@react-pdf-viewer/core";
-import { DocumentAskPasswordEvent } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import packageJson from "../../package.json";
 import AuthContext from "./AuthContext";
@@ -73,8 +57,6 @@ const StockCard = () => {
   const pdfjsVersion = packageJson.dependencies["pdfjs-dist"];
   const { isLoggedIn } = useContext(AuthContext);
   const { isSubscribed, plan } = useContext(AuthContext);
-  console.log("plan");
-  // console.log(pdfjsVersion);
   const [selectedStock, setSelectedStock] = useState(null);
   const [showReportsModal, setShowReportsModal] = useState(false);
 
@@ -132,43 +114,6 @@ const StockCard = () => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // const handleTrackRecord = async () => {
-  //   try {
-  //     const refreshToken = localStorage.getItem("refresh");
-  //
-  //     const url = isLoggedIn ? TRACK_RECORD_FOR_USER : TRACK_RECORD_FOR_ALL;
-  //
-  //     const headers = {
-  //       "Content-Type": "application/json",
-  //     };
-  //
-  //     if (isLoggedIn) {
-  //       headers.Authorization = `token ${refreshToken}`;
-  //     }
-  //
-  //     const response = await fetch(url, {
-  //       method: "GET",
-  //       headers,
-  //     });
-  //
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setRecord(data);
-  //       console.log(data);
-  //     } else {
-  //       // Handle API call error
-  //       console.error("Error Getting Track Records | Track Record Page");
-  //     }
-  //   } catch (error) {
-  //     // Handle any other error
-  //     console.error(error);
-  //     // console.log("no call");
-  //   }
-  // };
-  //
-  // useEffect(() => {
-  //   handleTrackRecord();
-  // }, [isLoggedIn]);
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -177,13 +122,11 @@ const StockCard = () => {
   const [showCert, setShowCert] = useState(false);
 
   const handleCert = () => {
-    // setShowCert(true);
     var win = window.open(
       "Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1",
       "_blank",
       "fullscreen=yes"
     );
-    // win.document.write('<PdfViewer pdf={PDF}/>');
   };
 
   const handleCertClose = () => {
@@ -248,20 +191,12 @@ const StockCard = () => {
     setTimeSort(event.target.value);
     setUpsideSort("");
   };
-  // React.useMemo(
-  // 	() => Array.from(timeSort)[0]?.replaceAll("_", " ") || "",
-  // 	[timeSort]
-  // );
 
   const upsideSortValue = (event) => {
     setUpsideSort(event.target.value);
     setTimeSort("");
   };
 
-  // React.useMemo(
-  // 	() => Array.from(upsideSort)[0]?.replaceAll("_", " ") || "",
-  // 	[upsideSort]
-  // );
 
   useEffect(() => {
     // console.log(selectedIndustries);
@@ -284,11 +219,6 @@ const StockCard = () => {
         }
 
         if (searchQuery.trim() !== "") {
-          // passSearchFilter =
-          //   stock.stock_name
-          //     .toLowerCase()
-          //     .includes(searchQuery.toLowerCase()) ||
-          //   stock.stock_symbol.includes(searchQuery);
 
           const lowercaseSearchQuery = searchQuery.toLowerCase();
           const lowercaseStockName = stock.stock_name.toLowerCase();
@@ -301,7 +231,6 @@ const StockCard = () => {
             (lowercaseStockSymbol !== null &&
               lowercaseStockSymbol.includes(lowercaseSearchQuery));
 
-          // console.log(searchQuery)
         }
 
         return passTimeFilter && passUpsideFilter && passSearchFilter;
@@ -435,10 +364,6 @@ const StockCard = () => {
     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
     const today = new Date();
-    // console.log(
-    // 	createdDate,
-    // 	createdDate >= twoMonthsAgo && createdDate <= today
-    // );
     return createdDate >= twoMonthsAgo && createdDate <= today;
   };
 
@@ -484,18 +409,10 @@ const StockCard = () => {
         <Box
           sx={{
             cursor: "pointer",
-            // paddingLeft: "40px",
-            // paddingRight: "40px",
-            // paddingTop: "15px",
-            // paddingBottom: "15px",
             padding: "0",
-            // marginTop: "25px",
             display: "flex",
             flexDirection: "column",
-            // backgroundImage: "linear-gradient(to top , #0d2c7b, #6067b5)",
-            // backgroundImage: "linear-gradient(to top , #fff, #fff)",
             alignItems: "center",
-            // backgroundImage: "linear-gradient(to top , #106052, #0f734d)",
             borderRadius: "1200.5px",
             "@media only screen and (max-width: 764px)": {
               paddingLeft: "5px",
@@ -528,7 +445,6 @@ const StockCard = () => {
           </Text>
         </Box>
         <Modal
-          // width="790px"
           blur
           open={showCert}
           onClose={handleCertClose}
@@ -558,12 +474,10 @@ const StockCard = () => {
             }}
             className="iframePdfMobile"
           />
-          {/* <Modal.Footer justify="center"> */}
           <Button
             auto
             onClick={handleCertClose}
             css={{
-              // alignSelf: "end",
               width: "100%",
               backgroundColor: "#ffa12e",
               color: "#fff",
@@ -585,7 +499,6 @@ const StockCard = () => {
           >
             Close
           </Button>
-          {/* </Modal.Footer> */}
         </Modal>
         <Text
           b
@@ -636,10 +549,6 @@ const StockCard = () => {
               paddingTop: "2px",
               display: "flex",
               alignItems: "center",
-              // "@media only screen and (max-width: 768px)": {
-              //   padding: "0px 15px",
-              //   width: "500px",
-              // },
             }}
             className="stockPicks-searchBar"
           >
@@ -649,7 +558,6 @@ const StockCard = () => {
             <InputBase
               placeholder="Ion Exchange (OR) IONEXCHANG"
               variant="standard"
-              // size="large"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               sx={{
@@ -729,9 +637,6 @@ const StockCard = () => {
               >
                 <CloseIcon />
               </ListItemButton>
-              {/*<Text b size={21} css={{ paddingLeft: "30px" }}>*/}
-              {/*  Filter by industries :*/}
-              {/*</Text>*/}
               <ListItem>
                 <FormControl
                   sx={{ mt: "5px", ml: "15px" }}
@@ -766,55 +671,7 @@ const StockCard = () => {
                   {/*<FormHelperText>Multiple Selection</FormHelperText>*/}
                 </FormControl>
               </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
-								<Dropdown>
-									<Dropdown.Button
-										flat
-										css={{
-											// height: "70px",
-											// marginLeft: "20px",
-											width: "250px",
-											backgroundColor: "#fff",
-											borderRadius: "10000px",
-											border: "2px solid #ffa12e",
-											color: "#202020",
-											fontSize: 16,
-											"@media only screen and (max-width: 768px)": {
-												width: "70%",
-												"& span": {
-													// display: "none",
-												},
-											},
-										}}
-									>
-										<FaIndustry size={20} style={{ marginRight: "0px" }} />
-										<span
-											style={{
-												marginLeft: "10px",
-												"@media only screen and (maxWidth: 600px)": {
-													marginLeft: "0px",
-												},
-											}}
-										>
-											Industries
-										</span>
-									</Dropdown.Button>
-									<Dropdown.Menu
-										selectionMode="multiple"
-										selectedKeys={selectedIndustries}
-										onSelectionChange={(keys) => setSelectedIndustries(keys)}
-									>
-										{industries.map((industry) => (
-											<Dropdown.Item
-												key={industry}
-												onClick={() => handleIndustrySelection(industry)}
-											>
-												{industry}
-											</Dropdown.Item>
-										))}
-									</Dropdown.Menu>
-								</Dropdown>
-							</ListItem> */}
+
 
               <Divider
                 css={{
@@ -825,21 +682,9 @@ const StockCard = () => {
                   margin: "20px 25px 15px",
                 }}
               />
-              {/*<Text b size={21} css={{ paddingLeft: "30px" }}>*/}
-              {/*  Sort by time left:*/}
-              {/*</Text>*/}
-              <ListItem>
+
+                <ListItem>
                 <FormControl sx={{ mt: "5px", ml: "15px" }}>
-                  {/*<FormLabel*/}
-                  {/*  id="demo-controlled-radio-buttons-group"*/}
-                  {/*  style={{*/}
-                  {/*    fontSize: "15px",*/}
-                  {/*    fontWeight: "bold",*/}
-                  {/*    color: "#106352",*/}
-                  {/*  }}*/}
-                  {/*>*/}
-                  {/*  Time left*/}
-                  {/*</FormLabel>*/}
                   <Text b size={19} css={{ paddingLeft: "30px" }}>
                     Sort by time left:
                   </Text>
@@ -859,65 +704,9 @@ const StockCard = () => {
                   </RadioGroup>
                 </FormControl>
               </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
-								<Dropdown>
-									<Dropdown.Button
-										flat
-										css={{
-											width: "250px",
-											backgroundColor: "#fff",
-											borderRadius: "10000px",
-											border: "2px solid #ffa12e",
-											color: "#202020",
-											fontSize: 16,
-											"@media only screen and (max-width: 768px)": {
-												width: "70%",
-												"& span": {
-													// display: "none",
-												},
-											},
-										}}
-									>
-										<AiOutlineFieldTime
-											size={22}
-											style={{ marginRight: "0px" }}
-										/>
-										<span
-											style={{
-												marginLeft: "10px",
-												"@media only screen and (max-width: 768px)": {
-													marginLeft: "0px",
-												},
-											}}
-										>
-											Time Left
-										</span>
-									</Dropdown.Button>
-									<Dropdown.Menu
-										aria-label="TimeActions"
-										selectionMode="single"
-										selectedKeys={timeSort}
-										onSelectionChange={(key) => setTimeSort(key)}
-									>
-										<Dropdown.Item key="ascending">
-											Earliest First
-										</Dropdown.Item>
-										<Dropdown.Item key="descending">Latest First</Dropdown.Item>
-									</Dropdown.Menu>
-								</Dropdown>
-							</ListItem> */}
+
               <ListItem>
                 <FormControl sx={{ ml: "15px" }}>
-                  {/*<FormLabel*/}
-                  {/*  id="controlled-radio-buttons"*/}
-                  {/*  style={{*/}
-                  {/*    fontSize: "15px",*/}
-                  {/*    fontWeight: "bold",*/}
-                  {/*    color: "#106352",*/}
-                  {/*  }}*/}
-                  {/*>*/}
-                  {/*  Potential upside*/}
-                  {/*</FormLabel>*/}
                   <Text b size={19} css={{ paddingLeft: "30px" }}>
                     Sort by potential upside:
                   </Text>
@@ -936,21 +725,6 @@ const StockCard = () => {
                     />
                   </RadioGroup>
 
-                  {/* {upsideSort !== "" && (
-										<Button variant="contained" onClick={handleClearSelection}>
-											Clear Selection
-										</Button>
-									)}
-									{selectedIndustries.length > 0 && (
-										<Button variant="contained" onClick={handleClearSelection}>
-											Clear Selection
-										</Button>
-									)}
-									{timeSort !== "" && (
-										<Button variant="contained" onClick={handleClearSelection}>
-											Clear Selection
-										</Button>
-									)} */}
                 </FormControl>
               </ListItem>
               <ListItem sx={{ justifyContent: "center" }}>
@@ -972,52 +746,7 @@ const StockCard = () => {
                   </Button>
                 ) : null}
               </ListItem>
-              {/* <ListItem sx={{ justifyContent: "center" }}>
-								<Dropdown>
-									<Dropdown.Button
-										flat
-										css={{
-											width: "250px",
-											backgroundColor: "#fff",
-											borderRadius: "10000px",
-											border: "2px solid #ffa12e",
-											color: "#202020",
-											fontSize: 16,
-											"@media only screen and (max-width: 768px)": {
-												width: "70%",
-												"& span": {
-													// display: "none",
-												},
-											},
-										}}
-									>
-										<Filter size={20} />
-										<span
-											style={{
-												marginLeft: "10px",
-												"@media only screen and (max-width: 768px)": {
-													marginLeft: "0px",
-												},
-											}}
-										>
-											Upside Left
-										</span>
-									</Dropdown.Button>
-									<Dropdown.Menu
-										aria-label="UpsideActions"
-										selectionMode="single"
-										selectedKeys={upsideSort}
-										onSelectionChange={setUpsideSort}
-									>
-										<Dropdown.Item key="ascending">
-											Lowest to Highest
-										</Dropdown.Item>
-										<Dropdown.Item key="descending">
-											Highest To Lowest
-										</Dropdown.Item>
-									</Dropdown.Menu>
-								</Dropdown>
-							</ListItem> */}
+
             </List>
           </SwipeableDrawer>
         </Box>
@@ -1093,278 +822,334 @@ const StockCard = () => {
               },
             }}
           >
-            {filteredStocks
-              .filter(
-                (stock) =>
-                  stock.stock_exchange === "BSE" ||
-                  stock.stock_exchange === "NSE"
-              )
-              .map((stock, index) => (
-                <Grid
-                  key={stock.id}
-                  item
-                  xs={"auto"}
-                  sm={"auto"}
-                  md={"auto"}
-                  lg={"auto"}
-                >
-                  {isSubscribed && stock.recommended_stock === true ? (
+            {filteredStocks.filter(stock => stock.stock_exchange === "BSE" || stock.stock_exchange === "NSE").map((stock, index) => (
+              <Grid
+                key={stock.id}
+                item
+                xs={"auto"}
+                sm={"auto"}
+                md={"auto"}
+                lg={"auto"}
+              >
+                {isSubscribed && stock.recommended_stock === true ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
                     <Box
                       sx={{
+                        position: "absolute",
+                        zIndex: 10,
+                        padding: "2px 20px",
+                        borderRadius: "20px",
+                        background: "#fff",
+                        border: "4px solid #ff9702",
+                        alignSelf: "center",
+                        color: "#cc0000",
                         display: "flex",
-                        justifyContent: "center",
-                        width: "100%",
+                        alignItems: "center",
+                        fontSize: 18,
                       }}
                     >
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          zIndex: 99,
-                          padding: "2px 20px",
-                          borderRadius: "20px",
-                          background: "#fff",
-                          border: "4px solid #ff9702",
-                          alignSelf: "center",
-                          color: "#cc0000",
-                          display: "flex",
-                          alignItems: "center",
-                          fontSize: 18,
-                        }}
-                      >
-                        <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
-                        <BsFire style={{ marginLeft: "5px" }} />
-                      </Box>
+                      <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
+                      <BsFire style={{ marginLeft: "5px" }} />
                     </Box>
-                  ) : (
-                    ""
-                  )}
-                  <Card
-                    isHoverable
-                    css={{
-                      // height: "580px",
-                      width: "285px",
+                  </Box>
+                ) : (
+                  ""
+                )}
+                <Card
+                  isHoverable
+                  css={{
+                    // height: "580px",
+                    width: "285px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                    borderRadius: "40px",
+                    border: "4px solid",
+                    borderColor: "#ffa12e",
+                    marginBottom: "0px",
+                    boxShadow: "none",
+                    filter: "none",
+                    "@media only screen and (max-width: 768px)": {
+                      width: "92.5vw",
+                      maxWidth: "620px",
+                      // height: "650px",
+                      borderRadius: "35px",
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      marginLeft: "5%",
+                      marginRight: "5%",
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                      minWidth: "90%",
+                      maxWidth: "90%",
+                      // height: "600px",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      backgroundColor: "#fff",
-                      borderRadius: "40px",
-                      border: "4px solid",
-                      borderColor: "#ffa12e",
-                      marginBottom: "0px",
-                      boxShadow: "none",
-                      filter: "none",
                       "@media only screen and (max-width: 768px)": {
-                        width: "92.5vw",
-                        maxWidth: "620px",
-                        // height: "650px",
-                        borderRadius: "35px",
+                        marginLeft: "5px",
+                        marginRight: "5px",
+                        height: "auto",
+                        marginBottom: "30px",
                       },
                     }}
                   >
                     <Box
                       sx={{
-                        marginLeft: "5%",
-                        marginRight: "5%",
-                        marginTop: "20px",
-                        marginBottom: "20px",
-                        minWidth: "90%",
-                        maxWidth: "90%",
-                        // height: "600px",
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center",
+                        textAlign: "center",
+                        backgroundColor: "#fff",
+                        marginBottom: "15px",
+                        width: "90%",
                         "@media only screen and (max-width: 768px)": {
-                          marginLeft: "5px",
-                          marginRight: "5px",
-                          height: "auto",
-                          marginBottom: "30px",
+                          width: "100%",
                         },
                       }}
                     >
                       <Box
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          textAlign: "center",
-                          backgroundColor: "#fff",
+                          width: "100%",
+                          height: "30px",
+                          paddingTop: "7.5px",
+                          paddingBottom: "7.5px",
+                          paddingLeft: "5px",
+                          paddingRight: "5px",
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
                           marginBottom: "15px",
-                          width: "90%",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                          },
+                          marginTop: "5px",
+                          borderRadius: "10000px",
+                          lineHeight: 1,
                         }}
+                        className="stockCardMobile-industry"
                       >
-                        <Box
-                          sx={{
-                            width: "100%",
-                            height: "30px",
-                            paddingTop: "7.5px",
-                            paddingBottom: "7.5px",
-                            paddingLeft: "5px",
-                            paddingRight: "5px",
-                            backgroundImage:
-                              "linear-gradient(to top , #FF9D28, #ffa736)",
-                            marginBottom: "15px",
-                            marginTop: "5px",
-                            borderRadius: "10000px",
-                            lineHeight: 1,
-                          }}
-                          className="stockCardMobile-industry"
-                        >
-                          <Text
-                            b
-                            size={14}
-                            color="Black"
-                            css={{
-                              lineHeight: 1.2,
-                              "@media only screen and (max-width: 768px)": {
-                                fontSize: "16px",
-                              },
-                            }}
-                          >
-                            {stock.stock_industry.length > 29 ? (
-                              <Marquee
-                                delay={2}
-                                speed={30}
-                                style={{ marginRight: "20px" }}
-                              >
-                                <span style={{ paddingRight: "20px" }}>
-                                  {stock.stock_industry}
-                                </span>
-                              </Marquee>
-                            ) : (
-                              <>{stock.stock_industry}</> || <Loading /> || "-"
-                            )}
-                          </Text>
-                        </Box>
                         <Text
                           b
-                          size={26}
+                          size={14}
+                          color="Black"
                           css={{
-                            minWidth: "100%",
-                            maxWidth: "100%",
-                            textAlign: "center",
                             lineHeight: 1.2,
                             "@media only screen and (max-width: 768px)": {
-                              fontSize: 25,
-                              paddingTop: "5px",
-                              paddingBottom: "5px",
+                              fontSize: "16px",
                             },
                           }}
                         >
-                          {stock.stock_name.length > 17 ? (
+                          {stock.stock_industry.length > 29 ? (
                             <Marquee
                               delay={2}
                               speed={30}
                               style={{ marginRight: "20px" }}
                             >
-                              <span style={{ paddingRight: "40px" }}>
-                                {stock.stock_name}
+                              <span style={{ paddingRight: "20px" }}>
+                                {stock.stock_industry}
                               </span>
                             </Marquee>
                           ) : (
-                            <>{stock.stock_name}</>
+                            <>{stock.stock_industry}</> || <Loading /> || "-"
                           )}
                         </Text>
                       </Box>
-                      <Box
-                        sx={{
-                          width: "90%",
-                          backgroundImage:
-                            "linear-gradient(to top , #106052, #0f734d)",
-                          borderRadius: "17.5px",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          paddingTop: "20px",
-                          paddingBottom: "20px",
+                      <Text
+                        b
+                        size={26}
+                        css={{
+                          minWidth: "100%",
+                          maxWidth: "100%",
+                          textAlign: "center",
+                          lineHeight: 1.2,
                           "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                            paddingTop: "20px",
-                            paddingBottom: "20px",
+                            fontSize: 25,
+                            paddingTop: "5px",
+                            paddingBottom: "5px",
                           },
                         }}
                       >
-                        {isSubscribed && isNewStock(stock.created) ? (
-                          <Box
-                            sx={{
+                        {stock.stock_name.length > 17 ? (
+                          <Marquee
+                            delay={2}
+                            speed={30}
+                            style={{ marginRight: "20px" }}
+                          >
+                            <span style={{ paddingRight: "40px" }}>
+                              {stock.stock_name}
+                            </span>
+                          </Marquee>
+                        ) : (
+                          <>{stock.stock_name}</>
+                        )}
+                      </Text>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "90%",
+                        backgroundImage:
+                          "linear-gradient(to top , #106052, #0f734d)",
+                        borderRadius: "17.5px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                          paddingTop: "20px",
+                          paddingBottom: "20px",
+                        },
+                      }}
+                    >
+                      {isSubscribed && isNewStock(stock.created) ? (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "100%",
+                          }}
+                        >
+                          <div
+                            style={{
+                              position: "absolute",
+                              width: "80px",
+                              marginTop: "-30px",
+                              background: "#cc0000",
+                              color: "#fff",
+                              height: "20px",
                               display: "flex",
+                              alignItems: "center",
                               justifyContent: "center",
-                              width: "100%",
+                              borderRadius: "10px",
                             }}
                           >
-                            <div
-                              style={{
-                                position: "absolute",
-                                width: "80px",
-                                marginTop: "-30px",
-                                background: "#cc0000",
-                                color: "#fff",
-                                height: "20px",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                borderRadius: "10px",
-                              }}
-                            >
-                              {isNewStock(stock.created) && <div>NEW</div>}
-                            </div>
-                          </Box>
-                        ) : (
-                          ""
-                        )}
+                            {isNewStock(stock.created) && <div>NEW</div>}
+                          </div>
+                        </Box>
+                      ) : (
+                        ""
+                      )}
+                      <Text
+                        b
+                        size={20}
+                        color="#fff"
+                        css={{
+                          lineHeight: 1.5,
+                          "@media only screen and (max-width: 768px)": {
+                            fontSize: 19,
+                          },
+                        }}
+                      >
+                        Upside Left
+                      </Text>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <ArrowCircleUp size={25} color="#fff" />
                         <Text
                           b
-                          size={20}
+                          size={48}
                           color="#fff"
                           css={{
-                            lineHeight: 1.5,
+                            lineHeight: 1,
+                            marginLeft: "3px",
+                            marginRight: "3px",
                             "@media only screen and (max-width: 768px)": {
-                              fontSize: 19,
+                              fontSize: 60,
                             },
                           }}
                         >
-                          Upside Left
+                          {`${Math.ceil(stock.upside_left)}` || <Loading /> ||
+                            "-"}
                         </Text>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <ArrowCircleUp size={25} color="#fff" />
+                        <span
+                          style={{
+                            fontSize: 25,
+                            color: "#FFF",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 10,
+                            },
+                          }}
+                        >
+                          %
+                        </span>
+                      </div>
+                    </Box>
+                    <Box
+                      sx={{
+                        mt: "20px",
+                        width: "90%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div style={{ display: "flex", flexDirection: "column" }}>
                           <Text
                             b
-                            size={48}
-                            color="#fff"
                             css={{
-                              lineHeight: 1,
-                              marginLeft: "3px",
-                              marginRight: "3px",
+                              lineHeight: 1.1,
                               "@media only screen and (max-width: 768px)": {
-                                fontSize: 60,
+                                fontSize: 21,
                               },
                             }}
+                            size={15}
                           >
-                            {`${Math.ceil(stock.upside_left)}` || <Loading /> ||
-                              "-"}
+                            MKT. CAP.
                           </Text>
-                          <span
-                            style={{
-                              fontSize: 25,
-                              color: "#FFF",
+                          <Text
+                            b
+                            size={15}
+                            css={{
+                              lineHeight: 1.1,
                               "@media only screen and (max-width: 768px)": {
-                                fontSize: 10,
+                                fontSize: 15,
                               },
                             }}
                           >
-                            %
-                          </span>
+                            (IN Cr.)
+                          </Text>
                         </div>
-                      </Box>
-                      <Box
-                        sx={{
-                          mt: "20px",
-                          width: "90%",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                          },
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                          {`${stock.market_cap}` || <Loading /> || "-"}
+                        </Text>
+                      </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          flexDirection: "column",
                         }}
                       >
                         <div
@@ -1387,7 +1172,7 @@ const StockCard = () => {
                               }}
                               size={15}
                             >
-                              MKT. CAP.
+                              ENTRY PRICE
                             </Text>
                             <Text
                               b
@@ -1399,7 +1184,7 @@ const StockCard = () => {
                                 },
                               }}
                             >
-                              (IN Cr.)
+                              (in ₹)
                             </Text>
                           </div>
                           <Text
@@ -1413,7 +1198,7 @@ const StockCard = () => {
                             }}
                             size={22}
                           >
-                            {`${stock.market_cap}` || <Loading /> || "-"}
+                            {`${stock.entry_price}` || <Loading /> || "-"}
                           </Text>
                         </div>
                         <Divider
@@ -1427,256 +1212,169 @@ const StockCard = () => {
                         <div
                           style={{
                             display: "flex",
-                            width: "100%",
-                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            alignItems: "center",
                           }}
                         >
                           <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Text
-                                b
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 21,
-                                  },
-                                }}
-                                size={15}
-                              >
-                                ENTRY PRICE
-                              </Text>
-                              <Text
-                                b
-                                size={15}
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 15,
-                                  },
-                                }}
-                              >
-                                (in ₹)
-                              </Text>
-                            </div>
                             <Text
                               b
                               css={{
-                                flex: 1,
-                                textAlign: "right",
+                                lineHeight: 1.1,
                                 "@media only screen and (max-width: 768px)": {
-                                  fontSize: 30,
+                                  fontSize: 21,
                                 },
                               }}
-                              size={22}
+                              size={15}
                             >
-                              {`${stock.entry_price}` || <Loading /> || "-"}
+                              CMP
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              (in ₹)
                             </Text>
                           </div>
-                          <Divider
-                            height={2}
-                            style={{
-                              backgroundColor: "#ffa12e",
-                              marginTop: "10px",
-                              marginBottom: "10px",
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
                             }}
-                          />
+                            size={22}
+                          >
+                            {`${stock.live_price}` || <Loading /> || "-"}
+                          </Text>
+                        </div>
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
                           <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Text
-                                b
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 21,
-                                  },
-                                }}
-                                size={15}
-                              >
-                                CMP
-                              </Text>
-                              <Text
-                                b
-                                size={15}
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 15,
-                                  },
-                                }}
-                              >
-                                (in ₹)
-                              </Text>
-                            </div>
                             <Text
                               b
                               css={{
-                                flex: 1,
-                                textAlign: "right",
+                                lineHeight: 1.1,
                                 "@media only screen and (max-width: 768px)": {
-                                  fontSize: 30,
+                                  fontSize: 21,
                                 },
                               }}
-                              size={22}
+                              size={15}
                             >
-                              {`${stock.live_price}` || <Loading /> || "-"}
+                              TARGET PRICE
                             </Text>
-                          </div>
-                          <Divider
-                            height={2}
-                            style={{
-                              backgroundColor: "#ffa12e",
-                              marginTop: "10px",
-                              marginBottom: "10px",
-                            }}
-                          />
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
-                          >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Text
-                                b
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 21,
-                                  },
-                                }}
-                                size={15}
-                              >
-                                TARGET PRICE
-                              </Text>
-                              <Text
-                                b
-                                size={15}
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 15,
-                                  },
-                                }}
-                              >
-                                (IN ₹)
-                              </Text>
-                            </div>
                             <Text
                               b
+                              size={15}
                               css={{
-                                flex: 1,
-                                textAlign: "right",
+                                lineHeight: 1.1,
                                 "@media only screen and (max-width: 768px)": {
-                                  fontSize: 30,
+                                  fontSize: 15,
                                 },
                               }}
-                              size={22}
                             >
-                              {/* {stock.stock_targets.length > 0
-                            ? `${
-                                stock.stock_targets[
-                                  stock.stock_targets.length - 1
-                                ].target_price
-                              }`
-                            : `${stock.target_price}`} */}
-                              {stock.latest_target_price}
+                              (IN ₹)
                             </Text>
                           </div>
-                          <Divider
-                            height={2}
-                            style={{
-                              backgroundColor: "#ffa12e",
-                              marginTop: "10px",
-                              marginBottom: "10px",
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
                             }}
-                          />
+                            size={22}
+                          >
+                            {stock.latest_target_price}
+                          </Text>
+                        </div>
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        />
 
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
                           <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Text
-                                b
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 21,
-                                  },
-                                }}
-                                size={15}
-                              >
-                                TIME TO
-                              </Text>
-                              <Text
-                                b
-                                size={15}
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 15,
-                                  },
-                                }}
-                              >
-                                TARGET
-                              </Text>
-                            </div>
                             <Text
                               b
                               css={{
-                                flex: 1,
-                                textAlign: "right",
+                                lineHeight: 1.1,
                                 "@media only screen and (max-width: 768px)": {
-                                  fontSize: 30,
+                                  fontSize: 21,
                                 },
                               }}
-                              size={22}
+                              size={15}
                             >
-                              {/* {`${Math.ceil(stock.time_left)}` || <Loading /> ||
-														"-"} */}
-                              {(() => {
-                                const timeLeft = Math.ceil(stock.time_left);
-                                const years = Math.floor(timeLeft / 365);
-                                const months = Math.floor(
-                                  (timeLeft % 365) / 30
-                                );
-                                const days = Math.floor((timeLeft % 365) % 30);
+                              TIME TO
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              TARGET
+                            </Text>
+                          </div>
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
+                            }}
+                            size={22}
+                          >
+                            {(() => {
+                              const timeLeft = Math.ceil(stock.time_left);
+                              const years = Math.floor(timeLeft / 365);
+                              const months = Math.floor((timeLeft % 365) / 30);
+                              const days = Math.floor((timeLeft % 365) % 30);
 
                                 if (timeLeft < 30) {
                                   return `${days} days`;
@@ -1811,115 +1509,89 @@ const StockCard = () => {
                           {selectedStock?.stock_name}
                         </Text>
 
-                        {selectedStock?.stock_reports?.length > 0 ? (
-                          selectedStock.stock_reports.map((report) => (
-                            <div key={report.report_name} style={{}}>
-                              <IconButton
-                                key={report.report_name}
-                                onClick={() =>
-                                  window.open(
-                                    `${report.document}#view=FitH&toolbar=0`,
-                                    "_blank",
-                                    "fullscreen=yes"
-                                  )
-                                }
-                                // onClick={() => handleOpenModal(report.document)}
-                                sx={{
-                                  "&:hover": { background: "#fff" },
-                                  borderRadius: "0px",
-                                  paddingLeft: "0px",
+                      {selectedStock?.stock_reports?.length > 0 ? (
+                        selectedStock.stock_reports.map((report) => (
+                          <div key={report.report_name} style={{}}>
+                            <IconButton
+                              key={report.report_name}
+                              onClick={() =>
+                                window.open(
+                                  `${report.document}#view=FitH&toolbar=0`,
+                                  "_blank",
+                                  "fullscreen=yes"
+                                )
+                              }
+                              // onClick={() => handleOpenModal(report.document)}
+                              sx={{
+                                "&:hover": { background: "#fff" },
+                                borderRadius: "0px",
+                                paddingLeft: "0px",
+                              }}
+                            >
+                              <DocumentText size={25} />
+                              <Text
+                                b
+                                size={21}
+                                css={{
+                                  marginLeft: "5px",
+                                  alignSelf: "start",
+                                  lineHeight: 1.5,
                                 }}
                               >
-                                <DocumentText size={25} />
-                                <Text
-                                  b
-                                  size={21}
-                                  css={{
-                                    marginLeft: "5px",
-                                    alignSelf: "start",
-                                    lineHeight: 1.5,
-                                  }}
-                                >
-                                  {report.report_name}
-                                </Text>
-                              </IconButton>
-                            </div>
-                          ))
-                        ) : (
-                          <Text
-                            b
-                            size={20}
-                            css={{
-                              // position: "absolute",
-                              paddingTop: "50px",
-                              paddingBottom: "50px",
-                              // left: "22.5%",
-                            }}
-                          >
-                            No Reports Available!
-                          </Text>
-                        )}
-                      </Box>
-                    </Card>
-                    {/* <Button
-									flat
-									onPress={handleCloseReports}
-									css={{
-										alignSelf: "center",
-										// width: "100%",
-										backgroundColor: "#ffa12e",
-										color: "#fff",
-										fontSize: 19,
-										marginTop: "20px",
-										borderRadius: "10px",
-										height: "50px",
-										"@media only screen and (max-width: 768px)": {
-											width: "100%",
-											fontSize: 15,
-											height: "50px",
-											marginTop: "0px",
-											borderRadius: "0px 0px 10px",
-											"& span": {
-												// display: "none",
-											},
-										},
-									}}
-								>
-									Close
-								</Button> */}
-                  </Modal>
-                  <Modal
-                    // blur
-                    open={showModal}
-                    onClose={handleCloseModal}
-                    aria-labelledby="modal-title"
-                    aria-describedby="modal-description"
-                    css={{
-                      height: "95vh",
-                      borderRadius: "15px",
-                      background: "transparent",
-                      boxShadow: "none",
-                      alignSelf: "center",
-                      alignContent: "center",
-                      justifyContent: "center",
-                      // backdropFilter: "blur(8px)",
-                    }}
-                    className="iframePdfMobile"
+                                {report.report_name}
+                              </Text>
+                            </IconButton>
+                          </div>
+                        ))
+                      ) : (
+                        <Text
+                          b
+                          size={20}
+                          css={{
+                            // position: "absolute",
+                            paddingTop: "50px",
+                            paddingBottom: "50px",
+                            // left: "22.5%",
+                          }}
+                        >
+                          No Reports Available!
+                        </Text>
+                      )}
+                    </Box>
+                  </Card>
+
+                </Modal>
+                <Modal
+                  // blur
+                  open={showModal}
+                  onClose={handleCloseModal}
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-description"
+                  css={{
+                    height: "95vh",
+                    borderRadius: "15px",
+                    background: "transparent",
+                    boxShadow: "none",
+                    alignSelf: "center",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    // backdropFilter: "blur(8px)",
+                  }}
+                  className="iframePdfMobile"
+                >
+                  <Worker
+                    // workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}/pdf.worker.min.js`}
+                    workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
                   >
-                    <Worker
-                      // workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}/pdf.worker.min.js`}
-                      workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
+                    <Box
+                      sx={{
+                        height: "75vh",
+                        borderRadius: "15px",
+                      }}
                     >
-                      <Box
-                        sx={{
-                          height: "75vh",
-                          borderRadius: "15px",
-                        }}
-                      >
-                        {/* {console.log(PdfValue)} */}
-                        <Viewer
-                          fileUrl={`${
-                            PdfValue ? PdfValue : selectedReportUrl
+                      {/* {console.log(PdfValue)} */}
+                      <Viewer
+                        fileUrl={`${PdfValue ? PdfValue : selectedReportUrl
                           }#view=FitH&toolbar=0`}
                           onDocumentAskPassword={handleAskPassword}
                         />
@@ -2282,9 +1954,6 @@ const StockCard = () => {
             ) : (
               ""
             )}
-            {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
-            {/* {stocks.length <= 3 &&
-					Array.from({ length: 4 }).map((_, index) => ( */}
             {!isLoggedIn || !isSubscribed
               ? staticNumbers.map((number, index) => (
                   <Grid
@@ -2483,155 +2152,131 @@ const StockCard = () => {
                               }}
                             />
 
+                          <div
+                            style={{
+                              zIndex: 1,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              marginTop: "0px",
+                            }}
+                          >
+                            <MdOutlineLock color="#ffa12e" size={50} />
                             <div
                               style={{
-                                zIndex: 1,
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                                marginTop: "0px",
+                                flexDirection: "row",
+                                marginTop: "20px",
                               }}
+                              className="stocksPage-card-loginSection"
                             >
-                              <MdOutlineLock color="#ffa12e" size={50} />
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  flexDirection: "row",
-                                  marginTop: "20px",
-                                }}
-                                className="stocksPage-card-loginSection"
-                              >
-                                {/* <Button
-																on
-																onPress={handleFirstCard}
-																css={{
-																	backgroundColor: "transparent",
-																}}
-															> */}
-                                {isLoggedIn ? (
-                                  <div
-                                    style={{
-                                      justifyContent: "center",
-                                      textAlign: "center",
-                                      // height: "fit-content",
-                                      // maxWidth: "220px",
-                                      // maxHeight: "220px",
-                                    }}
-                                  >
-                                    <Text
-                                      b
-                                      size={16}
-                                      css={{
-                                        // maxWidth: "220px",
-                                        // lineHeight: 1
-                                        textAlign: "center",
-                                        marginBottom: "15px",
-                                      }}
-                                    >
-                                      Unlock a world of wealth with just a
-                                      click.
-                                      {/* Log in, and three free stock picks */}
-                                      {/* are your key to potential prosperity. It's */}
-                                      {/* like finding hidden gems without the */}
-                                      {/* digging! */}
-                                    </Text>
-                                    <Button
-                                      // variant="contained"
-                                      css={{
-                                        width: "100%",
-                                        marginTop: "10px",
-                                        background:
-                                          "linear-gradient(to top , #fb7716,#fe9807)",
-                                        paddingTop: "5px",
-                                        paddingBottom: "5px",
-                                        borderRadius: "10000px",
-                                        boxShadow: "none",
-                                        "&:hover": {
-                                          backgroundImage:
-                                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                                        },
-                                      }}
-                                      onPress={handleFirstCard}
-                                    >
-                                      <Text b color="#FFF" size={18}>
-                                        Subscribe to unlock
-                                      </Text>
-                                    </Button>
-                                  </div>
-                                ) : (
-                                  <div
-                                    style={{
-                                      justifyContent: "center",
-                                      textAlign: "center",
-                                      // height: "fit-content",
-                                      // maxWidth: "220px",
-                                      // maxHeight: "220px",
-                                    }}
-                                  >
-                                    <Text
-                                      b
-                                      size={16}
-                                      css={{
-                                        // maxWidth: "220px",
-                                        // lineHeight: 1
-                                        textAlign: "center",
-                                        marginBottom: "15px",
-                                      }}
-                                    >
-                                      Unlock a world of wealth with just a
-                                      click.
-                                      {/* Log in, and three free stock picks */}
-                                      {/* are your key to potential prosperity. It's */}
-                                      {/* like finding hidden gems without the */}
-                                      {/* digging! */}
-                                    </Text>
-                                    <Button
-                                      // variant="contained"
-                                      css={{
-                                        width: "100%",
-                                        marginTop: "10px",
-                                        background:
-                                          "linear-gradient(to top , #fb7716,#fe9807)",
-                                        paddingTop: "5px",
-                                        paddingBottom: "5px",
-                                        borderRadius: "10000px",
-                                        boxShadow: "none",
-                                        "&:hover": {
-                                          backgroundImage:
-                                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                                        },
-                                      }}
-                                      onPress={handleFirstCard}
-                                    >
-                                      <Text b color="#FFF" size={18}>
-                                        Login to unlock
-                                      </Text>
-                                    </Button>
-                                  </div>
-                                )}
 
-                                {/*<BiChevronRight size={24} color="#000000" />*/}
-                                {/* </Button> */}
-                              </div>
+                              {isLoggedIn ? (
+                                <div
+                                  style={{
+                                    justifyContent: "center",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  <Text
+                                    b
+                                    size={16}
+                                    css={{
+                                      // maxWidth: "220px",
+                                      // lineHeight: 1
+                                      textAlign: "center",
+                                      marginBottom: "15px",
+                                    }}
+                                  >
+                                    Unlock a world of wealth with just a click.
+
+                                  </Text>
+                                  <Button
+                                    // variant="contained"
+                                    css={{
+                                      width: "100%",
+                                      marginTop: "10px",
+                                      background:
+                                        "linear-gradient(to top , #fb7716,#fe9807)",
+                                      paddingTop: "5px",
+                                      paddingBottom: "5px",
+                                      borderRadius: "10000px",
+                                      boxShadow: "none",
+                                      "&:hover": {
+                                        backgroundImage:
+                                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                                      },
+                                    }}
+                                    onPress={handleFirstCard}
+                                  >
+                                    <Text b color="#FFF" size={18}>
+                                      Subscribe to unlock
+                                    </Text>
+                                  </Button>
+                                </div>
+                              ) : (
+                                <div
+                                  style={{
+                                    justifyContent: "center",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  <Text
+                                    b
+                                    size={16}
+                                    css={{
+                                      // maxWidth: "220px",
+                                      // lineHeight: 1
+                                      textAlign: "center",
+                                      marginBottom: "15px",
+                                    }}
+                                  >
+                                    Unlock a world of wealth with just a click.
+                                  </Text>
+                                  <Button
+                                    css={{
+                                      width: "100%",
+                                      marginTop: "10px",
+                                      background:
+                                        "linear-gradient(to top , #fb7716,#fe9807)",
+                                      paddingTop: "5px",
+                                      paddingBottom: "5px",
+                                      borderRadius: "10000px",
+                                      boxShadow: "none",
+                                      "&:hover": {
+                                        backgroundImage:
+                                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                                      },
+                                    }}
+                                    onPress={handleFirstCard}
+                                  >
+                                    <Text b color="#FFF" size={18}>
+                                      Login to unlock
+                                    </Text>
+                                  </Button>
+                                </div>
+                              )}
+
                             </div>
-                            <Divider
-                              height={4}
-                              style={{
-                                backgroundColor: "#ffa736",
-                                marginTop: "30px",
-                                marginBottom: "10px",
-                                width: "50px",
-                                alignSelf: "center",
-                              }}
-                            />
                           </div>
-                        </Box>
+                          <Divider
+                            height={4}
+                            style={{
+                              backgroundColor: "#ffa736",
+                              marginTop: "30px",
+                              marginBottom: "10px",
+                              width: "50px",
+                              alignSelf: "center",
+                            }}
+                          />
+                        </div>
                       </Box>
-                    </Card>
-                  </Grid>
-                ))
+                    </Box>
+                  </Card>
+                </Grid>
+              ))
               : ""}
 
             {isSubscribed && plan === "advanced"
@@ -3191,155 +2836,131 @@ const StockCard = () => {
                               }}
                             />
 
-                            <div
-                              style={{
-                                zIndex: 1,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                                marginTop: "0px",
-                              }}
-                            >
-                              <MdOutlineLock color="#ffa12e" size={50} />
+                        <div
+                          style={{
+                            zIndex: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            marginTop: "0px",
+                          }}
+                        >
+                          <MdOutlineLock color="#ffa12e" size={50} />
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              marginTop: "20px",
+                            }}
+                            className="stocksPage-card-loginSection"
+                          >
+                            {isLoggedIn ? (
                               <div
                                 style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  flexDirection: "row",
-                                  marginTop: "20px",
+                                  justifyContent: "center",
+                                  textAlign: "center",
                                 }}
-                                className="stocksPage-card-loginSection"
                               >
-                                {/* <Button
-																on
-																onPress={handleFirstCard}
-																css={{
-																	backgroundColor: "transparent",
-																}}
-															> */}
-                                {isLoggedIn ? (
-                                  <div
-                                    style={{
-                                      justifyContent: "center",
-                                      textAlign: "center",
-                                      // height: "fit-content",
-                                      // maxWidth: "220px",
-                                      // maxHeight: "220px",
-                                    }}
-                                  >
-                                    <Text
-                                      b
-                                      size={16}
-                                      css={{
-                                        // maxWidth: "220px",
-                                        // lineHeight: 1
-                                        textAlign: "center",
-                                        marginBottom: "15px",
-                                      }}
-                                    >
-                                      Unlock a world of wealth with just a
-                                      click.
-                                      {/* Log in, and three free stock picks */}
-                                      {/* are your key to potential prosperity. It's */}
-                                      {/* like finding hidden gems without the */}
-                                      {/* digging! */}
-                                    </Text>
-                                    <Button
-                                      // variant="contained"
-                                      css={{
-                                        width: "100%",
-                                        marginTop: "10px",
-                                        background:
-                                          "linear-gradient(to top , #fb7716,#fe9807)",
-                                        paddingTop: "5px",
-                                        paddingBottom: "5px",
-                                        borderRadius: "10000px",
-                                        boxShadow: "none",
-                                        "&:hover": {
-                                          backgroundImage:
-                                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                                        },
-                                      }}
-                                      onPress={handleFirstCard}
-                                    >
-                                      <Text b color="#FFF" size={18}>
-                                        Subscribe to unlock
-                                      </Text>
-                                    </Button>
-                                  </div>
-                                ) : (
-                                  <div
-                                    style={{
-                                      justifyContent: "center",
-                                      textAlign: "center",
-                                      // height: "fit-content",
-                                      // maxWidth: "220px",
-                                      // maxHeight: "220px",
-                                    }}
-                                  >
-                                    <Text
-                                      b
-                                      size={16}
-                                      css={{
-                                        // maxWidth: "220px",
-                                        // lineHeight: 1
-                                        textAlign: "center",
-                                        marginBottom: "15px",
-                                      }}
-                                    >
-                                      Unlock a world of wealth with just a
-                                      click.
-                                      {/* Log in, and three free stock picks */}
-                                      {/* are your key to potential prosperity. It's */}
-                                      {/* like finding hidden gems without the */}
-                                      {/* digging! */}
-                                    </Text>
-                                    <Button
-                                      // variant="contained"
-                                      css={{
-                                        width: "100%",
-                                        marginTop: "10px",
-                                        background:
-                                          "linear-gradient(to top , #fb7716,#fe9807)",
-                                        paddingTop: "5px",
-                                        paddingBottom: "5px",
-                                        borderRadius: "10000px",
-                                        boxShadow: "none",
-                                        "&:hover": {
-                                          backgroundImage:
-                                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                                        },
-                                      }}
-                                      onPress={handleFirstCard}
-                                    >
-                                      <Text b color="#FFF" size={18}>
-                                        Subscribe to unlock
-                                      </Text>
-                                    </Button>
-                                  </div>
-                                )}
-
-                                {/*<BiChevronRight size={24} color="#000000" />*/}
-                                {/* </Button> */}
+                                <Text
+                                  b
+                                  size={16}
+                                  css={{
+                                    // maxWidth: "220px",
+                                    // lineHeight: 1
+                                    textAlign: "center",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  Unlock a world of wealth with just a click.
+                                </Text>
+                                <Button
+                                  // variant="contained"
+                                  css={{
+                                    width: "100%",
+                                    marginTop: "10px",
+                                    background:
+                                      "linear-gradient(to top , #fb7716,#fe9807)",
+                                    paddingTop: "5px",
+                                    paddingBottom: "5px",
+                                    borderRadius: "10000px",
+                                    boxShadow: "none",
+                                    "&:hover": {
+                                      backgroundImage:
+                                        "linear-gradient(to top , #FF9D28, #ffa736)",
+                                    },
+                                  }}
+                                  onPress={handleFirstCard}
+                                >
+                                  <Text b color="#FFF" size={18}>
+                                    Subscribe to unlock
+                                  </Text>
+                                </Button>
                               </div>
-                            </div>
-                            <Divider
-                              height={4}
-                              style={{
-                                backgroundColor: "#ffa736",
-                                marginTop: "30px",
-                                marginBottom: "10px",
-                                width: "50px",
-                                alignSelf: "center",
-                              }}
-                            />
+                            ) : (
+                              <div
+                                style={{
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  css={{
+                                    // maxWidth: "220px",
+                                    // lineHeight: 1
+                                    textAlign: "center",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  Unlock a world of wealth with just a click.
+
+                                </Text>
+                                <Button
+                                  // variant="contained"
+                                  css={{
+                                    width: "100%",
+                                    marginTop: "10px",
+                                    background:
+                                      "linear-gradient(to top , #fb7716,#fe9807)",
+                                    paddingTop: "5px",
+                                    paddingBottom: "5px",
+                                    borderRadius: "10000px",
+                                    boxShadow: "none",
+                                    "&:hover": {
+                                      backgroundImage:
+                                        "linear-gradient(to top , #FF9D28, #ffa736)",
+                                    },
+                                  }}
+                                  onPress={handleFirstCard}
+                                >
+                                  <Text b color="#FFF" size={18}>
+                                    Subscribe to unlock
+                                  </Text>
+                                </Button>
+                              </div>
+                            )}
+
                           </div>
-                        </Box>
-                      </Box>
-                    </Card>
-                  </Grid>
-                ))
+                        </div>
+                        <Divider
+                          height={4}
+                          style={{
+                            backgroundColor: "#ffa736",
+                            marginTop: "30px",
+                            marginBottom: "10px",
+                            width: "50px",
+                            alignSelf: "center",
+                          }}
+                        />
+                      </div>
+                    </Box>
+                  </Box>
+                </Card>
+              </Grid>
+            ))
               : ""}
           </Grid>
         </Box>
@@ -3363,278 +2984,334 @@ const StockCard = () => {
               },
             }}
           >
-            {filteredStocks
-              .filter(
-                (stock) =>
-                  stock.stock_exchange === "BSE-SME" ||
-                  stock.stock_exchange === "NSE-SME"
-              )
-              .map((stock, index) => (
-                <Grid
-                  key={stock.id}
-                  item
-                  xs={"auto"}
-                  sm={"auto"}
-                  md={"auto"}
-                  lg={"auto"}
-                >
-                  {isSubscribed && stock.recommended_stock === true ? (
+            {filteredStocks.filter(stock => stock.stock_exchange === "BSE-SME" || stock.stock_exchange === "NSE-SME").map((stock, index) => (
+              <Grid
+                key={stock.id}
+                item
+                xs={"auto"}
+                sm={"auto"}
+                md={"auto"}
+                lg={"auto"}
+              >
+                {isSubscribed && stock.recommended_stock === true ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
                     <Box
                       sx={{
+                        position: "absolute",
+                        zIndex: 10,
+                        padding: "2px 20px",
+                        borderRadius: "20px",
+                        background: "#fff",
+                        border: "4px solid #ff9702",
+                        alignSelf: "center",
+                        color: "#cc0000",
                         display: "flex",
-                        justifyContent: "center",
-                        width: "100%",
+                        alignItems: "center",
+                        fontSize: 18,
                       }}
                     >
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          zIndex: 99,
-                          padding: "2px 20px",
-                          borderRadius: "20px",
-                          background: "#fff",
-                          border: "4px solid #ff9702",
-                          alignSelf: "center",
-                          color: "#cc0000",
-                          display: "flex",
-                          alignItems: "center",
-                          fontSize: 18,
-                        }}
-                      >
-                        <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
-                        <BsFire style={{ marginLeft: "5px" }} />
-                      </Box>
+                      <BsFire style={{ marginRight: "5px" }} /> Hot Stock{" "}
+                      <BsFire style={{ marginLeft: "5px" }} />
                     </Box>
-                  ) : (
-                    ""
-                  )}
-                  <Card
-                    isHoverable
-                    css={{
-                      // height: "580px",
-                      width: "285px",
+                  </Box>
+                ) : (
+                  ""
+                )}
+                <Card
+                  isHoverable
+                  css={{
+                    // height: "580px",
+                    width: "285px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                    borderRadius: "40px",
+                    border: "4px solid",
+                    borderColor: "#ffa12e",
+                    marginBottom: "0px",
+                    boxShadow: "none",
+                    filter: "none",
+                    "@media only screen and (max-width: 768px)": {
+                      width: "92.5vw",
+                      maxWidth: "620px",
+                      // height: "650px",
+                      borderRadius: "35px",
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      marginLeft: "5%",
+                      marginRight: "5%",
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                      minWidth: "90%",
+                      maxWidth: "90%",
+                      // height: "600px",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      backgroundColor: "#fff",
-                      borderRadius: "40px",
-                      border: "4px solid",
-                      borderColor: "#ffa12e",
-                      marginBottom: "0px",
-                      boxShadow: "none",
-                      filter: "none",
                       "@media only screen and (max-width: 768px)": {
-                        width: "92.5vw",
-                        maxWidth: "620px",
-                        // height: "650px",
-                        borderRadius: "35px",
+                        marginLeft: "5px",
+                        marginRight: "5px",
+                        height: "auto",
+                        marginBottom: "30px",
                       },
                     }}
                   >
                     <Box
                       sx={{
-                        marginLeft: "5%",
-                        marginRight: "5%",
-                        marginTop: "20px",
-                        marginBottom: "20px",
-                        minWidth: "90%",
-                        maxWidth: "90%",
-                        // height: "600px",
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center",
+                        textAlign: "center",
+                        backgroundColor: "#fff",
+                        marginBottom: "15px",
+                        width: "90%",
                         "@media only screen and (max-width: 768px)": {
-                          marginLeft: "5px",
-                          marginRight: "5px",
-                          height: "auto",
-                          marginBottom: "30px",
+                          width: "100%",
                         },
                       }}
                     >
                       <Box
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          textAlign: "center",
-                          backgroundColor: "#fff",
+                          width: "100%",
+                          height: "30px",
+                          paddingTop: "7.5px",
+                          paddingBottom: "7.5px",
+                          paddingLeft: "5px",
+                          paddingRight: "5px",
+                          backgroundImage:
+                            "linear-gradient(to top , #FF9D28, #ffa736)",
                           marginBottom: "15px",
-                          width: "90%",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                          },
+                          marginTop: "5px",
+                          borderRadius: "10000px",
+                          lineHeight: 1,
                         }}
+                        className="stockCardMobile-industry"
                       >
-                        <Box
-                          sx={{
-                            width: "100%",
-                            height: "30px",
-                            paddingTop: "7.5px",
-                            paddingBottom: "7.5px",
-                            paddingLeft: "5px",
-                            paddingRight: "5px",
-                            backgroundImage:
-                              "linear-gradient(to top , #FF9D28, #ffa736)",
-                            marginBottom: "15px",
-                            marginTop: "5px",
-                            borderRadius: "10000px",
-                            lineHeight: 1,
-                          }}
-                          className="stockCardMobile-industry"
-                        >
-                          <Text
-                            b
-                            size={14}
-                            color="Black"
-                            css={{
-                              lineHeight: 1.2,
-                              "@media only screen and (max-width: 768px)": {
-                                fontSize: "16px",
-                              },
-                            }}
-                          >
-                            {stock.stock_industry.length > 29 ? (
-                              <Marquee
-                                delay={2}
-                                speed={30}
-                                style={{ marginRight: "20px" }}
-                              >
-                                <span style={{ paddingRight: "20px" }}>
-                                  {stock.stock_industry}
-                                </span>
-                              </Marquee>
-                            ) : (
-                              <>{stock.stock_industry}</> || <Loading /> || "-"
-                            )}
-                          </Text>
-                        </Box>
                         <Text
                           b
-                          size={26}
+                          size={14}
+                          color="Black"
                           css={{
-                            minWidth: "100%",
-                            maxWidth: "100%",
-                            textAlign: "center",
                             lineHeight: 1.2,
                             "@media only screen and (max-width: 768px)": {
-                              fontSize: 25,
-                              paddingTop: "5px",
-                              paddingBottom: "5px",
+                              fontSize: "16px",
                             },
                           }}
                         >
-                          {stock.stock_name.length > 17 ? (
+                          {stock.stock_industry.length > 29 ? (
                             <Marquee
                               delay={2}
                               speed={30}
                               style={{ marginRight: "20px" }}
                             >
-                              <span style={{ paddingRight: "40px" }}>
-                                {stock.stock_name}
+                              <span style={{ paddingRight: "20px" }}>
+                                {stock.stock_industry}
                               </span>
                             </Marquee>
                           ) : (
-                            <>{stock.stock_name}</>
+                            <>{stock.stock_industry}</> || <Loading /> || "-"
                           )}
                         </Text>
                       </Box>
-                      <Box
-                        sx={{
-                          width: "90%",
-                          backgroundImage:
-                            "linear-gradient(to top , #106052, #0f734d)",
-                          borderRadius: "17.5px",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          paddingTop: "20px",
-                          paddingBottom: "20px",
+                      <Text
+                        b
+                        size={26}
+                        css={{
+                          minWidth: "100%",
+                          maxWidth: "100%",
+                          textAlign: "center",
+                          lineHeight: 1.2,
                           "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                            paddingTop: "20px",
-                            paddingBottom: "20px",
+                            fontSize: 25,
+                            paddingTop: "5px",
+                            paddingBottom: "5px",
                           },
                         }}
                       >
-                        {isSubscribed && isNewStock(stock.created) ? (
-                          <Box
-                            sx={{
+                        {stock.stock_name.length > 17 ? (
+                          <Marquee
+                            delay={2}
+                            speed={30}
+                            style={{ marginRight: "20px" }}
+                          >
+                            <span style={{ paddingRight: "40px" }}>
+                              {stock.stock_name}
+                            </span>
+                          </Marquee>
+                        ) : (
+                          <>{stock.stock_name}</>
+                        )}
+                      </Text>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "90%",
+                        backgroundImage:
+                          "linear-gradient(to top , #106052, #0f734d)",
+                        borderRadius: "17.5px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                          paddingTop: "20px",
+                          paddingBottom: "20px",
+                        },
+                      }}
+                    >
+                      {isSubscribed && isNewStock(stock.created) ? (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "100%",
+                          }}
+                        >
+                          <div
+                            style={{
+                              position: "absolute",
+                              width: "80px",
+                              marginTop: "-30px",
+                              background: "#cc0000",
+                              color: "#fff",
+                              height: "20px",
                               display: "flex",
+                              alignItems: "center",
                               justifyContent: "center",
-                              width: "100%",
+                              borderRadius: "10px",
                             }}
                           >
-                            <div
-                              style={{
-                                position: "absolute",
-                                width: "80px",
-                                marginTop: "-30px",
-                                background: "#cc0000",
-                                color: "#fff",
-                                height: "20px",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                borderRadius: "10px",
-                              }}
-                            >
-                              {isNewStock(stock.created) && <div>NEW</div>}
-                            </div>
-                          </Box>
-                        ) : (
-                          ""
-                        )}
+                            {isNewStock(stock.created) && <div>NEW</div>}
+                          </div>
+                        </Box>
+                      ) : (
+                        ""
+                      )}
+                      <Text
+                        b
+                        size={20}
+                        color="#fff"
+                        css={{
+                          lineHeight: 1.5,
+                          "@media only screen and (max-width: 768px)": {
+                            fontSize: 19,
+                          },
+                        }}
+                      >
+                        Upside Left
+                      </Text>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <ArrowCircleUp size={25} color="#fff" />
                         <Text
                           b
-                          size={20}
+                          size={48}
                           color="#fff"
                           css={{
-                            lineHeight: 1.5,
+                            lineHeight: 1,
+                            marginLeft: "3px",
+                            marginRight: "3px",
                             "@media only screen and (max-width: 768px)": {
-                              fontSize: 19,
+                              fontSize: 60,
                             },
                           }}
                         >
-                          Upside Left
+                          {`${Math.ceil(stock.upside_left)}` || <Loading /> ||
+                            "-"}
                         </Text>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <ArrowCircleUp size={25} color="#fff" />
+                        <span
+                          style={{
+                            fontSize: 25,
+                            color: "#FFF",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 10,
+                            },
+                          }}
+                        >
+                          %
+                        </span>
+                      </div>
+                    </Box>
+                    <Box
+                      sx={{
+                        mt: "20px",
+                        width: "90%",
+                        "@media only screen and (max-width: 768px)": {
+                          width: "100%",
+                        },
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div style={{ display: "flex", flexDirection: "column" }}>
                           <Text
                             b
-                            size={48}
-                            color="#fff"
                             css={{
-                              lineHeight: 1,
-                              marginLeft: "3px",
-                              marginRight: "3px",
+                              lineHeight: 1.1,
                               "@media only screen and (max-width: 768px)": {
-                                fontSize: 60,
+                                fontSize: 21,
                               },
                             }}
+                            size={15}
                           >
-                            {`${Math.ceil(stock.upside_left)}` || <Loading /> ||
-                              "-"}
+                            MKT. CAP.
                           </Text>
-                          <span
-                            style={{
-                              fontSize: 25,
-                              color: "#FFF",
+                          <Text
+                            b
+                            size={15}
+                            css={{
+                              lineHeight: 1.1,
                               "@media only screen and (max-width: 768px)": {
-                                fontSize: 10,
+                                fontSize: 15,
                               },
                             }}
                           >
-                            %
-                          </span>
+                            (IN Cr.)
+                          </Text>
                         </div>
-                      </Box>
-                      <Box
-                        sx={{
-                          mt: "20px",
-                          width: "90%",
-                          "@media only screen and (max-width: 768px)": {
-                            width: "100%",
-                          },
+                        <Text
+                          b
+                          css={{
+                            flex: 1,
+                            textAlign: "right",
+                            "@media only screen and (max-width: 768px)": {
+                              fontSize: 30,
+                            },
+                          }}
+                          size={22}
+                        >
+                          {`${stock.market_cap}` || <Loading /> || "-"}
+                        </Text>
+                      </div>
+                      <Divider
+                        height={2}
+                        style={{
+                          backgroundColor: "#ffa12e",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          flexDirection: "column",
                         }}
                       >
                         <div
@@ -3657,7 +3334,7 @@ const StockCard = () => {
                               }}
                               size={15}
                             >
-                              MKT. CAP.
+                              ENTRY PRICE
                             </Text>
                             <Text
                               b
@@ -3669,7 +3346,7 @@ const StockCard = () => {
                                 },
                               }}
                             >
-                              (IN Cr.)
+                              (in ₹)
                             </Text>
                           </div>
                           <Text
@@ -3683,7 +3360,7 @@ const StockCard = () => {
                             }}
                             size={22}
                           >
-                            {`${stock.market_cap}` || <Loading /> || "-"}
+                            {`${stock.entry_price}` || <Loading /> || "-"}
                           </Text>
                         </div>
                         <Divider
@@ -3697,256 +3374,170 @@ const StockCard = () => {
                         <div
                           style={{
                             display: "flex",
-                            width: "100%",
-                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            alignItems: "center",
                           }}
                         >
                           <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Text
-                                b
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 21,
-                                  },
-                                }}
-                                size={15}
-                              >
-                                ENTRY PRICE
-                              </Text>
-                              <Text
-                                b
-                                size={15}
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 15,
-                                  },
-                                }}
-                              >
-                                (in ₹)
-                              </Text>
-                            </div>
                             <Text
                               b
                               css={{
-                                flex: 1,
-                                textAlign: "right",
+                                lineHeight: 1.1,
                                 "@media only screen and (max-width: 768px)": {
-                                  fontSize: 30,
+                                  fontSize: 21,
                                 },
                               }}
-                              size={22}
+                              size={15}
                             >
-                              {`${stock.entry_price}` || <Loading /> || "-"}
+                              CMP
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              (in ₹)
                             </Text>
                           </div>
-                          <Divider
-                            height={2}
-                            style={{
-                              backgroundColor: "#ffa12e",
-                              marginTop: "10px",
-                              marginBottom: "10px",
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
                             }}
-                          />
+                            size={22}
+                          >
+                            {`${stock.live_price}` || <Loading /> || "-"}
+                          </Text>
+                        </div>
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
                           <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Text
-                                b
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 21,
-                                  },
-                                }}
-                                size={15}
-                              >
-                                CMP
-                              </Text>
-                              <Text
-                                b
-                                size={15}
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 15,
-                                  },
-                                }}
-                              >
-                                (in ₹)
-                              </Text>
-                            </div>
                             <Text
                               b
                               css={{
-                                flex: 1,
-                                textAlign: "right",
+                                lineHeight: 1.1,
                                 "@media only screen and (max-width: 768px)": {
-                                  fontSize: 30,
+                                  fontSize: 21,
                                 },
                               }}
-                              size={22}
+                              size={15}
                             >
-                              {`${stock.live_price}` || <Loading /> || "-"}
+                              TARGET PRICE
                             </Text>
-                          </div>
-                          <Divider
-                            height={2}
-                            style={{
-                              backgroundColor: "#ffa12e",
-                              marginTop: "10px",
-                              marginBottom: "10px",
-                            }}
-                          />
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
-                          >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Text
-                                b
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 21,
-                                  },
-                                }}
-                                size={15}
-                              >
-                                TARGET PRICE
-                              </Text>
-                              <Text
-                                b
-                                size={15}
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 15,
-                                  },
-                                }}
-                              >
-                                (IN ₹)
-                              </Text>
-                            </div>
                             <Text
                               b
+                              size={15}
                               css={{
-                                flex: 1,
-                                textAlign: "right",
+                                lineHeight: 1.1,
                                 "@media only screen and (max-width: 768px)": {
-                                  fontSize: 30,
+                                  fontSize: 15,
                                 },
                               }}
-                              size={22}
                             >
-                              {/* {stock.stock_targets.length > 0
-                            ? `${
-                                stock.stock_targets[
-                                  stock.stock_targets.length - 1
-                                ].target_price
-                              }`
-                            : `${stock.target_price}`} */}
-                              {stock.latest_target_price}
+                              (IN ₹)
                             </Text>
                           </div>
-                          <Divider
-                            height={2}
-                            style={{
-                              backgroundColor: "#ffa12e",
-                              marginTop: "10px",
-                              marginBottom: "10px",
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
                             }}
-                          />
+                            size={22}
+                          >
+                            {stock.latest_target_price}
+                          </Text>
+                        </div>
+                        <Divider
+                          height={2}
+                          style={{
+                            backgroundColor: "#ffa12e",
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                          }}
+                        />
 
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
                           <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                            }}
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Text
-                                b
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 21,
-                                  },
-                                }}
-                                size={15}
-                              >
-                                TIME TO
-                              </Text>
-                              <Text
-                                b
-                                size={15}
-                                css={{
-                                  lineHeight: 1.1,
-                                  "@media only screen and (max-width: 768px)": {
-                                    fontSize: 15,
-                                  },
-                                }}
-                              >
-                                TARGET
-                              </Text>
-                            </div>
                             <Text
                               b
                               css={{
-                                flex: 1,
-                                textAlign: "right",
+                                lineHeight: 1.1,
                                 "@media only screen and (max-width: 768px)": {
-                                  fontSize: 30,
+                                  fontSize: 21,
                                 },
                               }}
-                              size={22}
+                              size={15}
                             >
-                              {/* {`${Math.ceil(stock.time_left)}` || <Loading /> ||
-														"-"} */}
-                              {(() => {
-                                const timeLeft = Math.ceil(stock.time_left);
-                                const years = Math.floor(timeLeft / 365);
-                                const months = Math.floor(
-                                  (timeLeft % 365) / 30
-                                );
-                                const days = Math.floor((timeLeft % 365) % 30);
+                              TIME TO
+                            </Text>
+                            <Text
+                              b
+                              size={15}
+                              css={{
+                                lineHeight: 1.1,
+                                "@media only screen and (max-width: 768px)": {
+                                  fontSize: 15,
+                                },
+                              }}
+                            >
+                              TARGET
+                            </Text>
+                          </div>
+                          <Text
+                            b
+                            css={{
+                              flex: 1,
+                              textAlign: "right",
+                              "@media only screen and (max-width: 768px)": {
+                                fontSize: 30,
+                              },
+                            }}
+                            size={22}
+                          >
+
+                            {(() => {
+                              const timeLeft = Math.ceil(stock.time_left);
+                              const years = Math.floor(timeLeft / 365);
+                              const months = Math.floor((timeLeft % 365) / 30);
+                              const days = Math.floor((timeLeft % 365) % 30);
 
                                 if (timeLeft < 30) {
                                   return `${days} days`;
@@ -4081,150 +3672,118 @@ const StockCard = () => {
                           {selectedStock?.stock_name}
                         </Text>
 
-                        {selectedStock?.stock_reports?.length > 0 ? (
-                          selectedStock.stock_reports.map((report) => (
-                            <div key={report.report_name} style={{}}>
-                              <IconButton
-                                key={report.report_name}
-                                onClick={() =>
-                                  window.open(
-                                    `${report.document}#view=FitH&toolbar=0`,
-                                    "_blank",
-                                    "fullscreen=yes"
-                                  )
-                                }
-                                // onClick={() => handleOpenModal(report.document)}
-                                sx={{
-                                  "&:hover": { background: "#fff" },
-                                  borderRadius: "0px",
-                                  paddingLeft: "0px",
+                      {selectedStock?.stock_reports?.length > 0 ? (
+                        selectedStock.stock_reports.map((report) => (
+                          <div key={report.report_name} style={{}}>
+                            <IconButton
+                              key={report.report_name}
+                              onClick={() =>
+                                window.open(
+                                  `${report.document}#view=FitH&toolbar=0`,
+                                  "_blank",
+                                  "fullscreen=yes"
+                                )
+                              }
+                              // onClick={() => handleOpenModal(report.document)}
+                              sx={{
+                                "&:hover": { background: "#fff" },
+                                borderRadius: "0px",
+                                paddingLeft: "0px",
+                              }}
+                            >
+                              <DocumentText size={25} />
+                              <Text
+                                b
+                                size={21}
+                                css={{
+                                  marginLeft: "5px",
+                                  alignSelf: "start",
+                                  lineHeight: 1.5,
                                 }}
                               >
-                                <DocumentText size={25} />
-                                <Text
-                                  b
-                                  size={21}
-                                  css={{
-                                    marginLeft: "5px",
-                                    alignSelf: "start",
-                                    lineHeight: 1.5,
-                                  }}
-                                >
-                                  {report.report_name}
-                                </Text>
-                              </IconButton>
-                            </div>
-                          ))
-                        ) : (
-                          <Text
-                            b
-                            size={20}
-                            css={{
-                              // position: "absolute",
-                              paddingTop: "50px",
-                              paddingBottom: "50px",
-                              // left: "22.5%",
-                            }}
-                          >
-                            No Reports Available!
-                          </Text>
-                        )}
-                      </Box>
-                    </Card>
-                    {/* <Button
-									flat
-									onPress={handleCloseReports}
-									css={{
-										alignSelf: "center",
-										// width: "100%",
-										backgroundColor: "#ffa12e",
-										color: "#fff",
-										fontSize: 19,
-										marginTop: "20px",
-										borderRadius: "10px",
-										height: "50px",
-										"@media only screen and (max-width: 768px)": {
-											width: "100%",
-											fontSize: 15,
-											height: "50px",
-											marginTop: "0px",
-											borderRadius: "0px 0px 10px",
-											"& span": {
-												// display: "none",
-											},
-										},
-									}}
-								>
-									Close
-								</Button> */}
-                  </Modal>
-                  <Modal
-                    // blur
-                    open={showModal}
-                    onClose={handleCloseModal}
-                    aria-labelledby="modal-title"
-                    aria-describedby="modal-description"
-                    css={{
-                      height: "95vh",
-                      borderRadius: "15px",
-                      background: "transparent",
-                      boxShadow: "none",
-                      alignSelf: "center",
-                      alignContent: "center",
-                      justifyContent: "center",
-                      // backdropFilter: "blur(8px)",
-                    }}
-                    className="iframePdfMobile"
+                                {report.report_name}
+                              </Text>
+                            </IconButton>
+                          </div>
+                        ))
+                      ) : (
+                        <Text
+                          b
+                          size={20}
+                          css={{
+                            // position: "absolute",
+                            paddingTop: "50px",
+                            paddingBottom: "50px",
+                          }}
+                        >
+                          No Reports Available!
+                        </Text>
+                      )}
+                    </Box>
+                  </Card>
+
+                </Modal>
+                <Modal
+                  // blur
+                  open={showModal}
+                  onClose={handleCloseModal}
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-description"
+                  css={{
+                    height: "95vh",
+                    borderRadius: "15px",
+                    background: "transparent",
+                    boxShadow: "none",
+                    alignSelf: "center",
+                    alignContent: "center",
+                    justifyContent: "center",
+                  }}
+                  className="iframePdfMobile"
+                >
+                  <Worker
+                    workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
                   >
-                    <Worker
-                      // workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsVersion}/pdf.worker.min.js`}
-                      workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}
-                    >
-                      <Box
-                        sx={{
-                          height: "75vh",
-                          borderRadius: "15px",
-                        }}
-                      >
-                        {/* {console.log(PdfValue)} */}
-                        <Viewer
-                          fileUrl={`${
-                            PdfValue ? PdfValue : selectedReportUrl
-                          }#view=FitH&toolbar=0`}
-                          onDocumentAskPassword={handleAskPassword}
-                        />
-                      </Box>
-                    </Worker>
-                    <Button
-                      flat
-                      onPress={handleCloseModal}
-                      css={{
-                        alignSelf: "center",
-                        // width: "100%",
-                        backgroundColor: "#ffa12e",
-                        color: "#fff",
-                        fontSize: 19,
-                        marginTop: "20px",
-                        borderRadius: "10px",
-                        height: "50px",
-                        width: "100%",
-                        "@media only screen and (max-width: 768px)": {
-                          width: "100%",
-                          fontSize: 15,
-                          height: "50px",
-                          marginTop: "0px",
-                          borderRadius: "0px 0px 10px",
-                          "& span": {
-                            // display: "none",
-                          },
-                        },
+                    <Box
+                      sx={{
+                        height: "75vh",
+                        borderRadius: "15px",
                       }}
                     >
-                      Close
-                    </Button>
-                  </Modal>
-                </Grid>
-              ))}
+                      <Viewer
+                        fileUrl={`${PdfValue ? PdfValue : selectedReportUrl
+                          }#view=FitH&toolbar=0`}
+                        onDocumentAskPassword={handleAskPassword}
+                      />
+                    </Box>
+                  </Worker>
+                  <Button
+                    flat
+                    onPress={handleCloseModal}
+                    css={{
+                      alignSelf: "center",
+                      backgroundColor: "#ffa12e",
+                      color: "#fff",
+                      fontSize: 19,
+                      marginTop: "20px",
+                      borderRadius: "10px",
+                      height: "50px",
+                      width: "100%",
+                      "@media only screen and (max-width: 768px)": {
+                        width: "100%",
+                        fontSize: 15,
+                        height: "50px",
+                        marginTop: "0px",
+                        borderRadius: "0px 0px 10px",
+                        "& span": {
+                        },
+                      },
+                    }}
+                  >
+                    Close
+                  </Button>
+                </Modal>
+              </Grid>
+            ))}
             {!isLoggedIn || !isSubscribed ? (
               <Grid>
                 <Card
@@ -4552,9 +4111,6 @@ const StockCard = () => {
             ) : (
               ""
             )}
-            {/* {stocks.length <= 3 && stocks.map((stock) => ( */}
-            {/* {stocks.length <= 3 &&
-					Array.from({ length: 4 }).map((_, index) => ( */}
             {!isLoggedIn || !isSubscribed
               ? staticNumbers.map((number, index) => (
                   <Grid
@@ -4753,155 +4309,127 @@ const StockCard = () => {
                               }}
                             />
 
+                          <div
+                            style={{
+                              zIndex: 1,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              marginTop: "0px",
+                            }}
+                          >
+                            <MdOutlineLock color="#ffa12e" size={50} />
                             <div
                               style={{
-                                zIndex: 1,
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                                marginTop: "0px",
+                                flexDirection: "row",
+                                marginTop: "20px",
                               }}
+                              className="stocksPage-card-loginSection"
                             >
-                              <MdOutlineLock color="#ffa12e" size={50} />
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  flexDirection: "row",
-                                  marginTop: "20px",
-                                }}
-                                className="stocksPage-card-loginSection"
-                              >
-                                {/* <Button
-																on
-																onPress={handleFirstCard}
-																css={{
-																	backgroundColor: "transparent",
-																}}
-															> */}
-                                {isLoggedIn ? (
-                                  <div
-                                    style={{
-                                      justifyContent: "center",
-                                      textAlign: "center",
-                                      // height: "fit-content",
-                                      // maxWidth: "220px",
-                                      // maxHeight: "220px",
-                                    }}
-                                  >
-                                    <Text
-                                      b
-                                      size={16}
-                                      css={{
-                                        // maxWidth: "220px",
-                                        // lineHeight: 1
-                                        textAlign: "center",
-                                        marginBottom: "15px",
-                                      }}
-                                    >
-                                      Unlock a world of wealth with just a
-                                      click.
-                                      {/* Log in, and three free stock picks */}
-                                      {/* are your key to potential prosperity. It's */}
-                                      {/* like finding hidden gems without the */}
-                                      {/* digging! */}
-                                    </Text>
-                                    <Button
-                                      // variant="contained"
-                                      css={{
-                                        width: "100%",
-                                        marginTop: "10px",
-                                        background:
-                                          "linear-gradient(to top , #fb7716,#fe9807)",
-                                        paddingTop: "5px",
-                                        paddingBottom: "5px",
-                                        borderRadius: "10000px",
-                                        boxShadow: "none",
-                                        "&:hover": {
-                                          backgroundImage:
-                                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                                        },
-                                      }}
-                                      onPress={handleFirstCard}
-                                    >
-                                      <Text b color="#FFF" size={18}>
-                                        Subscribe to unlock
-                                      </Text>
-                                    </Button>
-                                  </div>
-                                ) : (
-                                  <div
-                                    style={{
-                                      justifyContent: "center",
-                                      textAlign: "center",
-                                      // height: "fit-content",
-                                      // maxWidth: "220px",
-                                      // maxHeight: "220px",
-                                    }}
-                                  >
-                                    <Text
-                                      b
-                                      size={16}
-                                      css={{
-                                        // maxWidth: "220px",
-                                        // lineHeight: 1
-                                        textAlign: "center",
-                                        marginBottom: "15px",
-                                      }}
-                                    >
-                                      Unlock a world of wealth with just a
-                                      click.
-                                      {/* Log in, and three free stock picks */}
-                                      {/* are your key to potential prosperity. It's */}
-                                      {/* like finding hidden gems without the */}
-                                      {/* digging! */}
-                                    </Text>
-                                    <Button
-                                      // variant="contained"
-                                      css={{
-                                        width: "100%",
-                                        marginTop: "10px",
-                                        background:
-                                          "linear-gradient(to top , #fb7716,#fe9807)",
-                                        paddingTop: "5px",
-                                        paddingBottom: "5px",
-                                        borderRadius: "10000px",
-                                        boxShadow: "none",
-                                        "&:hover": {
-                                          backgroundImage:
-                                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                                        },
-                                      }}
-                                      onPress={handleFirstCard}
-                                    >
-                                      <Text b color="#FFF" size={18}>
-                                        Login to unlock
-                                      </Text>
-                                    </Button>
-                                  </div>
-                                )}
 
-                                {/*<BiChevronRight size={24} color="#000000" />*/}
-                                {/* </Button> */}
-                              </div>
+                              {isLoggedIn ? (
+                                <div
+                                  style={{
+                                    justifyContent: "center",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  <Text
+                                    b
+                                    size={16}
+                                    css={{
+                                      textAlign: "center",
+                                      marginBottom: "15px",
+                                    }}
+                                  >
+                                    Unlock a world of wealth with just a click.
+
+                                  </Text>
+                                  <Button
+                                    // variant="contained"
+                                    css={{
+                                      width: "100%",
+                                      marginTop: "10px",
+                                      background:
+                                        "linear-gradient(to top , #fb7716,#fe9807)",
+                                      paddingTop: "5px",
+                                      paddingBottom: "5px",
+                                      borderRadius: "10000px",
+                                      boxShadow: "none",
+                                      "&:hover": {
+                                        backgroundImage:
+                                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                                      },
+                                    }}
+                                    onPress={handleFirstCard}
+                                  >
+                                    <Text b color="#FFF" size={18}>
+                                      Subscribe to unlock
+                                    </Text>
+                                  </Button>
+                                </div>
+                              ) : (
+                                <div
+                                  style={{
+                                    justifyContent: "center",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  <Text
+                                    b
+                                    size={16}
+                                    css={{
+                                      textAlign: "center",
+                                      marginBottom: "15px",
+                                    }}
+                                  >
+                                    Unlock a world of wealth with just a click.
+                                  </Text>
+                                  <Button
+                                    // variant="contained"
+                                    css={{
+                                      width: "100%",
+                                      marginTop: "10px",
+                                      background:
+                                        "linear-gradient(to top , #fb7716,#fe9807)",
+                                      paddingTop: "5px",
+                                      paddingBottom: "5px",
+                                      borderRadius: "10000px",
+                                      boxShadow: "none",
+                                      "&:hover": {
+                                        backgroundImage:
+                                          "linear-gradient(to top , #FF9D28, #ffa736)",
+                                      },
+                                    }}
+                                    onPress={handleFirstCard}
+                                  >
+                                    <Text b color="#FFF" size={18}>
+                                      Login to unlock
+                                    </Text>
+                                  </Button>
+                                </div>
+                              )}
                             </div>
-                            <Divider
-                              height={4}
-                              style={{
-                                backgroundColor: "#ffa736",
-                                marginTop: "30px",
-                                marginBottom: "10px",
-                                width: "50px",
-                                alignSelf: "center",
-                              }}
-                            />
                           </div>
-                        </Box>
+                          <Divider
+                            height={4}
+                            style={{
+                              backgroundColor: "#ffa736",
+                              marginTop: "30px",
+                              marginBottom: "10px",
+                              width: "50px",
+                              alignSelf: "center",
+                            }}
+                          />
+                        </div>
                       </Box>
-                    </Card>
-                  </Grid>
-                ))
+                    </Box>
+                  </Card>
+                </Grid>
+              ))
               : ""}
 
             {isSubscribed && plan === "core"
@@ -5461,155 +4989,126 @@ const StockCard = () => {
                               }}
                             />
 
-                            <div
-                              style={{
-                                zIndex: 1,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                                marginTop: "0px",
-                              }}
-                            >
-                              <MdOutlineLock color="#ffa12e" size={50} />
+                        <div
+                          style={{
+                            zIndex: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            marginTop: "0px",
+                          }}
+                        >
+                          <MdOutlineLock color="#ffa12e" size={50} />
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              marginTop: "20px",
+                            }}
+                            className="stocksPage-card-loginSection"
+                          >
+                            {isLoggedIn ? (
                               <div
                                 style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  flexDirection: "row",
-                                  marginTop: "20px",
+                                  justifyContent: "center",
+                                  textAlign: "center",
                                 }}
-                                className="stocksPage-card-loginSection"
                               >
-                                {/* <Button
-																on
-																onPress={handleFirstCard}
-																css={{
-																	backgroundColor: "transparent",
-																}}
-															> */}
-                                {isLoggedIn ? (
-                                  <div
-                                    style={{
-                                      justifyContent: "center",
-                                      textAlign: "center",
-                                      // height: "fit-content",
-                                      // maxWidth: "220px",
-                                      // maxHeight: "220px",
-                                    }}
-                                  >
-                                    <Text
-                                      b
-                                      size={16}
-                                      css={{
-                                        // maxWidth: "220px",
-                                        // lineHeight: 1
-                                        textAlign: "center",
-                                        marginBottom: "15px",
-                                      }}
-                                    >
-                                      Unlock a world of wealth with just a
-                                      click.
-                                      {/* Log in, and three free stock picks */}
-                                      {/* are your key to potential prosperity. It's */}
-                                      {/* like finding hidden gems without the */}
-                                      {/* digging! */}
-                                    </Text>
-                                    <Button
-                                      // variant="contained"
-                                      css={{
-                                        width: "100%",
-                                        marginTop: "10px",
-                                        background:
-                                          "linear-gradient(to top , #fb7716,#fe9807)",
-                                        paddingTop: "5px",
-                                        paddingBottom: "5px",
-                                        borderRadius: "10000px",
-                                        boxShadow: "none",
-                                        "&:hover": {
-                                          backgroundImage:
-                                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                                        },
-                                      }}
-                                      onPress={handleFirstCard}
-                                    >
-                                      <Text b color="#FFF" size={18}>
-                                        Subscribe to unlock
-                                      </Text>
-                                    </Button>
-                                  </div>
-                                ) : (
-                                  <div
-                                    style={{
-                                      justifyContent: "center",
-                                      textAlign: "center",
-                                      // height: "fit-content",
-                                      // maxWidth: "220px",
-                                      // maxHeight: "220px",
-                                    }}
-                                  >
-                                    <Text
-                                      b
-                                      size={16}
-                                      css={{
-                                        // maxWidth: "220px",
-                                        // lineHeight: 1
-                                        textAlign: "center",
-                                        marginBottom: "15px",
-                                      }}
-                                    >
-                                      Unlock a world of wealth with just a
-                                      click.
-                                      {/* Log in, and three free stock picks */}
-                                      {/* are your key to potential prosperity. It's */}
-                                      {/* like finding hidden gems without the */}
-                                      {/* digging! */}
-                                    </Text>
-                                    <Button
-                                      // variant="contained"
-                                      css={{
-                                        width: "100%",
-                                        marginTop: "10px",
-                                        background:
-                                          "linear-gradient(to top , #fb7716,#fe9807)",
-                                        paddingTop: "5px",
-                                        paddingBottom: "5px",
-                                        borderRadius: "10000px",
-                                        boxShadow: "none",
-                                        "&:hover": {
-                                          backgroundImage:
-                                            "linear-gradient(to top , #FF9D28, #ffa736)",
-                                        },
-                                      }}
-                                      onPress={handleFirstCard}
-                                    >
-                                      <Text b color="#FFF" size={18}>
-                                        Subscribe to unlock
-                                      </Text>
-                                    </Button>
-                                  </div>
-                                )}
-
-                                {/*<BiChevronRight size={24} color="#000000" />*/}
-                                {/* </Button> */}
+                                <Text
+                                  b
+                                  size={16}
+                                  css={{
+                                    textAlign: "center",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  Unlock a world of wealth with just a click.
+                                </Text>
+                                <Button
+                                  // variant="contained"
+                                  css={{
+                                    width: "100%",
+                                    marginTop: "10px",
+                                    background:
+                                      "linear-gradient(to top , #fb7716,#fe9807)",
+                                    paddingTop: "5px",
+                                    paddingBottom: "5px",
+                                    borderRadius: "10000px",
+                                    boxShadow: "none",
+                                    "&:hover": {
+                                      backgroundImage:
+                                        "linear-gradient(to top , #FF9D28, #ffa736)",
+                                    },
+                                  }}
+                                  onPress={handleFirstCard}
+                                >
+                                  <Text b color="#FFF" size={18}>
+                                    Subscribe to unlock
+                                  </Text>
+                                </Button>
                               </div>
-                            </div>
-                            <Divider
-                              height={4}
-                              style={{
-                                backgroundColor: "#ffa736",
-                                marginTop: "30px",
-                                marginBottom: "10px",
-                                width: "50px",
-                                alignSelf: "center",
-                              }}
-                            />
+                            ) : (
+                              <div
+                                style={{
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                }}
+                              >
+                                <Text
+                                  b
+                                  size={16}
+                                  css={{
+                                    textAlign: "center",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  Unlock a world of wealth with just a click.
+                                </Text>
+                                <Button
+                                  // variant="contained"
+                                  css={{
+                                    width: "100%",
+                                    marginTop: "10px",
+                                    background:
+                                      "linear-gradient(to top , #fb7716,#fe9807)",
+                                    paddingTop: "5px",
+                                    paddingBottom: "5px",
+                                    borderRadius: "10000px",
+                                    boxShadow: "none",
+                                    "&:hover": {
+                                      backgroundImage:
+                                        "linear-gradient(to top , #FF9D28, #ffa736)",
+                                    },
+                                  }}
+                                  onPress={handleFirstCard}
+                                >
+                                  <Text b color="#FFF" size={18}>
+                                    Subscribe to unlock
+                                  </Text>
+                                </Button>
+                              </div>
+                            )}
+
                           </div>
-                        </Box>
-                      </Box>
-                    </Card>
-                  </Grid>
-                ))
+                        </div>
+                        <Divider
+                          height={4}
+                          style={{
+                            backgroundColor: "#ffa736",
+                            marginTop: "30px",
+                            marginBottom: "10px",
+                            width: "50px",
+                            alignSelf: "center",
+                          }}
+                        />
+                      </div>
+                    </Box>
+                  </Box>
+                </Card>
+              </Grid>
+            ))
               : ""}
           </Grid>
         </Box>

@@ -36,8 +36,8 @@ export const AllBoardStockProvider = ({ children }) => {
   const [sector, setSector] = useState([]);
   const [upsideLeft, setUpsideLeft] = useState([]);
   const [returns, setReturns] = useState([]);
-  const [marketCapType, setMarketCapType] = useState("");
-  const [risk, setRisk] = useState("");
+  const [marketCapType, setMarketCapType] = useState([]);
+  const [risk, setRisk] = useState([]);
   const [totalFilterCount, setTotalFilterCount] = useState(0);
   // Sidebar right side
   const [open, setOpen] = useState(false);
@@ -52,8 +52,8 @@ export const AllBoardStockProvider = ({ children }) => {
     Object.keys(timeLeft).filter((key) => timeLeft[key]).length +
     sector.length +
     changablestrategyTags.length +
-    (marketCapType ? 1 : 0) +
-    (risk ? 1 : 0);
+    marketCapType.length +
+    risk.length;
 
   useEffect(() => {
     setUpsideLeft([min_upside_left, max_upside_left]);
@@ -84,7 +84,7 @@ export const AllBoardStockProvider = ({ children }) => {
     await setUpsideLeft([min_upside_left, max_upside_left]);
     await setReturns([min_returns, max_returns]);
     await setMarketCapType("");
-    await setRisk("");
+    await setRisk([]);
     await setSector([]);
     await setStrategyTag([]);
     // setOpen(false);
@@ -102,11 +102,20 @@ export const AllBoardStockProvider = ({ children }) => {
     queryKey: [
       "allBoardStockStock",
       {
+        
         sebiBoardType,
         sortBy,
         sortValue,
         debouncedSearchStock,
         isLoggedIn,
+        recency,
+        timeLeft,
+        upsideLeft,
+        returns,
+        marketCapType,
+        risk,
+        sector,
+        strategyTag,
       },
     ],
     queryFn: ({ pageParam = 1 }) =>

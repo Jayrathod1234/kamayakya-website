@@ -39,8 +39,7 @@ const paymentsuccessful = () => {
 				console.error("Error:", error);
 			}
 		};
-
-		GetPaymentInfo();
+		if(refreshToken) GetPaymentInfo();
 	}, [refreshToken]);
 
 	// useEffect(() => {

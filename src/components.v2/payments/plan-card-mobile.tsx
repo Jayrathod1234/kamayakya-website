@@ -85,7 +85,7 @@ export function PlanCardMobile({
         <Button
           onClick={handleClick}
           disabled={ctaDisabled}
-          customStyle=" w-full text-center"
+          className=" w-full text-center"
           variant={PLAN[planName].btnVariant ?? ButtonVariant.secondary}
           size={ButtonSize.lg}
         >

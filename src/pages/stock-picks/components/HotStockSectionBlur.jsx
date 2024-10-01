@@ -40,8 +40,8 @@ const HotStockSection = ({ items }) => {
                 <p className="pt-3 font-normal text-md text-gray-500 pb-10 sm:block hidden font-open_sans">
                   Top stocks to invest in right NOW!
                 </p>
-                <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:pl-[41px] pr-20  sm: sm:flex  items-center  rounded-[10px]">
-                  <div className="sm:w-1/3 w-full sm:pt-0 pt-5">
+                <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:pl-[41px] pr-20  sm:flex  items-center  rounded-[10px]">
+                  <div className="flex-1 w-full sm:pt-0 pt-5">
                     <img
                       src="/assets/noto_locked.png"
                       alt=""
@@ -94,9 +94,10 @@ const HotStockSection = ({ items }) => {
                     )}
                   </div>
 
-                  <>
-                    <div className="sm:w-7/12 w-full">
-                      <div className="flex">
+                    <div className=" flex justify-end">
+                    <div className="  max-w-[640px]">
+                    <div className=" flex items-center  ">
+                      {/* <div className=" bg-red-400"> */}
                         {items.length > 0 &&
                           items.map(
                             (
@@ -117,7 +118,7 @@ const HotStockSection = ({ items }) => {
                               let tabImage = null;
                               let cardClass = "";
                               let innerClass =
-                                "relative rounded-lg bg-white shadow-6xs min-w-[408px] ";
+                                "relative rounded-lg bg-white shadow-6xs  w-full";
 
                               if (new_stock & recommended_stock) {
                                 tabImage = "hot-newtab";
@@ -132,15 +133,14 @@ const HotStockSection = ({ items }) => {
                               }
                               return (
                                 <div
-                                  className={`flex stock__hero-bar relative  ${
-                                    index == 0
-                                      ? `scale-75 left-[-10%]`
-                                      : index == 1
-                                      ? `scale-x-90 left-[-38%] z-10`
-                                      : `scale-75 left-[-70%]`
+                                  className={`flex justify-center items-center  stock__hero-bar     relative  ${
+                                  index!==1 ? "  h-[265px] w-[227px]": " z-20 w-[308px] h-[360px]"
+                                  } ${
+                                  index==0 ? " left-[15%]": index==items.length-1 ? "right-[15%]":""
                                   }`}
                                 >
-                                  <div className="absolute z-10 left-[7.5rem] -top-1">
+                                <div className={`${index!==1 ? "scale-75":" scale-95 "} flex justify-center`}>
+                                <div className="absolute z-10 -top-1">
                                     {tabImage && (
                                       <img
                                         src={`/assets/${tabImage}.png`}
@@ -149,8 +149,8 @@ const HotStockSection = ({ items }) => {
                                       />
                                     )}
                                   </div>
-                                  <div className={cardClass}>
-                                    <div className={innerClass}>
+                                  <div className={cardClass+" w-full"}>
+                                    <div className={innerClass+" w-full"}>
                                       <div className="pt-[20px] px-[20px] flex gap-[36px] items-center justify-between">
                                         <div className="p-1 gap-2 flex items-center">
                                           <img
@@ -159,7 +159,7 @@ const HotStockSection = ({ items }) => {
                                             className="w-[19px]"
                                           />
 
-                                          <div className="h-5 bg-gray-150 rounded-[20px] min-w-[281px]"></div>
+                                          <div className="h-5 bg-gray-150 rounded-[20px] w-[clamp(145px,200px,214px)]"></div>
                                         </div>
 
                                         <div className="tooltip">
@@ -290,8 +290,8 @@ const HotStockSection = ({ items }) => {
                                                 className="w-2"
                                               />
                                               {!gain_loss ? (
-                                                <p className="text-2xs font-bold text-gray-800 font-open_sans blur-sm">
-                                                  0%
+                                                <p className="text-2xs font-bold text-gray-800 font-open_sans h-[11px] w-[27px] rounded-full bg-gray-200">
+                                                  
                                                 </p>
                                               ) : (
                                                 <p className="text-2xs font-bold text-gray-800 font-open_sans">
@@ -383,14 +383,17 @@ const HotStockSection = ({ items }) => {
                                         </>
                                       )}
                                     </div>
-                                  </div>
+                                  </div></div>
+                                  
                                 </div>
                               );
                             }
                           )}
-                      </div>
+                      {/* </div> */}
                     </div>
-                  </>
+                    </div>
+                    </div>
+                
                 </div>
               </div>
             </div>

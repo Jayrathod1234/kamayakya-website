@@ -10,13 +10,13 @@ const StockPicks = ({ children }) => {
   const pathname = router.pathname;
   return (
     <>
-      <div
-        className={`navbar  z-[1111] ${isMobile && (pathname == "/stock-picks/[slug]" || pathname == "/track-record/[slug]") ? "" : "sticky top-0"
+      {/* <div
+        className={`navbar  ${isMobile && pathname == "/stock-picks/[slug]" ? "" : "sticky top-0"
           }`}
-      >
-        <Navbar />
-      </div >
-      <div className="z-[20000] open_sans">
+      > */}
+        <Navbar className={`${pathname === "/stock-picks/[slug]" ?"bg-[#f9fafb]":"[--sidenav-hamburger-color:#fff] [&.scrolled-nav]:[--sidenav-hamburger-color:#000]"}`} navigationLinkClassName={`  ${pathname === "/stock-picks/[slug]" ? "data-[state=open]:bg-[#EAFCFB] data-[state=open]:hover:bg-[#EAFCFB] hover:bg-[#EAFCFB]" : "text-white data-[state=open]:text-gray-900"} `} />
+      {/* </div > */}
+      <div className="">
         {children}
       </div>
       <div className="">

@@ -2,6 +2,8 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Button } from "../button";
+import { ButtonVariant } from "../button/button";
 
 export function LinkedinBtn({page}:Record<string,string>) {
   const handleNewsLetterLinkedin = () => {
@@ -13,7 +15,7 @@ export function LinkedinBtn({page}:Record<string,string>) {
   };
 
   return (
-    <button onClick={handleNewsLetterLinkedin} className=" ">
+    <Button onClick={handleNewsLetterLinkedin} variant={ButtonVariant.custom} className=" !px-0">
       <Link
         className=" whitespace-nowrap text-inherit px-4 py-2 flex gap-2 items-center bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-[6px]"
         href={"https://www.linkedin.com/company/kamayakya/"}
@@ -23,6 +25,6 @@ export function LinkedinBtn({page}:Record<string,string>) {
         <p className=" font-medium">KamayaKya’s Linkedin</p>
         <Image height={18} width={18} src={"/icons/open-link.svg"} alt="open-link-icon" />
       </Link>
-    </button>
+    </Button>
   );
 }
