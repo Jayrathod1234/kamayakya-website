@@ -19,12 +19,20 @@ export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
+    const autoplay = emblaApi?.plugins()?.autoplay
+    if (!autoplay) return
+    const reset = autoplay.reset
+    reset()
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
+    const autoplay = emblaApi?.plugins()?.autoplay
+    if (!autoplay) return
+    const reset = autoplay.reset
+    reset()
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
 
@@ -57,6 +65,10 @@ export const useDotButton = (emblaApi) => {
     (index) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
+      const autoplay = emblaApi?.plugins()?.autoplay
+      if (!autoplay) return
+      const reset = autoplay.reset
+      reset()
     },
     [emblaApi]
   );
