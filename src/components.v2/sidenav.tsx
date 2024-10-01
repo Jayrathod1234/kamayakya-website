@@ -182,7 +182,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                                 // if (pathname.includes("pricing") && options.id.includes("testimonials")) {
                                 //   let ele = document.querySelector(options.id);
                                 //   ele?.scrollIntoView({ behavior: "smooth" });
-                                // } else 
+                                // } else
                                 if (pathname == "/") {
                                   let ele = document.querySelector(options.id);
                                   ele?.scrollIntoView({ behavior: "smooth" });

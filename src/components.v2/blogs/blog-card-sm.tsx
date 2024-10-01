@@ -85,7 +85,7 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
               {blog.title}
             </h2>
             <div
-              
+
               className=" mt-2 line-clamp-2 text-gray-950 opacity-60 h-[52px]"
             >
               <p>{blog.subtext}</p>

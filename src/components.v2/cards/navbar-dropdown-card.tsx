@@ -91,7 +91,7 @@ export function NavbarDropdownCard({
             icon={<User size={16} />}
             option="My Account"
           />
-          
+
         </DropdownMenuItem>
         </div>
         <DropdownMenuSeparator className="!my-0" />
