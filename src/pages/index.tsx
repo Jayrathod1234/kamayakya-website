@@ -35,7 +35,7 @@ const Home: NextPage = () => {
 			{isLoggedIn && isSubscribed ? "" : <HotStocks />}
 			<Testimonials />
 			<FaqsNew />
-			<Footer />
+			<Footer />  
 		</>
 	);
 };

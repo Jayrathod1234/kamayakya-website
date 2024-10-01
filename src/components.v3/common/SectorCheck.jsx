@@ -57,7 +57,7 @@ export default function SectorCheck() {
 
   const filteredTags = Object.entries(stockSector || {}).filter(
     ([_, value]) => {
-      return value.toLowerCase().includes(searchTerm.toLowerCase());
+      return value?.toLowerCase()?.includes(searchTerm.toLowerCase());
     }
   );
 

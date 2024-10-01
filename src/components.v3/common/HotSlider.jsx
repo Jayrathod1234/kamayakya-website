@@ -18,11 +18,22 @@ export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
+    const autoplay = emblaApi?.plugins()?.autoplay
+    if (!autoplay) return
+
+    const reset = autoplay.reset
+        
+
+    reset()
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
+    const autoplay = emblaApi?.plugins()?.autoplay
+    if (!autoplay) return
+    const reset = autoplay.reset
+    reset()
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
   const onSelect = useCallback((emblaApi) => {
@@ -48,6 +59,10 @@ export const useDotButton = (emblaApi) => {
     (index) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
+      const autoplay = emblaApi?.plugins()?.autoplay
+      if (!autoplay) return
+      const reset = autoplay.reset
+      reset()
     },
     [emblaApi]
   );
@@ -161,7 +176,7 @@ export function HotSlider({ children }) {
       .on("reInit", setTweenFactor)
       .on("reInit", tweenScale)
       .on("scroll", tweenScale)
-      .on("slideFocus", tweenScale);
+      .on("slideFocus", tweenScale)
   }, [emblaApi, tweenScale]);
   // useEffect(() => {
   //   if (!emblaApi) return;

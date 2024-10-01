@@ -142,7 +142,7 @@ export function PlanCardMobile({
   <div className=" p-4 pt-0">
     <Button
       disabled={ctaDisabled}
-      customStyle=" w-full text-center"
+      className=" w-full text-center"
       variant={ButtonVariant.primary}
       size={ButtonSize.lg}
     >
