@@ -30,7 +30,7 @@ const SectorFilter2 = ({ tempSector, setTempSector, isMobile }) => {
 
   const stock_sector_list = Object.keys(stockSector || {});
   const filteredSectors = stock_sector_list.filter((key) =>
-    stockSector[key].toLowerCase().includes(searchTerm.toLowerCase())
+    stockSector[key]?.toLowerCase()?.includes(searchTerm.toLowerCase())
   );
 
   const handleSelectAllClick = async () => {
