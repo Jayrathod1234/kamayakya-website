@@ -13,11 +13,11 @@ export function HeroCardSection() {
     queryFn: getTrackRecordDashboard,
   });
 
-  if (isLoading) return null;
-  console.log("TRACK RECORED", trackRecordDashboardStats);
+
+
   return (
     <div className=" sm:p-[10px] bg-gray-150 rounded-[20px] flex flex-col gap-y-[10px] lg:flex-row gap-[10px] sm:main-container relative z-20">
-      {true ? (
+      {isLoading ? (
         <>
           <TrackRecordHeroCardSkeleton />
           <TrackRecordHeroCardSkeleton />{" "}

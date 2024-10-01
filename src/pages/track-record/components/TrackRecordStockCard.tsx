@@ -13,7 +13,7 @@ import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
 import { useTrackRecord } from "@/contexts/trackRecordContext";
 import { abbreviateTime } from "@/lib/date-formatter";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/components/AuthContext";
 import { useRouter } from "next/router";
 import { useStockPicks } from "@/contexts/StockPicksContext";
@@ -80,7 +80,8 @@ export const TrackRecordStockCard = ({
   total_returns,
   upside_left,
   upside_left_time,
-  stock_live_prices
+  stock_live_prices,
+  entry_price
   // market_cap,
 }) => {
   const {sebiBoardType} = useTrackRecord();
@@ -93,6 +94,7 @@ export const TrackRecordStockCard = ({
     // Refetch the data every second
     refetchInterval: 1000 * 10,
   })
+  const [liveData,setLiveData] = useState([])
   const img = new Image();
   img.src = "/assets/entry point.svg";
   const img2 = new Image();
@@ -102,7 +104,7 @@ export const TrackRecordStockCard = ({
     type: "label",
     padding: 0,
     content: img,
-    yValue: 20,
+    yValue: entry_price,
     xValue: 1,
     height: 14,
     width: 14,
@@ -191,13 +193,14 @@ export const TrackRecordStockCard = ({
 
   // if (status === 'pending') return <h1>Loading...</h1>
   // if (status === 'error') return <span>Error: {error.message}</span>
-  console.log("DATA==>", data)
+  
   useEffect(()=>{
     if(!stock_live_prices) return
     if(!data)return
-    console.log("DATA@",data)
-    stock_live_prices.push(...data)
+    // console.log("DATA@",data)
+    setLiveData(stock_live_prices.concat(data.flatMap(prev=> prev.stock_id === id ? prev.stock_live_data : null).filter(prev=>prev!=null)))
   },[data])
+  console.log(stock_name,entry_price)
   return (
     <div className={`p-[1px] ${bgColor} rounded-lg relative flex justify-center lg:max-w-[630px]`}>
       {tabImage && <img src={`/assets/${tabImage}.webp`} alt="" className="w-[210px] h-5 object-contain absolute -top-[6px]" />}
@@ -302,11 +305,11 @@ export const TrackRecordStockCard = ({
               },
             }}
             data={{
-              labels: data[0].stock_live_data.map((x) => x?.time || x?.date),
+              labels: liveData.map((x) => x?.time || x?.date),
               datasets: [
                 {
                   label: "Dimensions",
-                  data: data[0].stock_live_data.map((row) => row.price),
+                  data: liveData.map((row) => row?.price),
                   borderColor: "#00645A",
                   pointStyle: false,
                   tension: 0,

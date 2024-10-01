@@ -93,7 +93,7 @@ export const getBseLivePrice = async(sebiBoardType)=>{
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
     console.log(response)
-    return response.data.bse_stocks_live_price_data;
+    return response.data.nse_stocks_live_price_data;
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);

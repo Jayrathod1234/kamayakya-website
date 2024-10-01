@@ -3,7 +3,7 @@ import React from "react";
 
 export default function AverageReturnCardSkeleton() {
   return (
-    <div className=" bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)] p-4 rounded-xl max-h-[176px] w-[30%] flex flex-row md:flex-col justify-between">
+    <div className=" bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)] p-4 rounded-xl max-h-[176px] w-full md:w-[40%] flex flex-row md:flex-col justify-between">
       <div className=" self-center md:self-start order-2 md:order-1  ">
         <Skeleton height={36} className=" w-[44px] rounded-[6px]  md:p-2" variant="rectangular" />
         {/* <img className="block md:hidden " width="36" height="36" src="/assets/Layer_1_light_mobile.svg" /> */}

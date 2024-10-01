@@ -3,6 +3,7 @@ import React from 'react'
 import TrackRecordHeroCardNewChipSkeleton from './TrackRecordHeroCardNewChipSkeleton'
 import AverageReturnCardSkeleton from './AverageReturnCardSkeleton'
 import LiveStockPerformanceCardSkeleton from './LiveStockPerformanceCardSkeleton'
+import TopGainerLoserCardSkeleton from './TopGainerLoserCardSkeleton'
 export default function TrackRecordHeroCardSkeleton() {
   return (
     <div className=" p-4 bg-gray-50 rounded-[10px] w-full  z-10 relative ">
@@ -27,8 +28,8 @@ export default function TrackRecordHeroCardSkeleton() {
     {/* Middle Section end */}
     {/* Lower Section */}
     <div className=" flex mt-4 gap-3 basis-1/2">
-      {/* <TopGainerLoserCard type={type} isBest={true} stockStat={bestStocks} />
-      <TopGainerLoserCard type={type} isBest={false} stockStat={worstStocks} /> */}
+      <TopGainerLoserCardSkeleton/>
+      <TopGainerLoserCardSkeleton />
     </div>
     {/* Lower Section end */}
   </div>

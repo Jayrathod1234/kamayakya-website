@@ -63,7 +63,7 @@ const CHART_OPTION = {
   },
 };
 
-export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string }) => {
+export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string,type:string;isBest:boolean;stockStat:any }) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   const isBlur = !isLoggedIn || (stockStat.action === "BUY" && isLoggedIn && !isSubscribed);
   let label = type === "LIVE" ? (isBest ? "Top Gainer" : "Top Loser") : "";
