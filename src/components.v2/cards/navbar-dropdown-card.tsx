@@ -62,7 +62,7 @@ export function NavbarDropdownCard({
           // setOpen(true)
           handleEvent("profileicon_clicked", { page: "Pricing_Page" });
         }}
-        className=" w-full z-10"
+        className=" w-full z-[62]"
       >
         {triggerElement}
       </DropdownMenuTrigger>

@@ -168,7 +168,7 @@ export function PlansSection() {
             src={"/save_33.png"}
             alt="save-33%"
           />
-          <Tabs setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
+          <Tabs activeValue={currentTab} setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
           <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" />
         </div>
       </div>

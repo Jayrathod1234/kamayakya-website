@@ -74,7 +74,7 @@ function StockCard({
         className={`relative   
         ${className}  main_card_carousel ${
           isCarousal
-            ? "min-w-[360px] sm:max-w-[404px] max-w-[360px]  sm:min-w-[404px]"
+            ? "w-[clamp(320px,calc(100vw-16px),404px)] mx-auto  sm:w-[404px]"
             : "min-w-[330px]"
         }`}
       >
