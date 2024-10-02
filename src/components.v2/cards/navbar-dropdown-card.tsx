@@ -62,12 +62,12 @@ export function NavbarDropdownCard({
           // setOpen(true)
           handleEvent("profileicon_clicked", { page: "Pricing_Page" });
         }}
-        className=" w-full z-[62]"
+        className=" w-full z-10"
       >
         {triggerElement}
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className=" max-w-[319px] md:w-auto rounded-[6px] border border-gray-150 shadow-[0px_4px_6px_rgba(0,0,0,0.09)]"
+        className=" max-w-[319px] z-[62] md:w-auto rounded-[6px] border border-gray-150 shadow-[0px_4px_6px_rgba(0,0,0,0.09)]"
         side={side}
         sideOffset={sideOffset}
       >

@@ -136,7 +136,7 @@ function AllBoardStockSection() {
 
       {/* blur card  */}
       <div
-        className=" bg-[#F2F4F7] py-10  relative sm:overflow-visible overflow-hidden "
+        className=" bg-[linear-gradient(180deg,#F2F4F7_100%,rgba(255,255,255,1)_0%)] py-10  relative sm:overflow-visible overflow-hidden "
         ref={showFilterRef}
       >
         <div className="w-full sm:px-0 px-[1px] sm:w-[min(1280px,calc(100%-32px))]  mx-auto">
