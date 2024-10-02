@@ -31,8 +31,8 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
   const [sector, setSector] = useState([]);
   const [upsideLeft, setUpsideLeft] = useState([]);
   const [returns, setReturns] = useState([]);
-  const [marketCapType, setMarketCapType] = useState("");
-  const [risk, setRisk] = useState("");
+  const [marketCapType, setMarketCapType] = useState([]);
+  const [risk, setRisk] = useState([]);
   const [totalFilterCount, setTotalFilterCount] = useState(0);
   const [actionCall, setActionCall] = useState("");
   /** Total filter count logic */
@@ -43,8 +43,8 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     Object.keys(timeLeft).filter((key) => timeLeft[key]).length +
     sector.length +
     changablestrategyTags.length +
-    (marketCapType ? 1 : 0) +
-    (risk ? 1 : 0)+(actionCall ? 1 :0);
+    marketCapType.length +
+    risk.length +(actionCall ? 1 :0);
     
 
   useEffect(() => {

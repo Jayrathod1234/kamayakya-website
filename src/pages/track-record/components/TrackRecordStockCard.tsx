@@ -81,9 +81,12 @@ export const TrackRecordStockCard = ({
   upside_left,
   upside_left_time,
   stock_live_prices,
-  entry_price
+  entry_price,
+  stock_targets,
+  created
   // market_cap,
 }) => {
+  const [markerAnnotation,setMarkerAnnotaion] = useState([])
   const {sebiBoardType} = useTrackRecord();
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
@@ -95,61 +98,35 @@ export const TrackRecordStockCard = ({
     refetchInterval: 1000 * 10,
   })
   const [liveData,setLiveData] = useState([])
-  const img = new Image();
-  img.src = "/assets/entry point.svg";
+  const entry_img = new Image();
+  entry_img.src = "/assets/entry point.svg";
+  const target_met_img = new Image();
+  target_met_img.src = "/assets/target-met.svg"
+  const target_active_img = new Image();
+  target_active_img.src = '/assets/active-target.svg'
   const img2 = new Image();
   img2.src = "/assets/typcn_tick (1).svg";
-
-  const markerAnnotation: AnnotationOptions = {
-    type: "label",
-    padding: 0,
-    content: img,
-    yValue: entry_price,
-    xValue: 1,
-    height: 14,
-    width: 14,
-    backgroundColor: "white",
-  };
-
-  const targetAnnotation: AnnotationOptions = {
+  const targetAnnotationOption = {
     type: "line",
     borderColor: "#99D9D4",
     borderWidth: 1,
     borderDash: [6, 6],
     scaleID: "y",
-    value: 20,
+    // value: 20,
     label: {
       display: true,
       content: "Target ",
       backgroundColor: "transparent",
       color: "#12B76A",
       position: "end",
-      xAdjust: 50,
+      xAdjust: 60,
+      // yAdjust:0,
       font: {
         size: 10,
       },
     },
-  };
-
-  const targetAnnotation2: AnnotationOptions = {
-    type: "line",
-    borderColor: "#99D9D4",
-    borderWidth: 1,
-    borderDash: [6, 6],
-    scaleID: "y",
-    value: 15,
-    label: {
-      display: true,
-      content: "Target ",
-      backgroundColor: "transparent",
-      color: "#12B76A",
-      position: "end",
-      xAdjust: 50,
-      font: {
-        size: 10,
-      },
-    },
-  };
+  }
+  
 
   const targetIconAnnotation: AnnotationOptions = {
     type: "line",
@@ -195,12 +172,35 @@ export const TrackRecordStockCard = ({
   // if (status === 'error') return <span>Error: {error.message}</span>
   
   useEffect(()=>{
+    const markerAnnotationOption: AnnotationOptions = {
+      type: "label",
+      padding: 0,
+      content: entry_img,
+      // yValue: entry_price,
+      // xValue: 1,
+      height: 8,
+      width: 8,
+      backgroundColor: "white",
+    };
+    let arr = []
+    arr.push({...markerAnnotationOption,yValue:entry_price, xValue:created})
+    for(let i =0;i< stock_targets.length;i++){
+      arr.push({...targetAnnotationOption,value:stock_targets[i].target_price,borderColor:stock_targets[i].target_met ? '#99D9D4':'#FFD19A',label:{...targetAnnotationOption.label, content:`Target ${stock_targets.length - i }`}})
+      arr.push({...markerAnnotationOption,content:stock_targets[i].target_met ? target_active_img: target_met_img, yValue:stock_targets[i].target_price,xValue:stock_targets[i].target_met || stock_targets[i].created })
+    }
+    setMarkerAnnotaion(arr)
+  },[])
+
+
+  useEffect(()=>{
     if(!stock_live_prices) return
     if(!data)return
     // console.log("DATA@",data)
-    setLiveData(stock_live_prices.concat(data.flatMap(prev=> prev.stock_id === id ? prev.stock_live_data : null).filter(prev=>prev!=null)))
+    setLiveData(stock_live_prices
+      // .concat(data.flatMap(prev=> prev.stock_id === id ? prev.stock_live_data : null).filter(prev=>prev!=null))
+    )
   },[data])
-  console.log(stock_name,entry_price)
+  console.log(stock_name,markerAnnotation)
   return (
     <div className={`p-[1px] ${bgColor} rounded-lg relative flex justify-center lg:max-w-[630px]`}>
       {tabImage && <img src={`/assets/${tabImage}.webp`} alt="" className="w-[210px] h-5 object-contain absolute -top-[6px]" />}
@@ -267,7 +267,7 @@ export const TrackRecordStockCard = ({
         {/* TOP SECTION  END*/}
         {/* CHART SECTION */}
         <div className=" relative h-[180px] w-full py-5">
-          {data && data.length > 0 ? <Line
+          {liveData && liveData.length > 0 ? <Line
             className=""
             options={{
               layout: {
@@ -284,15 +284,20 @@ export const TrackRecordStockCard = ({
                 annotation: {
                   clip: false,
                   annotations: {
-                    markerAnnotation,
-                    targetAnnotation,
-                    targetAnnotation2,
-                    targetIconAnnotation,
+                    ...markerAnnotation,
+                    // targetIconAnnotation,
                   },
                 },
               },
               scales: {
                 x: {
+                  ticks:{
+                    // stepSize:4
+                    // callback:function(value,index,ticks){
+                    //   console.log("TICKS", ticks[index-1].value)
+                    //   return value
+                    // }
+                  },
                   grid: {
                     color: "#f7f7f7",
                   },

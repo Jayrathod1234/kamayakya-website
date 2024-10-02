@@ -137,7 +137,7 @@ function DrawerFilter() {
   const clearValues = () => {
     setTempStrategyTag(strategyTag);
     setTempUpsideLeft(upsideLeft);
-    setMarketCapType(marketCapType);
+    setTempMarketCapType(marketCapType);
     setTempReturns(returns);
     setTempRecency(recency);
     setTempTimeLeft(timeLeft);
@@ -240,6 +240,19 @@ function DrawerFilter() {
     checked ? addPopularStrategies(name) : removePopularStrategies(name);
     setTempStrategyTag((prev) => (checked ? [...prev, name] : prev.filter((tag) => tag !== name)));
   };
+  const handleMarketCap = (value) => {
+    setTempMarketCapType((prev) => {
+      console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
+      return prev.includes(value) ? [...prev.filter((val) => val != value)] : [...prev, value];
+    });
+  };
+
+  const handleRisk = (value) => {
+    setTempRisk((prev) => {
+      console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
+      return prev.includes(value) ? [...prev.filter((val) => val != value)] : [...prev, value];
+    });
+  };
 
   const CustomSlider = styled(Slider)({
     color: "#125B54", // Main color for the rail and thumb border
@@ -271,8 +284,14 @@ function DrawerFilter() {
       height: "9px",
       borderRadius: "50%",
       backgroundColor: "#E4E7EC", // Dot color when not active
-      zIndex: 0,
+      zIndex:0
     },
+    '& .MuiSlider-valueLabel': {
+      zIndex:1000,
+      '&.MuiSlider-valueLabelOpen': {
+        zIndex:1000
+      },
+    }
   });
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
@@ -303,10 +322,12 @@ function DrawerFilter() {
             variant="outlined"
             onClick={toggleDrawer("right", true)}
             sx={{ display: isMobile ? "none" : "block" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
+            className="!flex h-full relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
           >
             <img src="/assets/filter.svg" alt="" />
-            <p className="font-open_sans text-brand-500 font-medium normal-case">Filter </p>
+            <p className="font-open_sans text-brand-500 font-medium normal-case">
+              Filter{" "}
+            </p>            
             {totalFilterCount > 0 && (
               <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex font-open_sans">
                 {totalFilterCount}
@@ -330,7 +351,9 @@ function DrawerFilter() {
               {/* topbar  */}
               <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
                 <div className="justify-between absolute flex items-center w-auto gap-2 ">
-                  <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">Filters</div>
+                <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">
+                    Filters
+                  </div>
                   <div
                     className="text-[#125B54] text-sm font-open_sans font-semibold cursor-pointer"
                     onClick={handleReset}
@@ -825,10 +848,12 @@ function DrawerFilter() {
                       {marketCapTypeList?.map((value, index) => (
                         <div
                           className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                            tempMarketCapType == value ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
+                            tempMarketCapType.includes(value)
+                              ? "bg-[#E7F8F8] border-[#108973]"
+                              : "bg-white border-[#E4E7EC]"
                           }`}
                           key={index}
-                          onClick={() => setTempMarketCapType(value)}
+                          onClick={() => handleMarketCap(value)}
                         >
                           <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -1017,10 +1042,10 @@ function DrawerFilter() {
                     {stockRiskList?.map((value, index) => (
                       <div
                         className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          tempRisk == value ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
+                          tempRisk.includes(value) ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
                         }`}
                         key={index}
-                        onClick={() => setTempRisk(value)}
+                        onClick={() => handleRisk(value)}
                       >
                         <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -1032,8 +1057,8 @@ function DrawerFilter() {
               </div>
 
               {/* button  */}
-              <div className="pt-[61px] z-30 relative">
-                <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] fixed bg-white bottom-0 ">
+              <div className="pt-[61px]">
+                <div className="flex gap-3 py-3 px-6  border-t-2 border-[#F2F4F7] z-40 fixed bg-white bottom-0 ">
                   <button
                     className="  text-[#344054] font-semibold font-open_sans  py-2 px-4 border border-[#D0D5DD]  rounded-lg w-[170px] hover:scale-[000.95] duration-500 "
                     onClick={handleCancel}
@@ -1056,15 +1081,17 @@ function DrawerFilter() {
           <Button
             variant="outlined"
             onClick={toggleDrawer("bottom", true)}
-            sx={{ display: isMobile ? "block" : "none" }}
-            className="!flex relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-28 hover:bg-error-500"
+            sx={{ display: isMobile ? "block" : "none", paddingInline:"10px",minWidth:"fit-content" }}
+            className="!flex h-full relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0   !rounded-[6px]  gap-2 items-center shadow-3xs  hover:bg-error-500"
           >
-            <img src="/assets/filter.svg" alt="" />
-            <p className="font-open_sans text-brand-500 font-medium normal-case">Filter</p>
+            <img height={16} width={16} src="/assets/filter.svg" alt="" />
+            <p className="font-open_sans text-brand-500 font-medium normal-case text-sm">
+              Filter
+            </p>            
             {totalFilterCount > 0 && (
-              <div className=" bg-[#135B54] font-open_sans text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ">
-                {totalFilterCount}
-              </div>
+               <div className=" bg-[#135B54] font-open_sans text-white px-2 text-sm font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+               {totalFilterCount}
+             </div>
             )}
           </Button>
           <Drawer
@@ -1085,7 +1112,7 @@ function DrawerFilter() {
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
                 overflow: "visible",
-              },
+              }
             }}
           >
             <Box
@@ -1137,7 +1164,8 @@ function DrawerFilter() {
                   justifyContent: "start !important",
                   // width: "144px !important",
                   height: "100%", // Set a fixed height to make sure scrolling works
-                  width: "100%",
+                  width:"100%",
+                  zIndex:60,
                 }}
               >
                 <Tabs
@@ -1468,7 +1496,9 @@ function DrawerFilter() {
                           {["Buy", "Hold", "Sell"]?.map((value, index) => (
                             <div
                               className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                tempActionCall.toUpperCase() == value.toUpperCase() ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
+                                tempActionCall.toUpperCase() == value.toUpperCase()
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
                               }`}
                               key={index}
                               onClick={() => setTempActionCall(value)}
@@ -1854,12 +1884,12 @@ function DrawerFilter() {
                             {marketCapTypeList?.map((value, index) => (
                               <div
                                 className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                  tempMarketCapType == value
+                                  tempMarketCapType.includes(value)
                                     ? "bg-[#E7F8F8] border-[#108973]"
                                     : "bg-white border-[#E4E7EC]"
                                 }`}
                                 key={index}
-                                onClick={() => setTempMarketCapType(value)}
+                                onClick={() => handleMarketCap(value)}
                               >
                                 <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -1993,10 +2023,10 @@ function DrawerFilter() {
                           {stockRiskList?.map((value, index) => (
                             <div
                               className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                tempRisk == value ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
+                                tempRisk.includes(value) ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
                               }`}
                               key={index}
-                              onClick={() => setTempRisk(value)}
+                              onClick={() => handleRisk(value)}
                             >
                               <img src={`/assets/${value}.svg`} alt={value} />
 
@@ -2010,7 +2040,7 @@ function DrawerFilter() {
                 </Box>
               </Box>
               {/* button  */}
-              <div className=" fixed bottom-0 w-full">
+              <div className=" fixed bottom-0 w-full z-[60]">
                 <div className="flex gap-x-3 py-3 px-3  border-t-2 border-[#F2F4F7]  bg-white  justify-between  ">
                   <button
                     className="  text-[#344054] font-semibold font-open_sans py-2 px-4 border border-[#D0D5DD]  rounded-lg w-full flex-1"

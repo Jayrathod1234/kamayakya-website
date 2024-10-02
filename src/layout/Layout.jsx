@@ -8,13 +8,14 @@ const StockPicks = ({ children }) => {
 
   const router = useRouter();
   const pathname = router.pathname;
+  const slugCondition = pathname === "/stock-picks/[slug]" || pathname === "/track-record/[slug]"
   return (
     <>
       {/* <div
         className={`navbar  ${isMobile && pathname == "/stock-picks/[slug]" ? "" : "sticky top-0"
           }`}
       > */}
-        <Navbar className={`${pathname === "/stock-picks/[slug]" ?"bg-[#f9fafb]":"[--sidenav-hamburger-color:#fff] [&.scrolled-nav]:[--sidenav-hamburger-color:#000]"}`} navigationLinkClassName={`  ${pathname === "/stock-picks/[slug]" ? "data-[state=open]:bg-[#EAFCFB] data-[state=open]:hover:bg-[#EAFCFB] hover:bg-[#EAFCFB]" : "text-white data-[state=open]:text-gray-900"} `} />
+        <Navbar className={`${ slugCondition ?"bg-[#f9fafb]":"[--sidenav-hamburger-color:#fff] [&.scrolled-nav]:[--sidenav-hamburger-color:#000]"}`} navigationLinkClassName={`  ${slugCondition ? "data-[state=open]:bg-[#EAFCFB] data-[state=open]:hover:bg-[#EAFCFB] hover:bg-[#EAFCFB]" : "text-white data-[state=open]:text-gray-900"} `} />
       {/* </div > */}
       <div className="">
         {children}

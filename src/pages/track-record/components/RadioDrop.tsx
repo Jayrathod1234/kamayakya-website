@@ -137,7 +137,7 @@ export default function CustomSortMenu({ isLabel }) {
           />
         </svg>
         <span className="tracking-normal text-[#0C111D] font-semibold text-[14px] "
-          
+
         >
           {radioButtonValue[selectedValue]}
         </span>
@@ -267,7 +267,7 @@ export default function CustomSortMenu({ isLabel }) {
                           />
                         </svg>
                         <span
-                        className={`ml-2 ${selectedValue === "upside_left_desc"? "text-[#108973]" :"text-[#344054] "} !font-normal text-sm/5 font-open_sans`}
+                          className={`ml-2 ${selectedValue === "upside_left_desc" ? "text-[#108973]" : "text-[#344054] "} !font-normal text-sm/5 font-open_sans`}
                         >
                           High to Low
                         </span>
@@ -851,19 +851,10 @@ export default function CustomSortMenu({ isLabel }) {
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
-            anchor={anchorEl}
             onClose={handleClose}
-            ModalProps={{
-              keepMounted: true, // Keeps mounted so you can style it
-              sx: {
-                backdropFilter: "blur(2px)", // Apply blur effect when drawer is open
-              },
-            }}
-            // sx={{ display: isMobile ? "none" : "block" }}
             PaperProps={{
               style: {
-                // background: "blue",
-                borderRadius: "12px 12px 0px 0px",
+                borderRadius:  "12px 12px 0px 0px",
                 width: isMobile ? "100%" : "260px",
                 maxWidth: "100%",
                 overflowY: "auto",
@@ -871,9 +862,15 @@ export default function CustomSortMenu({ isLabel }) {
                 border: "1px solid #F2F4F7",
               },
             }}
+            BackdropProps={{
+              sx: {
+                backdropFilter: "blur(2px) !important",
+                backgroundColor: "rgba(0, 0, 0, 0.2)", // Adjust as needed
+              },
+            }}
           >
-            <Puller sx={{ bgcolor: "#B1B1B1" }} />
-            <Box px={2} py={1} sx={{ paddingTop: "16px" }}>
+            <Puller sx={{ bgcolor: "#B1B1B1", }} />
+            <Box px={2} py={1} sx={{ paddingTop: "16px",paddingInline:"18px" }}>
               <Typography
                 variant="subtitle1"
                 gutterBottom
@@ -887,23 +884,28 @@ export default function CustomSortMenu({ isLabel }) {
                 Upside Left
               </Typography>
               <RadioGroup
+              
                 name="Upside Left"
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem>
+                <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
+                  style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
                     value="upside_left_desc"
                     control={
                       <Radio
                         sx={{
+                          paddingInline:0,
                           color: "#E4E7EC",
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          position: "absolute",
-                          left: "291px",
-                          top: "9%",
+                          // position: "absolute",
+                          // left: "291px",
+                          display:'block',
+                          marginLeft:'auto',
+                          order:2
                         }}
                       />
                     }
@@ -968,19 +970,24 @@ export default function CustomSortMenu({ isLabel }) {
                     }
                   />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
+                  style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
                     value="upside_left_asc"
                     control={
                       <Radio
                         sx={{
+                          paddingInline:0,
                           color: "#E4E7EC",
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          position: "absolute",
-                          left: "291px",
-                          top: "9%",
+                          // position: "absolute",
+                          // left: "291px",
+                          // top: "9%",
+                          display:'block',
+                          marginLeft:'auto',
+                          order:2,
                         }}
                       />
                     }
@@ -1066,19 +1073,21 @@ export default function CustomSortMenu({ isLabel }) {
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem>
+                 <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
+                  style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
                     value="recency_desc"
                     control={
                       <Radio
                         sx={{
+                          paddingInline:0,
                           color: "#E4E7EC",
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          position: "absolute",
-                          left: "291px",
-                          top: "9%",
+                          order:2,
+                          display:'block',
+                          marginLeft:'auto',
                         }}
                       />
                     }
@@ -1132,19 +1141,21 @@ export default function CustomSortMenu({ isLabel }) {
                     }
                   />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
+                  style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
                     value="recency_asc"
                     control={
                       <Radio
                         sx={{
+                          paddingInline:0,
                           color: "#E4E7EC",
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          position: "absolute",
-                          left: "291px",
-                          top: "9%",
+                          display:'block',
+                          marginLeft:'auto',
+                          order:2
                         }}
                       />
                     }
@@ -1218,19 +1229,21 @@ export default function CustomSortMenu({ isLabel }) {
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem>
+                 <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
+                  style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
                     value="time_left_desc"
                     control={
                       <Radio
                         sx={{
+                          paddingInline:0,
                           color: "#E4E7EC",
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          position: "absolute",
-                          left: "291px",
-                          top: "9%",
+                          display:'block',
+                          order:2,
+                          marginLeft:'auto'
                         }}
                       />
                     }
@@ -1284,19 +1297,21 @@ export default function CustomSortMenu({ isLabel }) {
                     }
                   />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
+                  style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
                     value="time_left_asc"
                     control={
                       <Radio
                         sx={{
+                          paddingInline:0,
                           color: "#E4E7EC",
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          position: "absolute",
-                          left: "291px",
-                          top: "9%",
+                          display:'block',
+                          order:2,
+                          marginLeft:'auto'
                         }}
                       />
                     }
@@ -1370,19 +1385,21 @@ export default function CustomSortMenu({ isLabel }) {
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem>
+                 <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
+                  style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
                     value="returns_desc"
                     control={
                       <Radio
                         sx={{
+                          paddingInline:0,
                           color: "#E4E7EC",
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          position: "absolute",
-                          left: "291px",
-                          top: "9%",
+                          order:2,
+                          display:"block",
+                          marginLeft:'auto'
                         }}
                       />
                     }
@@ -1436,19 +1453,21 @@ export default function CustomSortMenu({ isLabel }) {
                     }
                   />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
+                  style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
                     value="returns_asc"
                     control={
                       <Radio
                         sx={{
+                          paddingInline:0,
                           color: "#E4E7EC",
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          position: "absolute",
-                          left: "291px",
-                          top: "9%",
+                          display:"block",
+                          marginLeft:'auto',
+                          order:2
                         }}
                       />
                     }

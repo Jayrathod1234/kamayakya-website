@@ -22,7 +22,8 @@ import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 import LegendSection from "./components/LegendSection";
 import SebiBoardTab from '../stock-picks/components/SebiBoardTab'
 import { getMixPanelClient } from "@/externals/mixpanel";
-
+import ElevateSection from "../stock-picks/components/ElevateSection";
+import TrackRecordCardSkeleton from "./components/skeleton/TrackRecordCardSkeleton";
 
 const Filters = () => {
   const { searchStock, setSearchStock } = useTrackRecord();
@@ -88,11 +89,20 @@ const Filters = () => {
 
 
 const TrackRecordList = () => {
-  const { response } = useTrackRecord();
+  const { response,isLoading } = useTrackRecord();
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
-  console.log(items);
+  
+  if(isLoading){
+    return <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
+      
+    {new Array(8).fill("_").map((item) => (
+      <TrackRecordCardSkeleton />
+    ))}
+  </div> 
+  }
   return (
     <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
+      
       {items.map((item) => (
         <TrackRecordStockCard key={item.id} {...item} />
       ))}
@@ -229,6 +239,7 @@ export default function TrackRecord() {
                 <MyObserver/>
               </div>
             </section>
+            <ElevateSection/>
             {/* Stock Lists end */}
           </Layout>
         </div>

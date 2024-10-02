@@ -8,8 +8,9 @@ import SectorCheck from "./SectorCheck";
 import CustomSortMenu from "./RadioDrop";
 import DrawerFilter from "./DrawerFilter";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
+
 
 const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
   const [showLeftButton, setShowLeftButton] = useState(false);
@@ -102,10 +103,10 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
         isExpanded ? "lg:w-[58%]" : "lg:w-[74%]"
       }`}
     >
-      <div className="sm:w-[min(1280px,calc(100%-25px))] w-full  min-w-[328px] lg:w-[100%]">
+      <div className="sm:w-[min(1280px,calc(100%-32px))] w-full  min-w-[328px] lg:w-[100%]">
         <Box
           sx={{
-            display: "flex",
+            // display: "flex",
             width: isMobile ? "100%" : "100%",
             overflow: { sm: "hidden", xs: "auto" },
           }}
@@ -115,12 +116,14 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
             sx={{
               width: "100%",
               backgroundColor: isMobile ? "transparent" : "#f2f4f7",
-              display: "flex",
-              alignItems: "center",
+              // display: "flex",
+              // alignItems: "center",
             }}
           >
+          <Carousel className="">
+          <CarouselContent opts={{containScroll:"trimSnaps"}}  className="flex justify-between  pl-2">
             {/* left side arrow  */}
-            {showLeftButton && (
+            {/* {showLeftButton && (
               <div className="sm:bg-transparent bg-custom-gradient-arrow-left sm:w-10 sm:h-12 w-0 h-0 justify-center flex items-center relative mt-1 right-[-11px] z-[1]">
                 <IconButton
                   onClick={scrollLeft}
@@ -162,27 +165,31 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                 msOverflowStyle: "none",
                 scrollbarWidth: "none",
               }}
-            >
+            > */}
+              
               {isResponsive && (
                 <>
-                  <CustomSortMenu
+                <CarouselItem className="basis-auto pl-2 "> <CustomSortMenu
                     sx={{
                       padding: isMobile ? "6px 11px" : "10px 11px",
                     }}
                   />
+                  </CarouselItem>
                   {/* <ResCustomSort
                     sx={{
                       padding: isMobile ? "6px 11px" : "10px 11px",
                       display: isMobile ? "none" : "block",
                     }}
                   /> */}
-
+                  <CarouselItem className="basis-auto pl-2">
                   <DrawerFilter />
+                  </CarouselItem>
                 </>
               )}
-              {changablestrategyTags.length > 0 && <StrategyCheck />}
-              {sector.length > 0 && <SectorCheck />}
+              {changablestrategyTags.length > 0 && <CarouselItem className="basis-auto pl-2"><StrategyCheck /></CarouselItem>}
+              {sector.length > 0 && <CarouselItem className="basis-auto pl-2"><SectorCheck /></CarouselItem>}
               {sortedStrategies?.map((chip) => (
+                <CarouselItem className="basis-auto pl-2">
                 <Chip
                   key={chip.id}
                   avatar={
@@ -242,14 +249,17 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                     whiteSpace: "nowrap", // Prevent text wrapping
                     overflow: "visible", // Ensure full visibility of text
                     display: "inline-flex", // Allow the chip to grow based on content
+                    fontSize:"14px",
+                    fontWeight:500
                   }}
                 />
+                </CarouselItem>
               ))}
-              {changablestrategyTags.length <= 0 && <StrategyCheck />}
-              {sector.length <= 0 && <SectorCheck />}
-            </Box>
+              {changablestrategyTags.length <= 0 &&<CarouselItem className="basis-auto pl-2"><StrategyCheck /></CarouselItem> }
+              {sector.length <= 0 &&<CarouselItem className="basis-auto pl-2"> <SectorCheck /></CarouselItem>}
+            {/* </Box> */}
 
-            {!isMobile ? (
+            {/* {!isMobile ? (
               <>
                 {showRightButton && (
                   <div className="sm:bg-transparent bg-custom-gradient-arrow-right sm:w-10 sm:h-12 w-0 h-0  justify-center flex items-center relative right-[2%] mt-1">
@@ -278,7 +288,11 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
               </>
             ) : (
               <></>
-            )}
+            )} */}
+            </CarouselContent>
+            <CarouselPrevious className=" h-7 w-7 p-1 left-[0px] top-[50%] disabled:hidden border-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-black  hover:text-white   bg-black text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+            <CarouselNext className=" h-7 w-7 p-1 right-[0px] top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+            </Carousel>
           </Box>
         </Box>
       </div>

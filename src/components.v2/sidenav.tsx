@@ -127,7 +127,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
       <SheetTrigger onClick={() => setOpen(true)}>
         <Menu className="inline-block lg:hidden text-[var(--sidenav-hamburger-color)] " />
       </SheetTrigger>
-      <SheetContent className=" z-50 pricing gap-0 flex flex-col p-0 pr-0">
+      <SheetContent className=" z-[61] pricing gap-0 flex flex-col p-0 pr-0">
         <SheetHeader>
           {" "}
           <div className=" p-4 flex items-center justify-between">

@@ -24,10 +24,10 @@ export default function ProjectedInvestmentGrowth({ upside_left, upside_left_tim
   return (
     <div className={`p-[1px] ${containerGradient}  rounded-md overflow-hidden`}>
       <div className={` ${bgColor}  p-4 text-center md:text-center text-[#344054] text-sm md:text-base  font-normal gap-1 rounded-[4.5px] rounded-l-md`}>
-        <span className="text-[var(--text-color)] text-sm md:text-base lg:text-sm font-bold">₹100000 </span>
+        <span className="text-[var(--text-color)] text-sm md:text-base lg:text-sm font-bold">₹1,00,000 </span>
         invested at current market price (CMP) can become{" "}
         <span className="text-[var(--text-color)] text-sm md:text-base lg:text-sm font-bold whitespace-nowrap">
-          ₹{100000 + 1000 * upside_left} Lakh
+          ₹{(100000 + 1000 * upside_left).toLocaleString("hi")} Lakh
         </span>{" "}
         likely within {upside_left_time}
       </div>

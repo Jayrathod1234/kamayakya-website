@@ -7,7 +7,7 @@ const ChipContainer = ({ children, className, active }: TChildren & { className?
   return (
     <div
       className={cn(
-        `${active ? "px-2.5 bg-[#FFF6EE]" : "px-2 bg-[#F2F4F7]"} py-[2px]  rounded-full  w-fit flex`,
+        `${active ? "px-2.5 bg-[#FFF6EE]" : "px-2 bg-[#F2F4F7]"} py-[2px]  rounded-full min-w-fit  w-fit flex`,
         className
       )}
     >

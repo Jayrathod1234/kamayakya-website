@@ -26,7 +26,7 @@ export const useFormattedTargets = ({
         console.log(new Date(), new Date(item.target_date),item.target_date)
         return {
         label: `Target ${index + 1}`,
-        date: formatDate(item.created),
+        date: item.target_met ? formatDate(item.target_met):formatDate(item.created),
         price: item.target_price,
         status: item.target_met ? "Completed" : new Date() < new Date(item.target_date) ? "Active": "Inactive",
       }}),
