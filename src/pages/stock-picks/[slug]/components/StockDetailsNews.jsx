@@ -10,7 +10,7 @@ const StockDetailsNews = ({ stock_name }) => {
     fetchNextPage,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ["newsList",pageParam,stock_name],
+    queryKey: ["newsList"],
     queryFn: ({ pageParam = 1 }) =>
       getNewsListApi({
         page: pageParam,
