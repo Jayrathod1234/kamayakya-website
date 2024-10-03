@@ -156,10 +156,10 @@ export const getNewsListApi = async ({ stock_name, limit, cursor,page }) => {
     //   }
     // );
     // console.log(response.data.news);
-    // return response.data.news;${process.env.NEXT_PUBLIC_MARKET_AUX_TOKEN}
+    // return response.data.news;
    
-    const response = await axios.get(`https://api.marketaux.com/v1/news/all?search="${stock_name}"&language=en&page=${page}&sort=published_at&api_token=`)
-    console.log(response);
+    const response = await axios.get(`https://api.marketaux.com/v1/news/all?search="${stock_name}"&language=en&page=${page}&sort=published_at&api_token=${process.env.NEXT_PUBLIC_MARKET_AUX_TOKEN}`)
+    // console.log(response);
 
     return response.data;
   } catch (error) {

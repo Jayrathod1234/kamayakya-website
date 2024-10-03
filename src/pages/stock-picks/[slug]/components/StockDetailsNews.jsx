@@ -106,15 +106,15 @@ const StockDetailsNews = ({ stock_name }) => {
               </div>
 
               {/* <!-- Content Section --> */}
-              <div className="flex-1 font-open_sans">
+              <div className="flex-1 font-open_sans min-w-0">
                 <div className="flex flex-col gap-1">
                   {/* <!-- Title --> */}
                   <p className="text-2xs sm:text-sm font-medium text-gray-800 line-clamp-2 font-open_sans">
                     {item.title}
                   </p>
                   {/* <!-- Meta Info --> */}
-                  <div className="flex items-center gap-2 text-2xs sm:text-2xs md:text-2xs text-gray-500 text-nowrap">
-                    <span>{item.source}</span>
+                  <div className="flex items-center gap-2 text-2xs sm:text-2xs md:text-2xs text-gray-500 truncate min-w-0">
+                    <span className=" truncate min-w-0">{item.source}</span>
                     <div className="w-1 h-1 rounded-full bg-gray-400"></div>
                     <span>
                       {formatDistanceToNow(new Date(item.published_at), {

@@ -460,12 +460,12 @@ function StockDetailsSection() {
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex h-7 w-7 p-[6px] min-w-7 justify-center items-center rounded-md bg-[#F9FAFB]">
-                          <img src={`/assets/${market_cap_type || "line"}.svg`} alt="" className=" !h-4 !w-4 !object-contain" />
+                          <img src={`/assets/${stock_exchange.includes("SME") ? "sme":market_cap_type || "line"}.svg`} alt="" className=" !h-4 !w-4 !object-contain" />
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                           <div className="flex w-full justify-between items-baseline gap-x-1">
                             <p className="text-[#475467] text-2xs sm:text-sm font-semibold sm:font-medium font-open_sans">
-                              {market_cap_type} Cap
+                              {stock_exchange.includes("SME") ? "SME": `${market_cap_type} Cap`} 
                             </p>
                             <span className="text-[#667085] inline-block text-ellipsis text-2xs font-normal font-open_sans">
                               {market_cap} Cr. as of{" "}

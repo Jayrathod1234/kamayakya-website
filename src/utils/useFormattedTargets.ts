@@ -21,12 +21,12 @@ export const useFormattedTargets = ({
   const formatDate = useCallback((date: Date | string) => format(new Date(date), "dd MMM yyyy"), []);
   
   const sortedStockTargets = useMemo(() => 
-    [...stock_targets].sort((a, b) => a.target_price - b.target_price)
+    [...stock_targets].map((item,index)=>({...item,label:`Target ${stock_targets.length - index}`})).sort((a, b) => a.target_price - b.target_price)
       .map((item, index) => {
-        console.log(new Date(), new Date(item.target_date),item.target_date)
+        // console.log(new Date(), new Date(item.target_date),item.target_date)
         return {
-        label: `Target ${index + 1}`,
-        date: item.target_met ? formatDate(item.target_met):formatDate(item.created),
+        label: item.label,
+        date: formatDate(item.created),
         price: item.target_price,
         status: item.target_met ? "Completed" : new Date() < new Date(item.target_date) ? "Active": "Inactive",
       }}),
@@ -47,19 +47,19 @@ export const useFormattedTargets = ({
       setCmpIndex(newCmpIndex);
 
       const targetObjects = updatedTargets.filter((item) => item.label.startsWith("Target"));
-      //get latest target index
-      const latestTarget = targetObjects.sort((a, b) => {
-        const dateA = parse(a.date, "dd MMM yyyy", new Date());
-        const dateB = parse(b.date, "dd MMM yyyy", new Date());
-        const dateDiff = dateB.getTime() - dateA.getTime();
-        if (dateDiff === 0) {
-          // If dates are the same, sort by target number (descending)
-          return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
-        }
-        return dateDiff;
-      })[0];
+      //get last target index
+      const lastTarget = targetObjects.sort((a, b) => {
+        // const dateA = parse(a.date, "dd MMM yyyy", new Date());
+        // const dateB = parse(b.date, "dd MMM yyyy", new Date());
+        const priceDiff = a.price - b.price;
+        // if (dateDiff === 0) {
+        //   // If dates are the same, sort by target number (descending)
+        //   return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
+        // }
+        return priceDiff;
+      })[targetObjects.length-1];
 
-      const latestTargetIndex = updatedTargets.findIndex((item) => item.label === latestTarget?.label);
+      const latestTargetIndex = updatedTargets.findIndex((item) => item.label === lastTarget?.label);
       setTargetIndex(latestTargetIndex);
     }
   }, [sortedStockTargets, additionalTargets]);

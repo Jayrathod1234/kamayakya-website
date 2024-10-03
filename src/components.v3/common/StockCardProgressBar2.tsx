@@ -85,7 +85,7 @@ export default function StockCardProgressBarSection2({
   }, [api]);
 
   useEffect(() => {
-    console.log(currentSlidesInView, "INVOKED");
+    // console.log(currentSlidesInView, "INVOKED");
     if (!currentSlidesInView || currentSlidesInView?.length == 0) return;
     // let currentPointsProgress = currentSlidesInView.reduce(
     //   (acc: number, current) => (targets[current as number]?.status === "Completed" ? acc + 1 : acc),
