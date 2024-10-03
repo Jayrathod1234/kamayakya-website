@@ -23,7 +23,7 @@ export const useFormattedTargets = ({
   const sortedStockTargets = useMemo(() => 
     [...stock_targets].map((item,index)=>({...item,label:`Target ${stock_targets.length - index}`})).sort((a, b) => a.target_price - b.target_price)
       .map((item, index) => {
-        console.log(new Date(), new Date(item.target_date),item.target_date)
+        // console.log(new Date(), new Date(item.target_date),item.target_date)
         return {
         label: item.label,
         date: formatDate(item.created),

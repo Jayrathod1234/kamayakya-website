@@ -20,7 +20,7 @@ const paymentsuccessful = () => {
 		// const refreshToken = localStorage.getItem("refresh");
 
 		const GetPaymentInfo = async () => {
-			console.log("Hit", refreshToken);
+			// console.log("Hit", refreshToken);
 			try {
 				const billingInfo = await fetch(BILLING_INFO_URL, {
 					method: "GET",
@@ -29,10 +29,10 @@ const paymentsuccessful = () => {
 						Authorization: `token ${refreshToken}`,
 					},
 				});
-				console.log(billingInfo);
+				// console.log(billingInfo);
 				if (billingInfo.ok) {
 					const billingInfoResponse = await billingInfo.json();
-					console.log(billingInfoResponse);
+					// console.log(billingInfoResponse);
 					setBillingData(billingInfoResponse);
 				}
 			} catch (error) {

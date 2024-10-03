@@ -243,13 +243,13 @@ function DrawerFilter() {
 
   const handleMarketCap = (value)=>{
     setTempMarketCapType(prev=>{
-      console.log(prev.includes(value),[...prev.filter(val=>val!=value)],[...prev,value])
+      // console.log(prev.includes(value),[...prev.filter(val=>val!=value)],[...prev,value])
       return (prev.includes(value) ? [...prev.filter(val=>val !=value)]:[...prev,value])})
   }
 
   const handleRisk = (value)=>{
     setTempRisk(prev=>{
-      console.log(prev.includes(value),[...prev.filter(val=>val!=value)],[...prev,value])
+      // console.log(prev.includes(value),[...prev.filter(val=>val!=value)],[...prev,value])
       return (prev.includes(value) ? [...prev.filter(val=>val !=value)]:[...prev,value])})
   }
 
