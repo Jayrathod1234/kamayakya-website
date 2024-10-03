@@ -185,8 +185,8 @@ export const TrackRecordStockCard = ({
     let arr = []
     arr.push({...markerAnnotationOption,yValue:entry_price, xValue:created})
     for(let i =0;i< stock_targets.length;i++){
-      arr.push({...targetAnnotationOption,value:stock_targets[i].target_price,borderColor:stock_targets[i].target_met ? '#99D9D4':'#FFD19A',label:{...targetAnnotationOption.label, content:`Target ${stock_targets.length - i }`}})
-      arr.push({...markerAnnotationOption,content:stock_targets[i].target_met ? target_active_img: target_met_img, yValue:stock_targets[i].target_price,xValue:stock_targets[i].target_met || stock_targets[i].created })
+      arr.push({...targetAnnotationOption,value:stock_targets[i].target_price,borderColor:stock_targets[i].target_met ? '#99D9D4':'#FFD19A',label:{...targetAnnotationOption.label, color:stock_targets[i].target_met ? '#99D9D4':'#FFD19A',content:`Target ${stock_targets.length - i }`}})
+      arr.push({...markerAnnotationOption,content:stock_targets[i].target_met ? target_met_img : target_active_img, yValue:stock_targets[i].target_price,xValue:stock_targets[i].target_met || stock_targets[i].created })
     }
     setMarkerAnnotaion(arr)
   },[])
@@ -310,7 +310,7 @@ export const TrackRecordStockCard = ({
               },
             }}
             data={{
-              labels: liveData.map((x) => x?.time || x?.date),
+              labels: liveData.map((x) => x?.date),
               datasets: [
                 {
                   label: "Dimensions",

@@ -67,6 +67,7 @@ function StockDetailsSection() {
     cagr_of_stock,
     stock_image,
     created,
+    stock_live_prices,
   } = items || {};
 
   const toggleDropdown = () => {
@@ -773,7 +774,7 @@ function StockDetailsSection() {
                       <div className="pt-[13px] bg-white">
                         {/* CHART SECTION */}
                         <div className=" relative  py-5">
-                          <LineChart stock_id={slug} containerClassName={" h-[383px]"}/>
+                          <LineChart stock_targets={stock_targets} stock_live_prices={stock_live_prices} entry_price={entry_price} created={created} stock_id={slug} containerClassName={" h-[383px]"}/>
                           {/* <Line
                             className=""
                             options={{
@@ -1095,7 +1096,7 @@ function StockDetailsSection() {
                     <div className="pt-6 block sm:hidden bg-white">
                       <div className="">
                         <div className="py-5">
-                          <LineChart stock_id={slug} containerClassName={"h-[250px]"}/>
+                          <LineChart stock_targets={stock_targets} stock_live_prices={stock_live_prices} created={created} entry_price={entry_price} stock_id={slug} containerClassName={"h-[250px]"}/>
                         </div>
                         
                         </div>
