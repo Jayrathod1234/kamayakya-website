@@ -20,7 +20,7 @@ export const filterTimeLabel = {
 export const sectorIcons = {
   "defence"  :   "Defence.svg",
     "aerospace"  :   "Aerospace.svg",
-    "alcohol"  :   "Alcohol.svg'",
+    "alcohol"  :   "Alcohol.svg",
     "auto-ancillaries"  :   "Auto Ancillaries.svg",
     "automobile"  :   "Automobile.svg",
     "banks"  :   "Banks.svg",

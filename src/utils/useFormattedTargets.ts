@@ -47,19 +47,19 @@ export const useFormattedTargets = ({
       setCmpIndex(newCmpIndex);
 
       const targetObjects = updatedTargets.filter((item) => item.label.startsWith("Target"));
-      //get latest target index
-      const latestTarget = targetObjects.sort((a, b) => {
-        const dateA = parse(a.date, "dd MMM yyyy", new Date());
-        const dateB = parse(b.date, "dd MMM yyyy", new Date());
-        const dateDiff = dateB.getTime() - dateA.getTime();
-        if (dateDiff === 0) {
-          // If dates are the same, sort by target number (descending)
-          return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
-        }
-        return dateDiff;
-      })[0];
+      //get last target index
+      const lastTarget = targetObjects.sort((a, b) => {
+        // const dateA = parse(a.date, "dd MMM yyyy", new Date());
+        // const dateB = parse(b.date, "dd MMM yyyy", new Date());
+        const priceDiff = a.price - b.price;
+        // if (dateDiff === 0) {
+        //   // If dates are the same, sort by target number (descending)
+        //   return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
+        // }
+        return priceDiff;
+      })[targetObjects.length-1];
 
-      const latestTargetIndex = updatedTargets.findIndex((item) => item.label === latestTarget?.label);
+      const latestTargetIndex = updatedTargets.findIndex((item) => item.label === lastTarget?.label);
       setTargetIndex(latestTargetIndex);
     }
   }, [sortedStockTargets, additionalTargets]);
