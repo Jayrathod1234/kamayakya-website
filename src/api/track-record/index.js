@@ -92,7 +92,7 @@ export const getBseLivePrice = async(sebiBoardType)=>{
     const URL = `/user/bseStocksLivePrice?type=${sebiBoardType}`;
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
-    console.log(response)
+    // console.log(response)
     return response.data.bse_stocks_live_price_data;
   } catch (error) {
     // Handle errors if any
@@ -106,7 +106,7 @@ export const getNseLivePrice = async(sebiBoardType)=>{
     const URL = `/user/nseStocksLivePrice?type=${sebiBoardType}`;
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
-    console.log(response)
+    // console.log(response)
     return response.data.nse_stocks_live_price_data;
   } catch (error) {
     // Handle errors if any

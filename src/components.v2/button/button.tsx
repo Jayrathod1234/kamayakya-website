@@ -86,7 +86,7 @@ export function Button({
       {...rest}
       disabled={disabled || loading}
       className={cn(
-        ` hover:scale-90 transition-transform duration-200 eas-in-out text-center font-semibold flex items-center gap-[6px] justify-center min-w-fit  rounded-md  ${btnSize} ${style}`,
+        ` hover:scale-90 transition-transform duration-200 ease-in-out text-center font-semibold flex items-center gap-[6px] justify-center min-w-fit  rounded-md  ${btnSize} ${style}`,
         className
       )}
     >

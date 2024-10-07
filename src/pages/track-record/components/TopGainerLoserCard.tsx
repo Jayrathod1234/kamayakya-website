@@ -15,6 +15,8 @@ import AuthContext from "@/components/AuthContext";
 import { abbreviateTime } from "@/lib/date-formatter";
 import { TargetChip } from "@/components.v3/common/TargetChip";
 import { useRouter } from "next/router";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import LoginPrompt from "./LoginPrompt";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -63,7 +65,17 @@ const CHART_OPTION = {
   },
 };
 
-export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string,type:string;isBest:boolean;stockStat:any }) => {
+export const TopGainerLoserCard = ({
+  type,
+  isBest,
+  stockStat,
+  setOpen
+}: {
+  action?: string;
+  type: string;
+  isBest: boolean;
+  stockStat: any;
+}) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   const isBlur = !isLoggedIn || (stockStat.action === "BUY" && isLoggedIn && !isSubscribed);
   let label = type === "LIVE" ? (isBest ? "Top Gainer" : "Top Loser") : "";
@@ -77,11 +89,12 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string
       ? "./assets/Hold.png"
       : null
     : null;
-  const router = useRouter()
+  const router = useRouter();
 
   return (
+    // <LoginPrompt>
     <div
-      onClick={()=>router.push(`/track-record/${stockStat.id}`)}
+      onClick={() => stockStat?.id ? router.push(`/track-record/${stockStat.id}`) : stockStat.action === "BUY" ? setOpen(true):null}
       className="group/gainer-loser transition-[shadow] duration-150 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
  flex flex-col bg-white rounded-[9px] p-4 h-fit sm:h-[176px] flex-1 relative cursor-pointer min-w-0 "
     >
@@ -95,11 +108,14 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string
         />
       )}
 
-      <div className=" flex flex-col justify-center sm:flex-row sm:justify-between items-center gap-x-[3.81px]">
+      <div className=" flex flex-col justify-center sm:flex-row sm:justify-between items-center gap-x-[3.81px] flex-wrap">
         <div className=" flex items-center">
-          <p className=" font-semibold text-sm text-[rgba(29,41,57,1)] group-hover/gainer-loser:text-brand-400 whitespace-nowrap ">
-            {label}
-          </p>
+          <div className=" flex items-center">
+            {isBest ? <ArrowUp color="#344054" size={16} /> : <ArrowDown color="#344054" size={16} />}
+            <p className=" font-semibold text-sm text-[rgba(29,41,57,1)] group-hover/gainer-loser:text-brand-400 whitespace-nowrap ">
+              {label}
+            </p>
+          </div>
           <svg
             className=" opacity-0 group-hover/gainer-loser:opacity-100   translate-x-[-2px] group-hover/gainer-loser:translate-x-[0px] transition-transform duration-300 ease-[cubic-bezier(0.215,0.61,0.355,1)]"
             width="14"
@@ -118,7 +134,7 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string
             <path d="M11.0808 6.24219L2.88564 6.24219" stroke="#108973" stroke-width="1.53659" stroke-linecap="round" />
           </svg>
         </div>
-        <div className=" my-5 sm:my-0  h-10 w-[98px] max-w-full">
+        <div className=" my-5 sm:my-0  h-10 w-[98px]">
           <Line
             className=""
             options={CHART_OPTION}
@@ -165,7 +181,7 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string
         <div
           className={`flex items-center gap-y-[10px] ${
             isBlur ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row" : "flex-wrap "
-          }  gap-x-3  justify-center sm:justify-between`}
+          }  gap-x-[8px]  justify-center sm:justify-between`}
         >
           {isBlur ? (
             <div className=" min-w-0 w-full max-w-[120px] h-[18px] flex items-center justify-center sm:m-0">
@@ -191,6 +207,7 @@ export const TopGainerLoserCard = ({ type, isBest, stockStat}: { action?: string
         </div>
       </div>
     </div>
+    // </LoginPrompt>
   );
 };
 

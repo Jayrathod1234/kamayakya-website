@@ -49,9 +49,10 @@ export const StockPicksProvider = ({ children }) => {
 
   const stockSector = stock_sectors?.reduce((acc, { value, label }) => {
     acc[value] = label;
+    
     return acc;
   }, {});
-
+  console.log("STOCK SECTORS",stockSector)
   const strategyTagList = strategy_tags?.reduce((acc, { id, name }) => {
     acc[id] = name;
     return acc;

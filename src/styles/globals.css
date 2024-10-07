@@ -2164,3 +2164,9 @@ header > div > div {
   background-color: white;
   border:1px solid rgba(237, 240, 245, 1);
 }
+
+
+#annotation-tooltip, #chartjs-tooltip{
+  @apply w-[115px] h-[70px] bg-white p-2 rounded-lg shadow-lg ;
+}
+

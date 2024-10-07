@@ -4,6 +4,7 @@ import { Button } from "./button";
 const Arrow = ({ arrowStyle, strokeStyle }: { arrowStyle?: string; strokeStyle?: string }) => (
   <div className={`${arrowStyle}`}>
     <svg
+      
       xmlns="http://www.w3.org/2000/svg"
       width="18"
       height="16"

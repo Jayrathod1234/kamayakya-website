@@ -68,7 +68,7 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
 
   
   if (isMobile) {
-    console.log("ISMONILE");
+    
     return (
       <Drawer>
         <DrawerTrigger asChild>
@@ -87,10 +87,11 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
             <div className=" ">
               <ul className=" !m-0">
                 {
-                  newRecommendation.map(recommendation=> <li onClick={()=>router.push(`/track-record/${recommendation.id}`)} className=" px-4 py-[10px] flex gap-x-2 items-center">
+                  newRecommendation?.map(recommendation=> <li onClick={()=>recommendation.id ? router.push(`/track-record/${recommendation.id}`):null} className=" px-4 py-[10px] flex gap-x-2 items-center">
                     {recommendation.stock_name ? <><img height={28} width={28} src={recommendation.stock_image} alt="stock-image" />
                     <p className=" text-sm text-gray-700">{recommendation.stock_name}</p></>:<>
                     <span className=" flex items-center justify-center bg-[#FFF1CE] rounded-full"><img height={15} width={15} src="/assets/noto_locked.png" alt="" /></span>
+                    <span className=" bg-[#EDF0F5] rounded-full h-[15px] w-1/2"></span>
                     </>}
                     <ArrowRight color="#475467" className=" ml-auto" height={16} width={16}/>
                   </li>)

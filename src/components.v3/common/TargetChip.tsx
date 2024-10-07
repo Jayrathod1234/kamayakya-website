@@ -43,6 +43,7 @@ export function TargetChip({
 }) {
   const {isLoggedIn} = useContext(AuthContext);
   const isBlur = !isLoggedIn
+  const targetLabel = isBlur && activeIcon ? target_number?.slice(0,target_number?.indexOf("₹")): target_number
 
   return (
     <ChipContainer active={active} className={containerClass}>
@@ -50,10 +51,10 @@ export function TargetChip({
       <div className={cn("text-[#667085] font-semibold whitespace-nowrap flex", textCommonClass)}>
         {active ? (
           <span className={cn(` text-4xs ${isBlur ? "flex items-center": ""}`, targetTextClass)}>
-            {target_number} {isBlur && activeIcon && <span className=" h-[12px] w-[29px] mx-1 bg-[#FFE8D4] inline-block rounded-full"></span>} | <Active className={` ml-1 ${activeTextClass}`} />
+             {targetLabel} {isBlur && activeIcon && <span className=" h-[12px] w-[29px] mx-1 bg-[#FFE8D4] inline-block rounded-full"></span>} | <Active className={` ml-1 ${activeTextClass}`} />
           </span>
         ) : (
-          <span className={cn(" text-3xs", inactiveTextClass)}>{target_number ? target_number : ""} | <span className=" font-medium">Inactive</span></span>
+          <span className={cn(" text-3xs", inactiveTextClass)}>{targetLabel ? targetLabel : ""} | <span className=" font-medium">Inactive</span></span>
         )}
       </div>
     </ChipContainer>

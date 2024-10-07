@@ -6,6 +6,7 @@ import { TrackRecordHeroCardNewChip } from "./TrackRecordHeroCardNewChip";
 import AuthContext from "@/components/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { getTrackRecordDashboard } from "../../../api/track-record";
+import LoginPrompt from "./LoginPrompt";
 
 interface IStockPerformace {
   high: number;
@@ -48,7 +49,7 @@ export const TrackRecordHeroCard = ({
   return (
     <div className=" p-4 bg-gray-50 rounded-[10px] w-full  z-10 relative ">
       {!isLoggedIn ? (
-        <div className="  h-full w-full absolute flex items-center justify-center top-0 left-0 z-40">
+        <div className="   h-full w-full absolute flex items-center justify-center top-0 left-0 z-40">
           <div className="group/lock cursor-pointer shadow-[0px_0px_40px_-9px_rgba(19,135,137,0.46),0px_4px_40px_12px_rgba(118,237,223,0.05)]  overflow-hidden  flex items-center gap-x-[10px] transition-[width] duration-300 h-[56px] w-[56px] hover:w-[234px]   bg-[rgba(255,255,255,1)] rounded-[10px] border border-brand-300">
             <img
               height={36}
@@ -87,9 +88,13 @@ export const TrackRecordHeroCard = ({
       </div>
       {/* Middle Section end */}
       {/* Lower Section */}
-      <div className=" flex mt-4 gap-3 basis-1/2">
-        <TopGainerLoserCard type={type} isBest={true} stockStat={bestStocks} />
-        <TopGainerLoserCard type={type} isBest={false} stockStat={worstStocks} />
+      <div className=" flex mt-4 gap-3">
+        <LoginPrompt>
+          <TopGainerLoserCard type={type} isBest={true} stockStat={bestStocks} />
+          </LoginPrompt>
+        <LoginPrompt>
+          <TopGainerLoserCard type={type} isBest={false} stockStat={worstStocks} />
+          </LoginPrompt>
       </div>
       {/* Lower Section end */}
     </div>

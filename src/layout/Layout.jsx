@@ -15,7 +15,7 @@ const StockPicks = ({ children }) => {
         className={`navbar  ${isMobile && pathname == "/stock-picks/[slug]" ? "" : "sticky top-0"
           }`}
       > */}
-        <Navbar className={`${ slugCondition ?"bg-[#f9fafb]":"[--sidenav-hamburger-color:#fff] [&.scrolled-nav]:[--sidenav-hamburger-color:#000]"}`} navigationLinkClassName={`  ${slugCondition ? "data-[state=open]:bg-[#EAFCFB] data-[state=open]:hover:bg-[#EAFCFB] hover:bg-[#EAFCFB]" : "text-white data-[state=open]:text-gray-900"} `} />
+        <Navbar className={`${ slugCondition ?"bg-[#f9fafb]":"[--sidenav-hamburger-color:#fff] [&.scrolled-nav]:[--sidenav-hamburger-color:#000] bg-transparent"}`} navigationLinkClassName={`  ${slugCondition ? "data-[state=open]:bg-[#EAFCFB] data-[state=open]:hover:bg-[#EAFCFB] hover:bg-[#EAFCFB]" : "text-white data-[state=open]:text-gray-900"} `} />
       {/* </div > */}
       <div className="">
         {children}
