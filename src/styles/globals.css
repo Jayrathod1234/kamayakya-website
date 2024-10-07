@@ -2135,7 +2135,7 @@ header > div > div {
 }
 
 .stock__hero-bar:nth-child(2) .dotted__line:nth-child(3){
-  transform: scaleX(1.12);
+  transform: scaleX(1.);
   transform-origin: left;
  
 }
