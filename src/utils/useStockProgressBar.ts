@@ -70,10 +70,10 @@ export const useStockProgressBar = ({
     // }));
     setMargins(() => ({
       marginLeft: ref.current[0].offsetWidth / 0.25,
-      marginRight: ref.current[targetIndex].offsetWidth / 0.18,
+      marginRight: ref.current[endIndex].offsetWidth / 0.18,
     }));
     setCmpMarginRight(ref.current[cmpIndex].offsetWidth);
-  }, [cmpIndex, targetIndex]);
+  }, [cmpIndex, endIndex]);
 
   useEffect(() => {
     const handleResize = () => {

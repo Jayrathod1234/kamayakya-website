@@ -49,15 +49,16 @@ export const useFormattedTargets = ({
 
       const targetObjects = updatedTargets.filter((item) => item.label.startsWith("Target"));
       //get last target index
-      const lastTarget = targetObjects.sort((a, b) => {
+      const lastTarget = targetObjects.
+      sort((a, b) => {
         const dateA = parse(a.date, "dd MMM yyyy", new Date());
         const dateB = parse(b.date, "dd MMM yyyy", new Date());
-        const dateDiff = dateA - dateB;
+        const dateDiff = dateB.getTime() - dateA.getTime();
         if (dateDiff === 0) {
           // If dates are the same, sort by target number (descending)
           return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
         }
-        return priceDiff;
+        return dateDiff;
       })[targetObjects.length-1];
 
       const latestTargetIndex = updatedTargets.findIndex((item) => item.label === lastTarget?.label);
