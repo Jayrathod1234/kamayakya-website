@@ -27,7 +27,7 @@ export default function StockCardProgressBarSection({
 }: TStockCardProgressBarSection) {
   // const live_price=2500
 
-  const { cmpIndex, targetIndex, targets } = useFormattedTargets({
+  const { cmpIndex, targetIndex, targets,endIndex } = useFormattedTargets({
     stock_targets,
     entry_date,
     live_price,
@@ -38,6 +38,7 @@ export default function StockCardProgressBarSection({
     targets,
     cmpIndex,
     targetIndex,
+    endIndex
   });
 
   // const [position,setPosition] = useState(0)

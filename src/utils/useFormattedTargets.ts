@@ -16,6 +16,7 @@ export const useFormattedTargets = ({
 }) => {
   const [targets, setTargets] = useState<TTarget[]>([]);
   const [targetIndex, setTargetIndex] = useState(0);
+  const [endIndex,setEndIndex] = useState(0);
   const [cmpIndex, setCmpIndex] = useState(0);
 
   const formatDate = useCallback((date: Date | string) => format(new Date(date), "dd MMM yyyy"), []);
@@ -41,7 +42,7 @@ export const useFormattedTargets = ({
   useEffect(() => {
     const updatedTargets = [...sortedStockTargets, ...additionalTargets].sort((a, b) => a.price - b.price);
     setTargets(updatedTargets);
-
+    setEndIndex(updatedTargets.length-1)
     if (updatedTargets.length > 0) {
       const newCmpIndex = updatedTargets.findIndex((target) => target.label === "CMP");
       setCmpIndex(newCmpIndex);
@@ -49,13 +50,13 @@ export const useFormattedTargets = ({
       const targetObjects = updatedTargets.filter((item) => item.label.startsWith("Target"));
       //get last target index
       const lastTarget = targetObjects.sort((a, b) => {
-        // const dateA = parse(a.date, "dd MMM yyyy", new Date());
-        // const dateB = parse(b.date, "dd MMM yyyy", new Date());
-        const priceDiff = a.price - b.price;
-        // if (dateDiff === 0) {
-        //   // If dates are the same, sort by target number (descending)
-        //   return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
-        // }
+        const dateA = parse(a.date, "dd MMM yyyy", new Date());
+        const dateB = parse(b.date, "dd MMM yyyy", new Date());
+        const dateDiff = dateA - dateB;
+        if (dateDiff === 0) {
+          // If dates are the same, sort by target number (descending)
+          return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
+        }
         return priceDiff;
       })[targetObjects.length-1];
 
@@ -64,5 +65,5 @@ export const useFormattedTargets = ({
     }
   }, [sortedStockTargets, additionalTargets]);
 
-  return { targets, cmpIndex, targetIndex };
+  return { targets, cmpIndex, targetIndex,endIndex };
 };
