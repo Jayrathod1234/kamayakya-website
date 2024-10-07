@@ -465,7 +465,7 @@ function StockDetailsSection() {
                         <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                           <div className="flex w-full justify-between items-baseline gap-x-1">
                             <p className="text-[#475467] text-2xs sm:text-sm font-semibold sm:font-medium font-open_sans">
-                              {stock_exchange.includes("SME") ? "SME": `${market_cap_type} Cap`} 
+                              {stock_exchange.includes("SME") ? "SME": `${market_cap_type || ""} Cap`} 
                             </p>
                             <span className="text-[#667085] inline-block text-ellipsis text-2xs font-normal font-open_sans">
                               {market_cap} Cr. as of{" "}

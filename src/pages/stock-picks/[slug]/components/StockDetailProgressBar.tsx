@@ -26,7 +26,7 @@ export default function StockDetailProgressBar({
 }: TStockCardProgressBarSection) {
   const containerRef = useRef<HTMLDivElement>(null);
   // const [targets,setTargets] = useState<TTarget[]>([])
-  const { targets, targetIndex, cmpIndex } = useFormattedTargets({
+  const { targets, targetIndex, cmpIndex,endIndex } = useFormattedTargets({
     stock_targets,
     entry_date,
     entry_price,
@@ -36,11 +36,12 @@ export default function StockDetailProgressBar({
     targets,
     targetIndex,
     cmpIndex,
+    endIndex
   });
  
   return (
     <div className=" relative w-full">
-      <Carousel className=" z-20 w-full" opts={{ slidesToScroll: 3, align:"center",startIndex:targetIndex }}>
+      <Carousel className=" z-20 w-full" opts={{ slidesToScroll: 1, align:"center",startIndex:targetIndex }}>
         <CarouselContent className="  justify-between">
           {targets.map((target: TTarget, index: number) => (
             //adjusting the basis class will determine the no. of items visible eg:basis-1/2 will show 2 items at a time

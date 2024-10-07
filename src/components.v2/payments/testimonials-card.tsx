@@ -39,9 +39,9 @@ export function TestimonialsCard({ className, testimony, title, author, company,
         <div>
           <Avatar imgSrc={imgSrc} variant={AvatarVariant.lg} />
         </div>
-        <div className=" flex flex-col items-start">
+        <div className=" flex flex-col items-start min-w-0">
           <p className=" transition-all md:text-xs md:font-semibold font-bold text-[#170F49]">{author}</p>
-          <p className="transition-all md:text-xs text-gray-500">{company}</p>
+          <p className="transition-all md:text-xs text-gray-500 line-clamp-1 ">{company}</p>
         </div>
       </div>
     </div>

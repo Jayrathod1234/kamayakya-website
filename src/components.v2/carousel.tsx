@@ -32,11 +32,10 @@ const carouselItem = [
   />,
   <TestimonialsCard
     testimony={
-      "I have been investing with KamayaKya since over a year now and I only have good things to say. Very good returns, transparency and a team of market experts with amazing investment strategies. I plan to invest with the firm for a long time and I would highly recommend it too."
-    }
-    author={"Tanish Mittal"}
-    company="Hindustan Pressings Pvt. Ltd."
-    imgSrc="/tanish_mittal.png"
+"I have been thoroughly impressed with Kamayakya's stock recommendations. Their picks have been spot on, and the inclusion of a specified time period for each recommendation provides a clear understanding of when to exit. This level of detail is invaluable for any investor! Additionally, I apply my own technical analysis to their selected stocks, which adds an extra layer of confidence to my investments. I highly recommend Kamayakya's subscription to any medium to long-term investor."    }
+    author={"Atharva Agashe"}
+    company="Associated Director - Product Development, FIS."
+    imgSrc="/atharva-agashe.jpeg"
     key={13}
   />,
   <TestimonialsCard
@@ -56,10 +55,11 @@ const carouselItem = [
     key={12}
   />,
   <TestimonialsCard
-    imgSrc="/kiran_sanghvi.png"
-    company="Indus Properties"
-    author="Kiran Sanghvi"
-    testimony="My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched in the industry. Some of their small cap picks are truly gems that have created  huge wealth for their investors. I would highly recommend investors to take their services to achieve their long term financial goals."
+    testimony={
+"I have been thoroughly impressed with Kamayakya's stock recommendations. Their picks have been spot on, and the inclusion of a specified time period for each recommendation provides a clear understanding of when to exit. This level of detail is invaluable for any investor! Additionally, I apply my own technical analysis to their selected stocks, which adds an extra layer of confidence to my investments. I highly recommend Kamayakya's subscription to any medium to long-term investor."    }
+    author={"Atharva Agashe"}
+    company="Associated Director - Product Development, FIS."
+    imgSrc="/atharva-agashe.jpeg"
     key={21}
   />,
 ];

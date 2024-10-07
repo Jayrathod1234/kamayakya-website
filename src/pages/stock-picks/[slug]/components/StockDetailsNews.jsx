@@ -98,11 +98,14 @@ const StockDetailsNews = ({ stock_name }) => {
             <div className="flex flex-row md:flex-row items-start md:items-center gap-4 py-4 px-1 rounded-md  cursor-pointer group-hover:bg-white transition">
               {/* <!-- Image Section --> */}
               <div className="flex-shrink-0">
+              <object   className="w-[80px] h-[60px] md:w-[80px] md:h-[60px] object-cover rounded-md" data={item?.image_url} type="image/jpeg">
                 <img
-                  src={item?.image_url}
+                  src={'/assets/news-placeholder.svg'}
+                  // onError={(e)=>{e.currentTarget.src="/assets/news-placehold.svg";e.currentTarget.}}
                   alt={item.title}
                   className="w-[80px] h-[60px] md:w-[80px] md:h-[60px] object-cover rounded-md"
                 />
+                </object>
               </div>
 
               {/* <!-- Content Section --> */}

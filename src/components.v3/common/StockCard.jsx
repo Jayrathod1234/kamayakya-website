@@ -31,6 +31,7 @@ function StockCard({
   live_price,
   entry_price,
   created,
+  start_date,
   className = "",
   style,
   isCarousal = false,
@@ -394,7 +395,7 @@ function StockCard({
                   <StockCardProgressBarSection
                     live_price={live_price}
                     entry_price={entry_price}
-                    entry_date={created}
+                    entry_date={start_date}
                     stock_targets={stock_targets}
                     emblaApi={emblaApi}
                   />

@@ -16,6 +16,7 @@ export const useFormattedTargets = ({
 }) => {
   const [targets, setTargets] = useState<TTarget[]>([]);
   const [targetIndex, setTargetIndex] = useState(0);
+  const [endIndex,setEndIndex] = useState(0);
   const [cmpIndex, setCmpIndex] = useState(0);
 
   const formatDate = useCallback((date: Date | string) => format(new Date(date), "dd MMM yyyy"), []);
@@ -26,7 +27,7 @@ export const useFormattedTargets = ({
         // console.log(new Date(), new Date(item.target_date),item.target_date)
         return {
         label: item.label,
-        date: formatDate(item.created),
+        date: item.target_met ? formatDate(new Date(item.target_met)):formatDate(item.created),
         price: item.target_price,
         status: item.target_met ? "Completed" : new Date() < new Date(item.target_date) ? "Active": "Inactive",
       }}),
@@ -41,22 +42,23 @@ export const useFormattedTargets = ({
   useEffect(() => {
     const updatedTargets = [...sortedStockTargets, ...additionalTargets].sort((a, b) => a.price - b.price);
     setTargets(updatedTargets);
-
+    setEndIndex(updatedTargets.length-1)
     if (updatedTargets.length > 0) {
       const newCmpIndex = updatedTargets.findIndex((target) => target.label === "CMP");
       setCmpIndex(newCmpIndex);
 
       const targetObjects = updatedTargets.filter((item) => item.label.startsWith("Target"));
       //get last target index
-      const lastTarget = targetObjects.sort((a, b) => {
-        // const dateA = parse(a.date, "dd MMM yyyy", new Date());
-        // const dateB = parse(b.date, "dd MMM yyyy", new Date());
-        const priceDiff = a.price - b.price;
-        // if (dateDiff === 0) {
-        //   // If dates are the same, sort by target number (descending)
-        //   return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
-        // }
-        return priceDiff;
+      const lastTarget = targetObjects.
+      sort((a, b) => {
+        const dateA = parse(a.date, "dd MMM yyyy", new Date());
+        const dateB = parse(b.date, "dd MMM yyyy", new Date());
+        const dateDiff = dateB.getTime() - dateA.getTime();
+        if (dateDiff === 0) {
+          // If dates are the same, sort by target number (descending)
+          return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
+        }
+        return dateDiff;
       })[targetObjects.length-1];
 
       const latestTargetIndex = updatedTargets.findIndex((item) => item.label === lastTarget?.label);
@@ -64,5 +66,5 @@ export const useFormattedTargets = ({
     }
   }, [sortedStockTargets, additionalTargets]);
 
-  return { targets, cmpIndex, targetIndex };
+  return { targets, cmpIndex, targetIndex,endIndex };
 };

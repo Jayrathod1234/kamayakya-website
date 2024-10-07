@@ -14,11 +14,13 @@ export const useStockProgressBar = ({
   targets,
   cmpIndex,
   targetIndex,
+  endIndex
 }: {
   emblaApi?: EmblaCarouselType;
   targets?: TTarget[];
   cmpIndex: number;
   targetIndex: number;
+  endIndex:number;
 }) => {
   const ref = useRef<Array<HTMLDivElement>>([]);
   const cmpRef = useRef<Array<HTMLDivElement>>([]);
@@ -37,7 +39,7 @@ export const useStockProgressBar = ({
 
     const entryDiv = ref.current[0];
     const cmpDiv = ref.current[cmpIndex];
-    const targetDiv = ref.current[targetIndex];
+    const targetDiv = ref.current[endIndex];
 
     if (!entryDiv || !cmpDiv || !targetDiv) return;
 
@@ -68,10 +70,10 @@ export const useStockProgressBar = ({
     // }));
     setMargins(() => ({
       marginLeft: ref.current[0].offsetWidth / 0.25,
-      marginRight: ref.current[targetIndex].offsetWidth / 0.18,
+      marginRight: ref.current[endIndex].offsetWidth / 0.18,
     }));
     setCmpMarginRight(ref.current[cmpIndex].offsetWidth);
-  }, [cmpIndex, targetIndex]);
+  }, [cmpIndex, endIndex]);
 
   useEffect(() => {
     const handleResize = () => {

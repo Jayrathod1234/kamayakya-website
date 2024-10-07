@@ -24,7 +24,7 @@ const entry_date = new Date().toISOString();
 
 export default function StockCardProgressBarBlurSection({ emblaApi }: { emblaApi: EmblaCarouselType }) {
   // const ref = useRef<Array<HTMLDivElement>>([]);
-  const { targetIndex, targets, cmpIndex } = useFormattedTargets({
+  const { targetIndex, targets, cmpIndex,endIndex } = useFormattedTargets({
     stock_targets,
     entry_date,
     entry_price,
@@ -35,6 +35,7 @@ export default function StockCardProgressBarBlurSection({ emblaApi }: { emblaApi
     targets,
     targetIndex,
     cmpIndex,
+    endIndex
   });
 
   // console.log("MARGIN LEFT",margins)
