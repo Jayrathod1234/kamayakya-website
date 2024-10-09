@@ -1,9 +1,9 @@
 "use client";
-import { StockPicksProvider } from "@/contexts/StockPicksContext";
-import React, { useEffect, useRef } from "react";
+import { TrackRecordCommonProvider } from "@/contexts/TrackRecordCommonContext";
+import React, { useContext, useEffect, useRef } from "react";
 import { useNavBar } from "@/contexts/NavBarContext";
 import Layout from "@/layout/Layout";
-import { TrackRecordProvider, useTrackRecord } from "@/contexts/trackRecordContext";
+import { TrackRecordProvider, useTrackRecord } from "@/contexts/TrackRecordContext";
 import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 import LegendSection from "./components/LegendSection";
 import ElevateSection from "../stock-picks/components/ElevateSection";
@@ -11,7 +11,13 @@ import TrackRecordList from "./components/TrackRecordList";
 import TrackRecordHero from "./components/TrackRecordHero";
 import TrackRecordTabSection from "./components/TrackRecordTabSection";
 import Filters from "./components/Filters";
-
+import { Box, IconButton } from "@mui/material";
+import Login from "@/components/Login";
+import CloseIcon from "@mui/icons-material/Close";
+import { Modal } from "@nextui-org/react";
+import AuthContext from "@/components/AuthContext";
+import TrackRecordMain from "./components/TrackRecordMain";
+import { StockPicksProvider } from "@/contexts/StockPicksContext";
 const MyObserver = () => {
   const { fetchNextPage } = useTrackRecord();
   const myObserver = useRef();
@@ -33,6 +39,7 @@ const MyObserver = () => {
 export default function TrackRecord() {
   const showFilterRef = useRef(null);
   const { setShowFilterHeader } = useNavBar();
+  const {showLoginModal,handleCloseLoginModal} = useContext(AuthContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,29 +57,47 @@ export default function TrackRecord() {
   }, []);
 
   return (
-    <StockPicksProvider>
+    <TrackRecordCommonProvider>
       <TrackRecordProvider>
+      <StockPicksProvider>
         <div className=" relative open_sans">
-          <Layout>
-            <TrackRecordHero />
-            {/* Main Section  */}
-            <main className=" mt-[110px] ">
-              <TrackRecordTabSection />
-            </main>
-            <Filters />
-            {/* Stock Lists */}
-            <section className="  bg-[linear-gradient(180deg,#EDF0F5_0%,rgba(242,244,247,0.5)_100%)]">
-              <div ref={showFilterRef} className="main-container relative">
-                <LegendSection />
-                <TrackRecordList />
-                <MyObserver />
-              </div>
-            </section>
-            {/* Stock Lists end */}
-            <ElevateSection />
-          </Layout>
+          <TrackRecordMain/>
         </div>
+        <Modal
+        width="450px"
+        blur
+        open={showLoginModal}
+        onClose={handleCloseLoginModal}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <img src="kmk-k.png" style={{ maxWidth: "260px" }} />
+          <IconButton
+            sx={{
+              width: "40px",
+              "&:hover": { background: "#fff" },
+              // alignSelf: "end",
+              right: "20px",
+            }}
+            onClick={() => handleCloseLoginModal()}
+          >
+            <CloseIcon sx={{ color: "#e81123" }} />
+          </IconButton>
+        </Box>
+
+        <Modal.Body>
+          <Login />
+        </Modal.Body>
+      </Modal>
+      </StockPicksProvider>
       </TrackRecordProvider>
-    </StockPicksProvider>
+    </TrackRecordCommonProvider>
   );
 }

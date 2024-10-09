@@ -9,18 +9,19 @@ import {
   PointElement,
   ArcElement,
   TimeScale,
-  TimeSeriesScale
+  TimeSeriesScale,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { cn } from "@/lib/utils";
-import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import AuthContext from "@/components/AuthContext";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useQuery } from "@tanstack/react-query";
 import { getBseLivePrice, getNseLivePrice } from "@/api/track-record";
 import "chartjs-adapter-date-fns";
 import { format, parse } from "date-fns";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -31,7 +32,7 @@ ChartJS.register({
   ArcElement,
   annotationPlugin,
   TimeScale,
-  TimeSeriesScale
+  TimeSeriesScale,
 });
 
 function getRandomInt(min: number, max: number) {
@@ -52,6 +53,7 @@ function generateRandomData() {
 const data = generateRandomData();
 
 export default function LineChart({
+  fetchIndividual = true,
   containerClassName,
   stock_id,
   entry_price,
@@ -59,18 +61,32 @@ export default function LineChart({
   stock_exchange,
   stock_live_prices,
   stock_targets,
+  stock_action,
+}: {
+  fetchIndividual?: boolean;
+  containerClassName: string;
+  stock_id: string;
+  entry_price: number;
+  created: string;
+  stock_exchange: string;
+  stock_live_prices: any[];
+  stock_targets: any[];
+  stock_action:string;
 }) {
-  const { sebiBoardType } = useTrackRecord();
+  const { sebiBoardType } = useTrackRecordCommon();
 
-  const { stockSector } = useStockPicks();
+  const { stockSector } = useTrackRecordCommon();
   const { status, data, error, isFetching } = useQuery({
     queryKey: ["bseLivePrice", sebiBoardType],
-    queryFn: () => (stock_exchange.includes("NSE") ? getNseLivePrice(sebiBoardType) : getBseLivePrice(sebiBoardType)),
+    queryFn: () =>
+      stock_exchange.includes("NSE")
+        ? getNseLivePrice(sebiBoardType, fetchIndividual ? stock_id : null)
+        : getBseLivePrice(sebiBoardType, fetchIndividual ? stock_id : null),
     // Refetch the data every second
-    refetchInterval: 1000 * 10,
+    refetchInterval: stock_exchange.includes("NSE") ? 1000 * 60 * 5 : 1000 * 60 * 1,
   });
   const [markerAnnotation, setMarkerAnnotaion] = useState([]);
-
+  const { isLoggedIn } = useContext(AuthContext);
   const [liveData, setLiveData] = useState([]);
   const entry_img = new Image();
   entry_img.height = 8;
@@ -88,7 +104,14 @@ export default function LineChart({
   cmp_img.height = 8;
   cmp_img.width = 8;
   cmp_img.src = "/assets/cmp-pulse.svg";
-
+  const check_mark = new Image();
+  check_mark.src = "/assets/typcn_tick (1).svg";
+  const cross_mark = new Image();
+  cross_mark.src = "/assets/cross.svg";
+  const exit_mark = new Image();
+  exit_mark.src = "/assets/exit_icon.svg";
+  exit_mark.height = 8;
+  exit_mark.width = 8;
   const getOrCreateTooltip = (chart) => {
     let tooltipEl = chart.canvas.parentNode.querySelector("div");
 
@@ -116,9 +139,9 @@ export default function LineChart({
     // Tooltip Element
     const { chart, tooltip } = context;
     const tooltipEl = getOrCreateTooltip(chart);
-
+    const annotationTooltip = document.getElementById("annotation-tooltip");
     // Hide if no tooltip
-    if (tooltip.opacity === 0) {
+    if (tooltip.opacity === 0 || annotationTooltip?.style.opacity === "1") {
       tooltipEl.style.opacity = 0;
       return;
     }
@@ -127,10 +150,15 @@ export default function LineChart({
     if (tooltip.body) {
       const title = tooltip.title[0];
       const price = tooltip.dataPoints[0].formattedValue;
-      const innerHtml = `
+      const parsedDate = parse(title, "MMM d, yyyy, h:mm:ss a", new Date());
+
+      // Format it to "12th July 2023 11:32"
+      const formattedDate = format(parsedDate, "do MMM yyyy  HH:mm");
+
+      let innerHtml = `
              <div class="relative  open_sans flex flex-col items-center h-full min-h-full  ">
         <div class="flex flex-col h-full w-full">
-            <div class="text-gray-400 whitespace-nowrap text-4xs ">${title}</div>
+            <div class="text-gray-400 whitespace-nowrap text-4xs ">${formattedDate}</div>
             <div class="font-bold text-xs text-gray-950 whitespace-nowrap mt-auto" >₹${price}</div>
            </div>
             <svg class="absolute bottom-[-13px]" width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +171,25 @@ export default function LineChart({
       // const tableRoot = tooltipEl.querySelector("#chartjs-child-wrapper");
       // const tableRoot = tooltipEl.querySelector('table');
       // tableRoot.innerHTML = innerHtml;
+      if (!isLoggedIn) {
+        innerHtml = `
+         <div class="relative  open_sans flex flex-col items-center h-full min-h-full  ">
+        <div class="flex flex-col h-full w-full">
+<div class="text-brand-400 whitespace-nowrap italic text-4xs flex items-center gap-x-1 "><img height=12 width=12 src="/assets/noto_locked.png"/>Login to view</div>
+            <div class="font-bold text-xs text-gray-950 whitespace-nowrap mt-auto  h-[18px] bg-gray-150 w-[46px] rounded-full" ></div>
+            
+            
+          
+             
+           </div>
+            <svg class="absolute bottom-[-13px]" width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.5 0H0.5L7.08579 6.58579C7.86684 7.36684 9.13317 7.36684 9.91421 6.58579L16.5 0Z" fill="white"/>
+</svg>
 
+            </div>
+         
+      `;
+      }
       // Remove old children
       while (tooltipEl.firstChild) {
         tooltipEl.firstChild.remove();
@@ -214,15 +260,19 @@ export default function LineChart({
       document.body.appendChild(tooltipEl);
     }
     const lineTooltipEle = document.getElementById("chartjs-tooltip");
-    if (lineTooltipEle) {
+    if (lineTooltipEle && tooltipEl.style.opacity === "1") {
       // console.log("LINE TOOLTIP", lineTooltipEle)
       lineTooltipEle.style.opacity = "0";
+      lineTooltipEle.style.pointerEvents = "none"; // Disable pointer events to hide interaction
     }
 
     // Set the content for the tooltip
     const title = context.element.options.xValue; // Example title
     const price = context.element.options.yValue; // Example price
-    if (price === 9.06) return;
+    // const parsedDate = parse(title, "MMM d, yyyy, h:mm:ss a", new Date());
+    console.log(title);
+    // Format it to "12th July 2023 11:32"
+    // const formattedDate = format(parsedDate, "do MMM yyyy  HH:mm");
     // Get the annotation position relative to the chart canvas
     const chartPosition = context.chart.canvas.getBoundingClientRect();
     const annotationElement = context.element; // The annotation element
@@ -236,21 +286,32 @@ export default function LineChart({
     tooltipEl.style.top = annotationY - 78 + "px"; // Y position relative to the annotation
     tooltipEl.style.pointerEvents = "none";
     let targetIndex = stock_targets?.findIndex((item) => item.target_price === price);
-    targetIndex =
-      targetIndex >= 0 ? `Target ${stock_targets?.length - targetIndex}` : entry_price === price ? "Entry Price" : null;
+    let targetLabel =
+      targetIndex === 0 && stock_action === "SELL" && stock_targets[targetIndex].target_met ? "Exit Price":
+      targetIndex >= 0
+        ? `Target ${stock_targets?.length - targetIndex}`
+        : entry_price === price
+        ? "Entry Price"
+        : price === liveData[liveData.length - 1].price
+        ? "CMP"
+        : "";
     const targetItem = stock_targets && stock_targets.find((item) => item.target_price === price);
 
     const isTargetNotMet = targetItem && targetItem.target_met === null;
 
-    const innerHtml = `
+    let innerHtml = `
         <div class="relative flex flex-col items-center open_sans">
         <div class="w-full ">
-            <div class="text-gray-400 whitespace-nowrap text-4xs ">${format(title, "do MMM")}</div>
+            <div class="text-gray-400 whitespace-nowrap text-4xs ">${format(new Date(title), "do MMM yyyy HH:mm")}</div>
             <div class="font-bold text-xs text-gray-950 whitespace-nowrap mt-2">₹${price}</div>
-            <div class="text-gray-500 font-medium whitespace-nowrap text-4xs">${targetIndex} ${
-      targetIndex && targetIndex.includes("Target")
+            <div class="text-gray-500 font-medium whitespace-nowrap text-4xs">${targetLabel} ${
+      targetLabel && targetLabel.includes("Target")
         ? `<span class=${` ${isTargetNotMet ? "text-[#F98800]" : "text-success-500"}`}>${
-            isTargetNotMet ? "Active" : "Met"
+            isTargetNotMet
+              ? new Date(stock_targets[targetIndex].target_date) < Date.now()
+                ? "Inactive"
+                : "Active"
+              : "Met"
           }</span>`
         : ""
     }</div>
@@ -261,6 +322,31 @@ export default function LineChart({
 
             </div>
     `;
+    if (!isLoggedIn) {
+      innerHtml = `
+        <div class="relative flex flex-col items-center open_sans">
+        <div class="w-full ">
+            <div class="text-brand-400 whitespace-nowrap italic text-4xs flex items-center gap-x-1 "><img height=12 width=12 src="/assets/noto_locked.png"/>Login to view</div>
+            <div class="font-bold text-xs text-gray-950 whitespace-nowrap mt-2 h-[18px] bg-gray-150 w-[46px] rounded-full"></div>
+            <div class="text-gray-500 font-medium whitespace-nowrap text-4xs">${targetLabel} ${
+        targetLabel && targetLabel.includes("Target")
+          ? `<span class=${` ${isTargetNotMet ? "text-[#F98800]" : "text-success-500"}`}>${
+              isTargetNotMet
+                ? new Date(stock_targets[targetIndex].target_date) < Date.now()
+                  ? "Inactive"
+                  : "Active"
+                : "Met"
+            }</span>`
+          : ""
+      }</div>
+           </div>
+            <svg class="absolute bottom-[-10px]" width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.5 0H0.5L7.08579 6.58579C7.86684 7.36684 9.13317 7.36684 9.91421 6.58579L16.5 0Z" fill="white"/>
+</svg>
+
+            </div>
+    `;
+    }
     tooltipEl.innerHTML = innerHtml;
   };
 
@@ -292,39 +378,65 @@ export default function LineChart({
 
       // Target annotations
       stock_targets.forEach((target, i) => {
+        const target_not_met = new Date(target.target_date).getTime() <= Date.now();
         arr.push({
           type: "line",
-          borderColor: target.target_met ? "#99D9D4" : "#FFD19A",
+          borderColor: target.target_met ? "#99D9D4" : target_not_met ? "#EDF0F5" : "#FFD19A",
           borderWidth: 1,
           borderDash: [6, 6],
           scaleID: "y",
           value: target.target_price,
           label: {
             display: true,
+            content: target.target_met ? check_mark : target_not_met ? cross_mark : target_active_img,
+            backgroundColor: "transparent",
+            color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
+            position: "end",
+            xAdjust: 70,
+          },
+        });
+        arr.push({
+          type: "line",
+          borderColor: target.target_met ? "#99D9D4" : target_not_met ? "#EDF0F5" : "#FFD19A",
+          borderWidth: 1,
+          borderDash: [6, 6],
+          scaleID: "y",
+          value: target.target_price,
+          label: {
+            yValue: target.target_price,
+            font: {
+              family: "Open Sans",
+              size: 10,
+              weight: 400,
+            },
+            display: true,
             content: `Target ${stock_targets.length - i}`,
             backgroundColor: "transparent",
-            color: target.target_met ? "#99D9D4" : "#FFD19A",
+            color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
             position: "end",
-            xAdjust: 64,
+            xAdjust: 60,
           },
         });
 
         // Target marker
-        arr.push({
-          type: "point",
-          // scaleId:'y',
-          xValue: new Date(target.created).getTime(), // Convert to timestamp
-          yValue: target.target_price,
-          backgroundColor: "transparent",
-          borderColor: "transparent",
-          pointStyle: target.target_met ? target_met_img : target_active_img,
-          radius: 8,
-          enter: handleAnnotationTooltip,
-          leave: (context) => {
-            const tooltipEl = document.getElementById("annotation-tooltip");
-            if (tooltipEl) tooltipEl.style.opacity = "0";
-          },
-        });
+        {
+          target.target_met &&
+            arr.push({
+              type: "point",
+              // scaleId:'y',
+              xValue: new Date(target.created).getTime(), // Convert to timestamp
+              yValue: target.target_price,
+              backgroundColor: "transparent",
+              borderColor: "transparent",
+              pointStyle: target.target_met ? i===0 && stock_action=== "SELL" ? exit_mark: target_met_img : target_active_img,
+              radius: 8,
+              enter: handleAnnotationTooltip,
+              leave: (context) => {
+                const tooltipEl = document.getElementById("annotation-tooltip");
+                if (tooltipEl) tooltipEl.style.opacity = "0";
+              },
+            });
+        }
       });
 
       // Current price marker
@@ -355,14 +467,14 @@ export default function LineChart({
     setLiveData(() => {
       let currentData = stock_live_prices ? stock_live_prices : [];
       if (data && data.length > 0) {
-        currentData.concat(
-          data
-            .flatMap((prev) => {
-              // console.log(prev.stock_live_data)
-              return prev.stock_id === stock_id ? prev.stock_live_data : null;
-            })
-            .filter((prev) => prev != null)
+        console.log("ENTER HERE");
+        currentData = currentData.concat(
+          data.flatMap((prev) => {
+            // console.log(prev.stock_live_data)
+            return prev.stock_id === stock_id ? prev.stock_live_data : null;
+          })
         );
+        console.log(currentData);
       }
       currentData = currentData
         .map((item) => {
@@ -428,7 +540,7 @@ export default function LineChart({
               },
 
               ticks: {
-                stepSize: 6,
+                // stepSize: 6,
                 align: "start",
                 source: "auto",
                 autoSkip: false,
@@ -451,7 +563,8 @@ export default function LineChart({
 
                   // Format the parsed date
                   const formattedDate = format(parsedDate, "do MMM");
-                  return index % 3 == 0 ? formattedDate : "";
+                  return index % 3 === 0 ? formattedDate : "";
+                  // : "";
                 },
                 maxRotation: 0,
                 // stepSize:9000

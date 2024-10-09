@@ -1,4 +1,4 @@
-import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import TrackRecordCardSkeleton from "./skeleton/TrackRecordCardSkeleton";
 import TrackRecordStockCard from "./TrackRecordStockCard";
 

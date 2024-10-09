@@ -17,6 +17,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useStockPicks } from "@/contexts/StockPicksContext";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 
 export default function StrategyCheck() {
   const {
@@ -27,7 +28,7 @@ export default function StrategyCheck() {
     strategyTag,
     setIsChangeFilter,
     changablestrategyTags,
-  } = useStockPicks();
+  } = useTrackRecordCommon();
   const strategy_tag_list_arr = Object.keys(strategyTagList || {});
 
   const [searchTerm, setSearchTerm] = useState("");

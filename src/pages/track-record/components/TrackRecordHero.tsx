@@ -15,9 +15,9 @@ export default function TrackRecordHero() {
   
   return (
     <div className=" relative h-full bg-[length:100vw_616px]">
-      <div className=" w-full h-full  absolute overflow-hidden z-20 -top-1/4">
-        <div className=" h-[800px] w-[800px] bg-[#139499] absolute z-20 blur-3xl rounded-full opacity-5 -left-1/4 -top-16"></div>
-        <div className=" h-[800px] w-[800px] bg-[#12B76A] absolute z-20 blur-3xl rounded-full opacity-10 -right-2/3 -top-1/2"></div>
+      <div className=" w-full h-full  absolute overflow-hidden z-10 -top-[20%]">
+        <div className=" h-[900px] w-[800px] bg-[#139499] absolute z-20 blur-3xl rounded-full opacity-[.15] -left-[10%] -top-10"></div>
+        <div className=" h-[900px] w-[800px] bg-[#12B76A] absolute z-20 blur-3xl rounded-full opacity-[.15] -right-[20%] -top-[60%]"></div>
       </div>
       <div className=" bg-[url(/assets/track-record-hero.png)] bg-black absolute w-screen h-[650px] z-[1] mt-[-4rem]"></div>
       {/* hero text section */}

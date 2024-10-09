@@ -219,6 +219,7 @@ export default function NestedModal({
   handleMainModalClose,
   handleChildModalOpen,
   handleCloseAllModals,
+  action
 }) {
   // Handle ESC key press and disable/enable background scroll
   useEffect(() => {
@@ -251,10 +252,16 @@ export default function NestedModal({
         open={modalState?.isMainModalOpen}
         handleClose={handleMainModalClose}
       >
+     
         <h1 className="text-[20px] font-bold text-[#101828] !text-left">
           Choose your broker
         </h1>
+       <div> {action === "HOLD" && <div className=" mb-5 flex rounded-[12px] p-2 border border-[#FEB359] bg-[#FFFBF6] gap-x-[11.87px]">
+        <img src="/assets/warn.svg" alt="warn"/>
+        <p className=" text-3xs">This stock is currently recommended for a <span className=" font-bold text-[#F98800]">Hold</span>. We advise reviewing your decision before proceeding with any investments.</p>
+      </div>}</div>
         <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex flex-col items-center justify-center ">
+       
           <div className="grid grid-cols-3 gap-2">
             {brokerItems.map((item, index) => (
               <div

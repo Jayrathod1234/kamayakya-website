@@ -101,9 +101,9 @@ export const getBseLivePrice = async(sebiBoardType)=>{
   }
 }
 
-export const getNseLivePrice = async(sebiBoardType)=>{
+export const getNseLivePrice = async(sebiBoardType,stockId)=>{
   try {
-    const URL = `/user/nseStocksLivePrice?type=${sebiBoardType}`;
+    const URL = `/user/nseStocksLivePrice?type=${sebiBoardType}&stock_id=${stockId}`;
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
     // console.log(response)
@@ -114,3 +114,16 @@ export const getNseLivePrice = async(sebiBoardType)=>{
     throw error;
   }
 }
+
+export const getTrackRecordCommonDetailsApi = async ({ type }) => {
+  try {
+    const URL = `/user/trackRecord/commonDetails?type=${type}`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL);
+    return response.data.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+};

@@ -5,6 +5,7 @@ import { useStockPicks } from "./StockPicksContext";
 import AuthContext from "@/components/AuthContext";
 import { initialFilterTime } from "@/utils/constants";
 import { getAllTrackRecordStockListApi } from "@/api/track-record";
+import { useTrackRecordCommon } from "./TrackRecordCommonContext";
 
 const TrackRecordContext = createContext(null);
 
@@ -19,8 +20,8 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     min_returns,
     max_returns,
     changablestrategyTags,
-  } = useStockPicks();
-  const [sebiBoardType, setSebiBoardType] = useState("");
+    sebiBoardType
+  } = useTrackRecordCommon();
   const { isLoggedIn } = useContext(AuthContext);
   const [searchStock, setSearchStock] = useState("");
   const debouncedSearchStock = useDebounce(searchStock, 1000); // Apply debouncing
@@ -34,7 +35,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
   const [marketCapType, setMarketCapType] = useState([]);
   const [risk, setRisk] = useState([]);
   const [totalFilterCount, setTotalFilterCount] = useState(0);
-  const [actionCall, setActionCall] = useState("");
+  const [actionCall, setActionCall] = useState([]);
   /** Total filter count logic */
   const getFilterCount = () =>
     (upsideLeft[0] === min_upside_left && upsideLeft[1] === max_upside_left ? 0 : 1) +
@@ -44,7 +45,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     sector.length +
     changablestrategyTags.length +
     marketCapType.length +
-    risk.length +(actionCall ? 1 :0);
+    risk.length +(actionCall.length);
     
 
   useEffect(() => {
@@ -75,11 +76,11 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     await setTimeLeft(initialFilterTime);
     await setUpsideLeft([min_upside_left, max_upside_left]);
     await setReturns([min_returns, max_returns]);
-    await setMarketCapType("");
-    await setRisk("");
+    await setMarketCapType([]);
+    await setRisk([]);
     await setSector([]);
     await setStrategyTag([]);
-    setActionCall("")
+    setActionCall([])
     // setOpen(false);
     setTotalFilterCount(0);
     refetch(); // Optionally refetch data with reset filters (if appliedFilters reset)
@@ -175,8 +176,6 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
         error,
         fetchNextPage,
         refetch,
-        setSebiBoardType,
-        sebiBoardType,
         actionCall,
         setActionCall,
       }}

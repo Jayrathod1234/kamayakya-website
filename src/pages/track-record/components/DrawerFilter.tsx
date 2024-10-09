@@ -24,11 +24,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PropTypes from "prop-types";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import SectorFilter2 from "@/components.v3/common/SectoreFilter2";
+import SectorFilter2 from "./SectorFilter2";
 import { filterTimeLabel } from "@/utils/constants.js";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 
-import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 
 // fixed drawer
 const CustomTabPanel = styled(Box)(({ theme }) => ({
@@ -89,7 +90,7 @@ function DrawerFilter() {
     addPopularStrategies,
     removePopularStrategies,
     changablestrategyTags,
-  } = useStockPicks();
+  } = useTrackRecordCommon();
 
   const {
     recency,
@@ -157,7 +158,7 @@ function DrawerFilter() {
     setSector(tempSector);
     setOpen(false);
     handleApplyFilters(true);
-    setActionCall(tempActionCall.toUpperCase());
+    setActionCall(tempActionCall);
   };
 
   const handleSelectAllStrategies = () => {
@@ -242,17 +243,25 @@ function DrawerFilter() {
   };
   const handleMarketCap = (value) => {
     setTempMarketCapType((prev) => {
-      console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
+      // console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
       return prev.includes(value) ? [...prev.filter((val) => val != value)] : [...prev, value];
     });
   };
 
   const handleRisk = (value) => {
     setTempRisk((prev) => {
-      console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
+      // console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
       return prev.includes(value) ? [...prev.filter((val) => val != value)] : [...prev, value];
     });
   };
+
+  const handleActioCall = (value) => {
+    setTempActionCall((prev) => {
+      // console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
+      return prev.includes(value) ? [...prev.filter((val) => val != value)] : [...prev, value];
+    });
+  };
+
 
   const CustomSlider = styled(Slider)({
     color: "#125B54", // Main color for the rail and thumb border
@@ -409,12 +418,12 @@ function DrawerFilter() {
                     {["Buy", "Hold", "Sell"]?.map((value, index) => (
                       <div
                         className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          tempActionCall == value.toUpperCase()
+                          tempActionCall.includes(value.toUpperCase())
                             ? "bg-[#E7F8F8] border-[#108973]"
                             : "bg-white border-[#E4E7EC]"
                         }`}
                         key={index}
-                        onClick={() => setTempActionCall(value.toUpperCase())}
+                        onClick={() => handleActioCall(value.toUpperCase())}
                       >
                         <img width={38} height={28} src={`/assets/${value}.png`} alt={value} />
 
@@ -1496,12 +1505,12 @@ function DrawerFilter() {
                           {["Buy", "Hold", "Sell"]?.map((value, index) => (
                             <div
                               className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                tempActionCall.toUpperCase() == value.toUpperCase()
+                                tempActionCall.includes(value.toUpperCase())
                                   ? "bg-[#E7F8F8] border-[#108973]"
                                   : "bg-white border-[#E4E7EC]"
                               }`}
                               key={index}
-                              onClick={() => setTempActionCall(value)}
+                              onClick={() => handleActioCall(value)}
                             >
                               <img src={`/assets/${value}.png`} alt={value} />
 

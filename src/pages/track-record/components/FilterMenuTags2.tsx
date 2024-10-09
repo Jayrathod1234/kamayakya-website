@@ -8,8 +8,9 @@ import SectorCheck from "./SectorCheck";
 import CustomSortMenu from "./RadioDrop";
 import DrawerFilter from "./DrawerFilter";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 
 
 const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
@@ -24,7 +25,7 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
     setIsChangeFilter,
     changablestrategyTags,
     removePopularStrategies,
-  } = useStockPicks();
+  } = useTrackRecordCommon();
 
   const { sector } = useTrackRecord();
 

@@ -50,11 +50,11 @@ export function TargetChip({
       {activeIcon && <img className={cn("mr-1", activeIconClass)} height={14} width={14} src="/assets/target.svg" />}
       <div className={cn("text-[#667085] font-semibold whitespace-nowrap flex", textCommonClass)}>
         {active ? (
-          <span className={cn(` text-4xs ${isBlur ? "flex items-center": ""}`, targetTextClass)}>
-             {targetLabel} {isBlur && activeIcon && <span className=" h-[12px] w-[29px] mx-1 bg-[#FFE8D4] inline-block rounded-full"></span>} | <Active className={` ml-1 ${activeTextClass}`} />
+          <span className={cn(` text-4xs ${isBlur || !target_number?.includes('₹') ? "flex items-center": ""}`, targetTextClass)}>
+             {targetLabel} {(isBlur || !target_number?.includes('₹')) && activeIcon && <span className=" h-[12px] w-[29px] mx-1 bg-[#FFE8D4] inline-block rounded-full"></span>} | <Active className={` ml-1 ${activeTextClass}`} />
           </span>
         ) : (
-          <span className={cn(" text-3xs", inactiveTextClass)}>{targetLabel ? targetLabel : ""} | <span className=" font-medium">Inactive</span></span>
+          <span className={cn(` text-3xs ${isBlur  || !target_number?.includes('₹')  ? "flex items-center": ""}`, inactiveTextClass)}>{targetLabel ? targetLabel : ""} {isBlur  || !target_number?.includes('₹') && activeIcon && <span className=" h-[12px] w-[29px] mx-1 bg-[#8e95a3] inline-block rounded-full"></span>} | <span className=" font-medium">Inactive</span></span>
         )}
       </div>
     </ChipContainer>

@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import { cn } from "../../../../lib/utils";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../../../components.v2/ui/tooltip";
+import {  TooltipContent, TooltipProvider, TooltipTrigger } from "../../../../components.v2/ui/tooltip";
+import Tooltip from "@/components.v3/common/Tooltip";
 
-const StockPerformanceCardTooltip = ({ tooltipTrigger, tooltipContent }) => {
-  const [openTooltip, setOpenTooltip] = useState(false);
+// const StockPerformanceCardTooltip = ({ tooltipTrigger, tooltipContent }) => {
+//   const [openTooltip, setOpenTooltip] = useState(false);
 
-  const handleTrigger = (e) => {
-    e.preventDefault();
-    setOpenTooltip(true);
-  };
+//   const handleTrigger = (e) => {
+//     e.preventDefault();
+//     setOpenTooltip(true);
+//   };
 
-  return (
-    <TooltipProvider delayDuration={0}>
-      <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
-        <TooltipTrigger onClick={handleTrigger}>{tooltipTrigger}</TooltipTrigger>
-        <TooltipContent>{tooltipContent}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-};
+//   return (
+//     <TooltipProvider delayDuration={0}>
+//       <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
+//         <TooltipTrigger onClick={handleTrigger}>{tooltipTrigger}</TooltipTrigger>
+//         <TooltipContent className="!shadow-none">{tooltipContent}</TooltipContent>
+//       </Tooltip>
+//     </TooltipProvider>
+//   );
+// };
 
 export default function StockPerformanceCard({
   className,
@@ -49,7 +50,7 @@ export default function StockPerformanceCard({
             <p className={cn("font-open_sans text-sm font-semibold text-[#FCFCFD]",labelClassname)}>{label}</p>
             <div className="relative">
               {tooltip ? (
-                <StockPerformanceCardTooltip tooltipContent={tooltipContent} tooltipTrigger={tooltipTrigger} />
+                <Tooltip tooltipContent={tooltipContent} tooltipTrigger={tooltipTrigger} />
               ) : null}
             </div>
           </div>

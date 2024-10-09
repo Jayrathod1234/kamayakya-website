@@ -7,11 +7,12 @@ import { Box, useMediaQuery, Chip } from "@mui/material";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import SearchPage from "../../../components.v3/common/SearchPage";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
 import CloseIcon from "@mui/icons-material/Close";
 import StrategyCheck from "./StrategyCheck";
 import SectorCheck from "./SectorCheck";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 
 function Filtermenu() {
   const { searchStock, setSearchStock, sector } = useTrackRecord();
@@ -25,7 +26,7 @@ function Filtermenu() {
     setIsChangeFilter,
 
     removePopularStrategies,
-  } = useStockPicks();
+  } = useTrackRecordCommon();
 
   // sticky header
   const isMobile = useMediaQuery("(max-width:600px)");

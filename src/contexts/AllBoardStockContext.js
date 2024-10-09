@@ -6,11 +6,14 @@ import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAllBoardStockStockListApi } from "@/api/stock-picks";
 import AuthContext from "@/components/AuthContext";
+import { usePathname } from "next/navigation";
+import { useTrackRecordCommon } from "./TrackRecordCommonContext";
 
 // Create Context
 const AllBoardStockContext = createContext();
 
 export const AllBoardStockProvider = ({ children }) => {
+  const pathname = usePathname();
   const {
     setStrategyTag,
     isChangeFilter,
@@ -22,7 +25,7 @@ export const AllBoardStockProvider = ({ children }) => {
     min_returns,
     max_returns,
     changablestrategyTags,
-  } = useStockPicks();
+  } = pathname.includes("track-record") ? useTrackRecordCommon() : useStockPicks();
 
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -44,9 +47,7 @@ export const AllBoardStockProvider = ({ children }) => {
 
   /** Total filter count logic */
   const getFilterCount = () =>
-    (upsideLeft[0] === min_upside_left && upsideLeft[1] === max_upside_left
-      ? 0
-      : 1) +
+    (upsideLeft[0] === min_upside_left && upsideLeft[1] === max_upside_left ? 0 : 1) +
     (returns[0] === min_returns && returns[1] === max_returns ? 0 : 1) +
     Object.keys(recency).filter((key) => recency[key]).length +
     Object.keys(timeLeft).filter((key) => timeLeft[key]).length +
@@ -102,7 +103,6 @@ export const AllBoardStockProvider = ({ children }) => {
     queryKey: [
       "allBoardStockStock",
       {
-        
         sebiBoardType,
         sortBy,
         sortValue,
@@ -131,9 +131,7 @@ export const AllBoardStockProvider = ({ children }) => {
           sort_by: sortBy,
           sort_value: sortValue,
           recency_time: Object.keys(recency).filter((key) => recency[key]),
-          time_left_with_time: Object.keys(timeLeft).filter(
-            (key) => timeLeft[key]
-          ),
+          time_left_with_time: Object.keys(timeLeft).filter((key) => timeLeft[key]),
           upside_left_range: {
             min: upsideLeft[0],
             max: upsideLeft[1],

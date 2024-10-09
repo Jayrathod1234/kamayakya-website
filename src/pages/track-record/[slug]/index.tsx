@@ -21,8 +21,8 @@ import LegendSection from "../components/LegendSection";
 import ProjectedInvestmentGrowth from "./components/ProjectedInvestmentGrowth";
 import Layout from "../../../layout/Layout";
 import LineChart from "@/components.v3/common/LineChart";
-import { TrackRecordProvider } from "@/contexts/trackRecordContext";
-import { StockPicksProvider } from "@/contexts/StockPicksContext";
+import { TrackRecordProvider } from "@/contexts/TrackRecordContext";
+import { TrackRecordCommonProvider } from "@/contexts/TrackRecordCommonContext";
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -237,7 +237,7 @@ function StockDetailsSection() {
   if (!items) return;
 
   return (
-    <StockPicksProvider>
+    <TrackRecordCommonProvider>
       <TrackRecordProvider>
         <Layout>
           {Object.keys(items).length === 0 || isLoading ? (
@@ -615,7 +615,7 @@ function StockDetailsSection() {
                       {/* Upside Left Box start */}
                       <div className="hidden sm:block col-span-2 order-3 sm:order-2">
                         <div className="p-4 gap-4 lg:gap-6 rounded-[10px] bg-white shadow-sm mt-7">
-                          <div className=" relative p-4 md:p-6 lg:p-4 gap-4 lg:gap-6 rounded-lg bg-[white] border border-transparent">
+                          <div className=" relative gap-4 lg:gap-6 rounded-lg bg-[white] border border-transparent">
                             {/* Gradient Border */}
                             <div className="absolute inset-0 border-2 border-transparent rounded-[5px] z-[-1] bg-gradient-border"></div>
 
@@ -638,6 +638,7 @@ function StockDetailsSection() {
                                   time={return_time}
                                   valueClassname={" text-white"}
                                   timeClassname={"text-white"}
+                                  cagr_of_stock={cagr_of_stock}
                                 />
 
                                 {/* Upside Left Section */}
@@ -679,7 +680,7 @@ function StockDetailsSection() {
                                       </div>
                                     </div>
                                   }
-                                  tooltip={true}
+                                  tooltip={false}
                                   value={upside_left}
                                   time={upside_left_time}
                                 />
@@ -687,21 +688,26 @@ function StockDetailsSection() {
                                 {/* Total CAGR Section */}
                                 {cagr_of_stock && (
                                   <StockPerformanceCard
+                                    className={" border border-[#F2F4F7]"}
+                                    icon={<img src="/assets/upper.svg" alt="CAGR" height={21} width={21} />}
+                                    labelClassname={" text-[#1D2939]"}
                                     tooltip={true}
                                     tooltipTrigger={
                                       <img
+                                        height={16}
+                                        width={16}
                                         src="/assets/blackinfo.svg"
                                         alt="Info"
-                                        className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                        className="h-[16px] cursor-pointer"
                                       />
                                     }
                                     tooltipContent={
-                                      <div className="tooltip w-[300px] md:w-[350px] p-4 bg-white  rounded-lg shadow-3xl text-gray-800 relative">
-                                        <img
+                                      <div className=" relative">
+                                        {/* <img
                                           src="/assets/div.png"
                                           alt=""
                                           className="h-8 w-5 absolute -top-[11px] shadow-3xl left-[60%]"
-                                        />
+                                        /> */}
                                         <div className="tooltip-content">
                                           <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
                                             Compound Annual Growth Rate
@@ -775,25 +781,27 @@ function StockDetailsSection() {
                                       </div>
                                     }
                                     label={"Total CAGR"}
-                                    value={<img src="/assets/upper.svg" alt="target" className=" h-6 w-6" />}
+                                    value={cagr_of_stock.cagr_value}
+                                    time={cagr_of_stock.cagr_time}
                                   />
                                 )}
                               </div>
                             </div>
-                            <div className=" mt-5">
+                            <div className=" mt-6">
                               <ProjectedInvestmentGrowth
                                 action={action}
                                 upside_left={upside_left}
                                 upside_left_time={upside_left_time}
                               />
                             </div>
-                            <LegendSection className=" sm:justify-center pt-6 pb-0" />
+                            <LegendSection className=" sm:justify-center sm:gap-x-0 lg:gap-x-8 pt-6 pb-0" />
                           </div>
 
                           <div className="pt-[13px] bg-white">
                             {/* CHART SECTION */}
-                            <div className=" relative  py-5">
+                            <div className=" relative">
                               <LineChart
+                                stock_action={action}
                                 stock_exchange={stock_exchange}
                                 stock_targets={stock_targets}
                                 stock_live_prices={stock_live_prices}
@@ -868,11 +876,11 @@ function StockDetailsSection() {
                         <div className="  rounded-2xl border border-[#F2F4F7] bg-[#F9FAFB]">
                           <div className="bg-[F9FAFB] rounded-t-2xl p-2">
                             <StockPerformanceCard
-                              className={
+                              className={`${
                                 gain_loss > 0
                                   ? "bg-custom-gradient rounded-[10px]"
                                   : "bg-[linear-gradient(108.17deg,#FF9E9E_-3.69%,#E53A3A_92.32%)] rounded-[10px]"
-                              }
+                              } `}
                               label={"Total Returns"}
                               icon={<img src="/assets/Layer_1_white.svg" alt="Returns Icon" className=" h-6 w-6" />}
                               value={gain_loss}
@@ -884,7 +892,13 @@ function StockDetailsSection() {
                           <div className="bg-[F9FAFB] px-4 pb-2 rounded-b-2xl">
                             <div className="flex justify-between items-center">
                               <div className="flex items-center">
-                                <img height={14} width={14} className=" object-contain" src="/assets/streamline_target-solid-green.svg" alt="" />
+                                <img
+                                  height={14}
+                                  width={14}
+                                  className=" object-contain"
+                                  src="/assets/streamline_target-solid-green.svg"
+                                  alt=""
+                                />
                                 <p className="ml-[10px] text-3xs text-gray-800 font-open_sans">Upside Left</p>
                               </div>
                               <div className="flex items-center">
@@ -1116,18 +1130,20 @@ function StockDetailsSection() {
                           </div>
                         </div>
 
-                        <div className="pt-6 text-center md:text-left text-[#344054] text-sm md:text-base leading-6 font-normal  gap-1 font-open_sans">
-                          <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">₹1,00,000 </span>
-                          invested at current market price (CMP) can become{" "}
-                          <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
-                            ₹{(100000 + 1000 * upside_left).toLocaleString("hi")}
-                          </span>{" "}
-                          likely within {upside_left_time}
+                        <div className="pt-6">
+                          <ProjectedInvestmentGrowth
+                            upside_left={upside_left}
+                            upside_left_time={upside_left_time}
+                            action={action}
+                          />
                         </div>
                         <div className="pt-6 block sm:hidden bg-white">
+                          <LegendSection className=" py-0" />
                           <div className="">
-                            <div className="py-5">
+                            <div className="pt-6">
                               <LineChart
+                                stock_action={action}
+                                stock_exchange={stock_exchange}
                                 stock_targets={stock_targets}
                                 stock_live_prices={stock_live_prices}
                                 created={created}
@@ -1336,6 +1352,7 @@ function StockDetailsSection() {
                               </button>
 
                               <InvestModal
+                                action={action}
                                 handleMainModalOpen={handleMainModalOpen}
                                 handleMainModalClose={handleMainModalClose}
                                 handleChildModalOpen={handleChildModalOpen}
@@ -1406,6 +1423,7 @@ function StockDetailsSection() {
                 <ElevateSection />
               </div>
               <InvestModal
+                action={action}
                 handleMainModalOpen={handleMainModalOpen}
                 handleMainModalClose={handleMainModalClose}
                 handleChildModalOpen={handleChildModalOpen}
@@ -1416,7 +1434,7 @@ function StockDetailsSection() {
           )}
         </Layout>
       </TrackRecordProvider>
-    </StockPicksProvider>
+    </TrackRecordCommonProvider>
   );
 }
 

@@ -1,9 +1,19 @@
 import { Tabs, TabsVariant } from "@/components.v2/tabs";
-import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
+import { useEffect, useState } from "react";
 
 const TrackRecordTabSection = () => {
-  const { sebiBoardType, setSebiBoardType } = useTrackRecord();
-  console.log(sebiBoardType);
+  const { sebiBoardType, handleSebiBoardTypeChange} = useTrackRecordCommon();
+  const [value, setValue] = useState(sebiBoardType);
+  useEffect(()=>{
+    const timeout = setTimeout(()=>{
+      handleSebiBoardTypeChange(value);
+    },600)
+    
+    return ()=>clearTimeout(timeout)
+
+  },[value])
   return (
     <div className=" flex justify-center">
       <Tabs
@@ -17,8 +27,8 @@ const TrackRecordTabSection = () => {
           { label: "Main Board", value: "mainboard" },
           { label: "SME Board", value: "sme" },
         ]}
-        setSelectedOption={setSebiBoardType}
-        activeValue={sebiBoardType}
+        setSelectedOption={setValue}
+        activeValue={value}
       />
     </div>
   );

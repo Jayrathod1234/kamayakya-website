@@ -17,6 +17,8 @@ import { TargetChip } from "@/components.v3/common/TargetChip";
 import { useRouter } from "next/router";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import LoginPrompt from "./LoginPrompt";
+import LineChart from "@/components.v3/common/LineChart";
+import TopGainerLoserChart from "./TopGainerLoserChart";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -69,7 +71,8 @@ export const TopGainerLoserCard = ({
   type,
   isBest,
   stockStat,
-  setOpen
+  setOpen,
+  stock_live_prices,
 }: {
   action?: string;
   type: string;
@@ -90,12 +93,12 @@ export const TopGainerLoserCard = ({
       : null
     : null;
   const router = useRouter();
-
+  console.log(stock_live_prices)
   return (
     // <LoginPrompt>
     <div
-      onClick={() => stockStat?.id ? router.push(`/track-record/${stockStat.id}`) : stockStat.action === "BUY" ? setOpen(true):null}
-      className="group/gainer-loser transition-[shadow] duration-150 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
+      onClick={() => stockStat?.id ? router.push(`/track-record/${stockStat.id}`) : isLoggedIn ? setOpen(true):null}
+      className="group/gainer-loser transition-shadow duration-300 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
  flex flex-col bg-white rounded-[9px] p-4 h-fit sm:h-[176px] flex-1 relative cursor-pointer min-w-0 "
     >
       {actionImgSrc && (
@@ -135,7 +138,9 @@ export const TopGainerLoserCard = ({
           </svg>
         </div>
         <div className=" my-5 sm:my-0  h-10 w-[98px]">
-          <Line
+          {Array.isArray(stock_live_prices) && stock_live_prices.length > 0 ?  <TopGainerLoserChart stock_live_prices={stock_live_prices} />:null}
+          
+          {/* <Line
             className=""
             options={CHART_OPTION}
             data={{
@@ -151,7 +156,7 @@ export const TopGainerLoserCard = ({
                 },
               ],
             }}
-          />
+          /> */}
         </div>
       </div>
       <div className=" mt-auto">
@@ -163,7 +168,7 @@ export const TopGainerLoserCard = ({
             src={stockStat?.is_gain_loss_positive ?? true ? "/assets/Polygon2.svg" : "/assets/Polygon 3.svg"}
             alt=""
           />
-          {isBlur ? (
+          {isBlur || (stockStat && (stockStat.gain_loss === null || stockStat.gain_loss === undefined)) ? (
             <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
           ) : (
             <p
@@ -180,10 +185,10 @@ export const TopGainerLoserCard = ({
         </div>
         <div
           className={`flex items-center gap-y-[10px] ${
-            isBlur ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row" : "flex-wrap "
+            isBlur || (stockStat && !stockStat.stock_name) ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row" : "flex-wrap "
           }  gap-x-[8px]  justify-center sm:justify-between`}
         >
-          {isBlur ? (
+          {isBlur || (stockStat && !stockStat.stock_name) ? (
             <div className=" min-w-0 w-full max-w-[120px] h-[18px] flex items-center justify-center sm:m-0">
               <img
                 className=" object-contain inline-block h-[18px] w-[18px]"

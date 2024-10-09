@@ -10,6 +10,7 @@ import {
   ArcElement,
 } from "chart.js";
 import AuthContext from "@/components/AuthContext";
+import { IStockPerformace } from "./TrackRecordHeroCard";
 ChartJS.register({
   // ChartTooltip,
   // Legend,
@@ -25,14 +26,18 @@ let LEGENDS = [
   { label: "Low (>-15%)", value: "", iconColor: "bg-[rgba(240,68,56,1)]" },
 ];
 
-const getIconColor = (label:string)=>{
-  switch(label){
-    case 'high':return "bg-[rgba(18,183,106,1)]";
-    case 'medium':return "bg-[rgba(208,213,221,1)]";
-    case "low": return "bg-[rgba(240,68,56,1)]";
-    default: return "bg-transparent";
+const getIconColor = (label: string) => {
+  switch (label) {
+    case "high":
+      return "bg-[rgba(18,183,106,1)]";
+    case "medium":
+      return "bg-[rgba(208,213,221,1)]";
+    case "low":
+      return "bg-[rgba(240,68,56,1)]";
+    default:
+      return "bg-transparent";
   }
-}
+};
 
 const Legends = ({ label, value, iconColor }: { label: string; value: number; iconColor: string }) => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -52,9 +57,8 @@ const Legends = ({ label, value, iconColor }: { label: string; value: number; ic
   );
 };
 
-export function LiveStockPerformanceCard({ type, performance }) {
-  
-
+export function LiveStockPerformanceCard({ type, performance }: { type: string; performance: IStockPerformace }) {
+  const { isLoggedIn } = useContext(AuthContext);
   const options = {
     responsive: true,
     maintainAspectRatio: true,
@@ -62,18 +66,17 @@ export function LiveStockPerformanceCard({ type, performance }) {
   };
 
   const label = type === "LIVE" ? "Live Stock Performance" : "Exited Stock Performance ";
-  const chartData = Object.entries(performance || {})
+  const chartData = isLoggedIn ? Object.entries(performance || {}) : Object.entries({ high: 19, medium: 8, low: 6 });
   const data = {
     datasets: [
       {
         label: "# of Votes",
-        data: chartData.map(item=>item[1]),
+        data: chartData.map((item) => item[1]),
         borderWidth: 1,
-        backgroundColor: ["rgba(18, 183, 106, 1)", "rgba(208, 213, 221, 1)", "rgba(240, 68, 56, 1)",],
+        backgroundColor: ["rgba(18, 183, 106, 1)", "rgba(208, 213, 221, 1)", "rgba(240, 68, 56, 1)"],
       },
     ],
   };
-  // console.log(chartLabel,chartValue,Object.entries(performance))
 
   return (
     <div className=" p-4 pt-3 bg-white rounded-xl w-full">
@@ -92,4 +95,4 @@ export function LiveStockPerformanceCard({ type, performance }) {
   );
 }
 
-export default LiveStockPerformanceCard
+export default LiveStockPerformanceCard;

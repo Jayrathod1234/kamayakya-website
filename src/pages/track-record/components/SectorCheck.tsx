@@ -19,10 +19,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
-import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 
 export default function SectorCheck() {
-  const { stockSector, setIsChangeFilter } = useStockPicks();
+  const { stockSector, setIsChangeFilter } = useTrackRecordCommon();
   const { sector, setSector } = useTrackRecord();
   const sector_list_arr = Object.keys(stockSector || {});
 

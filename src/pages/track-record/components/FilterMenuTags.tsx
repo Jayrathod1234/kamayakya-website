@@ -6,8 +6,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import StrategyCheck from "./StrategyCheck";
 import SectorCheck from "./SectorCheck";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import { useTrackRecord } from "@/contexts/trackRecordContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 
 const FilterCarousel = () => {
   const [showLeftButton, setShowLeftButton] = useState(false);
@@ -19,7 +20,7 @@ const FilterCarousel = () => {
     setIsChangeFilter,
     changablestrategyTags,
     removePopularStrategies,
-  } = useStockPicks();
+  } = useTrackRecordCommon();
   const { sector } = useTrackRecord();
 
   const carouselRef = useRef(null);

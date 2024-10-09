@@ -33,8 +33,10 @@ export function HeroCardSection() {
             bestStocks={trackRecordDashboardStats?.live_recommendations?.top_gainer}
             worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
             newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_new_recommendations}
+            stock_live_prices = {trackRecordDashboardStats?.live_recommendations?.top_gainer?.stock_live_prices}
           />
           <TrackRecordHeroCard
+          {...trackRecordDashboardStats}
             type={"EXIT"}
             recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
             averageReturns={trackRecordDashboardStats?.exits_stock?.average_exit_returns}
@@ -42,6 +44,7 @@ export function HeroCardSection() {
             bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
             worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
             newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
+            stock_live_prices = {trackRecordDashboardStats?.exits_stock?.worst_exit?.stock_live_prices}
           />
         </>
       )}

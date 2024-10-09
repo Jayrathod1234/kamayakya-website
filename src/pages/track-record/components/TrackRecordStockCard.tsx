@@ -1,4 +1,4 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
+import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
 import { abbreviateTime } from "@/lib/date-formatter";
 import { useContext } from "react";
 import AuthContext from "@/components/AuthContext";
@@ -9,6 +9,22 @@ import { Tooltip as MuiTooltip } from "@mui/material";
 import { TargetChip } from "@/components.v3/common/TargetChip";
 import Link from "next/link";
 import LineChart from "@/components.v3/common/LineChart";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
+import Tooltip from "@/components.v3/common/Tooltip";
+
+const WatchVideo = ({ isBlur = false }: { isBlur?: boolean }) => {
+  const { isLoggedIn, isSubscribed } = useContext(AuthContext);
+  return (
+    <div
+      className={` group/watch-video flex items-center  gap-x-[6px] cursor-pointer duration-300 w-[28px] overflow-hidden  transition-all ${
+        !isLoggedIn || isBlur ? " blur-[2px]" : "hover:w-[128px]"
+      }`}
+    >
+      <img height={28} width={28} className=" h-7 w-7" src="/assets/play.gif" />
+      <p className="whitespace-nowrap">Watch Video</p>
+    </div>
+  );
+};
 
 const getMascotImg = (action: string) => {
   switch (action) {
@@ -47,7 +63,7 @@ export const TrackRecordStockCard = ({
 any) => {
   const { isLoggedIn, isSubscribed, handleLogin } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
-  const { stockSector } = useStockPicks();
+  const { stockSector } = useTrackRecordCommon();
   let tabImage = null;
   let bgColor = "bg-[white]";
   let newIconClass = "-5px";
@@ -82,21 +98,25 @@ any) => {
           ) : (
             <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate">{stock_name}</h4>
           )}
-
-          <a
-            className={` text-inherit ${!isLoggedIn || !stock_name ? "pointer-events-none" : ""}`}
-            href={latest_youtube_video?.youtube_title}
-            target="_blank"
-          >
-            <div
-              className={` group/watch-video flex items-center  gap-x-[6px] cursor-pointer duration-300 w-[28px] overflow-hidden hover:w-[128px] transition-all ${
-                !isLoggedIn ? " blur-[2px]" : ""
-              }`}
+          {(isLoggedIn && stock_name? ( latest_youtube_video?.youtube_title ?
+            (<a
+              className={` text-inherit ${!isLoggedIn || !stock_name ? "pointer-events-none" : ""}`}
+              href={latest_youtube_video?.youtube_title}
+              target="_blank"
             >
-              <img height={28} width={28} className=" h-7 w-7" src="/assets/play.gif" />
-              <p className="whitespace-nowrap">Watch Video</p>
-            </div>
-          </a>
+              <WatchVideo />
+            </a>):null
+          ) : (
+            <Tooltip
+              enableModal={false}
+              tooltipTrigger={<WatchVideo isBlur={true} />}
+              tooltipContent={
+                <p className=" text-2xs text-gray-800 max-w-[150px]">
+                  {isLoggedIn ? "Please become a member to watch this video. " : "Please login to watch video "}
+                </p>
+              }
+            />
+          ))}
         </div>
 
         <div className="pt-[12px]">
@@ -107,10 +127,10 @@ any) => {
                 {stock_tags?.length > 0 ? (
                   <MuiTooltip title={stockSector[sector] ?? sector}>
                     <p className="text-[10px] font-semibold text-orange-700 font-open_sans normal-case">
-                      {/* {stockSector[sector]?.length > 10
+                      {stockSector[sector]?.length > 10
                         ? `${stockSector[sector].substring(0, 10)}...`
-                        : stockSector[sector]} */}
-                      {sector}
+                        : stockSector[sector]}
+                      {/* {sector} */}
                     </p>
                   </MuiTooltip>
                 ) : (
@@ -145,12 +165,14 @@ any) => {
         {/* CHART SECTION */}
 
         <LineChart
+          // fetchIndividual={false}
           stock_targets={stock_targets}
           entry_price={entry_price}
           created={created}
           stock_live_prices={stock_live_prices}
           stock_exchange={stock_exchange}
           stock_id={id}
+          stock_action={action}
           containerClassName={"relative h-[180px] w-full py-5"}
         />
 
@@ -158,57 +180,92 @@ any) => {
         {/* BOTTOM SECTION */}
         <div className="p-1 pr-4 rounded-[4px] flex gap-x-4 bg-[rgba(249,250,251,1)]">
           {/* Total Returns */}
-          <div
-            className={`  rounded-lg ${
-              is_returns_positive
-                ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
-                : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
-            } px-3 py-2 min-w-[140px]`}
-          >
-            <p className=" text-4xs font-bold text-white">Total Returns</p>
-            <div className={` flex gap-x-[2px] ${!isLoggedIn || (!isSubscribed && !stock_name) ? "pt-[10px]" : ""}`}>
-              <img
-                width={15}
-                height={11}
-                src={is_returns_positive ? "/assets/Polygon2.svg" : "/assets/Polygon 3.svg"}
-                alt=""
-              />
-              {!isLoggedIn || !total_returns ? (
-                <div className=" h-5 w-[93px] bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0"></div>
-              ) : (
-                <p className=" text-xl font-bold text-white m-0">{total_returns}%</p>
-              )}
+          <div className=" flex items-center">
+            <div
+              className={`  rounded-lg ${
+                is_returns_positive
+                  ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
+                  : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
+              } px-3 py-2 min-w-[120px]`}
+            >
+              <p className=" text-4xs font-bold text-white">
+                {action === "SELL" && target_status !== "active"
+                  ? is_returns_positive
+                    ? "Profit Booked"
+                    : "Loss Booked"
+                  : "Total Returns"}
+              </p>
+              <div
+                className={` flex items-center gap-x-[4px] ${
+                  !isLoggedIn || (!isSubscribed && !stock_name) ? "pt-[10px]" : ""
+                }`}
+              >
+                <div className=" h-[14px] w-[14px] flex items-center justify-center">
+                  <img
+                    width={11}
+                    height={8}
+                    src={is_returns_positive ? "/assets/Polygon2.svg" : "/assets/Polygon2-dark.svg"}
+                    alt=""
+                  />
+                </div>
+                {!isLoggedIn || !total_returns ? (
+                  <div className=" h-5 w-[93px] bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0"></div>
+                ) : (
+                  <p className=" text-xl font-bold text-white !m-0">{total_returns}%</p>
+                )}
+              </div>
+              <p className=" !m-0 text-3xs font-semibold whitespace-nowrap text-white">
+                in {abbreviateTime(return_time)}
+              </p>
             </div>
-            <span className=" text-3xs font-semibold whitespace-nowrap text-white">
-              in {abbreviateTime(return_time)}
-            </span>
+            {action === "SELL" && target_status !== "active" ? (
+              <div className=" -ml-[14px] relative flex items-center before:-left-1 before:rounded-l-[4px] before:absolute before:content-[''] before:z-10 before:h-[26px] before:w-[18px]  before:bg-[#F9FAFB]">
+                <img
+                  className=" relative z-20"
+                  src={`/assets/${
+                    is_returns_positive && action === "SELL" ? "profit_booked_arrow" : "loss_booked_arrow"
+                  }.svg`}
+                />
+              </div>
+            ) : null}
           </div>
           {/* Total Returns End*/}
           {/* Upside Left */}
-          <div className=" flex flex-col justify-center">
-            <div className=" flex items-center gap-x-1">
-              <p className=" font-bold text-4xs text-[rgba(102,112,133,1)]">Upside Left</p>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger className=" h-[14px]">
-                    <img
-                      className="!h-[14px] !w-[14px] object-contain"
-                      height={14}
-                      width={14}
-                      src="/assets/blackinfo.svg"
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Add to library</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+          {action === "SELL" && target_status !== "active" ? null: <div className=" min-w-0 flex flex-col justify-center">
+            <div className=" flex items-center gap-x-1 min-w-0">
+              <p className=" font-bold whitespace-nowrap text-4xs text-[rgba(102,112,133,1)]">Upside Left</p>
+              <Tooltip
+                tooltipTrigger={
+                  <img
+                    className="!h-[14px] !w-[14px] object-contain"
+                    height={14}
+                    width={14}
+                    src="/assets/blackinfo.svg"
+                  />
+                }
+                tooltipContent={
+                  <div className="gap-[7px] items-center flex flex-col justify-center">
+                    <div className="text-gray-800 text-2xs font-normal">
+                      Upside Left means how much the stock price could rise from its current level.
+                    </div>
+                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 rounded-lg">
+                      <span className="text-[#108973] text-2xs font-bold">Example :</span>
+                      <p className="text-2xs text-gray-600 font-normal">
+                        If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                      </p>
+                    </div>
+
+                    {/* Modal Trigger (Visible on small screens only) */}
+                  </div>
+                }
+              />
             </div>
-            <p className=" text-xl font-bold text-[rgba(16,24,40,1)]">{upside_left}%</p>
-            <p className=" text-3xs font-semibold text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
-          </div>
-          <div className=" ml-auto mt-auto">
-            <img height={72} width={72} src={getMascotImg(action)} alt="action-mascot" />
+            <p className=" text-xl font-bold whitespace-nowrap text-[rgba(16,24,40,1)]">{upside_left}%</p>
+            <p className=" text-3xs font-semibold  truncate text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
+          </div>}
+         
+          <div className=" ml-auto mt-auto ">
+            <img className=" object-contain min-h-[72px] min-w-[72px]" height={72} width={72} src={getMascotImg(action)} alt="action-mascot" />
           </div>
           {/* Upside Left End  */}
         </div>
