@@ -178,7 +178,7 @@ any) => {
 
         {/* CHART SECTION END */}
         {/* BOTTOM SECTION */}
-        <div className="p-1 pr-4 rounded-[4px] flex gap-x-4 bg-[rgba(249,250,251,1)]">
+        <div className="p-1 sm:pr-4 rounded-[4px] flex gap-x-4 bg-[rgba(249,250,251,1)] ">
           {/* Total Returns */}
           <div className=" flex items-center">
             <div
@@ -186,10 +186,10 @@ any) => {
                 is_returns_positive
                   ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
                   : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
-              } px-3 py-2 min-w-[120px]`}
+              } px-3 py-2 sm:min-w-[120px]`}
             >
-              <p className=" text-4xs font-bold text-white">
-                {action === "SELL" && target_status !== "active"
+              <p className=" text-4xs font-bold text-white truncate">
+                {action === "SELL" && target_status !== "active" && isLoggedIn && isSubscribed
                   ? is_returns_positive
                     ? "Profit Booked"
                     : "Loss Booked"
@@ -209,7 +209,7 @@ any) => {
                   />
                 </div>
                 {!isLoggedIn || !total_returns ? (
-                  <div className=" h-5 w-[93px] bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0"></div>
+                  <div className=" h-5 w-[80%] bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0"></div>
                 ) : (
                   <p className=" text-xl font-bold text-white !m-0">{total_returns}%</p>
                 )}
@@ -218,7 +218,7 @@ any) => {
                 in {abbreviateTime(return_time)}
               </p>
             </div>
-            {action === "SELL" && target_status !== "active" ? (
+            {action === "SELL" && target_status !== "active" && isLoggedIn && isSubscribed ? (
               <div className=" -ml-[14px] relative flex items-center before:-left-1 before:rounded-l-[4px] before:absolute before:content-[''] before:z-10 before:h-[26px] before:w-[18px]  before:bg-[#F9FAFB]">
                 <img
                   className=" relative z-20"
@@ -264,7 +264,7 @@ any) => {
             <p className=" text-3xs font-semibold  truncate text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
           </div>}
          
-          <div className=" ml-auto mt-auto ">
+          <div className=" ml-auto mt-auto">
             <img className=" object-contain min-h-[72px] min-w-[72px]" height={72} width={72} src={getMascotImg(action)} alt="action-mascot" />
           </div>
           {/* Upside Left End  */}

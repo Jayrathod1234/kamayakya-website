@@ -18,10 +18,10 @@ import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import LoginPrompt from "./LoginPrompt";
 
-const ChipItem = ({ label, img, id,setOpen }: { label: string; img: string | null; id: string }) => {
+const ChipItem = ({ label, img, id, setOpen }: { label: string; img: string | null; id: string }) => {
   const router = useRouter();
-  const {isLoggedIn} = useContext(AuthContext)
-  const handleRouting = () => (id ? router.push(`/track-record/${id}`) :isLoggedIn ? setOpen(true):null );
+  const { isLoggedIn } = useContext(AuthContext);
+  const handleRouting = () => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpen(true) : null);
 
   return (
     <div onClick={handleRouting} className="!p-0 rounded-[4px]  hover:!bg-[rgba(244,255,255,1)] flex items-center">
@@ -54,29 +54,31 @@ const ChipItem = ({ label, img, id,setOpen }: { label: string; img: string | nul
   );
 };
 
-const BottomSheetItem = ({label,img,id,setOpen})=>{
+const BottomSheetItem = ({ label, img, id, setOpen }) => {
   const router = useRouter();
-  const {isLoggedIn} = useContext(AuthContext)
-  return <li
-  onClick={() => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpen(true):null)}
-  className=" px-4 py-[10px] flex gap-x-2 items-center"
->
-  {label ? (
-    <>
-      <img height={28} width={28} src={img} alt="stock-image" />
-      <p className=" text-sm text-gray-700">{label}</p>
-    </>
-  ) : (
-    <>
-      <span className=" flex items-center justify-center bg-[#FFF1CE] rounded-full">
-        <img height={15} width={15} src="/assets/noto_locked.png" alt="" />
-      </span>
-      <span className=" bg-[#EDF0F5] rounded-full h-[15px] w-1/2"></span>
-    </>
-  )}
-  <ArrowRight color="#475467" className=" ml-auto" height={16} width={16} />
-</li>
-}
+  const { isLoggedIn } = useContext(AuthContext);
+  return (
+    <li
+      onClick={() => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpen(true) : null)}
+      className=" px-4 py-[10px] flex gap-x-2 items-center"
+    >
+      {label ? (
+        <>
+          <img height={28} width={28} src={img} alt="stock-image" />
+          <p className=" text-sm text-gray-700">{label}</p>
+        </>
+      ) : (
+        <>
+          <span className=" flex items-center justify-center bg-[#FFF1CE] rounded-full">
+            <img height={15} width={15} src="/assets/noto_locked.png" alt="" />
+          </span>
+          <span className=" bg-[#EDF0F5] rounded-full h-[15px] w-1/2"></span>
+        </>
+      )}
+      <ArrowRight color="#475467" className=" ml-auto" height={16} width={16} />
+    </li>
+  );
+};
 
 const Chip = () => {
   return (
@@ -105,7 +107,7 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
           </button>
         </DrawerTrigger>
         <DrawerContent className=" rounded-t-[20px] ">
-          <div className="mx-auto w-full px-4 py-2">
+          <div className="mx-auto w-full px-4 py-2 open_sans ">
             <DrawerHeader className=" px-0 gap-3">
               <div className=" h-[160px] w-full bg-[linear-gradient(180deg,#FDC451_0%,#F8AB2B_100%)] rounded-[6px] flex justify-center items-end">
                 <img src="/assets/buyActionCall.png" height={151} width={151} alt="buy-action-call" />
@@ -113,13 +115,29 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
               <p className=" text-left font-bold px-4  text-lg text-[rgba(12,17,29,1)]">New Stock Picks</p>
             </DrawerHeader>
             <div className=" ">
-              <ul className=" !m-0">
-                {newRecommendation?.map((recommendation) => (
-                  <LoginPrompt>
-                    <BottomSheetItem label={recommendation.stock_name} img={recommendation.stock_image} id={recommendation.id}/>
-                  </LoginPrompt>
-                ))}
-              </ul>
+              {isLoggedIn ? (
+                <ul className=" !m-0">
+                  {newRecommendation?.map((recommendation) => (
+                    <LoginPrompt>
+                      <BottomSheetItem
+                        label={recommendation.stock_name}
+                        img={recommendation.stock_image}
+                        id={recommendation.id}
+                      />
+                    </LoginPrompt>
+                  ))}
+                </ul>
+              ) : (
+                <div className=" pt-[23px] pb-[59px] flex flex-col items-center justify-center">
+                  <div
+                    className=" bg-[#FFF1CE] h-14 w-14 flex items-center
+                   justify-center rounded-full"
+                  >
+                    <img height={36} width={36} src="/assets/noto_locked.png" alt="lock" />
+                  </div>
+                  <p className=" text-2xs text-[#667085]  mt-[10px]">Please <span className=" font-bold text-brand-500" onClick={handleLogin}>login</span> to view</p>
+                </div>
+              )}
             </div>
           </div>
         </DrawerContent>
@@ -138,16 +156,22 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
       {isLoggedIn ? (
         <HoverCardContent className="w-56 rounded-lg py-[6px] px-1">
           {newRecommendation?.map((recommendation) => (
-            <LoginPrompt><ChipItem id={recommendation.id} label={recommendation.stock_name} img={recommendation.stock_image} /></LoginPrompt>
+            <LoginPrompt>
+              <ChipItem id={recommendation.id} label={recommendation.stock_name} img={recommendation.stock_image} />
+            </LoginPrompt>
           ))}
         </HoverCardContent>
       ) : (
         <HoverCardContent className="w-[208px] rounded-lg py-7 px-1 flex flex-col items-center">
           <div className=" p-[10px] bg-[#FFF1CE] rounded-full">
-            <img height={36} width={36} src="/assets/noto_locked.png"  />
+            <img height={36} width={36} src="/assets/noto_locked.png" />
           </div>
           <p className=" mt-[10px] text-2xs text-[#667085] text-center">
-            Please <span onClick={handleLogin} className=" text-brand-500 font-bold underline cursor-pointer">login</span> to view
+            Please{" "}
+            <span onClick={handleLogin} className=" text-brand-500 font-bold underline cursor-pointer">
+              login
+            </span>{" "}
+            to view
           </p>
         </HoverCardContent>
       )}

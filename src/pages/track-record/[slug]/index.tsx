@@ -71,7 +71,7 @@ function StockDetailsSection() {
     setIsOpen(!isOpen);
   };
   if (error) {
-    router.push("/stock-picks");
+    router.push("/track-record");
     return;
   }
   const watch_video = timeline?.find((value) => value.type == "youtube");
@@ -247,14 +247,14 @@ function StockDetailsSection() {
               <div className="relative w-full sm:w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto ">
                 <div className="items-center gap-[13px]  py-[7px] sm:w-full w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto hidden sm:flex">
                   <Breadcrumb
-                    data={{ previousPath: [{ link: "/stock-picks", path: "Stocks To Buy" }], activePath: stock_name }}
+                    data={{ previousPath: [{ link: "/track-record", path: "Track Record" }], activePath: stock_name }}
                   />
                 </div>
 
                 {/* small screen banner of top navbar-tabs  */}
                 <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-0  z-50 ">
                   {/* Back Button */}
-                  <div className="" onClick={() => router.push("/stock-picks")}>
+                  <div className="" onClick={() => router.push("/track-record")}>
                     <img src="/assets/stock-details/arrow-left.svg" alt="Go Back" className="pl-[16px] pt-2 pr-3" />
                   </div>
                   {/* Tab Items */}
