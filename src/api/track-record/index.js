@@ -87,9 +87,10 @@ export const getTrackDetailApi = async ({ stockId }) => {
   }
 };
 
-export const getBseLivePrice = async(sebiBoardType)=>{
+export const getBseLivePrice = async(sebiBoardType,stockId)=>{
   try {
-    const URL = `/user/bseStocksLivePrice?type=${sebiBoardType}`;
+
+    let URL = `/user/bseStocksLivePrice?type=${sebiBoardType}&stock_id=${stockId}`;
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
     // console.log(response)

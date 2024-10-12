@@ -19,6 +19,8 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 import LoginPrompt from "./LoginPrompt";
 import LineChart from "@/components.v3/common/LineChart";
 import TopGainerLoserChart from "./TopGainerLoserChart";
+import { IStockPrices } from "@/types";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -71,13 +73,17 @@ export const TopGainerLoserCard = ({
   type,
   isBest,
   stockStat,
-  setOpen,
+  // setOpen,
   stock_live_prices,
-}: {
+}: // entry_price,
+// start_date,
+{
   action?: string;
   type: string;
   isBest: boolean;
   stockStat: any;
+  stock_live_prices: IStockPrices[];
+  // setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   const isBlur = !isLoggedIn || (stockStat.action === "BUY" && isLoggedIn && !isSubscribed);
@@ -93,11 +99,14 @@ export const TopGainerLoserCard = ({
       : null
     : null;
   const router = useRouter();
-  console.log(stock_live_prices)
+  const { setOpenMembershipModal } = useTrackRecord();
+
   return (
     // <LoginPrompt>
     <div
-      onClick={() => stockStat?.id ? router.push(`/track-record/${stockStat.id}`) : isLoggedIn ? setOpen(true):null}
+      onClick={() =>
+        stockStat?.id ? router.push(`/track-record/${stockStat.id}`) : isLoggedIn ? setOpenMembershipModal(true) : null
+      }
       className="group/gainer-loser transition-shadow duration-300 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
  flex flex-col bg-white rounded-[9px] p-4 h-fit sm:h-[176px] flex-1 relative cursor-pointer min-w-0 "
     >
@@ -138,8 +147,10 @@ export const TopGainerLoserCard = ({
           </svg>
         </div>
         <div className=" my-5 sm:my-0  h-10 w-[98px]">
-          {Array.isArray(stock_live_prices) && stock_live_prices.length > 0 ?  <TopGainerLoserChart stock_live_prices={stock_live_prices} />:null}
-          
+          {Array.isArray(stock_live_prices) && stock_live_prices.length > 0 ? (
+            <TopGainerLoserChart stock_live_prices={stock_live_prices} />
+          ) : null}
+
           {/* <Line
             className=""
             options={CHART_OPTION}
@@ -185,7 +196,9 @@ export const TopGainerLoserCard = ({
         </div>
         <div
           className={`flex items-center gap-y-[10px] ${
-            isBlur || (stockStat && !stockStat.stock_name) ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row" : "flex-wrap "
+            isBlur || (stockStat && !stockStat.stock_name)
+              ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row"
+              : "flex-wrap "
           }  gap-x-[8px]  justify-center sm:justify-between`}
         >
           {isBlur || (stockStat && !stockStat.stock_name) ? (

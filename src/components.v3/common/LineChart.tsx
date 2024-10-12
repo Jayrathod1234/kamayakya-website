@@ -22,6 +22,7 @@ import { getBseLivePrice, getNseLivePrice } from "@/api/track-record";
 import "chartjs-adapter-date-fns";
 import { format, parse } from "date-fns";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
+import { useMediaQuery } from "@mui/material";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -71,10 +72,10 @@ export default function LineChart({
   stock_exchange: string;
   stock_live_prices: any[];
   stock_targets: any[];
-  stock_action:string;
+  stock_action: string;
 }) {
   const { sebiBoardType } = useTrackRecordCommon();
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   const { stockSector } = useTrackRecordCommon();
   const { status, data, error, isFetching } = useQuery({
     queryKey: ["bseLivePrice", sebiBoardType],
@@ -287,8 +288,9 @@ export default function LineChart({
     tooltipEl.style.pointerEvents = "none";
     let targetIndex = stock_targets?.findIndex((item) => item.target_price === price);
     let targetLabel =
-      targetIndex === 0 && stock_action === "SELL" && stock_targets[targetIndex].target_met ? "Exit Price":
-      targetIndex >= 0
+      targetIndex === 0 && stock_action === "SELL" && stock_targets[targetIndex].target_met
+        ? "Exit Price"
+        : targetIndex >= 0
         ? `Target ${stock_targets?.length - targetIndex}`
         : entry_price === price
         ? "Entry Price"
@@ -389,7 +391,11 @@ export default function LineChart({
               yValue: target.target_price,
               backgroundColor: "transparent",
               borderColor: "transparent",
-              pointStyle: target.target_met ? i===0 && stock_action=== "SELL" ? exit_mark: target_met_img : target_active_img,
+              pointStyle: target.target_met
+                ? i === 0 && stock_action === "SELL"
+                  ? exit_mark
+                  : target_met_img
+                : target_active_img,
               radius: 8,
               enter: handleAnnotationTooltip,
               leave: (context) => {
@@ -398,45 +404,45 @@ export default function LineChart({
               },
             });
         }
-        
-        if(i=== 0 && !target_not_met && stock_action === "SELL") return
-        arr.push({
-          type:'label',
-          // xValue:new Date(target.created).getTime(),
-          // xScaleId:"x",
-          yValue: target.target_price, 
-          font: {
-              family: "Open Sans",
-              size: 10,
-              weight: 400,
-            },
-        
-            content: `Target ${stock_targets.length - i}`,
-            backgroundColor: "transparent",
-            color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
-            xAdjust:(ctx) => {
-              // Get chart width and calculate xAdjust dynamically
-              const chartWidth = ctx.chart.chartArea.width;
-              console.log(chartWidth)
-              return chartWidth/2 + 20;  // adjust this to position it properly
-            },
-        })
+
+        if (i === 0 && !target_not_met && stock_action === "SELL") return;
         arr.push({
           type: "label",
-        
+          // xValue:new Date(target.created).getTime(),
+          // xScaleId:"x",
+          yValue: target.target_price,
+          font: {
+            family: "Open Sans",
+            size: 10,
+            weight: 400,
+          },
+
+          content: isMobile ? `T${stock_targets.length - i}` : `Target ${stock_targets.length - i}`,
+          backgroundColor: "transparent",
+          color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
+          xAdjust: (ctx) => {
+            // Get chart width and calculate xAdjust dynamically
+            const chartWidth = ctx.chart.chartArea.width;
+            console.log(chartWidth);
+            return isMobile ? chartWidth / 2 + 15:chartWidth / 2 + 25; // adjust this to position it properly
+          },
+        });
+        arr.push({
+          type: "label",
+
           yValue: target.target_price,
           // label: {
           //   display: true,
           //   // clip:false,
-            content: target.target_met ? check_mark : target_not_met ? cross_mark : target_active_img,
-            backgroundColor: "transparent",
-            color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
+          content: target.target_met ? check_mark : target_not_met ? cross_mark : target_active_img,
+          backgroundColor: "transparent",
+          color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
           //   position: "end",
-            xAdjust:(ctx) => {
-              // Get chart width and calculate xAdjust dynamically
-              const chartWidth = ctx.chart.chartArea.width;
-              return chartWidth/2 + 45;  // adjust this to position it properly
-            },
+          xAdjust: (ctx) => {
+            // Get chart width and calculate xAdjust dynamically
+            const chartWidth = ctx.chart.chartArea.width;
+            return isMobile ? chartWidth / 2 + 26:chartWidth / 2 + 50; // adjust this to position it properly
+          },
           // },
         });
         arr.push({
@@ -461,8 +467,6 @@ export default function LineChart({
           //   xAdjust: 60,
           // },
         });
-
-        
       });
 
       // Current price marker
@@ -528,7 +532,7 @@ export default function LineChart({
           spanGaps: true,
           layout: {
             padding: {
-              right: 60,
+              right: isLoggedIn ? (isMobile ? 30 : 60) : 0,
             },
           },
           responsive: true,
@@ -554,6 +558,7 @@ export default function LineChart({
             },
           },
           scales: {
+            
             x: {
               type: "timeseries", // Use time scale
 
@@ -566,6 +571,7 @@ export default function LineChart({
               },
 
               ticks: {
+                display:isLoggedIn ? true: false,
                 // stepSize: 6,
                 align: "start",
                 source: "auto",
@@ -601,6 +607,9 @@ export default function LineChart({
               },
             },
             y: {
+              ticks:{
+                display:isLoggedIn ? true: false,
+              },
               grid: {
                 color: "#f7f7f7",
               },

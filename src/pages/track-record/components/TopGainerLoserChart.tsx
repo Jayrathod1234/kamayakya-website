@@ -14,6 +14,7 @@ import {
   TimeScale,
   TimeSeriesScale,
 } from "chart.js";
+import { IStockPrices } from "@/types";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -27,8 +28,16 @@ ChartJS.register({
   TimeSeriesScale,
 });
 
-export default function TopGainerLoserChart({stock_live_prices, entry_price, start_date}) {
-  const [markerAnnotation,setMarkerAnnotaion] = useState([])
+export default function TopGainerLoserChart({
+  stock_live_prices,
+  entry_price,
+  start_date,
+}: {
+  stock_live_prices: IStockPrices[];
+  entry_price?: string;
+  start_date?: string;
+}) {
+  const [markerAnnotation, setMarkerAnnotaion] = useState([]);
   const entry_img = new Image();
   entry_img.height = 8;
   entry_img.width = 8;
@@ -42,14 +51,13 @@ export default function TopGainerLoserChart({stock_live_prices, entry_price, sta
 
     // Format the parsed date (optional)
     const formattedDate = format(parsedDate, "yyyy-MM-dd HH:mm:ss");
-    console.log(formattedDate)
-    return formattedDate
+    console.log(formattedDate);
+    return formattedDate;
   };
-  console.log(stock_live_prices)
 
   // useEffect(() => {
   //   const arr = [];
-
+  //   if(!entry_price) return
   //   // Entry point annotation
   //   arr.push({
   //     type: "point",
@@ -67,7 +75,7 @@ export default function TopGainerLoserChart({stock_live_prices, entry_price, sta
   //   });
   //   arr.push({
   //     type: "line",
-  //     borderColor:"#EDF0F5"
+  //     borderColor:"#EDF0F5",
   //     borderWidth: 1,
   //     borderDash: [6, 6],
   //     scaleID: "y",
@@ -75,68 +83,71 @@ export default function TopGainerLoserChart({stock_live_prices, entry_price, sta
   //   });
 
   //   setMarkerAnnotaion(arr);
-  // }, [stock_live_prices]);
+  // }, [stock_live_prices,entry_price]);
 
-  return <Line
-        className=""
-        options={{
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false,
-            },
-            // annotation: {
-            //   clip: false,
-            //   common: {
-            //     drawTime: "afterDraw", // Important: Draw annotations after the chart
-            //   },
-            //   annotations: {
-            //     ...markerAnnotation,
-            //     // targetIconAnnotation,
+  return (
+    <Line
+      className=""
+      options={{
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          // annotation: {
+          //   clip: false,
+          //   common: {
+          //     drawTime: "afterDraw", // Important: Draw annotations after the chart
+          //   },
+          //   annotations: {
+          //     ...markerAnnotation,
+          //     // targetIconAnnotation,
+          //   },
+          // },
+          tooltip: {
+            enabled: false,
+            // position: "nearest",
+            // external: externalTooltipHandler,
+          },
+        },
+        scales: {
+          x: {
+            type: "timeseries", // Use time scale
+
+            // time: {
+            //   unit: "hour",
+            //   displayFormats: {
+            //     day: "MMM d",
+            //     hour: "HH:mm",
             //   },
             // },
-            tooltip: {
-              enabled: false,
-              // position: "nearest",
-              // external: externalTooltipHandler,
-            },
-          },
-          scales: {
-            x: {
-              type: "timeseries", // Use time scale
 
-              // time: {
-              //   unit: "hour",
-              //   displayFormats: {
-              //     day: "MMM d",
-              //     hour: "HH:mm",
-              //   },
-              // },
-
-              display:false
-            },
-            y: {
-              display:false,
-            },
+            display: false,
           },
-        }}
-        data={{
-          labels: stock_live_prices.filter((x) => x && x.date).map((x) => {
-            const date = formatData(x)
-            return new Date(date).getTime()
+          y: {
+            display: false,
+          },
+        },
+      }}
+      data={{
+        labels: stock_live_prices
+          .filter((x) => x && x.date)
+          .map((x) => {
+            const date = formatData(x);
+            return new Date(date).getTime();
           }),
-          datasets: [
-            {
-              fill: false,
-              data: stock_live_prices.filter((row) => row && row.price).map((row) => row?.price),
-              borderColor: "#00645A",
-              pointStyle: false,
-              tension: 0,
-              borderWidth: 1,
-            },
-          ],
-        }}
-      />
-
+        datasets: [
+          {
+            fill: false,
+            data: stock_live_prices.filter((row) => row && row.price).map((row) => row?.price),
+            borderColor: "#00645A",
+            pointStyle: false,
+            tension: 0,
+            borderWidth: 1,
+          },
+        ],
+      }}
+    />
+  );
 }

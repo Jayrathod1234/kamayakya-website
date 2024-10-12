@@ -1368,7 +1368,7 @@ function DrawerFilter() {
                       label={
                         <Box className="items-start !important font-open_sans capitalize flex">
                           Market Cap
-                          {!!marketCapType && (
+                          {marketCapType?.length>0 && (
                             <>
                               <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                                 <svg
@@ -1458,7 +1458,7 @@ function DrawerFilter() {
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">
                         Risk
-                        {!!risk && (
+                        {risk?.length>0 && (
                           <>
                             <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                               <svg

@@ -72,7 +72,7 @@ export default function TrackRecordMain() {
       </main>
       <Filters />
       {/* Stock Lists */}
-      <section className="  bg-[linear-gradient(180deg,#EDF0F5_0%,rgba(242,244,247,0.5)_100%)]">
+      <section className=" pb-[80px]  bg-[linear-gradient(180deg,#EDF0F5_0%,rgba(242,244,247,0.5)_100%)]">
         <div ref={showFilterRef} className="main-container relative">
           <LegendSection />
           <TrackRecordList />

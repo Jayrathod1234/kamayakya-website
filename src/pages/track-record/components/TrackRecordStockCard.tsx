@@ -5,7 +5,7 @@ import AuthContext from "@/components/AuthContext";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { sectorIcons } from "@/utils/constants.js";
 import DeepValue from "../../../components.v3/common/DeepValue";
-import { Tooltip as MuiTooltip } from "@mui/material";
+import { Tooltip as MuiTooltip, useMediaQuery } from "@mui/material";
 import { TargetChip } from "@/components.v3/common/TargetChip";
 import Link from "next/link";
 import LineChart from "@/components.v3/common/LineChart";
@@ -64,6 +64,7 @@ any) => {
   const { isLoggedIn, isSubscribed, handleLogin } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
   const { stockSector } = useTrackRecordCommon();
+  const isMobile = useMediaQuery('(max-width:600px)')
   let tabImage = null;
   let bgColor = "bg-[white]";
   let newIconClass = "-5px";
@@ -144,7 +145,7 @@ any) => {
               }`}
               activeIconClass=" h-[10px] w-[10px]"
               activeIcon
-              target_number={`${target_number} at ${latest_target_price ? `₹${latest_target_price}` : ""}`}
+              target_number={isMobile ?`${target_number?.slice(0,1)+target_number?.split(" ")[1]} ${latest_target_price ? `: ₹${latest_target_price}` : ""}` :`${target_number} at ${latest_target_price ? `₹${latest_target_price}` : ""}`}
               active={target_status === "active" ? true : false}
             />
             {/* <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
@@ -186,7 +187,7 @@ any) => {
                 is_returns_positive
                   ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
                   : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
-              } px-3 py-2 sm:min-w-[120px]`}
+              } px-3 py-2 ${action === "SELL" && target_status !== "active" ? "min-w-[120px]": "min-w-[100px]"} sm:min-w-[157px]`}
             >
               <p className=" text-4xs font-bold text-white truncate">
                 {action === "SELL" && target_status !== "active" && isLoggedIn && isSubscribed

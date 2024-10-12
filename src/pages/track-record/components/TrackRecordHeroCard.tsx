@@ -44,7 +44,9 @@ export const TrackRecordHeroCard = ({
   bestStocks,
   worstStocks,
   newRecommendation,
-  stock_live_prices
+  stock_live_prices,
+  // entry_price,
+  // start_date,
 }: TTrackRecordHeroCard) => {
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const recommendationLabel =
@@ -97,10 +99,10 @@ export const TrackRecordHeroCard = ({
       {/* Lower Section */}
       <div className=" flex mt-4 gap-3">
         <LoginPrompt>
-          <TopGainerLoserCard stock_live_prices={stock_live_prices} type={type} isBest={true} stockStat={bestStocks} />
+          <TopGainerLoserCard  stock_live_prices={stock_live_prices} type={type} isBest={true} stockStat={bestStocks} />
         </LoginPrompt>
         <LoginPrompt>
-          <TopGainerLoserCard stock_live_prices={stock_live_prices} type={type} isBest={false} stockStat={worstStocks} />
+          <TopGainerLoserCard  stock_live_prices={stock_live_prices} type={type} isBest={false} stockStat={worstStocks} />
         </LoginPrompt>
       </div>
       {/* Lower Section end */}

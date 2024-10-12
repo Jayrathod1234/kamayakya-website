@@ -13,14 +13,15 @@ import { useStockPicks } from "@/contexts/StockPicksContext";
 import React, { useContext, useState } from "react";
 import StockCard from '../../../components.v3/common/StockCard'
 import Link from "next/link";
-export default function LoginPrompt({ children }) {
-  const [open, setOpen] = useState(false);
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
+export default function LoginPrompt({ children }:{children:React.ReactElement;}) {
+  const {openMembershipModal, setOpenMembershipModal} = useTrackRecord();
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
   // const { stockSector } = useStockPicks();
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger onClick={() => setOpen(true)} asChild>
-        {React.cloneElement(children, { setOpen })}
+    <Dialog open={openMembershipModal} onOpenChange={setOpenMembershipModal}>
+      <DialogTrigger onClick={() => setOpenMembershipModal(true)} asChild>
+        {children}
       </DialogTrigger>
       <DialogContent className=" !rounded-3xl bg-[url(/assets/grid.png)] bg-cover w-[calc(100%-32px)] max-w-[780px] max-h-fit sm:max-h-[90dvh] !p-0">
         <div className=" p-[40px] flex flex-col items-center min-w-0">

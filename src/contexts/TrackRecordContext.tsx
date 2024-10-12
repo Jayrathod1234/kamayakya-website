@@ -36,6 +36,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
   const [risk, setRisk] = useState([]);
   const [totalFilterCount, setTotalFilterCount] = useState(0);
   const [actionCall, setActionCall] = useState([]);
+  const [openMembershipModal,setOpenMembershipModal] = useState(false);
   /** Total filter count logic */
   const getFilterCount = () =>
     (upsideLeft[0] === min_upside_left && upsideLeft[1] === max_upside_left ? 0 : 1) +
@@ -71,15 +72,15 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     }
   }, [changablestrategyTags, isChangeFilter]); // Include `source` in the dependency array
 
-  const handleResetFilters = async () => {
-    await setRecency(initialFilterTime);
-    await setTimeLeft(initialFilterTime);
-    await setUpsideLeft([min_upside_left, max_upside_left]);
-    await setReturns([min_returns, max_returns]);
-    await setMarketCapType([]);
-    await setRisk([]);
-    await setSector([]);
-    await setStrategyTag([]);
+  const handleResetFilters = () => {
+     setRecency(initialFilterTime);
+     setTimeLeft(initialFilterTime);
+     setUpsideLeft([min_upside_left, max_upside_left]);
+     setReturns([min_returns, max_returns]);
+     setMarketCapType([]);
+     setRisk([]);
+     setSector([]);
+     setStrategyTag([]);
     setActionCall([])
     // setOpen(false);
     setTotalFilterCount(0);
@@ -178,6 +179,8 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
         refetch,
         actionCall,
         setActionCall,
+        openMembershipModal,
+        setOpenMembershipModal
       }}
     >
       {children}
