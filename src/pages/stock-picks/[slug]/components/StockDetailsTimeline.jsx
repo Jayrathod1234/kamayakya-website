@@ -25,6 +25,7 @@ export default function StockDetailsTimeline({ timeline }) {
   const mp = getMixPanelClient();
 
   const handleTimeButtonClick = (step) => {
+    console.log(step?.document)
     if (step.type == "report") {
       const currentTime = new Date().getTime();
       setOpenReportTime(currentTime); // Set the open time
@@ -32,8 +33,10 @@ export default function StockDetailsTimeline({ timeline }) {
         page: "StockPicksDetail_Page",
         report_details: step,
       });
+      console.log("LINK ", step.document)
+      window.open(step?.document, "_blank");
       setReportDetail(step); // Set the PDF URL
-      setReportOpen(true); // Open the modal
+      // setReportOpen(true); // Open the modal
     } else {
       mp.track("youtube_video_clicked", {
         page: "StockPicksDetail_Page",
@@ -53,7 +56,7 @@ export default function StockDetailsTimeline({ timeline }) {
         report_details: reportDetail,
       }); // Track the event when the PDF is closed
     }
-    setReportOpen(false);
+    // setReportOpen(false);
     setReportDetail(null); // Set the PDF URL
   };
 
