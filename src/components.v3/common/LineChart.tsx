@@ -522,7 +522,6 @@ export default function LineChart({
       return currentData;
     });
   }, [data]);
-  console.log(liveData);
 
   return (
     <div className={cn(" relative w-full", containerClassName)}>
@@ -571,11 +570,12 @@ export default function LineChart({
               },
 
               ticks: {
+                
                 display:isLoggedIn ? true: false,
                 // stepSize: 6,
                 align: "start",
                 source: "auto",
-                autoSkip: false,
+                autoSkip: false ,
                 callback(tickValue, index, ticks) {
                   let annotationXValues = Object.keys(markerAnnotation).map((key) => markerAnnotation[key].xValue);
                   annotationXValues = annotationXValues
@@ -595,7 +595,7 @@ export default function LineChart({
 
                   // Format the parsed date
                   const formattedDate = format(parsedDate, "do MMM");
-                  return index % 3 === 0 ? formattedDate : "";
+                  return  index % 2 === 0 ? formattedDate : "";
                   // : "";
                 },
                 maxRotation: 0,

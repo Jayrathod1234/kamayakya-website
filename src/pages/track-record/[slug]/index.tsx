@@ -23,6 +23,7 @@ import Layout from "../../../layout/Layout";
 import LineChart from "@/components.v3/common/LineChart";
 import { TrackRecordProvider } from "@/contexts/TrackRecordContext";
 import { TrackRecordCommonProvider } from "@/contexts/TrackRecordCommonContext";
+import { Carousel, CarouselItem, CarouselContent } from "@/components.v2/ui/carousel";
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -163,10 +164,11 @@ function StockDetailsSection() {
   };
   const [activeTab, setActiveTab] = useState("Summary");
   const [isManualScroll, setIsManualScroll] = useState(false); // Flag to prevent scroll effect temporarily
-  const tabs = ["Summary", "Upside Left", "Reports", "News"];
+  const tabs = ["Summary", "Returns", "Reports", "News"];
+  const [api, setApi] = useState();
   const newsRef = useRef(null);
   const summaryRef = useRef(null);
-  const UpsideLeftRef = useRef(null);
+  const returnsRef = useRef(null);
   const ReportsRef = useRef(null);
   const handleTabClick = (tab) => {
     setIsManualScroll(true); // Disable scroll handling
@@ -179,8 +181,8 @@ function StockDetailsSection() {
       case "Summary":
         element = summaryRef.current;
         break;
-      case "Upside Left":
-        element = UpsideLeftRef.current;
+      case "Returns":
+        element = returnsRef.current;
         break;
       case "Reports":
         element = ReportsRef.current;
@@ -210,7 +212,7 @@ function StockDetailsSection() {
       if (isManualScroll) return; // Skip handling scroll if a tab click is in progress
       const scrollPosition = window.pageYOffset + 80; // Add offset for when to consider a section visible
       const summaryTop = summaryRef.current?.offsetTop || 0;
-      const UpsideLeftTop = UpsideLeftRef.current?.offsetTop || 0;
+      const UpsideLeftTop = returnsRef.current?.offsetTop || 0;
       const ReportsTop = ReportsRef.current?.offsetTop || 0;
       const newsTop = newsRef.current?.offsetTop || 0;
 
@@ -219,8 +221,8 @@ function StockDetailsSection() {
         setActiveTab("News");
       } else if (ReportsRef.current && scrollPosition >= ReportsTop) {
         setActiveTab("Reports");
-      } else if (UpsideLeftRef.current && scrollPosition >= UpsideLeftTop) {
-        setActiveTab("Upside Left");
+      } else if (returnsRef.current && scrollPosition >= UpsideLeftTop) {
+        setActiveTab("Returns");
       } else if (summaryRef.current && scrollPosition >= summaryTop) {
         setActiveTab("Summary");
       }
@@ -233,6 +235,14 @@ function StockDetailsSection() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [isManualScroll]);
+
+  useEffect(() => {
+    if (!api) return;
+    if (activeTab === "Summary") api.scrollTo(0);
+    if (activeTab === "Returns") api.scrollTo(1);
+    if (activeTab === "Reports") api.scrollTo(2);
+    if (activeTab === "News") api.scrollTo(3);
+  }, [api, activeTab]);
 
   if (!items) return;
 
@@ -252,13 +262,51 @@ function StockDetailsSection() {
                 </div>
 
                 {/* small screen banner of top navbar-tabs  */}
-                <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-0  z-50 ">
+                <div className="w-full  mx-auto bg-white flex items-center sm:hidden shadow-lg sticky top-0  z-50 ">
                   {/* Back Button */}
-                  <div className="" onClick={() => router.push("/track-record")}>
-                    <img src="/assets/stock-details/arrow-left.svg" alt="Go Back" className="pl-[16px] pt-2 pr-3" />
-                  </div>
+
                   {/* Tab Items */}
-                  <div className="flex  ">
+                  {/* Add carousel ele */}
+                  <Carousel setApi={setApi} className=" flex py-[18px] items-center w-full">
+                    <div className="pl-[16px]" onClick={() => router.push("/track-record")}>
+                      <svg
+                        className=" pt-1"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="arrow-left">
+                          <path
+                            id="Icon (Stroke)"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M8.51724 3.2069C8.81719 3.49256 8.82877 3.96729 8.5431 4.26724L4.75 8.25L15 8.25C15.4142 8.25 15.75 8.58579 15.75 9C15.75 9.41421 15.4142 9.75 15 9.75L4.75 9.75L8.5431 13.7328C8.82877 14.0327 8.81719 14.5074 8.51724 14.7931C8.21729 15.0788 7.74256 15.0672 7.4569 14.7672L2.4569 9.51724C2.18103 9.22759 2.18103 8.77242 2.4569 8.48276L7.4569 3.23276C7.74256 2.93281 8.21729 2.92123 8.51724 3.2069Z"
+                            fill="#475467"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                    <CarouselContent className="">
+                      {tabs.map((tab) => (
+                        <CarouselItem className="  basis-auto ">
+                          <a
+                            key={tab}
+                            onClick={() => handleTabClick(tab)}
+                            className={`pb-2 ${
+                              activeTab === tab
+                                ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
+                                : "text-gray-500 px-[10px] py-[18px] text-sm"
+                            }`}
+                          >
+                            {tab}
+                          </a>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                  {/* <div className="flex  ">
                     {tabs.map((tab) => (
                       <a
                         key={tab}
@@ -272,7 +320,7 @@ function StockDetailsSection() {
                         {tab}
                       </a>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
                 {/* details  */}
                 <div className="pt-[19px] mb-[80px]  ">
@@ -380,7 +428,7 @@ function StockDetailsSection() {
 
                                 <div className="pt-1.5 flex gap-0 sm:gap-1.5 flex-wrap w-full">
                                   <div className="flex gap-4 w-full justify-center  md:justify-start">
-                                    <div className="flex flex-wrap gap-[8px] sm:gap-[8px] items-center ">
+                                    <div className="flex flex-wrap gap-[8px] sm:gap-[8px] items-center max-sm:justify-center ">
                                       {/* Show all chips in tablet size and larger, and only 2 chips in mobile size */}
                                       {stock_tags
                                         .slice(0, showAll || !isMobile ? stock_tags.length : 2)
@@ -472,7 +520,7 @@ function StockDetailsSection() {
                             <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                               <div className="flex w-full justify-between items-baseline gap-x-1">
                                 <p className="text-[#475467] text-2xs sm:text-sm font-semibold sm:font-medium font-open_sans">
-                                  {stock_exchange.includes("SME") ? "SME" : `${market_cap_type} Cap`}
+                                {stock_exchange.includes("SME") ? "SME": `${market_cap_type || ""} Cap`} 
                                 </p>
                                 <span className="text-[#667085] inline-block text-ellipsis text-2xs font-normal font-open_sans">
                                   {market_cap} Cr. as of{" "}
@@ -870,7 +918,7 @@ function StockDetailsSection() {
                       {/* Small Responsive size View Open the box  */}
                       <div
                         className="block rounded-lg sm:hidden bg-white p-4  shadow-md max-w-full mx-auto mt-5"
-                        ref={UpsideLeftRef}
+                        ref={returnsRef}
                         id="upside-left-section"
                       >
                         <div className="  rounded-2xl border border-[#F2F4F7] bg-[#F9FAFB]">
