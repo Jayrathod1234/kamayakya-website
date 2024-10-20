@@ -87,7 +87,7 @@ any) => {
       {tabImage && (
         <img src={`/assets/${tabImage}.webp`} alt="" className="w-[210px] h-5 object-contain absolute -top-[6px]" />
       )}
-      <div className=" p-5 bg-white max-h-[451px] w-full lg:max-w-[630px] rounded-lg overflow-hidden">
+      <div className=" p-5 px-4 sm:px-5 bg-white max-h-[451px] w-full lg:max-w-[630px] rounded-lg overflow-hidden">
         {/* TOP SECTION */}
         <div className=" flex gap-x-2 items-center justify-between">
           {isBlur || !stock_name ? (
@@ -262,7 +262,7 @@ any) => {
               />
             </div>
             <p className=" text-xl font-bold whitespace-nowrap text-[rgba(16,24,40,1)]">{upside_left}%</p>
-            <p className=" text-3xs font-semibold  truncate text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
+            <p className=" text-3xs font-semibold  text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
           </div>}
          
           <div className=" ml-auto mt-auto">
