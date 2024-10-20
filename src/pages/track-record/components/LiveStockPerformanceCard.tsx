@@ -39,14 +39,16 @@ const getIconColor = (label: string) => {
   }
 };
 
-const Legends = ({ label, value, iconColor }: { label: string; value: number; iconColor: string }) => {
+const Legends = ({ label, value, iconColor, type }: { label: string; value: number; iconColor: string;type:string; }) => {
   const { isLoggedIn } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
+  let legend = label === "high" && type === "LIVE" ? "High (>15%)" : label === "medium" && type === "LIVE" ? "Medium (<15% to >-15%)" :label === "low" && type === "LIVE" ? "Low (>-15%)" : label === "high" && type === "EXIT" ? "Profit Exits (>15%)" : label === "low" && type === "EXIT" ? "Loss Exits (>-15%)":""
+  
   return (
     <div className="flex items-baseline ">
-      <div className=" flex items-baseline gap-x-1">
+      <div className=" flex items-baseline gap-x-1 min-w-0">
         <div className={` h-2 w-2 rounded-full  ${iconColor}`}></div>
-        <p className=" text-2xs text-[rgba(102,112,133,1)] ">{label}</p>
+        <p className=" text-2xs text-[rgba(102,112,133,1)] truncate  ">{legend}</p>
       </div>
       {isBlur ? (
         <div className=" w-[23px] h-[14px] bg-[rgba(241,241,241,1)] rounded-full ml-auto"></div>
@@ -66,7 +68,7 @@ export function LiveStockPerformanceCard({ type, performance }: { type: string; 
   };
 
   const label = type === "LIVE" ? "Live Stock Performance" : "Exited Stock Performance ";
-  const chartData = isLoggedIn ? Object.entries(performance || {}) : Object.entries({ high: 19, medium: 8, low: 6 });
+  const chartData = isLoggedIn ? Object.entries(performance || {}) : Object.entries({ high: 19, medium: 8, low: 2 });
   const data = {
     datasets: [
       {
@@ -87,7 +89,7 @@ export function LiveStockPerformanceCard({ type, performance }: { type: string; 
         </div>
         <div className=" h-full flex flex-col gap-y-3 w-full">
           {chartData.map((legend, index) => (
-            <Legends label={legend[0]} iconColor={getIconColor(legend[0])} value={legend[1]} />
+            <Legends type={type} label={legend[0]} iconColor={getIconColor(legend[0])} value={legend[1]} />
           ))}
         </div>
       </div>

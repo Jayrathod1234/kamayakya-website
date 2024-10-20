@@ -424,7 +424,7 @@ export default function LineChart({
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
             console.log(chartWidth);
-            return isMobile ? chartWidth / 2 + 15:chartWidth / 2 + 25; // adjust this to position it properly
+            return isMobile ? chartWidth / 2 + 15 : chartWidth / 2 + 25; // adjust this to position it properly
           },
         });
         arr.push({
@@ -441,7 +441,7 @@ export default function LineChart({
           xAdjust: (ctx) => {
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
-            return isMobile ? chartWidth / 2 + 26:chartWidth / 2 + 50; // adjust this to position it properly
+            return isMobile ? chartWidth / 2 + 26 : chartWidth / 2 + 50; // adjust this to position it properly
           },
           // },
         });
@@ -522,7 +522,6 @@ export default function LineChart({
       return currentData;
     });
   }, [data]);
-  console.log(liveData);
 
   return (
     <div className={cn(" relative w-full", containerClassName)}>
@@ -558,7 +557,6 @@ export default function LineChart({
             },
           },
           scales: {
-            
             x: {
               type: "timeseries", // Use time scale
 
@@ -571,11 +569,13 @@ export default function LineChart({
               },
 
               ticks: {
-                display:isLoggedIn ? true: false,
+                display: isLoggedIn ? true : false,
                 // stepSize: 6,
                 align: "start",
                 source: "auto",
-                autoSkip: false,
+                autoSkip: true, // Automatically skip labels
+                autoSkipPadding: isMobile ? 5 : 20, // Add padding between labels based on screen size
+                maxTicksLimit: isMobile ? 6 : 8, //
                 callback(tickValue, index, ticks) {
                   let annotationXValues = Object.keys(markerAnnotation).map((key) => markerAnnotation[key].xValue);
                   annotationXValues = annotationXValues
@@ -595,7 +595,7 @@ export default function LineChart({
 
                   // Format the parsed date
                   const formattedDate = format(parsedDate, "do MMM");
-                  return index % 3 === 0 ? formattedDate : "";
+                  return (isMobile ? index % 4 === 0 : index % 2 === 0) ? formattedDate : "";
                   // : "";
                 },
                 maxRotation: 0,
@@ -607,8 +607,8 @@ export default function LineChart({
               },
             },
             y: {
-              ticks:{
-                display:isLoggedIn ? true: false,
+              ticks: {
+                display: isLoggedIn ? true : false,
               },
               grid: {
                 color: "#f7f7f7",

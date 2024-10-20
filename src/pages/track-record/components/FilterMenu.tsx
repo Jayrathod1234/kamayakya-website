@@ -13,6 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import StrategyCheck from "./StrategyCheck";
 import SectorCheck from "./SectorCheck";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
+import LegendSection from "./LegendSection";
 
 function Filtermenu() {
   const { searchStock, setSearchStock, sector } = useTrackRecord();
@@ -106,7 +107,7 @@ function Filtermenu() {
                     backgroundColor: isMobile ? "transparent" : "#f2f4f7",
                   }}
                 >
-                  <Carousel className=" flex sticky_filter-carousel">
+                  {isMobile  ? <Carousel className=" flex sticky_filter-carousel">
                     <CarouselContent opts={{ containScroll: "trimSnaps" }} className="flex justify-between  pl-2">
                       {isMobile && (
                         <>
@@ -208,12 +209,13 @@ function Filtermenu() {
                     <CarouselNext
                       className={` z-50 h-7 w-7 p-1 right-0  top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]`}
                     />
-                  </Carousel>
+                  </Carousel> : <LegendSection className=" !py-0" />}
+                  
                 </Box>
               </Box>
             </div>
           </div>
-          <div className="  flex sm:gap-[10px] gap-2 items-center sm:order-2 order-1 ">
+          <div className=" ml-auto  flex sm:gap-[10px] gap-2 items-center sm:order-2 order-1 ">
             <div className=" items-center">
               {!isMobile ? (
                 <>
@@ -287,6 +289,10 @@ function Filtermenu() {
             )}
           </div>
         </div>
+        {isMobile && <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto"> 
+        <LegendSection className=" pt-0 pb-2"/>
+        </div>}
+        
       </div>
     </>
   );
