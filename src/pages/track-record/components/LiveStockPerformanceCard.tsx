@@ -42,13 +42,13 @@ const getIconColor = (label: string) => {
 const Legends = ({ label, value, iconColor, type }: { label: string; value: number; iconColor: string;type:string; }) => {
   const { isLoggedIn } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
-  let legend = label === "high" && type === "LIVE" ? "High" : label === "medium" && type === "LIVE" ? "Medium" :label === "low" && type === "LIVE" ? "Low" : label === "high" && type === "EXIT" ? "Profit Exits" : label === "low" && type === "EXIT" ? "Loss Exits":""
+  let legend = label === "high" && type === "LIVE" ? "High (>15%)" : label === "medium" && type === "LIVE" ? "Medium (<15% to >-15%)" :label === "low" && type === "LIVE" ? "Low (>-15%)" : label === "high" && type === "EXIT" ? "Profit Exits (>15%)" : label === "low" && type === "EXIT" ? "Loss Exits (>-15%)":""
   
   return (
     <div className="flex items-baseline ">
-      <div className=" flex items-baseline gap-x-1">
+      <div className=" flex items-baseline gap-x-1 min-w-0">
         <div className={` h-2 w-2 rounded-full  ${iconColor}`}></div>
-        <p className=" text-2xs text-[rgba(102,112,133,1)] ">{legend}</p>
+        <p className=" text-2xs text-[rgba(102,112,133,1)] truncate  ">{legend}</p>
       </div>
       {isBlur ? (
         <div className=" w-[23px] h-[14px] bg-[rgba(241,241,241,1)] rounded-full ml-auto"></div>
