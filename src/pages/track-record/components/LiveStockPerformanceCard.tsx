@@ -48,7 +48,7 @@ const Legends = ({ label, value, iconColor, type }: { label: string; value: numb
     <div className="flex items-baseline ">
       <div className=" flex items-baseline gap-x-1 min-w-0">
         <div className={` h-2 w-2 rounded-full  ${iconColor}`}></div>
-        <p className=" text-2xs text-[rgba(102,112,133,1)] truncate  ">{legend}</p>
+        <p className=" text-2xs text-[rgba(102,112,133,1)] line-clamp-1  ">{legend}</p>
       </div>
       {isBlur ? (
         <div className=" w-[23px] h-[14px] bg-[rgba(241,241,241,1)] rounded-full ml-auto"></div>
