@@ -100,15 +100,19 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
 
   if (isMobile) {
     return (
-      <Drawer>
+      <Drawer open={openDropDown} onOpenChange={setOpenDropDown}>
         <DrawerTrigger asChild>
           <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
             3 New <span className="hidden sm:inline-block">Recommendations</span>
           </button>
         </DrawerTrigger>
-        <DrawerContent className=" rounded-t-[20px] ">
-          <div className="mx-auto w-full px-4 py-2 open_sans ">
-            <DrawerHeader className=" px-0 gap-3">
+        <DrawerContent className=" rounded-t-[20px] bg-transparent border-none outline-none">
+          <button onClick={()=>setOpenDropDown(false)} className=" h-9 w-9 rounded-full bg-white flex items-center justify-center mx-auto mb-5">
+            <img src="/assets/x-close.svg"/>
+          </button>
+          <div className="mx-auto w-full px-4 py-2 open_sans bg-white rounded-t-[20px] ">
+            <div className=" w-12 h-1 bg-[#98A2B3] rounded-full mx-auto"></div>
+            <DrawerHeader className=" px-0 gap-3 pt-2">
               <div className=" h-[160px] w-full bg-[linear-gradient(180deg,#FDC451_0%,#F8AB2B_100%)] rounded-[6px] flex justify-center items-end">
                 <img src="/assets/buyActionCall.png" height={151} width={151} alt="buy-action-call" />
               </div>
@@ -144,7 +148,7 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
       </Drawer>
     );
   }
-  console.log("NOT MOBILE");
+  
 
   return (
     <HoverCard open={openDropDown} openDelay={0} onOpenChange={setOpenDropDown}>

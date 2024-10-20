@@ -32,7 +32,7 @@ export default function TrackRecordHero() {
         {/* Sebi chip end */}
         {/* heading and subtext */}
         <h1 className=" text-display-lg font-bold text-white mt-4 mb-3 z-10 text-center">Unveiling Our Track Record</h1>
-        <p className=" text-md text-[rgba(208,213,221,1)] z-10 text-center">
+        <p className=" text-md text-[rgba(208,213,221,1)] z-10 text-center min-w-[328px] mx-auto">
           Our victories, our misses - all in the open. Your trust is earned, not assumed
         </p>
         {/* heading and subtext end  */}
