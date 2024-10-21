@@ -38,10 +38,10 @@ export default function LoginPrompt({ children }:{children:React.ReactElement;})
             </Link>
           </div>
 
-          <div className=" hidden sm:flex justify-center items-center max-w-full max-h-fit  overflow-hidden mx-auto relative min-w-0 scale-[.85] -mt-8 md:scale-[.80] md:-mt-6">
-            <StockCard className=" relative left-[25%] md:left-[15%] scale-[.60] md:scale-75 -top-16 max-h-[265px] w-full max-w-[227px]" recommended_stock={true} is_blur={true}/>
-            <StockCard className=" scale-90 md:scale-100 max-h-fit  max-w-[345px] z-20" recommended_stock={true} is_blur={true}/>
-            <StockCard className=" relative right-[25%] md:right-[15%] scale-[.60] md:scale-75 -top-16   max-h-[265px] max-w-[227px]" recommended_stock={true} is_blur={true}/>
+          <div className="  hidden sm:flex justify-center items-center max-w-full max-h-fit  overflow-hidden mx-auto relative min-w-0 scale-[.85] -mt-8 md:scale-[.80] md:-mt-6">
+            <StockCard className=" membership__modal relative left-[25%] md:left-[15%] scale-[.60] md:scale-75 -top-16 max-h-[265px] w-full max-w-[227px]" recommended_stock={true} is_blur={true}/>
+            <StockCard className="  membership__modal scale-90 md:scale-100 max-h-fit  max-w-[345px] z-20" recommended_stock={true} is_blur={true}/>
+            <StockCard className="membership__modal relative right-[25%] md:right-[15%] scale-[.60] md:scale-75 -top-16   max-h-[265px] max-w-[227px]" recommended_stock={true} is_blur={true}/>
           </div>
         </div>
       </DialogContent>

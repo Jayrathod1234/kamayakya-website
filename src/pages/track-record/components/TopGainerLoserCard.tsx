@@ -75,9 +75,13 @@ export const TopGainerLoserCard = ({
   stockStat,
   // setOpen,
   stock_live_prices,
+  entry_price,
+  start_date
 }: // entry_price,
 // start_date,
 {
+  entry_price:string;
+  start_date:string;
   action?: string;
   type: string;
   isBest: boolean;
@@ -148,7 +152,7 @@ export const TopGainerLoserCard = ({
         </div>
         <div className=" my-5 sm:my-0  h-10 w-[98px]">
           {Array.isArray(stock_live_prices) && stock_live_prices.length > 0 ? (
-            <TopGainerLoserChart stock_live_prices={stock_live_prices} />
+            <TopGainerLoserChart entry_price={entry_price} start_date={start_date} stock_live_prices={stock_live_prices} />
           ) : null}
 
           {/* <Line

@@ -271,7 +271,7 @@ export default function LineChart({
     const title = context.element.options.xValue; // Example title
     const price = context.element.options.yValue; // Example price
     // const parsedDate = parse(title, "MMM d, yyyy, h:mm:ss a", new Date());
-    console.log(title);
+    // console.log(title);
     // Format it to "12th July 2023 11:32"
     // const formattedDate = format(parsedDate, "do MMM yyyy  HH:mm");
     // Get the annotation position relative to the chart canvas
@@ -423,7 +423,7 @@ export default function LineChart({
           xAdjust: (ctx) => {
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
-            console.log(chartWidth);
+            // console.log(chartWidth);
             return isMobile ? chartWidth / 2 + 15 : chartWidth / 2 + 25; // adjust this to position it properly
           },
         });
@@ -497,14 +497,14 @@ export default function LineChart({
     setLiveData(() => {
       let currentData = stock_live_prices ? stock_live_prices : [];
       if (data && data.length > 0) {
-        console.log("ENTER HERE");
+        // console.log("ENTER HERE");
         currentData = currentData.concat(
           data.flatMap((prev) => {
             // console.log(prev.stock_live_data)
             return prev.stock_id === stock_id ? prev.stock_live_data : null;
           })
         );
-        console.log(currentData);
+        // console.log(currentData);
       }
       currentData = currentData
         .map((item) => {
@@ -559,7 +559,7 @@ export default function LineChart({
           scales: {
             x: {
               type: "timeseries", // Use time scale
-
+              
               time: {
                 unit: "hour",
                 displayFormats: {
@@ -602,15 +602,18 @@ export default function LineChart({
                 // stepSize:9000
               },
               grid: {
+                display:false,
                 offset: true,
                 color: "#f7f7f7",
               },
             },
             y: {
+              
               ticks: {
                 display: isLoggedIn ? true : false,
               },
               grid: {
+                display:false,
                 color: "#f7f7f7",
               },
             },

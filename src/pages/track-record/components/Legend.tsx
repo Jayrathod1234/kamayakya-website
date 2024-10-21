@@ -7,10 +7,12 @@ export default function Legend({
   label,
   icon,
   tooltipContent,
+  dialogHeader,
 }: {
   label: string;
   icon: string | React.ReactNode;
   tooltipContent?: React.ReactNode;
+  dialogHeader?:string;
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -30,7 +32,7 @@ export default function Legend({
       )}
       <p className=" text-2xs text-[rgba(102,112,133,1)] whitespace-nowrap">{label}</p>
       {tooltipContent && (
-        <Tooltip tooltipTrigger={<img height={16} width={16} src="/assets/ph_info-duotone-white.svg" />} tooltipContent={tooltipContent}/>
+        <Tooltip dialogHeader={dialogHeader} tooltipTrigger={<img height={16} width={16} src="/assets/ph_info-duotone-white.svg" />} tooltipContent={tooltipContent}/>
         // <TooltipProvider delayDuration={0}>
         //   <Tooltip open={open} onOpenChange={setOpen}>
         //     <TooltipTrigger

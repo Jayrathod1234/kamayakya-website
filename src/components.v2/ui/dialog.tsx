@@ -50,10 +50,16 @@ const DialogContent = React.forwardRef<
             page: "Pricing_Page",
           });
         }}
-        className="absolute right-4 top-4 p-[6px] rounded-full opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-0 focus:ring-slate-950 focus:ring-offset-0 disabled:pointer-events-none data-[state=open]:bg-slate-100 data-[state=open]:text-slate-500 dark:ring-offset-slate-950 dark:focus:ring-slate-300 dark:data-[state=open]:bg-slate-800 dark:data-[state=open]:text-slate-400 bg-white border border-[#E4E7EC]"
+        className={cn("absolute right-4 top-4 p-[6px] rounded-full opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-0 focus:ring-slate-950 focus:ring-offset-0 disabled:pointer-events-none data-[state=open]:bg-slate-100 data-[state=open]:text-slate-500 dark:ring-offset-slate-950 dark:focus:ring-slate-300 dark:data-[state=open]:bg-slate-800 dark:data-[state=open]:text-slate-400 bg-white border border-[#E4E7EC]",props.closeClassName)}
       >
-        <X className="h-6 w-6" />
-        <span className="sr-only">Close</span>
+        {props.closeButton ? (
+          props.closeButton
+        ) : (
+          <>
+            <X className="h-6 w-6" />
+            <span className="sr-only">Close</span>
+          </>
+        )}
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
