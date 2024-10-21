@@ -34,6 +34,10 @@ export function HeroCardSection() {
             worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
             newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_new_recommendations}
             stock_live_prices = {trackRecordDashboardStats?.live_recommendations?.top_gainer?.stock_live_prices}
+            entry_price_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.entry_price}
+            start_date_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.start_date}
+            entry_price_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.entry_price}
+            start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
           />
           <TrackRecordHeroCard
           {...trackRecordDashboardStats}
@@ -45,6 +49,10 @@ export function HeroCardSection() {
             worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
             newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
             stock_live_prices = {trackRecordDashboardStats?.exits_stock?.worst_exit?.stock_live_prices}
+            entry_price_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.entry_price}
+            start_date_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.start_date}
+            entry_price_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.entry_price}
+            start_date_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.start_date}
           />
         </>
       )}

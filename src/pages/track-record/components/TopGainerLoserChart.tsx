@@ -51,39 +51,39 @@ export default function TopGainerLoserChart({
 
     // Format the parsed date (optional)
     const formattedDate = format(parsedDate, "yyyy-MM-dd HH:mm:ss");
-    console.log(formattedDate);
+    // console.log(formattedDate);
     return formattedDate;
   };
 
-  // useEffect(() => {
-  //   const arr = [];
-  //   if(!entry_price) return
-  //   // Entry point annotation
-  //   arr.push({
-  //     type: "point",
-  //     xValue: new Date(start_date).getTime(), // Convert to timestamp
-  //     yValue: entry_price,
-  //     backgroundColor: "transparent",
-  //     borderColor: "transparent",
-  //     pointStyle: entry_img,
-  //     radius: 8,
-  //     // enter: handleAnnotationTooltip,
-  //     // leave: (context) => {
-  //     //   const tooltipEl = document.getElementById("annotation-tooltip");
-  //     //   if (tooltipEl) tooltipEl.style.opacity = "0";
-  //     // },
-  //   });
-  //   arr.push({
-  //     type: "line",
-  //     borderColor:"#EDF0F5",
-  //     borderWidth: 1,
-  //     borderDash: [6, 6],
-  //     scaleID: "y",
-  //     value: entry_price,
-  //   });
+  useEffect(() => {
+    const arr = [];
+    if(!entry_price) return
+    // Entry point annotation
+    // arr.push({
+    //   type: "point",
+    //   xValue: new Date(start_date).getTime(), // Convert to timestamp
+    //   yValue: entry_price,
+    //   backgroundColor: "transparent",
+    //   borderColor: "transparent",
+    //   pointStyle: entry_img,
+    //   radius: 8,
+    //   // enter: handleAnnotationTooltip,
+    //   // leave: (context) => {
+    //   //   const tooltipEl = document.getElementById("annotation-tooltip");
+    //   //   if (tooltipEl) tooltipEl.style.opacity = "0";
+    //   // },
+    // });
+    arr.push({
+      type: "line",
+      borderColor:"#EDF0F5",
+      borderWidth: 1,
+      borderDash: [2, 2],
+      scaleID: "y",
+      value: entry_price,
+    });
 
-  //   setMarkerAnnotaion(arr);
-  // }, [stock_live_prices,entry_price]);
+    setMarkerAnnotaion(arr);
+  }, [stock_live_prices,entry_price]);
 
   return (
     <Line
@@ -95,16 +95,16 @@ export default function TopGainerLoserChart({
           legend: {
             display: false,
           },
-          // annotation: {
-          //   clip: false,
-          //   common: {
-          //     drawTime: "afterDraw", // Important: Draw annotations after the chart
-          //   },
-          //   annotations: {
-          //     ...markerAnnotation,
-          //     // targetIconAnnotation,
-          //   },
-          // },
+          annotation: {
+            clip: false,
+            common: {
+              drawTime: "afterDraw", // Important: Draw annotations after the chart
+            },
+            annotations: {
+              ...markerAnnotation,
+              // targetIconAnnotation,
+            },
+          },
           tooltip: {
             enabled: false,
             // position: "nearest",

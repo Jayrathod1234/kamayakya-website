@@ -2170,3 +2170,35 @@ header > div > div {
   @apply w-[115px] h-[70px] bg-white p-2 rounded-lg shadow-lg ;
 }
 
+
+.membership__modal:nth-child(1) .dotted__line:nth-child(3){
+  transform: scaleX(2);
+  transform-origin: left;
+ 
+}
+.membership__modal:nth-child(1) .solid__line:nth-child(2){
+  transform: scaleX(1.4);
+  transform-origin: left;
+ 
+}
+
+.membership__modal:nth-child(2) .dotted__line:nth-child(3){
+  transform: scaleX(1.2);
+  transform-origin: left;
+ 
+}
+.membership__modal:nth-child(2) .solid__line:nth-child(2){
+  transform: scaleX(1.2);
+  transform-origin: left;
+ 
+}
+
+.membership__modal:nth-child(3) .dotted__line:nth-child(3){
+  transform: scaleX(1.6);
+  transform-origin: left;
+}
+.membership__modal:nth-child(3) .solid__line:nth-child(2){
+  transform: scaleX(1.4);
+  transform-origin: left;
+ 
+}

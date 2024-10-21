@@ -13,6 +13,7 @@ export default function LegendSection({ className }: { className?: string }) {
         <CarouselContent className={cn(" items-center gap-x-3 sm:gap-x-10 py-5", className)}>
           <CarouselItem className=" basis-auto">
             <Legend
+            dialogHeader="Entry Price"
               label="Entry Point"
               icon="/assets/entry_marker.svg"
               tooltipContent={
@@ -50,6 +51,7 @@ export default function LegendSection({ className }: { className?: string }) {
           </CarouselItem>
           <CarouselItem className=" basis-auto">
             <Legend
+              dialogHeader="CMP"
               label="CMP"
               icon={
                 <Circle

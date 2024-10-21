@@ -5,6 +5,7 @@ import { useStockPicks } from "@/contexts/StockPicksContext";
 import AuthContext from "@/components/AuthContext";
 import Link from "next/link";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 
 function SearchPage() {
   const {
@@ -14,7 +15,7 @@ function SearchPage() {
     isLoading,
     error,
     fetchNextPage,
-  } = useAllBoardStock();
+  } = useTrackRecord();
 
   const { setSearchPageOpen, stockSector } = useTrackRecordCommon();
   // const { stockSector } = useStockPicks();
