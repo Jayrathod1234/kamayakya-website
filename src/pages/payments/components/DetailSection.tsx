@@ -12,6 +12,7 @@ const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       borderColor: "#0000000F",
+
       borderRadius: 6.2,
       // paddingVertical:"9px",
     },
@@ -53,14 +54,14 @@ export default function DetailSection() {
             fullWidth
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end">
+                <InputAdornment className="!pr-0" position="end">
                   <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
                     <p className="text-sm font-semibold">Send OTP</p>
                   </Button>
                 </InputAdornment>
               ),
             }}
-            className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+            className="!mt-[6px]  !py-[9px] !pr-[0px] !rounded-[6.2px] !border-[#0000000F]"
           />
           <p className="text-3xs text-gray-500 mt-[6px]">
             Mandatory as per SEBI rules (OTP will be sent to the mobile no. linked to your Aadhar Card)
