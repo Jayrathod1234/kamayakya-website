@@ -3,23 +3,21 @@ import { cn } from "../../../../lib/utils";
 import {  TooltipContent, TooltipProvider, TooltipTrigger } from "../../../../components.v2/ui/tooltip";
 import Tooltip from "@/components.v3/common/Tooltip";
 
-// const StockPerformanceCardTooltip = ({ tooltipTrigger, tooltipContent }) => {
-//   const [openTooltip, setOpenTooltip] = useState(false);
-
-//   const handleTrigger = (e) => {
-//     e.preventDefault();
-//     setOpenTooltip(true);
-//   };
-
-//   return (
-//     <TooltipProvider delayDuration={0}>
-//       <Tooltip open={openTooltip} onOpenChange={setOpenTooltip}>
-//         <TooltipTrigger onClick={handleTrigger}>{tooltipTrigger}</TooltipTrigger>
-//         <TooltipContent className="!shadow-none">{tooltipContent}</TooltipContent>
-//       </Tooltip>
-//     </TooltipProvider>
-//   );
-// };
+type TStockPerformanceCard = {
+  className?:string;
+  cagr_of_stock?:string;
+  label:string;
+  tooltip?:boolean;
+  tooltipTrigger?:React.ReactNode;
+  tooltipContent?:React.ReactNode;
+  value:number;
+  time:string;
+  icon:React.ReactNode;
+  valueClassname?:string;
+  timeClassname?:string;
+  labelClassname?:string;
+  iconContainerClassName?:string;
+}
 
 export default function StockPerformanceCard({
   className,
@@ -34,7 +32,8 @@ export default function StockPerformanceCard({
   valueClassname,
   timeClassname,
   labelClassname,
-}) {
+  iconContainerClassName,
+}:TStockPerformanceCard) {
   return (
     <div
       className={cn(
@@ -55,11 +54,11 @@ export default function StockPerformanceCard({
             </div>
           </div>
           <div className="flex justify-end">
-            <div className="p-2">{icon}</div>
+            <div className={cn(`p-2`,iconContainerClassName)}>{icon}</div>
           </div>
         </div>
       </div>
-      <div className={cn("flex mt-auto flex-row items-center gap-1 text-[24px] sm:text-[30px]  text-[#344054] font-bold",valueClassname)}>
+      <div className={cn("flex mt-auto flex-row items-center gap-1 text-[24px]  text-[#344054] font-bold",valueClassname)}>
         {label === "Upside Left" ? null : value >= 0 ? (
           <>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" viewBox="0 0 15 11" fill="none">

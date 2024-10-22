@@ -8,11 +8,13 @@ export default function Legend({
   icon,
   tooltipContent,
   dialogHeader,
+  iconSize=10,
 }: {
   label: string;
   icon: string | React.ReactNode;
   tooltipContent?: React.ReactNode;
   dialogHeader?:string;
+  iconSize?:number;
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -20,9 +22,9 @@ export default function Legend({
       {typeof icon === "string" ? (
         <span className="inline-block bg-white rounded-full border border-white">
           <img
-            className=" object-cover h-full w-full max-h-[10px] max-w-[10px]"
-            height={10}
-            width={10}
+            className=" object-cover"
+            height={iconSize}
+            width={iconSize}
             src={icon}
             alt="marker-icons"
           />

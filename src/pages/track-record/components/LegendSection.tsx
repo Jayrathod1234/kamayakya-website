@@ -6,7 +6,7 @@ import Circle from "@mui/icons-material/Circle";
 import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "@/components.v2/ui/carousel";
 
-export default function LegendSection({ className }: { className?: string }) {
+export default function LegendSection({ className, iconSize=10 }: { className?: string;iconSize?:number }) {
   return (
     
       <Carousel>
@@ -16,6 +16,7 @@ export default function LegendSection({ className }: { className?: string }) {
             dialogHeader="Entry Price"
               label="Entry Point"
               icon="/assets/entry_marker.svg"
+              iconSize={iconSize}
               tooltipContent={
                 <p className=" text-2xs whitespace-normal">
                   The price at which the stock recommendation was given by KamayaKya. You can buy the stock as long as
@@ -30,7 +31,7 @@ export default function LegendSection({ className }: { className?: string }) {
               icon={
                 <AdjustIcon
                   fontSize={"small"}
-                  className=" text-[#1ACE1B] QontoStepIcon-completedIcon !h-[10px] !w-[10px] border border-white bg-white rounded-full"
+                  className={` text-[#1ACE1B] QontoStepIcon-completedIcon !h-[${iconSize}px] !w-[${iconSize}px] border border-white bg-white max-w-fit !rounded-full `}
                 />
               }
             />
@@ -41,13 +42,13 @@ export default function LegendSection({ className }: { className?: string }) {
               icon={
                 <GpsFixedIcon
                   fontSize={"small"}
-                  className="QontoStepIcon-lastStepIcon text-[#FF7F09] !h-[10px] !w-[10px] border border-white rounded-full bg-white"
+                  className={`QontoStepIcon-lastStepIcon text-[#FF7F09] !h-[${iconSize}px] !w-[${iconSize}px] border border-white rounded-full max-w-fit bg-white`}
                 />
               }
             />
           </CarouselItem>
           <CarouselItem className=" basis-auto">
-            <Legend label="Exit Point" icon={"/assets/exit_icon.svg"} />
+            <Legend iconSize={iconSize} label="Exit Point" icon={"/assets/exit_icon.svg"} />
           </CarouselItem>
           <CarouselItem className=" basis-auto">
             <Legend
@@ -55,7 +56,7 @@ export default function LegendSection({ className }: { className?: string }) {
               label="CMP"
               icon={
                 <Circle
-                  className=" text-[#1D9387] !h-[10px] !w-[10px] border border-white rounded-full relative"
+                  className={ ` text-[#1D9387] !h-[${iconSize}px] !w-[${iconSize}px] max-w-fit  border border-white rounded-full relative`}
                   fontSize="small"
                 />
               }
