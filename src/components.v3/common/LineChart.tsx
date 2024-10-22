@@ -63,6 +63,7 @@ export default function LineChart({
   stock_live_prices,
   stock_targets,
   stock_action,
+  annotationSize =8,
 }: {
   fetchIndividual?: boolean;
   containerClassName: string;
@@ -73,6 +74,7 @@ export default function LineChart({
   stock_live_prices: any[];
   stock_targets: any[];
   stock_action: string;
+  annotationSize?:number
 }) {
   const { sebiBoardType } = useTrackRecordCommon();
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -90,20 +92,20 @@ export default function LineChart({
   const { isLoggedIn } = useContext(AuthContext);
   const [liveData, setLiveData] = useState([]);
   const entry_img = new Image();
-  entry_img.height = 8;
-  entry_img.width = 8;
+  entry_img.height = annotationSize;
+  entry_img.width = annotationSize;
   entry_img.src = "/assets/entry point.svg";
   const target_met_img = new Image();
-  target_met_img.height = 8;
-  target_met_img.width = 8;
+  target_met_img.height = annotationSize;
+  target_met_img.width = annotationSize;
   target_met_img.src = "/assets/target-met.svg";
   const target_active_img = new Image();
-  target_active_img.width = 8;
-  target_active_img.height = 8;
+  target_active_img.width = annotationSize;
+  target_active_img.height = annotationSize;
   target_active_img.src = "/assets/active-target.svg";
   const cmp_img = new Image();
-  cmp_img.height = 8;
-  cmp_img.width = 8;
+  cmp_img.height = annotationSize;
+  cmp_img.width = annotationSize;
   cmp_img.src = "/assets/cmp-pulse.svg";
   const check_mark = new Image();
   check_mark.src = "/assets/typcn_tick (1).svg";
@@ -111,8 +113,8 @@ export default function LineChart({
   cross_mark.src = "/assets/cross.svg";
   const exit_mark = new Image();
   exit_mark.src = "/assets/exit_icon.svg";
-  exit_mark.height = 8;
-  exit_mark.width = 8;
+  exit_mark.height = annotationSize;
+  exit_mark.width = annotationSize;
   const getOrCreateTooltip = (chart) => {
     let tooltipEl = chart.canvas.parentNode.querySelector("div");
 
@@ -575,7 +577,7 @@ export default function LineChart({
                 source: "auto",
                 autoSkip: true, // Automatically skip labels
                 autoSkipPadding: isMobile ? 5 : 20, // Add padding between labels based on screen size
-                maxTicksLimit: isMobile ? 6 : 8, //
+                maxTicksLimit: isMobile ? 5 : 8, //
                 callback(tickValue, index, ticks) {
                   let annotationXValues = Object.keys(markerAnnotation).map((key) => markerAnnotation[key].xValue);
                   annotationXValues = annotationXValues

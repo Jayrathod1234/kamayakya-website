@@ -1150,7 +1150,7 @@ function DrawerFilter() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[225px]">
+                    <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans">
                       Filters
                     </div>
                   </div>
