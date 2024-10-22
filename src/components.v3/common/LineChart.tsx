@@ -80,7 +80,7 @@ export default function LineChart({
   const isMobile = useMediaQuery("(max-width:600px)");
   const { stockSector } = useTrackRecordCommon();
   const { status, data, error, isFetching } = useQuery({
-    queryKey: ["bseLivePrice", sebiBoardType],
+    queryKey: ["bseLivePrice", sebiBoardType,stock_id],
     queryFn: () =>
       stock_exchange.includes("NSE")
         ? getNseLivePrice(sebiBoardType, fetchIndividual ? stock_id : null)
@@ -596,7 +596,7 @@ export default function LineChart({
                   }
 
                   // Format the parsed date
-                  const formattedDate = format(parsedDate, "do MMM");
+                  const formattedDate = format(parsedDate, "dd MMM");
                   return (isMobile ? index % 4 === 0 : index % 2 === 0) ? formattedDate : "";
                   // : "";
                 },
