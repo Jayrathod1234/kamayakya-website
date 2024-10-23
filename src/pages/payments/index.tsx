@@ -106,45 +106,57 @@ export default function Index() {
   const [margins, setMargins] = useState({ marginLeft: 0, marginRight: 0 });
   const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } = useDotButton(api);
   useEffect(() => {
-    // setMargins({
-    //   marginLeft:ref.current?.length ? ref.current[0]
-    // })
-  }, []);
+    const firstdiv = ref.current[0];
+    const lastdiv = ref.current[ref.current.length-1];
+    console.log("OFFSET WIDTH", firstdiv.offsetWidth, lastdiv.offsetWidth);
+    setMargins({
+      marginLeft: firstdiv.offsetWidth/2,
+      marginRight: lastdiv.offsetWidth,
+    });
+  }, [ref.current?.length]);
   return (
     <div className=" bg-white open_sans">
       <Header />
-      <div className=" flex main-container ">
-        <div className=" p-10 bg-white rounded-tl-3xl rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
+      <div className=" md:-mt-[10%] flex flex-col gap-y-4 md:flex-row main-container ">
+        <div className=" p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
           {/* stepper component */}
-          <Tabs defaultValue="review" className="">
-            <TabsList>
-              <TabsTrigger value="review">
-                <div
-                  ref={(el) => {
+          <Tabs defaultValue="review" className=" relative">
+            <div
+              style={{
+                width: `calc(80%-${margins.marginLeft + margins.marginRight}px)`,
+                // marginLeft: margins.marginLeft,
+                marginRight: margins.marginRight,
+              }}
+              className=" h-1 w-full bg-red-400 absolute top-[6px]"
+            ></div>
+            <TabsList className=" flex justify-between bg-transparent">
+              <TabsTrigger ref={(el) => {
                     ref.current[0] = el;
-                  }}
+                  }} className=" bg-transparent shadow-none" value="review">
+                <div
+                  
                   className="flex flex-col items-center "
                 >
                   <div className="h-8 w-8 rounded-full bg-gray-500"></div>
                   <p className=" text-2xs mt-[10px]">Review</p>
                 </div>
               </TabsTrigger>
-              <TabsTrigger value="details">
-                <div
-                  ref={(el) => {
+              <TabsTrigger ref={(el) => {
                     ref.current[1] = el;
-                  }}
+                  }} value="details">
+                <div
+                  
                   className="flex flex-col items-center "
                 >
                   <div className="h-8 w-8 rounded-full bg-gray-500"></div>
                   <p className=" text-2xs mt-[10px]">Details</p>
                 </div>
               </TabsTrigger>
-              <TabsTrigger value="payment">
+              <TabsTrigger ref={(el) => {
+                    ref.current[2] = el;
+                  }} value="payment">
                 <div
-                  ref={(el) => {
-                    ref.current[1] = el;
-                  }}
+                  
                   className="flex flex-col items-center "
                 >
                   <div className="h-8 w-8 rounded-full bg-gray-500"></div>
@@ -155,7 +167,9 @@ export default function Index() {
             <TabsContent value="review">
               <ReviewSection />
             </TabsContent>
-            <TabsContent className=" w-full" value="details"><DetailSection/></TabsContent>
+            <TabsContent className=" w-full" value="details">
+              <DetailSection />
+            </TabsContent>
             <TabsContent value="payment">Change your payments here.</TabsContent>
           </Tabs>
           <div className=" flex justify-between relative">
@@ -170,7 +184,7 @@ export default function Index() {
             </p>
           </div>
         </div>
-        <div className=" py-10 px-11 bg-[#D1F9EF99] w-full rounded-tr-3xl rounded-br-3xl border border-[#E3F1F1] border-l-0">
+        <div className=" py-10 px-11 min-w-0 bg-[#D1F9EF99] w-full max-md:rounded-3xl rounded-tr-3xl rounded-br-3xl border border-[#E3F1F1] border-l-0">
           <div className=" p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
             <div className=" p-5 pt-0 flex flex-col items-center justify-center w-full ">
               <div className="flex items-center ">
@@ -180,7 +194,7 @@ export default function Index() {
               </div>
               <p className=" text-sm mt-4 text-white">25 Stocks Exited</p>
             </div>
-            <div className=" mt-4 flex ">
+            <div className=" mt-4 flex justify-center ">
               <div className="flex flex-col items-center p-3 text-white">
                 <p className=" text-xl font-semibold">118%</p>
                 <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Average Exit Returns</p>
@@ -195,12 +209,12 @@ export default function Index() {
               </div>
             </div>
             <div className=" h-[1px] w-full my-5 bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x "></div>
-            <div className="flex items-center gap-x-4 ">
-              <Button className=" p-3" variant={ButtonVariant.primary}>
+            <div className="flex flex-wrap items-center gap-4 ">
+              <Button className=" flex-1 p-3" variant={ButtonVariant.primary}>
                 <p className=" text-2xs">Stocks Live</p>
                 <p className=" text-2xs font-bold mr-[10px]">30</p>
               </Button>
-              <Button className=" p-3 w-full" variant={ButtonVariant.primary}>
+              <Button className=" flex-1 p-3 " variant={ButtonVariant.primary}>
                 <p className=" text-2xs">Average Live Returns</p>
                 <p className=" text-2xs font-bold mr-[10px]">118%</p>
               </Button>

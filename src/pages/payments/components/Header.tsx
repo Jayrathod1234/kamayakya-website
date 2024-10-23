@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <div className="bg-[#F1FBFB]">
+    <div className="bg-[#F1FBFB] md:h-[341px]">
     <div className=" flex justify-between main-container py-7">
       <img
         className=" object-contain"
