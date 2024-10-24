@@ -85,6 +85,8 @@ const Testimonials = () => {
 					sx={{
 						display: "flex",
 						alignItems: "center",
+						justifyContent:"center",
+						rowGap:"50px",
 						flexWrap: "wrap",
 						padding: "0px",
 						"@media only screen and (max-width: 768px)": {
@@ -266,7 +268,7 @@ const Testimonials = () => {
 							</Text>
 						</div>
 					</Box>
-					{/* <Box
+					<Box
 							sx={{
 								// display: "flex",
 								minWidth: 500,
@@ -288,12 +290,13 @@ const Testimonials = () => {
 								}}
 							>
 								<img
-									src="/userFeedback_1.jpg"
+									src="/atharva-agashe.jpeg"
 									style={{
 										width: "95px",
 										height: "95px",
 										borderRadius: "1000px",
 										boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+										objectFit:"cover"
 									}}
 								/>
 							</div>
@@ -319,14 +322,7 @@ const Testimonials = () => {
 										},
 									}}
 								>
-									My experience with Kamayakya in both their smallcase and VIP+
-									website subscription has been great so far. Their in depth
-									analysis of stocks, understanding the market scenario and
-									balancing the risk reward ratio are unmatched in the industry.
-									Some of their small cap picks are truly gems that have created
-									huge wealth for their investors. I would highly recommend
-									investors to take their services to achieve their long term
-									financial goals.
+									I have been thoroughly impressed with Kamayakya.com's stock recommendations. Their picks have been spot on, and the inclusion of a specified time period for each recommendation provides a clear understanding of when to exit. This level of detail is invaluable for any investor! Additionally, I apply my own technical analysis to their selected stocks, which adds an extra layer of confidence to my investments. I highly recommend Kamayakya.com's subscription to any medium to long-term investor.
 								</Text>
 								<FaQuoteRight
 									color="#0f734d"
@@ -337,13 +333,14 @@ const Testimonials = () => {
 										alignSelf: "flex-end",
 									}}
 								/>
-								<Text b css={{ textAlign: "end", marginTop: "10px" }}>
+								<Text b css={{ textAlign: "center", marginTop: "10px" }}>
 									{" "}
-									- Kiran Sanghvi, Indus Properties
+									Atharva Agashe
+									Associated Director - FIS
 								</Text>
 							</div>
 						</Box>
-						<Box
+						{/*<Box 
 							sx={{
 								// display: "flex",
 								minWidth: 500,
