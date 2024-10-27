@@ -18,20 +18,20 @@ import AuthContext from "@/components/AuthContext";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 // Custom styled OutlinedInput
-export const CustomTextField = styled(TextField)({
+export const CustomTextField = styled(TextField, {
+  shouldForwardProp: (prop) => prop !== "error", // Prevents passing `error` to the DOM
+})(({ error }) => ({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#0000000F",
-
+      borderColor: error ? "#FDA29B" : "#0000000F",
       borderRadius: 6.2,
-      // paddingVertical:"9px",
     },
     "&.Mui-focused fieldset": {
       borderColor: "#00645A", // Focus color
       borderWidth: 2,
     },
     "& input:valid + fieldset": {
-      borderColor: "green",
+      borderColor: error ? "red" : "green",
       borderWidth: 1,
     },
     "& input": {
@@ -47,7 +47,8 @@ export const CustomTextField = styled(TextField)({
       borderWidth: 1,
     },
   },
-});
+}));
+
 interface IFormInput {
   aadhar: string;
   fullname: string;
@@ -72,7 +73,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     control,
     handleSubmit,
     formState: { errors },
-    getValues
+    getValues,
   } = useForm({
     defaultValues: {
       aadhar: "",
@@ -84,7 +85,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
       address: "",
     },
   });
-  const aadhar = getValues("aadhar")
+  const aadhar = getValues("aadhar");
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
   };
@@ -126,14 +127,14 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
       console.log(res);
     } catch (e) {}
   };
-  useEffect(() => {
-    if (errors.aadhar) {
-      toast({
-        variant: "warn",
-        title: errors.aadhar.message,
-      });
-    }
-  }, [errors]);
+  // useEffect(() => {
+  //   if (errors.aadhar) {
+  //     toast({
+  //       variant: "warn",
+  //       title: errors.aadhar.message,
+  //     });
+  //   }
+  // }, [errors]);
 
   return (
     <div className="mt-9">
@@ -163,6 +164,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                 render={({ field }) => (
                   <CustomTextField
                     {...field}
+                    error={errors.aadhar?.message ? true : false}
                     type="number"
                     id="aadhar-number"
                     // onChange={(e) => setAadhar(e.target.value)}
@@ -171,9 +173,28 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                     placeholder="Enter your Aadhar Card Number"
                     InputProps={{
                       endAdornment: (
-                        <InputAdornment className="!pr-0" position="end">
+                        <InputAdornment className="!pr-0 flex items-center gap-x-[10px]" position="end">
+                          {errors.aadhar?.message && (
+                            <svg
+                              width="16"
+                              height="17"
+                              viewBox="0 0 16 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M8.00016 5.98334V8.65M8.00016 11.3167H8.00683M14.6668 8.65C14.6668 12.3319 11.6821 15.3167 8.00016 15.3167C4.31826 15.3167 1.3335 12.3319 1.3335 8.65C1.3335 4.96811 4.31826 1.98334 8.00016 1.98334C11.6821 1.98334 14.6668 4.96811 14.6668 8.65Z"
+                                stroke="#F04438"
+                                stroke-width="1.33333"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          )}
+
                           <DialogTrigger>
                             <Button
+                              disabled={field.value.length == 0}
                               loading={aadharOtpLoading}
                               onClick={handleSubmit(handleAadharOtp)}
                               className="min-w-fit !p-3 !py-[6px] !h-fit"
@@ -185,7 +206,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                         </InputAdornment>
                       ),
                     }}
-                    className="!mt-[6px] pl-3  !py-[9px] !pr-[0px] !rounded-[6.2px] !border-[#0000000F]"
+                    className="!mt-[6px] pl-3  !py-[9px] !pr-[0px]"
                   />
                 )}
               />
@@ -206,22 +227,36 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
             <p className="text-xs text-gray-500">
               Full Name<span className="text-error-500">*</span>
             </p>
-            <CustomTextField
-              id="full-name"
-              type="text"
-              value={userDetails.name}
-              variant="outlined"
-              fullWidth
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
+            <Controller
+              name="fullname"
+              control={control}
+              rules={{
+                required: "Enter Name to continue",
+                // pattern: {
+                //   value: /^\d{4}\d{4}\d{4}$/,
+                //   message: '"Enter a valid Aadhar number in the format XXXX XXXX XXXX"',
+                // },
+              }}
+              render={({ field }) => (
+                <CustomTextField
+                  {...field}
+                  id="full-name"
+                  type="text"
+                  value={userDetails.name}
+                  variant="outlined"
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
                     <p className="text-sm font-semibold">Send OTP</p>
                   </Button> */}
-                  </InputAdornment>
-                ),
-              }}
-              className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                      </InputAdornment>
+                    ),
+                  }}
+                  className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                />
+              )}
             />
             {/* <p className="text-3xs text-gray-500 mt-[6px]">
             Mandatory as per SEBI rules (OTP will be sent to the mobile no. linked to your Aadhar Card)
@@ -282,25 +317,40 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
             Email<span className="text-error-500">*</span>
           </p>
           <div className="flex">
-            <CustomTextField
-              value={userDetails.email}
-              id="email"
-              type="text"
-              variant="outlined"
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Mail size={15} />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
-                  </InputAdornment>
-                ),
+            <Controller
+              name="email"
+              control={control}
+              rules={{
+                required: "Enter email to continue",
+                pattern: {
+                  value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                  message: '"Enter a valid email"',
+                },
               }}
-              className="!mt-[6px]  !pr-[6px] !rounded-[6.2px]"
+              render={({ field }) => (
+                <CustomTextField
+                  {...field}
+                  value={userDetails.email}
+                  id="email"
+                  type="text"
+                  variant="outlined"
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Mail size={15} />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        
+                        <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  className="!mt-[6px]  !pr-[6px] !rounded-[6.2px]"
+                />
+              )}
             />
           </div>
           <p className="text-3xs text-gray-500 mt-[6px]">You will get your invoice on email</p>

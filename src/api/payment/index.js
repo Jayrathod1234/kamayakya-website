@@ -79,3 +79,16 @@ export const postCheckout = async(params)=>{
     throw error;
   }
 }
+
+export const verifyCoupon = async(params)=>{
+  try {
+    const URL = `/user/verifyDiscountCode`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.post(URL,params);
+    return response.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}
