@@ -20,7 +20,7 @@ export default function Legend({
   return (
     <div className=" flex items-center gap-x-1">
       {typeof icon === "string" ? (
-        <span className="inline-block bg-white rounded-full border border-white">
+        <span className={`inline-block bg-white h-[${iconSize + 2}] w-[${iconSize + 2}] rounded-full border border-white h0`}>
           <img
             className=" object-cover"
             height={iconSize}

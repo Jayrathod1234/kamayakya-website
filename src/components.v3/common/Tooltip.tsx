@@ -44,7 +44,7 @@ export default function Tooltip({
       >
         {tooltipTrigger}
       </TooltipTrigger>
-      <TooltipContent className=" !rounded-lg !px-0 !py-0 !p-4 !border !border-gray-150 max-w-[300px]">
+      <TooltipContent className=" z-[100001] !rounded-lg !px-0 !py-0 !p-4 !border !border-gray-150 max-w-[300px]">
         <Arrow asChild color="white" stroke="1" strokeWidth={1}>
           <svg
             className=" rotate-180 -my-[9.5px]  pt-[10px]"

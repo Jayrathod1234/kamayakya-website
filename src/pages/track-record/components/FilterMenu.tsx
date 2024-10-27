@@ -209,7 +209,7 @@ function Filtermenu() {
                     <CarouselNext
                       className={` z-50 h-7 w-7 p-1 right-0  top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]`}
                     />
-                  </Carousel> : <LegendSection className=" !py-0" />}
+                  </Carousel> : <LegendSection className=" !py-0  pr-4" />}
                   
                 </Box>
               </Box>
