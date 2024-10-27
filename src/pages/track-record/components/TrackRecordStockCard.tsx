@@ -29,11 +29,11 @@ const WatchVideo = ({ isBlur = false }: { isBlur?: boolean }) => {
 const getMascotImg = (action: string) => {
   switch (action) {
     case "BUY":
-      return "/assets/buyActionCall.png";
+      return "/assets/Action=Buy,Mascot=Yes,Full body=No.webp";
     case "HOLD":
-      return "/assets/hold_call.png";
+      return "/assets/Action=Hold,Mascot=Yes,Full body=No.webp";
     case "SELL":
-      return "/assets/sell_call.png";
+      return "/assets/Action=Sell,Mascot=Yes,Full body=No.webp";
   }
 };
 
@@ -179,7 +179,7 @@ any) => {
 
         {/* CHART SECTION END */}
         {/* BOTTOM SECTION */}
-        <div className="p-1 sm:pr-4 rounded-[4px] flex gap-x-4 bg-[rgba(249,250,251,1)] ">
+        <div className="p-1 sm:pr-4 rounded-[4px] flex gap-x-4 bg-[rgba(249,250,251,1)]">
           {/* Total Returns */}
           <div className=" flex items-center">
             <div
@@ -265,8 +265,8 @@ any) => {
             <p className=" text-3xs font-semibold  text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
           </div>}
          
-          <div className=" ml-auto mt-auto">
-            <img className=" object-contain min-h-[72px] min-w-[72px]" height={72} width={72} src={getMascotImg(action)} alt="action-mascot" />
+          <div className=" ml-auto mt-auto -mb-1">
+            <img className=" object-cover min-h-[72px] min-w-[72px]" height={72} width={72} src={getMascotImg(action)} alt="action-mascot" />
           </div>
           {/* Upside Left End  */}
         </div>

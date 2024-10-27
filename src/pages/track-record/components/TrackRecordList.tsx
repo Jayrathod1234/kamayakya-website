@@ -15,6 +15,10 @@ const TrackRecordList = () => {
       </div>
     );
   }
+  if(items?.length === 0) {
+    return <div className=" flex items-center justify-center">
+      <p>No Stocks Found</p>    </div>
+  }
   return (
     <div className=" grid grid-cols-1 lg:grid-cols-2  gap-5">
       {items.map((item) => (
