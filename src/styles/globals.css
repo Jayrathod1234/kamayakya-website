@@ -2202,3 +2202,7 @@ header > div > div {
   transform-origin: left;
  
 }
+
+.active_tab  div{
+  border: 1px solid red;
+}

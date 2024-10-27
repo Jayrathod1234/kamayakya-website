@@ -10,6 +10,7 @@ import ReviewSection from "./components/ReviewSection";
 
 import { TabsContent, TabsList, TabsTrigger, Tabs } from "@/components.v2/ui/tabs";
 import DetailSection from "./components/DetailSection";
+import { PaymentContextProvider } from "@/contexts/PaymentContext";
 
 const Quotes = () => {
   return (
@@ -47,13 +48,13 @@ const TestimonialCard = () => {
   );
 };
 
-export const useDotButton = (emblaApi) => {
+export const useDotButton = (emblaApi:CarouselApi) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState([]);
+  const [scrollSnaps, setScrollSnaps] = useState<Number[]>([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const onDotButtonClick = useCallback(
-    (index) => {
+    (index:number) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
       const autoplay = emblaApi?.plugins()?.autoplay;
@@ -64,11 +65,13 @@ export const useDotButton = (emblaApi) => {
     [emblaApi]
   );
 
-  const onInit = useCallback((emblaApi) => {
+  const onInit = useCallback((emblaApi:CarouselApi) => {
+    if(!emblaApi) return
     setScrollSnaps(emblaApi.scrollSnapList());
   }, []);
 
-  const onSelect = useCallback((emblaApi) => {
+  const onSelect = useCallback((emblaApi:CarouselApi) => {
+    if(!emblaApi) return
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, []);
 
@@ -100,158 +103,210 @@ export const useDotButton = (emblaApi) => {
 };
 
 export default function Index() {
-  const ref = useRef([]);
+  const ref = useRef<HTMLDivElement[]>([]);
   const [api, setApi] = React.useState<CarouselApi>();
-
+  const [activeTab, setActiveTab] = useState("review");
   const [margins, setMargins] = useState({ marginLeft: 0, marginRight: 0 });
   const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } = useDotButton(api);
+
   useEffect(() => {
     const firstdiv = ref.current[0];
-    const lastdiv = ref.current[ref.current.length-1];
-    console.log("OFFSET WIDTH", firstdiv.offsetWidth, lastdiv.offsetWidth);
+    const lastdiv = ref.current[ref.current.length - 1];
+    if (!firstdiv && !lastdiv) return;
     setMargins({
-      marginLeft: firstdiv.offsetWidth/2,
+      marginLeft: firstdiv.offsetWidth,
       marginRight: lastdiv.offsetWidth,
     });
   }, [ref.current?.length]);
-  return (
-    <div className=" bg-white open_sans">
-      <Header />
-      <div className=" md:-mt-[10%] flex flex-col gap-y-4 md:flex-row main-container ">
-        <div className=" p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
-          {/* stepper component */}
-          <Tabs defaultValue="review" className=" relative">
-            <div
-              style={{
-                width: `calc(80%-${margins.marginLeft + margins.marginRight}px)`,
-                // marginLeft: margins.marginLeft,
-                marginRight: margins.marginRight,
-              }}
-              className=" h-1 w-full bg-red-400 absolute top-[6px]"
-            ></div>
-            <TabsList className=" flex justify-between bg-transparent">
-              <TabsTrigger ref={(el) => {
-                    ref.current[0] = el;
-                  }} className=" bg-transparent shadow-none" value="review">
-                <div
-                  
-                  className="flex flex-col items-center "
-                >
-                  <div className="h-8 w-8 rounded-full bg-gray-500"></div>
-                  <p className=" text-2xs mt-[10px]">Review</p>
-                </div>
-              </TabsTrigger>
-              <TabsTrigger ref={(el) => {
-                    ref.current[1] = el;
-                  }} value="details">
-                <div
-                  
-                  className="flex flex-col items-center "
-                >
-                  <div className="h-8 w-8 rounded-full bg-gray-500"></div>
-                  <p className=" text-2xs mt-[10px]">Details</p>
-                </div>
-              </TabsTrigger>
-              <TabsTrigger ref={(el) => {
-                    ref.current[2] = el;
-                  }} value="payment">
-                <div
-                  
-                  className="flex flex-col items-center "
-                >
-                  <div className="h-8 w-8 rounded-full bg-gray-500"></div>
-                  <p className=" text-2xs mt-[10px]">Payment</p>
-                </div>
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="review">
-              <ReviewSection />
-            </TabsContent>
-            <TabsContent className=" w-full" value="details">
-              <DetailSection />
-            </TabsContent>
-            <TabsContent value="payment">Change your payments here.</TabsContent>
-          </Tabs>
-          <div className=" flex justify-between relative">
-            {/* <div className=" absolute h-[1px] top-[18px]  w-full bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x"></div> */}
-          </div>
-          {/* stepper component end */}
 
-          <div className=" flex justify-center items-center mt-3">
-            <img height={24} width={24} src="/assets/help.svg" alt="help" />
-            <p className=" ml-1 pt-2 text-2xs text-gray-500">
-              Got any doubts? Contact us on WhatsApp number XXXX or call us at XXXX
-            </p>
-          </div>
-        </div>
-        <div className=" py-10 px-11 min-w-0 bg-[#D1F9EF99] w-full max-md:rounded-3xl rounded-tr-3xl rounded-br-3xl border border-[#E3F1F1] border-l-0">
-          <div className=" p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
-            <div className=" p-5 pt-0 flex flex-col items-center justify-center w-full ">
-              <div className="flex items-center ">
-                <div className=" h-9 w-9 rounded-full bg-red-500"></div>
-                <div className=" h-9 w-9 rounded-full bg-red-500"></div>
-                <div className=" h-9 w-9 rounded-full bg-red-500"></div>
-              </div>
-              <p className=" text-sm mt-4 text-white">25 Stocks Exited</p>
-            </div>
-            <div className=" mt-4 flex justify-center ">
-              <div className="flex flex-col items-center p-3 text-white">
-                <p className=" text-xl font-semibold">118%</p>
-                <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Average Exit Returns</p>
-              </div>
-              <div className="flex flex-col items-center p-3 text-white">
-                <p className=" text-xl font-semibold">22</p>
-                <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Exited in profile</p>
-              </div>
-              <div className="flex flex-col items-center p-3 text-white">
-                <p className=" text-xl font-semibold">3</p>
-                <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Exited in Loss</p>
-              </div>
-            </div>
-            <div className=" h-[1px] w-full my-5 bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x "></div>
-            <div className="flex flex-wrap items-center gap-4 ">
-              <Button className=" flex-1 p-3" variant={ButtonVariant.primary}>
-                <p className=" text-2xs">Stocks Live</p>
-                <p className=" text-2xs font-bold mr-[10px]">30</p>
-              </Button>
-              <Button className=" flex-1 p-3 " variant={ButtonVariant.primary}>
-                <p className=" text-2xs">Average Live Returns</p>
-                <p className=" text-2xs font-bold mr-[10px]">118%</p>
-              </Button>
-            </div>
-          </div>
-          {/* Review Section */}
-          <div className=" mt-11">
-            <Carousel
-              plugins={[
-                Autoplay({
-                  delay: 6000,
-                }),
-              ]}
-              setApi={setApi}
+  return (
+    <PaymentContextProvider>
+      <div className=" bg-white open_sans">
+        <Header />
+        <div className=" md:-mt-[10%] flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
+          <div className=" p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
+            {/* stepper component */}
+            <Tabs
+              onValueChange={(value) => setActiveTab(value)}
+              defaultValue={activeTab}
+              value={activeTab}
+              className=" relative"
             >
-              <CarouselContent>
-                <CarouselItem>
-                  <TestimonialCard />
-                </CarouselItem>
-                <CarouselItem>
-                  <TestimonialCard />
-                </CarouselItem>
-              </CarouselContent>
-            </Carousel>
-            <div className=" flex justify-center items-center gap-x-4 p-[6px] bg-white rounded-full w-fit mx-auto">
-              {[1, 2].map((_, index) => (
-                <CarouselIndicator
-                  onClick={() => onDotButtonClick(index)}
-                  index={index}
-                  selectedIndex={selectedIndex}
-                />
-              ))}
+              <div
+                style={{
+                  width: `calc(100% - ${margins.marginLeft + margins.marginRight}px)`,
+                  marginLeft: margins.marginLeft,
+                  marginRight: margins.marginRight,
+                }}
+                className=" h-[2px] bg-[linear-gradient(to_right,#D0D5DD_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x absolute top-[6px]"
+              ></div>
+              <TabsList className=" flex justify-between bg-transparent relative z-10">
+                <TabsTrigger
+                  className=" bg-transparent shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  value="review"
+                >
+                  <div
+                    ref={(el) => {
+                      ref.current[0] = el as HTMLDivElement;
+                    }}
+                    className="flex flex-col items-center "
+                  >
+                    <div
+                      className={` flex items-center justify-center border p-1 rounded-full ${
+                        activeTab === "review" ? "border-brand-300" : "border-transparent"
+                      }`}
+                    >
+                      <div
+                        className={`${
+                          activeTab === "review" ? "bg-[#108973]" : "bg-[#108973]"
+                        } h-8 w-8 rounded-full  flex items-center justify-center border border-gray-200`}
+                      >
+                        <img src="/assets/Review.svg" alt="" />
+                      </div>
+                    </div>
+                    <p className=" text-2xs mt-[10px]">Review</p>
+                  </div>
+                </TabsTrigger>
+                <TabsTrigger
+                  className="data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  value="details"
+                >
+                  <div
+                    ref={(el) => {
+                      ref.current[1] = el as HTMLDivElement;
+                    }}
+                    className="flex flex-col items-center "
+                  >
+                    <div
+                      className={` flex items-center justify-center border p-1 rounded-full ${
+                        activeTab === "details" ? "border-brand-300" : "border-transparent"
+                      }`}
+                    >
+                      <div
+                        className={`h-8 w-8 rounded-full flex items-center justify-center border border-gray-200 ${
+                          activeTab === "details" || activeTab === "payment" ? "bg-[#108973]" : "bg-white"
+                        }`}
+                      >
+                        {activeTab === "details" || activeTab === "payment" ? (
+                          <img src="/assets/detail-white.svg" alt="" />
+                        ) : (
+                          <img src="/assets/detail.svg" alt="" />
+                        )}
+                      </div>
+                    </div>
+                    <p className=" text-2xs mt-[10px]">Details</p>
+                  </div>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="payment"
+                  className="data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                >
+                  <div
+                    ref={(el) => {
+                      ref.current[2] = el as HTMLDivElement;
+                    }}
+                    className="flex flex-col items-center "
+                  >
+                    <div
+                      className={`h-8 w-8 rounded-full flex items-center justify-center border border-gray-200  ${
+                        activeTab === "payment" ? "bg-[#108973]" : "bg-white"
+                      }`}
+                    >
+                      <img src="/assets/payment.svg" alt="" />
+                    </div>
+                    <p className=" text-2xs mt-[10px]">Payment</p>
+                  </div>
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="review">
+                <ReviewSection setActiveTab={setActiveTab} />
+              </TabsContent>
+              <TabsContent className=" w-full" value="details">
+                <DetailSection setActiveTab={setActiveTab} />
+              </TabsContent>
+              <TabsContent value="payment">Change your payments here.</TabsContent>
+            </Tabs>
+            <div className=" flex justify-between relative">
+              {/* <div className=" absolute h-[1px] top-[18px]  w-full bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x"></div> */}
+            </div>
+            {/* stepper component end */}
+
+            <div className=" flex justify-center items-center mt-3">
+              <img height={24} width={24} src="/assets/help.svg" alt="help" />
+              <p className=" ml-1 pt-2 text-2xs text-gray-500">
+                Got any doubts? Contact us on WhatsApp number XXXX or call us at XXXX
+              </p>
             </div>
           </div>
-          {/* Review Section End */}
+          <div className=" py-10 px-11 min-w-0 bg-[#D1F9EF99] w-full max-md:rounded-3xl rounded-tr-3xl rounded-br-3xl border border-[#E3F1F1] border-l-0">
+            <div className=" p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
+              <div className=" p-5 pt-0 flex flex-col items-center justify-center w-full ">
+                <div className="flex items-center ">
+                  <div className=" h-9 w-9 rounded-full bg-red-500"></div>
+                  <div className=" h-9 w-9 rounded-full bg-red-500"></div>
+                  <div className=" h-9 w-9 rounded-full bg-red-500"></div>
+                </div>
+                <p className=" text-sm mt-4 text-white">25 Stocks Exited</p>
+              </div>
+              <div className=" mt-4 flex justify-center ">
+                <div className="flex flex-col items-center p-3 text-white">
+                  <p className=" text-xl font-semibold">118%</p>
+                  <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Average Exit Returns</p>
+                </div>
+                <div className="flex flex-col items-center p-3 text-white">
+                  <p className=" text-xl font-semibold">22</p>
+                  <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Exited in profile</p>
+                </div>
+                <div className="flex flex-col items-center p-3 text-white">
+                  <p className=" text-xl font-semibold">3</p>
+                  <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Exited in Loss</p>
+                </div>
+              </div>
+              <div className=" h-[1px] w-full my-5 bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x "></div>
+              <div className="flex flex-wrap items-center gap-4 ">
+                <Button className=" flex-1 p-3" variant={ButtonVariant.primary}>
+                  <p className=" text-2xs">Stocks Live</p>
+                  <p className=" text-2xs font-bold mr-[10px]">30</p>
+                </Button>
+                <Button className=" flex-1 p-3 " variant={ButtonVariant.primary}>
+                  <p className=" text-2xs">Average Live Returns</p>
+                  <p className=" text-2xs font-bold mr-[10px]">118%</p>
+                </Button>
+              </div>
+            </div>
+            {/* Review Section */}
+            <div className=" mt-11">
+              <Carousel
+                plugins={[
+                  Autoplay({
+                    delay: 6000,
+                  }),
+                ]}
+                setApi={setApi}
+              >
+                <CarouselContent>
+                  <CarouselItem>
+                    <TestimonialCard />
+                  </CarouselItem>
+                  <CarouselItem>
+                    <TestimonialCard />
+                  </CarouselItem>
+                </CarouselContent>
+              </Carousel>
+              <div className=" flex justify-center items-center gap-x-4 p-[6px] bg-white rounded-full w-fit mx-auto">
+                {[1, 2].map((_, index) => (
+                  <CarouselIndicator
+                    onClick={() => onDotButtonClick(index)}
+                    index={index}
+                    selectedIndex={selectedIndex}
+                  />
+                ))}
+              </div>
+            </div>
+            {/* Review Section End */}
+          </div>
         </div>
       </div>
-    </div>
+    </PaymentContextProvider>
   );
 }

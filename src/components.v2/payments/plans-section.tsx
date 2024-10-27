@@ -131,7 +131,8 @@ export function PlansSection() {
       amount: planAmount,
     });
     sessionStorage.setItem("planId", planId);
-    router.push({ pathname: "/purchase", query: { planId } }, "/purchase");
+    sessionStorage.setItem("planName", planName);
+    router.push({ pathname: "/payments", query: { planId,planName } }, "/payments");
   };
 
   const fetchPlans = async () => {
