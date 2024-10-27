@@ -1,13 +1,17 @@
 import { useDebounce } from "@/utils/deBounceSearch";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useStockPicks } from "./StockPicksContext";
 import AuthContext from "@/components/AuthContext";
 import { initialFilterTime } from "@/utils/constants";
 import { getAllTrackRecordStockListApi } from "@/api/track-record";
 import { useTrackRecordCommon } from "./TrackRecordCommonContext";
 
-const TrackRecordContext = createContext(null);
+const TrackRecordContext = createContext<{
+  searchStock: string;
+  setSearchStock: Dispatch<SetStateAction<string>>;
+  setSortBy: Dispatch<SetStateAction<string>>;
+}|null>(null);
 
 export const TrackRecordProvider = ({ children }: { children: React.ReactNode }) => {
   const {
@@ -20,7 +24,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     min_returns,
     max_returns,
     changablestrategyTags,
-    sebiBoardType
+    sebiBoardType,
   } = useTrackRecordCommon();
   const { isLoggedIn } = useContext(AuthContext);
   const [searchStock, setSearchStock] = useState("");
@@ -36,7 +40,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
   const [risk, setRisk] = useState([]);
   const [totalFilterCount, setTotalFilterCount] = useState(0);
   const [actionCall, setActionCall] = useState([]);
-  const [openMembershipModal,setOpenMembershipModal] = useState(false);
+  const [openMembershipModal, setOpenMembershipModal] = useState(false);
   /** Total filter count logic */
   const getFilterCount = () =>
     (upsideLeft[0] === min_upside_left && upsideLeft[1] === max_upside_left ? 0 : 1) +
@@ -46,8 +50,8 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     sector.length +
     changablestrategyTags.length +
     marketCapType.length +
-    risk.length +(actionCall.length);
-    
+    risk.length +
+    actionCall.length;
 
   useEffect(() => {
     setUpsideLeft([min_upside_left, max_upside_left]);
@@ -73,15 +77,15 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
   }, [changablestrategyTags, isChangeFilter]); // Include `source` in the dependency array
 
   const handleResetFilters = () => {
-     setRecency(initialFilterTime);
-     setTimeLeft(initialFilterTime);
-     setUpsideLeft([min_upside_left, max_upside_left]);
-     setReturns([min_returns, max_returns]);
-     setMarketCapType([]);
-     setRisk([]);
-     setSector([]);
-     setStrategyTag([]);
-    setActionCall([])
+    setRecency(initialFilterTime);
+    setTimeLeft(initialFilterTime);
+    setUpsideLeft([min_upside_left, max_upside_left]);
+    setReturns([min_returns, max_returns]);
+    setMarketCapType([]);
+    setRisk([]);
+    setSector([]);
+    setStrategyTag([]);
+    setActionCall([]);
     // setOpen(false);
     setTotalFilterCount(0);
     refetch(); // Optionally refetch data with reset filters (if appliedFilters reset)
@@ -123,7 +127,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
         },
         body: {
           search: debouncedSearchStock,
-          action:actionCall,
+          action: actionCall,
           sort_by: sortBy,
           sort_value: sortValue,
           recency_time: Object.keys(recency).filter((key) => recency[key]),
@@ -140,7 +144,6 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
           risk,
           sector,
           strategy_tags: strategyTag,
-          
         },
       }),
     getNextPageParam: ({ total_pages, current_page }) => {
@@ -180,7 +183,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
         actionCall,
         setActionCall,
         openMembershipModal,
-        setOpenMembershipModal
+        setOpenMembershipModal,
       }}
     >
       {children}

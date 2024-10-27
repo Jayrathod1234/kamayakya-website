@@ -1391,10 +1391,10 @@ function StockDetailsSection() {
                             <img
                               src={
                                 action === "BUY"
-                                  ? "/assets/details_buy_mascot.png"
+                                  ? "/assets/Action=Buy, Mascot=Yes, Full body=Yes.webp"
                                   : action === "HOLD"
-                                  ? "/assets/details_hold_mascot.png"
-                                  : "/assets/details_sell_mascot.png"
+                                  ? "/assets/Action=Hold, Mascot=Yes, Full body=Yes.webp"
+                                  : "/assets/Action=Sell, Mascot=Yes, Full body=Yes.webp"
                               }
                               alt=""
                               className=" object-contain right-6 w-[81px] h-[120px] flex-[0.5] "

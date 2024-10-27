@@ -95,11 +95,11 @@ export const TopGainerLoserCard = ({
   label = type === "EXIT" ? (isBest ? "Best Exit" : "Worst Exit") : label;
   let actionImgSrc = stockStat
     ? stockStat.action === "BUY"
-      ? "./assets/Buy.png"
+      ? "./assets/BuyBubbleBluev2.webp"
       : stockStat.action === "SELL"
-      ? "./assets/Sell.png"
+      ? "./assets/SellBubbleRedv2.png"
       : stockStat.action === "HOLD"
-      ? "./assets/Hold.png"
+      ? "./assets/HoldBubbleYellow.png"
       : null
     : null;
   const router = useRouter();
