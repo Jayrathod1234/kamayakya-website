@@ -17,6 +17,7 @@ import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import AuthContext from "@/components/AuthContext";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import VerifyTag from "./VerifyTag";
+import axios from "axios";
 
 // Custom styled OutlinedInput
 export const CustomTextField = styled(TextField, {
@@ -102,7 +103,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     control: control2,
     handleSubmit: handleSubmit2,
     formState: { errors: errors2 },
-    setError:setError2,
+    setError: setError2,
     getValues: getValues2,
     setValue: setValue2,
   } = useForm({
@@ -118,14 +119,14 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
   const handleAadharEditClick = () => {
     setAadharVerified(false);
     setUserDetails((prev) => ({ ...prev, name: "", address: "", pan: "" }));
-    setDisplayModal("AADHAR")
+    setDisplayModal("AADHAR");
   };
 
   const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
     try {
-      console.log("ADDHAR CLICKED",data);
+      console.log("ADDHAR CLICKED", data);
       setAadharOtpLoading(true);
-      const res =  await getAadharOtp({ aadhaar: data?.aadhar }); 
+      const res = await getAadharOtp({ aadhaar: data?.aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };
       //
       setAadharRequestId(res?.result?.requestId);
@@ -142,34 +143,92 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     }
   };
 
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+
+      script.src = src;
+
+      script.onload = () => {
+        resolve(true)
+      }
+      script.onerror = () => {
+        resolve(false)
+      }
+
+      document.body.appendChild(script);
+    })
+  }
+
+  const handleRazorpayScreen = async(amount,options) => {
+    const res = await loadScript("https:/checkout.razorpay.com/v1/checkout.js")
+
+    if (!res) {
+      alert("Some error at razorpay screen loading")
+      return;
+    }
+
+    let  curroptions = {
+      ...options
+      // handler: function (response){
+      //   setResponseId(response.razorpay_payment_id)
+      // },
+    }
+    const paymentObject = new window.Razorpay(options)
+    paymentObject.open()
+  }
+     
+
   const handleCheckout: SubmitHandler<IFormInput> = async (data) => {
-    if(!aadharVerified){
-      setError2("aadhar",{message:"Enter Aadhar to continue"})
-      return
+    if (!aadharVerified && !isAadharAlreadyVerified) {
+      setError2("aadhar", { message: "Enter Aadhar to continue" });
+      return;
     }
     try {
       const params = {
-        base_amount: planDetails.basePrice + planDetails.taxAmount,
+        base_amount: planDetails.totalPayable,
         subscription: currentPlan.planId,
-        final_amount: planDetails.totalPayable,
+        final_amount:  planDetails.discount ? (Number(planDetails.totalPayable) - Number(planDetails.discount)):planDetails.totalPayable,
         // tax_amount: planDetails.taxAmount,
-        // "discount_code":"",
+        "discount_code":planDetails.discountCode,
         // "discount_percentage":0,
-        // "discount_amount":0,
+        "discount_amount":planDetails.discount,
         address: data.address,
         name: data.fullname,
         user_email: data.email,
         user_contact: data.phone.slice(3),
       };
       const res = await postCheckout(params);
-      console.log(res);
+      const options = {
+        key: "rzp_test_YteVuBPrLvOKSg", // Enter the Key ID generated from the Dashboard
+        amount: res.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "KamayaKya", //your business name
+        description: "Test Transaction",
+        image: "https://example.com/your_logo",
+        order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        callback_url: "http://localhost:3002/payments/successful",
+        prefill: {
+          //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+          name: "Gaurav Kumar", //your customer's name
+          email: "gaurav.kumar@example.com",
+          contact: "9000090000", //Provide the customer's phone number for better conversion rates
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      handleRazorpayScreen("",options)
     } catch (e) {}
   };
   useEffect(() => {
     setValue("fullname", userDetails.name);
     setValue("phone", userDetails.phone);
     setValue("address", userDetails.address);
-    setValue("pan",userDetails.pan)
+    setValue("pan", userDetails.pan);
   }, [userDetails]);
 
   return (

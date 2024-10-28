@@ -109,7 +109,7 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState("review");
   const [margins, setMargins] = useState({ marginLeft: 0, marginRight: 0 });
   const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } = useDotButton(api);
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
     const firstdiv = ref.current[0];
@@ -120,8 +120,8 @@ export default function Index() {
       marginRight: lastdiv.offsetWidth,
     });
   }, [ref.current?.length]);
-  
-  const headerBg = !pathname.includes("successful") ? "  max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#F1FBFB)]" :  "" 
+
+  const headerBg = !pathname.includes("successful") ? "  max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#F1FBFB)]" : "";
 
   return (
     <PaymentContextProvider>
@@ -253,10 +253,19 @@ export default function Index() {
           <div className=" py-10 px-11 min-w-0 bg-[#D1F9EF99] w-full max-md:rounded-3xl rounded-tr-3xl rounded-br-3xl border border-[#E3F1F1] border-l-0">
             <div className=" p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
               <div className=" p-5 pt-0 flex flex-col items-center justify-center w-full ">
-                <div className="flex items-center ">
-                  <div className=" h-9 w-9 rounded-full bg-red-500"></div>
-                  <div className=" h-9 w-9 rounded-full bg-red-500"></div>
-                  <div className=" h-9 w-9 rounded-full bg-red-500"></div>
+                <div className="flex items-center  ">
+                  <div className=" h-9 w-9 rounded-full ">
+                    <img height={36} width={36} src="/stock_img1.svg" alt="" />
+                  </div>
+                  <div className=" h-9 w-9 rounded-full -ml-2 ">
+                    <img height={36} width={36} src="/stock_img2.svg" alt="" />
+                  </div>
+                  <div className=" h-9 w-9 rounded-full  -ml-2">
+                    <img height={36} width={36} src="/stock_img3.svg" alt="" />
+                  </div>
+                  <div className=" h-9 w-9 rounded-full  -ml-2">
+                    <img height={36} width={36} src="/stock_img4.svg" alt="" />
+                  </div>
                 </div>
                 <p className=" text-sm mt-4 text-white">25 Stocks Exited</p>
               </div>
