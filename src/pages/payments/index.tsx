@@ -11,6 +11,7 @@ import ReviewSection from "./components/ReviewSection";
 import { TabsContent, TabsList, TabsTrigger, Tabs } from "@/components.v2/ui/tabs";
 import DetailSection from "./components/DetailSection";
 import { PaymentContextProvider } from "@/contexts/PaymentContext";
+import { usePathname } from "next/navigation";
 
 const Quotes = () => {
   return (
@@ -48,13 +49,13 @@ const TestimonialCard = () => {
   );
 };
 
-export const useDotButton = (emblaApi:CarouselApi) => {
+export const useDotButton = (emblaApi: CarouselApi) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<Number[]>([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const onDotButtonClick = useCallback(
-    (index:number) => {
+    (index: number) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
       const autoplay = emblaApi?.plugins()?.autoplay;
@@ -65,13 +66,13 @@ export const useDotButton = (emblaApi:CarouselApi) => {
     [emblaApi]
   );
 
-  const onInit = useCallback((emblaApi:CarouselApi) => {
-    if(!emblaApi) return
+  const onInit = useCallback((emblaApi: CarouselApi) => {
+    if (!emblaApi) return;
     setScrollSnaps(emblaApi.scrollSnapList());
   }, []);
 
-  const onSelect = useCallback((emblaApi:CarouselApi) => {
-    if(!emblaApi) return
+  const onSelect = useCallback((emblaApi: CarouselApi) => {
+    if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, []);
 
@@ -108,6 +109,7 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState("review");
   const [margins, setMargins] = useState({ marginLeft: 0, marginRight: 0 });
   const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } = useDotButton(api);
+  const pathname = usePathname()
 
   useEffect(() => {
     const firstdiv = ref.current[0];
@@ -118,13 +120,15 @@ export default function Index() {
       marginRight: lastdiv.offsetWidth,
     });
   }, [ref.current?.length]);
+  
+  const headerBg = !pathname.includes("successful") ? "  max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#F1FBFB)]" :  "" 
 
   return (
     <PaymentContextProvider>
       <div className=" bg-white open_sans">
-        <Header />
-        <div className=" md:-mt-[10%] flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
-          <div className=" p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
+        <Header className={headerBg} />
+        <div className=" -mt-[13.5rem] flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
+          <div className=" px-4 py-10 md:p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
             {/* stepper component */}
             <Tabs
               onValueChange={(value) => setActiveTab(value)}
@@ -139,7 +143,15 @@ export default function Index() {
                   marginRight: margins.marginRight,
                 }}
                 className=" h-[2px] bg-[linear-gradient(to_right,#D0D5DD_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x absolute top-[6px]"
-              ></div>
+              >
+                <div
+                  style={{
+                    width: `calc(100%*(1/${activeTab === "details" ? 2 : activeTab === "payment" ? 1 : 100}))`,
+                  }}
+                  className=" h-[2px] bg-brand-500 bg-[length:10px_1px]"
+                ></div>
+              </div>
+
               <TabsList className=" flex justify-between bg-transparent relative z-10">
                 <TabsTrigger
                   className=" bg-transparent shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"

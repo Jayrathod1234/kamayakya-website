@@ -45,7 +45,9 @@ export const postAadharOtp = async (params)=>{
   try {
     const URL = `/user/verifyOtpForAadhar`;
     /* ----------------------------------- API ---------------------------------- */
+    // return {pan_number:'EESPP8023N', address:{state:'Maharashtra', pincode:'401203'},name:'Sahil Padvi'}
     const response = await axiosApi.post(URL, params);
+   
     return response.data;
   } catch (error) {
     // Handle errors if any

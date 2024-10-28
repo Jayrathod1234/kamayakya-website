@@ -3,7 +3,7 @@ import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { IconButton, InputAdornment, OutlinedInput, styled, TextField } from "@mui/material";
 import { ArrowLeft, Check, Mail } from "lucide-react";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { Checkbox } from "@/components.v2/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
@@ -16,6 +16,7 @@ import { useToast } from "@/components.v2/ui/use-toast";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import AuthContext from "@/components/AuthContext";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import VerifyTag from "./VerifyTag";
 
 // Custom styled OutlinedInput
 export const CustomTextField = styled(TextField, {
@@ -42,6 +43,9 @@ export const CustomTextField = styled(TextField, {
     "& input::placeholder": {
       fontSize: "14px",
     },
+    // "& input:focus": {
+    //   backgroudColor:"transparent"
+    // },
     "& input:invalid + fieldset": {
       borderColor: "red",
       borderWidth: 1,
@@ -66,14 +70,23 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
   const [displayModal, setDisplayModal] = useState("AADHAR");
   const [openDialog, setOpenDialog] = useState(false);
   const [aadharOtpLoading, setAadharOtpLoading] = useState(false);
-  const { isAadharAlreadyVerified, userDetails, planDetails, currentPlan, isPanAlreadyVerified } =
-    usePaymentContext() as IPaymentContext;
+  const {
+    isAadharAlreadyVerified,
+    userDetails,
+    setUserDetails,
+    planDetails,
+    currentPlan,
+    isPanAlreadyVerified,
+    aadharVerified,
+    setAadharVerified,
+  } = usePaymentContext() as IPaymentContext;
   const { toast } = useToast();
   const {
     control,
     handleSubmit,
     formState: { errors },
     getValues,
+    setValue,
   } = useForm({
     defaultValues: {
       aadhar: "",
@@ -85,15 +98,36 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
       address: "",
     },
   });
-  const aadhar = getValues("aadhar");
+  const {
+    control: control2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+    setError:setError2,
+    getValues: getValues2,
+    setValue: setValue2,
+  } = useForm({
+    defaultValues: {
+      aadhar: "",
+    },
+  });
+  const aadhar = getValues2("aadhar");
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
   };
 
-  const handleAadharOtp: SubmitHandler<IFormInput> = async (data) => {
+  const handleAadharEditClick = () => {
+    setAadharVerified(false);
+    setUserDetails((prev) => ({ ...prev, name: "", address: "", pan: "" }));
+    setDisplayModal("AADHAR")
+  };
+
+  const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
     try {
+      console.log("ADDHAR CLICKED",data);
       setAadharOtpLoading(true);
-      const res = await getAadharOtp({ aadhaar: data?.aadhar });
+      const res =  await getAadharOtp({ aadhaar: data?.aadhar }); 
+      // { result: { requestId: "dklsjfklsdlkfjdf" } };
+      //
       setAadharRequestId(res?.result?.requestId);
       setOpenDialog(true);
       // setAadharRequestId(res?.)
@@ -108,33 +142,35 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     }
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout: SubmitHandler<IFormInput> = async (data) => {
+    if(!aadharVerified){
+      setError2("aadhar",{message:"Enter Aadhar to continue"})
+      return
+    }
     try {
       const params = {
-        base_amount: planDetails.basePrice,
+        base_amount: planDetails.basePrice + planDetails.taxAmount,
         subscription: currentPlan.planId,
         final_amount: planDetails.totalPayable,
-        tax_amount: planDetails.taxAmount,
-        // "discount_code":"TEST2",
+        // tax_amount: planDetails.taxAmount,
+        // "discount_code":"",
         // "discount_percentage":0,
-        // "discount_amount":,
-        address: userDetails.address,
-        name: userDetails.name,
-        user_email: userDetails.email,
-        user_contact: userDetails.phone,
+        // "discount_amount":0,
+        address: data.address,
+        name: data.fullname,
+        user_email: data.email,
+        user_contact: data.phone.slice(3),
       };
       const res = await postCheckout(params);
       console.log(res);
     } catch (e) {}
   };
-  // useEffect(() => {
-  //   if (errors.aadhar) {
-  //     toast({
-  //       variant: "warn",
-  //       title: errors.aadhar.message,
-  //     });
-  //   }
-  // }, [errors]);
+  useEffect(() => {
+    setValue("fullname", userDetails.name);
+    setValue("phone", userDetails.phone);
+    setValue("address", userDetails.address);
+    setValue("pan",userDetails.pan)
+  }, [userDetails]);
 
   return (
     <div className="mt-9">
@@ -148,12 +184,22 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
         {!isAadharAlreadyVerified ? (
           <div className="col-span-2">
             <Dialog onOpenChange={setOpenDialog} open={openDialog}>
-              <p className="text-xs text-gray-500">
-                Aadhar Card Number<span className="text-error-500">*</span>
-              </p>
+              <div className=" flex justify-between items-center">
+                <p className="text-xs text-gray-500">
+                  Aadhar Card Number<span className="text-error-500">*</span>
+                </p>
+                {aadharVerified && (
+                  <button
+                    onClick={handleAadharEditClick}
+                    className=" text-xs text-brand-500 font-bold border-b border-b-brand-500 border-dashed"
+                  >
+                    Edit Aadhar
+                  </button>
+                )}
+              </div>
               <Controller
                 name="aadhar"
-                control={control}
+                control={control2}
                 rules={{
                   required: "Enter aadhar to continue",
                   pattern: {
@@ -164,7 +210,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                 render={({ field }) => (
                   <CustomTextField
                     {...field}
-                    error={errors.aadhar?.message ? true : false}
+                    error={errors2.aadhar?.message ? true : false}
                     type="number"
                     id="aadhar-number"
                     // onChange={(e) => setAadhar(e.target.value)}
@@ -172,9 +218,10 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                     fullWidth
                     placeholder="Enter your Aadhar Card Number"
                     InputProps={{
+                      readOnly: aadharVerified,
                       endAdornment: (
                         <InputAdornment className="!pr-0 flex items-center gap-x-[10px]" position="end">
-                          {errors.aadhar?.message && (
+                          {errors2.aadhar?.message && (
                             <svg
                               width="16"
                               height="17"
@@ -191,18 +238,21 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                               />
                             </svg>
                           )}
-
-                          <DialogTrigger>
-                            <Button
-                              disabled={field.value.length == 0}
-                              loading={aadharOtpLoading}
-                              onClick={handleSubmit(handleAadharOtp)}
-                              className="min-w-fit !p-3 !py-[6px] !h-fit"
-                              variant={ButtonVariant.primary}
-                            >
-                              <p className="text-sm font-semibold">Send OTP</p>
-                            </Button>
-                          </DialogTrigger>
+                          {aadharVerified ? (
+                            <VerifyTag />
+                          ) : (
+                            <DialogTrigger>
+                              <Button
+                                disabled={field.value.length == 0}
+                                loading={aadharOtpLoading}
+                                onClick={handleSubmit2(handleAadharOtp)}
+                                className="min-w-fit !p-3 !py-[6px] !h-fit"
+                                variant={ButtonVariant.primary}
+                              >
+                                <p className="text-sm font-semibold">Send OTP</p>
+                              </Button>
+                            </DialogTrigger>
+                          )}
                         </InputAdornment>
                       ),
                     }}
@@ -214,7 +264,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
               {displayModal.includes("AADHAR") ? (
                 <AadhaVerifyModal setDisplayModal={setDisplayModal} aadhar={aadhar} requestId={aadharRequestId} />
               ) : null}
-              {displayModal.includes("CONFIRM") ? <ConfirmDetailsModal /> : null}
+              {displayModal.includes("CONFIRM") ? <ConfirmDetailsModal setOpenDialog={setOpenDialog} /> : null}
             </Dialog>
             <p className="text-3xs text-gray-500 mt-[6px]">
               Mandatory as per SEBI rules (OTP will be sent to the mobile no. linked to your Aadhar Card)
@@ -242,7 +292,6 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                   {...field}
                   id="full-name"
                   type="text"
-                  value={userDetails.name}
                   variant="outlined"
                   fullWidth
                   InputProps={{
@@ -269,21 +318,36 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
               <p className="text-xs text-gray-500">
                 PAN Number<span className="text-error-500">*</span>
               </p>
-              <CustomTextField
-                id="pan-number"
-                type="text"
-                variant="outlined"
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
+              <Controller
+                name="pan"
+                control={control}
+                rules={{
+                  required: "Enter PAN to continue",
+                  // pattern: {
+                  //   value: /^\d{4}\d{4}\d{4}$/,
+                  //   message: '"Enter a valid Aadhar number in the format XXXX XXXX XXXX"',
+                  // },
+                }}
+                render={({ field }) => (
+                  <CustomTextField
+                    {...field}
+                    id="pan-number"
+                    type="text"
+                    variant="outlined"
+                    fullWidth
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          {isPanAlreadyVerified || userDetails.pan ? <VerifyTag /> : null}
+                          {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
                     <p className="text-sm font-semibold">Send OTP</p>
                   </Button> */}
-                    </InputAdornment>
-                  ),
-                }}
-                className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                        </InputAdornment>
+                      ),
+                    }}
+                    className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                  />
+                )}
               />
             </div>
           </>
@@ -293,21 +357,35 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
             <p className="text-xs text-gray-500">
               Address<span className="text-error-500">*</span>
             </p>
-            <CustomTextField
-              id="address"
-              type="text"
-              variant="outlined"
-              fullWidth
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
+            <Controller
+              name="address"
+              control={control}
+              rules={{
+                required: "Enter address to continue",
+                // pattern: {
+                //   value: /^\d{4}\d{4}\d{4}$/,
+                //   message: '"Enter a valid Aadhar number in the format XXXX XXXX XXXX"',
+                // },
+              }}
+              render={({ field }) => (
+                <CustomTextField
+                  {...field}
+                  id="address"
+                  type="text"
+                  variant="outlined"
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
                     <p className="text-sm font-semibold">Send OTP</p>
                   </Button> */}
-                  </InputAdornment>
-                ),
-              }}
-              className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                      </InputAdornment>
+                    ),
+                  }}
+                  className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                />
+              )}
             />
           </div>
         )}
@@ -330,7 +408,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
               render={({ field }) => (
                 <CustomTextField
                   {...field}
-                  value={userDetails.email}
+                  error={errors.email?.message ? true : false}
                   id="email"
                   type="text"
                   variant="outlined"
@@ -343,8 +421,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
-                        
-                        <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
+                        {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
                       </InputAdornment>
                     ),
                   }}
@@ -364,20 +441,39 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
               // className="  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
               className="!mt-[6px] border border-[#0000000F] rounded-[6.2px] py-[9px] px-[14px] flex items-center"
             >
-              <PhoneInput
-                className=" "
-                defaultCountry="IN"
-                placeholder="Enter phone number"
-                value={userDetails.phone}
-                onChange={(value) => {
-                  // handleInputs(value!, setPhone);
-                  // if (error.phoneError) {
-                  //   setError((prev) => ({ ...prev, phoneError: false }));
-                  // }
+              <Controller
+                name="phone"
+                control={control}
+                rules={{
+                  required: "Enter phone to continue",
+                  validate: (value) => {
+                    return isPossiblePhoneNumber(value);
+                  },
+                  // pattern: {
+                  //   value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                  //   message: '"Enter a valid email"',
+                  // },
                 }}
-              />{" "}
+                render={({ field: { value, onChange } }) => (
+                  <PhoneInput
+                    // {...field}
+                    // className=" "
+                    value={value}
+                    onChange={onChange}
+                    defaultCountry="IN"
+                    placeholder="Enter phone number"
+                    // value={userDetails.phone}
+                    // onChange={(value) => {
+                    // handleInputs(value!, setPhone);
+                    // if (error.phoneError) {
+                    //   setError((prev) => ({ ...prev, phoneError: false }));
+                    // }
+                    // }}
+                  />
+                )}
+              />
               <InputAdornment position="end">
-                <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
+                {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
               </InputAdornment>
             </div>
 
@@ -433,7 +529,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
         )}
 
         <div className="col-span-2 ">
-          <Button onClick={handleCheckout} className=" w-full" variant={ButtonVariant.primary}>
+          <Button onClick={handleSubmit(handleCheckout)} className=" w-full" variant={ButtonVariant.primary}>
             <p className=" text-sm font-medium">Proceed to Checkout</p>
           </Button>
         </div>

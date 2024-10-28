@@ -6,19 +6,29 @@ import { CustomTextField } from "./DetailSection";
 import { InputAdornment } from "@mui/material";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 
-export default function ConfirmDetailsModal() {
-  const {setUserDetails, userDetails} = usePaymentContext() as IPaymentContext;
+export default function ConfirmDetailsModal({
+  setOpenDialog,
+}: {
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const { setUserDetails, userDetails, setAadharVerified } = usePaymentContext() as IPaymentContext;
   const [address, setAddress] = useState("");
-  const [editable,setEditable] = useState(false);
+  const [editable, setEditable] = useState(false);
 
-  const handleEditClick = ()=>{
-    setEditable(prev=>!prev)
-  }
+  const handleEditClick = () => {
+    setEditable((prev) => !prev);
+  };
+
+  const handleConfirm = () => {
+    if (address) {
+      setUserDetails((prev) => ({ ...prev, address }));
+    }
+    setAadharVerified(true);
+    setOpenDialog(false);
+  };
 
   useEffect(() => {
-    setAddress(
-      ` Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus voluptates voluptatum at ullam expedita non tempore id tenetur placeat dolore!  ${userDetails.address}`
-    );
+    setAddress(` ${userDetails.address}`);
   }, [userDetails?.address]);
   return (
     <DialogContent className=" !p-6 !rounded-[20px] min-w-fit md:min-w-[624px] max-w-[784px] open_sans">
@@ -150,17 +160,19 @@ export default function ConfirmDetailsModal() {
               <p className=" text-2xs text-[#707070]">Address</p>
               <textarea
                 contentEditable={editable}
-                onChange={(e) =>{
-                  if(!editable) return 
-                  setAddress(e.target.value)
+                onChange={(e) => {
+                  if (!editable) return;
+                  setAddress(e.target.value);
                 }}
                 value={address}
                 className=" resize-none text-sm text-[#121212] bg-transparent block w-full mt-[6px]"
               />
-              <button onClick={handleEditClick} className=" text-sm font-semibold text-[#0E6C63] ">Edit Address</button>
+              <button onClick={handleEditClick} className=" text-sm font-semibold text-[#0E6C63] ">
+                Edit Address
+              </button>
             </div>
           </div>
-          <Button className=" ml-auto" variant={ButtonVariant.primary}>
+          <Button onClick={handleConfirm} className=" ml-auto" variant={ButtonVariant.primary}>
             <p>Confirm</p>
           </Button>
         </div>

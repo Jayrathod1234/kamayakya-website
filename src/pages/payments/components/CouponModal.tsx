@@ -15,11 +15,21 @@ import { useToast } from "@/components.v2/ui/use-toast";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import React, { useState } from "react";
 
-const CouponListItem = () => {
+const CouponListItem = ({
+  discountCode,
+  discountAmt,
+  onClick,
+  active,
+}: {
+  discountCode: string;
+  discountAmt: string;
+  onClick: () => void;
+  active: boolean;
+}) => {
   const error = false;
   return (
     <div className="items-top flex space-x-[10px] p-4 bg-gray-50 rounded-[10px]">
-      <Checkbox id="terms1" className=" rounded-[4px] h-5 w-5" />
+      <Checkbox checked={active} onCheckedChange={onClick} id="terms1" className=" rounded-[4px] h-5 w-5" />
       <div className="grid gap-3 leading-none">
         <label
           htmlFor="terms1"
@@ -29,11 +39,11 @@ const CouponListItem = () => {
             className=" bg-transparent !px-[10px] !py-2 border border-dashed border-brand-500"
             variant={ButtonVariant.secondary}
           >
-            <p className=" font-semibold text-brand-500 text-xs">SAVE20</p>
+            <p className=" font-semibold text-brand-500 text-xs">{discountCode}</p>
           </Button>
         </label>
         <p className="text-xs font-semibold text-gray-950">
-          Save ₹15,000
+          Save ₹{discountAmt}
           {error && <p className=" text-error-500 text-xs">SAVE20 couldn’t be combined with IULPXIWKASA </p>}
         </p>
       </div>
@@ -42,8 +52,11 @@ const CouponListItem = () => {
 };
 
 export default function CouponModal() {
-  const { currentPlan } = usePaymentContext() as IPaymentContext;
+  const { currentPlan, setPlanDetails, planDetails } = usePaymentContext() as IPaymentContext;
   const [discountCode, setDiscountCode] = useState("");
+  const [discountList, setDiscountList] = useState<Array<{ discountCode: string; discountAmt: string } | null>>([]);
+  const [currentDiscountSelected, setCurrentDiscountSelected] = useState("");
+  const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const { toast } = useToast();
   const checkCoupon = async () => {
@@ -57,10 +70,17 @@ export default function CouponModal() {
         subscription: currentPlan.planId,
       };
       const res = await verifyCoupon(params);
-      console.log(res);
+      if(res?.discount_type==="percentage"){
+        res.discount_value = (res.discount_value * Number(planDetails.totalPayable))/100
+      }
+      setDiscountList((prev) =>
+        prev.some((item) => item?.discountCode === discountCode)
+          ? prev
+          : [...prev, { discountCode, discountAmt: res?.discount_value }]
+      );
     } catch (e: any) {
       if (e?.response?.data?.message?.includes("Invalid")) {
-        setError(true)
+        setError(true);
         // toast({
         //   variant: "warn",
         //   description: e?.response?.data?.message,
@@ -68,9 +88,15 @@ export default function CouponModal() {
       }
     }
   };
+  const discountAmt = discountList.find((item) => item?.discountCode === currentDiscountSelected)?.discountAmt;
+
+  const handleApply = () => {
+    setPlanDetails((prev) => ({ ...prev, discount: discountAmt as string, discountCode: currentDiscountSelected }));
+    setOpen(false);
+  };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className=" w-full">
         <div className=" flex items-center rounded-lg mt-2 py-3 px-[11px] border border-[#0000000F]">
           <img src="/assets/badge-percent.svg" alt="badge" height={22} width={22} />
@@ -109,7 +135,19 @@ export default function CouponModal() {
         </DialogHeader>
 
         <div className=" mt-3 mb-[30px]  flex flex-col space-y-3 overflow-y-scroll">
-          {/* <CouponListItem />
+          {discountList?.map((discount) => (
+            <CouponListItem
+              active={discount?.discountCode === currentDiscountSelected}
+              onClick={() =>
+                setCurrentDiscountSelected((prev) =>
+                  prev === discount?.discountCode ? "" : (discount?.discountCode as string)
+                )
+              }
+              discountCode={discount?.discountCode as string}
+              discountAmt={discount?.discountAmt as string}
+            />
+          ))}
+          {/*
           <CouponListItem />
           <CouponListItem />
           <CouponListItem />
@@ -123,9 +161,9 @@ export default function CouponModal() {
           <div className=" mt-auto flex justify-between pt-4 border-t border-gray-150 w-full">
             <div className="">
               <p className=" text-sm text-gray-400">Maximum Savings</p>
-              <p className=" text-gray-950 text-xs font-semibold">₹15,000</p>
+              <p className=" text-gray-950 text-xs font-semibold">₹{discountAmt ?? 0}</p>
             </div>
-            <Button className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
+            <Button onClick={handleApply} className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
               <p className=" text-md font-medium">Apply</p>
             </Button>
           </div>

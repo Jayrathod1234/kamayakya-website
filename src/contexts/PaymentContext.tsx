@@ -9,6 +9,7 @@ export interface IPlanDetails {
   taxableAmount: string;
   taxAmount: string;
   totalPayable: string;
+  discountCode: string;
 }
 
 export interface IPlanDates {
@@ -35,7 +36,7 @@ export interface IPaymentContext {
   userDetails: IUserDetails;
   currentPlan: ICurrentPlan;
   isAadharAlreadyVerified: boolean;
-  isPanAlreadyVerified:boolean;
+  isPanAlreadyVerified: boolean;
   setUserDetails: Dispatch<
     SetStateAction<{
       pan: string;
@@ -45,6 +46,12 @@ export interface IPaymentContext {
       email: string;
     }>
   >;
+  setIsAadharAlreadyVerified: Dispatch<SetStateAction<boolean>>;
+  setIsPanAlreadyVerified: Dispatch<SetStateAction<boolean>>;
+  aadharVerified: boolean;
+  setAadharVerified: Dispatch<SetStateAction<boolean>>;
+  setCurrentPlan: Dispatch<SetStateAction<ICurrentPlan>>;
+  setPlanDetails: Dispatch<SetStateAction<IPlanDetails>>;
 }
 
 const PaymentContext = createContext<IPaymentContext | null>(null);
@@ -64,6 +71,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
     taxableAmount: "",
     taxAmount: "",
     totalPayable: "",
+    discountCode: "",
   });
   const [userDetails, setUserDetails] = useState({
     pan: "",
@@ -72,9 +80,10 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
     phone: "",
     email: "",
   });
-  const {user} = useContext(AuthContext)
-  const [isAadharAlreadyVerified, setIsAadharAlreadyVerified] = useState(false);
-  const [isPanAlreadyVerified,setIsPanAlreadyVerified] = useState(false);
+  const { user } = useContext(AuthContext);
+  const [isAadharAlreadyVerified, setIsAadharAlreadyVerified] = useState(false); //if kyc is already done
+  const [isPanAlreadyVerified, setIsPanAlreadyVerified] = useState(false);
+  const [aadharVerified, setAadharVerified] = useState(false); //if new kyc
 
   const fetchPlanDetails = async () => {
     try {
@@ -95,6 +104,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         taxAmount: res?.tax_amount,
         totalPayable: res?.total_payable,
         discount: res?.discount?.includes("NA") ? null : res?.discount,
+        discountCode: "",
       });
     } catch (e) {}
   };
@@ -103,12 +113,14 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
     try {
       const res = await getUserKycStatus();
       setIsAadharAlreadyVerified(res?.is_aadhar_verified);
-      setIsPanAlreadyVerified(res?.is_pan_verified)
+      setIsPanAlreadyVerified(res?.is_pan_verified);
+      let address = Object.values(res?.address_details || {}).join(", ");
       setUserDetails((prev) => ({
         ...prev,
         name: res?.name,
         email: res?.email,
         phone: res?.mobile,
+        address: address,
       }));
     } catch (e) {
       console.error(e);
@@ -125,7 +137,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
 
   useEffect(() => {
     if (!currentPlan.planId) return;
-    setUserDetails((prev)=>({...prev, phone:user.mobile}))
+    setUserDetails((prev) => ({ ...prev, phone: user.mobile }));
     fetchPlanDetails();
     fetchPlanSummary();
     checkUserKycStatus();
@@ -133,7 +145,21 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
 
   return (
     <PaymentContext.Provider
-      value={{ planDetails, planDates, userDetails, currentPlan, isAadharAlreadyVerified, setUserDetails, isPanAlreadyVerified }}
+      value={{
+        planDetails,
+        planDates,
+        userDetails,
+        currentPlan,
+        isAadharAlreadyVerified,
+        setUserDetails,
+        isPanAlreadyVerified,
+        setIsAadharAlreadyVerified,
+        setIsPanAlreadyVerified,
+        aadharVerified,
+        setAadharVerified,
+        setCurrentPlan,
+        setPlanDetails,
+      }}
     >
       {children}
     </PaymentContext.Provider>
