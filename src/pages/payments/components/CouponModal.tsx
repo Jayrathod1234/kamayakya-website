@@ -13,7 +13,7 @@ import {
 } from "@/components.v2/ui/dialog";
 import { useToast } from "@/components.v2/ui/use-toast";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const CouponListItem = ({
   discountCode,
@@ -94,6 +94,13 @@ export default function CouponModal() {
     setPlanDetails((prev) => ({ ...prev, discount: discountAmt as string, discountCode: currentDiscountSelected }));
     setOpen(false);
   };
+
+  useEffect(()=>{
+    if(!open){
+      setDiscountCode("")
+      setError(false)
+    }
+  },[open])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

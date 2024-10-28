@@ -3,6 +3,7 @@ import { Button } from '@/components.v2/button'
 import { ButtonVariant } from '@/components.v2/button/button'
 import { Checkbox } from '@/components.v2/ui/checkbox'
 import { DialogContent } from '@/components.v2/ui/dialog'
+import { useToast } from '@/components.v2/ui/use-toast'
 import { blockInvalidChar } from '@/components/LoginCard'
 import { IPaymentContext, usePaymentContext } from '@/contexts/PaymentContext'
 import React, { useState } from 'react'
@@ -12,7 +13,7 @@ export default function AadhaVerifyModal({aadhar,requestId,setDisplayModal}:{aad
   const [otp, setOtp] = useState("");
   const [consetGranted,setConsetGranted] = useState(false);
   const {setUserDetails} = usePaymentContext() as IPaymentContext
-  
+  const {toast} = useToast()
   const handleVerifyAadharOtp = async()=>{
     try{
       const res = await postAadharOtp({aadhar,request_id:requestId,otp})
@@ -20,7 +21,10 @@ export default function AadhaVerifyModal({aadhar,requestId,setDisplayModal}:{aad
       setUserDetails((prev)=>({...prev,pan:res?.pan_number,name:res?.name,address:address}))
       setDisplayModal("CONFIRM")
     }catch(e){
-
+      toast({
+        variant:"warn",
+        description:e?.response?.data?.message
+      })
     }
   }
   return (
