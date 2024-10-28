@@ -28,7 +28,9 @@ const ChipItem = ({ label, img, id, setOpen }: { label: string; img: string | nu
       {/* image container */}
       <div className=" p-2 w-fit">
         {label ? (
-          <img className=" object-contain" src={img} height={30} width={30} alt="stock-image" />
+          <object className=" object-contain h-[30px] w-[30px]" data={img as string} type="image/jpeg">
+            <img className="" src={"/stock_palceholder.svg"} height={30} width={30} alt="stock-image" />
+          </object>
         ) : (
           <div className=" h-6 w-6 bg-[#FFF1CE] rounded-full flex items-center justify-center">
             <img height={15} width={15} src="/assets/noto_locked.png" alt="" />
@@ -64,7 +66,9 @@ const BottomSheetItem = ({ label, img, id, setOpen }) => {
     >
       {label ? (
         <>
-          <img height={28} width={28} src={img} alt="stock-image" />
+          <object className=" h-7 w-7" data={img} type="image/jpeg">
+            <img height={28} width={28} src={"/stock_palceholder.svg"} alt="stock-image" />
+          </object>
           <p className=" text-sm text-gray-700">{label}</p>
         </>
       ) : (
@@ -107,8 +111,11 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
           </button>
         </DrawerTrigger>
         <DrawerContent className=" rounded-t-[20px] bg-transparent border-none outline-none">
-          <button onClick={()=>setOpenDropDown(false)} className=" h-9 w-9 rounded-full bg-white flex items-center justify-center mx-auto mb-5">
-            <img src="/assets/x-close.svg"/>
+          <button
+            onClick={() => setOpenDropDown(false)}
+            className=" h-9 w-9 rounded-full bg-white flex items-center justify-center mx-auto mb-5"
+          >
+            <img src="/assets/x-close.svg" />
           </button>
           <div className="mx-auto w-full px-4 py-2 open_sans bg-white rounded-t-[20px] ">
             <div className=" w-12 h-1 bg-[#98A2B3] rounded-full mx-auto"></div>
@@ -139,7 +146,13 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
                   >
                     <img height={36} width={36} src="/assets/noto_locked.png" alt="lock" />
                   </div>
-                  <p className=" text-2xs text-[#667085]  mt-[10px]">Please <span className=" font-bold text-brand-500" onClick={handleLogin}>login</span> to view</p>
+                  <p className=" text-2xs text-[#667085]  mt-[10px]">
+                    Please{" "}
+                    <span className=" font-bold text-brand-500" onClick={handleLogin}>
+                      login
+                    </span>{" "}
+                    to view
+                  </p>
                 </div>
               )}
             </div>
@@ -148,7 +161,6 @@ export function TrackRecordHeroCardNewChip({ newRecommendation }) {
       </Drawer>
     );
   }
-  
 
   return (
     <HoverCard open={openDropDown} openDelay={0} onOpenChange={setOpenDropDown}>
