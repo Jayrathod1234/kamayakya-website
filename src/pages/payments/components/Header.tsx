@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-export default function Header({ className }: { className: string }) {
+export default function Header({ className }: { className?: string }) {
   return (
     <div
       className={cn(

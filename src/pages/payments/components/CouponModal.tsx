@@ -56,14 +56,17 @@ export default function CouponModal() {
   const [discountCode, setDiscountCode] = useState("");
   const [discountList, setDiscountList] = useState<Array<{ discountCode: string; discountAmt: string } | null>>([]);
   const [currentDiscountSelected, setCurrentDiscountSelected] = useState("");
+  const [loading,setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const { toast } = useToast();
   const checkCoupon = async () => {
+    
     if (discountCode?.trim().length === 0) {
       setError(true);
       return;
     }
+    setLoading(true);
     try {
       let params = {
         discount_code: discountCode,
@@ -78,6 +81,7 @@ export default function CouponModal() {
           ? prev
           : [...prev, { discountCode, discountAmt: res?.discount_value }]
       );
+      
     } catch (e: any) {
       if (e?.response?.data?.message?.includes("Invalid")) {
         setError(true);
@@ -86,6 +90,9 @@ export default function CouponModal() {
         //   description: e?.response?.data?.message,
         // });
       }
+    }finally{
+      setLoading(false);
+      setDiscountCode("")
     }
   };
   const discountAmt = discountList.find((item) => item?.discountCode === currentDiscountSelected)?.discountAmt;
@@ -99,8 +106,13 @@ export default function CouponModal() {
     if(!open){
       setDiscountCode("")
       setError(false)
+      setCurrentDiscountSelected("")
     }
   },[open])
+
+  useEffect(()=>{
+    setDiscountList([])
+  },[currentPlan.planDuration,currentPlan.planName])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -121,6 +133,7 @@ export default function CouponModal() {
             className={` py-3 px-[11px] border ${error ? " border-error-500" : "border-[#0000000F]"} rounded-lg flex`}
           >
             <input
+              disabled={loading}
               value={discountCode}
               onChange={(e) => {
                 if (error) setError(false);
@@ -131,10 +144,12 @@ export default function CouponModal() {
               type="text"
             />
             <button
+              disabled={loading}
               onClick={checkCoupon}
               className=" text-2xs text-brand-500 border-b border-dotted border-brand-500 ml-auto"
             >
-              Check
+              {loading ? "Verifying":"Check"}
+              
             </button>
           </div>
           {error && <p className=" text-error-500 text-2xs mt-[10px]">Coupon not valid</p>}

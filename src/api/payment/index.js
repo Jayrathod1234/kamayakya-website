@@ -94,3 +94,16 @@ export const verifyCoupon = async(params)=>{
     throw error;
   }
 }
+
+export const getPaymentReceipt = async(params)=>{
+  try {
+    const URL = `/user/generateReceipt`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.post(URL,params);
+    return response.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}

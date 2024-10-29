@@ -10,6 +10,7 @@ export interface IPlanDetails {
   taxAmount: string;
   totalPayable: string;
   discountCode: string;
+  orderId: string;
 }
 
 export interface IPlanDates {
@@ -23,11 +24,13 @@ export interface IUserDetails {
   name: string;
   phone: string;
   email: string;
+  aadhar: string;
 }
 
 export interface ICurrentPlan {
   planName: string;
   planId: string;
+  planDuration: string;
 }
 
 export interface IPaymentContext {
@@ -37,15 +40,7 @@ export interface IPaymentContext {
   currentPlan: ICurrentPlan;
   isAadharAlreadyVerified: boolean;
   isPanAlreadyVerified: boolean;
-  setUserDetails: Dispatch<
-    SetStateAction<{
-      pan: string;
-      address: string;
-      name: string;
-      phone: string;
-      email: string;
-    }>
-  >;
+  setUserDetails: Dispatch<SetStateAction<IUserDetails>>;
   setIsAadharAlreadyVerified: Dispatch<SetStateAction<boolean>>;
   setIsPanAlreadyVerified: Dispatch<SetStateAction<boolean>>;
   aadharVerified: boolean;
@@ -60,6 +55,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
   const [currentPlan, setCurrentPlan] = useState({
     planName: "",
     planId: "",
+    planDuration: "",
   });
   const [planDates, setPlanDates] = useState({
     start: "",
@@ -72,6 +68,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
     taxAmount: "",
     totalPayable: "",
     discountCode: "",
+    orderId: "",
   });
   const [userDetails, setUserDetails] = useState({
     pan: "",
@@ -79,6 +76,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
     name: "",
     phone: "",
     email: "",
+    aadhar: "",
   });
   const { user } = useContext(AuthContext);
   const [isAadharAlreadyVerified, setIsAadharAlreadyVerified] = useState(false); //if kyc is already done
@@ -105,6 +103,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         totalPayable: res?.total_payable,
         discount: res?.discount?.includes("NA") ? null : res?.discount,
         discountCode: "",
+        orderId: "",
       });
     } catch (e) {}
   };
@@ -121,6 +120,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         email: res?.email,
         phone: res?.mobile,
         address: address,
+        aadhar:res?.aadhar_no
       }));
     } catch (e) {
       console.error(e);
@@ -132,12 +132,13 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
       ...prev,
       planId: sessionStorage.getItem("planId") as string,
       planName: sessionStorage.getItem("planName") as string,
+      planDuration: sessionStorage.getItem("planDuration") as string,
     }));
   }, []);
-
+  console.log("USER",user.email)
   useEffect(() => {
     if (!currentPlan.planId) return;
-    setUserDetails((prev) => ({ ...prev, phone: user.mobile }));
+    setUserDetails((prev) => ({ ...prev, phone: user.mobile,email:user.email }));
     fetchPlanDetails();
     fetchPlanSummary();
     checkUserKycStatus();

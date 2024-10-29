@@ -105,6 +105,7 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
       ...prev,
       planId: planId as string,
       planName: planName as string,
+      planDuration:currentTab
     }));
     setOpen(false);
   };

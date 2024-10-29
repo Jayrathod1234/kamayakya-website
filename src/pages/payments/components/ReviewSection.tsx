@@ -8,9 +8,14 @@ import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import { Dialog, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
 import PlanModal from "./PlanModal";
 import { PlanTooltip } from "@/components.v2/payments";
-import { ToPayTooltip } from "./ToPayTooltip";
+import ToPayTooltip from "./ToPayTooltip";
+import { PLAN } from "@/constants/pricing/plans";
 
-export default function ReviewSection({ setActiveTab }) {
+export default function ReviewSection({
+  setActiveTab,
+}: {
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+}) {
   const { currentPlan, planDates, planDetails, setPlanDetails } = usePaymentContext() as IPaymentContext;
   const [open, setOpen] = useState(false);
 
@@ -43,12 +48,14 @@ export default function ReviewSection({ setActiveTab }) {
             </div>
           </div>
           <div>
-            <div className="bg-[url(/assets/zigzag.svg)] flex justify-center bg-cover bg-no-repeat gap-x-1 py-[8.5px] ">
+          {PLAN[currentPlan.planName?.toLowerCase()]?.tooltip[currentPlan.planDuration]?.saveText ? (<div className="bg-[url(/assets/zigzag.svg)] flex justify-center bg-cover bg-no-repeat gap-x-1 py-[8.5px] ">
               <img src="/assets/offer.svg" height={20} width={20} alt="offer" />
-              <p className=" text-2xs font-medium ">
-                You are saving <span className=" font-bold">₹20,012</span> on this plan{" "}
-              </p>
-            </div>
+             
+                <p className=" text-2xs font-medium ">
+                  {PLAN[currentPlan.planName?.toLowerCase()].tooltip[currentPlan.planDuration].saveText}
+                </p>
+             
+            </div> ) : null}
           </div>
         </div>
 
@@ -62,7 +69,10 @@ export default function ReviewSection({ setActiveTab }) {
               <img src="/assets/tick-circle.svg" alt="badge" height={40} width={40} />
               <div className=" text-left ml-[10px]">
                 <p className="  text-gray-950 text-sm font-bold">{planDetails.discountCode}</p>
-                <p className=" text-xs text-gray-500">{((Number(planDetails.discount)/Number(planDetails.totalPayable))*100).toFixed(2)}% Discount (-₹{planDetails.discount}) 🎉</p>
+                <p className=" text-xs text-gray-500">
+                  {((Number(planDetails.discount) / Number(planDetails.totalPayable)) * 100).toFixed(2)}% Discount (-₹
+                  {planDetails.discount}) 🎉
+                </p>
               </div>
               <button onClick={removeDiscount} className=" ml-auto">
                 <img height={24} width={24} src="/assets/X.svg" />
@@ -99,7 +109,10 @@ export default function ReviewSection({ setActiveTab }) {
         </div>
         {planDetails.discount && (
           <div className=" flex justify-between items-baseline">
-            <p className=" text-sm text-[#1BB991]">Discount ({planDetails.discountCode} - {((Number(planDetails.discount)/Number(planDetails.totalPayable))*100).toFixed(2)}% off)</p>
+            <p className=" text-sm text-[#1BB991]">
+              Discount ({planDetails.discountCode} -{" "}
+              {((Number(planDetails.discount) / Number(planDetails.totalPayable)) * 100).toFixed(2)}% off)
+            </p>
             <p className=" text-sm text-[#1BB991] font-medium">-₹{planDetails.discount}</p>
           </div>
         )}
@@ -108,10 +121,14 @@ export default function ReviewSection({ setActiveTab }) {
             <p className=" text-md font-bold text-gray-950 flex items-baseline">
               To Pay
               <ToPayTooltip
-                price={`₹${((Number(planDetails.totalPayable) - Number(planDetails.discount))/1.18).toFixed(2)}`}
+                price={`₹${((Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18).toFixed(2)}`}
                 saveText={""}
                 strikePrice={""}
-                gst={`₹${((Number(planDetails.totalPayable) - Number(planDetails.discount)) - ((Number(planDetails.totalPayable) - Number(planDetails.discount))/1.18)).toFixed(2)}`}
+                gst={`₹${(
+                  Number(planDetails.totalPayable) -
+                  Number(planDetails.discount) -
+                  (Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18
+                ).toFixed(2)}`}
                 total={`₹${Number(planDetails.totalPayable) - Number(planDetails.discount)}`}
               >
                 <div className=" flex justify-center items-center">

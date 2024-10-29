@@ -31,7 +31,7 @@ const Breakdown = ({
   );
 };
 
-export function ToPayTooltip({ children, price, strikePrice, saveText, gst, total }: TChildren
+export default function ToPayTooltip({ children, price, strikePrice, saveText, gst, total }: TChildren
    & TPlantooltip) {
   const [displayToast, setDisplayToast] = useState(false);
   return (

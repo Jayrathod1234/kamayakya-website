@@ -132,6 +132,7 @@ export function PlansSection() {
     });
     sessionStorage.setItem("planId", planId);
     sessionStorage.setItem("planName", planName);
+    sessionStorage.setItem("planDuration", currentTab)
     router.push({ pathname: "/payments", query: { planId,planName } }, "/payments");
   };
 
