@@ -64,7 +64,7 @@ any) => {
   const { isLoggedIn, isSubscribed, handleLogin } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
   const { stockSector } = useTrackRecordCommon();
-  const isMobile = useMediaQuery('(max-width:600px)')
+  const isMobile = useMediaQuery("(max-width:600px)");
   let tabImage = null;
   let bgColor = "bg-[white]";
   let newIconClass = "-5px";
@@ -99,14 +99,16 @@ any) => {
           ) : (
             <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate">{stock_name}</h4>
           )}
-          {(isLoggedIn && stock_name? ( latest_youtube_video?.youtube_title ?
-            (<a
-              className={` text-inherit ${!isLoggedIn || !stock_name ? "pointer-events-none" : ""}`}
-              href={latest_youtube_video?.youtube_title}
-              target="_blank"
-            >
-              <WatchVideo />
-            </a>):null
+          {isLoggedIn && stock_name ? (
+            latest_youtube_video?.youtube_title ? (
+              <a
+                className={` text-inherit ${!isLoggedIn || !stock_name ? "pointer-events-none" : ""}`}
+                href={latest_youtube_video?.youtube_title}
+                target="_blank"
+              >
+                <WatchVideo />
+              </a>
+            ) : null
           ) : (
             <Tooltip
               enableModal={false}
@@ -117,7 +119,7 @@ any) => {
                 </p>
               }
             />
-          ))}
+          )}
         </div>
 
         <div className="pt-[12px]">
@@ -145,7 +147,13 @@ any) => {
               }`}
               activeIconClass=" h-[10px] w-[10px]"
               activeIcon
-              target_number={isMobile ?`${target_number?.slice(0,1)+target_number?.split(" ")[1]} ${latest_target_price ? `: ₹${latest_target_price}` : ""}` :`${target_number} at ${latest_target_price ? `₹${latest_target_price}` : ""}`}
+              target_number={
+                isMobile
+                  ? `${target_number?.slice(0, 1) + target_number?.split(" ")[1]} ${
+                      latest_target_price ? `: ₹${latest_target_price}` : ""
+                    }`
+                  : `${target_number} at ${latest_target_price ? `₹${latest_target_price}` : ""}`
+              }
               active={target_status === "active" ? true : false}
             />
             {/* <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
@@ -187,7 +195,9 @@ any) => {
                 is_returns_positive
                   ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
                   : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
-              } px-3 py-2 ${action === "SELL" && target_status !== "active" ? "min-w-[120px]": "min-w-[100px]"} sm:min-w-[157px]`}
+              } px-3 py-2 ${
+                action === "SELL" && target_status !== "active" ? "min-w-[120px]" : "min-w-[100px]"
+              } sm:min-w-[157px]`}
             >
               <p className=" text-4xs font-bold text-white truncate">
                 {action === "SELL" && target_status !== "active" && isLoggedIn && isSubscribed
@@ -215,8 +225,20 @@ any) => {
                   <p className=" text-xl font-bold text-white !m-0">{total_returns}%</p>
                 )}
               </div>
-              <p className=" !m-0 text-3xs font-semibold whitespace-nowrap text-white">
-                in {abbreviateTime(return_time)}
+              <p className=" !m-0 flex items-center gap-x-1 text-3xs font-semibold whitespace-nowrap text-white">
+                in {return_time?.includes(",") ? abbreviateTime(return_time) : return_time}{" "}
+                {return_time?.includes(",") &&  <Tooltip
+                  tooltipTrigger={
+                    <img
+                      className="!h-[14px] !w-[14px] object-contain bg-[rgba(255,255,255,0.6)] rounded-full"
+                      height={14}
+                      width={14}
+                      src="/assets/blackinfo.svg"
+                    />
+                  }
+                  tooltipContent={<p className="text-2xs text-gray-600 font-normal">{return_time}</p>}
+                />}
+               
               </p>
             </div>
             {action === "SELL" && target_status !== "active" && isLoggedIn && isSubscribed ? (
@@ -232,41 +254,49 @@ any) => {
           </div>
           {/* Total Returns End*/}
           {/* Upside Left */}
-          {action === "SELL" && target_status !== "active" ? null: <div className=" min-w-0 flex flex-col justify-center">
-            <div className=" flex items-center gap-x-1 min-w-0">
-              <p className=" font-bold whitespace-nowrap text-4xs text-[rgba(102,112,133,1)]">Upside Left</p>
-              <Tooltip
-                tooltipTrigger={
-                  <img
-                    className="!h-[14px] !w-[14px] object-contain"
-                    height={14}
-                    width={14}
-                    src="/assets/blackinfo.svg"
-                  />
-                }
-                tooltipContent={
-                  <div className="gap-[7px] items-center flex flex-col justify-center">
-                    <div className="text-gray-800 text-2xs font-normal">
-                      Upside Left means how much the stock price could rise from its current level.
-                    </div>
-                    <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 rounded-lg">
-                      <span className="text-[#108973] text-2xs font-bold">Example :</span>
-                      <p className="text-2xs text-gray-600 font-normal">
-                        If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
-                      </p>
-                    </div>
+          {action === "SELL"  ? null : (
+            <div className=" min-w-0 flex flex-col justify-center">
+              <div className=" flex items-center gap-x-1 min-w-0">
+                <p className=" font-bold whitespace-nowrap text-4xs text-[rgba(102,112,133,1)]">Upside Left</p>
+                <Tooltip
+                  tooltipTrigger={
+                    <img
+                      className="!h-[14px] !w-[14px] object-contain"
+                      height={14}
+                      width={14}
+                      src="/assets/blackinfo.svg"
+                    />
+                  }
+                  tooltipContent={
+                    <div className="gap-[7px] items-center flex flex-col justify-center">
+                      <div className="text-gray-800 text-2xs font-normal">
+                        Upside Left means how much the stock price could rise from its current level.
+                      </div>
+                      <div className="mt-2 p-2 bg-[#F6F7F9] gap-1 rounded-lg">
+                        <span className="text-[#108973] text-2xs font-bold">Example :</span>
+                        <p className="text-2xs text-gray-600 font-normal">
+                          If a stock's price is ₹100 and the Upside Left is 20%, it might go up to ₹120.
+                        </p>
+                      </div>
 
-                    {/* Modal Trigger (Visible on small screens only) */}
-                  </div>
-                }
-              />
+                      {/* Modal Trigger (Visible on small screens only) */}
+                    </div>
+                  }
+                />
+              </div>
+              <p className=" text-xl font-bold whitespace-nowrap text-[rgba(16,24,40,1)]">{upside_left}%</p>
+              <p className=" text-3xs font-semibold  text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
             </div>
-            <p className=" text-xl font-bold whitespace-nowrap text-[rgba(16,24,40,1)]">{upside_left}%</p>
-            <p className=" text-3xs font-semibold  text-[rgba(110,110,110,1)]">expected in {upside_left_time}</p>
-          </div>}
-         
+          )}
+
           <div className=" ml-auto mt-auto -mb-1">
-            <img className=" object-cover min-h-[72px] min-w-[72px]" height={72} width={72} src={getMascotImg(action)} alt="action-mascot" />
+            <img
+              className=" object-cover min-h-[72px] min-w-[72px]"
+              height={72}
+              width={72}
+              src={getMascotImg(action)}
+              alt="action-mascot"
+            />
           </div>
           {/* Upside Left End  */}
         </div>

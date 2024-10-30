@@ -799,9 +799,10 @@ function StockDetailsSection() {
                                   />
                                 )}
                                 {/* Upside Left Section */}
-                                {action === "SELL" &&
+                                {/* &&
                                 Array.isArray(stock_targets) &&
-                                stock_targets[0].target_met !== null ? null : (
+                                stock_targets[0].target_met !== null */}
+                                {action === "SELL"  ? null : (
                                   <StockPerformanceCard
                                     className={" border border-[#F2F4F7]"}
                                     iconContainerClassName=" bg-[#F9FAFB] rounded-[6px]"
@@ -910,9 +911,10 @@ function StockDetailsSection() {
                               timeClassname={"text-white"}
                             />
                           </div>
-                          {action === "SELL" &&
-                                Array.isArray(stock_targets) &&
-                                stock_targets[0].target_met !== null ? null :  <div className="bg-[F9FAFB] px-4 pb-2 rounded-b-2xl">
+                          {/* Array.isArray(stock_targets) &&
+                                stock_targets[0].target_met !== null */}
+                          {action === "SELL"
+                                 ? null :  <div className="bg-[F9FAFB] px-4 pb-2 rounded-b-2xl">
                                 <div className="flex justify-between items-center">
                                   <div className="flex items-center">
                                     <img
