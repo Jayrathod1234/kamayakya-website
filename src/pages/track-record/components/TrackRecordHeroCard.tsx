@@ -89,7 +89,7 @@ export const TrackRecordHeroCard = ({
           <p className=" text-md font-bold mr-2 whitespace-nowrap truncate">{recommendationLabel} </p>
           { type== "LIVE" && <img height={20} width={20} src="/assets/pulse.gif" alt="" />}
         </div>
-        <TrackRecordHeroCardNewChip newRecommendation={newRecommendation} />
+        <TrackRecordHeroCardNewChip newRecommendation={newRecommendation} type={type} />
       </div>
       {/* top section end */}
       {/* Middle Section */}

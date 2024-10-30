@@ -43,7 +43,7 @@ export default function CustomSortMenu({ isLabel }) {
   }
   const isMobile = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedValue, setSelectedValue] = useState("upside_left_desc");
+  const [selectedValue, setSelectedValue] = useState("returns_desc");
   const handleClick = (event) => {
     // console.log(event.currentTarget);
     setAnchorEl(isMobile ? "bottom" : event.currentTarget);
