@@ -72,6 +72,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
   const [displayModal, setDisplayModal] = useState("AADHAR");
   const [openDialog, setOpenDialog] = useState(false);
   const [aadharOtpLoading, setAadharOtpLoading] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const {
     isAadharAlreadyVerified,
     userDetails,
@@ -126,7 +127,6 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
 
   const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
     try {
-      console.log("ADDHAR CLICKED", data);
       setAadharOtpLoading(true);
       const res = await getAadharOtp({ aadhaar: data?.aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };
@@ -145,7 +145,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     }
   };
 
-  const loadScript = (src:string) => {
+  const loadScript = (src: string) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
 
@@ -162,7 +162,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     });
   };
 
-  const handleRazorpayScreen = async (amount:string, options:any) => {
+  const handleRazorpayScreen = async (amount: string, options: any) => {
     const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
     if (!res) {
@@ -185,6 +185,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
       setError2("aadhar", { message: "Verify Aadhar to continue" });
       return;
     }
+    setCheckoutLoading(true);
     try {
       let params = {
         base_amount: planDetails.totalPayable,
@@ -213,7 +214,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        callback_url: "http://localhost:3002/payments/successful",
+        callback_url: "https://legendary-madeleine-b03cd5.netlify.app/payments/successful",
         prefill: {
           //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
           name: userDetails.name, //your customer's name
@@ -232,6 +233,8 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
       handleRazorpayScreen("", options);
     } catch (e) {
       console.error(e);
+    } finally {
+      setCheckoutLoading(false);
     }
   };
   useEffect(() => {
@@ -240,6 +243,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     setValue("address", userDetails.address);
     setValue("pan", userDetails.pan);
     setValue("email", userDetails.email);
+    setValue2("aadhar", userDetails.aadhar);
   }, [userDetails]);
 
   useEffect(() => {
@@ -257,6 +261,8 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
       }
     }
   }, [errors]);
+
+  console.log(errors.phone);
 
   return (
     <div className="mt-9">
@@ -333,7 +339,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                           {aadharVerified || isAadharAlreadyVerified ? (
                             <VerifyTag />
                           ) : (
-                            <DialogTrigger>
+                            <DialogTrigger disabled={field.value.length == 0}>
                               <Button
                                 disabled={field.value.length == 0}
                                 loading={aadharOtpLoading}
@@ -546,7 +552,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                       ),
                       endAdornment: (
                         <InputAdornment position="end">
-                          {errors.email?.message && (
+                          {errors.email?.message ? (
                             <Tooltip
                               tooltipContent={<p className=" text-2xs">{errors.email.message}</p>}
                               tooltipTrigger={
@@ -567,7 +573,10 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                                 </svg>
                               }
                             />
-                          )}
+                          ) : field.value ? (
+                            <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
+                          ) : null}
+
                           {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
                         </InputAdornment>
                       ),
@@ -586,7 +595,10 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
             <div className="flex">
               <div
                 // className="  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
-                className="!mt-[6px] border border-[#0000000F] rounded-[6.2px] py-[9px] px-[14px] flex items-center"
+                className={`  w-full !mt-[6px] flex items-center border ${
+                  errors.phone?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
+                }  rounded-[6.2px] py-[9px] px-[14px] flex items-center"
+                `}
               >
                 <Controller
                   name="phone"
@@ -594,7 +606,10 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                   rules={{
                     required: "Enter phone to continue",
                     validate: (value) => {
-                      return isPossiblePhoneNumber(value);
+                      console.log("VALUE", value);
+                      return isPossiblePhoneNumber(value) && value.slice(3).length === 10
+                        ? true
+                        : "Enter valid phone number";
                     },
                     // pattern: {
                     //   value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
@@ -602,26 +617,45 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                     // },
                   }}
                   render={({ field: { value, onChange } }) => (
-                    <PhoneInput
-                      // {...field}
-                      // className=" "
-                      value={value}
-                      onChange={onChange}
-                      defaultCountry="IN"
-                      placeholder="Enter phone number"
-                      // value={userDetails.phone}
-                      // onChange={(value) => {
-                      // handleInputs(value!, setPhone);
-                      // if (error.phoneError) {
-                      //   setError((prev) => ({ ...prev, phoneError: false }));
-                      // }
-                      // }}
-                    />
+                    <>
+                      {" "}
+                      <PhoneInput
+                        value={value}
+                        onChange={onChange}
+                        defaultCountry="IN"
+                        placeholder="Enter phone number"
+                        className=" border-green-400"
+                      />
+                      <InputAdornment position="end">
+                        {errors.phone?.message ? (
+                          <Tooltip
+                            tooltipContent={<p className=" text-2xs">{errors.phone?.message}</p>}
+                            tooltipTrigger={
+                              <svg
+                                width="16"
+                                height="17"
+                                viewBox="0 0 16 17"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M8.00016 5.98334V8.65M8.00016 11.3167H8.00683M14.6668 8.65C14.6668 12.3319 11.6821 15.3167 8.00016 15.3167C4.31826 15.3167 1.3335 12.3319 1.3335 8.65C1.3335 4.96811 4.31826 1.98334 8.00016 1.98334C11.6821 1.98334 14.6668 4.96811 14.6668 8.65Z"
+                                  stroke="#F04438"
+                                  stroke-width="1.33333"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            }
+                          />
+                        ) : isPossiblePhoneNumber(value) ? (
+                          <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
+                        ) : null}
+                        {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
+                      </InputAdornment>
+                    </>
                   )}
                 />
-                <InputAdornment position="end">
-                  {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
-                </InputAdornment>
               </div>
 
               {/* <CustomTextField
@@ -666,10 +700,14 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                   control={control}
                   rules={{
                     required: { value: gstChecked ? true : false, message: "Enter Gst Details to continue." },
+                    pattern: {
+                      value: /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/,
+                      message: "Enter valid gst",
+                    },
                   }}
                   render={({ field }) => (
                     <CustomTextField
-                    {...field}
+                      {...field}
                       id="gst"
                       error={errors.gstin?.message ? true : false}
                       type="text"
@@ -678,7 +716,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            {errors.gstin?.message && (
+                            {errors.gstin?.message ? (
                               <Tooltip
                                 tooltipContent={<p className=" text-2xs">{errors.gstin.message}</p>}
                                 tooltipTrigger={
@@ -699,7 +737,9 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                                   </svg>
                                 }
                               />
-                            )}
+                            ) : field.value ? (
+                              <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
+                            ) : null}
                             {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
                           </InputAdornment>
                         ),
@@ -713,7 +753,12 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
           )}
 
           <div className="col-span-2 ">
-            <Button onClick={handleSubmit(handleCheckout)} className=" w-full" variant={ButtonVariant.primary}>
+            <Button
+              loading={checkoutLoading}
+              onClick={handleSubmit(handleCheckout)}
+              className=" w-full"
+              variant={ButtonVariant.primary}
+            >
               <p className=" text-sm font-medium">Proceed to Checkout</p>
             </Button>
           </div>

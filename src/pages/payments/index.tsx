@@ -128,7 +128,7 @@ export default function Index() {
       <div className=" bg-white open_sans">
         <Header className={headerBg} />
         <div className=" -mt-[13.5rem] flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
-          <div className=" px-4 py-10 md:p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
+          <div className=" p-4 py-8 pb-4 md:p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
             {/* stepper component */}
             <Tabs
               onValueChange={(value) => setActiveTab(value)}
@@ -210,8 +210,9 @@ export default function Index() {
                   </div>
                 </TabsTrigger>
                 <TabsTrigger
+                  disabled
                   value="payment"
-                  className="data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  className=" disabled:opacity-100 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                 >
                   <div
                     ref={(el) => {
@@ -250,8 +251,8 @@ export default function Index() {
               </p>
             </div>
           </div>
-          <div className=" py-10 px-11 min-w-0 bg-[#D1F9EF99] w-full max-md:rounded-3xl rounded-tr-3xl rounded-br-3xl border border-[#E3F1F1] border-l-0">
-            <div className=" p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
+          <div className="  p-4 md:py-10 md:px-11 min-w-0 bg-[#D1F9EF99] w-full max-md:rounded-3xl rounded-tr-3xl rounded-br-3xl border border-[#E3F1F1] border-l-0">
+            <div className=" p-10 md:p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
               <div className=" p-5 pt-0 flex flex-col items-center justify-center w-full ">
                 <div className="flex items-center  ">
                   <div className=" h-9 w-9 rounded-full ">
@@ -284,12 +285,12 @@ export default function Index() {
                 </div>
               </div>
               <div className=" h-[1px] w-full my-5 bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x "></div>
-              <div className="flex flex-wrap items-center gap-4 ">
-                <Button className=" flex-1 p-3" variant={ButtonVariant.primary}>
+              <div className="flex flex-wrap content-center items-center gap-4 ">
+                <Button className=" flex-1 flex items-center justify-between p-3" variant={ButtonVariant.primary}>
                   <p className=" text-2xs">Stocks Live</p>
                   <p className=" text-2xs font-bold mr-[10px]">30</p>
                 </Button>
-                <Button className=" flex-1 p-3 " variant={ButtonVariant.primary}>
+                <Button className=" flex-1 flex items-center justify-between p-3 " variant={ButtonVariant.primary}>
                   <p className=" text-2xs">Average Live Returns</p>
                   <p className=" text-2xs font-bold mr-[10px]">118%</p>
                 </Button>
