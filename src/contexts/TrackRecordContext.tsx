@@ -1,17 +1,55 @@
 import { useDebounce } from "@/utils/deBounceSearch";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import { useStockPicks } from "./StockPicksContext";
 import AuthContext from "@/components/AuthContext";
 import { initialFilterTime } from "@/utils/constants";
 import { getAllTrackRecordStockListApi } from "@/api/track-record";
 import { useTrackRecordCommon } from "./TrackRecordCommonContext";
 
+interface IRecency {
+  zero_to_three: boolean;
+  three_to_six: boolean;
+  six_to_twelve: boolean;
+  twelve_to_eighteen: boolean;
+  eighteen_to_twentyFour: boolean;
+  greater_than_twentyFour: boolean;
+}
+
 const TrackRecordContext = createContext<{
   searchStock: string;
   setSearchStock: Dispatch<SetStateAction<string>>;
   setSortBy: Dispatch<SetStateAction<string>>;
-}|null>(null);
+  setSortValue: Dispatch<SetStateAction<string>>;
+  recency: IRecency;
+  setRecency: Dispatch<
+    SetStateAction<{
+      zero_to_three: boolean;
+      three_to_six: boolean;
+      six_to_twelve: boolean;
+      twelve_to_eighteen: boolean;
+      eighteen_to_twentyFour: boolean;
+      greater_than_twentyFour: boolean;
+    }>
+  >;
+  timeLeft: {
+    zero_to_three: boolean;
+    three_to_six: boolean;
+    six_to_twelve: boolean;
+    twelve_to_eighteen: boolean;
+    eighteen_to_twentyFour: boolean;
+    greater_than_twentyFour: boolean;
+  };
+  setTimeLeft: Dispatch<
+    SetStateAction<{
+      zero_to_three: boolean;
+      three_to_six: boolean;
+      six_to_twelve: boolean;
+      twelve_to_eighteen: boolean;
+      eighteen_to_twentyFour: boolean;
+      greater_than_twentyFour: boolean;
+    }>
+  >;
+} | null>(null);
 
 export const TrackRecordProvider = ({ children }: { children: React.ReactNode }) => {
   const {
@@ -29,7 +67,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
   const { isLoggedIn } = useContext(AuthContext);
   const [searchStock, setSearchStock] = useState("");
   const debouncedSearchStock = useDebounce(searchStock, 1000); // Apply debouncing
-  const [sortBy, setSortBy] = useState("upside_left");
+  const [sortBy, setSortBy] = useState("returns");
   const [sortValue, setSortValue] = useState("desc");
   const [recency, setRecency] = useState(initialFilterTime);
   const [timeLeft, setTimeLeft] = useState(initialFilterTime);
@@ -45,7 +83,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
   const getFilterCount = () =>
     (upsideLeft[0] === min_upside_left && upsideLeft[1] === max_upside_left ? 0 : 1) +
     (returns[0] === min_returns && returns[1] === max_returns ? 0 : 1) +
-    Object.keys(recency).filter((key) => recency[key]).length +
+    Object.keys(recency).filter((key) => recency[key as keyof IRecency]).length +
     Object.keys(timeLeft).filter((key) => timeLeft[key]).length +
     sector.length +
     changablestrategyTags.length +
@@ -54,11 +92,13 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     actionCall.length;
 
   useEffect(() => {
+    if(!min_upside_left && !max_upside_left) return
     setUpsideLeft([min_upside_left, max_upside_left]);
   }, [min_upside_left, max_upside_left]);
 
   // Update upsideLeft whenever min_returns or max_returns change
   useEffect(() => {
+    if(!min_returns && !max_returns) return
     setReturns([min_returns, max_returns]);
   }, [min_returns, max_returns]);
 
@@ -130,7 +170,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
           action: actionCall,
           sort_by: sortBy,
           sort_value: sortValue,
-          recency_time: Object.keys(recency).filter((key) => recency[key]),
+          recency_time: Object.keys(recency).filter((key) => recency[key as keyof IRecency]),
           time_left_with_time: Object.keys(timeLeft).filter((key) => timeLeft[key]),
           upside_left_range: {
             min: upsideLeft[0],
@@ -151,6 +191,22 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
       if (total_pages > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
   });
+  console.log(
+    sebiBoardType,
+    sortBy,
+    sortValue,
+    debouncedSearchStock,
+    isLoggedIn,
+    recency, // Add additional parameters here
+    timeLeft,
+    upsideLeft,
+    returns,
+    marketCapType,
+    risk,
+    sector,
+    strategyTag,
+    actionCall
+  );
   return (
     <TrackRecordContext.Provider
       value={{

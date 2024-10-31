@@ -9,8 +9,8 @@ const TrackRecordList = () => {
   if (isLoading) {
     return (
       <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {new Array(8).fill("_").map((item) => (
-          <TrackRecordCardSkeleton />
+        {new Array(8).fill("_").map((item,index) => (
+          <TrackRecordCardSkeleton key={index} />
         ))}
       </div>
     );

@@ -122,7 +122,7 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [showFilterHeader]);
+  }, []);
 
   return (
     <div ref={ref} className={cn(" group/nav sticky left-0 right-0 top-0 z-50 overflow-visible pricing", className)}>

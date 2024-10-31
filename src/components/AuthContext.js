@@ -1,5 +1,5 @@
 import { GET_USER, VERIFY_TOKEN_URL } from "@/pages/api/URLs";
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useLayoutEffect } from "react";
 
 // Create the context
 const AuthContext = createContext({
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const refreshToken = localStorage.getItem("refresh");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const verifyTokens = async () => {
       if (refreshToken) {
         try {
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     verifyTokens();
   }, [localStorage.getItem("access"), localStorage.getItem("refresh")]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getUserDetails = async () => {
       if (refreshToken) {
         try {

@@ -163,6 +163,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                             : true
                         ).map((options) => (
                           <Link
+                            key={options.link}
                             className=" text-inherit"
                             href={options.link}
                             onClick={(e) => {
