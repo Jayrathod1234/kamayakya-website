@@ -10,6 +10,7 @@ import PlanModal from "./PlanModal";
 import { PlanTooltip } from "@/components.v2/payments";
 import ToPayTooltip from "./ToPayTooltip";
 import { PLAN } from "@/constants/pricing/plans";
+import { abbreviateTimeForPlan } from "@/lib/date-formatter";
 
 export default function ReviewSection({
   setActiveTab,
@@ -35,7 +36,7 @@ export default function ReviewSection({
                 Edit Plan
               </DialogTrigger>
             </div>
-            <p className=" text-gray-950 mt-[6px] text-sm font-semibold">{currentPlan.planName?.toUpperCase()}</p>
+            <p className=" text-gray-950 mt-[6px] text-sm font-semibold">{currentPlan.planName?.toUpperCase()} - {PLAN[currentPlan.planName?.toLowerCase()]?.label} ({abbreviateTimeForPlan( currentPlan.planDuration)})</p>
           </div>
           <div className=" flex">
             <div className=" p-4 flex-1 border-r border-r-gray-200">
