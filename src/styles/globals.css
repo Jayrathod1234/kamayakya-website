@@ -1314,7 +1314,7 @@ header > div > div {
   }
 }
 
-.pricing *,.open_sans * {
+.pricing *,.open_sans *,.open_sans {
   @apply font-open_sans !important;
   letter-spacing: normal !important;
 }
@@ -2202,3 +2202,9 @@ header > div > div {
   transform-origin: left;
  
 }
+
+.active_tab  div{
+  border: 1px solid red;
+}
+
+/* .review__section */

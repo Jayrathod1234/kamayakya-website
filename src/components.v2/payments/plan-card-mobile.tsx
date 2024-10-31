@@ -6,6 +6,7 @@ import { ButtonSize, ButtonVariant } from "../button/button";
 import { FeatureList, GstLabel } from "./plan-card-desktop";
 import { TPlanName, TPlanResponse } from "@/types";
 import { TActivePlan, TPlanDuration } from "@/types/components/payments";
+import { cn } from "@/lib/utils";
 
 type TPlanCardMobile = {
   planName: TPlanName;
@@ -17,6 +18,8 @@ type TPlanCardMobile = {
   currentTab: TPlanDuration;
   priceStrikeThrough: string;
   handleClick: () => void;
+  hideButton?: boolean;
+  className?: string;
 };
 
 export function PlanCardMobile({
@@ -29,9 +32,16 @@ export function PlanCardMobile({
   currentTab,
   priceStrikeThrough,
   handleClick,
+  hideButton = false,
+  className,
 }: TPlanCardMobile) {
   return (
-    <div className="rounded-b-xl border-x bg-white border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)]">
+    <div
+      className={cn(
+        "rounded-b-xl border-x bg-white border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)]",
+        className
+      )}
+    >
       <div className=" px-4 py-5">
         <div>
           <p className=" text-md text-gray-400 line-through">{priceStrikeThrough ? "₹" + priceStrikeThrough : null}</p>
@@ -81,18 +91,20 @@ export function PlanCardMobile({
           </div>
         </div>
       </div>
-      <div className=" p-4 pt-0">
-        <Button
-          onClick={handleClick}
-          disabled={ctaDisabled}
-          className=" w-full text-center"
-          variant={PLAN[planName].btnVariant ?? ButtonVariant.secondary}
-          size={ButtonSize.lg}
-        >
-          {btnText}
-        </Button>
-        <p className=" mt-3 text-center text-gray-400 text-sm">{PLAN[planName].warnMessage}</p>
-      </div>
+      {hideButton ? null : (
+        <div className=" p-4 pt-0">
+          <Button
+            onClick={handleClick}
+            disabled={ctaDisabled}
+            className=" w-full text-center"
+            variant={PLAN[planName].btnVariant ?? ButtonVariant.secondary}
+            size={ButtonSize.lg}
+          >
+            {btnText}
+          </Button>
+          <p className=" mt-3 text-center text-gray-400 text-sm">{PLAN[planName].warnMessage}</p>
+        </div>
+      )}
     </div>
   );
 }
