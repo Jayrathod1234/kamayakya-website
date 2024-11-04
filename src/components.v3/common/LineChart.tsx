@@ -521,10 +521,10 @@ export default function LineChart({
           return { ...item, date: formattedDate };
         })
         .filter((prev) => prev != null);
-      return currentData;
+      return currentData.slice(0,245);
     });
   }, [data]);
-
+  console.log("DATA LENGTH",stock_id, liveData?.length)
   return (
     <div className={cn(" relative w-full", containerClassName)}>
       <Line
@@ -629,7 +629,7 @@ export default function LineChart({
               data: liveData.filter((row) => row && row.price).map((row) => row?.price),
               borderColor: "#00645A",
               pointStyle: false,
-              tension: 0,
+              tension: 0.4,
               borderWidth: 1,
             },
           ],

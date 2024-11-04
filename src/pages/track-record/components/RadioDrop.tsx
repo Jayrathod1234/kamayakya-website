@@ -184,7 +184,7 @@ export default function CustomSortMenu({ isLabel }) {
               },
             }}
           >
-            <Box px={2} py={1}>
+             <Box px={2} py={1}>
               <Typography
                 variant="subtitle1"
                 gutterBottom
@@ -195,93 +195,16 @@ export default function CustomSortMenu({ isLabel }) {
                   fontFamily: "Open Sans",
                 }}
               >
-                Upside Left
+                Returns
               </Typography>
               <RadioGroup
-                name="Upside Left"
+                name="Returns"
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem
-                  sx={{
-                    height: "36px",
-                    marginBottom: "10px",
-                  }}
-                >
+                <MenuItem>
                   <FormControlLabel
-                    value="upside_left_desc"
-                    control={
-                      <Radio
-                        sx={{
-                          color: "#E4E7EC",
-                          "&.Mui-checked": {
-                            color: "#108973",
-                          },
-                          position: "absolute",
-                          left: "199px",
-                          padding: "0px",
-                        }}
-                      />
-                    }
-                    label={
-                      <Box display="flex" alignItems="center" sx={{}}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                        >
-                          <path
-                            d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
-                            stroke={
-                              selectedValue === "upside_left_desc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
-                            stroke={
-                              selectedValue === "upside_left_desc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
-                            stroke={
-                              selectedValue === "upside_left_desc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <span
-                          className={`ml-2 ${selectedValue === "upside_left_desc" ? "text-[#108973]" : "text-[#344054] "} !font-normal text-sm/5 font-open_sans`}
-                        >
-                          High to Low
-                        </span>
-                      </Box>
-                    }
-                  />
-                </MenuItem>
-                <MenuItem
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                >
-                  <FormControlLabel
-                    value="upside_left_asc"
+                    value="returns_desc"
                     control={
                       <Radio
                         sx={{
@@ -305,9 +228,9 @@ export default function CustomSortMenu({ isLabel }) {
                           fill="none"
                         >
                           <path
-                            d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
+                            d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
                             stroke={
-                              selectedValue === "upside_left_asc"
+                              selectedValue === "returns_desc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -316,20 +239,9 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
+                            d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
                             stroke={
-                              selectedValue === "upside_left_asc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
-                            stroke={
-                              selectedValue === "upside_left_asc"
+                              selectedValue === "returns_desc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -342,12 +254,80 @@ export default function CustomSortMenu({ isLabel }) {
                           style={{
                             marginLeft: "8px",
                             color:
-                              selectedValue === "upside_left_asc"
+                              selectedValue === "returns_desc"
                                 ? "#108973"
                                 : "#344054",
-                            fontWeight: 400,
-                            fontSize: "14px",
                             fontFamily: "Open Sans",
+                            fontSize: "14px",
+                          }}
+                        >
+                          High to Low
+                        </span>
+                      </Box>
+                    }
+                  />
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
+                  <FormControlLabel
+                    value="returns_asc"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
+                          position: "absolute",
+                          left: "199px",
+                          padding: "0px",
+                        }}
+                      />
+                    }
+                    label={
+                      <Box display="flex" alignItems="center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
+                            stroke={
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
+                            stroke={
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color:
+                              selectedValue === "returns_asc"
+                                ? "#108973"
+                                : "#344054",
+                            fontFamily: "Open Sans",
+                            fontSize: "14px",
                           }}
                         >
                           Low to High
@@ -358,6 +338,7 @@ export default function CustomSortMenu({ isLabel }) {
                 </MenuItem>
               </RadioGroup>
             </Box>
+           
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="260"
@@ -686,7 +667,7 @@ export default function CustomSortMenu({ isLabel }) {
                 </MenuItem>
               </RadioGroup>
             </Box>
-            <Box px={2} py={1} borderTop="1px solid #E0E0E0">
+            <Box px={2} py={1}  borderTop="1px solid #E0E0E0">
               <Typography
                 variant="subtitle1"
                 gutterBottom
@@ -697,16 +678,21 @@ export default function CustomSortMenu({ isLabel }) {
                   fontFamily: "Open Sans",
                 }}
               >
-                Returns
+                Upside Left
               </Typography>
               <RadioGroup
-                name="Returns"
+                name="Upside Left"
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem>
+                <MenuItem
+                  sx={{
+                    height: "36px",
+                    marginBottom: "10px",
+                  }}
+                >
                   <FormControlLabel
-                    value="returns_desc"
+                    value="upside_left_desc"
                     control={
                       <Radio
                         sx={{
@@ -721,7 +707,7 @@ export default function CustomSortMenu({ isLabel }) {
                       />
                     }
                     label={
-                      <Box display="flex" alignItems="center">
+                      <Box display="flex" alignItems="center" sx={{}}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -730,9 +716,9 @@ export default function CustomSortMenu({ isLabel }) {
                           fill="none"
                         >
                           <path
-                            d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
+                            d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
                             stroke={
-                              selectedValue === "returns_desc"
+                              selectedValue === "upside_left_desc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -741,9 +727,20 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
+                            d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
                             stroke={
-                              selectedValue === "returns_desc"
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
+                            stroke={
+                              selectedValue === "upside_left_desc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -753,15 +750,7 @@ export default function CustomSortMenu({ isLabel }) {
                           />
                         </svg>
                         <span
-                          style={{
-                            marginLeft: "8px",
-                            color:
-                              selectedValue === "returns_desc"
-                                ? "#108973"
-                                : "#344054",
-                            fontFamily: "Open Sans",
-                            fontSize: "14px",
-                          }}
+                          className={`ml-2 ${selectedValue === "upside_left_desc" ? "text-[#108973]" : "text-[#344054] "} !font-normal text-sm/5 font-open_sans`}
                         >
                           High to Low
                         </span>
@@ -775,7 +764,7 @@ export default function CustomSortMenu({ isLabel }) {
                   }}
                 >
                   <FormControlLabel
-                    value="returns_asc"
+                    value="upside_left_asc"
                     control={
                       <Radio
                         sx={{
@@ -799,9 +788,9 @@ export default function CustomSortMenu({ isLabel }) {
                           fill="none"
                         >
                           <path
-                            d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
+                            d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
                             stroke={
-                              selectedValue === "returns_asc"
+                              selectedValue === "upside_left_asc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -810,9 +799,20 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
+                            d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
                             stroke={
-                              selectedValue === "returns_asc"
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
+                            stroke={
+                              selectedValue === "upside_left_asc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -825,11 +825,12 @@ export default function CustomSortMenu({ isLabel }) {
                           style={{
                             marginLeft: "8px",
                             color:
-                              selectedValue === "returns_asc"
+                              selectedValue === "upside_left_asc"
                                 ? "#108973"
                                 : "#344054",
-                            fontFamily: "Open Sans",
+                            fontWeight: 400,
                             fontSize: "14px",
+                            fontFamily: "Open Sans",
                           }}
                         >
                           Low to High
@@ -870,7 +871,8 @@ export default function CustomSortMenu({ isLabel }) {
             }}
           >
             <Puller sx={{ bgcolor: "#B1B1B1", }} />
-            <Box px={2} py={1} sx={{ paddingTop: "16px",paddingInline:"18px" }}>
+            
+            <Box px={2} py={1}>
               <Typography
                 variant="subtitle1"
                 gutterBottom
@@ -881,18 +883,17 @@ export default function CustomSortMenu({ isLabel }) {
                   fontSize: "12px",
                 }}
               >
-                Upside Left
+                Returns
               </Typography>
               <RadioGroup
-              
-                name="Upside Left"
+                name="Returns"
                 value={selectedValue}
                 onChange={handleChange}
               >
-                <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
+                 <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
                   style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
-                    value="upside_left_desc"
+                    value="returns_desc"
                     control={
                       <Radio
                         sx={{
@@ -901,11 +902,9 @@ export default function CustomSortMenu({ isLabel }) {
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          // position: "absolute",
-                          // left: "291px",
-                          display:'block',
-                          marginLeft:'auto',
-                          order:2
+                          order:2,
+                          display:"block",
+                          marginLeft:'auto'
                         }}
                       />
                     }
@@ -919,9 +918,9 @@ export default function CustomSortMenu({ isLabel }) {
                           fill="none"
                         >
                           <path
-                            d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
+                            d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
                             stroke={
-                              selectedValue === "upside_left_desc"
+                              selectedValue === "returns_desc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -930,20 +929,9 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
+                            d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
                             stroke={
-                              selectedValue === "upside_left_desc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
-                            stroke={
-                              selectedValue === "upside_left_desc"
+                              selectedValue === "returns_desc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -956,7 +944,7 @@ export default function CustomSortMenu({ isLabel }) {
                           style={{
                             marginLeft: "8px",
                             color:
-                              selectedValue === "upside_left_desc"
+                              selectedValue === "returns_desc"
                                 ? "#108973"
                                 : "#17172E",
                             fontWeight: 400,
@@ -973,7 +961,7 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
                   style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
-                    value="upside_left_asc"
+                    value="returns_asc"
                     control={
                       <Radio
                         sx={{
@@ -982,12 +970,9 @@ export default function CustomSortMenu({ isLabel }) {
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          // position: "absolute",
-                          // left: "291px",
-                          // top: "9%",
-                          display:'block',
+                          display:"block",
                           marginLeft:'auto',
-                          order:2,
+                          order:2
                         }}
                       />
                     }
@@ -1001,9 +986,9 @@ export default function CustomSortMenu({ isLabel }) {
                           fill="none"
                         >
                           <path
-                            d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
+                            d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
                             stroke={
-                              selectedValue === "upside_left_asc"
+                              selectedValue === "returns_asc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -1012,20 +997,9 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
+                            d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
                             stroke={
-                              selectedValue === "upside_left_asc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
-                            stroke={
-                              selectedValue === "upside_left_asc"
+                              selectedValue === "returns_asc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -1038,7 +1012,7 @@ export default function CustomSortMenu({ isLabel }) {
                           style={{
                             marginLeft: "8px",
                             color:
-                              selectedValue === "upside_left_asc"
+                              selectedValue === "returns_asc"
                                 ? "#108973"
                                 : "#17172E",
                             fontWeight: 400,
@@ -1054,7 +1028,6 @@ export default function CustomSortMenu({ isLabel }) {
                 </MenuItem>
               </RadioGroup>
             </Box>
-
             <Box px={2} py={1}>
               <Typography
                 variant="subtitle1"
@@ -1367,7 +1340,8 @@ export default function CustomSortMenu({ isLabel }) {
                 </MenuItem>
               </RadioGroup>
             </Box>
-            <Box px={2} py={1}>
+           
+            <Box px={2} py={1} sx={{ paddingTop: "16px",paddingInline:"18px" }}>
               <Typography
                 variant="subtitle1"
                 gutterBottom
@@ -1378,17 +1352,18 @@ export default function CustomSortMenu({ isLabel }) {
                   fontSize: "12px",
                 }}
               >
-                Returns
+                Upside Left
               </Typography>
               <RadioGroup
-                name="Returns"
+              
+                name="Upside Left"
                 value={selectedValue}
                 onChange={handleChange}
               >
-                 <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
+                <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
                   style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
-                    value="returns_desc"
+                    value="upside_left_desc"
                     control={
                       <Radio
                         sx={{
@@ -1397,9 +1372,11 @@ export default function CustomSortMenu({ isLabel }) {
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          order:2,
-                          display:"block",
-                          marginLeft:'auto'
+                          // position: "absolute",
+                          // left: "291px",
+                          display:'block',
+                          marginLeft:'auto',
+                          order:2
                         }}
                       />
                     }
@@ -1413,9 +1390,9 @@ export default function CustomSortMenu({ isLabel }) {
                           fill="none"
                         >
                           <path
-                            d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
+                            d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
                             stroke={
-                              selectedValue === "returns_desc"
+                              selectedValue === "upside_left_desc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -1424,9 +1401,20 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
+                            d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
                             stroke={
-                              selectedValue === "returns_desc"
+                              selectedValue === "upside_left_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
+                            stroke={
+                              selectedValue === "upside_left_desc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -1439,7 +1427,7 @@ export default function CustomSortMenu({ isLabel }) {
                           style={{
                             marginLeft: "8px",
                             color:
-                              selectedValue === "returns_desc"
+                              selectedValue === "upside_left_desc"
                                 ? "#108973"
                                 : "#17172E",
                             fontWeight: 400,
@@ -1456,7 +1444,7 @@ export default function CustomSortMenu({ isLabel }) {
                 <MenuItem style={{display:'flex',justifyContent:'space-between',width:"100%",padding:0}}>
                   <FormControlLabel
                   style={{order:1,width:"100%",marginRight:0,marginLeft:0}}
-                    value="returns_asc"
+                    value="upside_left_asc"
                     control={
                       <Radio
                         sx={{
@@ -1465,9 +1453,12 @@ export default function CustomSortMenu({ isLabel }) {
                           "&.Mui-checked": {
                             color: "#108973",
                           },
-                          display:"block",
+                          // position: "absolute",
+                          // left: "291px",
+                          // top: "9%",
+                          display:'block',
                           marginLeft:'auto',
-                          order:2
+                          order:2,
                         }}
                       />
                     }
@@ -1481,9 +1472,9 @@ export default function CustomSortMenu({ isLabel }) {
                           fill="none"
                         >
                           <path
-                            d="M12 5H3H5.45455C6.32253 5 7.15496 5.33112 7.76871 5.92052C8.38247 6.50992 8.72727 7.30932 8.72727 8.14286C8.72727 8.97639 8.38247 9.77579 7.76871 10.3652C7.15496 10.9546 6.32253 11.2857 5.45455 11.2857H3L7.90909 16M3 8.14286H12"
+                            d="M5.83337 11.666L7.74421 9.75518C7.90048 9.59896 8.1124 9.51119 8.33337 9.51119C8.55434 9.51119 8.76627 9.59896 8.92254 9.75518L10.2442 11.0768C10.4005 11.2331 10.6124 11.3208 10.8334 11.3208C11.0543 11.3208 11.2663 11.2331 11.4225 11.0768L14.1667 8.33268M14.1667 8.33268V10.416M14.1667 8.33268H12.0834"
                             stroke={
-                              selectedValue === "returns_asc"
+                              selectedValue === "upside_left_asc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -1492,9 +1483,20 @@ export default function CustomSortMenu({ isLabel }) {
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M18 12.5L15.375 10M15.375 10L12.5 12.5M15.375 10L15.375 16"
+                            d="M18 4.16667L16.0909 2.5M16.0909 2.5L14 4.16667M16.0909 2.5L16.0909 6.5"
                             stroke={
-                              selectedValue === "returns_asc"
+                              selectedValue === "upside_left_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M18.3334 8.74935V9.99935C18.3334 13.9277 18.3334 15.8918 17.1126 17.1118C15.8934 18.3327 13.9284 18.3327 10.0001 18.3327C6.07175 18.3327 4.10758 18.3327 2.88675 17.1118C1.66675 15.8927 1.66675 13.9277 1.66675 9.99935C1.66675 9.05935 1.66675 8.23102 1.68341 7.49935M11.2501 1.66602H10.0001C6.07175 1.66602 4.10758 1.66602 2.88675 2.88602C2.52008 3.25352 2.26258 3.68852 2.08341 4.22435"
+                            stroke={
+                              selectedValue === "upside_left_asc"
                                 ? "#108973"
                                 : "#344054"
                             }
@@ -1507,7 +1509,7 @@ export default function CustomSortMenu({ isLabel }) {
                           style={{
                             marginLeft: "8px",
                             color:
-                              selectedValue === "returns_asc"
+                              selectedValue === "upside_left_asc"
                                 ? "#108973"
                                 : "#17172E",
                             fontWeight: 400,

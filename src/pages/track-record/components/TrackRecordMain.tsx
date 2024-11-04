@@ -19,23 +19,23 @@ import AuthContext from "@/components/AuthContext";
 import { AllBoardStockProvider } from "@/contexts/AllBoardStockContext";
 import SearchPage from "./SearchPage";
 
-const MyObserver = () => {
-  const { fetchNextPage } = useTrackRecord();
-  const myObserver = useRef();
-  useEffect(() => {
-    // Start observing the element referenced by observerElem.current
-    if (myObserver.current) {
-      onScrollPaginationFunction(fetchNextPage).observe(myObserver.current);
-    }
-    // Clean up function to stop observing when component unmounts
-    return () => {
-      if (myObserver.current) {
-        onScrollPaginationFunction(fetchNextPage).unobserve(myObserver.current);
-      }
-    };
-  }, [fetchNextPage]);
-  return <div className=" h-1 w-full " ref={myObserver}></div>;
-};
+// const MyObserver = () => {
+//   const { fetchNextPage } = useTrackRecord();
+//   const myObserver = useRef();
+//   useEffect(() => {
+//     // Start observing the element referenced by observerElem.current
+//     if (myObserver.current) {
+//       onScrollPaginationFunction(fetchNextPage).observe(myObserver.current);
+//     }
+//     // Clean up function to stop observing when component unmounts
+//     return () => {
+//       if (myObserver.current) {
+//         onScrollPaginationFunction(fetchNextPage).unobserve(myObserver.current);
+//       }
+//     };
+//   }, [fetchNextPage]);
+//   return <div className=" h-1 w-full " ref={myObserver}></div>;
+// };
 
 export default function TrackRecordMain() {
   const { searchPageOpen } = useTrackRecordCommon();
@@ -76,7 +76,7 @@ export default function TrackRecordMain() {
         <div ref={showFilterRef} className="main-container relative">
           <LegendSection />
           <TrackRecordList />
-          <MyObserver />
+          {/* <MyObserver /> */}
         </div>
       </section>
       {/* Stock Lists end */}

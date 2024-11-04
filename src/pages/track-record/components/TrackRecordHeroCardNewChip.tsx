@@ -107,7 +107,7 @@ export function TrackRecordHeroCardNewChip({ newRecommendation, type }) {
       <Drawer open={openDropDown} onOpenChange={setOpenDropDown}>
         <DrawerTrigger asChild>
           <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
-            3 New <span className="hidden sm:inline-block">{type==="LIVE" ?"Recommendations":"Exits"}</span>
+            3 New <span className={`${type === "LIVE" ? "hidden" : ""} sm:inline-block`}>{type==="LIVE" ?"Recommendations":"Exits"}</span>
           </button>
         </DrawerTrigger>
         <DrawerContent className=" rounded-t-[20px] bg-transparent border-none outline-none">
@@ -166,7 +166,7 @@ export function TrackRecordHeroCardNewChip({ newRecommendation, type }) {
     <HoverCard open={openDropDown} openDelay={0} onOpenChange={setOpenDropDown}>
       <HoverCardTrigger onClick={onTriggerEleClick} asChild>
         <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
-          3 New <span className="hidden sm:inline-block">{type==="LIVE"?"Recommendations":"Exits"}</span>
+          3 New <span className={`${type === "LIVE" ? "hidden":""} sm:inline-block`}>{type==="LIVE"?"Recommendations":"Exits"}</span>
         </button>
       </HoverCardTrigger>
       {isLoggedIn ? (

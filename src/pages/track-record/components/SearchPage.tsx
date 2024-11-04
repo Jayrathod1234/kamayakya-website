@@ -120,7 +120,7 @@ function SearchPage() {
               ? "#"
               : value.is_blur
                 ? `/pricing`
-                : `/stock-picks/${value.id}`;
+                : `/track-record/${value.id}`;
             const onClick = !isLoggedIn ? handleLogin : undefined;
             return (
               <Link key={index} href={href}>
