@@ -25,7 +25,7 @@ export default function Tooltip({
     return (
       <Dialog>
         <DialogTrigger asChild>{tooltipTrigger}</DialogTrigger>
-        <DialogContent closeClassName={''} className=" w-[min(425px,calc(100%-32px))] !rounded-xl !shadow-xl">
+        <DialogContent closeClassName={' right-[14px] top-[14px]'} className=" w-[min(425px,calc(100%-32px))] !rounded-xl !shadow-xl">
           {dialogHeader && <DialogHeader className="!open_sans"><h3 className="  !text-xl !font-bold !text-left !text-[#101828] m-0">{dialogHeader}</h3></DialogHeader>}
           {tooltipContent}
           </DialogContent>

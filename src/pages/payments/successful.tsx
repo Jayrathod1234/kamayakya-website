@@ -5,6 +5,8 @@ import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import { getPaymentReceipt } from "@/api/payment";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { PLAN } from "@/constants/pricing/plans";
+import ToPayTooltip from "./components/ToPayTooltip";
 
 const steps = [
   "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
@@ -45,21 +47,21 @@ export default function Successful() {
     tax_amount: 0,
     total_amount: "",
     total_payment: "",
-    discount_code:''
+    discount_code: "",
   });
-  const router =useRouter()
+  const router = useRouter();
 
   const fetchPaymentReceipts = async () => {
     try {
       const res = await getPaymentReceipt({ order_id: sessionStorage.getItem("orderId") });
-      setPaymentDetails(res?.data)
+      setPaymentDetails(res?.data);
     } catch (e) {}
   };
 
   useEffect(() => {
     fetchPaymentReceipts();
   }, [sessionStorage.getItem("orderId")]);
-  if(!paymentDetails.start_date) return null
+  if (!paymentDetails.start_date) return null;
   return (
     <div className=" bg-gray-200 md:bg-white open_sans min-h-full relative">
       <Header />
@@ -93,17 +95,21 @@ export default function Successful() {
           <p className=" mt-4 text-[#667085]">See ya on the other side, </p>
           <p className="text-[#667085]">Team KamayaKya</p>
           <div className=" flex mt-12 gap-3 flex-wrap">
-            <Button onClick={()=>router.push("/stock-picks")} variant={ButtonVariant.primary}>
+            <Button onClick={() => router.push("/stock-picks")} variant={ButtonVariant.primary}>
               <p className=" text-sm font-semibold">Go to Stocks to Buy</p>
             </Button>
-            <Button onClick={()=>router.push("/track-record")} variant={ButtonVariant.secondary} className=" border-[#0000001A]">
+            <Button
+              onClick={() => router.push("/track-record")}
+              variant={ButtonVariant.secondary}
+              className=" border-[#0000001A]"
+            >
               <p className=" text-sm font-semibold">Go to Track Record</p>
             </Button>
           </div>
         </div>
 
         <div className="relative md:p-11 md:px-9 lg:px-11  md:bg-[#D1F9EF99] w-full max-md:rounded-3xl rounded-tr-3xl rounded-br-3xl md:border border-[#E3F1F1] border-l-0 overflow-visible z-20">
-          <div className="min-w-[320px]  max-w-[400px] mx-auto  pt-12 px-9  flex flex-col items-center [&>*]:w-full gap-y-6 bg-white rounded-xl relative overflow-visible z-50">
+          <div className="min-w-[320px]  max-w-[400px] mx-auto  pt-12 px-9 pb-3  flex flex-col items-center [&>*]:w-full gap-y-6 bg-white rounded-xl relative overflow-visible z-50">
             <div className=" !h-[56px] !w-[56px] hidden md:flex items-center justify-center bg-white rounded-full absolute top-[-10%] md:top-[-4%] shadow-[0px_6px_16px_0px_#7A7A7A1F] z-50">
               <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -114,23 +120,38 @@ export default function Successful() {
             </div>
             <div>
               <p className=" text-sm text-[#474747] text-center">Total Payment</p>
-              <h3 className=" text-[28px] font-semibold text-[#121212] text-center m-0 mt-[6px]">₹{paymentDetails.total_payment}</h3>
+              <h3 className=" text-[28px] font-semibold text-[#121212] text-center m-0 mt-[6px]">
+                ₹{Number(paymentDetails.total_payment).toLocaleString("hi")}
+              </h3>
+              <div
+                className={` my-4 ${
+                  showDetail ? "hidden" : "block"
+                } md:hidden px-3 rounded-full bg-[#DFFAEC] mx-auto w-fit`}
+              >
+                <p className=" text-2xs text-[#128454]"> {PLAN[paymentDetails?.subscription_name]?.paymentPageLabel}</p>
+              </div>
+              <div className={` w-full border border-dashed ${showDetail ? "hidden" : "block"} md:hidden`}></div>
             </div>
+
             <div className={`${showDetail ? "grid" : " hidden"} md:grid grid-cols-2 gap-3`}>
               <div className=" col-span-2 grid grid-cols-2 border border-[#EDEDED] rounded-md">
                 <div className=" col-span-2 p-4 border-b border-b-[#EDEDED]">
                   <p className=" text-[#707070] text-2xs truncate">Plan</p>
                   <p className=" text-[#121212] text-xs mt-1 font-medium truncate">
-                  {paymentDetails.subscription_name}
+                    {PLAN[paymentDetails?.subscription_name]?.paymentPageLabel}
                   </p>
                 </div>
                 <div className=" col-span-1  p-4 border-r border-r-[#EDEDED]">
                   <p className=" text-[#707070] text-2xs truncate">Start Date</p>
-                  <p className=" text-[#121212] text-xs mt-1 font-medium truncate">{format(new Date(paymentDetails.start_date), 'dd MMM yyyy, hh:mm') }</p>
+                  <p className=" text-[#121212] text-xs mt-1 font-medium truncate">
+                    {format(new Date(paymentDetails.start_date), "dd MMM yyyy, hh:mm")}
+                  </p>
                 </div>
                 <div className=" col-span-1  p-4">
                   <p className=" text-[#707070] text-2xs truncate">End Date</p>
-                  <p className=" text-[#121212] text-xs mt-1 font-medium truncate">{format(new Date(paymentDetails.end_date), 'dd MMM yyyy, hh:mm')}</p>
+                  <p className=" text-[#121212] text-xs mt-1 font-medium truncate">
+                    {format(new Date(paymentDetails.end_date), "dd MMM yyyy, hh:mm")}
+                  </p>
                 </div>
               </div>
               <div className=" col-span-1 p-4 border border-[#EDEDED] rounded-md">
@@ -139,7 +160,9 @@ export default function Successful() {
               </div>
               <div className=" col-span-1 p-4 border border-[#EDEDED] rounded-md">
                 <p className=" text-[#707070] text-2xs truncate">Payment Time</p>
-                <p className=" text-[#121212] text-xs mt-1 font-medium truncate">{format(new Date(paymentDetails.payment_time), 'dd MMM yyyy, hh:mm')}</p>
+                <p className=" text-[#121212] text-xs mt-1 font-medium truncate">
+                  {format(new Date(paymentDetails.payment_time), "dd MMM yyyy, hh:mm")}
+                </p>
               </div>
               <div className=" col-span-1 p-4 border border-[#EDEDED] rounded-md">
                 <p className=" text-[#707070] text-2xs truncate">Payment Method</p>
@@ -150,37 +173,86 @@ export default function Successful() {
                 <p className=" text-[#121212] text-xs mt-1 font-medium truncate">{paymentDetails.sender_name}</p>
               </div>
             </div>
-            <div className=" h-[1px] bg-[#E8EAED]"></div>
+            <div className="hidden md:block h-[1px] bg-[#E8EAED]"></div>
             <div className={` ${showDetail ? "flex" : " hidden"} md:flex flex-col gap-y-3`}>
               <div className=" flex justify-between items-center">
                 <p className=" text-sm text-[#101828]">Base Price</p>
-                <p className=" text-sm text-[#667085]">₹{paymentDetails.base_price - paymentDetails.tax_amount}</p>
+                <p className=" text-sm text-[#667085]">
+                  ₹{Number(paymentDetails.base_price - paymentDetails.tax_amount).toLocaleString("hi")}
+                </p>
               </div>
               <div className=" flex justify-between items-center">
                 <div>
                   <p className=" text-sm text-[#101828]">Tax (18%)</p>
                   <p className="  text-2xs text-[#9B9B9B]">You don’t pay extra for taxes. We got you!</p>
                 </div>
-                <p className=" text-sm text-[#667085]">₹{paymentDetails.tax_amount}</p>
+                <p className=" text-sm text-[#667085]">₹{Number(paymentDetails.tax_amount).toLocaleString("hi")}</p>
               </div>
 
               <div className=" pt-1 border-t border-dashed border-t-[#667085]"></div>
               <div className=" mt-[-1px] flex justify-between items-center">
                 <p className=" text-sm font-medium text-[#101828]">Total Amount</p>
-                <p className=" text-sm text-[#010101] font-medium">₹{paymentDetails.base_price}</p>
+                <p className=" text-sm text-[#010101] font-medium">
+                  ₹{Number(paymentDetails.base_price).toLocaleString("hi")}
+                </p>
               </div>
-              {paymentDetails.discount_amount ? <> <div className=" mt-[-1px] flex justify-between items-center">
-                <p className=" text-sm font-medium text-[#1BB991]">Discount ({paymentDetails.discount_code} - {((Number(paymentDetails.discount_amount) / Number(paymentDetails.total_payment)) * 100).toFixed(2)}% off)</p>
-                <p className=" text-sm text-[#1BB991] font-medium">- ₹{paymentDetails.discount_amount}</p>
-              </div>
-              <div className=" mt-[-1px] flex justify-between items-center">
-                <p className=" text-sm font-medium text-[#101828]">To Pay</p>
-                <p className=" text-sm text-[#010101] font-medium">₹{paymentDetails.total_payment}</p>
-              </div></> : null}
-             
+              {paymentDetails.discount_amount ? (
+                <>
+                  {" "}
+                  <div className=" mt-[-1px] flex justify-between items-center">
+                    <p className=" text-sm font-medium text-[#1BB991]">
+                      Discount ({paymentDetails.discount_code} -{" "}
+                      {((Number(paymentDetails.discount_amount) / Number(paymentDetails.total_payment)) * 100).toFixed(
+                        2
+                      )}
+                      % off)
+                    </p>
+                    <p className=" text-sm text-[#1BB991] font-medium">
+                      - ₹{Number(paymentDetails.discount_amount).toLocaleString("hi")}
+                    </p>
+                  </div>
+                  <div className=" mt-[-1px] flex justify-between items-center">
+                    <div className=" flex items-center gap-x-1">
+                      <p className=" text-sm font-bold text-[#101828]">To Pay</p>
+                      <ToPayTooltip
+                        price={`₹${Number(
+                          (
+                            (Number(paymentDetails.total_payment)) /
+                            1.18
+                          ).toFixed(2)
+                        ).toLocaleString("hi")}`}
+                        saveText={""}
+                        strikePrice={""}
+                        gst={`₹${Number(
+                          (
+                            Number(paymentDetails.total_payment) -
+                           
+                            (Number(paymentDetails.total_payment) ) / 1.18
+                          ).toFixed(2)
+                        ).toLocaleString("hi")}`}
+                        total={`₹${(
+                          Number(paymentDetails.total_payment) 
+                        ).toLocaleString("hi")}`}
+                      >
+                        <div className=" flex justify-center items-center">
+                          <img width={16} height={16} alt="info-icon" src="/icons/info-icon.svg" />
+                        </div>
+                      </ToPayTooltip>
+                    </div>
+
+                    <p className=" text-sm text-[#010101] font-bold">
+                      ₹{Number(paymentDetails.total_payment).toLocaleString("hi")}
+                    </p>
+                  </div>
+                </>
+              ) : null}
             </div>
             <div className=" relative z-10 flex flex-wrap gap-3 items-center">
-              <Button onClick={()=> window.open(paymentDetails?.invoice_pdf,"_blank")} className=" border-[#0000001A] gap-x-2 mx-auto" variant={ButtonVariant.secondary}>
+              <Button
+                onClick={() => window.open(paymentDetails?.invoice_pdf, "_blank")}
+                className=" border-[#0000001A] gap-x-2 mx-auto"
+                variant={ButtonVariant.secondary}
+              >
                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M9.32031 12.0339L11.8803 14.5939L14.4403 12.0339"
@@ -249,14 +321,16 @@ export default function Successful() {
               <img height={30} className=" w-full" src="/receipt.svg" alt="" />
             </div>
           </div>
-          <div className=" hidden md:block absolute bottom-0 right-0 z-10">
-            <img src="/receipt_mascot.png" alt="" />
+          <div className=" hidden md:block absolute bottom-0 right-0 z-[51] overflow-hidden">
+            <img className="" src="/receipt_mascot.png" alt="mascot-img" />
           </div>
         </div>
         <div className="block md:hidden pb-20">
-          <div className=" flex justify-between items-center">
-            <h3 className=" text-lg font-bold text-brand-700">Well done! Time for the fun part.</h3>
-            <img className=" -mb-3 relative z-10" width={88} height={116} src="/receipt_mascot.png" alt="mascot-img" />
+          <div className=" flex justify-between">
+            <div className=" flex items-end ">
+              <h3 className=" h-fit text-lg font-bold text-brand-700 ">Well done! Time for the fun part.</h3>
+            </div>
+            <img className=" relative z-10" width={88} height={116} src="/receipt_mascot.png" alt="mascot-img" />
           </div>
           <div className=" px-6 py-7 bg-white rounded-xl relative z-20">
             <p className=" text-md text-gray-900 font-semibold">What You Get?</p>
@@ -267,24 +341,26 @@ export default function Successful() {
             </ul>
             <p className=" text-md text-gray-900 font-semibold mt-12">What's Next?</p>
             <p className=" text-sm text-[#667085] font-medium mt-4">
-            Hooray! Time to start some investing. Go to our "Stocks to buy" or "Track record" page and discover the hidden gems that interest you. Read reports, analyse, and stay tuned to our Email and WhatsApp updates on how to make the most of the platform and what's coming next. 
+              Hooray! Time to start some investing. Go to our "Stocks to buy" or "Track record" page and discover the
+              hidden gems that interest you. Read reports, analyse, and stay tuned to our Email and WhatsApp updates on
+              how to make the most of the platform and what's coming next.
             </p>
-            <p className=" text-sm text-[#667085] font-medium mt-4">
-            See ya on the other side,
-            </p>
-            <p className=" text-sm text-[#667085] font-medium">
-            Team KamayaKya
-            </p>
+            <p className=" text-sm text-[#667085] font-medium mt-4">See ya on the other side,</p>
+            <p className=" text-sm text-[#667085] font-medium">Team KamayaKya</p>
           </div>
         </div>
         <div
           className=" left-0  fixed flex md:hidden bottom-0 gap-x-3 z-30 w-full p-4 bg-white shadow-[0px_5px_28.4px_0px_#00000040]
 "
         >
-          <Button onClick={()=>router.push("/stock-picks")} className=" flex-1" variant={ButtonVariant.primary}>
+          <Button onClick={() => router.push("/stock-picks")} className=" flex-1" variant={ButtonVariant.primary}>
             <p className=" text-2xs sm:text-sm font-semibold">Go to Stocks to Buy</p>
           </Button>
-          <Button onClick={()=>router.push("/track-record")} variant={ButtonVariant.secondary} className=" border-[#0000001A] flex-1">
+          <Button
+            onClick={() => router.push("/track-record")}
+            variant={ButtonVariant.secondary}
+            className=" border-[#0000001A] flex-1"
+          >
             <p className=" text-2xs  sm:text-sm font-semibold">Go to Track Record</p>
           </Button>
         </div>

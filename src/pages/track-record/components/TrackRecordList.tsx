@@ -1,9 +1,11 @@
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import TrackRecordCardSkeleton from "./skeleton/TrackRecordCardSkeleton";
 import TrackRecordStockCard from "./TrackRecordStockCard";
+import { Button } from "@/components.v2/button";
+import { ButtonVariant } from "@/components.v2/button/button";
 
 const TrackRecordList = () => {
-  const { response, isLoading } = useTrackRecord();
+  const { response, isLoading, fetchNextPage, isFetchingNextPage } = useTrackRecord();
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
 
   if (isLoading) {
@@ -19,11 +21,16 @@ const TrackRecordList = () => {
     return <div className=" flex items-center justify-center">
       <p>No Stocks Found</p>    </div>
   }
+
+  
   return (
     <div className=" grid grid-cols-1 lg:grid-cols-2  gap-5">
       {items.map((item) => (
         <TrackRecordStockCard key={item.id} {...item} />
       ))}
+      <div className=" col-span-full justify-center items-center">
+      <Button loading={isFetchingNextPage} onClick={fetchNextPage} className=" mx-auto hover:bg-white w-fit bg-white border border-gray-300" variant={ButtonVariant.custom}>Load More</Button>
+      </div>
     </div>
   );
 };

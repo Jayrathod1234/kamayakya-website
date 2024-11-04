@@ -102,8 +102,8 @@ function LineChartMain({
   target_met_img.width = annotationSize;
   target_met_img.src = "/assets/target-met.svg";
   const target_active_img = new Image();
-  target_active_img.width = annotationSize;
-  target_active_img.height = annotationSize;
+  target_active_img.width = 10;
+  target_active_img.height = 10;
   target_active_img.src = "/assets/active-target.svg";
   const cmp_img = new Image();
   cmp_img.height = annotationSize;
@@ -526,7 +526,7 @@ function LineChartMain({
       return currentData;
     });
   }, [data]);
-
+  console.log("DATA LENGTH",stock_id, liveData?.length)
   return (
     <Line
       className=""

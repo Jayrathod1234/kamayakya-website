@@ -802,7 +802,7 @@ function StockDetailsSection() {
                                 {/* &&
                                 Array.isArray(stock_targets) &&
                                 stock_targets[0].target_met !== null */}
-                                {action === "SELL"  ? null : (
+                                {action === "SELL" ? null : (
                                   <StockPerformanceCard
                                     className={" border border-[#F2F4F7]"}
                                     iconContainerClassName=" bg-[#F9FAFB] rounded-[6px]"
@@ -897,13 +897,15 @@ function StockDetailsSection() {
                                   ? "bg-custom-gradient rounded-[10px]"
                                   : "bg-[linear-gradient(108.17deg,#FF9E9E_-3.69%,#E53A3A_92.32%)] rounded-[10px]"
                               } `}
-                              label={   action === "SELL" &&
+                              label={
+                                action === "SELL" &&
                                 Array.isArray(stock_targets) &&
                                 stock_targets[0].target_met !== null
                                   ? gain_loss > 0
                                     ? "Profit Booked"
                                     : "Loss Booked"
-                                  : "Total Returns"}
+                                  : "Total Returns"
+                              }
                               icon={<img src="/assets/Layer_1_white.svg" alt="Returns Icon" className=" h-6 w-6" />}
                               value={gain_loss}
                               time={return_time}
@@ -913,247 +915,252 @@ function StockDetailsSection() {
                           </div>
                           {/* Array.isArray(stock_targets) &&
                                 stock_targets[0].target_met !== null */}
-                          {action === "SELL"
-                                 ? null :  <div className="bg-[F9FAFB] px-4 pb-2 rounded-b-2xl">
-                                <div className="flex justify-between items-center">
+                                 <div className="bg-[F9FAFB] px-4 pb-2 rounded-b-2xl">
+                                 {cagr_of_stock && (
+                                <div className="flex justify-between items-center mt-2">
                                   <div className="flex items-center">
-                                    <img
-                                      height={14}
-                                      width={14}
-                                      className=" object-contain"
-                                      src="/assets/streamline_target-solid-green.svg"
-                                      alt=""
-                                    />
-                                    <p className="ml-[10px] text-3xs text-gray-800 font-open_sans">Upside Left</p>
+                                    <img src="/assets/hj2.svg" alt="" />
+                                    <p className="ml-2 text-3xs text-gray-800 font-open_sans">Total CAGR</p>
+                                    <div className="relative group hidden sm:block">
+                                      {/* Tooltip (Visible on large screens) */}
+                                      <img
+                                        src="/assets/blackinfo.svg"
+                                        alt="Info"
+                                        className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                      />
+                                      <div className="absolute left-1/2 transform -translate-x-1/3 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
+                                        <div className="tooltip-content">
+                                          <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
+                                            Compound Annual Growth Rate
+                                          </h3>
+                                          <p className="tooltip-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
+                                            Purpose:
+                                          </p>
+                                          <p className="tooltip-text my-1 text-gray-800 text-[12px] font-open_sans">
+                                            Shows average yearly growth of an investment.
+                                          </p>
+                                          <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
+                                            Imagine a tree growing a bit more each year.
+                                            <br />
+                                            CAGR tells how fast it grows annually on average.
+                                          </p>
+                                          <div className="tooltip-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                            <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
+                                            <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                              <span className="text-[30px] font-[50] font-open_sans">[</span>
+                                              <div className="flex items-center mx-2">
+                                                <div className="flex flex-col items-center">
+                                                  <div className="fraction">
+                                                    <span className="numerator text-[12px] font-open_sans">
+                                                      Ending Value
+                                                    </span>
+                                                    <span className="denominator text-[12px] font-open_sans">
+                                                      Starting Value
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <span className="text-[30px] font-[50] font-open_sans">]</span>
+                                              <sup className="flex items-center text-[20px] font-[50]">
+                                                <span className="text-[20px] font-open_sans">[</span>
+                                                <div className="flex flex-col items-center mx-2">
+                                                  <div className="fraction">
+                                                    <span className="text-[12px] font-open_sans">1</span>
+                                                    <hr className="w-full h-[1px] bg-black mt-2" />
+                                                    <span className="denominator text-[12px] mt-2 font-open_sans">
+                                                      No. of Years
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                                <span className="text-[20px] font-open_sans">]</span>
+                                              </sup>
+                                              <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
+                                            </div>
+                                          </div>
+
+                                          <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
+                                            <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
+                                              Example :
+                                            </p>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                              <strong>Start Value</strong> ₹100
+                                            </div>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                              <strong>End Value after 3 years</strong> ₹150
+                                            </div>
+                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                              <strong>Total Returns over 3 years</strong> 50%
+                                            </div>
+                                            <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
+                                              <strong>CAGR</strong> 14.47%
+                                            </div>
+                                          </div>
+                                          <p className="tooltip-footer mt-4 text-[12px] text-gray-500 font-open_sans">
+                                            This means, on average, the investment grew about 14.47% each year
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="sm:hidden">
+                                      <img
+                                        src="/assets/blackinfo.svg"
+                                        alt="Info"
+                                        className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                        onClick={openModalCagr}
+                                      />
+                                    </div>
+
+                                    <Modal
+                                      blur
+                                      width="450px"
+                                      open={isModalOpenCagr}
+                                      onClose={() => setIsModalOpenCagr(false)}
+                                      className="relative flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
+                                    >
+                                      {/* Close Icon Button */}
+                                      <button
+                                        onClick={() => setIsModalOpenCagr(false)}
+                                        className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none"
+                                        aria-label="Close modal"
+                                      >
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          className="h-6 w-6"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                          stroke="currentColor"
+                                        >
+                                          <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M6 18L18 6M6 6l12 12"
+                                          />
+                                        </svg>
+                                      </button>
+
+                                      {/* Modal Content */}
+                                      {/* Modal Header */}
+                                      <h3 className="modal-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
+                                        Compound Annual Growth Rate
+                                      </h3>
+                                      <p className="modal-subtitle text-left font-bold text-blue-900 font-open_sans text-[12px]">
+                                        Purpose:
+                                      </p>
+                                      <p className="modal-text my-1 text-left text-gray-800 text-[12px] font-open_sans">
+                                        Shows average yearly growth of an investment.
+                                      </p>
+                                      <p className="modal-quote italic text-left mb-3 text-gray-600 text-[12px] font-open_sans">
+                                        Imagine a tree growing a bit more each year.
+                                        <br />
+                                        CAGR tells how fast it grows annually on average.
+                                      </p>
+                                      <div className="modal-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                        <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
+                                        <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                          <span className="text-[30px] font-[50] font-open_sans">[</span>
+                                          <div className="flex items-center mx-2">
+                                            <div className="flex flex-col items-center">
+                                              <div className="fraction">
+                                                <span className="numerator text-[12px] font-open_sans">
+                                                  Ending Value
+                                                </span>
+                                                <span className="denominator text-[12px] font-open_sans">
+                                                  Starting Value
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <span className="text-[30px] font-[50] font-open_sans">]</span>
+                                          <sup className="flex items-center text-[20px] font-[50]">
+                                            <span className="text-[20px] font-open_sans">[</span>
+                                            <div className="flex flex-col items-center mx-2">
+                                              <div className="fraction">
+                                                <span className="text-[12px] font-open_sans">1</span>
+                                                <hr className="w-full h-[1px] bg-black mt-2" />
+                                                <span className="denominator text-[12px] mt-2 font-open_sans">
+                                                  No. of Years
+                                                </span>
+                                              </div>
+                                            </div>
+                                            <span className="text-[20px] font-open_sans">]</span>
+                                          </sup>
+                                          <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
+                                        </div>
+                                      </div>
+
+                                      <div className="modal-example bg-gray-50 p-3 text-left rounded mb-4">
+                                        <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
+                                          Example:
+                                        </p>
+                                        <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                          <strong>Start Value</strong> ₹100
+                                        </div>
+                                        <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                          <strong>End Value after 3 years</strong> ₹150
+                                        </div>
+                                        <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                          <strong>Total Returns over 3 years</strong> 50%
+                                        </div>
+                                        <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
+                                          <strong>CAGR</strong> 14.47%
+                                        </div>
+                                      </div>
+                                      <p className="modal-footer mt-4 text-[12px] text-gray-500 font-open_sans">
+                                        This means, on average, the investment grew about 14.47% each year
+                                      </p>
+                                    </Modal>
                                   </div>
                                   <div className="flex items-center">
-                                    {upside_left >= 0 ? (
+                                    {cagr_of_stock.cagr_value >= 0 ? (
                                       // green up arrow
-                                      <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2 h-[6px]" />
+                                      <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2" />
                                     ) : (
                                       // red down arrow
-                                      <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2 h-[6px]" />
+                                      <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
                                     )}
-                                    <p className="text-[#1D2939] ml-1 text-2xs font-open_sans font-[700]">
-                                      {Math.abs(upside_left)}% {""}
+                                    <p className="text-black ml-1 text-2xs font-open_sans font-[700] ">
+                                      {cagr_of_stock.cagr_value}%{" "}
                                       <span className="text-gray-500 text-4xs font-open_sans font-semibold">
-                                        in {upside_left_time}
+                                        in {cagr_of_stock.cagr_time}
                                       </span>
                                     </p>
                                   </div>
                                 </div>
-                                {cagr_of_stock && (
-                                  <div className="flex justify-between items-center mt-2">
-                                    <div className="flex items-center">
-                                      <img src="/assets/hj2.svg" alt="" />
-                                      <p className="ml-2 text-3xs text-gray-800 font-open_sans">CAGR</p>
-                                      <div className="relative group hidden sm:block">
-                                        {/* Tooltip (Visible on large screens) */}
-                                        <img
-                                          src="/assets/blackinfo.svg"
-                                          alt="Info"
-                                          className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                        />
-                                        <div className="absolute left-1/2 transform -translate-x-1/3 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
-                                          <div className="tooltip-content">
-                                            <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
-                                              Compound Annual Growth Rate
-                                            </h3>
-                                            <p className="tooltip-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
-                                              Purpose:
-                                            </p>
-                                            <p className="tooltip-text my-1 text-gray-800 text-[12px] font-open_sans">
-                                              Shows average yearly growth of an investment.
-                                            </p>
-                                            <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
-                                              Imagine a tree growing a bit more each year.
-                                              <br />
-                                              CAGR tells how fast it grows annually on average.
-                                            </p>
-                                            <div className="tooltip-formula flex flex-wrap bg-white p-3 rounded mb-4">
-                                              <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
-                                              <div className="formula flex items-center justify-center flex-wrap mt-2">
-                                                <span className="text-[30px] font-[50] font-open_sans">[</span>
-                                                <div className="flex items-center mx-2">
-                                                  <div className="flex flex-col items-center">
-                                                    <div className="fraction">
-                                                      <span className="numerator text-[12px] font-open_sans">
-                                                        Ending Value
-                                                      </span>
-                                                      <span className="denominator text-[12px] font-open_sans">
-                                                        Starting Value
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <span className="text-[30px] font-[50] font-open_sans">]</span>
-                                                <sup className="flex items-center text-[20px] font-[50]">
-                                                  <span className="text-[20px] font-open_sans">[</span>
-                                                  <div className="flex flex-col items-center mx-2">
-                                                    <div className="fraction">
-                                                      <span className="text-[12px] font-open_sans">1</span>
-                                                      <hr className="w-full h-[1px] bg-black mt-2" />
-                                                      <span className="denominator text-[12px] mt-2 font-open_sans">
-                                                        No. of Years
-                                                      </span>
-                                                    </div>
-                                                  </div>
-                                                  <span className="text-[20px] font-open_sans">]</span>
-                                                </sup>
-                                                <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
-                                              </div>
-                                            </div>
-    
-                                            <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
-                                              <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
-                                                Example :
-                                              </p>
-                                              <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                                <strong>Start Value</strong> ₹100
-                                              </div>
-                                              <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                                <strong>End Value after 3 years</strong> ₹150
-                                              </div>
-                                              <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                                <strong>Total Returns over 3 years</strong> 50%
-                                              </div>
-                                              <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
-                                                <strong>CAGR</strong> 14.47%
-                                              </div>
-                                            </div>
-                                            <p className="tooltip-footer mt-4 text-[12px] text-gray-500 font-open_sans">
-                                              This means, on average, the investment grew about 14.47% each year
-                                            </p>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div className="sm:hidden">
-                                        <img
-                                          src="/assets/blackinfo.svg"
-                                          alt="Info"
-                                          className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                          onClick={openModalCagr}
-                                        />
-                                      </div>
-    
-                                      <Modal
-                                        blur
-                                        width="450px"
-                                        open={isModalOpenCagr}
-                                        onClose={() => setIsModalOpenCagr(false)}
-                                        className="relative flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
-                                      >
-                                        {/* Close Icon Button */}
-                                        <button
-                                          onClick={() => setIsModalOpenCagr(false)}
-                                          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none"
-                                          aria-label="Close modal"
-                                        >
-                                          <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-6 w-6"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                          >
-                                            <path
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                              strokeWidth={2}
-                                              d="M6 18L18 6M6 6l12 12"
-                                            />
-                                          </svg>
-                                        </button>
-    
-                                        {/* Modal Content */}
-                                        {/* Modal Header */}
-                                        <h3 className="modal-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
-                                          Compound Annual Growth Rate
-                                        </h3>
-                                        <p className="modal-subtitle text-left font-bold text-blue-900 font-open_sans text-[12px]">
-                                          Purpose:
-                                        </p>
-                                        <p className="modal-text my-1 text-left text-gray-800 text-[12px] font-open_sans">
-                                          Shows average yearly growth of an investment.
-                                        </p>
-                                        <p className="modal-quote italic text-left mb-3 text-gray-600 text-[12px] font-open_sans">
-                                          Imagine a tree growing a bit more each year.
-                                          <br />
-                                          CAGR tells how fast it grows annually on average.
-                                        </p>
-                                        <div className="modal-formula flex flex-wrap bg-white p-3 rounded mb-4">
-                                          <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
-                                          <div className="formula flex items-center justify-center flex-wrap mt-2">
-                                            <span className="text-[30px] font-[50] font-open_sans">[</span>
-                                            <div className="flex items-center mx-2">
-                                              <div className="flex flex-col items-center">
-                                                <div className="fraction">
-                                                  <span className="numerator text-[12px] font-open_sans">Ending Value</span>
-                                                  <span className="denominator text-[12px] font-open_sans">
-                                                    Starting Value
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <span className="text-[30px] font-[50] font-open_sans">]</span>
-                                            <sup className="flex items-center text-[20px] font-[50]">
-                                              <span className="text-[20px] font-open_sans">[</span>
-                                              <div className="flex flex-col items-center mx-2">
-                                                <div className="fraction">
-                                                  <span className="text-[12px] font-open_sans">1</span>
-                                                  <hr className="w-full h-[1px] bg-black mt-2" />
-                                                  <span className="denominator text-[12px] mt-2 font-open_sans">
-                                                    No. of Years
-                                                  </span>
-                                                </div>
-                                              </div>
-                                              <span className="text-[20px] font-open_sans">]</span>
-                                            </sup>
-                                            <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
-                                          </div>
-                                        </div>
-    
-                                        <div className="modal-example bg-gray-50 p-3 text-left rounded mb-4">
-                                          <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
-                                            Example:
-                                          </p>
-                                          <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                            <strong>Start Value</strong> ₹100
-                                          </div>
-                                          <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                            <strong>End Value after 3 years</strong> ₹150
-                                          </div>
-                                          <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                            <strong>Total Returns over 3 years</strong> 50%
-                                          </div>
-                                          <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
-                                            <strong>CAGR</strong> 14.47%
-                                          </div>
-                                        </div>
-                                        <p className="modal-footer mt-4 text-[12px] text-gray-500 font-open_sans">
-                                          This means, on average, the investment grew about 14.47% each year
-                                        </p>
-                                      </Modal>
-                                    </div>
-                                    <div className="flex items-center">
-                                      {cagr_of_stock.cagr_value >= 0 ? (
-                                        // green up arrow
-                                        <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2" />
-                                      ) : (
-                                        // red down arrow
-                                        <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
-                                      )}
-                                      <p className="text-black ml-1 text-2xs font-open_sans font-[700] ">
-                                        {cagr_of_stock.cagr_value}%{" "}
-                                        <span className="text-gray-500 text-2xs font-open_sans font-semibold">
-                                          in {cagr_of_stock.cagr_time}
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </div>
-                                )}
-                              </div>}
-                         
+                              )}
+                          {action === "SELL" ? null : (
+                           
+                              <div className="flex justify-between items-center mt-4">
+                                <div className="flex items-center">
+                                  <img
+                                    height={14}
+                                    width={14}
+                                    className=" object-contain"
+                                    src="/assets/streamline_target-solid-green.svg"
+                                    alt=""
+                                  />
+                                  <p className="ml-[10px] text-3xs text-gray-800 font-open_sans">Upside Left</p>
+                                </div>
+                                <div className="flex items-center">
+                                  {upside_left >= 0 ? (
+                                    // green up arrow
+                                    <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2 h-[6px]" />
+                                  ) : (
+                                    // red down arrow
+                                    <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2 h-[6px]" />
+                                  )}
+                                  <p className="text-[#1D2939] ml-1 text-2xs font-open_sans font-[700]">
+                                    {Math.abs(upside_left)}% {""}
+                                    <span className="text-gray-500 text-4xs font-open_sans font-semibold">
+                                      in {upside_left_time}
+                                    </span>
+                                  </p>
+                                </div>
+                              </div>
+                            
+                            
+                          )}
+                          </div>
                         </div>
 
                         <div className="pt-6">

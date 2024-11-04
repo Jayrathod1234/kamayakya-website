@@ -252,7 +252,7 @@ export default function Index() {
             </div>
           </div>
           <div className="  p-4 md:py-10 md:px-11 min-w-0 bg-[#D1F9EF99] w-full max-md:rounded-3xl rounded-tr-3xl rounded-br-3xl border border-[#E3F1F1] border-l-0">
-            <div className=" p-10 md:p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
+            <div className="relative p-10 md:p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
               <div className=" p-5 pt-0 flex flex-col items-center justify-center w-full ">
                 <div className="flex items-center  ">
                   <div className=" h-9 w-9 rounded-full ">
@@ -268,7 +268,7 @@ export default function Index() {
                     <img height={36} width={36} src="/stock_img4.svg" alt="" />
                   </div>
                 </div>
-                <p className=" text-sm mt-4 text-white">25 Stocks Exited</p>
+                <p className=" text-sm mt-4 text-white text-center">25 Stocks Exited</p>
               </div>
               <div className=" mt-4 flex justify-center ">
                 <div className="flex flex-col items-center p-3 text-white">
@@ -285,16 +285,17 @@ export default function Index() {
                 </div>
               </div>
               <div className=" h-[1px] w-full my-5 bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x "></div>
-              <div className="flex flex-wrap content-center items-center gap-4 ">
-                <Button className=" flex-1 flex items-center justify-between p-3" variant={ButtonVariant.primary}>
+              <div className="flex flex-wrap flex-col md:flex-row content-center items-center gap-4 ">
+                <Button className=" flex-1 w-full max-w-[246px] flex items-center justify-between p-3" variant={ButtonVariant.primary}>
                   <p className=" text-2xs">Stocks Live</p>
                   <p className=" text-2xs font-bold mr-[10px]">30</p>
                 </Button>
-                <Button className=" flex-1 flex items-center justify-between p-3 " variant={ButtonVariant.primary}>
+                <Button className=" flex-1 w-full max-w-[246px] flex items-center justify-between p-3 " variant={ButtonVariant.primary}>
                   <p className=" text-2xs">Average Live Returns</p>
                   <p className=" text-2xs font-bold mr-[10px]">118%</p>
                 </Button>
               </div>
+              <img className=" hidden md:block absolute -right-4" width={100} height={80} src="/assets/mascott-payment.png" alt="" />
             </div>
             {/* Review Section */}
             <div className=" mt-11">

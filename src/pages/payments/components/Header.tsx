@@ -2,10 +2,11 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 export default function Header({ className }: { className?: string }) {
+  // max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#e4e7ec)]
   return (
     <div
       className={cn(
-        " max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#e4e7ec)] md:bg-[#F1FBFB] h-[341px] relative z-10",
+        " bg-[#F1FBFB] h-[341px] relative z-10",
         className
       )}
     >

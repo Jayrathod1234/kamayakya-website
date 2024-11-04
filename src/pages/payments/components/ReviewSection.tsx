@@ -11,7 +11,8 @@ import { PlanTooltip } from "@/components.v2/payments";
 import ToPayTooltip from "./ToPayTooltip";
 import { PLAN } from "@/constants/pricing/plans";
 import { abbreviateTimeForPlan } from "@/lib/date-formatter";
-
+import Lottie from "lottie-react";
+import POPPER_JSON from '../../../../public/assets/popper.json';
 export default function ReviewSection({
   setActiveTab,
 }: {
@@ -19,16 +20,25 @@ export default function ReviewSection({
 }) {
   const { currentPlan, planDates, planDetails, setPlanDetails } = usePaymentContext() as IPaymentContext;
   const [open, setOpen] = useState(false);
-
+  
   const removeDiscount = () => {
     setPlanDetails((prev) => ({ ...prev, discount: "", discountCode: "" }));
   };
+  let saveText = PLAN[currentPlan.planName?.toLowerCase()]?.tooltip[currentPlan?.planDuration]?.saveText
+  let rupeePartOfSave = ''
+  if(saveText){
+    saveText = saveText.split(" ")
+    rupeePartOfSave = saveText[3]
+
+  }
+
 
   return (
     <>
       {/* plan and summary */}
       <Dialog open={open} onOpenChange={setOpen}>
         <div className="  mt-9 border border-[#E4E7EC] rounded-lg bg-gray-50">
+          {planDetails.discountCode ? <Lottie className=" absolute  pointer-events-none" autoPlay loop={false}  animationData={POPPER_JSON} /> :null}
           <div className=" p-4 border-b border-b-[#E4E7EC]">
             <div className=" flex justify-between items-center open_sans">
               <p className=" text-xs text-gray-500">Plan</p>
@@ -36,7 +46,10 @@ export default function ReviewSection({
                 Edit Plan
               </DialogTrigger>
             </div>
-            <p className=" text-gray-950 mt-[6px] text-sm font-semibold">{currentPlan.planName?.toUpperCase()} - {PLAN[currentPlan.planName?.toLowerCase()]?.label} ({abbreviateTimeForPlan( currentPlan.planDuration)})</p>
+            <p className=" text-gray-950 mt-[6px] text-sm font-semibold">
+              {PLAN[currentPlan.planName?.toLowerCase()]?.paymentPageLabel} (
+              {abbreviateTimeForPlan(currentPlan?.planDuration)})
+            </p>
           </div>
           <div className=" flex">
             <div className=" p-4 flex-1 border-r border-r-gray-200">
@@ -49,14 +62,15 @@ export default function ReviewSection({
             </div>
           </div>
           <div>
-          {PLAN[currentPlan.planName?.toLowerCase()]?.tooltip[currentPlan.planDuration]?.saveText ? (<div className="bg-[url(/assets/zigzag.svg)] flex justify-center bg-cover bg-no-repeat gap-x-1 py-[8.5px] ">
-              <img src="/assets/offer.svg" height={20} width={20} alt="offer" />
-             
+            {rupeePartOfSave ? (
+              <div className="bg-[url(/assets/zigzag.svg)] flex justify-center bg-cover bg-no-repeat gap-x-1 py-[8.5px] ">
+                <img src="/assets/offer.svg" height={20} width={20} alt="offer" />
+
                 <p className=" text-2xs font-medium ">
-                  {PLAN[currentPlan.planName?.toLowerCase()].tooltip[currentPlan.planDuration].saveText}
+                  {saveText.slice(0,3).join(" ")}{" "}<span className=" font-bold">{rupeePartOfSave}</span>{" "}{saveText.slice(4).join(" ")}
                 </p>
-             
-            </div> ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
 
@@ -87,7 +101,7 @@ export default function ReviewSection({
         <div className="flex flex-col gap-y-4">
           <div className=" flex justify-between items-baseline">
             <p className=" text-sm text-gray-950">Base Price</p>
-            <p className=" text-sm text-gray-500 font-medium">₹{planDetails.basePrice}</p>
+            <p className=" text-sm text-gray-500 font-medium">₹{Number(planDetails.basePrice).toLocaleString("hi")}</p>
           </div>
 
           {/* <div className=" flex justify-between items-baseline">
@@ -99,14 +113,14 @@ export default function ReviewSection({
               <p className=" text-sm text-gray-950">Tax (18%)</p>
               <p className=" text-2xs text-gray-400">You don’t pay extra for taxes. We got you!</p>
             </div>
-            <p className=" text-sm text-gray-500 font-medium">₹{planDetails.taxAmount}</p>
+            <p className=" text-sm text-gray-500 font-medium">₹{Number(planDetails.taxAmount).toLocaleString("hi")}</p>
           </div>
           <div className=" h-[1px] bg-[#E0E0E0]"></div>
         </div>
         <div className=" flex justify-between items-baseline py-[10px]">
           <p className=" text-md font-bold text-gray-950">Total Amount</p>
 
-          <p className=" text-md text-gray-950 font-bold">₹{planDetails.totalPayable} </p>
+          <p className=" text-md text-gray-950 font-bold">₹{Number(planDetails.totalPayable).toLocaleString("hi")} </p>
         </div>
         {planDetails.discount && (
           <div className=" flex justify-between items-baseline">
@@ -119,27 +133,27 @@ export default function ReviewSection({
         )}
         {planDetails.discount ? (
           <div className=" flex justify-between items-baseline py-[10px]">
-            <p className=" text-md font-bold text-gray-950 flex items-baseline">
-              To Pay
+            <div className=" flex items-center gap-x-1">
+              <p className=" text-md font-bold text-gray-950">To Pay</p>
               <ToPayTooltip
-                price={`₹${((Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18).toFixed(2)}`}
+                price={`₹${Number(((Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18).toFixed(2)).toLocaleString("hi")}`}
                 saveText={""}
                 strikePrice={""}
-                gst={`₹${(
+                gst={`₹${Number((
                   Number(planDetails.totalPayable) -
                   Number(planDetails.discount) -
                   (Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18
-                ).toFixed(2)}`}
-                total={`₹${Number(planDetails.totalPayable) - Number(planDetails.discount)}`}
+                ).toFixed(2)).toLocaleString("hi")}`}
+                total={`₹${(Number(planDetails.totalPayable) - Number(planDetails.discount)).toLocaleString("hi")}`}
               >
                 <div className=" flex justify-center items-center">
                   <img width={16} height={16} alt="info-icon" src="/icons/info-icon.svg" />
                 </div>
               </ToPayTooltip>
-            </p>
+            </div>
 
             <p className=" text-md text-gray-950 font-bold">
-              ₹{Number(planDetails.totalPayable) - Number(planDetails.discount)}{" "}
+              ₹{(Number(planDetails.totalPayable) - Number(planDetails.discount)).toLocaleString("hi")}{" "}
             </p>
           </div>
         ) : null}

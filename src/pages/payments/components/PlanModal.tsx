@@ -150,7 +150,7 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
               <Tabs
                 activeValue={currentTab}
                 setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>}
-                defaultOption="1year"
+                defaultOption={currentTab}
                 options={tabOptions}
                 variant={TabsVariant.md}
               />

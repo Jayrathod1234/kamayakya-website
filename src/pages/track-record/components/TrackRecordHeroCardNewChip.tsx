@@ -28,8 +28,8 @@ const ChipItem = ({ label, img, id, setOpen }: { label: string; img: string | nu
       {/* image container */}
       <div className=" p-2 w-fit">
         {label ? (
-          <object className=" object-contain h-[30px] w-[30px]" data={img as string} type="image/jpeg">
-            <img className="" src={"/stock_palceholder.svg"} height={30} width={30} alt="stock-image" />
+          <object className=" object-contain h-[30px] w-[30px]" data={img as string}>
+            <img className="object-contain" src={"/stock_palceholder.svg"} height={30} width={30} alt="stock-image" />
           </object>
         ) : (
           <div className=" h-6 w-6 bg-[#FFF1CE] rounded-full flex items-center justify-center">
@@ -66,8 +66,8 @@ const BottomSheetItem = ({ label, img, id, setOpen }) => {
     >
       {label ? (
         <>
-          <object className=" h-7 w-7" data={img} type="image/jpeg">
-            <img height={28} width={28} src={"/stock_palceholder.svg"} alt="stock-image" />
+          <object className="object-contain h-7 w-7" data={img}>
+            <img className=" object-contain" height={28} width={28} src={"/stock_palceholder.svg"} alt="stock-image" />
           </object>
           <p className=" text-sm text-gray-700">{label}</p>
         </>
@@ -107,7 +107,7 @@ export function TrackRecordHeroCardNewChip({ newRecommendation, type }) {
       <Drawer open={openDropDown} onOpenChange={setOpenDropDown}>
         <DrawerTrigger asChild>
           <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
-            3 New <span className="hidden sm:inline-block">{type === "LIVE" ? "Recommendations" : "Exits"}</span>
+            3 New <span className={`${type === "LIVE" ? "hidden" : ""} sm:inline-block`}>{type==="LIVE" ?"Recommendations":"Exits"}</span>
           </button>
         </DrawerTrigger>
         <DrawerContent className=" rounded-t-[20px] bg-transparent border-none outline-none">
@@ -165,8 +165,8 @@ export function TrackRecordHeroCardNewChip({ newRecommendation, type }) {
   return (
     <HoverCard open={openDropDown} openDelay={0} onOpenChange={setOpenDropDown}>
       <HoverCardTrigger onClick={onTriggerEleClick} asChild>
-        <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
-          3 New <span className="hidden sm:inline-block">{type === "LIVE" ? "Recommendations" : "Exits"}</span>
+        <button className=" whitespace-nowrap font-medium text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
+          3 New <span className={`${type === "LIVE" ? "hidden":""} sm:inline-block`}>{type === "LIVE" ? "Recommendations" : "Exits"}</span>
         </button>
       </HoverCardTrigger>
       {isLoggedIn ? (

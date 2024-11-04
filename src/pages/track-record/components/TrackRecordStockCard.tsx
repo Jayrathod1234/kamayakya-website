@@ -1,6 +1,6 @@
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
 import { abbreviateTime } from "@/lib/date-formatter";
-import { useContext } from "react";
+import { act, useContext } from "react";
 import AuthContext from "@/components/AuthContext";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { sectorIcons } from "@/utils/constants.js";
@@ -196,11 +196,12 @@ any) => {
                   ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
                   : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
               } px-3 py-2 ${
-                action === "SELL" && target_status !== "active" ? "min-w-[120px]" : "min-w-[100px]"
+                action === "SELL" ? "min-w-[157px]" : "min-w-[100px]"
               } sm:min-w-[157px]`}
             >
               <p className=" text-4xs font-bold text-white truncate">
-                {action === "SELL" && target_status !== "active" && isLoggedIn && isSubscribed
+              {/* && target_status !== "active" && isLoggedIn && isSubscribed */}
+                {action === "SELL" 
                   ? is_returns_positive
                     ? "Profit Booked"
                     : "Loss Booked"
@@ -220,7 +221,7 @@ any) => {
                   />
                 </div>
                 {!isLoggedIn || !total_returns ? (
-                  <div className=" h-5 w-[80%] bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0"></div>
+                  <div className={` h-5 ${ action==="SELL" ? " w-[60%] ":" w-[80%]"} bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0`}></div>
                 ) : (
                   <p className=" text-xl font-bold text-white !m-0">{total_returns}%</p>
                 )}
@@ -241,7 +242,8 @@ any) => {
                
               </p>
             </div>
-            {action === "SELL" && target_status !== "active" && isLoggedIn && isSubscribed ? (
+            {/* && target_status !== "active" && isLoggedIn && isSubscribed */}
+            {action === "SELL" ? (
               <div className=" -ml-[14px] relative flex items-center before:-left-1 before:rounded-l-[4px] before:absolute before:content-[''] before:z-10 before:h-[26px] before:w-[18px]  before:bg-[#F9FAFB]">
                 <img
                   className=" relative z-20"
@@ -267,6 +269,7 @@ any) => {
                       src="/assets/blackinfo.svg"
                     />
                   }
+                  dialogHeader="Upside Left"
                   tooltipContent={
                     <div className="gap-[7px] items-center flex flex-col justify-center">
                       <div className="text-gray-800 text-2xs font-normal">

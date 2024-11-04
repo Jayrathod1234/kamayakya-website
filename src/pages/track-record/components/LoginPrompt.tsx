@@ -9,9 +9,9 @@ import {
   DialogTrigger,
 } from "@/components.v2/ui/dialog";
 import AuthContext from "@/components/AuthContext";
-import { useStockPicks } from "@/contexts/StockPicksContext";
+
 import React, { useContext, useState } from "react";
-import StockCard from '../../../components.v3/common/StockCard'
+import StockCard from './StockCard'
 import Link from "next/link";
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
 export default function LoginPrompt({ children }:{children:React.ReactElement;}) {
