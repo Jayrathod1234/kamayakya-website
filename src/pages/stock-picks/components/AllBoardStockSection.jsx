@@ -12,6 +12,7 @@ import ResponsiveFilter from "../../../components.v3/common/ResponsiveFilter";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useNavBar } from "@/contexts/NavBarContext.js";
+import {Button, ButtonVariant} from "@/components.v2/button"
 function AllBoardStockSection() {
   const {
     searchStock,
@@ -20,6 +21,7 @@ function AllBoardStockSection() {
     isLoading,
     error,
     fetchNextPage,
+    isFetchingNextPage
   } = useAllBoardStock();
 
   const { sebiBoardType, allBoardStockRef } = useStockPicks();
@@ -161,7 +163,10 @@ function AllBoardStockSection() {
               </>
             )}
           </div>
-          <div ref={myObserver} className="h-1"></div>
+          <div className=" col-span-full justify-center items-center">
+      <Button loading={isFetchingNextPage} onClick={fetchNextPage} className=" mx-auto hover:bg-white w-fit bg-white border border-gray-300" variant={ButtonVariant.custom}>Load More</Button>
+      </div>
+          {/* <div ref={myObserver} className="h-1"></div> */}
           {/* Blur Rectangle  */}
           {/* <div className="absolute bottom-[440px] z-[1] max-h-[400px] w-full">
             <img
