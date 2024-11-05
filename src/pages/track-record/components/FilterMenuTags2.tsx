@@ -12,7 +12,6 @@ import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 
-
 const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
@@ -121,10 +120,10 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
               // alignItems: "center",
             }}
           >
-          <Carousel className="">
-          <CarouselContent opts={{containScroll:"trimSnaps"}}  className="flex justify-between  pl-2">
-            {/* left side arrow  */}
-            {/* {showLeftButton && (
+            <Carousel className="">
+              <CarouselContent opts={{ containScroll: "trimSnaps" }} className="flex justify-between  pl-2">
+                {/* left side arrow  */}
+                {/* {showLeftButton && (
               <div className="sm:bg-transparent bg-custom-gradient-arrow-left sm:w-10 sm:h-12 w-0 h-0 justify-center flex items-center relative mt-1 right-[-11px] z-[1]">
                 <IconButton
                   onClick={scrollLeft}
@@ -167,100 +166,108 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
                 scrollbarWidth: "none",
               }}
             > */}
-              
-              {isResponsive && (
-                <>
-                <CarouselItem className="basis-auto pl-2 "> <CustomSortMenu
-                    sx={{
-                      padding: isMobile ? "6px 11px" : "10px 11px",
-                    }}
-                  />
-                  </CarouselItem>
-                  {/* <ResCustomSort
+
+                {isResponsive && (
+                  <>
+                    <CarouselItem className="basis-auto pl-2 ">
+                      {" "}
+                      <CustomSortMenu
+                        sx={{
+                          padding: isMobile ? "6px 11px" : "10px 11px",
+                        }}
+                      />
+                    </CarouselItem>
+                    {/* <ResCustomSort
                     sx={{
                       padding: isMobile ? "6px 11px" : "10px 11px",
                       display: isMobile ? "none" : "block",
                     }}
                   /> */}
+                    <CarouselItem className="basis-auto pl-2">
+                      <DrawerFilter />
+                    </CarouselItem>
+                  </>
+                )}
+                {changablestrategyTags.length > 0 && (
                   <CarouselItem className="basis-auto pl-2">
-                  <DrawerFilter />
+                    <StrategyCheck />
                   </CarouselItem>
-                </>
-              )}
-              {changablestrategyTags.length > 0 && <CarouselItem className="basis-auto pl-2"><StrategyCheck /></CarouselItem>}
-              {sector.length > 0 && <CarouselItem className="basis-auto pl-2"><SectorCheck /></CarouselItem>}
-              {sortedStrategies?.map((chip) => (
-                <CarouselItem className="basis-auto pl-2">
-                <Chip
-                  key={chip.id}
-                  avatar={
-                    <img
-                      src={chip.image}
-                      alt={chip.name}
-                      style={{
-                        width: 14,
-                        height: 14,
-                        filter:
-                          strategyTag.includes(chip.id) &&
-                          chip.id == "most-recent"
-                            ? "brightness(100)"
-                            : "none",
+                )}
+                {sector.length > 0 && (
+                  <CarouselItem className="basis-auto pl-2">
+                    <SectorCheck />
+                  </CarouselItem>
+                )}
+                {sortedStrategies?.map((chip) => (
+                  <CarouselItem key={chip.id} className="basis-auto pl-2">
+                    <Chip
+                      key={chip.id}
+                      avatar={
+                        <img
+                          src={chip.image}
+                          alt={chip.name}
+                          style={{
+                            width: 14,
+                            height: 14,
+                            filter:
+                              strategyTag.includes(chip.id) && chip.id == "most-recent" ? "brightness(100)" : "none",
+                          }}
+                        />
+                      }
+                      label={chip.name}
+                      clickable
+                      onClick={() => handleChipClick(chip.id)}
+                      onDelete={strategyTag.includes(chip.id) ? () => handleChipDelete(chip.id) : undefined}
+                      deleteIcon={
+                        <CloseIcon
+                          sx={{
+                            color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
+                            backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
+                            borderRadius: "50%", // Make it rounded
+                            padding: "4px", // Add padding for spacing
+                          }}
+                        />
+                      }
+                      sx={{
+                        paddingLeft: "16px",
+                        paddingRight: "16px",
+                        // borderRadius: "4px",
+                        borderRadius: isMobile ? "6px" : "0.5rem",
+                        // maxWidth: "179px !important",
+                        height: "46px !important",
+                        border: "1px solid #E4E7EC ",
+                        fontFamily: "Open Sans",
+                        backgroundColor: strategyTag.includes(chip.id) ? "#125b54" : "white",
+                        color: strategyTag.includes(chip.id) ? "white" : "inherit",
+                        "&:hover": {
+                          backgroundColor: strategyTag.includes(chip.id) ? "#125b54" : "#e7f8f8",
+                          transform: "scale(000.95)", // Adjust the scale value as needed
+                          transition: "transform 0.3s ease", // Optional: Add transition for smooth scaling
+                        },
+                        minWidth: "auto", // Ensure text is not truncated
+                        whiteSpace: "nowrap", // Prevent text wrapping
+                        overflow: "visible", // Ensure full visibility of text
+                        display: "inline-flex", // Allow the chip to grow based on content
+                        fontSize: "14px",
+                        fontWeight: 500,
                       }}
                     />
-                  }
-                  label={chip.name}
-                  clickable
-                  onClick={() => handleChipClick(chip.id)}
-                  onDelete={
-                    strategyTag.includes(chip.id)
-                      ? () => handleChipDelete(chip.id)
-                      : undefined
-                  }
-                  deleteIcon={
-                    <CloseIcon
-                    sx={{
-                      color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
-                      backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
-                      borderRadius: "50%", // Make it rounded
-                      padding: "4px", // Add padding for spacing
-                    }}
-                    />
-                  }
-                  sx={{
-                    paddingLeft: "16px",
-                    paddingRight: "16px",
-                    // borderRadius: "4px",
-                    borderRadius: isMobile ? "6px" : "0.5rem",
-                    // maxWidth: "179px !important",
-                    height: "46px !important",
-                    border: "1px solid #E4E7EC ",
-                    fontFamily: "Open Sans",
-                    backgroundColor: strategyTag.includes(chip.id)
-                      ? "#125b54"
-                      : "white",
-                    color: strategyTag.includes(chip.id) ? "white" : "inherit",
-                    "&:hover": {
-                      backgroundColor: strategyTag.includes(chip.id)
-                        ? "#125b54"
-                        : "#e7f8f8",
-                      transform: "scale(000.95)", // Adjust the scale value as needed
-                      transition: "transform 0.3s ease", // Optional: Add transition for smooth scaling
-                    },
-                    minWidth: "auto", // Ensure text is not truncated
-                    whiteSpace: "nowrap", // Prevent text wrapping
-                    overflow: "visible", // Ensure full visibility of text
-                    display: "inline-flex", // Allow the chip to grow based on content
-                    fontSize:"14px",
-                    fontWeight:500
-                  }}
-                />
-                </CarouselItem>
-              ))}
-              {changablestrategyTags.length <= 0 &&<CarouselItem className="basis-auto pl-2"><StrategyCheck /></CarouselItem> }
-              {sector.length <= 0 &&<CarouselItem className="basis-auto pl-2"> <SectorCheck /></CarouselItem>}
-            {/* </Box> */}
+                  </CarouselItem>
+                ))}
+                {changablestrategyTags.length <= 0 && (
+                  <CarouselItem className="basis-auto pl-2">
+                    <StrategyCheck />
+                  </CarouselItem>
+                )}
+                {sector.length <= 0 && (
+                  <CarouselItem className="basis-auto pl-2">
+                    {" "}
+                    <SectorCheck />
+                  </CarouselItem>
+                )}
+                {/* </Box> */}
 
-            {/* {!isMobile ? (
+                {/* {!isMobile ? (
               <>
                 {showRightButton && (
                   <div className="sm:bg-transparent bg-custom-gradient-arrow-right sm:w-10 sm:h-12 w-0 h-0  justify-center flex items-center relative right-[2%] mt-1">
@@ -290,9 +297,9 @@ const FilterMenuTags2 = ({ isResponsive, isExpanded }) => {
             ) : (
               <></>
             )} */}
-            </CarouselContent>
-            <CarouselPrevious className=" h-7 w-7 p-1 left-[0px] top-[50%] disabled:hidden border-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-black  hover:text-white   bg-black text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
-            <CarouselNext className=" h-7 w-7 p-1 right-[0px] top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+              </CarouselContent>
+              <CarouselPrevious className=" h-7 w-7 p-1 left-[0px] top-[50%] disabled:hidden border-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-black  hover:text-white   bg-black text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+              <CarouselNext className=" h-7 w-7 p-1 right-[0px] top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
             </Carousel>
           </Box>
         </Box>
