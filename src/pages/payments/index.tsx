@@ -277,7 +277,7 @@ export default function Index() {
                 </div>
                 <div className="flex flex-col items-center p-3 text-white">
                   <p className=" text-xl font-semibold">22</p>
-                  <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Exited in profile</p>
+                  <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Exited in Profit</p>
                 </div>
                 <div className="flex flex-col items-center p-3 text-white">
                   <p className=" text-xl font-semibold">3</p>

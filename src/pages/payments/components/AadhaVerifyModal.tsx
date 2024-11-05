@@ -140,7 +140,7 @@ export default function AadhaVerifyModal({
               Haven’t received the OTP? {secondsRemaining === 0 ? <button className=" text-[#1D4040] text-2xs font-semibold" onClick={handleAadharOtp}>Resend</button> : secondsRemaining}
             </p>
             <div className=" mt-7 p-3 bg-[#F8FFFE] border border-[#E7F8F8] rounded-lg flex gap-x-2 items-center">
-              <Checkbox onCheckedChange={(checked) => setConsetGranted(checked as boolean)} />
+              {/* <Checkbox onCheckedChange={(checked) => setConsetGranted(checked as boolean)} /> */}
               <p className=" text-[#101828] text-2xs">
                 By verifying OTP, you consent to us retrieving your PAN as per SEBI guidelines.
               </p>
@@ -148,7 +148,7 @@ export default function AadhaVerifyModal({
           </div>
           <Button
             loading={loading}
-            disabled={otp.length !== 6 || !consetGranted}
+            disabled={otp.length !== 6}
             onClick={handleVerifyAadharOtp}
             className=" ml-auto"
             variant={ButtonVariant.primary}

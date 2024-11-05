@@ -185,7 +185,7 @@ export default function CouponModal() {
               <p className=" text-sm text-gray-400">Maximum Savings</p>
               <p className=" text-gray-950 text-xs font-semibold">₹{discountAmt ?? 0}</p>
             </div>
-            <Button onClick={handleApply} className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
+            <Button disabled={discountList.length ==0} onClick={handleApply} className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
               <p className=" text-md font-medium">Apply</p>
             </Button>
           </div>

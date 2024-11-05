@@ -28,7 +28,7 @@ export default function ConfirmDetailsModal({
   };
 
   useEffect(() => {
-    setAddress(` ${userDetails.address}`);
+    setAddress(`${userDetails.address}`);
   }, [userDetails?.address]);
   return (
     <DialogContent className=" !p-6 !rounded-[20px] min-w-fit md:min-w-[624px] max-w-[784px] open_sans">

@@ -389,6 +389,8 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                     variant="outlined"
                     fullWidth
                     InputProps={{
+                      readOnly: aadharVerified || isAadharAlreadyVerified,
+                      className: aadharVerified || isAadharAlreadyVerified ? "bg-[#F4F7FA99]" : "",
                       endAdornment: (
                         <InputAdornment position="end">
                           {errors.fullname?.message && (
@@ -539,7 +541,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                 render={({ field }) => (
                   <CustomTextField
                     {...field}
-                    error={errors.email?.message ? true : false}
+                    error={errors.email?.message || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(field.value) ? true : false}
                     id="email"
                     type="text"
                     variant="outlined"
@@ -552,9 +554,9 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                       ),
                       endAdornment: (
                         <InputAdornment position="end">
-                          {errors.email?.message ? (
+                          {errors.email?.message  || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(field.value) ? (
                             <Tooltip
-                              tooltipContent={<p className=" text-2xs">{errors.email.message}</p>}
+                              tooltipContent={<p className=" text-2xs">{errors.email?.message ?? "Enter valid email"}</p>}
                               tooltipTrigger={
                                 <svg
                                   width="16"
@@ -606,7 +608,6 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                   rules={{
                     required: "Enter phone to continue",
                     validate: (value) => {
-                      console.log("VALUE", value);
                       return isPossiblePhoneNumber(value) && value.slice(3).length === 10
                         ? true
                         : "Enter valid phone number";
@@ -627,9 +628,9 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                         className=" border-green-400"
                       />
                       <InputAdornment position="end">
-                        {errors.phone?.message ? (
+                        {errors.phone?.message || !isPossiblePhoneNumber(value) || value.slice(3).length!=10 ? (
                           <Tooltip
-                            tooltipContent={<p className=" text-2xs">{errors.phone?.message}</p>}
+                            tooltipContent={<p className=" text-2xs">{errors.phone?.message || "Enter valid phone number."}</p>}
                             tooltipTrigger={
                               <svg
                                 width="16"

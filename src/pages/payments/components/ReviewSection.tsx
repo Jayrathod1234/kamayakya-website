@@ -42,7 +42,7 @@ export default function ReviewSection({
           <div className=" p-4 border-b border-b-[#E4E7EC]">
             <div className=" flex justify-between items-center open_sans">
               <p className=" text-xs text-gray-500">Plan</p>
-              <DialogTrigger className=" text-xs text-primary-500 font-bold border-b border-b-brand-500 border-dashed">
+              <DialogTrigger className=" !text-2xs text-brand-500 font-medium border-b border-b-brand-500 border-dashed">
                 Edit Plan
               </DialogTrigger>
             </div>
@@ -85,7 +85,7 @@ export default function ReviewSection({
               <div className=" text-left ml-[10px]">
                 <p className="  text-gray-950 text-sm font-bold">{planDetails.discountCode}</p>
                 <p className=" text-xs text-gray-500">
-                  {((Number(planDetails.discount) / Number(planDetails.totalPayable)) * 100).toFixed(2)}% Discount (-₹
+                  {((Number(planDetails.discount) / Number(planDetails.totalPayable)) * 100).toFixed(2)}% Discount (₹
                   {planDetails.discount}) 🎉
                 </p>
               </div>

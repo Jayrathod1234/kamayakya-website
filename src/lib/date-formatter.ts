@@ -11,7 +11,8 @@ export function abbreviateTime(text:string) {
 
 export function abbreviateTimeForPlan(text:string) {
   return text
-  .replace(/\s*year?\s*/g, ' yr')   // Replace 'year' or 'years' with 'y', removing surrounding spaces
-  .replace(/\s*months?\s*/g, ' mo')  // Replace 'month' or 'months' with 'm', removing surrounding spaces
-  .replace(/\s*days?\s*/g, ' d');   // Replace 'day' or 'days' with 'd', removing surrounding spaces
+  .replace(/\s*3year?\s*/g, '3 years')
+  .replace(/\s*year?\s*/g, ' year')   // Replace 'year' or 'years' with 'y', removing surrounding spaces
+  .replace(/\s*months?\s*/g, ' months')  // Replace 'month' or 'months' with 'm', removing surrounding spaces
+  .replace(/\s*days?\s*/g, ' day');   // Replace 'day' or 'days' with 'd', removing surrounding spaces
 }
