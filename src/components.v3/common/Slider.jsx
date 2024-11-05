@@ -356,7 +356,7 @@ export function Slider({ children }) {
         </div>
       </Button>
 
-      <div ref={emblaRef} className={`max-w-[1200px] mx-auto overflow-hidden`}>
+      <div ref={emblaRef} className={`max-w-[1200px] mx-auto overflow-hidden cursor-[url(/icons/pause.svg),auto]`}>
         <div
           className="flex pb-12 pt-[40px] carousel__container"
           style={{ backfaceVisibility: "hidden" }}
@@ -381,6 +381,7 @@ export function Slider({ children }) {
           .slice(0, scrollSnaps.length) // Show 5 on small screens, all on larger screens
           .map((_, index) => (
             <CarouselIndicator
+            emblaApi={emblaApi}
               isPlaying={isPlaying}
               onClick={() => onDotButtonClick(index)}
               index={index}

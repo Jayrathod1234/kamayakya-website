@@ -12,6 +12,7 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
 import { ButtonnArrow } from "./button";
 import { ButtonVariant } from "./button/button";
+import CarouselIndicator from "@/components.v3/common/CarouselIndicator";
 
 const carouselItem = [
   <TestimonialsCard
@@ -277,10 +278,10 @@ export function Carousel({ className }: { className?: string }) {
         </div>
       </div>
 
-      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
+      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden cursor-[url(/assets/Button-Pause.svg),auto]`}>
         {/* <div className=" overflow-hidden max-w-full"> */}
         <div
-          className=" flex pb-12 pt-[40px] carousel__container"
+          className=" flex pb-12 pt-[40px] carousel__container "
           style={{ backfaceVisibility: "hidden" }}
         >
           {carouselItem.map((carousel, index) => (
@@ -303,13 +304,20 @@ export function Carousel({ className }: { className?: string }) {
       {/* indicator */}
       <div className=" flex gap-4 justify-center items-center">
         {scrollSnaps.map((_: unknown, index: number) => (
-          <div
-            onClick={() => onDotButtonClick(index)}
-            key={index}
-            className={` ${
-              index === selectedIndex ? " !w-6 " : " w-[10px] "
-            } h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden`}
-          ><div style={{animationDuration:"6000ms"}} className={`bg-brand-300 w-full h-full ${index === selectedIndex ? "carousel-dot-animate":" hidden"}`}></div></div>
+          <CarouselIndicator
+          emblaApi={emblaApi}
+          isPlaying={isPlaying}
+          onClick={() => onDotButtonClick(index)}
+          index={index}
+          selectedIndex={selectedIndex}
+        />
+          // <div
+          //   onClick={() => onDotButtonClick(index)}
+          //   key={index}
+          //   className={` ${
+          //     index === selectedIndex ? " !w-6 " : " w-[10px] "
+          //   } h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden`}
+          // ><div style={{animationDuration:"6000ms"}} className={`bg-brand-300 w-full h-full ${index === selectedIndex ? "carousel-dot-animate":" hidden"}`}></div></div>
         ))}
       </div>
     </div>

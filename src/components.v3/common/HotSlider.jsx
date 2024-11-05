@@ -216,7 +216,7 @@ export function HotSlider({ children }) {
           </div>
         </div>
         {/* slider content */}
-        <div ref={emblaRef} className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3 relative`}>
+        <div ref={emblaRef} className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3 relative cursor-[url(/icons/pause.svg),auto]`}>
           <div className="flex carousel__container" style={{ backfaceVisibility: "hidden" }}>
             {children.map((carousel, index) => (
               <CarouselItem key={carousel.key} className={`carousel embla__class-names`}>
@@ -255,6 +255,7 @@ export function HotSlider({ children }) {
       <div className=" flex gap-4 justify-center items-center p-[6px] bg-white rounded-full w-auto max-w-fit mx-auto">
         {scrollSnaps.map((_, index) => (
           <CarouselIndicator
+            emblaApi={emblaApi}
             isPlaying={isPlaying}
             onClick={() => onDotButtonClick(index)}
             index={index}
