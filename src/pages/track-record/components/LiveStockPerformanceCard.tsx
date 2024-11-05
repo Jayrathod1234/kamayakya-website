@@ -22,8 +22,8 @@ ChartJS.register({
 
 let LEGENDS = [
   { label: "High (>15%)", value: "", iconColor: "bg-[rgba(18,183,106,1)]" },
-  { label: "Medium (<15% to >-15%)", value: "", iconColor: "bg-[rgba(208,213,221,1)]" },
-  { label: "Low (>-15%)", value: "", iconColor: "bg-[rgba(240,68,56,1)]" },
+  { label: "Medium (<15% to <-15%)", value: "", iconColor: "bg-[rgba(208,213,221,1)]" },
+  { label: "Low (<-15%)", value: "", iconColor: "bg-[rgba(240,68,56,1)]" },
 ];
 
 const getIconColor = (label: string,type:string) => {
