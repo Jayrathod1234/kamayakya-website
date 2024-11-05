@@ -231,10 +231,10 @@ any) => {
                 {return_time?.includes(",") &&  <Tooltip
                   tooltipTrigger={
                     <img
-                      className="!h-[14px] !w-[14px] object-contain bg-[rgba(255,255,255,0.6)] rounded-full"
+                      className="!h-[14px] !w-[14px] object-contain rounded-full"
                       height={14}
                       width={14}
-                      src="/assets/blackinfo.svg"
+                      src="/assets/total_returns_info.svg"
                     />
                   }
                   tooltipContent={<p className="text-2xs text-gray-600 font-normal">{return_time}</p>}
