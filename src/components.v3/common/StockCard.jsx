@@ -252,7 +252,7 @@ function StockCard({
                   </div>
 
                   <div className="px-[16px] pb-[24px] grid gap-[6px]">
-                    <div className="gap-[7px] items-center flex justify-center">
+                    <div className="gap-[7px] cursor-pointer items-center flex justify-center">
                       <p className="text-md font-semibold leading-[18px] text-white font-open_sans">
                         Upside left
                       </p>
@@ -385,7 +385,7 @@ function StockCard({
                 </div>
               </div>
             </div>
-            <div className="pt-5 pb-[10px]">
+            <div className="pt-5 pb-[10px] cursor-pointer">
               {is_blur ? (
                 <>
                   {/* <ProgressBar2 /> */}

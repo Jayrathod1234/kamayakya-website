@@ -37,14 +37,14 @@ const carouselItem = [
     author={"Atharva Agashe"}
     company="Associated Director - Product Development, FIS."
     imgSrc="/atharva-agashe.jpeg"
-    key={13}
+    key={3}
   />,
   <TestimonialsCard
     imgSrc="/kiran_sanghvi.png"
     company="Indus Properties"
     author="Kiran Sanghvi"
     testimony="My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched in the industry. Some of their small cap picks are truly gems that have created  huge wealth for their investors. I would highly recommend investors to take their services to achieve their long term financial goals."
-    key={23}
+    key={4}
   />,
   <TestimonialsCard
     testimony={
@@ -53,7 +53,7 @@ const carouselItem = [
     author={"Tanish Mittal"}
     company="Hindustan Pressings Pvt. Ltd."
     imgSrc="/tanish_mittal.png"
-    key={12}
+    key={5}
   />,
   <TestimonialsCard
     testimony={
@@ -61,7 +61,7 @@ const carouselItem = [
     author={"Atharva Agashe"}
     company="Associated Director - Product Development, FIS."
     imgSrc="/atharva-agashe.jpeg"
-    key={21}
+    key={6}
   />,
 ];
 
@@ -82,12 +82,24 @@ export const usePrevNextButtons = (
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
+    const autoplay = emblaApi?.plugins()?.autoplay;
+    if (!autoplay) return;
+
+    const reset = autoplay.reset;
+
+    reset();
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
+    const autoplay = emblaApi?.plugins()?.autoplay;
+    if (!autoplay) return;
+
+    const reset = autoplay.reset;
+
+    reset();
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
 
@@ -119,6 +131,10 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
     (index: number) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
+      const autoplay = emblaApi?.plugins()?.autoplay;
+      if (!autoplay) return;
+      const reset = autoplay.reset;
+      reset();
     },
     [emblaApi]
   );

@@ -43,6 +43,10 @@ export default function CarouselIndicator({
   useEffect(() => {
     if (currentAnimationTime > 5890) {
       emblaApi?.scrollNext();
+      const autoplay = emblaApi?.plugins()?.autoplay;
+      if (!autoplay) return;
+      const reset = autoplay.reset;
+      reset();
     }
   }, [currentAnimationTime]);
   // console.log(currentAnimationTime)
