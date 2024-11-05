@@ -98,6 +98,7 @@ export const AllBoardStockProvider = ({ children }) => {
     isLoading,
     error,
     fetchNextPage,
+    isFetchingNextPage,
     refetch,
   } = useInfiniteQuery({
     queryKey: [
@@ -180,6 +181,7 @@ export const AllBoardStockProvider = ({ children }) => {
         error,
         fetchNextPage,
         refetch,
+        isFetchingNextPage
       }}
     >
       {children}
