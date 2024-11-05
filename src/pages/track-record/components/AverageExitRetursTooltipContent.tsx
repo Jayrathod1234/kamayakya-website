@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function AverageExitRetursTooltipContent() {
   return (
-    <div className=" p-4 flex flex-col gap-y-3 max-w-[300px] open_sans">
+    <div className="flex flex-col gap-y-3 max-w-[300px] open_sans">
     <h4 className=" font-bold  text-gray-800 text-2xs m-0">Average Exit Returns</h4>
     <p className=" text-gray-900 text-2xs m-0">It represents the average percentage gain or loss for all investments where positions have been closed (sold). It measures the actual return investors received from recommendations once the stock was sold.</p>
     <div className=" flex justify-between items-center text-gray-600">

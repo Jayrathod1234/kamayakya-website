@@ -114,6 +114,7 @@ function DrawerFilter() {
     setActionCall,
     actionCall,
   } = useTrackRecord();
+  console.log("SEBI BOARD TYPE", sebiBoardType)
   const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState("");
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -262,7 +263,6 @@ function DrawerFilter() {
     });
   };
 
-
   const CustomSlider = styled(Slider)({
     color: "#125B54", // Main color for the rail and thumb border
     height: 4, // Thickness of the slider rail
@@ -293,14 +293,14 @@ function DrawerFilter() {
       height: "9px",
       borderRadius: "50%",
       backgroundColor: "#E4E7EC", // Dot color when not active
-      zIndex:0
+      zIndex: 0,
     },
-    '& .MuiSlider-valueLabel': {
-      zIndex:1000,
-      '&.MuiSlider-valueLabelOpen': {
-        zIndex:1000
+    "& .MuiSlider-valueLabel": {
+      zIndex: 1000,
+      "&.MuiSlider-valueLabelOpen": {
+        zIndex: 1000,
       },
-    }
+    },
   });
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
@@ -334,9 +334,7 @@ function DrawerFilter() {
             className="!flex h-full relative !bg-white border !border-[#E4E7EC] sm:!py-[8px] py-0 !pl-5 !pr-5 !rounded-[.5rem]  gap-2 items-center shadow-3xs !min-w-24"
           >
             <img src="/assets/filter.svg" alt="" />
-            <p className="font-open_sans text-brand-500 font-medium normal-case">
-              Filter{" "}
-            </p>            
+            <p className="font-open_sans text-brand-500 font-medium normal-case">Filter </p>
             {totalFilterCount > 0 && (
               <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex font-open_sans">
                 {totalFilterCount}
@@ -360,9 +358,7 @@ function DrawerFilter() {
               {/* topbar  */}
               <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
                 <div className="justify-between absolute flex items-center w-auto gap-2 ">
-                <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">
-                    Filters
-                  </div>
+                  <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans w-[290px]">Filters</div>
                   <div
                     className="text-[#125B54] text-sm font-open_sans font-semibold cursor-pointer"
                     onClick={handleReset}
@@ -430,6 +426,256 @@ function DrawerFilter() {
                         <span className="pt-2 text-2xs  font-open_sans text-[#344054] font-normal">{value}</span>
                       </div>
                     ))}
+                  </div>
+                </Accordion>
+                <div className="border-b-2 border-[#F2F4F7] "></div>
+              </div>
+
+              {/* Total Returns  */}
+              <div className="pt-4 pr-6 pl-2  overflow-x-hidden">
+                <Accordion
+                  defaultExpanded
+                  sx={{
+                    boxShadow: "none !important",
+                    margin: "0px !important",
+                  }}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ paddingRight: 0 }}>
+                    <Box display="flex" alignItems="center">
+                      <img src="/assets/solar_graph-down-new-broken.svg" alt="Total Returns" />
+                      <div className=" flex">
+                        <Typography
+                          variant="subtitle1"
+                          ml={1}
+                          mr={1}
+                          sx={{
+                            color: "#1D2939",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            fontFamily: "open sans",
+                          }}
+                        >
+                          Total Returns
+                        </Typography>
+                      </div>
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="pl-11">
+                      <CustomSlider
+                        value={tempReturns}
+                        onChange={handleReturnsSliderChange}
+                        valueLabelDisplay="auto"
+                        min={min_returns}
+                        max={max_returns}
+                        marks={returns_marks}
+                      />
+
+                      <Grid container spacing={2} alignItems="center" pt={2}>
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            type="number"
+                            value={tempReturns ? tempReturns[0] : 0}
+                            onChange={(e) => handleReturnsInputChange(e, "min")}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
+                              },
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Typography align="center" fontFamily="Open Sans, sans-serif">
+                            to
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={5}>
+                          <TextField
+                            variant="outlined"
+                            size="small"
+                            type="number"
+                            value={tempReturns ? tempReturns[1] : 0}
+                            onChange={(e) => handleReturnsInputChange(e, "max")}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                            }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "&:hover fieldset": { borderColor: "#125B54" },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "#125B54",
+                                },
+                              },
+                            }}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                <div className="border-b-2 border-[#F2F4F7] "></div>
+              </div>
+
+              {/* Time Left  */}
+              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
+                <Accordion
+                  defaultExpanded
+                  sx={{
+                    boxShadow: "none !important",
+                    margin: "0px !important",
+                  }}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="recency-content"
+                    id="recency-header"
+                    sx={{ paddingRight: 0 }}
+                  >
+                    <Box display="flex" alignItems="center">
+                      <img src="/assets/hourglass-02.svg" />
+                      <Typography
+                        variant="subtitle1"
+                        ml={1}
+                        mr={1}
+                        sx={{
+                          color: "#1D2939",
+                          fontSize: "14px",
+                          fontWeight: "700",
+                          fontFamily: "open sans",
+                        }}
+                      >
+                        Time Left
+                      </Typography>
+                      {/* <IconButton size="small">
+                    <InfoOutlinedIcon fontSize="small" />
+                  </IconButton> */}
+                    </Box>
+                  </AccordionSummary>
+                  <div className="pl-7 ">
+                    <AccordionDetails>
+                      <FormGroup className="">
+                        {Object.keys(tempTimeLeft || {}).map((key) => (
+                          <FormControlLabel
+                            key={key}
+                            control={
+                              <Checkbox
+                                checked={tempTimeLeft[key]}
+                                onChange={handleChangeTimeLeft}
+                                name={key}
+                                sx={{
+                                  color: "default", // Default color
+                                  "&.Mui-checked": {
+                                    color: "#125B54", // Color when checked
+                                  },
+                                }}
+                              />
+                            }
+                            label={<span style={{ fontFamily: "Open Sans, sans-serif" }}>{filterTimeLabel[key]}</span>}
+                            sx={{
+                              height: "42px",
+                            }}
+                          />
+                        ))}
+                      </FormGroup>
+                    </AccordionDetails>
+                  </div>
+                </Accordion>
+                <div className="border-b-2 border-[#F2F4F7] "></div>
+              </div>
+
+              {/*  Recency */}
+              <div className="pt-4 pr-6 pl-2 ">
+                <Accordion
+                  defaultExpanded
+                  sx={{
+                    boxShadow: "none !important",
+                    margin: "0px !important",
+                  }}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="recency-content"
+                    id="recency-header"
+                    sx={{ paddingRight: 0 }}
+                  >
+                    <Box display="flex" alignItems="center">
+                      <AccessTimeIcon fontSize="small" />
+                      <Typography
+                        variant="subtitle1"
+                        ml={1}
+                        mr={1}
+                        sx={{
+                          color: "#1D2939",
+                          fontSize: "14px",
+                          fontWeight: "700",
+                          fontFamily: "open sans",
+                        }}
+                      >
+                        Recency
+                      </Typography>
+                      <div className="tooltip ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path
+                            d="M13.4046 11.6112C14.1188 10.5423 14.5 9.28558 14.5 8C14.5 6.27609 13.8152 4.62279 12.5962 3.40381C11.3772 2.18482 9.72391 1.5 8 1.5C6.71442 1.5 5.45772 1.88122 4.3888 2.59545C3.31988 3.30968 2.48676 4.32484 1.99479 5.51256C1.50282 6.70028 1.37409 8.00721 1.6249 9.26809C1.8757 10.529 2.49477 11.6872 3.40381 12.5962C4.31285 13.5052 5.47104 14.1243 6.73192 14.3751C7.99279 14.6259 9.29973 14.4972 10.4874 14.0052C11.6752 13.5132 12.6903 12.6801 13.4046 11.6112Z"
+                            stroke="#D0D5DD"
+                          />
+                          <path
+                            d="M9 11C9 11.1326 8.94732 11.2598 8.85355 11.3536C8.75979 11.4473 8.63261 11.5 8.5 11.5C8.23478 11.5 7.98043 11.3946 7.79289 11.2071C7.60536 11.0196 7.5 10.7652 7.5 10.5V8C7.36739 8 7.24021 7.94732 7.14645 7.85355C7.05268 7.75979 7 7.63261 7 7.5C7 7.36739 7.05268 7.24022 7.14645 7.14645C7.24021 7.05268 7.36739 7 7.5 7C7.76522 7 8.01957 7.10536 8.20711 7.29289C8.39464 7.48043 8.5 7.73478 8.5 8V10.5C8.63261 10.5 8.75979 10.5527 8.85355 10.6464C8.94732 10.7402 9 10.8674 9 11ZM7.75 6C7.89834 6 8.04334 5.95601 8.16668 5.8736C8.29001 5.79119 8.38614 5.67406 8.44291 5.53701C8.49967 5.39997 8.51453 5.24917 8.48559 5.10368C8.45665 4.9582 8.38522 4.82456 8.28033 4.71967C8.17544 4.61478 8.0418 4.54335 7.89632 4.51441C7.75083 4.48547 7.60003 4.50032 7.46299 4.55709C7.32594 4.61386 7.20881 4.70999 7.1264 4.83332C7.04399 4.95666 7 5.10166 7 5.25C7 5.44891 7.07902 5.63968 7.21967 5.78033C7.36032 5.92098 7.55109 6 7.75 6Z"
+                            fill="#344054"
+                          />
+                        </svg>
+                        <span className="tooltiptext tooltiptext2 relative z-[200000] shadow-3xl ">
+                          <img src="/assets/div.png" alt="" className="absolute -top-2 left-[52px] w-4" />
+                          <div className="text-gray-800 text-2xs font-normal font-open_sans">
+                            Recency tells you how new this stock recommendation is.
+                          </div>
+                          <div className="mt-2 p-2 bg-[#F6F7F9] rounded-[0.5rem]  gap-1">
+                            <span className="text-[#108973] text-2xs font-bold font-open_sans">Example :</span>
+                            <p className="text-2xs text-gray-600 font-normal font-open_sans">
+                              A stock recommended last week is more recent and potentially more relevant than one
+                              recommended a month ago.
+                            </p>
+                          </div>
+                        </span>
+                      </div>
+                    </Box>
+                  </AccordionSummary>
+                  <div className="pl-7">
+                    <AccordionDetails>
+                      <FormGroup>
+                        {Object.keys(tempRecency || {}).map((key) => (
+                          <FormControlLabel
+                            key={key}
+                            sx={{
+                              fontFamily: "Open Sans, sans-serif !important", // Apply font to label text
+                            }}
+                            control={
+                              <Checkbox
+                                checked={tempRecency[key]}
+                                onChange={handleChangeRecency}
+                                name={key}
+                                sx={{
+                                  fontFamily: "Open Sans, sans-serif !important", // Apply font to checkbox text
+                                  color: "default", // Default color
+                                  "&.Mui-checked": {
+                                    color: "#125B54", // Color when checked
+                                  },
+                                }}
+                              />
+                            }
+                            label={<span style={{ fontFamily: "Open Sans, sans-serif" }}>{filterTimeLabel[key]}</span>} // Ensure label text uses the correct font
+                          />
+                        ))}
+                      </FormGroup>
+                    </AccordionDetails>
                   </div>
                 </Accordion>
                 <div className="border-b-2 border-[#F2F4F7] "></div>
@@ -542,255 +788,6 @@ function DrawerFilter() {
                             type="number"
                             value={tempUpsideLeft ? tempUpsideLeft[1] : 0}
                             onChange={(e) => handleUpsideLeftInputChange(e, "max")}
-                            InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-                            }}
-                            sx={{
-                              "& .MuiOutlinedInput-root": {
-                                "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": {
-                                  borderColor: "#125B54",
-                                },
-                              },
-                            }}
-                          />
-                        </Grid>
-                      </Grid>
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
-                <div className="border-b-2 border-[#F2F4F7] "></div>
-              </div>
-
-              {/*  Recency */}
-              <div className="pt-4 pr-6 pl-2 ">
-                <Accordion
-                  defaultExpanded
-                  sx={{
-                    boxShadow: "none !important",
-                    margin: "0px !important",
-                  }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="recency-content"
-                    id="recency-header"
-                    sx={{ paddingRight: 0 }}
-                  >
-                    <Box display="flex" alignItems="center">
-                      <AccessTimeIcon fontSize="small" />
-                      <Typography
-                        variant="subtitle1"
-                        ml={1}
-                        mr={1}
-                        sx={{
-                          color: "#1D2939",
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          fontFamily: "open sans",
-                        }}
-                      >
-                        Recency
-                      </Typography>
-                      <div className="tooltip ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path
-                            d="M13.4046 11.6112C14.1188 10.5423 14.5 9.28558 14.5 8C14.5 6.27609 13.8152 4.62279 12.5962 3.40381C11.3772 2.18482 9.72391 1.5 8 1.5C6.71442 1.5 5.45772 1.88122 4.3888 2.59545C3.31988 3.30968 2.48676 4.32484 1.99479 5.51256C1.50282 6.70028 1.37409 8.00721 1.6249 9.26809C1.8757 10.529 2.49477 11.6872 3.40381 12.5962C4.31285 13.5052 5.47104 14.1243 6.73192 14.3751C7.99279 14.6259 9.29973 14.4972 10.4874 14.0052C11.6752 13.5132 12.6903 12.6801 13.4046 11.6112Z"
-                            stroke="#D0D5DD"
-                          />
-                          <path
-                            d="M9 11C9 11.1326 8.94732 11.2598 8.85355 11.3536C8.75979 11.4473 8.63261 11.5 8.5 11.5C8.23478 11.5 7.98043 11.3946 7.79289 11.2071C7.60536 11.0196 7.5 10.7652 7.5 10.5V8C7.36739 8 7.24021 7.94732 7.14645 7.85355C7.05268 7.75979 7 7.63261 7 7.5C7 7.36739 7.05268 7.24022 7.14645 7.14645C7.24021 7.05268 7.36739 7 7.5 7C7.76522 7 8.01957 7.10536 8.20711 7.29289C8.39464 7.48043 8.5 7.73478 8.5 8V10.5C8.63261 10.5 8.75979 10.5527 8.85355 10.6464C8.94732 10.7402 9 10.8674 9 11ZM7.75 6C7.89834 6 8.04334 5.95601 8.16668 5.8736C8.29001 5.79119 8.38614 5.67406 8.44291 5.53701C8.49967 5.39997 8.51453 5.24917 8.48559 5.10368C8.45665 4.9582 8.38522 4.82456 8.28033 4.71967C8.17544 4.61478 8.0418 4.54335 7.89632 4.51441C7.75083 4.48547 7.60003 4.50032 7.46299 4.55709C7.32594 4.61386 7.20881 4.70999 7.1264 4.83332C7.04399 4.95666 7 5.10166 7 5.25C7 5.44891 7.07902 5.63968 7.21967 5.78033C7.36032 5.92098 7.55109 6 7.75 6Z"
-                            fill="#344054"
-                          />
-                        </svg>
-                        <span className="tooltiptext tooltiptext2 relative z-[200000] shadow-3xl ">
-                          <img src="/assets/div.png" alt="" className="absolute -top-2 left-[52px] w-4" />
-                          <div className="text-gray-800 text-2xs font-normal font-open_sans">
-                            Recency tells you how new this stock recommendation is.
-                          </div>
-                          <div className="mt-2 p-2 bg-[#F6F7F9] rounded-[0.5rem]  gap-1">
-                            <span className="text-[#108973] text-2xs font-bold font-open_sans">Example :</span>
-                            <p className="text-2xs text-gray-600 font-normal font-open_sans">
-                              A stock recommended last week is more recent and potentially more relevant than one
-                              recommended a month ago.
-                            </p>
-                          </div>
-                        </span>
-                      </div>
-                    </Box>
-                  </AccordionSummary>
-                  <div className="pl-7">
-                    <AccordionDetails>
-                      <FormGroup>
-                        {Object.keys(tempRecency || {}).map((key) => (
-                          <FormControlLabel
-                            key={key}
-                            sx={{
-                              fontFamily: "Open Sans, sans-serif !important", // Apply font to label text
-                            }}
-                            control={
-                              <Checkbox
-                                checked={tempRecency[key]}
-                                onChange={handleChangeRecency}
-                                name={key}
-                                sx={{
-                                  fontFamily: "Open Sans, sans-serif !important", // Apply font to checkbox text
-                                  color: "default", // Default color
-                                  "&.Mui-checked": {
-                                    color: "#125B54", // Color when checked
-                                  },
-                                }}
-                              />
-                            }
-                            label={<span style={{ fontFamily: "Open Sans, sans-serif" }}>{filterTimeLabel[key]}</span>} // Ensure label text uses the correct font
-                          />
-                        ))}
-                      </FormGroup>
-                    </AccordionDetails>
-                  </div>
-                </Accordion>
-                <div className="border-b-2 border-[#F2F4F7] "></div>
-              </div>
-
-              {/* Time Left  */}
-              <div className="pt-4 pr-6 pl-2 overflow-x-hidden">
-                <Accordion
-                  defaultExpanded
-                  sx={{
-                    boxShadow: "none !important",
-                    margin: "0px !important",
-                  }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="recency-content"
-                    id="recency-header"
-                    sx={{ paddingRight: 0 }}
-                  >
-                    <Box display="flex" alignItems="center">
-                      <img src="/assets/hourglass-02.svg" />
-                      <Typography
-                        variant="subtitle1"
-                        ml={1}
-                        mr={1}
-                        sx={{
-                          color: "#1D2939",
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          fontFamily: "open sans",
-                        }}
-                      >
-                        Time Left
-                      </Typography>
-                      {/* <IconButton size="small">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </IconButton> */}
-                    </Box>
-                  </AccordionSummary>
-                  <div className="pl-7 ">
-                    <AccordionDetails>
-                      <FormGroup className="">
-                        {Object.keys(tempTimeLeft || {}).map((key) => (
-                          <FormControlLabel
-                            key={key}
-                            control={
-                              <Checkbox
-                                checked={tempTimeLeft[key]}
-                                onChange={handleChangeTimeLeft}
-                                name={key}
-                                sx={{
-                                  color: "default", // Default color
-                                  "&.Mui-checked": {
-                                    color: "#125B54", // Color when checked
-                                  },
-                                }}
-                              />
-                            }
-                            label={<span style={{ fontFamily: "Open Sans, sans-serif" }}>{filterTimeLabel[key]}</span>}
-                            sx={{
-                              height: "42px",
-                            }}
-                          />
-                        ))}
-                      </FormGroup>
-                    </AccordionDetails>
-                  </div>
-                </Accordion>
-                <div className="border-b-2 border-[#F2F4F7] "></div>
-              </div>
-              {/* Total Returns  */}
-              <div className="pt-4 pr-6 pl-2  overflow-x-hidden">
-                <Accordion
-                  defaultExpanded
-                  sx={{
-                    boxShadow: "none !important",
-                    margin: "0px !important",
-                  }}
-                >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ paddingRight: 0 }}>
-                    <Box display="flex" alignItems="center">
-                      <img src="/assets/solar_graph-down-new-broken.svg" alt="Total Returns" />
-                      <div className=" flex">
-                        <Typography
-                          variant="subtitle1"
-                          ml={1}
-                          mr={1}
-                          sx={{
-                            color: "#1D2939",
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            fontFamily: "open sans",
-                          }}
-                        >
-                          Total Returns
-                        </Typography>
-                      </div>
-                    </Box>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <div className="pl-11">
-                      <CustomSlider
-                        value={tempReturns}
-                        onChange={handleReturnsSliderChange}
-                        valueLabelDisplay="auto"
-                        min={min_returns}
-                        max={max_returns}
-                        marks={returns_marks}
-                      />
-
-                      <Grid container spacing={2} alignItems="center" pt={2}>
-                        <Grid item xs={5}>
-                          <TextField
-                            variant="outlined"
-                            size="small"
-                            type="number"
-                            value={tempReturns ? tempReturns[0] : 0}
-                            onChange={(e) => handleReturnsInputChange(e, "min")}
-                            InputProps={{
-                              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-                            }}
-                            sx={{
-                              "& .MuiOutlinedInput-root": {
-                                "&:hover fieldset": { borderColor: "#125B54" },
-                                "&.Mui-focused fieldset": {
-                                  borderColor: "#125B54",
-                                },
-                              },
-                            }}
-                          />
-                        </Grid>
-                        <Grid item xs={2}>
-                          <Typography align="center" fontFamily="Open Sans, sans-serif">
-                            to
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={5}>
-                          <TextField
-                            variant="outlined"
-                            size="small"
-                            type="number"
-                            value={tempReturns ? tempReturns[1] : 0}
-                            onChange={(e) => handleReturnsInputChange(e, "max")}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">%</InputAdornment>,
                             }}
@@ -1090,17 +1087,15 @@ function DrawerFilter() {
           <Button
             variant="outlined"
             onClick={toggleDrawer("bottom", true)}
-            sx={{ display: isMobile ? "block" : "none", paddingInline:"10px",minWidth:"fit-content" }}
+            sx={{ display: isMobile ? "block" : "none", paddingInline: "10px", minWidth: "fit-content" }}
             className="!flex h-full relative !bg-white border !border-[#E4E7EC] sm:!py-[10px] py-0   !rounded-[6px]  gap-2 items-center shadow-3xs  hover:bg-error-500"
           >
             <img height={16} width={16} src="/assets/filter.svg" alt="" />
-            <p className="font-open_sans text-brand-500 font-medium normal-case text-sm">
-              Filter
-            </p>            
+            <p className="font-open_sans text-brand-500 font-medium normal-case text-sm">Filter</p>
             {totalFilterCount > 0 && (
-               <div className=" bg-[#135B54] font-open_sans text-white px-2 text-sm font-bold rounded-full w-6  h-6 justify-center items-center flex ">
-               {totalFilterCount}
-             </div>
+              <div className=" bg-[#135B54] font-open_sans text-white px-2 text-sm font-bold rounded-full w-6  h-6 justify-center items-center flex ">
+                {totalFilterCount}
+              </div>
             )}
           </Button>
           <Drawer
@@ -1121,7 +1116,7 @@ function DrawerFilter() {
               ".MuiDrawer-root > .MuiPaper-root": {
                 height: `calc(50% - ${drawerBleeding}px)`,
                 overflow: "visible",
-              }
+              },
             }}
           >
             <Box
@@ -1150,9 +1145,7 @@ function DrawerFilter() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans">
-                      Filters
-                    </div>
+                    <div className="text-[#191D23] text-ellipsis text-xl font-bold font-open_sans">Filters</div>
                   </div>
                   <div
                     className="text-[#125B54] font-open_sans text-sm font-semibold cursor-pointer whitespace-nowrap"
@@ -1173,8 +1166,8 @@ function DrawerFilter() {
                   justifyContent: "start !important",
                   // width: "144px !important",
                   height: "100%", // Set a fixed height to make sure scrolling works
-                  width:"100%",
-                  zIndex:60,
+                  width: "100%",
+                  zIndex: 60,
                 }}
               >
                 <Tabs
@@ -1224,6 +1217,97 @@ function DrawerFilter() {
                     }
                     {...a11yProps(8)}
                   />
+                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                      lineClamp: "1",
+                      fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
+                      width: "100%",
+                    }}
+                    // Total Returns
+                    label={
+                      <Box className="items-start !important font-open_sans capitalize flex">
+                        Total Returns
+                        {!(returns[0] === min_returns && returns[1] === max_returns) && (
+                          <>
+                            <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </div>
+                          </>
+                        )}
+                      </Box>
+                    }
+                    {...a11yProps(3)}
+                  />
+                    <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                      fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
+                      width: "100%",
+                    }}
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Time Left
+                          {!!Object.keys(timeLeft).filter((key) => timeLeft[key]).length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {Object.keys(timeLeft).filter((key) => timeLeft[key]).length}
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
+                    {...a11yProps(2)}
+                  />
+                   <Tab
+                    sx={{
+                      display: "flex",
+                      alignItems: "start !important",
+                      color: "#5F6368",
+                      gap: "12px",
+                      fontFamily: "Open Sans, sans-serif !important",
+                      textTransform: "capitalize",
+                      minHeight: "0px",
+                      width: "100%",
+                    }}
+                    label={
+                      <>
+                        <Box className="items-start !important font-open_sans capitalize flex">
+                          Recency
+                          {!!Object.keys(recency).filter((key) => recency[key]).length && (
+                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
+                              {Object.keys(recency).filter((key) => recency[key]).length}
+                            </div>
+                          )}
+                        </Box>
+                      </>
+                    }
+                    {...a11yProps(1)}
+                  />
                   <Tab
                     sx={{
                       display: "flex",
@@ -1262,98 +1346,10 @@ function DrawerFilter() {
                     {...a11yProps(0)}
                   />
 
-                  <Tab
-                    sx={{
-                      display: "flex",
-                      alignItems: "start !important",
-                      color: "#5F6368",
-                      gap: "12px",
-                      fontFamily: "Open Sans, sans-serif !important",
-                      textTransform: "capitalize",
-                      minHeight: "0px",
-                      width: "100%",
-                    }}
-                    label={
-                      <>
-                        <Box className="items-start !important font-open_sans capitalize flex">
-                          Recency
-                          {!!Object.keys(recency).filter((key) => recency[key]).length && (
-                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
-                              {Object.keys(recency).filter((key) => recency[key]).length}
-                            </div>
-                          )}
-                        </Box>
-                      </>
-                    }
-                    {...a11yProps(1)}
-                  />
-                  <Tab
-                    sx={{
-                      display: "flex",
-                      alignItems: "start !important",
-                      color: "#5F6368",
-                      gap: "12px",
-                      fontFamily: "Open Sans, sans-serif !important",
-                      textTransform: "capitalize",
-                      minHeight: "0px",
-                      width: "100%",
-                    }}
-                    label={
-                      <>
-                        <Box className="items-start !important font-open_sans capitalize flex">
-                          Time Left
-                          {!!Object.keys(timeLeft).filter((key) => timeLeft[key]).length && (
-                            <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
-                              {Object.keys(timeLeft).filter((key) => timeLeft[key]).length}
-                            </div>
-                          )}
-                        </Box>
-                      </>
-                    }
-                    {...a11yProps(2)}
-                  />
-                  <Tab
-                    sx={{
-                      display: "flex",
-                      alignItems: "start !important",
-                      color: "#5F6368",
-                      gap: "12px",
-                      lineClamp: "1",
-                      fontFamily: "Open Sans, sans-serif !important",
-                      textTransform: "capitalize",
-                      minHeight: "0px",
-                      width: "100%",
-                    }}
-                    // Total Returns
-                    label={
-                      <Box className="items-start !important font-open_sans capitalize flex">
-                        Total Return
-                        {!(returns[0] === min_returns && returns[1] === max_returns) && (
-                          <>
-                            <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="18"
-                                height="18"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                              >
-                                <path
-                                  d="M2.0625 6.5625L4.6875 9.1875L9.9375 3.5625"
-                                  stroke="white"
-                                  stroke-width="1.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
-                            </div>
-                          </>
-                        )}
-                      </Box>
-                    }
-                    {...a11yProps(3)}
-                  />
-                  {sebiBoardType != "smeboard" && (
+                 
+                
+                 
+                  {sebiBoardType == "mainboard" && (
                     <Tab
                       sx={{
                         display: "flex",
@@ -1368,7 +1364,7 @@ function DrawerFilter() {
                       label={
                         <Box className="items-start !important font-open_sans capitalize flex">
                           Market Cap
-                          {marketCapType?.length>0 && (
+                          {marketCapType?.length > 0 && (
                             <>
                               <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                                 <svg
@@ -1458,7 +1454,7 @@ function DrawerFilter() {
                     label={
                       <Box className="items-start !important font-open_sans capitalize flex">
                         Risk
-                        {risk?.length>0 && (
+                        {risk?.length > 0 && (
                           <>
                             <div className=" bg-[#135B54] text-white px-1 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                               <svg
