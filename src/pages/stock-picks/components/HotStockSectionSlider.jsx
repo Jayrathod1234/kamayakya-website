@@ -9,7 +9,7 @@ const HotStockSectionSlider = ({ items }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
 
   useEffect(()=>{
-    console.log("ITEMS==>", items)
+
     if(items.length <=3){
       setCarouselItems([...items,...items])
     }else{

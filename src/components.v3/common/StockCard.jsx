@@ -211,27 +211,27 @@ function StockCard({
                     />
                     {stock_tags?.length > 0 ? (
                       <Tooltip title={stockSector[sector] ?? ""}>
-                        <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
+                        <p className={`text-[12px] ${stockSector[sector]?.length > 10 ? "cursor-pointer":" cursor-default"}  font-semibold text-orange-700 font-open_sans`}>
                           {stockSector[sector]?.length > 10
                             ? `${stockSector[sector].substring(0, 10)}...`
                             : stockSector[sector]}
                         </p>
                       </Tooltip>
                     ) : (
-                      <p className="text-[10px] font-semibold text-orange-700 font-open_sans">
+                      <p className="text-[12px] cursor-default  font-semibold text-orange-700 font-open_sans">
                         {stockSector[sector]}
                       </p>
                     )}
                   </div>
                 )}
-                <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
+                <div className="py-[2px] pr-[16px] pl-[6px] cursor-default rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                   <img src="/assets/Component 8.svg" alt="" className="w-3" />
-                  <p className="text-[10px] font-semibold text-[#667085] flex !items-center whitespace-nowrap font-open_sans">
+                  <p className="text-[12px] font-semibold text-[#667085] flex !items-center whitespace-nowrap font-open_sans">
                     MCap :{" "}
                     {is_blur ? (
                       <div className="  w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                     ) : (
-                      <span className="ml-[2px]">₹{market_cap}</span>
+                      <span className="ml-[2px]">₹{market_cap?.toLocaleString("hi")} Cr.</span>
                     )}
                   </p>
                 </div>
@@ -369,6 +369,7 @@ function StockCard({
                     {/* <img src="/assets/Polygon2.svg" alt="" className="w-2" /> */}
                     {/* red down arrow  */}
                     {/* <img src="/assets/Polygon 3.svg" alt="" className="w-2" /> */}
+                    <p className={` flex ${gain_loss == null ? " items-center":" items-baseline"}  gap-x-1`}>
                     {gain_loss == null ? (
                       <p className="text-2xs font-bold text-gray-800 font-open_sans  w-[26px] h-3 bg-[#E4E7EC] rounded-full "></p>
                     ) : (
@@ -379,6 +380,7 @@ function StockCard({
                     <span className="text-[10px] font-semibold text-[#6E6E6E] line-clamp-1">
                       in less than {return_time}
                     </span>
+                    </p>
                   </div>
                 </div>
               </div>
