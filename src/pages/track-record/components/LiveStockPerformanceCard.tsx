@@ -42,7 +42,7 @@ const getIconColor = (label: string,type:string) => {
 const Legends = ({ label, value, iconColor, type }: { label: string; value: number; iconColor: string;type:string; }) => {
   const { isLoggedIn } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
-  let legend = label === "high" && type === "LIVE" ? "High (>15%)" : label === "medium" && type === "LIVE" ? "Medium (<15% to >-15%)" :label === "low" && type === "LIVE" ? "Low (>-15%)" : label === "high" && type === "EXIT" ? "Profit Exits (>15%)" : label === "medium" && type === "EXIT" ? "Loss Exits (>-15%)":""
+  let legend = label === "high" && type === "LIVE" ? "High (>15%)" : label === "medium" && type === "LIVE" ? "Medium (<15% to <-15%)" :label === "low" && type === "LIVE" ? "Low (< -15%)" : label === "high" && type === "EXIT" ? "Profit Exits (>15%)" : label === "medium" && type === "EXIT" ? "Loss Exits (< -15%)":""
   
   return (
     <div className="flex items-baseline ">

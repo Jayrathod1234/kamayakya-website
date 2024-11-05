@@ -21,6 +21,7 @@ import LineChart from "@/components.v3/common/LineChart";
 import TopGainerLoserChart from "./TopGainerLoserChart";
 import { IStockPrices } from "@/types";
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
+import Tooltip from "@/components.v3/common/Tooltip";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -129,7 +130,7 @@ export const TopGainerLoserCard = ({
       )}
 
       <div className=" flex flex-col justify-center sm:flex-row sm:justify-between items-center gap-x-[3.81px] flex-wrap">
-        <div className=" flex items-center">
+        <div className=" flex items-center gap-x-[2px]">
           <div className=" flex items-center">
             {isBest ? <ArrowUp color="#344054" size={16} /> : <ArrowDown color="#344054" size={16} />}
             <p className=" font-semibold text-sm text-[rgba(29,41,57,1)] group-hover/gainer-loser:text-brand-400 whitespace-nowrap ">
@@ -195,14 +196,29 @@ export const TopGainerLoserCard = ({
             <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
           ) : (
             <p
-              className={` text-display-xs font-bold  whitespace-nowrap ${
+              className={` flex items-baseline text-display-xs font-bold  whitespace-nowrap ${
                 stockStat?.is_gain_loss_positive ? "text-[rgba(18,183,106,1)]" : "text-[rgba(240,68,56,1)]"
               } `}
             >
               {stockStat?.gain_loss && stockStat?.gain_loss}%{" "}
-              <span className=" text-3xs font-semibold text-[rgba(73,70,70,1)] hidden sm:inline-block  ">
-                {stockStat?.return_time && `in ${abbreviateTime(stockStat?.return_time)}`}
-              </span>
+              <div  className="  items-center ml-[6px] hidden sm:flex">
+                {/* {stockStat?.return_time && `in ${abbreviateTime(stockStat?.return_time)}`} */}
+                {/* <p className=" !m-0 flex items-center gap-x-1 text-3xs font-semibold whitespace-nowrap text-white"> */}
+                <p className=" text-3xs font-semibold text-[rgba(73,70,70,1)]   ">in {stockStat?.return_time?.includes(",") ? abbreviateTime(stockStat?.return_time) : stockStat?.return_time}{" "}</p>
+                {stockStat?.return_time?.includes(",") &&  <Tooltip
+                  tooltipTrigger={
+                    <img
+                      className="!h-[14px] !w-[14px] object-contain bg-[rgba(255,255,255,0.6)] rounded-full"
+                      height={14}
+                      width={14}
+                      src="/assets/blackinfo.svg"
+                    />
+                  }
+                  tooltipContent={<p className="text-2xs text-gray-600 font-normal">{stockStat?.return_time}</p>}
+                />}
+               
+              {/* </p> */}
+              </div>
             </p>
           )}
         </div>
