@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { AverageReturnCard } from "./AverageReturnCards";
 import { LiveStockPerformanceCard } from "./LiveStockPerformanceCard";
 import { TopGainerLoserCard } from "./TopGainerLoserCard";
@@ -116,4 +116,4 @@ export const TrackRecordHeroCard = ({
   );
 };
 
-export default TrackRecordHeroCard;
+export default React.memo(TrackRecordHeroCard);

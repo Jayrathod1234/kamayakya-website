@@ -196,7 +196,7 @@ any) => {
                   ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
                   : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
               } px-3 py-2 ${
-                action === "SELL" ? "min-w-[120px]" : "min-w-[100px]"
+                action === "SELL" ? "min-w-[157px]" : "min-w-[100px]"
               } sm:min-w-[157px]`}
             >
               <p className=" text-4xs font-bold text-white truncate">
@@ -231,10 +231,10 @@ any) => {
                 {return_time?.includes(",") &&  <Tooltip
                   tooltipTrigger={
                     <img
-                      className="!h-[14px] !w-[14px] object-contain rounded-full"
+                      className="!h-[14px] !w-[14px] object-contain bg-[rgba(255,255,255,0.6)] rounded-full"
                       height={14}
                       width={14}
-                      src="/assets/total_returns_info.svg"
+                      src="/assets/blackinfo.svg"
                     />
                   }
                   tooltipContent={<p className="text-2xs text-gray-600 font-normal">{return_time}</p>}
@@ -269,6 +269,7 @@ any) => {
                       src="/assets/blackinfo.svg"
                     />
                   }
+                  dialogHeader="Upside Left"
                   tooltipContent={
                     <div className="gap-[7px] items-center flex flex-col justify-center">
                       <div className="text-gray-800 text-2xs font-normal">

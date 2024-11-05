@@ -19,7 +19,7 @@ export default function TrackRecordHero() {
         <div className=" h-[900px] w-[800px] bg-[#139499] absolute z-20 blur-3xl rounded-full opacity-[.15] -left-[10%] -top-10"></div>
         <div className=" h-[900px] w-[800px] bg-[#12B76A] absolute z-20 blur-3xl rounded-full opacity-[.15] -right-[20%] -top-[60%]"></div>
       </div>
-      <div className=" bg-[url(/assets/track-record-hero.png)] bg-black absolute w-screen h-[650px] z-[1] mt-[-4rem]"></div>
+      <div className=" bg-[url(/assets/track-record-hero2.png)] bg-black absolute w-screen h-[650px] z-[1] mt-[-4rem]"></div>
       {/* hero text section */}
       <div className=" py-9 flex flex-col items-center justify-center relative z-10">
         {/* Sebi chip */}

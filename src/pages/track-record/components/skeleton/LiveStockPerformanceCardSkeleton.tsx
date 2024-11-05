@@ -61,7 +61,7 @@ export default function LiveStockPerformanceCardSkeleton() {
         </div>
         <div className=" h-full flex flex-col gap-y-3 w-full">
           {LEGENDS.map((legend, index) => (
-            <Legends label={legend.label} iconColor={legend.iconColor}  />
+            <Legends key={legend.label} label={legend.label} iconColor={legend.iconColor}  />
           ))}
         </div>
       </div>
