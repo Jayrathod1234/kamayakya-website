@@ -125,7 +125,7 @@ export function Slider({ children }) {
       loop: true,
     },
     [
-      Autoplay({ playOnInit: true, delay: 6000, stopOnInteraction: false }),
+      Autoplay({ playOnInit: true, delay: 6000, stopOnInteraction: false, stopOnMouseEnter:true }),
       ClassNames(),
     ]
   );
@@ -140,7 +140,7 @@ export function Slider({ children }) {
   } = usePrevNextButtons(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } =
     useDotButton(emblaApi);
-
+    let [isPlaying, setIsPlaying] = useState(true);
   const handlePrevNext = (cb) => {
     cb();
     const mp = getMixPanelClient();
@@ -197,6 +197,16 @@ export function Slider({ children }) {
   //     });
   //   });
   // }, []);
+
+  function togglePlayingState(emblaApi, eventName) {
+    // if (eventName === "autoplay:play") {
+    //   const autoplay = emblaApi?.plugins()?.autoplay;
+    //   if (!autoplay) return;
+    //   autoplay.play(false);
+    //   // playAnimation(10);
+    // }
+    setIsPlaying(eventName === "autoplay:play" ? true : false)
+  }
 
   const tweenScale = useCallback((emblaApi, eventName) => {
     const engine = emblaApi.internalEngine();
@@ -256,7 +266,9 @@ export function Slider({ children }) {
       .on("reInit", setTweenFactor)
       .on("reInit", tweenScale)
       .on("scroll", tweenScale)
-      .on("slideFocus", tweenScale);
+      .on("slideFocus", tweenScale)
+      .on("autoplay:play", togglePlayingState)
+      .on("autoplay:stop", togglePlayingState);
   }, [emblaApi, tweenScale]);
 
   return (
@@ -369,6 +381,7 @@ export function Slider({ children }) {
           .slice(0, scrollSnaps.length) // Show 5 on small screens, all on larger screens
           .map((_, index) => (
             <CarouselIndicator
+              isPlaying={isPlaying}
               onClick={() => onDotButtonClick(index)}
               index={index}
               selectedIndex={selectedIndex}

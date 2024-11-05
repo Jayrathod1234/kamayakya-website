@@ -165,13 +165,13 @@ export function Carousel({ className }: { className?: string }) {
       // startIndex: 1,
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 6000, stopOnInteraction: false }), ClassNames()] //change carousel timer here.
+    [Autoplay({ playOnInit: true, delay: 6000,stopOnInteraction:false, stopOnMouseEnter:true }), ClassNames()] //change carousel timer here.
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
-
+  const [isPlaying, setIsPlaying] = useState(true)
   const handlePrevNext = (cb: () => void) => {
     cb();
     const mp = getMixPanelClient();
@@ -189,6 +189,15 @@ export function Carousel({ className }: { className?: string }) {
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
+  function togglePlayingState(emblaApi, eventName) {
+    // if (eventName === "autoplay:play") {
+    //   const autoplay = emblaApi?.plugins()?.autoplay;
+    //   if (!autoplay) return;
+    //   autoplay.play(false);
+    //   // playAnimation(10);
+    // }
+    setIsPlaying(eventName === "autoplay:play" ? true : false)
+  }
 
   const tweenScale = useCallback((emblaApi: EmblaCarouselType, eventName?: any) => {
     const engine = emblaApi.internalEngine();
@@ -241,7 +250,9 @@ export function Carousel({ className }: { className?: string }) {
       .on("reInit", setTweenFactor)
       .on("reInit", tweenScale)
       .on("scroll", tweenScale)
-      .on("slideFocus", tweenScale);
+      .on("slideFocus", tweenScale)
+      .on("autoplay:play", togglePlayingState)
+      .on("autoplay:stop", togglePlayingState)
   }, [emblaApi, tweenScale]);
 
   return (

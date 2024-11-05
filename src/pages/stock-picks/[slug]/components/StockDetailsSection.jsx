@@ -468,7 +468,7 @@ function StockDetailsSection() {
                               {stock_exchange.includes("SME") ? "SME": `${market_cap_type || ""} Cap`} 
                             </p>
                             <span className="text-[#667085] inline-block text-ellipsis text-2xs font-normal font-open_sans">
-                              {market_cap} Cr. as of{" "}
+                              ₹{market_cap?.toLocaleString("hi")} Cr. as of{" "}
                               {new Date().toLocaleDateString("en-GB", {
                                 day: "2-digit",
                                 month: "short",

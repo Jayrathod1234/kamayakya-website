@@ -5,9 +5,11 @@ type TCarouselIndicator = {
   index:number;
   selectedIndex:number;
   animationDuration?:string;
+  isPlaying?:boolean
 }
 
-export default function CarouselIndicator({ onClick, index, selectedIndex, animationDuration }:TCarouselIndicator) {
+export default function CarouselIndicator({ onClick, index, selectedIndex, animationDuration, isPlaying }:TCarouselIndicator) {
+  console.log("RUNNING==>", isPlaying)
   return (
     <div
       onClick={onClick}
@@ -17,7 +19,7 @@ export default function CarouselIndicator({ onClick, index, selectedIndex, anima
       } h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden cursor-pointer`}
     >
       <div
-        style={{ animationDuration: "6000ms" }}
+        style={{ animationDuration: "6000ms", animationPlayState:isPlaying ? "running":"paused" }}
         className={`bg-brand-300 w-full h-full ${index === selectedIndex ? "carousel-dot-animate" : " hidden"}`}
       ></div>
     </div>
