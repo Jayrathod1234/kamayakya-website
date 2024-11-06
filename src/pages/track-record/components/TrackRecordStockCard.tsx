@@ -125,11 +125,11 @@ any) => {
         <div className="pt-[12px]">
           <div className=" flex items-center gap-[8px] ">
             {stockSector && sector && (
-              <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
+              <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap min-w-0">
                 <img src={`/sector_images_mustard/${sectorIcons[sector]}`} alt="" className="w-3 " />
                 {stock_tags?.length > 0 ? (
                   <MuiTooltip title={stockSector[sector] ?? sector}>
-                    <p className="text-[12px] font-semibold text-orange-700 font-open_sans normal-case">
+                    <p className=" text-[10px] sm:text-[12px] font-semibold text-orange-700 font-open_sans normal-case truncate">
                       {stockSector[sector]?.length > 10
                         ? `${stockSector[sector].substring(0, 10)}...`
                         : stockSector[sector]}
@@ -137,13 +137,13 @@ any) => {
                     </p>
                   </MuiTooltip>
                 ) : (
-                  <p className="text-[12px] font-semibold text-orange-700 font-open_sans">{stockSector[sector]}</p>
+                  <p className=" text-[10px] sm:text-[12px] font-semibold text-orange-700 font-open_sans">{stockSector[sector]}</p>
                 )}
               </div>
             )}
             <TargetChip
-            targetTextClass=" text-[12px]"
-            inactiveTextClass=" text-[12px]"
+            targetTextClass="text-[10px] sm:text-[12px]"
+            inactiveTextClass="text-[10px] sm:text-[12px]"
               containerClass={`py-[3px] px-2 h-6 items-center border ${
                 target_status === "active" ? "border-[#FEF0DF]" : ""
               }`}
