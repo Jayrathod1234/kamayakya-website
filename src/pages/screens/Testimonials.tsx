@@ -335,7 +335,7 @@ const Testimonials = () => {
 								/>
 								<Text b css={{ textAlign: "center", marginTop: "10px" }}>
 									{" "}
-									Atharva Agashe
+									Atharva Agashe,
 									Associated Director - FIS
 								</Text>
 							</div>
