@@ -23,6 +23,8 @@ import "chartjs-adapter-date-fns";
 import { format, parse } from "date-fns";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 import { useMediaQuery } from "@mui/material";
+import withComponentInView from "./isInView";
+import { useInView } from "react-intersection-observer";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -53,7 +55,7 @@ function generateRandomData() {
 
 const data = generateRandomData();
 
-export default function LineChart({
+function LineChartMain({
   fetchIndividual = true,
   containerClassName,
   stock_id,
@@ -63,7 +65,7 @@ export default function LineChart({
   stock_live_prices,
   stock_targets,
   stock_action,
-  annotationSize =8,
+  annotationSize = 8,
 }: {
   fetchIndividual?: boolean;
   containerClassName: string;
@@ -74,13 +76,13 @@ export default function LineChart({
   stock_live_prices: any[];
   stock_targets: any[];
   stock_action: string;
-  annotationSize?:number
+  annotationSize?: number;
 }) {
   const { sebiBoardType } = useTrackRecordCommon();
   const isMobile = useMediaQuery("(max-width:600px)");
   const { stockSector } = useTrackRecordCommon();
   const { status, data, error, isFetching } = useQuery({
-    queryKey: ["bseLivePrice", sebiBoardType,stock_id],
+    queryKey: ["bseLivePrice", sebiBoardType, stock_id],
     queryFn: () =>
       stock_exchange.includes("NSE")
         ? getNseLivePrice(sebiBoardType, fetchIndividual ? stock_id : null)
@@ -100,8 +102,8 @@ export default function LineChart({
   target_met_img.width = annotationSize;
   target_met_img.src = "/assets/target-met.svg";
   const target_active_img = new Image();
-  target_active_img.width = annotationSize;
-  target_active_img.height = annotationSize;
+  target_active_img.width = 10;
+  target_active_img.height = 10;
   target_active_img.src = "/assets/active-target.svg";
   const cmp_img = new Image();
   cmp_img.height = annotationSize;
@@ -521,120 +523,143 @@ export default function LineChart({
           return { ...item, date: formattedDate };
         })
         .filter((prev) => prev != null);
-      return currentData.slice(0,245);
+      return currentData;
     });
   }, [data]);
-  console.log("DATA LENGTH",stock_id, liveData?.length)
+  // console.log("DATA LENGTH",stock_id, liveData?.length)
   return (
-    <div className={cn(" relative w-full", containerClassName)}>
-      <Line
-        className=""
-        options={{
-          spanGaps: true,
-          layout: {
-            padding: {
-              right: isLoggedIn ? (isMobile ? 30 : 60) : 0,
+    <Line
+      className=""
+      options={{
+        spanGaps: true,
+        layout: {
+          padding: {
+            right: isLoggedIn ? (isMobile ? 30 : 60) : 0,
+          },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          annotation: {
+            clip: false,
+            common: {
+              drawTime: "afterDraw", // Important: Draw annotations after the chart
+            },
+            annotations: {
+              ...markerAnnotation,
+              // targetIconAnnotation,
             },
           },
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
+          tooltip: {
+            enabled: false,
+            position: "nearest",
+            external: externalTooltipHandler,
+          },
+        },
+        scales: {
+          x: {
+            type: "timeseries", // Use time scale
+
+            time: {
+              unit: "hour",
+              displayFormats: {
+                day: "MMM d",
+                hour: "HH:mm",
+              },
+            },
+
+            ticks: {
+              display: isLoggedIn ? true : false,
+              // stepSize: 6,
+              align: "start",
+              source: "auto",
+              autoSkip: true, // Automatically skip labels
+              autoSkipPadding: isMobile ? 5 : 20, // Add padding between labels based on screen size
+              maxTicksLimit: isMobile ? 5 : 8, //
+              callback(tickValue, index, ticks) {
+                let annotationXValues = Object.keys(markerAnnotation).map((key) => markerAnnotation[key].xValue);
+                annotationXValues = annotationXValues
+                  .filter((value) => value)
+                  .map((value) => {
+                    const formattedDate = format(new Date(value), "yyyy-MM-dd hh:mm:ss a");
+
+                    return formattedDate;
+                  });
+
+                const label = this.getLabelForValue(tickValue);
+                const parsedDate = parse(label, "MMM d, yyyy, h:mm:ss a", new Date());
+                // console.log(stock_name,label,annotationXValues)
+                if (!parsedDate) {
+                  return "";
+                }
+
+                // Format the parsed date
+                const formattedDate = format(parsedDate, "dd MMM");
+                return (isMobile ? index % 4 === 0 : index % 2 === 0) ? formattedDate : "";
+                // : "";
+              },
+              maxRotation: 0,
+              // stepSize:9000
+            },
+            grid: {
               display: false,
-            },
-            annotation: {
-              clip: false,
-              common: {
-                drawTime: "afterDraw", // Important: Draw annotations after the chart
-              },
-              annotations: {
-                ...markerAnnotation,
-                // targetIconAnnotation,
-              },
-            },
-            tooltip: {
-              enabled: false,
-              position: "nearest",
-              external: externalTooltipHandler,
+              offset: true,
+              color: "#f7f7f7",
             },
           },
-          scales: {
-            x: {
-              type: "timeseries", // Use time scale
-              
-              time: {
-                unit: "hour",
-                displayFormats: {
-                  day: "MMM d",
-                  hour: "HH:mm",
-                },
-              },
-
-              ticks: {
-                display: isLoggedIn ? true : false,
-                // stepSize: 6,
-                align: "start",
-                source: "auto",
-                autoSkip: true, // Automatically skip labels
-                autoSkipPadding: isMobile ? 5 : 20, // Add padding between labels based on screen size
-                maxTicksLimit: isMobile ? 5 : 8, //
-                callback(tickValue, index, ticks) {
-                  let annotationXValues = Object.keys(markerAnnotation).map((key) => markerAnnotation[key].xValue);
-                  annotationXValues = annotationXValues
-                    .filter((value) => value)
-                    .map((value) => {
-                      const formattedDate = format(new Date(value), "yyyy-MM-dd hh:mm:ss a");
-
-                      return formattedDate;
-                    });
-
-                  const label = this.getLabelForValue(tickValue);
-                  const parsedDate = parse(label, "MMM d, yyyy, h:mm:ss a", new Date());
-                  // console.log(stock_name,label,annotationXValues)
-                  if (!parsedDate) {
-                    return "";
-                  }
-
-                  // Format the parsed date
-                  const formattedDate = format(parsedDate, "dd MMM");
-                  return (isMobile ? index % 4 === 0 : index % 2 === 0) ? formattedDate : "";
-                  // : "";
-                },
-                maxRotation: 0,
-                // stepSize:9000
-              },
-              grid: {
-                display:false,
-                offset: true,
-                color: "#f7f7f7",
-              },
+          y: {
+            ticks: {
+              display: isLoggedIn ? true : false,
             },
-            y: {
-              
-              ticks: {
-                display: isLoggedIn ? true : false,
-              },
-              grid: {
-                display:false,
-                color: "#f7f7f7",
-              },
+            grid: {
+              display: false,
+              color: "#f7f7f7",
             },
           },
-        }}
-        data={{
-          labels: liveData.filter((x) => x && x.date).map((x) => new Date(x.date).getTime()),
-          datasets: [
-            {
-              fill: false,
-              data: liveData.filter((row) => row && row.price).map((row) => row?.price),
-              borderColor: "#00645A",
-              pointStyle: false,
-              tension: 0.4,
-              borderWidth: 1,
-            },
-          ],
-        }}
-      />
+        },
+      }}
+      data={{
+        labels: liveData.filter((x) => x && x.date).map((x) => new Date(x.date).getTime()),
+        datasets: [
+          {
+            fill: false,
+            data: liveData.filter((row) => row && row.price).map((row) => row?.price),
+            borderColor: "#00645A",
+            pointStyle: false,
+            tension: 0,
+            borderWidth: 1,
+          },
+        ],
+      }}
+    />
+  );
+}
+
+function LineChart(props: {
+  fetchIndividual?: boolean;
+  containerClassName: string;
+  stock_id: string;
+  entry_price: number;
+  created: string;
+  stock_exchange: string;
+  stock_live_prices: any[];
+  stock_targets: any[];
+  stock_action: string;
+  annotationSize?: number;
+}) {
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
+  return (
+    <div ref={ref} className={cn(" relative w-full", props.containerClassName)}>
+      {inView ? <LineChartMain {...props} /> : null}
     </div>
   );
 }
+
+export default LineChart;
