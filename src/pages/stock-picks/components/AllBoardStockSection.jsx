@@ -25,6 +25,8 @@ function AllBoardStockSection() {
   // Use react infinite query to fetch the list
 
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
+  const currentPage = Array.isArray(response?.pages) ? response?.pages?.length : 0;
+  const totalPages = Array.isArray(response?.pages) ? response?.pages[0]?.total_pages : 0;
 
   // Scroll Function
   useEffect(() => {
@@ -146,7 +148,7 @@ function AllBoardStockSection() {
               </>
             )}
           </div>
-          {items?.length > 0 ?  <div className=" mt-6 col-span-full justify-center items-center">
+          {items?.length > 0 && currentPage < totalPages ?  <div className=" mt-6 col-span-full justify-center items-center">
             <Button
               loading={isFetchingNextPage}
               onClick={fetchNextPage}
