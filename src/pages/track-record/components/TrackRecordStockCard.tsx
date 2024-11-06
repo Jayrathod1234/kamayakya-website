@@ -129,7 +129,7 @@ any) => {
                 <img src={`/sector_images_mustard/${sectorIcons[sector]}`} alt="" className="w-3 " />
                 {stock_tags?.length > 0 ? (
                   <MuiTooltip title={stockSector[sector] ?? sector}>
-                    <p className="text-[10px] font-semibold text-orange-700 font-open_sans normal-case">
+                    <p className="text-[12px] font-semibold text-orange-700 font-open_sans normal-case">
                       {stockSector[sector]?.length > 10
                         ? `${stockSector[sector].substring(0, 10)}...`
                         : stockSector[sector]}
@@ -137,11 +137,13 @@ any) => {
                     </p>
                   </MuiTooltip>
                 ) : (
-                  <p className="text-[10px] font-semibold text-orange-700 font-open_sans">{stockSector[sector]}</p>
+                  <p className="text-[12px] font-semibold text-orange-700 font-open_sans">{stockSector[sector]}</p>
                 )}
               </div>
             )}
             <TargetChip
+            targetTextClass=" text-[12px]"
+            inactiveTextClass=" text-[12px]"
               containerClass={`py-[3px] px-2 h-6 items-center border ${
                 target_status === "active" ? "border-[#FEF0DF]" : ""
               }`}
