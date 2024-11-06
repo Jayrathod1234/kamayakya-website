@@ -236,7 +236,8 @@ any) => {
                       className="!h-[14px] !w-[14px] object-contain rounded-full"
                       height={14}
                       width={14}
-                      src="/assets/track_record_info.svg"
+                      alt="info-icon"
+                      src="/assets/total_returns_info.svg"
                     />
                   }
                   tooltipContent={<p className="text-2xs text-gray-600 font-normal">{return_time}</p>}
