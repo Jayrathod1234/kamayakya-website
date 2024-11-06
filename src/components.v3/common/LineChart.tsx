@@ -523,7 +523,7 @@ function LineChartMain({
           return { ...item, date: formattedDate };
         })
         .filter((prev) => prev != null);
-      return currentData;
+      return currentData
     });
   }, [data]);
   // console.log("DATA LENGTH",stock_id, liveData?.length)
@@ -629,7 +629,7 @@ function LineChartMain({
             data: liveData.filter((row) => row && row.price).map((row) => row?.price),
             borderColor: "#00645A",
             pointStyle: false,
-            tension: 0,
+            tension: 0.4,
             borderWidth: 1,
           },
         ],
