@@ -9,7 +9,7 @@ const DeepValue = ({ stock_tags }) => {
         onClick={() => {
           stock_tags_count > 1 ? setIsOpen(!isOpen) : "";
         }}
-        className="py-[2px] sm:pr-[8px] pr-1 sm:pl-[6px] pl-1 rounded-2xl border border-[#EDF0F5] flex sm:gap-1 gap-1 items-center cursor-pointer "
+        className={`py-[2px] sm:pr-[8px] pr-1 sm:pl-[6px] pl-1 rounded-2xl border border-[#EDF0F5] flex sm:gap-1 gap-1 items-center ${stock_tags_count > 1 ? "cursor-pointer":"cursor-default"}  `}
       >
         <img src={stock_tags?.[0]?.image} alt="" className="w-3.5 object-contain" />
         <p className="text-[12px] font-semibold text-[#344054] font-open_sans truncate">

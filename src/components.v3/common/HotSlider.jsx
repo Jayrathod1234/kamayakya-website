@@ -216,7 +216,7 @@ export function HotSlider({ children }) {
           </div>
         </div>
         {/* slider content */}
-        <div ref={emblaRef} className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3 relative cursor-[url(/icons/pause.svg),auto]`}>
+        <div ref={emblaRef} className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3 relative cursor-[url(/assets/Button-Pause-Circle-3.svg),auto]`}>
           <div className="flex carousel__container" style={{ backfaceVisibility: "hidden" }}>
             {children.map((carousel, index) => (
               <CarouselItem key={carousel.key} className={`carousel embla__class-names`}>

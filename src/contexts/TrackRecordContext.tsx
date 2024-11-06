@@ -241,8 +241,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
         setActionCall,
         openMembershipModal,
         setOpenMembershipModal,
-        isFetchingNextPage,
-        sebiBoardType
+        isFetchingNextPage
       }}
     >
       {children}

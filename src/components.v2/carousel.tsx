@@ -206,7 +206,7 @@ export function Carousel({ className }: { className?: string }) {
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
-  function togglePlayingState(emblaApi, eventName) {
+  function togglePlayingState(emblaApi: EmblaCarouselType, eventName:string) {
     // if (eventName === "autoplay:play") {
     //   const autoplay = emblaApi?.plugins()?.autoplay;
     //   if (!autoplay) return;
