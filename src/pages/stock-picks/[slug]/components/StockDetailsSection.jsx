@@ -190,6 +190,14 @@ function StockDetailsSection() {
     }, 500); // Adjust the delay if needed
   };
 
+  useEffect(() => {
+    if (!api) return;
+    if (activeTab === "Summary") api.scrollTo(0);
+    if (activeTab === "Returns") api.scrollTo(1);
+    if (activeTab === "Reports") api.scrollTo(2);
+    if (activeTab === "News") api.scrollTo(3);
+  }, [api, activeTab]);
+
   // Scroll listener to detect section in view
   useEffect(() => {
     const handleScroll = () => {
@@ -257,8 +265,25 @@ function StockDetailsSection() {
             <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-0  z-50 ">
               {/* Back Button */}
               <Carousel setApi={setApi} className=" flex py-[18px] items-center w-full">
-                <div className="" onClick={() => router.push("/stock-picks")}>
-                  <img src="/assets/stock-details/arrow-left.svg" alt="Go Back" className="pl-[16px] pt-2 pr-3" />
+                <div className="pl-[16px]" onClick={() => router.push("/stock-picks")}>
+                <svg
+                        className=" pt-1"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="arrow-left">
+                          <path
+                            id="Icon (Stroke)"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M8.51724 3.2069C8.81719 3.49256 8.82877 3.96729 8.5431 4.26724L4.75 8.25L15 8.25C15.4142 8.25 15.75 8.58579 15.75 9C15.75 9.41421 15.4142 9.75 15 9.75L4.75 9.75L8.5431 13.7328C8.82877 14.0327 8.81719 14.5074 8.51724 14.7931C8.21729 15.0788 7.74256 15.0672 7.4569 14.7672L2.4569 9.51724C2.18103 9.22759 2.18103 8.77242 2.4569 8.48276L7.4569 3.23276C7.74256 2.93281 8.21729 2.92123 8.51724 3.2069Z"
+                            fill="#475467"
+                          />
+                        </g>
+                      </svg>
                 </div>
                 {/* Tab Items */}
                 {/* <div className="flex  "> */}
