@@ -211,14 +211,14 @@ function StockCard({
                     />
                     {stock_tags?.length > 0 ? (
                       <Tooltip title={stockSector[sector] ?? ""}>
-                        <p className={`text-[12px] cursor-default  font-semibold text-orange-700 font-open_sans`}>
+                        <p className={` text-[10px] sm:text-[12px] cursor-default  font-semibold text-orange-700 font-open_sans`}>
                           {stockSector[sector]?.length > 10
                             ? `${stockSector[sector].substring(0, 10)}...`
                             : stockSector[sector]}
                         </p>
                       </Tooltip>
                     ) : (
-                      <p className="text-[12px] cursor-default  font-semibold text-orange-700 font-open_sans">
+                      <p className="text-[10px] sm:text-[12px] cursor-default  font-semibold text-orange-700 font-open_sans">
                         {stockSector[sector]}
                       </p>
                     )}
@@ -226,7 +226,7 @@ function StockCard({
                 )}
                 <div className="py-[2px] pr-[16px] pl-[6px] cursor-default rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
                   <img src="/assets/Component 8.svg" alt="" className="w-3" />
-                  <p className="text-[12px] font-semibold text-[#667085] flex !items-center whitespace-nowrap font-open_sans">
+                  <p className="text-[10px] sm:text-[12px] font-semibold text-[#667085] flex !items-center whitespace-nowrap font-open_sans">
                     MCap :{" "}
                     {is_blur ? (
                       <div className="  w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
