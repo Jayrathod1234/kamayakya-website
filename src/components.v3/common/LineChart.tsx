@@ -523,7 +523,7 @@ function LineChartMain({
           return { ...item, date: formattedDate };
         })
         .filter((prev) => prev != null);
-      return currentData;
+      return currentData.slice(0,50)
     });
   }, [data]);
   // console.log("DATA LENGTH",stock_id, liveData?.length)

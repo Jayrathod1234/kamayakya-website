@@ -7,7 +7,7 @@ import { ButtonVariant } from "@/components.v2/button/button";
 const TrackRecordList = () => {
   const { response, isLoading, fetchNextPage, isFetchingNextPage } = useTrackRecord();
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
-
+  console.log(response)
   if (isLoading) {
     return (
       <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
