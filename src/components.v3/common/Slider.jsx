@@ -356,7 +356,7 @@ export function Slider({ children }) {
         </div>
       </Button>
 
-      <div ref={emblaRef} className={`max-w-[1200px] mx-auto overflow-hidden cursor-[url(/assets/Button-Pause-Circle-3.svg)`}>
+      <div ref={emblaRef} className={`max-w-[1200px] mx-auto overflow-hidden cursor-[url(/assets/Button-Pause-Circle-3.svg),auto]`}>
         <div
           className="flex pb-12 pt-[40px] carousel__container"
           style={{ backfaceVisibility: "hidden" }}
