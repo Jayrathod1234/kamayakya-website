@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { EmblaCarouselType } from "embla-carousel";
 
 type TCarouselIndicator = {
+  emblaApi:EmblaCarouselType;
   onClick: () => void;
   index: number;
   selectedIndex: number;
