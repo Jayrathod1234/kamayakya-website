@@ -526,7 +526,7 @@ function LineChartMain({
       return currentData;
     });
   }, [data]);
-  console.log("DATA LENGTH",stock_id, liveData?.length)
+  // console.log("DATA LENGTH",stock_id, liveData?.length)
   return (
     <Line
       className=""

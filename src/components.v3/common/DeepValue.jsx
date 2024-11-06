@@ -13,7 +13,7 @@ const DeepValue = ({ stock_tags }) => {
       >
         <img src={stock_tags?.[0]?.image} alt="" className="w-4 h-4 object-contain" />
         <Tooltip title={stock_tags?.[0]?.name ?? ""}>
-        <p className="text-[12px] font-semibold text-[#344054] font-open_sans truncate">
+        <p className="text-[10px] sm:text-[12px] font-semibold text-[#344054] font-open_sans truncate">
           {/* {stock_tags?.[0]?.name?.length > 4
             ? `${stock_tags[0].name.slice(0, 4)}...`
             : stock_tags?.[0]?.name} */}
@@ -21,7 +21,7 @@ const DeepValue = ({ stock_tags }) => {
         </p>
         </Tooltip>
         {stock_tags_count > 1 && (
-          <p className="text-[#108973] font-bold flex text-[12px]">
+          <p className="text-[#108973] font-bold flex text-[10px] sm:text-[12px]">
             <span>+</span> {stock_tags_count - 1}
           </p>
         )}
