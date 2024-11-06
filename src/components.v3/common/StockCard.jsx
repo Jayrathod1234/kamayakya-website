@@ -211,7 +211,7 @@ function StockCard({
                     />
                     {stock_tags?.length > 0 ? (
                       <Tooltip title={stockSector[sector] ?? ""}>
-                        <p className={`text-[12px] ${stockSector[sector]?.length > 10 ? "cursor-pointer":" cursor-default"}  font-semibold text-orange-700 font-open_sans`}>
+                        <p className={`text-[12px] cursor-default  font-semibold text-orange-700 font-open_sans`}>
                           {stockSector[sector]?.length > 10
                             ? `${stockSector[sector].substring(0, 10)}...`
                             : stockSector[sector]}
