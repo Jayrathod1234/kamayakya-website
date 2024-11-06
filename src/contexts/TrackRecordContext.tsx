@@ -97,6 +97,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     error,
     fetchNextPage,
     refetch,
+    isFetchingNextPage
   } = useInfiniteQuery({
     queryKey: [
       "allBoardTrackRecordStock",
@@ -184,6 +185,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
         setActionCall,
         openMembershipModal,
         setOpenMembershipModal,
+        isFetchingNextPage
       }}
     >
       {children}
