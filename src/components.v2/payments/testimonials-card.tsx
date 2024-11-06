@@ -24,7 +24,7 @@ export function TestimonialsCard({ className, testimony, title, author, company,
     <div
       className={
         className +
-        " testimony  group/testimonial-card h-[408px] md:h-[425px] flex flex-col bg-white relative text-start px-7 py-3 md:px-[3.44rem] md:py-[3.31rem] shadow-sm hover:shadow-xl md:min-w-[450px] md:max-w-[650px] lg:w-[664px] min-w-[324px] border border-[#EFF0F6] rounded-[1.25rem] transition-all hover:border-0 hover:border-[#E4E7EC]"
+        " testimony  group/testimonial-card h-[408px] md:h-[426px] flex flex-col bg-white relative text-start px-7 py-3 md:px-[3.44rem] md:py-[3.31rem] shadow-sm hover:shadow-xl md:min-w-[450px] md:max-w-[650px] lg:w-[664px] min-w-[324px] border border-[#EFF0F6] rounded-[1.25rem] transition-all  hover:border-transparent"
       }
     >
       <div className=" absolute top-[-3%] right-[2.5rem]">
@@ -35,7 +35,8 @@ export function TestimonialsCard({ className, testimony, title, author, company,
       <p className="testimonial-card-para  overflow-y-scroll text-sm md:text-md text-gray-600 leading-[23.52px] md:leading-[1.68rem] mb-8 tracking-normal">
         {testimony}
       </p>
-      <div className=" mt-auto transition-all origin-left flex gap-6 md:gap-4 items-center group-hover/testimonial-card:scale-110">
+      {/* group-hover/testimonial-card:scale-110 */}
+      <div className=" mt-auto transition-all origin-left flex gap-6 md:gap-4 items-center ">
         <div>
           <Avatar imgSrc={imgSrc} variant={AvatarVariant.lg} />
         </div>
