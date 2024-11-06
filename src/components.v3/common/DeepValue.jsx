@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Tooltip } from "@mui/material";
 const DeepValue = ({ stock_tags }) => {
   const [isOpen, setIsOpen] = useState(false);
   const stock_tags_count = stock_tags?.length;
@@ -11,13 +11,15 @@ const DeepValue = ({ stock_tags }) => {
         }}
         className={`py-[2px] sm:pr-[8px] pr-1 sm:pl-[6px] pl-1 rounded-2xl border border-[#EDF0F5] flex sm:gap-1 gap-1 items-center ${stock_tags_count > 1 ? "cursor-pointer":"cursor-default"}  `}
       >
-        <img src={stock_tags?.[0]?.image} alt="" className="w-3.5 object-contain" />
+        <img src={stock_tags?.[0]?.image} alt="" className="w-4 h-4 object-contain" />
+        <Tooltip title={stock_tags?.[0]?.name ?? ""}>
         <p className="text-[12px] font-semibold text-[#344054] font-open_sans truncate">
           {/* {stock_tags?.[0]?.name?.length > 4
             ? `${stock_tags[0].name.slice(0, 4)}...`
             : stock_tags?.[0]?.name} */}
           {stock_tags?.[0]?.name}
         </p>
+        </Tooltip>
         {stock_tags_count > 1 && (
           <p className="text-[#108973] font-bold flex text-[12px]">
             <span>+</span> {stock_tags_count - 1}
@@ -37,7 +39,7 @@ const DeepValue = ({ stock_tags }) => {
               className="w-4"
             />
           </div>
-          <ul className="absolute p-3 w-[175px] gap-3 bg-white border border-[#EDF0F5] rounded-lg shadow m-0 mt-2 z-[2] right-[-18%]">
+          <ul className="absolute p-3 w-[175px] gap-3 bg-white border border-[#EDF0F5] rounded-lg shadow m-0 mt-1 z-[2] right-[-18%]">
             {stock_tags.map((value, index) => {
               return (
                 <li
