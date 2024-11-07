@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Header from "./components/Header";
+import Header from "../components/Header";
 import { Button, ButtonVariant } from "@/components.v2/button/button";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import { getPaymentReceipt } from "@/api/payment";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { PLAN } from "@/constants/pricing/plans";
-import ToPayTooltip from "./components/ToPayTooltip";
+import ToPayTooltip from "../components/ToPayTooltip";
 
 const steps = [
   "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",

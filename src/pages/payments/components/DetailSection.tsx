@@ -128,7 +128,9 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
   const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
     try {
       setAadharOtpLoading(true);
-      const res = await getAadharOtp({ aadhaar: data?.aadhar });
+      const res =  await getAadharOtp({ aadhaar: data?.aadhar });
+      // { result: { requestId: "dklsjfklsdlkfjdf" } };
+      //  await getAadharOtp({ aadhaar: data?.aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };
       //
       setAadharRequestId(res?.result?.requestId);
@@ -177,6 +179,15 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
       // },
     };
     const paymentObject = new window.Razorpay(options);
+    paymentObject.on("payment.failed", function (response: any) {
+      // alert(response.error.code);
+      // alert(response.error.description);
+      // alert(response.error.source);
+      // alert(response.error.step);
+      alert(response?.error?.reason);
+      //       alert(response.error.metadata.order_id);
+      //       alert(response.error.metadata.payment_id);
+    });
     paymentObject.open();
   };
 
@@ -214,7 +225,14 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        callback_url: "https://legendary-madeleine-b03cd5.netlify.app/payments/successful",
+        callback_url: "http://localhost:3002/payments/successful",
+       
+        // handler:function(response){
+        //   alert(response.razorpay_payment_id);
+        //   alert(response.razorpay_order_id);
+        //   alert(response.razorpay_signature)
+        // },
+        // https://legendary-madeleine-b03cd5.netlify.app
         prefill: {
           //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
           name: userDetails.name, //your customer's name
@@ -262,8 +280,6 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     }
   }, [errors]);
 
-  console.log(errors.phone);
-
   return (
     <div className="mt-9">
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
@@ -280,14 +296,14 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                 <p className="text-xs text-gray-500">
                   Aadhar Card Number<span className="text-error-500">*</span>
                 </p>
-                {aadharVerified && (
+                {/* {aadharVerified && (
                   <button
                     onClick={handleAadharEditClick}
                     className=" text-xs text-brand-500 font-bold border-b border-b-brand-500 border-dashed"
                   >
                     Edit Aadhar
                   </button>
-                )}
+                )} */}
               </div>
               <Controller
                 name="aadhar"
@@ -541,7 +557,9 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                 render={({ field }) => (
                   <CustomTextField
                     {...field}
-                    error={errors.email?.message || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(field.value) ? true : false}
+                    error={
+                      errors.email?.message || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(field.value) ? true : false
+                    }
                     id="email"
                     type="text"
                     variant="outlined"
@@ -554,9 +572,11 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                       ),
                       endAdornment: (
                         <InputAdornment position="end">
-                          {errors.email?.message  || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(field.value) ? (
+                          {errors.email?.message || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(field.value) ? (
                             <Tooltip
-                              tooltipContent={<p className=" text-2xs">{errors.email?.message ?? "Enter valid email"}</p>}
+                              tooltipContent={
+                                <p className=" text-2xs">{errors.email?.message ?? "Enter valid email"}</p>
+                              }
                               tooltipTrigger={
                                 <svg
                                   width="16"
@@ -628,9 +648,11 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                         className=" border-green-400"
                       />
                       <InputAdornment position="end">
-                        {errors.phone?.message || !isPossiblePhoneNumber(value) || value.slice(3).length!=10 ? (
+                        {errors.phone?.message || !isPossiblePhoneNumber(value) || value.slice(3).length != 10 ? (
                           <Tooltip
-                            tooltipContent={<p className=" text-2xs">{errors.phone?.message || "Enter valid phone number."}</p>}
+                            tooltipContent={
+                              <p className=" text-2xs">{errors.phone?.message || "Enter valid phone number."}</p>
+                            }
                             tooltipTrigger={
                               <svg
                                 width="16"
@@ -681,7 +703,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
             </div>
             <p className="text-3xs text-gray-500 mt-[6px]">You will get stock action calls on WhatsApp</p>
           </div>
-          <div className="col-span-2 flex space-x-2 items-center">
+          {/* <div className="col-span-2 flex space-x-2 items-center">
             <Checkbox
               checked={gstChecked}
               onCheckedChange={(checked) => setGstChecked(checked as boolean)}
@@ -741,7 +763,6 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                             ) : field.value ? (
                               <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
                             ) : null}
-                            {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
                           </InputAdornment>
                         ),
                       }}
@@ -751,7 +772,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                 />
               </div>
             </div>
-          )}
+          )} */}
 
           <div className="col-span-2 ">
             <Button
@@ -769,11 +790,15 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
             setAadharRequestId={setAadharRequestId}
             setOpenDialog={setOpenDialog}
             setDisplayModal={setDisplayModal}
+            displayModal = {displayModal}
+            openDialog = {openDialog}
             aadhar={aadhar}
             requestId={aadharRequestId}
           />
         ) : null}
-        {displayModal.includes("CONFIRM") ? <ConfirmDetailsModal setOpenDialog={setOpenDialog} /> : null}
+        {displayModal.includes("CONFIRM") ? (
+          <ConfirmDetailsModal openDialog={openDialog} setOpenDialog={setOpenDialog} />
+        ) : null}
       </Dialog>
     </div>
   );

@@ -8,8 +8,10 @@ import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 
 export default function ConfirmDetailsModal({
   setOpenDialog,
+  openDialog,
 }: {
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  openDialog:boolean;
 }) {
   const { setUserDetails, userDetails, setAadharVerified } = usePaymentContext() as IPaymentContext;
   const [address, setAddress] = useState("");
@@ -30,6 +32,13 @@ export default function ConfirmDetailsModal({
   useEffect(() => {
     setAddress(`${userDetails.address}`);
   }, [userDetails?.address]);
+
+  useEffect(()=>{
+    if(!openDialog){
+      handleConfirm()
+    }
+  },[openDialog])
+
   return (
     <DialogContent className=" !p-6 !rounded-[20px] min-w-fit md:min-w-[624px] max-w-[784px] open_sans">
       <div className=" flex flex-col md:flex-row gap-6">

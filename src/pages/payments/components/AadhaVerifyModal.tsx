@@ -17,6 +17,9 @@ export default function AadhaVerifyModal({
   setAadharRequestId,
   setDisplayModal,
   setOpenDialog,
+  openDialog,
+  displayModal
+  
 }: {
   setAadharRequestId: React.Dispatch<React.SetStateAction<string>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,7 +32,7 @@ export default function AadhaVerifyModal({
   const { setUserDetails, setIsAadharAlreadyVerified, setIsPanAlreadyVerified } =
     usePaymentContext() as IPaymentContext;
   const { toast } = useToast();
-  const [secondsRemaining, setSecondsRemaining] = useState(30);
+  const [secondsRemaining, setSecondsRemaining] = useState(15);
   const [resendOtp, setResendOtp] = useState(false);
   const [loading,setLoading] = useState(false);
 
@@ -49,7 +52,7 @@ export default function AadhaVerifyModal({
       setUserDetails((prev) => ({ ...prev, pan: res?.pan_number, name: res?.name, address: address,aadhar:aadhar }));
       setDisplayModal("CONFIRM");
     } catch (e) {
-      console.log("ENTER ERROR BLOCK");
+  
       toast({
         variant: "warn",
         description: e?.response?.data?.message,
@@ -95,6 +98,12 @@ export default function AadhaVerifyModal({
       return () => clearTimeout(timer);
     }
   }, [secondsRemaining]);
+
+  useEffect(()=>{
+    if(openDialog && displayModal === "AADHAR"){
+      setSecondsRemaining(15)
+    }
+  },[openDialog])
 
   return (
     <DialogContent className=" !p-6 !rounded-[20px] min-w-fit md:min-w-[624px] max-w-[784px]">
