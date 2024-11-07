@@ -17,11 +17,13 @@ import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import LoginPrompt from "./LoginPrompt";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 
-const ChipItem = ({ label, img, id, setOpen }: { label: string; img: string | null; id: string }) => {
+const ChipItem = ({ label, img, id }: { label: string; img: string | null; id: string }) => {
   const router = useRouter();
   const { isLoggedIn } = useContext(AuthContext);
-  const handleRouting = () => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpen(true) : null);
+  const { setOpenMembershipModal } = useTrackRecord();
+  const handleRouting = () => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpenMembershipModal(true) : null);
 
   return (
     <div onClick={handleRouting} className="!p-0 rounded-[4px]  hover:!bg-[rgba(244,255,255,1)] flex items-center">
@@ -56,12 +58,14 @@ const ChipItem = ({ label, img, id, setOpen }: { label: string; img: string | nu
   );
 };
 
-const BottomSheetItem = ({ label, img, id, setOpen }) => {
+const BottomSheetItem = ({ label, img, id }) => {
   const router = useRouter();
   const { isLoggedIn } = useContext(AuthContext);
+  const { setOpenMembershipModal } = useTrackRecord();
+
   return (
     <li
-      onClick={() => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpen(true) : null)}
+      onClick={() => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpenMembershipModal(true) : null)}
       className=" px-4 py-[10px] flex gap-x-2 items-center"
     >
       {label ? (

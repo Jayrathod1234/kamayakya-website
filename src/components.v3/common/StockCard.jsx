@@ -231,7 +231,7 @@ function StockCard({
                     {is_blur ? (
                       <div className="  w-[47px] h-[12px] bg-[#FFEED9] rounded-full "></div>
                     ) : (
-                      <span className="ml-[2px]">₹{market_cap?.toLocaleString("hi")} Cr.</span>
+                      <span className="ml-[2px]">₹{Math.round(market_cap)?.toLocaleString("hi")} Cr.</span>
                     )}
                   </p>
                 </div>
