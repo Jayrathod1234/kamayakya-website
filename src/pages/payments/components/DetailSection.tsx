@@ -121,11 +121,11 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     console.log(data);
   };
 
-  const handleAadharEditClick = () => {
-    setAadharVerified(false);
-    setUserDetails((prev) => ({ ...prev, name: "", address: "", pan: "" }));
-    setDisplayModal("AADHAR");
-  };
+  // const handleAadharEditClick = () => {
+  //   setAadharVerified(false);
+  //   setUserDetails((prev) => ({ ...prev, name: "", address: "", pan: "" }));
+  //   setDisplayModal("AADHAR");
+  // };
 
   const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
     try {
@@ -174,12 +174,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       return;
     }
 
-    let curroptions = {
-      ...options,
-      // handler: function (response){
-      //   setResponseId(response.razorpay_payment_id)
-      // },
-    };
+    // let curroptions = {
+    //   ...options,
+    // };
     const paymentObject = new window.Razorpay(options);
     paymentObject.on("payment.failed", function (response: any) {
       // alert(response.error.code);
@@ -551,7 +548,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
 
           <div className="col-span-1">
             <p className="text-xs text-gray-500">
-              Email<span className="text-error-500">*</span>
+              Email ID<span className="text-error-500">*</span>
             </p>
             <div className="flex">
               <Controller
@@ -561,7 +558,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   required: "Enter email to continue",
                   pattern: {
                     value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    message: '"Enter a valid email"',
+                    message: 'Enter a valid email',
                   },
                 }}
                 render={({ field }) => (
@@ -622,7 +619,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           </div>
           <div className="col-span-1">
             <p className="text-xs text-gray-500">
-              Phone<span className="text-error-500">*</span>
+              Mobile Number<span className="text-error-500">*</span>
             </p>
             <div className="flex">
               <div
@@ -640,7 +637,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                     validate: (value) => {
                       return isPossiblePhoneNumber(value) && value.slice(3).length === 10
                         ? true
-                        : "Enter valid phone number";
+                        : "Enter valid mobile number";
                     },
                     // pattern: {
                     //   value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
