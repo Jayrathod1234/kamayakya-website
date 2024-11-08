@@ -755,7 +755,7 @@ function StockDetailsSection() {
                                   </>
                                 )}
                                 <div className=" flex items-baseline gap-x-1">
-                                  {Math.abs(gain_loss)}% {""}
+                                  { gain_loss < 0 ? "-" : ""}{Math.abs(gain_loss)}% {""}
                                   <span className="text-[12px]  text-[#667085] font-medium line-clamp-1">
                                     in {return_time}
                                   </span>
@@ -1040,7 +1040,7 @@ function StockDetailsSection() {
                               <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
                             )}
                             <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
-                              {Math.abs(gain_loss)}% {""}
+                              {gain_loss <0 ? "-":""}{Math.abs(gain_loss)}% {""}
                               <span className="text-gray-500 text-4xs font-open_sans font-semibold">
                                 in {return_time}
                               </span>

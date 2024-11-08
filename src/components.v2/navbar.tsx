@@ -41,15 +41,21 @@ eg: <Navbar className="bg-white"/>
 To change the hover effects, look for navigationMenuTriggerStyle in navigation-menu.tsx
 */
 
-export function Navbar({ className, navigationLinkClassName }: { className?: string;navigationLinkClassName?:string }) {
+export function Navbar({
+  className,
+  navigationLinkClassName,
+}: {
+  className?: string;
+  navigationLinkClassName?: string;
+}) {
   const { isLoggedIn } = useContext(AuthContext);
   const { showFilterHeader } = useNavBar();
   const router = useRouter();
   const pathname = router.pathname;
   const ref = useRef<HTMLDivElement | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const { setVisible, bindings } = useModal();  
-  const [isSticky, setIsSticky] = useState(pathname == '/stock-picks');
+  const { setVisible, bindings } = useModal();
+  const [isSticky, setIsSticky] = useState(pathname == "/stock-picks");
 
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
@@ -106,7 +112,7 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
         ref.current?.classList.remove("scrolled-nav");
         // ref.current?.classList.remove("navbar-shadow");
       }
-      console.log("SHOW FILTER HEADER", showFilterHeader)
+      console.log("SHOW FILTER HEADER", showFilterHeader);
       // if (showFilterHeader) {
       //   ref.current?.classList.remove("navbar-shadow");
       // }else{
@@ -114,7 +120,7 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
       // }
     };
     // if (pathname == '/stock-picks') {
-      window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
     // } else {
     //   ref.current?.classList.add("other-page-nav");
     // }
@@ -156,11 +162,11 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
                   <NavigationMenuTrigger
                     onClick={(e) => {
                       e.preventDefault();
-                      if (pathname !== "/"){
+                      if (pathname !== "/") {
                         router.push("/");
                       }
                     }}
-                    className={cn(" text-gray-950 font-semibold",navigationLinkClassName)}
+                    className={cn(" text-gray-950 font-semibold", navigationLinkClassName)}
                   >
                     About Us
                   </NavigationMenuTrigger>
@@ -174,8 +180,8 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
                       {HOME_OPTIONS.filter((options) =>
                         isLoggedIn
                           ? options.title !== "Sample Reports" &&
-                          options.title !== "Performance" &&
-                          options.title !== "Hot Stocks"
+                            options.title !== "Performance" &&
+                            options.title !== "Hot Stocks"
                           : true
                       ).map((option) => (
                         <ListItem
@@ -188,7 +194,7 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
                           icon={option.icon}
                           title={option.title}
                           id={option?.id}
-                        // endIcon={option?.endIcon}
+                          // endIcon={option?.endIcon}
                         >
                           {option.subtitle}
                         </ListItem>
@@ -207,6 +213,13 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
                 </NavigationMenuItem>
                 {NAVBAR_LINKS.map((navigationOption) => (
                   <NavigationMenuItem
+                    onClick={() => {
+                      if (navigationOption.title?.includes("SME")) {
+                        sessionStorage.setItem("sebiBoardType", "sme");
+                      } else {
+                        sessionStorage.setItem("sebiBoardType", "mainboard");
+                      }
+                    }}
                     className={` m-0 ${
                       (navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to Buy") ||
                       !isLoggedIn
@@ -220,18 +233,29 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
                   >
                     <Link
                       className=" !text-inherit"
-                      onClick={() => handleEvent(navigationOption.mixpanel.event, navigationOption.mixpanel.property)}
+                      onClick={() => {
+                        console.log(navigationOption);
+                        if (navigationOption.title?.includes("SME")) {
+                          sessionStorage.setItem("sebiBoardType", "sme");
+                        } else {
+                          sessionStorage.setItem("sebiBoardType", "mainboard");
+                        }
+                        handleEvent(navigationOption.mixpanel.event, navigationOption.mixpanel.property);
+                      }}
                       href={navigationOption.link}
                       legacyBehavior
                       passHref
                     >
                       <NavigationMenuLink
-                        className={cn(`${navigationMenuTriggerStyle()} font-semibold text-inherit ${
-                          navigationOption.title === "Stocks to Buy"
-                            ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] data-[active]:border-none"
-                            : ""
-                        }`,navigationLinkClassName)}
-                        active={pathname === navigationOption.link}
+                        className={cn(
+                          `${navigationMenuTriggerStyle()} font-semibold text-inherit ${
+                            navigationOption.title === "Stocks to Buy"
+                              ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] data-[active]:border-none"
+                              : ""
+                          }`,
+                          navigationLinkClassName
+                        )}
+                        active={!pathname.includes("stock-picks") ? pathname === navigationOption.link : (sessionStorage.getItem("sebiBoardType") === "sme" && pathname===navigationOption.link ? true:false)}
                       >
                         {navigationOption.title}
                       </NavigationMenuLink>
@@ -247,7 +271,12 @@ export function Navbar({ className, navigationLinkClassName }: { className?: str
           <SideNav handleLogin={handleLogin} />
         </div>
         <div className="hidden px-2 lg:flex items-center">
-          <Link href={"/stock-picks"}>
+          <Link
+            onClick={() => {
+              sessionStorage.setItem("sebiBoardType", "mainboard");
+            }}
+            href={"/stock-picks"}
+          >
             <Button
               variant={ButtonVariant.custom}
               className={`!text-sm  border pricing border-[rgba(246,135,0,1)]  ${
@@ -351,9 +380,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, CustomProps>(
                   {endIcon || <ArrowRight size={12} className=" text-gray-400" />}
                 </span>
               </div>
-              <p className="line-clamp-2 leading-snug text-gray-500 text-2xs">
-                {children}
-              </p>
+              <p className="line-clamp-2 leading-snug text-gray-500 text-2xs">{children}</p>
             </div>
           </a>
         </NavigationMenuLink>
