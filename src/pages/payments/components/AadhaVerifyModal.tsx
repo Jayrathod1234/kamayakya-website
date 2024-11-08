@@ -103,6 +103,9 @@ export default function AadhaVerifyModal({
     if(openDialog && displayModal === "AADHAR"){
       setSecondsRemaining(15)
     }
+    if(!openDialog){
+      setOtp("")
+    }
   },[openDialog])
 
   return (
@@ -146,7 +149,7 @@ export default function AadhaVerifyModal({
             </div>
             <p className=" text-2xs mt-2">
               {" "}
-              Haven’t received the OTP? {secondsRemaining === 0 ? <button className=" text-[#1D4040] text-2xs font-semibold" onClick={handleAadharOtp}>Resend</button> : secondsRemaining}
+              Haven’t received the OTP? {secondsRemaining === 0 ? <button className=" text-[#1D4040] text-2xs font-semibold" onClick={handleAadharOtp}>Resend</button> : `${secondsRemaining} seconds`}
             </p>
             <div className=" mt-7 p-3 bg-[#F8FFFE] border border-[#E7F8F8] rounded-lg flex gap-x-2 items-center">
               {/* <Checkbox onCheckedChange={(checked) => setConsetGranted(checked as boolean)} /> */}

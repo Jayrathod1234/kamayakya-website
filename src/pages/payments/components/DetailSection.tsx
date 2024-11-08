@@ -19,6 +19,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import VerifyTag from "./VerifyTag";
 import axios from "axios";
 import Tooltip from "@/components.v3/common/Tooltip";
+import { useRouter } from "next/router";
 
 // Custom styled OutlinedInput
 export const CustomTextField = styled(TextField, {
@@ -65,7 +66,7 @@ interface IFormInput {
   gstin: string;
 }
 
-export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
+export default function DetailSection({ activeTab, setActiveTab }: { setActiveTab: any }) {
   const [gstChecked, setGstChecked] = useState(false);
   // const [aadhar, setAadhar] = useState("");
   const [aadharRequestId, setAadharRequestId] = useState("");
@@ -85,6 +86,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     setPlanDetails,
   } = usePaymentContext() as IPaymentContext;
   const { toast } = useToast();
+  const router = useRouter()
   const {
     control,
     handleSubmit,
@@ -181,10 +183,10 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     const paymentObject = new window.Razorpay(options);
     paymentObject.on("payment.failed", function (response: any) {
       // alert(response.error.code);
-      // alert(response.error.description);
+      alert(response.error.description);
       // alert(response.error.source);
       // alert(response.error.step);
-      alert(response?.error?.reason);
+      // alert(response?.error?.reason);
       //       alert(response.error.metadata.order_id);
       //       alert(response.error.metadata.payment_id);
     });
@@ -219,19 +221,21 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
       const res = await postCheckout(params);
       const options = {
         key: "rzp_test_YteVuBPrLvOKSg", // Enter the Key ID generated from the Dashboard
-        amount: res.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        amount: 10,
+        // res.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: "INR",
         name: "KamayaKya", //your business name
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        callback_url: "http://localhost:3002/payments/successful",
-       
-        // handler:function(response){
-        //   alert(response.razorpay_payment_id);
-        //   alert(response.razorpay_order_id);
-        //   alert(response.razorpay_signature)
-        // },
+        // callback_url: "https://legendary-madeleine-b03cd5.netlify.app/payments/successful",
+      //  redirect:true,
+        handler:function(response){
+          router.push("/payments/successful")
+          // alert(response.razorpay_payment_id);
+          // alert(response.razorpay_order_id);
+          // alert(response.razorpay_signature)
+        },
         // https://legendary-madeleine-b03cd5.netlify.app
         prefill: {
           //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
@@ -243,8 +247,13 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
           address: "Razorpay Corporate Office",
         },
         theme: {
-          color: "#3399cc",
+          color: "#0b3a36",
+          backdrop_color:"#D2F5ED",
+          hide_topbar:true
         },
+        modal:{
+          confirm_close:true,
+        }
       };
       setPlanDetails((prev) => ({ ...prev, orderId: res.data.order_id }));
       sessionStorage.setItem("orderId", res.data.order_id);
@@ -256,13 +265,14 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
     }
   };
   useEffect(() => {
+    
     setValue("fullname", userDetails.name);
     setValue("phone", userDetails.phone);
     setValue("address", userDetails.address);
     setValue("pan", userDetails.pan);
     setValue("email", userDetails.email);
     setValue2("aadhar", userDetails.aadhar);
-  }, [userDetails]);
+  }, [userDetails,activeTab]);
 
   useEffect(() => {
     if (isAadharAlreadyVerified) {
@@ -312,7 +322,7 @@ export default function DetailSection({ setActiveTab }: { setActiveTab: any }) {
                   required: "Enter aadhar to continue",
                   pattern: {
                     value: /^\d{4}\d{4}\d{4}$/,
-                    message: '"Enter a valid Aadhar number in the format XXXX XXXX XXXX"',
+                    message: 'Enter a valid Aadhar number in the format XXXX XXXX XXXX (excluding spaces).',
                   },
                 }}
                 render={({ field }) => (

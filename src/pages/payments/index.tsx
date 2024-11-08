@@ -12,6 +12,7 @@ import { TabsContent, TabsList, TabsTrigger, Tabs } from "@/components.v2/ui/tab
 import DetailSection from "./components/DetailSection";
 import { PaymentContextProvider } from "@/contexts/PaymentContext";
 import { usePathname } from "next/navigation";
+import { EmblaCarouselType } from "embla-carousel";
 
 const Quotes = () => {
   return (
@@ -24,25 +25,20 @@ const Quotes = () => {
   );
 };
 
-const TestimonialCard = () => {
+const TestimonialCard = ({ testimony, author, company, imgSrc }: Record<string, string>) => {
   return (
     <div className=" relative py-5 px-7 flex flex-col justify-center">
       <div className=" z-10 absolute top-[0%] right-[0] ">
         <Quotes />
       </div>
-      <p className=" text-sm text-[#475467] text-center">
-        My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their
-        in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched
-        in the industry. Some of their small cap picks are truly gems that have created huge wealth for their investors.
-        I would highly recommend investors to take their services to achieve their long term financial goals.
-      </p>
+      <p className=" text-sm text-[#475467] text-center">{testimony}</p>
       <div className=" mt-8 flex flex-col items-center">
         <div className=" h-[80px] w-[80px] rounded-full bg-[#E6E4FF] overflow-hidden">
-          <img className=" object-contain" height={80} width={80} src="/assets/avatar.png" alt="avatar" />
+          <img className=" object-contain" height={80} width={80} src={imgSrc} alt="avatar" />
         </div>
         <div>
-          <p className=" text-center text-[#170F49] font-semibold">Kiran Sanghvi</p>
-          <p className=" text-center text-[#667085]">Indus Properties</p>
+          <p className=" text-center text-[#170F49] font-semibold">{author}</p>
+          <p className=" text-center text-[#667085]">{company}</p>
         </div>
       </div>
     </div>
@@ -108,8 +104,13 @@ export default function Index() {
   const [api, setApi] = React.useState<CarouselApi>();
   const [activeTab, setActiveTab] = useState("review");
   const [margins, setMargins] = useState({ marginLeft: 0, marginRight: 0 });
+  const [isPlaying, setIsPlaying] = useState(true);
   const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } = useDotButton(api);
   const pathname = usePathname();
+
+  function togglePlayingState(emblaApi: EmblaCarouselType, eventName:string) {
+    setIsPlaying(eventName === "autoplay:play" ? true : false)
+  }
 
   useEffect(() => {
     const firstdiv = ref.current[0];
@@ -121,6 +122,14 @@ export default function Index() {
     });
   }, [ref.current?.length]);
 
+
+  useEffect(() => {
+    if (!api) return;
+
+    api
+      .on("autoplay:play", togglePlayingState)
+      .on("autoplay:stop", togglePlayingState)
+  }, [api]);
   const headerBg = !pathname.includes("successful") ? "  max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#F1FBFB)]" : "";
 
   return (
@@ -235,7 +244,7 @@ export default function Index() {
                 <ReviewSection setActiveTab={setActiveTab} />
               </TabsContent>
               <TabsContent className=" w-full" value="details">
-                <DetailSection setActiveTab={setActiveTab} />
+                <DetailSection activeTab={activeTab} setActiveTab={setActiveTab} />
               </TabsContent>
               <TabsContent value="payment">Change your payments here.</TabsContent>
             </Tabs>
@@ -286,39 +295,74 @@ export default function Index() {
               </div>
               <div className=" h-[1px] w-full my-5 bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x "></div>
               <div className="flex flex-wrap flex-col md:flex-row content-center items-center gap-4 ">
-                <Button className=" flex-1 w-full max-w-[246px] flex items-center justify-between p-3" variant={ButtonVariant.primary}>
+                <Button
+                  className=" flex-1 w-full max-w-[246px] flex items-center justify-between p-3"
+                  variant={ButtonVariant.primary}
+                >
                   <p className=" text-2xs">Stocks Live</p>
                   <p className=" text-2xs font-bold mr-[10px]">30</p>
                 </Button>
-                <Button className=" flex-1 w-full max-w-[246px] flex items-center justify-between p-3 " variant={ButtonVariant.primary}>
+                <Button
+                  className=" flex-1 w-full max-w-[246px] flex items-center justify-between p-3 "
+                  variant={ButtonVariant.primary}
+                >
                   <p className=" text-2xs">Average Live Returns</p>
                   <p className=" text-2xs font-bold mr-[10px]">118%</p>
                 </Button>
               </div>
-              <img className=" hidden md:block absolute -right-4" width={100} height={80} src="/assets/mascott-payment.png" alt="" />
+              <img
+                className=" hidden md:block absolute -right-4"
+                width={100}
+                height={80}
+                src="/assets/mascott-payment.png"
+                alt=""
+              />
             </div>
             {/* Review Section */}
             <div className=" mt-11">
               <Carousel
+                className=" cursor-[url(/carousel-pause-icon.svg),auto]"
                 plugins={[
-                  Autoplay({
-                    delay: 6000,
-                  }),
+                  Autoplay({ playOnInit: true, delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true }),
                 ]}
                 setApi={setApi}
               >
                 <CarouselContent>
                   <CarouselItem>
-                    <TestimonialCard />
+                    <TestimonialCard
+                      testimony={
+                        "I have been investing with KamayaKya since over a year now and I only have good things to say. Very good returns, transparency and a team of market experts with amazing investment strategies. I plan to invest with the firm for a long time and I would highly recommend it too."
+                      }
+                      author={"Tanish Mittal"}
+                      company="Hindustan Pressings Pvt. Ltd."
+                      imgSrc="/tanish_mittal.png"
+                    />
                   </CarouselItem>
                   <CarouselItem>
-                    <TestimonialCard />
+                    <TestimonialCard
+                      imgSrc="/kiran_sanghvi.png"
+                      company="Indus Properties"
+                      author="Kiran Sanghvi"
+                      testimony="My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched in the industry. Some of their small cap picks are truly gems that have created  huge wealth for their investors. I would highly recommend investors to take their services to achieve their long term financial goals."
+                    />
+                  </CarouselItem>
+                  <CarouselItem>
+                    <TestimonialCard
+                      testimony={
+                        "I have been thoroughly impressed with Kamayakya's stock recommendations. Their picks have been spot on, and the inclusion of a specified time period for each recommendation provides a clear understanding of when to exit. This level of detail is invaluable for any investor! Additionally, I apply my own technical analysis to their selected stocks, which adds an extra layer of confidence to my investments. I highly recommend Kamayakya's subscription to any medium to long-term investor."
+                      }
+                      author={"Atharva Agashe"}
+                      company="Associated Director - Product Development, FIS."
+                      imgSrc="/atharva-agashe.jpeg"
+                    />
                   </CarouselItem>
                 </CarouselContent>
               </Carousel>
               <div className=" flex justify-center items-center gap-x-4 p-[6px] bg-white rounded-full w-fit mx-auto">
-                {[1, 2].map((_, index) => (
+                {scrollSnaps.map((_, index) => (
                   <CarouselIndicator
+                  emblaApi={api}
+                    isPlaying={isPlaying}
                     onClick={() => onDotButtonClick(index)}
                     index={index}
                     selectedIndex={selectedIndex}

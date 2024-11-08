@@ -10,18 +10,20 @@ export default function Tooltip({
   dialogHeader,
   dialogClassname,
   tooltipClassname,
-  enableModal=true
+  enableModal=true,
+  disableTooltip =false,
 }: {
   dialogHeader?:string;
   tooltipContent: React.ReactNode;
   tooltipTrigger: React.ReactNode;
   dialogClassname?: string;
   tooltipClassname?: string;
-  enableModal?:boolean
+  enableModal?:boolean;
+  disableTooltip?:boolean;
 }) {
   const [open, setOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:640px)");
-  if (isMobile && enableModal) {
+  if (isMobile && enableModal && !disableTooltip) {
     return (
       <Dialog>
         <DialogTrigger asChild>{tooltipTrigger}</DialogTrigger>
@@ -34,7 +36,7 @@ export default function Tooltip({
   }
 
   return (
-    <STooltip open={open} onOpenChange={setOpen} delayDuration={0}>
+    <STooltip disableHoverableContent={disableTooltip} open={open} onOpenChange={setOpen} delayDuration={0}>
       <TooltipTrigger
         onClick={(e) => {
           e.preventDefault();
@@ -44,7 +46,7 @@ export default function Tooltip({
       >
         {tooltipTrigger}
       </TooltipTrigger>
-      <TooltipContent className=" z-[100001] !rounded-lg !px-0 !py-0 !p-4 !border !border-gray-150 max-w-[300px]">
+      {!disableTooltip &&   <TooltipContent className=" z-[100001] !rounded-lg !px-0 !py-0 !p-4 !border !border-gray-150 max-w-[300px]">
         <Arrow asChild color="white" stroke="1" strokeWidth={1}>
           <svg
             className=" rotate-180 -my-[9.5px]  pt-[10px]"
@@ -65,7 +67,8 @@ export default function Tooltip({
           </svg>
         </Arrow>
         {tooltipContent}
-      </TooltipContent>
+      </TooltipContent>}
+    
     </STooltip>
   );
 }

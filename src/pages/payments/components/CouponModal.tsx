@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components.v2/ui/dialog";
 import { useToast } from "@/components.v2/ui/use-toast";
+import Tooltip from "@/components.v3/common/Tooltip";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import React, { useEffect, useState } from "react";
 
@@ -185,9 +186,10 @@ export default function CouponModal() {
               <p className=" text-sm text-gray-400">Maximum Savings</p>
               <p className=" text-gray-950 text-xs font-semibold">₹{discountAmt ?? 0}</p>
             </div>
-            <Button disabled={discountList.length ==0} onClick={handleApply} className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
+            <Tooltip disableTooltip={currentDiscountSelected?.length >0? true:false}  tooltipContent={"Select Coupon in order to apply"} tooltipTrigger={ <Button disabled={currentDiscountSelected?.length ==0} onClick={handleApply} className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
               <p className=" text-md font-medium">Apply</p>
-            </Button>
+            </Button>}/>
+           
           </div>
         </DialogFooter>
       </DialogContent>

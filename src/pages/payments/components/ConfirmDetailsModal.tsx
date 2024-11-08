@@ -58,19 +58,19 @@ export default function ConfirmDetailsModal({
             </div>
             <div className=" col-span-2 p-4 border-t border-t-[#EDEDED]">
               <p className=" text-2xs text-[#707070]">Address</p>
-              <textarea
+              <p
                 
-                contentEditable={editable}
-                onChange={(e) => {
-                  if (!editable) return;
-                  setAddress(e.target.value);
-                }}
-                value={address}
-                className={` ${editable ? "bg-white":"bg-transparent"} resize-none text-sm text-[#121212]  block w-full mt-[6px]`}
-              />
-              <button onClick={handleEditClick} className=" text-sm font-semibold text-[#0E6C63] ">
+                // contentEditable={editable}
+                // onChange={(e) => {
+                //   if (!editable) return;
+                //   setAddress(e.target.value);
+                // }}
+                // value={address}
+                className={` ${editable ? "bg-white":"bg-transparent"} resize-none text-sm text-[#121212]  block w-full mt-[6px] line-clamp-2 h-[40px] overflow-y-scroll`}
+              >{address}</p>
+              {/* <button onClick={handleEditClick} className=" text-sm font-semibold text-[#0E6C63] ">
                 { editable ?"Save": "Edit Address"}
-              </button>
+              </button> */}
             </div>
           </div>
           <Button onClick={handleConfirm} className=" ml-auto" variant={ButtonVariant.primary}>
