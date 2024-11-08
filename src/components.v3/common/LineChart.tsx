@@ -81,15 +81,15 @@ function LineChartMain({
   const { sebiBoardType } = useTrackRecordCommon();
   const isMobile = useMediaQuery("(max-width:600px)");
   const { stockSector } = useTrackRecordCommon();
-  const { status, data, error, isFetching } = useQuery({
-    queryKey: ["bseLivePrice", sebiBoardType, stock_id],
-    queryFn: () =>
-      stock_exchange.includes("NSE")
-        ? getNseLivePrice(sebiBoardType, fetchIndividual ? stock_id : null)
-        : getBseLivePrice(sebiBoardType, fetchIndividual ? stock_id : null),
-    // Refetch the data every second
-    refetchInterval: stock_exchange.includes("NSE") ? 1000 * 60 * 5 : 1000 * 60 * 1,
-  });
+  // const { status, data, error, isFetching } = useQuery({
+  //   queryKey: ["bseLivePrice", sebiBoardType, stock_id],
+  //   queryFn: () =>
+  //     stock_exchange.includes("NSE")
+  //       ? getNseLivePrice(sebiBoardType, fetchIndividual ? stock_id : null)
+  //       : getBseLivePrice(sebiBoardType, fetchIndividual ? stock_id : null),
+  //   // Refetch the data every second
+  //   refetchInterval: stock_exchange.includes("NSE") ? 1000 * 60 * 5 : 1000 * 60 * 1,
+  // });
   const [markerAnnotation, setMarkerAnnotaion] = useState([]);
   const { isLoggedIn } = useContext(AuthContext);
   const [liveData, setLiveData] = useState([]);
@@ -298,7 +298,7 @@ function LineChartMain({
         ? `Target ${stock_targets?.length - targetIndex}`
         : entry_price === price
         ? "Entry Price"
-        : price === liveData[liveData.length - 1].price
+        : price === liveData[0].price
         ? "CMP"
         : "";
     const targetItem = stock_targets && stock_targets.find((item) => item.target_price === price);
@@ -474,7 +474,7 @@ function LineChartMain({
       });
 
       // Current price marker
-      const lastPoint = liveData[liveData.length - 1];
+      const lastPoint = liveData[0];
       arr.push({
         type: "point",
         xValue: new Date(lastPoint.date).getTime(), // Convert to timestamp
@@ -500,16 +500,16 @@ function LineChartMain({
     // console.log("DATA@",data)
     setLiveData(() => {
       let currentData = stock_live_prices ? stock_live_prices : [];
-      if (data && data.length > 0) {
+      // if (data && data.length > 0) {
         // console.log("ENTER HERE");
-        currentData = currentData.concat(
-          data.flatMap((prev) => {
-            // console.log(prev.stock_live_data)
-            return prev.stock_id === stock_id ? prev.stock_live_data : null;
-          })
-        );
+        // currentData = currentData.concat(
+        //   data.flatMap((prev) => {
+        //     // console.log(prev.stock_live_data)
+        //     return prev.stock_id === stock_id ? prev.stock_live_data : null;
+        //   })
+        // );
         // console.log(currentData);
-      }
+      // }
       currentData = currentData
         .map((item) => {
           if (!item) return;
