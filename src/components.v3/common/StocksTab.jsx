@@ -23,7 +23,7 @@ export default function StocksTab() {
 
   useLayoutEffect(() => {
     const sebiBoardType = sessionStorage.getItem("sebiBoardType");
-    setValue(sebiBoardType);
+    setValue(sebiBoardType || "mainboard");
   }, [sessionStorage.getItem("sebiBoardType")]);
 
   return (
