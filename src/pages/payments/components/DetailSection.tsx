@@ -86,7 +86,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     setPlanDetails,
   } = usePaymentContext() as IPaymentContext;
   const { toast } = useToast();
-  const router = useRouter()
+  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -130,7 +130,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
     try {
       setAadharOtpLoading(true);
-      const res =  await getAadharOtp({ aadhaar: data?.aadhar });
+      const res = await getAadharOtp({ aadhaar: data?.aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };
       //  await getAadharOtp({ aadhaar: data?.aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };
@@ -149,10 +149,31 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     }
   };
 
+  // const loadScript = (src: string) => {
+  //   return new Promise((resolve) => {
+  //     const script = document.createElement("script");
+
+  //     script.src = src;
+
+  //     script.onload = () => {
+  //       resolve(true);
+  //     };
+  //     script.onerror = () => {
+  //       resolve(false);
+  //     };
+
+  //     document.body.appendChild(script);
+  //   });
+  // };
+
   const loadScript = (src: string) => {
     return new Promise((resolve) => {
-      const script = document.createElement("script");
+      if (document.querySelector(`script[src="${src}"]`)) {
+        resolve(true);
+        return;
+      }
 
+      const script = document.createElement("script");
       script.src = src;
 
       script.onload = () => {
@@ -167,25 +188,16 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   };
 
   const handleRazorpayScreen = async (amount: string, options: any) => {
-    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+    const res = await loadScript("https://checkout.razorpay.com/v1/magic-checkout.js");
 
     if (!res) {
       alert("Some error at razorpay screen loading");
       return;
     }
 
-    // let curroptions = {
-    //   ...options,
-    // };
     const paymentObject = new window.Razorpay(options);
     paymentObject.on("payment.failed", function (response: any) {
-      // alert(response.error.code);
       alert(response.error.description);
-      // alert(response.error.source);
-      // alert(response.error.step);
-      // alert(response?.error?.reason);
-      //       alert(response.error.metadata.order_id);
-      //       alert(response.error.metadata.payment_id);
     });
     paymentObject.open();
   };
@@ -226,9 +238,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         image: "https://example.com/your_logo",
         order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         // callback_url: "https://legendary-madeleine-b03cd5.netlify.app/payments/successful",
-      //  redirect:true,
-        handler:function(response){
-          router.push("/payments/successful")
+        //  redirect:true,
+        handler: function (response) {
+          router.push("/payments/successful");
           // alert(response.razorpay_payment_id);
           // alert(response.razorpay_order_id);
           // alert(response.razorpay_signature)
@@ -245,12 +257,12 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         },
         theme: {
           color: "#0b3a36",
-          backdrop_color:"#D2F5ED",
-          hide_topbar:true
+          // backdrop_color: "#D2F5ED",
+          // hide_topbar: true,
         },
-        modal:{
-          confirm_close:true,
-        }
+        modal: {
+          confirm_close: true,
+        },
       };
       setPlanDetails((prev) => ({ ...prev, orderId: res.data.order_id }));
       sessionStorage.setItem("orderId", res.data.order_id);
@@ -262,14 +274,13 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     }
   };
   useEffect(() => {
-    
     setValue("fullname", userDetails.name);
     setValue("phone", userDetails.phone);
     setValue("address", userDetails.address);
     setValue("pan", userDetails.pan);
     setValue("email", userDetails.email);
     setValue2("aadhar", userDetails.aadhar);
-  }, [userDetails,activeTab]);
+  }, [userDetails, activeTab]);
 
   useEffect(() => {
     if (isAadharAlreadyVerified) {
@@ -319,7 +330,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   required: "Enter aadhar to continue",
                   pattern: {
                     value: /^\d{4}\d{4}\d{4}$/,
-                    message: 'Enter a valid Aadhar number in the format XXXX XXXX XXXX (excluding spaces).',
+                    message: "Enter a valid Aadhar number in the format XXXX XXXX XXXX (excluding spaces).",
                   },
                 }}
                 render={({ field }) => (
@@ -558,7 +569,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   required: "Enter email to continue",
                   pattern: {
                     value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    message: 'Enter a valid email',
+                    message: "Enter a valid email",
                   },
                 }}
                 render={({ field }) => (
@@ -797,8 +808,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             setAadharRequestId={setAadharRequestId}
             setOpenDialog={setOpenDialog}
             setDisplayModal={setDisplayModal}
-            displayModal = {displayModal}
-            openDialog = {openDialog}
+            displayModal={displayModal}
+            openDialog={openDialog}
             aadhar={aadhar}
             requestId={aadharRequestId}
           />
