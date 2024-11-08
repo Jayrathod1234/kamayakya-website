@@ -294,7 +294,7 @@ export function Carousel({ className }: { className?: string }) {
         </div>
       </div>
 
-      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden cursor-[url(/assets/Button-Pause-Circle-3.svg),auto]`}>
+      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden cursor-[url(/carousel-pause-icon.svg),auto]`}>
         {/* <div className=" overflow-hidden max-w-full"> */}
         <div
           className=" flex pb-12 pt-[40px] carousel__container "

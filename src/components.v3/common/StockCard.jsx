@@ -313,7 +313,7 @@ function StockCard({
                         <p className="text-2xs font-bold text-gray-800 font-open_sans  w-[26px] h-3 bg-[#E4E7EC] rounded-full "></p>
                       ) : (
                         <p className="text-2xs font-bold text-gray-800 font-open_sans">
-                          {gain_loss > 0 ? Math.abs(gain_loss) : `- ${Math.abs(gain_loss)}`}%
+                          {gain_loss > 0 ? Math.abs(gain_loss) : `-${Math.abs(gain_loss)}`}%
                         </p>
                       )}
                       <span className="text-[10px] font-semibold text-[#6E6E6E] line-clamp-1">
