@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
-import {Tabs, TabsVariant} from '@/components.v2/tabs'
-
+import { Tabs, TabsVariant } from "@/components.v2/tabs";
+import { useRouter } from "next/router";
 
 export default function StocksTab() {
-  const {
-    total_mainboard_stocks,
-    total_sme_stocks,
-    handleSebiBoardTypeChange,
-  } = useStockPicks();
+  const { total_mainboard_stocks, total_sme_stocks, handleSebiBoardTypeChange, sebiBoardType } = useStockPicks();
+  const router = useRouter();
   const [value, setValue] = useState("mainboard");
 
   const handleChange = (index) => {
@@ -16,27 +13,63 @@ export default function StocksTab() {
     handleSebiBoardTypeChange(index === 0 ? "mainboard" : "sme");
   };
 
-  useEffect(()=>{
-    const timeout = setTimeout(()=>{
+  useEffect(() => {
+    const timeout = setTimeout(() => {
       handleSebiBoardTypeChange(value);
-    },600)
-    
-    return ()=>clearTimeout(timeout)
+    }, 600);
 
-  },[value])
+    return () => clearTimeout(timeout);
+  }, [value]);
+
+  useLayoutEffect(() => {
+    const sebiBoardType = sessionStorage.getItem("sebiBoardType");
+    setValue(sebiBoardType || "mainboard");
+  }, [sessionStorage.getItem("sebiBoardType")]);
 
   return (
     <div className="flex justify-center items-center w-full">
-       <Tabs
+      <Tabs
         responsive={false}
         className=" dark block bg-white py-4"
         tabListClassname={"dark"}
         tabTriggerClassname={` dark:data-[state=active]:bg-transparent px-8 sm:px-10 `}
         variant={TabsVariant.lg}
-        defaultOption="mainboard"
+        defaultOption={value}
         options={[
-          { label: <div><h4 className={` text-sm sm:text-md font-semibold m-0 ${value === "mainboard" ?"text-white" :"text-[#475467]"}`}>Main Board</h4><p className={` text-3xs font-bold ${value === "mainboard" ?"text-gray-300" :"text-[#667085]"} `}>{total_mainboard_stocks || 0} Stocks</p> </div>, value: "mainboard" },
-          { label:<div><h4 className={`text-sm sm:text-md font-semibold m-0 ${value === "sme" ?"text-white" :"text-[#475467]"}`}>SME Board</h4><p className={` text-3xs font-bold ${value === "sme" ?"text-gray-300" :"text-[#667085]"} `}>{total_sme_stocks || 0} Stocks</p> </div>, value: "sme" },
+          {
+            label: (
+              <div>
+                <h4
+                  className={` text-sm sm:text-md font-semibold m-0 ${
+                    value === "mainboard" ? "text-white" : "text-[#475467]"
+                  }`}
+                >
+                  Main Board
+                </h4>
+                <p className={` text-3xs font-bold ${value === "mainboard" ? "text-gray-300" : "text-[#667085]"} `}>
+                  {total_mainboard_stocks || 0} Stocks
+                </p>{" "}
+              </div>
+            ),
+            value: "mainboard",
+          },
+          {
+            label: (
+              <div>
+                <h4
+                  className={`text-sm sm:text-md font-semibold m-0 ${
+                    value === "sme" ? "text-white" : "text-[#475467]"
+                  }`}
+                >
+                  SME Board
+                </h4>
+                <p className={` text-3xs font-bold ${value === "sme" ? "text-gray-300" : "text-[#667085]"} `}>
+                  {total_sme_stocks || 0} Stocks
+                </p>{" "}
+              </div>
+            ),
+            value: "sme",
+          },
         ]}
         setSelectedOption={setValue}
         activeValue={value}
