@@ -358,7 +358,7 @@ const StockCardSME = () => {
       router.push("/purchase");
     }
     if (isLoggedIn === true && isSubscribed === true) {
-      router.push("/sme");
+      router.push("/stock-picks");
     }
     if (isLoggedIn === false) {
       setShowLoginModalForSubscribe(true);
