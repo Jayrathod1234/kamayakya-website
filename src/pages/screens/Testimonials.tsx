@@ -407,7 +407,7 @@ const Testimonials = () => {
 								</Text>
 							</div>
 						</Box> */}
-				</Box>
+				{/* </Box> */}
 				{/* </Marquee> */}
 				{/* </div> */}
 				{/* <div

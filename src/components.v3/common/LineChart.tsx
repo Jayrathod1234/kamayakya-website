@@ -433,11 +433,7 @@ function LineChartMain({
         });
         arr.push({
           type: "label",
-
           yValue: target.target_price,
-          // label: {
-          //   display: true,
-          //   // clip:false,
           content: target.target_met ? check_mark : target_not_met ? cross_mark : target_active_img,
           backgroundColor: "transparent",
           color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
@@ -456,20 +452,6 @@ function LineChartMain({
           borderDash: [6, 6],
           scaleID: "y",
           value: target.target_price,
-          // label: {
-          //   yValue: target.target_price,
-          //   font: {
-          //     family: "Open Sans",
-          //     size: 10,
-          //     weight: 400,
-          //   },
-          //   display: true,
-          //   content: `Target ${stock_targets.length - i}`,
-          //   backgroundColor: "transparent",
-          //   color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
-          //   position: "end",
-          //   xAdjust: 60,
-          // },
         });
       });
 
@@ -526,14 +508,14 @@ function LineChartMain({
         .filter((prev) => prev != null);
       if (Array.isArray(stock_targets) && stock_targets.length > 0) {
         const newStockTargets = stock_targets
-          .filter((item) => item.target_met && item.target_price) // Ensure valid data
-          .map((item) => ({ date: item.target_met, price: item.target_price, stock_id: stock_id }));
-        currentData = currentData.concat(
-          stock_targets
-            .filter((item) => item.target_met && item.target_price) // Ensure valid data
-            .map((item) => ({ date: item.target_met, price: item.target_price, stock_id: stock_id }))
-        );
-        console.log("AFTER ADDING STOCK TARGETS", stock_id, newStockTargets);
+          .filter((item) => item.target_price) // Ensure valid data
+          .map((item) => ({
+            date: format(item.created, "yyyy-MM-dd HH:mm:ss"),
+            price: item.target_price,
+            stock_id: stock_id,
+          }));
+        currentData = currentData.concat(newStockTargets);
+        // console.log("AFTER ADDING STOCK TARGETS", stock_id, newStockTargets, currentData);
       }
       return currentData.sort((a, b) => new Date(a.date) - new Date(b.date));
     });
