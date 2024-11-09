@@ -13,6 +13,9 @@ import DetailSection from "./components/DetailSection";
 import { PaymentContextProvider } from "@/contexts/PaymentContext";
 import { usePathname } from "next/navigation";
 import { EmblaCarouselType } from "embla-carousel";
+import { Dialog, DialogTrigger, DialogContent } from "@/components.v2/ui/dialog";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
+// import { DialogContent } from "@radix-ui/react-dialog";
 
 const Quotes = () => {
   return (
@@ -108,8 +111,8 @@ export default function Index() {
   const { selectedIndex, scrollSnaps, onDotButtonClick, isSmallScreen } = useDotButton(api);
   const pathname = usePathname();
 
-  function togglePlayingState(emblaApi: EmblaCarouselType, eventName:string) {
-    setIsPlaying(eventName === "autoplay:play" ? true : false)
+  function togglePlayingState(emblaApi: EmblaCarouselType, eventName: string) {
+    setIsPlaying(eventName === "autoplay:play" ? true : false);
   }
 
   useEffect(() => {
@@ -122,13 +125,10 @@ export default function Index() {
     });
   }, [ref.current?.length]);
 
-
   useEffect(() => {
     if (!api) return;
 
-    api
-      .on("autoplay:play", togglePlayingState)
-      .on("autoplay:stop", togglePlayingState)
+    api.on("autoplay:play", togglePlayingState).on("autoplay:stop", togglePlayingState);
   }, [api]);
   const headerBg = !pathname.includes("successful") ? "  max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#F1FBFB)]" : "";
 
@@ -256,7 +256,8 @@ export default function Index() {
             <div className=" flex justify-center items-center mt-3">
               <img height={24} width={24} src="/assets/help.svg" alt="help" />
               <p className=" ml-1 pt-2 text-2xs text-gray-500">
-                Got any doubts? Contact us on WhatsApp number XXXX or call us at XXXX
+                Got any doubts? Check <FaqModal />
+                Contact us on WhatsApp number XXXX or call us at XXXX
               </p>
             </div>
           </div>
@@ -361,7 +362,7 @@ export default function Index() {
               <div className=" flex justify-center items-center gap-x-4 p-[6px] bg-white rounded-full w-fit mx-auto">
                 {scrollSnaps.map((_, index) => (
                   <CarouselIndicator
-                  emblaApi={api}
+                    emblaApi={api}
                     isPlaying={isPlaying}
                     onClick={() => onDotButtonClick(index)}
                     index={index}
@@ -377,3 +378,39 @@ export default function Index() {
     </PaymentContextProvider>
   );
 }
+
+const FaqModal = () => {
+  return (
+    <Dialog>
+      <DialogTrigger>
+        <span className=" text-brand-500">FAQ</span>
+      </DialogTrigger>
+      <DialogContent>
+        <p>Everything you need to know about the product and billing!</p>
+        <Tabs defaultValue="account">
+          <TabsList>
+            <TabsTrigger value="account">Section 1</TabsTrigger>
+            <TabsTrigger value="password">Section 2</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            <Accordion type="multiple">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </TabsContent>
+          <TabsContent value="password">Change your password here.</TabsContent>
+        </Tabs>
+      </DialogContent>
+    </Dialog>
+  );
+};
