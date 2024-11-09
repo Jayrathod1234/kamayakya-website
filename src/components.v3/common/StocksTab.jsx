@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 export default function StocksTab() {
   const { total_mainboard_stocks, total_sme_stocks, handleSebiBoardTypeChange, sebiBoardType } = useStockPicks();
   const router = useRouter();
-  const [value, setValue] = useState("mainboard");
+  const [value, setValue] = useState(sebiBoardType);
 
   const handleChange = (index) => {
     setValue(index);
@@ -31,8 +31,8 @@ export default function StocksTab() {
       <Tabs
         responsive={false}
         className=" dark block bg-white py-4"
-        tabListClassname={"dark"}
-        tabTriggerClassname={` dark:data-[state=active]:bg-transparent px-8 sm:px-10 `}
+        // tabListClassname={"dark"}
+        tabTriggerClassname={` px-8 sm:px-10 `}
         variant={TabsVariant.lg}
         defaultOption={"mainboard"}
         options={[

@@ -56,7 +56,7 @@ export function Tabs({
           : "New",
     });
   };
-  console.log(activeValue,)
+  console.log(activeValue,options[1].value,activeValue === options[1].value)
   return (
     // <div className={` bg-gray-150 w-fit flex rounded-full ${parentPadding}`}>
     //   <ul className=" flex">
@@ -77,7 +77,7 @@ export function Tabs({
               //   transformStyle: "preserve-3d",
               // }}
               className={cn(
-                ` ${childrenSize} group-tab data-[state=active]:bg-transparent ${activeValue === tabs.value ? "data-[state=active]:shadow-[0px_4px_6px_-2px_rgba(16,24,40,0.05),0px_12px_16px_-4px_rgba(16,24,40,0.1)]":""}   relative text-gray-500 rounded-full hover:bg-gray-50 dark:hover:bg-[rgba(237,240,245,1)] data-[state=active]:text-gray-950 data-[state=active]:font-medium `,
+                ` ${childrenSize} group-tab dark:data-[state=active]:bg-transparent data-[state=active]:bg-transparent ${activeValue === tabs.value ? "data-[state=active]:shadow-[0px_4px_6px_-2px_rgba(16,24,40,0.05),0px_12px_16px_-4px_rgba(16,24,40,0.1)]":""}   relative text-gray-500 rounded-full hover:bg-gray-50 dark:hover:bg-[rgba(237,240,245,1)] data-[state=active]:text-gray-950 data-[state=active]:font-medium `,
                 tabTriggerClassname
               )}
               value={tabs.value}
