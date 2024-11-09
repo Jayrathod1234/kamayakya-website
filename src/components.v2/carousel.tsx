@@ -12,6 +12,7 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import ClassNames from "embla-carousel-class-names";
 import { ButtonnArrow } from "./button";
 import { ButtonVariant } from "./button/button";
+import CarouselIndicator from "@/components.v3/common/CarouselIndicator";
 
 const carouselItem = [
   <TestimonialsCard
@@ -36,14 +37,14 @@ const carouselItem = [
     author={"Atharva Agashe"}
     company="Associated Director - Product Development, FIS."
     imgSrc="/atharva-agashe.jpeg"
-    key={13}
+    key={3}
   />,
   <TestimonialsCard
     imgSrc="/kiran_sanghvi.png"
     company="Indus Properties"
     author="Kiran Sanghvi"
     testimony="My experience with Kamayakya in both their smallcase and VIP+ website subscription has been great so far. Their in depth analysis of stocks, understanding the market scenario and balancing the risk reward ratio are unmatched in the industry. Some of their small cap picks are truly gems that have created  huge wealth for their investors. I would highly recommend investors to take their services to achieve their long term financial goals."
-    key={23}
+    key={4}
   />,
   <TestimonialsCard
     testimony={
@@ -52,7 +53,7 @@ const carouselItem = [
     author={"Tanish Mittal"}
     company="Hindustan Pressings Pvt. Ltd."
     imgSrc="/tanish_mittal.png"
-    key={12}
+    key={5}
   />,
   <TestimonialsCard
     testimony={
@@ -60,7 +61,7 @@ const carouselItem = [
     author={"Atharva Agashe"}
     company="Associated Director - Product Development, FIS."
     imgSrc="/atharva-agashe.jpeg"
-    key={21}
+    key={6}
   />,
 ];
 
@@ -81,12 +82,24 @@ export const usePrevNextButtons = (
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
+    const autoplay = emblaApi?.plugins()?.autoplay;
+    if (!autoplay) return;
+
+    const reset = autoplay.reset;
+
+    reset();
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
+    const autoplay = emblaApi?.plugins()?.autoplay;
+    if (!autoplay) return;
+
+    const reset = autoplay.reset;
+
+    reset();
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
 
@@ -118,6 +131,10 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): any => {
     (index: number) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
+      const autoplay = emblaApi?.plugins()?.autoplay;
+      if (!autoplay) return;
+      const reset = autoplay.reset;
+      reset();
     },
     [emblaApi]
   );
@@ -165,13 +182,13 @@ export function Carousel({ className }: { className?: string }) {
       // startIndex: 1,
       loop: true,
     },
-    [Autoplay({ playOnInit: true, delay: 6000, stopOnInteraction: false }), ClassNames()] //change carousel timer here.
+    [Autoplay({ playOnInit: true, delay: 6000,stopOnInteraction:false, stopOnMouseEnter:true }), ClassNames()] //change carousel timer here.
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
-
+  const [isPlaying, setIsPlaying] = useState(true)
   const handlePrevNext = (cb: () => void) => {
     cb();
     const mp = getMixPanelClient();
@@ -189,6 +206,15 @@ export function Carousel({ className }: { className?: string }) {
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
+  function togglePlayingState(emblaApi: EmblaCarouselType, eventName:string) {
+    // if (eventName === "autoplay:play") {
+    //   const autoplay = emblaApi?.plugins()?.autoplay;
+    //   if (!autoplay) return;
+    //   autoplay.play(false);
+    //   // playAnimation(10);
+    // }
+    setIsPlaying(eventName === "autoplay:play" ? true : false)
+  }
 
   const tweenScale = useCallback((emblaApi: EmblaCarouselType, eventName?: any) => {
     const engine = emblaApi.internalEngine();
@@ -241,7 +267,9 @@ export function Carousel({ className }: { className?: string }) {
       .on("reInit", setTweenFactor)
       .on("reInit", tweenScale)
       .on("scroll", tweenScale)
-      .on("slideFocus", tweenScale);
+      .on("slideFocus", tweenScale)
+      .on("autoplay:play", togglePlayingState)
+      .on("autoplay:stop", togglePlayingState)
   }, [emblaApi, tweenScale]);
 
   return (
@@ -266,9 +294,12 @@ export function Carousel({ className }: { className?: string }) {
         </div>
       </div>
 
-      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden`}>
+      <div ref={emblaRef} className={`  max-w-[100vw] overflow-hidden cursor-[url(/carousel-pause-icon.svg),auto]`}>
         {/* <div className=" overflow-hidden max-w-full"> */}
-        <div className=" flex pb-12 pt-[40px] carousel__container" style={{ backfaceVisibility: "hidden" }}>
+        <div
+          className=" flex pb-12 pt-[40px] carousel__container "
+          style={{ backfaceVisibility: "hidden" }}
+        >
           {carouselItem.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
@@ -290,13 +321,20 @@ export function Carousel({ className }: { className?: string }) {
       {/* indicator */}
       <div className=" flex gap-4 justify-center items-center">
         {scrollSnaps.map((_: unknown, index: number) => (
-          <div
-            onClick={() => onDotButtonClick(index)}
-            key={index}
-            className={` ${
-              index === selectedIndex ? " !w-6 " : " w-[10px] "
-            } h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden`}
-          ><div style={{animationDuration:"6000ms"}} className={`bg-brand-300 w-full h-full ${index === selectedIndex ? "carousel-dot-animate":" hidden"}`}></div></div>
+          <CarouselIndicator
+          emblaApi={emblaApi}
+          isPlaying={isPlaying}
+          onClick={() => onDotButtonClick(index)}
+          index={index}
+          selectedIndex={selectedIndex}
+        />
+          // <div
+          //   onClick={() => onDotButtonClick(index)}
+          //   key={index}
+          //   className={` ${
+          //     index === selectedIndex ? " !w-6 " : " w-[10px] "
+          //   } h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden`}
+          // ><div style={{animationDuration:"6000ms"}} className={`bg-brand-300 w-full h-full ${index === selectedIndex ? "carousel-dot-animate":" hidden"}`}></div></div>
         ))}
       </div>
     </div>

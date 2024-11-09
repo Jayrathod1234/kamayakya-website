@@ -12,15 +12,10 @@ import ResponsiveFilter from "../../../components.v3/common/ResponsiveFilter";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useNavBar } from "@/contexts/NavBarContext.js";
+import { Button, ButtonVariant } from "@/components.v2/button/button";
 function AllBoardStockSection() {
-  const {
-    searchStock,
-    setSearchStock,
-    response,
-    isLoading,
-    error,
-    fetchNextPage,
-  } = useAllBoardStock();
+  const { searchStock, setSearchStock, response, isLoading, error, fetchNextPage, isFetchingNextPage } =
+    useAllBoardStock();
 
   const { sebiBoardType, allBoardStockRef } = useStockPicks();
 
@@ -30,6 +25,8 @@ function AllBoardStockSection() {
   // Use react infinite query to fetch the list
 
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
+  const currentPage = Array.isArray(response?.pages) ? response?.pages?.length : 0;
+  const totalPages = Array.isArray(response?.pages) ? response?.pages[0]?.total_pages : 0;
 
   // Scroll Function
   useEffect(() => {
@@ -67,10 +64,7 @@ function AllBoardStockSection() {
 
   return (
     <>
-      <div
-        className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto z-[20000]"
-        ref={allBoardStockRef}
-      >
+      <div className="w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto z-[20000]" ref={allBoardStockRef}>
         <p className="text-display-xs text-gray-950 font-bold font-open_sans text-center sm:pb-10 pb-4">
           All {sebiBoardType == "mainboard" ? "Mainboard" : "SME"} Stocks
         </p>
@@ -123,11 +117,7 @@ function AllBoardStockSection() {
         </>
       ) : (
         <>
-          <Filtermenu
-            ref={filterHeaderRef}
-            role="banner"
-            aria-hidden={!showFilterHeader}
-          />
+          <Filtermenu ref={filterHeaderRef} role="banner" aria-hidden={!showFilterHeader} />
         </>
       )}
       {/* <FilterCarousel /> */}
@@ -142,10 +132,7 @@ function AllBoardStockSection() {
         <div className="w-full sm:px-0 px-[1px] sm:w-[min(1280px,calc(100%-32px))]  mx-auto">
           <div className="grid stock__list justify-center grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-x-5 gap-y-[1.8rem]">
             {isLoading || error ? (
-              <StockCardSkeleton
-                className="sm:w-full w-[320px] mx-auto "
-                length={9}
-              />
+              <StockCardSkeleton className="sm:w-full w-[320px] mx-auto " length={9} />
             ) : items.length > 0 ? (
               items.map((value, index) => (
                 <StockCard
@@ -161,7 +148,19 @@ function AllBoardStockSection() {
               </>
             )}
           </div>
-          <div ref={myObserver} className="h-1"></div>
+          {items?.length > 0 && currentPage < totalPages ?  <div className=" mt-6 col-span-full justify-center items-center">
+            <Button
+              loading={isFetchingNextPage}
+              onClick={fetchNextPage}
+              className=" mx-auto hover:bg-white w-fit bg-white border border-gray-300"
+              variant={ButtonVariant.custom}
+            >
+            <p className="  font-semibold text-brand-500">
+              Load More</p>
+            </Button>
+          </div>:null}
+         
+          {/* <div ref={myObserver} className="h-1"></div> */}
           {/* Blur Rectangle  */}
           {/* <div className="absolute bottom-[440px] z-[1] max-h-[400px] w-full">
             <img

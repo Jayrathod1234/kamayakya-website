@@ -18,22 +18,21 @@ export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
-    const autoplay = emblaApi?.plugins()?.autoplay
-    if (!autoplay) return
+    const autoplay = emblaApi?.plugins()?.autoplay;
+    if (!autoplay) return;
 
-    const reset = autoplay.reset
-        
+    const reset = autoplay.reset;
 
-    reset()
+    reset();
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
-    const autoplay = emblaApi?.plugins()?.autoplay
-    if (!autoplay) return
-    const reset = autoplay.reset
-    reset()
+    const autoplay = emblaApi?.plugins()?.autoplay;
+    if (!autoplay) return;
+    const reset = autoplay.reset;
+    reset();
     // if (onButtonClick) onButtonClick(emblaApi)
   }, [emblaApi, onButtonClick]);
   const onSelect = useCallback((emblaApi) => {
@@ -59,10 +58,10 @@ export const useDotButton = (emblaApi) => {
     (index) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
-      const autoplay = emblaApi?.plugins()?.autoplay
-      if (!autoplay) return
-      const reset = autoplay.reset
-      reset()
+      const autoplay = emblaApi?.plugins()?.autoplay;
+      if (!autoplay) return;
+      const reset = autoplay.reset;
+      reset();
     },
     [emblaApi]
   );
@@ -92,8 +91,7 @@ export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
   );
 });
 const TWEEN_FACTOR_BASE = 0.1;
-const numberWithinRange = (number, min, max) =>
-  Math.min(Math.max(number, min), max);
+const numberWithinRange = (number, min, max) => Math.min(Math.max(number, min), max);
 export function HotSlider({ children }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -102,21 +100,13 @@ export function HotSlider({ children }) {
       startIndex: 1,
       containScroll: "trimSnaps",
     },
-    [
-      Autoplay({ playOnInit: true, delay: 6000, stopOnInteraction: false }),
-      ClassNames(),
-    ] //change carousel timer here.
+    [Autoplay({ playOnInit: true, delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true }), ClassNames()] //change carousel timer here.
   );
   const tweenFactor = useRef(0);
   const tweenNodes = useRef([]);
-  const {
-    prevBtnDisabled,
-    nextBtnDisabled,
-    onPrevButtonClick,
-    onNextButtonClick,
-  } = usePrevNextButtons(emblaApi);
-  const { selectedIndex, scrollSnaps, onDotButtonClick } =
-    useDotButton(emblaApi);
+  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+  let [isPlaying, setIsPlaying] = useState(true);
   const handlePrevNext = (cb) => {
     cb();
     const mp = getMixPanelClient();
@@ -166,6 +156,15 @@ export function HotSlider({ children }) {
       });
     });
   }, []);
+  function togglePlayingState(emblaApi, eventName) {
+    // if (eventName === "autoplay:play") {
+    //   const autoplay = emblaApi?.plugins()?.autoplay;
+    //   if (!autoplay) return;
+    //   autoplay.play(false);
+    //   // playAnimation(10);
+    // }
+    setIsPlaying(eventName === "autoplay:play" ? true : false)
+  }
   useEffect(() => {
     if (!emblaApi) return;
     setTweenNodes(emblaApi);
@@ -177,6 +176,8 @@ export function HotSlider({ children }) {
       .on("reInit", tweenScale)
       .on("scroll", tweenScale)
       .on("slideFocus", tweenScale)
+      .on("autoplay:play", togglePlayingState)
+      .on("autoplay:stop", togglePlayingState);
   }, [emblaApi, tweenScale]);
   // useEffect(() => {
   //   if (!emblaApi) return;
@@ -215,19 +216,10 @@ export function HotSlider({ children }) {
           </div>
         </div>
         {/* slider content */}
-        <div
-          ref={emblaRef}
-          className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3 relative`}
-        >
-          <div
-            className="flex carousel__container"
-            style={{ backfaceVisibility: "hidden" }}
-          >
+        <div ref={emblaRef} className={`overflow-hidden w-full mb-4 pt-3 px-8 pb-3 relative cursor-[url(/carousel-pause-icon.svg),auto]`}>
+          <div className="flex carousel__container" style={{ backfaceVisibility: "hidden" }}>
             {children.map((carousel, index) => (
-              <CarouselItem
-                key={carousel.key}
-                className={`carousel embla__class-names`}
-              >
+              <CarouselItem key={carousel.key} className={`carousel embla__class-names`}>
                 {React.cloneElement(carousel, {
                   emblaApi: emblaApi,
                 })}
@@ -263,6 +255,8 @@ export function HotSlider({ children }) {
       <div className=" flex gap-4 justify-center items-center p-[6px] bg-white rounded-full w-auto max-w-fit mx-auto">
         {scrollSnaps.map((_, index) => (
           <CarouselIndicator
+            emblaApi={emblaApi}
+            isPlaying={isPlaying}
             onClick={() => onDotButtonClick(index)}
             index={index}
             selectedIndex={selectedIndex}
