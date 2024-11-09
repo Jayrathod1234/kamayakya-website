@@ -34,7 +34,7 @@ export default function StocksTab() {
         tabListClassname={"dark"}
         tabTriggerClassname={` dark:data-[state=active]:bg-transparent px-8 sm:px-10 `}
         variant={TabsVariant.lg}
-        defaultOption={value}
+        defaultOption={"mainboard"}
         options={[
           {
             label: (
