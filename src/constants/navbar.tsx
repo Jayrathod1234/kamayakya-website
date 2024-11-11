@@ -33,7 +33,7 @@ export const NAVBAR_LINKS = [
   },
   {
     title: "SME Corner",
-    link: "/sme",
+    link: "/stock-picks",
     mixpanel: {
       event: "smecorner_clicked",
       property: {

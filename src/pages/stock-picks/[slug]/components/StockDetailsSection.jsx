@@ -16,11 +16,14 @@ import { sectorIcons } from "@/utils/constants.js";
 import Banner from "./Banner";
 import { Breadcrumb } from "@/components.v3/common/Breadcrumb";
 import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from "../../../../components.v2/ui/tooltip";
+import { Carousel, CarouselContent, CarouselItem } from "../../../../components.v2/ui/carousel";
 import { Arrow } from "@radix-ui/react-tooltip";
+
 function StockDetailsSection() {
+  const [api, setApi] = React.useState();
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
-  const [openTooltip,setOpenTooltip] = useState(false)
+  const [openTooltip, setOpenTooltip] = useState(false);
   const { items, isLoading, error } = useStockDetails();
   const {
     stock_name,
@@ -187,6 +190,14 @@ function StockDetailsSection() {
     }, 500); // Adjust the delay if needed
   };
 
+  useEffect(() => {
+    if (!api) return;
+    if (activeTab === "Summary") api.scrollTo(0);
+    if (activeTab === "Returns") api.scrollTo(1);
+    if (activeTab === "Reports") api.scrollTo(2);
+    if (activeTab === "News") api.scrollTo(3);
+  }, [api, activeTab]);
+
   // Scroll listener to detect section in view
   useEffect(() => {
     const handleScroll = () => {
@@ -253,25 +264,48 @@ function StockDetailsSection() {
             {/* small screen banner of top navbar-tabs  */}
             <div className="w-full  mx-auto bg-white flex items-center  p-2 sm:hidden shadow-lg sticky top-0  z-50 ">
               {/* Back Button */}
-              <div className="" onClick={() => router.push("/stock-picks")}>
-                <img src="/assets/stock-details/arrow-left.svg" alt="Go Back" className="pl-[16px] pt-2 pr-3" />
-              </div>
-              {/* Tab Items */}
-              <div className="flex  ">
-                {tabs.map((tab) => (
-                  <a
-                    key={tab}
-                    onClick={() => handleTabClick(tab)}
-                    className={`pb-2 ${
-                      activeTab === tab
-                        ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
-                        : "text-gray-500 px-[10px] py-[18px] text-sm"
-                    }`}
-                  >
-                    {tab}
-                  </a>
-                ))}
-              </div>
+              <Carousel setApi={setApi} className=" flex py-[18px] items-center w-full">
+                <div className="pl-[16px]" onClick={() => router.push("/stock-picks")}>
+                <svg
+                        className=" pt-1"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g id="arrow-left">
+                          <path
+                            id="Icon (Stroke)"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M8.51724 3.2069C8.81719 3.49256 8.82877 3.96729 8.5431 4.26724L4.75 8.25L15 8.25C15.4142 8.25 15.75 8.58579 15.75 9C15.75 9.41421 15.4142 9.75 15 9.75L4.75 9.75L8.5431 13.7328C8.82877 14.0327 8.81719 14.5074 8.51724 14.7931C8.21729 15.0788 7.74256 15.0672 7.4569 14.7672L2.4569 9.51724C2.18103 9.22759 2.18103 8.77242 2.4569 8.48276L7.4569 3.23276C7.74256 2.93281 8.21729 2.92123 8.51724 3.2069Z"
+                            fill="#475467"
+                          />
+                        </g>
+                      </svg>
+                </div>
+                {/* Tab Items */}
+                {/* <div className="flex  "> */}
+                <CarouselContent className="">
+                  {tabs.map((tab) => (
+                    <CarouselItem className="  basis-auto ">
+                      <a
+                        key={tab}
+                        onClick={() => handleTabClick(tab)}
+                        className={`pb-2 ${
+                          activeTab === tab
+                            ? "text-[#125B54] text-sm px-[10px] py-[16px] font-semibold border-b-2 border-[#125B54]"
+                            : "text-gray-500 px-[10px] py-[18px] text-sm"
+                        }`}
+                      >
+                        {tab}
+                      </a>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                {/* </div> */}
+              </Carousel>
             </div>
             {/* details  */}
             <div className="pt-[19px] mb-[80px]  ">
@@ -460,15 +494,19 @@ function StockDetailsSection() {
 
                       <div className="w-full sm:w-auto h-auto sm:h-[52px] py-1 px-0 items-center gap-2 rounded-md flex">
                         <div className="flex h-7 w-7 p-[6px] min-w-7 justify-center items-center rounded-md bg-[#F9FAFB]">
-                          <img src={`/assets/${stock_exchange.includes("SME") ? "sme":market_cap_type || "line"}.svg`} alt="" className=" !h-4 !w-4 !object-contain" />
+                          <img
+                            src={`/assets/${stock_exchange.includes("SME") ? "sme" : market_cap_type || "line"}.svg`}
+                            alt=""
+                            className=" !h-4 !w-4 !object-contain"
+                          />
                         </div>
                         <div className="flex flex-row sm:flex-row items-center sm:items-start gap-[5rem] sm:gap-1 w-full">
                           <div className="flex w-full justify-between items-baseline gap-x-1">
                             <p className="text-[#475467] text-2xs sm:text-sm font-semibold sm:font-medium font-open_sans">
-                              {stock_exchange.includes("SME") ? "SME": `${market_cap_type || ""} Cap`} 
+                              {stock_exchange.includes("SME") ? "SME" : `${market_cap_type || ""} Cap`}
                             </p>
                             <span className="text-[#667085] inline-block text-ellipsis text-2xs font-normal font-open_sans">
-                              {market_cap} Cr. as of{" "}
+                              ₹{Math.round(market_cap)?.toLocaleString("hi")} Cr. as of{" "}
                               {new Date().toLocaleDateString("en-GB", {
                                 day: "2-digit",
                                 month: "short",
@@ -717,7 +755,7 @@ function StockDetailsSection() {
                                   </>
                                 )}
                                 <div className=" flex items-baseline gap-x-1">
-                                  {Math.abs(gain_loss)}% {""}
+                                  { gain_loss < 0 ? "-" : ""}{Math.abs(gain_loss)}% {""}
                                   <span className="text-[12px]  text-[#667085] font-medium line-clamp-1">
                                     in {return_time}
                                   </span>
@@ -911,11 +949,11 @@ function StockDetailsSection() {
                             <h2 className="text-sm font-open_sans font-semibold flex items-center gap-x-1">
                               Upside Left
                               <img
-                                  src="/assets/ph_info-duotone.svg"
-                                  alt="Info"
-                                  className="h-[17px] md:h-[20px] lg:h-[24px] object-contain mt-[-1px] cursor-pointer"
-                                  onClick={openModal}
-                                />
+                                src="/assets/ph_info-duotone.svg"
+                                alt="Info"
+                                className="h-[17px] md:h-[20px] lg:h-[24px] object-contain mt-[-1px] cursor-pointer"
+                                onClick={openModal}
+                              />
                               {/* Tooltip for large screens and Modal Trigger for small screens */}
                               <div className="relative group hidden sm:block">
                                 {/* Tooltip (Visible on large screens) */}
@@ -1002,7 +1040,7 @@ function StockDetailsSection() {
                               <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
                             )}
                             <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
-                              {Math.abs(gain_loss)}% {""}
+                              {gain_loss <0 ? "-":""}{Math.abs(gain_loss)}% {""}
                               <span className="text-gray-500 text-4xs font-open_sans font-semibold">
                                 in {return_time}
                               </span>
@@ -1222,7 +1260,7 @@ function StockDetailsSection() {
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">₹1,00,000 </span>
                       invested at current market price (CMP) can become{" "}
                       <span className="text-[#0079EF] font-open_sans text-sm md:text-base font-bold">
-                        ₹{(100000 + 1000 * upside_left).toLocaleString('hi')} 
+                        ₹{(100000 + 1000 * upside_left).toLocaleString("hi")}
                       </span>{" "}
                       likely within {upside_left_time}
                     </div>
@@ -1452,9 +1490,7 @@ function StockDetailsSection() {
                       </div>
 
                       <div className=" justify-between items-center gap-x-5 relative pt-2 hidden sm:flex flex-wrap  w-full">
-                        <p className=" font-open_sans whitespace-normal text-sm flex-1">
-                          {action_text}{" "}
-                        </p>
+                        <p className=" font-open_sans whitespace-normal text-sm flex-1">{action_text} </p>
                         <img
                           src="/assets/details_buy_mascot.png"
                           alt=""
