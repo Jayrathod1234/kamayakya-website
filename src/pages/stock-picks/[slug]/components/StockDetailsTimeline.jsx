@@ -213,7 +213,7 @@ export default function StockDetailsTimeline({ timeline }) {
               )}
 
               <Button
-                className="  min-w-0 max-w-fit"
+                className="  min-w-0 max-w-full"
                 size="small"
                 sx={{
               
@@ -249,7 +249,7 @@ export default function StockDetailsTimeline({ timeline }) {
                   alt={step.label}
                   style={{ width: "20px", height: "20px" }}
                 />
-                <p className=" text-2xs font-medium truncate">{step.type == "report" ? step.report_name : "Watch Video"}</p>
+                <p className=" text-2xs font-medium truncate flex-1">{step.type == "report" ? step.report_name : "Watch Video"}</p>
               </Button>
             </Box>
           </div>
