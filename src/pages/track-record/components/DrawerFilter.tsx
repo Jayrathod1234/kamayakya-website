@@ -1506,7 +1506,7 @@ function DrawerFilter() {
                                   : "bg-white border-[#E4E7EC]"
                               }`}
                               key={index}
-                              onClick={() => handleActioCall(value)}
+                              onClick={() => handleActioCall(value.toUpperCase())}
                             >
                               <img src={`/assets/${value}.png`} alt={value} />
 
