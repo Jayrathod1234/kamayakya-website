@@ -109,7 +109,7 @@ export const TopGainerLoserCard = ({
     : null;
   const router = useRouter();
   const { setOpenMembershipModal } = useTrackRecord();
-
+  
   return (
     // <LoginPrompt>
     <div
@@ -245,7 +245,7 @@ export const TopGainerLoserCard = ({
               {stockStat?.stock_name}
             </p>
           )}
-          {stockStat?.target_status === "active" ? (
+          {stockStat?.target_status === "active" && stockStat?.action!=="SELL" ? (
             <TargetChip active target_number={stockStat?.target_number} />
           ) : (
             <TargetChip active={false} />

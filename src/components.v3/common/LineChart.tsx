@@ -437,7 +437,7 @@ function LineChartMain({
 
           content: isMobile ? `T${stock_targets.length - i}` : `Target ${stock_targets.length - i}`,
           backgroundColor: "transparent",
-          color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
+          color: target.target_met || target_not_met || stock_action === "SELL" ? "#12B76A" : "#FF7F09",
           xAdjust: (ctx) => {
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
@@ -449,7 +449,7 @@ function LineChartMain({
         arr.push({
           type: "label",
           yValue: target.target_price,
-          content: target.target_met ? check_mark : target_not_met ? cross_mark : target_active_img,
+          content: target.target_met ? check_mark : target_not_met ? cross_mark : stock_action!=="SELL"? target_active_img:cross_mark,
           backgroundColor: "transparent",
           color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
           //   position: "end",
@@ -462,7 +462,7 @@ function LineChartMain({
         });
         arr.push({
           type: "line",
-          borderColor: target.target_met ? "#99D9D4" : target_not_met ? "#EDF0F5" : "#FFD19A",
+          borderColor: target.target_met ? "#99D9D4" : target_not_met || stock_action === "SELL" ? "#EDF0F5" : "#FFD19A",
           borderWidth: 1,
           borderDash: [6, 6],
           scaleID: "y",

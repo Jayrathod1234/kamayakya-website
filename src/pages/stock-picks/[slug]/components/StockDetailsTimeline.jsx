@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { steps } from "framer-motion";
+import { Tooltip } from "@mui/material";
 
 const CustomStepConnector = styled(Box)(({ theme }) => ({
   borderLeft: `2px solid #75CDC5`,
@@ -163,6 +164,7 @@ export default function StockDetailsTimeline({ timeline }) {
               border="1px solid white"
               boxShadow="0px 2px 6px 0px rgba(2, 15, 35, 0.06)" // Small shadow on the bottom side
             >
+             <Tooltip title={step?.report_action_text?.length > 24 ? step.report_action_text:""}>
               <Typography
                 className="flex flex-wrap  "
                 variant="subtitle1"
@@ -192,9 +194,12 @@ export default function StockDetailsTimeline({ timeline }) {
                   </Box>
                 )}
               </Typography>
+              </Tooltip>
 
               {step.youtube_title && (
                 <Box display="flex" alignItems="center" gap={1}>
+                <Tooltip title={step.youtube_title?.length > 24 ? step.youtube_title:""}>
+
                   <Typography
                     variant="body2"
                     color="black"
@@ -209,6 +214,7 @@ export default function StockDetailsTimeline({ timeline }) {
                   >
                     {step.youtube_title}
                   </Typography>
+                  </Tooltip>
                 </Box>
               )}
 
@@ -249,7 +255,9 @@ export default function StockDetailsTimeline({ timeline }) {
                   alt={step.label}
                   style={{ width: "20px", height: "20px" }}
                 />
+                <Tooltip title={step.report_name?.length > 24 ? step.report_name:""}>
                 <p className=" text-2xs font-medium truncate flex-1">{step.type == "report" ? step.report_name : "Watch Video"}</p>
+                </Tooltip>
               </Button>
             </Box>
           </div>

@@ -97,7 +97,7 @@ any) => {
               <div className=" h-5 w-1/2 rounded-full bg-[#EDF0F5]"></div>
             </div>
           ) : (
-            <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate">{stock_name}</h4>
+            <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate hover:text-[#1e555c] cursor-pointer"> <Link className=" text-inherit" href={`/track-record/${id}`}>{stock_name}</Link></h4>
           )}
           {isLoggedIn && stock_name ? (
             latest_youtube_video?.youtube_title ? (
@@ -145,7 +145,7 @@ any) => {
             targetTextClass="text-[10px] sm:text-[12px]"
             inactiveTextClass="text-[10px] sm:text-[12px]"
               containerClass={`py-[3px] px-2 h-6 items-center border ${
-                target_status === "active" ? "border-[#FEF0DF]" : ""
+                target_status === "active" && action!=="SELL" ? "border-[#FEF0DF]" : ""
               }`}
               activeIconClass=" h-[10px] w-[10px]"
               activeIcon
@@ -156,7 +156,7 @@ any) => {
                     }`
                   : `${target_number} at ${latest_target_price ? `₹${latest_target_price}` : ""}`
               }
-              active={target_status === "active"  ? true : false}
+              active={target_status === "active" && action !== "SELL"  ? true : false}
             />
             {/* <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
             <img src="/assets/Component 8.svg" alt="" className="w-3" />
