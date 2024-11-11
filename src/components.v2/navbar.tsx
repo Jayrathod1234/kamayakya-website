@@ -131,7 +131,7 @@ export function Navbar({
   }, []);
 
   return (
-    <div ref={ref} className={cn(" group/nav sticky left-0 right-0 top-0 z-50 overflow-visible pricing", className)}>
+    <div ref={ref} className={cn(` group/nav sticky left-0 right-0 top-0 hover:z-[52] z-[50] hover:shadow-none overflow-visible pricing`, className)}>
       <ScrollProgress />
       <div className="flex py-2 justify-between items-center main-container overflow-visible">
         <div className=" flex flex-row items-center justify-center">
@@ -156,10 +156,10 @@ export function Navbar({
             </Link>
           </div>
           <div className="relative">
-            <NavigationMenu delayDuration={0} className=" ">
+            <NavigationMenu delayDuration={0} className="z-[30000] ">
               <NavigationMenuList className=" m-0 ">
                 <NavigationMenuItem className=" m-0 hidden lg:flex">
-                  <NavigationMenuTrigger
+                  <NavigationMenuTrigger 
                     onClick={(e) => {
                       e.preventDefault();
                       if (pathname !== "/") {

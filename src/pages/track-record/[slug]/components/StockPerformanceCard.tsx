@@ -86,6 +86,7 @@ export default function StockPerformanceCard({
           </>
         )}
         <div className=" flex items-baseline gap-x-1">
+          {label === "Total Returns" ? value > 0 ? null : "-":null }
           {Math.abs(value)}% {""}
           <span className={cn("text-[12px]  text-[#667085] sm:font-medium line-clamp-1",timeClassname)}>in {time}</span>
         </div>
