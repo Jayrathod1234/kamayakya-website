@@ -21,6 +21,7 @@ import LineChart from "@/components.v3/common/LineChart";
 import TopGainerLoserChart from "./TopGainerLoserChart";
 import { IStockPrices } from "@/types";
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
+import Tooltip from "@/components.v3/common/Tooltip";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -76,12 +77,12 @@ export const TopGainerLoserCard = ({
   // setOpen,
   stock_live_prices,
   entry_price,
-  start_date
+  start_date,
 }: // entry_price,
 // start_date,
 {
-  entry_price:string;
-  start_date:string;
+  entry_price: string;
+  start_date: string;
   action?: string;
   type: string;
   isBest: boolean;
@@ -90,15 +91,19 @@ export const TopGainerLoserCard = ({
   // setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
-  const isBlur = !isLoggedIn || (stockStat.action === "BUY" && isLoggedIn && !isSubscribed);
+  const isBlur = !isLoggedIn
+    ? stockStat?.action === "BUY"
+      ? true
+      : false
+    : stockStat?.action === "BUY" && isLoggedIn && (!isSubscribed || !stockStat?.stock_name);
   let label = type === "LIVE" ? (isBest ? "Top Gainer" : "Top Loser") : "";
   label = type === "EXIT" ? (isBest ? "Best Exit" : "Worst Exit") : label;
   let actionImgSrc = stockStat
-    ? stockStat.action === "BUY"
+    ? stockStat?.action === "BUY"
       ? "./assets/BuyBubbleBluev2.webp"
-      : stockStat.action === "SELL"
+      : stockStat?.action === "SELL"
       ? "./assets/SellBubbleRedv2.png"
-      : stockStat.action === "HOLD"
+      : stockStat?.action === "HOLD"
       ? "./assets/HoldBubbleYellow.png"
       : null
     : null;
@@ -109,7 +114,7 @@ export const TopGainerLoserCard = ({
     // <LoginPrompt>
     <div
       onClick={() =>
-        stockStat?.id ? router.push(`/track-record/${stockStat.id}`) : isLoggedIn ? setOpenMembershipModal(true) : null
+        stockStat?.id ? router.push(`/track-record/${stockStat?.id}`) : isLoggedIn ? setOpenMembershipModal(true) : null
       }
       className="group/gainer-loser transition-shadow duration-300 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
  flex flex-col bg-white rounded-[9px] p-4 h-fit sm:h-[176px] flex-1 relative cursor-pointer min-w-0 "
@@ -120,12 +125,12 @@ export const TopGainerLoserCard = ({
           height={29}
           className=" absolute right-0 top-[-0.5rem]"
           src={actionImgSrc}
-          alt={stockStat.action}
+          alt={stockStat?.action}
         />
       )}
 
       <div className=" flex flex-col justify-center sm:flex-row sm:justify-between items-center gap-x-[3.81px] flex-wrap">
-        <div className=" flex items-center">
+        <div className=" flex items-center gap-x-[2px]">
           <div className=" flex items-center">
             {isBest ? <ArrowUp color="#344054" size={16} /> : <ArrowDown color="#344054" size={16} />}
             <p className=" font-semibold text-sm text-[rgba(29,41,57,1)] group-hover/gainer-loser:text-brand-400 whitespace-nowrap ">
@@ -152,7 +157,11 @@ export const TopGainerLoserCard = ({
         </div>
         <div className=" my-5 sm:my-0  h-10 w-[98px]">
           {Array.isArray(stock_live_prices) && stock_live_prices.length > 0 ? (
-            <TopGainerLoserChart entry_price={entry_price} start_date={start_date} stock_live_prices={stock_live_prices} />
+            <TopGainerLoserChart
+              entry_price={entry_price}
+              start_date={start_date}
+              stock_live_prices={stock_live_prices}
+            />
           ) : null}
 
           {/* <Line
@@ -183,29 +192,44 @@ export const TopGainerLoserCard = ({
             src={stockStat?.is_gain_loss_positive ?? true ? "/assets/Polygon2.svg" : "/assets/Polygon 3.svg"}
             alt=""
           />
-          {isBlur || (stockStat && (stockStat.gain_loss === null || stockStat.gain_loss === undefined)) ? (
+          {isBlur || (stockStat && (stockStat?.gain_loss === null || stockStat?.gain_loss === undefined)) ? (
             <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
           ) : (
             <p
-              className={` text-display-xs font-bold  whitespace-nowrap ${
-                stockStat.is_gain_loss_positive ? "text-[rgba(18,183,106,1)]" : "text-[rgba(240,68,56,1)]"
+              className={` flex items-baseline text-display-xs font-bold  whitespace-nowrap ${
+                stockStat?.is_gain_loss_positive ? "text-[rgba(18,183,106,1)]" : "text-[rgba(240,68,56,1)]"
               } `}
             >
-              {stockStat.gain_loss && stockStat.gain_loss}%{" "}
-              <span className=" text-3xs font-semibold text-[rgba(73,70,70,1)] hidden sm:inline-block  ">
-                {stockStat.return_time && `in ${abbreviateTime(stockStat.return_time)}`}
-              </span>
+              {stockStat?.gain_loss && stockStat?.gain_loss}%{" "}
+              <div  className="  items-center ml-[6px] hidden sm:flex">
+                {/* {stockStat?.return_time && `in ${abbreviateTime(stockStat?.return_time)}`} */}
+                {/* <p className=" !m-0 flex items-center gap-x-1 text-3xs font-semibold whitespace-nowrap text-white"> */}
+                <p className=" text-3xs font-semibold text-[rgba(73,70,70,1)]   ">in {stockStat?.return_time?.includes(",") ? abbreviateTime(stockStat?.return_time) : stockStat?.return_time}{" "}</p>
+                {stockStat?.return_time?.includes(",") &&  <Tooltip
+                  tooltipTrigger={
+                    <img
+                      className="!h-[14px] !w-[14px] object-contain bg-[rgba(255,255,255,0.6)] rounded-full"
+                      height={14}
+                      width={14}
+                      src="/assets/blackinfo.svg"
+                    />
+                  }
+                  tooltipContent={<p className="text-2xs text-gray-600 font-normal">{stockStat?.return_time}</p>}
+                />}
+               
+              {/* </p> */}
+              </div>
             </p>
           )}
         </div>
         <div
           className={`flex items-center gap-y-[10px] ${
-            isBlur || (stockStat && !stockStat.stock_name)
+            isBlur || (stockStat && !stockStat?.stock_name)
               ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row"
               : "flex-wrap "
           }  gap-x-[8px]  justify-center sm:justify-between`}
         >
-          {isBlur || (stockStat && !stockStat.stock_name) ? (
+          {isBlur || (stockStat && !stockStat?.stock_name) ? (
             <div className=" min-w-0 w-full max-w-[120px] h-[18px] flex items-center justify-center sm:m-0">
               <img
                 className=" object-contain inline-block h-[18px] w-[18px]"
@@ -218,11 +242,11 @@ export const TopGainerLoserCard = ({
             </div>
           ) : (
             <p className="sm:flex-1 text-sm font-normal text-[rgba(52,64,84,1)] truncate w-full text-center sm:text-left">
-              {stockStat.stock_name}
+              {stockStat?.stock_name}
             </p>
           )}
           {stockStat?.target_status === "active" ? (
-            <TargetChip active target_number={stockStat.target_number} />
+            <TargetChip active target_number={stockStat?.target_number} />
           ) : (
             <TargetChip active={false} />
           )}

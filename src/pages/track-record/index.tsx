@@ -59,7 +59,7 @@ export default function TrackRecord() {
   return (
     <TrackRecordCommonProvider>
       <TrackRecordProvider>
-      <StockPicksProvider>
+      {/* <StockPicksProvider> */}
         <div className=" relative open_sans">
           <TrackRecordMain/>
         </div>
@@ -96,7 +96,7 @@ export default function TrackRecord() {
           <Login />
         </Modal.Body>
       </Modal>
-      </StockPicksProvider>
+      {/* </StockPicksProvider> */}
       </TrackRecordProvider>
     </TrackRecordCommonProvider>
   );

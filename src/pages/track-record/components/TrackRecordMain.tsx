@@ -1,9 +1,9 @@
 "use client";
-import { TrackRecordCommonProvider, useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
-import React, { useContext, useEffect, useRef } from "react";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
+import React, {  useEffect, useRef } from "react";
 import { useNavBar } from "@/contexts/NavBarContext";
 import Layout from "@/layout/Layout";
-import { TrackRecordProvider, useTrackRecord } from "@/contexts/TrackRecordContext";
+import {  useTrackRecord } from "@/contexts/TrackRecordContext";
 import { onScrollPaginationFunction } from "@/utils/onScrollPaginationFunction";
 import LegendSection from "./LegendSection";
 import ElevateSection from "../../stock-picks/components/ElevateSection";
@@ -11,39 +11,36 @@ import TrackRecordList from "./TrackRecordList";
 import TrackRecordHero from "./TrackRecordHero";
 import TrackRecordTabSection from "./TrackRecordTabSection";
 import Filters from "./Filters";
-import { Box, IconButton, useMediaQuery } from "@mui/material";
-import Login from "@/components/Login";
-import CloseIcon from "@mui/icons-material/Close";
-import { Modal } from "@nextui-org/react";
-import AuthContext from "@/components/AuthContext";
+import {  useMediaQuery } from "@mui/material";
+
 import { AllBoardStockProvider } from "@/contexts/AllBoardStockContext";
 import SearchPage from "./SearchPage";
 
-const MyObserver = () => {
-  const { fetchNextPage } = useTrackRecord();
-  const myObserver = useRef();
-  useEffect(() => {
-    // Start observing the element referenced by observerElem.current
-    if (myObserver.current) {
-      onScrollPaginationFunction(fetchNextPage).observe(myObserver.current);
-    }
-    // Clean up function to stop observing when component unmounts
-    return () => {
-      if (myObserver.current) {
-        onScrollPaginationFunction(fetchNextPage).unobserve(myObserver.current);
-      }
-    };
-  }, [fetchNextPage]);
-  return <div className=" h-1 w-full " ref={myObserver}></div>;
-};
+// const MyObserver = () => {
+//   const { fetchNextPage } = useTrackRecord();
+//   const myObserver = useRef();
+//   useEffect(() => {
+//     // Start observing the element referenced by observerElem.current
+//     if (myObserver.current) {
+//       onScrollPaginationFunction(fetchNextPage).observe(myObserver.current);
+//     }
+//     // Clean up function to stop observing when component unmounts
+//     return () => {
+//       if (myObserver.current) {
+//         onScrollPaginationFunction(fetchNextPage).unobserve(myObserver.current);
+//       }
+//     };
+//   }, [fetchNextPage]);
+//   return <div className=" h-1 w-full " ref={myObserver}></div>;
+// };
 
 export default function TrackRecordMain() {
   const { searchPageOpen } = useTrackRecordCommon();
   const isMobile = useMediaQuery("(max-width:600px)");
   const showFilterRef = useRef(null);
   const { setShowFilterHeader } = useNavBar();
-  const { showLoginModal, handleCloseLoginModal } = useContext(AuthContext);
-
+ 
+  console.log("PARENT RERENDER")
   useEffect(() => {
     const handleScroll = () => {
       if (showFilterRef.current) {
@@ -76,7 +73,7 @@ export default function TrackRecordMain() {
         <div ref={showFilterRef} className="main-container relative">
           <LegendSection />
           <TrackRecordList />
-          <MyObserver />
+          {/* <MyObserver /> */}
         </div>
       </section>
       {/* Stock Lists end */}

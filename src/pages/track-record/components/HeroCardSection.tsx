@@ -1,5 +1,5 @@
 import React from "react";
-import { TrackRecordHeroCard } from "./TrackRecordHeroCard";
+import  TrackRecordHeroCard  from "./TrackRecordHeroCard";
 import { useQuery } from "@tanstack/react-query";
 import { getTrackRecordDashboard } from "@/api/track-record";
 import TrackRecordHeroCardSkeleton from "./skeleton/TrackRecordHeroCardSkeleton";

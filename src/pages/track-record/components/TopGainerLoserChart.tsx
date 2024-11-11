@@ -28,7 +28,7 @@ ChartJS.register({
   TimeSeriesScale,
 });
 
-export default function TopGainerLoserChart({
+function TopGainerLoserChart({
   stock_live_prices,
   entry_price,
   start_date,
@@ -151,3 +151,6 @@ export default function TopGainerLoserChart({
     />
   );
 }
+
+
+export default React.memo(TopGainerLoserChart)

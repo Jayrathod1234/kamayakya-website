@@ -17,19 +17,21 @@ import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import LoginPrompt from "./LoginPrompt";
+import { useTrackRecord } from "@/contexts/TrackRecordContext";
 
-const ChipItem = ({ label, img, id, setOpen }: { label: string; img: string | null; id: string }) => {
+const ChipItem = ({ label, img, id }: { label: string; img: string | null; id: string }) => {
   const router = useRouter();
   const { isLoggedIn } = useContext(AuthContext);
-  const handleRouting = () => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpen(true) : null);
+  const { setOpenMembershipModal } = useTrackRecord();
+  const handleRouting = () => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpenMembershipModal(true) : null);
 
   return (
     <div onClick={handleRouting} className="!p-0 rounded-[4px]  hover:!bg-[rgba(244,255,255,1)] flex items-center">
       {/* image container */}
       <div className=" p-2 w-fit">
         {label ? (
-          <object className=" object-contain h-[30px] w-[30px]" data={img as string} type="image/jpeg">
-            <img className="" src={"/stock_palceholder.svg"} height={30} width={30} alt="stock-image" />
+          <object className=" object-contain h-[30px] w-[30px]" data={img as string}>
+            <img className="object-contain" src={"/stock_palceholder.svg"} height={30} width={30} alt="stock-image" />
           </object>
         ) : (
           <div className=" h-6 w-6 bg-[#FFF1CE] rounded-full flex items-center justify-center">
@@ -56,18 +58,20 @@ const ChipItem = ({ label, img, id, setOpen }: { label: string; img: string | nu
   );
 };
 
-const BottomSheetItem = ({ label, img, id, setOpen }) => {
+const BottomSheetItem = ({ label, img, id }) => {
   const router = useRouter();
   const { isLoggedIn } = useContext(AuthContext);
+  const { setOpenMembershipModal } = useTrackRecord();
+
   return (
     <li
-      onClick={() => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpen(true) : null)}
+      onClick={() => (id ? router.push(`/track-record/${id}`) : isLoggedIn ? setOpenMembershipModal(true) : null)}
       className=" px-4 py-[10px] flex gap-x-2 items-center"
     >
       {label ? (
         <>
-          <object className=" h-7 w-7" data={img} type="image/jpeg">
-            <img height={28} width={28} src={"/stock_palceholder.svg"} alt="stock-image" />
+          <object className="object-contain h-7 w-7" data={img}>
+            <img className=" object-contain" height={28} width={28} src={"/stock_palceholder.svg"} alt="stock-image" />
           </object>
           <p className=" text-sm text-gray-700">{label}</p>
         </>
@@ -107,7 +111,7 @@ export function TrackRecordHeroCardNewChip({ newRecommendation, type }) {
       <Drawer open={openDropDown} onOpenChange={setOpenDropDown}>
         <DrawerTrigger asChild>
           <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
-            3 New <span className="hidden sm:inline-block">{type==="LIVE" ?"Recommendations":"Exits"}</span>
+            3 New <span className={`${type === "LIVE" ? "hidden" : ""} sm:inline-block`}>{type==="LIVE" ?"Recommendations":"Exits"}</span>
           </button>
         </DrawerTrigger>
         <DrawerContent className=" rounded-t-[20px] bg-transparent border-none outline-none">
@@ -129,7 +133,7 @@ export function TrackRecordHeroCardNewChip({ newRecommendation, type }) {
               {isLoggedIn ? (
                 <ul className=" !m-0">
                   {newRecommendation?.map((recommendation) => (
-                    <LoginPrompt>
+                    <LoginPrompt key={recommendation.id}>
                       <BottomSheetItem
                         label={recommendation.stock_name}
                         img={recommendation.stock_image}
@@ -165,14 +169,14 @@ export function TrackRecordHeroCardNewChip({ newRecommendation, type }) {
   return (
     <HoverCard open={openDropDown} openDelay={0} onOpenChange={setOpenDropDown}>
       <HoverCardTrigger onClick={onTriggerEleClick} asChild>
-        <button className=" whitespace-nowrap text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
-          3 New <span className="hidden sm:inline-block">{type==="LIVE"?"Recommendations":"Exits"}</span>
+        <button className=" whitespace-nowrap font-medium text-[rgba(0,87,255,1)] px-2 py-[2px] rounded-full bg-[rgba(235,242,255,1)] hover:bg-[rgba(206,223,255,1)] text-3xs inline-block mb-0">
+          3 New <span className={`${type === "LIVE" ? "hidden":""} sm:inline-block`}>{type === "LIVE" ? "Recommendations" : "Exits"}</span>
         </button>
       </HoverCardTrigger>
       {isLoggedIn ? (
         <HoverCardContent className="w-56 rounded-lg py-[6px] px-1">
           {newRecommendation?.map((recommendation) => (
-            <LoginPrompt>
+            <LoginPrompt key={recommendation.id}>
               <ChipItem id={recommendation.id} label={recommendation.stock_name} img={recommendation.stock_image} />
             </LoginPrompt>
           ))}

@@ -22,8 +22,8 @@ ChartJS.register({
 
 let LEGENDS = [
   { label: "High (>15%)", value: "", iconColor: "bg-[rgba(18,183,106,1)]" },
-  { label: "Medium (<15% to >-15%)", value: "", iconColor: "bg-[rgba(208,213,221,1)]" },
-  { label: "Low (>-15%)", value: "", iconColor: "bg-[rgba(240,68,56,1)]" },
+  { label: "Medium (<15% to <-15%)", value: "", iconColor: "bg-[rgba(208,213,221,1)]" },
+  { label: "Low (<-15%)", value: "", iconColor: "bg-[rgba(240,68,56,1)]" },
 ];
 
 const getIconColor = (label: string,type:string) => {
@@ -42,7 +42,7 @@ const getIconColor = (label: string,type:string) => {
 const Legends = ({ label, value, iconColor, type }: { label: string; value: number; iconColor: string;type:string; }) => {
   const { isLoggedIn } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
-  let legend = label === "high" && type === "LIVE" ? "High (>15%)" : label === "medium" && type === "LIVE" ? "Medium (<15% to >-15%)" :label === "low" && type === "LIVE" ? "Low (>-15%)" : label === "high" && type === "EXIT" ? "Profit Exits (>15%)" : label === "medium" && type === "EXIT" ? "Loss Exits (>-15%)":""
+  let legend = label === "high" && type === "LIVE" ? "High (>15%)" : label === "medium" && type === "LIVE" ? "Medium (15% to -15%)" :label === "low" && type === "LIVE" ? "Low (<-15%)" : label === "high" && type === "EXIT" ? "Profit Exits (>15%)" : label === "medium" && type === "EXIT" ? "Loss Exits (< -15%)":""
   
   return (
     <div className="flex items-baseline ">
