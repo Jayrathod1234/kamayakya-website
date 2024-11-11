@@ -20,7 +20,7 @@ import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useQuery } from "@tanstack/react-query";
 import { getBseLivePrice, getNseLivePrice } from "@/api/track-record";
 import "chartjs-adapter-date-fns";
-import { format, parse } from "date-fns";
+import { format, parse, parseISO, setHours, setMilliseconds, setMinutes, setSeconds } from "date-fns";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 import { useMediaQuery } from "@mui/material";
 import withComponentInView from "./isInView";
@@ -37,6 +37,21 @@ ChartJS.register({
   TimeScale,
   TimeSeriesScale,
 });
+
+function formatTargetMetDate(dateString) {
+  const date = parseISO(dateString); // Parse the date string into a Date object
+
+  // Set the desired time: 3:30 PM
+  const updatedDate = setMilliseconds(
+      setSeconds(setMinutes(setHours(date, 15), 30), 0),
+      0
+  );
+
+  // Format the date in the desired ISO format with timezone (hardcoding +05:30)
+  const formattedDate = format(updatedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+
+  return formattedDate.replace("+00:00", "+05:30"); // Adjust for desired timezone offset
+}
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -391,7 +406,7 @@ function LineChartMain({
             arr.push({
               type: "point",
               // scaleId:'y',
-              xValue: new Date(target.created).getTime(), // Convert to timestamp
+              xValue: new Date(formatTargetMetDate(target.target_met)).getTime(), // Convert to timestamp
               yValue: target.target_price,
               backgroundColor: "transparent",
               borderColor: "transparent",
@@ -510,7 +525,7 @@ function LineChartMain({
         const newStockTargets = stock_targets
           .filter((item) => item.target_price) // Ensure valid data
           .map((item) => ({
-            date: format(item.created, "yyyy-MM-dd HH:mm:ss"),
+            date: format(item.target_met ? formatTargetMetDate(item.target_met) : item.created, "yyyy-MM-dd HH:mm:ss"),
             price: item.target_price,
             stock_id: stock_id,
           }));
