@@ -256,7 +256,8 @@ export default function Index() {
             <div className=" flex justify-center items-center mt-3">
               <img height={24} width={24} src="/assets/help.svg" alt="help" />
               <p className=" ml-1 pt-2 text-2xs text-gray-500">
-                Got any doubts? Check <FaqModal />
+              {/* Check <FaqModal /> */}
+                Got any doubts? 
                 Contact us on WhatsApp number XXXX or call us at XXXX
               </p>
             </div>
@@ -297,14 +298,14 @@ export default function Index() {
               <div className=" h-[1px] w-full my-5 bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x "></div>
               <div className="flex flex-wrap flex-col md:flex-row content-center items-center gap-4 ">
                 <Button
-                  className=" flex-1 w-full max-w-[246px] flex items-center justify-between p-3"
+                  className=" flex-1 w-full max-w-[246px] hover:scale-100 hover:bg-brand-400 border-none cursor-default flex items-center justify-between p-3"
                   variant={ButtonVariant.primary}
                 >
                   <p className=" text-2xs">Stocks Live</p>
                   <p className=" text-2xs font-bold mr-[10px]">30</p>
                 </Button>
                 <Button
-                  className=" flex-1 w-full max-w-[246px] flex items-center justify-between p-3 "
+                  className=" flex-1 w-full max-w-[246px] hover:scale-100 hover:bg-brand-400 border-none cursor-default flex items-center justify-between p-3 "
                   variant={ButtonVariant.primary}
                 >
                   <p className=" text-2xs">Average Live Returns</p>

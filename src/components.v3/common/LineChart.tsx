@@ -298,7 +298,7 @@ function LineChartMain({
         ? `Target ${stock_targets?.length - targetIndex}`
         : entry_price === price
         ? "Entry Price"
-        : price === liveData[0].price
+        : price === liveData[liveData.length - 1].price
         ? "CMP"
         : "";
     const targetItem = stock_targets && stock_targets.find((item) => item.target_price === price);
@@ -363,8 +363,8 @@ function LineChartMain({
       // Entry point annotation
       arr.push({
         type: "point",
-        xValue: new Date(created).getTime(), // Convert to timestamp
-        yValue: entry_price,
+        xValue: new Date(liveData[0].date).getTime(), // Convert to timestamp
+        yValue: liveData[0].price,
         backgroundColor: "transparent",
         borderColor: "transparent",
         pointStyle: entry_img,
@@ -433,11 +433,7 @@ function LineChartMain({
         });
         arr.push({
           type: "label",
-
           yValue: target.target_price,
-          // label: {
-          //   display: true,
-          //   // clip:false,
           content: target.target_met ? check_mark : target_not_met ? cross_mark : target_active_img,
           backgroundColor: "transparent",
           color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
@@ -456,25 +452,11 @@ function LineChartMain({
           borderDash: [6, 6],
           scaleID: "y",
           value: target.target_price,
-          // label: {
-          //   yValue: target.target_price,
-          //   font: {
-          //     family: "Open Sans",
-          //     size: 10,
-          //     weight: 400,
-          //   },
-          //   display: true,
-          //   content: `Target ${stock_targets.length - i}`,
-          //   backgroundColor: "transparent",
-          //   color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
-          //   position: "end",
-          //   xAdjust: 60,
-          // },
         });
       });
 
       // Current price marker
-      const lastPoint = liveData[0];
+      const lastPoint = liveData[liveData.length - 1];
       arr.push({
         type: "point",
         xValue: new Date(lastPoint.date).getTime(), // Convert to timestamp
@@ -501,15 +483,16 @@ function LineChartMain({
     setLiveData(() => {
       let currentData = stock_live_prices ? stock_live_prices : [];
       // if (data && data.length > 0) {
-        // console.log("ENTER HERE");
-        // currentData = currentData.concat(
-        //   data.flatMap((prev) => {
-        //     // console.log(prev.stock_live_data)
-        //     return prev.stock_id === stock_id ? prev.stock_live_data : null;
-        //   })
-        // );
-        // console.log(currentData);
+      // console.log("ENTER HERE");
+      // currentData = currentData.concat(
+      //   data.flatMap((prev) => {
+      //     // console.log(prev.stock_live_data)
+      //     return prev.stock_id === stock_id ? prev.stock_live_data : null;
+      //   })
+      // );
+      // console.log(currentData);
       // }
+
       currentData = currentData
         .map((item) => {
           if (!item) return;
@@ -523,7 +506,18 @@ function LineChartMain({
           return { ...item, date: formattedDate };
         })
         .filter((prev) => prev != null);
-      return currentData
+      if (Array.isArray(stock_targets) && stock_targets.length > 0) {
+        const newStockTargets = stock_targets
+          .filter((item) => item.target_price) // Ensure valid data
+          .map((item) => ({
+            date: format(item.created, "yyyy-MM-dd HH:mm:ss"),
+            price: item.target_price,
+            stock_id: stock_id,
+          }));
+        currentData = currentData.concat(newStockTargets);
+        // console.log("AFTER ADDING STOCK TARGETS", stock_id, newStockTargets, currentData);
+      }
+      return currentData.sort((a, b) => new Date(a.date) - new Date(b.date));
     });
   }, [data]);
   // console.log("DATA LENGTH",stock_id, liveData?.length)

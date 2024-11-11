@@ -65,7 +65,7 @@ export function Tabs({
           : "New",
     });
   };
-  console.log(activeValue);
+  console.log(activeValue,options[1].value,activeValue === options[1].value)
   return (
     // <div className={` bg-gray-150 w-fit flex rounded-full ${parentPadding}`}>
     //   <ul className=" flex">

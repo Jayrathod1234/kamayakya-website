@@ -202,8 +202,8 @@ const Testimonials = () => {
 								minWidth: '380px',
 								maxWidth: '380px',
 								height: "100%",
-								alignSelf: 'center',
-								marginBottom: "50px",
+								marginBottom:"50px",
+								alignSelf: 'center'
 							},
 						}}
 					>
@@ -285,62 +285,54 @@ const Testimonials = () => {
 						>
 							<div
 								style={{
-									position: "absolute",
-									marginLeft: "185px",
-									marginTop: "-65px",
+									width: "95px",
+									height: "95px",
+									borderRadius: "1000px",
+									boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+									objectFit:"cover"
+								}}
+							/>
+						</Box>
+						<div style={{ display: "flex", flexDirection: "column" }}>
+							<FaQuoteLeft
+								color="#0f734d"
+								size={20}
+								style={{ marginTop: "20px", marginLeft: "-10px" }}
+							/>
+							<Text
+								b
+								css={{
+									display: "flex",
+									whiteSpace: "normal",
+									// marginTop: "35px",
+									paddingBottom: "10px",
+									lineHeight: 1.2,
+									textAlign: "justify",
+									maxWidth: "95%",
+									alignSelf: "center",
+									"@media only screen and (max-width: 768px)": {
+										fontSize: "10px",
+									},
 								}}
 							>
-								<img
-									src="/atharva-agashe.jpeg"
-									style={{
-										width: "95px",
-										height: "95px",
-										borderRadius: "1000px",
-										boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-										objectFit:"cover"
-									}}
-								/>
-							</div>
-							<div style={{ display: "flex", flexDirection: "column" }}>
-								<FaQuoteLeft
-									color="#0f734d"
-									size={20}
-									style={{ marginTop: "20px", marginLeft: "-10px" }}
-								/>
-								<Text
-									b
-									css={{
-										display: "flex",
-										whiteSpace: "normal",
-										// marginTop: "35px",
-										paddingBottom: "10px",
-										lineHeight: 1.2,
-										textAlign: "justify",
-										maxWidth: "95%",
-										alignSelf: "center",
-										"@media only screen and (max-width: 768px)": {
-											fontSize: "10px",
-										},
-									}}
-								>
-									I have been thoroughly impressed with Kamayakya.com's stock recommendations. Their picks have been spot on, and the inclusion of a specified time period for each recommendation provides a clear understanding of when to exit. This level of detail is invaluable for any investor! Additionally, I apply my own technical analysis to their selected stocks, which adds an extra layer of confidence to my investments. I highly recommend Kamayakya.com's subscription to any medium to long-term investor.
-								</Text>
-								<FaQuoteRight
-									color="#0f734d"
-									size={20}
-									style={{
-										marginTop: 0,
-										marginRight: 0,
-										alignSelf: "flex-end",
-									}}
-								/>
-								<Text b css={{ textAlign: "center", marginTop: "10px" }}>
-									{" "}
-									Atharva Agashe,
-									Associated Director - FIS
-								</Text>
-							</div>
-						</Box>
+							I have been thoroughly impressed with Kamayakya.com's stock recommendations. Their picks have been spot on, and the inclusion of a specified time period for each recommendation provides a clear understanding of when to exit. This level of detail is invaluable for any investor! Additionally, I apply my own technical analysis to their selected stocks, which adds an extra layer of confidence to my investments. I highly recommend Kamayakya.com's subscription to any medium to long-term investor.
+
+							</Text>
+							<FaQuoteRight
+								color="#0f734d"
+								size={20}
+								style={{
+									marginTop: 0,
+									marginRight: 0,
+									alignSelf: "flex-end",
+								}}
+							/>
+							<Text b css={{ textAlign: "center", marginTop: "2px" }}>
+							Atharva Agashe,
+							Associated Director - FIS
+							</Text>
+						</div>
+					</Box>
 						{/*<Box 
 							sx={{
 								// display: "flex",
@@ -415,7 +407,7 @@ const Testimonials = () => {
 								</Text>
 							</div>
 						</Box> */}
-				</Box>
+				{/* </Box> */}
 				{/* </Marquee> */}
 				{/* </div> */}
 				{/* <div

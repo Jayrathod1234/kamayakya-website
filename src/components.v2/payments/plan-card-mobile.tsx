@@ -35,6 +35,7 @@ export function PlanCardMobile({
   hideButton = false,
   className,
 }: TPlanCardMobile) {
+  console.log(currentTab,planName,currentPlanViewing,plan)
   return (
     <div
       className={cn(

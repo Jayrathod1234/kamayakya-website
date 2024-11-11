@@ -169,14 +169,14 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
               features={["Main Board"]}
               selected={currentPlanViewing === "core"}
             />
-            {currentTab !== "3months" && (
+            {/* {currentTab !== "3months" && ( */}
               <PlansMobileTab
                 onClick={() => handlePlanSelect("advanced")}
                 plan="ADVANCED"
                 features={["SME Board"]}
                 selected={currentPlanViewing === "advanced"}
               />
-            )}
+            {/* )} */}
             <PlansMobileTab
               onClick={() => handlePlanSelect("vip")}
               plan="VIP"
