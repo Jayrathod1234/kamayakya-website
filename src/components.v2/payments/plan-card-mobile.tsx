@@ -35,7 +35,15 @@ export function PlanCardMobile({
   hideButton = false,
   className,
 }: TPlanCardMobile) {
-  console.log(currentTab,planName,currentPlanViewing,plan)
+
+  if (currentTab == "3months" && currentPlanViewing === "advanced") {
+    return (
+      <p className=" text-center py-4 bg-red-400">
+        Our Advanced Plan is crafted for those who think long-term and is only available in 1-Year and 3-Year options.
+        Explore the benefits and choose the term that fits your goals!
+      </p>
+    );
+  }
   return (
     <div
       className={cn(

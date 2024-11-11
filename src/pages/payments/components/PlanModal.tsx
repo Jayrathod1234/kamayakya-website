@@ -118,6 +118,7 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
       }
       const response = await axios.get(PLANS_URL);
       const formattedPlans = formatPlans(response.data);
+      console.log("foramttedPlans",formattedPlans)
       setPlans(formattedPlans);
     } catch (e) {}
   };

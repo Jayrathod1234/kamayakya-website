@@ -132,8 +132,8 @@ export function PlansSection() {
     });
     sessionStorage.setItem("planId", planId);
     sessionStorage.setItem("planName", planName);
-    sessionStorage.setItem("planDuration", currentTab)
-    router.push({ pathname: "/payments", query: { planId,planName } }, "/payments");
+    sessionStorage.setItem("planDuration", currentTab);
+    router.push({ pathname: "/payments", query: { planId, planName } }, "/payments");
   };
 
   const fetchPlans = async () => {
@@ -170,7 +170,13 @@ export function PlansSection() {
             src={"/save_33.png"}
             alt="save-33%"
           />
-          <Tabs activeValue={currentTab} setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>} defaultOption="1year" options={tabOptions} variant={TabsVariant.md} />
+          <Tabs
+            activeValue={currentTab}
+            setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>}
+            defaultOption="1year"
+            options={tabOptions}
+            variant={TabsVariant.md}
+          />
           <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" />
         </div>
       </div>
@@ -207,52 +213,6 @@ export function PlansSection() {
           {plans && plans[currentTab] ? (
             <>
               {plans[currentTab].map((plan: TPlanResponse) => {
-                // const planName = plan.name.toLowerCase() as TPlanName;
-                // let btnText = "";
-                // let ctaDisabled = false;
-
-                // if (isLoggedIn) {
-                //   if (activePlan.plan.toLowerCase() === "free") {
-                //     btnText = `Upgrade to ${plan.name.toUpperCase()}`;
-                //   }
-                //   if (activePlan.plan.toLowerCase() === "core") {
-                //     if (plan.name.toLowerCase() === "core") {
-                //       btnText = `Renew Membership`;
-                //     } else if (plan.name.toLowerCase() === "advanced") {
-                //       btnText = `Change Plan`;
-                //     } else if (plan.name.toLowerCase() === "vip") {
-                //       btnText = `Upgrade to VIP`;
-                //     }
-                //   }
-                //   if (activePlan.plan.toLowerCase() === "advanced") {
-                //     if (plan.name.toLowerCase() === "core") {
-                //       btnText = `Change Plan`;
-                //     } else if (plan.name.toLowerCase() === "advanced") {
-                //       btnText = `Renew Membership`;
-                //     } else if (plan.name.toLowerCase() === "vip") {
-                //       btnText = `Upgrade to VIP`;
-                //     }
-                //   }
-                //   if (activePlan.plan.toLowerCase() === "vip") {
-                //     if (plan.name.toLowerCase() === "advanced" || plan.name.toLowerCase() === "core") {
-                //       btnText = `Change Plan`;
-                //     } else if (plan.name.toLowerCase() === "vip") {
-                //       btnText = `Renew Membership`;
-                //     }
-                //   }
-                //   if (activePlan.is_active) {
-                //     if (plan.name.toLowerCase() === "free") {
-                //       btnText = "Get Free Access";
-                //       ctaDisabled = true;
-                //     }
-                //   }
-                // } else {
-                //   if (planName === "free") {
-                //     btnText = "Get Free Access";
-                //   } else {
-                //     btnText = "Get Started";
-                //   }
-                // }
                 const { planName, btnText, ctaDisabled, priceStrikeThrough } = handlePlanProps(plan);
                 return (
                   plan.name.toLowerCase() === currentPlanViewing && (
