@@ -523,7 +523,7 @@ function LineChartMain({
         .filter((prev) => prev != null);
       if (Array.isArray(stock_targets) && stock_targets.length > 0) {
         const newStockTargets = stock_targets
-          .filter((item) => item.target_price) // Ensure valid data
+          .filter((item) => item.target_price && item.target_met) // Ensure valid data
           .map((item) => ({
             date: format(item.target_met ? formatTargetMetDate(item.target_met) : item.created, "yyyy-MM-dd HH:mm:ss"),
             price: item.target_price,
