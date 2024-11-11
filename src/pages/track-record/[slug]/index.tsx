@@ -853,8 +853,8 @@ function StockDetailsSection() {
                             <div className=" mt-6">
                               <ProjectedInvestmentGrowth
                                 action={action}
-                                upside_left={upside_left}
-                                upside_left_time={upside_left_time}
+                                upside_left={action === "SELL" ? gain_loss:upside_left}
+                                upside_left_time={action === "SELL" ? return_time:upside_left_time}
                               />
                             </div>
                             <LegendSection
@@ -1165,8 +1165,8 @@ function StockDetailsSection() {
 
                         <div className="pt-6">
                           <ProjectedInvestmentGrowth
-                            upside_left={upside_left}
-                            upside_left_time={upside_left_time}
+                            upside_left={action === "SELL" ? gain_loss:upside_left}
+                            upside_left_time={action === "SELL" ? return_time:upside_left_time}
                             action={action}
                           />
                         </div>

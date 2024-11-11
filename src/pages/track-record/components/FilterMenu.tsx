@@ -107,110 +107,117 @@ function Filtermenu() {
                     backgroundColor: isMobile ? "transparent" : "#f2f4f7",
                   }}
                 >
-                  {isMobile  ? <Carousel className=" flex sticky_filter-carousel">
-                    <CarouselContent opts={{ containScroll: "trimSnaps" }} className="flex justify-between  pl-2">
-                      {isMobile && (
-                        <>
-                          <CarouselItem className="basis-auto pl-2 ">
-                            {" "}
-                            <CustomSortMenu
+                  {isMobile ? (
+                    <Carousel className=" flex sticky_filter-carousel">
+                      <CarouselContent opts={{ containScroll: "trimSnaps" }} className="flex justify-between  pl-2">
+                        {isMobile && (
+                          <>
+                            <CarouselItem className="basis-auto pl-2 ">
+                              {" "}
+                              <CustomSortMenu
+                                sx={{
+                                  padding: isMobile ? "6px 11px" : "10px 11px",
+                                }}
+                              />
+                            </CarouselItem>
+                            <CarouselItem className="basis-auto pl-2">
+                              <DrawerFilter />
+                            </CarouselItem>
+                          </>
+                        )}
+                        {changablestrategyTags.length > 0 && (
+                          <CarouselItem className="basis-auto pl-2">
+                            <StrategyCheck />
+                          </CarouselItem>
+                        )}
+                        {sector.length > 0 && (
+                          <CarouselItem className="basis-auto pl-2">
+                            <SectorCheck />
+                          </CarouselItem>
+                        )}
+                        {sortedStrategies?.map((chip) => (
+                          <CarouselItem className="basis-auto pl-2">
+                            <Chip
+                              key={chip.id}
+                              avatar={
+                                <img
+                                  src={chip.image}
+                                  alt={chip.name}
+                                  style={{
+                                    width: 14,
+                                    height: 14,
+                                    filter:
+                                      strategyTag.includes(chip.id) && chip.id == "most-recent"
+                                        ? "brightness(100)"
+                                        : "none",
+                                  }}
+                                />
+                              }
+                              label={chip.name}
+                              clickable
+                              onClick={() => handleChipClick(chip.id)}
+                              onDelete={strategyTag.includes(chip.id) ? () => handleChipDelete(chip.id) : undefined}
+                              deleteIcon={
+                                <CloseIcon
+                                  sx={{
+                                    color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
+                                    backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
+                                    borderRadius: "50%", // Make it rounded
+                                    padding: "4px", // Add padding for spacing
+                                  }}
+                                />
+                              }
                               sx={{
-                                padding: isMobile ? "6px 11px" : "10px 11px",
+                                paddingLeft: "16px",
+                                paddingRight: "16px",
+                                // borderRadius: "4px",
+                                borderRadius: isMobile ? "6px" : "0.5rem",
+                                // maxWidth: "179px !important",
+                                height: "46px !important",
+                                border: "1px solid #E4E7EC ",
+                                fontFamily: "Open Sans",
+                                backgroundColor: strategyTag.includes(chip.id) ? "#125b54" : "white",
+                                color: strategyTag.includes(chip.id) ? "white" : "inherit",
+                                "&:hover": {
+                                  backgroundColor: strategyTag.includes(chip.id) ? "#125b54" : "#e7f8f8",
+                                  transform: "scale(000.95)", // Adjust the scale value as needed
+                                  transition: "transform 0.3s ease", // Optional: Add transition for smooth scaling
+                                },
+                                minWidth: "auto", // Ensure text is not truncated
+                                whiteSpace: "nowrap", // Prevent text wrapping
+                                overflow: "visible", // Ensure full visibility of text
+                                display: "inline-flex", // Allow the chip to grow based on content
+                                fontSize: "14px",
+                                fontWeight: 500,
                               }}
                             />
                           </CarouselItem>
+                        ))}
+                        {changablestrategyTags.length <= 0 && (
                           <CarouselItem className="basis-auto pl-2">
-                            <DrawerFilter />
+                            <StrategyCheck />
                           </CarouselItem>
-                        </>
-                      )}
-                      {changablestrategyTags.length > 0 && (
-                        <CarouselItem className="basis-auto pl-2">
-                          <StrategyCheck />
-                        </CarouselItem>
-                      )}
-                      {sector.length > 0 && (
-                        <CarouselItem className="basis-auto pl-2">
-                          <SectorCheck />
-                        </CarouselItem>
-                      )}
-                      {sortedStrategies?.map((chip) => (
-                        <CarouselItem className="basis-auto pl-2">
-                          <Chip
-                            key={chip.id}
-                            avatar={
-                              <img
-                                src={chip.image}
-                                alt={chip.name}
-                                style={{
-                                  width: 14,
-                                  height: 14,
-                                  filter:
-                                    strategyTag.includes(chip.id) && chip.id == "most-recent"
-                                      ? "brightness(100)"
-                                      : "none",
-                                }}
-                              />
-                            }
-                            label={chip.name}
-                            clickable
-                            onClick={() => handleChipClick(chip.id)}
-                            onDelete={strategyTag.includes(chip.id) ? () => handleChipDelete(chip.id) : undefined}
-                            deleteIcon={
-                              <CloseIcon
-                                sx={{
-                                  color: strategyTag.includes(chip.id) ? "white !important" : "inherit",
-                                  backgroundColor: "rgba(15, 15, 15, 0.47)", // Set background color
-                                  borderRadius: "50%", // Make it rounded
-                                  padding: "4px", // Add padding for spacing
-                                }}
-                              />
-                            }
-                            sx={{
-                              paddingLeft: "16px",
-                              paddingRight: "16px",
-                              // borderRadius: "4px",
-                              borderRadius: isMobile ? "6px" : "0.5rem",
-                              // maxWidth: "179px !important",
-                              height: "46px !important",
-                              border: "1px solid #E4E7EC ",
-                              fontFamily: "Open Sans",
-                              backgroundColor: strategyTag.includes(chip.id) ? "#125b54" : "white",
-                              color: strategyTag.includes(chip.id) ? "white" : "inherit",
-                              "&:hover": {
-                                backgroundColor: strategyTag.includes(chip.id) ? "#125b54" : "#e7f8f8",
-                                transform: "scale(000.95)", // Adjust the scale value as needed
-                                transition: "transform 0.3s ease", // Optional: Add transition for smooth scaling
-                              },
-                              minWidth: "auto", // Ensure text is not truncated
-                              whiteSpace: "nowrap", // Prevent text wrapping
-                              overflow: "visible", // Ensure full visibility of text
-                              display: "inline-flex", // Allow the chip to grow based on content
-                              fontSize: "14px",
-                              fontWeight: 500,
-                            }}
-                          />
-                        </CarouselItem>
-                      ))}
-                      {changablestrategyTags.length <= 0 && (
-                        <CarouselItem className="basis-auto pl-2">
-                          <StrategyCheck />
-                        </CarouselItem>
-                      )}
-                      {sector.length <= 0 && (
-                        <CarouselItem className="basis-auto pl-2">
-                          {" "}
-                          <SectorCheck />
-                        </CarouselItem>
-                      )}
-                    </CarouselContent>
+                        )}
+                        {sector.length <= 0 && (
+                          <CarouselItem className="basis-auto pl-2">
+                            {" "}
+                            <SectorCheck />
+                          </CarouselItem>
+                        )}
+                      </CarouselContent>
 
-                    <CarouselPrevious className=" z-50 h-7 w-7 p-1 left-[0px] top-[50%] disabled:hidden border-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-black  hover:text-white   bg-black text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
-                    <CarouselNext
-                      className={` z-50 h-7 w-7 p-1 right-0  top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]`}
+                      <CarouselPrevious className=" z-50 h-7 w-7 p-1 left-[0px] top-[50%] disabled:hidden border-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-black  hover:text-white   bg-black text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+                      <CarouselNext
+                        className={` z-50 h-7 w-7 p-1 right-0  top-[50%] disabled:hidden border-none  focus-visible:ring-0 focus-visible:ring-offset-0  bg-black text-white hover:bg-black  hover:text-white shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]`}
+                      />
+                    </Carousel>
+                  ) : (
+                    <LegendSection
+                      imgClassName=" sm:!h-[12px] sm:!w-[12px] sm:text-[12px]"
+                      labelClassName=" sm:text-sm"
+                      className=" !py-0  pr-4"
                     />
-                  </Carousel> : <LegendSection className=" !py-0  pr-4" />}
-                  
+                  )}
                 </Box>
               </Box>
             </div>
@@ -229,7 +236,27 @@ function Filtermenu() {
                       type="search"
                       placeholder="Search Stocks by Name"
                       value={searchStock}
-                      onChange={(e) => setSearchStock(e.target.value)}
+                      onChange={(e) => {
+                        const element = document.querySelector("#trackRecordList");
+
+                        if (element) {
+                          const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+                          const targetScrollPosition = elementTop - 140;
+
+                          // Check if already at the target position
+                          if (Math.abs(window.pageYOffset - targetScrollPosition) > 1) {
+                            console.log("ALREADY AT POSITION")
+                            // Allowing a small margin for floating-point differences
+                            window.scrollTo({
+                              top: targetScrollPosition,
+                              behavior: "smooth",
+                            });
+                          } else {
+                            console.log("Already at the target position");
+                          }
+                        }
+                        setSearchStock(e.target.value);
+                      }}
                       onFocus={() => setIsExpanded(true)}
                       ref={inputRef}
                       className={`transition-all duration-500 ease-linear bg-white`}
@@ -289,10 +316,11 @@ function Filtermenu() {
             )}
           </div>
         </div>
-        {isMobile && <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto"> 
-        <LegendSection className=" pt-0 pb-2"/>
-        </div>}
-        
+        {isMobile && (
+          <div className="w-[min(1280px,calc(100%-25px))] min-w-[328px] mx-auto">
+            <LegendSection className=" pt-0 pb-2" />
+          </div>
+        )}
       </div>
     </>
   );

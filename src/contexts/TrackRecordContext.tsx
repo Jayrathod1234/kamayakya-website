@@ -146,7 +146,7 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
         sortBy,
         sortValue,
         debouncedSearchStock,
-        isLoggedIn,
+        // isLoggedIn,
         recency, // Add additional parameters here
         timeLeft,
         upsideLeft,

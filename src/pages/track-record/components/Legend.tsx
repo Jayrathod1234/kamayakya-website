@@ -1,5 +1,6 @@
 // import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components.v2/ui/tooltip";
 import Tooltip from "@/components.v3/common/Tooltip";
+import { cn } from "@/lib/utils";
 import { Arrow } from "@radix-ui/react-tooltip";
 import { useState } from "react";
 
@@ -9,12 +10,16 @@ export default function Legend({
   tooltipContent,
   dialogHeader,
   iconSize=10,
+  labelClassName,
+  imgClassName
 }: {
   label: string;
   icon: string | React.ReactNode;
   tooltipContent?: React.ReactNode;
   dialogHeader?:string;
   iconSize?:number;
+  labelClassName?:string;
+  imgClassName?:string;
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -22,7 +27,7 @@ export default function Legend({
       {typeof icon === "string" ? (
         <span className={`inline-block bg-white h-[${iconSize + 2}] w-[${iconSize + 2}] rounded-full border border-white h0`}>
           <img
-            className=" object-cover"
+            className={cn(" object-cover", imgClassName)}
             height={iconSize}
             width={iconSize}
             src={icon}
@@ -32,7 +37,7 @@ export default function Legend({
       ) : (
         icon
       )}
-      <p className=" text-2xs text-[rgba(102,112,133,1)] whitespace-nowrap">{label}</p>
+      <p className={cn(" text-2xs text-[rgba(102,112,133,1)] whitespace-nowrap", labelClassName)}>{label}</p>
       {tooltipContent && (
         <Tooltip dialogHeader={dialogHeader} tooltipTrigger={<img height={16} width={16} src="/assets/ph_info-duotone-white.svg" />} tooltipContent={tooltipContent}/>
         // <TooltipProvider delayDuration={0}>

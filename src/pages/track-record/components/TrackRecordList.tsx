@@ -3,6 +3,7 @@ import TrackRecordCardSkeleton from "./skeleton/TrackRecordCardSkeleton";
 import TrackRecordStockCard from "./TrackRecordStockCard";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
+import { useEffect } from "react";
 
 const TrackRecordList = () => {
   const { response, isLoading, fetchNextPage, isFetchingNextPage } = useTrackRecord();
@@ -27,8 +28,10 @@ const TrackRecordList = () => {
     );
   }
 
+
+
   return (
-    <div className=" grid grid-cols-1 lg:grid-cols-2  gap-5">
+    <div id="trackRecordList" className=" grid grid-cols-1 lg:grid-cols-2  gap-5 ">
       {items.map((item) => (
         <TrackRecordStockCard key={item.id} {...item} />
       ))}

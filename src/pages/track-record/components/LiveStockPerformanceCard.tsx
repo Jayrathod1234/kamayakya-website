@@ -26,12 +26,12 @@ let LEGENDS = [
   { label: "Low (<-15%)", value: "", iconColor: "bg-[rgba(240,68,56,1)]" },
 ];
 
-const getIconColor = (label: string,type:string) => {
+const getIconColor = (label: string, type: string) => {
   switch (label) {
     case "high":
       return "bg-[rgba(18,183,106,1)]";
     case "medium":
-      return  type === "EXIT" ? "bg-[rgba(240,68,56,1)]":"bg-[rgba(208,213,221,1)]";
+      return type === "EXIT" ? "bg-[rgba(240,68,56,1)]" : "bg-[rgba(208,213,221,1)]";
     case "low":
       return "bg-[rgba(240,68,56,1)]";
     default:
@@ -39,11 +39,32 @@ const getIconColor = (label: string,type:string) => {
   }
 };
 
-const Legends = ({ label, value, iconColor, type }: { label: string; value: number; iconColor: string;type:string; }) => {
+const Legends = ({
+  label,
+  value,
+  iconColor,
+  type,
+}: {
+  label: string;
+  value: number;
+  iconColor: string;
+  type: string;
+}) => {
   const { isLoggedIn } = useContext(AuthContext);
   const isBlur = !isLoggedIn;
-  let legend = label === "high" && type === "LIVE" ? "High (>15%)" : label === "medium" && type === "LIVE" ? "Medium (15% to -15%)" :label === "low" && type === "LIVE" ? "Low (<-15%)" : label === "high" && type === "EXIT" ? "Profit Exits (>15%)" : label === "medium" && type === "EXIT" ? "Loss Exits (< -15%)":""
-  
+  let legend =
+    label === "high" && type === "LIVE"
+      ? "High (>15%)"
+      : label === "medium" && type === "LIVE"
+      ? "Medium (15% to -15%)"
+      : label === "low" && type === "LIVE"
+      ? "Low (<-15%)"
+      : label === "high" && type === "EXIT"
+      ? "Profit Exits"
+      : label === "low" && type === "EXIT"
+      ? "Loss Exits"
+      : "";
+
   return (
     <div className="flex items-baseline ">
       <div className=" flex items-baseline gap-x-1 min-w-0">
@@ -65,25 +86,38 @@ export function LiveStockPerformanceCard({ type, performance }: { type: string; 
     responsive: true,
     maintainAspectRatio: true,
     cutout: "65%",
-    plugins:{
-      tooltip:{
-        enabled:false,
-      }
-    }
-    
-
+    plugins: {
+      tooltip: {
+        enabled: false,
+      },
+    },
   };
 
   const label = type === "LIVE" ? "Live Stock Performance" : "Exited Stock Performance ";
-  const chartData = isLoggedIn ? Object.entries(performance || {}) : Object.entries({ high: 30, medium: 1, low: 2 });
-
+  const chartData = isLoggedIn ? Object.entries(performance || {}) : Object.entries({ high: 30, medium: 0, low: 2 });
+  // type === "EXIT"
+  // ? chartData.map((item) => {
+  //     if (item[0] === "high") {
+  //       item[1] = item[1] + chartData[0][1];
+  //     }
+  //     if (item[0] === "medium") {
+  //       item[1] = 0;
+  //     }
+  //     return item[1];
+  //   })
+  // :
   const data = {
     datasets: [
       {
         label: "# of Votes",
-        data: chartData.map((item) => item[1]),
+        data:
+         chartData.map((item) => item[1]),
         borderWidth: 1,
-        backgroundColor: ["rgba(18, 183, 106, 1)", type==="EXIT" && isLoggedIn ?  "rgba(240, 68, 56, 1)":"rgba(208, 213, 221, 1)", "rgba(240, 68, 56, 1)"],
+        backgroundColor: [
+          "rgba(18, 183, 106, 1)",
+          type === "EXIT" && isLoggedIn ? "rgba(240, 68, 56, 1)" : "rgba(208, 213, 221, 1)",
+          "rgba(240, 68, 56, 1)",
+        ],
       },
     ],
   };
@@ -96,9 +130,17 @@ export function LiveStockPerformanceCard({ type, performance }: { type: string; 
           <Doughnut data={data} options={options} />
         </div>
         <div className=" h-full flex flex-col gap-y-3 w-full">
-          {chartData.filter(legend=>type=== "EXIT" && legend[0]!== "low" ? true: type=== "LIVE").map((legend, index) => (
-            <Legends key={legend[0]} type={type} label={legend[0]} iconColor={getIconColor(legend[0],type)} value={legend[1]} />
-          ))}
+          {chartData
+            .filter((legend) => (type === "EXIT" && legend[0] !== "medium" ? true : type === "LIVE"))
+            .map((legend, index) => (
+              <Legends
+                key={legend[0]}
+                type={type}
+                label={legend[0]}
+                iconColor={getIconColor(legend[0], type)}
+                value={ legend[1]}
+              />
+            ))}
         </div>
       </div>
     </div>
