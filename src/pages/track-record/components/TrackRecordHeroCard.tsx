@@ -52,7 +52,7 @@ export const TrackRecordHeroCard = ({
   entry_price_gainer,
   start_date_gainer,
   entry_price_loser,
-  start_date_loser
+  start_date_loser,
 }: TTrackRecordHeroCard) => {
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const recommendationLabel =
@@ -105,10 +105,10 @@ export const TrackRecordHeroCard = ({
       {/* Lower Section */}
       <div className=" flex mt-4 gap-3">
         <LoginPrompt>
-          <TopGainerLoserCard entry_price={entry_price_gainer} start_date={start_date_gainer}  stock_live_prices={stock_live_prices} type={type} isBest={true} stockStat={bestStocks} />
+          <TopGainerLoserCard entry_price={entry_price_gainer} start_date={start_date_gainer}  stock_live_prices={ type==="LIVE" ? stock_live_prices?.top_gainer?.stock_live_prices:stock_live_prices?.best_exit?.stock_live_prices} type={type} isBest={true} stockStat={bestStocks} />
         </LoginPrompt>
         <LoginPrompt>
-          <TopGainerLoserCard entry_price={entry_price_loser} start_date={start_date_loser}  stock_live_prices={stock_live_prices} type={type} isBest={false} stockStat={worstStocks} />
+          <TopGainerLoserCard entry_price={entry_price_loser} start_date={start_date_loser}  stock_live_prices={ type==="LIVE" ? stock_live_prices?.top_loser?.stock_live_prices:stock_live_prices?.worst_exit?.stock_live_prices} type={type} isBest={false} stockStat={worstStocks} />
         </LoginPrompt>
       </div>
       {/* Lower Section end */}

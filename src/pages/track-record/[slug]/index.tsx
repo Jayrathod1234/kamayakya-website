@@ -24,6 +24,7 @@ import LineChart from "@/components.v3/common/LineChart";
 import { TrackRecordProvider } from "@/contexts/TrackRecordContext";
 import { TrackRecordCommonProvider } from "@/contexts/TrackRecordCommonContext";
 import { Carousel, CarouselItem, CarouselContent } from "@/components.v2/ui/carousel";
+import { Tooltip as MuiTooltip } from "@mui/material";
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -853,8 +854,8 @@ function StockDetailsSection() {
                             <div className=" mt-6">
                               <ProjectedInvestmentGrowth
                                 action={action}
-                                upside_left={upside_left}
-                                upside_left_time={upside_left_time}
+                                upside_left={gain_loss}
+                                upside_left_time={return_time}
                               />
                             </div>
                             <LegendSection
@@ -1165,8 +1166,8 @@ function StockDetailsSection() {
 
                         <div className="pt-6">
                           <ProjectedInvestmentGrowth
-                            upside_left={upside_left}
-                            upside_left_time={upside_left_time}
+                            upside_left={ gain_loss}
+                            upside_left_time={return_time}
                             action={action}
                           />
                         </div>
@@ -1295,6 +1296,7 @@ function StockDetailsSection() {
                             <div className="flex-1 min-w-fit">
                               {hasVideo ? (
                                 <div className="flex-1 group">
+                                  <MuiTooltip title={watch_video?.youtube_title}>
                                   <button
                                     className="flex-1 text-nowrap w-full group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
                                     onClick={() => window.open(watch_video.youtube_link, "_blank")}
@@ -1306,6 +1308,7 @@ function StockDetailsSection() {
                                     />
                                     <span className="text-nowrap text-[16px]">Watch Video</span>
                                   </button>
+                                  </MuiTooltip>
                                 </div>
                               ) : (
                                 <div className="relative group w-full">

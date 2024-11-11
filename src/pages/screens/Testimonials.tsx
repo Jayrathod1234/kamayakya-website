@@ -86,7 +86,7 @@ const Testimonials = () => {
 						display: "flex",
 						alignItems: "center",
 						justifyContent:"center",
-						gap:"50px",
+						rowGap:"50px",
 						flexWrap: "wrap",
 						padding: "0px",
 						"@media only screen and (max-width: 768px)": {
@@ -270,20 +270,38 @@ const Testimonials = () => {
 						</div>
 					</Box>
 					<Box
+						sx={{
+							// display: "flex",
+							minWidth: 500,
+							maxWidth: 500,
+							marginRight: "20px",
+							height: 300,
+							// mt: "20px",
+							borderRadius: "15px",
+							padding: "20px",
+							boxShadow: "0 10px 26px rgba(0, 0, 0, 0.1)",
+							gap: "25px",
+							"@media only screen and (max-width: 768px)": {
+								marginRight: "0px",
+								minWidth: '380px',
+								maxWidth: '380px',
+								height: "100%",
+								alignSelf: 'center'
+							},
+						}}
+					>
+						<Box
 							sx={{
-								// display: "flex",
-								minWidth: 500,
-								maxWidth: 500,
-								marginRight: "20px",
-								height: 300,
-								// mt: "20px",
-								borderRadius: "15px",
-								padding: "20px",
-								boxShadow: "0 10px 26px rgba(0, 0, 0, 0.1)",
-								gap: "25px",
+								position: "absolute",
+								marginLeft: "185px",
+								marginTop: "-65px",
+								"@media only screen and (max-width: 768px)": {
+									marginLeft: "125px"
+								},
 							}}
 						>
-							<div
+							<img
+								src="/atharva-agashe.jpeg"
 								style={{
 									width: "95px",
 									height: "95px",
@@ -407,7 +425,7 @@ const Testimonials = () => {
 								</Text>
 							</div>
 						</Box> */}
-				{/* </Box> */}
+				</Box>
 				{/* </Marquee> */}
 				{/* </div> */}
 				{/* <div

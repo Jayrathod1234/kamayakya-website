@@ -307,19 +307,20 @@ function LineChartMain({
     tooltipEl.style.pointerEvents = "none";
     let targetIndex = stock_targets?.findIndex((item) => item.target_price === price);
     let targetLabel =
-      targetIndex === 0 && stock_action === "SELL" && stock_targets[targetIndex].target_met
-        ? "Exit Price"
-        : targetIndex >= 0
+      // targetIndex === 0 && stock_action === "SELL" && stock_targets[targetIndex].target_met
+      //   ? "Exit Price"
+      //   :
+         targetIndex >= 0
         ? `Target ${stock_targets?.length - targetIndex}`
         : entry_price === price
         ? "Entry Price"
-        : price === liveData[liveData.length - 1].price
-        ? "CMP"
-        : "";
+        : price === liveData[liveData.length - 1].price && stock_action === "SELL"
+        ? "Exit Price"
+        : "CMP";
     const targetItem = stock_targets && stock_targets.find((item) => item.target_price === price);
 
     const isTargetNotMet = targetItem && targetItem.target_met === null;
-
+    // if(isTargetNotMet) return null
     let innerHtml = `
         <div class="relative flex flex-col items-center open_sans">
         <div class="w-full ">
@@ -353,7 +354,7 @@ function LineChartMain({
         targetLabel && targetLabel.includes("Target")
           ? `<span class=${` ${isTargetNotMet ? "text-[#F98800]" : "text-success-500"}`}>${
               isTargetNotMet
-                ? new Date(stock_targets[targetIndex].target_date) < Date.now()
+                ? targetIndex!==0
                   ? "Inactive"
                   : "Active"
                 : "Met"
@@ -399,7 +400,7 @@ function LineChartMain({
 
       // Target annotations
       stock_targets.forEach((target, i) => {
-        const target_not_met = new Date(target.target_date).getTime() <= Date.now();
+        const target_not_met = !target.target_met && i !==0;
         // Target marker
         {
           target.target_met &&
@@ -411,9 +412,7 @@ function LineChartMain({
               backgroundColor: "transparent",
               borderColor: "transparent",
               pointStyle: target.target_met
-                ? i === 0 && stock_action === "SELL"
-                  ? exit_mark
-                  : target_met_img
+                ? target_met_img
                 : target_active_img,
               radius: 8,
               enter: handleAnnotationTooltip,
@@ -424,7 +423,7 @@ function LineChartMain({
             });
         }
 
-        if (i === 0 && !target_not_met && stock_action === "SELL") return;
+        // if (i === 0 && !target_not_met && stock_action === "SELL") return;
         arr.push({
           type: "label",
           // xValue:new Date(target.created).getTime(),
@@ -438,7 +437,7 @@ function LineChartMain({
 
           content: isMobile ? `T${stock_targets.length - i}` : `Target ${stock_targets.length - i}`,
           backgroundColor: "transparent",
-          color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
+          color: target.target_met || target_not_met || stock_action === "SELL" ? "#12B76A" : "#FF7F09",
           xAdjust: (ctx) => {
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
@@ -446,10 +445,11 @@ function LineChartMain({
             return isMobile ? chartWidth / 2 + 15 : chartWidth / 2 + 25; // adjust this to position it properly
           },
         });
+        
         arr.push({
           type: "label",
           yValue: target.target_price,
-          content: target.target_met ? check_mark : target_not_met ? cross_mark : target_active_img,
+          content: target.target_met ? check_mark : target_not_met ? cross_mark : stock_action!=="SELL"? target_active_img:cross_mark,
           backgroundColor: "transparent",
           color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
           //   position: "end",
@@ -462,7 +462,7 @@ function LineChartMain({
         });
         arr.push({
           type: "line",
-          borderColor: target.target_met ? "#99D9D4" : target_not_met ? "#EDF0F5" : "#FFD19A",
+          borderColor: target.target_met ? "#99D9D4" : target_not_met || stock_action === "SELL" ? "#EDF0F5" : "#FFD19A",
           borderWidth: 1,
           borderDash: [6, 6],
           scaleID: "y",
@@ -478,7 +478,7 @@ function LineChartMain({
         yValue: lastPoint.price,
         backgroundColor: "transparent",
         borderColor: "transparent",
-        pointStyle: cmp_img,
+        pointStyle: stock_action === "SELL"? exit_mark: cmp_img,
         radius: 8,
         enter: handleAnnotationTooltip,
         leave: (context) => {
