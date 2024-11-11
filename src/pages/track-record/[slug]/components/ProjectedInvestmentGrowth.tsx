@@ -29,7 +29,8 @@ export default function ProjectedInvestmentGrowth({ upside_left, upside_left_tim
         <span className="text-[var(--text-color)] text-sm md:text-base lg:text-sm font-bold whitespace-nowrap">
           ₹{(100000 + 1000 * upside_left).toLocaleString("hi")}
         </span>{" "}
-        likely within {upside_left_time}
+        {action === "SELL"? "at the time of exit/sell.":`likely within ${upside_left_time}`}
+        
       </div>
     </div>
   );

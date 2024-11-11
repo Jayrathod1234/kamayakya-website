@@ -103,7 +103,7 @@ any) => {
             latest_youtube_video?.youtube_title ? (
               <a
                 className={` text-inherit ${!isLoggedIn || !stock_name ? "pointer-events-none" : ""}`}
-                href={latest_youtube_video?.youtube_title}
+                href={latest_youtube_video?.youtube_link}
                 target="_blank"
               >
                 <WatchVideo />
@@ -145,7 +145,7 @@ any) => {
             targetTextClass="text-[10px] sm:text-[12px]"
             inactiveTextClass="text-[10px] sm:text-[12px]"
               containerClass={`py-[3px] px-2 h-6 items-center border ${
-                target_status === "active" && (new Date(Array.isArray(stock_targets) && (stock_targets[0]?.target_date) > Date.now())) ? "border-[#FEF0DF]" : ""
+                target_status === "active" ? "border-[#FEF0DF]" : ""
               }`}
               activeIconClass=" h-[10px] w-[10px]"
               activeIcon
@@ -156,7 +156,7 @@ any) => {
                     }`
                   : `${target_number} at ${latest_target_price ? `₹${latest_target_price}` : ""}`
               }
-              active={target_status === "active" && ( Array.isArray(stock_targets ) && (new Date(stock_targets[0]?.target_date) > Date.now())) ? true : false}
+              active={target_status === "active"  ? true : false}
             />
             {/* <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
             <img src="/assets/Component 8.svg" alt="" className="w-3" />
