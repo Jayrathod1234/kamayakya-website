@@ -157,8 +157,9 @@ export default function CouponModal() {
           {/* INPUT SECTION END*/}
         </DialogHeader>
 
-        <div className=" mt-3 mb-[30px]  flex flex-col space-y-3 overflow-y-scroll">
-          {discountList?.map((discount) => (
+        
+          {discountList && discountList.length > 0? discountList.map((discount) => (
+            <div className=" mt-3 mb-[30px]  flex flex-col space-y-3 overflow-y-scroll">
             <CouponListItem
               active={discount?.discountCode === currentDiscountSelected}
               onClick={() =>
@@ -169,7 +170,11 @@ export default function CouponModal() {
               discountCode={discount?.discountCode as string}
               discountAmt={discount?.discountAmt as string}
             />
-          ))}
+            </div>
+          )) :<div className=" flex flex-col h-full items-center justify-center my-auto">
+              <img height={90} width={90} src="/assets/no-offer.svg" alt="no-coupon" />
+              <p className=" text-center text-gray-400 text-2xs max-w-[150px]">Looks like you don’t have any coupons.</p>
+            </div>}
           {/*
           <CouponListItem />
           <CouponListItem />
@@ -178,7 +183,7 @@ export default function CouponModal() {
           {/* <CouponListItem/> */}
           {/* <CouponListItem/> */}
           {/* <CouponListItem/> */}
-        </div>
+       
 
         <DialogFooter className=" w-full mt-auto">
           <div className=" mt-auto flex justify-between pt-4 border-t border-gray-150 w-full">

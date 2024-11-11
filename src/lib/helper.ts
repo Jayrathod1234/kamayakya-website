@@ -10,7 +10,8 @@ export const formatPlans = (data: Array<TPlanResponse>) => {
         
         // )
         if(accPlan.hasOwnProperty("3months")){
-          let checkAdvancedPlanExist = accPlan["3months"].filter(item=>item.name === "advanced")
+          let checkAdvancedPlanExist = accPlan["3months"].find(item=>item.name === "advanced")
+          
           if(!checkAdvancedPlanExist){
             accPlan["3months"].push({"name":"advanced","duration_in_days":90,id:"",amount:0,perMonth:0})
           }

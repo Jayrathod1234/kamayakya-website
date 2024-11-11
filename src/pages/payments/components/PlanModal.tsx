@@ -73,8 +73,11 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
         }
       }
       if (activePlan.is_active) {
-        if (plan.name.toLowerCase() === "free") {
+        if (plan.name.toLowerCase() === "free" || (plan.name.toLowerCase()=== "advanced" && plan.duration_in_days===90)) {
           btnText = "Get Free Access";
+          if((plan.name.toLowerCase()=== "advanced" && plan.duration_in_days===90)){
+            btnText = "Change Plan"
+          }
           ctaDisabled = true;
         }
       }

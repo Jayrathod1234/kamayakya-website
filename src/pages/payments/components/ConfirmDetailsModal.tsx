@@ -39,6 +39,8 @@ export default function ConfirmDetailsModal({
     }
   },[openDialog])
 
+  console.log(userDetails.address, address)
+
   return (
     <DialogContent className=" !p-6 !rounded-[20px] min-w-fit md:min-w-[624px] max-w-[784px] open_sans">
       <div className=" flex flex-col md:flex-row gap-6">

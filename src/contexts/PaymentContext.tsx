@@ -113,13 +113,13 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
       const res = await getUserKycStatus();
       setIsAadharAlreadyVerified(res?.is_aadhar_verified);
       setIsPanAlreadyVerified(res?.is_pan_verified);
-      let address = Object.values(res?.address_details || {}).filter(value=>value).join(", ");
+      // let address = Object.values(res?.address_details || {}).filter(value=>value).join(", ");
       setUserDetails((prev) => ({
         ...prev,
         name: res?.name,
         email: res?.email,
         phone: res?.mobile,
-        address: address,
+        address: res?.address_details,
         aadhar:res?.aadhar_no
       }));
     } catch (e) {

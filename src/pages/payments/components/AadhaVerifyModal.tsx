@@ -9,8 +9,6 @@ import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import React, { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 
-
-
 export default function AadhaVerifyModal({
   aadhar,
   requestId,
@@ -18,8 +16,7 @@ export default function AadhaVerifyModal({
   setDisplayModal,
   setOpenDialog,
   openDialog,
-  displayModal
-  
+  displayModal,
 }: {
   setAadharRequestId: React.Dispatch<React.SetStateAction<string>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,13 +31,14 @@ export default function AadhaVerifyModal({
   const { toast } = useToast();
   const [secondsRemaining, setSecondsRemaining] = useState(15);
   const [resendOtp, setResendOtp] = useState(false);
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleVerifyAadharOtp = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const res = await postAadharOtp({ aadhar, request_id: requestId, otp });
-      let address = Object.values(res?.address || {}).filter(value=>value).join(", ");
+      // let address = Object.values(res?.address || {}).filter(value=>value).join(", ");
+      let address = res?.address;
       if (res?.is_aadhar_verified) {
         setOpenDialog(false);
         toast({
@@ -49,23 +47,22 @@ export default function AadhaVerifyModal({
         });
         return;
       }
-      setUserDetails((prev) => ({ ...prev, pan: res?.pan_number, name: res?.name, address: address,aadhar:aadhar }));
+      setUserDetails((prev) => ({ ...prev, pan: res?.pan_number, name: res?.name, address: address, aadhar: aadhar }));
       setDisplayModal("CONFIRM");
     } catch (e) {
-  
       toast({
         variant: "warn",
         description: e?.response?.data?.message,
       });
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleAadharOtp = async () => {
     try {
       // setAadharOtpLoading(true);
-      setResendOtp(true)
+      setResendOtp(true);
       const res = await getAadharOtp({ aadhaar: aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };
       //
@@ -99,20 +96,20 @@ export default function AadhaVerifyModal({
     }
   }, [secondsRemaining]);
 
-  useEffect(()=>{
-    if(openDialog && displayModal === "AADHAR"){
-      setSecondsRemaining(15)
+  useEffect(() => {
+    if (openDialog && displayModal === "AADHAR") {
+      setSecondsRemaining(15);
     }
-    if(!openDialog){
-      setOtp("")
+    if (!openDialog) {
+      setOtp("");
     }
-  },[openDialog])
+  }, [openDialog]);
 
   return (
     <DialogContent className=" !p-6 !rounded-[20px] min-w-fit md:min-w-[624px] max-w-[784px]">
       <div className=" flex flex-col md:flex-row gap-6">
         <div className="bg-[#FEB359] flex items-center justify-center px-[46px] h-[380px] min-w-fit rounded-[20px]">
-          <img  width={192} height={192} src="/assets/verifyAadhar.gif"/>
+          <img width={192} height={192} src="/assets/verifyAadhar.gif" />
         </div>
 
         <div className=" flex flex-col gap-y-6">
@@ -149,7 +146,14 @@ export default function AadhaVerifyModal({
             </div>
             <p className=" text-2xs mt-2">
               {" "}
-              Haven’t received the OTP? {secondsRemaining === 0 ? <button className=" text-[#1D4040] text-2xs font-semibold" onClick={handleAadharOtp}>Resend</button> : `${secondsRemaining} seconds`}
+              Haven’t received the OTP?{" "}
+              {secondsRemaining === 0 ? (
+                <button className=" text-[#1D4040] text-2xs font-semibold" onClick={handleAadharOtp}>
+                  Resend
+                </button>
+              ) : (
+                `${secondsRemaining} seconds`
+              )}
             </p>
             <div className=" mt-7 p-3 bg-[#F8FFFE] border border-[#E7F8F8] rounded-lg flex gap-x-2 items-center">
               {/* <Checkbox onCheckedChange={(checked) => setConsetGranted(checked as boolean)} /> */}

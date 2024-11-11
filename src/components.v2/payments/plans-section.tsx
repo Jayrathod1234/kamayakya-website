@@ -194,14 +194,14 @@ export function PlansSection() {
               features={["Main Board"]}
               selected={currentPlanViewing === "core"}
             />
-            {currentTab !== "3months" && (
+            {/* {currentTab !== "3months" && ( */}
               <PlansMobileTab
                 onClick={() => handlePlanSelect("advanced")}
                 plan="ADVANCED"
                 features={["SME Board"]}
                 selected={currentPlanViewing === "advanced"}
               />
-            )}
+            {/* )} */}
             <PlansMobileTab
               onClick={() => handlePlanSelect("vip")}
               plan="VIP"
@@ -239,7 +239,7 @@ export function PlansSection() {
             <>
               {plans[currentTab].map((plan: TPlanResponse) => {
                 const { btnText, ctaDisabled, planName, priceStrikeThrough } = handlePlanProps(plan);
-
+                if(currentTab === "3months" && planName === "advanced") return
                 return (
                   <PlanCardDesktop
                     active={activePlan.plan === plan.name}
