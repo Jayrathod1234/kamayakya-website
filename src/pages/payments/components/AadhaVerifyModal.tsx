@@ -2,7 +2,7 @@ import { getAadharOtp, postAadharOtp } from "@/api/payment";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Checkbox } from "@/components.v2/ui/checkbox";
-import { DialogContent } from "@/components.v2/ui/dialog";
+import { DialogClose, DialogContent } from "@/components.v2/ui/dialog";
 import { useToast } from "@/components.v2/ui/use-toast";
 import { blockInvalidChar } from "@/components/LoginCard";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
@@ -17,6 +17,7 @@ export default function AadhaVerifyModal({
   setOpenDialog,
   openDialog,
   displayModal,
+  setBillingSameAsAadhar
 }: {
   setAadharRequestId: React.Dispatch<React.SetStateAction<string>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,6 +33,7 @@ export default function AadhaVerifyModal({
   const [secondsRemaining, setSecondsRemaining] = useState(15);
   const [resendOtp, setResendOtp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [fetchAadharFailed, setFetchAadharFailed] = useState(false);
 
   const handleVerifyAadharOtp = async () => {
     try {
@@ -47,13 +49,15 @@ export default function AadhaVerifyModal({
         });
         return;
       }
+      setBillingSameAsAadhar(true)
       setUserDetails((prev) => ({ ...prev, pan: res?.pan_number, name: res?.name, address: address, aadhar: aadhar }));
       setDisplayModal("CONFIRM");
     } catch (e) {
-      toast({
-        variant: "warn",
-        description: e?.response?.data?.message,
-      });
+      setFetchAadharFailed(true);
+      // toast({
+      //   variant: "warn",
+      //   description: e?.response?.data?.message,
+      // });
     } finally {
       setLoading(false);
     }
@@ -102,13 +106,42 @@ export default function AadhaVerifyModal({
     }
     if (!openDialog) {
       setOtp("");
+      setFetchAadharFailed(false)
     }
   }, [openDialog]);
 
+
+
+  if (fetchAadharFailed) {
+    return (
+      <DialogContent className=" !p-6 !rounded-[20px]  md:min-w-[400px] max-w-[400px] open_sans">
+        <div>
+          <img src="/assets/failed_aadhar_fetch.svg" alt="error-image" />
+          <h2 className=" font-semibold text-xl mt-6">Unable to fetch aadhar details!</h2>
+          <p className=" text-sm text-[#737373] mt-3">
+            Oops! We couldn’t fetch your Aadhaar details. Ensure your Aadhaar number is correct, or try again later.
+          </p>
+          <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto">
+            <DialogClose asChild>
+              <Button onClick={() => setFetchAadharFailed(false)} variant={ButtonVariant.tertiary}>
+                Close
+              </Button>
+            </DialogClose>
+            <Button onClick={() => setFetchAadharFailed(false)} variant={ButtonVariant.primary}>
+              Try again
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    );
+  }
+
+ 
+
   return (
-    <DialogContent className=" !p-6 !rounded-[20px] min-w-fit md:min-w-[624px] max-w-[784px]">
+    <DialogContent closeClassName=" -right-2 -top-[12px] opacity-100" className=" !p-6 !rounded-[20px]  w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px]">
       <div className=" flex flex-col md:flex-row gap-6">
-        <div className="bg-[#FEB359] flex items-center justify-center px-[46px] h-[380px] min-w-fit rounded-[20px]">
+        <div className="bg-[#FEB359] flex items-center justify-center px-[46px] h-[200px] sm:h-[380px] min-w-fit rounded-[20px]">
           <img width={192} height={192} src="/assets/verifyAadhar.gif" />
         </div>
 

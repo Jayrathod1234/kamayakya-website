@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { IconButton, InputAdornment, OutlinedInput, styled, TextField } from "@mui/material";
-import { ArrowLeft, Check, Mail } from "lucide-react";
+import { ArrowLeft, Check, Loader, Mail } from "lucide-react";
 import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { Checkbox } from "@/components.v2/ui/checkbox";
@@ -69,6 +69,7 @@ interface IFormInput {
 export default function DetailSection({ activeTab, setActiveTab }: { setActiveTab: any }) {
   const [gstChecked, setGstChecked] = useState(false);
   // const [aadhar, setAadhar] = useState("");
+  const [billingSameAsAadhar, setBillingSameAsAadhar] = useState(false);
   const [aadharRequestId, setAadharRequestId] = useState("");
   const [displayModal, setDisplayModal] = useState("AADHAR");
   const [openDialog, setOpenDialog] = useState(false);
@@ -301,13 +302,13 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   return (
     <div className="mt-9">
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
-        <div className="flex items-center mb-9">
+        <div className=" hidden sm:flex items-center mb-9">
           <button onClick={() => setActiveTab("review")}>
             <ArrowLeft size={18} />
           </button>
           <p className="ml-[5px] text-xs text-gray-600">Go Back to Previous Page</p>
         </div>
-        <div className="grid grid-cols-2 gap-y-9 gap-x-[22px]">
+        <div className="grid grid-cols-2 gap-y-6 sm:gap-y-9 gap-x-[22px]">
           {!isAadharAlreadyVerified ? (
             <div className="col-span-2">
               <div className=" flex justify-between items-center">
@@ -464,7 +465,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           </p> */}
             </div>
           ) : null}
-          {(isAadharAlreadyVerified && !isPanAlreadyVerified) || userDetails.pan ? (
+          {(isAadharAlreadyVerified && !isPanAlreadyVerified) ||
+          userDetails.pan ||
+          (userDetails.aadhar && !userDetails.pan) ? (
             <>
               <div className="col-span-2">
                 <p className="text-xs text-gray-500">
@@ -475,10 +478,10 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   control={control}
                   rules={{
                     required: "Enter PAN to continue",
-                    // pattern: {
-                    //   value: /^\d{4}\d{4}\d{4}$/,
-                    //   message: '"Enter a valid Aadhar number in the format XXXX XXXX XXXX"',
-                    // },
+                    pattern: {
+                      value: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
+                      message: "Enter a valid Pan number in the format XXXXX0000X",
+                    },
                   }}
                   render={({ field }) => (
                     <CustomTextField
@@ -496,12 +499,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                               <VerifyTag />
                             ) : (
                               <button
+                                className=" "
                                 onClick={() => {
-                                  setOpenDialog(true);
+                                  // setOpenDialog(true);
                                   handleAadharOtp({ aadhar: userDetails?.aadhar });
                                 }}
                               >
-                                Verify Pan
+                                {aadharOtpLoading ? <span className=" inline-flex items-center justify-center gap-x-1"><Loader color="#12B76A" fontSize={12} height={12} width={12}/><p className=" text-2xs text-[#12B76A]">Verifying</p></span>:<p className=" text-2xs text-brand-500 border-b border-dashed border-b-brand-500">Verify Pan</p>}
+                               
                               </button>
                             )}
                             {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
@@ -517,10 +522,12 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
               </div>
             </>
           ) : null}
-          {userDetails?.address && (
+          {/* || isAadharAlreadyVerified */}
+          {/* || userDetails.address */}
+          {aadharVerified  && (
             <div className="col-span-2">
               <p className="text-xs text-gray-500">
-                Address<span className="text-error-500">*</span>
+                Billing Address<span className="text-error-500">*</span>
               </p>
               <Controller
                 name="address"
@@ -540,13 +547,16 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                     variant="outlined"
                     fullWidth
                     InputProps={{
-                      readOnly: userDetails.address ? true : false,
+                      readOnly: true ,
+                      // billingSameAsAadhar ? true : false,
                       className: (userDetails.address ? true : false) ? "bg-[#F4F7FA99]" : "",
                       endAdornment: (
                         <InputAdornment position="end">
-                          {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
-                    <p className="text-sm font-semibold">Send OTP</p>
-                  </Button> */}
+                          {/* {billingSameAsAadhar? null : (
+                            <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
+                              <p className="text-sm font-semibold">Check</p>
+                            </Button>
+                          )} */}
                         </InputAdornment>
                       ),
                     }}
@@ -554,10 +564,26 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   />
                 )}
               />
+             {/* {!isAadharAlreadyVerified ? ( <div className=" flex items-center gap-x-2">
+                <Checkbox
+                  checked={billingSameAsAadhar}
+                  onCheckedChange={(checked) => {
+                    if (!checked) {
+                      setUserDetails((prev) => ({ ...prev, address: "" }));
+                     
+                    }
+                    setBillingSameAsAadhar(checked as boolean);
+                  }}
+                  id="billingAadharAddress"
+                />
+                
+                  <p className=" text-sm text-[#475467]">Billing address is the same as Aadhar address</p>
+                 
+              </div>): null} */}
             </div>
           )}
 
-          <div className="col-span-1">
+          <div className=" col-span-full sm:col-span-1">
             <p className="text-xs text-gray-500">
               Email ID<span className="text-error-500">*</span>
             </p>
@@ -628,7 +654,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             </div>
             <p className="text-3xs text-gray-500 mt-[6px]">You will get your invoice on email</p>
           </div>
-          <div className="col-span-1">
+          <div className="col-span-full sm:col-span-1">
             <p className="text-xs text-gray-500">
               Mobile Number<span className="text-error-500">*</span>
             </p>
@@ -812,10 +838,15 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             openDialog={openDialog}
             aadhar={aadhar}
             requestId={aadharRequestId}
+            setBillingSameAsAadhar={setBillingSameAsAadhar}
           />
         ) : null}
         {displayModal.includes("CONFIRM") ? (
-          <ConfirmDetailsModal openDialog={openDialog} setOpenDialog={setOpenDialog} />
+          <ConfirmDetailsModal
+            setDisplayModal={setDisplayModal}
+            openDialog={openDialog}
+            setOpenDialog={setOpenDialog}
+          />
         ) : null}
       </Dialog>
     </div>

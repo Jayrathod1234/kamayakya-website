@@ -124,14 +124,14 @@ export default function CouponModal() {
         </div>
       </DialogTrigger>
       <DialogContent
-        closeClassName=" opacity-100 right-[-0.8rem] top-[-1rem] !bg-white"
-        className="open_sans gap-0 max-h-[80dvh] min-h-[500px] !rounded-[20px] max-w-[358px] p-6 flex flex-col"
+        closeClassName=" -right-2 -top-[12px] opacity-100"
+        className="open_sans gap-0 max-h-[80dvh] min-h-[500px] !rounded-[20px] w-[calc(100%-24px)] max-w-[358px] p-6 flex flex-col"
       >
         <DialogHeader className=" mb-0">
-          <DialogTitle className=" text-xl font-semibold m-0 ">Apply Coupon</DialogTitle>
+          <DialogTitle className=" text-xl font-semibold m-0 !text-left mb-5 ">Apply Coupon</DialogTitle>
           {/* INPUT SECTION */}
           <div
-            className={` py-3 px-[11px] border ${error ? " border-error-500" : "border-[#0000000F]"} rounded-lg flex`}
+            className={` py-3 px-[11px] border  !mt-0 ${error ? " border-error-500" : "border-[#0000000F]"} rounded-lg flex`}
           >
             <input
               disabled={loading}

@@ -134,16 +134,16 @@ export default function Index() {
 
   return (
     <PaymentContextProvider>
-      <div className=" bg-white open_sans">
+      <div className=" bg-white open_sans pb-6">
         <Header className={headerBg} />
-        <div className=" -mt-[13.5rem] flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
+        <div className=" -mt-[13rem] sm:-mt-[13.5rem] flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
           <div className=" p-4 py-8 pb-4 md:p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
             {/* stepper component */}
             <Tabs
               onValueChange={(value) => setActiveTab(value)}
               defaultValue={activeTab}
               value={activeTab}
-              className=" relative"
+              className=" relative w-full"
             >
               <div
                 style={{
@@ -163,7 +163,7 @@ export default function Index() {
 
               <TabsList className=" flex justify-between bg-transparent relative z-10">
                 <TabsTrigger
-                  className=" bg-transparent shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  className=" !px-0 bg-transparent shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                   value="review"
                 >
                   <div
@@ -189,7 +189,7 @@ export default function Index() {
                   </div>
                 </TabsTrigger>
                 <TabsTrigger
-                  className="data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  className="!px-0  data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                   value="details"
                 >
                   <div
@@ -221,7 +221,7 @@ export default function Index() {
                 <TabsTrigger
                   disabled
                   value="payment"
-                  className=" disabled:opacity-100 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  className=" !px-0 disabled:opacity-100 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                 >
                   <div
                     ref={(el) => {
@@ -298,14 +298,14 @@ export default function Index() {
               <div className=" h-[1px] w-full my-5 bg-[linear-gradient(to_right,#447070_33%,rgba(255,255,255,0)_0%)] bg-[length:10px_1px] bg-repeat-x "></div>
               <div className="flex flex-wrap flex-col md:flex-row content-center items-center gap-4 ">
                 <Button
-                  className=" flex-1 w-full max-w-[246px] hover:scale-100 hover:bg-brand-400 border-none cursor-default flex items-center justify-between p-3"
+                  className=" flex-1 w-full max-w-[246px] hover:scale-100 hover:bg-brand-400 border-none cursor-default flex items-center justify-between !p-3"
                   variant={ButtonVariant.primary}
                 >
                   <p className=" text-2xs">Stocks Live</p>
                   <p className=" text-2xs font-bold mr-[10px]">30</p>
                 </Button>
                 <Button
-                  className=" flex-1 w-full max-w-[246px] hover:scale-100 hover:bg-brand-400 border-none cursor-default flex items-center justify-between p-3 "
+                  className=" flex-1 w-full max-w-[246px] hover:scale-100 hover:bg-brand-400 border-none cursor-default flex items-center justify-between !p-3 "
                   variant={ButtonVariant.primary}
                 >
                   <p className=" text-2xs">Average Live Returns</p>

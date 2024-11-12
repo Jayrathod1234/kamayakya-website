@@ -9,6 +9,7 @@ import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 export default function ConfirmDetailsModal({
   setOpenDialog,
   openDialog,
+  setDisplayModal
 }: {
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
   openDialog:boolean;
@@ -26,6 +27,7 @@ export default function ConfirmDetailsModal({
       setUserDetails((prev) => ({ ...prev, address }));
     }
     setAadharVerified(true);
+    setDisplayModal("AADHAR")
     setOpenDialog(false);
   };
 
@@ -42,9 +44,9 @@ export default function ConfirmDetailsModal({
   console.log(userDetails.address, address)
 
   return (
-    <DialogContent className=" !p-6 !rounded-[20px] min-w-fit md:min-w-[624px] max-w-[784px] open_sans">
+    <DialogContent closeClassName=" -right-2 -top-[12px] opacity-100" className=" !p-6 !rounded-[20px] w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px] open_sans">
       <div className=" flex flex-col md:flex-row gap-6">
-        <div className="bg-[#FEB359] flex items-center justify-center px-[54px] h-[380px] min-w-fit rounded-[20px]">
+        <div className="bg-[#FEB359] flex items-center justify-center px-[54px] h-[200px] sm:h-[380px] min-w-fit rounded-[20px]">
         <img  width={178} height={178} src="/assets/confirmDetails.gif"/>
         </div>
         <div className=" flex flex-col gap-y-6 w-full">
@@ -68,8 +70,8 @@ export default function ConfirmDetailsModal({
                 //   setAddress(e.target.value);
                 // }}
                 // value={address}
-                className={` ${editable ? "bg-white":"bg-transparent"} resize-none text-sm text-[#121212]  block w-full mt-[6px] line-clamp-2 h-[40px] overflow-y-scroll`}
-              >{address}</p>
+                className={` ${editable ? "bg-white":"bg-transparent"} resize-none text-sm text-[#121212] w-full mt-[6px] line-clamp-3 sm:h-[40px]`}
+              >{address} Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro consectetur rerum, corporis totam, quos nam sunt inventore, quo accusamus dignissimos corrupti laborum. Provident perspiciatis similique non voluptatum laudantium, dolores animi.</p>
               {/* <button onClick={handleEditClick} className=" text-sm font-semibold text-[#0E6C63] ">
                 { editable ?"Save": "Edit Address"}
               </button> */}

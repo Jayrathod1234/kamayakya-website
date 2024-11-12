@@ -40,11 +40,11 @@ export function PlanCardMobile({
     return (
       <div
         className={cn(
-          "rounded-b-xl border-x bg-white border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)]",
+          "rounded-b-xl border-x bg-white border-x-gray-150 border-none border-b-gray-150 bg-[rgba(252,252,253,1)] pt-4",
           className
         )}
       >
-        <p className=" text-center py-4 ">
+        <p className=" text-3xs text-[#DC6803] p-[10px] rounded-xl border border-[#FF9E29] bg-[#FFFCF5] mb-4">
           Our Advanced Plan is crafted for those who think long-term and is only available in 1-Year and 3-Year options.
           Explore the benefits and choose the term that fits your goals!
         </p>
