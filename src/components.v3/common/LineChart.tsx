@@ -583,7 +583,7 @@ function LineChartMain({
             ticks: {
               display: isLoggedIn ? true : false,
               // stepSize: 6,
-              align: "start",
+              align: "center",
               source: "auto",
               autoSkip: true, // Automatically skip labels
               autoSkipPadding: isMobile ? 5 : 20, // Add padding between labels based on screen size
