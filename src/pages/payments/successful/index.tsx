@@ -250,7 +250,7 @@ export default function Successful() {
             <div className=" relative z-10 flex flex-wrap gap-3 items-center">
               <Button
                 onClick={() => window.open(paymentDetails?.invoice_pdf, "_blank")}
-                className=" border-[#0000001A] gap-x-2 mx-auto"
+                className=" border-[#0000001A] gap-x-2 mx-auto flex-1"
                 variant={ButtonVariant.secondary}
               >
                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -283,8 +283,8 @@ export default function Successful() {
                 <p className=" text-2xs md:text-sm text-[#02425B]">Get PDF Receipt</p>
               </Button>
               <Button
-                onClick={() => setShowDetail(true)}
-                className=" md:hidden border-[#0000001A] gap-x-2 mx-auto"
+                onClick={() => setShowDetail(prev=>!prev)}
+                className=" md:hidden border-[#0000001A] gap-x-2 mx-auto flex-1"
                 variant={ButtonVariant.secondary}
               >
                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -314,7 +314,7 @@ export default function Successful() {
                   />
                 </svg>
 
-                <p className=" text-2xs md:text-sm text-[#02425B]">View Details</p>
+                <p className=" text-2xs md:text-sm text-[#02425B]">{ showDetail ? "Hide":"View"} Details</p>
               </Button>
             </div>
             <div className=" absolute w-full h-[30px] -bottom-4 z-[1] ">
