@@ -34,6 +34,7 @@ import { LoginBtnNav } from "./login-btn-nav";
 import { ScrollProgress } from "./scroll-progress";
 import SampleReportsModal from "./sample-reports-modal";
 import { cn } from "@/lib/utils";
+import LoginPrompt from "@/components.v3/common/LoginPrompt";
 
 /*
 For pages with white background give className=bg-white to get the green hover effect
@@ -131,7 +132,13 @@ export function Navbar({
   }, [showFilterHeader]);
 
   return (
-    <div ref={ref} className={cn(` group/nav sticky left-0 right-0 top-0 hover:z-[52] z-[50] hover:shadow-none overflow-visible pricing`, className)}>
+    <div
+      ref={ref}
+      className={cn(
+        ` group/nav sticky left-0 right-0 top-0 hover:z-[52] z-[50] hover:shadow-none overflow-visible pricing`,
+        className
+      )}
+    >
       <ScrollProgress />
       <div className="flex py-2 justify-between items-center main-container overflow-visible">
         <div className=" flex flex-row items-center justify-center">
@@ -159,7 +166,7 @@ export function Navbar({
             <NavigationMenu delayDuration={0} className="z-[30000] ">
               <NavigationMenuList className=" m-0 ">
                 <NavigationMenuItem className=" m-0 hidden lg:flex">
-                  <NavigationMenuTrigger 
+                  <NavigationMenuTrigger
                     onClick={(e) => {
                       e.preventDefault();
                       if (pathname !== "/") {
@@ -255,7 +262,13 @@ export function Navbar({
                           }`,
                           navigationLinkClassName
                         )}
-                        active={!pathname.includes("stock-picks") ? pathname === navigationOption.link : (sessionStorage.getItem("sebiBoardType") === "sme" && pathname===navigationOption.link ? true:false)}
+                        active={
+                          !pathname.includes("stock-picks")
+                            ? pathname === navigationOption.link
+                            : sessionStorage.getItem("sebiBoardType") === "sme" && pathname === navigationOption.link
+                            ? true
+                            : false
+                        }
                       >
                         {navigationOption.title}
                       </NavigationMenuLink>
@@ -300,7 +313,7 @@ export function Navbar({
               userCard={true}
             />
           ) : (
-            <LoginBtnNav handleLogin={handleLogin} arrow />
+            <LoginPrompt triggerEle={<LoginBtnNav arrow />} />
           )}
         </div>
         <Modal
