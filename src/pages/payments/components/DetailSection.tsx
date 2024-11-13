@@ -189,23 +189,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   //   });
   // };
 
-  const handleRazorpayScreen = useCallback(
-    (options: any) => {
-      // const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  const handleRazorpayScreen = (options: any) => {
 
-      // if (!res) {
-      //   alert("Some error at razorpay screen loading");
-      //   return;
-      // }
-      const paymentObject = new window.Razorpay(options);
-      // console.log("PAYMENT OBJECT", paymentObject);
-      paymentObject.on("payment.failed", function (response: any) {
-        alert(response.error.description);
-      });
-      paymentObject.open();
-    },
-    []
-  );
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.on("payment.failed", function (response: any) {
+      alert(response.error.description);
+    });
+    paymentObject.open();
+  };
 
   const handleCheckout: SubmitHandler<IFormInput> = async (data) => {
     if (!aadharVerified && !isAadharAlreadyVerified) {
@@ -241,15 +232,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        // callback_url: "https://legendary-madeleine-b03cd5.netlify.app/payments/successful",
-        // redirect:true,
         handler: function (response) {
           router.push("/payments/successful");
-          // alert(response.razorpay_payment_id);
-          // alert(response.razorpay_order_id);
-          // alert(response.razorpay_signature)
         },
-        // https://legendary-madeleine-b03cd5.netlify.app
         prefill: {
           //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
           name: userDetails.name, //your customer's name
@@ -261,13 +246,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         },
         theme: {
           color: "#0b3a36",
-          backdrop_color:"#ea3546"
+          backdrop_color: "#ea3546",
         },
-        // modal:{
-        //   ondismiss:function(){
-        //     // alert("Modal closed")
-        //   }
-        // }
       };
       setPlanDetails((prev) => ({ ...prev, orderId: res.data.order_id }));
       sessionStorage.setItem("orderId", res.data.order_id);
