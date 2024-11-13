@@ -158,7 +158,7 @@ export default function ReviewSection({
           </div>
         ) : null}
         {/* Next button  */}
-        <Button onClick={() => setActiveTab("details")} className=" mt-9 w-full" variant={ButtonVariant.primary}>
+        <Button onClick={() => {if(planDetails?.totalPayable) setActiveTab("details")}} className=" mt-9 w-full" variant={ButtonVariant.primary}>
           Next
         </Button>
         {/* Next button end */}

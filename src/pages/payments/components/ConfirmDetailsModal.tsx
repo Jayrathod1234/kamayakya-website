@@ -71,7 +71,7 @@ export default function ConfirmDetailsModal({
                 // }}
                 // value={address}
                 className={` ${editable ? "bg-white":"bg-transparent"} resize-none text-sm text-[#121212] w-full mt-[6px] line-clamp-3 sm:h-[40px]`}
-              >{address} Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro consectetur rerum, corporis totam, quos nam sunt inventore, quo accusamus dignissimos corrupti laborum. Provident perspiciatis similique non voluptatum laudantium, dolores animi.</p>
+              >{address}</p>
               {/* <button onClick={handleEditClick} className=" text-sm font-semibold text-[#0E6C63] ">
                 { editable ?"Save": "Edit Address"}
               </button> */}

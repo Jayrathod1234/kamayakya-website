@@ -121,7 +121,7 @@ export default function AadhaVerifyModal({
           <p className=" text-sm text-[#737373] mt-3">
             Oops! We couldn’t fetch your Aadhaar details. Ensure your Aadhaar number is correct, or try again later.
           </p>
-          <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto">
+          <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto w-fit">
             <DialogClose asChild>
               <Button onClick={() => setFetchAadharFailed(false)} variant={ButtonVariant.tertiary}>
                 Close

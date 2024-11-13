@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { IconButton, InputAdornment, OutlinedInput, styled, TextField } from "@mui/material";
@@ -26,6 +26,7 @@ export const CustomTextField = styled(TextField, {
   shouldForwardProp: (prop) => prop !== "error", // Prevents passing `error` to the DOM
 })(({ error }) => ({
   "& .MuiOutlinedInput-root": {
+    paddingRight: "6px",
     "& fieldset": {
       borderColor: error ? "#FDA29B" : "#0000000F",
       borderRadius: 6.2,
@@ -167,41 +168,44 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   //   });
   // };
 
-  const loadScript = (src: string) => {
-    return new Promise((resolve) => {
-      if (document.querySelector(`script[src="${src}"]`)) {
-        resolve(true);
-        return;
-      }
+  // const loadScript = (src: string) => {
+  //   return new Promise((resolve) => {
+  //     if (document.querySelector(`script[src="${src}"]`)) {
+  //       resolve(true);
+  //       return;
+  //     }
 
-      const script = document.createElement("script");
-      script.src = src;
+  //     const script = document.createElement("script");
+  //     script.src = src;
 
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
+  //     script.onload = () => {
+  //       resolve(true);
+  //     };
+  //     script.onerror = () => {
+  //       resolve(false);
+  //     };
 
-      document.body.appendChild(script);
-    });
-  };
+  //     document.body.appendChild(script);
+  //   });
+  // };
 
-  const handleRazorpayScreen = async (amount: string, options: any) => {
-    const res = await loadScript("https://checkout.razorpay.com/v1/magic-checkout.js");
+  const handleRazorpayScreen = useCallback(
+    (options: any) => {
+      // const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
-    if (!res) {
-      alert("Some error at razorpay screen loading");
-      return;
-    }
-
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.on("payment.failed", function (response: any) {
-      alert(response.error.description);
-    });
-    paymentObject.open();
-  };
+      // if (!res) {
+      //   alert("Some error at razorpay screen loading");
+      //   return;
+      // }
+      const paymentObject = new window.Razorpay(options);
+      // console.log("PAYMENT OBJECT", paymentObject);
+      paymentObject.on("payment.failed", function (response: any) {
+        alert(response.error.description);
+      });
+      paymentObject.open();
+    },
+    []
+  );
 
   const handleCheckout: SubmitHandler<IFormInput> = async (data) => {
     if (!aadharVerified && !isAadharAlreadyVerified) {
@@ -231,15 +235,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       const res = await postCheckout(params);
       const options = {
         key: "rzp_test_YteVuBPrLvOKSg", // Enter the Key ID generated from the Dashboard
-        amount: 10,
-        // res.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        amount: res.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: "INR",
         name: "KamayaKya", //your business name
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         // callback_url: "https://legendary-madeleine-b03cd5.netlify.app/payments/successful",
-        //  redirect:true,
+        // redirect:true,
         handler: function (response) {
           router.push("/payments/successful");
           // alert(response.razorpay_payment_id);
@@ -258,16 +261,17 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         },
         theme: {
           color: "#0b3a36",
-          // backdrop_color: "#D2F5ED",
-          // hide_topbar: true,
+          backdrop_color:"#ea3546"
         },
-        modal: {
-          confirm_close: true,
-        },
+        // modal:{
+        //   ondismiss:function(){
+        //     // alert("Modal closed")
+        //   }
+        // }
       };
       setPlanDetails((prev) => ({ ...prev, orderId: res.data.order_id }));
       sessionStorage.setItem("orderId", res.data.order_id);
-      handleRazorpayScreen("", options);
+      handleRazorpayScreen(options);
     } catch (e) {
       console.error(e);
     } finally {
@@ -505,8 +509,16 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                                   handleAadharOtp({ aadhar: userDetails?.aadhar });
                                 }}
                               >
-                                {aadharOtpLoading ? <span className=" inline-flex items-center justify-center gap-x-1"><Loader color="#12B76A" fontSize={12} height={12} width={12}/><p className=" text-2xs text-[#12B76A]">Verifying</p></span>:<p className=" text-2xs text-brand-500 border-b border-dashed border-b-brand-500">Verify Pan</p>}
-                               
+                                {aadharOtpLoading ? (
+                                  <span className=" inline-flex items-center justify-center gap-x-1">
+                                    <Loader color="#12B76A" fontSize={12} height={12} width={12} />
+                                    <p className=" text-2xs text-[#12B76A]">Verifying</p>
+                                  </span>
+                                ) : (
+                                  <p className=" text-2xs text-brand-500 border-b border-dashed border-b-brand-500">
+                                    Verify Pan
+                                  </p>
+                                )}
                               </button>
                             )}
                             {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
@@ -524,7 +536,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           ) : null}
           {/* || isAadharAlreadyVerified */}
           {/* || userDetails.address */}
-          {aadharVerified  && (
+          {aadharVerified && (
             <div className="col-span-2">
               <p className="text-xs text-gray-500">
                 Billing Address<span className="text-error-500">*</span>
@@ -547,7 +559,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                     variant="outlined"
                     fullWidth
                     InputProps={{
-                      readOnly: true ,
+                      readOnly: true,
                       // billingSameAsAadhar ? true : false,
                       className: (userDetails.address ? true : false) ? "bg-[#F4F7FA99]" : "",
                       endAdornment: (
@@ -564,7 +576,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   />
                 )}
               />
-             {/* {!isAadharAlreadyVerified ? ( <div className=" flex items-center gap-x-2">
+              {/* {!isAadharAlreadyVerified ? ( <div className=" flex items-center gap-x-2">
                 <Checkbox
                   checked={billingSameAsAadhar}
                   onCheckedChange={(checked) => {
