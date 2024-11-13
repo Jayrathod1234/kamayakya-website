@@ -1,18 +1,16 @@
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/router";
 import React from "react";
 
 export default function Header({ className }: { className?: string }) {
   // max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#e4e7ec)]
+  const router = useRouter();
   return (
-    <div
-      className={cn(
-        " bg-[#F1FBFB] h-[341px] relative z-10",
-        className
-      )}
-    >
+    <div className={cn(" bg-[#F1FBFB] h-[341px] relative z-10", className)}>
       <div className=" flex flex-col md:flex-row items-center justify-between main-container py-7">
         <img
-          className=" object-contain hidden md:block"
+          onClick={() => router.push("/")}
+          className=" object-contain hidden md:block cursor-pointer"
           width={219.69}
           height={42}
           alt="logo"
@@ -20,7 +18,8 @@ export default function Header({ className }: { className?: string }) {
           src="/kmk-logo (1).png"
         />
         <img
-          className=" object-contain block md:hidden mx-auto"
+          onClick={() => router.push("/")}
+          className=" object-contain block md:hidden mx-auto cursor-pointer"
           width={150}
           height={28}
           alt="logo"

@@ -67,7 +67,7 @@ interface IFormInput {
   gstin: string;
 }
 
-export default function DetailSection({ activeTab, setActiveTab }: { setActiveTab: any }) {
+export default function DetailSection({ activeTab, setActiveTab }: { setActiveTab: any;activeTab:string }) {
   const [gstChecked, setGstChecked] = useState(false);
   // const [aadhar, setAadhar] = useState("");
   const [billingSameAsAadhar, setBillingSameAsAadhar] = useState(false);
@@ -524,7 +524,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           ) : null}
           {/* || isAadharAlreadyVerified */}
           {/* || userDetails.address */}
-          {aadharVerified && (
+          {(aadharVerified  || userDetails.address) && (
             <div className="col-span-2">
               <p className="text-xs text-gray-500">
                 Billing Address<span className="text-error-500">*</span>

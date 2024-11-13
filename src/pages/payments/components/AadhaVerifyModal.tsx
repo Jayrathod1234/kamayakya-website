@@ -6,6 +6,7 @@ import { DialogClose, DialogContent } from "@/components.v2/ui/dialog";
 import { useToast } from "@/components.v2/ui/use-toast";
 import { blockInvalidChar } from "@/components/LoginCard";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
+import { useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 
@@ -17,7 +18,7 @@ export default function AadhaVerifyModal({
   setOpenDialog,
   openDialog,
   displayModal,
-  setBillingSameAsAadhar
+  setBillingSameAsAadhar,
 }: {
   setAadharRequestId: React.Dispatch<React.SetStateAction<string>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,7 +35,7 @@ export default function AadhaVerifyModal({
   const [resendOtp, setResendOtp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fetchAadharFailed, setFetchAadharFailed] = useState(false);
-
+  const isMobile = useMediaQuery("(max-width:640px)");
   const handleVerifyAadharOtp = async () => {
     try {
       setLoading(true);
@@ -49,15 +50,15 @@ export default function AadhaVerifyModal({
         });
         return;
       }
-      setBillingSameAsAadhar(true)
+      setBillingSameAsAadhar(true);
       setUserDetails((prev) => ({ ...prev, pan: res?.pan_number, name: res?.name, address: address, aadhar: aadhar }));
       setDisplayModal("CONFIRM");
     } catch (e) {
-      setFetchAadharFailed(true);
-      // toast({
-      //   variant: "warn",
-      //   description: e?.response?.data?.message,
-      // });
+      // setFetchAadharFailed(true);
+      toast({
+        variant: "warn",
+        description: e?.response?.data?.message,
+      });
     } finally {
       setLoading(false);
     }
@@ -106,11 +107,9 @@ export default function AadhaVerifyModal({
     }
     if (!openDialog) {
       setOtp("");
-      setFetchAadharFailed(false)
+      setFetchAadharFailed(false);
     }
   }, [openDialog]);
-
-
 
   if (fetchAadharFailed) {
     return (
@@ -127,7 +126,13 @@ export default function AadhaVerifyModal({
                 Close
               </Button>
             </DialogClose>
-            <Button onClick={() => setFetchAadharFailed(false)} variant={ButtonVariant.primary}>
+            <Button
+              onClick={() => {
+                setOtp("")
+                setFetchAadharFailed(false);
+              }}
+              variant={ButtonVariant.primary}
+            >
               Try again
             </Button>
           </div>
@@ -136,13 +141,14 @@ export default function AadhaVerifyModal({
     );
   }
 
- 
-
   return (
-    <DialogContent closeClassName=" -right-2 -top-[12px] opacity-100" className=" !p-6 !rounded-[20px]  w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px]">
-      <div className=" flex flex-col md:flex-row gap-6">
-        <div className="bg-[#FEB359] flex items-center justify-center px-[46px] h-[200px] sm:h-[380px] min-w-fit rounded-[20px]">
-          <img width={192} height={192} src="/assets/verifyAadhar.gif" />
+    <DialogContent
+      closeClassName=" -right-2 -top-[12px] opacity-100"
+      className=" !p-6 !rounded-[20px]  w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px]"
+    >
+      <div className=" flex flex-col md:flex-row gap-6 min-w-0">
+        <div className="bg-[#FEB359] flex items-center justify-center px-[46px] h-[200px] min-w-fit sm:h-[380px] rounded-[20px]">
+          <img className=" max-sm:w-[120px] max-sm:h-[120px]" width={192} height={192} src="/assets/verifyAadhar.gif" />
         </div>
 
         <div className=" flex flex-col gap-y-6">
@@ -158,7 +164,7 @@ export default function AadhaVerifyModal({
                 value={otp}
                 numInputs={6}
                 containerStyle={{
-                  gap: "10px",
+                  gap: isMobile ? "2px" : "10px",
                 }}
                 inputStyle={{
                   height: "44px",
