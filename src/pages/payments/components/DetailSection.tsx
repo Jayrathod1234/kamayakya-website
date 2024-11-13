@@ -190,10 +190,18 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   // };
 
   const handleRazorpayScreen = (options: any) => {
-
+    let paymentFailed = false
     const paymentObject = new window.Razorpay(options);
     paymentObject.on("payment.failed", function (response: any) {
-      alert(response.error.description);
+      if(!paymentFailed){
+        paymentFailed = true
+        alert(response.error.description);
+        // Optionally, reset the flag after a certain time if needed
+        setTimeout(() => {
+          paymentFailed = false;
+        }, 5000);
+      }
+      
     });
     paymentObject.open();
   };
