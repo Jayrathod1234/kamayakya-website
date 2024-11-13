@@ -59,6 +59,7 @@ export const TrackRecordStockCard = ({
   stock_targets,
   created,
   stock_exchange,
+  type,
 }: // market_cap,
 any) => {
   const { isLoggedIn, isSubscribed, handleLogin } = useContext(AuthContext);
@@ -97,7 +98,12 @@ any) => {
               <div className=" h-5 w-1/2 rounded-full bg-[#EDF0F5]"></div>
             </div>
           ) : (
-            <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate hover:text-[#1e555c] cursor-pointer"> <Link className=" text-inherit" href={`/track-record/${id}`}>{stock_name}</Link></h4>
+            <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate hover:text-[#1e555c] cursor-pointer">
+              {" "}
+              <Link className=" text-inherit" href={`/track-record/${id}`}>
+                {stock_name}
+              </Link>
+            </h4>
           )}
           {isLoggedIn && stock_name ? (
             latest_youtube_video?.youtube_title ? (
@@ -137,15 +143,17 @@ any) => {
                     </p>
                   </MuiTooltip>
                 ) : (
-                  <p className=" text-[10px] sm:text-[12px] font-semibold text-orange-700 font-open_sans">{stockSector[sector]}</p>
+                  <p className=" text-[10px] sm:text-[12px] font-semibold text-orange-700 font-open_sans">
+                    {stockSector[sector]}
+                  </p>
                 )}
               </div>
             )}
             <TargetChip
-            targetTextClass="text-[10px] sm:text-[12px]"
-            inactiveTextClass="text-[10px] sm:text-[12px]"
+              targetTextClass="text-[10px] sm:text-[12px]"
+              inactiveTextClass="text-[10px] sm:text-[12px]"
               containerClass={`py-[3px] px-2 h-6 items-center border ${
-                target_status === "active" && action!=="SELL" ? "border-[#FEF0DF]" : ""
+                target_status === "active" && action !== "SELL" ? "border-[#FEF0DF]" : ""
               }`}
               activeIconClass=" h-[10px] w-[10px]"
               activeIcon
@@ -156,7 +164,7 @@ any) => {
                     }`
                   : `${target_number} at ${latest_target_price ? `₹${latest_target_price}` : ""}`
               }
-              active={target_status === "active" && action !== "SELL"  ? true : false}
+              active={target_status === "active" && action !== "SELL" ? true : false}
             />
             {/* <div className="py-[2px] pr-[16px] pl-[6px] rounded-2xl border border-[#FEF0C7] bg-orange-100 flex gap-[4px] whitespace-nowrap">
             <img src="/assets/Component 8.svg" alt="" className="w-3" />
@@ -184,6 +192,7 @@ any) => {
           stock_exchange={stock_exchange}
           stock_id={id}
           stock_action={action}
+          type={type}
           containerClassName={"relative h-[180px] w-full py-5"}
         />
 
@@ -197,17 +206,11 @@ any) => {
                 is_returns_positive
                   ? "bg-[linear-gradient(314.25deg,#125B54_6.46%,#12ADB7_113.37%)]"
                   : "bg-[linear-gradient(106.62deg,#FF7B7B_18.84%,#E53A3A_92.14%)]"
-              } px-3 py-2 ${
-                action === "SELL" ? "min-w-[157px]" : "min-w-[100px]"
-              } sm:min-w-[157px]`}
+              } px-3 py-2 ${action === "SELL" ? "min-w-[157px]" : "min-w-[100px]"} sm:min-w-[157px]`}
             >
               <p className=" text-4xs font-bold text-white truncate">
-              {/* && target_status !== "active" && isLoggedIn && isSubscribed */}
-                {action === "SELL" 
-                  ? is_returns_positive
-                    ? "Profit Booked"
-                    : "Loss Booked"
-                  : "Total Returns"}
+                {/* && target_status !== "active" && isLoggedIn && isSubscribed */}
+                {action === "SELL" ? (is_returns_positive ? "Profit Booked" : "Loss Booked") : "Total Returns"}
               </p>
               <div
                 className={` flex items-center gap-x-[4px] ${
@@ -223,26 +226,31 @@ any) => {
                   />
                 </div>
                 {!isLoggedIn || !total_returns ? (
-                  <div className={` h-5 ${ action==="SELL" ? " w-[60%] ":" w-[80%]"} bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0`}></div>
+                  <div
+                    className={` h-5 ${
+                      action === "SELL" ? " w-[60%] " : " w-[80%]"
+                    } bg-[rgba(255,255,255,0.26)] rounded-full text-xl font-bold text-white m-0`}
+                  ></div>
                 ) : (
                   <p className=" text-xl font-bold text-white !m-0">{total_returns}%</p>
                 )}
               </div>
               <p className=" !m-0 flex items-center gap-x-1 text-3xs font-semibold whitespace-nowrap text-white">
                 in {return_time?.includes(",") ? abbreviateTime(return_time) : return_time}{" "}
-                {return_time?.includes(",") &&  <Tooltip
-                  tooltipTrigger={
-                    <img
-                      className="!h-[14px] !w-[14px] object-contain rounded-full"
-                      height={14}
-                      width={14}
-                      alt="info-icon"
-                      src="/assets/total_returns_info.svg"
-                    />
-                  }
-                  tooltipContent={<p className="text-2xs text-gray-600 font-normal">{return_time}</p>}
-                />}
-               
+                {return_time?.includes(",") && (
+                  <Tooltip
+                    tooltipTrigger={
+                      <img
+                        className="!h-[14px] !w-[14px] object-contain rounded-full"
+                        height={14}
+                        width={14}
+                        alt="info-icon"
+                        src="/assets/total_returns_info.svg"
+                      />
+                    }
+                    tooltipContent={<p className="text-2xs text-gray-600 font-normal">{return_time}</p>}
+                  />
+                )}
               </p>
             </div>
             {/* && target_status !== "active" && isLoggedIn && isSubscribed */}
@@ -259,7 +267,7 @@ any) => {
           </div>
           {/* Total Returns End*/}
           {/* Upside Left */}
-          {action === "SELL"  ? null : (
+          {action === "SELL" ? null : (
             <div className=" min-w-0 flex flex-col justify-center">
               <div className=" flex items-center gap-x-1 min-w-0">
                 <p className=" font-bold whitespace-nowrap text-4xs text-[rgba(102,112,133,1)]">Upside Left</p>

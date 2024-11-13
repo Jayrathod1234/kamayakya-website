@@ -10,6 +10,10 @@ import {
   ArcElement,
   TimeScale,
   TimeSeriesScale,
+  TooltipModel,
+  ChartTypeRegistry,
+  BubbleDataPoint,
+  Point,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
@@ -42,10 +46,7 @@ function formatTargetMetDate(dateString) {
   const date = parseISO(dateString); // Parse the date string into a Date object
 
   // Set the desired time: 3:30 PM
-  const updatedDate = setMilliseconds(
-      setSeconds(setMinutes(setHours(date, 15), 30), 0),
-      0
-  );
+  const updatedDate = setMilliseconds(setSeconds(setMinutes(setHours(date, 15), 30), 0), 0);
 
   // Format the date in the desired ISO format with timezone (hardcoding +05:30)
   const formattedDate = format(updatedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
@@ -81,6 +82,7 @@ function LineChartMain({
   stock_targets,
   stock_action,
   annotationSize = 8,
+  type
 }: {
   fetchIndividual?: boolean;
   containerClassName: string;
@@ -92,6 +94,7 @@ function LineChartMain({
   stock_targets: any[];
   stock_action: string;
   annotationSize?: number;
+  type?:string;
 }) {
   const { sebiBoardType } = useTrackRecordCommon();
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -107,7 +110,7 @@ function LineChartMain({
   // });
   const [markerAnnotation, setMarkerAnnotaion] = useState([]);
   const { isLoggedIn } = useContext(AuthContext);
-  const [liveData, setLiveData] = useState([]);
+  const [liveData, setLiveData] = useState<{ price: string; date: string; time: string }[]>([]);
   const entry_img = new Image();
   entry_img.height = annotationSize;
   entry_img.width = annotationSize;
@@ -132,13 +135,15 @@ function LineChartMain({
   exit_mark.src = "/assets/exit_icon.svg";
   exit_mark.height = annotationSize;
   exit_mark.width = annotationSize;
-  const getOrCreateTooltip = (chart) => {
-    let tooltipEl = chart.canvas.parentNode.querySelector("div");
+  const getOrCreateTooltip = (
+    chart: ChartJS<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>
+  ) => {
+    let tooltipEl = chart?.canvas?.parentNode?.querySelector("div");
 
     if (!tooltipEl) {
       tooltipEl = document.createElement("div");
       tooltipEl.id = "chartjs-tooltip";
-      tooltipEl.style.opacity = 1;
+      tooltipEl.style.opacity = "1";
       tooltipEl.style.pointerEvents = "none";
       tooltipEl.style.position = "absolute";
       tooltipEl.style.transform = "translate(-50%, -100%)";
@@ -149,20 +154,20 @@ function LineChartMain({
       // table.style.margin = "0px";
 
       // tooltipEl.appendChild(table);
-      chart.canvas.parentNode.appendChild(tooltipEl);
+      chart?.canvas?.parentNode?.appendChild(tooltipEl);
     }
 
     return tooltipEl;
   };
 
-  const externalTooltipHandler = (context) => {
+  const externalTooltipHandler = (context: { chart: ChartJS; tooltip: TooltipModel<"line"> }) => {
     // Tooltip Element
     const { chart, tooltip } = context;
     const tooltipEl = getOrCreateTooltip(chart);
     const annotationTooltip = document.getElementById("annotation-tooltip");
     // Hide if no tooltip
     if (tooltip.opacity === 0 || annotationTooltip?.style.opacity === "1") {
-      tooltipEl.style.opacity = 0;
+      tooltipEl.style.opacity = "0";
       return;
     }
 
@@ -223,7 +228,7 @@ function LineChartMain({
     const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
 
     // Display, position, and set styles for font
-    tooltipEl.style.opacity = 1;
+    tooltipEl.style.opacity = "1";
     tooltipEl.style.left = positionX + tooltip.caretX + "px";
     tooltipEl.style.top = positionY - 10 + tooltip.caretY + "px";
     tooltipEl.style.font = tooltip.options.bodyFont.string;
@@ -271,7 +276,7 @@ function LineChartMain({
   //   },
   // };
 
-  const handleAnnotationTooltip = (context) => {
+  const handleAnnotationTooltip = (context:any) => {
     // Create the custom tooltip element
     let tooltipEl = document.getElementById("annotation-tooltip");
     if (!tooltipEl) {
@@ -310,7 +315,7 @@ function LineChartMain({
       // targetIndex === 0 && stock_action === "SELL" && stock_targets[targetIndex].target_met
       //   ? "Exit Price"
       //   :
-         targetIndex >= 0
+      targetIndex >= 0
         ? `Target ${stock_targets?.length - targetIndex}`
         : entry_price === price
         ? "Entry Price"
@@ -353,11 +358,7 @@ function LineChartMain({
             <div class="text-gray-500 font-medium whitespace-nowrap text-4xs">${targetLabel} ${
         targetLabel && targetLabel.includes("Target")
           ? `<span class=${` ${isTargetNotMet ? "text-[#F98800]" : "text-success-500"}`}>${
-              isTargetNotMet
-                ? targetIndex!==0
-                  ? "Inactive"
-                  : "Active"
-                : "Met"
+              isTargetNotMet ? (targetIndex !== 0 ? "Inactive" : "Active") : "Met"
             }</span>`
           : ""
       }</div>
@@ -392,7 +393,7 @@ function LineChartMain({
           position: "top",
         },
         enter: handleAnnotationTooltip,
-        leave: (context) => {
+        leave: (context:any) => {
           const tooltipEl = document.getElementById("annotation-tooltip");
           if (tooltipEl) tooltipEl.style.opacity = "0";
         },
@@ -400,7 +401,7 @@ function LineChartMain({
 
       // Target annotations
       stock_targets.forEach((target, i) => {
-        const target_not_met = !target.target_met && i !==0;
+        const target_not_met = !target.target_met && i !== 0;
         // Target marker
         {
           target.target_met &&
@@ -411,12 +412,10 @@ function LineChartMain({
               yValue: target.target_price,
               backgroundColor: "transparent",
               borderColor: "transparent",
-              pointStyle: target.target_met
-                ? target_met_img
-                : target_active_img,
+              pointStyle: target.target_met ? target_met_img : target_active_img,
               radius: 8,
               enter: handleAnnotationTooltip,
-              leave: (context) => {
+              leave: (context:any) => {
                 const tooltipEl = document.getElementById("annotation-tooltip");
                 if (tooltipEl) tooltipEl.style.opacity = "0";
               },
@@ -438,22 +437,28 @@ function LineChartMain({
           content: isMobile ? `T${stock_targets.length - i}` : `Target ${stock_targets.length - i}`,
           backgroundColor: "transparent",
           color: target.target_met || target_not_met || stock_action === "SELL" ? "#12B76A" : "#FF7F09",
-          xAdjust: (ctx) => {
+          xAdjust: (ctx:any) => {
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
             // console.log(chartWidth);
             return isMobile ? chartWidth / 2 + 15 : chartWidth / 2 + 25; // adjust this to position it properly
           },
         });
-        
+
         arr.push({
           type: "label",
           yValue: target.target_price,
-          content: target.target_met ? check_mark : target_not_met ? cross_mark : stock_action!=="SELL"? target_active_img:cross_mark,
+          content: target.target_met
+            ? check_mark
+            : target_not_met
+            ? cross_mark
+            : stock_action !== "SELL"
+            ? target_active_img
+            : cross_mark,
           backgroundColor: "transparent",
           color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
           //   position: "end",
-          xAdjust: (ctx) => {
+          xAdjust: (ctx:any) => {
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
             return isMobile ? chartWidth / 2 + 26 : chartWidth / 2 + 50; // adjust this to position it properly
@@ -462,7 +467,11 @@ function LineChartMain({
         });
         arr.push({
           type: "line",
-          borderColor: target.target_met ? "#99D9D4" : target_not_met || stock_action === "SELL" ? "#EDF0F5" : "#FFD19A",
+          borderColor: target.target_met
+            ? "#99D9D4"
+            : target_not_met || stock_action === "SELL"
+            ? "#EDF0F5"
+            : "#FFD19A",
           borderWidth: 1,
           borderDash: [6, 6],
           scaleID: "y",
@@ -478,10 +487,10 @@ function LineChartMain({
         yValue: lastPoint.price,
         backgroundColor: "transparent",
         borderColor: "transparent",
-        pointStyle: stock_action === "SELL"? exit_mark: cmp_img,
+        pointStyle: stock_action === "SELL" ? exit_mark : cmp_img,
         radius: 8,
         enter: handleAnnotationTooltip,
-        leave: (context) => {
+        leave: (context:any) => {
           const tooltipEl = document.getElementById("annotation-tooltip");
           if (tooltipEl) tooltipEl.style.opacity = "0";
         },
@@ -535,6 +544,13 @@ function LineChartMain({
       return currentData.sort((a, b) => new Date(a.date) - new Date(b.date));
     });
   }, [data]);
+  const minValue = Math.min(...liveData.map((item) => item.price));
+  const maxValue = Math.max(...liveData.map((item) => item.price));
+
+  // Set y-axis domain with some padding
+  const yMin = Math.floor(minValue * 0.6);
+  console.log("YMIN==>", yMin);
+  const yMax = Math.ceil(maxValue * 1.1);
   // console.log("DATA LENGTH",stock_id, liveData?.length)
   return (
     <Line
@@ -583,7 +599,7 @@ function LineChartMain({
             ticks: {
               display: isLoggedIn ? true : false,
               // stepSize: 6,
-              align: "start",
+              align: "center",
               source: "auto",
               autoSkip: true, // Automatically skip labels
               autoSkipPadding: isMobile ? 5 : 20, // Add padding between labels based on screen size
@@ -606,7 +622,7 @@ function LineChartMain({
                 }
 
                 // Format the parsed date
-                const formattedDate = format(parsedDate, "dd MMM");
+                const formattedDate = format(parsedDate, "dd MMM yy");
                 return (isMobile ? index % 4 === 0 : index % 2 === 0) ? formattedDate : "";
                 // : "";
               },
@@ -620,8 +636,13 @@ function LineChartMain({
             },
           },
           y: {
+            min: yMin,
+
+            // max:yMax,
+            beginAtZero: false,
             ticks: {
               display: isLoggedIn ? true : false,
+              // stepSize:yMin,
             },
             grid: {
               display: false,
@@ -658,6 +679,7 @@ function LineChart(props: {
   stock_targets: any[];
   stock_action: string;
   annotationSize?: number;
+  type?:string;
 }) {
   const { ref, inView, entry } = useInView({
     /* Optional options */
