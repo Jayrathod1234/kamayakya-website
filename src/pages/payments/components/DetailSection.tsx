@@ -23,13 +23,14 @@ import { useRouter } from "next/router";
 
 // Custom styled OutlinedInput
 export const CustomTextField = styled(TextField, {
-  shouldForwardProp: (prop) => prop !== "error", // Prevents passing `error` to the DOM
-})(({ error }) => ({
+  shouldForwardProp: (prop) => prop !== "error" && prop !== "confirmAddress", // Prevents passing `error` to the DOM
+})(({ error,confirmAddress }) => ({
   "& .MuiOutlinedInput-root": {
     paddingRight: "11px",
     "& fieldset": {
       borderColor: error ? "#FDA29B" : "#0000000F",
-      borderRadius: 6.2,
+      borderRadius: confirmAddress ? "8px 8px 0 0": "6.2px",
+      
     },
     "&.Mui-focused fieldset": {
       borderColor: "#00645A", // Focus color
@@ -252,7 +253,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           contact: userDetails.phone?.slice(3), //Provide the customer's phone number for better conversion rates
         },
         notes: {
-          address: "Flat No 6, New Nirmal Apartments, Balkrishna Sakharam Dhole Patil Rd, near Akshay Complex Road, Pune, Maharashtra 411001",
+          address:
+            "Flat No 6, New Nirmal Apartments, Balkrishna Sakharam Dhole Patil Rd, near Akshay Complex Road, Pune, Maharashtra 411001",
         },
         theme: {
           color: "#0b3a36",
@@ -604,7 +606,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           ) : null}
           {/* || isAadharAlreadyVerified */}
           {/* || userDetails.address */}
-          {(aadharVerified || userDetails.address) && (
+          {/* {(aadharVerified || userDetails.address) && (
             <div className="col-span-2">
               <p className="text-xs text-gray-500">
                 Billing Address<span className="text-error-500">*</span>
@@ -632,8 +634,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 )}
               />
             </div>
-          )}
-          {/* {(aadharVerified || userDetails.address) && (
+          )} */}
+          {(aadharVerified || userDetails.address) && (
             <div className="col-span-2">
               <div>
                 <p className="text-xs text-gray-500">
@@ -642,38 +644,41 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 <Controller
                   name="address"
                   control={control}
+                 
                   rules={{
                     required: "Enter address to continue",
                     minLength: {
                       value: 3,
                       message: "Enter valid address",
                     },
-                  //  pattern: {
-                  //       value: /^\d{6}$/,
-                  //       message: "Enter a valid pincode.",
-                  //     },
-                    
+                    //  pattern: {
+                    //       value: /^\d{6}$/,
+                    //       message: "Enter a valid pincode.",
+                    //     },
                   }}
                   render={({ field }) => (
                     <CustomTextField
                       {...field}
-                      // onKeyDown={(e)=>{
-                      //   if(e.key?.toLowerCase() === "backspace" && Number(field.value)){
-
-                      //   }
-                       
-                      // }}
                       id="address"
-                      type={ billingSameAsAadhar || (isAadharAlreadyVerified && field.value === userDetails.address) ? "text":"number"}
+                      confirmAddress = {pincodeBasedAddress ? true:false}
+                      type={
+                        (billingSameAsAadhar && !isAadharAlreadyVerified) ||
+                        (isAadharAlreadyVerified && field.value === userDetails.address)
+                          ? "text"
+                          : "number"
+                      }
                       variant="outlined"
                       fullWidth
+                      
                       InputProps={{
-                        readOnly: billingSameAsAadhar ? true : false,
+                        readOnly: billingSameAsAadhar && !isAadharAlreadyVerified ? true : false,
                         // billingSameAsAadhar ? true : false,
-                        className: (billingSameAsAadhar ? true : false) ? "bg-[#F4F7FA99]" : "",
+                        className: (billingSameAsAadhar && !isAadharAlreadyVerified ? true : false)
+                          ? "bg-[#F4F7FA99]"
+                          : "",
                         endAdornment: (
                           <InputAdornment position="end">
-                            {billingSameAsAadhar ||
+                            {(billingSameAsAadhar && !isAadharAlreadyVerified) ||
                             (isAadharAlreadyVerified && field.value === userDetails.address) ? null : (
                               <button
                                 disabled={checkingPincode}
@@ -698,26 +703,21 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                           </InputAdornment>
                         ),
                       }}
-                      className={`!mt-[6px]  ${pincodeBasedAddress && !billingSameAsAadhar ? " [&>fieldset]:!rounded-t-lg ":"!py-[9px] !rounded-[6.2px]" }  !pr-[6px]  !border-[#0000000F]`}
+                      className={`!mt-[6px]  ${
+                        pincodeBasedAddress 
+                          ? " [&>.fieldset]:!rounded-t-lg pb-0"
+                          : "!py-[9px] !rounded-[6.2px]"
+                      }  !pr-[6px]  !border-[#0000000F]`}
                     />
                   )}
                 />
-                {
-                  pincodeBasedAddress && !billingSameAsAadhar &&  <CustomTextField
-                  id="address"
-                  type="text"
-                  variant="outlined"
-                  fullWidth
-                  value={pincodeBasedAddress}
-                  InputProps={{
-                    readOnly: true,
-                    className: (userDetails.address ? true : false) ? "bg-[#F4F7FA99]" : "",
-                    endAdornment: <InputAdornment position="end"></InputAdornment>,
-                  }}
-                  className="  !pb-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
-                />
-                }
-               
+                {/* && !billingSameAsAadhar */}
+                {pincodeBasedAddress && (
+                  <div id="pincode-address" className="  py-[9px] px-[11px] mr-[6px] rounded-b-lg border border-[#0000000F] bg-[#F9FAFC]">
+                    {pincodeBasedAddress}
+                  </div>
+                )}
+
                 {!isAadharAlreadyVerified ? (
                   <div className=" flex items-center gap-x-2">
                     <Checkbox
@@ -738,7 +738,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 ) : null}
               </div>
             </div>
-          )} */}
+          )}
 
           <div className=" col-span-full sm:col-span-1">
             <p className="text-xs text-gray-500">
