@@ -549,7 +549,7 @@ function LineChartMain({
 
   // Set y-axis domain with some padding
   const yMin = Math.floor(minValue * 0.6);
-  console.log("YMIN==>", yMin);
+  // console.log("YMIN==>", yMin);
   const yMax = Math.ceil(maxValue * 1.1);
   // console.log("DATA LENGTH",stock_id, liveData?.length)
   return (
@@ -622,7 +622,7 @@ function LineChartMain({
                 }
 
                 // Format the parsed date
-                const formattedDate = format(parsedDate, "dd MMM yy");
+                const formattedDate = format(parsedDate, "dd MMM");
                 return (isMobile ? index % 4 === 0 : index % 2 === 0) ? formattedDate : "";
                 // : "";
               },
