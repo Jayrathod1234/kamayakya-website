@@ -36,11 +36,11 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
   return (
     <Dialog>
       <DialogTrigger>{triggerEle}</DialogTrigger>
-      <DialogContent closeClassName=" hidden" className=" flex !p-0 overflow-hidden open_sans  min-w-fit max-w-fit">
-        <div className=" py-10 pb-4 bg-[#FFECDB] max-w-[352px] ">
-          <div className=" flex flex-col items-center">
+      <DialogContent closeClassName=" hidden" className=" flex !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[840px]">
+        <div className=" py-10 pb-4 bg-[#FFECDB] max-w-[352px] hidden sm:block flex-1 ">
+          <div className=" flex flex-col items-center min-w-0">
             <img width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
-            <div className=" p-4  rounded-lg border border-[#FFFFFF] bg-[#FFFFFF66] mt-[14px] flex flex-col gap-y-3">
+            <div className=" p-4  rounded-lg border border-[#FFFFFF] bg-[#FFFFFF66] mt-[14px] min-w-0 flex flex-col gap-y-3">
               <p className=" text-gray-700 font-bold text-md">New User?</p>
               <NewUserList label="Get 3 Hot Stocks for Free" />
               <NewUserList label="See Track Record" />
@@ -50,7 +50,7 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
 
           <img src="/assets/onboarding_login.gif" alt="onboarding" />
         </div>
-        <div className=" p-[60px]">
+        <div className=" p-5 sm:py-[60px] md:p-[60px] flex-1">
           <h2 className=" text-gray-900 text-display-xs font-bold">Sign in to KamayaKya</h2>
           <div className=" mt-9">
             <p className=" font-medium mb-[6px] text-2xs">Mobile Number</p>
