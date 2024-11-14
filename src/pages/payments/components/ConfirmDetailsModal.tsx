@@ -41,8 +41,6 @@ export default function ConfirmDetailsModal({
     }
   },[openDialog])
 
-  console.log(userDetails.address, address)
-
   return (
     <DialogContent closeClassName=" -right-2 -top-[12px] opacity-100" className=" !p-6 !rounded-[20px] w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px] open_sans">
       <div className=" flex flex-col md:flex-row gap-6">

@@ -235,7 +235,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       }
       const res = await postCheckout(params);
       const options = {
-        key: "rzp_test_YteVuBPrLvOKSg", // Enter the Key ID generated from the Dashboard
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
         amount: res.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: "INR",
         name: "KamayaKya", //your business name
@@ -252,7 +252,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           contact: userDetails.phone?.slice(3), //Provide the customer's phone number for better conversion rates
         },
         notes: {
-          address: "Razorpay Corporate Office",
+          address: "Flat No 6, New Nirmal Apartments, Balkrishna Sakharam Dhole Patil Rd, near Akshay Complex Road, Pune, Maharashtra 411001",
         },
         theme: {
           color: "#0b3a36",
@@ -604,7 +604,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           ) : null}
           {/* || isAadharAlreadyVerified */}
           {/* || userDetails.address */}
-          {/* {(aadharVerified || userDetails.address) && (
+          {(aadharVerified || userDetails.address) && (
             <div className="col-span-2">
               <p className="text-xs text-gray-500">
                 Billing Address<span className="text-error-500">*</span>
@@ -632,8 +632,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 )}
               />
             </div>
-          )} */}
-          {(aadharVerified || userDetails.address) && (
+          )}
+          {/* {(aadharVerified || userDetails.address) && (
             <div className="col-span-2">
               <div>
                 <p className="text-xs text-gray-500">
@@ -738,7 +738,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 ) : null}
               </div>
             </div>
-          )}
+          )} */}
 
           <div className=" col-span-full sm:col-span-1">
             <p className="text-xs text-gray-500">
