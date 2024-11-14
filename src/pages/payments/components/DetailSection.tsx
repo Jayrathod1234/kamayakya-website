@@ -26,7 +26,7 @@ export const CustomTextField = styled(TextField, {
   shouldForwardProp: (prop) => prop !== "error", // Prevents passing `error` to the DOM
 })(({ error }) => ({
   "& .MuiOutlinedInput-root": {
-    paddingRight: "6px",
+    paddingRight: "11px",
     "& fieldset": {
       borderColor: error ? "#FDA29B" : "#0000000F",
       borderRadius: 6.2,
@@ -67,15 +67,18 @@ interface IFormInput {
   gstin: string;
 }
 
-export default function DetailSection({ activeTab, setActiveTab }: { setActiveTab: any;activeTab:string }) {
+export default function DetailSection({ activeTab, setActiveTab }: { setActiveTab: any; activeTab: string }) {
   const [gstChecked, setGstChecked] = useState(false);
   // const [aadhar, setAadhar] = useState("");
-  const [billingSameAsAadhar, setBillingSameAsAadhar] = useState(false);
+  const [billingSameAsAadhar, setBillingSameAsAadhar] = useState(true);
   const [aadharRequestId, setAadharRequestId] = useState("");
   const [displayModal, setDisplayModal] = useState("AADHAR");
   const [openDialog, setOpenDialog] = useState(false);
   const [aadharOtpLoading, setAadharOtpLoading] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkingPincode, setCheckingPincode] = useState(false);
+  const [pincodeVerified, setPincodeVerified] = useState(false);
+  const [pincodeBasedAddress, setPincodeBasedAddress] = useState("");
   const {
     isAadharAlreadyVerified,
     userDetails,
@@ -190,18 +193,17 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   // };
 
   const handleRazorpayScreen = (options: any) => {
-    let paymentFailed = false
+    let paymentFailed = false;
     const paymentObject = new window.Razorpay(options);
     paymentObject.on("payment.failed", function (response: any) {
-      if(!paymentFailed){
-        paymentFailed = true
+      if (!paymentFailed) {
+        paymentFailed = true;
         alert(response.error.description);
         // Optionally, reset the flag after a certain time if needed
         setTimeout(() => {
           paymentFailed = false;
         }, 5000);
       }
-      
     });
     paymentObject.open();
   };
@@ -266,6 +268,84 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       setCheckoutLoading(false);
     }
   };
+
+  const handlePincode = async (pincode: string) => {
+    try {
+      setCheckingPincode(true);
+      const res = {
+        results: [
+          {
+            address_components: [
+              {
+                long_name: "92102",
+                short_name: "92102",
+                types: ["postal_code"],
+              },
+              {
+                long_name: "San Diego",
+                short_name: "San Diego",
+                types: ["locality", "political"],
+              },
+              {
+                long_name: "San Diego County",
+                short_name: "San Diego County",
+                types: ["administrative_area_level_2", "political"],
+              },
+              {
+                long_name: "California",
+                short_name: "CA",
+                types: ["administrative_area_level_1", "political"],
+              },
+              {
+                long_name: "United States",
+                short_name: "US",
+                types: ["country", "political"],
+              },
+            ],
+            formatted_address: "San Diego, CA 92102, USA",
+            geometry: {
+              bounds: {
+                northeast: {
+                  lat: 32.737438,
+                  lng: -117.0849069,
+                },
+                southwest: {
+                  lat: 32.7040681,
+                  lng: -117.148336,
+                },
+              },
+              location: {
+                lat: 32.7162223,
+                lng: -117.1323579,
+              },
+              location_type: "APPROXIMATE",
+              viewport: {
+                northeast: {
+                  lat: 32.737438,
+                  lng: -117.0849069,
+                },
+                southwest: {
+                  lat: 32.7040681,
+                  lng: -117.148336,
+                },
+              },
+            },
+            place_id: "ChIJUTfzdXdT2YAR-n8fMy8uxtY",
+            types: ["postal_code"],
+          },
+        ],
+        status: "OK",
+      };
+
+      setPincodeVerified(true);
+      setPincodeBasedAddress("San Diego, CA 92102, USA");
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setCheckingPincode(false);
+    }
+  };
+
   useEffect(() => {
     setValue("fullname", userDetails.name);
     setValue("phone", userDetails.phone);
@@ -524,7 +604,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           ) : null}
           {/* || isAadharAlreadyVerified */}
           {/* || userDetails.address */}
-          {(aadharVerified  || userDetails.address) && (
+          {/* {(aadharVerified || userDetails.address) && (
             <div className="col-span-2">
               <p className="text-xs text-gray-500">
                 Billing Address<span className="text-error-500">*</span>
@@ -534,10 +614,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 control={control}
                 rules={{
                   required: "Enter address to continue",
-                  // pattern: {
-                  //   value: /^\d{4}\d{4}\d{4}$/,
-                  //   message: '"Enter a valid Aadhar number in the format XXXX XXXX XXXX"',
-                  // },
                 }}
                 render={({ field }) => (
                   <CustomTextField
@@ -548,38 +624,119 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                     fullWidth
                     InputProps={{
                       readOnly: true,
-                      // billingSameAsAadhar ? true : false,
                       className: (userDetails.address ? true : false) ? "bg-[#F4F7FA99]" : "",
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          {/* {billingSameAsAadhar? null : (
-                            <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
-                              <p className="text-sm font-semibold">Check</p>
-                            </Button>
-                          )} */}
-                        </InputAdornment>
-                      ),
+                      endAdornment: <InputAdornment position="end"></InputAdornment>,
                     }}
                     className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
                   />
                 )}
               />
-              {/* {!isAadharAlreadyVerified ? ( <div className=" flex items-center gap-x-2">
-                <Checkbox
-                  checked={billingSameAsAadhar}
-                  onCheckedChange={(checked) => {
-                    if (!checked) {
-                      setUserDetails((prev) => ({ ...prev, address: "" }));
-                     
-                    }
-                    setBillingSameAsAadhar(checked as boolean);
+            </div>
+          )} */}
+          {(aadharVerified || userDetails.address) && (
+            <div className="col-span-2">
+              <div>
+                <p className="text-xs text-gray-500">
+                  Billing Address<span className="text-error-500">*</span>
+                </p>
+                <Controller
+                  name="address"
+                  control={control}
+                  rules={{
+                    required: "Enter address to continue",
+                    minLength: {
+                      value: 3,
+                      message: "Enter valid address",
+                    },
+                  //  pattern: {
+                  //       value: /^\d{6}$/,
+                  //       message: "Enter a valid pincode.",
+                  //     },
+                    
                   }}
-                  id="billingAadharAddress"
+                  render={({ field }) => (
+                    <CustomTextField
+                      {...field}
+                      // onKeyDown={(e)=>{
+                      //   if(e.key?.toLowerCase() === "backspace" && Number(field.value)){
+
+                      //   }
+                       
+                      // }}
+                      id="address"
+                      type={ billingSameAsAadhar || (isAadharAlreadyVerified && field.value === userDetails.address) ? "text":"number"}
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        readOnly: billingSameAsAadhar ? true : false,
+                        // billingSameAsAadhar ? true : false,
+                        className: (billingSameAsAadhar ? true : false) ? "bg-[#F4F7FA99]" : "",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            {billingSameAsAadhar ||
+                            (isAadharAlreadyVerified && field.value === userDetails.address) ? null : (
+                              <button
+                                disabled={checkingPincode}
+                                className=" "
+                                onClick={() => {
+                                  // setOpenDialog(true);
+                                  handlePincode(field.value);
+                                }}
+                              >
+                                {checkingPincode ? (
+                                  <span className=" inline-flex items-center justify-center gap-x-1">
+                                    <Loader color="#12B76A" fontSize={12} height={12} width={12} />
+                                    <p className=" text-2xs text-[#12B76A]">Checking</p>
+                                  </span>
+                                ) : (
+                                  <p className=" text-2xs text-brand-500 border-b border-dashed border-b-brand-500">
+                                    Check
+                                  </p>
+                                )}
+                              </button>
+                            )}
+                          </InputAdornment>
+                        ),
+                      }}
+                      className={`!mt-[6px]  ${pincodeBasedAddress && !billingSameAsAadhar ? " [&>fieldset]:!rounded-t-lg ":"!py-[9px] !rounded-[6.2px]" }  !pr-[6px]  !border-[#0000000F]`}
+                    />
+                  )}
                 />
-                
-                  <p className=" text-sm text-[#475467]">Billing address is the same as Aadhar address</p>
-                 
-              </div>): null} */}
+                {
+                  pincodeBasedAddress && !billingSameAsAadhar &&  <CustomTextField
+                  id="address"
+                  type="text"
+                  variant="outlined"
+                  fullWidth
+                  value={pincodeBasedAddress}
+                  InputProps={{
+                    readOnly: true,
+                    className: (userDetails.address ? true : false) ? "bg-[#F4F7FA99]" : "",
+                    endAdornment: <InputAdornment position="end"></InputAdornment>,
+                  }}
+                  className="  !pb-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                />
+                }
+               
+                {!isAadharAlreadyVerified ? (
+                  <div className=" flex items-center gap-x-2">
+                    <Checkbox
+                      checked={billingSameAsAadhar}
+                      onCheckedChange={(checked) => {
+                        if (!checked) {
+                          // setUserDetails((prev) => ({ ...prev, address: "" }));
+                          setValue("address", "");
+                        }
+                        setValue("address", userDetails?.address);
+                        setBillingSameAsAadhar(checked as boolean);
+                      }}
+                      id="billingAadharAddress"
+                    />
+
+                    <p className=" text-sm text-[#475467]">Billing address is the same as Aadhar address</p>
+                  </div>
+                ) : null}
+              </div>
             </div>
           )}
 
