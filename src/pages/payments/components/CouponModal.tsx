@@ -60,6 +60,7 @@ export default function CouponModal() {
   const [loading,setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
+  const [invalidDiscountCode,setInvalidDiscountCode] = useState(false);
   const { toast } = useToast();
   const checkCoupon = async () => {
     
@@ -86,6 +87,7 @@ export default function CouponModal() {
     } catch (e: any) {
       if (e?.response?.data?.message?.includes("Invalid")) {
         setError(true);
+        setInvalidDiscountCode(true)
         // toast({
         //   variant: "warn",
         //   description: e?.response?.data?.message,
@@ -107,6 +109,7 @@ export default function CouponModal() {
     if(!open){
       setDiscountCode("")
       setError(false)
+      setInvalidDiscountCode(false)
       setCurrentDiscountSelected("")
     }
   },[open])
@@ -131,13 +134,14 @@ export default function CouponModal() {
           <DialogTitle className=" text-xl font-semibold m-0 !text-left mb-5 ">Apply Coupon</DialogTitle>
           {/* INPUT SECTION */}
           <div
-            className={` py-3 px-[11px] border  !mt-0 ${error ? " border-error-500" : "border-[#0000000F]"} rounded-lg flex`}
+            className={` py-3 px-[11px] border text-left !mt-0 ${error ? " border-error-500" : "border-[#0000000F]"} rounded-lg flex`}
           >
             <input
               disabled={loading}
               value={discountCode}
               onChange={(e) => {
                 if (error) setError(false);
+                if(invalidDiscountCode) setInvalidDiscountCode(false)
                 setDiscountCode(e.target.value);
               }}
               className=" bg-transparent text-sm w-full font-medium"
@@ -153,7 +157,7 @@ export default function CouponModal() {
               
             </button>
           </div>
-          {error && <p className=" text-error-500 text-2xs mt-[10px]">Coupon not valid</p>}
+          {error ? !invalidDiscountCode ? <p className=" text-left text-error-500 text-2xs mt-[10px]">Enter code & click 'Check' to validate</p>: <p className="text-left text-error-500 text-2xs mt-[10px]">Coupon not valid</p>:null}
           {/* INPUT SECTION END*/}
         </DialogHeader>
 
@@ -191,7 +195,7 @@ export default function CouponModal() {
               <p className=" text-sm text-gray-400">Maximum Savings</p>
               <p className=" text-gray-950 text-xs font-semibold">₹{discountAmt ?? 0}</p>
             </div>
-            <Tooltip disableTooltip={currentDiscountSelected?.length >0? true:false}  tooltipContent={"Select Coupon in order to apply"} tooltipTrigger={ <Button disabled={currentDiscountSelected?.length ==0} onClick={handleApply} className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
+            <Tooltip disableTooltip={currentDiscountSelected?.length >0? true:false}  tooltipContent={"Select the approved code."} tooltipTrigger={ <Button disabled={currentDiscountSelected?.length ==0} onClick={handleApply} className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
               <p className=" text-md font-medium">Apply</p>
             </Button>}/>
            

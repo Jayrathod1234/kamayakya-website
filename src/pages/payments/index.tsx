@@ -159,11 +159,11 @@ export default function Index() {
             </div>
             {/* stepper component end */}
 
-            <div className=" flex justify-center items-center mt-3">
+            <div className=" flex flex-col sm:flex-row justify-center items-center sm:items-start mt-3">
               <img height={24} width={24} src="/assets/help.svg" alt="help" />
-              <p className=" ml-1 pt-2 text-2xs text-gray-500">
+              <p className=" ml-1 pt-2 text-2xs text-gray-500 text-center">
                 {/* Check <FaqModal /> */}
-                Got any doubts? Contact us on WhatsApp number XXXX or call us at XXXX
+                Got any doubts? Call us at +91 9175939641 or send a WhatsApp message on +919175939641
               </p>
             </div>
           </div>
