@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -7,6 +7,9 @@ import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Line } from "@/components.v2/blogs/blog-card-sm";
 import { Mail } from "lucide-react";
+import OTPInput from "react-otp-input";
+import { useMediaQuery } from "@mui/material";
+import { blockInvalidChar } from "@/components/LoginCard";
 
 interface ILoginPrompt {
   triggerEle: React.ReactNode;
@@ -37,10 +40,41 @@ const SignUpContent = () => {
       phone: "",
     },
   });
+  const [secondsRemaining, setSecondsRemaining] = useState(15);
+  const [resendOtp, setResendOtp] = useState(false);
+  const [otp, setOtp] = useState("");
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   const handleRequestOtp = async (data: IFormData) => {
     const { phone = "" } = data;
   };
+
+  useEffect(() => {
+    if (resendOtp) {
+      setSecondsRemaining(30); // Start the countdown timer when the modal is shown
+    }
+  }, [resendOtp]);
+
+  useEffect(() => {
+    if (secondsRemaining > 0) {
+      const timer = setTimeout(() => {
+        setSecondsRemaining((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [secondsRemaining]);
+
+  // useEffect(() => {
+  //   if (openDialog && displayModal === "AADHAR") {
+  //     setSecondsRemaining(15);
+  //   }
+  //   if (!openDialog) {
+  //     setOtp("");
+  //     setFetchAadharFailed(false);
+  //   }
+  // }, [openDialog]);
+
   if (true) {
     return (
       <div className=" p-5 sm:py-[60px] md:p-[60px] flex-1">
@@ -50,52 +84,50 @@ const SignUpContent = () => {
           <p className=" font-medium text-brand-500 m-0 ">Edit Mobile Number</p>
         </button>
         <div className=" mt-9">
-          <p className=" font-medium mb-[6px] text-2xs">Mobile Number</p>
-          <div className=" border border-[#0000000F] py-2 px-[10px] rounded-lg">
-            <Controller
-              name="phone"
-              control={control}
-              rules={{
-                required: "Enter phone to continue",
-                validate: (value) => {
-                  return isPossiblePhoneNumber(value) && value.slice(3).length === 10
-                    ? true
-                    : "Enter valid mobile number";
-                },
-              }}
-              render={({ field: { value, onChange } }) => (
-                <>
-                  <PhoneInput
-                    value={value}
-                    onChange={onChange}
-                    defaultCountry="IN"
-                    placeholder="Enter phone number"
-                    className=" border-green-400"
-                  />
-                </>
+          <div className="">
+            <div>
+              <OTPInput
+                inputType="number"
+                value={otp}
+                numInputs={6}
+                containerStyle={{
+                  gap: isMobile ? "2px" : "10px",
+                }}
+                inputStyle={{
+                  height: "44px",
+                  width: "44px",
+                  border: "1px solid #B7BDC7",
+                  borderRadius: "6.2px",
+                  background: "#fff",
+                  // "-moz-appearance": "textfield",
+                }}
+                renderInput={(props) => (
+                  <input {...props} type="number" onKeyDown={(e) => blockInvalidChar(e, props.onKeyDown)} />
+                )}
+                onChange={setOtp}
+                renderSeparator={<span></span>}
+                shouldAutoFocus={true}
+                // disabled={isLoading}
+              />
+            </div>
+            <p className=" text-2xs mt-2">
+              {" "}
+              Haven’t received the OTP?{" "}
+              {secondsRemaining === 0 ? (
+                <button className=" text-[#1D4040] text-2xs font-semibold">Resend</button>
+              ) : (
+                `${secondsRemaining} seconds`
               )}
-            />
+            </p>
           </div>
         </div>
         <div className=" mt-8">
-          <p className=" text-gray-400 text-2xs">
-            By signing in you agree to all our <span className=" text-brand-500 underline">terms & conditions</span>
-          </p>
           <Button
             onClick={handleSubmit(handleRequestOtp)}
             className=" my-[18px] min-w-full max-w-full"
             variant={ButtonVariant.primary}
           >
-            <p className=" text-sm font-medium">Request OTP</p>
-          </Button>
-          <div className=" flex items-center mb-[18px]">
-            <div className=" bg-gray-300 h-[1px] w-full"></div>
-            <p className=" text-2xs text-gray-500 mx-3">Or</p>
-            <div className=" bg-gray-300 h-[1px] w-full"></div>
-          </div>
-          <Button className=" max-w-full min-w-full" variant={ButtonVariant.tertiary}>
-            <Mail height={24} width={24} />
-            <p className=" ml-[10px] text-[#242424] text-sm font-medium">Sign in with Email</p>
+            <p className=" text-sm font-medium">Verify OTP</p>
           </Button>
         </div>
       </div>
