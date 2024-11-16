@@ -45,7 +45,7 @@ export function PlanTooltip({ children, price, strikePrice, saveText, gst, total
         </TooltipTrigger>
         <TooltipContent
           side="bottom"
-          className=" bg-white text-black border-0 p-0  max-w-[425px] z-[100] rounded-[10px] shadow-3xl w-[255px]"
+          className=" bg-white text-black border-0 p-0  max-w-[425px] z-[1002] rounded-[10px] shadow-3xl w-[255px]"
         >
           <div className=" flex flex-col gap-y-3 px-4 py-3 ">
             <Breakdown

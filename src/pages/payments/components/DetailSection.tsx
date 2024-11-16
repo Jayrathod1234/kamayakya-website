@@ -1,7 +1,7 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
-import { IconButton, InputAdornment, OutlinedInput, styled, TextField } from "@mui/material";
+import { IconButton, InputAdornment, OutlinedInput, styled, TextField, TextFieldProps } from "@mui/material";
 import { ArrowLeft, Check, Loader, Mail } from "lucide-react";
 import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -11,7 +11,7 @@ import OtpInput from "react-otp-input";
 import { blockInvalidChar } from "@/components/LoginCard";
 import AadhaVerifyModal from "./AadhaVerifyModal";
 import ConfirmDetailsModal from "./ConfirmDetailsModal";
-import { getAadharOtp, getSelectedPlanDates, getUserKycStatus, postCheckout } from "../../../api/payment/index";
+import { getAadharOtp, getAddress, getSelectedPlanDates, getUserKycStatus, postCheckout } from "../../../api/payment/index";
 import { useToast } from "@/components.v2/ui/use-toast";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import AuthContext from "@/components/AuthContext";
@@ -21,26 +21,44 @@ import axios from "axios";
 import Tooltip from "@/components.v3/common/Tooltip";
 import { useRouter } from "next/router";
 
+
+type CustomTextFieldProps =   TextFieldProps & {
+  confirmAddress?: boolean;
+}
+
+type ParamsType = {
+  base_amount: string;
+  subscription: string;
+  final_amount: string | number;
+  discount_code: string;
+  discount_amount: string;
+  address: string;
+  name: string;
+  user_email: string;
+  user_contact: string;
+  gst_number?: string; // Optional property
+};
+
 // Custom styled OutlinedInput
 export const CustomTextField = styled(TextField, {
   shouldForwardProp: (prop) => prop !== "error" && prop !== "confirmAddress", // Prevents passing `error` to the DOM
-})(({ error,confirmAddress }) => ({
+})<CustomTextFieldProps>(({ error, confirmAddress }) => ({
   "& .MuiOutlinedInput-root": {
     paddingRight: "11px",
     "& fieldset": {
       borderColor: error ? "#FDA29B" : "#0000000F",
-      borderRadius: confirmAddress ? "8px 8px 0 0": "6.2px",
-      
+      borderRadius: confirmAddress ? "8px 8px 0 0" : "6.2px",
     },
     "&.Mui-focused fieldset": {
       borderColor: "#00645A", // Focus color
-      borderWidth: 2,
+      borderWidth: 1,
     },
     "& input:valid + fieldset": {
       borderColor: error ? "red" : "green",
       borderWidth: 1,
     },
     "& input": {
+      fontSize: "14px",
       padding: "9px !important",
       paddingRight: "10px !important",
       paddingLeft: "12px",
@@ -98,6 +116,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     handleSubmit,
     formState: { errors },
     getValues,
+    setError,
     setValue,
   } = useForm({
     defaultValues: {
@@ -122,10 +141,12 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       aadhar: "",
     },
   });
+  const [phoneFocused, setPhoneFocused] = useState(false);
   const aadhar = getValues2("aadhar");
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
-  };
+  const preExistingAddress =getValues("address");
+  // const onSubmit: SubmitHandler<IFormInput> = (data) => {
+  //   console.log(data);
+  // };
 
   // const handleAadharEditClick = () => {
   //   setAadharVerified(false);
@@ -145,6 +166,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       setOpenDialog(true);
       // setAadharRequestId(res?.)
     } catch (e: any) {
+      if(e?.response?.data?.message?.includes("Invalid Aadhaar")){
+        toast({
+          variant: "warn",
+          title: "",
+          description: "Invalid Aadhaar Number. Please check and re-enter a valid Aadhaar Number.",
+        });
+        return
+      }
       toast({
         variant: "warn",
         title: "",
@@ -214,9 +243,13 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       setError2("aadhar", { message: "Verify Aadhar to continue" });
       return;
     }
+    if(!Number.isNaN(Number(data.address)) && !pincodeBasedAddress){
+      setError("address",{message:"Verify pincode to continue"})
+      return
+    }
     setCheckoutLoading(true);
     try {
-      let params = {
+      let params:ParamsType = {
         base_amount: planDetails.totalPayable,
         subscription: currentPlan.planId,
         final_amount: planDetails.discount
@@ -226,7 +259,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         discount_code: planDetails.discountCode,
         // "discount_percentage":0,
         discount_amount: planDetails.discount,
-        address: data.address,
+        address:!pincodeBasedAddress && Number.isNaN(Number(data.address)) ? data.address : pincodeBasedAddress,
         name: data.fullname,
         user_email: data.email,
         user_contact: data.phone.slice(3),
@@ -243,7 +276,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        handler: function (response) {
+        handler: function (response:unknown) {
           router.push("/payments/successful");
         },
         prefill: {
@@ -273,74 +306,15 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
 
   const handlePincode = async (pincode: string) => {
     try {
+      setError("address",{message:""})
       setCheckingPincode(true);
-      const res = {
-        results: [
-          {
-            address_components: [
-              {
-                long_name: "92102",
-                short_name: "92102",
-                types: ["postal_code"],
-              },
-              {
-                long_name: "San Diego",
-                short_name: "San Diego",
-                types: ["locality", "political"],
-              },
-              {
-                long_name: "San Diego County",
-                short_name: "San Diego County",
-                types: ["administrative_area_level_2", "political"],
-              },
-              {
-                long_name: "California",
-                short_name: "CA",
-                types: ["administrative_area_level_1", "political"],
-              },
-              {
-                long_name: "United States",
-                short_name: "US",
-                types: ["country", "political"],
-              },
-            ],
-            formatted_address: "San Diego, CA 92102, USA",
-            geometry: {
-              bounds: {
-                northeast: {
-                  lat: 32.737438,
-                  lng: -117.0849069,
-                },
-                southwest: {
-                  lat: 32.7040681,
-                  lng: -117.148336,
-                },
-              },
-              location: {
-                lat: 32.7162223,
-                lng: -117.1323579,
-              },
-              location_type: "APPROXIMATE",
-              viewport: {
-                northeast: {
-                  lat: 32.737438,
-                  lng: -117.0849069,
-                },
-                southwest: {
-                  lat: 32.7040681,
-                  lng: -117.148336,
-                },
-              },
-            },
-            place_id: "ChIJUTfzdXdT2YAR-n8fMy8uxtY",
-            types: ["postal_code"],
-          },
-        ],
-        status: "OK",
-      };
-
-      setPincodeVerified(true);
-      setPincodeBasedAddress("San Diego, CA 92102, USA");
+      const res = await getAddress(pincode)
+      if(res?.results && res?.status === "OK"){
+        if(Array.isArray(res?.results)){
+          setPincodeVerified(true);
+          setPincodeBasedAddress(res?.results[0].formatted_address);
+        }
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -373,6 +347,12 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     }
   }, [errors]);
 
+  useEffect(()=>{
+    if(isAadharAlreadyVerified){
+      setBillingSameAsAadhar(false)
+    }
+  },[isAadharAlreadyVerified])
+  console.log(userDetails.address,userDetails)
   return (
     <div className="mt-9">
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
@@ -463,7 +443,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                         </InputAdornment>
                       ),
                     }}
-                    className="!mt-[6px] pl-3  !py-[9px] !pr-[0px]"
+                    className="!mt-[6px]"
                   />
                 )}
               />
@@ -502,6 +482,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                       className: aadharVerified || isAadharAlreadyVerified ? "bg-[#F4F7FA99]" : "",
                       endAdornment: (
                         <InputAdornment position="end">
+                          {userDetails.name && (isAadharAlreadyVerified||aadharVerified) ? <VerifyTag />:null}
                           {errors.fullname?.message && (
                             <Tooltip
                               tooltipContent={<p className=" text-2xs">{errors.fullname.message}</p>}
@@ -530,7 +511,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                         </InputAdornment>
                       ),
                     }}
-                    className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                    className="!mt-[6px] "
                   />
                 )}
               />
@@ -597,7 +578,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                           </InputAdornment>
                         ),
                       }}
-                      className="!mt-[6px]  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
+                      className="!mt-[6px] "
                     />
                   )}
                 />
@@ -644,23 +625,34 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 <Controller
                   name="address"
                   control={control}
-                 
                   rules={{
                     required: "Enter address to continue",
                     minLength: {
                       value: 3,
                       message: "Enter valid address",
                     },
-                    //  pattern: {
-                    //       value: /^\d{6}$/,
-                    //       message: "Enter a valid pincode.",
-                    //     },
+                     pattern: {
+                          value:  (billingSameAsAadhar && !isAadharAlreadyVerified) ||
+                          (isAadharAlreadyVerified && preExistingAddress === userDetails.address) ?/^[\s\S]*$/ : /^\d{6}$/,
+                          message: "Enter a valid pincode.",
+                        },
                   }}
                   render={({ field }) => (
                     <CustomTextField
                       {...field}
                       id="address"
-                      confirmAddress = {pincodeBasedAddress ? true:false}
+                      error={errors.address?.message ? true:false}
+                      onKeyDown={(e)=>{
+                        if(e.key==="Backspace") {
+                          if(Number.isNaN(Number(field.value))){
+                            setValue("address","")
+                          }
+                          setPincodeVerified(false); 
+                          setPincodeBasedAddress("")
+                        }
+                      }}
+                      placeholder="Enter Pincode"
+                      confirmAddress={pincodeBasedAddress ? true : false}
                       type={
                         (billingSameAsAadhar && !isAadharAlreadyVerified) ||
                         (isAadharAlreadyVerified && field.value === userDetails.address)
@@ -669,7 +661,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                       }
                       variant="outlined"
                       fullWidth
-                      
                       InputProps={{
                         readOnly: billingSameAsAadhar && !isAadharAlreadyVerified ? true : false,
                         // billingSameAsAadhar ? true : false,
@@ -680,15 +671,46 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                           <InputAdornment position="end">
                             {(billingSameAsAadhar && !isAadharAlreadyVerified) ||
                             (isAadharAlreadyVerified && field.value === userDetails.address) ? null : (
-                              <button
-                                disabled={checkingPincode}
-                                className=" "
+                              <>{
+                                errors.address?.message && (
+                                <Tooltip
+                                  tooltipContent={<p className=" text-2xs">{errors.address?.message}</p>}
+                                  tooltipTrigger={
+                                    <svg
+                                      width="16"
+                                      height="17"
+                                      viewBox="0 0 16 17"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M8.00016 5.98334V8.65M8.00016 11.3167H8.00683M14.6668 8.65C14.6668 12.3319 11.6821 15.3167 8.00016 15.3167C4.31826 15.3167 1.3335 12.3319 1.3335 8.65C1.3335 4.96811 4.31826 1.98334 8.00016 1.98334C11.6821 1.98334 14.6668 4.96811 14.6668 8.65Z"
+                                        stroke="#F04438"
+                                        stroke-width="1.33333"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                    </svg>
+                                  }
+                                />
+                              )}<button
+                                
+                                disabled={checkingPincode || (pincodeBasedAddress ? true:false)}
+                                className=" ml-[10px] "
                                 onClick={() => {
-                                  // setOpenDialog(true);
+                                  if(!/^\d{6}$/.test(field.value)){
+                                    setError("address",{message:"Enter valid pincode to continue."})
+                                   return
+                                  }
                                   handlePincode(field.value);
+                                  // setOpenDialog(true);
+                                  
                                 }}
                               >
-                                {checkingPincode ? (
+                                
+                                {pincodeBasedAddress && !errors.address?.message ? (
+                                  <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
+                                ) : checkingPincode ? (
                                   <span className=" inline-flex items-center justify-center gap-x-1">
                                     <Loader color="#12B76A" fontSize={12} height={12} width={12} />
                                     <p className=" text-2xs text-[#12B76A]">Checking</p>
@@ -698,36 +720,41 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                                     Check
                                   </p>
                                 )}
-                              </button>
+                              </button></>
+                              
                             )}
                           </InputAdornment>
                         ),
                       }}
                       className={`!mt-[6px]  ${
-                        pincodeBasedAddress 
-                          ? " [&>.fieldset]:!rounded-t-lg pb-0"
-                          : "!py-[9px] !rounded-[6.2px]"
-                      }  !pr-[6px]  !border-[#0000000F]`}
+                        pincodeBasedAddress ? " [&>.fieldset]:!rounded-t-lg pb-0" : " !rounded-[6.2px]"
+                      }    !border-[#0000000F]`}
                     />
                   )}
                 />
-                {/* && !billingSameAsAadhar */}
-                {pincodeBasedAddress && (
-                  <div id="pincode-address" className="  py-[9px] px-[11px] mr-[6px] rounded-b-lg border border-[#0000000F] bg-[#F9FAFC]">
+                {pincodeBasedAddress && (!billingSameAsAadhar) && (
+                  <div
+                    id="pincode-address"
+                    className="  text-sm py-[9px] px-[11px] rounded-b-lg border border-[#0000000F] bg-[#F9FAFC]"
+                  >
                     {pincodeBasedAddress}
                   </div>
                 )}
 
                 {!isAadharAlreadyVerified ? (
-                  <div className=" flex items-center gap-x-2">
+                  <div className=" flex items-center gap-x-2 mt-3">
                     <Checkbox
                       checked={billingSameAsAadhar}
                       onCheckedChange={(checked) => {
                         if (!checked) {
-                          // setUserDetails((prev) => ({ ...prev, address: "" }));
                           setValue("address", "");
+                        } else {
+                          setError("address",{message:""})
+                          setPincodeVerified(false)
+                          setPincodeBasedAddress("");
                         }
                         setValue("address", userDetails?.address);
+
                         setBillingSameAsAadhar(checked as boolean);
                       }}
                       id="billingAadharAddress"
@@ -799,12 +826,10 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                           ) : field.value ? (
                             <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
                           ) : null}
-
-                          {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
                         </InputAdornment>
                       ),
                     }}
-                    className="!mt-[6px]  !pr-[6px] !rounded-[6.2px]"
+                    className="!mt-[6px]"
                   />
                 )}
               />
@@ -817,10 +842,11 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             </p>
             <div className="flex">
               <div
-                // className="  !py-[9px] !pr-[6px] !rounded-[6.2px] !border-[#0000000F]"
-                className={`  w-full !mt-[6px] flex items-center border ${
+                className={`  w-full !mt-[6px] flex items-center border hover:border-black ${
+                  phoneFocused ? " border-[1px] hover:border-[#00645A] border-[#00645A] border-collapse" : ""
+                }  ${
                   errors.phone?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
-                }  rounded-[6.2px] py-[9px] px-[14px] flex items-center"
+                }  rounded-[6.2px] py-[9px] px-[14px] flex items-center "
                 `}
               >
                 <Controller
@@ -833,20 +859,18 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                         ? true
                         : "Enter valid mobile number";
                     },
-                    // pattern: {
-                    //   value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    //   message: '"Enter a valid email"',
-                    // },
                   }}
                   render={({ field: { value, onChange } }) => (
                     <>
                       {" "}
                       <PhoneInput
+                        onFocus={() => setPhoneFocused(true)}
+                        onBlur={() => setPhoneFocused(false)}
                         value={value}
                         onChange={onChange}
                         defaultCountry="IN"
                         placeholder="Enter phone number"
-                        className=" border-green-400"
+                        className=" border-green-400 text-sm"
                       />
                       <InputAdornment position="end">
                         {errors.phone?.message || !isPossiblePhoneNumber(value) || value.slice(3).length != 10 ? (
@@ -875,7 +899,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                         ) : isPossiblePhoneNumber(value) ? (
                           <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
                         ) : null}
-                        {/* <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" /> */}
                       </InputAdornment>
                     </>
                   )}
@@ -904,7 +927,46 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             </div>
             <p className="text-3xs text-gray-500 mt-[6px]">You will get stock action calls on WhatsApp</p>
           </div>
-          {/* <div className="col-span-2 flex space-x-2 items-center">
+          
+
+          <div className="col-span-2 ">
+            <Button
+              loading={checkoutLoading}
+              onClick={handleSubmit(handleCheckout)}
+              className=" w-full"
+              variant={ButtonVariant.primary}
+            >
+              <p className=" text-sm font-medium">Proceed to Checkout</p>
+            </Button>
+          </div>
+        </div>
+        {displayModal.includes("AADHAR") ? (
+          <AadhaVerifyModal
+            setAadharRequestId={setAadharRequestId}
+            setOpenDialog={setOpenDialog}
+            setDisplayModal={setDisplayModal}
+            displayModal={displayModal}
+            openDialog={openDialog}
+            aadhar={aadhar}
+            requestId={aadharRequestId}
+            setBillingSameAsAadhar={setBillingSameAsAadhar}
+          />
+        ) : null}
+        {displayModal.includes("CONFIRM") ? (
+          <ConfirmDetailsModal
+            setDisplayModal={setDisplayModal}
+            openDialog={openDialog}
+            setOpenDialog={setOpenDialog}
+          />
+        ) : null}
+      </Dialog>
+    </div>
+  );
+}
+
+//GSTIN
+
+{/* <div className="col-span-2 flex space-x-2 items-center">
             <Checkbox
               checked={gstChecked}
               onCheckedChange={(checked) => setGstChecked(checked as boolean)}
@@ -974,38 +1036,3 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
               </div>
             </div>
           )} */}
-
-          <div className="col-span-2 ">
-            <Button
-              loading={checkoutLoading}
-              onClick={handleSubmit(handleCheckout)}
-              className=" w-full"
-              variant={ButtonVariant.primary}
-            >
-              <p className=" text-sm font-medium">Proceed to Checkout</p>
-            </Button>
-          </div>
-        </div>
-        {displayModal.includes("AADHAR") ? (
-          <AadhaVerifyModal
-            setAadharRequestId={setAadharRequestId}
-            setOpenDialog={setOpenDialog}
-            setDisplayModal={setDisplayModal}
-            displayModal={displayModal}
-            openDialog={openDialog}
-            aadhar={aadhar}
-            requestId={aadharRequestId}
-            setBillingSameAsAadhar={setBillingSameAsAadhar}
-          />
-        ) : null}
-        {displayModal.includes("CONFIRM") ? (
-          <ConfirmDetailsModal
-            setDisplayModal={setDisplayModal}
-            openDialog={openDialog}
-            setOpenDialog={setOpenDialog}
-          />
-        ) : null}
-      </Dialog>
-    </div>
-  );
-}

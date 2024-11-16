@@ -119,7 +119,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         name: res?.name,
         email: res?.email,
         phone: res?.mobile,
-        address: res?.address_details,
+        address: res?.address_details || res?.address,
         aadhar:res?.aadhar_no
       }));
     } catch (e) {
