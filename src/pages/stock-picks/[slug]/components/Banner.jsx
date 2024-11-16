@@ -2,19 +2,21 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import AuthContext from "@/components/AuthContext";
 import { useMediaQuery } from '@mui/material';
+import { useActivePlanContext } from '@/components/PlanContext';
 
 const Banner = () => {
     const isMobile = useMediaQuery("(max-width:600px)");
 
     const { isLoggedIn, user } = useContext(AuthContext);
+    const activePlan = useActivePlanContext();
 
     // Determine if the user is a VIP user
-    const isVipUser = user?.subscription?.some((sub) => sub.plan === 'vip');
+    const isVipUser = activePlan.activePlan?.plan?.includes("vip");
 
     // Determine if the user has a core or advance subscription
-    const hasCoreOrAdvance = user?.subscription?.some(
-        (sub) => sub.plan === 'core' || sub.plan === 'advanced'
-    );
+    const hasCoreOrAdvance = 
+    activePlan?.activePlan?.plan === 'core' || activePlan?.activePlan?.plan === 'advanced'
+    
 
     // Render nothing if the user is a VIP user
     if (isLoggedIn && isVipUser) {
