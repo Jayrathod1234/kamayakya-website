@@ -10,8 +10,8 @@ import { motion } from "framer-motion";
 
 const Step1 = () => {
   return (
-    <>
-      <div className=" px-9">
+    <div className="min-h-[70vh] flex flex-col">
+      <div className=" px-9 mt-auto">
         <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">Value Investing with KamayaKya</h3>
@@ -42,17 +42,17 @@ const Step1 = () => {
           </ul>
         </div>
       </div>
-      <div className=" bg-gray-50 border border-gray-150 p-4">
+      <div className=" bg-gray-50 border border-gray-150 p-4 relative mt-auto">
         <ButtonnArrow className=" ml-auto" variant={ButtonVariant.primary}>
           <p>Next</p>
         </ButtonnArrow>
       </div>
-    </>
+    </div>
   );
 };
 const Step2 = () => {
   return (
-    <>
+    <div className="min-h-[70vh] flex flex-col">
       <div className=" px-9">
         <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
         <div className=" py-6">
@@ -81,7 +81,7 @@ const Step2 = () => {
           </ul>
         </div>
       </div>
-      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between">
+      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto">
         <ButtonnArrow
           arrowPosition="start"
           arrowStyle=" rotate-180 "
@@ -95,13 +95,13 @@ const Step2 = () => {
           <p>Next</p>
         </ButtonnArrow>
       </div>
-    </>
+    </div>
   );
 };
 
 const Step3 = () => {
   return (
-    <>
+    <div className=" min-h-[70vh] flex flex-col">
       <div className=" px-9">
         <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
         <div className=" py-6">
@@ -121,7 +121,7 @@ const Step3 = () => {
           </div>
         </div>
       </div>
-      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between">
+      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto">
         <ButtonnArrow
           arrowPosition="start"
           arrowStyle=" rotate-180 "
@@ -135,7 +135,7 @@ const Step3 = () => {
           <p>Next</p>
         </ButtonnArrow>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -177,9 +177,9 @@ const Step4 = () => {
   }, [secondsRemaining]);
 
   // VERIFY OTP CONTENT
-  if (true) {
+  if (false) {
     return (
-      <div className=" mt-10">
+      <div className=" mt-10 min-h-[67.5vh] flex flex-col">
         <div className=" px-9">
           <h3 className=" m-0  text-xl font-bold text-gray-950">Verify your email</h3>
           <p className=" mt-1 text-sm text-gray-500">
@@ -222,12 +222,12 @@ const Step4 = () => {
               {secondsRemaining === 0 ? (
                 <button className=" text-[#1D4040] text-2xs font-semibold">Resend</button>
               ) : (
-                <span className=" text-2xs font-semibold">`${secondsRemaining} seconds`</span>
+                <span className=" text-2xs font-semibold">{secondsRemaining} seconds</span>
               )}
             </p>
           </div>
         </div>
-        <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between">
+        <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto">
           <ButtonnArrow
             arrowPosition="start"
             arrowStyle=" rotate-180 "
@@ -245,7 +245,7 @@ const Step4 = () => {
     );
   }
   return (
-    <div className=" mt-10">
+    <div className=" mt-10 min-h-[70vh] flex flex-col">
       <div className=" px-9">
         <h3 className=" m-0  text-xl font-bold text-gray-950">Almost there! </h3>
         <p className=" mt-1 text-sm text-gray-500">Add and verify your email to get your free stocks picks.</p>
@@ -261,7 +261,7 @@ const Step4 = () => {
           </Button>
         </div>
       </div>
-      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between">
+      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto">
         <ButtonnArrow
           arrowPosition="start"
           arrowStyle=" rotate-180 "
@@ -279,131 +279,133 @@ const Step4 = () => {
   );
 };
 
+const MainContent = ()=>{
+  return  false ? (
+    <div className=" max-sm:h-screen h-[690px] open_sans">
+      <motion.div
+        style={{ background: "#00C37C" }}
+        initial={{ opacity: 1, height: "100%" }}
+        animate={{ opacity: 1, height: "60%" }}
+        transition={{
+          duration: 0.8,
+          delay: 2,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <div className=" flex flex-col items-center justify-center h-full">
+          <img height={166} width={166} className=" block" src="/assets/onboard.gif" />
+          <div className=" mt-5 ">
+            <motion.h2
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.5,
+                ease: [0, 0.71, 0.2, 1.01],
+              }}
+              className=" m-0 text-display-sm font-bold text-center text-white"
+            >
+              Welcome Onboard!
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.5,
+                ease: [0, 0.71, 0.2, 1.01],
+              }}
+              className=" text-white text-md font-medium text-center"
+            >
+              Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15
+              seconds
+            </motion.p>
+          </div>
+        </div>
+      </motion.div>
+      <motion.div
+        initial={{ marginTop: 300 }}
+        animate={{ marginTop: -40 }}
+        transition={{
+          duration: 0.8,
+          delay: 2.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+        className=" flex flex-col px-11 gap-y-4 "
+      >
+        <div className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
+          <div className=" h-full flex items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
+            <div>
+              <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
+              <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
+            </div>
+          </div>
+        </div>
+        <div className="h-[100px] py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
+          <div>
+            <p className=" text-gray-700 font-bold text-md">Track Record</p>
+            <p className=" text-sm text-[#667085]">
+              3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in{" "}
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  ) : (
+    <Tabs
+      
+      // onValueChange={(value) => setActiveTab(value)}
+      defaultValue={"step1"}
+      // value={activeTab}
+      className=" relative w-full open_sans"
+    >
+      <div className=" px-9">
+        <TabsList className=" flex justify-between bg-transparent relative z-10 space-x-4 h-fit p-0 pt-10">
+          <TabsTrigger
+            className=" !p-0  h-[4px] w-full bg-[#E9EBEA] shadow-none data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
+            value="step1"
+          ></TabsTrigger>
+          <TabsTrigger
+            className="!p-0  h-[4px] w-full bg-[#E9EBEA]  data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
+            value="step2"
+          ></TabsTrigger>
+          <TabsTrigger
+            value="step3"
+            className=" !p-0  h-[4px] w-full bg-[#E9EBEA] disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
+          ></TabsTrigger>
+          <TabsTrigger
+            value="step4"
+            className=" !p-0  h-[4px] w-full bg-[#E9EBEA] disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
+          ></TabsTrigger>
+        </TabsList>
+        <p className=" text-3xs text-gray-800 mt-[14px] mb-4">1 of 4</p>
+      </div>
+      <TabsContent className=" min-h-[60vh]" value="step1">
+        <Step1 />
+      </TabsContent>
+      <TabsContent className=" w-full" value="step2">
+        <Step2 />
+      </TabsContent>
+      <TabsContent value="step3">
+        <Step3 />
+      </TabsContent>
+      <TabsContent value="step4">
+        <Step4 />
+      </TabsContent>
+    </Tabs>
+  )
+}
+
 export default function Onboarding() {
   return (
     <div className=" bg-[url(/assets/onboarding_bg.png)] bg-cover h-screen">
       <Dialog open={true}>
         <DialogContent
-          className="p-0  !rounded-[20px] overflow-hidden"
+          className="p-0  !rounded-[20px] overflow-hidden flex flex-col w-[calc(100%-32px)] max-w-[520px]"
           overlayClassName="bg-transparent open_sans"
           closeClassName="hidden"
         >
-          {
-            //WELCOME ONBOARD
-            true ? (
-              <div className=" h-[690px] open_sans">
-                <motion.div
-                  style={{ background: "#00C37C" }}
-                  initial={{ opacity: 1, height: "100%" }}
-                  animate={{ opacity: 1, height: "60%" }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 2,
-                    ease: [0, 0.71, 0.2, 1.01],
-                  }}
-                >
-                  <div className=" flex flex-col items-center justify-center h-full">
-                    <img height={166} width={166} className=" block" src="/assets/onboard.gif" />
-                    <div className=" mt-5 ">
-                      <motion.h2
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{
-                          duration: 0.8,
-                          delay: 0.5,
-                          ease: [0, 0.71, 0.2, 1.01],
-                        }}
-                        className=" m-0 text-display-sm font-bold text-center text-white"
-                      >
-                        Welcome Onboard!
-                      </motion.h2>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{
-                          duration: 0.8,
-                          delay: 0.5,
-                          ease: [0, 0.71, 0.2, 1.01],
-                        }}
-                        className=" text-white text-md font-medium text-center"
-                      >
-                        Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15
-                        seconds
-                      </motion.p>
-                    </div>
-                  </div>
-                </motion.div>
-                <motion.div
-                  initial={{ marginTop:100 }}
-                  animate={{ marginTop:-40 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 2.5,
-                    ease: [0, 0.71, 0.2, 1.01],
-                  }}
-                  className=" flex flex-col px-11 gap-y-4 "
-                >
-                  <div className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
-                    <div className=" h-full flex items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
-                      <div>
-                        <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
-                        <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="h-[100px] py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
-                    <div>
-                      <p className=" text-gray-700 font-bold text-md">Track Record</p>
-                      <p className=" text-sm text-[#667085]">
-                        3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in{" "}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            ) : (
-              <Tabs
-                // onValueChange={(value) => setActiveTab(value)}
-                defaultValue={"step1"}
-                // value={activeTab}
-                className=" relative w-full open_sans"
-              >
-                <div className=" px-9">
-                  <TabsList className=" flex justify-between bg-transparent relative z-10 space-x-4 h-fit p-0 pt-10">
-                    <TabsTrigger
-                      className=" !p-0  h-[4px] w-full bg-[#E9EBEA] shadow-none data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
-                      value="step1"
-                    ></TabsTrigger>
-                    <TabsTrigger
-                      className="!p-0  h-[4px] w-full bg-[#E9EBEA]  data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
-                      value="step2"
-                    ></TabsTrigger>
-                    <TabsTrigger
-                      value="step3"
-                      className=" !p-0  h-[4px] w-full bg-[#E9EBEA] disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
-                    ></TabsTrigger>
-                    <TabsTrigger
-                      value="step4"
-                      className=" !p-0  h-[4px] w-full bg-[#E9EBEA] disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
-                    ></TabsTrigger>
-                  </TabsList>
-                  <p className=" text-3xs text-gray-800 mt-[14px] mb-4">1 of 4</p>
-                </div>
-                <TabsContent value="step1">
-                  <Step1 />
-                </TabsContent>
-                <TabsContent className=" w-full" value="step2">
-                  <Step2 />
-                </TabsContent>
-                <TabsContent value="step3">
-                  <Step3 />
-                </TabsContent>
-                <TabsContent value="step4">
-                  <Step4 />
-                </TabsContent>
-              </Tabs>
-            )
-          }
+          <MainContent/>
         </DialogContent>
       </Dialog>
     </div>
