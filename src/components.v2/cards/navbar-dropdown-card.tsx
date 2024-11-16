@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ContactModal } from "../payments/contact-modal";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import { axiosApi } from "@/utils/axios";
 
 export function NavbarDropdownCard({
   triggerElement,
@@ -49,6 +50,7 @@ export function NavbarDropdownCard({
 
   const handleLogoutClick = () => {
     handleEvent("logout_clicked", { page: "Pricing_Page" });
+    // delete axiosApi.defaults.headers.common["Authorization"] ;
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
     router.replace("/");
