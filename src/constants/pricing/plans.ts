@@ -6,6 +6,7 @@ type TPlan = {
   className: string;
   subtext: string;
   label: string;
+  paymentPageLabel:string;
   priceStrikeThrough: string;
   gstLabel: boolean;
   featureHead: string;
@@ -22,6 +23,7 @@ export const FREE_PLAN: TPlan = {
   className: " md:row-start-1 md:justify-self-end order-1  lg:rounded-l-xl",
   subtext: "",
   label: "",
+  paymentPageLabel:"",
   priceStrikeThrough: "1,500",
   gstLabel: false,
   featureHead:
@@ -50,6 +52,7 @@ export const CORE_PLAN: TPlan = {
   className: " md:row-start-1 md:col-start-2 md:justify-self-start order-2",
   subtext: "",
   priceStrikeThrough: "1,100",
+  paymentPageLabel:"CORE -  Main Board",
   label: "MAIN BOARD",
   gstLabel: true,
   featureHead:
@@ -95,6 +98,7 @@ export const ADVANCED_PLAN: TPlan = {
   subtext: "",
   priceStrikeThrough: "1,000",
   label: "SME BOARD",
+  paymentPageLabel:"ADVANCED -  SME Board",
   gstLabel: true,
   featureHead:
     "Designed for long-term, high-risk, high-reward investors targeting high volatility stocks with a minimum investment of ₹1L per stock.",
@@ -129,6 +133,7 @@ export const VIP_PLAN: TPlan = {
   subtext: "",
   priceStrikeThrough: "1,667",
   label: "MAIN Board + SME Board",
+  paymentPageLabel:"VIP -  Main Board & SME Board",
   gstLabel: true,
   featureHead:
     "Perfect for seasoned investors looking to diversify their portfolio across Main Board and SME stocks with comprehensive support and updates.",

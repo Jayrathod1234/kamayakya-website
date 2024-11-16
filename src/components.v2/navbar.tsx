@@ -129,7 +129,7 @@ export function Navbar({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [showFilterHeader]);
+  }, []);
 
   return (
     <div

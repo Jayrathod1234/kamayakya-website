@@ -94,6 +94,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     gtag('config', 'G-4R949GS408');
                 `}
                     </Script>
+                  
 
                     <Script>
                       {`
@@ -117,6 +118,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   })(window, document, "clarity", "script", "lfy66vz48l");
             `}
                     </Script>
+                    <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
                   </PlanProvider>
                 </AuthProvider>
               </NavBarProvider>

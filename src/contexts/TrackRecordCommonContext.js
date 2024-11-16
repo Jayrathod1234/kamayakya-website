@@ -130,6 +130,9 @@ export const TrackRecordCommonProvider = ({ children }) => {
     setSebiBoardType(type);
   }, []);
 
+
+  console.log("TRACK RECORD COMMON==>", strategyTag, isChangeFilter,sebiBoardType,popularStrategies)
+
   return (
     <TrackRecordCommonContext.Provider
       value={{

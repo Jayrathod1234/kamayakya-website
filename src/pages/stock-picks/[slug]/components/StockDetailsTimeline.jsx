@@ -10,6 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { steps } from "framer-motion";
 import { Tooltip } from "@mui/material";
+import { report } from "process";
 
 const CustomStepConnector = styled(Box)(({ theme }) => ({
   borderLeft: `2px solid #75CDC5`,
@@ -186,7 +187,7 @@ export default function StockDetailsTimeline({ timeline }) {
               >
                 {step.type == "report" ? step.report_action_text : "Video Released"}
 
-                {index == 0 && step.type === "report" && (
+                {index == 0 && step.type === "report" &&  !step.report_name.toLowerCase().includes("sell") && (
                   <Box ml={1} px={1} py={0.5} borderRadius="9999px" bgcolor="#FFF6EE">
                     <Typography color="orange" fontFamily="Open Sans" fontSize="10px" fontWeight={700}>
                       Active

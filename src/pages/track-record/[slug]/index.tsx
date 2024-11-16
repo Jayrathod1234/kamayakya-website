@@ -25,6 +25,8 @@ import { TrackRecordProvider } from "@/contexts/TrackRecordContext";
 import { TrackRecordCommonProvider } from "@/contexts/TrackRecordCommonContext";
 import { Carousel, CarouselItem, CarouselContent } from "@/components.v2/ui/carousel";
 import { Tooltip as MuiTooltip } from "@mui/material";
+import { TargetChip } from "@/components.v3/common/TargetChip";
+import { UseEmblaCarouselType } from "embla-carousel-react";
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -76,7 +78,7 @@ function StockDetailsSection() {
     router.push("/track-record");
     return;
   }
-  const watch_video = timeline?.find((value) => value.type == "youtube");
+  const watch_video = timeline?.find((value: any) => value.type == "youtube");
   const hasVideo = watch_video && watch_video.youtube_link;
   const [modalState, setModalState] = useState({
     isMainModalOpen: false,
@@ -92,7 +94,7 @@ function StockDetailsSection() {
   );
 
   useEffect(() => {
-    const handleEsc = (event) => {
+    const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         handleCloseAllModals(); // Close all modals on Esc key press
       }
@@ -166,12 +168,13 @@ function StockDetailsSection() {
   const [activeTab, setActiveTab] = useState("Summary");
   const [isManualScroll, setIsManualScroll] = useState(false); // Flag to prevent scroll effect temporarily
   const tabs = ["Summary", "Returns", "Reports", "News"];
-  const [api, setApi] = useState();
-  const newsRef = useRef(null);
-  const summaryRef = useRef(null);
-  const returnsRef = useRef(null);
-  const ReportsRef = useRef(null);
-  const handleTabClick = (tab) => {
+  const [api, setApi] = useState<UseEmblaCarouselType[1]>();
+  const newsRef = useRef<HTMLDivElement | null>(null);
+  const summaryRef = useRef<HTMLDivElement | null>(null);
+  const returnsRef = useRef<HTMLDivElement | null>(null);
+  const ReportsRef = useRef<HTMLDivElement | null>(null);
+
+  const handleTabClick = (tab: string) => {
     setIsManualScroll(true); // Disable scroll handling
     setActiveTab(tab);
     let element = null;
@@ -356,7 +359,26 @@ function StockDetailsSection() {
                           <div className="sm:px-4 pt-4 sm:pb-3 gap-2 w-full">
                             {!!stock_targets.length && (
                               <div className="flex pb-[13px] sm:pb-3.5 items-center justify-center md:justify-start">
-                                <div className="flex py-[2px] px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
+                                <TargetChip
+                                  targetTextClass="text-[10px] "
+                                  onlyInactiveTextClass="font-semibold"
+                                  inactiveTextClass="text-[10px] "
+                                  containerClass={`py-[3px] px-2 h-6 items-center border ${
+                                    Array.isArray(stock_targets) && !stock_targets[0]?.target_met && action !== "SELL"
+                                      ? "border-[#FEF0DF]"
+                                      : ""
+                                  }`}
+                                  activeIconClass=" h-[10px] w-[10px]"
+                                  activeTextClass=" font-semibold"
+                                  activeIcon
+                                  target_number={`Target ${stock_targets.length} at ₹${stock_targets[0].target_price}`}
+                                  active={
+                                    Array.isArray(stock_targets) && !stock_targets[0].target_met && action !== "SELL"
+                                      ? true
+                                      : false
+                                  }
+                                />
+                                {/* <div className="flex py-[2px] px-2.5 items-center gap-1 rounded-full bg-[#FFF6EE]">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="10"
@@ -373,9 +395,10 @@ function StockDetailsSection() {
 
                                   <p className="text-[#667085] text-4xs font-semibold font-open_sans">
                                     Target {stock_targets.length} at ₹{stock_targets[0].target_price} |{" "}
-                                    <span className="text-[#F79009] font-bold font-open_sans">Active</span>
+                                    {!stock_targets[0].target_met && action!=="SELL" ?<span className="text-[#F79009] font-bold font-open_sans">Active</span>:"Inactive" }
+                                    
                                   </p>
-                                </div>
+                                </div> */}
                               </div>
                             )}
                             {/* <!-- Continue your other components similarly --> */}
@@ -433,7 +456,7 @@ function StockDetailsSection() {
                                       {/* Show all chips in tablet size and larger, and only 2 chips in mobile size */}
                                       {stock_tags
                                         .slice(0, showAll || !isMobile ? stock_tags.length : 2)
-                                        .map((value, index) => (
+                                        .map((value: any, index: number) => (
                                           <div
                                             key={index}
                                             className="flex rounded-[20px] text-nowrap border border-[#F2F4F7] py-1.5 pr-2 pl-2 gap-[2px] items-center"
@@ -491,7 +514,7 @@ function StockDetailsSection() {
                               <img
                                 height={16}
                                 width={16}
-                                src={`/sector_images_green/${sectorIcons[sector]}`}
+                                src={`/sector_images_green/${sectorIcons[sector as keyof typeof sectorIcons]}`}
                                 alt=""
                                 className="!w-4 !h-4 !object-cover"
                               />
@@ -524,7 +547,7 @@ function StockDetailsSection() {
                                   {stock_exchange.includes("SME") ? "SME" : `${market_cap_type || ""} Cap`}
                                 </p>
                                 <span className="text-[#667085] inline-block text-ellipsis text-2xs font-normal font-open_sans">
-                                  ₹{Math.round(market_cap)?.toLocaleString('hi')} Cr. as of{" "}
+                                  ₹{Math.round(market_cap)?.toLocaleString("hi")} Cr. as of{" "}
                                   {new Date().toLocaleDateString("en-GB", {
                                     day: "2-digit",
                                     month: "short",
@@ -875,7 +898,7 @@ function StockDetailsSection() {
                                 stock_live_prices={stock_live_prices}
                                 entry_price={entry_price}
                                 created={created}
-                                stock_id={slug}
+                                stock_id={slug as string}
                                 containerClassName={" h-[383px]"}
                               />
                             </div>
@@ -916,221 +939,218 @@ function StockDetailsSection() {
                           </div>
                           {/* Array.isArray(stock_targets) &&
                                 stock_targets[0].target_met !== null */}
-                                 <div className="bg-[F9FAFB] px-4 pb-2 rounded-b-2xl">
-                                 {cagr_of_stock && (
-                                <div className="flex justify-between items-center mt-2">
-                                  <div className="flex items-center">
-                                    <img src="/assets/hj2.svg" alt="" />
-                                    <p className="ml-2 text-3xs text-gray-800 font-open_sans">Total CAGR</p>
-                                    <div className="relative group hidden sm:block">
-                                      {/* Tooltip (Visible on large screens) */}
-                                      <img
-                                        src="/assets/blackinfo.svg"
-                                        alt="Info"
-                                        className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                      />
-                                      <div className="absolute left-1/2 transform -translate-x-1/3 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
-                                        <div className="tooltip-content">
-                                          <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
-                                            Compound Annual Growth Rate
-                                          </h3>
-                                          <p className="tooltip-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
-                                            Purpose:
-                                          </p>
-                                          <p className="tooltip-text my-1 text-gray-800 text-[12px] font-open_sans">
-                                            Shows average yearly growth of an investment.
-                                          </p>
-                                          <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
-                                            Imagine a tree growing a bit more each year.
-                                            <br />
-                                            CAGR tells how fast it grows annually on average.
-                                          </p>
-                                          <div className="tooltip-formula flex flex-wrap bg-white p-3 rounded mb-4">
-                                            <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
-                                            <div className="formula flex items-center justify-center flex-wrap mt-2">
-                                              <span className="text-[30px] font-[50] font-open_sans">[</span>
-                                              <div className="flex items-center mx-2">
-                                                <div className="flex flex-col items-center">
-                                                  <div className="fraction">
-                                                    <span className="numerator text-[12px] font-open_sans">
-                                                      Ending Value
-                                                    </span>
-                                                    <span className="denominator text-[12px] font-open_sans">
-                                                      Starting Value
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <span className="text-[30px] font-[50] font-open_sans">]</span>
-                                              <sup className="flex items-center text-[20px] font-[50]">
-                                                <span className="text-[20px] font-open_sans">[</span>
-                                                <div className="flex flex-col items-center mx-2">
-                                                  <div className="fraction">
-                                                    <span className="text-[12px] font-open_sans">1</span>
-                                                    <hr className="w-full h-[1px] bg-black mt-2" />
-                                                    <span className="denominator text-[12px] mt-2 font-open_sans">
-                                                      No. of Years
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                                <span className="text-[20px] font-open_sans">]</span>
-                                              </sup>
-                                              <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
-                                            </div>
-                                          </div>
-
-                                          <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
-                                            <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
-                                              Example :
-                                            </p>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                              <strong>Start Value</strong> ₹100
-                                            </div>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                              <strong>End Value after 3 years</strong> ₹150
-                                            </div>
-                                            <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                              <strong>Total Returns over 3 years</strong> 50%
-                                            </div>
-                                            <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
-                                              <strong>CAGR</strong> 14.47%
-                                            </div>
-                                          </div>
-                                          <p className="tooltip-footer mt-4 text-[12px] text-gray-500 font-open_sans">
-                                            This means, on average, the investment grew about 14.47% each year
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="sm:hidden">
-                                      <img
-                                        src="/assets/blackinfo.svg"
-                                        alt="Info"
-                                        className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
-                                        onClick={openModalCagr}
-                                      />
-                                    </div>
-
-                                    <Modal
-                                      blur
-                                      width="450px"
-                                      open={isModalOpenCagr}
-                                      onClose={() => setIsModalOpenCagr(false)}
-                                      className="relative flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
-                                    >
-                                      {/* Close Icon Button */}
-                                      <button
-                                        onClick={() => setIsModalOpenCagr(false)}
-                                        className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none"
-                                        aria-label="Close modal"
-                                      >
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          className="h-6 w-6"
-                                          fill="none"
-                                          viewBox="0 0 24 24"
-                                          stroke="currentColor"
-                                        >
-                                          <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M6 18L18 6M6 6l12 12"
-                                          />
-                                        </svg>
-                                      </button>
-
-                                      {/* Modal Content */}
-                                      {/* Modal Header */}
-                                      <h3 className="modal-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
-                                        Compound Annual Growth Rate
-                                      </h3>
-                                      <p className="modal-subtitle text-left font-bold text-blue-900 font-open_sans text-[12px]">
-                                        Purpose:
-                                      </p>
-                                      <p className="modal-text my-1 text-left text-gray-800 text-[12px] font-open_sans">
-                                        Shows average yearly growth of an investment.
-                                      </p>
-                                      <p className="modal-quote italic text-left mb-3 text-gray-600 text-[12px] font-open_sans">
-                                        Imagine a tree growing a bit more each year.
-                                        <br />
-                                        CAGR tells how fast it grows annually on average.
-                                      </p>
-                                      <div className="modal-formula flex flex-wrap bg-white p-3 rounded mb-4">
-                                        <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
-                                        <div className="formula flex items-center justify-center flex-wrap mt-2">
-                                          <span className="text-[30px] font-[50] font-open_sans">[</span>
-                                          <div className="flex items-center mx-2">
-                                            <div className="flex flex-col items-center">
-                                              <div className="fraction">
-                                                <span className="numerator text-[12px] font-open_sans">
-                                                  Ending Value
-                                                </span>
-                                                <span className="denominator text-[12px] font-open_sans">
-                                                  Starting Value
-                                                </span>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <span className="text-[30px] font-[50] font-open_sans">]</span>
-                                          <sup className="flex items-center text-[20px] font-[50]">
-                                            <span className="text-[20px] font-open_sans">[</span>
-                                            <div className="flex flex-col items-center mx-2">
-                                              <div className="fraction">
-                                                <span className="text-[12px] font-open_sans">1</span>
-                                                <hr className="w-full h-[1px] bg-black mt-2" />
-                                                <span className="denominator text-[12px] mt-2 font-open_sans">
-                                                  No. of Years
-                                                </span>
-                                              </div>
-                                            </div>
-                                            <span className="text-[20px] font-open_sans">]</span>
-                                          </sup>
-                                          <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
-                                        </div>
-                                      </div>
-
-                                      <div className="modal-example bg-gray-50 p-3 text-left rounded mb-4">
-                                        <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
-                                          Example:
+                          <div className="bg-[F9FAFB] px-4 pb-2 rounded-b-2xl">
+                            {cagr_of_stock && (
+                              <div className="flex justify-between items-center mt-2">
+                                <div className="flex items-center">
+                                  <img src="/assets/hj2.svg" alt="" />
+                                  <p className="ml-2 text-3xs text-gray-800 font-open_sans">Total CAGR</p>
+                                  <div className="relative group hidden sm:block">
+                                    {/* Tooltip (Visible on large screens) */}
+                                    <img
+                                      src="/assets/blackinfo.svg"
+                                      alt="Info"
+                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                    />
+                                    <div className="absolute left-1/2 transform -translate-x-1/3 mt-2 z-10 shadow-3xl hidden group-hover:block bg-white text-black text-sm rounded-lg py-2 px-4 w-[300px]">
+                                      <div className="tooltip-content">
+                                        <h3 className="tooltip-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
+                                          Compound Annual Growth Rate
+                                        </h3>
+                                        <p className="tooltip-subtitle font-bold text-blue-900 font-open_sans text-[12px]">
+                                          Purpose:
                                         </p>
-                                        <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                          <strong>Start Value</strong> ₹100
+                                        <p className="tooltip-text my-1 text-gray-800 text-[12px] font-open_sans">
+                                          Shows average yearly growth of an investment.
+                                        </p>
+                                        <p className="tooltip-quote italic mb-3 text-gray-600 text-[12px] font-open_sans">
+                                          Imagine a tree growing a bit more each year.
+                                          <br />
+                                          CAGR tells how fast it grows annually on average.
+                                        </p>
+                                        <div className="tooltip-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                          <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
+                                          <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                            <span className="text-[30px] font-[50] font-open_sans">[</span>
+                                            <div className="flex items-center mx-2">
+                                              <div className="flex flex-col items-center">
+                                                <div className="fraction">
+                                                  <span className="numerator text-[12px] font-open_sans">
+                                                    Ending Value
+                                                  </span>
+                                                  <span className="denominator text-[12px] font-open_sans">
+                                                    Starting Value
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <span className="text-[30px] font-[50] font-open_sans">]</span>
+                                            <sup className="flex items-center text-[20px] font-[50]">
+                                              <span className="text-[20px] font-open_sans">[</span>
+                                              <div className="flex flex-col items-center mx-2">
+                                                <div className="fraction">
+                                                  <span className="text-[12px] font-open_sans">1</span>
+                                                  <hr className="w-full h-[1px] bg-black mt-2" />
+                                                  <span className="denominator text-[12px] mt-2 font-open_sans">
+                                                    No. of Years
+                                                  </span>
+                                                </div>
+                                              </div>
+                                              <span className="text-[20px] font-open_sans">]</span>
+                                            </sup>
+                                            <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
+                                          </div>
                                         </div>
-                                        <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                          <strong>End Value after 3 years</strong> ₹150
+
+                                        <div className="tooltip-example bg-gray-50 p-3 rounded mb-4">
+                                          <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
+                                            Example :
+                                          </p>
+                                          <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                            <strong>Start Value</strong> ₹100
+                                          </div>
+                                          <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                            <strong>End Value after 3 years</strong> ₹150
+                                          </div>
+                                          <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                            <strong>Total Returns over 3 years</strong> 50%
+                                          </div>
+                                          <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
+                                            <strong>CAGR</strong> 14.47%
+                                          </div>
                                         </div>
-                                        <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
-                                          <strong>Total Returns over 3 years</strong> 50%
-                                        </div>
-                                        <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
-                                          <strong>CAGR</strong> 14.47%
-                                        </div>
+                                        <p className="tooltip-footer mt-4 text-[12px] text-gray-500 font-open_sans">
+                                          This means, on average, the investment grew about 14.47% each year
+                                        </p>
                                       </div>
-                                      <p className="modal-footer mt-4 text-[12px] text-gray-500 font-open_sans">
-                                        This means, on average, the investment grew about 14.47% each year
-                                      </p>
-                                    </Modal>
+                                    </div>
                                   </div>
-                                  <div className="flex items-center">
-                                    {cagr_of_stock.cagr_value >= 0 ? (
-                                      // green up arrow
-                                      <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2" />
-                                    ) : (
-                                      // red down arrow
-                                      <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
-                                    )}
-                                    <p className="text-black ml-1 text-2xs font-open_sans font-[700] ">
-                                      {cagr_of_stock.cagr_value}%{" "}
-                                      <span className="text-gray-500 text-4xs font-open_sans font-semibold">
-                                        in {cagr_of_stock.cagr_time}
-                                      </span>
+                                  <div className="sm:hidden">
+                                    <img
+                                      src="/assets/blackinfo.svg"
+                                      alt="Info"
+                                      className="h-[17px] md:h-[20px] lg:h-[24px] cursor-pointer"
+                                      onClick={openModalCagr}
+                                    />
+                                  </div>
+
+                                  <Modal
+                                    blur
+                                    width="450px"
+                                    open={isModalOpenCagr}
+                                    onClose={() => setIsModalOpenCagr(false)}
+                                    className="relative flex justify-center p-6 bg-white rounded-[12px] shadow-[0_20px_24px_-4px_rgba(16,24,40,0.08),0_8px_8px_-4px_rgba(16,24,40,0.03)] w-[350px] max-w-full mx-auto"
+                                  >
+                                    {/* Close Icon Button */}
+                                    <button
+                                      onClick={() => setIsModalOpenCagr(false)}
+                                      className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none"
+                                      aria-label="Close modal"
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-6 w-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M6 18L18 6M6 6l12 12"
+                                        />
+                                      </svg>
+                                    </button>
+
+                                    {/* Modal Content */}
+                                    {/* Modal Header */}
+                                    <h3 className="modal-title font-bold font-open_sans mb-2 text-[12px] text-gray-800">
+                                      Compound Annual Growth Rate
+                                    </h3>
+                                    <p className="modal-subtitle text-left font-bold text-blue-900 font-open_sans text-[12px]">
+                                      Purpose:
                                     </p>
-                                  </div>
+                                    <p className="modal-text my-1 text-left text-gray-800 text-[12px] font-open_sans">
+                                      Shows average yearly growth of an investment.
+                                    </p>
+                                    <p className="modal-quote italic text-left mb-3 text-gray-600 text-[12px] font-open_sans">
+                                      Imagine a tree growing a bit more each year.
+                                      <br />
+                                      CAGR tells how fast it grows annually on average.
+                                    </p>
+                                    <div className="modal-formula flex flex-wrap bg-white p-3 rounded mb-4">
+                                      <p className="font-bold m-0 pt-5 me-5 text-[12px] font-open_sans">CAGR =</p>
+                                      <div className="formula flex items-center justify-center flex-wrap mt-2">
+                                        <span className="text-[30px] font-[50] font-open_sans">[</span>
+                                        <div className="flex items-center mx-2">
+                                          <div className="flex flex-col items-center">
+                                            <div className="fraction">
+                                              <span className="numerator text-[12px] font-open_sans">Ending Value</span>
+                                              <span className="denominator text-[12px] font-open_sans">
+                                                Starting Value
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <span className="text-[30px] font-[50] font-open_sans">]</span>
+                                        <sup className="flex items-center text-[20px] font-[50]">
+                                          <span className="text-[20px] font-open_sans">[</span>
+                                          <div className="flex flex-col items-center mx-2">
+                                            <div className="fraction">
+                                              <span className="text-[12px] font-open_sans">1</span>
+                                              <hr className="w-full h-[1px] bg-black mt-2" />
+                                              <span className="denominator text-[12px] mt-2 font-open_sans">
+                                                No. of Years
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <span className="text-[20px] font-open_sans">]</span>
+                                        </sup>
+                                        <span className="text-[12px] font-bold ml-2 font-open_sans">-1</span>
+                                      </div>
+                                    </div>
+
+                                    <div className="modal-example bg-gray-50 p-3 text-left rounded mb-4">
+                                      <p className="example-title font-bold text-[#108973] mb-2 text-[12px] font-open_sans">
+                                        Example:
+                                      </p>
+                                      <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                        <strong>Start Value</strong> ₹100
+                                      </div>
+                                      <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                        <strong>End Value after 3 years</strong> ₹150
+                                      </div>
+                                      <div className="example-item flex justify-between py-1 border-b border-gray-300 text-[12px] font-open_sans">
+                                        <strong>Total Returns over 3 years</strong> 50%
+                                      </div>
+                                      <div className="example-item flex justify-between py-1 text-[12px] font-open_sans">
+                                        <strong>CAGR</strong> 14.47%
+                                      </div>
+                                    </div>
+                                    <p className="modal-footer mt-4 text-[12px] text-gray-500 font-open_sans">
+                                      This means, on average, the investment grew about 14.47% each year
+                                    </p>
+                                  </Modal>
                                 </div>
-                              )}
-                          {action === "SELL" ? null : (
-                           
+                                <div className="flex items-center">
+                                  {cagr_of_stock.cagr_value >= 0 ? (
+                                    // green up arrow
+                                    <img src="/assets/Polygon2.svg" alt="Up Arrow" className="w-2" />
+                                  ) : (
+                                    // red down arrow
+                                    <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
+                                  )}
+                                  <p className="text-black ml-1 text-2xs font-open_sans font-[700] ">
+                                    {cagr_of_stock.cagr_value}%{" "}
+                                    <span className="text-gray-500 text-4xs font-open_sans font-semibold">
+                                      in {cagr_of_stock.cagr_time}
+                                    </span>
+                                  </p>
+                                </div>
+                              </div>
+                            )}
+                            {action === "SELL" ? null : (
                               <div className="flex justify-between items-center mt-4">
                                 <div className="flex items-center">
                                   <img
@@ -1158,15 +1178,13 @@ function StockDetailsSection() {
                                   </p>
                                 </div>
                               </div>
-                            
-                            
-                          )}
+                            )}
                           </div>
                         </div>
 
                         <div className="pt-6">
                           <ProjectedInvestmentGrowth
-                            upside_left={ gain_loss}
+                            upside_left={gain_loss}
                             upside_left_time={return_time}
                             action={action}
                           />
@@ -1182,7 +1200,7 @@ function StockDetailsSection() {
                                 stock_live_prices={stock_live_prices}
                                 created={created}
                                 entry_price={entry_price}
-                                stock_id={slug}
+                                stock_id={slug as string}
                                 containerClassName={"h-[250px]"}
                               />
                             </div>
@@ -1297,17 +1315,17 @@ function StockDetailsSection() {
                               {hasVideo ? (
                                 <div className="flex-1 group">
                                   <MuiTooltip title={watch_video?.youtube_title}>
-                                  <button
-                                    className="flex-1 text-nowrap w-full group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                                    onClick={() => window.open(watch_video.youtube_link, "_blank")}
-                                  >
-                                    <img
-                                      src="/assets/play-btn.svg"
-                                      alt="Play icon"
-                                      className="w-5 h-5 transition duration-300 "
-                                    />
-                                    <span className="text-nowrap text-[16px]">Watch Video</span>
-                                  </button>
+                                    <button
+                                      className="flex-1 text-nowrap w-full group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
+                                      onClick={() => window.open(watch_video.youtube_link, "_blank")}
+                                    >
+                                      <img
+                                        src="/assets/play-btn.svg"
+                                        alt="Play icon"
+                                        className="w-5 h-5 transition duration-300 "
+                                      />
+                                      <span className="text-nowrap text-[16px]">Watch Video</span>
+                                    </button>
                                   </MuiTooltip>
                                 </div>
                               ) : (
