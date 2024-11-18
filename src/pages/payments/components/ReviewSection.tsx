@@ -37,7 +37,7 @@ export default function ReviewSection({
     <>
       {/* plan and summary */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <div className="  mt-9 border border-[#E4E7EC] rounded-lg bg-gray-50">
+        <div className="  mt-9 border border-[#E4E7EC] rounded-lg bg-gray-50 overflow-hidden">
           {planDetails.discountCode ? <Lottie className=" absolute  pointer-events-none" autoPlay loop={false}  animationData={POPPER_JSON} /> :null}
           <div className=" p-4 border-b border-b-[#E4E7EC]">
             <div className=" flex justify-between items-center open_sans">
@@ -63,10 +63,10 @@ export default function ReviewSection({
           </div>
           <div>
             {rupeePartOfSave ? (
-              <div className="bg-[url(/assets/zigzag.svg)] flex justify-center bg-cover bg-no-repeat gap-x-1 py-[8.5px] ">
+              <div className="bg-[url(/assets/zigzag.svg)] flex justify-center items-center bg-cover bg-no-repeat gap-x-1 py-[8.5px] max-h-[30px] ">
                 <img src="/assets/offer.svg" height={20} width={20} alt="offer" />
 
-                <p className=" text-2xs font-medium ">
+                <p className=" text-2xs font-medium  pt-1">
                   {saveText.slice(0,3).join(" ")}{" "}<span className=" font-bold">{rupeePartOfSave}</span>{" "}{saveText.slice(4).join(" ")}
                 </p>
               </div>
