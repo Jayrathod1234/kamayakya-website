@@ -57,7 +57,7 @@ export default function ReviewSection({
               <p className=" mt-[6px] text-sm font-semibold text-gray-950">{planDates.start}</p>
             </div>
             <div className=" p-4 flex-1">
-              <p className=" text-gray-500 text-xs">Start Date</p>
+              <p className=" text-gray-500 text-xs">End Date</p>
               <p className=" mt-[6px] text-sm font-semibold text-gray-950">{planDates.end}</p>
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function ReviewSection({
           <div className=" flex justify-between items-baseline">
             <div>
               <p className=" text-sm text-gray-950">Tax (18%)</p>
-              <p className=" text-2xs text-gray-400">You don’t pay extra for taxes. We got you!</p>
+              {/* <p className=" text-2xs text-gray-400">You don’t pay extra for taxes. We got you!</p> */}
             </div>
             <p className=" text-sm text-gray-500 font-medium">₹{Number(planDetails.taxAmount).toLocaleString("hi")}</p>
           </div>
