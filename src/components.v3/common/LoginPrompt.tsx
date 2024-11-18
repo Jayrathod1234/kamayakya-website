@@ -17,9 +17,9 @@ interface ILoginPrompt {
 
 const NewUserList = ({ label }: { label: string }) => {
   return (
-    <div className="flex items-start gap-x-[10px]">
-      <img src="/assets/onboarding_tick.svg" alt="tick" />
-      <p className=" text-[#00000085] text-sm">{label}</p>
+    <div className="flex max-sm:items-center items-start gap-x-[6px] sm:gap-x-[10px]">
+      <img height={11} width={11} className=" object-cover" src="/assets/onboarding_tick.svg" alt="tick" />
+      <p className=" text-[#00000085] text-2xs sm:text-sm">{label}</p>
     </div>
   );
 };
@@ -78,12 +78,13 @@ const SignUpContent = () => {
   if (true) {
     return (
       <div className=" p-5 sm:py-[60px] md:p-[60px] flex-1">
+         <img className=" block sm:hidden mb-4" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
         <h2 className=" text-gray-900 text-display-xs font-bold m-0">OTP Sent!</h2>
         <p className="  text-gray-900 m-0 mt-4 ">Please enter the OTP sent to +91 9990002401. </p>
         <button className=" m-0 ">
           <p className=" font-medium text-brand-500 m-0 ">Edit Mobile Number</p>
         </button>
-        <div className=" mt-9">
+        <div className=" mt-6 sm:mt-9">
           <div className="">
             <div>
               <OTPInput
@@ -136,8 +137,9 @@ const SignUpContent = () => {
 
   return (
     <div className=" p-5 sm:py-[60px] md:p-[60px] flex-1">
+       <img className=" block sm:hidden mb-4" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
       <h2 className=" text-gray-900 text-display-xs font-bold">Sign in to KamayaKya</h2>
-      <div className=" mt-9">
+      <div className=" mt-6 sm:mt-9">
         <p className=" font-medium mb-[6px] text-2xs">Mobile Number</p>
         <div className=" border border-[#0000000F] py-2 px-[10px] rounded-lg">
           <Controller
@@ -196,22 +198,24 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
       <DialogTrigger>{triggerEle}</DialogTrigger>
       <DialogContent
         closeClassName=" hidden"
-        className=" flex !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[840px]"
+        className=" flex flex-col sm:flex-row !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[840px] !rounded-[20px] gap-0"
       >
-        <div className=" py-10 pb-4 bg-[#FFECDB] max-w-[352px] hidden sm:block flex-1 ">
-          <div className=" flex flex-col items-center min-w-0">
-            <img width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
-            <div className=" p-4  rounded-lg border border-[#FFFFFF] bg-[#FFFFFF66] mt-[14px] min-w-0 flex flex-col gap-y-3">
-              <p className=" text-gray-700 font-bold text-md">New User?</p>
+        <div className=" max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
+          <div className=" flex flex-col max-sm:items-start items-center min-w-0">
+            <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
+            <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
+              <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
               <NewUserList label="Get 3 Hot Stocks for Free" />
               <NewUserList label="See Track Record" />
               <NewUserList label="Get WhatsApp & Email Notifications" />
             </div>
           </div>
 
-          <img src="/assets/onboarding_login.gif" alt="onboarding" />
+          <img  className=" hidden sm:block" src="/assets/onboarding_login.gif" alt="onboarding" />
         </div>
+        <div className=" sm:order-3">
         <SignUpContent />
+        </div>
       </DialogContent>
     </Dialog>
   );

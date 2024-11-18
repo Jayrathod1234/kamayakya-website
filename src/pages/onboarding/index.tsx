@@ -7,11 +7,12 @@ import { useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { motion } from "framer-motion";
+import Header from "../payments/components/Header";
 
 const Step1 = () => {
   return (
     <div className="min-h-[70vh] flex flex-col">
-      <div className=" px-9 mt-auto">
+      <div className=" px-5 sm:px-9 mt-auto">
         <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">Value Investing with KamayaKya</h3>
@@ -42,7 +43,7 @@ const Step1 = () => {
           </ul>
         </div>
       </div>
-      <div className=" bg-gray-50 border border-gray-150 p-4 relative mt-auto">
+      <div className=" bg-gray-50 border border-gray-150 p-4 fixed bottom-0 w-full left-0 sm:relative mt-auto">
         <ButtonnArrow className=" ml-auto" variant={ButtonVariant.primary}>
           <p>Next</p>
         </ButtonnArrow>
@@ -81,7 +82,7 @@ const Step2 = () => {
           </ul>
         </div>
       </div>
-      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto">
+      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto fixed sm:relative bottom-0 w-full left-0">
         <ButtonnArrow
           arrowPosition="start"
           arrowStyle=" rotate-180 "
@@ -121,7 +122,7 @@ const Step3 = () => {
           </div>
         </div>
       </div>
-      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto">
+      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto sm:relative fixed bottom-0 w-full left-0">
         <ButtonnArrow
           arrowPosition="start"
           arrowStyle=" rotate-180 "
@@ -227,7 +228,7 @@ const Step4 = () => {
             </p>
           </div>
         </div>
-        <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto">
+        <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto sm:relative fixed bottom-0 w-full left-0">
           <ButtonnArrow
             arrowPosition="start"
             arrowStyle=" rotate-180 "
@@ -261,7 +262,7 @@ const Step4 = () => {
           </Button>
         </div>
       </div>
-      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto">
+      <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto sm:relative fixed bottom-0 w-full left-0 ">
         <ButtonnArrow
           arrowPosition="start"
           arrowStyle=" rotate-180 "
@@ -279,9 +280,9 @@ const Step4 = () => {
   );
 };
 
-const MainContent = ()=>{
-  return  false ? (
-    <div className=" max-sm:h-screen h-[690px] open_sans">
+const MainContent = () => {
+  return true ? (
+    <div className=" hidden sm:block max-sm:h-screen h-[690px] open_sans">
       <motion.div
         style={{ background: "#00C37C" }}
         initial={{ opacity: 1, height: "100%" }}
@@ -317,8 +318,7 @@ const MainContent = ()=>{
               }}
               className=" text-white text-md font-medium text-center"
             >
-              Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15
-              seconds
+              Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15 seconds
             </motion.p>
           </div>
         </div>
@@ -344,22 +344,19 @@ const MainContent = ()=>{
         <div className="h-[100px] py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
           <div>
             <p className=" text-gray-700 font-bold text-md">Track Record</p>
-            <p className=" text-sm text-[#667085]">
-              3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in{" "}
-            </p>
+            <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
           </div>
         </div>
       </motion.div>
     </div>
   ) : (
     <Tabs
-      
       // onValueChange={(value) => setActiveTab(value)}
       defaultValue={"step1"}
       // value={activeTab}
       className=" relative w-full open_sans"
     >
-      <div className=" px-9">
+      <div className=" px-5 sm:px-9">
         <TabsList className=" flex justify-between bg-transparent relative z-10 space-x-4 h-fit p-0 pt-10">
           <TabsTrigger
             className=" !p-0  h-[4px] w-full bg-[#E9EBEA] shadow-none data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
@@ -393,21 +390,98 @@ const MainContent = ()=>{
         <Step4 />
       </TabsContent>
     </Tabs>
-  )
-}
+  );
+};
 
 export default function Onboarding() {
+  const isMobile = useMediaQuery("(max-width:640px)");
+  if(true){
+  return  <div className=" max-sm:h-screen h-[690px] open_sans">
+    <motion.div
+      style={{ background: "#00C37C" }}
+      initial={{ opacity: 1, height: "100%" }}
+      animate={{ opacity: 1, height: "60%" }}
+      transition={{
+        duration: 0.8,
+        delay: 2,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
+      <div className=" flex flex-col items-center justify-center h-full">
+        <img height={166} width={166} className=" block" src="/assets/onboard.gif" />
+        <div className=" mt-5 ">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            className=" m-0 text-display-sm font-bold text-center text-white"
+          >
+            Welcome Onboard!
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            className=" text-white text-md font-medium text-center"
+          >
+            Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15 seconds
+          </motion.p>
+        </div>
+      </div>
+    </motion.div>
+    <motion.div
+      initial={{ marginTop: 300 }}
+      animate={{ marginTop: -40 }}
+      transition={{
+        duration: 0.8,
+        delay: 2.5,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+      className=" flex flex-col px-11 gap-y-4 "
+    >
+      <div className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
+        <div className=" h-full flex items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
+          <div>
+            <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
+            <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
+          </div>
+        </div>
+      </div>
+      <div className="h-[100px] py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
+        <div>
+          <p className=" text-gray-700 font-bold text-md">Track Record</p>
+          <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
+        </div>
+      </div>
+    </motion.div>
+  </div>
+  }
   return (
-    <div className=" bg-[url(/assets/onboarding_bg.png)] bg-cover h-screen">
-      <Dialog open={true}>
-        <DialogContent
-          className="p-0  !rounded-[20px] overflow-hidden flex flex-col w-[calc(100%-32px)] max-w-[520px]"
+    <div className=" bg-[url(/assets/onboarding_bg.png),linear-gradient(180deg,#F5FFFF_0%,#E9F3F2_100%)] bg-cover min-h-screen">
+      <Header className=" h-auto max-sm:[&>div]:pb-3 bg-transparent" />
+      {/* <Dialog open={isMobile ? false:true}> */}
+      <div className=" flex items-center justify-center">
+        <div
+          className=" hidden p-0  !rounded-[20px] bg-white overflow-hidden sm:flex flex-col w-[calc(100%-32px)] max-w-[520px]"
           overlayClassName="bg-transparent open_sans"
           closeClassName="hidden"
         >
-          <MainContent/>
-        </DialogContent>
-      </Dialog>
+          <MainContent />
+        </div>
+      </div>
+      {/* </Dialog> */}
+      <div className=" bg-white w-[calc(100%-32px)] mx-auto sm:hidden rounded-t-[20px]">
+        
+        <MainContent />
+      </div>
     </div>
   );
 }
