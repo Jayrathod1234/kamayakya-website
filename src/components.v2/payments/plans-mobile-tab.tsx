@@ -16,7 +16,7 @@ export function PlansMobileTab({ plan, features, popular = false, selected = fal
   return (
     <div
       onClick={onClick}
-      className={` hover:bg-red-400  cursor-pointer px-2 py-3 border border-gray-150 min-h-[107px] md:max-w-auto md:min-w-[83.5px]  w-full relative  ${
+      className={` hover:bg-[#F2F4F7]  cursor-pointer px-2 py-3 border border-gray-150 min-h-[107px] md:max-w-auto md:min-w-[83.5px]  w-full relative  ${
         popular ? " rounded-b-xl" : "rounded-xl"
       } ${
         selected &&
