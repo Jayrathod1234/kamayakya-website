@@ -184,7 +184,7 @@ export default function Successful() {
               <div className=" flex justify-between items-center">
                 <div>
                   <p className=" text-sm text-[#101828]">Tax (18%)</p>
-                  <p className="  text-2xs text-[#9B9B9B]">You don’t pay extra for taxes. We got you!</p>
+                  {/* <p className="  text-2xs text-[#9B9B9B]">You don’t pay extra for taxes. We got you!</p> */}
                 </div>
                 <p className=" text-sm text-[#667085]">₹{Number(paymentDetails.tax_amount).toLocaleString("hi")}</p>
               </div>

@@ -44,7 +44,7 @@ export default function ConfirmDetailsModal({
   return (
     <DialogContent closeClassName=" -right-2 -top-[12px] opacity-100" className=" !p-6 !rounded-[20px] w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px] open_sans">
       <div className=" flex flex-col md:flex-row gap-6">
-        <div className="bg-[#FEB359] flex items-center justify-center px-[54px] h-[200px] sm:h-[380px] min-w-fit rounded-[20px]">
+        <div className="bg-[#FEB359] flex items-center justify-center px-[54px] h-[200px] sm:h-[294px] min-w-fit rounded-[20px]">
         <img  width={178} height={178} src="/assets/confirmDetails.gif"/>
         </div>
         <div className=" flex flex-col gap-y-6 w-full">

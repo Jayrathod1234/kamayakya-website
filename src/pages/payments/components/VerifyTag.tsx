@@ -11,7 +11,7 @@ export default function VerifyTag() {
           fill="#12B76A"
         />
       </svg>
-      <p className="text-[#12B76A] text-4xs">Verified</p>
+      <p className="text-[#12B76A] text-4xs font-bold">Verified</p>
     </div>
   );
 }

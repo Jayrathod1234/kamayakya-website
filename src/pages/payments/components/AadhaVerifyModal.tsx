@@ -151,7 +151,7 @@ export default function AadhaVerifyModal({
       className=" !p-6 !rounded-[20px]  w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px]"
     >
       <div className=" flex flex-col md:flex-row gap-6 min-w-0">
-        <div className="bg-[#FEB359] flex items-center justify-center px-[46px] h-[200px] min-w-fit sm:h-[380px] rounded-[20px]">
+        <div className="bg-[#FEB359] flex items-center justify-center px-[46px] h-[200px] min-w-fit sm:h-[358px] rounded-[20px]">
           <img className=" max-sm:w-[120px] max-sm:h-[120px]" width={192} height={192} src="/assets/verifyAadhar.gif" />
         </div>
 

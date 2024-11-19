@@ -37,7 +37,7 @@ export default function ReviewSection({
     <>
       {/* plan and summary */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <div className="  mt-9 border border-[#E4E7EC] rounded-lg bg-gray-50">
+        <div className="  mt-9 border border-[#E4E7EC] rounded-lg bg-gray-50 overflow-hidden">
           {planDetails.discountCode ? <Lottie className=" absolute  pointer-events-none" autoPlay loop={false}  animationData={POPPER_JSON} /> :null}
           <div className=" p-4 border-b border-b-[#E4E7EC]">
             <div className=" flex justify-between items-center open_sans">
@@ -57,16 +57,16 @@ export default function ReviewSection({
               <p className=" mt-[6px] text-sm font-semibold text-gray-950">{planDates.start}</p>
             </div>
             <div className=" p-4 flex-1">
-              <p className=" text-gray-500 text-xs">Start Date</p>
+              <p className=" text-gray-500 text-xs">End Date</p>
               <p className=" mt-[6px] text-sm font-semibold text-gray-950">{planDates.end}</p>
             </div>
           </div>
           <div>
             {rupeePartOfSave ? (
-              <div className="bg-[url(/assets/zigzag.svg)] flex justify-center bg-cover bg-no-repeat gap-x-1 py-[8.5px] ">
+              <div className="bg-[url(/assets/zigzag.svg)] flex justify-center items-center bg-cover bg-no-repeat gap-x-1 py-[8.5px] max-h-[30px] ">
                 <img src="/assets/offer.svg" height={20} width={20} alt="offer" />
 
-                <p className=" text-2xs font-medium ">
+                <p className=" text-2xs font-medium  pt-1">
                   {saveText.slice(0,3).join(" ")}{" "}<span className=" font-bold">{rupeePartOfSave}</span>{" "}{saveText.slice(4).join(" ")}
                 </p>
               </div>
@@ -111,7 +111,7 @@ export default function ReviewSection({
           <div className=" flex justify-between items-baseline">
             <div>
               <p className=" text-sm text-gray-950">Tax (18%)</p>
-              <p className=" text-2xs text-gray-400">You don’t pay extra for taxes. We got you!</p>
+              {/* <p className=" text-2xs text-gray-400">You don’t pay extra for taxes. We got you!</p> */}
             </div>
             <p className=" text-sm text-gray-500 font-medium">₹{Number(planDetails.taxAmount).toLocaleString("hi")}</p>
           </div>
