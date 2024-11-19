@@ -4,10 +4,14 @@ import { Dialog, DialogContent } from "@/components.v2/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components.v2/ui/tabs";
 import { blockInvalidChar } from "@/components/LoginCard";
 import { useMediaQuery } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { motion } from "framer-motion";
 import Header from "../payments/components/Header";
+import { Controller, useForm } from "react-hook-form";
+import { getEmailPhoneOtp, verifyEmailPhoneOtp } from "@/api/onboarding";
+import AuthContext from "@/components/AuthContext";
+import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
 
 const Step1 = () => {
   return (
@@ -100,7 +104,23 @@ const Step2 = () => {
   );
 };
 
-const Step3 = () => {
+interface IFormInput {
+  fullname: string;
+}
+
+const Step3 = ({ setFullname }) => {
+  const { register, handleSubmit, setValue } = useForm<IFormInput>();
+  const { user } = useContext(AuthContext);
+  const handleName = async (data: IFormInput) => {
+    try {
+      setFullname(data?.fullname);
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    setValue("fullname", user?.fullname);
+  }, [user]);
+
   return (
     <div className=" min-h-[70vh] flex flex-col">
       <div className=" px-9">
@@ -115,6 +135,7 @@ const Step3 = () => {
               Full Name <span className=" text-[#F04438]">*</span>
             </p>
             <input
+              {...register("fullname", { required: "Enter Full name to continue", minLength: 3 })}
               className=" text-sm py-2 px-[10px] border border-[#0000000F] rounded-lg bg-transparent"
               placeholder="Enter your Name"
               type="text"
@@ -132,7 +153,7 @@ const Step3 = () => {
         >
           <p>Previous</p>
         </ButtonnArrow>
-        <ButtonnArrow variant={ButtonVariant.primary}>
+        <ButtonnArrow onClick={handleSubmit(handleName)} variant={ButtonVariant.primary}>
           <p>Next</p>
         </ButtonnArrow>
       </div>
@@ -140,26 +161,81 @@ const Step3 = () => {
   );
 };
 
-const Step4 = () => {
-  // const {
-  //   control,
-  //   handleSubmit,
-  //   formState: { errors },
-  //   getValues,
-  //   setValue,
-  // } = useForm({
-  //   defaultValues: {
-  //     phone: "",
-  //   },
-  // });
+interface IFormEmailInput {
+  email: string;
+  phone: string;
+}
+
+const Step4 = ({ fullname, setOnboardingCompleted }) => {
+  const { register, handleSubmit, getValues, control } = useForm<IFormEmailInput>();
   const [secondsRemaining, setSecondsRemaining] = useState(15);
   const [resendOtp, setResendOtp] = useState(false);
   const [otp, setOtp] = useState("");
+  const [loginMethod, setLoginMethod] = useState("mobile");
   const isMobile = useMediaQuery("(max-width:600px)");
+  const [displayOtpModal, setDisplayOtpModal] = useState(false);
+  const { user } = useContext(AuthContext);
+  const email = getValues("email");
+  const phone = getValues("phone");
+  const handleEmailOtp = async (data: IFormEmailInput) => {
+    try {
+      let params = {
+        type: loginMethod === "mobile" ? "email" : "mobile",
 
-  // const handleRequestOtp = async (data: IFormData) => {
-  //   const { phone = "" } = data;
-  // };
+        user_id: user?.id,
+      };
+      if (loginMethod === "mobile") {
+        params = {
+          ...params,
+          email: data.email,
+        };
+      } else {
+        params = {
+          ...params,
+          mobile: data.phone,
+        };
+      }
+
+      const res = await getEmailPhoneOtp(params);
+      if (res?.status_code === 200) {
+        setDisplayOtpModal(true);
+      }
+    } catch (e) {}
+  };
+  const handleVerifyOtp = async () => {
+    try {
+      let params = {
+        type: loginMethod === "mobile" ? "email" : "mobile",
+        otp,
+        user_id: user?.id,
+        full_name: fullname,
+      };
+      if (loginMethod === "mobile") {
+        params = { ...params, email: email };
+      } else {
+        params = { ...params, mobile: phone };
+      }
+
+      const res = await verifyEmailPhoneOtp(params);
+      if (res?.status_code === 200) {
+        if(res?.is_onboard){
+          setOnboardingCompleted(true);
+        }
+        
+        localStorage.setItem("access", res.access);
+        localStorage.setItem("refresh", res.refresh);
+        // setUser(prev=>({...prev,id:res?.user_id,fullname:res?.full_name,email:res?.email}))
+        // if(!res?.is_onboard){
+        //   router.push("/onboarding")
+        // }
+      }
+    } catch (e) {}
+  };
+
+  const handleEditEmail = () => {
+    setDisplayOtpModal(false);
+    setOtp("");
+  };
 
   useEffect(() => {
     if (resendOtp) {
@@ -177,17 +253,22 @@ const Step4 = () => {
     }
   }, [secondsRemaining]);
 
+  useLayoutEffect(() => {
+    const loginMethod = localStorage.getItem("login_method");
+    setLoginMethod(loginMethod as string);
+  }, [localStorage.getItem("login_method")]);
+
   // VERIFY OTP CONTENT
-  if (false) {
+  if (displayOtpModal) {
     return (
       <div className=" mt-10 min-h-[67.5vh] flex flex-col">
         <div className=" px-9">
           <h3 className=" m-0  text-xl font-bold text-gray-950">Verify your email</h3>
           <p className=" mt-1 text-sm text-gray-500">
-            Please enter the OTP sent to 20johndoe@gmail.com.{" "}
-            <span aria-label="button" className=" text-[#0E6C63] underline cursor-pointer">
-              Edit Email
-            </span>{" "}
+            Please enter the OTP sent to {loginMethod === "mobile" ? email : phone}.{" "}
+            <button onClick={handleEditEmail} aria-label="button" className=" text-[#0E6C63] underline cursor-pointer">
+              Edit {loginMethod === "mobile" ? "Email" : "Mobile number"}
+            </button>{" "}
           </p>
         </div>
         <div className="flex flex-col mt-8 pb-[54px] px-9">
@@ -221,7 +302,15 @@ const Step4 = () => {
               {" "}
               Haven’t received the OTP?{" "}
               {secondsRemaining === 0 ? (
-                <button className=" text-[#1D4040] text-2xs font-semibold">Resend</button>
+                <button
+                  onClick={() => {
+                    setResendOtp(true);
+                    handleEmailOtp({ email: email, phone: phone });
+                  }}
+                  className=" text-[#1D4040] text-2xs font-semibold"
+                >
+                  Resend
+                </button>
               ) : (
                 <span className=" text-2xs font-semibold">{secondsRemaining} seconds</span>
               )}
@@ -238,7 +327,7 @@ const Step4 = () => {
           >
             <p>Previous</p>
           </ButtonnArrow>
-          <ButtonnArrow disabled variant={ButtonVariant.primary}>
+          <ButtonnArrow onClick={handleVerifyOtp} disabled={otp.length === 0} variant={ButtonVariant.primary}>
             <p>Verify</p>
           </ButtonnArrow>
         </div>
@@ -249,15 +338,57 @@ const Step4 = () => {
     <div className=" mt-10 min-h-[70vh] flex flex-col">
       <div className=" px-9">
         <h3 className=" m-0  text-xl font-bold text-gray-950">Almost there! </h3>
-        <p className=" mt-1 text-sm text-gray-500">Add and verify your email to get your free stocks picks.</p>
+        <p className=" mt-1 text-sm text-gray-500">
+          {loginMethod === "mobile"
+            ? "Add and verify your email to get your free stocks picks."
+            : "Add and verify your Mobile number to get your free stocks picks."}
+        </p>
       </div>
       <div className="flex flex-col mt-8 pb-[54px] px-9">
         <p className="text-2xs  font-medium mb-1">
-          Email <span className=" text-[#F04438]">*</span>
+          {loginMethod === "mobile" ? "Email" : "Mobile no."} <span className=" text-[#F04438]">*</span>
         </p>
         <div className="py-2 px-[10px] border border-[#0000000F] rounded-lg bg-transparent flex  ">
-          <input className=" text-sm bg-transparent inline-block flex-1" placeholder="Enter your Name" type="text" />
-          <Button className=" !p-3" variant={ButtonVariant.primary}>
+          {loginMethod === "mobile" ? (
+            <input
+              {...register("email", {
+                required: loginMethod === "mobile" ? "Enter email to continue" : false,
+                pattern: {
+                  value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                  message: "Enter a valid email",
+                },
+              })}
+              className=" text-sm bg-transparent inline-block flex-1"
+              placeholder="Enter your Email"
+              type="text"
+            />
+          ) : (
+            <Controller
+              name="phone"
+              control={control}
+              rules={{
+                required: loginMethod === "email" ? "Enter phone to continue" : false,
+                validate: (value) => {
+                  return isPossiblePhoneNumber(value) && value.slice(3).length === 10
+                    ? true
+                    : "Enter valid mobile number";
+                },
+              }}
+              render={({ field: { value, onChange } }) => (
+                <>
+                  <PhoneInput
+                    value={value}
+                    onChange={onChange}
+                    defaultCountry="IN"
+                    placeholder="Enter phone number"
+                    className=" border-green-400"
+                  />
+                </>
+              )}
+            />
+          )}
+
+          <Button onClick={handleSubmit(handleEmailOtp)} className=" !p-3" variant={ButtonVariant.primary}>
             <p className=" text-sm font-semibold">Send OTP</p>
           </Button>
         </div>
@@ -280,8 +411,10 @@ const Step4 = () => {
   );
 };
 
-const MainContent = () => {
-  return true ? (
+const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
+  const [fullname, setFullname] = useState("");
+
+  return onboardingCompleted ? (
     <div className=" hidden sm:block max-sm:h-screen h-[690px] open_sans">
       <motion.div
         style={{ background: "#00C37C" }}
@@ -384,85 +517,88 @@ const MainContent = () => {
         <Step2 />
       </TabsContent>
       <TabsContent value="step3">
-        <Step3 />
+        <Step3 setFullname={setFullname} />
       </TabsContent>
       <TabsContent value="step4">
-        <Step4 />
+        <Step4 fullname={fullname} setOnboardingCompleted={setOnboardingCompleted} />
       </TabsContent>
     </Tabs>
   );
 };
 
 export default function Onboarding() {
+  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
   const isMobile = useMediaQuery("(max-width:640px)");
-  if(true){
-  return  <div className=" max-sm:h-screen h-[690px] open_sans">
-    <motion.div
-      style={{ background: "#00C37C" }}
-      initial={{ opacity: 1, height: "100%" }}
-      animate={{ opacity: 1, height: "60%" }}
-      transition={{
-        duration: 0.8,
-        delay: 2,
-        ease: [0, 0.71, 0.2, 1.01],
-      }}
-    >
-      <div className=" flex flex-col items-center justify-center h-full">
-        <img height={166} width={166} className=" block" src="/assets/onboard.gif" />
-        <div className=" mt-5 ">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.5,
-              ease: [0, 0.71, 0.2, 1.01],
-            }}
-            className=" m-0 text-display-sm font-bold text-center text-white"
-          >
-            Welcome Onboard!
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.5,
-              ease: [0, 0.71, 0.2, 1.01],
-            }}
-            className=" text-white text-md font-medium text-center"
-          >
-            Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15 seconds
-          </motion.p>
-        </div>
-      </div>
-    </motion.div>
-    <motion.div
-      initial={{ marginTop: 300 }}
-      animate={{ marginTop: -40 }}
-      transition={{
-        duration: 0.8,
-        delay: 2.5,
-        ease: [0, 0.71, 0.2, 1.01],
-      }}
-      className=" flex flex-col px-11 gap-y-4 "
-    >
-      <div className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
-        <div className=" h-full flex items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
-          <div>
-            <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
-            <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
+  if (onboardingCompleted && isMobile) {
+    return (
+      <div className=" max-sm:h-screen h-[690px] open_sans">
+        <motion.div
+          style={{ background: "#00C37C" }}
+          initial={{ opacity: 1, height: "100%" }}
+          animate={{ opacity: 1, height: "60%" }}
+          transition={{
+            duration: 0.8,
+            delay: 2,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+        >
+          <div className=" flex flex-col items-center justify-center h-full">
+            <img height={166} width={166} className=" block" src="/assets/onboard.gif" />
+            <div className=" mt-5 ">
+              <motion.h2
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.5,
+                  ease: [0, 0.71, 0.2, 1.01],
+                }}
+                className=" m-0 text-display-sm font-bold text-center text-white"
+              >
+                Welcome Onboard!
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.5,
+                  ease: [0, 0.71, 0.2, 1.01],
+                }}
+                className=" text-white text-md font-medium text-center"
+              >
+                Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15 seconds
+              </motion.p>
+            </div>
           </div>
-        </div>
+        </motion.div>
+        <motion.div
+          initial={{ marginTop: 300 }}
+          animate={{ marginTop: -40 }}
+          transition={{
+            duration: 0.8,
+            delay: 2.5,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+          className=" flex flex-col px-11 gap-y-4 "
+        >
+          <div className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
+            <div className=" h-full flex items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
+              <div>
+                <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
+                <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
+              </div>
+            </div>
+          </div>
+          <div className="h-[100px] py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
+            <div>
+              <p className=" text-gray-700 font-bold text-md">Track Record</p>
+              <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
-      <div className="h-[100px] py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
-        <div>
-          <p className=" text-gray-700 font-bold text-md">Track Record</p>
-          <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
-        </div>
-      </div>
-    </motion.div>
-  </div>
+    );
   }
   return (
     <div className=" bg-[url(/assets/onboarding_bg.png),linear-gradient(180deg,#F5FFFF_0%,#E9F3F2_100%)] bg-cover min-h-screen">
@@ -474,13 +610,12 @@ export default function Onboarding() {
           overlayClassName="bg-transparent open_sans"
           closeClassName="hidden"
         >
-          <MainContent />
+          <MainContent onboardingCompleted={onboardingCompleted} setOnboardingCompleted={setOnboardingCompleted} />
         </div>
       </div>
       {/* </Dialog> */}
       <div className=" bg-white w-[calc(100%-32px)] mx-auto sm:hidden rounded-t-[20px]">
-        
-        <MainContent />
+        <MainContent onboardingCompleted={onboardingCompleted} setOnboardingCompleted={setOnboardingCompleted} />
       </div>
     </div>
   );

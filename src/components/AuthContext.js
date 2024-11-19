@@ -12,6 +12,7 @@ const AuthContext = createContext({
     subscription: [{ plan: "" }],
     created: "",
     email:"",
+    fullname:''
   },
   children: null,
   showLoginModal: false,
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     subscription: [{ plan: "" }],
     created: "",
     email:"",
+    fullname:""
   });
   const [showLoginModal, setShowLoginModal] = useState(false);
   const refreshToken = localStorage.getItem("refresh");
@@ -108,6 +110,7 @@ export const AuthProvider = ({ children }) => {
         showLoginModal,
         handleLogin,
         handleCloseLoginModal,
+        setUser,
       }}
     >
       {children}
