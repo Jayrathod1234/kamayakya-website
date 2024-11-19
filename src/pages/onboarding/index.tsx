@@ -12,11 +12,13 @@ import { Controller, useForm } from "react-hook-form";
 import { getEmailPhoneOtp, verifyEmailPhoneOtp } from "@/api/onboarding";
 import AuthContext from "@/components/AuthContext";
 import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
+import { useToast } from "@/components.v2/ui/use-toast";
+import { useRouter } from "next/navigation";
 
-const Step1 = () => {
+const Step1 = ({ setActiveTab, activeTab }) => {
   return (
     <div className="min-h-[70vh] flex flex-col">
-      <div className=" px-5 sm:px-9 mt-auto">
+      <div className=" px-5 sm:px-9 ">
         <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">Value Investing with KamayaKya</h3>
@@ -48,17 +50,17 @@ const Step1 = () => {
         </div>
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 fixed bottom-0 w-full left-0 sm:relative mt-auto">
-        <ButtonnArrow className=" ml-auto" variant={ButtonVariant.primary}>
+        <ButtonnArrow onClick={() => setActiveTab("step2")} className=" ml-auto" variant={ButtonVariant.primary}>
           <p>Next</p>
         </ButtonnArrow>
       </div>
     </div>
   );
 };
-const Step2 = () => {
+const Step2 = ({ setActiveTab, activeTab }) => {
   return (
     <div className="min-h-[70vh] flex flex-col">
-      <div className=" px-9">
+      <div className=" px-5 sm:px-9">
         <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">What We don’t do...</h3>
@@ -88,6 +90,7 @@ const Step2 = () => {
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto fixed sm:relative bottom-0 w-full left-0">
         <ButtonnArrow
+          onClick={() => setActiveTab("step1")}
           arrowPosition="start"
           arrowStyle=" rotate-180 "
           strokeStyle="stroke-brand-400"
@@ -96,7 +99,7 @@ const Step2 = () => {
         >
           <p>Previous</p>
         </ButtonnArrow>
-        <ButtonnArrow variant={ButtonVariant.primary}>
+        <ButtonnArrow onClick={() => setActiveTab("step3")} variant={ButtonVariant.primary}>
           <p>Next</p>
         </ButtonnArrow>
       </div>
@@ -108,12 +111,18 @@ interface IFormInput {
   fullname: string;
 }
 
-const Step3 = ({ setFullname }) => {
-  const { register, handleSubmit, setValue } = useForm<IFormInput>();
+const Step3 = ({ setFullname, activeTab, setActiveTab }) => {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IFormInput>();
   const { user } = useContext(AuthContext);
   const handleName = async (data: IFormInput) => {
     try {
       setFullname(data?.fullname);
+      setActiveTab("step4");
     } catch (e) {}
   };
 
@@ -123,7 +132,7 @@ const Step3 = ({ setFullname }) => {
 
   return (
     <div className=" min-h-[70vh] flex flex-col">
-      <div className=" px-9">
+      <div className=" px-5 sm:px-9">
         <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">What’s your name ?</h3>
@@ -135,16 +144,23 @@ const Step3 = ({ setFullname }) => {
               Full Name <span className=" text-[#F04438]">*</span>
             </p>
             <input
-              {...register("fullname", { required: "Enter Full name to continue", minLength: 3 })}
-              className=" text-sm py-2 px-[10px] border border-[#0000000F] rounded-lg bg-transparent"
+              {...register("fullname", {
+                required: "Enter Full Name to continue",
+                minLength: { value: 3, message: "Enter Full Name to continue" },
+              })}
+              className={` text-sm py-2 px-[10px] border ${
+                errors.fullname?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
+              }  rounded-lg bg-transparent`}
               placeholder="Enter your Name"
               type="text"
             />
+            <p className=" m-0 mt-[6px] text-sm text-[#F04438]">{errors.fullname?.message}</p>
           </div>
         </div>
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto sm:relative fixed bottom-0 w-full left-0">
         <ButtonnArrow
+          onClick={() => setActiveTab("step2")}
           arrowPosition="start"
           arrowStyle=" rotate-180 "
           strokeStyle="stroke-brand-400"
@@ -166,15 +182,24 @@ interface IFormEmailInput {
   phone: string;
 }
 
-const Step4 = ({ fullname, setOnboardingCompleted }) => {
-  const { register, handleSubmit, getValues, control } = useForm<IFormEmailInput>();
+const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) => {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    control,
+    formState: { errors },
+  } = useForm<IFormEmailInput>();
   const [secondsRemaining, setSecondsRemaining] = useState(15);
   const [resendOtp, setResendOtp] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
   const [otp, setOtp] = useState("");
   const [loginMethod, setLoginMethod] = useState("mobile");
   const isMobile = useMediaQuery("(max-width:600px)");
   const [displayOtpModal, setDisplayOtpModal] = useState(false);
   const { user } = useContext(AuthContext);
+  const { toast } = useToast();
   const email = getValues("email");
   const phone = getValues("phone");
   const handleEmailOtp = async (data: IFormEmailInput) => {
@@ -195,12 +220,19 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
           mobile: data.phone,
         };
       }
-
+      setSendingOtp(true);
       const res = await getEmailPhoneOtp(params);
       if (res?.status_code === 200) {
         setDisplayOtpModal(true);
       }
-    } catch (e) {}
+    } catch (e) {
+      toast({
+        variant: "warn",
+        description: e?.response?.data?.message || "Something went wrong.",
+      });
+    } finally {
+      setSendingOtp(false);
+    }
   };
   const handleVerifyOtp = async () => {
     try {
@@ -215,13 +247,14 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
       } else {
         params = { ...params, mobile: phone };
       }
+      setVerifyingOtp(true);
 
       const res = await verifyEmailPhoneOtp(params);
       if (res?.status_code === 200) {
-        if(res?.is_onboard){
+        if (res?.is_onboard) {
           setOnboardingCompleted(true);
         }
-        
+
         localStorage.setItem("access", res.access);
         localStorage.setItem("refresh", res.refresh);
         // setUser(prev=>({...prev,id:res?.user_id,fullname:res?.full_name,email:res?.email}))
@@ -229,7 +262,14 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
         //   router.push("/onboarding")
         // }
       }
-    } catch (e) {}
+    } catch (e) {
+      toast({
+        variant: "warn",
+        description: e?.response?.data?.message || "Something went wrong.",
+      });
+    } finally {
+      setVerifyingOtp(false);
+    }
   };
 
   const handleEditEmail = () => {
@@ -254,19 +294,23 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
   }, [secondsRemaining]);
 
   useLayoutEffect(() => {
-    const loginMethod = localStorage.getItem("login_method");
+    const loginMethod = sessionStorage.getItem("login_method");
     setLoginMethod(loginMethod as string);
-  }, [localStorage.getItem("login_method")]);
+  }, [sessionStorage.getItem("login_method")]);
 
   // VERIFY OTP CONTENT
   if (displayOtpModal) {
     return (
       <div className=" mt-10 min-h-[67.5vh] flex flex-col">
-        <div className=" px-9">
-          <h3 className=" m-0  text-xl font-bold text-gray-950">Verify your email</h3>
+        <div className=" px-5 sm:px-9">
+          <h3 className=" m-0  text-xl font-bold text-gray-950">Verify your {loginMethod === "mobile" ? "email" : "Mobile number"}</h3>
           <p className=" mt-1 text-sm text-gray-500">
             Please enter the OTP sent to {loginMethod === "mobile" ? email : phone}.{" "}
-            <button onClick={handleEditEmail} aria-label="button" className=" text-[#0E6C63] underline cursor-pointer">
+            <button
+              onClick={handleEditEmail}
+              aria-label="button"
+              className=" text-[#0E6C63] underline decoration-dashed underline-offset-2 cursor-pointer"
+            >
               Edit {loginMethod === "mobile" ? "Email" : "Mobile number"}
             </button>{" "}
           </p>
@@ -319,6 +363,7 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
         </div>
         <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto sm:relative fixed bottom-0 w-full left-0">
           <ButtonnArrow
+            onClick={() => setActiveTab("step3")}
             arrowPosition="start"
             arrowStyle=" rotate-180 "
             strokeStyle="stroke-brand-400"
@@ -327,7 +372,7 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
           >
             <p>Previous</p>
           </ButtonnArrow>
-          <ButtonnArrow onClick={handleVerifyOtp} disabled={otp.length === 0} variant={ButtonVariant.primary}>
+          <ButtonnArrow loading={verifyingOtp} onClick={handleVerifyOtp} disabled={otp.length === 0} variant={ButtonVariant.primary}>
             <p>Verify</p>
           </ButtonnArrow>
         </div>
@@ -348,7 +393,13 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
         <p className="text-2xs  font-medium mb-1">
           {loginMethod === "mobile" ? "Email" : "Mobile no."} <span className=" text-[#F04438]">*</span>
         </p>
-        <div className="py-2 px-[10px] border border-[#0000000F] rounded-lg bg-transparent flex  ">
+        <div
+          className={`py-[9px] pl-[12px] pr-[6px] max-h-[44px] border ${
+            (loginMethod === "mobile" ? errors.email?.message : errors.phone?.message)
+              ? "border-[#FDA29B]"
+              : "border-[#0000000F]"
+          }   rounded-lg bg-transparent flex items-center `}
+        >
           {loginMethod === "mobile" ? (
             <input
               {...register("email", {
@@ -388,13 +439,22 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
             />
           )}
 
-          <Button onClick={handleSubmit(handleEmailOtp)} className=" !p-3" variant={ButtonVariant.primary}>
+          <Button
+            loading={sendingOtp}
+            onClick={handleSubmit(handleEmailOtp)}
+            className=" !p-3 max-h-[32px]"
+            variant={ButtonVariant.primary}
+          >
             <p className=" text-sm font-semibold">Send OTP</p>
           </Button>
         </div>
+        <p className=" m-0 mt-[6px] text-sm text-[#F04438]">
+          {loginMethod === "mobile" ? errors.email?.message : errors.phone?.message}
+        </p>
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto sm:relative fixed bottom-0 w-full left-0 ">
         <ButtonnArrow
+          onClick={() => setActiveTab("step3")}
           arrowPosition="start"
           arrowStyle=" rotate-180 "
           strokeStyle="stroke-brand-400"
@@ -413,6 +473,9 @@ const Step4 = ({ fullname, setOnboardingCompleted }) => {
 
 const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
   const [fullname, setFullname] = useState("");
+  const [activeTab, setActiveTab] = useState("step1");
+
+  const router =useRouter()
 
   return onboardingCompleted ? (
     <div className=" hidden sm:block max-sm:h-screen h-[690px] open_sans">
@@ -466,61 +529,86 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
         }}
         className=" flex flex-col px-11 gap-y-4 "
       >
-        <div className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
-          <div className=" h-full flex items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
+        <div onClick={()=>router.push("/stock-picks")} className="h-[100px]  cursor-pointer p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
+          <div className=" h-full flex items-center justify-between py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
             <div>
               <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
               <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
             </div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9 18L15 12L9 6"
+              stroke="#3EC9AE"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
           </div>
+         
         </div>
-        <div className="h-[100px] py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
+        <div  onClick={()=>router.push("/track-record")} className="h-[100px] flex items-center justify-between cursor-pointer py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
           <div>
             <p className=" text-gray-700 font-bold text-md">Track Record</p>
             <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
           </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 18L15 12L9 6" stroke="#667085" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
         </div>
       </motion.div>
     </div>
   ) : (
     <Tabs
-      // onValueChange={(value) => setActiveTab(value)}
-      defaultValue={"step1"}
-      // value={activeTab}
+      onValueChange={(value) => setActiveTab(value)}
+      defaultValue={activeTab}
+      value={activeTab}
       className=" relative w-full open_sans"
     >
-      <div className=" px-5 sm:px-9">
+      <div className=" px-5 sm:px-9 -mt-5 sm:mt-0">
         <TabsList className=" flex justify-between bg-transparent relative z-10 space-x-4 h-fit p-0 pt-10">
           <TabsTrigger
-            className=" !p-0  h-[4px] w-full bg-[#E9EBEA] shadow-none data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
+            className={` !p-0  h-[4px] w-full ${
+              ["step2", "step3", "step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
+            }  shadow-none data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
             value="step1"
           ></TabsTrigger>
           <TabsTrigger
-            className="!p-0  h-[4px] w-full bg-[#E9EBEA]  data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
+            className={`!p-0  h-[4px] w-full ${
+              ["step3", "step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
+            }  data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
             value="step2"
           ></TabsTrigger>
           <TabsTrigger
             value="step3"
-            className=" !p-0  h-[4px] w-full bg-[#E9EBEA] disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
+            className={` !p-0  h-[4px] w-full ${
+              ["step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
+            } disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
           ></TabsTrigger>
           <TabsTrigger
             value="step4"
             className=" !p-0  h-[4px] w-full bg-[#E9EBEA] disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
           ></TabsTrigger>
         </TabsList>
-        <p className=" text-3xs text-gray-800 mt-[14px] mb-4">1 of 4</p>
+        <p className=" text-3xs text-gray-800 mt-[14px] mb-4">{activeTab.slice(activeTab.length - 1)} of 4</p>
       </div>
-      <TabsContent className=" min-h-[60vh]" value="step1">
-        <Step1 />
+      <TabsContent className="min-h-screen sm:min-h-[60vh]" value="step1">
+        <Step1 setActiveTab={setActiveTab} activeTab={activeTab} />
       </TabsContent>
-      <TabsContent className=" w-full" value="step2">
-        <Step2 />
+      <TabsContent className="min-h-screen w-full" value="step2">
+        <Step2 setActiveTab={setActiveTab} activeTab={activeTab} />
       </TabsContent>
-      <TabsContent value="step3">
-        <Step3 setFullname={setFullname} />
+      <TabsContent className=" min-h-screen" value="step3">
+        <Step3 setFullname={setFullname} setActiveTab={setActiveTab} activeTab={activeTab} />
       </TabsContent>
-      <TabsContent value="step4">
-        <Step4 fullname={fullname} setOnboardingCompleted={setOnboardingCompleted} />
+      <TabsContent className=" min-h-screen" value="step4">
+        <Step4
+          fullname={fullname}
+          setOnboardingCompleted={setOnboardingCompleted}
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+        />
       </TabsContent>
     </Tabs>
   );

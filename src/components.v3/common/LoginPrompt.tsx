@@ -13,6 +13,8 @@ import { blockInvalidChar } from "@/components/LoginCard";
 import { getLoginOtp, verifyLoginOtp } from "../../api/onboarding/index";
 import { useRouter } from "next/router";
 import AuthContext from "@/components/AuthContext";
+import { useToast } from "@/components.v2/ui/use-toast";
+import Link from "next/link";
 
 interface ILoginPrompt {
   triggerEle: React.ReactNode;
@@ -40,7 +42,7 @@ const SignUpContent = () => {
     formState: { errors },
     getValues,
     setValue,
-    watch
+    watch,
   } = useForm({
     defaultValues: {
       phone: "",
@@ -55,7 +57,10 @@ const SignUpContent = () => {
   const [verifyingOtp, setVerifyingOtp] = useState(false);
   const [otp, setOtp] = useState("");
   const [displayOtpModal, setDisplayOtpModal] = useState(false);
+  const [displayExistingUserModal,setDisplayExistingUserModal] = useState(false);
   const { setUser } = useContext(AuthContext);
+
+  const { toast } = useToast();
   const isMobile = useMediaQuery("(max-width:600px)");
   const phone = watch("phone");
   const email = watch("email");
@@ -83,6 +88,10 @@ const SignUpContent = () => {
         setDisplayOtpModal(true);
       }
     } catch (e) {
+      toast({
+        variant: "warn",
+        description: e?.response?.data?.message || "Something went wrong.",
+      });
     } finally {
       setOtpLoading(false);
     }
@@ -110,15 +119,22 @@ const SignUpContent = () => {
       if (res?.status_code === 200) {
         setUser((prev) => ({ ...prev, id: res?.user_id, fullname: res?.full_name, email: res?.email }));
         if (!res?.is_onboard) {
+          if(!res?.is_new_user){
+            setDisplayExistingUserModal(true)
+            return
+          }
           router.push("/onboarding");
         } else {
-          
           localStorage.setItem("access", res.access);
           localStorage.setItem("refresh", res.refresh);
-          router.reload()
+          router.reload();
         }
       }
     } catch (e) {
+      toast({
+        variant: "warn",
+        description: e?.response?.data?.message || "Something went wrong.",
+      });
     } finally {
       setVerifyingOtp(false);
     }
@@ -157,6 +173,17 @@ const SignUpContent = () => {
   //   }
   // }, [openDialog]);
 
+  useEffect(()=>{
+    sessionStorage.setItem("login_method", loginMethod)
+  },[loginMethod])
+
+
+  if(displayExistingUserModal){
+    return  <div className=" h-full p-6">
+      
+    </div>
+  }
+
   if (displayOtpModal) {
     return (
       <div className=" h-full p-5 sm:py-[60px] md:p-[60px] flex-1">
@@ -165,7 +192,7 @@ const SignUpContent = () => {
         <p className="  text-gray-900 m-0 mt-4 ">
           Please enter the OTP sent to {loginMethod === "mobile" ? phone : email}.{" "}
           <button onClick={handleEditMobile} className=" m-0 ">
-            <p className=" font-medium text-brand-500 m-0 ">
+            <p className=" font-medium text-brand-500 m-0 decoration-dashed underline underline-offset-4 ">
               Edit {loginMethod === "mobile" ? "Mobile Number" : "Email"}
             </p>
           </button>
@@ -219,6 +246,7 @@ const SignUpContent = () => {
         </div>
         <div className=" mt-8">
           <Button
+            loading={verifyingOtp}
             onClick={handleSubmit(handleVerifyOtp)}
             className=" my-[18px] min-w-full max-w-full"
             variant={ButtonVariant.primary}
@@ -256,7 +284,7 @@ const SignUpContent = () => {
                     onChange={onChange}
                     defaultCountry="IN"
                     placeholder="Enter phone number"
-                    className=" border-green-400"
+                    className=" border-green-400 "
                   />
                 </>
               )}
@@ -270,7 +298,7 @@ const SignUpContent = () => {
                   message: "Enter a valid email",
                 },
               })}
-              className=" text-sm bg-transparent inline-block flex-1"
+              className=" text-sm bg-transparent inline-block flex-1 w-full"
               placeholder="Enter your Email"
               type="text"
             />
@@ -279,10 +307,14 @@ const SignUpContent = () => {
       </div>
       <div className=" mt-8">
         <p className=" text-gray-400 text-2xs">
-          By signing in you agree to all our <span className=" text-brand-500 underline">terms & conditions</span>
+          By signing in you agree to all our <span className=" text-brand-500 underline decoration-dashed underline-offset-2"><Link href={"/"} className=" text-inherit"> terms & conditions</Link></span>
         </p>
         <Button
-          disabled={loginMethod === "mobile" ? !isPossiblePhoneNumber(phone || "") : !(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))}
+          disabled={
+            loginMethod === "mobile"
+              ? !isPossiblePhoneNumber(phone || "") || phone.slice(3).length !== 10
+              : !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)
+          }
           loading={otpLoading}
           onClick={handleSubmit(handleRequestOtp)}
           className=" my-[18px] min-w-full max-w-full"
@@ -299,10 +331,10 @@ const SignUpContent = () => {
           onClick={() => {
             if (loginMethod === "mobile") {
               setLoginMethod("email");
-              localStorage.setItem("login_method", "email");
+              // sessionStorage.setItem("login_method", "email");
             } else {
               setLoginMethod("mobile");
-              localStorage.setItem("login_method", "mobile");
+              // sessionStorage.setItem("login_method", "mobile");
             }
           }}
           className=" max-w-full min-w-full shadow-[0px_18px_30px_0px_#8377C61C]"
