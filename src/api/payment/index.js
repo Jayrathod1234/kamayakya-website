@@ -110,9 +110,22 @@ export const getPaymentReceipt = async(params)=>{
 
 export const getAddress = async(params)=>{
   try {
-    const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${params}&key=${process.NEXT_PUBLIC_GEOCODING_KEY}`;
+    const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${params}&key=${process.env.NEXT_PUBLIC_GEOCODING_KEY}`;
     /* ----------------------------------- API ---------------------------------- */
     const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}
+
+export const getTrackRecordStats =  async(params)=>{
+  try {
+    const URL = `/user/stockDataInPayment/`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL);
     return response.data;
   } catch (error) {
     // Handle errors if any

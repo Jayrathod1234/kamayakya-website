@@ -15,6 +15,7 @@ import { usePathname } from "next/navigation";
 import { Dialog, DialogTrigger, DialogContent } from "@/components.v2/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import TestimonialSection from "./components/TestimonialSection";
+import { getTrackRecordStats } from "@/api/payment";
 // import { DialogContent } from "@radix-ui/react-dialog";
 
 export default function Index() {
@@ -23,7 +24,15 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState("review");
   const [margins, setMargins] = useState({ marginLeft: 0, marginRight: 0 });
   const [isPlaying, setIsPlaying] = useState(true);
-
+  const [stockStats, setStockStats] = useState({
+    average_exit_returns:0,
+    average_live_returns: 0,
+    exit_stock_count: 0,
+    exited_in_loss: 0,
+    exited_in_profit: 0,
+    live_stock_count: 0,
+    stock_images: [],
+  });
   const pathname = usePathname();
 
   useEffect(() => {
@@ -35,6 +44,15 @@ export default function Index() {
       marginRight: lastdiv.offsetWidth,
     });
   }, [ref.current?.length]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getTrackRecordStats();
+        setStockStats(res)
+      } catch (e) {}
+    })();
+  }, []);
 
   const headerBg = !pathname.includes("successful") ? "  max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#F1FBFB)]" : "";
 
@@ -171,10 +189,11 @@ export default function Index() {
             <div className="relative p-10 md:p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
               <div className=" p-5 pt-0 flex flex-col items-center justify-center w-full ">
                 <div className="flex items-center  ">
-                  <div className=" h-9 w-9 rounded-full ">
-                    <img height={36} width={36} src="/stock_img1.svg" alt="" />
-                  </div>
-                  <div className=" h-9 w-9 rounded-full -ml-2 ">
+                  {stockStats?.stock_images?.map(item=> <div className=" h-9 w-9 rounded-full overflow-hidden -ml-2 ">
+                    <img className=" h-full w-full object-cover" height={36} width={36} src={item} alt="stock-image" />
+                  </div>)}
+                 
+                  {/* <div className=" h-9 w-9 rounded-full -ml-2 ">
                     <img height={36} width={36} src="/stock_img2.svg" alt="" />
                   </div>
                   <div className=" h-9 w-9 rounded-full  -ml-2">
@@ -182,21 +201,21 @@ export default function Index() {
                   </div>
                   <div className=" h-9 w-9 rounded-full  -ml-2">
                     <img height={36} width={36} src="/stock_img4.svg" alt="" />
-                  </div>
+                  </div> */}
                 </div>
-                <p className=" text-sm mt-4 text-white text-center">25 Stocks Exited 🎉 🎉</p>
+                <p className=" text-sm mt-4 text-white text-center">{stockStats.exited_in_profit} Stocks Exited 🎉 🎉</p>
               </div>
               <div className=" mt-4 flex justify-center ">
                 <div className="flex flex-col items-center p-3 text-white">
-                  <p className=" text-xl font-semibold">118%</p>
+                  <p className=" text-xl font-semibold">{stockStats.average_exit_returns}%</p>
                   <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Average Exit Returns</p>
                 </div>
                 <div className="flex flex-col items-center p-3 text-white">
-                  <p className=" text-xl font-semibold">22</p>
+                  <p className=" text-xl font-semibold">{stockStats.exited_in_profit}</p>
                   <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Exited in Profit</p>
                 </div>
                 <div className="flex flex-col items-center p-3 text-white">
-                  <p className=" text-xl font-semibold">3</p>
+                  <p className=" text-xl font-semibold">{stockStats?.exited_in_loss}</p>
                   <p className=" text-2xs text-center mt-1 text-[#FFFFFF87]">Exited in Loss</p>
                 </div>
               </div>
@@ -207,14 +226,14 @@ export default function Index() {
                   variant={ButtonVariant.primary}
                 >
                   <p className=" text-2xs">Stocks Live</p>
-                  <p className=" text-2xs font-bold mr-[10px]">30</p>
+                  <p className=" text-2xs font-bold mr-[10px]">{stockStats.live_stock_count}</p>
                 </Button>
                 <Button
                   className=" flex-1 w-full max-w-[246px] hover:scale-100 hover:bg-brand-400 border-none cursor-default flex items-center justify-between !p-3 "
                   variant={ButtonVariant.primary}
                 >
                   <p className=" text-2xs">Average Live Returns</p>
-                  <p className=" text-2xs font-bold mr-[10px]">118%</p>
+                  <p className=" text-2xs font-bold mr-[10px]">{stockStats.average_live_returns}%</p>
                 </Button>
               </div>
               <img

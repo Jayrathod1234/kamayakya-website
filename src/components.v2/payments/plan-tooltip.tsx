@@ -2,7 +2,7 @@ import { TooltipArrow } from "@radix-ui/react-tooltip";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { TChildren } from "@/types";
 import { Landmark, ShoppingBag } from "lucide-react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { TPlantooltip } from "@/types/components/payments";
 
 const Breakdown = ({
@@ -32,10 +32,12 @@ const Breakdown = ({
 
 export function PlanTooltip({ children, price, strikePrice, saveText, gst, total }: TChildren & TPlantooltip) {
   const [displayToast, setDisplayToast] = useState(false);
+  const [allowTooltip,setAllowTooltip] = useState(false); //this is included because if tooltip is child of dialog, dialog is trigger tooltip 
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip open={displayToast} onOpenChange={setDisplayToast}>
         <TooltipTrigger
+          onMouseEnter={()=>setAllowTooltip(true)}
           onClick={(e) => {
             e.preventDefault();
             setDisplayToast(true);
@@ -43,7 +45,7 @@ export function PlanTooltip({ children, price, strikePrice, saveText, gst, total
         >
           {children}
         </TooltipTrigger>
-        <TooltipContent
+        {allowTooltip &&<TooltipContent
           side="bottom"
           className=" bg-white text-black border-0 p-0  max-w-[425px] z-[1002] rounded-[10px] shadow-3xl w-[255px]"
         >
@@ -68,7 +70,8 @@ export function PlanTooltip({ children, price, strikePrice, saveText, gst, total
           )}
 
           <TooltipArrow className=" fill-white" />
-        </TooltipContent>
+        </TooltipContent> }
+        
       </Tooltip>
     </TooltipProvider>
   );
