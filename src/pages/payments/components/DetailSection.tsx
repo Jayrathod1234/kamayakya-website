@@ -6,7 +6,7 @@ import { ArrowLeft, Check, Loader, Mail } from "lucide-react";
 import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { Checkbox } from "@/components.v2/ui/checkbox";
-import { Dialog, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
 import OtpInput from "react-otp-input";
 import { blockInvalidChar } from "@/components/LoginCard";
 import AadhaVerifyModal from "./AadhaVerifyModal";
@@ -148,6 +148,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     },
   });
   const [phoneFocused, setPhoneFocused] = useState(false);
+  const [displayFailedAddharModal, setDisplayFailedAddharModal] = useState(false);
   const aadhar = getValues2("aadhar");
   const preExistingAddress = getValues("address");
   // const onSubmit: SubmitHandler<IFormInput> = (data) => {
@@ -163,6 +164,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
     try {
       setAadharOtpLoading(true);
+
       const res = await getAadharOtp({ aadhaar: data?.aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };
       //  await getAadharOtp({ aadhaar: data?.aadhar });
@@ -178,6 +180,11 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           title: "",
           description: "Invalid Aadhaar Number. Please check and re-enter a valid Aadhaar Number.",
         });
+        return;
+      }
+      if (e?.response?.data?.message?.includes("Source down")) {
+        setDisplayFailedAddharModal(true);
+        setOpenDialog(true);
         return;
       }
       toast({
@@ -320,6 +327,11 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           setPincodeVerified(true);
           setPincodeBasedAddress(res?.results[0].formatted_address);
         }
+      } else {
+        toast({
+          variant: "warn",
+          description: "Invalid Pin Code. Please check and re-enter a valid Pin Code.",
+        });
       }
     } catch (e) {
       console.error(e);
@@ -327,6 +339,45 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       setCheckingPincode(false);
     }
   };
+
+  const RenderFailedAadharModal = () => {
+    // if (!displayFailedAddharModal) return;
+    return (
+      <DialogContent
+        closeClassName=" -right-2 -top-[12px] opacity-100"
+        className=" !p-6 !rounded-[20px] w-[calc(100%-32px)]  md:min-w-[400px] max-w-[400px] open_sans"
+      >
+        <div>
+          <img src="/assets/failed_aadhar_fetch.svg" alt="error-image" />
+          <h2 className=" font-bold text-xl mt-6">We’re having trouble fetching your Aadhaar details!</h2>
+          <p className=" text-sm text-[#737373] mt-3">
+            Oops! 🚧
+            <br />
+            Our system’s having a coffee break while fetching Aadhaar details, or there might be a connection issue on
+            your end. Please try again a few times, or check back in 15-20 minutes. Thanks for understanding and for
+            being awesome!
+          </p>
+          <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto w-fit">
+            <DialogClose asChild>
+              <Button onClick={() => setDisplayFailedAddharModal(false)} variant={ButtonVariant.tertiary}>
+                Close
+              </Button>
+            </DialogClose>
+            <Button
+              onClick={() => {
+                handleAadharOtp({ aadhar });
+              }}
+              variant={ButtonVariant.primary}
+            >
+              Try again
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    );
+  };
+
+  console.log("DISPLAY", displayFailedAddharModal);
 
   useEffect(() => {
     setValue("fullname", userDetails.name);
@@ -358,12 +409,18 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       setBillingSameAsAadhar(false);
     }
   }, [isAadharAlreadyVerified]);
-  console.log(userDetails.address, userDetails);
+
+  useEffect(() => {
+    if (!openDialog && displayFailedAddharModal) {
+      setDisplayFailedAddharModal(false);
+    }
+  }, [openDialog]);
+
   return (
     <div className="mt-9">
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
         <button onClick={() => setActiveTab("review")} className=" hidden sm:flex items-center mb-7 cursor-pointer">
-          <button >
+          <button>
             <ArrowLeft size={18} />
           </button>
           <p className="group ml-[5px] text-xs text-gray-600 relative">
@@ -401,7 +458,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   <CustomTextField
                     {...field}
                     sendotp={!aadharVerified && !isAadharAlreadyVerified}
-                    error={errors2.aadhar?.message ? true : false}
+                    error={(errors2.aadhar?.message && (!aadharVerified && !isAadharAlreadyVerified)) ? true : false}
                     type="number"
                     id="aadhar-number"
                     // onChange={(e) => setAadhar(e.target.value)}
@@ -413,7 +470,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                       className: aadharVerified || isAadharAlreadyVerified ? "bg-[#F4F7FA99]" : "",
                       endAdornment: (
                         <InputAdornment className="!pr-0 flex items-center gap-x-[10px]" position="end">
-                          {errors2.aadhar?.message && (
+                          {(errors2.aadhar?.message && (!aadharVerified && !isAadharAlreadyVerified)) && (
                             <Tooltip
                               tooltipContent={<p className=" text-2xs">{errors2.aadhar.message}</p>}
                               tooltipTrigger={
@@ -459,7 +516,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
               />
 
               <p className="text-3xs text-gray-500 mt-[6px]">
-                Mandatory as per SEBI rules (OTP will be sent to the mobile no. linked to your Aadhar Card)
+                Required as per SEBI KYC rules (We'll send an OTP to the mobile number linked to your Aadhaar Card)
               </p>
             </div>
           ) : null}
@@ -950,7 +1007,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             </Button>
           </div>
         </div>
-        {displayModal.includes("AADHAR") ? (
+        {displayModal.includes("AADHAR") && !displayFailedAddharModal ? (
           <AadhaVerifyModal
             setAadharRequestId={setAadharRequestId}
             setOpenDialog={setOpenDialog}
@@ -962,12 +1019,51 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             setBillingSameAsAadhar={setBillingSameAsAadhar}
           />
         ) : null}
-        {displayModal.includes("CONFIRM") ? (
+        {displayModal.includes("CONFIRM")  && !displayFailedAddharModal ? (
           <ConfirmDetailsModal
             setDisplayModal={setDisplayModal}
             openDialog={openDialog}
             setOpenDialog={setOpenDialog}
           />
+        ) : null}
+        {displayFailedAddharModal ? (
+          <DialogContent
+            closeClassName=" -right-2 -top-[12px] opacity-100"
+            className=" !p-6 !rounded-[20px] w-[calc(100%-32px)]  md:min-w-[400px] max-w-[400px] open_sans"
+          >
+            <div>
+              <img src="/assets/failed_aadhar_fetch.svg" alt="error-image" />
+              <h2 className=" font-bold text-xl mt-6">We’re having trouble fetching your Aadhaar details!</h2>
+              <p className=" text-sm text-[#737373] mt-3">
+                Oops! 🚧
+                <br />
+                Our system’s having a coffee break while fetching Aadhaar details. Please try again a few times or check back in 15-20 minutes. Thanks for understanding and for being awesome!
+              </p>
+              <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto w-fit">
+                <DialogClose asChild>
+                  <Button
+                    onClick={() => {
+                      setDisplayFailedAddharModal(false);
+                    }}
+                    variant={ButtonVariant.tertiary}
+                  >
+                    Close
+                  </Button>
+                </DialogClose>
+                <Button
+                loading={aadharOtpLoading}
+                  onClick={() => {
+
+                    setDisplayFailedAddharModal(false);
+                    handleAadharOtp({ aadhar });
+                  }}
+                  variant={ButtonVariant.primary}
+                >
+                  Try again
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
         ) : null}
       </Dialog>
     </div>

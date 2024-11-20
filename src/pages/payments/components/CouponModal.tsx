@@ -37,6 +37,7 @@ const CouponListItem = ({
           // className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
         >
           <Button
+          onClick={onClick}
             className=" bg-transparent !px-[10px] !py-2 border border-dashed border-brand-500"
             variant={ButtonVariant.secondary}
           >
@@ -57,13 +58,12 @@ export default function CouponModal() {
   const [discountCode, setDiscountCode] = useState("");
   const [discountList, setDiscountList] = useState<Array<{ discountCode: string; discountAmt: string } | null>>([]);
   const [currentDiscountSelected, setCurrentDiscountSelected] = useState("");
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-  const [invalidDiscountCode,setInvalidDiscountCode] = useState(false);
+  const [invalidDiscountCode, setInvalidDiscountCode] = useState(false);
   const { toast } = useToast();
   const checkCoupon = async () => {
-    
     if (discountCode?.trim().length === 0) {
       setError(true);
       return;
@@ -75,27 +75,26 @@ export default function CouponModal() {
         subscription: currentPlan.planId,
       };
       const res = await verifyCoupon(params);
-      if(res?.discount_type==="percentage"){
-        res.discount_value = (res.discount_value * Number(planDetails.totalPayable))/100
+      if (res?.discount_type === "percentage") {
+        res.discount_value = (res.discount_value * Number(planDetails.totalPayable)) / 100;
       }
       setDiscountList((prev) =>
         prev.some((item) => item?.discountCode === discountCode)
           ? prev
           : [...prev, { discountCode, discountAmt: res?.discount_value }]
       );
-      
     } catch (e: any) {
       if (e?.response?.data?.message?.includes("Invalid")) {
         setError(true);
-        setInvalidDiscountCode(true)
+        setInvalidDiscountCode(true);
         // toast({
         //   variant: "warn",
         //   description: e?.response?.data?.message,
         // });
       }
-    }finally{
+    } finally {
       setLoading(false);
-      setDiscountCode("")
+      setDiscountCode("");
     }
   };
   const discountAmt = discountList.find((item) => item?.discountCode === currentDiscountSelected)?.discountAmt;
@@ -105,18 +104,18 @@ export default function CouponModal() {
     setOpen(false);
   };
 
-  useEffect(()=>{
-    if(!open){
-      setDiscountCode("")
-      setError(false)
-      setInvalidDiscountCode(false)
-      setCurrentDiscountSelected("")
+  useEffect(() => {
+    if (!open) {
+      setDiscountCode("");
+      setError(false);
+      setInvalidDiscountCode(false);
+      setCurrentDiscountSelected("");
     }
-  },[open])
+  }, [open]);
 
-  useEffect(()=>{
-    setDiscountList([])
-  },[currentPlan.planDuration,currentPlan.planName])
+  useEffect(() => {
+    setDiscountList([]);
+  }, [currentPlan.planDuration, currentPlan.planName]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -134,60 +133,70 @@ export default function CouponModal() {
           <DialogTitle className=" text-xl font-semibold m-0 !text-left mb-5 ">Apply Coupon</DialogTitle>
           {/* INPUT SECTION */}
           <div
-            className={` py-3 px-[11px] border text-left !mt-0 ${error ? " border-error-500" : "border-[#0000000F]"} rounded-lg flex`}
+            className={` py-2 px-[11px] border text-left !mt-0 ${
+              error ? " border-error-500" : "border-[#0000000F]"
+            } rounded-lg flex`}
           >
             <input
               disabled={loading}
               value={discountCode}
               onChange={(e) => {
                 if (error) setError(false);
-                if(invalidDiscountCode) setInvalidDiscountCode(false)
+                if (invalidDiscountCode) setInvalidDiscountCode(false);
                 setDiscountCode(e.target.value);
               }}
               className=" bg-transparent text-sm w-full font-medium"
               placeholder="Enter coupon code"
               type="text"
             />
-            <button
+            <Button
+              variant={ButtonVariant.primary}
               disabled={loading}
               onClick={checkCoupon}
-              className=" text-2xs text-brand-500 border-b border-dotted border-brand-500 ml-auto"
+              className=" text-2xs ml-auto !py-0 max-h-[32px]"
             >
-              {loading ? "Verifying":"Check"}
-              
-            </button>
+              <p className=" text-2xs font-semibold">{loading ? "Verifying" : "Check"}</p>
+            </Button>
           </div>
-          {error ? !invalidDiscountCode ? <p className=" text-left text-error-500 text-2xs mt-[10px]">Enter code & click 'Check' to validate</p>: <p className="text-left text-error-500 text-2xs mt-[10px]">Coupon not valid</p>:null}
+          {error ? (
+            !invalidDiscountCode ? (
+              <p className=" text-left text-error-500 text-2xs mt-[10px]">Enter code & click 'Check' to validate</p>
+            ) : (
+              <p className="text-left text-error-500 text-2xs mt-[10px]">Coupon not valid</p>
+            )
+          ) : null}
           {/* INPUT SECTION END*/}
         </DialogHeader>
 
-        
-          {discountList && discountList.length > 0? discountList.map((discount) => (
+        {discountList && discountList.length > 0 ? (
+          discountList.map((discount) => (
             <div className=" mt-3 mb-[30px]  flex flex-col space-y-3 overflow-y-scroll">
-            <CouponListItem
-              active={discount?.discountCode === currentDiscountSelected}
-              onClick={() =>
-                setCurrentDiscountSelected((prev) =>
-                  prev === discount?.discountCode ? "" : (discount?.discountCode as string)
-                )
-              }
-              discountCode={discount?.discountCode as string}
-              discountAmt={discount?.discountAmt as string}
-            />
+              <CouponListItem
+                active={discount?.discountCode === currentDiscountSelected}
+                onClick={() =>
+                  setCurrentDiscountSelected((prev) =>
+                    prev === discount?.discountCode ? "" : (discount?.discountCode as string)
+                  )
+                }
+                discountCode={discount?.discountCode as string}
+                discountAmt={discount?.discountAmt as string}
+              />
             </div>
-          )) :<div className=" flex flex-col h-full items-center justify-center my-auto">
-              <img height={90} width={90} src="/assets/no-offer.svg" alt="no-coupon" />
-              <p className=" text-center text-gray-400 text-2xs max-w-[150px]">Looks like you don’t have any coupons.</p>
-            </div>}
-          {/*
+          ))
+        ) : (
+          <div className=" flex flex-col h-full items-center justify-center my-auto">
+            <img height={90} width={90} src="/assets/no-offer.svg" alt="no-coupon" />
+            <p className=" text-center text-gray-400 text-2xs max-w-[150px]">Looks like you don’t have any coupons.</p>
+          </div>
+        )}
+        {/*
           <CouponListItem />
           <CouponListItem />
           <CouponListItem />
           <CouponListItem /> */}
-          {/* <CouponListItem/> */}
-          {/* <CouponListItem/> */}
-          {/* <CouponListItem/> */}
-       
+        {/* <CouponListItem/> */}
+        {/* <CouponListItem/> */}
+        {/* <CouponListItem/> */}
 
         <DialogFooter className=" w-full mt-auto">
           <div className=" mt-auto flex justify-between pt-4 border-t border-gray-150 w-full">
@@ -195,10 +204,25 @@ export default function CouponModal() {
               <p className=" text-sm text-gray-400">Maximum Savings</p>
               <p className=" text-gray-950 text-xs font-semibold">₹{discountAmt ?? 0}</p>
             </div>
-            <Tooltip disableTooltip={currentDiscountSelected?.length >0? true:false}  tooltipContent={"Select the approved code."} tooltipTrigger={ <Button disabled={currentDiscountSelected?.length ==0} onClick={handleApply} className=" px-5 py-[10px]" variant={ButtonVariant.primary}>
-              <p className=" text-md font-medium">Apply</p>
-            </Button>}/>
-           
+            <Tooltip
+              disableTooltip={currentDiscountSelected?.length > 0 ? true : false}
+              tooltipContent={
+                <ol className=" m-0 px-2">
+                  <li className=" text-sm">Enter code & click 'Check' to validate.</li> <li className=" text-sm"> Select the approved code. </li>
+                  <li className=" text-sm">Click 'Apply' to use it.</li>
+                </ol>
+              }
+              tooltipTrigger={
+                <Button
+                  disabled={currentDiscountSelected?.length == 0}
+                  onClick={handleApply}
+                  className=" px-5 py-[10px]"
+                  variant={ButtonVariant.primary}
+                >
+                  <p className=" text-md font-medium">Apply</p>
+                </Button>
+              }
+            />
           </div>
         </DialogFooter>
       </DialogContent>
