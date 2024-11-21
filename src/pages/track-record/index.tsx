@@ -38,7 +38,7 @@ export default function TrackRecord() {
         <div className=" relative open_sans">
           <TrackRecordMain />
         </div>
-        <Modal width="450px" blur open={showLoginModal} onClose={handleCloseLoginModal}>
+        {/* <Modal width="450px" blur open={showLoginModal} onClose={handleCloseLoginModal}>
           <Box
             sx={{
               display: "flex",
@@ -65,7 +65,7 @@ export default function TrackRecord() {
           <Modal.Body>
             <Login />
           </Modal.Body>
-        </Modal>
+        </Modal> */}
         {/* </StockPicksProvider> */}
       </TrackRecordProvider>
     </TrackRecordCommonProvider>

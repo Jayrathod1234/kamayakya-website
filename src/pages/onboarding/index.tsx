@@ -14,12 +14,15 @@ import AuthContext from "@/components/AuthContext";
 import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
 import { useToast } from "@/components.v2/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { axiosApi } from "@/utils/axios";
 
 const Step1 = ({ setActiveTab, activeTab }) => {
   return (
     <div className="min-h-[70vh] flex flex-col">
       <div className=" px-5 sm:px-9 ">
-        <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
+        <div className=" rounded-[21px] h-[256px] w-full bg-orange-400 overflow-hidden">
+          <video height={256} width={448} className="object-cover h-full w-full" src="/KMK-V1.mp4" muted autoPlay />
+        </div>
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">Value Investing with KamayaKya</h3>
           <ul className=" m-0 flex flex-col mt-4 gap-y-4">
@@ -61,7 +64,9 @@ const Step2 = ({ setActiveTab, activeTab }) => {
   return (
     <div className="min-h-[70vh] flex flex-col">
       <div className=" px-5 sm:px-9">
-        <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
+        <div className=" rounded-[21px] h-[256px] w-full bg-[#FFEEDF] overflow-hidden">
+          <img height={231} width={231} className="object-contain h-full w-full" src="/assets/ActionCall.svg" />
+        </div>
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">What We don’t do...</h3>
           <ul className=" m-0 flex flex-col mt-4 gap-y-4">
@@ -127,13 +132,29 @@ const Step3 = ({ setFullname, activeTab, setActiveTab }) => {
   };
 
   useEffect(() => {
+    const savedFullname = sessionStorage.getItem("fullname")
+    if(savedFullname!== null && user?.fullname){
+      setValue("fullname", savedFullname)
+      return
+    }
     setValue("fullname", user?.fullname);
-  }, [user]);
+  }, [user,sessionStorage.getItem("fullname")]);
+
+
 
   return (
     <div className=" min-h-[70vh] flex flex-col">
       <div className=" px-5 sm:px-9">
-        <div className=" rounded-[21px] h-[256px] w-full bg-orange-400"></div>
+        <div className=" rounded-[21px] h-[256px] w-full bg-orange-400 overflow-hidden">
+          <video
+            height={256}
+            width={448}
+            className="object-cover h-full w-full"
+            src="/kmk-starsTeam.mp4"
+            muted
+            autoPlay
+          />
+        </div>
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">What’s your name ?</h3>
           <p className=" text-sm text-[#667085]">
@@ -202,12 +223,13 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
   const { toast } = useToast();
   const email = getValues("email");
   const phone = getValues("phone");
+  const verySmallScreen = useMediaQuery("(max-width:400px)");
   const handleEmailOtp = async (data: IFormEmailInput) => {
     try {
       let params = {
         type: loginMethod === "mobile" ? "email" : "mobile",
 
-        user_id: user?.id,
+        user_id: user?.id ? user?.id:sessionStorage.getItem("user_id"),
       };
       if (loginMethod === "mobile") {
         params = {
@@ -239,8 +261,8 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
       let params = {
         type: loginMethod === "mobile" ? "email" : "mobile",
         otp,
-        user_id: user?.id,
-        full_name: fullname,
+        user_id: user?.id ? user?.id : sessionStorage.getItem("user_id"),
+        full_name: fullname ? fullname : sessionStorage.getItem("fullname"),
       };
       if (loginMethod === "mobile") {
         params = { ...params, email: email };
@@ -254,9 +276,9 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
         if (res?.is_onboard) {
           setOnboardingCompleted(true);
         }
-
         localStorage.setItem("access", res.access);
         localStorage.setItem("refresh", res.refresh);
+        axiosApi.defaults.headers.common["Authorization"] = `token ${res?.access}`;
         // setUser(prev=>({...prev,id:res?.user_id,fullname:res?.full_name,email:res?.email}))
         // if(!res?.is_onboard){
         //   router.push("/onboarding")
@@ -301,9 +323,11 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
   // VERIFY OTP CONTENT
   if (displayOtpModal) {
     return (
-      <div className=" mt-10 min-h-[67.5vh] flex flex-col">
+      <div className="  mt-7 sm:mt-10 min-h-[67.5vh] flex flex-col">
         <div className=" px-5 sm:px-9">
-          <h3 className=" m-0  text-xl font-bold text-gray-950">Verify your {loginMethod === "mobile" ? "email" : "Mobile number"}</h3>
+          <h3 className=" m-0  text-xl font-bold text-gray-950">
+            Verify your {loginMethod === "mobile" ? "email" : "Mobile number"}
+          </h3>
           <p className=" mt-1 text-sm text-gray-500">
             Please enter the OTP sent to {loginMethod === "mobile" ? email : phone}.{" "}
             <button
@@ -315,7 +339,7 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
             </button>{" "}
           </p>
         </div>
-        <div className="flex flex-col mt-8 pb-[54px] px-9">
+        <div className="flex flex-col mt-8 pb-[54px] px-5 sm:px-9">
           <div className="">
             <div>
               <OTPInput
@@ -326,8 +350,9 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
                   gap: isMobile ? "2px" : "10px",
                 }}
                 inputStyle={{
-                  height: "44px",
-                  width: "44px",
+                  height: verySmallScreen ? "38px" : "44px",
+                  width: verySmallScreen ? "38px" : "44px",
+
                   border: "1px solid #B7BDC7",
                   borderRadius: "6.2px",
                   background: "#fff",
@@ -372,7 +397,12 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
           >
             <p>Previous</p>
           </ButtonnArrow>
-          <ButtonnArrow loading={verifyingOtp} onClick={handleVerifyOtp} disabled={otp.length === 0} variant={ButtonVariant.primary}>
+          <ButtonnArrow
+            loading={verifyingOtp}
+            onClick={handleVerifyOtp}
+            disabled={otp.length === 0}
+            variant={ButtonVariant.primary}
+          >
             <p>Verify</p>
           </ButtonnArrow>
         </div>
@@ -380,8 +410,8 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
     );
   }
   return (
-    <div className=" mt-10 min-h-[70vh] flex flex-col">
-      <div className=" px-9">
+    <div className=" mt-7 sm:mt-10 min-h-[70vh] flex flex-col">
+      <div className=" px-5 sm:px-9">
         <h3 className=" m-0  text-xl font-bold text-gray-950">Almost there! </h3>
         <p className=" mt-1 text-sm text-gray-500">
           {loginMethod === "mobile"
@@ -389,7 +419,7 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
             : "Add and verify your Mobile number to get your free stocks picks."}
         </p>
       </div>
-      <div className="flex flex-col mt-8 pb-[54px] px-9">
+      <div className="flex flex-col mt-8 pb-[54px] px-5 sm:px-9">
         <p className="text-2xs  font-medium mb-1">
           {loginMethod === "mobile" ? "Email" : "Mobile no."} <span className=" text-[#F04438]">*</span>
         </p>
@@ -409,7 +439,7 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
                   message: "Enter a valid email",
                 },
               })}
-              className=" text-sm bg-transparent inline-block flex-1"
+              className=" text-sm bg-transparent inline-block w-full"
               placeholder="Enter your Email"
               type="text"
             />
@@ -475,7 +505,16 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
   const [fullname, setFullname] = useState("");
   const [activeTab, setActiveTab] = useState("step1");
 
-  const router =useRouter()
+  const router = useRouter();
+
+ 
+  useEffect(() => {
+    if (onboardingCompleted) {
+      setTimeout(() => {
+        router.push("/stock-picks");
+      }, 1000 * 15);
+    }
+  }, [onboardingCompleted]);
 
   return onboardingCompleted ? (
     <div className=" hidden sm:block max-sm:h-screen h-[690px] open_sans">
@@ -529,33 +568,43 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
         }}
         className=" flex flex-col px-11 gap-y-4 "
       >
-        <div onClick={()=>router.push("/stock-picks")} className="h-[100px]  cursor-pointer p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
+        <div
+          onClick={() => router.push("/stock-picks")}
+          className="h-[100px]  cursor-pointer p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl"
+        >
           <div className=" h-full flex items-center justify-between py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
             <div>
               <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
               <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
             </div>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M9 18L15 12L9 6"
-              stroke="#3EC9AE"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+              <path
+                d="M9 18L15 12L9 6"
+                stroke="#3EC9AE"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
           </div>
-         
         </div>
-        <div  onClick={()=>router.push("/track-record")} className="h-[100px] flex items-center justify-between cursor-pointer py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
+        <div
+          onClick={() => router.push("/track-record")}
+          className="min-h-[100px] flex items-center justify-between cursor-pointer py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl"
+        >
           <div>
             <p className=" text-gray-700 font-bold text-md">Track Record</p>
             <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
           </div>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 18L15 12L9 6" stroke="#667085" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
+            <path
+              d="M9 18L15 12L9 6"
+              stroke="#667085"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
         </div>
       </motion.div>
     </div>
@@ -567,28 +616,32 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
       className=" relative w-full open_sans"
     >
       <div className=" px-5 sm:px-9 -mt-5 sm:mt-0">
-        <TabsList className=" flex justify-between bg-transparent relative z-10 space-x-4 h-fit p-0 pt-10">
+        <TabsList className=" flex justify-between bg-transparent relative z-10 space-x-4 h-fit p-0 pt-5 sm:pt-10">
           <TabsTrigger
-            className={` !p-0  h-[4px] w-full ${
+            disabled
+            className={` !p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${
               ["step2", "step3", "step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
             }  shadow-none data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
             value="step1"
           ></TabsTrigger>
           <TabsTrigger
-            className={`!p-0  h-[4px] w-full ${
+            disabled
+            className={`!p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${
               ["step3", "step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
             }  data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
             value="step2"
           ></TabsTrigger>
           <TabsTrigger
+            disabled
             value="step3"
-            className={` !p-0  h-[4px] w-full ${
+            className={` !p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${
               ["step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
             } disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
           ></TabsTrigger>
           <TabsTrigger
+            disabled
             value="step4"
-            className=" !p-0  h-[4px] w-full bg-[#E9EBEA] disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
+            className=" !p-0  h-[4px] w-full rounded-full disabled:opacity-100 bg-[#E9EBEA]  data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none"
           ></TabsTrigger>
         </TabsList>
         <p className=" text-3xs text-gray-800 mt-[14px] mb-4">{activeTab.slice(activeTab.length - 1)} of 4</p>
@@ -596,13 +649,13 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
       <TabsContent className="min-h-screen sm:min-h-[60vh]" value="step1">
         <Step1 setActiveTab={setActiveTab} activeTab={activeTab} />
       </TabsContent>
-      <TabsContent className="min-h-screen w-full" value="step2">
+      <TabsContent className="min-h-screen  sm:min-h-[60vh] w-full" value="step2">
         <Step2 setActiveTab={setActiveTab} activeTab={activeTab} />
       </TabsContent>
-      <TabsContent className=" min-h-screen" value="step3">
+      <TabsContent className=" min-h-screen  sm:min-h-[60vh]" value="step3">
         <Step3 setFullname={setFullname} setActiveTab={setActiveTab} activeTab={activeTab} />
       </TabsContent>
-      <TabsContent className=" min-h-screen" value="step4">
+      <TabsContent className=" min-h-screen  sm:min-h-[60vh]" value="step4">
         <Step4
           fullname={fullname}
           setOnboardingCompleted={setOnboardingCompleted}
@@ -617,6 +670,15 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
 export default function Onboarding() {
   const [onboardingCompleted, setOnboardingCompleted] = useState(false);
   const isMobile = useMediaQuery("(max-width:640px)");
+  const router = useRouter();
+  useEffect(() => {
+    if (onboardingCompleted) {
+      setTimeout(() => {
+        router.push("/stock-picks");
+      }, 1000 * 15);
+    }
+  }, [onboardingCompleted]);
+
   if (onboardingCompleted && isMobile) {
     return (
       <div className=" max-sm:h-screen h-[690px] open_sans">
@@ -671,23 +733,42 @@ export default function Onboarding() {
           className=" flex flex-col px-11 gap-y-4 "
         >
           <div className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
-            <div className=" h-full flex items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
+            <div className=" h-full flex justify-between items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
               <div>
                 <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
                 <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
               </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9 18L15 12L9 6"
+                  stroke="#3EC9AE"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
             </div>
           </div>
-          <div className="h-[100px] py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
+          <div className="min-h-[100px] flex items-center justify-between py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
             <div>
               <p className=" text-gray-700 font-bold text-md">Track Record</p>
               <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
             </div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9 18L15 12L9 6"
+                stroke="#667085"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
           </div>
         </motion.div>
       </div>
     );
   }
+
   return (
     <div className=" bg-[url(/assets/onboarding_bg.png),linear-gradient(180deg,#F5FFFF_0%,#E9F3F2_100%)] bg-cover min-h-screen">
       <Header className=" h-auto max-sm:[&>div]:pb-3 bg-transparent" />

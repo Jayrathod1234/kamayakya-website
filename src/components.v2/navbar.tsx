@@ -49,7 +49,7 @@ export function Navbar({
   className?: string;
   navigationLinkClassName?: string;
 }) {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn,setShowLoginModal, showLoginModal } = useContext(AuthContext);
   const { showFilterHeader } = useNavBar();
   const router = useRouter();
   const pathname = router.pathname;
@@ -65,7 +65,9 @@ export function Navbar({
 
   const handleLogin = () => {
     handleEvent("login_clicked", { page: "Pricing_Page" });
-    setShowModal(true);
+    // setShowModal(true);
+    console.log("CALLED", showLoginModal)
+    setShowLoginModal(true)
   };
 
   const handleNavigation = (
@@ -280,7 +282,7 @@ export function Navbar({
           </div>
         </div>
         <div className={`flex items-center justify-center gap-x-4 lg:hidden `}>
-          {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
+          {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin}/>}
           <SideNav handleLogin={handleLogin} />
         </div>
         <div className="hidden px-2 lg:flex items-center">
@@ -313,10 +315,10 @@ export function Navbar({
               userCard={true}
             />
           ) : (
-            <LoginPrompt triggerEle={<LoginBtnNav arrow />} />
+            <LoginBtnNav handleLogin={handleLogin} arrow />
           )}
         </div>
-        <Modal
+        {/* <Modal
           width="450px"
           blur
           open={showModal}
@@ -359,7 +361,7 @@ export function Navbar({
           <Modal.Body>
             <Login />
           </Modal.Body>
-        </Modal>
+        </Modal> */}
         <SampleReportsModal setVisible={setVisible} bindings={bindings} />
       </div>
     </div>

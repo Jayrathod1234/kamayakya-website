@@ -27,7 +27,7 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 // }
 
 export function PlansSection() {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn,showLoginModal,setShowLoginModal } = useContext(AuthContext);
   const { activePlan } = useActivePlanContext();
   const [currentTab, setCurrentTab] = useState<"3months" | "1year" | "3year">("1year");
   const [currentPlanViewing, setCurrentPlanViewing] = useState("vip");
@@ -42,11 +42,11 @@ export function PlansSection() {
   ];
 
   const handleLogin = () => {
-    setShowModal(true);
+    setShowLoginModal(true);
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    setShowLoginModal(false);
   };
 
   const handlePlanProps = (plan: TPlanResponse) => {
@@ -312,7 +312,7 @@ export function PlansSection() {
           </TooltipProvider>
         </div>
       </div>
-      <Modal
+      {/* <Modal
         width="450px"
         blur
         open={showModal}
@@ -355,7 +355,7 @@ export function PlansSection() {
         <Modal.Body>
           <Login />
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

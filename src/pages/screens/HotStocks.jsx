@@ -13,8 +13,8 @@ import Login from "@/components/Login";
 
 const HotStocks = () => {
     const router = useRouter();
-    const {isLoggedIn, isSubscribed} = useContext(AuthProvider);
-    const [showLoginModal, setShowLoginModal] = useState(false);
+    const {isLoggedIn, isSubscribed, showLoginModal,setShowLoginModal} = useContext(AuthProvider);
+    // const [showLoginModal, setShowLoginModal] = useState(false);
     const [stocks, setStocks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const staticNumbers = [70, 68, 61];
@@ -1299,7 +1299,7 @@ const HotStocks = () => {
                                         </Box>
                                     </Box>
                                 </Card>
-                                <Modal
+                                {/* <Modal
                                     width="450px"
                                     open={showLoginModal}
                                     onClose={handleCloseLoginModal}
@@ -1330,7 +1330,7 @@ const HotStocks = () => {
                                     <Modal.Body>
                                         <Login/>
                                     </Modal.Body>
-                                </Modal>
+                                </Modal> */}
                             </Grid>
                         ))
                         : ""}

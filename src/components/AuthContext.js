@@ -111,6 +111,7 @@ export const AuthProvider = ({ children }) => {
         handleLogin,
         handleCloseLoginModal,
         setUser,
+        setShowLoginModal
       }}
     >
       {children}

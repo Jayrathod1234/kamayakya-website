@@ -76,7 +76,7 @@ const StockPicks = () => {
         </>
       )}
 
-      <Modal
+      {/* <Modal
         width="450px"
         blur
         open={showLoginModal}
@@ -108,7 +108,7 @@ const StockPicks = () => {
         <Modal.Body>
           <Login />
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

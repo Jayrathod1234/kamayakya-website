@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { NavBarProvider } from "@/contexts/NavBarContext.js";
 import { TooltipProvider } from "@/components.v2/ui/tooltip";
+import LoginPrompt from "@/components.v3/common/LoginPrompt";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { isBrowser } = useSSR();
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <AuthProvider>
                   <PlanProvider>
                     <Component {...pageProps} />
+                    <LoginPrompt/>
                     <Head>
                       <title>
                         KamayaKya - SEBI Registered Research Analyst | Expert Microcap & Smallcap Stock Picks

@@ -17,9 +17,9 @@ import AuthContext from "@/components/AuthContext";
 import { TypeAnimation } from "react-type-animation";
 
 const HomePage = () => {
-	const { isLoggedIn } = useContext(AuthContext);
+	const { isLoggedIn,showLoginModal,setShowLoginModal } = useContext(AuthContext);
 	const { setVisible, bindings } = useModal();
-	const [showLoginModal, setShowLoginModal] = useState(false);
+	// const [showLoginModal, setShowLoginModal] = useState(false);
 	const [showCert, setShowCert] = useState(false);
 	const [showIframe, setShowIframe] = useState(false);
   const router = useRouter();
@@ -738,7 +738,7 @@ const HomePage = () => {
 							Get free access
 						</Text>
 					</Button>
-					<Modal
+					{/* <Modal
 						width="450px"
 						blur
 						open={showLoginModal}
@@ -770,7 +770,7 @@ const HomePage = () => {
 						<Modal.Body>
 							<Login />
 						</Modal.Body>
-					</Modal>
+					</Modal> */}
 				</Box>
 
 				<Box

@@ -34,7 +34,7 @@ interface IFormData {
   email: string;
 }
 
-const SignUpContent = () => {
+const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }) => {
   const {
     register,
     control,
@@ -57,11 +57,12 @@ const SignUpContent = () => {
   const [verifyingOtp, setVerifyingOtp] = useState(false);
   const [otp, setOtp] = useState("");
   const [displayOtpModal, setDisplayOtpModal] = useState(false);
-  const [displayExistingUserModal,setDisplayExistingUserModal] = useState(false);
-  const { setUser } = useContext(AuthContext);
+
+  const { setUser, setShowLoginModal } = useContext(AuthContext);
 
   const { toast } = useToast();
   const isMobile = useMediaQuery("(max-width:600px)");
+  const verySmallScreen = useMediaQuery("(max-width:400px)");
   const phone = watch("phone");
   const email = watch("email");
   const router = useRouter();
@@ -119,9 +120,12 @@ const SignUpContent = () => {
       if (res?.status_code === 200) {
         setUser((prev) => ({ ...prev, id: res?.user_id, fullname: res?.full_name, email: res?.email }));
         if (!res?.is_onboard) {
-          if(!res?.is_new_user){
-            setDisplayExistingUserModal(true)
-            return
+          sessionStorage.setItem("user_id", res?.user_id);
+          sessionStorage.setItem("email", res?.email);
+          sessionStorage.setItem("fullname", res?.full_name);
+          if (!res?.is_new_user) {
+            setDisplayExistingUserModal(true);
+            return;
           }
           router.push("/onboarding");
         } else {
@@ -137,6 +141,7 @@ const SignUpContent = () => {
       });
     } finally {
       setVerifyingOtp(false);
+      setShowLoginModal(false);
     }
   };
 
@@ -173,16 +178,9 @@ const SignUpContent = () => {
   //   }
   // }, [openDialog]);
 
-  useEffect(()=>{
-    sessionStorage.setItem("login_method", loginMethod)
-  },[loginMethod])
-
-
-  if(displayExistingUserModal){
-    return  <div className=" h-full p-6">
-      
-    </div>
-  }
+  useEffect(() => {
+    sessionStorage.setItem("login_method", loginMethod);
+  }, [loginMethod]);
 
   if (displayOtpModal) {
     return (
@@ -209,8 +207,9 @@ const SignUpContent = () => {
                   gap: isMobile ? "2px" : "10px",
                 }}
                 inputStyle={{
-                  height: "44px",
-                  width: "44px",
+                  height: verySmallScreen ? "38px" : "44px",
+                  width: verySmallScreen ? "38px" : "44px",
+
                   border: "1px solid #B7BDC7",
                   borderRadius: "6.2px",
                   background: "#fff",
@@ -307,7 +306,13 @@ const SignUpContent = () => {
       </div>
       <div className=" mt-8">
         <p className=" text-gray-400 text-2xs">
-          By signing in you agree to all our <span className=" text-brand-500 underline decoration-dashed underline-offset-2"><Link href={"/"} className=" text-inherit"> terms & conditions</Link></span>
+          By signing in you agree to all our{" "}
+          <span className=" text-brand-500 underline decoration-dashed underline-offset-2">
+            <Link href={"/terms-conditions"} className=" text-inherit">
+              {" "}
+              terms & conditions
+            </Link>
+          </span>
         </p>
         <Button
           disabled={
@@ -357,31 +362,82 @@ const SignUpContent = () => {
   );
 };
 
-export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
+const ExistingUserModal = () => {
+  const router = useRouter();
+  const handleOnboarding = () => router.push("/onboarding");
   return (
-    <Dialog>
-      <DialogTrigger>{triggerEle}</DialogTrigger>
-      <DialogContent
-        closeClassName=" hidden"
-        className=" flex flex-col sm:flex-row !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[840px] !rounded-[20px] gap-0"
-      >
-        <div className=" max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
-          <div className=" flex flex-col max-sm:items-start items-center min-w-0">
-            <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
-            <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
-              <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
-              <NewUserList label="Get 3 Hot Stocks for Free" />
-              <NewUserList label="See Track Record" />
-              <NewUserList label="Get WhatsApp & Email Notifications" />
-            </div>
-          </div>
+    <DialogContent
+      closeClassName=" hidden"
+      className=" flex flex-col !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[465px] !rounded-[20px] gap-0"
+    >
+      <div className=" h-full p-6">
+        <div className=" rounded-[12px] bg-[#FFF5EC] py-7 flex flex-col items-center justify-center">
+          <img width={164} height={30} src="/KKLogo.svg" alt="kmk-logo" />
+          <img
+            width={218}
+            height={174}
+            className=" mt-5"
+            src="/assets/existing_user_illustration.svg"
+            alt="stock-illustration"
+          />
+        </div>
+        <h3 className=" text-gray-900 text-display-xs font-bold m-0 mt-4">Update Alert! 🚀</h3>
+        <p className=" m-0 mt-3 text-gray-600">
+          We're upgrading our systems behind the scenes to keep everything running smoothly and to ensure SEBI
+          compliance! We need just a little extra info from you. Quick and easy - promise!
+        </p>
+        <p className=" m-0 mt-3 text-gray-600">Thanks for helping us make things better! 💪</p>
+        <Button onClick={handleOnboarding} className=" mt-9 w-full" variant={ButtonVariant.primary}>
+          <p className=" text-sm font-medium">Let’s Get Started!</p>
+        </Button>
+        <p className=" text-gray-500 text-xs text-center mt-1">Takes less than 2 minutes</p>
+      </div>
+    </DialogContent>
+  );
+};
 
-          <img className=" hidden sm:block" src="/assets/onboarding_login.gif" alt="onboarding" />
-        </div>
-        <div className=" sm:order-3 flex-1">
-          <SignUpContent />
-        </div>
-      </DialogContent>
+export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
+  const [displayExistingUserModal, setDisplayExistingUserModal] = useState(false);
+  const { showLoginModal, handleLogin, setShowLoginModal } = useContext(AuthContext);
+  console.log(showLoginModal);
+  return (
+    <Dialog open={showLoginModal} onOpenChange={setShowLoginModal}>
+      <DialogTrigger
+        onClick={(e) => {
+          e.preventDefault();
+          setShowLoginModal(true);
+        }}
+      >
+        {triggerEle}
+      </DialogTrigger>
+      {displayExistingUserModal ? (
+        <ExistingUserModal />
+      ) : (
+        <DialogContent
+          closeClassName=" hidden"
+          className=" flex flex-col sm:flex-row !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[840px] !rounded-[20px] gap-0"
+        >
+          <div className=" max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
+            <div className=" flex flex-col max-sm:items-start items-center min-w-0">
+              <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
+              <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
+                <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
+                <NewUserList label="Get 3 Hot Stocks for Free" />
+                <NewUserList label="See Track Record" />
+                <NewUserList label="Get WhatsApp & Email Notifications" />
+              </div>
+            </div>
+
+            <img className=" hidden sm:block" src="/assets/onboarding_login.gif" alt="onboarding" />
+          </div>
+          <div className=" sm:order-3 flex-1">
+            <SignUpContent
+              displayExistingUserModal={displayExistingUserModal}
+              setDisplayExistingUserModal={setDisplayExistingUserModal}
+            />
+          </div>
+        </DialogContent>
+      )}
     </Dialog>
   );
 }
