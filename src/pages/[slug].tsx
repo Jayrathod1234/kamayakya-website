@@ -26,7 +26,7 @@ import { Avatar, AvatarVariant } from "@/components.v2/avatar";
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTrigger } from "@/components.v2/ui/drawer";
 import { Newsletter, BlogHero, BlogSocialList } from "@/components.v2/index.components";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { useToast } from "@/components.v2/ui/use-toast";
+import { toast } from "@/components.v2/ui/use-toast";
 import { BlogShareDrawer } from "@/components.v2/blogs";
 import { useRouter } from "next/router";
 // import { ReactQuill } from "react-quill";

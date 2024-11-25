@@ -12,9 +12,15 @@ import { Controller, useForm } from "react-hook-form";
 import { getEmailPhoneOtp, verifyEmailPhoneOtp } from "@/api/onboarding";
 import AuthContext from "@/components/AuthContext";
 import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
-import { useToast } from "@/components.v2/ui/use-toast";
+import { toast } from "@/components.v2/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { axiosApi } from "@/utils/axios";
+import Lottie from "lottie-react";
+import POPPER_JSON from "../../../public/assets/popper.json";
+import SUCCESS_LOTTIE from "../../../public/assets/success_onboarding.json";
+
+import { time } from "console";
+import { ContactModal } from "@/components.v2/payments/contact-modal";
 
 const Step1 = ({ setActiveTab, activeTab }) => {
   return (
@@ -116,31 +122,39 @@ interface IFormInput {
   fullname: string;
 }
 
-const Step3 = ({ setFullname, activeTab, setActiveTab }) => {
+const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
+    watch,
+    setError,
     formState: { errors },
   } = useForm<IFormInput>();
   const { user } = useContext(AuthContext);
+  const name = watch("fullname");
   const handleName = async (data: IFormInput) => {
     try {
+      sessionStorage.setItem("fullname", data?.fullname);
       setFullname(data?.fullname);
       setActiveTab("step4");
     } catch (e) {}
   };
 
   useEffect(() => {
-    const savedFullname = sessionStorage.getItem("fullname")
-    if(savedFullname!== null && user?.fullname){
-      setValue("fullname", savedFullname)
-      return
+    const savedFullname = sessionStorage.getItem("fullname");
+    if (fullname) {
+      setValue("fullname", fullname);
+      return;
     }
+    if (savedFullname !== "null") {
+      setValue("fullname", savedFullname);
+      return;
+    }
+
     setValue("fullname", user?.fullname);
-  }, [user,sessionStorage.getItem("fullname")]);
-
-
+  }, [user, sessionStorage.getItem("fullname"), fullname]);
 
   return (
     <div className=" min-h-[70vh] flex flex-col">
@@ -165,9 +179,12 @@ const Step3 = ({ setFullname, activeTab, setActiveTab }) => {
               Full Name <span className=" text-[#F04438]">*</span>
             </p>
             <input
+              value={name ?? fullname}
               {...register("fullname", {
+                pattern: { value: /^[a-zA-Z]+( [a-zA-Z]+)*$/, message: "Please Enter valid name" },
+                maxLength: { value: 50, message: "Max Character limit of 50 reached." },
                 required: "Enter Full Name to continue",
-                minLength: { value: 3, message: "Enter Full Name to continue" },
+                minLength: { value: 3, message: "Enter Full Name to continue (minimum 3 characters)" },
               })}
               className={` text-sm py-2 px-[10px] border ${
                 errors.fullname?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
@@ -203,12 +220,21 @@ interface IFormEmailInput {
   phone: string;
 }
 
-const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) => {
+const Step4 = ({
+  fullname,
+  setOnboardingCompleted,
+  activeTab,
+  setActiveTab,
+  email: preExistinEmail,
+  phone: preExistingPhone,
+}) => {
   const {
     register,
     handleSubmit,
     getValues,
     control,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<IFormEmailInput>();
   const [secondsRemaining, setSecondsRemaining] = useState(15);
@@ -220,23 +246,26 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
   const isMobile = useMediaQuery("(max-width:600px)");
   const [displayOtpModal, setDisplayOtpModal] = useState(false);
   const { user } = useContext(AuthContext);
-  const { toast } = useToast();
   const email = getValues("email");
   const phone = getValues("phone");
+
   const verySmallScreen = useMediaQuery("(max-width:400px)");
   const handleEmailOtp = async (data: IFormEmailInput) => {
     try {
+      throw new Error("User with same email")
       let params = {
         type: loginMethod === "mobile" ? "email" : "mobile",
 
-        user_id: user?.id ? user?.id:sessionStorage.getItem("user_id"),
+        user_id: user?.id ? user?.id : sessionStorage.getItem("user_id"),
       };
       if (loginMethod === "mobile") {
+        sessionStorage.setItem("email", data.email);
         params = {
           ...params,
           email: data.email,
         };
       } else {
+        sessionStorage.setItem("mobile", data.phone);
         params = {
           ...params,
           mobile: data.phone,
@@ -251,6 +280,7 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
       toast({
         variant: "warn",
         description: e?.response?.data?.message || "Something went wrong.",
+        action:<ContactModal trigger={<button className=" text-sm">Contact Us</button>} />
       });
     } finally {
       setSendingOtp(false);
@@ -306,14 +336,57 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
   }, [resendOtp]);
 
   useEffect(() => {
+    let timer;
     if (secondsRemaining > 0) {
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setSecondsRemaining((prevSeconds) => prevSeconds - 1);
       }, 1000);
-
-      return () => clearTimeout(timer);
+    } else {
+      setResendOtp(false);
     }
+    return () => clearTimeout(timer);
   }, [secondsRemaining]);
+
+  useEffect(() => {
+    if (displayOtpModal) {
+      setSecondsRemaining(15);
+    }
+  }, [displayOtpModal]);
+
+  useEffect(() => {
+    const savedEmailPhone = sessionStorage.getItem(loginMethod === "mobile" ? "email" : "mobile");
+
+    if (loginMethod === "mobile") {
+      if (preExistinEmail) {
+        setValue("email", preExistinEmail);
+        return;
+      }
+      if (savedEmailPhone !== "null") {
+        setValue("email", savedEmailPhone);
+        return;
+      }
+
+      setValue("email", user?.email);
+    } else if (loginMethod === "email") {
+      if (preExistingPhone) {
+        setValue("phone", preExistingPhone);
+        return;
+      }
+      if (savedEmailPhone !== "null") {
+        setValue("phone", `+91${savedEmailPhone}`);
+        return;
+      }
+
+      setValue("phone", `+91${user?.mobile}`);
+    }
+  }, [
+    user,
+    sessionStorage.getItem("email"),
+    preExistinEmail,
+    sessionStorage.getItem("mobile"),
+    user?.mobile,
+    loginMethod,
+  ]);
 
   useLayoutEffect(() => {
     const loginMethod = sessionStorage.getItem("login_method");
@@ -409,6 +482,8 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
       </div>
     );
   }
+
+  console.log("PHONE=-==>", phone);
   return (
     <div className=" mt-7 sm:mt-10 min-h-[70vh] flex flex-col">
       <div className=" px-5 sm:px-9">
@@ -430,7 +505,7 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
               : "border-[#0000000F]"
           }   rounded-lg bg-transparent flex items-center `}
         >
-          {loginMethod === "mobile" ? (
+          {loginMethod !== "mobile" ? (
             <input
               {...register("email", {
                 required: loginMethod === "mobile" ? "Enter email to continue" : false,
@@ -458,7 +533,7 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
               render={({ field: { value, onChange } }) => (
                 <>
                   <PhoneInput
-                    value={value}
+                    value={value ?? phone}
                     onChange={onChange}
                     defaultCountry="IN"
                     placeholder="Enter phone number"
@@ -503,21 +578,40 @@ const Step4 = ({ fullname, setOnboardingCompleted, activeTab, setActiveTab }) =>
 
 const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
   const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
   const [activeTab, setActiveTab] = useState("step1");
-
+  const [secondsRemaining, setSecondsRemaining] = useState(15);
   const router = useRouter();
 
- 
+  useEffect(() => {
+    let timeout;
+    if (onboardingCompleted) {
+      timeout = setTimeout(() => {
+        router.replace("/stock-picks");
+      }, 1000 * 15);
+    }
+    return () => clearTimeout(timeout);
+  }, [onboardingCompleted]);
+
+  useEffect(() => {
+    let timeout;
+    if (secondsRemaining) {
+      timeout = setTimeout(() => {
+        setSecondsRemaining((prev) => prev - 1);
+      }, 1000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [secondsRemaining]);
+
   useEffect(() => {
     if (onboardingCompleted) {
-      setTimeout(() => {
-        router.push("/stock-picks");
-      }, 1000 * 15);
+      setSecondsRemaining(15);
     }
   }, [onboardingCompleted]);
 
   return onboardingCompleted ? (
-    <div className=" hidden sm:block max-sm:h-screen h-[690px] open_sans">
+    <div className=" z-30 hidden sm:block max-sm:h-screen h-[690px] open_sans">
       <motion.div
         style={{ background: "#00C37C" }}
         initial={{ opacity: 1, height: "100%" }}
@@ -529,7 +623,8 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
         }}
       >
         <div className=" flex flex-col items-center justify-center h-full">
-          <img height={166} width={166} className=" block" src="/assets/onboard.gif" />
+          <Lottie autoPlay loop={false} animationData={SUCCESS_LOTTIE} />
+          {/* <img height={166} width={166} className=" block" src="/assets/onboard.gif" /> */}
           <div className=" mt-5 ">
             <motion.h2
               initial={{ opacity: 0 }}
@@ -553,7 +648,8 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
               }}
               className=" text-white text-md font-medium text-center"
             >
-              Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15 seconds
+              Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in{" "}
+              {secondsRemaining} seconds
             </motion.p>
           </div>
         </div>
@@ -569,7 +665,7 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
         className=" flex flex-col px-11 gap-y-4 "
       >
         <div
-          onClick={() => router.push("/stock-picks")}
+          onClick={() => router.replace("/stock-picks")}
           className="h-[100px]  cursor-pointer p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl"
         >
           <div className=" h-full flex items-center justify-between py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
@@ -589,7 +685,7 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
           </div>
         </div>
         <div
-          onClick={() => router.push("/track-record")}
+          onClick={() => router.replace("/track-record")}
           className="min-h-[100px] flex items-center justify-between cursor-pointer py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl"
         >
           <div>
@@ -653,11 +749,13 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
         <Step2 setActiveTab={setActiveTab} activeTab={activeTab} />
       </TabsContent>
       <TabsContent className=" min-h-screen  sm:min-h-[60vh]" value="step3">
-        <Step3 setFullname={setFullname} setActiveTab={setActiveTab} activeTab={activeTab} />
+        <Step3 fullname={fullname} setFullname={setFullname} setActiveTab={setActiveTab} activeTab={activeTab} />
       </TabsContent>
       <TabsContent className=" min-h-screen  sm:min-h-[60vh]" value="step4">
         <Step4
           fullname={fullname}
+          email={email}
+          setEmail={setEmail}
           setOnboardingCompleted={setOnboardingCompleted}
           setActiveTab={setActiveTab}
           activeTab={activeTab}
@@ -670,14 +768,53 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
 export default function Onboarding() {
   const [onboardingCompleted, setOnboardingCompleted] = useState(false);
   const isMobile = useMediaQuery("(max-width:640px)");
+  const { user } = useContext(AuthContext);
   const router = useRouter();
+
+  const [secondsRemaining, setSecondsRemaining] = useState(15);
+
   useEffect(() => {
+    let timeout;
     if (onboardingCompleted) {
-      setTimeout(() => {
-        router.push("/stock-picks");
+      timeout = setTimeout(() => {
+        router.replace("/stock-picks");
       }, 1000 * 15);
     }
+    return () => clearTimeout(timeout);
   }, [onboardingCompleted]);
+
+  useEffect(() => {
+    let timeout;
+    if (secondsRemaining) {
+      timeout = setTimeout(() => {
+        setSecondsRemaining((prev) => prev - 1);
+      }, 1000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [secondsRemaining]);
+
+  useEffect(() => {
+    if (onboardingCompleted) {
+      setSecondsRemaining(15);
+    }
+  }, [onboardingCompleted]);
+
+  useEffect(() => {
+    let timeout;
+    if (onboardingCompleted) {
+      timeout = setTimeout(() => {
+        router.replace("/stock-picks");
+      }, 1000 * 15);
+    }
+    return () => clearTimeout(timeout);
+  }, [onboardingCompleted]);
+
+  useLayoutEffect(() => {
+    if (user?.is_onboard) {
+      router.replace("/");
+    }
+  }, [user]);
 
   if (onboardingCompleted && isMobile) {
     return (
@@ -693,7 +830,8 @@ export default function Onboarding() {
           }}
         >
           <div className=" flex flex-col items-center justify-center h-full">
-            <img height={166} width={166} className=" block" src="/assets/onboard.gif" />
+            <Lottie autoPlay loop={false} animationData={SUCCESS_LOTTIE} />
+            {/* <img height={166} width={166} className=" block" src="/assets/onboard.gif" /> */}
             <div className=" mt-5 ">
               <motion.h2
                 initial={{ opacity: 0 }}
@@ -717,7 +855,8 @@ export default function Onboarding() {
                 }}
                 className=" text-white text-md font-medium text-center"
               >
-                Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in 15 seconds
+                Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in{" "}
+                {secondsRemaining} seconds
               </motion.p>
             </div>
           </div>
@@ -770,12 +909,30 @@ export default function Onboarding() {
   }
 
   return (
-    <div className=" bg-[url(/assets/onboarding_bg.png),linear-gradient(180deg,#F5FFFF_0%,#E9F3F2_100%)] bg-cover min-h-screen">
+    <div className=" relative bg-[url(/assets/onboarding_bg.png),linear-gradient(180deg,#F5FFFF_0%,#E9F3F2_100%)] bg-cover min-h-screen">
+      {" "}
+      {onboardingCompleted ? (
+        <div className=" h-screen overflow-hidden absolute w-full">
+          <img className=" opacity-40 z-10 absolute left-60 " src="/assets/onboarding_popper.gif" alt="popper-gif" />
+          <img
+            className=" opacity-40  z-10 absolute left-0 top-1/2"
+            src="/assets/onboarding_popper.gif"
+            alt="popper-gif"
+          />
+          <img className="  opacity-40  z-10 absolute right-0" src="/assets/onboarding_popper.gif" alt="popper-gif" />
+          <img
+            className=" opacity-40  z-10 absolute right-60 top-1/2"
+            src="/assets/onboarding_popper.gif"
+            alt="popper-gif"
+          />
+        </div>
+      ) : // <Lottie className=" absolute left-0  pointer-events-none" autoPlay loop={false} animationData={POPPER_JSON} />
+      null}
       <Header className=" h-auto max-sm:[&>div]:pb-3 bg-transparent" />
       {/* <Dialog open={isMobile ? false:true}> */}
-      <div className=" flex items-center justify-center">
+      <div className=" z-30 flex items-center justify-center">
         <div
-          className=" hidden p-0  !rounded-[20px] bg-white overflow-hidden sm:flex flex-col w-[calc(100%-32px)] max-w-[520px]"
+          className=" hidden p-0 z-30  !rounded-[20px] bg-white overflow-hidden sm:flex flex-col w-[calc(100%-32px)] max-w-[520px]"
           overlayClassName="bg-transparent open_sans"
           closeClassName="hidden"
         >
@@ -783,7 +940,7 @@ export default function Onboarding() {
         </div>
       </div>
       {/* </Dialog> */}
-      <div className=" bg-white w-[calc(100%-32px)] mx-auto sm:hidden rounded-t-[20px]">
+      <div className=" z-30 bg-white w-[calc(100%-32px)] mx-auto sm:hidden rounded-t-[20px]">
         <MainContent onboardingCompleted={onboardingCompleted} setOnboardingCompleted={setOnboardingCompleted} />
       </div>
     </div>

@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { useToast } from "../ui/use-toast";
+import { toast } from "../ui/use-toast";
 import { TContactOptionCard } from "@/types";
 
 export const ContactOptionCard = ({ className, label, value, icon }: TContactOptionCard) => {
   const [copied, setCopied] = useState(false);
-  const { toast } = useToast();
   const ref = useRef<HTMLParagraphElement | null>(null);
 
   const handleCopy = () => {

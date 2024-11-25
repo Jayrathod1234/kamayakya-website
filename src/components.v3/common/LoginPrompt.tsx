@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
 import React, { useContext, useEffect, useState } from "react";
 import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -13,8 +13,11 @@ import { blockInvalidChar } from "@/components/LoginCard";
 import { getLoginOtp, verifyLoginOtp } from "../../api/onboarding/index";
 import { useRouter } from "next/router";
 import AuthContext from "@/components/AuthContext";
-import { useToast } from "@/components.v2/ui/use-toast";
+import { toast } from "@/components.v2/ui/use-toast";
 import Link from "next/link";
+import { axiosApi } from "@/utils/axios";
+import Lottie from "lottie-react";
+import ONBOARDING_LOTTIE from "../../../public/assets/onboarding_signup.json";
 
 interface ILoginPrompt {
   triggerEle: React.ReactNode;
@@ -59,8 +62,6 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   const [displayOtpModal, setDisplayOtpModal] = useState(false);
 
   const { setUser, setShowLoginModal } = useContext(AuthContext);
-
-  const { toast } = useToast();
   const isMobile = useMediaQuery("(max-width:600px)");
   const verySmallScreen = useMediaQuery("(max-width:400px)");
   const phone = watch("phone");
@@ -118,20 +119,27 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
       setVerifyingOtp(true);
       const res = await verifyLoginOtp(params);
       if (res?.status_code === 200) {
-        setUser((prev) => ({ ...prev, id: res?.user_id, fullname: res?.full_name, email: res?.email }));
+        setUser((prev) => ({ ...prev, id: res?.user_id, fullname: res?.full_name, email: res?.email,mobile:res?.mobile,is_onboard:res?.is_onboard }));
         if (!res?.is_onboard) {
+          setShowLoginModal(false);
           sessionStorage.setItem("user_id", res?.user_id);
           sessionStorage.setItem("email", res?.email);
+          sessionStorage.setItem("mobile", res?.mobile);
           sessionStorage.setItem("fullname", res?.full_name);
           if (!res?.is_new_user) {
             setDisplayExistingUserModal(true);
             return;
           }
+          
           router.push("/onboarding");
         } else {
+          
           localStorage.setItem("access", res.access);
           localStorage.setItem("refresh", res.refresh);
-          router.reload();
+          axiosApi.defaults.headers.common["Authorization"] = `token ${res?.access}`;
+
+          // router.reload();
+          setShowLoginModal(false);
         }
       }
     } catch (e) {
@@ -141,7 +149,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
       });
     } finally {
       setVerifyingOtp(false);
-      setShowLoginModal(false);
+      // setShowLoginModal(false)
     }
   };
 
@@ -159,14 +167,23 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   }, [resendOtp]);
 
   useEffect(() => {
+    let timer;
     if (secondsRemaining > 0) {
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setSecondsRemaining((prevSeconds) => prevSeconds - 1);
       }, 1000);
-
-      return () => clearTimeout(timer);
     }
+    else{
+      setResendOtp(false)
+    }
+    return () => clearTimeout(timer);
   }, [secondsRemaining]);
+
+  useEffect(() => {
+    if (displayOtpModal) {
+      setSecondsRemaining(15);
+    }
+  }, [displayOtpModal]);
 
   // useEffect(() => {
   //   if (openDialog && displayModal === "AADHAR") {
@@ -245,6 +262,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         </div>
         <div className=" mt-8">
           <Button
+            disabled={otp.length<6}
             loading={verifyingOtp}
             onClick={handleSubmit(handleVerifyOtp)}
             className=" my-[18px] min-w-full max-w-full"
@@ -308,7 +326,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         <p className=" text-gray-400 text-2xs">
           By signing in you agree to all our{" "}
           <span className=" text-brand-500 underline decoration-dashed underline-offset-2">
-            <Link href={"/terms-conditions"} className=" text-inherit">
+            <Link onClick={()=>setShowLoginModal(false)} href={"/terms-conditions"} className=" text-inherit">
               {" "}
               terms & conditions
             </Link>
@@ -364,7 +382,9 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
 
 const ExistingUserModal = () => {
   const router = useRouter();
-  const handleOnboarding = () => router.push("/onboarding");
+  const handleOnboarding = () => {
+    router.push("/onboarding");
+  };
   return (
     <DialogContent
       closeClassName=" hidden"
@@ -382,14 +402,16 @@ const ExistingUserModal = () => {
           />
         </div>
         <h3 className=" text-gray-900 text-display-xs font-bold m-0 mt-4">Update Alert! 🚀</h3>
-        <p className=" m-0 mt-3 text-gray-600">
+        <p className=" max-sm:text-sm m-0 mt-3 text-gray-600">
           We're upgrading our systems behind the scenes to keep everything running smoothly and to ensure SEBI
           compliance! We need just a little extra info from you. Quick and easy - promise!
         </p>
-        <p className=" m-0 mt-3 text-gray-600">Thanks for helping us make things better! 💪</p>
-        <Button onClick={handleOnboarding} className=" mt-9 w-full" variant={ButtonVariant.primary}>
-          <p className=" text-sm font-medium">Let’s Get Started!</p>
-        </Button>
+        <p className=" max-sm:text-sm m-0 mt-3 text-gray-600">Thanks for helping us make things better! 💪</p>
+        <DialogClose asChild>
+          <Button onClick={handleOnboarding} className=" mt-9 w-full" variant={ButtonVariant.primary}>
+            <p className=" text-sm font-medium">Let’s Get Started!</p>
+          </Button>
+        </DialogClose>
         <p className=" text-gray-500 text-xs text-center mt-1">Takes less than 2 minutes</p>
       </div>
     </DialogContent>
@@ -399,45 +421,53 @@ const ExistingUserModal = () => {
 export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
   const [displayExistingUserModal, setDisplayExistingUserModal] = useState(false);
   const { showLoginModal, handleLogin, setShowLoginModal } = useContext(AuthContext);
-  console.log(showLoginModal);
+  // useEffect(()=>{
+  //   if(!showLoginModal){
+
+  //   }
+  // },[showLoginModal])
+  if (displayExistingUserModal) {
+    return (
+      <Dialog open={displayExistingUserModal} onOpenChange={setDisplayExistingUserModal}>
+        <ExistingUserModal />
+      </Dialog>
+    );
+  }
   return (
     <Dialog open={showLoginModal} onOpenChange={setShowLoginModal}>
-      <DialogTrigger
+      {/* <DialogTrigger
         onClick={(e) => {
           e.preventDefault();
           setShowLoginModal(true);
         }}
       >
         {triggerEle}
-      </DialogTrigger>
-      {displayExistingUserModal ? (
-        <ExistingUserModal />
-      ) : (
-        <DialogContent
-          closeClassName=" hidden"
-          className=" flex flex-col sm:flex-row !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[840px] !rounded-[20px] gap-0"
-        >
-          <div className=" max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
-            <div className=" flex flex-col max-sm:items-start items-center min-w-0">
-              <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
-              <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
-                <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
-                <NewUserList label="Get 3 Hot Stocks for Free" />
-                <NewUserList label="See Track Record" />
-                <NewUserList label="Get WhatsApp & Email Notifications" />
-              </div>
-            </div>
+      </DialogTrigger> */}
 
-            <img className=" hidden sm:block" src="/assets/onboarding_login.gif" alt="onboarding" />
+      <DialogContent
+        closeClassName=" hidden"
+        className=" flex flex-col sm:flex-row !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[840px] !rounded-[20px] gap-0"
+      >
+        <div className=" max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
+          <div className=" flex flex-col max-sm:items-start items-center min-w-0">
+            <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
+            <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
+              <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
+              <NewUserList label="Get 3 Hot Stocks for Free" />
+              <NewUserList label="See Track Record" />
+              <NewUserList label="Get WhatsApp & Email Notifications" />
+            </div>
           </div>
-          <div className=" sm:order-3 flex-1">
-            <SignUpContent
-              displayExistingUserModal={displayExistingUserModal}
-              setDisplayExistingUserModal={setDisplayExistingUserModal}
-            />
-          </div>
-        </DialogContent>
-      )}
+          <Lottie className=" hidden sm:block" autoPlay loop={false} animationData={ONBOARDING_LOTTIE} />
+          
+        </div>
+        <div className=" sm:order-3 flex-1">
+          <SignUpContent
+            displayExistingUserModal={displayExistingUserModal}
+            setDisplayExistingUserModal={setDisplayExistingUserModal}
+          />
+        </div>
+      </DialogContent>
     </Dialog>
   );
 }

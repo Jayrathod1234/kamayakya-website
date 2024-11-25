@@ -3,7 +3,7 @@ import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Checkbox } from "@/components.v2/ui/checkbox";
 import { DialogClose, DialogContent } from "@/components.v2/ui/dialog";
-import { useToast } from "@/components.v2/ui/use-toast";
+import { toast } from "@/components.v2/ui/use-toast";
 import { blockInvalidChar } from "@/components/LoginCard";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import { useMediaQuery } from "@mui/material";
@@ -30,7 +30,6 @@ export default function AadhaVerifyModal({
   const [consetGranted, setConsetGranted] = useState(false);
   const { setUserDetails, setIsAadharAlreadyVerified, setIsPanAlreadyVerified } =
     usePaymentContext() as IPaymentContext;
-  const { toast } = useToast();
   const [secondsRemaining, setSecondsRemaining] = useState(15);
   const [resendOtp, setResendOtp] = useState(false);
   const [loading, setLoading] = useState(false);

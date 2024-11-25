@@ -18,7 +18,7 @@ import {
   getUserKycStatus,
   postCheckout,
 } from "../../../api/payment/index";
-import { useToast } from "@/components.v2/ui/use-toast";
+import { toast } from "@/components.v2/ui/use-toast";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import AuthContext from "@/components/AuthContext";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -115,7 +115,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     setAadharVerified,
     setPlanDetails,
   } = usePaymentContext() as IPaymentContext;
-  const { toast } = useToast();
   const router = useRouter();
   const {
     control,
@@ -428,7 +427,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#475467] transition-all duration-300 group-hover:w-full"></div>
           </p>
         </button>
-        <div className="grid grid-cols-2 gap-y-4 sm:gap-y-4 gap-x-[22px]">
+        <div className="grid grid-cols-2 gap-y-4 sm:gap-y-7 gap-x-[22px]">
           {!isAadharAlreadyVerified ? (
             <div className="col-span-2">
               <div className=" flex justify-between items-center">

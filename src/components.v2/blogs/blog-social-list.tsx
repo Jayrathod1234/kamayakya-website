@@ -1,7 +1,7 @@
 import { TBlog } from "@/types";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useToast } from "../ui/use-toast";
+import { toast } from "../ui/use-toast";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Link, LinkIcon, Twitter, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
@@ -108,7 +108,7 @@ type TCopyBlogLink = {
 export function CopyBlogLink({ url, size, disableTooltip }: TCopyBlogLink) {
   const [copied, setCopied] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
-  const { toast } = useToast();
+ 
   const btnStyle: CustomCSSProperties = {
     "--hover-bg": "#125B54",
     "--hover-border": "#CBF3F0",

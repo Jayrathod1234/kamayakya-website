@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useToast } from "../ui/use-toast";
+import { toast } from "../ui/use-toast";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import axios from "axios";
 import { NEWSLETTER_SUBSCRIBE_URL } from "@/pages/api/URLs";
@@ -16,7 +16,6 @@ export function Newsletter({ page = "Pricing_Page" }) {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
 
   const handleNewsLetterEmailSubmit = async () => {
     try {

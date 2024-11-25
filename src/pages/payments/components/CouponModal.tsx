@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components.v2/ui/dialog";
-import { useToast } from "@/components.v2/ui/use-toast";
+import { toast } from "@/components.v2/ui/use-toast";
 import Tooltip from "@/components.v3/common/Tooltip";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import React, { useEffect, useState } from "react";
@@ -62,7 +62,7 @@ export default function CouponModal() {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [invalidDiscountCode, setInvalidDiscountCode] = useState(false);
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const checkCoupon = async () => {
     if (discountCode?.trim().length === 0) {
       setError(true);

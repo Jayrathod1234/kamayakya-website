@@ -12,7 +12,7 @@ import { CONTACT_URL } from "@/pages/api/URLs";
 // import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { DialogClose } from "../ui/dialog";
-import { useToast } from "../ui/use-toast";
+import { toast } from "../ui/use-toast";
 import "react-phone-number-input/style.css";
 
 import PhoneInput from "react-phone-number-input";
@@ -31,7 +31,6 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
   });
   const [otherQuery, setOtherQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
   const nameref = useRef<HTMLInputElement | null>(null);
   const emailref = useRef<HTMLInputElement | null>(null);
 

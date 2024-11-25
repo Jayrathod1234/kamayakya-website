@@ -26,7 +26,7 @@ import { usePathname } from "next/navigation";
 import axios from "axios";
 import { ACTIVE_PLAN_URL, GET_USER, NEWSLETTER_SUBSCRIBE_URL } from "./api/URLs";
 import Link from "next/link";
-import { useToast } from "@/components.v2/ui/use-toast";
+import { toast } from "@/components.v2/ui/use-toast";
 import { v4 as uuidv4 } from "uuid";
 import { cn } from "@/lib/utils";
 import { useActivePlanContext } from "@/components/PlanContext";

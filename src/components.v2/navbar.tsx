@@ -63,10 +63,9 @@ export function Navbar({
     mp.track(event, properties);
   };
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
     handleEvent("login_clicked", { page: "Pricing_Page" });
     // setShowModal(true);
-    console.log("CALLED", showLoginModal)
     setShowLoginModal(true)
   };
 

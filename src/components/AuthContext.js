@@ -12,7 +12,8 @@ const AuthContext = createContext({
     subscription: [{ plan: "" }],
     created: "",
     email:"",
-    fullname:''
+    fullname:'',
+    is_onboard:false
   },
   children: null,
   showLoginModal: false,
@@ -31,12 +32,40 @@ export const AuthProvider = ({ children }) => {
     subscription: [{ plan: "" }],
     created: "",
     email:"",
-    fullname:""
+    fullname:"",
+    is_onboard:false,
   });
   const [showLoginModal, setShowLoginModal] = useState(false);
   const refreshToken = localStorage.getItem("refresh");
 
+
+  useLayoutEffect(()=>{
+      // Check for tokens and logout status
+      const refresh = localStorage.getItem("refresh");
+      const access = localStorage.getItem("access");
+      const hasToken = refresh || access;
+      const hasManuallyLoggedOut = localStorage.getItem("hasManuallyLoggedOut");
+  
+      // If the user has manually logged out, skip further processing
+      if (hasManuallyLoggedOut === "true") {
+        return;
+      }
+  
+      // If no token exists and logout hasn't been flagged
+      if (!hasToken && hasManuallyLoggedOut === null) {
+        localStorage.setItem("hasManuallyLoggedOut", "true");
+      }
+  
+      // If tokens exist but logout hasn't been flagged
+      if (hasToken && hasManuallyLoggedOut !== "true") {
+        localStorage.removeItem("refresh");
+        localStorage.removeItem("access");
+        localStorage.setItem("hasManuallyLoggedOut", "true");
+      }
+  },[])
+
   useLayoutEffect(() => {
+  
     const verifyTokens = async () => {
       if (refreshToken) {
         try {
@@ -81,6 +110,7 @@ export const AuthProvider = ({ children }) => {
           } else {
             setIsSubscribed(false);
           }
+          console.log("USER DATA==>", data)
           setUser(data);
         } catch (error) {
           console.error("Error verifying tokens:", error);
