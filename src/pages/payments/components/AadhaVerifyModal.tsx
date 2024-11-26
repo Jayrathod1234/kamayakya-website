@@ -56,11 +56,17 @@ export default function AadhaVerifyModal({
       setUserDetails((prev) => ({ ...prev, pan: res?.pan_number, name: res?.name, address: address, aadhar: aadhar }));
       setDisplayModal("CONFIRM");
     } catch (e) {
-      setFetchAadharFailed(true);
-      // toast({
-      //   variant: "warn",
-      //   description: e?.response?.data?.message,
-      // });
+      if (e?.response?.data?.message?.includes("Source down")) {
+        setFetchAadharFailed(true);
+        return
+      }else{
+        toast({
+        variant: "warn",
+        description: e?.response?.data?.message,
+      });
+      }
+     
+      
     } finally {
       setLoading(false);
     }
