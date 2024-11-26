@@ -7,7 +7,7 @@ import { useMediaQuery } from "@mui/material";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { motion } from "framer-motion";
-import Header from "../payments/components/Header";
+import Header from "./components/Header";
 import { Controller, useForm } from "react-hook-form";
 import { getEmailPhoneOtp, verifyEmailPhoneOtp } from "@/api/onboarding";
 import AuthContext from "@/components/AuthContext";
@@ -18,8 +18,7 @@ import { axiosApi } from "@/utils/axios";
 import Lottie from "lottie-react";
 import POPPER_JSON from "../../../public/assets/popper.json";
 import SUCCESS_LOTTIE from "../../../public/assets/success_onboarding.json";
-
-import { time } from "console";
+import CONFETTIE from "../../../public/assets/onboarding_confetti.json";
 import { ContactModal } from "@/components.v2/payments/contact-modal";
 
 const Step1 = ({ setActiveTab, activeTab }) => {
@@ -32,7 +31,7 @@ const Step1 = ({ setActiveTab, activeTab }) => {
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">Value Investing with KamayaKya</h3>
           <ul className=" m-0 flex flex-col mt-4 gap-y-4">
-            <li className=" flex items-start gap-x-2">
+            <li className=" flex items-start gap-x-2 mb-0">
               <img src="/assets/tick.svg" height={20} width={20} alt="tick" />
               <div>
                 <p className=" text-gray-800 text-sm font-medium">Monthly stock picks (Member only)</p>
@@ -41,14 +40,14 @@ const Step1 = ({ setActiveTab, activeTab }) => {
                 </p>
               </div>
             </li>
-            <li className=" flex items-start gap-x-2">
+            <li className=" flex items-start gap-x-2 mb-0">
               <img src="/assets/tick.svg" height={20} width={20} alt="tick" />
               <div>
                 <p className=" text-gray-800 text-sm font-medium">Buy/Sell/Hold actions on WhatsApp & Email</p>
                 <p className=" text-sm text-[#667085]">No spam. Members only group.</p>
               </div>
             </li>
-            <li className=" flex items-start gap-x-2">
+            <li className=" flex items-start gap-x-2 mb-0">
               <img src="/assets/tick.svg" height={20} width={20} alt="tick" />
               <div>
                 <p className=" text-gray-800 text-sm font-medium">Deep researched reports</p>
@@ -76,7 +75,7 @@ const Step2 = ({ setActiveTab, activeTab }) => {
         <div className=" py-6">
           <h3 className=" m-0 text-gray-950 text-xl font-bold">What We don’t do...</h3>
           <ul className=" m-0 flex flex-col mt-4 gap-y-4">
-            <li className=" flex items-start gap-x-2">
+            <li className=" flex items-start gap-x-2 mb-0">
               <img src="/assets/cross2.svg" height={20} width={20} alt="cross" />
               <div>
                 <p className=" text-gray-800 text-sm font-medium">Not for short-term gains</p>
@@ -86,7 +85,7 @@ const Step2 = ({ setActiveTab, activeTab }) => {
               </div>
             </li>
 
-            <li className=" flex items-start gap-x-2">
+            <li className=" flex items-start gap-x-2 mb-0">
               <img src="/assets/cross2.svg" height={20} width={20} alt="cross" />
               <div>
                 <p className=" text-gray-800 text-sm font-medium">No portfolio management</p>
@@ -252,7 +251,6 @@ const Step4 = ({
   const verySmallScreen = useMediaQuery("(max-width:400px)");
   const handleEmailOtp = async (data: IFormEmailInput) => {
     try {
-      throw new Error("User with same email")
       let params = {
         type: loginMethod === "mobile" ? "email" : "mobile",
 
@@ -280,7 +278,7 @@ const Step4 = ({
       toast({
         variant: "warn",
         description: e?.response?.data?.message || "Something went wrong.",
-        action:<ContactModal trigger={<button className=" text-sm">Contact Us</button>} />
+        // action:<ContactModal trigger={<button className=" text-sm">Contact Us</button>} />
       });
     } finally {
       setSendingOtp(false);
@@ -830,7 +828,7 @@ export default function Onboarding() {
           }}
         >
           <div className=" flex flex-col items-center justify-center h-full">
-            <Lottie autoPlay loop={false} animationData={SUCCESS_LOTTIE} />
+            <Lottie height={166} width={166} autoPlay loop={false} animationData={SUCCESS_LOTTIE} />
             {/* <img height={166} width={166} className=" block" src="/assets/onboard.gif" /> */}
             <div className=" mt-5 ">
               <motion.h2
@@ -853,7 +851,7 @@ export default function Onboarding() {
                   delay: 0.5,
                   ease: [0, 0.71, 0.2, 1.01],
                 }}
-                className=" text-white text-md font-medium text-center"
+                className=" text-white text-md font-medium text-center main-container"
               >
                 Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in{" "}
                 {secondsRemaining} seconds
@@ -913,16 +911,27 @@ export default function Onboarding() {
       {" "}
       {onboardingCompleted ? (
         <div className=" h-screen overflow-hidden absolute w-full">
-          <img className=" opacity-40 z-10 absolute left-60 " src="/assets/onboarding_popper.gif" alt="popper-gif" />
-          <img
+          <Lottie loop={false} className=" opacity-40 z-10 absolute left-60 " animationData={CONFETTIE} autoplay />
+          <Lottie
+            loop={false}
+            animationData={CONFETTIE}
+            autoplay
             className=" opacity-40  z-10 absolute left-0 top-1/2"
-            src="/assets/onboarding_popper.gif"
+            // src="/assets/onboarding_popper.gif"
             alt="popper-gif"
           />
-          <img className="  opacity-40  z-10 absolute right-0" src="/assets/onboarding_popper.gif" alt="popper-gif" />
-          <img
+          <Lottie
+            loop={false}
+            animationData={CONFETTIE}
+            autoplay
+            className="  opacity-40  z-10 absolute right-0"
+            alt="popper-gif"
+          />
+          <Lottie
+            loop={false}
+            animationData={CONFETTIE}
+            autoplay
             className=" opacity-40  z-10 absolute right-60 top-1/2"
-            src="/assets/onboarding_popper.gif"
             alt="popper-gif"
           />
         </div>
