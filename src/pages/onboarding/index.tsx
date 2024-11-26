@@ -505,7 +505,7 @@ const Step4 = ({
               : "border-[#0000000F]"
           }   rounded-lg bg-transparent flex items-center `}
         >
-          {loginMethod !== "mobile" ? (
+          {loginMethod === "mobile" ? (
             <input
               {...register("email", {
                 required: loginMethod === "mobile" ? "Enter email to continue" : false,
