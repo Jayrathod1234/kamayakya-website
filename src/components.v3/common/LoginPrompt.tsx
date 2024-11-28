@@ -119,7 +119,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
       setVerifyingOtp(true);
       const res = await verifyLoginOtp(params);
       if (res?.status_code === 200) {
-        setUser((prev) => ({ ...prev, id: res?.user_id, fullname: res?.full_name, email: res?.email,mobile:res?.mobile,is_onboard:res?.is_onboard }));
+        setUser((prev) => ({ ...prev, id: res?.user_id, fullname: res?.full_name, email: res?.email,mobile:res?.mobile,is_onboard:res?.is_onboard,is_new:res?.is_new_user }));
         if (!res?.is_onboard) {
           setShowLoginModal(false);
           sessionStorage.setItem("user_id", res?.user_id);
@@ -454,7 +454,7 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
             <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
               <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
               <NewUserList label="Get 3 Hot Stocks for Free" />
-              <NewUserList label="See Track Record" />
+              <NewUserList label="Unlock KamayaKya’s Track Record" />
               <NewUserList label="Get WhatsApp & Email Notifications" />
             </div>
           </div>

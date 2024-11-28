@@ -13,7 +13,8 @@ const AuthContext = createContext({
     created: "",
     email:"",
     fullname:'',
-    is_onboard:false
+    is_onboard:false,
+    is_new:false,
   },
   children: null,
   showLoginModal: false,

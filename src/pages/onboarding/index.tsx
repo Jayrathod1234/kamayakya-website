@@ -24,37 +24,68 @@ import { ContactModal } from "@/components.v2/payments/contact-modal";
 const Step1 = ({ setActiveTab, activeTab }) => {
   return (
     <div className="min-h-[70vh] flex flex-col">
-      <div className=" px-5 sm:px-9 ">
-        <div className=" rounded-[21px] h-[256px] w-full bg-orange-400 overflow-hidden">
-          <video height={256} width={448} className="object-cover h-full w-full" src="/KMK-V1.mp4" muted autoPlay />
+      <div className=" px-5 sm:px-9 lg:flex lg:flex-row ">
+        <div className=" rounded-[21px] h-[256px] lg:h-full w-full lg:max-w-[603px] bg-[#db9b4f] overflow-hidden flex items-center justify-center">
+          <video
+            height={256}
+            width={448}
+            className="object-contain max-h-full  w-full lg:h-[527px]"
+            src="/KMK-V1.mp4"
+            muted
+            autoPlay
+          />
         </div>
-        <div className=" py-6">
-          <h3 className=" m-0 text-gray-950 text-xl font-bold">Value Investing with KamayaKya</h3>
-          <ul className=" m-0 flex flex-col mt-4 gap-y-4">
+        <div className=" py-6 lg:px-9">
+          <h3 className=" m-0 text-gray-950 text-xl font-bold">Welcome to KamayaKya: Investing Made Smarter</h3>
+          <p className=" m-0 text-gray-600 text-md mt-4">
+            At KamayaKya, we believe in uncovering hidden gems and empowering you to grow your wealth with confidence.
+            Here’s how we do it:
+          </p>
+          <ul className=" m-0 flex flex-col mt-4 sm:mt-6 gap-y-4">
             <li className=" flex items-start gap-x-2 mb-0">
-              <img src="/assets/tick.svg" height={20} width={20} alt="tick" />
+              <p className=" text-sm">💡</p>
               <div>
-                <p className=" text-gray-800 text-sm font-medium">Monthly stock picks (Member only)</p>
+                <p className=" text-gray-800 text-sm font-medium">Monthly Stock Picks</p>
                 <p className=" text-sm text-[#667085]">
-                  3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in growth.
+                  Get 2-4 exclusive, long-term (1-3 years hold strategy) investment ideas every month, crafted for
+                  members focusing on growth at reasonable valuations.
                 </p>
               </div>
             </li>
             <li className=" flex items-start gap-x-2 mb-0">
-              <img src="/assets/tick.svg" height={20} width={20} alt="tick" />
+              <p className=" text-sm">📩</p>
               <div>
-                <p className=" text-gray-800 text-sm font-medium">Buy/Sell/Hold actions on WhatsApp & Email</p>
-                <p className=" text-sm text-[#667085]">No spam. Members only group.</p>
+                <p className=" text-gray-800 text-sm font-medium">Actionable Buy/Sell/Hold Alerts</p>
+                <p className=" text-sm text-[#667085]">
+                  Timely updates delivered via WhatsApp and email—no noise, no spam. Just clear guidance for your
+                  investments.
+                </p>
               </div>
             </li>
             <li className=" flex items-start gap-x-2 mb-0">
-              <img src="/assets/tick.svg" height={20} width={20} alt="tick" />
+              <p className=" text-sm">🔍</p>
               <div>
-                <p className=" text-gray-800 text-sm font-medium">Deep researched reports</p>
-                <p className=" text-sm text-[#667085]">Crisp. Infographic.</p>
+                <p className=" text-gray-800 text-sm font-medium">Deep-Researched Reports</p>
+                <p className=" text-sm text-[#667085]">
+                  Ground-level insights backed by thorough research, presented in crisp, easy-to-digest formats with
+                  infographics.
+                </p>
+              </div>
+            </li>
+            <li className=" flex items-start gap-x-2 mb-0">
+              <p className=" text-sm">✨</p>
+              <div>
+                <p className=" text-gray-800 text-sm font-medium">Why KamayaKya?</p>
+                <p className=" text-sm text-[#667085]">
+                  We’re not just about stocks—we’re about simplifying value investing while keeping it insightful,
+                  actionable, and exciting.
+                </p>
               </div>
             </li>
           </ul>
+          <p className=" text-brand-400 !italic mt-6">
+            Join us and make smarter investment decisions, one pick at a time. 🚀
+          </p>
         </div>
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 fixed bottom-0 w-full left-0 sm:relative mt-auto">
@@ -68,34 +99,47 @@ const Step1 = ({ setActiveTab, activeTab }) => {
 const Step2 = ({ setActiveTab, activeTab }) => {
   return (
     <div className="min-h-[70vh] flex flex-col">
-      <div className=" px-5 sm:px-9">
-        <div className=" rounded-[21px] h-[256px] w-full bg-[#FFEEDF] overflow-hidden">
-          <img height={231} width={231} className="object-contain h-full w-full" src="/assets/ActionCall.svg" />
+      <div className=" px-5 lg:px-9 lg:flex lg:flex-row">
+        <div className=" rounded-[21px] h-[256px] lg:h-full w-full lg:max-w-[603px] bg-[#FFEEDF] overflow-hidden flex ">
+          <img
+            height={231}
+            width={231}
+            className="object-contain w-full max-h-[491px] relative"
+            src="/assets/ActionCall.webp"
+          />
         </div>
-        <div className=" py-6">
-          <h3 className=" m-0 text-gray-950 text-xl font-bold">What We don’t do...</h3>
+        <div className=" py-6 lg:px-9">
+          <h3 className=" m-0 text-gray-950 text-xl font-bold">What We Don’t Do (Yet!)</h3>
           <ul className=" m-0 flex flex-col mt-4 gap-y-4">
             <li className=" flex items-start gap-x-2 mb-0">
-              <img src="/assets/cross2.svg" height={20} width={20} alt="cross" />
+              <p className=" text-sm">🚫</p>
               <div>
-                <p className=" text-gray-800 text-sm font-medium">Not for short-term gains</p>
+                <p className=" text-gray-800 text-sm font-medium">Not for Short-Term Gains</p>
                 <p className=" text-sm text-[#667085]">
-                  Our philosophy lies in long-term investing in wealth-creation businesses for a minimum 1 year horizon
+                  We focus on long-term wealth creation by identifying businesses with growth potential. Our minimum
+                  horizon? At least 1 year.
                 </p>
               </div>
             </li>
 
             <li className=" flex items-start gap-x-2 mb-0">
-              <img src="/assets/cross2.svg" height={20} width={20} alt="cross" />
+              <p className=" text-sm">🚫</p>
               <div>
-                <p className=" text-gray-800 text-sm font-medium">No portfolio management</p>
+                <p className=" text-gray-800 text-sm font-medium">No Portfolio Management (For Now)</p>
                 <p className=" text-sm text-[#667085]">
-                  As SEBI-licensed research analysts, we do not provide portfolio management services. We expect you to
-                  do your research and decide how much money to invest in any particular stock.
+                  While we currently don’t manage portfolios, we’re gearing up to introduce allocation strategies and
+                  PMS services soon!
+                  <br />
+                  <br />
+                  For now, we provide you with everything you need: stock names, buy prices, sell prices, and holding
+                  durations. However, the decision on how much to invest in each stock is entirely up to you.
                 </p>
               </div>
             </li>
           </ul>
+          <p className=" text-md text-brand-400 italic mt-6">
+            At KamayaKya, we empower you to take charge of your investments with confidence and clarity. 🚀
+          </p>
         </div>
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto fixed sm:relative bottom-0 w-full left-0">
@@ -169,9 +213,9 @@ const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
           />
         </div>
         <div className=" py-6">
-          <h3 className=" m-0 text-gray-950 text-xl font-bold">What’s your name ?</h3>
+          <h3 className=" m-0 text-gray-950 text-xl font-bold">What’s your full name ?</h3>
           <p className=" text-sm text-[#667085]">
-            We need to make sure you’re you. Please let us know what number to send a code to
+            We’re all about personal connections, and it’s great to know who we’re speaking with.
           </p>
           <div className="flex flex-col mt-7 pb-[54px]">
             <p className="text-2xs  font-medium mb-1">
@@ -188,7 +232,7 @@ const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
               className={` text-sm py-2 px-[10px] border ${
                 errors.fullname?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
               }  rounded-lg bg-transparent`}
-              placeholder="Enter your Name"
+              placeholder="Enter your Full Name"
               type="text"
             />
             <p className=" m-0 mt-[6px] text-sm text-[#F04438]">{errors.fullname?.message}</p>
@@ -481,15 +525,15 @@ const Step4 = ({
     );
   }
 
-  console.log("PHONE=-==>", phone);
+  // console.log("PHONE=-==>", phone);
   return (
     <div className=" mt-7 sm:mt-10 min-h-[70vh] flex flex-col">
       <div className=" px-5 sm:px-9">
         <h3 className=" m-0  text-xl font-bold text-gray-950">Almost there! </h3>
         <p className=" mt-1 text-sm text-gray-500">
           {loginMethod === "mobile"
-            ? "Add and verify your email to get your free stocks picks."
-            : "Add and verify your Mobile number to get your free stocks picks."}
+            ? user?.is_new ? "Just one last step! Add and verify your Email ID to get your 3 HOT stock picks for FREE.":"Just one last step! Verify your Email ID to regain access to your membership and continue your smart investing journey."
+            : user?.is_new ? "Just one last step! Add and verify your Mobile number to get your 3 HOT stock picks for FREE.":"Just one last step! Verify your mobile number to regain access to your membership and continue your smart investing journey."}
         </p>
       </div>
       <div className="flex flex-col mt-8 pb-[54px] px-5 sm:px-9">
@@ -574,10 +618,10 @@ const Step4 = ({
   );
 };
 
-const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
+const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, setActiveTab }) => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
-  const [activeTab, setActiveTab] = useState("step1");
+  const { user } = useContext(AuthContext);
   const [secondsRemaining, setSecondsRemaining] = useState(15);
   const router = useRouter();
 
@@ -634,7 +678,7 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
               }}
               className=" m-0 text-display-sm font-bold text-center text-white"
             >
-              Welcome Onboard!
+              {user?.is_new ? "Welcome Onboard! 🎉" : "Welcome Aboard! 🎉"}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
@@ -644,17 +688,18 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
                 delay: 0.5,
                 ease: [0, 0.71, 0.2, 1.01],
               }}
-              className=" text-white text-md font-medium text-center"
+              className=" text-white text-md font-medium text-center max-w-[440px]"
             >
-              Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in{" "}
-              {secondsRemaining} seconds
+              {user?.is_new
+                ? "Congrats on unlocking 3 HOT stocks. 🚀 Get ready to explore the 'Stocks to Buy' section!"
+                : "You’re back on track and ready to explore the hidden gems. Dive into our services and make the most of your investing journey!"}
             </motion.p>
           </div>
         </div>
       </motion.div>
       <motion.div
         initial={{ marginTop: 300 }}
-        animate={{ marginTop: -40 }}
+        animate={{ marginTop: -30 }}
         transition={{
           duration: 0.8,
           delay: 2.5,
@@ -669,7 +714,9 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
           <div className=" h-full flex items-center justify-between py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
             <div>
               <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
-              <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
+              <p className=" text-sm text-[#667085]">
+                {user?.is_new ? "View your 3 Hot stocks here 🎉" : "View your HOT stocks here 🎉"}
+              </p>
             </div>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -688,7 +735,11 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
         >
           <div>
             <p className=" text-gray-700 font-bold text-md">Track Record</p>
-            <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
+            <p className=" text-sm text-[#667085]">
+              {user?.is_new
+                ? "Our wins, our lessons—out in the open for you. Your trust is our ultimate reward."
+                : "Our wins, our lessons—out in the open for you. Your trust is our ultimate reward."}{" "}
+            </p>
           </div>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -701,6 +752,21 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
           </svg>
         </div>
       </motion.div>
+      <div className=" flex pt-[54px]  items-center justify-center">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+          className=" text-sm text-gray-500 flex items-center justify-center mt-auto"
+        >
+          You will be redirected to Stocks to Buy in{" "}
+          <span className="font-bold ml-[4px]"> {secondsRemaining} seconds</span>
+        </motion.p>
+      </div>
     </div>
   ) : (
     <Tabs
@@ -765,6 +831,7 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted }) => {
 
 export default function Onboarding() {
   const [onboardingCompleted, setOnboardingCompleted] = useState(false);
+  const [activeTab, setActiveTab] = useState("step1");
   const isMobile = useMediaQuery("(max-width:640px)");
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -816,7 +883,7 @@ export default function Onboarding() {
 
   if (onboardingCompleted && isMobile) {
     return (
-      <div className=" max-sm:h-screen h-[690px] open_sans">
+      <div className=" max-sm:h-screen h-[690px] open_sans relative">
         <motion.div
           style={{ background: "#00C37C" }}
           initial={{ opacity: 1, height: "100%" }}
@@ -841,7 +908,7 @@ export default function Onboarding() {
                 }}
                 className=" m-0 text-display-sm font-bold text-center text-white"
               >
-                Welcome Onboard!
+                {user?.is_new ? "Welcome Onboard! 🎉" : "Welcome Aboard! 🎉"}
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -853,7 +920,9 @@ export default function Onboarding() {
                 }}
                 className=" text-white text-md font-medium text-center main-container"
               >
-                Congrats! You have unlocked 3 free HOT stocks... You will be redirected to Stocks to Buy in{" "}
+                {user?.is_new
+                  ? "Congrats on unlocking 3 HOT stocks. 🚀 Get ready to explore the 'Stocks to Buy' section!"
+                  : "You’re back on track and ready to explore the hidden gems. Dive into our services and make the most of your investing journey!"}
                 {secondsRemaining} seconds
               </motion.p>
             </div>
@@ -873,7 +942,9 @@ export default function Onboarding() {
             <div className=" h-full flex justify-between items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
               <div>
                 <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
-                <p className=" text-sm text-[#667085]">View your 3 Hot stocks here 🎉</p>
+                <p className=" text-sm text-[#667085]">
+                  {user?.is_new ? "View your 3 Hot stocks here 🎉" : "View your HOT stocks here 🎉"}
+                </p>
               </div>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -889,7 +960,11 @@ export default function Onboarding() {
           <div className="min-h-[100px] flex items-center justify-between py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
             <div>
               <p className=" text-gray-700 font-bold text-md">Track Record</p>
-              <p className=" text-sm text-[#667085]">3-6 monthly picks. Long-Term Focus. 1+ year Hold. Invest in </p>
+              <p className=" text-sm text-[#667085]">
+                {user?.is_new
+                  ? "Our wins, our lessons—out in the open for you. Your trust is our ultimate reward."
+                  : "Our wins, our lessons—out in the open for you. Your trust is our ultimate reward."}{" "}
+              </p>
             </div>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -902,13 +977,27 @@ export default function Onboarding() {
             </svg>
           </div>
         </motion.div>
+        <div className=" flex absolute bottom-[1rem] w-full  items-center justify-center">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            className=" text-sm text-gray-500 flex items-center justify-center mt-auto"
+          >
+            You will be redirected to Stocks to Buy in{" "}
+            <span className="font-bold ml-[4px]"> {secondsRemaining} seconds</span>
+          </motion.p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className=" relative bg-[url(/assets/onboarding_bg.png),linear-gradient(180deg,#F5FFFF_0%,#E9F3F2_100%)] bg-cover min-h-screen">
-      {" "}
+    <div className=" relative bg-[url(/assets/onboarding_bg.webp),linear-gradient(180deg,#F5FFFF_0%,#E9F3F2_100%)] bg-cover min-h-screen">
       {onboardingCompleted ? (
         <div className=" h-screen overflow-hidden absolute w-full">
           <Lottie loop={false} className=" opacity-40 z-10 absolute left-60 " animationData={CONFETTIE} autoplay />
@@ -941,16 +1030,30 @@ export default function Onboarding() {
       {/* <Dialog open={isMobile ? false:true}> */}
       <div className=" z-30 flex items-center justify-center">
         <div
-          className=" hidden p-0 z-30  !rounded-[20px] bg-white overflow-hidden sm:flex flex-col w-[calc(100%-32px)] max-w-[520px]"
+          className={` transition-all duration-300 hidden p-0 z-30  !rounded-[20px] bg-white overflow-hidden sm:flex flex-col w-[calc(100%-32px)] ${
+            (activeTab === "step1" || activeTab === "step2") && !onboardingCompleted
+              ? " max-w-[1278px]"
+              : "  max-w-[520px]"
+          }`}
           overlayClassName="bg-transparent open_sans"
           closeClassName="hidden"
         >
-          <MainContent onboardingCompleted={onboardingCompleted} setOnboardingCompleted={setOnboardingCompleted} />
+          <MainContent
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            onboardingCompleted={onboardingCompleted}
+            setOnboardingCompleted={setOnboardingCompleted}
+          />
         </div>
       </div>
       {/* </Dialog> */}
       <div className=" z-30 bg-white w-[calc(100%-32px)] mx-auto sm:hidden rounded-t-[20px]">
-        <MainContent onboardingCompleted={onboardingCompleted} setOnboardingCompleted={setOnboardingCompleted} />
+        <MainContent
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          onboardingCompleted={onboardingCompleted}
+          setOnboardingCompleted={setOnboardingCompleted}
+        />
       </div>
     </div>
   );

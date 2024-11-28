@@ -13,7 +13,7 @@ export function NavbarUserCard({ arrow = false, className }: { arrow?: boolean; 
       <div className=" flex gap-x-3">
         <Avatar variant={AvatarVariant.lg} />
         <div>
-          <p className=" text-[15px] font-semibold text-[rgba(26,27,45,1)]">{user?.username || user?.mobile}</p>
+          <p className=" text-[15px] font-semibold text-[rgba(26,27,45,1)] line-clamp-1 max-w-[20ch]">{user?.username || user?.mobile}</p>
           <p className=" text-2xs text-[rgba(83,87,99,1)]">
             <PlanBadge plan={activePlan ? activePlan.plan : ""} />
           </p>
