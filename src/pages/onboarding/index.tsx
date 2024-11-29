@@ -875,6 +875,13 @@ export default function Onboarding() {
     return () => clearTimeout(timeout);
   }, [onboardingCompleted]);
 
+  useEffect(()=>{
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Optional: Smooth scrolling behavior
+    });
+  },[activeTab])
+
   useLayoutEffect(() => {
     if (user?.is_onboard) {
       router.replace("/");
