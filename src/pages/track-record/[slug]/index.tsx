@@ -27,6 +27,7 @@ import { Carousel, CarouselItem, CarouselContent } from "@/components.v2/ui/caro
 import { Tooltip as MuiTooltip } from "@mui/material";
 import { TargetChip } from "@/components.v3/common/TargetChip";
 import { UseEmblaCarouselType } from "embla-carousel-react";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 function StockDetailsSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -210,6 +211,11 @@ function StockDetailsSection() {
     }, 500); // Adjust the delay if needed
   };
 
+  const handleEvent = (eventName: string, eventProps: any) => {
+    const mp = getMixPanelClient();
+    mp.track(eventName, eventProps);
+  };
+
   // Scroll listener to detect section in view
   useEffect(() => {
     const handleScroll = () => {
@@ -247,6 +253,14 @@ function StockDetailsSection() {
     if (activeTab === "Reports") api.scrollTo(2);
     if (activeTab === "News") api.scrollTo(3);
   }, [api, activeTab]);
+
+  useEffect(() => {
+    if (!stock_name) return;
+    const mp = getMixPanelClient();
+    mp.track("stockdetail_page_loaded", {
+      stock_name: stock_name,
+    });
+  }, [stock_name]);
 
   if (!items) return;
 
@@ -587,7 +601,14 @@ function StockDetailsSection() {
                             <div className="flex-1 group">
                               <button
                                 className="flex-1 text-nowrap w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
-                                onClick={() => window.open(watch_video.youtube_link, "_blank")}
+                                onClick={() => {
+                                  handleEvent("watchvideo_clicked", {
+                                    page: "StockPickTR_Page",
+                                    pagegroup: "Invesment_Guidance",
+                                    stockname: stock_name,
+                                  });
+                                  window.open(watch_video.youtube_link, "_blank");
+                                }}
                               >
                                 <img
                                   src="/assets/play-btn.svg"
@@ -625,7 +646,14 @@ function StockDetailsSection() {
                         <div className="flex-1 group ">
                           <button
                             className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
-                            onClick={handleMainModalOpen} // Add the onClick event to open the modal
+                            onClick={() => {
+                              handleEvent("investment_clicked", {
+                                page: "StockPickTR_Page",
+                                pagegroup: "Invesment_Guidance",
+                                stockname: stock_name,
+                              });
+                              handleMainModalOpen();
+                            }} // Add the onClick event to open the modal
                           >
                             <img
                               src="/assets/share2.svg"
@@ -652,7 +680,16 @@ function StockDetailsSection() {
                           ></p>
 
                           {text?.length > textCount ? (
-                            <button onClick={() => setIsReadMore(!isReadMore)}>
+                            <button
+                              onClick={() => {
+                                if (isReadMore) {
+                                  handleEvent("companyprofile_expanded", {
+                                    page: "StockPickTR_Page",
+                                  });
+                                }
+                                setIsReadMore(!isReadMore);
+                              }}
+                            >
                               {isReadMore ? (
                                 <button className="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
                                   <span className="text-gray-700 group-hover:text-green-700">•••</span>
@@ -1219,7 +1256,11 @@ function StockDetailsSection() {
                         ></p>
 
                         {text?.length > textCount ? (
-                          <button onClick={() => setIsReadMore(!isReadMore)}>
+                          <button
+                            onClick={() => {
+                              setIsReadMore(!isReadMore);
+                            }}
+                          >
                             {isReadMore ? (
                               <button className="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
                                 <span className="text-gray-700 group-hover:text-green-700">•••</span>
@@ -1317,7 +1358,14 @@ function StockDetailsSection() {
                                   <MuiTooltip title={watch_video?.youtube_title}>
                                     <button
                                       className="flex-1 text-nowrap w-full group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                                      onClick={() => window.open(watch_video.youtube_link, "_blank")}
+                                      onClick={() => {
+                                        handleEvent("watchvideo_clicked", {
+                                          page: "StockPickTR_Page",
+                                          pagegroup: "Invesment_Guidance",
+                                          stockname: stock_name,
+                                        });
+                                        window.open(watch_video.youtube_link, "_blank");
+                                      }}
                                     >
                                       <img
                                         src="/assets/play-btn.svg"
@@ -1393,7 +1441,14 @@ function StockDetailsSection() {
                             <div className="flex-1 group min-w-fit">
                               <button
                                 className="w-full border group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                                onClick={handleMainModalOpen}
+                                onClick={() => {
+                                  handleEvent("investment_clicked", {
+                                    page: "StockPickTR_Page",
+                                    pagegroup: "Invesment_Guidance",
+                                    stockname: stock_name,
+                                  });
+                                  handleMainModalOpen();
+                                }}
                               >
                                 <img
                                   src="/assets/share2.svg"

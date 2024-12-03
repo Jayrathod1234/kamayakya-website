@@ -3,13 +3,15 @@ import Link from 'next/link';
 import AuthContext from "@/components/AuthContext";
 import { useMediaQuery } from '@mui/material';
 import { useActivePlanContext } from '@/components/PlanContext';
+import { getMixPanelClient } from '@/externals/mixpanel';
+import { usePathname } from 'next/navigation';
 
 const Banner = () => {
     const isMobile = useMediaQuery("(max-width:600px)");
 
     const { isLoggedIn, user } = useContext(AuthContext);
     const activePlan = useActivePlanContext();
-
+    const pathname=usePathname()
     // Determine if the user is a VIP user
     const isVipUser = activePlan.activePlan?.plan?.includes("vip");
 
@@ -72,7 +74,13 @@ const Banner = () => {
                             />
                         </div>
                     </div>
-                    <Link href={`/pricing`}>
+                    <Link onClick={()=>{
+                        const mp = getMixPanelClient();
+                        mp.track("upgrade_now_clicked",{
+                        page: pathname.includes("track-record") ? "StockPickTR_Page":"StockPick_DetailedPage",
+                        pagegroup:"Investment_Guidance",
+                        })
+                    }} href={`/pricing`}>
                         <button className="w-full hover:scale-[0.95] bg-[#125B54] hover:bg-[#0B3A36] duration-300 text-white p-2 rounded-lg justify-center items-center hidden sm:flex">
                             <span className="flex gap-2 font-open_sans text-sm font-medium">
                                 <img src="/assets/white-icon.svg" alt="" />

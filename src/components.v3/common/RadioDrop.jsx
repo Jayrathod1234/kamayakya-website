@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { grey } from "@mui/material/colors";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 export default function CustomSortMenu({ isLabel }) {
   const { setSortValue, setSortBy } = useAllBoardStock();
@@ -57,6 +58,11 @@ export default function CustomSortMenu({ isLabel }) {
     const [sortBy, sortValue] = value.split(/_(?=[^_]+$)/); // Split only at the last underscore
     setSortValue(sortValue);
     setSortBy(sortBy);
+    const mp = getMixPanelClient()
+    mp.track("sort_clicked",{
+      page:"StockPicks_pagesort_name: "+sortBy,
+      sortValue:radioButtonValue[value]?.split(":")[1]?.toLowerCase()
+    })
 
     handleClose();
   };

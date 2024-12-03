@@ -18,6 +18,7 @@ import { Breadcrumb } from "@/components.v3/common/Breadcrumb";
 import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from "../../../../components.v2/ui/tooltip";
 import { Carousel, CarouselContent, CarouselItem } from "../../../../components.v2/ui/carousel";
 import { Arrow } from "@radix-ui/react-tooltip";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 function StockDetailsSection() {
   const [api, setApi] = React.useState();
@@ -190,6 +191,11 @@ function StockDetailsSection() {
     }, 500); // Adjust the delay if needed
   };
 
+  const handleEvent = (eventName, eventProps) => {
+    const mp = getMixPanelClient();
+    mp.track(eventName, eventProps);
+  };
+
   useEffect(() => {
     if (!api) return;
     if (activeTab === "Summary") api.scrollTo(0);
@@ -227,6 +233,14 @@ function StockDetailsSection() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [isManualScroll]);
+
+  useEffect(() => {
+    if (!stock_name) return;
+    const mp = getMixPanelClient();
+    mp.track("stockdetailed_page_loaded", {
+      stock_name: stock_name,
+    });
+  }, [stock_name]);
 
   return (
     <>
@@ -266,24 +280,24 @@ function StockDetailsSection() {
               {/* Back Button */}
               <Carousel setApi={setApi} className=" flex py-[18px] items-center w-full">
                 <div className="pl-[16px]" onClick={() => router.push("/stock-picks")}>
-                <svg
-                        className=" pt-1"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g id="arrow-left">
-                          <path
-                            id="Icon (Stroke)"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M8.51724 3.2069C8.81719 3.49256 8.82877 3.96729 8.5431 4.26724L4.75 8.25L15 8.25C15.4142 8.25 15.75 8.58579 15.75 9C15.75 9.41421 15.4142 9.75 15 9.75L4.75 9.75L8.5431 13.7328C8.82877 14.0327 8.81719 14.5074 8.51724 14.7931C8.21729 15.0788 7.74256 15.0672 7.4569 14.7672L2.4569 9.51724C2.18103 9.22759 2.18103 8.77242 2.4569 8.48276L7.4569 3.23276C7.74256 2.93281 8.21729 2.92123 8.51724 3.2069Z"
-                            fill="#475467"
-                          />
-                        </g>
-                      </svg>
+                  <svg
+                    className=" pt-1"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="arrow-left">
+                      <path
+                        id="Icon (Stroke)"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M8.51724 3.2069C8.81719 3.49256 8.82877 3.96729 8.5431 4.26724L4.75 8.25L15 8.25C15.4142 8.25 15.75 8.58579 15.75 9C15.75 9.41421 15.4142 9.75 15 9.75L4.75 9.75L8.5431 13.7328C8.82877 14.0327 8.81719 14.5074 8.51724 14.7931C8.21729 15.0788 7.74256 15.0672 7.4569 14.7672L2.4569 9.51724C2.18103 9.22759 2.18103 8.77242 2.4569 8.48276L7.4569 3.23276C7.74256 2.93281 8.21729 2.92123 8.51724 3.2069Z"
+                        fill="#475467"
+                      />
+                    </g>
+                  </svg>
                 </div>
                 {/* Tab Items */}
                 {/* <div className="flex  "> */}
@@ -542,7 +556,14 @@ function StockDetailsSection() {
                         <div className="flex-1 group">
                           <button
                             className="flex-1 text-nowrap w-full bg-white group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
-                            onClick={() => window.open(watch_video.youtube_link, "_blank")}
+                            onClick={() => {
+                              handleEvent("watchvideo_clicked", {
+                                page: "StockPick_DetailedPage",
+                                pagegroup: "Invesment_Guidance",
+                                stockname: stock_name,
+                              });
+                              window.open(watch_video.youtube_link, "_blank");
+                            }}
                           >
                             <img
                               src="/assets/play-btn.svg"
@@ -580,7 +601,17 @@ function StockDetailsSection() {
                     <div className="flex-1 group ">
                       <button
                         className="w-full border group-hover:bg-[#CBF3F0] text-nowrap group-hover:scale-[0.95] duration-300 bg-white  border-gray-300 rounded-lg py-[10px] px-2 flex items-center justify-center gap-2"
-                        onClick={handleMainModalOpen} // Add the onClick event to open the modal
+                        onClick={() => {
+                          if (action === "BUY") {
+                            const mp = getMixPanelClient();
+                            mp.track("investment_Clicked", {
+                              page: "StockPick_DetailedPage",
+                              pagegroup: "Investment_Guidance",
+                              stockname: stock_name,
+                            });
+                          }
+                          handleMainModalOpen();
+                        }} // Add the onClick event to open the modal
                       >
                         <img src="/assets/share2.svg" alt="Share icon" className="w-5 h-5 transition duration-300 " />
                         <span className="text-nowrap text-[16px]">
@@ -603,7 +634,16 @@ function StockDetailsSection() {
                       ></p>
 
                       {text?.length > textCount ? (
-                        <button onClick={() => setIsReadMore(!isReadMore)}>
+                        <button
+                          onClick={() => {
+                            if (isReadMore) {
+                              handleEvent("companyprofile_expanded", {
+                                page: "StockPickTR_Page",
+                              });
+                            }
+                            setIsReadMore(!isReadMore);
+                          }}
+                        >
                           {isReadMore ? (
                             <button class="flex items-center justify-center w-[14px] h-[2px] rounded-full bg-white group border border-gray-200 shadow-sm py-[9px] px-4">
                               <span class="text-gray-700 group-hover:text-green-700">•••</span>
@@ -755,7 +795,8 @@ function StockDetailsSection() {
                                   </>
                                 )}
                                 <div className=" flex items-baseline gap-x-1">
-                                  { gain_loss < 0 ? "-" : ""}{Math.abs(gain_loss)}% {""}
+                                  {gain_loss < 0 ? "-" : ""}
+                                  {Math.abs(gain_loss)}% {""}
                                   <span className="text-[12px]  text-[#667085] font-medium line-clamp-1">
                                     in {return_time}
                                   </span>
@@ -1040,7 +1081,8 @@ function StockDetailsSection() {
                               <img src="/assets/Polygon 3.svg" alt="Down Arrow" className="w-2" />
                             )}
                             <p className="text-black ml-1 text-2xs font-open_sans font-[700]">
-                              {gain_loss <0 ? "-":""}{Math.abs(gain_loss)}% {""}
+                              {gain_loss < 0 ? "-" : ""}
+                              {Math.abs(gain_loss)}% {""}
                               <span className="text-gray-500 text-4xs font-open_sans font-semibold">
                                 in {return_time}
                               </span>
@@ -1392,7 +1434,14 @@ function StockDetailsSection() {
                             <div className="flex-1 group">
                               <button
                                 className="flex-1 text-nowrap w-full group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                                onClick={() => window.open(watch_video.youtube_link, "_blank")}
+                                onClick={() => {
+                                  handleEvent("watchvideo_clicked", {
+                                page: "StockPick_DetailedPage",
+                                pagegroup: "Invesment_Guidance",
+                                stockname: stock_name,
+                              });
+                                  window.open(watch_video.youtube_link, "_blank");
+                                }}
                               >
                                 <img
                                   src="/assets/play-btn.svg"
@@ -1467,7 +1516,17 @@ function StockDetailsSection() {
                         <div className="flex-1 group min-w-fit">
                           <button
                             className="w-full border group-hover:bg-[#CBF3F0] group-hover:scale-[0.95] duration-300 border-gray-300 rounded-lg p-2 flex items-center justify-center gap-2"
-                            onClick={handleMainModalOpen}
+                            onClick={() => {
+                              if (action === "BUY") {
+                                const mp = getMixPanelClient();
+                                mp.track("investment_Clicked", {
+                                  page: "StockPick_DetailedPage",
+                                  pagegroup: "Investment_Guidance",
+                                  stockname: stock_name,
+                                });
+                              }
+                              handleMainModalOpen();
+                            }}
                           >
                             <img
                               src="/assets/share2.svg"

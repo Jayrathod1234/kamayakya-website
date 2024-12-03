@@ -9,6 +9,7 @@ import { useStockProgressBar } from "@/utils/useStockProgressBar";
 import { TTarget } from "@/types/shared";
 import { EmblaCarouselType } from "embla-carousel";
 import { useFormattedTargets } from "@/utils/useFormattedTargets";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 type TStockCardProgressBarSection = {
   live_price: number;
@@ -27,7 +28,7 @@ export default function StockCardProgressBarSection({
 }: TStockCardProgressBarSection) {
   // const live_price=2500
 
-  const { cmpIndex, targetIndex, targets,endIndex } = useFormattedTargets({
+  const { cmpIndex, targetIndex, targets, endIndex } = useFormattedTargets({
     stock_targets,
     entry_date,
     live_price,
@@ -38,8 +39,13 @@ export default function StockCardProgressBarSection({
     targets,
     cmpIndex,
     targetIndex,
-    endIndex
+    endIndex,
   });
+
+  const handleEvent = (eventName:string, eventDetails:any)=>{
+    const mp = getMixPanelClient();
+    mp.track(eventName, eventDetails)
+  }
 
   // const [position,setPosition] = useState(0)
   // const calculateLivePricePosition = ()=>{
@@ -146,7 +152,6 @@ export default function StockCardProgressBarSection({
                 <>
                   {/* SOLID PROGRESS */}
                   <StockProgressBarSolid
-                    
                     width={`calc(100% - ${margins.marginLeft + cmpMarginRight}px)`}
                     marginLeft={margins.marginLeft}
                     marginRight={cmpMarginRight}
@@ -154,7 +159,6 @@ export default function StockCardProgressBarSection({
                   />
                   {/*DOTTED PROGRESS  */}
                   <StockProgressBarDotted
-                    
                     // `calc(100% - ${margins.marginLeft + margins.marginRight}px)`
                     width={dottedLineWidth}
                     marginLeft={margins.marginLeft}
@@ -187,7 +191,16 @@ export default function StockCardProgressBarSection({
           </CarouselItem>
          */}
         </CarouselContent>
-        <CarouselPrevious className=" h-6 w-6 p-1 left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+        <CarouselPrevious
+          // onClick={(e) =>
+          //   handleEvent("StockGraph_arrow_clicked", {
+          //     page: "StockPicks_page",
+          //     pagegroup: "Hot Stocks/Latest Releases/mainboard",
+          //     // stockname: stock_na,
+          //   })
+          // }
+          className=" h-6 w-6 p-1 left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]"
+        />
         <CarouselNext className=" h-6 w-6 p-1 right-[16px] top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
       </Carousel>
     </div>

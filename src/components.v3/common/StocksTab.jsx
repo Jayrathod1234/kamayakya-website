@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { Tabs, TabsVariant } from "@/components.v2/tabs";
 import { useRouter } from "next/router";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 export default function StocksTab() {
   const { total_mainboard_stocks, total_sme_stocks, handleSebiBoardTypeChange, sebiBoardType } = useStockPicks();
@@ -14,6 +15,17 @@ export default function StocksTab() {
   };
 
   useEffect(() => {
+    const mp =getMixPanelClient();
+    if(value?.includes("mainboard")){
+      mp.track("mainboard_clicked",{
+        page:"StockPicks_page"
+      })
+    }else if(value?.includes("sme")){
+      mp.track("smeboard_clicked",{
+ page:"StockPicks_page"
+      })
+    }
+  
     const timeout = setTimeout(() => {
       handleSebiBoardTypeChange(value);
     }, 600);

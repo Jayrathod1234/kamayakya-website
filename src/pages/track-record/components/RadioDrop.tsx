@@ -14,8 +14,9 @@ import {
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { grey } from "@mui/material/colors";
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
-export default function CustomSortMenu({ isLabel }) {
+export default function CustomSortMenu({ isLabel }:{isLabel:boolean}) {
   const { setSortValue, setSortBy } = useTrackRecord();
   let radioButtonValue = null;
   if (isLabel) {
@@ -44,21 +45,24 @@ export default function CustomSortMenu({ isLabel }) {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedValue, setSelectedValue] = useState("returns_desc");
-  const handleClick = (event) => {
+  const handleClick = (event:any) => {
     // console.log(event.currentTarget);
     setAnchorEl(isMobile ? "bottom" : event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleChange = (event) => {
+  const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setSelectedValue(value);
-
+    
     const [sortBy, sortValue] = value.split(/_(?=[^_]+$)/); // Split only at the last underscore
     setSortValue(sortValue);
     setSortBy(sortBy);
-
+    const mp = getMixPanelClient()
+    mp.track("sort_clicked",{
+      page:"TrackRecord_pagesort_name: "+sortBy,
+      sortValue:radioButtonValue[value as string]?.split(":")[1]?.toLowerCase()
+    })
     handleClose();
   };
   useEffect(() => {

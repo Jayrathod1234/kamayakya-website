@@ -156,6 +156,20 @@ function DrawerFilter() {
     setSector(tempSector);
     setOpen(false);
     handleApplyFilters(true);
+    trackEvents("filter_clicked",{
+      page:"StockPicks_pagefilter_source:drawer_filter",
+      filtersused:{
+        strategy_tag:tempStrategyTag,
+        upside_left:tempUpsideLeft,
+        market_cap_type:tempMarketCapType,
+        recency:tempRecency,
+        time_left:tempTimeLeft,
+        returns:tempReturns,
+        risk:tempRisk,
+        sector:tempSector,
+      
+      }
+    })
   };
 
   const handleSelectAllStrategies = () => {
@@ -187,6 +201,12 @@ function DrawerFilter() {
     setOpen(openVal);
     setAnchor(anchorVal);
   };
+
+  function trackEvents(eventName,eventProps){
+    const mp = getMixPanelClient()
+    mp.track(eventName,eventProps)
+  }
+
 
   /**
    * Stock price slider filter

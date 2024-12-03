@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ArrowLeftIcon } from "lucide-react";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import AuthContext from "@/components/AuthContext";
+import { useActivePlanContext } from "@/components/PlanContext";
 
 const brokerItems = [
   {
@@ -151,16 +154,8 @@ const Modal = ({ open, handleClose, children }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-8 h-8 rounded-full border border-[#F2F4F7] absolute top-3 right-3 flex items-center justify-center">
-          <button
-            onClick={handleClose}
-            className=" text-gray-600 hover:text-gray-900"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="#667085"
-              className="size-6"
-            >
+          <button onClick={handleClose} className=" text-gray-600 hover:text-gray-900">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#667085" className="size-6">
               <path
                 fillRule="evenodd"
                 d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
@@ -175,43 +170,49 @@ const Modal = ({ open, handleClose, children }) => {
   );
 };
 
-const ChildModal = ({ open, handleBack, handleCloseAll }) => (
-  <Modal open={open} handleClose={handleCloseAll}>
-    <div className="flex justify-between mb-5">
-      <button
-        onClick={handleBack}
-        className="absolute top-3 left-3 text-gray-600 hover:text-gray-900"
-      >
-        <ArrowLeftIcon className="w-6 h-6" />
-      </button>
-    </div>
+const ChildModal = ({ open, handleBack, handleCloseAll }) => {
+  const { isSubscribed } = useContext(AuthContext);
+  const { activePlan } = useActivePlanContext();
 
-    <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex items-center justify-center">
-      <div className="grid grid-cols-3 gap-2">
-        {brokerItems2.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => {
-              window.open(item.url, "_blank");
-            }}
-            className="flex flex-col items-center text-center gap-2 rounded-full p-2 cursor-pointer transition-all transform hover:scale-[0.90] duration-200"
-          >
-            <div className="!bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center">
-              <img
-                src={item.src}
-                alt={item.name}
-                className="w-11 h-11 object-cover rounded-full"
-              />
-            </div>
-            <span className="text-gray-800 text-[12px] text-nowrap font-normal">
-              {item.name}
-            </span>
-          </div>
-        ))}
+  const handleEvent = (broker) => {
+    const mp = getMixPanelClient();
+    mp.track("readytoinvest_clicked", {
+      page: "StockPicks_page",
+      user_type: isSubscribed ? "Paid" : "Free",
+      Curr_Subscription_Type: activePlan.plan,
+      broker_selected: broker,
+    });
+  };
+  return (
+    <Modal open={open} handleClose={handleCloseAll}>
+      <div className="flex justify-between mb-5">
+        <button onClick={handleBack} className="absolute top-3 left-3 text-gray-600 hover:text-gray-900">
+          <ArrowLeftIcon className="w-6 h-6" />
+        </button>
       </div>
-    </div>
-  </Modal>
-);
+
+      <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex items-center justify-center">
+        <div className="grid grid-cols-3 gap-2">
+          {brokerItems2.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => {
+                handleEvent(item.name);
+                window.open(item.url, "_blank");
+              }}
+              className="flex flex-col items-center text-center gap-2 rounded-full p-2 cursor-pointer transition-all transform hover:scale-[0.90] duration-200"
+            >
+              <div className="!bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center">
+                <img src={item.src} alt={item.name} className="w-11 h-11 object-cover rounded-full" />
+              </div>
+              <span className="text-gray-800 text-[12px] text-nowrap font-normal">{item.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Modal>
+  );
+};
 
 export default function NestedModal({
   modalState,
@@ -219,8 +220,19 @@ export default function NestedModal({
   handleMainModalClose,
   handleChildModalOpen,
   handleCloseAllModals,
-  action
+  action,
 }) {
+  const { isSubscribed } = useContext(AuthContext);
+  const { activePlan } = useActivePlanContext();
+  const handleEvent = (broker) => {
+    const mp = getMixPanelClient();
+    mp.track("readytoinvest_clicked", {
+      page: "StockPicks_page",
+      user_type: isSubscribed ? "Paid" : "Free",
+      Curr_Subscription_Type: activePlan.plan,
+      broker_selected: broker,
+    });
+  };
   // Handle ESC key press and disable/enable background scroll
   useEffect(() => {
     const handleEsc = (event) => {
@@ -240,28 +252,25 @@ export default function NestedModal({
       document.body.style.overflow = ""; // Clean up scroll settings
       window.removeEventListener("keydown", handleEsc); // Remove event listener
     };
-  }, [
-    modalState.isMainModalOpen,
-    modalState.isChildModalOpen,
-    handleCloseAllModals,
-  ]);
+  }, [modalState.isMainModalOpen, modalState.isChildModalOpen, handleCloseAllModals]);
 
   return (
     <div>
-      <Modal
-        open={modalState?.isMainModalOpen}
-        handleClose={handleMainModalClose}
-      >
-     
-        <h1 className="text-[20px] font-bold text-[#101828] !text-left">
-          Choose your broker
-        </h1>
-       <div> {action === "HOLD" && <div className=" mb-5 flex rounded-[12px] p-2 border border-[#FEB359] bg-[#FFFBF6] gap-x-[11.87px]">
-        <img src="/assets/warn.svg" alt="warn"/>
-        <p className=" text-3xs">This stock is currently recommended for a <span className=" font-bold text-[#F98800]">Hold</span>. We advise reviewing your decision before proceeding with any investments.</p>
-      </div>}</div>
+      <Modal open={modalState?.isMainModalOpen} handleClose={handleMainModalClose}>
+        <h1 className="text-[20px] font-bold text-[#101828] !text-left">Choose your broker</h1>
+        <div>
+          {" "}
+          {action === "HOLD" && (
+            <div className=" mb-5 flex rounded-[12px] p-2 border border-[#FEB359] bg-[#FFFBF6] gap-x-[11.87px]">
+              <img src="/assets/warn.svg" alt="warn" />
+              <p className=" text-3xs">
+                This stock is currently recommended for a <span className=" font-bold text-[#F98800]">Hold</span>. We
+                advise reviewing your decision before proceeding with any investments.
+              </p>
+            </div>
+          )}
+        </div>
         <div className="bg-[url('/assets/Frame-modal.png')] bg-cover bg-center flex flex-col items-center justify-center ">
-       
           <div className="grid grid-cols-3 gap-2">
             {brokerItems.map((item, index) => (
               <div
@@ -270,6 +279,7 @@ export default function NestedModal({
                   if (index === brokerItems.length - 1) {
                     handleChildModalOpen(); // Open the child modal if it's the last index
                   } else {
+                    handleEvent(item.name);
                     window.open(item.url, "_blank"); // Redirect to the specified URL
                   }
                 }}
@@ -280,18 +290,10 @@ export default function NestedModal({
                     <>
                       <div
                         className={`w-11 h-11 object-cover rounded-full ${
-                          index === brokerItems.length - 1
-                            ? "bg-[#125B54] p-2"
-                            : ""
+                          index === brokerItems.length - 1 ? "bg-[#125B54] p-2" : ""
                         }`}
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="28"
-                          height="28"
-                          viewBox="0 0 28 28"
-                          fill="none"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
                           <path
                             fill-rule="evenodd"
                             clip-rule="evenodd"
@@ -306,16 +308,12 @@ export default function NestedModal({
                       src={item.src}
                       alt={item.name}
                       className={`w-11 h-11 object-cover rounded-full ${
-                        index === brokerItems.length - 1
-                          ? "bg-[#125B54] p-1"
-                          : ""
+                        index === brokerItems.length - 1 ? "bg-[#125B54] p-1" : ""
                       }`}
                     />
                   )}
                 </div>
-                <span className="text-gray-800 text-[12px] text-nowrap font-normal">
-                  {item.name}
-                </span>
+                <span className="text-gray-800 text-[12px] text-nowrap font-normal">{item.name}</span>
               </div>
             ))}
           </div>

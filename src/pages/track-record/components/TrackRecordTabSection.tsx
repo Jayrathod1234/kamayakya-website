@@ -1,11 +1,21 @@
 import { Tabs, TabsVariant } from "@/components.v2/tabs";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
+import { getMixPanelClient } from "@/externals/mixpanel";
 import { useEffect, useState } from "react";
 
 const TrackRecordTabSection = () => {
   const { sebiBoardType, handleSebiBoardTypeChange} = useTrackRecordCommon();
   const [value, setValue] = useState(sebiBoardType);
+
+  const handleTabEvent = (tabSelected:string)=>{
+    const mp = getMixPanelClient();
+    const eventName = tabSelected?.includes("mainboard") ? "mainboard_clicked" :tabSelected?.includes("sme") ? "smeboard_clicked" : "allboard_clicked" 
+    mp.track(eventName, {
+      page:"TrackRecord_page"
+    });
+  }
+
   useEffect(()=>{
     const timeout = setTimeout(()=>{
       handleSebiBoardTypeChange(value);
@@ -29,6 +39,7 @@ const TrackRecordTabSection = () => {
         ]}
         setSelectedOption={setValue}
         activeValue={value}
+        event={handleTabEvent}
       />
     </div>
   );

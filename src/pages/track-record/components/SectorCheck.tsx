@@ -21,6 +21,7 @@ import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 export default function SectorCheck() {
   const { stockSector, setIsChangeFilter } = useTrackRecordCommon();
@@ -235,6 +236,11 @@ export default function SectorCheck() {
                           } else {
                             newSector.splice(currentIndex, 1);
                           }
+                          const mp = getMixPanelClient();
+                          mp.track("filter_clicked",{
+                            page:"TrackRecord_pagefilter_source:dropdown",
+                            filterused:{"sector":displayValue}
+                          })
                           await setSector(newSector);
                           setIsChangeFilter(true);
                         }}

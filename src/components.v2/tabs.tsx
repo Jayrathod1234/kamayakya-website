@@ -26,6 +26,7 @@ type TTabs = {
   tabTriggerClassname?: string;
   activeValue?: string;
   responsive?: boolean;
+  event?:(value:string)=>void;
 };
 
 export function Tabs({
@@ -38,6 +39,7 @@ export function Tabs({
   className,
   tabListClassname,
   tabTriggerClassname,
+  event,
 }: TTabs) {
   const parentPadding =
     variant === TabsVariant.md
@@ -64,8 +66,10 @@ export function Tabs({
           ? "Upgrade"
           : "New",
     });
+    if(event){
+      event(value)
+    }
   };
-  console.log(activeValue,options[1].value,activeValue === options[1].value)
   return (
     // <div className={` bg-gray-150 w-fit flex rounded-full ${parentPadding}`}>
     //   <ul className=" flex">

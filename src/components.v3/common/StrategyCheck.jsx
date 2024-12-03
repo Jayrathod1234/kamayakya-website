@@ -17,6 +17,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useStockPicks } from "@/contexts/StockPicksContext";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 export default function StrategyCheck() {
   const {
@@ -261,6 +262,11 @@ export default function StrategyCheck() {
                           } else {
                             newStrategyTag.splice(currentIndex, 1);
                           }
+                          const mp = getMixPanelClient();
+                          mp.track("filter_clicked",{
+                            page:"StockPicks_pagefilter_source:dropdown",
+                            filterused:{"strategy":displayValue}
+                          })
                           await setStrategyTag(newStrategyTag);
                           setIsChangeFilter(true);
                         }}

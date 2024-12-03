@@ -11,8 +11,9 @@ import Link from "next/link";
 import LineChart from "@/components.v3/common/LineChart";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 import Tooltip from "@/components.v3/common/Tooltip";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
-const WatchVideo = ({ isBlur = false }: { isBlur?: boolean }) => {
+const WatchVideo = ({ isBlur = false}: { isBlur?: boolean}) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   return (
     <div
@@ -83,6 +84,14 @@ any) => {
     bgColor = "bg-warning-300";
   }
 
+  const handleClickEvent = (eventName?: string) => {
+    const mp = getMixPanelClient();
+    mp.track(eventName ? eventName : "stockname_clicked", {
+      page: "TrackRecord_page",
+      stockname: stock_name,
+    });
+  };
+
   return (
     <div className={`p-[1px] ${bgColor} rounded-lg relative flex justify-center lg:max-w-[630px]`}>
       {tabImage && (
@@ -98,7 +107,10 @@ any) => {
               <div className=" h-5 w-1/2 rounded-full bg-[#EDF0F5]"></div>
             </div>
           ) : (
-            <h4 className=" text-lg font-bold m-0 whitespace-nowrap truncate hover:text-[#1e555c] cursor-pointer">
+            <h4
+              onClick={handleClickEvent}
+              className=" text-lg font-bold m-0 whitespace-nowrap truncate hover:text-[#1e555c] cursor-pointer"
+            >
               {" "}
               <Link className=" text-inherit" href={`/track-record/${id}`}>
                 {stock_name}
@@ -108,6 +120,7 @@ any) => {
           {isLoggedIn && stock_name ? (
             latest_youtube_video?.youtube_title ? (
               <a
+                onClick={() => handleClickEvent("watchvideo_clicked")}
                 className={` text-inherit ${!isLoggedIn || !stock_name ? "pointer-events-none" : ""}`}
                 href={latest_youtube_video?.youtube_link}
                 target="_blank"
@@ -341,7 +354,12 @@ any) => {
             </>
           ) : !stock_name ? (
             <>
-              <Link href={`/pricing`}>
+              <Link onClick={()=>{
+                const mp  = getMixPanelClient();
+                mp.track("becomemember_clicked",{
+                  page:"TrackRecord_page"
+                })
+              }} href={`/pricing`}>
                 {/* btn  */}
                 <button className="button-82-pushable group " role="button">
                   <span className="button-82-shadow"></span>
@@ -367,7 +385,7 @@ any) => {
             </>
           ) : (
             <>
-              <Link href={`/track-record/${id}`}>
+              <Link onClick={() => handleClickEvent("viewdetails_clicked")} href={`/track-record/${id}`}>
                 <button className="button-82-pushable group relative" role="button">
                   <span className="button-82-shadow"></span>
                   <span className="button-82-edge"></span>

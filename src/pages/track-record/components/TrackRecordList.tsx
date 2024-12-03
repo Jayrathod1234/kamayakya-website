@@ -4,13 +4,19 @@ import TrackRecordStockCard from "./TrackRecordStockCard";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { useEffect } from "react";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 const TrackRecordList = () => {
   const { response, isLoading, fetchNextPage, isFetchingNextPage } = useTrackRecord();
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
   const currentPage = Array.isArray(response?.pages) ? response?.pages?.length : 0;
   const totalPages = Array.isArray(response?.pages) ? response?.pages[0]?.total_pages : 0;
-  
+  const handleEvent = ()=>{
+    const mp = getMixPanelClient();
+    mp.track("loadmore_clicked",{
+      page:"Track Record Page"
+    })
+  }
   if (isLoading) {
     return (
       <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -28,8 +34,6 @@ const TrackRecordList = () => {
     );
   }
 
-
-
   return (
     <div id="trackRecordList" className=" grid grid-cols-1 lg:grid-cols-2  gap-5 ">
       {items.map((item) => (
@@ -39,7 +43,10 @@ const TrackRecordList = () => {
         {currentPage < totalPages ? (
           <Button
             loading={isFetchingNextPage}
-            onClick={fetchNextPage}
+            onClick={() => {
+              handleEvent()
+              fetchNextPage();
+            }}
             className=" mx-auto hover:bg-white w-fit bg-white border border-gray-300"
             variant={ButtonVariant.custom}
           >

@@ -30,6 +30,7 @@ import { useStockPicks } from "@/contexts/StockPicksContext";
 
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 // fixed drawer
 const CustomTabPanel = styled(Box)(({ theme }) => ({
@@ -160,6 +161,21 @@ function DrawerFilter() {
     setOpen(false);
     handleApplyFilters(true);
     setActionCall(tempActionCall);
+    // console.log("Drawer filter used",tempStrategyTag, tempUpsideLeft, tempMarketCapType, tempRecency, tempTimeLeft, tempReturns, tempRisk, tempSector)
+    trackEvents("filter_clicked",{
+      page:"TrackRecord_pagefilter_source:drawer_filter",
+      filtersused:{
+        strategy_tag:tempStrategyTag,
+        upside_left:tempUpsideLeft,
+        market_cap_type:tempMarketCapType,
+        recency:tempRecency,
+        time_left:tempTimeLeft,
+        returns:tempReturns,
+        risk:tempRisk,
+        sector:tempSector,
+        action_call:tempActionCall
+      }
+    })
   };
 
   const handleSelectAllStrategies = () => {
@@ -192,11 +208,17 @@ function DrawerFilter() {
     setAnchor(anchorVal);
   };
 
+  function trackEvents(eventName:string,eventProps:any){
+    const mp = getMixPanelClient()
+    mp.track(eventName,eventProps)
+  }
+
   /**
    * Stock price slider filter
    * Onchange event
    */
   const handleUpsideLeftSliderChange = (event, newValue) => {
+  
     setTempUpsideLeft(newValue);
   };
 

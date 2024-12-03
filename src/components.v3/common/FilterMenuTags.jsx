@@ -8,6 +8,7 @@ import SectorCheck from "./SectorCheck";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 const FilterCarousel = () => {
   const [showLeftButton, setShowLeftButton] = useState(false);
@@ -59,13 +60,18 @@ const FilterCarousel = () => {
   //   };
   // }, []);
 
-  const handleChipClick = async (chipId) => {
+  const handleChipClick = async (chipId, chip) => {
     await setStrategyTag((prevTags) => {
       // Check if the id is already in the array to avoid duplicates
       if (!prevTags.includes(chipId)) {
         return [...prevTags, chipId]; // Append the new id to the existing array
       }
       return prevTags; // If id already exists, return the existing array
+    });
+    const mp = getMixPanelClient();
+    mp.track("filter_clicked", {
+      page: "StockPicks_pagefilter_source:quick_filter",
+      filterused: chip?.name,
     });
     setIsChangeFilter(true);
   };
@@ -208,7 +214,7 @@ const FilterCarousel = () => {
                       }
                       label={chip.name}
                       clickable
-                      onClick={() => handleChipClick(chip.id)}
+                      onClick={() => handleChipClick(chip.id, chip)}
                       onDelete={strategyTag.includes(chip.id) ? () => handleChipDelete(chip.id) : undefined}
                       deleteIcon={
                         <CloseIcon

@@ -11,6 +11,7 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import { steps } from "framer-motion";
 import { Tooltip } from "@mui/material";
 import { report } from "process";
+import { usePathname } from "next/navigation";
 
 const CustomStepConnector = styled(Box)(({ theme }) => ({
   borderLeft: `2px solid #75CDC5`,
@@ -24,25 +25,35 @@ export default function StockDetailsTimeline({ timeline }) {
   const [reportDetail, setReportDetail] = useState(null); // State to store the PDF URL
   const [openReportTime, setOpenReportTime] = useState(null);
   const [visibleSteps, setVisibleSteps] = useState(3);
+  const pathname = usePathname();
   const mp = getMixPanelClient();
 
   const handleTimeButtonClick = (step) => {
-    console.log(step?.document)
+    // console.log(step?.document)
     if (step.type == "report") {
       const currentTime = new Date().getTime();
       setOpenReportTime(currentTime); // Set the open time
-      mp.track("stock_report_clicked", {
-        page: "StockPicksDetail_Page",
-        report_details: step,
-      });
-      console.log("LINK ", step.document)
+      mp.track(
+        step?.report_name?.includes("One Page Report")
+          ? "OnePageReport_clicked"
+          : step?.report_name?.includes("Detailed Report")
+          ? "detailedreport_clicked"
+          : "stock_report_clicked",
+        {
+          page: pathname.includes("track-record") ? "StockPickTR_Page" : "StockPicksDetail_Page",
+          report_details: step,
+        }
+      );
+      console.log("LINK ", step.document);
       window.open(step?.document, "_blank");
       setReportDetail(step); // Set the PDF URL
       // setReportOpen(true); // Open the modal
     } else {
-      mp.track("youtube_video_clicked", {
-        page: "StockPicksDetail_Page",
+      mp.track(pathname.includes("track-record") ? "watchvideo_clicked" : "youtube_video_clicked", {
+        page: pathname.includes("track-record") ? "StockPickTR_Page" : "StockPicksDetail_Page",
         youtube_details: step,
+        pagegroup: "Timeline_Reports",
+        stockname: "",
       });
       window.open(step.youtube_link, "_blank");
     }
@@ -71,7 +82,7 @@ export default function StockDetailsTimeline({ timeline }) {
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     // Get the day, month, and year from the Date object
-    const day = date.getDate().toString().padStart(2,"0") 
+    const day = date.getDate().toString().padStart(2, "0");
     const month = monthNames[date.getMonth()];
     const year = date.getFullYear().toString().slice(-2); // Get the last two digits of the year
 
@@ -92,20 +103,27 @@ export default function StockDetailsTimeline({ timeline }) {
   //   if(pdf && pdf.querySelector('#password')){
   //     pdf.querySelector('#password').value = 'yourPassword';
   //     pdf.querySelector('#password')?.dispatchEvent(new Event('input'));
-      
+
   //     // If there's a submit button, click it
   //     pdf.querySelector('#submit')?.click();
   //   }
-   
 
   // },[reportDetail])
-  
+
   return (
-    <div className="flex flex-col justify-center pt-[30.8px] bg-white min-w-0 items-center" >
+    <div className="flex flex-col justify-center pt-[30.8px] bg-white min-w-0 items-center">
       {timeline.map((step, index) => (
-        <div className=" relative grid grid-cols-[minmax(70px,.1fr)_10px_1fr] md:grid-cols-[26px_1fr] lg:grid-cols-[74px_10px_1fr] w-full min-w-0" key={index} >
+        <div
+          className=" relative grid grid-cols-[minmax(70px,.1fr)_10px_1fr] md:grid-cols-[26px_1fr] lg:grid-cols-[74px_10px_1fr] w-full min-w-0"
+          key={index}
+        >
           {/* Date component for large screen */}
-          <Box textAlign={"left"} className="block justify-self-start pr-[21px] lg:justify-self-start lg:pr-0 md:hidden lg:block " position="relative" top="0px">
+          <Box
+            textAlign={"left"}
+            className="block justify-self-start pr-[21px] lg:justify-self-start lg:pr-0 md:hidden lg:block "
+            position="relative"
+            top="0px"
+          >
             <Typography
               variant="body2"
               color="textSecondary"
@@ -117,9 +135,9 @@ export default function StockDetailsTimeline({ timeline }) {
             </Typography>
           </Box>
           {/* Date component end */}
-          
-          <Box display="flex" flexDirection="column" alignItems="center" position="relative" >
-          {/* Marker component */}
+
+          <Box display="flex" flexDirection="column" alignItems="center" position="relative">
+            {/* Marker component */}
             <Box
               className=""
               sx={{
@@ -134,9 +152,7 @@ export default function StockDetailsTimeline({ timeline }) {
                 // mr: "-5px",
               }}
             />
-            {index !== timeline.length - 1 && (
-            <div className=" absolute w-[2px] h-full  bg-brand-300">{/*line*/}</div>
-          )}
+            {index !== timeline.length - 1 && <div className=" absolute w-[2px] h-full  bg-brand-300">{/*line*/}</div>}
           </Box>
           {/* Marker component end */}
           <div className=" flex flex-col gap-y-1 w-full min-w-0 pl-[21px] md:pl-3 lg:pl-[21px]">
@@ -158,63 +174,62 @@ export default function StockDetailsTimeline({ timeline }) {
               // maxWidth={{ xs: "100%" }}
               width={"100%"}
               p={"8px"}
-              mb={"28px"}              
+              mb={"28px"}
               // mt={"4px"}
               position="relative"
               // top="-13px"
               border="1px solid white"
               boxShadow="0px 2px 6px 0px rgba(2, 15, 35, 0.06)" // Small shadow on the bottom side
             >
-             <Tooltip title={step?.report_action_text?.length > 24 ? step.report_action_text:""}>
-              <Typography
-                className="flex flex-wrap  "
-                variant="subtitle1"
-                fontWeight="500 !important"
-                // display="flex"
-                // alignItems="center"
-                width={"100%"}
-                // minWidth={"155px"}
-                color="#475467"
-                marginTop="3px"
-                fontFamily="Open Sans"
-                fontSize="0.875rem"
-                sx={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  font: "500 !important",
-                }}
-              >
-                {step.type == "report" ? step.report_action_text : "Video Released"}
+              <Tooltip title={step?.report_action_text?.length > 24 ? step.report_action_text : ""}>
+                <Typography
+                  className="flex flex-wrap  "
+                  variant="subtitle1"
+                  fontWeight="500 !important"
+                  // display="flex"
+                  // alignItems="center"
+                  width={"100%"}
+                  // minWidth={"155px"}
+                  color="#475467"
+                  marginTop="3px"
+                  fontFamily="Open Sans"
+                  fontSize="0.875rem"
+                  sx={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    font: "500 !important",
+                  }}
+                >
+                  {step.type == "report" ? step.report_action_text : "Video Released"}
 
-                {index == 0 && step.type === "report" &&  !step.report_name.toLowerCase().includes("sell") && (
-                  <Box ml={1} px={1} py={0.5} borderRadius="9999px" bgcolor="#FFF6EE">
-                    <Typography color="orange" fontFamily="Open Sans" fontSize="10px" fontWeight={700}>
-                      Active
-                    </Typography>
-                  </Box>
-                )}
-              </Typography>
+                  {index == 0 && step.type === "report" && !step.report_name.toLowerCase().includes("sell") && (
+                    <Box ml={1} px={1} py={0.5} borderRadius="9999px" bgcolor="#FFF6EE">
+                      <Typography color="orange" fontFamily="Open Sans" fontSize="10px" fontWeight={700}>
+                        Active
+                      </Typography>
+                    </Box>
+                  )}
+                </Typography>
               </Tooltip>
 
               {step.youtube_title && (
                 <Box display="flex" alignItems="center" gap={1}>
-                <Tooltip title={step.youtube_title?.length > 24 ? step.youtube_title:""}>
-
-                  <Typography
-                    variant="body2"
-                    color="black"
-                    fontWeight="bold"
-                    fontSize="12px"
-                    fontFamily="Open Sans"
-                    sx={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {step.youtube_title}
-                  </Typography>
+                  <Tooltip title={step.youtube_title?.length > 24 ? step.youtube_title : ""}>
+                    <Typography
+                      variant="body2"
+                      color="black"
+                      fontWeight="bold"
+                      fontSize="12px"
+                      fontFamily="Open Sans"
+                      sx={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {step.youtube_title}
+                    </Typography>
                   </Tooltip>
                 </Box>
               )}
@@ -223,7 +238,6 @@ export default function StockDetailsTimeline({ timeline }) {
                 className="  min-w-0 max-w-full"
                 size="small"
                 sx={{
-              
                   mt: 1,
                   color: "#344054",
                   padding: "7px 14px 7px 12px",
@@ -256,8 +270,10 @@ export default function StockDetailsTimeline({ timeline }) {
                   alt={step.label}
                   style={{ width: "20px", height: "20px" }}
                 />
-                <Tooltip title={step.report_name?.length > 24 ? step.report_name:""}>
-                <p className=" text-2xs font-medium truncate flex-1">{step.type == "report" ? step.report_name : "Watch Video"}</p>
+                <Tooltip title={step.report_name?.length > 24 ? step.report_name : ""}>
+                  <p className=" text-2xs font-medium truncate flex-1">
+                    {step.type == "report" ? step.report_name : "Watch Video"}
+                  </p>
                 </Tooltip>
               </Button>
             </Box>

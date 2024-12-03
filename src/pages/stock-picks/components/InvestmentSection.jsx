@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import InvestModal from "@/components.v3/common/InvestModal";
 import { Link } from "react-scroll";
 import { Button } from "react-scroll"; // Adjust this import as needed
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import AuthContext from "@/components/AuthContext";
+import { useActivePlanContext } from "@/components/PlanContext";
 
 function InvestmentSection() {
   const [modalState, setModalState] = useState({
     isMainModalOpen: false,
     isChildModalOpen: false,
   });
-
-  const handleMainModalOpen = () =>
-    setModalState({ isMainModalOpen: true, isChildModalOpen: false });
-  const handleMainModalClose = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
-  const handleChildModalOpen = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: true });
-  const handleCloseAllModals = () =>
-    setModalState({ isMainModalOpen: false, isChildModalOpen: false });
+  const { isSubscribed } = useContext(AuthContext);
+  const { activePlan } = useActivePlanContext();
+  const handleMainModalOpen = () => setModalState({ isMainModalOpen: true, isChildModalOpen: false });
+  const handleMainModalClose = () => setModalState({ isMainModalOpen: false, isChildModalOpen: false });
+  const handleChildModalOpen = () => setModalState({ isMainModalOpen: false, isChildModalOpen: true });
+  const handleCloseAllModals = () => setModalState({ isMainModalOpen: false, isChildModalOpen: false });
 
   const items = [
     {
@@ -58,6 +58,16 @@ function InvestmentSection() {
     },
   ];
 
+  const handleEvent = (broker) => {
+    const mp = getMixPanelClient();
+    mp.track("readytoinvest_clicked", {
+      page: "StockPicks_page",
+      user_type: isSubscribed ? "Paid" : "Free",
+      Curr_Subscription_Type: activePlan.plan,
+      broker_selected: broker,
+    });
+  };
+
   return (
     <div className="pb-[100px] pt-0 px-2 rounded-lg sm:pb-[100px]">
       <h2 className="text-center sm:text-display-xs text-sm font-bold sm:mb-10 mb-5 font-open_sans">
@@ -68,6 +78,7 @@ function InvestmentSection() {
           <Link
             key={index}
             onClick={() => {
+              handleEvent(item.name)
               window.open(item.url, "_blank"); // Redirect to the specified URL
             }}
             className="flex flex-col items-center text-center group"
@@ -90,6 +101,7 @@ function InvestmentSection() {
             <Link
               key={index}
               onClick={() => {
+                handleEvent(item.name)
                 window.open(item.url, "_blank"); // Redirect to the specified URL
               }}
               className="flex flex-col items-center text-center group"
@@ -110,7 +122,17 @@ function InvestmentSection() {
 
         {/* Always show the +9 more button */}
         <div className="flex flex-col items-center text-center group">
-          <button onClick={handleMainModalOpen}>
+          <button
+            onClick={() => {
+              const mp = getMixPanelClient();
+              mp.track("readytoinvest_clicked", {
+                page: "StockPicks_page",
+                user_type: isSubscribed ? "Paid" : "Free",
+                Curr_Subscription_Type: activePlan.plan,
+              });
+              handleMainModalOpen();
+            }}
+          >
             <div className="bg-white p-[0.75rem] rounded-full shadow-md group-hover:scale-[0.90] group-hover:duration-500">
               <div className="w-11 h-11 bg-brand-500 flex justify-center items-center rounded-full group-hover:bg-brand-600 transition-colors duration-300">
                 <span className="font-semibold text-gray-600">
@@ -118,9 +140,7 @@ function InvestmentSection() {
                 </span>
               </div>
             </div>
-            <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans">
-              +17 more
-            </span> 
+            <span className="text-2xs mt-1.5 text-[#344054] group-hover:text-[#344054] font-open_sans">+17 more</span>
           </button>
           <InvestModal
             handleMainModalOpen={handleMainModalOpen}

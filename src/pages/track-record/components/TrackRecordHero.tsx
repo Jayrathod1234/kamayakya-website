@@ -9,6 +9,7 @@ export default function TrackRecordHero() {
     const mp = getMixPanelClient();
     mp.track("sebi_registered_clicked", {
       page: "TrackRecord_Page",
+      pagegroup:"main"
     });
     window.open("Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1", "_blank", "fullscreen=yes");
   };
