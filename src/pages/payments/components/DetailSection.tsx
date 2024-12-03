@@ -123,6 +123,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     getValues,
     setError,
     setValue,
+    watch
   } = useForm({
     defaultValues: {
       aadhar: "",
@@ -150,6 +151,10 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   const [displayFailedAddharModal, setDisplayFailedAddharModal] = useState(false);
   const aadhar = getValues2("aadhar");
   const preExistingAddress = getValues("address");
+  const email = watch("email")
+  const mobile = watch("phone")
+  const address = watch("address")
+
   // const onSubmit: SubmitHandler<IFormInput> = (data) => {
   //   console.log(data);
   // };
@@ -189,7 +194,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       toast({
         variant: "warn",
         title: "",
-        description: e?.response?.data?.message,
+        description: e?.response?.data?.message || "Something went wrong.",
       });
     } finally {
       setAadharOtpLoading(false);
@@ -996,7 +1001,10 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           </div>
 
           <div className="col-span-2 mt-5 ">
+          {/* <p className=" text-display-sm text-red-500 flex-1">{(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ? "true": "false"}</p> */}
+
             <Button
+              disabled ={(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || ((!Number.isNaN(Number(address)) || !billingSameAsAadhar) && !pincodeBasedAddress)}
               loading={checkoutLoading}
               onClick={handleSubmit(handleCheckout)}
               className=" w-full"
