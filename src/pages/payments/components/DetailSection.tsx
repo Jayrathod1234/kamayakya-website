@@ -191,10 +191,19 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         setOpenDialog(true);
         return;
       }
+
+      if(e?.response?.data?.detail?.includes("Token ")){
+        toast({
+          variant: "warn",
+          title: "",
+          description:"Session Expired! Please relogin and try again. ",
+        });  
+      }
+
       toast({
         variant: "warn",
         title: "",
-        description: e?.response?.data?.message || "Something went wrong.",
+        description: e?.response?.data?.message ||  e?.response?.data?.detail || "Something went wrong.",
       });
     } finally {
       setAadharOtpLoading(false);
