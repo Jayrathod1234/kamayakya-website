@@ -83,7 +83,7 @@ const Step1 = ({ setActiveTab, activeTab }) => {
               </div>
             </li>
           </ul>
-          <p className=" text-brand-400 !italic mt-6">
+          <p className=" text-brand-400 !italic mt-6 max-sm:pb-20">
             Join us and make smarter investment decisions, one pick at a time. 🚀
           </p>
         </div>
@@ -137,7 +137,7 @@ const Step2 = ({ setActiveTab, activeTab }) => {
               </div>
             </li>
           </ul>
-          <p className=" text-md text-brand-400 italic mt-6">
+          <p className=" text-md text-brand-400 italic mt-6 max-sm:pb-20">
             At KamayaKya, we empower you to take charge of your investments with confidence and clarity. 🚀
           </p>
         </div>
