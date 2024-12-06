@@ -137,8 +137,8 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
           localStorage.setItem("access", res.access);
           localStorage.setItem("refresh", res.refresh);
           axiosApi.defaults.headers.common["Authorization"] = `token ${res?.access}`;
-
-          // router.reload();
+          
+          router.reload();
           setShowLoginModal(false);
         }
       }
