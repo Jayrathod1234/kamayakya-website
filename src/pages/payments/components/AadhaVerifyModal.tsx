@@ -19,6 +19,7 @@ export default function AadhaVerifyModal({
   openDialog,
   displayModal,
   setBillingSameAsAadhar,
+  setDisplayFailedAddharModal
 }: {
   setAadharRequestId: React.Dispatch<React.SetStateAction<string>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,9 +36,8 @@ export default function AadhaVerifyModal({
   const [loading, setLoading] = useState(false);
   const [fetchAadharFailed, setFetchAadharFailed] = useState(false);
   const isMobile = useMediaQuery("(max-width:640px)");
-  const verySmallScreen = useMediaQuery("(max-width:400px)")
+  const verySmallScreen = useMediaQuery("(max-width:400px)");
   const handleVerifyAadharOtp = async () => {
-   
     try {
       setLoading(true);
       const res = await postAadharOtp({ aadhar, request_id: requestId, otp });
@@ -52,20 +52,25 @@ export default function AadhaVerifyModal({
         return;
       }
       // setBillingSameAsAadhar(true);
-      setUserDetails((prev) => ({ ...prev, pan: res?.pan_number, name: res?.name, address: address, aadhar: aadhar }));
+      setUserDetails((prev) => ({
+        ...prev,
+        pan: res?.pan_number,
+        name: res?.name,
+        address: address,
+        aadhar: res?.masked_aadhar,
+        maskedPan: res?.masked_pan_number,
+      }));
       setDisplayModal("CONFIRM");
     } catch (e) {
       if (e?.response?.data?.message?.includes("Source down")) {
         setFetchAadharFailed(true);
-        return
-      }else{
+        return;
+      } else {
         toast({
-        variant: "warn",
-        description: e?.response?.data?.message,
-      });
+          variant: "warn",
+          description: e?.response?.data?.message,
+        });
       }
-     
-      
     } finally {
       setLoading(false);
     }
@@ -82,10 +87,33 @@ export default function AadhaVerifyModal({
       // setOpenDialog(true);
       // setAadharRequestId(res?.)
     } catch (e: any) {
+
+      if (e?.response?.data?.message?.includes("Invalid Aadhaar")) {
+        toast({
+          variant: "warn",
+          title: "",
+          description: "Invalid Aadhaar Number. Please check and re-enter a valid Aadhaar Number.",
+        });
+        return;
+      }
+      if (e?.response?.data?.message?.includes("Source down")) {
+        setDisplayFailedAddharModal(true);
+        setOpenDialog(true);
+        return;
+      }
+
+      if(e?.response?.data?.detail?.includes("Token ")){
+        toast({
+          variant: "warn",
+          title: "",
+          description:"Session Expired! Please relogin and try again. ",
+        });  
+      }
+
       toast({
         variant: "warn",
         title: "",
-        description: e?.response?.data?.message,
+        description: e?.response?.data?.message ||  e?.response?.data?.detail || "Something went wrong.",
       });
     } finally {
       // setAadharOtpLoading(false);
@@ -120,13 +148,19 @@ export default function AadhaVerifyModal({
 
   if (fetchAadharFailed) {
     return (
-      <DialogContent closeClassName=" -right-2 -top-[12px] opacity-100" className=" !p-6 !rounded-[20px] w-[calc(100%-32px)]  md:min-w-[400px] max-w-[400px] open_sans">
+      <DialogContent
+        closeClassName=" -right-2 -top-[12px] opacity-100"
+        className=" !p-6 !rounded-[20px] w-[calc(100%-32px)]  md:min-w-[400px] max-w-[400px] open_sans"
+      >
         <div>
           <img src="/assets/failed_aadhar_fetch.svg" alt="error-image" />
           <h2 className=" font-bold text-xl mt-6">We’re having trouble fetching your Aadhaar details!</h2>
           <p className=" text-sm text-[#737373] mt-3">
-          Oops! 🚧<br/>
-          Our system’s having a coffee break while fetching Aadhaar details, or there might be a connection issue on your end. Please try again a few times, or check back in 15-20 minutes. Thanks for understanding and for being awesome!
+            Oops! 🚧
+            <br />
+            Our system’s having a coffee break while fetching Aadhaar details, or there might be a connection issue on
+            your end. Please try again a few times, or check back in 15-20 minutes. Thanks for understanding and for
+            being awesome!
           </p>
           <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto w-fit">
             <DialogClose asChild>
@@ -136,8 +170,8 @@ export default function AadhaVerifyModal({
             </DialogClose>
             <Button
               onClick={() => {
-                handleAadharOtp()
-                setOtp("")
+                handleAadharOtp();
+                setOtp("");
                 setFetchAadharFailed(false);
               }}
               variant={ButtonVariant.primary}
@@ -176,8 +210,8 @@ export default function AadhaVerifyModal({
                   gap: isMobile ? "2px" : "10px",
                 }}
                 inputStyle={{
-                  height: verySmallScreen?"38px": "44px",
-                  width: verySmallScreen?"38px": "44px",
+                  height: verySmallScreen ? "38px" : "44px",
+                  width: verySmallScreen ? "38px" : "44px",
                   border: "1px solid #B7BDC7",
                   borderRadius: "6.2px",
                   background: "#fff",

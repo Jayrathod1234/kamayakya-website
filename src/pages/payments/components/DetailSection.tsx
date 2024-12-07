@@ -16,6 +16,7 @@ import {
   getAddress,
   getSelectedPlanDates,
   getUserKycStatus,
+  postAadharOtp,
   postCheckout,
 } from "../../../api/payment/index";
 import { toast } from "@/components.v2/ui/use-toast";
@@ -149,15 +150,13 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   });
   const [phoneFocused, setPhoneFocused] = useState(false);
   const [displayFailedAddharModal, setDisplayFailedAddharModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [fetchAadharFailed, setFetchAadharFailed] = useState(false);
   const aadhar = getValues2("aadhar");
   const preExistingAddress = getValues("address");
   const email = watch("email")
   const mobile = watch("phone")
   const address = watch("address")
-
-  // const onSubmit: SubmitHandler<IFormInput> = (data) => {
-  //   console.log(data);
-  // };
 
   // const handleAadharEditClick = () => {
   //   setAadharVerified(false);
@@ -210,43 +209,54 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     }
   };
 
-  // const loadScript = (src: string) => {
-  //   return new Promise((resolve) => {
-  //     const script = document.createElement("script");
+  const handleVerifyAadharOtp = async () => {
+    try {
+      setLoading(true);
+      const res = await postAadharOtp({ aadhar,is_encrypted:true });
+      // let address = Object.values(res?.address || {}).filter(value=>value).join(", ");
+      let address = res?.address;
+      if (res?.is_aadhar_verified) {
+        setOpenDialog(false);
+        toast({
+          variant: "warn",
+          description: res?.message,
+        });
+        return;
+      }
+      // setBillingSameAsAadhar(true);
+      setUserDetails((prev) => ({
+        ...prev,
+        pan: res?.pan_number,
+        name: res?.name,
+        address: address,
+        // aadhar: res?.masked_aadhar,
+        maskedPan: res?.masked_pan_number,
+      }));
+      // setDisplayModal("CONFIRM");
+    } catch (e:any) {
+      if (e?.response?.data?.message?.includes("Source down")) {
+        setDisplayFailedAddharModal(true);
+        setOpenDialog(true);
+        return;
+      }
 
-  //     script.src = src;
+      if(e?.response?.data?.detail?.includes("Token ")){
+        toast({
+          variant: "warn",
+          title: "",
+          description:"Session Expired! Please relogin and try again. ",
+        });  
+      }
 
-  //     script.onload = () => {
-  //       resolve(true);
-  //     };
-  //     script.onerror = () => {
-  //       resolve(false);
-  //     };
-
-  //     document.body.appendChild(script);
-  //   });
-  // };
-
-  // const loadScript = (src: string) => {
-  //   return new Promise((resolve) => {
-  //     if (document.querySelector(`script[src="${src}"]`)) {
-  //       resolve(true);
-  //       return;
-  //     }
-
-  //     const script = document.createElement("script");
-  //     script.src = src;
-
-  //     script.onload = () => {
-  //       resolve(true);
-  //     };
-  //     script.onerror = () => {
-  //       resolve(false);
-  //     };
-
-  //     document.body.appendChild(script);
-  //   });
-  // };
+      toast({
+        variant: "warn",
+        title: "",
+        description: e?.response?.data?.message ||  e?.response?.data?.detail || "Something went wrong.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleRazorpayScreen = (options: any) => {
     let paymentFailed = false;
@@ -378,7 +388,13 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             </DialogClose>
             <Button
               onClick={() => {
-                handleAadharOtp({ aadhar });
+                console.log("AADRAR VERIFIED", isAadharAlreadyVerified, aadharVerified)
+                if(isAadharAlreadyVerified || aadharVerified){
+                  handleVerifyAadharOtp()
+                }else{
+                  handleAadharOtp({ aadhar });
+                }
+               
               }}
               variant={ButtonVariant.primary}
             >
@@ -390,13 +406,11 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     );
   };
 
-  console.log("DISPLAY", displayFailedAddharModal);
-
   useEffect(() => {
     setValue("fullname", userDetails.name);
     setValue("phone", userDetails.phone);
     setValue("address", userDetails.address);
-    setValue("pan", userDetails.pan);
+    setValue("pan", userDetails.maskedPan);
     setValue("email", userDetails.email);
     setValue2("aadhar", userDetails.aadhar);
   }, [userDetails, activeTab]);
@@ -463,7 +477,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 rules={{
                   required: "Enter aadhar to continue",
                   pattern: {
-                    value: /^\d{4}\d{4}\d{4}$/,
+                    value: aadharVerified ? /^XXXXXXXX\d{4}$/ :/^\d{4}\d{4}\d{4}$/,
                     message: "Enter a valid Aadhar number in the format XXXX XXXX XXXX (excluding spaces).",
                   },
                 }}
@@ -472,7 +486,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                     {...field}
                     sendotp={!aadharVerified && !isAadharAlreadyVerified}
                     error={(errors2.aadhar?.message && (!aadharVerified && !isAadharAlreadyVerified)) ? true : false}
-                    type="number"
+                    type= {aadharVerified ? "text": "number"}
                     id="aadhar-number"
                     // onChange={(e) => setAadhar(e.target.value)}
                     variant="outlined"
@@ -614,7 +628,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   rules={{
                     required: "Enter PAN to continue",
                     pattern: {
-                      value: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
+                      value: userDetails.maskedPan ? /^XXXXXX[0-9]{3}[A-Z]{1}$/  : /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
                       message: "Enter a valid Pan number in the format XXXXX0000X",
                     },
                   }}
@@ -637,10 +651,10 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                                 className=" "
                                 onClick={() => {
                                   // setOpenDialog(true);
-                                  handleAadharOtp({ aadhar: userDetails?.aadhar });
+                                  handleVerifyAadharOtp();
                                 }}
                               >
-                                {aadharOtpLoading ? (
+                                {loading ? (
                                   <span className=" inline-flex items-center justify-center gap-x-1">
                                     <Loader color="#12B76A" fontSize={12} height={12} width={12} />
                                     <p className=" text-2xs text-[#12B76A]">Verifying</p>
@@ -1011,9 +1025,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
 
           <div className="col-span-2 mt-5 ">
           {/* <p className=" text-display-sm text-red-500 flex-1">{(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ? "true": "false"}</p> */}
-
             <Button
-              disabled ={(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || ((!Number.isNaN(Number(address)) || !billingSameAsAadhar) && !pincodeBasedAddress)}
+              disabled ={(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || (!Number.isNaN(Number(address)) && !pincodeBasedAddress) || (!isPanAlreadyVerified && !userDetails.maskedPan)}
               loading={checkoutLoading}
               onClick={handleSubmit(handleCheckout)}
               className=" w-full"
@@ -1033,6 +1046,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             aadhar={aadhar}
             requestId={aadharRequestId}
             setBillingSameAsAadhar={setBillingSameAsAadhar}
+            setDisplayFailedAddharModal = {  setDisplayFailedAddharModal}
           />
         ) : null}
         {displayModal.includes("CONFIRM")  && !displayFailedAddharModal ? (
@@ -1069,9 +1083,15 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 <Button
                 loading={aadharOtpLoading}
                   onClick={() => {
-
+                    
+                    if(isAadharAlreadyVerified || aadharVerified){
+                      
+                      handleVerifyAadharOtp()
+                    }else{
+                      handleAadharOtp({ aadhar });
+                    }
                     setDisplayFailedAddharModal(false);
-                    handleAadharOtp({ aadhar });
+                    // handleAadharOtp({ aadhar });
                   }}
                   variant={ButtonVariant.primary}
                 >
