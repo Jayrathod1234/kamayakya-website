@@ -415,11 +415,11 @@ const Step4 = ({
         return;
       }
       if (savedEmailPhone !== "null") {
-        setValue("phone", `+91${savedEmailPhone}`);
+        setValue("phone", `${savedEmailPhone}`);
         return;
       }
 
-      setValue("phone", `+91${user?.mobile}`);
+      setValue("phone", `${user?.mobile}`);
     }
   }, [
     user,
@@ -575,7 +575,7 @@ const Step4 = ({
               render={({ field: { value, onChange } }) => (
                 <>
                   <PhoneInput
-                    value={value ?? phone}
+                    value={value}
                     onChange={onChange}
                     defaultCountry="IN"
                     placeholder="Enter phone number"
