@@ -224,7 +224,7 @@ const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
             <input
               value={name ?? fullname}
               {...register("fullname", {
-                pattern: { value: /^[a-zA-Z]+( [a-zA-Z]+)*$/, message: "Please Enter valid name" },
+                pattern: { value: /^[a-zA-Z]+( [a-zA-Z]+)*\s*$/, message: "Please Enter valid name" },
                 maxLength: { value: 50, message: "Max Character limit of 50 reached." },
                 required: "Enter Full Name to continue",
                 minLength: { value: 3, message: "Enter Full Name to continue (minimum 3 characters)" },
