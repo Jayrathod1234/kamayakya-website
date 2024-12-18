@@ -14,9 +14,23 @@ import React, { useContext, useState } from "react";
 import StockCard from './StockCard'
 import Link from "next/link";
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
+import { useQuery } from "@tanstack/react-query";
+import { getHotStockListApi } from "@/api/stock-picks";
+import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 export default function LoginPrompt({ children }:{children:React.ReactElement;}) {
   const {openMembershipModal, setOpenMembershipModal} = useTrackRecord();
+  const {sebiBoardType} = useTrackRecordCommon()
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
+  const {
+    data: { data: items = [], is_limited_view: isLimitedView = false } = {},
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["hotStock", sebiBoardType, isLoggedIn],
+    queryFn: () => getHotStockListApi({ isLoggedIn, type: sebiBoardType === "all" ? "mainboard" : sebiBoardType }),
+  });
+  console.log("PROMPT DATA==>",items)
+
   // const { stockSector } = useStockPicks();
   return (
     <Dialog open={openMembershipModal} onOpenChange={setOpenMembershipModal}>
@@ -39,9 +53,9 @@ export default function LoginPrompt({ children }:{children:React.ReactElement;})
           </div>
 
           <div className="  hidden sm:flex justify-center items-center max-w-full max-h-fit  overflow-hidden mx-auto relative min-w-0 scale-[.85] -mt-8 md:scale-[.80] md:-mt-6">
-            <StockCard className=" membership__modal relative left-[25%] md:left-[15%] scale-[.60] md:scale-75 -top-16 max-h-[265px] w-full max-w-[227px]" recommended_stock={true} is_blur={true}/>
-            <StockCard className="  membership__modal scale-90 md:scale-100 max-h-fit  max-w-[345px] z-20" recommended_stock={true} is_blur={true}/>
-            <StockCard className="membership__modal relative right-[25%] md:right-[15%] scale-[.60] md:scale-75 -top-16   max-h-[265px] max-w-[227px]" recommended_stock={true} is_blur={true}/>
+            <StockCard upside_left={items[0]?.upside_left} className=" membership__modal relative left-[25%] md:left-[15%] scale-[.60] md:scale-75 -top-16 max-h-[265px] w-full max-w-[227px]" recommended_stock={true} is_blur={true}/>
+            <StockCard upside_left={items[1]?.upside_left} className="  membership__modal scale-90 md:scale-100 max-h-fit  max-w-[345px] z-20" recommended_stock={true} is_blur={true}/>
+            <StockCard upside_left={items[2]?.upside_left} className="membership__modal relative right-[25%] md:right-[15%] scale-[.60] md:scale-75 -top-16   max-h-[265px] max-w-[227px]" recommended_stock={true} is_blur={true}/>
           </div>
         </div>
       </DialogContent>

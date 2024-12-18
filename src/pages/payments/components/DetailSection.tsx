@@ -455,6 +455,13 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#475467] transition-all duration-300 group-hover:w-full"></div>
           </p>
         </button>
+        <div className="p-3 bg-[#EFF7FF] border border-[#A6D3FF] rounded-lg flex items-center gap-x-[10px] mb-7">
+          <img height={24} width={24} alt="info-icon" src="/info-fill.svg"/>
+          <p className=" m-0 text-xs">
+          Your Aadhaar and PAN are collected securely for SEBI KYC compliance. They’re encrypted, masked, and never shared. Your data's privacy and security are our top priorities.
+          </p>
+
+        </div>
         <div className="grid grid-cols-2 gap-y-4 sm:gap-y-7 gap-x-[22px]">
           {!isAadharAlreadyVerified ? (
             <div className="col-span-2">
@@ -543,7 +550,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
               />
 
               <p className="text-3xs text-gray-500 mt-[6px]">
-                Required as per SEBI KYC rules (We'll send an OTP to the mobile number linked to your Aadhaar Card)
+              OTP will be sent to the mobile no. linked to your Aadhaar Card
               </p>
             </div>
           ) : null}

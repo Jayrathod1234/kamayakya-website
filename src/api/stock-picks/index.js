@@ -8,6 +8,7 @@ export const getHotStockListApi = async ({ isLoggedIn, type }) => {
   try {
     const URL = isLoggedIn ? `/user/hotStock` : `/user/hotStock/guest`;
     /* ----------------------------------- API ---------------------------------- */
+    console.log("TYPEEPE", type)
     const response = await axiosApi.get(URL, {
       params: {
         type,
