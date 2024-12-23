@@ -25,6 +25,7 @@ export interface IUserDetails {
   phone: string;
   email: string;
   aadhar: string;
+  maskedPan:string;
 }
 
 export interface ICurrentPlan {
@@ -77,6 +78,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
     phone: "",
     email: "",
     aadhar: "",
+    maskedPan:"",
   });
   const { user } = useContext(AuthContext);
   const [isAadharAlreadyVerified, setIsAadharAlreadyVerified] = useState(false); //if kyc is already done
@@ -120,7 +122,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         email: res?.email,
         phone: res?.mobile,
         address: res?.address_details || res?.address,
-        aadhar:res?.aadhar_no
+        aadhar:res?.aadhar_number
       }));
     } catch (e) {
       console.error(e);

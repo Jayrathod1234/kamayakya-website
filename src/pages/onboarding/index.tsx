@@ -83,7 +83,7 @@ const Step1 = ({ setActiveTab, activeTab }) => {
               </div>
             </li>
           </ul>
-          <p className=" text-brand-400 !italic mt-6">
+          <p className=" text-brand-400 !italic mt-6 max-sm:pb-20">
             Join us and make smarter investment decisions, one pick at a time. 🚀
           </p>
         </div>
@@ -137,7 +137,7 @@ const Step2 = ({ setActiveTab, activeTab }) => {
               </div>
             </li>
           </ul>
-          <p className=" text-md text-brand-400 italic mt-6">
+          <p className=" text-md text-brand-400 italic mt-6 max-sm:pb-20">
             At KamayaKya, we empower you to take charge of your investments with confidence and clarity. 🚀
           </p>
         </div>
@@ -224,7 +224,7 @@ const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
             <input
               value={name ?? fullname}
               {...register("fullname", {
-                pattern: { value: /^[a-zA-Z]+( [a-zA-Z]+)*$/, message: "Please Enter valid name" },
+                pattern: { value: /^[a-zA-Z]+( [a-zA-Z]+)*\s*$/, message: "Please Enter valid name" },
                 maxLength: { value: 50, message: "Max Character limit of 50 reached." },
                 required: "Enter Full Name to continue",
                 minLength: { value: 3, message: "Enter Full Name to continue (minimum 3 characters)" },
@@ -415,11 +415,11 @@ const Step4 = ({
         return;
       }
       if (savedEmailPhone !== "null") {
-        setValue("phone", `+91${savedEmailPhone}`);
+        setValue("phone", `${savedEmailPhone}`);
         return;
       }
 
-      setValue("phone", `+91${user?.mobile}`);
+      setValue("phone", `${user?.mobile}`);
     }
   }, [
     user,
@@ -575,7 +575,7 @@ const Step4 = ({
               render={({ field: { value, onChange } }) => (
                 <>
                   <PhoneInput
-                    value={value ?? phone}
+                    value={value}
                     onChange={onChange}
                     defaultCountry="IN"
                     placeholder="Enter phone number"

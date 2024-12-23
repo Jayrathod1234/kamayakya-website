@@ -109,12 +109,14 @@ export const TopGainerLoserCard = ({
     : null;
   const router = useRouter();
   const { setOpenMembershipModal } = useTrackRecord();
+
+  
   
   return (
     // <LoginPrompt>
     <div
       onClick={() =>
-        stockStat?.id ? router.push(`/track-record/${stockStat?.id}`) : isLoggedIn ? setOpenMembershipModal(true) : null
+        stockStat?.id && stockStat?.stock_name ? router.push(`/track-record/${stockStat?.id}`) : isLoggedIn ? setOpenMembershipModal(true) : null
       }
       className="group/gainer-loser transition-shadow duration-300 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
  flex flex-col bg-white rounded-[9px] p-4 h-fit sm:h-[176px] flex-1 relative cursor-pointer min-w-0 "
@@ -192,7 +194,7 @@ export const TopGainerLoserCard = ({
             src={stockStat?.is_gain_loss_positive ?? true ? "/assets/Polygon2.svg" : "/assets/Polygon 3.svg"}
             alt=""
           />
-          {isBlur || (stockStat && (stockStat?.gain_loss === null || stockStat?.gain_loss === undefined)) ? (
+          { (stockStat && (stockStat?.gain_loss === null || stockStat?.gain_loss === undefined)) ? (
             <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
           ) : (
             <p
@@ -224,12 +226,12 @@ export const TopGainerLoserCard = ({
         </div>
         <div
           className={`flex items-center gap-y-[10px] ${
-            isBlur || (stockStat && !stockStat?.stock_name)
+             (stockStat && !stockStat?.stock_name)
               ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row"
               : "flex-wrap "
           }  gap-x-[8px]  justify-center sm:justify-between`}
         >
-          {isBlur || (stockStat && !stockStat?.stock_name) ? (
+          {(stockStat && !stockStat?.stock_name) ? (
             <div className=" min-w-0 w-full max-w-[120px] h-[18px] flex items-center justify-center sm:m-0">
               <img
                 className=" object-contain inline-block h-[18px] w-[18px]"
