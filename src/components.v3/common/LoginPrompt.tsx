@@ -119,7 +119,15 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
       setVerifyingOtp(true);
       const res = await verifyLoginOtp(params);
       if (res?.status_code === 200) {
-        setUser((prev) => ({ ...prev, id: res?.user_id, fullname: res?.full_name, email: res?.email,mobile:res?.mobile,is_onboard:res?.is_onboard,is_new:res?.is_new_user }));
+        setUser((prev) => ({
+          ...prev,
+          id: res?.user_id,
+          fullname: res?.full_name,
+          email: res?.email,
+          mobile: res?.mobile,
+          is_onboard: res?.is_onboard,
+          is_new: res?.is_new_user,
+        }));
         if (!res?.is_onboard) {
           setShowLoginModal(false);
           sessionStorage.setItem("user_id", res?.user_id);
@@ -130,14 +138,13 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
             setDisplayExistingUserModal(true);
             return;
           }
-          
+
           router.push("/onboarding");
         } else {
-          
           localStorage.setItem("access", res.access);
           localStorage.setItem("refresh", res.refresh);
           axiosApi.defaults.headers.common["Authorization"] = `token ${res?.access}`;
-          
+
           router.reload();
           setShowLoginModal(false);
         }
@@ -172,9 +179,8 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
       timer = setTimeout(() => {
         setSecondsRemaining((prevSeconds) => prevSeconds - 1);
       }, 1000);
-    }
-    else{
-      setResendOtp(false)
+    } else {
+      setResendOtp(false);
     }
     return () => clearTimeout(timer);
   }, [secondsRemaining]);
@@ -262,7 +268,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         </div>
         <div className=" mt-8">
           <Button
-            disabled={otp.length<6}
+            disabled={otp.length < 6}
             loading={verifyingOtp}
             onClick={handleSubmit(handleVerifyOtp)}
             className=" my-[18px] min-w-full max-w-full"
@@ -326,7 +332,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         <p className=" text-gray-400 text-2xs">
           By signing in you agree to all our{" "}
           <span className=" text-brand-500 underline decoration-dashed underline-offset-2">
-            <Link onClick={()=>setShowLoginModal(false)} href={"/terms-conditions"} className=" text-inherit">
+            <Link onClick={() => setShowLoginModal(false)} href={"/terms-conditions"} className=" text-inherit">
               {" "}
               terms & conditions
             </Link>
@@ -446,26 +452,37 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
 
       <DialogContent
         closeClassName=" hidden"
-        className=" flex flex-col sm:flex-row !p-0 overflow-hidden open_sans w-[calc(100%-32px)]  max-w-[840px] !rounded-[20px] gap-0"
+        className="  !p-0 overflow-hidden !rounded-[20px] open_sans w-[calc(100%-32px)] border-transparent shadow-none bg-transparent  max-w-[840px]  gap-0"
       >
-        <div className=" max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
-          <div className=" flex flex-col max-sm:items-start items-center min-w-0">
-            <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
-            <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
-              <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
-              <NewUserList label="Get 3 Hot Stocks for Free" />
-              <NewUserList label="Unlock KamayaKya’s Track Record" />
-              <NewUserList label="Get WhatsApp & Email Notifications" />
+        <div className="flex flex-col sm:flex-row !rounded-[20px] overflow-hidden bg-white">
+          <div className=" max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
+            <div className=" flex flex-col max-sm:items-start items-center min-w-0">
+              <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
+              <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
+                <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
+                <NewUserList label="Get 3 Hot Stocks for Free" />
+                <NewUserList label="Unlock KamayaKya’s Track Record" />
+                <NewUserList label="Get WhatsApp & Email Notifications" />
+              </div>
             </div>
+            <Lottie className=" hidden sm:block" autoPlay loop={false} animationData={ONBOARDING_LOTTIE} />
           </div>
-          <Lottie className=" hidden sm:block" autoPlay loop={false} animationData={ONBOARDING_LOTTIE} />
-          
+          <div className=" sm:order-3 flex-1">
+            <SignUpContent
+              displayExistingUserModal={displayExistingUserModal}
+              setDisplayExistingUserModal={setDisplayExistingUserModal}
+            />
+          </div>
         </div>
-        <div className=" sm:order-3 flex-1">
-          <SignUpContent
-            displayExistingUserModal={displayExistingUserModal}
-            setDisplayExistingUserModal={setDisplayExistingUserModal}
-          />
+        <div className=" mt-[10px] gap-x-4 !rounded-[20px] flex  items-start bg-[#EFF7FF] border border-[#A6D3FF] p-4">
+          <img className=" pt-[3px]" height={32} width={32} alt="info-icon" src="/info-fill.svg" />
+          <div>
+            <p className=" text-xs">
+              Currently, SMS verification is only available for Indian phone numbers. For international users, please
+              call or whatsapp us at <span className=" font-medium"> +91 9175939641</span> or email us at  <span className=" font-medium">contact@kamayakya.com</span> for assistance.<span className=" block mt-3"></span> We apologize
+              for the inconvenience and appreciate your understanding!
+            </p>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
