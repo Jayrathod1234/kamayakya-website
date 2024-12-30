@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { PLAN } from "@/constants/pricing/plans";
 import ToPayTooltip from "../components/ToPayTooltip";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 const steps = [
   "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
@@ -50,6 +51,7 @@ export default function Successful() {
     discount_code: "",
   });
   const router = useRouter();
+  const mp = getMixPanelClient();
 
   const fetchPaymentReceipts = async () => {
     try {
@@ -59,6 +61,7 @@ export default function Successful() {
   };
 
   useEffect(() => {
+    mp.track("payment_success_page_loaded");
     fetchPaymentReceipts();
   }, [sessionStorage.getItem("orderId")]);
   if (!paymentDetails.start_date) return null;
@@ -95,11 +98,24 @@ export default function Successful() {
           <p className=" mt-4 text-[#667085]">See ya on the other side, </p>
           <p className="text-[#667085]">Team KamayaKya</p>
           <div className=" flex mt-12 gap-3 flex-wrap">
-            <Button onClick={() => router.push("/stock-picks")} variant={ButtonVariant.primary}>
+            <Button
+              onClick={() => {
+                mp.track("gotostocksbuy_clicked", {
+                  page: "payment success page",
+                });
+                router.push("/stock-picks");
+              }}
+              variant={ButtonVariant.primary}
+            >
               <p className=" text-sm font-semibold">Go to Stocks to Buy</p>
             </Button>
             <Button
-              onClick={() => router.push("/track-record")}
+              onClick={() => {
+                mp.track("gototrackrecord_clicked",{
+                  page:"payment success page"
+                })
+                router.push("/track-record");
+              }}
               variant={ButtonVariant.secondary}
               className=" border-[#0000001A]"
             >
@@ -215,24 +231,17 @@ export default function Successful() {
                     <div className=" flex items-center gap-x-1">
                       <p className=" text-sm font-bold text-[#101828]">To Pay</p>
                       <ToPayTooltip
-                        price={`₹${Number(
-                          (
-                            (Number(paymentDetails.total_payment)) /
-                            1.18
-                          ).toFixed(2)
-                        ).toLocaleString("hi")}`}
+                        price={`₹${Number((Number(paymentDetails.total_payment) / 1.18).toFixed(2)).toLocaleString(
+                          "hi"
+                        )}`}
                         saveText={""}
                         strikePrice={""}
                         gst={`₹${Number(
-                          (
-                            Number(paymentDetails.total_payment) -
-                           
-                            (Number(paymentDetails.total_payment) ) / 1.18
-                          ).toFixed(2)
+                          (Number(paymentDetails.total_payment) - Number(paymentDetails.total_payment) / 1.18).toFixed(
+                            2
+                          )
                         ).toLocaleString("hi")}`}
-                        total={`₹${(
-                          Number(paymentDetails.total_payment) 
-                        ).toLocaleString("hi")}`}
+                        total={`₹${Number(paymentDetails.total_payment).toLocaleString("hi")}`}
                       >
                         <div className=" flex justify-center items-center">
                           <img width={16} height={16} alt="info-icon" src="/icons/info-icon.svg" />
@@ -283,7 +292,7 @@ export default function Successful() {
                 <p className=" text-2xs md:text-sm text-[#02425B]">Get PDF Receipt</p>
               </Button>
               <Button
-                onClick={() => setShowDetail(prev=>!prev)}
+                onClick={() => setShowDetail((prev) => !prev)}
                 className=" md:hidden border-[#0000001A] gap-x-2 mx-auto flex-1"
                 variant={ButtonVariant.secondary}
               >
@@ -314,7 +323,7 @@ export default function Successful() {
                   />
                 </svg>
 
-                <p className=" text-2xs md:text-sm text-[#02425B]">{ showDetail ? "Hide":"View"} Details</p>
+                <p className=" text-2xs md:text-sm text-[#02425B]">{showDetail ? "Hide" : "View"} Details</p>
               </Button>
             </div>
             <div className=" absolute w-full h-[30px] -bottom-4 z-[1] ">

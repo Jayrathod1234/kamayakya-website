@@ -14,6 +14,7 @@ import {
 import { toast } from "@/components.v2/ui/use-toast";
 import Tooltip from "@/components.v3/common/Tooltip";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
+import { getMixPanelClient } from "@/externals/mixpanel";
 import React, { useEffect, useState } from "react";
 
 const CouponListItem = ({
@@ -62,6 +63,8 @@ export default function CouponModal() {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [invalidDiscountCode, setInvalidDiscountCode] = useState(false);
+  const mp = getMixPanelClient()
+  
   // const { toast } = useToast();
   const checkCoupon = async () => {
     if (discountCode?.trim().length === 0) {
@@ -70,6 +73,9 @@ export default function CouponModal() {
     }
     setLoading(true);
     try {
+      mp.track("couponcheck_clicked",{
+        couponvalue:currentDiscountSelected
+      })
       let params = {
         discount_code: discountCode,
         subscription: currentPlan.planId,
@@ -87,6 +93,7 @@ export default function CouponModal() {
       if (e?.response?.data?.message?.includes("Invalid")) {
         setError(true);
         setInvalidDiscountCode(true);
+        mp.track("couponcode_invalid")
         // toast({
         //   variant: "warn",
         //   description: e?.response?.data?.message,
@@ -97,9 +104,13 @@ export default function CouponModal() {
       setDiscountCode("");
     }
   };
+
   const discountAmt = discountList.find((item) => item?.discountCode === currentDiscountSelected)?.discountAmt;
 
   const handleApply = () => {
+    mp.track("couponapply_clicked",{
+      couponvalue:currentDiscountSelected
+    })
     setPlanDetails((prev) => ({ ...prev, discount: discountAmt as string, discountCode: currentDiscountSelected }));
     setOpen(false);
   };
@@ -110,6 +121,9 @@ export default function CouponModal() {
       setError(false);
       setInvalidDiscountCode(false);
       setCurrentDiscountSelected("");
+     
+    }else{
+      mp.track("couponwindow_loaded")
     }
   }, [open]);
 
@@ -118,7 +132,12 @@ export default function CouponModal() {
   }, [currentPlan.planDuration, currentPlan.planName]);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={(openChange)=>{
+      if(!openChange){
+        mp.track("couponwindow_closed")
+      }
+      setOpen(openChange)
+      }}>
       <DialogTrigger className=" w-full">
         <div className=" flex items-center rounded-lg mt-2 py-3 px-[11px] border border-[#0000000F]">
           <img src="/assets/badge-percent.svg" alt="badge" height={22} width={22} />

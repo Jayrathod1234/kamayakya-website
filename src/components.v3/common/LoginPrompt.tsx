@@ -18,6 +18,8 @@ import Link from "next/link";
 import { axiosApi } from "@/utils/axios";
 import Lottie from "lottie-react";
 import ONBOARDING_LOTTIE from "../../../public/assets/onboarding_signup.json";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import { usePathname } from "next/navigation";
 
 interface ILoginPrompt {
   triggerEle: React.ReactNode;
@@ -67,6 +69,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   const phone = watch("phone");
   const email = watch("email");
   const router = useRouter();
+  const mp = getMixPanelClient();
 
   const handleRequestOtp = async (data: IFormData) => {
     let params = {
@@ -83,6 +86,9 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         email: data.email,
       };
     }
+    mp.track("requestotp_clicked",{
+      page:"Login_Window"
+    })
     try {
       setOtpLoading(true);
       const res = await getLoginOtp(params);
@@ -117,9 +123,23 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         };
       }
       setVerifyingOtp(true);
+      mp.track("verifyotp_clicked",{
+        page:"Login_Window"
+      })
       const res = await verifyLoginOtp(params);
       if (res?.status_code === 200) {
-        setUser((prev) => ({ ...prev, id: res?.user_id, fullname: res?.full_name, email: res?.email,mobile:res?.mobile,is_onboard:res?.is_onboard,is_new:res?.is_new_user }));
+        mp.track("login_successful",{
+          page:"Login_Window"
+        })
+        setUser((prev) => ({
+          ...prev,
+          id: res?.user_id,
+          fullname: res?.full_name,
+          email: res?.email,
+          mobile: res?.mobile,
+          is_onboard: res?.is_onboard,
+          is_new: res?.is_new_user,
+        }));
         if (!res?.is_onboard) {
           setShowLoginModal(false);
           sessionStorage.setItem("user_id", res?.user_id);
@@ -130,19 +150,21 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
             setDisplayExistingUserModal(true);
             return;
           }
-          
+
           router.push("/onboarding");
         } else {
-          
           localStorage.setItem("access", res.access);
           localStorage.setItem("refresh", res.refresh);
           axiosApi.defaults.headers.common["Authorization"] = `token ${res?.access}`;
-          
+
           router.reload();
           setShowLoginModal(false);
         }
       }
     } catch (e) {
+      mp.track("invalid_otp_login",{
+        page:"Login_Window"
+      })
       toast({
         variant: "warn",
         description: e?.response?.data?.message || "Something went wrong.",
@@ -154,6 +176,16 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   };
 
   const handleEditMobile = () => {
+    if(loginMethod==="mobile"){
+      mp.track("editmobilenumber_clicked",{
+        page:"Login_Window"
+      })
+    }else{
+      mp.track("editemail_clicked",{
+        page:"Login_Window"
+      })
+    } 
+   
     setDisplayOtpModal(false);
     setValue("phone", "");
     setValue("email", "");
@@ -172,9 +204,8 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
       timer = setTimeout(() => {
         setSecondsRemaining((prevSeconds) => prevSeconds - 1);
       }, 1000);
-    }
-    else{
-      setResendOtp(false)
+    } else {
+      setResendOtp(false);
     }
     return () => clearTimeout(timer);
   }, [secondsRemaining]);
@@ -262,7 +293,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         </div>
         <div className=" mt-8">
           <Button
-            disabled={otp.length<6}
+            disabled={otp.length < 6}
             loading={verifyingOtp}
             onClick={handleSubmit(handleVerifyOtp)}
             className=" my-[18px] min-w-full max-w-full"
@@ -326,7 +357,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         <p className=" text-gray-400 text-2xs">
           By signing in you agree to all our{" "}
           <span className=" text-brand-500 underline decoration-dashed underline-offset-2">
-            <Link onClick={()=>setShowLoginModal(false)} href={"/terms-conditions"} className=" text-inherit">
+            <Link onClick={() => setShowLoginModal(false)} href={"/terms-conditions"} className=" text-inherit">
               {" "}
               terms & conditions
             </Link>
@@ -353,9 +384,15 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         <Button
           onClick={() => {
             if (loginMethod === "mobile") {
+              mp.track("signinwithemail_clicked",{
+                page:"Login_Window"
+              })
               setLoginMethod("email");
               // sessionStorage.setItem("login_method", "email");
             } else {
+              mp.track("signinwithmobile_clicked",{
+                page:"Login_Window"
+              })
               setLoginMethod("mobile");
               // sessionStorage.setItem("login_method", "mobile");
             }
@@ -383,6 +420,10 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
 const ExistingUserModal = () => {
   const router = useRouter();
   const handleOnboarding = () => {
+    const mp = getMixPanelClient();
+    mp.track("letsgetstarted_clicked",{
+      page:"Onboarding_Page"
+    })
     router.push("/onboarding");
   };
   return (
@@ -421,11 +462,18 @@ const ExistingUserModal = () => {
 export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
   const [displayExistingUserModal, setDisplayExistingUserModal] = useState(false);
   const { showLoginModal, handleLogin, setShowLoginModal } = useContext(AuthContext);
-  // useEffect(()=>{
-  //   if(!showLoginModal){
+  const pathname = usePathname();
 
-  //   }
-  // },[showLoginModal])
+  useEffect(() => {
+    if (showLoginModal) {
+      
+      const mp = getMixPanelClient();
+      mp.track("login_clicked", {
+        page: pathname,
+      });
+      mp.track("Loginwindow_appears");
+    }
+  }, [showLoginModal]);
   if (displayExistingUserModal) {
     return (
       <Dialog open={displayExistingUserModal} onOpenChange={setDisplayExistingUserModal}>
@@ -459,7 +507,6 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
             </div>
           </div>
           <Lottie className=" hidden sm:block" autoPlay loop={false} animationData={ONBOARDING_LOTTIE} />
-          
         </div>
         <div className=" sm:order-3 flex-1">
           <SignUpContent

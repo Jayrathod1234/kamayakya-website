@@ -1,6 +1,6 @@
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CouponModal from "./CouponModal";
 import { getBillingDetails, getSelectedPlanDates } from "@/api/payment";
 import { format } from "date-fns";
@@ -12,33 +12,50 @@ import ToPayTooltip from "./ToPayTooltip";
 import { PLAN } from "@/constants/pricing/plans";
 import { abbreviateTimeForPlan } from "@/lib/date-formatter";
 import Lottie from "lottie-react";
-import POPPER_JSON from '../../../../public/assets/popper.json';
+import POPPER_JSON from "../../../../public/assets/popper.json";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import AuthContext from "@/components/AuthContext";
 export default function ReviewSection({
   setActiveTab,
 }: {
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
 }) {
+  const { isSubscribed } = useContext(AuthContext);
   const { currentPlan, planDates, planDetails, setPlanDetails } = usePaymentContext() as IPaymentContext;
   const [open, setOpen] = useState(false);
-  
+  const mp = getMixPanelClient();
+
   const removeDiscount = () => {
     setPlanDetails((prev) => ({ ...prev, discount: "", discountCode: "" }));
   };
-  let saveText = PLAN[currentPlan.planName?.toLowerCase()]?.tooltip[currentPlan?.planDuration]?.saveText
-  let rupeePartOfSave = ''
-  if(saveText){
-    saveText = saveText.split(" ")
-    rupeePartOfSave = saveText[3]
-
+  let saveText = PLAN[currentPlan.planName?.toLowerCase()]?.tooltip[currentPlan?.planDuration]?.saveText;
+  let rupeePartOfSave = "";
+  if (saveText) {
+    saveText = saveText.split(" ");
+    rupeePartOfSave = saveText[3];
   }
-
 
   return (
     <>
       {/* plan and summary */}
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog
+        open={open}
+        onOpenChange={(openChange) => {
+          if(openChange){
+          mp.track("editplan_clicked",{
+            planDuration:currentPlan.planDuration,
+            planTypeSelected:currentPlan.planName,
+            userType: isSubscribed ? "Paid":"Free"
+          })
+
+          }
+          setOpen(openChange);
+        }}
+      >
         <div className="  mt-9 border border-[#E4E7EC] rounded-lg bg-gray-50 overflow-hidden">
-          {planDetails.discountCode ? <Lottie className=" absolute  pointer-events-none" autoPlay loop={false}  animationData={POPPER_JSON} /> :null}
+          {planDetails.discountCode ? (
+            <Lottie className=" absolute  pointer-events-none" autoPlay loop={false} animationData={POPPER_JSON} />
+          ) : null}
           <div className=" p-4 border-b border-b-[#E4E7EC]">
             <div className=" flex justify-between items-center open_sans">
               <p className=" text-xs text-gray-500">Plan</p>
@@ -67,7 +84,8 @@ export default function ReviewSection({
                 <img src="/assets/offer.svg" height={20} width={20} alt="offer" />
 
                 <p className=" text-2xs font-medium  pt-1">
-                  {saveText.slice(0,3).join(" ")}{" "}<span className=" font-bold">{rupeePartOfSave}</span>{" "}{saveText.slice(4).join(" ")}
+                  {saveText.slice(0, 3).join(" ")} <span className=" font-bold">{rupeePartOfSave}</span>{" "}
+                  {saveText.slice(4).join(" ")}
                 </p>
               </div>
             ) : null}
@@ -136,14 +154,18 @@ export default function ReviewSection({
             <div className=" flex items-center gap-x-1">
               <p className=" text-md font-bold text-gray-950">To Pay</p>
               <ToPayTooltip
-                price={`₹${Number(((Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18).toFixed(2)).toLocaleString("hi")}`}
+                price={`₹${Number(
+                  ((Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18).toFixed(2)
+                ).toLocaleString("hi")}`}
                 saveText={""}
                 strikePrice={""}
-                gst={`₹${Number((
-                  Number(planDetails.totalPayable) -
-                  Number(planDetails.discount) -
-                  (Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18
-                ).toFixed(2)).toLocaleString("hi")}`}
+                gst={`₹${Number(
+                  (
+                    Number(planDetails.totalPayable) -
+                    Number(planDetails.discount) -
+                    (Number(planDetails.totalPayable) - Number(planDetails.discount)) / 1.18
+                  ).toFixed(2)
+                ).toLocaleString("hi")}`}
                 total={`₹${(Number(planDetails.totalPayable) - Number(planDetails.discount)).toLocaleString("hi")}`}
               >
                 <div className=" flex justify-center items-center">
@@ -158,7 +180,19 @@ export default function ReviewSection({
           </div>
         ) : null}
         {/* Next button  */}
-        <Button onClick={() => {if(planDetails?.totalPayable) setActiveTab("details")}} className=" mt-9 w-full" variant={ButtonVariant.primary}>
+        <Button
+          onClick={() => {
+            mp.track("NextButton_Clicked", {
+              page: "InvoiceDetails_Page",
+              plan_duration: currentPlan.planDuration,
+              planType_selected: currentPlan.planName,
+              userType: isSubscribed ? "Paid" : "Free",
+            });
+            if (planDetails?.totalPayable) setActiveTab("details");
+          }}
+          className=" mt-9 w-full"
+          variant={ButtonVariant.primary}
+        >
           Next
         </Button>
         {/* Next button end */}

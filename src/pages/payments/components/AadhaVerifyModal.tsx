@@ -6,6 +6,7 @@ import { DialogClose, DialogContent } from "@/components.v2/ui/dialog";
 import { toast } from "@/components.v2/ui/use-toast";
 import { blockInvalidChar } from "@/components/LoginCard";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
+import { getMixPanelClient } from "@/externals/mixpanel";
 import { useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
@@ -37,6 +38,9 @@ export default function AadhaVerifyModal({
   const [fetchAadharFailed, setFetchAadharFailed] = useState(false);
   const isMobile = useMediaQuery("(max-width:640px)");
   const verySmallScreen = useMediaQuery("(max-width:400px)");
+  const mp =getMixPanelClient();
+
+
   const handleVerifyAadharOtp = async () => {
     try {
       setLoading(true);
@@ -79,6 +83,9 @@ export default function AadhaVerifyModal({
   const handleAadharOtp = async () => {
     try {
       // setAadharOtpLoading(true);
+      mp.track("sendotp_clicked",{
+        page:"InvoiceDetails_Page"
+      })
       setResendOtp(true);
       const res = await getAadharOtp({ aadhaar: aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };

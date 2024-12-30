@@ -20,6 +20,7 @@ import POPPER_JSON from "../../../public/assets/popper.json";
 import SUCCESS_LOTTIE from "../../../public/assets/success_onboarding.json";
 import CONFETTIE from "../../../public/assets/onboarding_confetti.json";
 import { ContactModal } from "@/components.v2/payments/contact-modal";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 const Step1 = ({ setActiveTab, activeTab }) => {
   return (
@@ -89,7 +90,18 @@ const Step1 = ({ setActiveTab, activeTab }) => {
         </div>
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 fixed bottom-0 w-full left-0 sm:relative mt-auto">
-        <ButtonnArrow onClick={() => setActiveTab("step2")} className=" ml-auto" variant={ButtonVariant.primary}>
+        <ButtonnArrow
+          onClick={() => {
+            const mp = getMixPanelClient();
+            mp.track("NextButton_Clicked", {
+              page: "Onboarding_Page",
+              onboarding_step: "1",
+            });
+            setActiveTab("step2");
+          }}
+          className=" ml-auto"
+          variant={ButtonVariant.primary}
+        >
           <p>Next</p>
         </ButtonnArrow>
       </div>
@@ -97,6 +109,7 @@ const Step1 = ({ setActiveTab, activeTab }) => {
   );
 };
 const Step2 = ({ setActiveTab, activeTab }) => {
+  const mp = getMixPanelClient();
   return (
     <div className="min-h-[70vh] flex flex-col">
       <div className=" px-5 lg:px-9 lg:flex lg:flex-row">
@@ -144,7 +157,13 @@ const Step2 = ({ setActiveTab, activeTab }) => {
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto fixed sm:relative bottom-0 w-full left-0">
         <ButtonnArrow
-          onClick={() => setActiveTab("step1")}
+          onClick={() => {
+            mp.track("PreviousButton_Clicked", {
+              page: "Onboarding_Page",
+              onboarding_step: "2",
+            });
+            setActiveTab("step1");
+          }}
           arrowPosition="start"
           arrowStyle=" rotate-180 "
           strokeStyle="stroke-brand-400"
@@ -153,7 +172,16 @@ const Step2 = ({ setActiveTab, activeTab }) => {
         >
           <p>Previous</p>
         </ButtonnArrow>
-        <ButtonnArrow onClick={() => setActiveTab("step3")} variant={ButtonVariant.primary}>
+        <ButtonnArrow
+          onClick={() => {
+            mp.track("NextButton_Clicked", {
+              page: "Onboarding_Page",
+              onboarding_step: "2",
+            });
+            setActiveTab("step3");
+          }}
+          variant={ButtonVariant.primary}
+        >
           <p>Next</p>
         </ButtonnArrow>
       </div>
@@ -177,8 +205,14 @@ const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
   } = useForm<IFormInput>();
   const { user } = useContext(AuthContext);
   const name = watch("fullname");
+  const mp = getMixPanelClient();
+
   const handleName = async (data: IFormInput) => {
     try {
+      mp.track("NextButton_Clicked", {
+        page: "Onboarding_Page",
+        onboarding_step: 3,
+      });
       sessionStorage.setItem("fullname", data?.fullname);
       setFullname(data?.fullname);
       setActiveTab("step4");
@@ -241,7 +275,13 @@ const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
       </div>
       <div className=" bg-gray-50 border border-gray-150 p-4 flex justify-between mt-auto sm:relative fixed bottom-0 w-full left-0">
         <ButtonnArrow
-          onClick={() => setActiveTab("step2")}
+          onClick={() => {
+            mp.track("PreviousButton_Clicked", {
+              page: "Onboarding_Page",
+              onboarding_step: 3,
+            });
+            setActiveTab("step2");
+          }}
           arrowPosition="start"
           arrowStyle=" rotate-180 "
           strokeStyle="stroke-brand-400"
@@ -291,10 +331,13 @@ const Step4 = ({
   const { user } = useContext(AuthContext);
   const email = getValues("email");
   const phone = getValues("phone");
-
+  const mp = getMixPanelClient();
   const verySmallScreen = useMediaQuery("(max-width:400px)");
   const handleEmailOtp = async (data: IFormEmailInput) => {
     try {
+      mp.track("sendotp_clicked", {
+        page: "Onboarding_Page",
+      });
       let params = {
         type: loginMethod === "mobile" ? "email" : "mobile",
 
@@ -330,6 +373,9 @@ const Step4 = ({
   };
   const handleVerifyOtp = async () => {
     try {
+      mp.track("verifyotp_clicked", {
+        page: "Onboarding_Page",
+      });
       let params = {
         type: loginMethod === "mobile" ? "email" : "mobile",
         otp,
@@ -357,6 +403,9 @@ const Step4 = ({
         // }
       }
     } catch (e) {
+      mp.track("invalid_otp_onboarding",{
+        page:"Onboading_Page"
+      })
       toast({
         variant: "warn",
         description: e?.response?.data?.message || "Something went wrong.",
@@ -367,6 +416,15 @@ const Step4 = ({
   };
 
   const handleEditEmail = () => {
+    if (loginMethod === "mobile") {
+      mp.track("editemail_clicked", {
+        page: "Onboarding_Page",
+      });
+    } else {
+      mp.track("editmobilenumber_clicked", {
+        page: "Onboarding_Page",
+      });
+    }
     setDisplayOtpModal(false);
     setOtp("");
   };
@@ -532,8 +590,12 @@ const Step4 = ({
         <h3 className=" m-0  text-xl font-bold text-gray-950">Almost there! </h3>
         <p className=" mt-1 text-sm text-gray-500">
           {loginMethod === "mobile"
-            ? user?.is_new ? "Just one last step! Add and verify your Email ID to get your 3 HOT stock picks for FREE.":"Just one last step! Verify your Email ID to regain access to your membership and continue your smart investing journey."
-            : user?.is_new ? "Just one last step! Add and verify your Mobile number to get your 3 HOT stock picks for FREE.":"Just one last step! Verify your mobile number to regain access to your membership and continue your smart investing journey."}
+            ? user?.is_new
+              ? "Just one last step! Add and verify your Email ID to get your 3 HOT stock picks for FREE."
+              : "Just one last step! Verify your Email ID to regain access to your membership and continue your smart investing journey."
+            : user?.is_new
+            ? "Just one last step! Add and verify your Mobile number to get your 3 HOT stock picks for FREE."
+            : "Just one last step! Verify your mobile number to regain access to your membership and continue your smart investing journey."}
         </p>
       </div>
       <div className="flex flex-col mt-8 pb-[54px] px-5 sm:px-9">
@@ -624,10 +686,12 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
   const { user } = useContext(AuthContext);
   const [secondsRemaining, setSecondsRemaining] = useState(15);
   const router = useRouter();
+  const mp = getMixPanelClient();
 
   useEffect(() => {
     let timeout;
     if (onboardingCompleted) {
+      mp.track("onboarding_successful")
       timeout = setTimeout(() => {
         router.replace("/stock-picks");
       }, 1000 * 15);
@@ -708,7 +772,12 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
         className=" flex flex-col px-11 gap-y-4 "
       >
         <div
-          onClick={() => router.replace("/stock-picks")}
+          onClick={() => {
+            mp.track("stockstobuy_clicked", {
+              page: "Onboarding_Page",
+            });
+            router.replace("/stock-picks");
+          }}
           className="h-[100px]  cursor-pointer p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl"
         >
           <div className=" h-full flex items-center justify-between py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
@@ -730,7 +799,12 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
           </div>
         </div>
         <div
-          onClick={() => router.replace("/track-record")}
+          onClick={() => {
+            mp.track("trackrecord_clicked",{
+              page:"Onboarding_Page"
+            })
+            router.replace("/track-record");
+          }}
           className="min-h-[100px] flex items-center justify-between cursor-pointer py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl"
         >
           <div>
@@ -835,7 +909,7 @@ export default function Onboarding() {
   const isMobile = useMediaQuery("(max-width:640px)");
   const { user } = useContext(AuthContext);
   const router = useRouter();
-
+  const mp = getMixPanelClient();
   const [secondsRemaining, setSecondsRemaining] = useState(15);
 
   useEffect(() => {
@@ -875,18 +949,22 @@ export default function Onboarding() {
     return () => clearTimeout(timeout);
   }, [onboardingCompleted]);
 
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth", // Optional: Smooth scrolling behavior
     });
-  },[activeTab])
+  }, [activeTab]);
 
   useLayoutEffect(() => {
     if (user?.is_onboard) {
       router.replace("/");
     }
   }, [user]);
+
+  useEffect(() => {
+    mp.track("onboarding_window_loaded");
+  }, []);
 
   if (onboardingCompleted && isMobile) {
     return (
@@ -945,7 +1023,12 @@ export default function Onboarding() {
           }}
           className=" flex flex-col px-11 gap-y-4 "
         >
-          <div className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
+          <div onClick={()=>{
+            mp.track("stockstobuy_clicked",{
+              page:"Onboarding_Page"
+            })
+            router.replace("/stock-picks")
+          }} className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
             <div className=" h-full flex justify-between items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
               <div>
                 <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
@@ -964,7 +1047,12 @@ export default function Onboarding() {
               </svg>
             </div>
           </div>
-          <div className="min-h-[100px] flex items-center justify-between py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
+          <div onClick={()=>{
+              mp.track("trackrecord_clicked",{
+                page:"Onboarding_Page"
+              })
+            router.replace("/track-record")
+          }} className="min-h-[100px] flex items-center justify-between py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
             <div>
               <p className=" text-gray-700 font-bold text-md">Track Record</p>
               <p className=" text-sm text-[#667085]">

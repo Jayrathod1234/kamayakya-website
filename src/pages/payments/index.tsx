@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Header from "./components/Header";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
@@ -7,6 +7,7 @@ import CarouselIndicator from "@/components.v3/common/CarouselIndicator";
 import Autoplay from "embla-carousel-autoplay";
 import CouponModal from "./components/CouponModal";
 import ReviewSection from "./components/ReviewSection";
+import { v4 as uuidv4 } from "uuid";
 
 import { TabsContent, TabsList, TabsTrigger, Tabs } from "@/components.v2/ui/tabs";
 import DetailSection from "./components/DetailSection";
@@ -16,6 +17,10 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components.v2/ui/dialog"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import TestimonialSection from "./components/TestimonialSection";
 import { getTrackRecordStats } from "@/api/payment";
+import AuthContext from "@/components/AuthContext";
+import { ACTIVE_PLAN_URL, GET_USER } from "../api/URLs";
+import axios from "axios";
+import { getMixPanelClient } from "@/externals/mixpanel";
 // import { DialogContent } from "@radix-ui/react-dialog";
 
 export default function Index() {
@@ -34,6 +39,102 @@ export default function Index() {
     stock_images: [],
   });
   const pathname = usePathname();
+  const { isLoggedIn } = useContext(AuthContext);
+  const refreshToken = localStorage.getItem("refresh");
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(GET_USER, {
+        method: "GET",
+        headers: {
+          Authorization: `Token ${refreshToken}`,
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (e) {
+      return null;
+    }
+  };
+  const fetchActivePlan = async () => {
+    try {
+      const response = await axios.get(ACTIVE_PLAN_URL, {
+        headers: {
+          Authorization: `token ${refreshToken}`,
+        },
+      });
+      if (response.data) {
+        const days = response.data.current_active_subscription.days;
+        const duration = days > 90 ? "1year" : days > 365 ? "3year" : days > 0 ? "3months" : "";
+        return { ...response.data.current_active_subscription, duration };
+      }
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const handlePageLoadEvent = async () => {
+    const mp = getMixPanelClient();
+
+    const user = await fetchUser();
+    const activePlan = await fetchActivePlan();
+    if (user && activePlan) {
+      mp.track("Invoice_page_loaded", {
+        id: uuidv4(),
+        Session_id: "",
+        time: new Date().toUTCString(),
+        source_page: "",
+        current_url: pathname,
+        account_created_at: user.created,
+        customer_id: user?.id,
+        Curr_Subscription_Type: activePlan.plan,
+        Curr_Plan_Duration: activePlan.duration,
+        Curr_Subscription_Start_date: activePlan.start_date,
+        Curr_Subscription_End_date: activePlan.end_date,
+        usertype: activePlan.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
+        browser_version: "",
+        browser_name: "",
+        device_type: "",
+        device_name: "",
+        utm_campaign: "",
+        utm_content: "",
+        utm_source: "",
+        utm_medium: "",
+        utm_terms: "",
+      });
+    }
+  };
+
+  useEffect(() => {
+    const mp = getMixPanelClient();
+
+    if (isLoggedIn) {
+      handlePageLoadEvent();
+    } else if (!isLoggedIn && !refreshToken) {
+      mp.track("Pricing_page_loaded", {
+        id: uuidv4(),
+        Session_id: "",
+        time: new Date().toUTCString(),
+        source_page: "",
+        current_url: pathname,
+        account_created_at: null,
+        customer_id: null,
+        Curr_Subscription_Type: null,
+        Curr_Plan_Duration: null,
+        Curr_Subscription_Start_date: null,
+        Curr_Subscription_End_date: null,
+        usertype: null,
+        browser_version: "",
+        browser_name: "",
+        device_type: "",
+        device_name: "",
+        utm_campaign: "",
+        utm_content: "",
+        utm_source: "",
+        utm_medium: "",
+        utm_terms: "",
+      });
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const firstdiv = ref.current[0];
