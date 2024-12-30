@@ -2207,4 +2207,10 @@ header > div > div {
   border: 1px solid red;
 }
 
-/* .review__section */
+/* LOGIN MODAL */
+
+@media only screen and (max-height: 668px) {
+  .login__modal .new__user-container {
+    display:none;
+  }
+}

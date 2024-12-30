@@ -452,13 +452,14 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
 
       <DialogContent
         closeClassName=" hidden"
-        className="  !p-0 overflow-hidden !rounded-[20px] open_sans w-[calc(100%-32px)] border-transparent shadow-none bg-transparent  max-w-[840px]  gap-0"
+        className=" login__modal  !p-0 max-sm:flex max-sm:flex-col h-full w-[calc(100%-32px)] max-w-[840px] flex items-center justify-center overflow-hidden !rounded-[20px] open_sans  border-transparent shadow-none bg-transparent gap-0"
       >
+        <div className=" mx-auto">
         <div className="flex flex-col sm:flex-row !rounded-[20px] overflow-hidden bg-white">
-          <div className=" max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
+          <div className="new__user-container max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
             <div className=" flex flex-col max-sm:items-start items-center min-w-0">
               <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
-              <div className=" sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
+              <div className="  sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
                 <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
                 <NewUserList label="Get 3 Hot Stocks for Free" />
                 <NewUserList label="Unlock KamayaKya’s Track Record" />
@@ -479,10 +480,11 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
           <div>
             <p className=" text-xs">
               Currently, SMS verification is only available for Indian phone numbers. For international users, please
-              call or whatsapp us at <span className=" font-medium"> +91 9175939641</span> or email us at  <span className=" font-medium">contact@kamayakya.com</span> for assistance.<span className=" block mt-3"></span> We apologize
+              call or whatsapp us at <span className=" font-medium whitespace-nowrap"> +91 9175939641</span> or email us at  <span className=" font-medium">contact@kamayakya.com</span> for assistance.<span className=" block mt-3"></span> We apologize
               for the inconvenience and appreciate your understanding!
             </p>
           </div>
+        </div>
         </div>
       </DialogContent>
     </Dialog>
