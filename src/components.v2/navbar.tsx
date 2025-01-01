@@ -57,7 +57,7 @@ export function Navbar({
   const [showModal, setShowModal] = useState(false);
   const { setVisible, bindings } = useModal();
   const [isSticky, setIsSticky] = useState(pathname == "/stock-picks");
-
+  const [isLoading,setIsLoading] = useState(true);
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
     mp.track(event, properties);
@@ -131,6 +131,12 @@ export function Navbar({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(()=>{
+    setIsLoading(false)
+  },[isLoggedIn])
+
+  if(isLoading) return null
 
   return (
     <div
