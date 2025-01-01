@@ -11,7 +11,7 @@ import Header from "./components/Header";
 import { Controller, useForm } from "react-hook-form";
 import { getEmailPhoneOtp, verifyEmailPhoneOtp } from "@/api/onboarding";
 import AuthContext from "@/components/AuthContext";
-import PhoneInput, { isPossiblePhoneNumber } from "react-phone-number-input";
+import PhoneInput, { getCountryCallingCode, isPossiblePhoneNumber } from "react-phone-number-input";
 import { toast } from "@/components.v2/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { axiosApi } from "@/utils/axios";
@@ -291,6 +291,7 @@ const Step4 = ({
   const { user } = useContext(AuthContext);
   const email = getValues("email");
   const phone = getValues("phone");
+  const [countryCode, setCountryCode] = useState("91");
 
   const verySmallScreen = useMediaQuery("(max-width:400px)");
   const handleEmailOtp = async (data: IFormEmailInput) => {
@@ -311,6 +312,7 @@ const Step4 = ({
         params = {
           ...params,
           mobile: data.phone,
+          country_code: `+${countryCode}`,
         };
       }
       setSendingOtp(true);
@@ -339,7 +341,7 @@ const Step4 = ({
       if (loginMethod === "mobile") {
         params = { ...params, email: email };
       } else {
-        params = { ...params, mobile: phone };
+        params = { ...params, mobile: phone, country_code: `+${countryCode}` };
       }
       setVerifyingOtp(true);
 
@@ -532,8 +534,12 @@ const Step4 = ({
         <h3 className=" m-0  text-xl font-bold text-gray-950">Almost there! </h3>
         <p className=" mt-1 text-sm text-gray-500">
           {loginMethod === "mobile"
-            ? user?.is_new ? "Just one last step! Add and verify your Email ID to get your 3 HOT stock picks for FREE.":"Just one last step! Verify your Email ID to regain access to your membership and continue your smart investing journey."
-            : user?.is_new ? "Just one last step! Add and verify your Mobile number to get your 3 HOT stock picks for FREE.":"Just one last step! Verify your mobile number to regain access to your membership and continue your smart investing journey."}
+            ? user?.is_new
+              ? "Just one last step! Add and verify your Email ID to get your 3 HOT stock picks for FREE."
+              : "Just one last step! Verify your Email ID to regain access to your membership and continue your smart investing journey."
+            : user?.is_new
+            ? "Just one last step! Add and verify your Mobile number to get your 3 HOT stock picks for FREE."
+            : "Just one last step! Verify your mobile number to regain access to your membership and continue your smart investing journey."}
         </p>
       </div>
       <div className="flex flex-col mt-8 pb-[54px] px-5 sm:px-9">
@@ -580,6 +586,10 @@ const Step4 = ({
                     defaultCountry="IN"
                     placeholder="Enter phone number"
                     className=" border-green-400"
+                    onCountryChange={(country) => {
+                      const currentCode = getCountryCallingCode(country);
+                      setCountryCode(currentCode);
+                    }}
                   />
                 </>
               )}
@@ -875,12 +885,12 @@ export default function Onboarding() {
     return () => clearTimeout(timeout);
   }, [onboardingCompleted]);
 
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth", // Optional: Smooth scrolling behavior
     });
-  },[activeTab])
+  }, [activeTab]);
 
   useLayoutEffect(() => {
     if (user?.is_onboard) {

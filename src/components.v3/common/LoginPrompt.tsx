@@ -1,6 +1,6 @@
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
 import React, { useContext, useEffect, useState } from "react";
-import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
+import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber,getCountryCallingCode } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components.v2/button";
@@ -60,7 +60,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   const [verifyingOtp, setVerifyingOtp] = useState(false);
   const [otp, setOtp] = useState("");
   const [displayOtpModal, setDisplayOtpModal] = useState(false);
-
+  const [countryCode,setCountryCode] = useState("91");
   const { setUser, setShowLoginModal } = useContext(AuthContext);
   const isMobile = useMediaQuery("(max-width:600px)");
   const verySmallScreen = useMediaQuery("(max-width:400px)");
@@ -76,6 +76,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
       params = {
         ...params,
         mobile: data.phone,
+        country_code:`+${countryCode}`
       };
     } else {
       params = {
@@ -109,6 +110,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         params = {
           ...params,
           mobile: phone,
+          country_code:`+${countryCode}`
         };
       } else {
         params = {
@@ -305,6 +307,12 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
                   <PhoneInput
                     value={value}
                     onChange={onChange}
+                    onCountryChange={(countryCode)=>{
+                      console.log(countryCode)
+                      const currentCode = getCountryCallingCode(countryCode)
+                      console.log(currentCode)
+                      setCountryCode(currentCode)
+                    }}
                     defaultCountry="IN"
                     placeholder="Enter phone number"
                     className=" border-green-400 "
