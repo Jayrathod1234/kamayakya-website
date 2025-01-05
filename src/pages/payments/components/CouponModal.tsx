@@ -37,7 +37,7 @@ const CouponListItem = ({
           // className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
         >
           <Button
-          onClick={onClick}
+            onClick={onClick}
             className=" bg-transparent !px-[10px] !py-2 border border-dashed border-brand-500"
             variant={ButtonVariant.secondary}
           >
@@ -91,6 +91,11 @@ export default function CouponModal() {
         //   variant: "warn",
         //   description: e?.response?.data?.message,
         // });
+      } else {
+        toast({
+          variant:"warn",
+          description: e?.response?.data?.message,
+        });
       }
     } finally {
       setLoading(false);
@@ -208,7 +213,8 @@ export default function CouponModal() {
               disableTooltip={currentDiscountSelected?.length > 0 ? true : false}
               tooltipContent={
                 <ol className=" m-0 px-2">
-                  <li className=" text-sm">Enter code & click 'Check' to validate.</li> <li className=" text-sm"> Select the approved code. </li>
+                  <li className=" text-sm">Enter code & click 'Check' to validate.</li>{" "}
+                  <li className=" text-sm"> Select the approved code. </li>
                   <li className=" text-sm">Click 'Apply' to use it.</li>
                 </ol>
               }
