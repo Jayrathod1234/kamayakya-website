@@ -16,3 +16,13 @@ export function abbreviateTimeForPlan(text:string) {
   .replace(/\s*months?\s*/g, ' months')  // Replace 'month' or 'months' with 'm', removing surrounding spaces
   .replace(/\s*days?\s*/g, ' day');   // Replace 'day' or 'days' with 'd', removing surrounding spaces
 }
+
+export function convertDaysToPlanDuration(days:number){
+  if(days < 365 ){
+    return '3 months'
+  }
+  if(days > 365){
+    return '3 years'
+  }
+  return '1 year'
+}
