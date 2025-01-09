@@ -521,7 +521,7 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
               />
             </div>
           </div>
-          <div className=" mt-[10px] gap-x-4 !rounded-[20px] flex  items-start bg-[#EFF7FF] border border-[#A6D3FF] p-4">
+          {/* <div className=" mt-[10px] gap-x-4 !rounded-[20px] flex  items-start bg-[#EFF7FF] border border-[#A6D3FF] p-4">
             <img className=" pt-[3px]" height={32} width={32} alt="info-icon" src="/info-fill.svg" />
             <div>
               <p className=" text-xs">
@@ -532,7 +532,7 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
                 understanding!
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </DialogContent>
     </Dialog>
