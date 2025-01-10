@@ -24,7 +24,7 @@ export default function ReviewSection({
   const removeDiscount = () => {
     setPlanDetails((prev) => ({ ...prev, discount: "", discountCode: "" }));
   };
-  let saveText = PLAN[currentPlan.planName?.toLowerCase()]?.tooltip[currentPlan?.planDuration]?.saveText
+  let saveText = PLAN[(currentPlan.planName?.toLowerCase())]?.tooltip[(currentPlan?.planDuration) as any]?.saveText
   let rupeePartOfSave = ''
   if(saveText){
     saveText = saveText.split(" ")
@@ -47,7 +47,7 @@ export default function ReviewSection({
               </DialogTrigger>
             </div>
             <p className=" text-gray-950 mt-[6px] text-sm font-semibold">
-              {PLAN[currentPlan.planName?.toLowerCase()]?.paymentPageLabel} (
+              {PLAN[(currentPlan.planName?.toLowerCase()) as keyof typeof PLAN]?.paymentPageLabel} (
               {abbreviateTimeForPlan(currentPlan?.planDuration)})
             </p>
           </div>

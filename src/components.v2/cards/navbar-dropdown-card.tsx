@@ -91,7 +91,7 @@ export function NavbarDropdownCard({
           <DropDownItemContent
             onClick={() => {
               handleEvent("myaccount_clicked", { page: "Pricing_Page" });
-              handleRouting("/user-profile");
+              handleRouting("/profile");
             }}
             icon={<User size={16} />}
             option="My Account"

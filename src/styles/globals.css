@@ -2214,3 +2214,19 @@ header > div > div {
     display:none;
   }
 }
+
+
+
+/*billing table */
+.billing__table::-webkit-scrollbar {
+  width: 16px;
+}
+.billing__table::-webkit-scrollbar-thumb {
+  background-color: #D3D6DF !important; 
+  border-radius: 16px;
+
+}
+
+.billing__table::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

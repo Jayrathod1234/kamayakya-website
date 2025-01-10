@@ -237,7 +237,7 @@ export default function Page() {
               </p>
             </div>
             {/* PLAN SECTION */}
-            <section className="">
+            <section id="plan-section" className="">
               <PlansSection />
             </section>
           </div>
