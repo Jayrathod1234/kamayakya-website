@@ -111,13 +111,13 @@ export default function YourPlan() {
               </div>
             )}
           </div>
-          <Link className=" text-inherit max-sm:hidden" href={"/pricing"}>
+          <Link className=" text-inherit max-sm:hidden" href={"/pricing#plan-section"}>
             <ChevronRight />
           </Link>
         </div>
         <div className=" sm:hidden flex items-center justify-between mt-4 p-4 border-t border-t-[#00000014]">
           <p className=" font-medium text-sm">Renew / Upgrade Plan</p>
-          <Link className=" text-inherit" href={"/pricing"}>
+          <Link className=" text-inherit" href={"/pricing#plan-section"}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M9.74976 16.5L14.249 12.0007L9.74976 7.50146"

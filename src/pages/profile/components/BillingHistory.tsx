@@ -170,9 +170,9 @@ export default function BillingHistory() {
     <div id="billing-history">
       <SectionHead sectionHead="Billing History" />
       <section className="mt-3 flex flex-col gap-y-4 sm:hidden">
-        {data.map((plan) => (
+        {Array.isArray(data) && data?.length > 0 ? data.map((plan) => (
           <PlanCards key={plan?.id} plan={plan} />
-        ))}
+        )): <p className=" text-center">No Plans found. </p>}
       </section>
       <section className="mt-3 max-sm:hidden bg-white p-6 rounded-xl">
         <div className="flex items-center py-4">

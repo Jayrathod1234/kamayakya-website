@@ -120,7 +120,7 @@ export default function PlanCards({ plan }) {
             <p className=" text-2xs text-gray-500">{subtext}</p>
           </div>
           <div className=" col-start-3 ml-auto">
-            <p className=" font-bold text-brand-400">₹{plan.paid_amount}</p>
+            <p className=" font-bold text-brand-400">₹{plan?.paid_amount?.toLocaleString("en-IN")}</p>
           </div>
         </div>
         <div className=" mt-5">
@@ -175,7 +175,7 @@ export default function PlanCards({ plan }) {
             </div>
             <div className=" col-span-1 p-3 border border-[#EDEDED] rounded-md">
               <p className=" text-[#707070] text-2xs truncate">Order Number</p>
-              <p className=" text-[#121212] text-xs mt-1 font-medium truncate">{sessionStorage.getItem("orderId")}</p>
+              <p className=" text-[#121212] text-xs mt-1 font-medium truncate">{plan.order_number}</p>
             </div>
             <div className=" col-span-1 p-3 border border-[#EDEDED] rounded-md">
               <p className=" text-[#707070] text-2xs truncate">Payment Time</p>
