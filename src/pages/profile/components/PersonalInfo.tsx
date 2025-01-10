@@ -11,6 +11,7 @@ import { getUserProfileOtp } from "@/api/profile";
 import { EmailChangeDialog } from "./EmailChangDialog";
 import { PhoneChangeDialog } from "./PhoneChangeDialog";
 import { useActivePlanContext } from "@/components/PlanContext";
+import { useMediaQuery } from "@mui/material";
 
 enum EDialogContent {
   EMAIL = "EMAIL",
@@ -35,9 +36,9 @@ const ContactInfo = ({ contactField, contactValue, dialogContent }: IContactInfo
   function getDialog(content: EDialogContent) {
     switch (content) {
       case EDialogContent.EMAIL:
-        return <EmailChangeDialog closeDialog={closeDialog} />;
+        return <EmailChangeDialog dialogStatus={open} closeDialog={closeDialog} />;
       case EDialogContent.PHONE:
-        return <PhoneChangeDialog closeDialog={closeDialog} />;
+        return <PhoneChangeDialog dialogStatus={open} closeDialog={closeDialog} />;
       case EDialogContent.VERIFY_OTP:
         return null;
       default:
@@ -49,8 +50,8 @@ const ContactInfo = ({ contactField, contactValue, dialogContent }: IContactInfo
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <div>
-          <p className=" text-sm font-medium text-gray-500">{contactField}</p>
-          <p className=" text-md text-gray-900">{contactValue}</p>
+          <p className=" text-2xs sm:text-sm font-medium text-gray-500">{contactField}</p>
+          <p className=" mt-2 text-sm sm:text-md text-gray-900">{contactValue}</p>
         </div>
         <DialogTrigger>
           <Button className=" !px-[18px] !py-2" variant={ButtonVariant.tertiary}>
@@ -65,27 +66,32 @@ const ContactInfo = ({ contactField, contactValue, dialogContent }: IContactInfo
 
 export default function PersonalInfo() {
   const { user } = useContext(AuthContext);
+  const isMobile = useMediaQuery("(max-width:640px)")
   const activePlan  = useActivePlanContext();
 
   return (
     <div id="personal-info">
       <SectionHead sectionHead="Personal Info" />
-      <div className="bg-white pt-6 mt-3 rounded-xl">
-        <div className=" px-6 ">
+      <div className="bg-white pt-3 sm:pt-6 mt-3 rounded-xl">
+        <div className=" px-3 sm:px-6 ">
           <div className=" bg-gray-50 rounded-2xl">
-            <div className=" flex items-center justify-between p-6 ">
+            <div className=" p-3 sm:p-6 ">
               <div className=" flex items-center gap-x-3 ">
-                <Avatar variant={"custom"} customImgSize={80} />
-                <h3 className="p-[10px] font-bold text-display-xs">{user?.fullname}</h3>
+                <Avatar imgClassName=" max-sm:h-12 max-sm:w-14" variant={"custom"} customImgSize={80} />
+                <div className=" flex max-sm:flex-col sm:items-center sm:justify-between w-full">
+                <h3 className="sm:p-[10px] font-semibold sm:font-medium text-md sm:text-display-xs text-[#020816] mb-0">{user?.username}</h3>
+                <PlanBadge iconSize={ isMobile ? 10: 16} labelClassName="  text-4xs font-semibold sm:text-xs sm:font-bold" className=" h-fit max-sm:mt-1" plan={activePlan.activePlan.plan} />
+                </div>
+               
               </div>
-              <PlanBadge iconSize={16} labelClassName=" text-xs font-bold" className=" h-fit" plan={activePlan.activePlan.plan} />
+             
             </div>
           </div>
         </div>
-        <div className=" p-6 flex items-center justify-between">
+        <div className=" p-4 sm:p-6 flex items-center justify-between">
           <ContactInfo dialogContent={EDialogContent.EMAIL} contactField={"Email ID"} contactValue={user?.email} />
         </div>
-        <div className=" px-6 py-4 flex items-center justify-between border-t border-t-[#F0F1F2]">
+        <div className=" p-4 sm:px-6 py-4 flex items-center justify-between border-t border-t-[#F0F1F2]">
           <ContactInfo
             dialogContent={EDialogContent.PHONE}
             contactField={"Mobile Number"}

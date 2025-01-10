@@ -68,8 +68,8 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
   }
 
   return (
-    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-y-6 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px]">
-      <h4 className=" text-[20px] font-semibold text-gray-900">Verify your email</h4>
+    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-y-6 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans">
+      <h4 className=" text-[20px] font-semibold text-gray-900 mb-0">Verify your email</h4>
       <p className=" text-sm text-gray-500">
         Please enter the OTP sent to {email}.{" "}
         <button onClick={goBack} className=" text-brand-500">
@@ -100,8 +100,7 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
           shouldAutoFocus={true}
           // disabled={isLoading}
         />
-      </div>
-      <p className=" text-2xs mt-2">
+         <p className=" text-2xs mt-5">
         {" "}
         Haven’t received the OTP?{" "}
         {secondsRemaining === 0 ? (
@@ -112,6 +111,8 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
           `${secondsRemaining} seconds`
         )}
       </p>
+      </div>
+     
       <div className=" mt-1 flex items-center justify-end gap-x-4">
         <Button onClick={closeDialog} className=" !py-3" variant={ButtonVariant.tertiary}>
           <p className=" text-sm">Cancel</p>

@@ -7,11 +7,12 @@ type TPlanBadge = {
   icon?: React.ReactNode;
   className?:string;
   labelClassName?:string;
-  iconSize?:number
+  iconSize?:number;
+  iconClassName?:string;
 };
 
-export function PlanBadge({ plan, icon,className, labelClassName ,iconSize  }: TPlanBadge) {
-  icon = icon ? icon : plan.toLowerCase() !== "free" ? <Crown size={iconSize ?? 10} className=" text-orange-600" /> : null;
+export function PlanBadge({ plan, icon,className, labelClassName ,iconSize, iconClassName  }: TPlanBadge) {
+  icon = icon ? icon : plan.toLowerCase() !== "free" ? <Crown size={iconSize ?? 10} className={cn(" text-orange-600",iconClassName)} /> : null;
   return (
     <div className={cn(" max-w-fit px-2 py-[2px] bg-orange-200 flex items-center justify-center gap-x-[3px] rounded-[4px]",className)}>
       <div>

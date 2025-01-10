@@ -1,7 +1,7 @@
 import { getUserProfileOtp } from "@/api/profile";
 import { Button, ButtonVariant } from "@/components.v2/button/button";
 import { DialogContent } from "@/components.v2/ui/dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "@/components.v2/ui/use-toast";
 import { VerifyEmailOtpDialog } from "./VerifyEmailOtpDialog";
 import PhoneInput, { isPossiblePhoneNumber, getCountryCallingCode, isValidPhoneNumber } from "react-phone-number-input";
@@ -18,8 +18,9 @@ interface IGetOtp{
   countryCode:string
 }
 
-interface IEmailChangeDialog {
+interface IPhoneChangeDialog {
   closeDialog: () => void;
+  dialogStatus:boolean;
 }
 
 export async function getOtp(data: IGetOtp) {
@@ -39,7 +40,7 @@ export async function getOtp(data: IGetOtp) {
   }
 }
 
-export const PhoneChangeDialog = ({ closeDialog }: IEmailChangeDialog) => {
+export const PhoneChangeDialog = ({ closeDialog, dialogStatus }: IPhoneChangeDialog) => {
   const {
     control,
     handleSubmit,
@@ -74,6 +75,13 @@ export const PhoneChangeDialog = ({ closeDialog }: IEmailChangeDialog) => {
     }
   }
 
+  useEffect(()=>{
+      //if user closes verify dialog, reset dialog to show phone input section , if dialog is opened again
+      if(!dialogStatus){
+        setDisplayVerifyDialog(false)
+      }
+    },[dialogStatus])
+
   return displayVerifyDialog ? (
     <VerifyPhoneDialog
       phone={phone}
@@ -84,7 +92,7 @@ export const PhoneChangeDialog = ({ closeDialog }: IEmailChangeDialog) => {
       closeDialog={closeDialog}
     />
   ) : (
-    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-0 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px]">
+    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-0 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans">
       <h4 className=" text-[20px] font-semibold text-gray-900">Edit Mobile Number</h4>
       <p className=" text-xs text-gray-500 mb-1">
         Mobile Number <span className=" text-error-500">*</span>
@@ -106,7 +114,7 @@ export const PhoneChangeDialog = ({ closeDialog }: IEmailChangeDialog) => {
           render={({ field: { value, onChange } }) => (
             <>
               <PhoneInput
-                value={value}
+                // value={value}
                 onChange={onChange}
                 onCountryChange={(countryCode) => {
                   if (countryCode) {
@@ -115,6 +123,7 @@ export const PhoneChangeDialog = ({ closeDialog }: IEmailChangeDialog) => {
                     setCountryCode(currentCode);
                   }
                 }}
+                //@ts-ignore
                 defaultCountry={country}
                 placeholder="Enter phone number"
                 className=" border-green-400 "

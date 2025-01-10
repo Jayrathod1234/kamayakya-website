@@ -1,13 +1,14 @@
 import { getUserProfileOtp } from "@/api/profile";
 import { Button, ButtonVariant } from "@/components.v2/button/button";
 import { DialogContent } from "@/components.v2/ui/dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "@/components.v2/ui/use-toast";
 import { VerifyEmailOtpDialog } from "./VerifyEmailOtpDialog";
 
 interface IEmailModal {
   email: string;
+ 
 }
 
 interface IGetOtp{
@@ -17,6 +18,7 @@ interface IGetOtp{
 
 interface IEmailChangeDialog {
   closeDialog: () => void;
+  dialogStatus:boolean;
 }
 
 export async function getOtp(data: IGetOtp) {
@@ -35,7 +37,7 @@ export async function getOtp(data: IGetOtp) {
   }
 }
 
-export const EmailChangeDialog = ({ closeDialog }: IEmailChangeDialog) => {
+export const EmailChangeDialog = ({ closeDialog, dialogStatus }: IEmailChangeDialog) => {
   const {
     register,
     handleSubmit,
@@ -69,6 +71,13 @@ export const EmailChangeDialog = ({ closeDialog }: IEmailChangeDialog) => {
     }
   }
 
+  useEffect(()=>{
+    //if user closes verify dialog, reset dialog to show email input section , if dialog is opened again
+    if(!dialogStatus){
+      setDisplayVerifyDialog(false)
+    }
+  },[dialogStatus])
+
   return displayVerifyDialog ? (
     <VerifyEmailOtpDialog
       email={email}
@@ -78,7 +87,7 @@ export const EmailChangeDialog = ({ closeDialog }: IEmailChangeDialog) => {
       closeDialog={closeDialog}
     />
   ) : (
-    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-0 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px]">
+    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-0 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans">
       <h4 className=" text-[20px] font-semibold text-gray-900">Edit Email</h4>
       <p className=" text-xs text-gray-500 mb-1">
         Email <span className=" text-error-500">*</span>

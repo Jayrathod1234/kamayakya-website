@@ -14,7 +14,7 @@ export default function Profile() {
       <div className=" main-container overflow-visible relative top-[41px]">
         <main className=" relative min-h-screen open_sans flex gap-x-6 lg:gap-x-11">
           <SideBar />
-          <div>
+          <div className=" w-full">
             <h2 className=" text-gray-900 font-bold text-[32px]">Your Account</h2>
             <div className=" flex flex-col gap-y-[60px] mt-10">
               <PersonalInfo />
