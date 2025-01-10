@@ -17,7 +17,7 @@ import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from
 export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
   const { isLoggedIn } = useContext(AuthContext);
   const { activePlan } = useActivePlanContext();
-  const [currentTab, setCurrentTab] = useState<"3months" | "1year" | "3year">("1year");
+  const [currentTab, setCurrentTab] = useState<"3months" | "1year" | "3year">("3months");
   const [currentPlanViewing, setCurrentPlanViewing] = useState("vip");
   const [plans, setPlans] = useState<TPlan | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -27,8 +27,8 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
 
   const tabOptions = [
     { label: "3 Months", value: "3months" },
-    { label: "1 Year", value: "1year" },
-    { label: "3 Years", value: "3year" },
+    // { label: "1 Year", value: "1year" },
+    // { label: "3 Years", value: "3year" },
   ];
 
   const handleLogin = () => {
@@ -136,21 +136,14 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
         <p className=" text-xl text-[#101828] font-semibold">Choose Your Plan</p>
         <div className=" max-h-[520px] overflow-y-scroll">
           <div className=" relative flex justify-center mb-14 md:mb-0 pt-10 md:pb-14 pb-6">
-            <div className="relative">
-              {/* <Image
-            className=" block md:hidden absolute -rotate-2 md:rotate-0 -right-12  md:-right-16 -top-12  bg-blend-multiply"
-            height={58}
-            width={98}
-            src={"/save_33.png"}
-            alt="save-33%"
-          /> */}
-              <img
+            <div className="relative">            
+              {/* <img
                 className=" block -right-5 -top-8 absolute bg-blend-multiply"
                 height={40.75}
                 width={76}
                 src={"/save_33.png"}
                 alt="save-33%"
-              />
+              /> */}
               <Tabs
                 activeValue={currentTab}
                 setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>}
@@ -158,7 +151,7 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
                 options={tabOptions}
                 variant={TabsVariant.md}
               />
-              <img className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" />
+              {/* <img className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" /> */}
             </div>
           </div>
           <div className=" flex w-full min-h-[82px] gap-x-2 ">
@@ -174,12 +167,12 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
               selected={currentPlanViewing === "core"}
             />
             {/* {currentTab !== "3months" && ( */}
-              <PlansMobileTab
+              {/* <PlansMobileTab
                 onClick={() => handlePlanSelect("advanced")}
                 plan="ADVANCED"
                 features={["SME Board"]}
                 selected={currentPlanViewing === "advanced"}
-              />
+              /> */}
             {/* )} */}
             <PlansMobileTab
               onClick={() => handlePlanSelect("vip")}

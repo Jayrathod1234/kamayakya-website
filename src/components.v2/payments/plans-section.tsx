@@ -29,7 +29,7 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 export function PlansSection() {
   const { isLoggedIn,showLoginModal,setShowLoginModal } = useContext(AuthContext);
   const { activePlan } = useActivePlanContext();
-  const [currentTab, setCurrentTab] = useState<"3months" | "1year" | "3year">("1year");
+  const [currentTab, setCurrentTab] = useState<"3months" | "1year" | "3year">("3months");
   const [currentPlanViewing, setCurrentPlanViewing] = useState("vip");
   const [plans, setPlans] = useState<TPlan | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -37,8 +37,8 @@ export function PlansSection() {
   const router = useRouter();
   const tabOptions = [
     { label: "3 Months", value: "3months" },
-    { label: "1 Year", value: "1year" },
-    { label: "3 Years", value: "3year" },
+    // { label: "1 Year", value: "1year" },
+    // { label: "3 Years", value: "3year" },
   ];
 
   const handleLogin = () => {
@@ -156,20 +156,14 @@ export function PlansSection() {
     <div>
       <div className=" relative flex justify-center mb-14 md:mb-0 pt-10 md:pb-14 pb-6">
         <div className="relative">
+          
           {/* <Image
-            className=" block md:hidden absolute -rotate-2 md:rotate-0 -right-12  md:-right-16 -top-12  bg-blend-multiply"
-            height={58}
-            width={98}
-            src={"/save_33.png"}
-            alt="save-33%"
-          /> */}
-          <Image
             className=" block -right-5 -top-8 absolute bg-blend-multiply"
             height={40.75}
             width={76}
             src={"/save_33.png"}
             alt="save-33%"
-          />
+          /> */}
           <Tabs
             activeValue={currentTab}
             setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>}
@@ -177,7 +171,7 @@ export function PlansSection() {
             options={tabOptions}
             variant={TabsVariant.md}
           />
-          <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" />
+          {/* <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" /> */}
         </div>
       </div>
       <div>

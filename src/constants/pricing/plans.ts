@@ -60,7 +60,7 @@ export const CORE_PLAN: TPlan = {
   featureList: [
     {
       icon: "/icons/check_only.svg",
-      feature: "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
+      feature: "20+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
     },
     { icon: "/icons/check_only.svg", feature: "2-4 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
@@ -140,7 +140,7 @@ export const VIP_PLAN: TPlan = {
   featureList: [
     {
       icon: "/icons/check_only.svg",
-      feature: "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
+      feature: "20+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
     },
     { icon: "/icons/check_only.svg", feature: "10+ SME board stocks to buy every year" },
     { icon: "/icons/check_only.svg", feature: "3-5 new stock picks every month" },
