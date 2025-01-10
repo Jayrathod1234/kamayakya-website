@@ -94,7 +94,7 @@ export default function CouponModal() {
       } else {
         toast({
           variant:"warn",
-          description: e?.response?.data?.message,
+          description: e?.response?.data?.message || "Something went wrong.",
         });
       }
     } finally {
