@@ -130,3 +130,5 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
     </DialogContent>
   );
 };
+
+export default VerifyEmailOtpDialog

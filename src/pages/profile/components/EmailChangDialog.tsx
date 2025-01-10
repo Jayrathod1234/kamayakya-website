@@ -138,3 +138,5 @@ export const EmailChangeDialog = ({ closeDialog, dialogStatus }: IEmailChangeDia
     </DialogContent>
   );
 };
+
+export default EmailChangeDialog

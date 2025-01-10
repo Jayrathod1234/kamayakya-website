@@ -150,3 +150,5 @@ export const PhoneChangeDialog = ({ closeDialog, dialogStatus }: IPhoneChangeDia
     </DialogContent>
   );
 };
+
+export default PhoneChangeDialog

@@ -164,3 +164,5 @@ export const VerifyPhoneDialog = ({ phone, countryCode, goBack, closeDialog }: I
     </DialogContent>
   );
 };
+
+export default VerifyPhoneDialog
