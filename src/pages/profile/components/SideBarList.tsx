@@ -72,7 +72,7 @@ export function SideBar() {
       },
       {
         root: null,
-        threshold: 0.85, // trigger if atleast 85% of element in viewport
+        threshold: .95, // trigger if atleast 85% of element in viewport
       }
     );
 

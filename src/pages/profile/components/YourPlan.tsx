@@ -130,6 +130,14 @@ export default function YourPlan() {
           </Link>
         </div>
       </div>
+      <div className=" mt-[10px] gap-x-2 !rounded-[20px] flex  items-center bg-[#EFF7FF] border border-[#A6D3FF] p-4">
+            <img className=" pt-[0px]" height={24} width={24} alt="info-icon" src="/info-fill.svg" />
+            <div>
+              <p className=" text-xs">
+              To cancel your membership, please email us <Link  href={"mailto:contact@kamayakya.com"} className=" text-inherit font-medium">contact@kamayakya.com</Link>  We're here to help!
+              </p>
+            </div>
+          </div>
     </div>
   );
 }

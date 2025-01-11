@@ -248,7 +248,7 @@ export default function PlanCards({ plan }) {
               ) : null}
             </div>
           </div>
-          <Button
+          {plan?.invoice && <Button
             onClick={() => window.open(plan.invoice, "_blank")}
             className=" border-[#0000001A] gap-x-[6px] mx-auto !w-fit"
             variant={ButtonVariant.primary}
@@ -264,7 +264,8 @@ export default function PlanCards({ plan }) {
             </svg>
 
             <p className=" text-sm ">Download Invoice</p>
-          </Button>
+          </Button>}
+          
         </div>
       </DrawerContent>
     </Drawer>

@@ -115,9 +115,11 @@ export const columns = [
     header: "Invoice",
     enableSorting: false,
     cell: ({ row }: any) => {
+      const invoiceLink = row.getValue("invoice")
+      if(!invoiceLink) return <p className=" w-full text-center">NA</p>
       return (
         <div className=" flex items-center justify-center">
-          <Link target="_blank" href={row.getValue("invoice") || ""}>
+          <Link target="_blank" href={ invoiceLink}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M6.00004 7.33337V11.3334M6.00004 11.3334L7.33337 10M6.00004 11.3334L4.66671 10M14.6667 6.66671V10C14.6667 13.3334 13.3334 14.6667 10 14.6667H6.00004C2.66671 14.6667 1.33337 13.3334 1.33337 10V6.00004C1.33337 2.66671 2.66671 1.33337 6.00004 1.33337H9.33337M14.6667 6.66671H12C10 6.66671 9.33337 6.00004 9.33337 4.00004V1.33337M14.6667 6.66671L9.33337 1.33337"
