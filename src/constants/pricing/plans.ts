@@ -116,6 +116,10 @@ export const ADVANCED_PLAN: TPlan = {
   popular: false,
   btnVariant: ButtonVariant.secondary,
   tooltip: {
+    "3months":{
+      price:"₹3389.8",
+      gst:"₹610.2"
+    },
     "1year": {
       price: "₹10,169.5",
       gst: "₹2,288.5",

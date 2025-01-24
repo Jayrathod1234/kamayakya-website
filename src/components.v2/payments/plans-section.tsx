@@ -144,6 +144,7 @@ export function PlansSection() {
       }
       const response = await axios.get(PLANS_URL);
       const formattedPlans = formatPlans(response.data);
+      // console.log("FORMATTED PLANS",formattedPlans)
       setPlans(formattedPlans);
     } catch (e) {}
   };
@@ -233,17 +234,19 @@ export function PlansSection() {
             <>
               {plans[currentTab].map((plan: TPlanResponse) => {
                 const { btnText, ctaDisabled, planName, priceStrikeThrough } = handlePlanProps(plan);
-                if(currentTab === "3months" && planName === "advanced") return
+                // if(currentTab === "3months" && planName === "advanced") return
                 return (
                   <PlanCardDesktop
                     active={activePlan.plan === plan.name}
                     className={
                       PLAN[planName].className +
                       `${
-                        currentTab === "3months" && plan.name === "vip"
-                          ? " md:!col-start-1 md:col-span-full md:justify-self-center"
-                          : ""
-                      }${plan.name.toLowerCase() === "free" ? "" : ""}${plan.name.toLowerCase() === "vip" ? " " : ""}`
+                        " "
+                        // currentTab === "3months" && plan.name === "vip"
+                          // ? 
+                          // " md:!col-start-1 md:col-span-full md:justify-self-center "
+                          // : "" 
+                      } ${plan.name.toLowerCase() === "free" ? "" : ""}${plan.name.toLowerCase() === "vip" ? " " : ""}`
                     }
                     subtext={""}
                     plan={plan.name}
