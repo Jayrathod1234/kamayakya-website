@@ -37,7 +37,7 @@ export function PlansSection() {
   const router = useRouter();
   const tabOptions = [
     { label: "3 Months", value: "3months" },
-    // { label: "1 Year", value: "1year" },
+    { label: "1 Year", value: "1year" },
     // { label: "3 Years", value: "3year" },
   ];
 
@@ -168,7 +168,7 @@ export function PlansSection() {
           <Tabs
             activeValue={currentTab}
             setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>}
-            defaultOption="1year"
+            defaultOption={currentTab}
             options={tabOptions}
             variant={TabsVariant.md}
           />
