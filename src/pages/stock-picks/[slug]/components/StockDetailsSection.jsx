@@ -26,6 +26,7 @@ function StockDetailsSection() {
   const [openTooltip, setOpenTooltip] = useState(false);
   const { items, isLoading, error } = useStockDetails();
   const {
+    id,
     stock_name,
     stock_exchange,
     stock_symbol,
@@ -52,7 +53,6 @@ function StockDetailsSection() {
     stock_image,
     created,
   } = items || {};
-
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -1372,7 +1372,7 @@ function StockDetailsSection() {
                     <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-bold max-sm:uppercase sm:font-semibold font-open_sans mb-0 px-4 sm:px-0">
                       News
                     </h2>
-                    <StockDetailsNews stock_name={stock_name} />
+                    <StockDetailsNews stock_id={id} type={"pick"} />
                   </div>
                   {/* News Section End  */}
                 </div>

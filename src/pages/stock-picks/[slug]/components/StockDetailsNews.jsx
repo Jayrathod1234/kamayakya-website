@@ -1,8 +1,14 @@
 import React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getNewsListApi } from "@/api/stock-picks";
+import { getStockUpdates } from "@/api/shared";
 import { formatDistanceToNow } from "date-fns";
-const StockDetailsNews = ({ stock_name }) => {
+import { Button } from "@/components.v2/button";
+import { ButtonVariant } from "@/components.v2/button/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
+import { Avatar } from "@/components.v2/avatar";
+import ReactSpeedometer from "react-d3-speedometer";
+
+const StockDetailsNews = ({ stock_id, type }) => {
   const {
     data: response,
     isLoading,
@@ -12,21 +18,24 @@ const StockDetailsNews = ({ stock_name }) => {
   } = useInfiniteQuery({
     queryKey: ["newsList"],
     queryFn: ({ pageParam = 1 }) =>
-      getNewsListApi({
+      getStockUpdates({
         page: pageParam,
         limit: 10,
-        stock_name,
+        stock_id,
+        type,
       }),
     getNextPageParam: (data) => {
       // console.log("===getNextPageParam====", data);
-      const { meta } = data;
-      // Function to determine the parameter for fetching the next page
-      if (meta.found / meta.limit > meta.page) return meta.page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
+      return data;
+      // const { meta } = data;
+      // // Function to determine the parameter for fetching the next page
+      // if (meta.found / meta.limit > meta.page) return meta.page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
   });
   // const [news,setNews] = useState()
   // const items = response?.pages?.flatMap((page) => page) ?? [];
   const items = response?.pages?.flatMap((page) => page.data);
+  // const items = response?.data;
   // console.log(items,response)
   const newsItems = [
     {
@@ -78,13 +87,21 @@ const StockDetailsNews = ({ stock_name }) => {
       link: "/news/vidhi-specialty-food-approval",
     },
   ];
+  console.log(items, response);
 
   if (!items || items?.length === 0) {
     return (
       <div className=" pt-3 ">
         <div className=" py-[2.5rem] sm:py-[72px] flex flex-col items-center justify-center bg-[#F9FAFB] sm:bg-white sm:rounded-[10px]">
-          <img width={102} height={90} className=" w-full h-full max-w-[102px] max-h-[90px]" src="/assets/no_news.svg"/>
-          <p className=" text-2xs text-gray-600 text-center max-w-[188px]">Recent news are not available for this stock.</p>
+          <img
+            width={102}
+            height={90}
+            className=" w-full h-full max-w-[102px] max-h-[90px]"
+            src="/assets/no_news.svg"
+          />
+          <p className=" text-2xs text-gray-600 text-center max-w-[188px]">
+            Recent news are not available for this stock.
+          </p>
         </div>
       </div>
     );
@@ -94,47 +111,86 @@ const StockDetailsNews = ({ stock_name }) => {
     <div className="px-4 sm:px-0">
       <div className="sm:pt-[12px] pt-[0px]   ">
         {items?.map((item, index) => (
-          <a key={index} target="_blank" href={item?.url} className="block  group">
-            <div className="flex flex-row md:flex-row items-start md:items-center gap-4 py-4 px-1 rounded-md  cursor-pointer group-hover:bg-white transition">
-              {/* <!-- Image Section --> */}
-              <div className="flex-shrink-0">
-              <object   className="w-[80px] h-[60px] md:w-[80px] md:h-[60px] object-cover rounded-md" data={item?.image_url} type="image/jpeg">
-                <img
-                  src={'/assets/news-placeholder.svg'}
-                  // onError={(e)=>{e.currentTarget.src="/assets/news-placehold.svg";e.currentTarget.}}
-                  alt={item.title}
-                  className="w-[80px] h-[60px] md:w-[80px] md:h-[60px] object-cover rounded-md"
-                />
-                </object>
-              </div>
-
-              {/* <!-- Content Section --> */}
-              <div className="flex-1 font-open_sans min-w-0">
-                <div className="flex flex-col gap-1">
-                  {/* <!-- Title --> */}
-                  <p className="text-2xs sm:text-sm font-medium text-gray-800 line-clamp-2 font-open_sans">
-                    {item.title}
-                  </p>
-                  {/* <!-- Meta Info --> */}
-                  <div className="flex items-center gap-2 text-2xs sm:text-2xs md:text-2xs text-gray-500 truncate min-w-0">
-                    <span className=" truncate min-w-0">{item.source}</span>
-                    <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                    <span>
-                      {formatDistanceToNow(new Date(item.published_at), {
-                        addSuffix: true,
-                      })}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* <!-- Arrow/Action Icon --> */}
-              <div className="flex items-center justify-end md:flex group pt-5 sm:pt-0">
-                <img src="/assets/share1.svg" alt="" className="block group-hover:hidden" />
-                <img src="/assets/share3.svg" alt="" className="hidden group-hover:block" />
-              </div>
+          <div className=" p-4 flex gap-x-4 bg-white mb-5 " key={item.id}>
+            <div className="  py-2 min-h-full flex flex-col">
+              <ReactSpeedometer
+                currentValueText=""
+                width={150}
+                height={82}
+                ringWidth={20}
+                needleHeightRatio={0.85}
+                value={
+                  item.impact === "medium" && item.sentiment === "neutral"
+                    ? 500
+                    : item.impact === "low" && item.sentiment === "neutral"
+                    ? 250
+                    : item.impact === "high" && item.sentiment === "neutral"
+                    ? 750
+                    : item.impact === "low" && item.sentiment === "bearish"
+                    ? 245
+                    : item.impact === "medium" && item.sentiment === "bearish"
+                    ? 150
+                    : item.impact === "high" && item.sentiment === "bearish"
+                    ? 0
+                    : item.impact === "low" && item.sentiment === "bullish"
+                    ? 755
+                    : item.impact === "medium" && item.sentiment === "bullish"
+                    ? 800
+                    : 1000
+                }
+                maxSegmentLabels={0}
+                segments={5555}
+              />
+              <p className=" text-2xs text-center text-[#12B76A] mt-3">{item.sentiment}</p>
+              <p className=" mt-auto flex items-center justify-center gap-x-1 normal-case bg-[#DDF9E7] text-[#475467] text-center rounded-b-2xl text-4xs font-semibold py-[2px]">
+                <span>
+                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_17102_208756)">
+                      <path
+                        d="M5.50004 7.16667V9.25M7.16671 6.33333V9.25M8.83338 4.66667V9.25M9.66671 1.75L6.06421 5.3525C6.04486 5.3719 6.02187 5.38729 5.99656 5.3978C5.97124 5.4083 5.94411 5.41371 5.91671 5.41371C5.88931 5.41371 5.86217 5.4083 5.83686 5.3978C5.81155 5.38729 5.78856 5.3719 5.76921 5.3525L4.39754 3.98083C4.35847 3.94178 4.30549 3.91984 4.25025 3.91984C4.19501 3.91984 4.14203 3.94178 4.10296 3.98083L1.33337 6.75M2.16671 8V9.25M3.83337 6.33333V9.25"
+                        stroke="#475467"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_17102_208756">
+                        <rect width="10" height="10" fill="white" transform="translate(0.5 0.5)" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </span>
+                <span>{item.impact} Impact</span>
+              </p>
             </div>
-          </a>
+            <div className=" w-full">
+              <h4 className=" text-md font-semibold text-gray-950 m-0">{item?.title}</h4>
+              <p className=" text-3xs text-[#667085] mt-0">{formatDistanceToNow(new Date(item.created))}</p>
+              <div className="  p-2 pt-3 bg-[#FFFBF6] border border-[#FEF0DF] rounded-lg mt-7 relative">
+                <div className=" gap-x-1 bg-[#FEDF89] flex items-center rounded-r-[30px] w-fit pr-2 pl-1 py-[2px] absolute -top-3 left-0">
+                  <img src="/avatar-card.png" className=" h-4 w-4 object-cover" />
+                  <p className=" text-3xs font-semibold text-[#93370D]">Analyst View</p>
+                </div>
+                <p className=" text-xs text-[#4E1D09] ">{item?.analysis_content}</p>
+              </div>
+              <Accordion className=" mt-3" collapsible>
+                <AccordionItem value="item-1" className=" border-b-0">
+                  <AccordionContent>
+                    <div className=" flex items-center gap-x-3">
+                      <p className=" text-3xs font-semibold text-brand-300">News</p>
+                      <div className=" w-full h-[1px] bg-brand-200"></div>
+                    </div>
+                    <p className=" text-xs text-gray-600">{item.updates_content}</p>
+                  </AccordionContent>
+                  <AccordionTrigger className=" hover:no-underline" chevron={false}>
+                    <Button className=" !py-[5px] !px-3" variant={ButtonVariant.primary}>
+                      <p className=" text-2xs">Read more</p>
+                    </Button>
+                  </AccordionTrigger>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
         ))}
       </div>
       <div
