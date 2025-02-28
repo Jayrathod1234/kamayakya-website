@@ -7,8 +7,12 @@ import { ButtonVariant } from "@/components.v2/button/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import { Avatar } from "@/components.v2/avatar";
 import ReactSpeedometer from "react-d3-speedometer";
+import { usePathname } from "next/navigation";
+import { useMediaQuery } from "@mui/material";
 
 const StockDetailsNews = ({ stock_id, type }) => {
+  const pathname = usePathname();
+  const isMobile = useMediaQuery("(max-width:640px)")
   const {
     data: response,
     isLoading,
@@ -22,7 +26,7 @@ const StockDetailsNews = ({ stock_id, type }) => {
         page: pageParam,
         limit: 10,
         stock_id,
-        type,
+        type: pathname?.includes("track-record") ? "track" : "pick",
       }),
     getNextPageParam: (data) => {
       // console.log("===getNextPageParam====", data);
@@ -87,7 +91,7 @@ const StockDetailsNews = ({ stock_id, type }) => {
       link: "/news/vidhi-specialty-food-approval",
     },
   ];
-  console.log(items, response);
+  
 
   if (!items || items?.length === 0) {
     return (
@@ -108,41 +112,46 @@ const StockDetailsNews = ({ stock_id, type }) => {
   }
 
   return (
-    <div className="px-4 sm:px-0">
+    <div className="px-4 sm:px-0 open_sans">
       <div className="sm:pt-[12px] pt-[0px]   ">
         {items?.map((item, index) => (
-          <div className=" p-4 flex gap-x-4 bg-white mb-5 " key={item.id}>
-            <div className="  py-2 min-h-full flex flex-col">
-              <ReactSpeedometer
-                currentValueText=""
-                width={150}
-                height={82}
-                ringWidth={20}
-                needleHeightRatio={0.85}
-                value={
-                  item.impact === "medium" && item.sentiment === "neutral"
-                    ? 500
-                    : item.impact === "low" && item.sentiment === "neutral"
-                    ? 250
-                    : item.impact === "high" && item.sentiment === "neutral"
-                    ? 750
-                    : item.impact === "low" && item.sentiment === "bearish"
-                    ? 245
-                    : item.impact === "medium" && item.sentiment === "bearish"
-                    ? 150
-                    : item.impact === "high" && item.sentiment === "bearish"
-                    ? 0
-                    : item.impact === "low" && item.sentiment === "bullish"
-                    ? 755
-                    : item.impact === "medium" && item.sentiment === "bullish"
-                    ? 800
-                    : 1000
-                }
-                maxSegmentLabels={0}
-                segments={5555}
-              />
-              <p className=" text-2xs text-center text-[#12B76A] mt-3">{item.sentiment}</p>
-              <p className=" mt-auto flex items-center justify-center gap-x-1 normal-case bg-[#DDF9E7] text-[#475467] text-center rounded-b-2xl text-4xs font-semibold py-[2px]">
+          <div className=" p-4 grid grid-cols-[.35fr_1fr] sm:gap-x-4 bg-white mb-5 shadow-md rounded-[20px] " key={item.id}>
+            <div className=" sm:col-start-1 row-start-1 sm:row-end-3 h-full  pt-2 flex flex-col items-center  bg-[#F9FAFB] rounded-l-xl sm:rounded-xl">
+              <div 
+              // style={{width: isMobile? "72px":"150px", height:isMobile?'32px':'82px'}} 
+              className=" my-auto">
+                <ReactSpeedometer
+                  currentValueText=""
+                  // fluidWidth
+                  width={ isMobile ? 72:150}
+                  height={ isMobile ? 46:82}
+                  ringWidth={isMobile ? 12:20}
+                  needleHeightRatio={isMobile ? 0.5:0.85}
+                  value={
+                    item.impact === "medium" && item.sentiment === "neutral"
+                      ? 500
+                      : item.impact === "low" && item.sentiment === "neutral"
+                      ? 250
+                      : item.impact === "high" && item.sentiment === "neutral"
+                      ? 750
+                      : item.impact === "low" && item.sentiment === "bearish"
+                      ? 245
+                      : item.impact === "medium" && item.sentiment === "bearish"
+                      ? 150
+                      : item.impact === "high" && item.sentiment === "bearish"
+                      ? 0
+                      : item.impact === "low" && item.sentiment === "bullish"
+                      ? 755
+                      : item.impact === "medium" && item.sentiment === "bullish"
+                      ? 800
+                      : 1000
+                  }
+                  maxSegmentLabels={0}
+                  segments={5555}
+                />
+                <p className="capitalize font-semibold text-3xs sm:text-2xs text-center text-[#12B76A] mt-[6px] sm:mt-3">{item.sentiment}</p>
+              </div>
+              <p className=" w-full max-sm:hidden capitalize rounded-b-xl mt-auto flex items-center justify-center gap-x-1  bg-[#DDF9E7] text-[#475467] text-center text-4xs font-semibold py-[2px]">
                 <span>
                   <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_17102_208756)">
@@ -163,13 +172,15 @@ const StockDetailsNews = ({ stock_id, type }) => {
                 <span>{item.impact} Impact</span>
               </p>
             </div>
-            <div className=" w-full">
-              <h4 className=" text-md font-semibold text-gray-950 m-0">{item?.title}</h4>
-              <p className=" text-3xs text-[#667085] mt-0">{formatDistanceToNow(new Date(item.created))}</p>
-              <div className="  p-2 pt-3 bg-[#FFFBF6] border border-[#FEF0DF] rounded-lg mt-7 relative">
-                <div className=" gap-x-1 bg-[#FEDF89] flex items-center rounded-r-[30px] w-fit pr-2 pl-1 py-[2px] absolute -top-3 left-0">
+            <div className=" max-sm:py-3 max-sm:rounded-r-xl max-sm:bg-[#F9FAFB]  sm:col-start-2 flex flex-col ">
+              <h4 className=" max-sm:order-2 text-xs sm:text-md font-bold sm:font-semibold text-gray-950 m-0">{item?.title}</h4>
+              <p className=" max-sm:order-1 text-3xs text-[#667085] mt-0">{formatDistanceToNow(new Date(item.created))}</p>
+            </div>
+            <div className=" col-start-1 col-span-full sm:col-start-2 sm:row-start-2 w-full flex flex-col">
+              <div className="  p-2 sm:pt-3 bg-[#FFFBF6] border border-[#FEF0DF] rounded-lg max-sm:rounded-tl-none mt-7 relative">
+                <div className=" gap-x-1 bg-[#FEDF89] flex items-center rounded-r-[30px] w-fit pr-2 pl-1 py-[2px] absolute max-sm:rounded-t-[8px] max-sm:rounded-b-none -top-5 sm:-top-3 left-[-1px] sm:left-0">
                   <img src="/avatar-card.png" className=" h-4 w-4 object-cover" />
-                  <p className=" text-3xs font-semibold text-[#93370D]">Analyst View</p>
+                  <p className=" text-4xs sm:text-3xs font-semibold text-[#93370D]">Analyst View</p>
                 </div>
                 <p className=" text-xs text-[#4E1D09] ">{item?.analysis_content}</p>
               </div>
@@ -182,7 +193,7 @@ const StockDetailsNews = ({ stock_id, type }) => {
                     </div>
                     <p className=" text-xs text-gray-600">{item.updates_content}</p>
                   </AccordionContent>
-                  <AccordionTrigger className=" hover:no-underline" chevron={false}>
+                  <AccordionTrigger className=" hover:no-underline py-0" chevron={false}>
                     <Button className=" !py-[5px] !px-3" variant={ButtonVariant.primary}>
                       <p className=" text-2xs">Read more</p>
                     </Button>

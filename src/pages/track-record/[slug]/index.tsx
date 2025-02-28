@@ -43,6 +43,7 @@ function StockDetailsSection() {
     enabled: !!slug, // Only run the query if slug is present
   });
   const {
+    id,
     stock_name,
     stock_exchange,
     stock_symbol,
@@ -1296,7 +1297,7 @@ function StockDetailsSection() {
                         <h2 className="text-[#0C111D] sm:text-xl text-[14px] font-bold max-sm:uppercase sm:font-semibold font-open_sans mb-0 px-4 sm:px-0">
                           News
                         </h2>
-                        <StockDetailsNews stock_name={stock_name} />
+                        <StockDetailsNews stock_id={id} />
                       </div>
                       {/* News Section End  */}
                     </div>
