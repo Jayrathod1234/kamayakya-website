@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Navbar } from "@/components.v2/navbar";
 import { getQuarterlyUpdates } from "../../api/vip-updates/index";
-import { Button } from "@/components.v2/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PDF_ICON from "../../../public/assets/pdf.svg";
 import VIDEO_ICON from "../../../public/assets/play.svg";
@@ -9,23 +8,29 @@ import { Footer } from "@/components.v2/footer";
 import { useQuery } from "@tanstack/react-query";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
 import { useMediaQuery } from "@mui/material";
+import AuthContext from "@/components/AuthContext";
+import { Button, ButtonVariant } from "@/components.v2/button/button";
+import { Button as SButton } from "@/components.v2/ui/button";
+import { useActivePlanContext } from "@/components/PlanContext";
+import ElevateSection from "../stock-picks/components/ElevateSection";
 const QUARTERS = ["Q4", "Q3", "Q2", "Q1"];
 
 export default function Page() {
   const [pagination, setPagination] = useState({ pageIndex: 1, pageSize: 3 });
-  
+  const { isLoggedIn, handleLogin } = useContext(AuthContext);
+  const { activePlan } = useActivePlanContext();
   const {
     data: quarterlyUpdates = [],
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["quarterlyUpdates", pagination],
-    queryFn: () => getQuarterlyUpdates(pagination),
+    queryKey: ["quarterlyUpdates", pagination, isLoggedIn, activePlan.plan],
+    queryFn: () => getQuarterlyUpdates(pagination, isLoggedIn, activePlan.plan),
     select: (responseData) => {
       const data = responseData?.data || {};
       const pagination = responseData?.pagination || {};
-      setHasNext(pagination.has_next)
-      setHasPrevious(pagination.has_previous)
+      setHasNext(pagination.has_next);
+      setHasPrevious(pagination.has_previous);
       const yearsArray = Object.keys(data);
       setYears(yearsArray.reverse());
 
@@ -41,8 +46,8 @@ export default function Page() {
   const isMobile = useMediaQuery("(max-width:640px)");
   const isTab = useMediaQuery("(max-width:1024px)");
   const [years, setYears] = useState([]);
-  const [hasPrevious,setHasPrevious] = useState(false);
-  const [hasNext,setHasNext] = useState(false);
+  const [hasPrevious, setHasPrevious] = useState(false);
+  const [hasNext, setHasNext] = useState(false);
   const nextPage = () => {
     setPagination((prev) => ({ ...prev, pageIndex: prev.pageIndex + 1 }));
   };
@@ -60,18 +65,66 @@ export default function Page() {
       setPagination({ pageIndex: 1, pageSize: 3 });
     }
   }, [isMobile, isTab]);
-  console.log(years.length)
+
   return (
-    <main className="open_sans bg-gray-50">
+    <main className="open_sans bg-gray-50 bg-[length:100vw] bg-no-repeat bg-[top_center]">
+      <div className=" absolute ">
+        <img className=" h-[60vh] w-screen object-cover" src="/assets/vip-update-bg.png" alt="vip_bg" />
+        <div className=" w-full bg-[linear-gradient(272deg,_#125B54_18.54%,_#092E2B_107.09%) h-[120px] -mt-[9rem] relative"></div>
+      </div>
       <Navbar />
-      <section className="mt-8 sm:mt-[55px] main-container">
+      <section className="mt-8 sm:mt-[55px] main-container relative z-10">
         <h2 className="text-display-xs sm:text-display-md font-bold text-center">Quarterly Updates</h2>
 
         <div
-          className={`mt-12 grid grid-cols-3  ${
-            years.length === 1 ? "lg:grid-cols-3 sm:grid-cols-3" : years.length === 2 ? "lg:grid-cols-4 sm:grid-cols-4 " : " sm:grid-cols-4 lg:grid-cols-5"
-          } items-center place-content-center bg-white rounded-[20px] border border-gray-200`}
+          className={`mt-12 grid grid-cols-[.3fr_1fr_.4fr]  ${
+            years.length === 1
+              ? "lg:grid-cols-[.3fr_1fr_.4fr] sm:grid-cols-[.3fr_1fr_.4fr]"
+              : years.length === 2
+              ? "lg:grid-cols-[.3fr_1fr_1fr_.4fr] sm:grid-cols-[.3fr_1fr_1fr_.4fr] "
+              : " sm:grid-cols-[.3fr_1fr_1fr_.4fr] lg:grid-cols-[.3fr_1fr_1fr_1fr_.4fr]"
+          } items-center place-content-center bg-white rounded-[20px] border border-gray-200 relative`}
         >
+          {isLoggedIn ? null : (
+            <div className="absolute h-full w-full backdrop-blur-sm flex items-center justify-center">
+              <div className=" flex flex-col justify-center items-center">
+                <div className=" p-[10px] h-fit w-fit  bg-[rgba(255,255,255,1)] rounded-[10px] border border-brand-300 flex items-center justify-center shadow-[0px_0px_40px_-9px_rgba(19,135,137,0.46),0px_4px_40px_12px_rgba(118,237,223,0.05)]">
+                  <img
+                    height={36}
+                    width={36}
+                    className=" object-contain h-9 w-9"
+                    src="/assets/noto_locked.png"
+                    alt="lock"
+                  />
+                </div>
+                <p className=" font-medium mt-[10px] mb-[18px]">Login to Unlock</p>
+                <Button onClick={handleLogin} variant={ButtonVariant.primary}>
+                  Login
+                </Button>
+              </div>
+            </div>
+          )}
+          {activePlan.plan !== "vip" && isLoggedIn ? (
+            <div className="absolute h-full w-full backdrop-blur-sm flex items-center justify-center">
+              <div className=" flex flex-col justify-center items-center">
+                <div className=" p-[4px] h-fit w-fit  bg-[rgba(255,255,255,1)] rounded-[10px] border border-brand-300 flex items-center justify-center shadow-[0px_0px_40px_-9px_rgba(19,135,137,0.46),0px_4px_40px_12px_rgba(118,237,223,0.05)]">
+                  <div className="bg-[#EBFBF0] p-[7px] rounded-md">
+                    <img
+                      height={33}
+                      width={33}
+                      className=" object-contain h-[33px] w-[33px]"
+                      src="/assets/vip_icon.svg"
+                      alt="lock"
+                    />
+                  </div>
+                </div>
+                <p className=" font-medium mt-[10px] mb-[18px] text-center">
+                  Text to nudge the user to upgrade to VIP or highlight the benefits of quarterly updates
+                </p>
+                <Button variant={ButtonVariant.primary}>Upgrade to VIP</Button>
+              </div>
+            </div>
+          ) : null}
           {/* Empty cell for alignment */}
           <div className="py-3 border-b border-b-gray-200 w-full text-md">&nbsp;</div>
 
@@ -84,13 +137,16 @@ export default function Page() {
 
           {/* Navigation buttons */}
           <div className="flex items-center justify-center space-x-5 h-full border-b border-b-gray-200 w-full">
-            {hasPrevious ? <Button onClick={previousPage} className=" h-7 w-7 bg-[#0C111D] rounded-full" size="icon">
-              <ChevronLeft size={18} />
-            </Button> : null}
-           {hasNext? <Button onClick={nextPage} className=" h-7 w-7 bg-[#0C111D] rounded-full" size="icon">
-              <ChevronRight size={18} />
-            </Button> : null}
-            
+            {hasPrevious ? (
+              <SButton onClick={previousPage} className=" h-7 w-7 bg-[#0C111D] rounded-full" size="icon">
+                <ChevronLeft size={18} />
+              </SButton>
+            ) : null}
+            {hasNext ? (
+              <SButton onClick={nextPage} className=" h-7 w-7 bg-[#0C111D] rounded-full" size="icon">
+                <ChevronRight size={18} />
+              </SButton>
+            ) : null}
           </div>
 
           {/* Quarterly Data */}
@@ -156,6 +212,9 @@ export default function Page() {
           ))}
         </div>
       </section>
+      <div className=" mt-4">
+      <ElevateSection/>
+      </div>
       <Footer />
     </main>
   );
