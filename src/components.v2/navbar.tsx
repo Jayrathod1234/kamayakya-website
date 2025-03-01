@@ -277,7 +277,7 @@ export function Navbar({
                             : false
                         }
                       >
-                        {navigationOption.title}
+                        {navigationOption.title}{navigationOption.title?.includes("Vip") ? <span className=" ml-1"><img height={24} width={24} src="/assets/vip_new_badge.png" alt="" /></span>:null}
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>

@@ -227,7 +227,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                       }`}
                     >
                       <p className={` text-[#475467] ${ !pathname?.includes("stock-picks") ? (pathname?.includes(nav.link) ? "text-black" : "") : sessionStorage.getItem("sebiBoardType") === "sme" && nav.title?.includes("SME") ? "text-black" :  sessionStorage.getItem("sebiBoardType") === "mainboard" && nav.title?.includes("Stocks") ?"text-black" :""}`}>
-                        {nav.title}
+                      {nav.title}{nav.title?.includes("Vip") ?  <span className=" ml-1"><img height={24} width={24} src="/assets/vip_new_badge.png" alt="" /></span>:null}
                       </p>
                       {stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"] ? (
                         <NewStockbadge label={stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"]} />
