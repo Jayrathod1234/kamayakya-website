@@ -41,7 +41,7 @@ export default function Page() {
   });
   const isMobile = useMediaQuery("(max-width:640px)");
   const isTab = useMediaQuery("(max-width:1024px)");
-  const [years, setYears] = useState([]);
+  const [years, setYears] = useState<Array<null | string>>([]);
   const [hasPrevious, setHasPrevious] = useState(false);
   const [hasNext, setHasNext] = useState(false);
   const nextPage = () => {
@@ -74,7 +74,6 @@ export default function Page() {
         {isLoading ? (
           <div>
             <div className=" flex items-center justify-center flex-wrap gap-y-1 max-sm:py-3 max-sm:pb-7 sm:gap-6">
-              <Skeleton variant="rounded"  width={"25%"} height={45} />
               <Skeleton variant="rounded" width={"25%"} height={45} />
               <Skeleton variant="rounded" width={"25%"} height={45} />
               <Skeleton variant="rounded" width={"25%"} height={45} />
@@ -85,7 +84,8 @@ export default function Page() {
               <Skeleton variant="rounded" width={"25%"} height={45} />
               <Skeleton variant="rounded" width={"25%"} height={45} />
               <Skeleton variant="rounded" width={"25%"} height={45} />
-              <Skeleton variant="rounded" width={"25%"} height={45} /> 
+              <Skeleton variant="rounded" width={"25%"} height={45} />
+              <Skeleton variant="rounded" width={"25%"} height={45} />
             </div>
           </div>
         ) : (
@@ -176,7 +176,7 @@ export default function Page() {
                 {years.map((year) => {
                   const quarterYearData = quarterlyUpdates.find((item) => item[`${quarter}_${year}`])?.[
                     `${quarter}_${year}`
-                  ];
+                  ] as { pdf: string; video_link: string; }[]
 
                   return (
                     <div

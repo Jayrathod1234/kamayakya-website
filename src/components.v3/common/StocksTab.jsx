@@ -29,12 +29,13 @@ export default function StocksTab() {
   return (
     <div className="flex justify-center items-center w-full">
       <Tabs
+       activeValue={value}
         responsive={false}
         className=" dark block bg-white py-4"
         // tabListClassname={"dark"}
         tabTriggerClassname={` px-8 sm:px-10 `}
         variant={TabsVariant.lg}
-        defaultOption={"mainboard"}
+        defaultOption={value}
         options={[
           {
             label: (
@@ -72,7 +73,7 @@ export default function StocksTab() {
           },
         ]}
         setSelectedOption={setValue}
-        activeValue={value}
+       
       />
     </div>
   );

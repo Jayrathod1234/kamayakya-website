@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getStockUpdates } from "@/api/shared";
 import { formatDistanceToNow } from "date-fns";
@@ -9,6 +9,75 @@ import { Avatar } from "@/components.v2/avatar";
 import ReactSpeedometer from "react-d3-speedometer";
 import { usePathname } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
+
+import { useEffect, useRef } from 'react';
+import style from './GaugeComponent.module.css';
+
+const GaugeComponent = ({ value = 180,size = 'medium' }) => {
+  const [currentValue, setCurrentValue] = useState(0);
+
+  useEffect(() => {
+    // Start from 0 and animate to the target value
+    setCurrentValue(0);
+    const timeout = setTimeout(() => {
+      setCurrentValue(value);
+    }, 50); // Small delay to ensure the initial 0 is set
+
+    return () => clearTimeout(timeout);
+  }, [value]);
+
+  useEffect(() => {
+    // Set custom scale based on size prop
+    const scales = {
+      small: 0.5,
+      medium: 1,
+      large: 1.5
+    };
+    
+    document.documentElement.style.setProperty('--gauge-scale', scales[size]);
+  }, [size]);
+
+   // Convert value (0-1000) to degrees (0-180)
+   const valueToDegrees = (val) => {
+    // Map 0-1000 to 0-180
+    return (val / 1000) * 180;
+  };
+
+  // Convert value (0-1000) to needle rotation (-90 to 90 degrees)
+  const valueToNeedleRotation = (val) => {
+    // Map 0-1000 to -90-90
+    return (val / 1000) * 180 - 90;
+  };
+
+  return (
+    <div className={style.gaugeContainer}>
+    <div className={style.gaugeContent}>
+      <div className={style.gaugeMask}>
+        <div className={style.gaugeSemiCircle}>
+          {Array.from({ length: 3 }, (_, i) => (
+            <span 
+              key={i} 
+              className={style.gaugeStep}
+              style={{ transform: `rotate(${i * 120}deg)` }}
+            />
+          ))}
+          {/* Add needle */}
+          <div 
+              className={style.needle}
+              style={{ transform: `rotate(${valueToNeedleRotation(currentValue)}deg)` }}
+            />
+            <div className={style.needleCenter} />
+        </div>
+        <div 
+          className={style.gaugeSemiCircleMask}
+          style={{ transform: `rotate(${180}deg)` }}
+        />
+      </div>
+    </div>
+  </div>
+  );
+};
+export { GaugeComponent}
 
 const StockDetailsNews = ({ stock_id, type }) => {
   const pathname = usePathname();
@@ -41,56 +110,6 @@ const StockDetailsNews = ({ stock_id, type }) => {
   const items = response?.pages?.flatMap((page) => page.data);
   // const items = response?.data;
   // console.log(items,response)
-  const newsItems = [
-    {
-      id: 1,
-      image: "/assets/image1.png",
-      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
-      source: "The Hindu Businessline",
-      time: "4 hours ago",
-      link: "/news/vidhi-specialty-food-approval",
-    },
-    {
-      id: 2,
-      image: "/assets/image1.png",
-      title: "Another News Item Title",
-      source: "The Times of India",
-      time: "2 hours ago",
-      link: "/news/another-news-item",
-    },
-    {
-      id: 3,
-      image: "/assets/image1.png",
-      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
-      source: "The Hindu Businessline",
-      time: "4 hours ago",
-      link: "/news/vidhi-specialty-food-approval",
-    },
-    {
-      id: 4,
-      image: "/assets/image1.png",
-      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
-      source: "The Hindu Businessline",
-      time: "4 hours ago",
-      link: "/news/vidhi-specialty-food-approval",
-    },
-    {
-      id: 5,
-      image: "/assets/image1.png",
-      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
-      source: "The Hindu Businessline",
-      time: "4 hours ago",
-      link: "/news/vidhi-specialty-food-approval",
-    },
-    {
-      id: 6,
-      image: "/assets/image1.png",
-      title: "Vidhi Specialty Food Ingredients Ltd receives approval from GIDC for discharge of industrial effluent",
-      source: "The Hindu Businessline",
-      time: "4 hours ago",
-      link: "/news/vidhi-specialty-food-approval",
-    },
-  ];
   
 
   if (!items || items?.length === 0) {
@@ -115,40 +134,20 @@ const StockDetailsNews = ({ stock_id, type }) => {
     <div className="px-4 sm:px-0 open_sans">
       <div className="sm:pt-[12px] pt-[0px]   ">
         {items?.map((item, index) => (
-          <div className=" p-4 grid grid-cols-[.35fr_1fr] sm:gap-x-4 bg-white mb-5 shadow-md rounded-[20px] " key={item.id}>
+          <div className=" p-4 grid grid-cols-[.35fr_1fr] sm:grid-cols-[.25fr_1fr] sm:gap-x-4 bg-white mb-5 shadow-md rounded-[20px] " key={item.id}>
             <div className=" sm:col-start-1 row-start-1 sm:row-end-3 h-full  pt-2 flex flex-col items-center  bg-[#F9FAFB] rounded-l-xl sm:rounded-xl">
               <div 
-              // style={{width: isMobile? "72px":"150px", height:isMobile?'32px':'82px'}} 
+              //  style={{width: isMobile? "80px":"150px", height:isMobile?'80px':'82px'}} 
               className=" my-auto">
-                <ReactSpeedometer
-                  currentValueText=""
-                  // fluidWidth
-                  width={ isMobile ? 72:150}
-                  height={ isMobile ? 46:82}
-                  ringWidth={isMobile ? 12:20}
-                  needleHeightRatio={isMobile ? 0.5:0.85}
-                  value={
-                    item.impact === "medium" && item.sentiment === "neutral"
-                      ? 500
-                      : item.impact === "low" && item.sentiment === "neutral"
-                      ? 250
-                      : item.impact === "high" && item.sentiment === "neutral"
-                      ? 750
-                      : item.impact === "low" && item.sentiment === "bearish"
-                      ? 245
-                      : item.impact === "medium" && item.sentiment === "bearish"
-                      ? 150
-                      : item.impact === "high" && item.sentiment === "bearish"
-                      ? 0
-                      : item.impact === "low" && item.sentiment === "bullish"
-                      ? 755
-                      : item.impact === "medium" && item.sentiment === "bullish"
-                      ? 800
-                      : 1000
-                  }
-                  maxSegmentLabels={0}
-                  segments={5555}
-                />
+                <GaugeComponent size={isMobile? 'small':'medium'} value={(() => {
+                    const sentimentValues = {
+                      neutral: { low: 250, medium: 500, high: 750 },
+                      bearish: { low: 245, medium: 150, high: 0 },
+                      bullish: { low: 755, medium: 800, high: 1000 }
+                    };
+                    
+                    return sentimentValues[item.sentiment]?.[item.impact] ?? 1000;
+                  })()}/>
                 <p className="capitalize font-semibold text-3xs sm:text-2xs text-center text-[#12B76A] mt-[6px] sm:mt-3">{item.sentiment}</p>
               </div>
               <p className=" w-full max-sm:hidden capitalize rounded-b-xl mt-auto flex items-center justify-center gap-x-1  bg-[#DDF9E7] text-[#475467] text-center text-4xs font-semibold py-[2px]">
