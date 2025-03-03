@@ -54,11 +54,11 @@ const GaugeComponent = ({ value = 180,size = 'medium' }) => {
     <div className={style.gaugeContent}>
       <div className={style.gaugeMask}>
         <div className={style.gaugeSemiCircle}>
-          {Array.from({ length: 3 }, (_, i) => (
+          {Array.from({ length: 2 }, (_, i) => (
             <span 
               key={i} 
               className={style.gaugeStep}
-              style={{ transform: `rotate(${i * 120}deg)` }}
+              style={{ transform: `rotate(${ i == 0 ? 130 :  230}deg)` }}
             />
           ))}
           {/* Add needle */}
@@ -93,16 +93,16 @@ const StockDetailsNews = ({ stock_id, type }) => {
     queryFn: ({ pageParam = 1 }) =>
       getStockUpdates({
         page: pageParam,
-        limit: 10,
+        limit: 3,
         stock_id,
         type: pathname?.includes("track-record") ? "track" : "pick",
       }),
     getNextPageParam: (data) => {
-      // console.log("===getNextPageParam====", data);
-      return data;
-      // const { meta } = data;
+      console.log("===getNextPageParam====", data);
+      // return data;
+      const { current_page,limit,total_count } = data;
       // // Function to determine the parameter for fetching the next page
-      // if (meta.found / meta.limit > meta.page) return meta.page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
+      if (total_count / limit > current_page) return current_page + 1 ?? false; // Return the nextPage parameter if available, otherwise false
     },
   });
   // const [news,setNews] = useState()
@@ -141,14 +141,14 @@ const StockDetailsNews = ({ stock_id, type }) => {
               className=" my-auto">
                 <GaugeComponent size={isMobile? 'small':'medium'} value={(() => {
                     const sentimentValues = {
-                      neutral: { low: 250, medium: 500, high: 750 },
+                      neutral: { low: 320, medium: 500, high: 690 },
                       bearish: { low: 245, medium: 150, high: 0 },
                       bullish: { low: 755, medium: 800, high: 1000 }
                     };
                     
                     return sentimentValues[item.sentiment]?.[item.impact] ?? 1000;
                   })()}/>
-                <p className="capitalize font-semibold text-3xs sm:text-2xs text-center text-[#12B76A] mt-[6px] sm:mt-3">{item.sentiment}</p>
+                <p className="capitalize font-semibold text-3xs sm:text-2xs text-center text-[#12B76A] mt-[6px] sm:mt-[4px]">{item.sentiment}</p>
               </div>
               <p className=" w-full max-sm:hidden capitalize rounded-b-xl mt-auto flex items-center justify-center gap-x-1  bg-[#DDF9E7] text-[#475467] text-center text-4xs font-semibold py-[2px]">
                 <span>
