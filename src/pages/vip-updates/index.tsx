@@ -92,7 +92,7 @@ export default function Page() {
           <div
             className={`mt-12 grid grid-cols-[.3fr_1fr_.4fr]  ${
               years.length === 1
-                ? "lg:grid-cols-[.3fr_1fr_.4fr] sm:grid-cols-[.3fr_1fr_.4fr]"
+                ? "lg:grid-cols-[.099fr_1fr_.135fr] sm:grid-cols-[.3fr_1fr_.4fr]"
                 : years.length === 2
                 ? "lg:grid-cols-[.3fr_1fr_1fr_.4fr] sm:grid-cols-[.3fr_1fr_1fr_.4fr] "
                 : " sm:grid-cols-[.3fr_1fr_1fr_.4fr] lg:grid-cols-[.3fr_1fr_1fr_1fr_.4fr]"
@@ -150,16 +150,23 @@ export default function Page() {
 
             {/* Navigation buttons */}
             <div className="flex items-center justify-center space-x-5 h-full border-b border-b-gray-200 w-full">
-              {hasPrevious ? (
-                <SButton onClick={previousPage} className=" h-7 w-7 bg-[#0C111D] rounded-full" size="icon">
-                  <ChevronLeft size={18} />
-                </SButton>
-              ) : null}
-              {hasNext ? (
-                <SButton onClick={nextPage} className=" h-7 w-7 bg-[#0C111D] rounded-full" size="icon">
-                  <ChevronRight size={18} />
-                </SButton>
-              ) : null}
+              <SButton
+                disabled={!hasPrevious}
+                onClick={previousPage}
+                className=" h-7 w-7 bg-[#0C111D] rounded-full"
+                size="icon"
+              >
+                <ChevronLeft size={18} />
+              </SButton>
+
+              <SButton
+                disabled={!hasNext}
+                onClick={nextPage}
+                className=" h-7 w-7 bg-[#0C111D] rounded-full"
+                size="icon"
+              >
+                <ChevronRight size={18} />
+              </SButton>
             </div>
 
             {/* Quarterly Data */}
@@ -176,7 +183,7 @@ export default function Page() {
                 {years.map((year) => {
                   const quarterYearData = quarterlyUpdates.find((item) => item[`${quarter}_${year}`])?.[
                     `${quarter}_${year}`
-                  ] as { pdf: string; video_link: string; }[]
+                  ] as { pdf: string; video_link: string }[];
 
                   return (
                     <div
@@ -188,28 +195,38 @@ export default function Page() {
                       {quarterYearData && quarterYearData.length > 0 ? (
                         quarterYearData.map((entry, index) => (
                           <>
-                            <a
-                              key={index}
-                              href={entry.pdf}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="py-[10px] pl-[10px] pr-[6px] bg-white border border-gray-200 rounded-lg shadow-md flex items-center gap-x-2 text-inherit text-md text-gray-950"
+                            <Button
+                              variant={ButtonVariant.custom}
+                              className=" hover:bg-transparent h-auto !py-[10px] !pl-[10px] !pr-[6px] bg-white border border-gray-200 rounded-lg shadow-md flex items-center gap-x-2 "
                             >
-                              <img height={20} width={20} src={"/assets/pdf.svg"} className=" object-cover" />
-                              <span>Presentation</span>
-                              <ChevronRight color="#D0D5DD" size={16} />
-                            </a>
-                            <a
-                              key={index}
-                              href={entry.video_link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="py-[10px] pl-[10px] pr-[6px] bg-white border border-gray-200 rounded-lg shadow-md flex items-center gap-x-2 text-inherit text-md text-gray-950"
+                              <a
+                                key={index}
+                                href={entry.pdf}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-x-2 text-inherit text-md text-gray-950"
+                              >
+                                <img height={20} width={20} src={"/assets/pdf.svg"} className=" object-cover" />
+                                <p className="text-inherit text-md !text-gray-950">Presentation</p>
+                                <ChevronRight color="#D0D5DD" size={16} />
+                              </a>
+                            </Button>
+                            <Button
+                              variant={ButtonVariant.custom}
+                              className=" hover:bg-transparent h-auto !py-[10px] !pl-[10px] !pr-[6px] bg-white border border-gray-200 rounded-lg shadow-md flex items-center gap-x-2 "
                             >
-                              <img height={20} width={20} src={"/assets/play.svg"} className=" object-cover" />
-                              <span>Video</span>
-                              <ChevronRight color="#D0D5DD" size={16} />
-                            </a>
+                              <a
+                                key={index}
+                                href={entry.video_link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-x-2 text-inherit text-md text-gray-950"
+                              >
+                                <img height={20} width={20} src={"/assets/play.svg"} className=" object-cover" />
+                                <p className="text-inherit text-md !text-gray-950">Video</p>
+                                <ChevronRight color="#D0D5DD" size={16} />
+                              </a>
+                            </Button>
                           </>
                         ))
                       ) : (

@@ -2,7 +2,7 @@ import { axiosApi } from "../utils/axios";
 
 export const getStockUpdates = async ({ page, limit, stock_id, type }) => {
   try {
-    const URL = `/user/kamayaKyaUpdates?stock_id=${stock_id}&type=${type}`;
+    const URL = `/user/kamayaKyaUpdates?stock_id=${stock_id}&type=${type}&page=${page}&limit=${limit}`;
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
     return response.data;
