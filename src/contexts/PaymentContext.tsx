@@ -137,7 +137,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
       planDuration: sessionStorage.getItem("planDuration") as string,
     }));
   }, []);
-  console.log("USER",user.email)
+  // console.log("USER",user.email)
   useEffect(() => {
     if (!currentPlan.planId) return;
     setUserDetails((prev) => ({ ...prev, phone: user.mobile,email:user.email }));
