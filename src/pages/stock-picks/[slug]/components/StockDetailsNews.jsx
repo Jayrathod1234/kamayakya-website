@@ -146,7 +146,7 @@ const StockDetailsNews = ({ stock_id, type }) => {
                     return sentimentValues[item.sentiment]?.[item.impact] ?? 1000;
                   })()}
                 />
-                <p className={`capitalize font-semibold text-3xs sm:text-2xs text-center ${item.sentiment === "bullish" ? "text-[#12B76A]" : item.sentiment === "bearish" ? "text-[#F04438]" : "text-[#cece00]"} max-sm:pb-2 mt-[4px] sm:mt-[4px]`}>
+                <p className={`capitalize font-semibold text-3xs sm:text-2xs text-center ${item.sentiment === "bullish" ? "text-[#12B76A]" : item.sentiment === "bearish" ? "text-[#F04438]" : "text-[#dc9600]"} max-sm:pb-2 mt-[4px] sm:mt-[4px]`}>
                   {item.sentiment}
                 </p>
               </div>
