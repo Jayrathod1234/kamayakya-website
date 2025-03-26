@@ -87,21 +87,23 @@ export default function AadhaVerifyModal({
       // setOpenDialog(true);
       // setAadharRequestId(res?.)
     } catch (e: any) {
-
-      if (e?.response?.data?.message?.includes("Invalid Aadhaar")) {
-        toast({
-          variant: "warn",
-          title: "",
-          description: "Invalid Aadhaar Number. Please check and re-enter a valid Aadhaar Number.",
-        });
-        return;
+      if(typeof e?.response?.data?.message === "string"){
+        if (e?.response?.data?.message?.includes("Invalid Aadhaar")) {
+          toast({
+            variant: "warn",
+            title: "",
+            description: "Invalid Aadhaar Number. Please check and re-enter a valid Aadhaar Number.",
+          });
+          return;
+        }
+        if (e?.response?.data?.message?.includes("Source down")) {
+          setDisplayFailedAddharModal(true);
+          setOpenDialog(true);
+          return;
+        }
+  
       }
-      if (e?.response?.data?.message?.includes("Source down")) {
-        setDisplayFailedAddharModal(true);
-        setOpenDialog(true);
-        return;
-      }
-
+    
       if(e?.response?.data?.detail?.includes("Token ")){
         toast({
           variant: "warn",

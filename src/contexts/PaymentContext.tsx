@@ -41,6 +41,7 @@ export interface IPaymentContext {
   currentPlan: ICurrentPlan;
   isAadharAlreadyVerified: boolean;
   isPanAlreadyVerified: boolean;
+  isAadharVintage:boolean;
   setUserDetails: Dispatch<SetStateAction<IUserDetails>>;
   setIsAadharAlreadyVerified: Dispatch<SetStateAction<boolean>>;
   setIsPanAlreadyVerified: Dispatch<SetStateAction<boolean>>;
@@ -84,6 +85,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
   const [isAadharAlreadyVerified, setIsAadharAlreadyVerified] = useState(false); //if kyc is already done
   const [isPanAlreadyVerified, setIsPanAlreadyVerified] = useState(false);
   const [aadharVerified, setAadharVerified] = useState(false); //if new kyc
+  const [isAadharVintage,setIsAadharVintage] = useState(false);
 
   const fetchPlanDetails = async () => {
     try {
@@ -115,6 +117,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
       const res = await getUserKycStatus();
       setIsAadharAlreadyVerified(res?.is_aadhar_verified);
       setIsPanAlreadyVerified(res?.is_pan_verified);
+      setIsAadharVintage(res?.is_aadhar_vintage || true)
       // let address = Object.values(res?.address_details || {}).filter(value=>value).join(", ");
       setUserDetails((prev) => ({
         ...prev,
@@ -156,6 +159,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         isAadharAlreadyVerified,
         setUserDetails,
         isPanAlreadyVerified,
+        isAadharVintage,
         setIsAadharAlreadyVerified,
         setIsPanAlreadyVerified,
         aadharVerified,

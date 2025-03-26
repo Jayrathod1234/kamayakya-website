@@ -112,6 +112,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     planDetails,
     currentPlan,
     isPanAlreadyVerified,
+    isAadharVintage,
     aadharVerified,
     setAadharVerified,
     setPlanDetails,
@@ -124,7 +125,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     getValues,
     setError,
     setValue,
-    watch
+    watch,
   } = useForm({
     defaultValues: {
       aadhar: "",
@@ -152,17 +153,12 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   const [displayFailedAddharModal, setDisplayFailedAddharModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fetchAadharFailed, setFetchAadharFailed] = useState(false);
+  const [testFile, setTestFile] = useState("");
   const aadhar = getValues2("aadhar");
   const preExistingAddress = getValues("address");
-  const email = watch("email")
-  const mobile = watch("phone")
-  const address = watch("address")
-
-  // const handleAadharEditClick = () => {
-  //   setAadharVerified(false);
-  //   setUserDetails((prev) => ({ ...prev, name: "", address: "", pan: "" }));
-  //   setDisplayModal("AADHAR");
-  // };
+  const email = watch("email");
+  const mobile = watch("phone");
+  const address = watch("address");
 
   const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
     try {
@@ -191,18 +187,18 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         return;
       }
 
-      if(e?.response?.data?.detail?.includes("Token ")){
+      if (e?.response?.data?.detail?.includes("Token ")) {
         toast({
           variant: "warn",
           title: "",
-          description:"Session Expired! Please relogin and try again. ",
-        });  
+          description: "Session Expired! Please relogin and try again. ",
+        });
       }
 
       toast({
         variant: "warn",
         title: "",
-        description: e?.response?.data?.message ||  e?.response?.data?.detail || "Something went wrong.",
+        description: e?.response?.data?.message || e?.response?.data?.detail || "Something went wrong.",
       });
     } finally {
       setAadharOtpLoading(false);
@@ -212,8 +208,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   const handleVerifyAadharOtp = async () => {
     try {
       setLoading(true);
-      const res = await postAadharOtp({ aadhar,is_encrypted:true });
-      // let address = Object.values(res?.address || {}).filter(value=>value).join(", ");
+      const res = await postAadharOtp({ aadhar, is_encrypted: true });
       let address = res?.address;
       if (res?.is_aadhar_verified) {
         setOpenDialog(false);
@@ -223,7 +218,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         });
         return;
       }
-      // setBillingSameAsAadhar(true);
       setUserDetails((prev) => ({
         ...prev,
         pan: res?.pan_number,
@@ -233,25 +227,25 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         maskedPan: res?.masked_pan_number,
       }));
       // setDisplayModal("CONFIRM");
-    } catch (e:any) {
+    } catch (e: any) {
       if (e?.response?.data?.message?.includes("Source down")) {
         setDisplayFailedAddharModal(true);
         setOpenDialog(true);
         return;
       }
 
-      if(e?.response?.data?.detail?.includes("Token ")){
+      if (e?.response?.data?.detail?.includes("Token ")) {
         toast({
           variant: "warn",
           title: "",
-          description:"Session Expired! Please relogin and try again. ",
-        });  
+          description: "Session Expired! Please relogin and try again. ",
+        });
       }
 
       toast({
         variant: "warn",
         title: "",
-        description: e?.response?.data?.message ||  e?.response?.data?.detail || "Something went wrong.",
+        description: e?.response?.data?.message || e?.response?.data?.detail || "Something went wrong.",
       });
     } finally {
       setLoading(false);
@@ -272,6 +266,91 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       }
     });
     paymentObject.open();
+  };
+
+  const downloadAndSendPDF = async () => {
+    try {
+      const res = await axios.get(
+        "https://ext.digio.in:444/v2/client/document/download?document_id=DID250323163241713NUPY6299PZXOO5",
+        {
+          headers: {
+            Authorization: {
+              Username: "ACK250307163500955EX73Z4FV2SYDT2",
+              Password: "ZJHW7F15QZ6LS9U89PE4F3G9U4CN6E6C",
+            },
+          },
+        }
+      );
+      console.log(res?.data);
+    } catch (e) {}
+  };
+
+  const handleDigio = async (orderId) => {
+    console.log("PDF FILE", testFile);
+    try {
+      const res = await axios.post(
+        "https://ext.digio.in:444/v2/client/document/uploadpdf",
+        {
+          include_authentication_url:true,
+          signers: [
+            {
+              identifier: "7507139592",
+              name: "Sahil",
+              sign_type: "electronic",
+              reason: "Reason for signing",
+            },
+          ],
+          expire_in_days: 10,
+          display_on_page: "custom",
+          notify_signers: true,
+          send_sign_link: true,
+          generate_access_token: true,
+          file_name: "Test.pdf",
+          file_data: testFile,
+          sign_coordinates: {
+            "7507139592": {
+              "1": [
+                {
+                  llx: 431.0000670399999,
+                  lly: 22.004292285269305,
+                  urx: 570.9934965012274,
+                  ury: 61.99937274612789,
+                },
+              ],
+            },
+          },
+        },
+        {
+          headers: {
+            Authorization: {
+              Username: "ACK250307163500955EX73Z4FV2SYDT2",
+              Password: "ZJHW7F15QZ6LS9U89PE4F3G9U4CN6E6C",
+            },
+          },
+        }
+      );
+    } catch (e) {
+      console.log("ERORRO", e);
+    }
+
+    var options = {
+      environment: "sandbox",
+      callback: function (response) {
+        if (response.hasOwnProperty("error_code")) {
+          return console.log("error occurred in process", response);
+        }
+        downloadAndSendPDF();
+        console.log("Signing;completed;successfully:", response);
+      },
+      logo: "https://www.mylogourl.com/image.jpeg",
+      theme: {
+        primaryColor: "#AB3498",
+        secondaryColor: "#000000",
+      },
+    };
+    var digio = new window.Digio(options);
+    digio.init();
+    digio.submit("DID250325093738383WMN4DNQKSAXSUZ", "7507139592");
   };
 
   const handleCheckout: SubmitHandler<IFormInput> = async (data) => {
@@ -332,7 +411,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       };
       setPlanDetails((prev) => ({ ...prev, orderId: res.data.order_id }));
       sessionStorage.setItem("orderId", res.data.order_id);
-      handleRazorpayScreen(options);
+      handleDigio(res.data.order_id);
+      // handleRazorpayScreen(options);
     } catch (e) {
       console.error(e);
     } finally {
@@ -361,49 +441,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     } finally {
       setCheckingPincode(false);
     }
-  };
-
-  const RenderFailedAadharModal = () => {
-    // if (!displayFailedAddharModal) return;
-    return (
-      <DialogContent
-        closeClassName=" -right-2 -top-[12px] opacity-100"
-        className=" !p-6 !rounded-[20px] w-[calc(100%-32px)]  md:min-w-[400px] max-w-[400px] open_sans"
-      >
-        <div>
-          <img src="/assets/failed_aadhar_fetch.svg" alt="error-image" />
-          <h2 className=" font-bold text-xl mt-6">We’re having trouble fetching your Aadhaar details!</h2>
-          <p className=" text-sm text-[#737373] mt-3">
-            Oops! 🚧
-            <br />
-            Our system’s having a coffee break while fetching Aadhaar details, or there might be a connection issue on
-            your end. Please try again a few times, or check back in 15-20 minutes. Thanks for understanding and for
-            being awesome!
-          </p>
-          <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto w-fit">
-            <DialogClose asChild>
-              <Button onClick={() => setDisplayFailedAddharModal(false)} variant={ButtonVariant.tertiary}>
-                Close
-              </Button>
-            </DialogClose>
-            <Button
-              onClick={() => {
-                console.log("AADRAR VERIFIED", isAadharAlreadyVerified, aadharVerified)
-                if(isAadharAlreadyVerified || aadharVerified){
-                  handleVerifyAadharOtp()
-                }else{
-                  handleAadharOtp({ aadhar });
-                }
-               
-              }}
-              variant={ButtonVariant.primary}
-            >
-              Try again
-            </Button>
-          </div>
-        </div>
-      </DialogContent>
-    );
   };
 
   useEffect(() => {
@@ -445,6 +482,22 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
 
   return (
     <div className="mt-9">
+      <input
+        type="file"
+        // value={testFile}
+        onChange={(e) => {
+          const file = e.target.files[0];
+          var reader = new FileReader();
+          reader.readAsBinaryString(file);
+
+          reader.onload = function () {
+            setTestFile(btoa(reader.result));
+          };
+          reader.onerror = function () {
+            console.log("there are some problems");
+          };
+        }}
+      />
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
         <button onClick={() => setActiveTab("review")} className=" hidden sm:flex items-center mb-7 cursor-pointer">
           <button>
@@ -456,14 +509,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           </p>
         </button>
         <div className="p-3 bg-[#EFF7FF] border border-[#A6D3FF] rounded-lg flex items-center gap-x-[10px] mb-7">
-          <img height={24} width={24} alt="info-icon" src="/info-fill.svg"/>
+          <img height={24} width={24} alt="info-icon" src="/info-fill.svg" />
           <p className=" m-0 text-xs">
-          Your Aadhaar and PAN are collected securely for SEBI KYC compliance. They’re encrypted, masked, and never shared. Your data's privacy and security are our top priorities.
+            Your Aadhaar and PAN are collected securely for SEBI KYC compliance. They’re encrypted, masked, and never
+            shared. Your data's privacy and security are our top priorities.
           </p>
-
         </div>
         <div className="grid grid-cols-2 gap-y-4 sm:gap-y-7 gap-x-[22px]">
-          {!isAadharAlreadyVerified ? (
+          {!isAadharAlreadyVerified || !isAadharVintage ? (
             <div className="col-span-2">
               <div className=" flex justify-between items-center">
                 <p className="text-xs text-gray-500">
@@ -484,27 +537,27 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 rules={{
                   required: "Enter aadhar to continue",
                   pattern: {
-                    value: aadharVerified ? /^XXXXXXXX\d{4}$/ :/^\d{4}\d{4}\d{4}$/,
+                    value: aadharVerified ? /^XXXXXXXX\d{4}$/ : /^\d{4}\d{4}\d{4}$/,
                     message: "Enter a valid Aadhar number in the format XXXX XXXX XXXX (excluding spaces).",
                   },
                 }}
                 render={({ field }) => (
                   <CustomTextField
                     {...field}
-                    sendotp={!aadharVerified && !isAadharAlreadyVerified}
-                    error={(errors2.aadhar?.message && (!aadharVerified && !isAadharAlreadyVerified)) ? true : false}
-                    type= {aadharVerified ? "text": "number"}
+                    sendotp={(!aadharVerified && !isAadharAlreadyVerified) || !isAadharVintage}
+                    error={errors2.aadhar?.message && !aadharVerified && !isAadharAlreadyVerified ? true : false}
+                    type={aadharVerified ? "text" : "number"}
                     id="aadhar-number"
                     // onChange={(e) => setAadhar(e.target.value)}
                     variant="outlined"
                     fullWidth
                     placeholder="Enter your Aadhar Card Number"
                     InputProps={{
-                      readOnly: aadharVerified || isAadharAlreadyVerified,
-                      className: aadharVerified || isAadharAlreadyVerified ? "bg-[#F4F7FA99]" : "",
+                      readOnly: (aadharVerified || isAadharAlreadyVerified) && isAadharVintage,
+                      className: (aadharVerified || isAadharAlreadyVerified) && isAadharVintage ? "bg-[#F4F7FA99]" : "",
                       endAdornment: (
                         <InputAdornment className="!pr-0 flex items-center gap-x-[10px]" position="end">
-                          {(errors2.aadhar?.message && (!aadharVerified && !isAadharAlreadyVerified)) && (
+                          {errors2.aadhar?.message && !aadharVerified && !isAadharAlreadyVerified && (
                             <Tooltip
                               tooltipContent={<p className=" text-2xs">{errors2.aadhar.message}</p>}
                               tooltipTrigger={
@@ -526,7 +579,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                               }
                             />
                           )}
-                          {aadharVerified || isAadharAlreadyVerified ? (
+                          {(aadharVerified || isAadharAlreadyVerified) && isAadharVintage ? (
                             <VerifyTag />
                           ) : (
                             <DialogTrigger disabled={field.value.length == 0}>
@@ -550,12 +603,12 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
               />
 
               <p className="text-3xs text-gray-500 mt-[6px]">
-              OTP will be sent to the mobile no. linked to your Aadhaar Card
+                OTP will be sent to the mobile no. linked to your Aadhaar Card
               </p>
             </div>
           ) : null}
 
-          {userDetails?.name ? (
+          {userDetails?.name && isAadharVintage ? (
             <div className="col-span-2">
               <p className="text-xs text-gray-500">
                 Full Name<span className="text-error-500">*</span>
@@ -565,10 +618,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 control={control}
                 rules={{
                   required: "Enter Name to continue",
-                  // pattern: {
-                  //   value: /^\d{4}\d{4}\d{4}$/,
-                  //   message: '"Enter a valid Aadhar number in the format XXXX XXXX XXXX"',
-                  // },
                 }}
                 render={({ field }) => (
                   <CustomTextField
@@ -579,8 +628,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                     variant="outlined"
                     fullWidth
                     InputProps={{
-                      readOnly: aadharVerified || isAadharAlreadyVerified,
-                      className: aadharVerified || isAadharAlreadyVerified ? "bg-[#F4F7FA99]" : "",
+                      readOnly: (aadharVerified || isAadharAlreadyVerified) && isAadharVintage,
+                      className: (aadharVerified || isAadharAlreadyVerified) && isAadharVintage ? "bg-[#F4F7FA99]" : "",
                       endAdornment: (
                         <InputAdornment position="end">
                           {userDetails.name && (isAadharAlreadyVerified || aadharVerified) ? <VerifyTag /> : null}
@@ -621,7 +670,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           </p> */}
             </div>
           ) : null}
-          {(isAadharAlreadyVerified && !isPanAlreadyVerified) ||
+          {(isAadharAlreadyVerified && isAadharVintage && !isPanAlreadyVerified) ||
           userDetails.pan ||
           (userDetails.aadhar && !userDetails.pan) ? (
             <>
@@ -635,7 +684,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   rules={{
                     required: "Enter PAN to continue",
                     pattern: {
-                      value: userDetails.maskedPan ? /^XXXXXX[0-9]{3}[A-Z]{1}$/  : /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
+                      value: userDetails.maskedPan ? /^XXXXXX[0-9]{3}[A-Z]{1}$/ : /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
                       message: "Enter a valid Pan number in the format XXXXX0000X",
                     },
                   }}
@@ -1031,9 +1080,15 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           </div>
 
           <div className="col-span-2 mt-5 ">
-          {/* <p className=" text-display-sm text-red-500 flex-1">{(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ? "true": "false"}</p> */}
+            {/* <p className=" text-display-sm text-red-500 flex-1">{(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ? "true": "false"}</p> */}
             <Button
-              disabled ={(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || (!Number.isNaN(Number(address)) && !pincodeBasedAddress) || (!isPanAlreadyVerified && !userDetails.maskedPan)}
+              disabled={
+                (!aadharVerified && !isAadharAlreadyVerified) ||
+                email?.length === 0 ||
+                mobile?.length === 0 ||
+                (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
+                (!isPanAlreadyVerified && !userDetails.maskedPan)
+              }
               loading={checkoutLoading}
               onClick={handleSubmit(handleCheckout)}
               className=" w-full"
@@ -1053,10 +1108,10 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             aadhar={aadhar}
             requestId={aadharRequestId}
             setBillingSameAsAadhar={setBillingSameAsAadhar}
-            setDisplayFailedAddharModal = {  setDisplayFailedAddharModal}
+            setDisplayFailedAddharModal={setDisplayFailedAddharModal}
           />
         ) : null}
-        {displayModal.includes("CONFIRM")  && !displayFailedAddharModal ? (
+        {displayModal.includes("CONFIRM") && !displayFailedAddharModal ? (
           <ConfirmDetailsModal
             setDisplayModal={setDisplayModal}
             openDialog={openDialog}
@@ -1074,7 +1129,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
               <p className=" text-sm text-[#737373] mt-3">
                 Oops! 🚧
                 <br />
-                Our system’s having a coffee break while fetching Aadhaar details. Please try again a few times or check back in 15-20 minutes. Thanks for understanding and for being awesome!
+                Our system’s having a coffee break while fetching Aadhaar details. Please try again a few times or check
+                back in 15-20 minutes. Thanks for understanding and for being awesome!
               </p>
               <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto w-fit">
                 <DialogClose asChild>
@@ -1088,13 +1144,11 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   </Button>
                 </DialogClose>
                 <Button
-                loading={aadharOtpLoading}
+                  loading={aadharOtpLoading}
                   onClick={() => {
-                    
-                    if(isAadharAlreadyVerified || aadharVerified){
-                      
-                      handleVerifyAadharOtp()
-                    }else{
+                    if (isAadharAlreadyVerified || aadharVerified) {
+                      handleVerifyAadharOtp();
+                    } else {
                       handleAadharOtp({ aadhar });
                     }
                     setDisplayFailedAddharModal(false);
