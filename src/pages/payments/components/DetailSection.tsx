@@ -55,39 +55,39 @@ Font.register({
   family: "Inter",
   fonts: [
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf",
       fontWeight: 100,
     },
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyfMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyfMZhrib2Bg-4.ttf",
       fontWeight: 200,
     },
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfMZhrib2Bg-4.ttf",
       fontWeight: 300,
     },
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf",
       fontWeight: 400,
     },
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf",
       fontWeight: 500,
     },
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf",
       fontWeight: 600,
     },
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYMZhrib2Bg-4.ttf",
       fontWeight: 700,
     },
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyYMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyYMZhrib2Bg-4.ttf",
       fontWeight: 800,
     },
     {
-      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuBWYMZhrib2Bg-4.ttf",
+      src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuBWYMZhrib2Bg-4.ttf",
       fontWeight: 900,
     },
   ],
@@ -660,9 +660,45 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   // };
   const generatePdf = async (userDetailsForPdf) => {
     const blob = await pdf(<KamayakyaPDFDocument clientData={userDetailsForPdf} />).toBlob();
+    const url = URL.createObjectURL(blob);
+
+    // Open the URL in a new tab
+    window.open(url, '_blank');
     return blob;
 
   };
+
+  const disableProceedButton = () => {
+    const intervalId = setInterval(() => {
+      const button = document.querySelector("button[type='button']");
+      if (button && button.innerText === "Proceed to Sign") {
+        button.disabled = true; // Disable the button initially
+        button.style.opacity = "0.5";
+        clearInterval(intervalId);
+      }
+    }, 500);
+  };
+  
+  const enableButtonOnScroll = () => {
+    const iframe = document.querySelector('iframe'); // If Digio SDK renders inside an iframe
+  
+    if (iframe) {
+      iframe.contentWindow.addEventListener('scroll', () => {
+        const scrollHeight = iframe.contentDocument.body.scrollHeight;
+        const scrollTop = iframe.contentWindow.pageYOffset || iframe.contentDocument.documentElement.scrollTop;
+        const clientHeight = iframe.contentDocument.documentElement.clientHeight;
+  
+        if (scrollTop + clientHeight >= scrollHeight - 20) { // User has scrolled to bottom
+          const button = iframe.contentDocument.querySelector("button[type='button']");
+          if (button && button.innerText === "Proceed to Sign") {
+            button.disabled = false; // Enable the button
+            button.style.opacity = "1";
+          }
+        }
+      });
+    }
+  };
+  
 
   const handleDigio = async (orderId, userDetailsForPdf,orderDetails) => {
     try {
@@ -671,6 +707,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       console.log(res);
       var options = {
         environment: "sandbox",
+        is_iframe:false,
         callback: function (response) {
           if (response.hasOwnProperty("error_code")) {
             return console.log("error occurred in process", response);
@@ -713,7 +750,11 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       };
       var digio = new window.Digio(options);
       digio.init();
-      digio.submit(res?.id, res?.digio_response?.signing_parties[0]?.identifier);
+      digio.submit(res?.id, res?.user_mobile);
+
+  // Run these functions after the SDK is loaded
+  disableProceedButton();
+  enableButtonOnScroll();
     } catch (e) {
       console.log("ERORRO", e);
     }
