@@ -184,3 +184,10 @@ export const PLAN = {
   advanced: ADVANCED_PLAN,
   vip: VIP_PLAN,
 };
+
+
+export const PLAN_FREQUENCY_MAP = {
+  90: "Quarterly",
+  365: "Yearly",
+  1095: "3 Years" // 365 * 3
+}

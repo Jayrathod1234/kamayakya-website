@@ -133,3 +133,30 @@ export const getTrackRecordStats =  async(params)=>{
     throw error;
   }
 }
+
+export const getUserDetailsForPdf =  async(orderId,params)=>{
+  try {
+    const URL = `/user/userDetailsForESignAgreement?order_id=${orderId}`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.post(URL,params);
+    return response.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}
+
+
+export const getDigioIdandSendPdf = async (params)=>{
+  try {
+    const URL = `/user/digioRequestSignApi`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.postForm(URL,params);
+    return response.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}

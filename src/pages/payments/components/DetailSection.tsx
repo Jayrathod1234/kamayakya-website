@@ -14,7 +14,9 @@ import ConfirmDetailsModal from "./ConfirmDetailsModal";
 import {
   getAadharOtp,
   getAddress,
+  getDigioIdandSendPdf,
   getSelectedPlanDates,
+  getUserDetailsForPdf,
   getUserKycStatus,
   postAadharOtp,
   postCheckout,
@@ -27,6 +29,8 @@ import VerifyTag from "./VerifyTag";
 import axios from "axios";
 import Tooltip from "@/components.v3/common/Tooltip";
 import { useRouter } from "next/router";
+import { Document, Page, Text, View, StyleSheet, pdf, Font } from "@react-pdf/renderer";
+import { PLAN_FREQUENCY_MAP } from "@/constants/pricing/plans";
 
 type CustomTextFieldProps = TextFieldProps & {
   confirmAddress?: boolean;
@@ -46,6 +50,382 @@ type ParamsType = {
   gst_number?: string; // Optional property
 };
 
+// Register fonts if needed
+Font.register({
+  family: "Inter",
+  fonts: [
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf",
+      fontWeight: 100,
+    },
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyfMZhrib2Bg-4.ttf",
+      fontWeight: 200,
+    },
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfMZhrib2Bg-4.ttf",
+      fontWeight: 300,
+    },
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf",
+      fontWeight: 400,
+    },
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf",
+      fontWeight: 500,
+    },
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf",
+      fontWeight: 600,
+    },
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYMZhrib2Bg-4.ttf",
+      fontWeight: 700,
+    },
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyYMZhrib2Bg-4.ttf",
+      fontWeight: 800,
+    },
+    {
+      src: "http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuBWYMZhrib2Bg-4.ttf",
+      fontWeight: 900,
+    },
+  ],
+});
+
+// Styles for the PDF
+const styles = StyleSheet.create({
+  page: {
+    fontFamily: "Inter",
+    fontSize: 10,
+    padding: 30,
+    lineHeight: 1.5,
+  },
+  header: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: "center",
+    fontWeight: 700,
+  },
+  subHeader: {
+    fontSize: 14,
+    marginBottom: 10,
+    fontWeight: 500,
+  },
+  semibold: {
+    fontWeight: 600,
+  },
+  section: {
+    marginBottom: 15,
+  },
+  sectionTitle: {
+    fontSize: 12,
+    fontWeight: "bold",
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  row: {
+    flexDirection: "row",
+    marginBottom: 5,
+  },
+  label: {
+    fontWeight: "bold",
+    marginRight: 5,
+  },
+  listItem: {
+    marginLeft: 10,
+    marginBottom: 5,
+  },
+  subListItem: {
+    marginLeft: 20,
+    marginBottom: 3,
+  },
+  contactInfo: {
+    marginTop: 10,
+    fontSize: 9,
+    textAlign: "center",
+  },
+  disclaimer: {
+    fontSize: 8,
+    marginTop: 10,
+    textAlign: "center",
+    color: "#666",
+  },
+  table: {
+    display: "table",
+    width: "100%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#000",
+  },
+  row: {
+    flexDirection: "row",
+    borderBottomColor: "#000",
+    borderBottomWidth: 1,
+    padding: 5,
+  },
+  labelCell: {
+    width: "40%",
+    fontWeight: "bold",
+    padding: 5,
+    backgroundColor: "#f2f2f2",
+  },
+  valueCell: {
+    width: "60%",
+    padding: 5,
+  },
+  // subListItem:{
+  //   textAlign:'center'
+  // }
+});
+const entityDetails = {
+  fullName: "John Doe",
+  entityType: "Private Limited",
+  registrationNo: "123456789",
+  bseEnlistmentNo: "BSE123456",
+  tradeName: "JD Enterprises",
+  registeredAddress: "123, Business Street, Mumbai, India",
+  correspondenceAddress: "456, Corporate Avenue, Delhi, India",
+  contactNo: "+91 9876543210",
+  email: "john.doe@example.com",
+  cin: "U12345MH2000PTC123456",
+  complianceOfficer: "Jane Smith",
+  grievanceOfficer: "Robert Johnson",
+};
+const TableRow = ({ label, value }) => (
+  <View style={styles.row}>
+    <Text style={styles.labelCell}>{label}</Text>
+    <Text style={styles.valueCell}>{value}</Text>
+  </View>
+);
+
+// Main PDF Component
+const KamayakyaPDFDocument = ({ clientData }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <Text style={styles.header}>Client Details</Text>
+      <View style={styles.section}>
+        <View style={styles.row}>
+          <Text style={styles.label}>Customer Name:</Text>
+          <Text>{clientData.customer_name}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Plan Name:</Text>
+          <Text>{clientData.plan_name}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Plan Start Date:</Text>
+          <Text>{clientData.start_date}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Plan End Date:</Text>
+          <Text>{clientData.end_date}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Membership Plan Frequency:</Text>
+          <Text>{PLAN_FREQUENCY_MAP[clientData.subscription_frequency]}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>User Email:</Text>
+          <Text>{clientData.customer_email}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>User Mobile Number:</Text>
+          <Text>{clientData.customer_mobile}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>User Pan Number:</Text>
+          <Text>{clientData.customer_pan}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Membership Amount (inc of taxes):</Text>
+          <Text>₹{clientData.amount_to_be_paid}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Age:</Text>
+          <Text>{clientData.customer_age}</Text>
+        </View>
+      </View>
+      <Text style={styles.header}>KamayaKya Research Analyst User Agreement</Text>
+      <Text style={styles.sectionTitle}>1. Acceptance of Research Services</Text>
+      <Text>
+        By subscribing to the research service, the Client confirms that they have elected to avail of the research
+        service at their sole discretion. The Research Analyst (RA) shall render research services in accordance with
+        the applicable provisions of SEBI (Research Analyst) Regulations, 2014.
+      </Text>
+      <Text style={styles.sectionTitle}>2. Obligations of RA and Client</Text>
+      <Text>
+        The RA and the Client shall be bound by the SEBI Act and all applicable SEBI regulations, including relevant
+        government notifications, as may be in force from time to time.
+      </Text>
+      <Text style={styles.sectionTitle}>3. Client Information and KYC</Text>
+      <Text>
+        The Client shall furnish all mandatory details required by the RA, along with supporting documents, as per
+        SEBI/RAASB guidelines. The RA shall collect, store, and verify KYC records through the KYC Registration Agency
+        (KRA) as specified by SEBI.
+      </Text>
+      <Text style={styles.sectionTitle}>4. Standard Terms of Service</Text>
+      <Text>Client Consent:</Text>
+      <Text style={styles.semibold}>
+        "I / We have read and understood the terms and conditions applicable to a research analyst as defined under
+        regulation 2(1)(u) of the SEBI (Research Analyst) Regulations, 2014, including the fee structure.
+      </Text>
+      <Text style={styles.semibold}>
+        I/We are subscribing to the research services for our own benefits and consumption, and any reliance placed on
+        the research report provided by the research analyst shall be as per our own judgment and assessment of the
+        conclusions contained in the research report.
+      </Text>
+      <Text style={styles.semibold}>I/We understand that:</Text>
+      <Text style={styles.listItem}>
+        • Any investment made based on the recommendations in the research report is subject to market risk.
+      </Text>
+      <Text style={styles.listItem}>
+        • Recommendations in the research report do not provide any assurance of returns.
+      </Text>
+      <Text style={styles.listItem}>
+        • There is no recourse to claim any losses incurred on the investments made based on the recommendations in the
+        research report."
+      </Text>
+      <Text style={styles.listItem}>
+        • <Text style={styles.semibold}>Declaration of the RA that:</Text> It is duly registered with SEBI as an RA
+        under SEBI (Research Analysts) Regulations, 2014, and its registration details are:
+      </Text>
+      <Text style={[styles.subListItem, { marginLeft: 80 }]}>Registration No: INH000009843</Text>
+      <Text style={[styles.subListItem, { marginLeft: 80 }]}>Registration date: 13 June 2022</Text>
+      <Text style={[styles.subListItem, { marginLeft: 80 }]}>BSE Enlistment no.: 5583</Text>
+      <Text style={styles.listItem}>
+        • It has registration and qualifications required to render the services contemplated under the RA Regulations,
+        and the same are valid and subsisting;.
+      </Text>
+      <Text style={styles.listItem}>
+        • Research analyst services provided by it do not conflict with or violate any provision of law, rule or
+        regulation, contract, or other instrument to which it is a party or to which any of its property is or may be
+        subjectThe maximum fee that may be charged by RA is ₹1.51 lakhs per annum per family of client.{" "}
+      </Text>
+      <Text style={styles.listItem}>
+        • The recommendations provided by RA do not provide any assurance of returns.{" "}
+      </Text>
+      <Text style={styles.sectionTitle}>5. Termination and Refund</Text>
+      <Text style={styles.listItem}>
+        • RA services may be suspended/terminated if SEBI cancels or suspends RA registration.
+      </Text>
+      <Text style={styles.listItem}>• Refunds shall be made on a pro-rata basis for the unexpired period.</Text>
+      <Text>
+        In case of suspension of certificate of registration of the RA for more than 60 (sixty) days or cancellation of
+        the RA registration, RA shall refund the fees, on a pro rata basis for the period from the effective date of
+        cancellation/suspension to end of the subscription period.
+      </Text>
+      <Text style={styles.sectionTitle}>6. Mandatory Notice to Clients</Text>
+      <Text>
+        Clients are advised to review SEBI's "Do's and Don'ts" while dealing with RAs, as per SEBI Master Circular
+        SEBI/HO/MIRSD-POD-1/P/CIR/2024/49 dated May 21, 2024.
+      </Text>
+      <Text style={styles.sectionTitle}>7. Most Important Terms and Conditions (MITC)</Text>
+      <Text style={styles.listItem}>
+        1. These terms and conditions, and consent thereon are for the research services provided by the Research
+        Analyst (RA) and RA cannot execute/carry out any trade (purchase/sell transaction) on behalf of the client.
+        Thus, the clients are advised not to permit RA to execute any trade on their behalf.
+      </Text>
+      <Text style={styles.listItem}>
+        2. The fee charged by RA to the client will be subject to the maximum of amount prescribed by SEBI/ Research
+        Analyst Administration and Supervisory Body (RAASB) from time to time (applicable only for Individual and HUF
+        Clients).
+      </Text>
+      <Text style={styles.subListItem}>
+        • The current fee limit is Rs 1,51,000/- per annum per family of client for all research services of the RA.
+      </Text>
+      <Text style={styles.subListItem}> • The fee limit does not include statutory charges.</Text>{" "}
+      <Text style={styles.subListItem}>
+        • The fee limits do not apply to a non-individual client / accredited investor.
+      </Text>
+      <Text style={styles.listItem}>
+        3. RA may charge fees in advance if agreed by the client. Such advance shall not exceed the period stipulated by
+        SEBI; presently it is one quarter. In case of premature termination of the RA services by either the client or
+        the RA, the client shall be entitled to seek a refund of proportionate fees only for the unexpired period.
+      </Text>
+      <Text style={styles.listItem}>
+        4. Fees to RA may be paid by the client through any of the specified modes like cheque, online bank transfer,
+        UPI, etc. Cash payment is not allowed. Optionally the client can make payments through Centralized Fee
+        Collection Mechanism (CeFCoM) managed by BSE Limited (i.e. currently recognized RAASB).
+      </Text>
+      <Text style={styles.listItem}>
+        5. The RA is required to abide by the applicable regulations/ circulars/ directions specified by SEBI and RAASB
+        from time to time in relation to disclosure and mitigation of any actual or potential conflict of interest. The
+        RA will endeavor to promptly inform the client of any conflict of interest that may affect the services being
+        rendered to the client.
+      </Text>
+      <Text style={styles.listItem}>
+        6. Any assured/guaranteed/fixed returns schemes or any other schemes of similar nature are prohibited by law. No
+        scheme of this nature shall be offered to the client by the RA.
+      </Text>
+      <Text style={styles.listItem}>
+        7. The RA cannot guarantee returns, profits, accuracy, or risk-free investments from the use of the RA’s
+        research services. All opinions, projections, and estimates of the RA are based on the analysis of available
+        data under certain assumptions as of the date of preparation/publication of the research report.
+      </Text>
+      <Text style={styles.listItem}>
+        8.Any investment made based on recommendations in research reports is subject to market risks, and
+        recommendations do not provide any assurance of returns. There is no recourse to claim any losses incurred on
+        the investments made based on the recommendations in the research report. Any reliance placed on the research
+        report provided by the RA shall be as per the client’s own judgment and assessment of the conclusions contained
+        in the research report.
+      </Text>
+      <Text style={styles.listItem}>
+        9. The SEBI registration, Enlistment with RAASB, and NISM certification do not guarantee the performance of the
+        RA or assure any returns to the client.
+      </Text>
+      <Text style={styles.listItem}>
+        10. <Text style={styles.semibold}>For any grievances:</Text>
+      </Text>
+      <Text style={styles.listItem}>
+        <Text style={styles.semibold}>• Step 1:</Text> The client should first contact the RA using the details on
+        www.kamayakya.com or via: Email: contact@kamayakya.com or Phone: +91 9175939641
+      </Text>{" "}
+      <Text style={styles.listItem}>
+        <Text style={styles.semibold}>• Step 2:</Text> If the resolution is unsatisfactory, the client can also lodge
+        grievances through SEBI’s SCORES platform at www.scores.sebi.gov.in
+      </Text>
+      <Text style={styles.listItem}>
+        <Text style={styles.semibold}>• Step 3:</Text> The client may also consider Online Dispute Resolution (ODR)
+        through the Smart ODR portal at https://smartodr.in
+      </Text>
+      <Text style={styles.listItem}>
+        11. Clients are required to keep contact details, including email ID and mobile numbers, updated with the RA at
+        all times.
+      </Text>
+      <Text style={styles.listItem}>
+        12. The RA shall never ask for the client’s login credentials and OTPs for the client’s Trading Account, Demat
+        Account, or Bank Account. Clients should never share such information with anyone, including RA.
+      </Text>
+      <Text style={styles.sectionTitle}>8. Additional Clauses</Text>
+      <Text style={styles.listItem}>
+        • Any additional voluntary clauses added by the RA shall not contravene SEBI regulations.
+      </Text>
+      <Text style={styles.listItem}>• Any changes to voluntary clauses shall be preceded by a 15-day notice.</Text>
+      <Text style={styles.listItem}>
+        • Investment in securities market are subject to market risks. Read all the related documents carefully before
+        investing.
+      </Text>
+    </Page>
+    <Page size={"A4"} style={styles.page}>
+      <Text style={styles.header}>DETAILS OF RESEARCH ANALYST</Text>
+      <View style={styles.table}>
+        <TableRow label="Full Name" value={""} />
+        <TableRow label="Entity Type" value={""} />
+        <TableRow label="Registration No." value={""} />
+        <TableRow label="BSE Enlistment No." value={""} />
+        <TableRow label="Trade Name" value={""} />
+        <TableRow label="Residential/ Registered Address" value={""} />
+        <TableRow label="Correspondence Address" value={""} />
+        <TableRow label="Contact No." value={""} />
+        <TableRow label="Email No." value={""} />
+        <TableRow label="CIN" value={""} />
+        <TableRow label="Compliance Officer" value={""} />
+        <TableRow label="Grievance Officer" value={""} />
+      </View>
+    </Page>
+  </Document>
+);
 // Custom styled OutlinedInput
 export const CustomTextField = styled(TextField, {
   shouldForwardProp: (prop) => prop !== "error" && prop !== "confirmAddress" && prop !== "sendotp", // Prevents passing `error` to the DOM
@@ -154,6 +534,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   const [loading, setLoading] = useState(false);
   const [fetchAadharFailed, setFetchAadharFailed] = useState(false);
   const [testFile, setTestFile] = useState("");
+  const { planDates } = usePaymentContext() as IPaymentContext;
   const aadhar = getValues2("aadhar");
   const preExistingAddress = getValues("address");
   const email = watch("email");
@@ -253,6 +634,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   };
 
   const handleRazorpayScreen = (options: any) => {
+    console.log("OPETIOS", options)
     let paymentFailed = false;
     const paymentObject = new window.Razorpay(options);
     paymentObject.on("payment.failed", function (response: any) {
@@ -267,90 +649,74 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     });
     paymentObject.open();
   };
+  
+  // const convertBlobToBase64 = (blob) => {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => resolve(reader.result.split(',')[1]); // Extract only the Base64 string
+  //     reader.onerror = (error) => reject(error);
+  //     reader.readAsDataURL(blob);
+  //   });
+  // };
+  const generatePdf = async (userDetailsForPdf) => {
+    const blob = await pdf(<KamayakyaPDFDocument clientData={userDetailsForPdf} />).toBlob();
+    return blob;
 
-  const downloadAndSendPDF = async () => {
-    try {
-      const res = await axios.get(
-        "https://ext.digio.in:444/v2/client/document/download?document_id=DID250323163241713NUPY6299PZXOO5",
-        {
-          headers: {
-            Authorization: {
-              Username: "ACK250307163500955EX73Z4FV2SYDT2",
-              Password: "ZJHW7F15QZ6LS9U89PE4F3G9U4CN6E6C",
-            },
-          },
-        }
-      );
-      console.log(res?.data);
-    } catch (e) {}
   };
 
-  const handleDigio = async (orderId) => {
-    console.log("PDF FILE", testFile);
+  const handleDigio = async (orderId, userDetailsForPdf,orderDetails) => {
     try {
-      const res = await axios.post(
-        "https://ext.digio.in:444/v2/client/document/uploadpdf",
-        {
-          include_authentication_url:true,
-          signers: [
-            {
-              identifier: "7507139592",
-              name: "Sahil",
-              sign_type: "electronic",
-              reason: "Reason for signing",
+      const pdf = await generatePdf(userDetailsForPdf);
+      const res = await getDigioIdandSendPdf({ order_id: orderId, user_agreement_pdf: pdf });
+      console.log(res);
+      var options = {
+        environment: "sandbox",
+        callback: function (response) {
+          if (response.hasOwnProperty("error_code")) {
+            return console.log("error occurred in process", response);
+          }
+          // downloadAndSendPDF();
+          const options = {
+            key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+            amount:orderDetails.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            currency: "INR",
+            name: "KamayaKya", //your business name
+            description: "Test Transaction",
+            image: "https://example.com/your_logo",
+            order_id: orderDetails.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            handler: function (response: unknown) {
+              router.push("/payments/successful");
             },
-          ],
-          expire_in_days: 10,
-          display_on_page: "custom",
-          notify_signers: true,
-          send_sign_link: true,
-          generate_access_token: true,
-          file_name: "Test.pdf",
-          file_data: testFile,
-          sign_coordinates: {
-            "7507139592": {
-              "1": [
-                {
-                  llx: 431.0000670399999,
-                  lly: 22.004292285269305,
-                  urx: 570.9934965012274,
-                  ury: 61.99937274612789,
-                },
-              ],
+            prefill: {
+              //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+              name: userDetails.name, //your customer's name
+              email: userDetails.email,
+              contact: userDetails.phone?.slice(3), //Provide the customer's phone number for better conversion rates
             },
-          },
+            notes: {
+              address:
+                "Flat No 6, New Nirmal Apartments, Balkrishna Sakharam Dhole Patil Rd, near Akshay Complex Road, Pune, Maharashtra 411001",
+            },
+            theme: {
+              color: "#0b3a36",
+              backdrop_color: "#ea3546",
+            },
+          };
+          handleRazorpayScreen(options);
+          console.log("Signing;completed;successfully:", response);
         },
-        {
-          headers: {
-            Authorization: {
-              Username: "ACK250307163500955EX73Z4FV2SYDT2",
-              Password: "ZJHW7F15QZ6LS9U89PE4F3G9U4CN6E6C",
-            },
-          },
-        }
-      );
+        logo: "https://www.mylogourl.com/image.jpeg",
+        theme: {
+          primaryColor: "#AB3498",
+          secondaryColor: "#000000",
+        },
+      };
+      var digio = new window.Digio(options);
+      digio.init();
+      digio.submit(res?.id, res?.digio_response?.signing_parties[0]?.identifier);
     } catch (e) {
       console.log("ERORRO", e);
     }
-
-    var options = {
-      environment: "sandbox",
-      callback: function (response) {
-        if (response.hasOwnProperty("error_code")) {
-          return console.log("error occurred in process", response);
-        }
-        downloadAndSendPDF();
-        console.log("Signing;completed;successfully:", response);
-      },
-      logo: "https://www.mylogourl.com/image.jpeg",
-      theme: {
-        primaryColor: "#AB3498",
-        secondaryColor: "#000000",
-      },
-    };
-    var digio = new window.Digio(options);
-    digio.init();
-    digio.submit("DID250325093738383WMN4DNQKSAXSUZ", "7507139592");
   };
 
   const handleCheckout: SubmitHandler<IFormInput> = async (data) => {
@@ -383,35 +749,15 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         params = { ...params, gst_number: data.gstin };
       }
       const res = await postCheckout(params);
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-        amount: res.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        currency: "INR",
-        name: "KamayaKya", //your business name
-        description: "Test Transaction",
-        image: "https://example.com/your_logo",
-        order_id: res.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        handler: function (response: unknown) {
-          router.push("/payments/successful");
-        },
-        prefill: {
-          //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-          name: userDetails.name, //your customer's name
-          email: userDetails.email,
-          contact: userDetails.phone?.slice(3), //Provide the customer's phone number for better conversion rates
-        },
-        notes: {
-          address:
-            "Flat No 6, New Nirmal Apartments, Balkrishna Sakharam Dhole Patil Rd, near Akshay Complex Road, Pune, Maharashtra 411001",
-        },
-        theme: {
-          color: "#0b3a36",
-          backdrop_color: "#ea3546",
-        },
-      };
+     
       setPlanDetails((prev) => ({ ...prev, orderId: res.data.order_id }));
       sessionStorage.setItem("orderId", res.data.order_id);
-      handleDigio(res.data.order_id);
+      const userDetailsForPdf = await getUserDetailsForPdf(res.data.order_id, {
+        start_date: planDates.start,
+        end_date: planDates.end,
+      });
+      console.log("USER DETAILS", userDetailsForPdf);
+      handleDigio(res.data.order_id, userDetailsForPdf, res);
       // handleRazorpayScreen(options);
     } catch (e) {
       console.error(e);
@@ -482,22 +828,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
 
   return (
     <div className="mt-9">
-      <input
-        type="file"
-        // value={testFile}
-        onChange={(e) => {
-          const file = e.target.files[0];
-          var reader = new FileReader();
-          reader.readAsBinaryString(file);
-
-          reader.onload = function () {
-            setTestFile(btoa(reader.result));
-          };
-          reader.onerror = function () {
-            console.log("there are some problems");
-          };
-        }}
-      />
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
         <button onClick={() => setActiveTab("review")} className=" hidden sm:flex items-center mb-7 cursor-pointer">
           <button>
