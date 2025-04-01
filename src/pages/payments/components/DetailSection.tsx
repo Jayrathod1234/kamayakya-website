@@ -663,7 +663,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     const url = URL.createObjectURL(blob);
 
     // Open the URL in a new tab
-    window.open(url, '_blank');
+    // window.open(url, '_blank');
     return blob;
 
   };
@@ -704,9 +704,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     try {
       const pdf = await generatePdf(userDetailsForPdf);
       const res = await getDigioIdandSendPdf({ order_id: orderId, user_agreement_pdf: pdf });
-      console.log(res);
+      // console.log(res);
       var options = {
-        environment: "sandbox",
+        environment: process.env.NEXT_PUBLIC_DIGIO_ENVIRONMENT,
         is_iframe:false,
         callback: function (response) {
           if (response.hasOwnProperty("error_code")) {
