@@ -51,26 +51,26 @@ export const NAVBAR_LINKS = [
       }
     }
   },
-  // {
-  //   title: "Blogs",
-  //   link: "/blogs-page",
-  //   mixpanel:{
-  //     event:"blogs_clicked",
-  //     property:{
-  //       page:"Pricing_Page"
-  //     }
-  //   }
-  // },
   {
-    title: "Vip Updates",
-    link: "/vip-updates",
+    title: "Blogs",
+    link: "/blogs-page",
     mixpanel:{
-      event:"updates_clicked",
+      event:"blogs_clicked",
       property:{
         page:"Pricing_Page"
       }
     }
   },
+  // {
+  //   title: "Vip Updates",
+  //   link: "/vip-updates",
+  //   mixpanel:{
+  //     event:"updates_clicked",
+  //     property:{
+  //       page:"Pricing_Page"
+  //     }
+  //   }
+  // },
 ];
 
 export const HOME_OPTIONS = [

@@ -6,7 +6,6 @@ import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import { Avatar } from "@/components.v2/avatar";
-import ReactSpeedometer from "react-d3-speedometer";
 import { usePathname } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
 
@@ -138,7 +137,7 @@ const StockDetailsNews = ({ stock_id, type }) => {
                   size={isMobile ? "small" : "medium"}
                   value={(() => {
                     const sentimentValues = {
-                      neutral: { low: 690, medium: 500, high: 320 },
+                      neutral: { low: 320, medium: 500, high: 690 },
                       bearish: { low: 245, medium: 150, high: 0 },
                       bullish: { low: 755, medium: 800, high: 1000 },
                     };
