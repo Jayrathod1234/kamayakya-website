@@ -228,7 +228,7 @@ export default function SideNav({ handleLogin }: TSideNav) {
                       }`}
                     >
                       <p className={` text-[#475467] ${ !pathname?.includes("stock-picks") ? (pathname?.includes(nav.link) ? "text-black" : "") : sessionStorage.getItem("sebiBoardType") === "sme" && nav.title?.includes("SME") ? "text-black" :  sessionStorage.getItem("sebiBoardType") === "mainboard" && nav.title?.includes("Stocks") ?"text-black" :""} ${nav.title?.includes("Vip") ? "flex items-center gap-x-[3px]" : ""}`}>
-                      {nav.title}{nav.title?.includes("Vip") ?  <span className=" ml-1">                          <Lottie className=" h-7 w-7 block object-contain" autoPlay loop={false} animationData={VIP_LOTTIE} />
+                      {nav.title}{nav.title?.includes("VIP") ?  <span className=" ml-1">                          <Lottie className=" h-7 w-7 block object-contain" autoPlay loop={false} animationData={VIP_LOTTIE} />
                       </span>:null}
                       </p>
                       {stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"] ? (

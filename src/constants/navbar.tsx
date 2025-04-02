@@ -62,7 +62,7 @@ export const NAVBAR_LINKS = [
   //   }
   // },
   {
-    title: "Vip Updates",
+    title: "VIP Updates",
     link: "/vip-updates",
     mixpanel:{
       event:"updates_clicked",
