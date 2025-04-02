@@ -27,7 +27,7 @@ export default function PlanModal({ setOpen }: { setOpen: React.Dispatch<React.S
 
   const tabOptions = [
     { label: "3 Months", value: "3months" },
-    // { label: "1 Year", value: "1year" },
+    { label: "1 Year", value: "1year" },
     // { label: "3 Years", value: "3year" },
   ];
 

@@ -35,6 +35,8 @@ import { ScrollProgress } from "./scroll-progress";
 import SampleReportsModal from "./sample-reports-modal";
 import { cn } from "@/lib/utils";
 import LoginPrompt from "@/components.v3/common/LoginPrompt";
+import Lottie from "lottie-react";
+import VIP_LOTTIE from "../../public/assets/New.json";
 
 /*
 For pages with white background give className=bg-white to get the green hover effect
@@ -277,7 +279,10 @@ export function Navbar({
                             : false
                         }
                       >
-                        {navigationOption.title}
+                        {navigationOption.title}{navigationOption.title?.includes("Vip") ? <span className=" ml-1">
+                          
+                          <Lottie className=" h-7 w-7 block object-contain" autoPlay loop={false} animationData={VIP_LOTTIE} />
+                        </span>:null}
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>

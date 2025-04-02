@@ -1,20 +1,12 @@
 import Layout from "../../layout/Layout";
-import { useCallback, useContext, useState } from "react";
-// import dynamic from "next/dynamic";
+import { useContext } from "react";
 import SebiBoardTab from "@/pages/stock-picks/components/SebiBoardTab";
 import HotStockSection from "@/pages/stock-picks/components/HotStockSection";
 import LatestReleases from "@/pages/stock-picks/components/LatestReleases";
 import StrategyCard from "@/pages/stock-picks/components/StrategyCard";
 import AllBoardStockSection from "@/pages/stock-picks/components/AllBoardStockSection";
-import { Modal } from "@nextui-org/react";
-import { Box, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import Login from "@/components/Login.jsx";
 import AuthContext from "@/components/AuthContext";
-import {
-  StockPicksProvider,
-  useStockPicks,
-} from "@/contexts/StockPicksContext";
+import { StockPicksProvider, useStockPicks } from "@/contexts/StockPicksContext";
 import { AllBoardStockProvider } from "@/contexts/AllBoardStockContext";
 import { useQuery } from "@tanstack/react-query";
 import { getHotStockListApi } from "@/api/stock-picks";
@@ -22,12 +14,9 @@ import { useMediaQuery } from "@mui/material";
 import SearchPage from "../../components.v3/common/SearchPage";
 
 const StockPicks = () => {
-  const { showLoginModal, handleCloseLoginModal, isLoggedIn } =
-    useContext(AuthContext);
-
+  const { isLoggedIn } = useContext(AuthContext);
   const { sebiBoardType, searchPageOpen } = useStockPicks();
   const isMobile = useMediaQuery("(max-width:600px)");
-
   // Use react-query to fetch
   const {
     data: { data: items = [], is_limited_view: isLimitedView = false } = {},
@@ -49,20 +38,12 @@ const StockPicks = () => {
           <Layout>
             <div
               className={`font-open_sans h-[805px] relative ${
-                (isMobile && items.length <= 1) ||
-                (!isMobile && items.length <= 3)
-                  ? "mb-48"
-                  : "mb-44"
+                (isMobile && items.length <= 1) || (!isMobile && items.length <= 3) ? "mb-48" : "mb-44"
               }`}
             >
               {/* SebiBoardTab */}
               <SebiBoardTab />
-              <HotStockSection
-                items={items}
-                isLimitedView={isLimitedView}
-                isLoading={isLoading}
-                error={error}
-              />
+              <HotStockSection items={items} isLimitedView={isLimitedView} isLoading={isLoading} error={error} />
             </div>
             {/* Latest Releases  */}
             <LatestReleases isLimitedView={isLimitedView} />

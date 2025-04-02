@@ -1,0 +1,122 @@
+
+/* Mobile-first base sizes */
+.gaugeContainer {
+  font-size: 16px;
+  width: fit-content;
+  transform: scale(0.8);
+}
+
+.gaugeContent {
+  display: flex;
+}
+
+.gaugeMask {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  /* Base size multiplied by scale factor */
+  width: calc(11rem * var(--gauge-scale));
+  height: calc(6.1rem * var(--gauge-scale));
+  /* margin: calc(1.25rem * var(--gauge-scale)); */
+}
+
+.gaugeSemiCircle {
+  position: relative;
+  display: block;
+  width: calc(11rem * var(--gauge-scale));
+  height: calc(5.5rem * var(--gauge-scale));
+  background: linear-gradient(to right, #c0392b 0%, #f1c40f 50%, #1abc9c 100%);
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+
+.gaugeSemiCircle::before {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  z-index: 2;
+  display: block;
+  width: calc(8.75rem * var(--gauge-scale));
+  height: calc(4.375rem * var(--gauge-scale));
+  margin-left: calc(-4.375rem * var(--gauge-scale));
+  background: #F9FAFB;
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+
+.gaugeStep {
+  z-index: 9;
+  display: block;
+  background: #F9FAFB;
+  height: calc(5px * var(--gauge-scale));
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.gaugeSemiCircleMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(12.5rem * var(--gauge-scale));
+  height: calc(12.5rem * var(--gauge-scale));
+  background: transparent;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gaugeSemiCircleMask::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0%;
+  z-index: 2;
+  display: block;
+  width: calc(12.625rem * var(--gauge-scale));
+  height: calc(6.375rem * var(--gauge-scale));
+  margin: calc(-1px * var(--gauge-scale)) 0 0 calc(-1px * var(--gauge-scale));
+  background: #f2f2f2;
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+
+.needle {
+  position: absolute;
+  width: calc(0.25rem * var(--gauge-scale));
+  height: calc(5.5rem * var(--gauge-scale));
+  background: #464A4F;
+  border-radius: 100% 100% 5px 5px;
+  transform-origin: bottom center;
+  bottom: 0;
+  left: calc(50% - (0.125rem * var(--gauge-scale)));
+  z-index: 10;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* .needle {
+  position: absolute;
+  width: 0;
+  height: 0;
+
+  border-left: calc(0.5rem * var(--gauge-scale)) solid transparent;
+  border-right: calc(0.5rem * var(--gauge-scale)) solid transparent;
+  border-bottom: calc(5.5rem * var(--gauge-scale)) solid #464A4F;
+  transform-origin: bottom center;
+  bottom: calc(0.6rem * var(--gauge-scale)); /* Adjust to align with center point */
+  /* left: calc(50% - (0.6rem * var(--gauge-scale)));
+  z-index: 10;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}  */
+
+
+.needleCenter {
+  position: absolute;
+  width: calc(1.25rem * var(--gauge-scale));
+  height: calc(1.25rem * var(--gauge-scale));
+  background: #fff;
+  border: 1px solid #E4E7EC;
+  border-radius: 50%;
+  bottom: calc(-0.625rem * var(--gauge-scale));
+  left: calc(50% - (0.625rem * var(--gauge-scale)));
+  z-index: 11;
+}
+
