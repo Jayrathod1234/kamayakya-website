@@ -634,7 +634,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   };
 
   const handleRazorpayScreen = (options: any) => {
-    console.log("OPETIOS", options)
+    console.log("OPETIOS", options);
     let paymentFailed = false;
     const paymentObject = new window.Razorpay(options);
     paymentObject.on("payment.failed", function (response: any) {
@@ -649,7 +649,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     });
     paymentObject.open();
   };
-  
+
   // const convertBlobToBase64 = (blob) => {
   //   return new Promise((resolve, reject) => {
   //     const reader = new FileReader();
@@ -665,7 +665,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     // Open the URL in a new tab
     // window.open(url, '_blank');
     return blob;
-
   };
 
   const disableProceedButton = () => {
@@ -678,36 +677,16 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       }
     }, 500);
   };
-  
-  const enableButtonOnScroll = () => {
-    const iframe = document.querySelector('iframe'); // If Digio SDK renders inside an iframe
-  
-    if (iframe) {
-      iframe.contentWindow.addEventListener('scroll', () => {
-        const scrollHeight = iframe.contentDocument.body.scrollHeight;
-        const scrollTop = iframe.contentWindow.pageYOffset || iframe.contentDocument.documentElement.scrollTop;
-        const clientHeight = iframe.contentDocument.documentElement.clientHeight;
-  
-        if (scrollTop + clientHeight >= scrollHeight - 20) { // User has scrolled to bottom
-          const button = iframe.contentDocument.querySelector("button[type='button']");
-          if (button && button.innerText === "Proceed to Sign") {
-            button.disabled = false; // Enable the button
-            button.style.opacity = "1";
-          }
-        }
-      });
-    }
-  };
-  
 
-  const handleDigio = async (orderId, userDetailsForPdf,orderDetails) => {
+
+  const handleDigio = async (orderId, userDetailsForPdf, orderDetails) => {
     try {
       const pdf = await generatePdf(userDetailsForPdf);
       const res = await getDigioIdandSendPdf({ order_id: orderId, user_agreement_pdf: pdf });
       // console.log(res);
       var options = {
         environment: process.env.NEXT_PUBLIC_DIGIO_ENVIRONMENT,
-        is_iframe:false,
+        is_iframe: false,
         callback: function (response) {
           if (response.hasOwnProperty("error_code")) {
             return console.log("error occurred in process", response);
@@ -715,7 +694,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           // downloadAndSendPDF();
           const options = {
             key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-            amount:orderDetails.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            amount: orderDetails.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             currency: "INR",
             name: "KamayaKya", //your business name
             description: "Test Transaction",
@@ -742,9 +721,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           handleRazorpayScreen(options);
           console.log("Signing;completed;successfully:", response);
         },
-        logo: "https://www.mylogourl.com/image.jpeg",
+        logo: "https://i.ibb.co/nMLcz99K/kmk-k.png",
         theme: {
-          primaryColor: "#AB3498",
+          primaryColor: "#0b3a36",
           secondaryColor: "#000000",
         },
       };
@@ -752,9 +731,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       digio.init();
       digio.submit(res?.id, res?.user_mobile);
 
-  // Run these functions after the SDK is loaded
-  disableProceedButton();
-  enableButtonOnScroll();
+      // Run these functions after the SDK is loaded
+      disableProceedButton();
     } catch (e) {
       console.log("ERORRO", e);
     }
@@ -790,7 +768,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         params = { ...params, gst_number: data.gstin };
       }
       const res = await postCheckout(params);
-     
+
       setPlanDetails((prev) => ({ ...prev, orderId: res.data.order_id }));
       sessionStorage.setItem("orderId", res.data.order_id);
       const userDetailsForPdf = await getUserDetailsForPdf(res.data.order_id, {
@@ -866,6 +844,22 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       setDisplayFailedAddharModal(false);
     }
   }, [openDialog]);
+
+  console.log("IS AADHAR VINTAGE:", isAadharVintage);
+  console.log("AADHAR NOT VERIFIED AND NOT ALREADY VERIFIED AND NOT VINTAGE:", !aadharVerified && !isAadharAlreadyVerified && !isAadharVintage);
+  console.log("EMAIL IS EMPTY:", email?.length === 0);
+  console.log("MOBILE IS EMPTY:", mobile?.length === 0);
+  console.log("ADDRESS IS A NUMBER AND NOT PINCODE BASED:", (!Number.isNaN(Number(address)) && !pincodeBasedAddress));
+  console.log("PAN NOT ALREADY VERIFIED AND MASKED PAN IS MISSING:", (!isPanAlreadyVerified && !userDetails.maskedPan));
+  
+  const finalCondition = ((!aadharVerified || !isAadharAlreadyVerified) && !isAadharVintage) ||
+    email?.length === 0 ||
+    mobile?.length === 0 ||
+    (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
+    (!isPanAlreadyVerified && !userDetails.maskedPan);
+  
+  console.log("FINAL CONDITION:", finalCondition);
+  
 
   return (
     <div className="mt-9">
@@ -1454,7 +1448,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             {/* <p className=" text-display-sm text-red-500 flex-1">{(!aadharVerified && !isAadharAlreadyVerified) || email?.length === 0 || mobile?.length === 0 || (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ? "true": "false"}</p> */}
             <Button
               disabled={
-                (!aadharVerified && !isAadharAlreadyVerified) ||
+                (!aadharVerified && !isAadharAlreadyVerified && !isAadharVintage) ||
                 email?.length === 0 ||
                 mobile?.length === 0 ||
                 (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
