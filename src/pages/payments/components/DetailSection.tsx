@@ -846,6 +846,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   }, [openDialog]);
 
   console.log("IS AADHAR VINTAGE:", isAadharVintage);
+  console.log("AADHAR VERIFED", aadharVerified)
+  console.log("IS AADHAR ALREADY VERIFIED",isAadharAlreadyVerified )
   console.log("AADHAR NOT VERIFIED AND NOT ALREADY VERIFIED AND NOT VINTAGE:", !aadharVerified && !isAadharAlreadyVerified && !isAadharVintage);
   console.log("EMAIL IS EMPTY:", email?.length === 0);
   console.log("MOBILE IS EMPTY:", mobile?.length === 0);
@@ -944,7 +946,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                               }
                             />
                           )}
-                          {(aadharVerified || isAadharAlreadyVerified) && isAadharVintage ? (
+                          {((aadharVerified || isAadharAlreadyVerified) && isAadharVintage) ? (
                             <VerifyTag />
                           ) : (
                             <DialogTrigger disabled={field.value.length == 0}>

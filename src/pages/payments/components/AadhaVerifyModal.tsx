@@ -62,7 +62,7 @@ export default function AadhaVerifyModal({
       }));
       setDisplayModal("CONFIRM");
     } catch (e) {
-      if (e?.response?.data?.message?.includes("Source down")) {
+      if (e?.response?.data?.message === "Source down") {
         setFetchAadharFailed(true);
         return;
       } else {
@@ -96,7 +96,7 @@ export default function AadhaVerifyModal({
           });
           return;
         }
-        if (e?.response?.data?.message?.includes("Source down")) {
+        if (e?.response?.data?.message == "Source down") {
           setDisplayFailedAddharModal(true);
           setOpenDialog(true);
           return;
