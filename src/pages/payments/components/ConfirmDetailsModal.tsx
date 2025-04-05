@@ -9,12 +9,12 @@ import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 export default function ConfirmDetailsModal({
   setOpenDialog,
   openDialog,
-  setDisplayModal
+  setDisplayModal,
 }: {
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  openDialog:boolean;
+  openDialog: boolean;
 }) {
-  const { setUserDetails, userDetails, setAadharVerified } = usePaymentContext() as IPaymentContext;
+  const { setUserDetails, userDetails, setAadharVerified, setIsAadharVintage } = usePaymentContext() as IPaymentContext;
   const [address, setAddress] = useState("");
   const [editable, setEditable] = useState(false);
 
@@ -27,7 +27,8 @@ export default function ConfirmDetailsModal({
       setUserDetails((prev) => ({ ...prev, address }));
     }
     setAadharVerified(true);
-    setDisplayModal("AADHAR")
+    setIsAadharVintage(true);
+    setDisplayModal("AADHAR");
     setOpenDialog(false);
   };
 
@@ -35,17 +36,20 @@ export default function ConfirmDetailsModal({
     setAddress(`${userDetails.address}`);
   }, [userDetails?.address]);
 
-  useEffect(()=>{
-    if(!openDialog){
-      handleConfirm()
+  useEffect(() => {
+    if (!openDialog) {
+      handleConfirm();
     }
-  },[openDialog])
+  }, [openDialog]);
 
   return (
-    <DialogContent closeClassName=" -right-2 -top-[12px] opacity-100" className=" !p-6 !rounded-[20px] w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px] open_sans">
+    <DialogContent
+      closeClassName=" -right-2 -top-[12px] opacity-100"
+      className=" !p-6 !rounded-[20px] w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px] open_sans"
+    >
       <div className=" flex flex-col md:flex-row gap-6">
         <div className="bg-[#FEB359] flex items-center justify-center px-[54px] h-[200px] sm:h-[294px] min-w-fit rounded-[20px]">
-        <img  width={178} height={178} src="/assets/confirmDetails.gif"/>
+          <img width={178} height={178} src="/assets/confirmDetails.gif" />
         </div>
         <div className=" flex flex-col gap-y-6 w-full">
           <p className=" text-xl text-[#101828] font-semibold">Confirm Your Details</p>
@@ -61,15 +65,18 @@ export default function ConfirmDetailsModal({
             <div className=" col-span-2 p-4 border-t border-t-[#EDEDED]">
               <p className=" text-2xs text-[#707070]">Address</p>
               <p
-                
                 // contentEditable={editable}
                 // onChange={(e) => {
                 //   if (!editable) return;
                 //   setAddress(e.target.value);
                 // }}
                 // value={address}
-                className={` ${editable ? "bg-white":"bg-transparent"} resize-none text-sm text-[#121212] w-full mt-[6px] line-clamp-3 sm:h-[40px]`}
-              >{address}</p>
+                className={` ${
+                  editable ? "bg-white" : "bg-transparent"
+                } resize-none text-sm text-[#121212] w-full mt-[6px] line-clamp-3 sm:h-[40px]`}
+              >
+                {address}
+              </p>
               {/* <button onClick={handleEditClick} className=" text-sm font-semibold text-[#0E6C63] ">
                 { editable ?"Save": "Edit Address"}
               </button> */}

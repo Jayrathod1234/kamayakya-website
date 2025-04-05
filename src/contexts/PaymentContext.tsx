@@ -25,7 +25,7 @@ export interface IUserDetails {
   phone: string;
   email: string;
   aadhar: string;
-  maskedPan:string;
+  maskedPan: string;
 }
 
 export interface ICurrentPlan {
@@ -41,9 +41,10 @@ export interface IPaymentContext {
   currentPlan: ICurrentPlan;
   isAadharAlreadyVerified: boolean;
   isPanAlreadyVerified: boolean;
-  isAadharVintage:boolean;
+  isAadharVintage: boolean;
   setUserDetails: Dispatch<SetStateAction<IUserDetails>>;
   setIsAadharAlreadyVerified: Dispatch<SetStateAction<boolean>>;
+  setIsAadharVintage: Dispatch<SetStateAction<boolean>>;
   setIsPanAlreadyVerified: Dispatch<SetStateAction<boolean>>;
   aadharVerified: boolean;
   setAadharVerified: Dispatch<SetStateAction<boolean>>;
@@ -79,13 +80,13 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
     phone: "",
     email: "",
     aadhar: "",
-    maskedPan:"",
+    maskedPan: "",
   });
   const { user } = useContext(AuthContext);
   const [isAadharAlreadyVerified, setIsAadharAlreadyVerified] = useState(false); //if kyc is already done
   const [isPanAlreadyVerified, setIsPanAlreadyVerified] = useState(false);
   const [aadharVerified, setAadharVerified] = useState(false); //if new kyc
-  const [isAadharVintage,setIsAadharVintage] = useState(false);
+  const [isAadharVintage, setIsAadharVintage] = useState(false);
 
   const fetchPlanDetails = async () => {
     try {
@@ -117,7 +118,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
       const res = await getUserKycStatus();
       setIsAadharAlreadyVerified(res?.is_aadhar_verified);
       setIsPanAlreadyVerified(res?.is_pan_verified);
-      setIsAadharVintage(res?.is_aadhar_vintage || true)
+      setIsAadharVintage(res?.is_aadhar_vintage);
       // let address = Object.values(res?.address_details || {}).filter(value=>value).join(", ");
       setUserDetails((prev) => ({
         ...prev,
@@ -125,7 +126,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         email: res?.email,
         phone: res?.mobile,
         address: res?.address_details || res?.address,
-        aadhar:res?.aadhar_number
+        aadhar: res?.aadhar_number,
       }));
     } catch (e) {
       console.error(e);
@@ -143,7 +144,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
   // console.log("USER",user.email)
   useEffect(() => {
     if (!currentPlan.planId) return;
-    setUserDetails((prev) => ({ ...prev, phone: user.mobile,email:user.email }));
+    setUserDetails((prev) => ({ ...prev, phone: user.mobile, email: user.email }));
     fetchPlanDetails();
     fetchPlanSummary();
     checkUserKycStatus();
@@ -160,6 +161,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         setUserDetails,
         isPanAlreadyVerified,
         isAadharVintage,
+        setIsAadharVintage,
         setIsAadharAlreadyVerified,
         setIsPanAlreadyVerified,
         aadharVerified,

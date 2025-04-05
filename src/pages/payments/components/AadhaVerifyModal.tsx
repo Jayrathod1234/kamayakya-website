@@ -43,24 +43,33 @@ export default function AadhaVerifyModal({
       const res = await postAadharOtp({ aadhar, request_id: requestId, otp });
       // let address = Object.values(res?.address || {}).filter(value=>value).join(", ");
       let address = res?.address;
-      if (res?.is_aadhar_verified) {
-        setOpenDialog(false);
-        toast({
-          variant: "warn",
-          description: res?.message,
-        });
-        return;
+      if (res?.is_aadhar_verified && res?.is_aadhar_vintage) {
+        // setOpenDialog(false);
+        // toast({
+        //   variant: "warn",
+        //   description: res?.message,
+        // });
+        // return;
+        setUserDetails((prev) => ({
+          ...prev,
+          pan: res?.pan_number,
+          name: res?.name,
+          address: address,
+          aadhar: res?.masked_aadhar,
+          maskedPan: res?.masked_pan_number,
+        }));
+        setDisplayModal("CONFIRM");
       }
-      // setBillingSameAsAadhar(true);
-      setUserDetails((prev) => ({
-        ...prev,
-        pan: res?.pan_number,
-        name: res?.name,
-        address: address,
-        aadhar: res?.masked_aadhar,
-        maskedPan: res?.masked_pan_number,
-      }));
-      setDisplayModal("CONFIRM");
+      
+      // setUserDetails((prev) => ({
+      //   ...prev,
+      //   pan: res?.pan_number,
+      //   name: res?.name,
+      //   address: address,
+      //   aadhar: res?.masked_aadhar,
+      //   maskedPan: res?.masked_pan_number,
+      // }));
+      // setDisplayModal("CONFIRM");
     } catch (e) {
       if (e?.response?.data?.message === "Source down") {
         setFetchAadharFailed(true);
