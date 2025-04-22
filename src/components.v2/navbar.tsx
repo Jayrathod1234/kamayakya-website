@@ -279,7 +279,7 @@ export function Navbar({
                             : false
                         }
                       >
-                        {navigationOption.title}{navigationOption.title?.includes("Vip") ? <span className=" ml-1">
+                        {navigationOption.title}{navigationOption.title?.includes("VIP") ? <span className=" ml-1">
                           
                           <Lottie className=" h-7 w-7 block object-contain" autoPlay loop={false} animationData={VIP_LOTTIE} />
                         </span>:null}
