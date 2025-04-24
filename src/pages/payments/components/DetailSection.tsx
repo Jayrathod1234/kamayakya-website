@@ -1046,6 +1046,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       //
       setAadharRequestId(res?.result?.requestId);
       setOpenDialog(true);
+      if(displayFailedAddharModal){
+        setDisplayFailedAddharModal(false)
+      }
       // setAadharRequestId(res?.)
     } catch (e: any) {
       if (e?.response?.data?.message?.includes("Invalid Aadhaar")) {
@@ -1085,6 +1088,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       setLoading(true);
       const res = await postAadharOtp({ aadhar, is_encrypted: true });
       let address = res?.address;
+      if(displayFailedAddharModal){
+        setDisplayFailedAddharModal(false)
+      }
       if (res?.is_aadhar_verified) {
         setOpenDialog(false);
         toast({
@@ -1101,6 +1107,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         // aadhar: res?.masked_aadhar,
         maskedPan: res?.masked_pan_number,
       }));
+
       // setDisplayModal("CONFIRM");
     } catch (e: any) {
       if (e?.response?.data?.message?.includes("Source down")) {
@@ -2000,13 +2007,13 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 </DialogClose>
                 <Button
                   loading={aadharOtpLoading}
-                  onClick={() => {
+                  onClick={async () => {
                     if (isAadharAlreadyVerified || aadharVerified) {
                       handleVerifyAadharOtp();
                     } else {
-                      handleAadharOtp({ aadhar });
+                      await handleAadharOtp({ aadhar });
                     }
-                    setDisplayFailedAddharModal(false);
+                    // setDisplayFailedAddharModal(false);
                     // handleAadharOtp({ aadhar });
                   }}
                   variant={ButtonVariant.primary}

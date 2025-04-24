@@ -40,6 +40,8 @@ export default function AadhaVerifyModal({
   const handleVerifyAadharOtp = async () => {
     try {
       setLoading(true);
+      // let error= {response:{data:{message:"Source down"}}}
+      // throw error
       const res = await postAadharOtp({ aadhar, request_id: requestId, otp });
       // let address = Object.values(res?.address || {}).filter(value=>value).join(", ");
       let address = res?.address;
