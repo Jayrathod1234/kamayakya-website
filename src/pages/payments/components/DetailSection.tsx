@@ -11,6 +11,8 @@ import OtpInput from "react-otp-input";
 import { blockInvalidChar } from "@/components/LoginCard";
 import AadhaVerifyModal from "./AadhaVerifyModal";
 import ConfirmDetailsModal from "./ConfirmDetailsModal";
+import { pdf } from "@react-pdf/renderer";
+
 import {
   getAadharOtp,
   getAddress,
@@ -317,8 +319,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     const url = URL.createObjectURL(blob);
 
     // Open the URL in a new tab
-    // window.open(url, "_blank");
-    return blob;
+    window.open(url, "_blank");
+    // return blob;
   };
 
   const handleDigio = async (orderId, userDetailsForPdf, orderDetails) => {
@@ -497,13 +499,13 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
     (!isPanAlreadyVerified && !userDetails.maskedPan);
 
-  console.log("PAN VERIFIED", isPanAlreadyVerified, userDetails.pan);
+  console.log("PAN VERIFIED", isPanAlreadyVerified, userDetails.pan,isAadharAlreadyVerified);
 
   return (
     <div className="mt-9">
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
         <GoBackButton setActiveTab={setActiveTab} />
-        {isAadharAlreadyVerified && isAadharVintage && isPanAlreadyVerified ? null : <KycPrivacyNotice />}
+        {isAadharAlreadyVerified && isAadharVintage ? null : <KycPrivacyNotice />}
 
         <div className="grid grid-cols-2 gap-y-4 sm:gap-y-7 gap-x-[22px]">
           {!isAadharAlreadyVerified || !isAadharVintage ? (

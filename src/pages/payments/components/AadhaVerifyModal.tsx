@@ -38,6 +38,8 @@ export default function AadhaVerifyModal({
   const isMobile = useMediaQuery("(max-width:640px)");
   const verySmallScreen = useMediaQuery("(max-width:400px)");
   const handleVerifyAadharOtp = async () => {
+    // setLoading(true)
+    // return
     try {
       setLoading(true);
 
@@ -159,6 +161,18 @@ export default function AadhaVerifyModal({
       setFetchAadharFailed(false);
     }
   }, [openDialog]);
+
+  if(loading){
+    return  <DialogContent
+    closeClassName=" -right-2 -top-[12px] opacity-100"
+    className=" !p-6 !rounded-[20px]  w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px]"
+  >
+    <div className=" flex flex-col justify-center items-center min-w-0 open_sans">
+     <h2>Loading</h2>
+     <p>Hang tight! we are fetching your Aadhar details</p>
+    </div>
+  </DialogContent>
+  }
 
   if (fetchAadharFailed) {
     return (
