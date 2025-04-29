@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }) => {
           } else {
             setIsSubscribed(false);
           }
-          console.log("USER DATA==>", data)
+          // console.log("USER DATA==>", data)
           setUser(data);
         } catch (error) {
           console.error("Error verifying tokens:", error);
