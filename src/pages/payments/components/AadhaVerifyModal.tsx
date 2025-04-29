@@ -19,7 +19,7 @@ export default function AadhaVerifyModal({
   openDialog,
   displayModal,
   setBillingSameAsAadhar,
-  setDisplayFailedAddharModal
+  setDisplayFailedAddharModal,
 }: {
   setAadharRequestId: React.Dispatch<React.SetStateAction<string>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -40,11 +40,11 @@ export default function AadhaVerifyModal({
   const handleVerifyAadharOtp = async () => {
     try {
       setLoading(true);
-      // let error= {response:{data:{message:"Source down"}}}
-      // throw error
-      const res = await postAadharOtp({ aadhar, request_id: requestId, otp });
-      // let address = Object.values(res?.address || {}).filter(value=>value).join(", ");
+
+      let res = await postAadharOtp({ aadhar, request_id: requestId, otp });
+
       let address = res?.address;
+     
       if (res?.is_aadhar_verified && res?.is_aadhar_vintage) {
         // setOpenDialog(false);
         // toast({
@@ -61,8 +61,10 @@ export default function AadhaVerifyModal({
           maskedPan: res?.masked_pan_number,
         }));
         setDisplayModal("CONFIRM");
+      }else{
+        setFetchAadharFailed(true);
       }
-      
+
       // setUserDetails((prev) => ({
       //   ...prev,
       //   pan: res?.pan_number,
@@ -98,7 +100,7 @@ export default function AadhaVerifyModal({
       // setOpenDialog(true);
       // setAadharRequestId(res?.)
     } catch (e: any) {
-      if(typeof e?.response?.data?.message === "string"){
+      if (typeof e?.response?.data?.message === "string") {
         if (e?.response?.data?.message?.includes("Invalid Aadhaar")) {
           toast({
             variant: "warn",
@@ -112,21 +114,20 @@ export default function AadhaVerifyModal({
           setOpenDialog(true);
           return;
         }
-  
       }
-    
-      if(e?.response?.data?.detail?.includes("Token ")){
+
+      if (e?.response?.data?.detail?.includes("Token ")) {
         toast({
           variant: "warn",
           title: "",
-          description:"Session Expired! Please relogin and try again. ",
-        });  
+          description: "Session Expired! Please relogin and try again. ",
+        });
       }
 
       toast({
         variant: "warn",
         title: "",
-        description: e?.response?.data?.message ||  e?.response?.data?.detail || "Something went wrong.",
+        description: e?.response?.data?.message || e?.response?.data?.detail || "Something went wrong.",
       });
     } finally {
       // setAadharOtpLoading(false);

@@ -44,10 +44,26 @@ export const getAadharOtp = async (params)=>{
 export const postAadharOtp = async (params)=>{
   try {
     const URL = `/user/verifyOtpForAadhar`;
-    /* ----------------------------------- API ---------------------------------- */
-    // return {pan_number:'', address:'Maharashtra, 401203',name:'Sahil Padvi'}
+  //   return {
+  //     "message": "Aadhar verified successfully",
+  //     "status_code": 200,
+  //     "address": "Surat City, Surat, Gujarat, India, 395006",
+  //     "name": "Dobariya Anurag",
+  //     "mobile": "",
+  //     "email": "",
+  //     // "pan_number": "",
+  //     // "masked_pan_number": "",
+  //     "masked_aadhar": "XXXXXXXX1111",
+  //     "encrypted_aadhar": "47PoY+AlUvhwO3W2uxr3Fw==",
+  //     "aadhar_mobile": "9313645441",
+  //     "aadhar_email": null,
+  //     "is_aadhar_verified": true,
+  //     "is_pan_verified": false,
+  //     "is_aadhar_vintage": true,
+  //     "errors": {}
+  // }
     const response = await axiosApi.post(URL, params);
-   
+ 
     return response.data;
   } catch (error) {
     // Handle errors if any
@@ -59,6 +75,16 @@ export const postAadharOtp = async (params)=>{
 export const getUserKycStatus = async()=>{
   try {
     const URL = `/user/checkUserKycStatus`;
+  //   return {
+  //     "message": "User KYC is pending.",
+  //     "status_code": 200,
+  //     "name": "Sahil Krishna Padvi",
+  //     "email": "sahilanime06@gmail.com",
+  //     "mobile": "+918007152481",
+  //     "is_aadhar_verified": true,
+  //     "is_aadhar_vintage": false,
+  //     "is_pan_verified": false
+  // }
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
     return response.data;
