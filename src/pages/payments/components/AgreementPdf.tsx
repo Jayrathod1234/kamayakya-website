@@ -97,7 +97,7 @@ export const KamayakyaPDFDocument = ({ clientData }: { clientData: TClientData }
         </View>
         <View style={PDF_STYLES.row}>
           <Text style={PDF_STYLES.label}>Membership Plan Frequency:</Text>
-          <Text>{PLAN_FREQUENCY_MAP[clientData.subscription_frequency as keyof typeof PLAN_FREQUENCY_MAP]}</Text>
+          <Text>{PLAN_FREQUENCY_MAP[clientData.subscription_frequency]}</Text>
         </View>
         <View style={PDF_STYLES.row}>
           <Text style={PDF_STYLES.label}>User Email:</Text>
@@ -120,449 +120,165 @@ export const KamayakyaPDFDocument = ({ clientData }: { clientData: TClientData }
           <Text>{clientData.customer_age}</Text>
         </View>
       </View>
-      {/* <Text style={PDF_STYLES.header}>Terms and Conditions for KamayaKya Research Services</Text> */}
-      <Text style={PDF_STYLES.sectionTitle}>KamayaKya Research Analyst User Agreement</Text>
+      <Text style={PDF_STYLES.header}>KamayaKya Research Analyst User Agreement</Text>
+      <Text style={PDF_STYLES.sectionTitle}>1. Acceptance of Research Services</Text>
       <Text>
-        This User Agreement (&quot;Agreement&quot;) is made between Kamayakya Wealth Management (&quot;Research
-        Analyst&quot; or &quot;RA&quot;) and the subscriber (&quot;Client&quot;), who agrees to the following terms and
-        conditions:
-      </Text>
-      {/* <Text style={PDF_STYLES.sectionTitle}>Cases Where No Refund Will Be Provided:</Text> */}
-      {/* <View style={{ paddingLeft: 16 }}> */}
-      <Text>
-        <Text style={PDF_STYLES.listItem}>1. Acceptance of Research Services </Text>
         By subscribing to the research service, the Client confirms that they have elected to avail of the research
-        service at their sole discretion. The RA shall render research services in accordance with the applicable
-        provisions of SEBI (Research Analyst) Regulations, 2014.
+        service at their sole discretion. The Research Analyst (RA) shall render research services in accordance with
+        the applicable provisions of SEBI (Research Analyst) Regulations, 2014.
       </Text>
+      <Text style={PDF_STYLES.sectionTitle}>2. Obligations of RA and Client</Text>
       <Text>
-        <Text style={PDF_STYLES.listItem}>2. Obligations of RA and Client </Text>
         The RA and the Client shall be bound by the SEBI Act and all applicable SEBI regulations, including relevant
         government notifications, as may be in force from time to time.
       </Text>
+      <Text style={PDF_STYLES.sectionTitle}>3. Client Information and KYC</Text>
       <Text>
-        <Text style={PDF_STYLES.listItem}>3. Client Information and KYC </Text>
         The Client shall furnish all mandatory details required by the RA, along with supporting documents, as per
         SEBI/RAASB guidelines. The RA shall collect, store, and verify KYC records through the KYC Registration Agency
         (KRA) as specified by SEBI.
       </Text>
-      <Text>
-      <Text style={PDF_STYLES.listItem}>4. Standard Terms of Service </Text>
-        <Text>Client Consent:</Text>
-        <Text style={PDF_STYLES.semibold}>
-          "I / We have read and understood the terms and conditions applicable to a research analyst as defined under
-          regulation 2(1)(u) of the SEBI (Research Analyst) Regulations, 2014, including the fee structure.
-        </Text>
-        <Text style={PDF_STYLES.semibold}>
-          I/We are subscribing to the research services for our own benefits and consumption, and any reliance placed on
-          the research report provided by the research analyst shall be as per our own judgment and assessment of the
-          conclusions contained in the research report.
-        </Text>
+      <Text style={PDF_STYLES.sectionTitle}>4. Standard Terms of Service</Text>
+      <Text>Client Consent:</Text>
+      <Text style={PDF_STYLES.semibold}>
+        "I / We have read and understood the terms and conditions applicable to a research analyst as defined under
+        regulation 2(1)(u) of the SEBI (Research Analyst) Regulations, 2014, including the fee structure.
       </Text>
-      <Text>
-        Failure to uphold the above responsibilities may lead to suspension or termination of your access to the
-        services, and in serious cases, regulatory reporting. We value fair use and compliance to protect all clients
-        and the integrity of our service.
+      <Text style={PDF_STYLES.semibold}>
+        I/We are subscribing to the research services for our own benefits and consumption, and any reliance placed on
+        the research report provided by the research analyst shall be as per our own judgment and assessment of the
+        conclusions contained in the research report.
       </Text>
-      <Text style={PDF_STYLES.sectionTitle}>Research Analyst’s Responsibilities and Commitments</Text>
-      <Text>
-        KamayaKya, as a SEBI-registered Research Analyst, commits to maintaining the highest standards of integrity and
-        compliance. Our key responsibilities to you include:
+      <Text style={PDF_STYLES.semibold}>I/We understand that:</Text>
+      <Text style={PDF_STYLES.listItem}>
+        • Any investment made based on the recommendations in the research report is subject to market risk.
       </Text>
-      <View style={{ paddingLeft: 16 }}>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Regulatory Compliance: </Text>We confirm that we are duly registered with
-          SEBI as a Research Analyst (Registration No. INH000009843), and we possess the necessary qualifications and
-          certifications to offer these services​. We will comply with all provisions of the SEBI (Research Analyst)
-          Regulations, 2014, and all circulars/guidelines issued thereunder, as well as any rules imposed by the RAASB
-          (currently BSE)​. Any material changes (such as suspension or cancellation of our SEBI registration) will be
-          promptly communicated to clients, and necessary actions (including refunds if applicable) will be taken as per
-          regulations.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Ethical Conduct and Conflict of Interest: </Text>The RA will abide by the
-          Code of Conduct as prescribed by SEBI. We will act honestly and in good faith in our dealings with you. If we
-          identify any actual or potential conflict of interest in giving you advice (for example, if our analysts hold
-          a position in a stock being recommended), we will disclose such conflicts to you and take steps to mitigate
-          them​. The RA will not put its own interests above the client’s interests and will ensure fairness in all
-          recommendations. We also strictly follow trading restrictions – for instance, our team is typically barred
-          from trading ahead on a recommendation we are about to release, as per regulations.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Service Quality and Transparency: </Text>We strive to provide research
-          that is thorough, up-to-date, and compliant with SEBI’s research analyst guidelines. All reports will include
-          necessary disclosures (such as holding or interest of the RA in the securities, if any, and detailed rationale
-          for recommendations). We do not guarantee that our research will always be profitable (see Disclaimer below),
-          but we assure that it will be prepared with due care, skill, and diligence. We will not knowingly hide
-          material facts or mislead the client. If at any time we discover an error in our published research or a
-          needed update (e.g., a drastic change in market conditions affecting a recommendation), we will inform clients
-          as soon as possible.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• No Inducement or Unlawful Offers: </Text>The RA will never offer any
-          inducement or promise of assured returns to solicit clients. We do not run any schemes that are prohibited,
-          such as guaranteed profit plans or quick-rich tips. Any such representation, if made by any employee or
-          associate of the RA, should be reported and is against our policy. We uphold SEBI’s prohibition on
-          assured/guaranteed returns or fixed return schemes​. All performance examples provided (if any) are for
-          illustration and are not promises of future results.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Confidentiality: </Text>Except as required to perform the services or by
-          law, the RA will keep all your personal and financial information confidential. We have internal controls to
-          ensure that client information is not misused. We will not divulge your identity or personal data in our
-          public research reports. Data sharing, if any, will only be done with your consent and with reliable service
-          providers as mentioned in the Data Privacy section. We will never sell your data to third-party marketers.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Continuous Compliance and Improvement: </Text>The regulatory environment
-          may evolve, and the RA will adapt to all new compliance requirements. For example, we adhere to the latest
-          SEBI circulars including the Master Circular of May 21, 2024 and the Feb 17, 2025 circular (MITC). We will
-          also implement any directives from the RAASB or stock exchanges related to research analysts. Clients will be
-          notified of any significant change in regulations that impacts the terms of our services. Any voluntary
-          additional clauses or features we introduce will not contravene SEBI regulations, and we will give you prior
-          notice before making material changes to these Terms (see Amendments section below)​.
-        </Text>
-      </View>
-      <Text>
-        In summary, KamayaKya pledges to uphold all its duties as a registered RA, putting client interests first,
-        avoiding conflicts, and operating in a transparent, lawful manner. Our SEBI registration, RAASB (BSE)
-        enlistment, and NISM certifications affirm our credentials but, as required by SEBI, we clarify that these do
-        not guarantee the performance of our recommendations or any returns to you​.
+      <Text style={PDF_STYLES.listItem}>
+        • Recommendations in the research report do not provide any assurance of returns.
       </Text>
-      <Text style={PDF_STYLES.sectionTitle}>Disclaimers and Risk Acknowledgment</Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Market Risks: </Text>
-        All investments in the securities markets are subject to market risks, and the value or returns of investments
-        can fluctuate. Past performance of any security or strategy is not indicative of future performance. Any
-        investments made based on the RA’s recommendations are at the sole risk of the client​. The client should be
-        prepared for the possibility of loss of capital and must invest only after considering their own risk tolerance.
-        The RA’s research is one of the inputs in your decision-making; you should carefully evaluate each
-        recommendation in light of your personal financial situation and do your own due diligence where necessary.
+      <Text style={PDF_STYLES.listItem}>
+        • There is no recourse to claim any losses incurred on the investments made based on the recommendations in the
+        research report."
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>No Assurance of Returns: </Text>
-        KamayaKya does not guarantee any fixed returns or profit from following our research advice​. We make no
-        warranties that any recommendation will result in a profit or will not result in a loss. There is no assurance
-        of any return, profit, or yield and no “recourse to claim losses” from the RA if investments do not perform as
-        expected​. By accepting our services, you acknowledge that you cannot hold the RA responsible for market losses
-        incurred based on our recommendations. All recommendations are our analysis and opinion, not a promise.
+      <Text style={PDF_STYLES.listItem}>
+        • <Text style={PDF_STYLES.semibold}>Declaration of the RA that:</Text> It is duly registered with SEBI as an RA
+        under SEBI (Research Analysts) Regulations, 2014, and its registration details are:
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Information Accuracy: </Text>
-        The information, analysis, and opinions presented by the RA are based on sources believed to be reliable and on
-        our best professional judgment. However, the RA does not warrant the completeness or accuracy of the
-        information. There may be errors or omissions, or the information may become outdated. We will try to update our
-        research when new information emerges, but we do not guarantee real-time updates for all recommendations. The
-        services are provided on an “as is” and “as available” basis without any express or implied warranties of any
-        kind​. We specifically disclaim any warranties of merchantability or fitness for a particular purpose with
-        respect to the research provided​.
+      <Text style={[PDF_STYLES.subListItem, { marginLeft: 80 }]}>Registration No: INH000009843</Text>
+      <Text style={[PDF_STYLES.subListItem, { marginLeft: 80 }]}>Registration date: 13 June 2022</Text>
+      <Text style={[PDF_STYLES.subListItem, { marginLeft: 80 }]}>BSE Enlistment no.: 5583</Text>
+      <Text style={PDF_STYLES.listItem}>
+        • It has registration and qualifications required to render the services contemplated under the RA Regulations,
+        and the same are valid and subsisting;.
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>No Fiduciary Relationship: </Text>
-        The RA provides research recommendations to clients on a subscription basis. This does not create a personalized
-        investment adviser-client fiduciary relationship in the legal sense (Research Analysts differ from Investment
-        Advisers). While we strive to serve your best interests, the ultimate decision and responsibility lies with you,
-        and we are not managing your portfolio or personal financial plan under these Terms.
+      <Text style={PDF_STYLES.listItem}>
+        • Research analyst services provided by it do not conflict with or violate any provision of law, rule or
+        regulation, contract, or other instrument to which it is a party or to which any of its property is or may be
+        subjectThe maximum fee that may be charged by RA is ₹1.51 lakhs per annum per family of client.{" "}
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>No Liability for Outcomes: </Text>
-        The RA, its directors, employees, and affiliates shall not be liable for any direct or indirect damages or
-        losses arising from your use of the research services. This includes (but is not limited to) trading losses,
-        lost profits, lost opportunities, or any incidental/consequential damages in connection with the use of our
-        recommendations​. The entire risk of using the service lies with the client​. In any scenario, the maximum
-        liability of the RA (if determined by a competent authority or court) will be limited to the fees paid by the
-        client for the preceding few months of service. We will not be liable for matters beyond our control (see Force
-        Majeure in Termination section). By agreeing to these Terms, you accept that KamayaKya will not be held
-        responsible for trading decisions you make, and you release us from any claims or damages for outcomes
-        experienced.
+      <Text style={PDF_STYLES.listItem}>
+        • The recommendations provided by RA do not provide any assurance of returns.{" "}
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Regulatory Credentials Not an Endorsement: </Text>
-        Our SEBI registration and certifications indicate authorization to operate and our adherence to competency
-        requirements, but they do not imply SEBI’s endorsement of guaranteed success. SEBI or RAASB (BSE) does not
-        certify the quality of our advice, and having a valid registration is not a warranty of performance​. Investors
-        should not equate registration or certifications with assured gains. We include these disclaimers to ensure you
-        clearly understand the risks and limitations inherent in our services. Always invest carefully and, if needed,
-        seek independent financial advice to complement our research.
+      <Text style={PDF_STYLES.sectionTitle}>5. Termination and Refund</Text>
+      <Text style={PDF_STYLES.listItem}>
+        • RA services may be suspended/terminated if SEBI cancels or suspends RA registration.
       </Text>
-      <Text style={PDF_STYLES.sectionTitle}>Data Privacy and Consent</Text>
+      <Text style={PDF_STYLES.listItem}>• Refunds shall be made on a pro-rata basis for the unexpired period.</Text>
       <Text>
-        Your privacy is important to us. KamayaKya collects and uses your personal information only for legitimate
-        purposes connected with our services. By agreeing to these Terms, you consent to the following uses of your
-        data:
+        In case of suspension of certificate of registration of the RA for more than 60 (sixty) days or cancellation of
+        the RA registration, RA shall refund the fees, on a pro rata basis for the period from the effective date of
+        cancellation/suspension to end of the subscription period.
       </Text>
-      <View style={{ paddingLeft: 16 }}>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Usage of Data: </Text>The personal and financial information you provide
-          (such as contact details, PAN, KYC documents, etc.) will be used to onboard you, provide you with research
-          reports, process payments, and comply with legal/regulatory requirements. We may also use your contact
-          information to send service-related communications, account statements, subscription reminders, or important
-          announcements. We will not use your data for any purpose that is not relevant to the services we offer or as
-          required for compliance.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• RA’s Inability to Continue (RA’s Early Termination): </Text>If the RA
-          itself terminates or suspends the service before your subscription period is over (for reasons other than your
-          breach), you will receive a pro-rata refund for the unexpired portion of the subscription that you had paid
-          for​. This includes scenarios where the RA voluntarily discontinues the service or cannot service you for any
-          reason within their control.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Third-Party Sharing: </Text>The RA may need to share certain information
-          with authorized third-party service providers or partners to effectively deliver services. For example, we
-          might share data with a SEBI-registered KYC Registration Agency to verify your KYC, with payment
-          gateways/banks to process transactions, or with email/SMS service providers to send you reports and alerts.
-          Such sharing will be done on a need-to-know basis and in compliance with applicable privacy laws. By accepting
-          these Terms, you consent to the RA sharing your information with such authorized agents or third-party vendors
-          who are contractually bound to handle your data securely​. We do not sell or rent your personal information to
-          any third party for marketing or any unrelated purposes.
-        </Text>
-
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Exclusions: </Text>We will not share your data with any other entity for
-          their own use without your consent. We also do not share your confidential information with other clients or
-          unauthorized parties.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Legal Compliance and Disclosures: </Text>The RA may disclose your
-          information if required by law, regulation, or governmental request, or to protect our rights or comply with
-          judicial proceedings. For instance, we will cooperate with regulators like SEBI or law enforcement if they
-          demand information, and we may share data to prevent fraud or to enforce these Terms (for example, to
-          investigate a breach)​. Any such disclosure will be done only to the extent necessary and as per legal
-          requirements.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Data Security: </Text>We implement standard security measures to protect
-          your data from unauthorized access or leakage. However, you understand that no data transmission over the
-          internet can be guaranteed 100% secure. We continuously review and update our security practices. In the
-          unfortunate event of any data breach or security incident, we will inform affected clients and take remedial
-          measures as required by law.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Retention and Deletion: </Text>We will retain your personal data for as
-          long as you are our client and as needed to comply with record-keeping regulations (which may require us to
-          keep certain records for a number of years even after you stop using the service). When no longer required, we
-          will securely dispose of or anonymize your data. If you wish to withdraw consent or request deletion of your
-          data, you can contact us. We will accommodate requests to the extent possible, provided it does not conflict
-          with legal obligations.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Consent for Communication: </Text>You consent to receive communications
-          from us or our partners related to the service. This includes emails, SMS, calls, or notifications about your
-          subscription, research reports, payment alerts, or service updates. We may also send occasional updates about
-          new features or products. You can opt out of non-essential communications by notifying us, but certain
-          transactional or compliance-related communications cannot be opted out of.
-        </Text>
-      </View>
+      <Text style={PDF_STYLES.sectionTitle}>6. Mandatory Notice to Clients</Text>
       <Text>
-        For more details, please refer to our Privacy Policy (if provided separately). In summary, we respect your
-        privacy and will only use your data to support your relationship with us, in line with applicable laws. If you
-        have any concerns about your data, you may reach out to our Compliance/Grievance Officer (see Grievance
-        Redressal section).
+        Clients are advised to review SEBI's "Do's and Don'ts" while dealing with RAs, as per SEBI Master Circular
+        SEBI/HO/MIRSD-POD-1/P/CIR/2024/49 dated May 21, 2024.
       </Text>
-      <Text style={PDF_STYLES.sectionTitle}>Grievance Redressal and Dispute Resolution</Text>
-      <Text>
-        We are committed to addressing any grievances or issues you might face. If you have a complaint or feedback
-        regarding our services, please follow these steps for resolution:
+      <Text style={PDF_STYLES.sectionTitle}>7. Most Important Terms and Conditions (MITC)</Text>
+      <Text style={PDF_STYLES.listItem}>
+        1. These terms and conditions, and consent thereon are for the research services provided by the Research
+        Analyst (RA) and RA cannot execute/carry out any trade (purchase/sell transaction) on behalf of the client.
+        Thus, the clients are advised not to permit RA to execute any trade on their behalf.
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Step 1: Contact the RA: </Text>
-        In case of any grievance (e.g., non-receipt of a report, incomplete information, service downtime, billing
-        issues, etc.), you should first report it to our team. You can email our Grievance Officer (Nitya Shah) at
-        nitya@kamayakya.com or call us at the phone number provided on our website​. Please provide details of your
-        issue and any relevant information. We will acknowledge your complaint and strive to resolve it in a transparent
-        and timely manner, typically within 21 calendar days of receiving it​. Our goal is to satisfactorily address
-        your concern as quickly as possible.
+      <Text style={PDF_STYLES.listItem}>
+        2. The fee charged by RA to the client will be subject to the maximum of amount prescribed by SEBI/ Research
+        Analyst Administration and Supervisory Body (RAASB) from time to time (applicable only for Individual and HUF
+        Clients).
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Step 2: Escalation to SEBI SCORES: </Text>
-        If you are not satisfied with our response, or if your complaint is not resolved within the promised timeframe,
-        you have the right to escalate the matter. You can lodge a complaint on SEBI’s SCORES (SEBI Complaints Redress
-        System) platform​. SCORES is an online portal (at scores.sebi.gov.in) where investors can file complaints
-        against SEBI-registered intermediaries. When submitting a complaint on SCORES, select “Research Analyst” as the
-        intermediary type and provide the required details (including our SEBI Registration number). We are obligated to
-        respond to and address complaints forwarded through SCORES as well.
+      <Text style={PDF_STYLES.subListItem}>
+        • The current fee limit is Rs 1,51,000/- per annum per family of client for all research services of the RA.
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Step 3: Online Dispute Resolution (ODR): </Text>
-        In the unlikely event that your grievance remains unresolved even after Step 2, you may seek redressal through
-        SEBI’s approved Online Dispute Resolution mechanism​. SEBI has facilitated ODR which may involve mediation,
-        conciliation, and/or arbitration as means to settle disputes. One such platform is the Smart ODR portal
-        (smartodr.in)​. Through ODR, an independent mediator/arbitrator can help resolve the dispute in a binding manner
-        without the need for court litigation. The procedure will be as specified by SEBI’s circulars. If both parties
-        agree, the decision from the ODR process (especially arbitration awards) can be final and enforceable. Choosing
-        ODR does not prejudice your rights to seek other legal remedies, but it is a faster and investor-friendly option
-        encouraged by SEBI.
+      <Text style={PDF_STYLES.subListItem}> • The fee limit does not include statutory charges.</Text>{" "}
+      <Text style={PDF_STYLES.subListItem}>
+        • The fee limits do not apply to a non-individual client / accredited investor.
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Jurisdiction: </Text>
-        This Agreement is governed by the laws of India. Subject to the above ODR process, any legal action or
-        proceeding arising out of these Terms that requires adjudication by courts shall be subject to the jurisdiction
-        of the appropriate courts in Pune, Maharashtra, India (the location of the RA’s registered office). We encourage
-        resolving matters amicably or through the mechanisms above before resorting to litigation.
+      <Text style={PDF_STYLES.listItem}>
+        3. RA may charge fees in advance if agreed by the client. Such advance shall not exceed the period stipulated by
+        SEBI; presently it is one quarter. In case of premature termination of the RA services by either the client or
+        the RA, the client shall be entitled to seek a refund of proportionate fees only for the unexpired period.
       </Text>
-      <Text>
-        We hope to never reach Step 2 or 3 and will work hard to resolve issues at the first level. Your feedback and
-        satisfaction are important to us. Also, clients are encouraged to read the SEBI Investor Charter for Research
-        Analysts, which includes important "Dos and Don’ts" for grievance redressal and dealing with RAs​– following
-        those guidelines will help in smoother resolution of issues.
+      <Text style={PDF_STYLES.listItem}>
+        4. Fees to RA may be paid by the client through any of the specified modes like cheque, online bank transfer,
+        UPI, etc. Cash payment is not allowed. Optionally the client can make payments through Centralized Fee
+        Collection Mechanism (CeFCoM) managed by BSE Limited (i.e. currently recognized RAASB).
       </Text>
-      <Text style={PDF_STYLES.sectionTitle}>Termination of Services</Text>
-      <Text>
-        Either party (you or the RA) may terminate the research service engagement under the following conditions:
+      <Text style={PDF_STYLES.listItem}>
+        5. The RA is required to abide by the applicable regulations/ circulars/ directions specified by SEBI and RAASB
+        from time to time in relation to disclosure and mitigation of any actual or potential conflict of interest. The
+        RA will endeavor to promptly inform the client of any conflict of interest that may affect the services being
+        rendered to the client.
       </Text>
-      <View style={{ paddingLeft: 16 }}>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Voluntary Termination by Client: </Text>You have the right to terminate
-          your subscription to the research service at any time by giving us written notice (an email is acceptable). We
-          request at least 30 days’ notice if possible, so we can process your termination smoothly (especially for
-          auto-renewing plans)​. Upon termination, your access to future research reports will cease at the end of the
-          paid period or immediately if you request immediate termination. Any eligible refund for the remaining period
-          will be handled as per the Refund Policy above. If you terminate and have an ongoing auto-renew mandate, we
-          will cancel the mandate to prevent any further charges. There are no penalties for terminating the service;
-          however, remember to cancel before your next billing date to avoid being charged for the next period.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Termination by RA (With Notice): </Text>he RA may terminate or suspend
-          your subscription by giving you at least 15 days prior notice (except in cases of your misconduct, where
-          immediate termination may occur). Such a scenario might occur if we decide to discontinue a particular
-          research service or plan, or if serving you becomes impossible due to regulatory changes or other valid
-          reasons. In such cases, we will either provide a pro-rata refund for any remaining period..
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Suspension/Termination for Client Breach: </Text>f you violate any
-          material terms of this Agreement, engage in fraud, or misuse the services in a manner that is illegal or harms
-          the RA’s interests or reputation, the RA reserves the right to suspend or terminate your access immediately,
-          without prior notice​. For example, unauthorized sharing of our reports, harassment of our staff, or spreading
-          misinformation can lead to such action​. In case of such termination due to your misconduct, you will not be
-          entitled to any refund for the remaining period (as noted in the Refund Policy). Additionally, the RA may take
-          legal action if required by law (for instance, if the breach involved infringement or fraud).
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Regulatory or Force Majeure Termination: </Text>The Agreement will be
-          automatically terminated if the RA ceases to hold the requisite license/registration (e.g., our SEBI
-          registration is cancelled) or if any law or government authority prohibits us from operating​. Similarly, the
-          service may be terminated if unforeseen force majeure events (natural disasters, war, widespread
-          internet/power failure, etc.) make it impossible for us to continue operations beyond a reasonable period. In
-          case of RA’s registration being suspended beyond 60 days or cancelled by SEBI, we will initiate refunds for
-          the unused period as described earlier​. If a force majeure event only causes temporary interruption, we may
-          suspend services and resume when possible (with an extension of your subscription to compensate for the lost
-          time rather than a refund).
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Death or Incapacitation: </Text>If the Client passes away or is rendered
-          legally incapable of contracting during the subscription period, the service will terminate upon such event.
-          The Client’s legal heirs or representatives may contact us to claim any refund for the remaining period (if
-          the subscription was paid beyond the month of demise/incapacity), which we will consider on a case-by-case
-          compassionate basis, notwithstanding the general No Refund policy for mid-term termination.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Outstanding Payments: </Text>Upon termination, the Client must settle any
-          dues for services already rendered. For instance, if you subscribed on a post-paid arrangement (rare for RAs,
-          but hypothetically) or there are any pending fee installments for the period you used, those become payable
-          immediately. We will provide a statement of any such dues if applicable. Conversely, any refund due to you
-          will be processed promptly.
-        </Text>
-      </View>
-      <Text>
-        After termination, you will no longer receive any research communication from us, and you are expected to delete
-        or archive any confidential materials received (you may retain records for personal use, but all usage must
-        still conform to the intellectual property terms—no sharing, etc.). The clauses regarding confidentiality,
-        disclaimers, and liability in this Agreement survive the termination.
+      <Text style={PDF_STYLES.listItem}>
+        6. Any assured/guaranteed/fixed returns schemes or any other schemes of similar nature are prohibited by law. No
+        scheme of this nature shall be offered to the client by the RA.
       </Text>
-      <Text style={PDF_STYLES.sectionTitle}>Investor Charter and Client Guidelines</Text>
-      <Text>
-        In addition to the terms laid out above, clients should be aware of the broader guidelines and investor
-        education materials provided by SEBI for those availing research analyst services:
+      <Text style={PDF_STYLES.listItem}>
+        7. The RA cannot guarantee returns, profits, accuracy, or risk-free investments from the use of the RA’s
+        research services. All opinions, projections, and estimates of the RA are based on the analysis of available
+        data under certain assumptions as of the date of preparation/publication of the research report.
       </Text>
-      <View style={{ paddingLeft: 16 }}>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• SEBI Investor Charter for Research Analysts: </Text>SEBI has published an
-          “Investor Charter” for Research Analyst services which outlines, in simple terms, what clients can expect,
-          their rights, responsibilities, and the Do’s and Don’ts while dealing with RAs. We strongly advise you to read
-          this charter. It covers best practices like carefully reading terms and conditions, not getting lured by high
-          returns promises, and verifying the RA’s credentials, among others. The Client agrees to refer to and abide by
-          the Do’s and Don’ts issued by SEBI​ as they are incorporated by reference into these Terms. Key points from
-          the Do’s and Don’ts include: always take informed decisions, do not share your account details, do not trust
-          assured returns, report misconduct, etc. Familiarizing yourself with these will enhance your service
-          experience and safety.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Educational Materials: </Text>The RA may provide clients with certain
-          educational content or links (for example, how to use our research, understanding risk, etc.). These are for
-          informational purposes and should not be construed as part of the contractual terms, but following them can
-          help you make better use of our services. SEBI’s website and the RAASB (BSE) website also have useful FAQs and
-          guidance for investors dealing with research analysts – we encourage you to utilize those resources.
-        </Text>
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• Regulatory Updates: </Text>From time to time, SEBI or other regulators may
-          introduce changes affecting RAs or clients (for example, changes in fee caps, new compliance requirements,
-          etc.). KamayaKya will do its best to inform you of any such significant changes that could impact your
-          engagement with us. We also commit to implement all regulatory directives in the spirit of investor
-          protection. Clients are expected to cooperate in compliance efforts (for instance, providing additional info
-          if needed due to a new rule).
-        </Text>
-
-        <Text>
-          <Text style={PDF_STYLES.listItem}>• No Waiver of Rights: </Text>Nothing in these Terms is meant to restrict
-          the client’s rights under law or SEBI’s investor protection framework. In case any part of this Agreement is
-          found inconsistent with SEBI regulations or guidelines, the regulatory provisions will prevail, and the
-          conflicting part of the Agreement will be modified to comply. Our aim is to be fully SEBI-compliant and
-          client-friendly.
-        </Text>
-      </View>
-      <Text>
-        By proceeding with KamayaKya’s services, you acknowledge that you have read and understood this Terms and
-        Conditions section (including the important points summarized in the MITC), and the SEBI Investor Charter’s
-        guidelines. These measures are in place to safeguard your interests and ensure a transparent, fair relationship
-        between you (the client) and us (the research analyst).
+      <Text style={PDF_STYLES.listItem}>
+        8.Any investment made based on recommendations in research reports is subject to market risks, and
+        recommendations do not provide any assurance of returns. There is no recourse to claim any losses incurred on
+        the investments made based on the recommendations in the research report. Any reliance placed on the research
+        report provided by the RA shall be as per the client’s own judgment and assessment of the conclusions contained
+        in the research report.
       </Text>
-      <Text style={PDF_STYLES.sectionTitle}>Amendments and General Provisions</Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Amendment of Terms: </Text>
-        The RA reserves the right to amend or update these Terms and Conditions from time to time. If we make material
-        changes, we will provide you with 15 days’ prior notice of the revised terms​, either by email to your
-        registered address or by notification on our website/app. It is your responsibility to review such changes.
-        Continued use of the services after the notice period constitutes your acceptance of the updated Terms. If you
-        do not agree with the changes, you may terminate the services before the new terms take effect (and receive any
-        applicable refund for the remaining period). We will not make changes that have a retrospective negative effect
-        on your rights unless required by law.
+      <Text style={PDF_STYLES.listItem}>
+        9. The SEBI registration, Enlistment with RAASB, and NISM certification do not guarantee the performance of the
+        RA or assure any returns to the client.
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Severability: </Text>
-        If any provision of these Terms is held to be invalid or unenforceable by any law or regulation or court, that
-        provision shall be deemed modified to the minimum extent necessary to make it valid and enforceable, and if it
-        cannot be made valid, it shall be severed, and the remaining provisions shall continue in full force and effect.
+      <Text style={PDF_STYLES.listItem}>
+        10. <Text style={PDF_STYLES.semibold}>For any grievances:</Text>
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>No Transfer of Membership: </Text>
-        Your subscription is personal to you. You cannot transfer or assign your rights or obligations under this
-        Agreement to anyone else without our consent. The RA similarly will not transfer your contract to another entity
-        without notifying you (except perhaps an internal restructuring or change of control, in which case the
-        succeeding entity will honor the existing terms).
+      <Text style={PDF_STYLES.listItem}>
+        <Text style={PDF_STYLES.semibold}>• Step 1:</Text> The client should first contact the RA using the details on
+        www.kamayakya.com or via: Email: contact@kamayakya.com or Phone: +91 9175939641
+      </Text>{" "}
+      <Text style={PDF_STYLES.listItem}>
+        <Text style={PDF_STYLES.semibold}>• Step 2:</Text> If the resolution is unsatisfactory, the client can also
+        lodge grievances through SEBI’s SCORES platform at www.scores.sebi.gov.in
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Force Majeure: </Text>
-        The RA shall not be liable for any delay or failure in performance (including sending of research reports) due
-        to events outside our reasonable control, such as acts of God, fire, flood, terrorism, internet outages,
-        strikes, pandemic lockdowns, or governmental restrictions​ We will, however, make reasonable efforts to resume
-        service as soon as possible after such an event and may extend your subscription or issue appropriate
-        adjustments if the disruption is significant.
+      <Text style={PDF_STYLES.listItem}>
+        <Text style={PDF_STYLES.semibold}>• Step 3:</Text> The client may also consider Online Dispute Resolution (ODR)
+        through the Smart ODR portal at https://smartodr.in
       </Text>
-      <Text>
-        <Text style={PDF_STYLES.semibold}>Entire Agreement: </Text>
-        This Terms and Conditions section, along with any other sections of the User Agreement or disclosures provided
-        to you (and any order forms or plan details you agreed to), constitute the entire agreement between you and
-        KamayaKya with respect to the research services. It supersedes any prior discussions or communications
-        (electronic, verbal, or written) regarding the same subject matter. Any additional voluntary clauses, if agreed
-        separately, shall not override these standard terms or contravene SEBI rules​.
+      <Text style={PDF_STYLES.listItem}>
+        11. Clients are required to keep contact details, including email ID and mobile numbers, updated with the RA at
+        all times.
       </Text>
-      <Text>
-        By accepting these Terms, both parties acknowledge and agree to abide by all the above conditions. This
-        comprehensive Terms and Conditions aims to protect your interests as a client and ensure compliance with all
-        SEBI (Research Analyst) Regulations, 2014 and the relevant SEBI circulars (including the Master Circular of May
-        21, 2024 and Circular dated Feb 17, 2025). We thank you for trusting KamayaKya and are dedicated to providing
-        you with valuable research services in an accountable and user-friendly manner.
+      <Text style={PDF_STYLES.listItem}>
+        12. The RA shall never ask for the client’s login credentials and OTPs for the client’s Trading Account, Demat
+        Account, or Bank Account. Clients should never share such information with anyone, including RA.
+      </Text>
+      <Text style={PDF_STYLES.sectionTitle}>8. Additional Clauses</Text>
+      <Text style={PDF_STYLES.listItem}>
+        • Any additional voluntary clauses added by the RA shall not contravene SEBI regulations.
+      </Text>
+      <Text style={PDF_STYLES.listItem}>• Any changes to voluntary clauses shall be preceded by a 15-day notice.</Text>
+      <Text style={PDF_STYLES.listItem}>
+        • Investment in securities market are subject to market risks. Read all the related documents carefully before
+        investing.
       </Text>
     </Page>
     <Page size={"A4"} style={PDF_STYLES.page}>
