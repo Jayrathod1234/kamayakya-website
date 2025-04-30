@@ -319,8 +319,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     const url = URL.createObjectURL(blob);
 
     // Open the URL in a new tab
-    window.open(url, "_blank");
-    // return blob;
+    // window.open(url, "_blank");
+    return blob;
   };
 
   const handleDigio = async (orderId, userDetailsForPdf, orderDetails) => {
