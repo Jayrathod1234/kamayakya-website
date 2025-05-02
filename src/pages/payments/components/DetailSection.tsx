@@ -365,7 +365,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           handleRazorpayScreen(options);
           console.log("Signing;completed;successfully:", response);
         },
-        logo: "https://i.ibb.co/nMLcz99K/kmk-k.png",
+        logo: "https://i.ibb.co/ch7BwD5Z/kmk-logo-1.png",
         theme: {
           primaryColor: "#0b3a36",
           secondaryColor: "#000000",
@@ -1087,7 +1087,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
               className=" w-full"
               variant={ButtonVariant.primary}
             >
-              <p className=" text-sm font-medium">Proceed to Checkout</p>
+              <p className=" text-sm font-medium">Sign Agreement & Checkout</p>
             </Button>
           </div>
         </div>
