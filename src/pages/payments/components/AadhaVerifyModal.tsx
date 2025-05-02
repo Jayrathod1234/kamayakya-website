@@ -169,7 +169,7 @@ export default function AadhaVerifyModal({
   >
     <div className=" flex flex-col justify-center items-center min-w-0 open_sans">
      <h2>Loading</h2>
-     <p>Hang tight! we are fetching your Aadhar details</p>
+     <p>Hang tight! we are fetching your Aadhaar details</p>
     </div>
   </DialogContent>
   }
