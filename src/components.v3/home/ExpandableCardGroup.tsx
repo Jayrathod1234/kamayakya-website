@@ -139,7 +139,7 @@ const DesktopExpandedCards = ({ expandedCardId, toggleCard }: IDesktopExpandedCa
   );
 };
 
-const MobileExpandedCards = ({ expandedCardId, toggleCard }: IDesktopExpandedCards) => {
+const MobileExpandedCards = () => {
   return (
     <Tabs defaultValue="Factors" className=" sm:hidden mx-auto max-w-[358px] flex flex-col items-center border border-[#00000017] rounded-[20px] overflow-hidden">
       <TabsList className="w-full p-0 !h-auto border-b border-b-[#00000017]">

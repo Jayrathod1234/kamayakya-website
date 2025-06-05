@@ -6,7 +6,6 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/componen
 import { GET_BLOGS } from "@/pages/api/URLs";
 import { TBlog } from "@/types";
 import axios from "axios";
-import useEmblaCarousel from "embla-carousel-react";
 import React, { useEffect, useState } from "react";
 
 export default function BlogsCarousel() {

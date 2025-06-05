@@ -3,7 +3,7 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/componen
 import Autoplay from "embla-carousel-autoplay";
 import { LucideMessageCircleMore } from "lucide-react";
 import React, { useEffect, useState, useRef } from "react";
-import CarouselIndicator from "./CarouselIndicator";
+import CarouselIndicator from "../common/CarouselIndicator";
 
 function Steps({
   video,
@@ -143,11 +143,11 @@ export default function How() {
     <div className=" main-container open_sans py-[50px] sm:py-[100px] ">
       <div className="sm:flex sm:space-x-10 sm:w-full">
         <div className=" flex-1">
-          <p className=" font-semibold text-[#F98800] max-sm:text-center max-sm:text-sm">HOW?</p>
-          <h2 className=" text-gray-950 text-display-xs sm:text-display-md font-bold max-sm:text-center">
+          <p className=" font-semibold text-[#F98800] max-md:text-center max-sm:text-sm">HOW?</p>
+          <h2 className=" text-gray-950 text-display-xs sm:text-display-md font-bold max-md:text-center">
             Welcome to the future of value investing?
           </h2>
-          <p className=" text-gray-600 text-sm sm:text-lg max-sm:text-center">
+          <p className=" text-gray-600 text-sm sm:text-lg max-md:text-center">
             Picking a stock to invest can be a very overwhelming process. KamayaKya aims to make the process easier,
             more transparent and rewarding. So how do we do it?
           </p>

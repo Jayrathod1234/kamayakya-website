@@ -1,234 +1,30 @@
 import type { NextPage } from "next";
-import React, { useContext } from "react";
-import { Navbar, ButtonnArrow, Footer, FeelingLost, Newsletter, Testimonials } from "@/components.v2/index.components";
-import AuthProvider from "@/components/AuthContext";
-import { ButtonVariant } from "@/components.v2/button/button";
-import { useQuery } from "@tanstack/react-query";
-import { getTrackRecordDashboard } from "@/api/track-record";
-import TrackRecordHeroCard from "./track-record/components/TrackRecordHeroCard";
-import { TrackRecordCommonProvider } from "@/contexts/TrackRecordCommonContext";
-import { TrackRecordProvider } from "@/contexts/TrackRecordContext";
+import React, { useRef } from "react";
+import { Navbar, Footer, FeelingLost, Newsletter, Testimonials } from "@/components.v2/index.components";
 import "chartjs-adapter-date-fns";
-import HeroCardSection from "./track-record/components/HeroCardSection";
-import { getHotStockListApi } from "@/api/stock-picks";
-import { StockPicksProvider, useStockPicks } from "@/contexts/StockPicksContext";
-import HotStockSection, { HotStockSectionVertical } from "@/pages/stock-picks/components/HotStockSection";
-import { AnimatedList } from "@/components/magicui/animated-list";
-import { cn } from "@/lib/utils";
-import ExpandableCardGroup from "@/components.v3/common/ExpandableCardGroup";
-import OnGroundVerification from "@/components.v3/common/OnGroundVerification";
-import SampleReport from "@/components.v3/common/SampleReport";
-import TrustUs from "@/components.v3/common/TrustUs";
-import FAQS from "@/components.v3/common/FAQS";
-import TestimonialSection from "./payments/components/TestimonialSection";
-import BlogsCarousel from "@/components.v3/common/BlogsCarousel";
-import FeaturedNews from "@/components.v3/common/FeaturedNews";
-import How from "@/components.v3/common/How";
-import Service from "@/components.v3/common/Service";
-import { Carousel, CarouselContent, CarouselItem } from "@/components.v2/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-
-const StockPickSection = () => {
-  const { isLoggedIn } = useContext(AuthProvider);
-  // Stock picks api
-  const { sebiBoardType } = useStockPicks();
-  const {
-    data: { data: items = [], is_limited_view: isLimitedView = false } = {},
-    isLoading: isLoading2,
-    error: error2,
-  } = useQuery({
-    queryKey: ["hotStock", sebiBoardType, isLoggedIn],
-    queryFn: () => getHotStockListApi({ isLoggedIn, type: sebiBoardType }),
-  });
-  0;
-  return <HotStockSectionVertical items={items} isLimitedView={isLimitedView} isLoading={isLoading2} error={error2} />;
-};
-
-const TrackRecordSection = () => {
-  const { isLoggedIn } = useContext(AuthProvider);
-
-  //track record api
-  const {
-    data: trackRecordDashboardStats = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["trackRecordDashboard"],
-    queryFn: getTrackRecordDashboard,
-  });
-
-  return (
-    <div
-      className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px]   sm:px-20 sm:rounded-[28px] flex flex-col sm:flex-row  gap-x-[46px] ${
-        isLoggedIn ? "sm:flex-col text-center" : ""
-      }`}
-    >
-      <div className="sm:flex-[0.6] text-center open_sans ">
-        <p className=" text-[#F98800] text-sm md:text-md font-semibold ">OUR TRACK RECORD</p>
-        <h2 className=" max-md:px-4 mb-0 font-bold text-display-xs md:text-display-md text-[#FFFFFF]">
-          But first, why don’t you check out <span className=" text-brand-300">our performance</span> so far?
-        </h2>
-        <p className={` text-[rgba(255,255,255,0.8)] max-md:text-sm max-sm:px-5 ${isLoggedIn ? "mt-3" : " mt-7"}`}>
-          See our hits, our misses - all in the open. Your trust is earned by delivering results, because what we do
-          counts more than what we say.
-        </p>
-        {isLoggedIn ? null : (
-          <ButtonnArrow
-            strokeStyle=" stroke-gray-950"
-            className=" max-sm:hidden mt-10"
-            variant={ButtonVariant.secondary}
-          >
-            <p className=" text-gray-950 font-medium"> Unlock Now for Free</p>
-          </ButtonnArrow>
-        )}
-      </div>
-      <TrackRecordCommonProvider>
-        <TrackRecordProvider>
-          {isLoggedIn ? (
-            <>
-            <div className=" hidden lg:block  mt-[46px] ">
-              <HeroCardSection />
-               
-              <div className=" flex justify-center">
-                <ButtonnArrow
-                  strokeStyle=" mt-[46px] stroke-gray-950"
-                  className=" mt-10"
-                  variant={ButtonVariant.secondary}
-                >
-                  <p className=" text-gray-950 font-medium">Go to Track Record</p>
-                </ButtonnArrow>
-              </div>
-            </div>
-            <Carousel plugins={[Autoplay({delay:2000})]} className=" lg:hidden w-full mt-6 px-2">
-                <CarouselContent>
-                  <CarouselItem className=" basis-11/12">
-                    {" "}
-                    <TrackRecordHeroCard
-                      {...trackRecordDashboardStats}
-                      type={"LIVE"}
-                      recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
-                      averageReturns={trackRecordDashboardStats?.live_recommendations?.average_live_returns}
-                      stockPerformance={trackRecordDashboardStats?.live_recommendations?.stock_performance}
-                      bestStocks={trackRecordDashboardStats?.live_recommendations?.top_gainer}
-                      worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
-                      newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_new_recommendations}
-                      stock_live_prices={trackRecordDashboardStats?.live_recommendations}
-                      entry_price_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.entry_price}
-                      start_date_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.start_date}
-                      entry_price_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.entry_price}
-                      start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
-                    />
-                  </CarouselItem>
-                  <CarouselItem className=" basis-11/12">
-                    <TrackRecordHeroCard
-                      {...trackRecordDashboardStats}
-                      type={"EXIT"}
-                      recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
-                      averageReturns={trackRecordDashboardStats?.exits_stock?.average_exit_returns}
-                      stockPerformance={trackRecordDashboardStats?.exits_stock?.stock_performance}
-                      bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
-                      worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
-                      newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
-                      stock_live_prices={trackRecordDashboardStats?.exits_stock}
-                      // stock_live_prices = {trackRecordDashboardStats?.exits_stock?.worst_exit?.stock_live_prices}
-                      entry_price_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.entry_price}
-                      start_date_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.start_date}
-                      entry_price_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.entry_price}
-                      start_date_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.start_date}
-                    />
-                  </CarouselItem>
-                </CarouselContent>
-              </Carousel></>
-            
-          ) : (
-            <>
-              <div className=" relative flex-1 max-sm:hidden ">
-                <div className=" relative z-10 h-[70%] w-[95%]">
-                  <TrackRecordHeroCard
-                    {...trackRecordDashboardStats}
-                    type={"LIVE"}
-                    recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
-                    averageReturns={trackRecordDashboardStats?.live_recommendations?.average_live_returns}
-                    stockPerformance={trackRecordDashboardStats?.live_recommendations?.stock_performance}
-                    bestStocks={trackRecordDashboardStats?.live_recommendations?.top_gainer}
-                    worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
-                    newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_new_recommendations}
-                    stock_live_prices={trackRecordDashboardStats?.live_recommendations}
-                    entry_price_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.entry_price}
-                    start_date_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.start_date}
-                    entry_price_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.entry_price}
-                    start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
-                  />
-                </div>
-                <div className=" absolute -top-9 -right-8 z-[2] h-[80%]  w-[95%]">
-                  <TrackRecordHeroCard
-                    {...trackRecordDashboardStats}
-                    type={"EXIT"}
-                    recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
-                    averageReturns={trackRecordDashboardStats?.exits_stock?.average_exit_returns}
-                    stockPerformance={trackRecordDashboardStats?.exits_stock?.stock_performance}
-                    bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
-                    worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
-                    newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
-                    stock_live_prices={trackRecordDashboardStats?.exits_stock}
-                    // stock_live_prices = {trackRecordDashboardStats?.exits_stock?.worst_exit?.stock_live_prices}
-                    entry_price_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.entry_price}
-                    start_date_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.start_date}
-                    entry_price_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.entry_price}
-                    start_date_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.start_date}
-                  />
-                </div>
-              </div>
-              <Carousel plugins={[Autoplay({delay:2000})]} className=" sm:hidden w-full mt-6 px-2">
-                <CarouselContent>
-                  <CarouselItem className=" basis-11/12">
-                    {" "}
-                    <TrackRecordHeroCard
-                      {...trackRecordDashboardStats}
-                      type={"LIVE"}
-                      recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
-                      averageReturns={trackRecordDashboardStats?.live_recommendations?.average_live_returns}
-                      stockPerformance={trackRecordDashboardStats?.live_recommendations?.stock_performance}
-                      bestStocks={trackRecordDashboardStats?.live_recommendations?.top_gainer}
-                      worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
-                      newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_new_recommendations}
-                      stock_live_prices={trackRecordDashboardStats?.live_recommendations}
-                      entry_price_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.entry_price}
-                      start_date_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.start_date}
-                      entry_price_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.entry_price}
-                      start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
-                    />
-                  </CarouselItem>
-                  <CarouselItem className=" basis-11/12">
-                    <TrackRecordHeroCard
-                      {...trackRecordDashboardStats}
-                      type={"EXIT"}
-                      recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
-                      averageReturns={trackRecordDashboardStats?.exits_stock?.average_exit_returns}
-                      stockPerformance={trackRecordDashboardStats?.exits_stock?.stock_performance}
-                      bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
-                      worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
-                      newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
-                      stock_live_prices={trackRecordDashboardStats?.exits_stock}
-                      // stock_live_prices = {trackRecordDashboardStats?.exits_stock?.worst_exit?.stock_live_prices}
-                      entry_price_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.entry_price}
-                      start_date_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.start_date}
-                      entry_price_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.entry_price}
-                      start_date_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.start_date}
-                    />
-                  </CarouselItem>
-                </CarouselContent>
-              </Carousel>
-            </>
-          )}
-        </TrackRecordProvider>
-      </TrackRecordCommonProvider>
-    </div>
-  );
-};
+import ExpandableCardGroup from "@/components.v3/home/ExpandableCardGroup";
+import OnGroundVerification from "@/components.v3/home/OnGroundVerification";
+import SampleReport from "@/components.v3/home/SampleReport";
+import TrustUs from "@/components.v3/home/TrustUs";
+import FAQS from "@/components.v3/home/FAQS";
+import BlogsCarousel from "@/components.v3/home/BlogsCarousel";
+import FeaturedNews from "@/components.v3/home/FeaturedNews";
+import How from "@/components.v3/home/How";
+import Service from "@/components.v3/home/Service";
+import Team from "@/components.v3/home/Team";
+import { useScroll, useTransform, motion } from "framer-motion";
+import { TrackRecordSection } from "@/components.v3/home/TrackRecordSection";
+import { StockPickSection } from "@/components.v3/home/StockPicksSection";
 
 const Home: NextPage = () => {
-  const { isLoggedIn } = useContext(AuthProvider);
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end start"],
+  });
+
+  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]); // 0 to full path
 
   return (
     <>
@@ -240,23 +36,51 @@ const Home: NextPage = () => {
       <div>
         <OnGroundVerification />
       </div>
-      <div>
+      <div ref={containerRef} className=" relative">
+        <svg
+          className=" absolute left-[0%] w-full"
+          width="1380"
+          height="3835"
+          viewBox="0 0 1380 3914"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M661 0V43.0048C661 49.6323 655.627 55.0048 649 55.0048H13C6.37257 55.0048 1 60.3774 1 67.0048V3842.96C1 3849.59 6.37258 3854.96 13 3854.96H649C655.627 3854.96 661 3860.33 661 3866.96V3914"
+            stroke="#EDF0F5"
+            stroke-width="2"
+          />
+        </svg>
+        <svg
+          className=" absolute left-[0%] w-full"
+          width="1380"
+          height="3835"
+          viewBox="0 0 1380 3914"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* <svg width="662" height="870" viewBox="0 0 662 870" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M661 0V43.0129C661 49.6403 655.627 55.0129 649 55.0129H13C6.37257 55.0129 1 60.3855 1 67.0129V870" stroke="#12B76A" stroke-width="2"/>
+        </svg> */}
+
+          <motion.path
+            d="M661 0V43.0V43.0129C661 49.6403 655.627 55.0048 649 55.0129H13C6.37257 55.0129 1 60.3855 1 67.0048V3842.96C1 3849.59 6.37258 3854.96 13 3854.96H649C655.627 3854.96 661 3860.33 661 3866.96V3914"
+            stroke="#12B76A"
+            stroke-width="2"
+            strokeDasharray="5300"
+            strokeDashoffset="0"
+            style={{
+              pathLength,
+              // strokeDashoffset: useTransform(pathLength, (v) => 8000 - v * 8000),
+            }}
+          />
+        </svg>
         <SampleReport />
-      </div>
-      <div className=" sm:main-container sm:py-[50px]">
-        {/* TRACK RECORD START */}
         <TrackRecordSection />
-      </div>
-      <TrustUs />
-      <How />
-      <div className=" md:pb-[50px] md:px-5">
-        {/* HOT STOCK START */}
-        <div className=" md:p-20 rounded-[28px] md:bg-[#01272E]">
-          <StockPicksProvider>
-            <StockPickSection />
-          </StockPicksProvider>
-        </div>
-        {/* HOT STOCK END */}
+        <TrustUs />
+        <Team />
+        <How />
+        <StockPickSection />
       </div>
       <div id="testimonials" className="pt-[60px] pb-[52px] md:py-[60px] bg-gray-100 relative ">
         <Testimonials />
@@ -264,16 +88,13 @@ const Home: NextPage = () => {
       <FeaturedNews />
       <BlogsCarousel />
       <FAQS />
-      {/* <div className=" pb-20"> */}
       <div id="feeling-lost" className=" bg-gray-100">
         <FeelingLost />
       </div>
       <div className=" md:mt-[-15rem]  lg:mt-[-15rem]">
         <Newsletter />
       </div>
-
       <Footer />
-      {/* </div> */}
     </>
   );
 };
