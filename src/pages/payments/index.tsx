@@ -16,6 +16,7 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components.v2/ui/dialog"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import TestimonialSection from "./components/TestimonialSection";
 import { getTrackRecordStats } from "@/api/payment";
+import axios from "axios";
 // import { DialogContent } from "@radix-ui/react-dialog";
 
 export default function Index() {
@@ -53,6 +54,19 @@ export default function Index() {
       } catch (e) {}
     })();
   }, []);
+
+  useEffect(()=>{
+     const handlePopState = (event: PopStateEvent) => {
+        axios.put(process.env.NEXT_PUBLIC_BASEPATH+"/user/userActionNotifications?type=incomplete_payment")
+        // You can trigger any logic here, like showing a modal or redirecting
+      };
+  
+      window.addEventListener('popstate', handlePopState);
+  
+      return () => {
+        window.removeEventListener('popstate', handlePopState);
+      };
+  },[])
 
   const headerBg = !pathname.includes("successful") ? "  max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#F1FBFB)]" : "";
 

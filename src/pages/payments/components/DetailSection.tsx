@@ -345,7 +345,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             image: "https://example.com/your_logo",
             order_id: orderDetails.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             handler: function (response: unknown) {
-              router.push("/payments/successful");
+              router.replace("/payments/successful");
             },
             prefill: {
               //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
@@ -492,14 +492,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     }
   }, [openDialog]);
 
-  const finalCondition =
-    (!aadharVerified && !isAadharAlreadyVerified && !isAadharVintage) ||
-    email?.length === 0 ||
-    mobile?.length === 0 ||
-    (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
-    (!isPanAlreadyVerified && !userDetails.maskedPan);
 
-  console.log("PAN VERIFIED", isPanAlreadyVerified, userDetails.pan,isAadharAlreadyVerified);
 
   return (
     <div className="mt-9">
