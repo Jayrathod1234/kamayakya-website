@@ -29,7 +29,7 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 export function PlansSection() {
   const { isLoggedIn,showLoginModal,setShowLoginModal } = useContext(AuthContext);
   const { activePlan } = useActivePlanContext();
-  const [currentTab, setCurrentTab] = useState<"3months" | "1year" | "3year">("3months");
+  const [currentTab, setCurrentTab] = useState<"3months" | "1year" | "3year">("1year");
   const [currentPlanViewing, setCurrentPlanViewing] = useState("vip");
   const [plans, setPlans] = useState<TPlan | null>(null);
   const [showModal, setShowModal] = useState(false);
