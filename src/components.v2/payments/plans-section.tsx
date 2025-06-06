@@ -38,7 +38,7 @@ export function PlansSection() {
   const tabOptions = [
     { label: "3 Months", value: "3months" },
     { label: "1 Year", value: "1year" },
-    { label: "3 Years", value: "3year" },
+    // { label: "3 Years", value: "3year" },
   ];
 
   const handleLogin = () => {
@@ -144,6 +144,7 @@ export function PlansSection() {
       }
       const response = await axios.get(PLANS_URL);
       const formattedPlans = formatPlans(response.data);
+      // console.log("FORMATTED PLANS",formattedPlans)
       setPlans(formattedPlans);
     } catch (e) {}
   };
@@ -156,28 +157,22 @@ export function PlansSection() {
     <div>
       <div className=" relative flex justify-center mb-14 md:mb-0 pt-10 md:pb-14 pb-6">
         <div className="relative">
+          
           {/* <Image
-            className=" block md:hidden absolute -rotate-2 md:rotate-0 -right-12  md:-right-16 -top-12  bg-blend-multiply"
-            height={58}
-            width={98}
-            src={"/save_33.png"}
-            alt="save-33%"
-          /> */}
-          <Image
             className=" block -right-5 -top-8 absolute bg-blend-multiply"
             height={40.75}
             width={76}
             src={"/save_33.png"}
             alt="save-33%"
-          />
+          /> */}
           <Tabs
             activeValue={currentTab}
             setSelectedOption={setCurrentTab as Dispatch<SetStateAction<string>>}
-            defaultOption="1year"
+            defaultOption={currentTab}
             options={tabOptions}
             variant={TabsVariant.md}
           />
-          <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" />
+          {/* <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" /> */}
         </div>
       </div>
       <div>
@@ -239,17 +234,19 @@ export function PlansSection() {
             <>
               {plans[currentTab].map((plan: TPlanResponse) => {
                 const { btnText, ctaDisabled, planName, priceStrikeThrough } = handlePlanProps(plan);
-                if(currentTab === "3months" && planName === "advanced") return
+                // if(currentTab === "3months" && planName === "advanced") return
                 return (
                   <PlanCardDesktop
                     active={activePlan.plan === plan.name}
                     className={
                       PLAN[planName].className +
                       `${
-                        currentTab === "3months" && plan.name === "vip"
-                          ? " md:!col-start-1 md:col-span-full md:justify-self-center"
-                          : ""
-                      }${plan.name.toLowerCase() === "free" ? "" : ""}${plan.name.toLowerCase() === "vip" ? " " : ""}`
+                        " "
+                        // currentTab === "3months" && plan.name === "vip"
+                          // ? 
+                          // " md:!col-start-1 md:col-span-full md:justify-self-center "
+                          // : "" 
+                      } ${plan.name.toLowerCase() === "free" ? "" : ""}${plan.name.toLowerCase() === "vip" ? " " : ""}`
                     }
                     subtext={""}
                     plan={plan.name}

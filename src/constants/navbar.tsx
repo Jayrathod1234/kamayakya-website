@@ -51,11 +51,21 @@ export const NAVBAR_LINKS = [
       }
     }
   },
+  // {
+  //   title: "Blogs",
+  //   link: "/blogs-page",
+  //   mixpanel:{
+  //     event:"blogs_clicked",
+  //     property:{
+  //       page:"Pricing_Page"
+  //     }
+  //   }
+  // },
   {
-    title: "Blogs",
-    link: "/blogs-page",
+    title: "VIP Updates",
+    link: "/vip-updates",
     mixpanel:{
-      event:"blogs_clicked",
+      event:"updates_clicked",
       property:{
         page:"Pricing_Page"
       }

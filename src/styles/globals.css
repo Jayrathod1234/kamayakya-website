@@ -34,6 +34,10 @@
 
 
 :root {
+
+  --gauge-scale: 1;
+
+
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
@@ -2207,4 +2211,40 @@ header > div > div {
   border: 1px solid red;
 }
 
-/* .review__section */
+/* LOGIN MODAL */
+
+@media only screen and (max-height: 668px) {
+  .login__modal .new__user-container {
+    display:none;
+  }
+}
+
+
+
+/*billing table */
+.billing__table::-webkit-scrollbar {
+  width: 16px;
+}
+.billing__table::-webkit-scrollbar-thumb {
+  background-color: #D3D6DF !important; 
+  border-radius: 16px;
+
+}
+
+.billing__table::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  :root {
+    --gauge-scale: 0.75;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --gauge-scale: 0.5;
+  }
+}

@@ -60,7 +60,7 @@ export const CORE_PLAN: TPlan = {
   featureList: [
     {
       icon: "/icons/check_only.svg",
-      feature: "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
+      feature: "20+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
     },
     { icon: "/icons/check_only.svg", feature: "2-4 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
@@ -116,6 +116,10 @@ export const ADVANCED_PLAN: TPlan = {
   popular: false,
   btnVariant: ButtonVariant.secondary,
   tooltip: {
+    "3months":{
+      price:"₹3389.8",
+      gst:"₹610.2"
+    },
     "1year": {
       price: "₹10,169.5",
       gst: "₹2,288.5",
@@ -140,7 +144,7 @@ export const VIP_PLAN: TPlan = {
   featureList: [
     {
       icon: "/icons/check_only.svg",
-      feature: "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
+      feature: "20+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
     },
     { icon: "/icons/check_only.svg", feature: "10+ SME board stocks to buy every year" },
     { icon: "/icons/check_only.svg", feature: "3-5 new stock picks every month" },
@@ -180,3 +184,10 @@ export const PLAN = {
   advanced: ADVANCED_PLAN,
   vip: VIP_PLAN,
 };
+
+
+export const PLAN_FREQUENCY_MAP = {
+  90: "Quarterly",
+  365: "Yearly",
+  1095: "3 Years" // 365 * 3
+}

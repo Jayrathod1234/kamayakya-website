@@ -70,13 +70,11 @@ export function Tabs({
       event(value)
     }
   };
+
+
+ 
+
   return (
-    // <div className={` bg-gray-150 w-fit flex rounded-full ${parentPadding}`}>
-    //   <ul className=" flex">
-    //     <li className={` ${childrenSize} text-gray-500 rounded-full hover:bg-gray-100`}>3 months</li>
-    //     <li className={` ${childrenSize} bg-white active:text-gray-950  active:font-medium rounded-full`}>1 years</li>
-    //     <li className={` ${childrenSize} text-gray-500 rounded-full hover:bg-gray-100`}>3 years</li>
-    //   </ul>
     <ShadCnTab
       onValueChange={onValueChange}
       defaultValue={defaultOption}

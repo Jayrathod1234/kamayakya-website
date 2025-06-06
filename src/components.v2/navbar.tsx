@@ -35,6 +35,8 @@ import { ScrollProgress } from "./scroll-progress";
 import SampleReportsModal from "./sample-reports-modal";
 import { cn } from "@/lib/utils";
 import LoginPrompt from "@/components.v3/common/LoginPrompt";
+import Lottie from "lottie-react";
+import VIP_LOTTIE from "../../public/assets/New.json";
 
 /*
 For pages with white background give className=bg-white to get the green hover effect
@@ -57,7 +59,7 @@ export function Navbar({
   const [showModal, setShowModal] = useState(false);
   const { setVisible, bindings } = useModal();
   const [isSticky, setIsSticky] = useState(pathname == "/stock-picks");
-
+  const [isLoading,setIsLoading] = useState(true);
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
     mp.track(event, properties);
@@ -131,6 +133,12 @@ export function Navbar({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(()=>{
+    setIsLoading(false)
+  },[isLoggedIn])
+
+  if(isLoading) return null
 
   return (
     <div
@@ -271,7 +279,10 @@ export function Navbar({
                             : false
                         }
                       >
-                        {navigationOption.title}
+                        {navigationOption.title}{navigationOption.title?.includes("VIP") ? <span className=" ml-1">
+                          
+                          <Lottie className=" h-7 w-7 block object-contain" autoPlay loop={false} animationData={VIP_LOTTIE} />
+                        </span>:null}
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>

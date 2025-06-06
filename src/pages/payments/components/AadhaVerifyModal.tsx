@@ -20,7 +20,7 @@ export default function AadhaVerifyModal({
   openDialog,
   displayModal,
   setBillingSameAsAadhar,
-  setDisplayFailedAddharModal
+  setDisplayFailedAddharModal,
 }: {
   setAadharRequestId: React.Dispatch<React.SetStateAction<string>>;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,31 +42,46 @@ export default function AadhaVerifyModal({
 
 
   const handleVerifyAadharOtp = async () => {
+    // setLoading(true)
+    // return
     try {
       setLoading(true);
-      const res = await postAadharOtp({ aadhar, request_id: requestId, otp });
-      // let address = Object.values(res?.address || {}).filter(value=>value).join(", ");
+
+      let res = await postAadharOtp({ aadhar, request_id: requestId, otp });
+
       let address = res?.address;
-      if (res?.is_aadhar_verified) {
-        setOpenDialog(false);
-        toast({
-          variant: "warn",
-          description: res?.message,
-        });
-        return;
+     
+      if (res?.is_aadhar_verified && res?.is_aadhar_vintage) {
+        // setOpenDialog(false);
+        // toast({
+        //   variant: "warn",
+        //   description: res?.message,
+        // });
+        // return;
+        setUserDetails((prev) => ({
+          ...prev,
+          pan: res?.pan_number,
+          name: res?.name,
+          address: address,
+          aadhar: res?.masked_aadhar,
+          maskedPan: res?.masked_pan_number,
+        }));
+        setDisplayModal("CONFIRM");
+      }else{
+        setFetchAadharFailed(true);
       }
-      // setBillingSameAsAadhar(true);
-      setUserDetails((prev) => ({
-        ...prev,
-        pan: res?.pan_number,
-        name: res?.name,
-        address: address,
-        aadhar: res?.masked_aadhar,
-        maskedPan: res?.masked_pan_number,
-      }));
-      setDisplayModal("CONFIRM");
+
+      // setUserDetails((prev) => ({
+      //   ...prev,
+      //   pan: res?.pan_number,
+      //   name: res?.name,
+      //   address: address,
+      //   aadhar: res?.masked_aadhar,
+      //   maskedPan: res?.masked_pan_number,
+      // }));
+      // setDisplayModal("CONFIRM");
     } catch (e) {
-      if (e?.response?.data?.message?.includes("Source down")) {
+      if (e?.response?.data?.message === "Source down") {
         setFetchAadharFailed(true);
         return;
       } else {
@@ -94,33 +109,34 @@ export default function AadhaVerifyModal({
       // setOpenDialog(true);
       // setAadharRequestId(res?.)
     } catch (e: any) {
+      if (typeof e?.response?.data?.message === "string") {
+        if (e?.response?.data?.message?.includes("Invalid Aadhaar")) {
+          toast({
+            variant: "warn",
+            title: "",
+            description: "Invalid Aadhaar Number. Please check and re-enter a valid Aadhaar Number.",
+          });
+          return;
+        }
+        if (e?.response?.data?.message == "Source down") {
+          setDisplayFailedAddharModal(true);
+          setOpenDialog(true);
+          return;
+        }
+      }
 
-      if (e?.response?.data?.message?.includes("Invalid Aadhaar")) {
+      if (e?.response?.data?.detail?.includes("Token ")) {
         toast({
           variant: "warn",
           title: "",
-          description: "Invalid Aadhaar Number. Please check and re-enter a valid Aadhaar Number.",
+          description: "Session Expired! Please relogin and try again. ",
         });
-        return;
-      }
-      if (e?.response?.data?.message?.includes("Source down")) {
-        setDisplayFailedAddharModal(true);
-        setOpenDialog(true);
-        return;
-      }
-
-      if(e?.response?.data?.detail?.includes("Token ")){
-        toast({
-          variant: "warn",
-          title: "",
-          description:"Session Expired! Please relogin and try again. ",
-        });  
       }
 
       toast({
         variant: "warn",
         title: "",
-        description: e?.response?.data?.message ||  e?.response?.data?.detail || "Something went wrong.",
+        description: e?.response?.data?.message || e?.response?.data?.detail || "Something went wrong.",
       });
     } finally {
       // setAadharOtpLoading(false);
@@ -152,6 +168,18 @@ export default function AadhaVerifyModal({
       setFetchAadharFailed(false);
     }
   }, [openDialog]);
+
+  if(loading){
+    return  <DialogContent
+    closeClassName=" -right-2 -top-[12px] opacity-100"
+    className=" !p-6 !rounded-[20px]  w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px]"
+  >
+    <div className=" flex flex-col justify-center items-center min-w-0 open_sans">
+     <h2>Loading</h2>
+     <p>Hang tight! we are fetching your Aadhaar details</p>
+    </div>
+  </DialogContent>
+  }
 
   if (fetchAadharFailed) {
     return (

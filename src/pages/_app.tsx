@@ -121,6 +121,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             `}
                     </Script>
                     <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
+                    <Script src={`${process.env.NEXT_PUBLIC_DIGIO_SCRIPT}`}></Script>
+                    
                   </PlanProvider>
                 </AuthProvider>
               </NavBarProvider>

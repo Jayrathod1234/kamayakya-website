@@ -6,7 +6,7 @@ import { Landmark, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 
 
-const Breakdown = ({
+export const Breakdown = ({
   label,
   icon,
   price,
@@ -39,6 +39,7 @@ export default function ToPayTooltip({ children, price, strikePrice, saveText, g
       <Tooltip open={displayToast} onOpenChange={setDisplayToast}>
         <TooltipTrigger
           onClick={(e) => {
+            console.log("CLICK REGISTER")
             e.preventDefault();
             setDisplayToast(true);
           }}
@@ -47,7 +48,7 @@ export default function ToPayTooltip({ children, price, strikePrice, saveText, g
         </TooltipTrigger>
         <TooltipContent
           side="bottom"
-          className=" bg-white text-black border-0 p-0  max-w-[425px] z-[100] rounded-[10px] shadow-3xl w-[255px]"
+          className=" bg-white text-black border-0 p-0  max-w-[425px] z-[10000] rounded-[10px] shadow-3xl w-[255px]"
         >
           <div className=" flex flex-col gap-y-3 px-4 py-3 ">
             <Breakdown
