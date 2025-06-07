@@ -8,7 +8,6 @@ import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import { Avatar } from "@/components.v2/avatar";
-import { usePathname } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
 
 import { useEffect, useRef } from "react";

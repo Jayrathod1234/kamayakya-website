@@ -5,7 +5,6 @@ import "react-phone-number-input/style.css";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
-import { Line } from "@/components.v2/blogs/blog-card-sm";
 import { Mail, Phone } from "lucide-react";
 import OTPInput from "react-otp-input";
 import { useMediaQuery } from "@mui/material";
@@ -20,10 +19,22 @@ import Lottie from "lottie-react";
 import ONBOARDING_LOTTIE from "../../../public/assets/onboarding_signup.json";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { usePathname } from "next/navigation";
+import axios from "axios";
 
 interface ILoginPrompt {
   triggerEle: React.ReactNode;
 }
+
+type LoginParams =
+  | {
+      type: "mobile";
+      mobile: string;
+      country_code: string;
+    }
+  | {
+      type: "email";
+      email: string;
+    };
 
 const NewUserList = ({ label }: { label: string }) => {
   return (
@@ -39,7 +50,12 @@ interface IFormData {
   email: string;
 }
 
-const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }) => {
+interface SignUpContetnPrompt {
+  displayExistingUserModal: boolean;
+  setDisplayExistingUserModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }: SignUpContetnPrompt) => {
   const {
     register,
     control,
@@ -64,7 +80,10 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   const [displayOtpModal, setDisplayOtpModal] = useState(false);
   const [countryCode, setCountryCode] = useState("91");
   const [country, setCountry] = useState("IN");
-  const { setUser, setShowLoginModal } = useContext(AuthContext);
+  const { setUser, setShowLoginModal } = useContext(AuthContext) as unknown as {
+    setUser: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+    setShowLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
+  };
   const isMobile = useMediaQuery("(max-width:600px)");
   const verySmallScreen = useMediaQuery("(max-width:400px)");
   const phone = watch("phone");
@@ -75,24 +94,22 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   console.log(errors);
 
   const handleRequestOtp = async (data: IFormData) => {
-    let params = {
-      type: loginMethod,
-    };
+    let params: LoginParams;
     if (loginMethod === "mobile") {
       params = {
-        ...params,
         mobile: data.phone,
         country_code: `+${countryCode}`,
+        type: loginMethod,
       };
     } else {
       params = {
-        ...params,
         email: data.email?.toLowerCase(),
+        type: loginMethod,
       };
     }
-    mp.track("requestotp_clicked",{
-      page:"Login_Window"
-    })
+    mp.track("requestotp_clicked", {
+      page: "Login_Window",
+    });
     try {
       setOtpLoading(true);
       const res = await getLoginOtp(params);
@@ -100,10 +117,12 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         setDisplayOtpModal(true);
       }
     } catch (e) {
-      toast({
-        variant: "warn",
-        description: e?.response?.data?.message || "Something went wrong.",
-      });
+      if (axios.isAxiosError(e)) {
+        toast({
+          variant: "warn",
+          description: e?.response?.data?.message || "Something went wrong.",
+        });
+      }
     } finally {
       setOtpLoading(false);
     }
@@ -111,47 +130,38 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
 
   const handleVerifyOtp = async () => {
     try {
-      let params = {
-        type: loginMethod,
-        otp,
-      };
+      let params;
       if (loginMethod === "mobile") {
         params = {
-          ...params,
           mobile: phone,
           country_code: `+${countryCode}`,
+          type: loginMethod,
+          otp,
         };
       } else {
         params = {
-          ...params,
           email: email?.toLowerCase(),
+          type: loginMethod,
+          otp,
         };
       }
       setVerifyingOtp(true);
-      mp.track("verifyotp_clicked",{
-        page:"Login_Window"
-      })
+      mp.track("verifyotp_clicked", {
+        page: "Login_Window",
+      });
       const res = await verifyLoginOtp(params);
       if (res?.status_code === 200) {
-        mp.track("login_successful",{
-          page:"Login_Window"
-        })
+        mp.track("login_successful", {
+          page: "Login_Window",
+        });
         setUser((prev) => ({
-         
           ...prev,
-         
           id: res?.user_id,
-         
           fullname: res?.full_name,
-         
           email: res?.email,
-          
-          mobile:  res?.mobile,
-          
-          is_onboard:  res?.is_onboard,
-          
-          is_new:  res?.is_new_user,
-       ,
+          mobile: res?.mobile,
+          is_onboard: res?.is_onboard,
+          is_new: res?.is_new_user,
         }));
         if (!res?.is_onboard) {
           setShowLoginModal(false);
@@ -175,13 +185,15 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         }
       }
     } catch (e) {
-      mp.track("invalid_otp_login",{
-        page:"Login_Window"
-      })
-      toast({
-        variant: "warn",
-        description: e?.response?.data?.message || "Something went wrong.",
-      });
+      if (axios.isAxiosError(e)) {
+        mp.track("invalid_otp_login", {
+          page: "Login_Window",
+        });
+        toast({
+          variant: "warn",
+          description: e?.response?.data?.message || "Something went wrong.",
+        });
+      }
     } finally {
       setVerifyingOtp(false);
       // setShowLoginModal(false)
@@ -189,16 +201,16 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   };
 
   const handleEditMobile = () => {
-    if(loginMethod==="mobile"){
-      mp.track("editmobilenumber_clicked",{
-        page:"Login_Window"
-      })
-    }else{
-      mp.track("editemail_clicked",{
-        page:"Login_Window"
-      })
-    } 
-   
+    if (loginMethod === "mobile") {
+      mp.track("editmobilenumber_clicked", {
+        page: "Login_Window",
+      });
+    } else {
+      mp.track("editemail_clicked", {
+        page: "Login_Window",
+      });
+    }
+
     setDisplayOtpModal(false);
     setValue("phone", "");
     setValue("email", "");
@@ -212,7 +224,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
   }, [resendOtp]);
 
   useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout;
     if (secondsRemaining > 0) {
       timer = setTimeout(() => {
         setSecondsRemaining((prevSeconds) => prevSeconds - 1);
@@ -256,7 +268,14 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
             <span className="inline-flex items-center">
               {" "}
               your{" "}
-              <svg className=" mx-1 " width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className=" mx-1 "
+                width="20"
+                height="21"
+                viewBox="0 0 20 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M2.02832 18.5862L3.15082 14.4883C2.45832 13.2891 2.09415 11.9283 2.09457 10.5345C2.09665 6.17409 5.64499 2.62659 10.0058 2.62659C12.1221 2.62742 14.1079 3.45117 15.6017 4.94575C17.095 6.44075 17.9175 8.42742 17.9167 10.5408C17.915 14.9012 14.3658 18.4491 10.0058 18.4491H10.0025C8.67874 18.4487 7.37749 18.1166 6.22207 17.4862L2.02832 18.5862Z"
                   fill="white"
@@ -384,6 +403,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
                         setCountryCode(currentCode);
                       }
                     }}
+                    //@ts-ignore
                     defaultCountry={country}
                     placeholder="Enter phone number"
                     className=" border-green-400 "
@@ -438,15 +458,15 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         <Button
           onClick={() => {
             if (loginMethod === "mobile") {
-              mp.track("signinwithemail_clicked",{
-                page:"Login_Window"
-              })
+              mp.track("signinwithemail_clicked", {
+                page: "Login_Window",
+              });
               setLoginMethod("email");
               // sessionStorage.setItem("login_method", "email");
             } else {
-              mp.track("signinwithmobile_clicked",{
-                page:"Login_Window"
-              })
+              mp.track("signinwithmobile_clicked", {
+                page: "Login_Window",
+              });
               setLoginMethod("mobile");
               // sessionStorage.setItem("login_method", "mobile");
             }
@@ -475,9 +495,9 @@ const ExistingUserModal = () => {
   const router = useRouter();
   const handleOnboarding = () => {
     const mp = getMixPanelClient();
-    mp.track("letsgetstarted_clicked",{
-      page:"Onboarding_Page"
-    })
+    mp.track("letsgetstarted_clicked", {
+      page: "Onboarding_Page",
+    });
     router.push("/onboarding");
   };
   return (
@@ -515,12 +535,14 @@ const ExistingUserModal = () => {
 
 export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
   const [displayExistingUserModal, setDisplayExistingUserModal] = useState(false);
-  const { showLoginModal, handleLogin, setShowLoginModal } = useContext(AuthContext);
+  const { showLoginModal, setShowLoginModal } = useContext(AuthContext) as unknown as {
+    showLoginModal: boolean;
+    setShowLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
+  };
   const pathname = usePathname();
 
   useEffect(() => {
     if (showLoginModal) {
-      
       const mp = getMixPanelClient();
       mp.track("login_clicked", {
         page: pathname,
