@@ -32,12 +32,12 @@ const cards: ExpandableCard[] = [
     title: "Factors",
     color: "bg-blue-500",
     subcards: [
-      { id: "sub1", title: "Frontend", img: "/assets/turnaround.png", content: "React, Vue, Angular" },
-      { id: "sub2", title: "Backend", img: "/assets/turnaround.png", content: "Node.js, Python, Java" },
-      { id: "sub3", title: "Mobile", img: "/assets/turnaround.png", content: "React Native, Flutter" },
-      { id: "sub4", title: "UI", img: "/assets/turnaround.png", content: "Figma, Sketch" },
-      { id: "sub5", title: "UX", img: "/assets/turnaround.png", content: "User Research, Wireframing" },
-      { id: "sub6", title: "Graphics", img: "/assets/turnaround.png", content: "Photoshop, Illustrator" },
+      { id: "sub1", title: "Frontend", img: "/factor/cash-flow--.png", content: "Cash flow" },
+      { id: "sub2", title: "Backend", img: "/factor/top-line-growth-.png", content: "Top-line growth" },
+      { id: "sub3", title: "Mobile", img: "/factor/bottom-line-growth-.png", content: "Bottom-line growth" },
+      { id: "sub4", title: "UI", img: "/factor/promoter-holding-.png", content: "Promoter holding" },
+      { id: "sub5", title: "UX", img: "/factor/management-quality-.png", content: "Management quality" },
+      { id: "sub6", title: "Graphics", img: "/factor/valuations.png", content: "Valuations" },
     ],
   },
   {
@@ -45,11 +45,18 @@ const cards: ExpandableCard[] = [
     title: "Trigger",
     color: "bg-purple-500",
     subcards: [
-      { id: "sub4", title: "UI", img: "/assets/turnaround.png", content: "Figma, Sketch" },
-      { id: "sub5", title: "UX", img: "/assets/turnaround.png", content: "User Research, Wireframing" },
-      { id: "sub6", title: "Graphics", img: "/assets/turnaround.png", content: "Photoshop, Illustrator" },
-      { id: "sub7", title: "SEO", img: "/assets/turnaround.png", content: "Search Engine Optimization" },
-      { id: "sub8", title: "Social", img: "/assets/turnaround.png", content: "Social Media Marketing" },
+      { id: "sub1", title: "Frontend", img: "/trigger/capacity-expansion-.png", content: "Capacity expansion" },
+      { id: "sub2", title: "Backend", img: "/trigger/debt-reduction-.png", content: "Debt reduction" },
+      { id: "sub3", title: "Mobile", img: "/trigger/change-in-management-.png", content: "Change in management" },
+      { id: "sub4", title: "UI", img: "/trigger/industry-tailwinds-.png", content: "Industry tailwinds" },
+      {
+        id: "sub5",
+        title: "UX",
+        img: "/trigger/favorable-government-policies-.png",
+        content: "Favorable government policies",
+      },
+      { id: "sub6", title: "Graphics", img: "/trigger/structural-stories--.png", content: "Structural stories" },
+      { id: "sub7", title: "Graphic", img: "/trigger/turnaround- (2).png", content: "Turnaround plays" },
     ],
   },
   {
@@ -57,16 +64,16 @@ const cards: ExpandableCard[] = [
     title: "Method",
     color: "bg-green-500",
     subcards: [
-      { id: "sub7", title: "SEO", img: "/assets/turnaround.png", content: "Search Engine Optimization" },
-      { id: "sub8", title: "Social", img: "/assets/turnaround.png", content: "Social Media Marketing" },
-      { id: "sub9", title: "Content", img: "/assets/turnaround.png", content: "Content Creation" },
+      { id: "sub1", title: "Frontend", img: "/methods/data-and-research-.png", content: "Solid data and research" },
+      { id: "sub2", title: "Backend", img: "/methods/management-interactions-.png", content: "Management interactions" },
+      { id: "sub3", title: "Mobile", img: "/methods/channel-check.png", content: "Channel checks" },
     ],
   },
 ];
 
 const DesktopExpandedCards = ({ expandedCardId, toggleCard }: IDesktopExpandedCards) => {
   return (
-    <div className="flex flex-wrap justify-center items-center max-sm:hidden">
+    <div className="flex justify-center items-center max-sm:hidden">
       {cards.map((card, idx) => (
         <div
           key={card.id}
@@ -141,10 +148,17 @@ const DesktopExpandedCards = ({ expandedCardId, toggleCard }: IDesktopExpandedCa
 
 const MobileExpandedCards = () => {
   return (
-    <Tabs defaultValue="Factors" className=" sm:hidden mx-auto max-w-[358px] flex flex-col items-center border border-[#00000017] rounded-[20px] overflow-hidden">
+    <Tabs
+      defaultValue="Factors"
+      className=" sm:hidden mx-auto max-w-[358px] flex flex-col items-center border border-[#00000017] rounded-[20px] overflow-hidden"
+    >
       <TabsList className="w-full p-0 !h-auto border-b border-b-[#00000017]">
         {cards.map((card) => (
-          <TabsTrigger className=" relative overflow-hidden w-full h-auto p-4 bg-gray-50 text-black data-[state=active]:bg-[#053530] data-[state=active]:text-white text-3xs font-bold" key={card.id} value={card.title}>
+          <TabsTrigger
+            className=" relative overflow-hidden w-full h-auto p-4 bg-gray-50 text-black data-[state=active]:bg-[#053530] data-[state=active]:text-white text-3xs font-bold"
+            key={card.id}
+            value={card.title}
+          >
             {card.title}
             <div className=" h-[6px] bg-brand-300 w-full absolute bottom-0"></div>
           </TabsTrigger>
@@ -156,7 +170,9 @@ const MobileExpandedCards = () => {
             {card.subcards.map((subcard, idx) => (
               <div
                 key={subcard.id}
-                className={` p-2 border border-dotted border-[#00000017] rounded-l-none m-0 flex items-center justify-center h-[120px] ${[0,1,2].includes(idx) ? "border-t-0":""}`}
+                className={` p-2 border border-dotted border-[#00000017] rounded-l-none m-0 flex items-center justify-center h-[120px] ${
+                  [0, 1, 2].includes(idx) ? "border-t-0" : ""
+                }`}
               >
                 <div className=" h-full w-full flex justify-center items-center">
                   <div className=" flex flex-col items-center justify-center">
@@ -185,7 +201,7 @@ export default function ExpandableCardGroup() {
   };
 
   return (
-    <div className="main-container mx-auto sm:p-[60px] py-[50px] sm:py-[110px] open_sans">
+    <div className=" mx-auto sm:p-[60px] py-[50px] sm:py-[110px] open_sans">
       <p className=" font-semibold sm:font-bold text-[#FF9E29] text-center max-sm:text-sm">PHILOSOPHY</p>
       <h2 className="  text-display-xs sm:text-2xl font-bold mb-2 text-center">Our Investing Philosophy</h2>
       <p className="max-sm:mt-3 text-sm sm:text-lg text-gray-500 mb-7 sm:mb-10 text-center">

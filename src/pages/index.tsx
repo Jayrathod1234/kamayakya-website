@@ -38,7 +38,7 @@ const Home: NextPage = () => {
       </div>
       <div ref={containerRef} className=" relative">
         <svg
-          className=" absolute left-[0%] w-full"
+          className=" absolute left-[0%] w-full pointer-events-none"
           width="1380"
           height="3835"
           viewBox="0 0 1380 3914"
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
           />
         </svg>
         <svg
-          className=" absolute left-[0%] w-full"
+          className=" absolute left-[0%] w-full pointer-events-none"
           width="1380"
           height="3835"
           viewBox="0 0 1380 3914"

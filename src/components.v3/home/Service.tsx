@@ -2,6 +2,8 @@ import React from "react";
 import { AnimatedList } from "@/components/magicui/animated-list";
 import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "@/components.v2/ui/carousel";
+import WhatsApp from "./icons/whatsapp";
+import Gmail from "./icons/gmail";
 
 interface INotification {
   name: string;
@@ -22,87 +24,13 @@ let notifications = [
     name: "New Stock  Alert!",
     description: "Buy xyz at ₹234",
     time: "5 min ago",
-    icon: (
-      <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_17555_94856)">
-          <path
-            d="M6.36543 21.199V10.3827L3.01096 7.31383L0.00292969 5.61084V19.2902C0.00292969 20.3463 0.858633 21.199 1.91172 21.199H6.36543Z"
-            fill="#4285F4"
-          />
-          <path
-            d="M21.6348 21.1989H26.0885C27.1447 21.1989 27.9973 20.343 27.9973 19.2901V5.61084L24.5902 7.56141L21.6348 10.3825V21.1989Z"
-            fill="#34A853"
-          />
-          <path
-            d="M6.36465 10.3825L5.9082 6.15626L6.36465 2.11133L13.9996 7.8376L21.6346 2.11133L22.1451 5.93788L21.6346 10.3825L13.9996 16.1088L6.36465 10.3825Z"
-            fill="#EA4335"
-          />
-          <path
-            d="M21.6348 2.11138V10.3826L27.9973 5.61074V3.06572C27.9973 0.705296 25.3028 -0.640319 23.4164 0.775283L21.6348 2.11138Z"
-            fill="#FBBC04"
-          />
-          <path
-            d="M0.00292969 5.61079L2.92916 7.80555L6.36543 10.3826V2.11143L4.58381 0.775333C2.69416 -0.640378 0.00292969 0.705345 0.00292969 3.06566V5.61079Z"
-            fill="#C5221F"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_17555_94856">
-            <rect width="28" height="21.1055" fill="white" transform="translate(0 0.197266)" />
-          </clipPath>
-        </defs>
-      </svg>
-    ),
+    icon: <WhatsApp />,
   },
   {
     name: "New Stock  Alert!",
     description: "Buy xyz at ₹234",
     time: "5 min ago",
-    icon: (
-      <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_17480_24271)">
-          <path
-            d="M0.681463 16.5586C0.680719 19.2472 1.38323 21.8724 2.71904 24.1863L0.553711 32.0923L8.6445 29.9709C10.8823 31.1891 13.3896 31.8275 15.9375 31.8276H15.9442C24.3554 31.8276 31.2023 24.9832 31.2059 16.5706C31.2075 12.4941 29.6214 8.66076 26.7396 5.77679C23.8584 2.89307 20.0265 1.30411 15.9436 1.30225C7.53145 1.30225 0.68506 8.14628 0.681587 16.5586"
-            fill="url(#paint0_linear_17480_24271)"
-          />
-          <path
-            d="M0.136619 16.5535C0.135751 19.3389 0.863441 22.058 2.24688 24.4548L0.00390625 32.6442L8.38481 30.4467C10.694 31.7058 13.294 32.3696 15.9395 32.3706H15.9464C24.6593 32.3706 31.7521 25.28 31.7558 16.5662C31.7573 12.3432 30.1142 8.37208 27.1295 5.38479C24.1444 2.39788 20.1754 0.751736 15.9464 0.75C7.23194 0.75 0.140092 7.83961 0.136619 16.5535ZM5.12775 24.042L4.81482 23.5453C3.49935 21.4536 2.80502 19.0365 2.80601 16.5545C2.80874 9.31174 8.70319 3.41915 15.9513 3.41915C19.4614 3.42064 22.7601 4.78895 25.2412 7.27155C27.7222 9.7544 29.0874 13.0549 29.0866 16.5652C29.0833 23.808 23.1888 29.7013 15.9464 29.7013H15.9411C13.5829 29.7001 11.2701 29.0668 9.25315 27.87L8.77315 27.5853L3.79975 28.8893L5.12775 24.042Z"
-            fill="url(#paint1_linear_17480_24271)"
-          />
-          <path
-            d="M11.9949 9.94662C11.699 9.28888 11.3876 9.27561 11.1061 9.26407C10.8757 9.25415 10.6122 9.2549 10.3491 9.2549C10.0856 9.2549 9.65758 9.354 9.29578 9.74904C8.93361 10.1444 7.91309 11.1 7.91309 13.0434C7.91309 14.9869 9.32865 16.8652 9.52599 17.129C9.72357 17.3923 12.2588 21.5082 16.2739 23.0915C19.6108 24.4074 20.2899 24.1457 21.0141 24.0797C21.7385 24.014 23.3514 23.1244 23.6804 22.202C24.0097 21.2797 24.0097 20.4891 23.911 20.3239C23.8123 20.1593 23.5488 20.0605 23.1538 19.863C22.7587 19.6656 20.8165 18.7098 20.4545 18.5779C20.0923 18.4462 19.829 18.3805 19.5656 18.776C19.3021 19.1709 18.5456 20.0605 18.3151 20.3239C18.0847 20.588 17.8542 20.6208 17.4593 20.4233C17.064 20.2251 15.7918 19.8084 14.2825 18.4628C13.1081 17.4158 12.3153 16.1227 12.0849 15.7272C11.8544 15.3323 12.0602 15.1182 12.2583 14.9214C12.4358 14.7444 12.6534 14.4601 12.8511 14.2295C13.0481 13.9988 13.1138 13.8342 13.2456 13.5708C13.3774 13.3071 13.3114 13.0764 13.2128 12.8788C13.1138 12.6813 12.3462 10.7276 11.9949 9.94662Z"
-            fill="white"
-          />
-        </g>
-        <defs>
-          <linearGradient
-            id="paint0_linear_17480_24271"
-            x1="1533.16"
-            y1="3080.31"
-            x2="1533.16"
-            y2="1.30225"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#1FAF38" />
-            <stop offset="1" stop-color="#60D669" />
-          </linearGradient>
-          <linearGradient
-            id="paint1_linear_17480_24271"
-            x1="1587.6"
-            y1="3190.17"
-            x2="1587.6"
-            y2="0.75"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#F9F9F9" />
-            <stop offset="1" stop-color="white" />
-          </linearGradient>
-          <clipPath id="clip0_17480_24271">
-            <rect width="31.76" height="32" fill="white" transform="translate(0 0.75)" />
-          </clipPath>
-        </defs>
-      </svg>
-    ),
+    icon: <Gmail />,
   },
 ];
 
@@ -140,7 +68,12 @@ const Notification = ({ name, description, icon, time }: INotification) => {
 
 const ServiceCard = ({ hero, title, description, className }: IServiceCard) => {
   return (
-    <div className={cn(` rounded-[20px] bg-[#FFFFFF24] p-2 pb-5 h-full`, className)}>
+    <div
+      className={cn(
+        ` rounded-[20px] bg-[rgba(9,110,87,0.3)] border border-[rgba(9,110,87,0.3)] p-2 pb-5 h-full`,
+        className
+      )}
+    >
       {hero}
       <div className=" pt-4 px-4">
         <p className=" text-white m-0 font-bold text-lg">{title}</p>
@@ -154,9 +87,17 @@ let SERVICE_DATA = [
   {
     title: "📈 Smart Stock Recommendations",
     description: "From Main Board to SMEs—curated stock picks with clear Buy/Hold/Sell alerts.",
-    hero: <p>Test</p>,
+    hero: (
+      <img
+        height={228}
+        width={374}
+        className=" max-h-[228px] h-full w-full object-cover"
+        src="/smartstockrecommendation.png"
+        alt="smartstockrecommendation"
+      />
+    ),
     className: "",
-    serviceClassName: "",
+    serviceClassName: "py-0 p-0 overflow-hidden",
   },
   {
     title: "📋 Fundamental Research Reports & Videos",
@@ -1039,7 +980,8 @@ let SERVICE_DATA = [
     title: "🔔 Real-Time Notifications",
     description: "Get instant alerts (Email/WhatsApp) when it’s time to act—no second-guessing.",
     hero: (
-      <div className="relative flex h-[511px] w-full flex-col overflow-hidden p-8 pb-0">
+      <div className="relative flex h-full max-h-[482px] w-full flex-col overflow-hidden p-8 pb-0">
+        <div className=" absolute z-20 bottom-0 left-0 w-full h-[150px] bg-[linear-gradient(0deg,#053C3A_10.37%,rgba(5,59,58,0.00)_100%)]"></div>
         <AnimatedList>
           {notifications.map((item, idx) => (
             <Notification {...item} key={idx} />
@@ -1048,21 +990,29 @@ let SERVICE_DATA = [
       </div>
     ),
     className: "sm:row-span-full sm:col-start-3",
-    serviceClassName: "",
+    serviceClassName: " max-h-[624px]",
   },
   {
     title: "🧺 Model Portfolios (Stock Baskets)",
     description:
       "Diversify effortlessly with pre-built model portfolios on smallcase and Starfolio by Trendlyne—invest smart, stay relaxed.",
-    hero: <div>test</div>,
-    className: "sm:row-start-2 sm:col-span-2",
-    serviceClassName: "flex",
+    hero: (
+      <img
+        height={233}
+        width={294.6371765136719}
+        className="max-w-[294.6371765136719px] max-h-[233px] h-full w-full object-contain"
+        src="/modalportfolio.png"
+        alt="model_portfolio"
+      />
+    ),
+    className: "sm:row-start-2 sm:col-span-2 ",
+    serviceClassName: "flex items-center justify-center max-h-[233px]",
   },
 ];
 
 const DesktopServiceCardList = () => {
   return (
-    <div className="hidden mt-10 lg:grid sm:grid-cols-3 sm:grid-rows-2 gap-[10px]">
+    <div className="hidden mt-10 lg:grid sm:grid-cols-3 sm:grid-rows-2 gap-[10px] ">
       {SERVICE_DATA.map((service) => (
         <div key={service.title} className={service.className}>
           <ServiceCard
@@ -1096,12 +1046,18 @@ export default function Service() {
     <div className="sm:px-5">
       {/* SERVICES START */}
       <div className="px-4 py-[50px] sm:p-20 bg-[#01272E] sm:rounded-[28px] open_sans">
-        <div className="">
+        <div className="main-container max-h-[800px]">
           <p className="text-[#FF9E29] font-semibold sm:font-bold text-center max-sm:text-sm">SERVICES</p>
-          <p className=" text-display-xs sm:text-display-md font-bold text-center mt-3 text-white">Smart Investment Solutions</p>
+          <p className=" text-display-xs sm:text-display-md font-bold text-center mt-3 text-white">
+            Smart Investment Solutions
+          </p>
           <DesktopServiceCardList />
           <MobileServiceCardList />
         </div>
+        <p className=" open_sans text-center text-white">
+          **The stocks shown are for representation only. These are past recommendations and may no longer be part of
+          our active investments. They are not current buy recommendations.**
+        </p>
       </div>
       {/* SERVICES END */}
     </div>
