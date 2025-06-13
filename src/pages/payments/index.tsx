@@ -257,7 +257,7 @@ export default function Index() {
 
 function PaymentIssue() {
   return (
-    <Dialog open={true}>
+    <Dialog open={false}>
       <DialogContent
         closeClassName=" -right-2 -top-[12px] opacity-100 hidden"
         className=" !p-6 !rounded-[20px] w-[calc(100%-32px)]  md:min-w-[400px] max-w-[400px] open_sans"
