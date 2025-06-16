@@ -72,9 +72,37 @@ export const postAadharOtp = async (params)=>{
   }
 }
 
+export const postVerifyPan = async (params)=>{
+  try {
+//     return {
+//     "message": "Pancard verified successfully",
+//     "status_code": 200,
+//     "address": "some address",
+//     "name": "ANURAG ",
+//     "mobile": "+911234567890",
+//     "email": "anurag.micra@gmail.com",
+//     "pan_number": "ABCD1234F",
+//     "masked_pan_number": "XXXXXX234F",
+//     "masked_aadhar": "XXXXXXXX2411",
+//     "is_user_kyc": true
+// }
+    const URL = `/user/userPanKyc/`;
+    const response = await axiosApi.post(URL, params);
+   
+    return response.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}
+
+
 export const getUserKycStatus = async()=>{
   try {
-    const URL = `/user/checkUserKycStatus`;
+    // https://test-server.kamayakya.in/user/userKycStatusVerify/
+    // const URL = `/user/checkUserKycStatus`;
+    const URL = `/user/userKycStatusVerify/`
   //   return {
   //     "message": "User KYC is pending.",
   //     "status_code": 200,
@@ -100,6 +128,7 @@ export const postCheckout = async(params)=>{
     const URL = `/user/createOrder?type=razorpay`;
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.post(URL,params);
+    
     return response.data;
   } catch (error) {
     // Handle errors if any
@@ -134,18 +163,45 @@ export const getPaymentReceipt = async(params)=>{
   }
 }
 
-export const getAddress = async(params)=>{
+// export const getAddress = async(params)=>{
+//   try {
+//     const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${params}&key=${process.env.NEXT_PUBLIC_GEOCODING_KEY}`;
+//     /* ----------------------------------- API ---------------------------------- */
+//     const response = await axios.get(URL);
+//     return response.data;
+//   } catch (error) {
+//     // Handle errors if any
+//     console.error("Error fetching:", error);
+//     throw error;
+//   }
+// }
+
+export const getAddressFromPincode = async (pincode) => {
   try {
-    const URL = `https://maps.googleapis.com/maps/api/geocode/json?address=${params}&key=${process.env.NEXT_PUBLIC_GEOCODING_KEY}`;
-    /* ----------------------------------- API ---------------------------------- */
+    const URL = `https://api.postalpincode.in/pincode/${pincode}`;
     const response = await axios.get(URL);
-    return response.data;
+    const data = response.data;
+
+    if (Array.isArray(data) && data[0]?.Status === "Success") {
+      const postOffices = data[0]?.PostOffice;
+      if (Array.isArray(postOffices) && postOffices.length > 0) {
+        // You can pick the first one or return all addresses if needed
+        const address = postOffices[0];
+        // const formatted = `${address.Name}, ${address.Block}, ${address.District}, ${address.State}, ${address.Country} - ${address.Pincode}`;
+        const formatted = `${address.Block}, ${address.State}, ${address.Country} - ${address.Pincode}`
+        return {
+          verified: true,
+          address: formatted,
+        };
+      }
+    }
+
+    return { verified: false, address: null };
   } catch (error) {
-    // Handle errors if any
-    console.error("Error fetching:", error);
-    throw error;
+    console.error("Error fetching address:", error);
+    return { verified: false, address: null };
   }
-}
+};
 
 export const getTrackRecordStats =  async(params)=>{
   try {

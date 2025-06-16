@@ -26,7 +26,7 @@ export default function Index() {
   const [margins, setMargins] = useState({ marginLeft: 0, marginRight: 0 });
   const [isPlaying, setIsPlaying] = useState(true);
   const [stockStats, setStockStats] = useState({
-    average_exit_returns:0,
+    average_exit_returns: 0,
     average_live_returns: 0,
     exit_stock_count: 0,
     exited_in_loss: 0,
@@ -50,7 +50,7 @@ export default function Index() {
     (async () => {
       try {
         const res = await getTrackRecordStats();
-        setStockStats(res)
+        setStockStats(res);
       } catch (e) {}
     })();
   }, []);
@@ -73,6 +73,7 @@ export default function Index() {
   return (
     <PaymentContextProvider>
       <div className=" bg-white open_sans pb-6">
+        <PaymentIssue />
         <Header className={headerBg} />
         <div className=" -mt-[13rem] sm:-mt-[13.5rem] flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
           <div className=" p-4 py-8 pb-4 md:p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
@@ -203,21 +204,21 @@ export default function Index() {
             <div className="relative p-10 md:p-20 rounded-tr-[100px] rounded-bl-[100px] bg-[#1D4040]">
               <div className=" p-5 pt-0 flex flex-col items-center justify-center w-full ">
                 <div className="flex items-center  ">
-                  {stockStats?.stock_images?.map(item=> <div className=" h-9 w-9 rounded-full overflow-hidden -ml-2 ">
-                    <img className=" h-full w-full object-cover" height={36} width={36} src={item} alt="stock-image" />
-                  </div>)}
-                 
-                  {/* <div className=" h-9 w-9 rounded-full -ml-2 ">
-                    <img height={36} width={36} src="/stock_img2.svg" alt="" />
-                  </div>
-                  <div className=" h-9 w-9 rounded-full  -ml-2">
-                    <img height={36} width={36} src="/stock_img3.svg" alt="" />
-                  </div>
-                  <div className=" h-9 w-9 rounded-full  -ml-2">
-                    <img height={36} width={36} src="/stock_img4.svg" alt="" />
-                  </div> */}
+                  {stockStats?.stock_images?.map((item) => (
+                    <div className=" h-9 w-9 rounded-full overflow-hidden -ml-2 ">
+                      <img
+                        className=" h-full w-full object-cover"
+                        height={36}
+                        width={36}
+                        src={item}
+                        alt="stock-image"
+                      />
+                    </div>
+                  ))}
                 </div>
-                <p className=" text-sm mt-4 text-white text-center">{stockStats.exited_in_profit} Stocks Exited 🎉 🎉</p>
+                <p className=" text-sm mt-4 text-white text-center">
+                  {stockStats.exited_in_profit} Stocks Exited 🎉 🎉
+                </p>
               </div>
               <div className=" mt-4 flex justify-center ">
                 <div className="flex flex-col items-center p-3 text-white">
@@ -265,6 +266,55 @@ export default function Index() {
         </div>
       </div>
     </PaymentContextProvider>
+  );
+}
+
+function PaymentIssue() {
+  return (
+    <Dialog open={false}>
+      <DialogContent
+        closeClassName=" -right-2 -top-[12px] opacity-100 hidden"
+        className=" !p-6 !rounded-[20px] w-[calc(100%-32px)]  md:min-w-[400px] max-w-[400px] open_sans"
+      >
+        <div>
+          <img src="/assets/failed_aadhar_fetch.svg" alt="error-image" />
+          <h2 className=" font-bold text-xl mt-6">🚧 Temporary Payment Issue</h2>
+          <p className=" text-sm text-[#737373] mt-3">
+            We’re fixing a small hiccup in our payment flow - expect it back in 2-3 days. Need help?
+            <br />
+            <br /> 📞 Call us : <a href="tel:+919175939641">+91 9175939641</a>
+            <br /> ✉️ Email : <a href="mailto:contact@kamayakya.com">contact@kamayakya.com</a>
+          </p>
+          {/* <div className=" flex  items-center gap-x-[10px] mt-6 ml-auto w-fit">
+                <DialogClose asChild>
+                  <Button
+                    onClick={() => {
+                      setDisplayFailedAddharModal(false);
+                    }}
+                    variant={ButtonVariant.tertiary}
+                  >
+                    Close
+                  </Button>
+                </DialogClose>
+                <Button
+                  loading={aadharOtpLoading}
+                  onClick={async () => {
+                    if (isAadharAlreadyVerified || aadharVerified) {
+                      handleVerifyAadharOtp();
+                    } else {
+                      await handleAadharOtp({ aadhar });
+                    }
+                    // setDisplayFailedAddharModal(false);
+                    // handleAadharOtp({ aadhar });
+                  }}
+                  variant={ButtonVariant.primary}
+                >
+                  Try again
+                </Button>
+              </div> */}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
