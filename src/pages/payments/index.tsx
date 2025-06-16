@@ -11,7 +11,7 @@ import ReviewSection from "./components/ReviewSection";
 import { TabsContent, TabsList, TabsTrigger, Tabs } from "@/components.v2/ui/tabs";
 import DetailSection from "./components/DetailSection";
 import { PaymentContextProvider } from "@/contexts/PaymentContext";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { Dialog, DialogTrigger, DialogContent } from "@/components.v2/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import TestimonialSection from "./components/TestimonialSection";
@@ -34,7 +34,7 @@ export default function Index() {
     stock_images: [],
   });
   const pathname = usePathname();
-
+  const params  = useSearchParams();
   useEffect(() => {
     const firstdiv = ref.current[0];
     const lastdiv = ref.current[ref.current.length - 1];
@@ -44,6 +44,14 @@ export default function Index() {
       marginRight: lastdiv.offsetWidth,
     });
   }, [ref.current?.length]);
+
+
+  useEffect(()=>{
+   const step = params.get("step")
+   if(step){
+    setActiveTab(step)
+   }
+  },[params])
 
   useEffect(() => {
     (async () => {

@@ -39,6 +39,7 @@ import KycPrivacyNotice from "./KycPrivacyNotice";
 import GoBackButton from "./GoBackButton";
 import AadharInput from "./AadharInput";
 import PanInput from "./PanInput";
+import { useSearchParams } from "next/navigation";
 
 type CustomTextFieldProps = TextFieldProps & {
   confirmAddress?: boolean;
@@ -176,6 +177,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   const mobile = watch("phone");
   const address = watch("address");
   const pan = getValues2("pan")
+  const params = useSearchParams();
   // const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
   //   try {
   //     setAadharOtpLoading(true);
@@ -385,6 +387,40 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     return blob;
   };
 
+  const makePayment = ()=>{
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+      amount: orderDetails.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "KamayaKya", //your business name
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      order_id: orderDetails.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      handler: function (response: unknown) {
+        router.push("/payments/successful");
+      },
+      prefill: {
+        //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+        name: userDetails.name, //your customer's name
+        email: userDetails.email,
+        contact: userDetails.phone?.slice(3), //Provide the customer's phone number for better conversion rates
+      },
+      notes: {
+        address:
+          "Flat No 6, New Nirmal Apartments, Balkrishna Sakharam Dhole Patil Rd, near Akshay Complex Road, Pune, Maharashtra 411001",
+      },
+      theme: {
+        color: "#0b3a36",
+        backdrop_color: "#ea3546",
+      },
+    };
+    handleRazorpayScreen(options);
+  }
+
+  useEffect(()=>{
+    const status = params.get("status")
+  },[params])
+
   const handleDigio = async (orderId, userDetailsForPdf, orderDetails) => {
     try {
       const pdf = await generatePdf(userDetailsForPdf);
@@ -393,38 +429,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       var options = {
         environment: process.env.NEXT_PUBLIC_DIGIO_ENVIRONMENT,
         is_iframe: false,
+        redirect_url:'http://localhost:3002/payments?step=detail',
+        is_redirection_approach:true,
         callback: function (response) {
           if (response.hasOwnProperty("error_code")) {
             return console.log("error occurred in process", response);
           }
           // downloadAndSendPDF();
-          const options = {
-            key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-            amount: orderDetails.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            currency: "INR",
-            name: "KamayaKya", //your business name
-            description: "Test Transaction",
-            image: "https://example.com/your_logo",
-            order_id: orderDetails.data.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            handler: function (response: unknown) {
-              router.push("/payments/successful");
-            },
-            prefill: {
-              //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-              name: userDetails.name, //your customer's name
-              email: userDetails.email,
-              contact: userDetails.phone?.slice(3), //Provide the customer's phone number for better conversion rates
-            },
-            notes: {
-              address:
-                "Flat No 6, New Nirmal Apartments, Balkrishna Sakharam Dhole Patil Rd, near Akshay Complex Road, Pune, Maharashtra 411001",
-            },
-            theme: {
-              color: "#0b3a36",
-              backdrop_color: "#ea3546",
-            },
-          };
-          handleRazorpayScreen(options);
+
           console.log("Signing;completed;successfully:", response);
         },
         logo: "https://i.ibb.co/ch7BwD5Z/kmk-logo-1.png",
