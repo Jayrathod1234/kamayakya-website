@@ -686,7 +686,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
          
           {
           // (aadharVerified || userDetails.address)
-          (panVerified || userDetails.address) 
+          (panVerified || userDetails.address || (isPanAlreadyVerified && !userDetails.address)) 
           && (
             <div className="col-span-2">
               <div>
@@ -1026,7 +1026,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 email?.length === 0 ||
                 mobile?.length === 0 ||
                 (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
-                (!isPanAlreadyVerified && !userDetails.maskedPan)
+                (!isPanAlreadyVerified && !userDetails.maskedPan) || (isPanAlreadyVerified && (!userDetails.address && !pincodeBasedAddress))
               }
               loading={checkoutLoading}
               onClick={handleSubmit(handleCheckout)}
