@@ -16,6 +16,7 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components.v2/ui/dialog"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import TestimonialSection from "./components/TestimonialSection";
 import { getTrackRecordStats } from "@/api/payment";
+import KycPrivacyNotice, { PopupNotice } from "./components/KycPrivacyNotice";
 // import { DialogContent } from "@radix-ui/react-dialog";
 
 export default function Index() {
@@ -61,7 +62,10 @@ export default function Index() {
       <div className=" bg-white open_sans pb-6">
         <PaymentIssue />
         <Header className={headerBg} />
-        <div className=" -mt-[13rem] sm:-mt-[13.5rem] flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
+        <div className=" -mt-[13rem] sm:-mt-[13.5rem]">
+          <PopupNotice/>
+        <div className=" flex flex-col gap-y-4 md:flex-row main-container relative z-20 ">
+          
           <div className=" p-4 py-8 pb-4 md:p-10 bg-white max-md:rounded-3xl md:rounded-tl-3xl md:rounded-bl-3xl border border-[#E3F1F1] border-r-[#D1F9EF99] flex flex-col  w-full">
             {/* stepper component */}
             <Tabs
@@ -249,6 +253,7 @@ export default function Index() {
             <TestimonialSection />
             {/* Testimonial Section End */}
           </div>
+        </div>
         </div>
       </div>
     </PaymentContextProvider>

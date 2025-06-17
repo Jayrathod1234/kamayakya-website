@@ -593,7 +593,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     <div className="mt-9">
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
         <GoBackButton setActiveTab={setActiveTab} />
-        {isAadharAlreadyVerified && isAadharVintage ? null : <KycPrivacyNotice />}
+        {/* {isAadharAlreadyVerified && isAadharVintage ? null : <KycPrivacyNotice />} */}
+        {isPanAlreadyVerified ? null : <KycPrivacyNotice />}
 
         <div className="grid grid-cols-2 gap-y-4 sm:gap-y-7 gap-x-[22px]">
           {/* <AadharInput

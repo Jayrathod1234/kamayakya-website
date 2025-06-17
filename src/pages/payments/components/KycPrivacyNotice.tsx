@@ -11,3 +11,16 @@ export default function KycPrivacyNotice() {
         </div>
   )
 }
+
+
+export function PopupNotice() {
+  return (
+    <div className="p-3 bg-[#EFF7FF] border border-[#A6D3FF] rounded-lg flex items-center gap-x-[10px] mb-7 relative z-10 main-container">
+          <img height={24} width={24} alt="info-icon" src="/info-fill.svg" />
+          <p className=" m-0 text-xs">
+           <span className=' font-semibold'>Please ensure pop-ups are enabled in your browser:</span><br/>
+The User Agreement will open in a new window. Please make sure your browser allows pop-ups to ensure a smooth experience
+          </p>
+        </div>
+  )
+}
