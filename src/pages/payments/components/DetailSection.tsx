@@ -586,7 +586,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     <div className="mt-9">
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
         <GoBackButton setActiveTab={setActiveTab} />
-        {isAadharAlreadyVerified && isAadharVintage ? null : <KycPrivacyNotice />}
+        {/* {isAadharAlreadyVerified && isAadharVintage ? null : <KycPrivacyNotice />} */}
+        {isPanAlreadyVerified ? null : <KycPrivacyNotice />}
 
         <div className="grid grid-cols-2 gap-y-4 sm:gap-y-7 gap-x-[22px]">
           {/* <AadharInput
@@ -679,7 +680,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
          
           {
           // (aadharVerified || userDetails.address)
-          (panVerified || userDetails.address) 
+          (panVerified || userDetails.address || (isPanAlreadyVerified && !userDetails.address)) 
           && (
             <div className="col-span-2">
               <div>
@@ -1019,7 +1020,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 email?.length === 0 ||
                 mobile?.length === 0 ||
                 (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
-                (!isPanAlreadyVerified && !userDetails.maskedPan)
+                (!isPanAlreadyVerified && !userDetails.maskedPan) || (isPanAlreadyVerified && (!userDetails.address && !pincodeBasedAddress))
               }
               loading={checkoutLoading}
               onClick={handleSubmit(handleCheckout)}

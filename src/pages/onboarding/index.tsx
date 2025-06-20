@@ -20,6 +20,7 @@ import POPPER_JSON from "../../../public/assets/popper.json";
 import SUCCESS_LOTTIE from "../../../public/assets/success_onboarding.json";
 import CONFETTIE from "../../../public/assets/onboarding_confetti.json";
 import { ContactModal } from "@/components.v2/payments/contact-modal";
+import axios from "axios";
 
 const Step1 = ({ setActiveTab, activeTab }) => {
   return (
@@ -700,16 +701,14 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
   const callIncompleteOnboardingAPI = async () => {
     if (apiCallMadeRef.current) return; // Prevent duplicate calls
     const params = {
-      type: sessionStorage.getItem("login_method") === "mobile" ? "email" : "mobile",
-        value:'',
+      type: sessionStorage.getItem("login_method") === "mobile" ? "mobile" : "email",
+        value:  sessionStorage.getItem("login_method") === "mobile" ? user.mobile : user.email,
         full_name: fullname ? fullname : sessionStorage.getItem("fullname") as string,
     }
     try {
       apiCallMadeRef.current = true;
       await axios.post(
-        `${process.env.NEXT_PUBLIC_BASEPATH}/user/userActionNotifications?type=incompleteOnboardNotifications`,{
-
-        }
+        `${process.env.NEXT_PUBLIC_BASEPATH}/user/incompleteOnboardNotifications`,params
       );
       console.log('Incomplete onboarding API called');
     } catch (error) {
@@ -768,21 +767,21 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
     };
   }, []);
 
-  // Handle Next.js route changes
-  useEffect(() => {
-    const handleRouteChangeStart = (url) => {
-      // Only call API if navigating away from onboarding and it's incomplete
-      if (url !== router.asPath && isOnboardingIncomplete()) {
-        callIncompleteOnboardingAPI();
-      }
-    };
+  // // Handle Next.js route changes
+  // useEffect(() => {
+  //   const handleRouteChangeStart = (url) => {
+  //     // Only call API if navigating away from onboarding and it's incomplete
+  //     if (url !== router.asPath && isOnboardingIncomplete()) {
+  //       callIncompleteOnboardingAPI();
+  //     }
+  //   };
 
-    router.events.on('routeChangeStart', handleRouteChangeStart);
+  //   router.events.on('routeChangeStart', handleRouteChangeStart);
     
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-    };
-  }, [router]);
+  //   return () => {
+  //     router.events.off('routeChangeStart', handleRouteChangeStart);
+  //   };
+  // }, [router]);
 
   // Cleanup effect - calls API when component unmounts if onboarding incomplete
   useEffect(() => {
