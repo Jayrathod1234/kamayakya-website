@@ -600,20 +600,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     }
   }, [openDialog]);
 
-  const finalCondition =
-    (!aadharVerified && !isAadharAlreadyVerified && !isAadharVintage) ||
-    email?.length === 0 ||
-    mobile?.length === 0 ||
-    (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
-    (!isPanAlreadyVerified && !userDetails.maskedPan);
 
-  console.log("PAN VERIFIED", billingSameAsAadhar && !isPanAlreadyVerified);
 
   return (
     <div className="mt-9">
       <Dialog onOpenChange={setOpenDialog} open={openDialog}>
         <GoBackButton setActiveTab={setActiveTab} />
-        {isAadharAlreadyVerified && isAadharVintage ? null : <KycPrivacyNotice />}
+        {/* {isAadharAlreadyVerified && isAadharVintage ? null : <KycPrivacyNotice />} */}
+        {isPanAlreadyVerified ? null : <KycPrivacyNotice />}
 
         <div className="grid grid-cols-2 gap-y-4 sm:gap-y-7 gap-x-[22px]">
           {/* <AadharInput

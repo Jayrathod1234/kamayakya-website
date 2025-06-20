@@ -2,14 +2,23 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function Header({ className }: { className?: string }) {
+export default function Header({
+  className,
+  callIncompletePayment,
+}: {
+  className?: string;
+  callIncompletePayment: () => void;
+}) {
   // max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#e4e7ec)]
   const router = useRouter();
   return (
     <div className={cn(" bg-[#F1FBFB] h-[341px] relative z-10", className)}>
       <div className=" flex flex-col md:flex-row items-center justify-between main-container py-7">
         <img
-          onClick={() => router.push("/")}
+          onClick={() => {
+            router.push("/");
+            callIncompletePayment();
+          }}
           className=" object-contain hidden md:block cursor-pointer"
           width={219.69}
           height={42}
