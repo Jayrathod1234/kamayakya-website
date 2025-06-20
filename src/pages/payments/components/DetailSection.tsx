@@ -130,7 +130,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     setAadharVerified,
     setPlanDetails,
     panVerified,
-    setPanVerified
+    setPanVerified,
   } = usePaymentContext() as IPaymentContext;
   const router = useRouter();
   const {
@@ -162,7 +162,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   } = useForm({
     defaultValues: {
       // aadhar: "",
-      pan:""
+      pan: "",
     },
   });
   const [phoneFocused, setPhoneFocused] = useState(false);
@@ -176,7 +176,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   const email = watch("email");
   const mobile = watch("phone");
   const address = watch("address");
-  const pan = getValues2("pan")
+  const pan = getValues2("pan");
   const params = useSearchParams();
   // const handleAadharOtp: SubmitHandler<Pick<IFormInput, "aadhar">> = async (data) => {
   //   try {
@@ -300,19 +300,19 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
 
   const handleVerifyPan = async (data) => {
     try {
-      console.log("ENTER VERFIY PAN")
+      console.log("ENTER VERFIY PAN");
       setLoading(true);
-      const res = await postVerifyPan({ pan_number:data.pan });
-      console.log("VERIFY PAN", res)
+      const res = await postVerifyPan({ pan_number: data.pan });
+      console.log("VERIFY PAN", res);
       let address = res?.address;
       // if (displayFailedAddharModal) {
       //   setDisplayFailedAddharModal(false);
       // }
-      if(!address){
-        setBillingSameAsAadhar(false)
+      if (!address) {
+        setBillingSameAsAadhar(false);
       }
       if (res?.is_user_kyc) {
-        setPanVerified(true)
+        setPanVerified(true);
         setUserDetails((prev) => ({
           ...prev,
           pan: res?.pan_number,
@@ -325,7 +325,6 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       } else {
         setDisplayFailedAddharModal(true);
         setOpenDialog(true);
-        
       }
     } catch (e: any) {
       console.log(e);
@@ -387,7 +386,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     return blob;
   };
 
-  const makePayment = ()=>{
+  const makePayment = () => {
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
       amount: orderDetails.data.final_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -415,22 +414,32 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       },
     };
     handleRazorpayScreen(options);
-  }
+  };
 
-  useEffect(()=>{
-    const status = params.get("status")
-  },[params])
+  useEffect(() => {
+    const status = params.get("status");
+  }, [params]);
 
   const handleDigio = async (orderId, userDetailsForPdf, orderDetails) => {
     try {
       const pdf = await generatePdf(userDetailsForPdf);
       const res = await getDigioIdandSendPdf({ order_id: orderId, user_agreement_pdf: pdf });
-    
+      sessionStorage.setItem(
+        "razorpayData",
+        JSON.stringify({
+          name: userDetails.name,
+          email: userDetails.email,
+          phone: userDetails.phone,
+          order_id: orderDetails.data.order_id,
+          amount: orderDetails.data.final_amount,
+        })
+      );
+
       var options = {
         environment: process.env.NEXT_PUBLIC_DIGIO_ENVIRONMENT,
         is_iframe: false,
-        redirect_url:'http://localhost:3002/payments?step=detail',
-        is_redirection_approach:true,
+        redirect_url: `http://localhost:3002/payments/process`,
+        is_redirection_approach: true,
         callback: function (response) {
           if (response.hasOwnProperty("error_code")) {
             return console.log("error occurred in process", response);
@@ -447,7 +456,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       };
       var digio = new window.Digio(options);
       digio.init();
-      digio.submit(res?.id, res?.user_mobile,res?.access_token?.id);
+      digio.submit(res?.id, res?.user_mobile, res?.access_token?.id);
       if (checkoutLoading) {
         setCheckoutLoading(false);
       }
@@ -463,7 +472,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     //   setError2("aadhar", { message: "Verify Aadhar to continue" });
     //   return;
     // }
-    if(!userDetails.maskedPan && !isPanAlreadyVerified){
+    if (!userDetails.maskedPan && !isPanAlreadyVerified) {
       setError2("pan", { message: "Verify PAN to continue" });
       return;
     }
@@ -517,12 +526,12 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       const res = await getAddressFromPincode(pincode);
       if (res.verified) {
         setPincodeVerified(true);
-        setPincodeBasedAddress(res.address as string) ;
+        setPincodeBasedAddress(res.address as string);
       } else {
         toast({
-              variant: "warn",
-              description: "Invalid Pin Code. Please check and re-enter a valid Pin Code.",
-            });
+          variant: "warn",
+          description: "Invalid Pin Code. Please check and re-enter a valid Pin Code.",
+        });
         // setPincodeVerified(false);
         // setPincodeBasedAddress(null);
       }
@@ -568,12 +577,12 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     //   }
     // }
     if (errors.email || errors.address || errors.fullname || errors.phone || errors.pan) {
-        if (!pan || !isValid) {
-          setError2("pan", { message: "Enter PAN to continue" });
-        } else {
-          setError2("pan", { message: "" });
-        }
+      if (!pan || !isValid) {
+        setError2("pan", { message: "Enter PAN to continue" });
+      } else {
+        setError2("pan", { message: "" });
       }
+    }
   }, [errors]);
 
   useEffect(() => {
@@ -581,10 +590,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     //   setBillingSameAsAadhar(false);
     // }
     if (isPanAlreadyVerified) {
-        setBillingSameAsAadhar(false);
-      }
-
-  }, [isAadharAlreadyVerified,isPanAlreadyVerified]);
+      setBillingSameAsAadhar(false);
+    }
+  }, [isAadharAlreadyVerified, isPanAlreadyVerified]);
 
   useEffect(() => {
     if (!openDialog && displayFailedAddharModal) {
@@ -599,7 +607,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
     (!isPanAlreadyVerified && !userDetails.maskedPan);
 
-  console.log("PAN VERIFIED",billingSameAsAadhar && !isPanAlreadyVerified);
+  console.log("PAN VERIFIED", billingSameAsAadhar && !isPanAlreadyVerified);
 
   return (
     <div className="mt-9">
@@ -620,73 +628,74 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
           /> */}
 
           {
-          // userDetails?.name && isAadharVintage 
-          userDetails?.name || isPanAlreadyVerified? (
-            <div className="col-span-2">
-              <p className="text-xs text-gray-500">
-                Full Name<span className="text-error-500">*</span>
-              </p>
-              <Controller
-                name="fullname"
-                control={control}
-                rules={{
-                  required: "Enter Name to continue",
-                }}
-                render={({ field }) => (
-                  <CustomTextField
-                    {...field}
-                    error={errors.fullname?.message ? true : false}
-                    id="full-name"
-                    type="text"
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      // readOnly: (aadharVerified || isAadharAlreadyVerified) && isAadharVintage,
-                      // className: (aadharVerified || isAadharAlreadyVerified) && isAadharVintage ? "bg-[#F4F7FA99]" : "",
-                      readOnly: (isPanAlreadyVerified) || panVerified,
-                      className: (isPanAlreadyVerified) || panVerified  ? "bg-[#F4F7FA99]" : "",
-                      
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          {/* {userDetails.name && (isAadharAlreadyVerified || aadharVerified) ? <VerifyTag /> : null} */}
-                          {userDetails.name && (isPanAlreadyVerified) ? <VerifyTag /> : null}
-                          {errors.fullname?.message && (
-                            <Tooltip
-                              tooltipContent={<p className=" text-2xs">{errors.fullname.message}</p>}
-                              tooltipTrigger={
-                                <svg
-                                  width="16"
-                                  height="17"
-                                  viewBox="0 0 16 17"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M8.00016 5.98334V8.65M8.00016 11.3167H8.00683M14.6668 8.65C14.6668 12.3319 11.6821 15.3167 8.00016 15.3167C4.31826 15.3167 1.3335 12.3319 1.3335 8.65C1.3335 4.96811 4.31826 1.98334 8.00016 1.98334C11.6821 1.98334 14.6668 4.96811 14.6668 8.65Z"
-                                    stroke="#F04438"
-                                    stroke-width="1.33333"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                  />
-                                </svg>
-                              }
-                            />
-                          )}
-                          {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
+            // userDetails?.name && isAadharVintage
+            userDetails?.name || isPanAlreadyVerified ? (
+              <div className="col-span-2">
+                <p className="text-xs text-gray-500">
+                  Full Name<span className="text-error-500">*</span>
+                </p>
+                <Controller
+                  name="fullname"
+                  control={control}
+                  rules={{
+                    required: "Enter Name to continue",
+                  }}
+                  render={({ field }) => (
+                    <CustomTextField
+                      {...field}
+                      error={errors.fullname?.message ? true : false}
+                      id="full-name"
+                      type="text"
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        // readOnly: (aadharVerified || isAadharAlreadyVerified) && isAadharVintage,
+                        // className: (aadharVerified || isAadharAlreadyVerified) && isAadharVintage ? "bg-[#F4F7FA99]" : "",
+                        readOnly: isPanAlreadyVerified || panVerified,
+                        className: isPanAlreadyVerified || panVerified ? "bg-[#F4F7FA99]" : "",
+
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            {/* {userDetails.name && (isAadharAlreadyVerified || aadharVerified) ? <VerifyTag /> : null} */}
+                            {userDetails.name && isPanAlreadyVerified ? <VerifyTag /> : null}
+                            {errors.fullname?.message && (
+                              <Tooltip
+                                tooltipContent={<p className=" text-2xs">{errors.fullname.message}</p>}
+                                tooltipTrigger={
+                                  <svg
+                                    width="16"
+                                    height="17"
+                                    viewBox="0 0 16 17"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M8.00016 5.98334V8.65M8.00016 11.3167H8.00683M14.6668 8.65C14.6668 12.3319 11.6821 15.3167 8.00016 15.3167C4.31826 15.3167 1.3335 12.3319 1.3335 8.65C1.3335 4.96811 4.31826 1.98334 8.00016 1.98334C11.6821 1.98334 14.6668 4.96811 14.6668 8.65Z"
+                                      stroke="#F04438"
+                                      stroke-width="1.33333"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    />
+                                  </svg>
+                                }
+                              />
+                            )}
+                            {/* <Button className="min-w-fit !p-3 !py-[6px] !h-fit" variant={ButtonVariant.primary}>
                     <p className="text-sm font-semibold">Send OTP</p>
                   </Button> */}
-                        </InputAdornment>
-                      ),
-                    }}
-                    className="!mt-[6px] "
-                  />
-                )}
-              />
-              {/* <p className="text-3xs text-gray-500 mt-[6px]">
+                          </InputAdornment>
+                        ),
+                      }}
+                      className="!mt-[6px] "
+                    />
+                  )}
+                />
+                {/* <p className="text-3xs text-gray-500 mt-[6px]">
             Mandatory as per SEBI rules (OTP will be sent to the mobile no. linked to your Aadhar Card)
           </p> */}
-            </div>
-          ) : null}
+              </div>
+            ) : null
+          }
           <PanInput
             userDetails={userDetails}
             isPanAlreadyVerified={isPanAlreadyVerified}
@@ -695,175 +704,176 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             handleVerifyPan={handleVerifyPan}
             loading={loading}
           />
-         
+
           {
-          // (aadharVerified || userDetails.address)
-          (panVerified || userDetails.address || (isPanAlreadyVerified && !userDetails.address)) 
-          && (
-            <div className="col-span-2">
-              <div>
-                <p className="text-xs text-gray-500">
-                  Billing Address<span className="text-error-500">*</span>
-                </p>
-                <Controller
-                  name="address"
-                  control={control}
-                  rules={{
-                    required: "Enter address to continue",
-                    minLength: {
-                      value: 3,
-                      message: "Enter valid address",
-                    },
-                    pattern: {
-                      value:
-                        // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
-                        (billingSameAsAadhar && !isPanAlreadyVerified) ||
-                        (isPanAlreadyVerified && preExistingAddress === userDetails.address)
-                        // (isAadharAlreadyVerified && preExistingAddress === userDetails.address)
-                          ? /^[\s\S]*$/
-                          : /^\d{6}$/,
-                      message: "Enter a valid pincode.",
-                    },
-                  }}
-                  render={({ field }) => (
-                    <CustomTextField
-                      {...field}
-                      id="address"
-                      error={errors.address?.message ? true : false}
-                      onKeyDown={(e) => {
-                        if (e.key === "Backspace") {
-                          if (Number.isNaN(Number(field.value))) {
-                            setValue("address", "");
-                            setBillingSameAsAadhar(false)
+            // (aadharVerified || userDetails.address)
+            (panVerified || userDetails.address || (isPanAlreadyVerified && !userDetails.address)) && (
+              <div className="col-span-2">
+                <div>
+                  <p className="text-xs text-gray-500">
+                    Billing Address<span className="text-error-500">*</span>
+                  </p>
+                  <Controller
+                    name="address"
+                    control={control}
+                    rules={{
+                      required: "Enter address to continue",
+                      minLength: {
+                        value: 3,
+                        message: "Enter valid address",
+                      },
+                      pattern: {
+                        value:
+                          // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
+                          (billingSameAsAadhar && !isPanAlreadyVerified) ||
+                          (isPanAlreadyVerified && preExistingAddress === userDetails.address)
+                            ? // (isAadharAlreadyVerified && preExistingAddress === userDetails.address)
+                              /^[\s\S]*$/
+                            : /^\d{6}$/,
+                        message: "Enter a valid pincode.",
+                      },
+                    }}
+                    render={({ field }) => (
+                      <CustomTextField
+                        {...field}
+                        id="address"
+                        error={errors.address?.message ? true : false}
+                        onKeyDown={(e) => {
+                          if (e.key === "Backspace") {
+                            if (Number.isNaN(Number(field.value))) {
+                              setValue("address", "");
+                              setBillingSameAsAadhar(false);
+                            }
+                            setPincodeVerified(false);
+                            setPincodeBasedAddress("");
                           }
-                          setPincodeVerified(false);
-                          setPincodeBasedAddress("");
+                        }}
+                        placeholder="Enter Pincode"
+                        confirmAddress={pincodeBasedAddress ? true : false}
+                        type={
+                          // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
+                          (billingSameAsAadhar && !isPanAlreadyVerified) ||
+                          (isPanAlreadyVerified && field.value === userDetails.address)
+                            ? // (isAadharAlreadyVerified && field.value === userDetails.address)
+                              "text"
+                            : "number"
                         }
-                      }}
-                      placeholder="Enter Pincode"
-                      confirmAddress={pincodeBasedAddress ? true : false}
-                      type={
-                        // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
-                        (billingSameAsAadhar && !isPanAlreadyVerified) ||
-                        (isPanAlreadyVerified && field.value === userDetails.address)
-                        // (isAadharAlreadyVerified && field.value === userDetails.address)
-                          ? "text"
-                          : "number"
-                      }
-                      variant="outlined"
-                      fullWidth
-                      InputProps={{
-                        // readOnly: billingSameAsAadhar && !isAadharAlreadyVerified ? true : false,
-                        // className: (billingSameAsAadhar && !isAadharAlreadyVerified ? true : false)
-                        //   ? "bg-[#F4F7FA99]"
-                        //   : "",
-                        readOnly: billingSameAsAadhar && !isPanAlreadyVerified ? true : false,
-                        className: (billingSameAsAadhar && !isPanAlreadyVerified ? true : false)
-                          ? "bg-[#F4F7FA99]"
-                          : "",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            {
-                            // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
-                            // (isAadharAlreadyVerified && field.value === userDetails.address) 
-                            (billingSameAsAadhar && !isPanAlreadyVerified) ||
-                            (isPanAlreadyVerified && field.value === userDetails.address)  ? null : (
-                              <>
-                                {errors.address?.message && (
-                                  <Tooltip
-                                    tooltipContent={<p className=" text-2xs">{errors.address?.message}</p>}
-                                    tooltipTrigger={
-                                      <svg
-                                        width="16"
-                                        height="17"
-                                        viewBox="0 0 16 17"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M8.00016 5.98334V8.65M8.00016 11.3167H8.00683M14.6668 8.65C14.6668 12.3319 11.6821 15.3167 8.00016 15.3167C4.31826 15.3167 1.3335 12.3319 1.3335 8.65C1.3335 4.96811 4.31826 1.98334 8.00016 1.98334C11.6821 1.98334 14.6668 4.96811 14.6668 8.65Z"
-                                          stroke="#F04438"
-                                          stroke-width="1.33333"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                        />
-                                      </svg>
-                                    }
-                                  />
-                                )}
-                                <button
-                                  disabled={checkingPincode || (pincodeBasedAddress ? true : false)}
-                                  className=" ml-[10px] "
-                                  onClick={() => {
-                                    if (!/^\d{6}$/.test(field.value)) {
-                                      setError("address", { message: "Enter valid pincode to continue." });
-                                      return;
-                                    }
-                                    handlePincode(field.value);
-                                    // setOpenDialog(true);
-                                  }}
-                                >
-                                  {pincodeBasedAddress && !errors.address?.message ? (
-                                    <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
-                                  ) : checkingPincode ? (
-                                    <span className=" inline-flex items-center justify-center gap-x-1">
-                                      <Loader color="#12B76A" fontSize={12} height={12} width={12} />
-                                      <p className=" text-2xs text-[#12B76A]">Checking</p>
-                                    </span>
-                                  ) : (
-                                    <p className=" text-2xs text-brand-500 border-b border-dashed border-b-brand-500">
-                                      Check
-                                    </p>
-                                  )}
-                                </button>
-                              </>
-                            )}
-                          </InputAdornment>
-                        ),
-                      }}
-                      className={`!mt-[6px]  ${
-                        pincodeBasedAddress ? " [&>.fieldset]:!rounded-t-lg pb-0" : " !rounded-[6.2px]"
-                      }    !border-[#0000000F]`}
-                    />
+                        variant="outlined"
+                        fullWidth
+                        InputProps={{
+                          // readOnly: billingSameAsAadhar && !isAadharAlreadyVerified ? true : false,
+                          // className: (billingSameAsAadhar && !isAadharAlreadyVerified ? true : false)
+                          //   ? "bg-[#F4F7FA99]"
+                          //   : "",
+                          readOnly: billingSameAsAadhar && !isPanAlreadyVerified ? true : false,
+                          className: (billingSameAsAadhar && !isPanAlreadyVerified ? true : false)
+                            ? "bg-[#F4F7FA99]"
+                            : "",
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              {
+                                // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
+                                // (isAadharAlreadyVerified && field.value === userDetails.address)
+                                (billingSameAsAadhar && !isPanAlreadyVerified) ||
+                                (isPanAlreadyVerified && field.value === userDetails.address) ? null : (
+                                  <>
+                                    {errors.address?.message && (
+                                      <Tooltip
+                                        tooltipContent={<p className=" text-2xs">{errors.address?.message}</p>}
+                                        tooltipTrigger={
+                                          <svg
+                                            width="16"
+                                            height="17"
+                                            viewBox="0 0 16 17"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M8.00016 5.98334V8.65M8.00016 11.3167H8.00683M14.6668 8.65C14.6668 12.3319 11.6821 15.3167 8.00016 15.3167C4.31826 15.3167 1.3335 12.3319 1.3335 8.65C1.3335 4.96811 4.31826 1.98334 8.00016 1.98334C11.6821 1.98334 14.6668 4.96811 14.6668 8.65Z"
+                                              stroke="#F04438"
+                                              stroke-width="1.33333"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                            />
+                                          </svg>
+                                        }
+                                      />
+                                    )}
+                                    <button
+                                      disabled={checkingPincode || (pincodeBasedAddress ? true : false)}
+                                      className=" ml-[10px] "
+                                      onClick={() => {
+                                        if (!/^\d{6}$/.test(field.value)) {
+                                          setError("address", { message: "Enter valid pincode to continue." });
+                                          return;
+                                        }
+                                        handlePincode(field.value);
+                                        // setOpenDialog(true);
+                                      }}
+                                    >
+                                      {pincodeBasedAddress && !errors.address?.message ? (
+                                        <img height={15} width={15} src="/assets/check_icon.svg" alt="check_icon" />
+                                      ) : checkingPincode ? (
+                                        <span className=" inline-flex items-center justify-center gap-x-1">
+                                          <Loader color="#12B76A" fontSize={12} height={12} width={12} />
+                                          <p className=" text-2xs text-[#12B76A]">Checking</p>
+                                        </span>
+                                      ) : (
+                                        <p className=" text-2xs text-brand-500 border-b border-dashed border-b-brand-500">
+                                          Check
+                                        </p>
+                                      )}
+                                    </button>
+                                  </>
+                                )
+                              }
+                            </InputAdornment>
+                          ),
+                        }}
+                        className={`!mt-[6px]  ${
+                          pincodeBasedAddress ? " [&>.fieldset]:!rounded-t-lg pb-0" : " !rounded-[6.2px]"
+                        }    !border-[#0000000F]`}
+                      />
+                    )}
+                  />
+                  {pincodeBasedAddress && !billingSameAsAadhar && (
+                    <div
+                      id="pincode-address"
+                      className="  text-sm py-[9px] px-[11px] rounded-b-lg border border-[#0000000F] bg-[#F9FAFC]"
+                    >
+                      {pincodeBasedAddress}
+                    </div>
                   )}
-                />
-                {pincodeBasedAddress && !billingSameAsAadhar && (
-                  <div
-                    id="pincode-address"
-                    className="  text-sm py-[9px] px-[11px] rounded-b-lg border border-[#0000000F] bg-[#F9FAFC]"
-                  >
-                    {pincodeBasedAddress}
-                  </div>
-                )}
 
-                {
-                // !isAadharAlreadyVerified
-                (panVerified && userDetails.address)
-                ? (
-                  <div className=" flex items-center gap-x-2 mt-3">
-                    <Checkbox
-                      checked={billingSameAsAadhar}
-                      onCheckedChange={(checked) => {
-                        if (!checked) {
-                          setValue("address", "");
-                        } else {
-                          setError("address", { message: "" });
-                          setPincodeVerified(false);
-                          setPincodeBasedAddress("");
-                        }
-                        setValue("address", userDetails?.address);
+                  {
+                    // !isAadharAlreadyVerified
+                    panVerified && userDetails.address ? (
+                      <div className=" flex items-center gap-x-2 mt-3">
+                        <Checkbox
+                          checked={billingSameAsAadhar}
+                          onCheckedChange={(checked) => {
+                            if (!checked) {
+                              setValue("address", "");
+                            } else {
+                              setError("address", { message: "" });
+                              setPincodeVerified(false);
+                              setPincodeBasedAddress("");
+                            }
+                            setValue("address", userDetails?.address);
 
-                        setBillingSameAsAadhar(checked as boolean);
-                      }}
-                      id="billingAadharAddress"
-                    />
+                            setBillingSameAsAadhar(checked as boolean);
+                          }}
+                          id="billingAadharAddress"
+                        />
 
-                    <p className=" text-sm text-[#475467]">Billing address is the same as PAN address</p>
-                  </div>
-                ) : null}
+                        <p className=" text-sm text-[#475467]">Billing address is the same as PAN address</p>
+                      </div>
+                    ) : null
+                  }
+                </div>
               </div>
-            </div>
-          )}
+            )
+          }
 
           <div className=" col-span-full sm:col-span-1">
             <p className="text-xs text-gray-500">
@@ -1038,7 +1048,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 email?.length === 0 ||
                 mobile?.length === 0 ||
                 (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
-                (!isPanAlreadyVerified && !userDetails.maskedPan) || (isPanAlreadyVerified && (!userDetails.address && !pincodeBasedAddress))
+                (!isPanAlreadyVerified && !userDetails.maskedPan) ||
+                (isPanAlreadyVerified && !userDetails.address && !pincodeBasedAddress)
               }
               loading={checkoutLoading}
               onClick={handleSubmit(handleCheckout)}
@@ -1097,7 +1108,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 <Button
                   loading={loading}
                   onClick={async () => {
-                    handleVerifyPan({pan})
+                    handleVerifyPan({ pan });
                     // if (isAadharAlreadyVerified || aadharVerified) {
                     //   handleVerifyAadharOtp();
                     // } else {
@@ -1119,11 +1130,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   );
 }
 
-
-
- {/* || isAadharAlreadyVerified */}
-          {/* || userDetails.address */}
-          {/* {(aadharVerified || userDetails.address) && (
+{
+  /* || isAadharAlreadyVerified */
+}
+{
+  /* || userDetails.address */
+}
+{
+  /* {(aadharVerified || userDetails.address) && (
             <div className="col-span-2">
               <p className="text-xs text-gray-500">
                 Billing Address<span className="text-error-500">*</span>
@@ -1151,7 +1165,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                 )}
               />
             </div>
-          )} */}
+          )} */
+}
 
 //GSTIN
 
