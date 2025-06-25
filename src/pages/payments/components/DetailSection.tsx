@@ -438,7 +438,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       var options = {
         environment: process.env.NEXT_PUBLIC_DIGIO_ENVIRONMENT,
         is_iframe: false,
-        redirect_url: `http://localhost:3002/payments/process`,
+        redirect_url: `https://kamayakya.com/payments/process`,
         is_redirection_approach: true,
         callback: function (response) {
           if (response.hasOwnProperty("error_code")) {

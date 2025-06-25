@@ -270,6 +270,7 @@ export default function Index() {
       image: "https://example.com/your_logo",
       order_id: orderId,
       handler: function (response: unknown) {
+        console.log(response)
         router.push("/payments/successful");
       },
       prefill: {
