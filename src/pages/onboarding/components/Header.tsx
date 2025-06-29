@@ -1,15 +1,39 @@
+import AuthContext from "@/components/AuthContext";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useContext } from "react";
 
 export default function Header({ className }: { className?: string }) {
   // max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#e4e7ec)]
+  const { user } = useContext(AuthContext);
+
+  const callIncompleteOnboardingAPI = async () => {
+    const params = {
+      type: sessionStorage.getItem("login_method") === "mobile" ? "mobile" : "email",
+      value: sessionStorage.getItem("login_method") === "mobile" ? user.mobile : user.email,
+      full_name: "",
+    };
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BASEPATH}/user/incompleteOnboardNotifications`,
+        params
+      );
+      console.log("Incomplete onboarding API called");
+    } catch (error) {
+      console.error("Error calling incomplete onboarding API:", error);
+      // apiCallMadeRef.current = false; // Reset on error to allow retry
+    }
+  };
   const router = useRouter();
   return (
     <div className={cn(" bg-[#F1FBFB] h-[341px] relative z-10", className)}>
       <div className=" flex flex-col md:flex-row items-center justify-between main-container py-3">
         <img
-          onClick={() => router.push("/")}
+          onClick={() => {
+            router.push("/");
+            callIncompleteOnboardingAPI();
+          }}
           className=" object-contain hidden md:block cursor-pointer"
           width={219.69}
           height={42}

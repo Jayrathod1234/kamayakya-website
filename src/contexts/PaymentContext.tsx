@@ -87,7 +87,7 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
   const [isPanAlreadyVerified, setIsPanAlreadyVerified] = useState(false);
   const [aadharVerified, setAadharVerified] = useState(false); //if new kyc
   const [isAadharVintage, setIsAadharVintage] = useState(false);
-
+  const [panVerified, setPanVerified] = useState(false)
   const fetchPlanDetails = async () => {
     try {
       const res = await getSelectedPlanDates({ subscription: currentPlan.planId });
@@ -116,9 +116,14 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
   const checkUserKycStatus = async () => {
     try {
       const res = await getUserKycStatus();
-      setIsAadharAlreadyVerified(res?.is_aadhar_verified);
-      setIsPanAlreadyVerified(res?.is_pan_verified);
-      setIsAadharVintage(res?.is_aadhar_vintage);
+      console.log("RES", res)
+      // setIsAadharAlreadyVerified(res?.is_aadhar_verified);
+      if(res?.is_user_kyc){
+        setIsPanAlreadyVerified(true);
+        
+      }
+      // setIsPanAlreadyVerified(res?.is_pan_verified);
+      // setIsAadharVintage(res?.is_aadhar_vintage);
       // let address = Object.values(res?.address_details || {}).filter(value=>value).join(", ");
       setUserDetails((prev) => ({
         ...prev,
@@ -126,7 +131,8 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         email: res?.email,
         phone: res?.mobile,
         address: res?.address_details || res?.address,
-        aadhar: res?.aadhar_number,
+        // pan: res?.
+        // aadhar: res?.aadhar_number,
       }));
     } catch (e) {
       console.error(e);
@@ -168,6 +174,8 @@ export const PaymentContextProvider = ({ children }: { children: React.ReactElem
         setAadharVerified,
         setCurrentPlan,
         setPlanDetails,
+        panVerified,
+        setPanVerified
       }}
     >
       {children}

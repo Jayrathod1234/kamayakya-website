@@ -10,6 +10,7 @@ export function abbreviateTime(text:string) {
 }
 
 export function abbreviateTimeForPlan(text:string) {
+  if(!text) return ''
   return text
   .replace(/\s*3year?\s*/g, '3 years')
   .replace(/\s*year?\s*/g, ' year')   // Replace 'year' or 'years' with 'y', removing surrounding spaces

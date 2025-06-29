@@ -4,7 +4,7 @@ import { Dialog, DialogContent } from "@/components.v2/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components.v2/ui/tabs";
 import { blockInvalidChar } from "@/components/LoginCard";
 import { useMediaQuery } from "@mui/material";
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import OTPInput from "react-otp-input";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
@@ -20,6 +20,7 @@ import POPPER_JSON from "../../../public/assets/popper.json";
 import SUCCESS_LOTTIE from "../../../public/assets/success_onboarding.json";
 import CONFETTIE from "../../../public/assets/onboarding_confetti.json";
 import { ContactModal } from "@/components.v2/payments/contact-modal";
+import axios from "axios";
 
 const Step1 = ({ setActiveTab, activeTab }) => {
   return (
@@ -688,7 +689,118 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
   const [email, setEmail] = useState("");
   const { user } = useContext(AuthContext);
   const [secondsRemaining, setSecondsRemaining] = useState(15);
+
+  // Track if API call has been made to prevent duplicate calls
+  const apiCallMadeRef = useRef(false);
+  const onboardingCompletedRef = useRef(onboardingCompleted);
+  const activeTabRef = useRef(activeTab);
   const router = useRouter();
+
+
+    // Function to call API for incomplete onboarding
+  const callIncompleteOnboardingAPI = async () => {
+    if (apiCallMadeRef.current) return; // Prevent duplicate calls
+    const params = {
+      type: sessionStorage.getItem("login_method") === "mobile" ? "mobile" : "email",
+        value:  sessionStorage.getItem("login_method") === "mobile" ? user.mobile : user.email,
+        full_name: fullname ? fullname : sessionStorage.getItem("fullname") as string,
+    }
+    try {
+      apiCallMadeRef.current = true;
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BASEPATH}/user/incompleteOnboardNotifications`,params
+      );
+      console.log('Incomplete onboarding API called');
+    } catch (error) {
+      console.error('Error calling incomplete onboarding API:', error);
+      apiCallMadeRef.current = false; // Reset on error to allow retry
+    }
+  };
+
+  // Check if onboarding is incomplete
+  const isOnboardingIncomplete = () => {
+    return !onboardingCompletedRef.current;
+  };
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (isOnboardingIncomplete()) {
+        callIncompleteOnboardingAPI();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  // Handle page unload (refresh, close tab, navigate away)
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (isOnboardingIncomplete()) {
+        // Use sendBeacon for reliable API calls during page unload
+        const data = new URLSearchParams();
+        data.append('type', 'incomplete_payment');
+        
+        navigator.sendBeacon(
+          `${process.env.NEXT_PUBLIC_BASEPATH}/user/userActionNotifications`,
+          data
+        );
+      }
+    };
+
+    const handleUnload = () => {
+      if (isOnboardingIncomplete()) {
+        // Fallback for browsers that don't support sendBeacon
+        callIncompleteOnboardingAPI();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('unload', handleUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('unload', handleUnload);
+    };
+  }, []);
+
+  // // Handle Next.js route changes
+  // useEffect(() => {
+  //   const handleRouteChangeStart = (url) => {
+  //     // Only call API if navigating away from onboarding and it's incomplete
+  //     if (url !== router.asPath && isOnboardingIncomplete()) {
+  //       callIncompleteOnboardingAPI();
+  //     }
+  //   };
+
+  //   router.events.on('routeChangeStart', handleRouteChangeStart);
+    
+  //   return () => {
+  //     router.events.off('routeChangeStart', handleRouteChangeStart);
+  //   };
+  // }, [router]);
+
+  // Cleanup effect - calls API when component unmounts if onboarding incomplete
+  useEffect(() => {
+    return () => {
+      if (isOnboardingIncomplete()) {
+        callIncompleteOnboardingAPI();
+      }
+    };
+  }, []);
+    // Update refs when state changes
+  useEffect(() => {
+    onboardingCompletedRef.current = onboardingCompleted;
+  }, [onboardingCompleted]);
+
+  useEffect(() => {
+    activeTabRef.current = activeTab;
+  }, [activeTab]);
+
+
 
   useEffect(() => {
     let timeout;
@@ -900,8 +1012,8 @@ export default function Onboarding() {
   const isMobile = useMediaQuery("(max-width:640px)");
   const { user } = useContext(AuthContext);
   const router = useRouter();
-
   const [secondsRemaining, setSecondsRemaining] = useState(15);
+
 
   useEffect(() => {
     let timeout;
@@ -952,6 +1064,7 @@ export default function Onboarding() {
       router.replace("/");
     }
   }, [user]);
+
 
   if (onboardingCompleted && isMobile) {
     return (
