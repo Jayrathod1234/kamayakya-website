@@ -497,11 +497,21 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         user_email: data.email,
         user_contact: data.phone.slice(3),
       };
+      if(pincodeBasedAddress){
+        const [city, state, countryPincode] = pincodeBasedAddress.split(", ") //PINCODE ADDRESS FORMAT -> City, State, Country - Pincode 
+        const [country,pincode] = countryPincode.split(" - ")
+        params = {...params, 
+        pincode,
+        city,
+        state,
+        country
+        }
+      }
       if (data?.gstin) {
         params = { ...params, gst_number: data.gstin };
       }
       const res = await postCheckout(params);
-
+      
       setPlanDetails((prev) => ({ ...prev, orderId: res.data.order_id }));
       sessionStorage.setItem("orderId", res.data.order_id);
       const userDetailsForPdf = await getUserDetailsForPdf(res.data.order_id, {
