@@ -15,6 +15,8 @@ import Team from "@/components.v3/home/Team";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { TrackRecordSection } from "@/components.v3/home/TrackRecordSection";
 import { StockPickSection } from "@/components.v3/home/StockPicksSection";
+import Hero from "@/components.v3/home/Hero";
+import Stat from "@/components.v3/home/Stat";
 
 const Home: NextPage = () => {
   const containerRef = useRef(null);
@@ -28,7 +30,11 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Navbar className=" bg-white open_sans" />
+    <div className=" bg-[#F4FFFF]">
+      <Navbar className=" open_sans" />
+      <Hero/>
+      </div>
+      <Stat/>
       <Service />
       <div>
         <ExpandableCardGroup />

@@ -1,5 +1,5 @@
 import React from "react";
-import { AnimatedList } from "@/components/magicui/animated-list";
+import { AnimatedList } from "@/components.v2/magicui/animated-list";
 import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "@/components.v2/ui/carousel";
 import WhatsApp from "./icons/whatsapp";

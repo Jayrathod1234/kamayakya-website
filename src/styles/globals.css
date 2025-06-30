@@ -32,11 +32,9 @@
   src: url("../../public/fonts/OpenSans-Italic-VariableFont_wdthwght.ttf");
 }
 
-
 :root {
 
   --gauge-scale: 1;
-
 
   --max-width: 1100px;
   --border-radius: 12px;
@@ -1572,7 +1570,6 @@ header > div > div {
   box-shadow: none;
 }
 
-
 .scrolled-nav .scrolled_hover, .other-page-nav .scrolled_hover{
   @apply hover:bg-[#EAFCFB] text-gray-800;
 }
@@ -2022,7 +2019,6 @@ header > div > div {
  border-top-right-radius: 12px;
 }
 
-
 .fraction {
   display: flex;
   flex-direction: column;
@@ -2058,8 +2054,6 @@ header > div > div {
   font-size: 14px !important;
 }
 
-
-
 .carousel-dot-animate{
   transform:scaleX(0);
   animation-name: carousel-dot;
@@ -2076,7 +2070,7 @@ header > div > div {
   100% {
     transform:scalex(1);
   }
-  
+
 }
 
 .cmp-pulse::before{
@@ -2097,9 +2091,9 @@ header > div > div {
   animation-iteration-count: infinite;
 }
 .top-for-blur.cmp-pulse::before{
- 
+
   top:48%;
- 
+
 }
 
 @keyframes  pulse {
@@ -2122,7 +2116,6 @@ header > div > div {
   transform-origin: left;
 }
 
-
 .stock__hero-bar:nth-child(1) .solid__line:nth-child(2){
   transform: scaleX(1.2);
   transform-origin: left;
@@ -2135,13 +2128,13 @@ header > div > div {
 .stock__hero-bar:nth-child(2) .solid__line:nth-child(2){
   transform: scaleX(1);
   transform-origin: left;
- 
+
 }
 
 .stock__hero-bar:nth-child(2) .dotted__line:nth-child(3){
   transform: scaleX(1.);
   transform-origin: left;
- 
+
 }
 
 .stock__hero-bar:nth-child(3) .solid__line:nth-child(2){
@@ -2152,7 +2145,6 @@ header > div > div {
   transform: scaleX(1.32);
   transform-origin: left;
 }
-
 
 /* .sticky_filter-carousel  > div:first-child{
   @apply sm:order-1 order-2 ;
@@ -2169,32 +2161,30 @@ header > div > div {
   border:1px solid rgba(237, 240, 245, 1);
 }
 
-
 #annotation-tooltip, #chartjs-tooltip{
   @apply w-[115px] h-[70px] bg-white p-2 rounded-lg shadow-lg ;
 }
 
-
 .membership__modal:nth-child(1) .dotted__line:nth-child(3){
   transform: scaleX(2);
   transform-origin: left;
- 
+
 }
 .membership__modal:nth-child(1) .solid__line:nth-child(2){
   transform: scaleX(1.4);
   transform-origin: left;
- 
+
 }
 
 .membership__modal:nth-child(2) .dotted__line:nth-child(3){
   transform: scaleX(1.2);
   transform-origin: left;
- 
+
 }
 .membership__modal:nth-child(2) .solid__line:nth-child(2){
   transform: scaleX(1.2);
   transform-origin: left;
- 
+
 }
 
 .membership__modal:nth-child(3) .dotted__line:nth-child(3){
@@ -2204,7 +2194,7 @@ header > div > div {
 .membership__modal:nth-child(3) .solid__line:nth-child(2){
   transform: scaleX(1.4);
   transform-origin: left;
- 
+
 }
 
 .active_tab  div{
@@ -2218,8 +2208,6 @@ header > div > div {
     display:none;
   }
 }
-
-
 
 /*billing table */
 .billing__table::-webkit-scrollbar {
@@ -2235,7 +2223,6 @@ header > div > div {
   background: #555; 
 }
 
-
 /* Responsive breakpoints */
 @media (max-width: 768px) {
   :root {
@@ -2246,5 +2233,37 @@ header > div > div {
 @media (max-width: 480px) {
   :root {
     --gauge-scale: 0.5;
+  }
+}
+
+/*---break---*/
+
+@layer base {
+  .theme {
+    --animate-marquee:marquee var(--duration) infinite linear;
+    --animate-marquee-vertical:marquee-vertical var(--duration) linear infinite;
+  }
+}
+
+/*---break---*/
+
+@theme inline {
+    --animate-marquee:marquee var(--duration) infinite linear;
+    --animate-marquee-vertical:marquee-vertical var(--duration) linear infinite;
+  @keyframes marquee {
+  from {
+    transform:translateX(0);
+    }
+  to {
+    transform:translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform:translateY(0);
+    }
+  to {
+    transform:translateY(calc(-100% - var(--gap)));
+    }
   }
 }

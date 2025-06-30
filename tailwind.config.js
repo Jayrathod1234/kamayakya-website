@@ -261,6 +261,14 @@ const config = {
           '0%': { width: '0%' },
           '100%': { width: '100%' },
         },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -268,6 +276,8 @@ const config = {
         move:'move 0.15s ease-in-out forwards',
         "spin-slow": "spin 5s linear infinite",
         "fill": 'fill 6s linear forwards',
+         marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
     },
   },
