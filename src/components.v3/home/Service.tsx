@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { AnimatedList } from "@/components.v2/magicui/animated-list";
 import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "@/components.v2/ui/carousel";
 import WhatsApp from "./icons/whatsapp";
 import Gmail from "./icons/gmail";
+import { useScroll, useTransform, motion } from "framer-motion";
 
 interface INotification {
   name: string;
@@ -1027,32 +1028,41 @@ const DesktopServiceCardList = () => {
   );
 };
 
-const MobileServiceCardList = () => {
+const MobileServiceCardList = ({scrollYProgress}) => {
+  
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-900%"]);
   return (
-    <Carousel className="lg:hidden mt-10">
-      <CarouselContent>
+      // <section ref={targetRef} className="relative h-[300vh] bg-neutral-900">
+      // <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+        <motion.div style={{ x }} className="flex gap-4">
         {SERVICE_DATA.map((data) => (
-          <CarouselItem>
+          // <CarouselItem>
             <ServiceCard title={data.title} description={data.description} hero={data.hero} />
-          </CarouselItem>
+          // </CarouselItem>
         ))}
-      </CarouselContent>
-    </Carousel>
+      </motion.div>
+      // </div>
+    // </section>
   );
 };
 
 export default function Service() {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+
   return (
     <div className="sm:px-5">
       {/* SERVICES START */}
-      <div className="px-4 py-[50px] sm:p-20 bg-[#01272E] sm:rounded-[28px] open_sans">
-        <div className="main-container max-h-[800px]">
+      <div className="px-4 py-[50px] sm:p-20 bg-[#01272E] sm:rounded-[28px] open_sans relative">
+        <div className="main-container max-h-[800px] ">
           <p className="text-[#FF9E29] font-semibold sm:font-bold text-center max-sm:text-sm">SERVICES</p>
           <p className=" text-display-xs sm:text-display-md font-bold text-center mt-3 text-white">
             Smart Investment Solutions
           </p>
           <DesktopServiceCardList />
-          <MobileServiceCardList />
+          <MobileServiceCardList scrollYProgress={scrollYProgress} />
         </div>
         <p className=" open_sans text-center text-white">
           **The stocks shown are for representation only. These are past recommendations and may no longer be part of

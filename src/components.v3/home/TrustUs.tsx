@@ -11,7 +11,7 @@ interface ITrustIndicator {
 }
 
 function GradientLine(){
-  return <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[8px] flex-shrink-0 flex-grow-0  bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
+  return <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0  bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
 
 }
 
@@ -75,7 +75,7 @@ function TrustIndicator({
   return (
     <div
       onClick={onClick}
-      className={cn(` px-4 h-[62px] sm:h-[78px] flex flex-col text-center items-center justify-center w-full relative overflow-hidden ${index+1 === 1 ? "rounded-l-[20px] ": index+1 === 3 ? "rounded-r-[20px]":""} ${index+1 ===selectedIndex ? "bg-brand-700":"" }`, className)}
+      className={cn(` px-4 h-[62px] sm:h-[78px] flex flex-col text-center items-center justify-center w-full relative overflow-hidden ${index+1 === 1 ? "rounded-l-[20px] ": index+1 === 3 ? "rounded-r-[20px]":""} ${index+1 ===selectedIndex ? "bg-brand-400":"" }`, className)}
     >
       <p className={`${index+1 === selectedIndex ? "text-white":"text-gray-950"}  font-bold text-3xs sm:text-xl`}>{text}</p>
       <div
@@ -105,11 +105,11 @@ function Ele1() {
   return (
     <div className="flex flex-col sm:flex-row gap-x-7">
       <div className=" flex-1">
-        <video className=" w-[663px] h-full" muted autoPlay src="/trust_vid1.mp4"></video>
+        <video className=" w-[663px] h-full rounded-[28px]" muted autoPlay src="/trust_vid1.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-[10px] sm:gap-y-10">
         <div className=" flex gap-x-5">
-          <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[8px] flex-shrink-0 flex-grow-0 bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
+          <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0 bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
           <p className=" max-sm:text-sm text-gray-950">
             This means we're held to the highest standards of compliance and transparency, so you can rest assured your
             stock research reports are in safe hands. Unlike your well-meaning but misguided uncle with his 'hot stock
@@ -117,7 +117,7 @@ function Ele1() {
           </p>
         </div>
         <div className=" flex gap-x-5 sm:items-center">
-          <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[8px] flex-shrink-0 flex-grow-0  bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
+          <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0  bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
           <p className=" m-0 text-gray-950 sm:text-lg font-bold">SEBI Registered: INH000009843 </p>
         </div>
         <div>
@@ -139,7 +139,7 @@ function Ele2() {
   return (
     <div className="flex flex-col sm:flex-row gap-x-7">
       <div className=" flex-1">
-        <video className=" w-[663px] h-full" muted autoPlay src="/trust_vid2.mp4"></video>
+        <video className=" w-[663px] h-full rounded-[28px]" muted autoPlay src="/trust_vid2.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-10">
         <div className=" flex gap-x-5">
@@ -165,7 +165,7 @@ function Ele3() {
   return (
     <div className="flex flex-col sm:flex-row gap-x-7">
       <div className=" flex-1">
-        <video className=" w-[663px] h-full" muted autoPlay src="/trust_vid2.mp4"></video>
+        <video className=" w-[663px] h-full rounded-[28px]" muted autoPlay src="/trust_vid2.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-10">
         <div className=" flex gap-x-5">

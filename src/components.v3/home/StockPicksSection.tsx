@@ -24,7 +24,7 @@ const StockPicksChildren = () => {
 export const StockPickSection = () => {
   return (
     <div className=" md:pb-[50px] md:px-5">
-      <div className=" md:p-20 rounded-[28px] md:bg-[#01272E]">
+      <div className=" md:p-20 rounded-[28px] md:bg-[#01272E] bg-[url(/landing/stock_bg.png)] bg-cover">
         <StockPicksProvider>
           <StockPicksChildren />
         </StockPicksProvider>

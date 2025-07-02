@@ -22,13 +22,13 @@ export default function Hero() {
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center justify-center gap-12 lg:gap-16">
             {/* Left Content - Desktop First Column, Mobile Second */}
             <div className="order-2 lg:order-1 text-center lg:text-left space-y-8">
-              <div className="">
+              <div className=" max-lg:flex max-lg:flex-col max-lg:items-center">
                 <div className=" bg-white border border-[#75CDC566] px-[14px] py-2 rounded-full w-fit"><p className=" text-sm font-semibold text-brand-500">SEBI Registered: INH000009843</p></div>
-                <h1 className="font-medium text-gray-950 text-[62px] leading-[110%]  tracing-[-3%]">
+                <h1 className="font-medium text-gray-950 text-display-sm lg:text-[62px] leading-[110%]  tracing-[-3%]">
                   Financial <span className=" text-brand-400 font-bold">Freedom</span> Starts Here!
                 </h1>
 
-                <p className="text-lg text-gray-800 max-w-2xl mx-auto lg:mx-0 ">
+                <p className=" text-xs lg:text-lg text-gray-800 max-w-2xl mx-auto lg:mx-0 ">
                   Invest confidently in hidden opportunities within SMEs, Microcaps & Smallcaps, and build the future
                   you truly deserve.
                 </p>

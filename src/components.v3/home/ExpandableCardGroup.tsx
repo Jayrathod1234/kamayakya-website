@@ -73,7 +73,7 @@ const cards: ExpandableCard[] = [
 
 const DesktopExpandedCards = ({ expandedCardId, toggleCard }: IDesktopExpandedCards) => {
   return (
-    <div className="flex justify-center items-center max-sm:hidden">
+    <div className="flex justify-center items-center  max-xl:hidden">
       {cards.map((card, idx) => (
         <div
           key={card.id}
@@ -96,12 +96,12 @@ const DesktopExpandedCards = ({ expandedCardId, toggleCard }: IDesktopExpandedCa
               <div
                 className={cn(
                   " h-full flex flex-col justify-between max-w-[74px] overflow-hidden bg-white   text-white",
-                  expandedCardId === card.id ? "bg-brand-600 rounded-xl" : " border border-[#00000017]",
+                  expandedCardId === card.id ? "bg-brand-400 rounded-xl" : " border border-[#00000017]",
                   idx === 0 ? " rounded-l-xl" : idx === cards.length - 1 ? "rounded-r-xl" : ""
                 )}
               >
                 <div className="flex justify-center gap-x-4 items-center h-full -rotate-90">
-                  <div className=" bg-[#FEF0DF] flex  items-center justify-center !h-9 !w-9 p-3 rounded-xl">
+                  <div className=" bg-[#EFF6F5] flex  items-center justify-center !h-9 !w-9 p-3 rounded-xl">
                     <p
                       className={cn(
                         " text-black font-bold text-xl",
@@ -150,7 +150,7 @@ const MobileExpandedCards = () => {
   return (
     <Tabs
       defaultValue="Factors"
-      className=" sm:hidden mx-auto max-w-[358px] flex flex-col items-center border border-[#00000017] rounded-[20px] overflow-hidden"
+      className=" xl:hidden mx-auto max-w-[358px] flex flex-col items-center border border-[#00000017] rounded-[20px] overflow-hidden"
     >
       <TabsList className="w-full p-0 !h-auto border-b border-b-[#00000017]">
         {cards.map((card) => (
@@ -201,7 +201,7 @@ export default function ExpandableCardGroup() {
   };
 
   return (
-    <div className=" mx-auto sm:p-[60px] py-[50px] sm:py-[110px] open_sans">
+    <div className=" mx-auto  py-[50px] sm:py-[110px] open_sans">
       <p className=" font-semibold sm:font-bold text-[#FF9E29] text-center max-sm:text-sm">PHILOSOPHY</p>
       <h2 className="  text-display-xs sm:text-2xl font-bold mb-2 text-center">Our Investing Philosophy</h2>
       <p className="max-sm:mt-3 text-sm sm:text-lg text-gray-500 mb-7 sm:mb-10 text-center">

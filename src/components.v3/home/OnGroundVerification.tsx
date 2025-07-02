@@ -1,31 +1,81 @@
 "use client";
+import { Marquee } from "@/components.v2/magicui/marquee";
 import { Carousel, CarouselContent, CarouselItem } from "@/components.v2/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
+
 const items = [
-  { img: "./onground1.png", img2: "./onground2.png" },
-  { img: "./onground3.png" },
-  { img: "./onground4.png", img2: "./onground5.png" },
-  { img: "./onground6.png" },
-  { img: "./onground1.png", img2: "./onground2.png" },
-  { img: "./onground3.png" },
-  { img: "./onground4.png", img2: "./onground5.png" },
-  { img: "./onground6.png" },
+  "Defense Expo - Missile",
+
+  ["Menon Bearings - Steel roller", "Engineering Expo - Ratnadeep castings stall"],
+
+  "Defense Expo - Borosil Stall",
+
+  ["Defense Expo - Missile product", "Menon Bearings - Alkop business"],
+
+  "VOEPL - Copper Pipe Division",
+
+  ["Menon Bearings - Product portfolio", "MMP Industries - Aluminium Powder cans"],
+
+  "Carysil Showroom",
+
+  ["Defense Expo - Product display", "Defense Expo - Product portfolio"],
+
+  "Krishca Strapping - Plant Visit",
+
+  ["Defense Expo - Missile Prototype", "Confidence Petroleum - CNG cylinders"],
+
+  "Krishca Strapping - Plant Visit 2",
+
+  ["Defense Expo - Drone Prototype", "Dhabriya - Studio Arezzo"],
+
+  "VOEPL and KamayaKya team",
+
+  ["Defense Expo - Drone Prototype 2", "Energy Mission Machinery - Mother Machine"],
+
+  "Dhabriya - uPVC Window line",
+
+  ["Ion Exchange - Exhibition visit", "Energy Mission Machinery - In House Molds"],
+
+  "Dhabriya - Fluted Panel Line",
+
+  ["Aarti Industries - Exhibition", "Energy Mission Machinery - Final Product"],
+
+  "VOEPL - Manufacturing unit",
+
+  ["Carysil - Kitchen Sinks", "Carysil - SS Sinks"],
+
+  "Dhabriya - PVC Pulverize Machine",
+
+  ["VOEPL - Product ready to dispatch", "Dhabriya CFO and KamayaKya Team"],
+
+  "Energy Mission (SME) - Main Raw Material",
+
+  ["Carysil - Premium Taps", "Dhabriya - Storage unit"],
 ];
+
+// Optional: Helper to generate safe filenames (convert spaces, special chars)
+function getImageName(text: string) {
+  return "./landing/" + text.replace(/ - /g, "_") + ".png";
+}
 
 export default function OnGroundVerification() {
   return (
-    <div className=" sm:px-5 ">
-      <div className=" py-[50px] sm:py-20 bg-[#01272E] open_sans sm:rounded-[28px]">
-        <p className=" font-bold text-[#FF9E29] text-center max-sm:text-sm max-sm:px-4">ON-GROUND VERIFICATION</p>
-        <h2 className=" text-display-xs sm:text-2xl font-bold mb-2 text-center text-white max-sm:px-4">
+    <div className="sm:px-5">
+      <div className="py-[50px] sm:py-20 bg-[#01272E] open_sans sm:rounded-[28px]">
+        <p className="font-bold text-[#FF9E29] text-center max-sm:text-sm max-sm:px-4">ON-GROUND VERIFICATION</p>
+        <h2 className="text-display-xs sm:text-2xl font-bold mb-2 text-center text-white max-sm:px-4">
           The Power of Scuttlebutt - Where Research Meets Reality
         </h2>
-        <p className=" text-sm sm:text-lg text-[#FFFFFFB2] mb-10 text-center max-sm:px-4">
+        <p className="text-sm sm:text-lg text-[#FFFFFFB2] mb-10 text-center max-sm:px-4">
           We go the extra mile to validate our research on the ground, delivering insights you can count on. Because
-          real-world validation is the backbone of smart investing.{" "}
+          real-world validation is the backbone of smart investing.
         </p>
-        <Carousel
+
+        {/* <Carousel
+          opts={{
+            loop:true,
+          }}
           plugins={[
             Autoplay({
               delay: 2000,
@@ -33,59 +83,60 @@ export default function OnGroundVerification() {
           ]}
           className="w-full max-sm:mt-7"
         >
-          <CarouselContent>
-            {items.map((item, idx) => (
-              <CarouselItem key={idx} className="basis-1/2 lg:basis-1/4">
-                <div className="h-full">
-                  {/* Odd-numbered items (0-indexed, so item % 2 === 0) get two vertical cards */}
-                  {idx % 2 == 0 ? (
-                    <div className="flex flex-col  h-full space-y-4">
-                      <div className="">
-                        {/* <div className="flex items-center justify-center"> */}
-                          {/* <div className="text-center"> */}
-                            <img
-                            className=" min-w-full min-h-full max-h-[116px] sm:max-h-[294px] object-cover" 
-                            height={294} 
-                            width={350} 
-                            src={item.img} alt="" />
-                            {/* </div> */}
-                        {/* </div> */}
-                      </div>
-                      <div className="">
-                        {/* <div className="flex items-center justify-center"> */}
-                          {/* <div className="text-center"> */}
-                            <img
-                            className=" min-w-full min-h-full  max-h-[116px] sm:max-h-[294px] object-cover" 
-                            height={294} 
-                            width={350} 
-                            src={item.img2} alt="" />
-                            
-                          {/* </div> */}
-                        {/* </div> */}
-                      </div>
-                    </div>
-                  ) : (
-                    /* Even-numbered items get a single card */
-                    <div className="h-full">
-                      {/* <div className="flex items-center justify-center h-full"> */}
-                        {/* <div className="text-center"> */}
-                          <img 
-                          className=" min-w-full min-h-full max-h-[241px] sm:max-h-[604px] object-cover"
-                          height={604} 
-                          width={350} 
-                          src={item.img} alt="" />
-                          
-                        {/* </div> */}
-                      {/* </div> */}
-                    </div>
-                  )}
+          <CarouselContent> */}
+        <Marquee pauseOnHover className="[--duration:80s]">
+          {items.map((item, idx) => {
+            if (Array.isArray(item)) {
+              const [img1, img2] = item;
+              const img1Path = getImageName(img1);
+              const img2Path = getImageName(img2);
+
+              return (
+                // <CarouselItem className=" basis-auto">
+                <div key={idx} className="flex flex-col space-y-4 h-full">
+                  <div className=" rounded-xl overflow-hidden flex flex-col">
+                    <img
+                      className="min-w-full h-full max-h-[116px] sm:max-h-[294px] object-contain max-w-[300px]"
+                      src={img1Path}
+                      alt={img1}
+                    />
+                    <p className=" bg-[#003336] py-[5.5px] font-semibold text-center text-4xs text-gray-25">{img1}</p>
+                  </div>
+                  <div className=" rounded-xl overflow-hidden flex flex-col">
+                    <img
+                      className="min-w-full h-full max-h-[116px] sm:max-h-[294px] object-contain max-w-[300px]"
+                      src={img2Path}
+                      alt={img2}
+                    />
+                    <p className=" bg-[#003336] py-[5.5px] font-semibold text-center text-4xs text-gray-25">{img2}</p>
+                  </div>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          {/* <CarouselPrevious className="left-2" /> */}
-          {/* <CarouselNext className="right-2" /> */}
-        </Carousel>
+
+                // </CarouselItem>
+              );
+            } else {
+              const imgPath = getImageName(item);
+              return (
+                // <CarouselItem className=" basis-auto">
+                <div key={idx} className="h-full">
+                  <div className=" rounded-xl overflow-hidden flex flex-col">
+                    <img
+                      key={idx}
+                      className="min-w-full max-h-[241px] h-full sm:max-h-[604px] object-contain max-w-[300px]"
+                      src={imgPath}
+                      alt={item}
+                    />
+                    <p className=" bg-[#003336] py-[5.5px] font-semibold text-center text-4xs text-gray-25">{item}</p>
+                  </div>
+                </div>
+                // </CarouselItem>
+              );
+            }
+          })}
+        </Marquee>
+
+        {/* </CarouselContent>
+        </Carousel> */}
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ export const TrackRecordSection = () => {
           isLoggedIn ? "sm:flex-col text-center" : ""
         }`}
       >
-        <div className="sm:flex-[0.6] max-sm:text-center open_sans px-20 ">
+        <div className="sm:flex-[0.6] max-sm:text-center open_sans sm:px-20 ">
           <p className=" text-[#F98800] text-sm md:text-md font-semibold ">OUR TRACK RECORD</p>
           <h2 className=" max-md:px-4 mb-0 font-bold text-display-xs md:text-display-md text-[#FFFFFF]">
             But first, why don’t you check out <span className=" text-brand-300">our performance</span> so far?
