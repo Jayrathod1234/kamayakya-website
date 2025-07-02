@@ -17,7 +17,9 @@ export default function Header({
         <img
           onClick={() => {
             router.push("/");
-            callIncompletePayment();
+            if (callIncompletePayment) {
+              callIncompletePayment();
+            }
           }}
           className=" object-contain hidden md:block cursor-pointer"
           width={219.69}

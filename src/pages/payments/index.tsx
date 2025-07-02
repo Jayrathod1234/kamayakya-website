@@ -86,32 +86,32 @@ export default function Index() {
   }, []);
 
   // Handle page unload (refresh, close tab, navigate away)
-  useEffect(() => {
-    const refreshToken = localStorage.getItem("refresh");
+  // useEffect(() => {
+  //   const refreshToken = localStorage.getItem("refresh");
 
-    const handleBeforeUnload = (event) => {
-      // Use sendBeacon for reliable API calls during page unload
-      const headers = {
-        "Authorization":"token " + refreshToken
-      }
-      const blob = new Blob( headers);
+  //   const handleBeforeUnload = (event) => {
+  //     // Use sendBeacon for reliable API calls during page unload
+  //     const headers = {
+  //       "Authorization":"token " + refreshToken
+  //     }
+  //     const blob = new Blob( headers);
 
-      navigator.sendBeacon(`${process.env.NEXT_PUBLIC_BASEPATH}/user/userActionNotifications?type=incomplete_payment`,blob);
-    };
+  //     navigator.sendBeacon(`${process.env.NEXT_PUBLIC_BASEPATH}/user/userActionNotifications?type=incomplete_payment`,blob);
+  //   };
 
-    const handleUnload = () => {
-      // Fallback for browsers that don't support sendBeacon
-      callIncompletePayment();
-    };
+  //   const handleUnload = () => {
+  //     // Fallback for browsers that don't support sendBeacon
+  //     callIncompletePayment();
+  //   };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    window.addEventListener("unload", handleUnload);
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   window.addEventListener("unload", handleUnload);
 
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      window.removeEventListener("unload", handleUnload);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //     window.removeEventListener("unload", handleUnload);
+  //   };
+  // }, []);
 
   const headerBg = !pathname.includes("successful") ? "  max-md:bg-[linear-gradient(to_bottom,#F1FBFB,#F1FBFB)]" : "";
 
