@@ -424,13 +424,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     try {
       const pdf = await generatePdf(userDetailsForPdf);
       const res = await getDigioIdandSendPdf({ order_id: orderId, user_agreement_pdf: pdf });
+      // console.log("ORDER ID", orderId, orderDetails.data.order_id)
       sessionStorage.setItem(
         "razorpayData",
         JSON.stringify({
           name: userDetails.name,
           email: userDetails.email,
           phone: userDetails.phone,
-          order_id: orderDetails.data.order_id,
+          order_id: orderId,
           amount: orderDetails.data.final_amount,
         })
       );

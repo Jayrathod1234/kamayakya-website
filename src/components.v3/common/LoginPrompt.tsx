@@ -1,3 +1,4 @@
+'use client';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
 import React, { useContext, useEffect, useState } from "react";
 import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber, getCountryCallingCode } from "react-phone-number-input";
@@ -16,8 +17,9 @@ import AuthContext from "@/components/AuthContext";
 import { toast } from "@/components.v2/ui/use-toast";
 import Link from "next/link";
 import { axiosApi } from "@/utils/axios";
-import Lottie from "lottie-react";
-import ONBOARDING_LOTTIE from "../../../public/assets/onboarding_signup.json";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import ONBOARDING_LOTTIE from "../../../public/assets/onboarding_signup.json";
 
 interface ILoginPrompt {
   triggerEle: React.ReactNode;

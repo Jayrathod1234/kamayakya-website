@@ -1,4 +1,6 @@
 "use client";
+import { getRazorpayPayload } from "@/api/payment";
+import { axiosApi } from "@/utils/axios";
 import { Home, Loader2, XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -306,6 +308,7 @@ export default function Index() {
       order_id: orderId,
       handler: function (response: unknown) {
         console.log("RZP RESPONSE ",response);
+         localStorage.removeItem("razorpayData");
         router.push("/payments/successful");
       },
       prefill: {
@@ -362,19 +365,33 @@ const getStorageData = () => {
   //       });
   //   }
   // }, [params, router]);
+
+  const getPayload = async(digioId)=>{
+    try{
+      const res = await getRazorpayPayload(digioId);
+      console.log("RESPONSE PAYLOAD",res )
+      return res
+    }catch(e){
+      console.error(e)
+      throw new Error("Unable to fetch payment details. Please try again.");
+    }
+  }
+
   useEffect(() => {
   const initializePayment = async () => {
     try {
-      const rawData = getStorageData();
-      const status = params.get("status");
-      
-      if (status) {
+      // const rawData = getStorageData();
+      const status = params?.get("status");
+      const digioId = params?.get("digio_doc_id")
+      let response
+      if (status && digioId) {
         setLoading(false);
         setSigningStatus(status);
+       response = await getPayload(digioId)    
       }
       
-      if (rawData && status === "success") {
-        const { name, email, phone, order_id, amount } = rawData;
+      if (response && status === "success") {
+        const { name, email, phone, order_id, amount } = response;
         setOrderDetails({ name, email, phone, order_id, amount });
         
         await loadRazorpayScript();

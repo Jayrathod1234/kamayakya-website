@@ -12,7 +12,6 @@ import { TBlog } from "@/types";
 import { Button, ButtonnArrow } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import axios from "axios";
-// import Lottie from "lottie-react";
 import LOADING_GIF from "../../../public/blogs/loading.json";
 import { debounce } from "@/lib/debounce";
 // { blogs, next, prev }: { blogs: Array<TBlog>; next: string | null; prev: string | null }

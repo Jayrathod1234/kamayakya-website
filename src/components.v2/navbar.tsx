@@ -35,8 +35,9 @@ import { ScrollProgress } from "./scroll-progress";
 import SampleReportsModal from "./sample-reports-modal";
 import { cn } from "@/lib/utils";
 import LoginPrompt from "@/components.v3/common/LoginPrompt";
-import Lottie from "lottie-react";
-import VIP_LOTTIE from "../../public/assets/New.json";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import VIP_LOTTIE from "../../public/assets/New.json";
 
 /*
 For pages with white background give className=bg-white to get the green hover effect
