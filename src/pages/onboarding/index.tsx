@@ -1,3 +1,4 @@
+'use client';
 import { Button, ButtonnArrow } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Dialog, DialogContent } from "@/components.v2/ui/dialog";
@@ -15,8 +16,9 @@ import PhoneInput, { getCountryCallingCode, isPossiblePhoneNumber, isValidPhoneN
 import { toast } from "@/components.v2/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { axiosApi } from "@/utils/axios";
-import Lottie from "lottie-react";
-import POPPER_JSON from "../../../public/assets/popper.json";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import POPPER_JSON from "../../../public/assets/popper.json";
 import SUCCESS_LOTTIE from "../../../public/assets/success_onboarding.json";
 import CONFETTIE from "../../../public/assets/onboarding_confetti.json";
 import { ContactModal } from "@/components.v2/payments/contact-modal";

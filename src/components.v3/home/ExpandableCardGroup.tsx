@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components.v2/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components.v2/ui/tabs";
 // import { div, div } from "@/components/ui/card"
+import { motion, useSpring } from "framer-motion";
 
 interface SubCard {
   id: string;
@@ -146,57 +147,145 @@ const DesktopExpandedCards = ({ expandedCardId, toggleCard }: IDesktopExpandedCa
   );
 };
 
-const MobileExpandedCards = () => {
+const MobileExpandedCards = ({expandedCardId, toggleCard, currentIndex,autoPlayInterval}) => {
+  const activeCard = cards[currentIndex]
+  // const currentIndex = cards.findIndex(card=>card.id === expandedCardId)
+  console.log("CURRENT INDX", currentIndex)
   return (
     <Tabs
+      value={activeCard?.title}
       defaultValue="Factors"
       className=" xl:hidden mx-auto max-w-[358px] flex flex-col items-center border border-[#00000017] rounded-[20px] overflow-hidden"
     >
-      <TabsList className="w-full p-0 !h-auto border-b border-b-[#00000017]">
+      <TabsList className="w-full p-0 !h-auto border-b border-b-[#00000017] relative">
+      
         {cards.map((card) => (
           <TabsTrigger
+            onClick={() => toggleCard(card.id)}
             className=" relative overflow-hidden w-full h-auto p-4 bg-gray-50 text-black data-[state=active]:bg-[#053530] data-[state=active]:text-white text-3xs font-bold"
             key={card.id}
             value={card.title}
           >
             {card.title}
-            <div className=" h-[6px] bg-brand-300 w-full absolute bottom-0"></div>
+            {expandedCardId === card.id && (
+    <motion.div
+      key={card.id + "-progress"} // force re-render on tab change
+      initial={{ scaleX: 0 }}
+      animate={{ scaleX: 1 }}
+      transition={{
+        duration: autoPlayInterval / 1000, // convert ms to sec
+        ease: "linear",
+      }}
+      className="absolute bottom-0 left-0 h-[6px] origin-left bg-brand-300 w-full"
+    />
+  )}
+            {/* <div className=" h-[6px] bg-brand-300 w-full absolute bottom-0"></div> */}
           </TabsTrigger>
         ))}
       </TabsList>
       {cards.map((card) => (
-        <TabsContent value={card.title}>
-          <div className="flex flex-wrap w-full">
-            {card.subcards.map((subcard, idx) => (
-              <div
-                key={subcard.id}
-                className={` p-2 border border-dotted border-[#00000017] rounded-l-none m-0 flex items-center justify-center h-[120px] ${
-                  [0, 1, 2].includes(idx) ? "border-t-0" : ""
-                }`}
-              >
-                <div className=" h-full w-full flex justify-center items-center">
-                  <div className=" flex flex-col items-center justify-center">
-                    <img className=" h-14 w-14" src={subcard.img} alt="" />
-                    <p className="text-xs text-gray-700 text-center">{subcard.content}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </TabsContent>
+      <TabsContent value={card.title}>
+  <div className="grid grid-cols-3 w-full max-w-sm mx-auto overflow-hidden ">
+    {card.subcards.map((subcard, idx) => (
+      <div
+        key={subcard.id}
+        className={`flex flex-col items-center justify-center p-3  border border-dotted border-[#00000017]
+          ${idx < 3 ? 'border-t-0' : ''}
+          ${idx % 3 === 0 ? 'border-l-0' : ''}
+        `}
+      >
+        <img className="h-14 w-14 mb-2" src={subcard.img} alt="" />
+        <p className="text-xs text-gray-700 text-center">{subcard.content}</p>
+      </div>
+    ))}
+  </div>
+</TabsContent>
+
       ))}
     </Tabs>
   );
 };
 
 export default function ExpandableCardGroup() {
-  const [expandedCardId, setExpandedCardId] = useState<string | null>("card1");
+    const [expandedCardId, setExpandedCardId] = useState<string | null>("card1");
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const AUTO_PLAY_INTERVAL = 4000; // 4 seconds
 
   const toggleCard = (cardId: string) => {
+    // Stop auto-play when user interacts
+    setIsAutoPlaying(false);
+    
     if (expandedCardId === cardId) {
       setExpandedCardId(null);
     } else {
       setExpandedCardId(cardId);
+      // Update current index to match the selected card
+      const newIndex = cards.findIndex(card => card.id === cardId);
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  const startAutoPlay = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex(prevIndex => {
+        const nextIndex = (prevIndex + 1) % cards.length;
+        setExpandedCardId(cards[nextIndex].id);
+        return nextIndex;
+      });
+    }, AUTO_PLAY_INTERVAL);
+  };
+
+  const stopAutoPlay = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  const resumeAutoPlay = () => {
+    setIsAutoPlaying(true);
+  };
+
+  // Auto-play effect
+  useEffect(() => {
+    if (isAutoPlaying) {
+      startAutoPlay();
+    } else {
+      stopAutoPlay();
+    }
+
+    return () => stopAutoPlay();
+  }, [isAutoPlaying]);
+
+  // Resume auto-play after user interaction pause
+  useEffect(() => {
+    if (!isAutoPlaying) {
+      const resumeTimeout = setTimeout(() => {
+        setIsAutoPlaying(true);
+      }, 8000); // Resume after 8 seconds of no interaction
+
+      return () => clearTimeout(resumeTimeout);
+    }
+  }, [isAutoPlaying, expandedCardId]);
+
+  // Pause auto-play on hover (for desktop)
+  const handleMouseEnter = () => {
+    if (isAutoPlaying) {
+      console.log("MOUS Emter")
+      stopAutoPlay();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    console.log("MOUS LAVE")
+    if (!isAutoPlaying) {
+      startAutoPlay();
     }
   };
 
@@ -207,8 +296,14 @@ export default function ExpandableCardGroup() {
       <p className="max-sm:mt-3 text-sm sm:text-lg text-gray-500 mb-7 sm:mb-10 text-center">
         Behind every stock is a company. We find out what it’s doing and why.
       </p>
+       <div 
+       className="w-fit mx-auto"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
       <DesktopExpandedCards toggleCard={toggleCard} expandedCardId={expandedCardId as string} />
-      <MobileExpandedCards toggleCard={toggleCard} expandedCardId={expandedCardId as string} />
+      <MobileExpandedCards autoPlayInterval={AUTO_PLAY_INTERVAL} currentIndex={currentIndex} toggleCard={toggleCard} expandedCardId={expandedCardId as string} />
+    </div>
     </div>
   );
 }

@@ -23,23 +23,23 @@ export const TrackRecordSection = () => {
   return (
     <div className=" sm:main-container sm:py-[50px]">
       <div
-        className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px] sm:rounded-[28px] flex flex-col sm:flex-row  gap-x-[46px] ${
+        className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px] sm:rounded-[28px] flex flex-col lg:flex-row  gap-x-[46px] ${
           isLoggedIn ? "sm:flex-col text-center" : ""
         }`}
       >
-        <div className="sm:flex-[0.6] max-sm:text-center open_sans sm:px-20 ">
-          <p className=" text-[#F98800] text-sm md:text-md font-semibold ">OUR TRACK RECORD</p>
-          <h2 className=" max-md:px-4 mb-0 font-bold text-display-xs md:text-display-md text-[#FFFFFF]">
+        <div className="lg:flex-[0.6] max-lg:text-center open_sans lg:px-12 xl:px-20 ">
+          <p className=" text-[#F98800] text-sm lg:text-md font-semibold ">OUR TRACK RECORD</p>
+          <h2 className=" max-lg:px-4 mb-0 font-bold text-display-xs lg:text-display-md text-[#FFFFFF]">
             But first, why don’t you check out <span className=" text-brand-300">our performance</span> so far?
           </h2>
-          <p className={` text-[rgba(255,255,255,0.8)] max-md:text-sm max-sm:px-5 ${isLoggedIn ? "mt-3" : " mt-7"}`}>
+          <p className={` text-[rgba(255,255,255,0.8)] max-lg:text-sm max-lg:px-5 ${isLoggedIn ? "mt-3" : " mt-7"}`}>
             See our hits, our misses - all in the open. Your trust is earned by delivering results, because what we do
             counts more than what we say.
           </p>
           {isLoggedIn ? null : (
             <ButtonnArrow
               strokeStyle=" stroke-gray-950"
-              className=" max-sm:hidden mt-10"
+              className=" max-lg:hidden mt-10"
               variant={ButtonVariant.secondary}
             >
               <p className=" text-gray-950 font-medium"> Unlock Now for Free</p>
@@ -105,9 +105,10 @@ export const TrackRecordSection = () => {
               </>
             ) : (
               <>
-                <div className=" relative flex-1 max-sm:hidden ">
-                  <div className=" relative z-10 h-[70%] w-[95%]">
+                <div className=" relative flex-1 max-lg:hidden  ">
+                  <div className=" relative z-10 h-[70%] w-[90%] lg:right-20 xl:right-0">
                     <TrackRecordHeroCard
+                      className=''
                       {...trackRecordDashboardStats}
                       type={"LIVE"}
                       recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
@@ -123,7 +124,7 @@ export const TrackRecordSection = () => {
                       start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
                     />
                   </div>
-                  <div className=" absolute -top-9 -right-8 z-[2] h-[80%]  w-[95%]">
+                  <div className=" absolute -top-9 right-28 xl:right-12 z-[2] h-[80%]  w-[85%]">
                     <TrackRecordHeroCard
                       {...trackRecordDashboardStats}
                       type={"EXIT"}
@@ -142,7 +143,7 @@ export const TrackRecordSection = () => {
                     />
                   </div>
                 </div>
-                <Carousel plugins={[Autoplay({ delay: 2000 })]} className=" sm:hidden w-full mt-6 px-2">
+                <Carousel plugins={[Autoplay({ delay: 2000 })]} className=" lg:hidden w-full mt-6 px-2">
                   <CarouselContent>
                     <CarouselItem className=" basis-11/12">
                       {" "}

@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext, useEffect, useState } from "react";
 import {
   Sheet,
@@ -26,8 +27,9 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import { usePathname, useRouter } from "next/navigation";
 import { useModal } from "@nextui-org/react";
 import SampleReportsModal from "./sample-reports-modal";
-import Lottie from "lottie-react";
-import VIP_LOTTIE from "../../public/assets/New.json";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import VIP_LOTTIE from "../../public/assets/New.json";
 type TSideNav = {
   handleLogin: () => void;
 };

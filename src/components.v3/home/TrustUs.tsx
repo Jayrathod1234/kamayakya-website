@@ -3,6 +3,7 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/componen
 import { cn } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
 import React, { useEffect, useState, useRef } from "react";
+import { EmblaCarouselType } from "embla-carousel";
 
 interface ITrustIndicator {
   text: string;
@@ -10,9 +11,10 @@ interface ITrustIndicator {
   className?: string;
 }
 
-function GradientLine(){
-  return <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0  bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
-
+function GradientLine() {
+  return (
+    <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0  bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
+  );
 }
 
 function TrustIndicator({
@@ -75,21 +77,32 @@ function TrustIndicator({
   return (
     <div
       onClick={onClick}
-      className={cn(` px-4 h-[62px] sm:h-[78px] flex flex-col text-center items-center justify-center w-full relative overflow-hidden ${index+1 === 1 ? "rounded-l-[20px] ": index+1 === 3 ? "rounded-r-[20px]":""} ${index+1 ===selectedIndex ? "bg-brand-400":"" }`, className)}
+      className={cn(
+        ` px-4 h-[62px] sm:h-[78px] flex flex-col text-center items-center justify-center w-full relative overflow-hidden ${
+          index + 1 === 1 ? "rounded-l-[20px] " : index + 1 === 3 ? "rounded-r-[20px]" : ""
+        } ${index + 1 === selectedIndex ? "bg-brand-400" : ""}`,
+        className
+      )}
     >
-      <p className={`${index+1 === selectedIndex ? "text-white":"text-gray-950"}  font-bold text-3xs sm:text-xl`}>{text}</p>
+      <p className={`${index + 1 === selectedIndex ? "text-white" : "text-gray-950"}  font-bold text-3xs sm:text-xl`}>
+        {text}
+      </p>
       <div
         // onClick={onClick}
         key={index}
         className={` ${
-          index+1 === selectedIndex ? " !w-full " : index+1 <= selectedIndex ? "w-full" : " w-[10px] "
+          index + 1 === selectedIndex ? " !w-full " : index + 1 <= selectedIndex ? "w-full" : " w-[10px] "
         } h-[4px] absolute left-0 bottom-0  bg-transparent transition-all duration-300 overflow-hidden cursor-pointer `}
       >
         <div
           ref={progressRef}
           style={{ animationDuration: "6000ms", animationPlayState: isPlaying ? "running" : "paused" }}
           className={`bg-brand-300 w-full h-full relative ${
-            index+1 === selectedIndex ? "carousel-dot-animate" : index+1 <= selectedIndex ? "block scale-x-100 " : " hidden"
+            index + 1 === selectedIndex
+              ? "carousel-dot-animate"
+              : index + 1 <= selectedIndex
+              ? "block scale-x-100 "
+              : " hidden"
           }`}
         ></div>
       </div>
@@ -127,7 +140,9 @@ function Ele1() {
           </li>
           <li className=" flex gap-x-[10px] items-center">
             <Bullet />
-            <p className=" max-sm:text-sm text-gray-600">We are not like your rishtedar who keeps giving random financial advice</p>
+            <p className=" max-sm:text-sm text-gray-600">
+              We are not like your rishtedar who keeps giving random financial advice
+            </p>
           </li>
         </div>
       </div>
@@ -143,14 +158,14 @@ function Ele2() {
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-10">
         <div className=" flex gap-x-5">
-          <GradientLine/>
+          <GradientLine />
           <p className=" max-sm:text-sm text-gray-950">
             Our analysts don't just crunch numbers – they analyse the company's financials, interview management, and
             even go on-site to witness operations firsthand.
           </p>
         </div>
         <div className=" flex gap-x-5 items-center">
-        <GradientLine/>
+          <GradientLine />
           <p className="max-sm:text-sm text-gray-950">
             This 360-degree approach allows us to identify potential multibaggers with greater accuracy and provide you
             with insights you won't find anywhere else
@@ -169,14 +184,14 @@ function Ele3() {
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-10">
         <div className=" flex gap-x-5">
-        <GradientLine/>
+          <GradientLine />
           <p className="max-sm:text-sm text-gray-950">
             With over 60 years of combined experience in finance, our team has seen it all. From market booms to
             economic downturns, we know how to navigate/ride the market cycles.
           </p>
         </div>
         <div className=" flex gap-x-5 items-center">
-        <GradientLine/>
+          <GradientLine />
           <p className="max-sm:text-sm text-gray-950">
             We've walked the walk, building and managing businesses ourselves. This gives us a unique perspective on
             what makes a company truly investable.
@@ -193,6 +208,10 @@ export default function TrustUs() {
   const { selectedIndex, onDotButtonClick } = useDotButton(api);
   const [current, setCurrent] = React.useState(0);
 
+  function togglePlayingState(emblaApi: EmblaCarouselType, eventName: string) {
+    setIsPlaying(eventName === "autoplay:play" ? true : false);
+  }
+
   useEffect(() => {
     if (!api) return;
 
@@ -200,22 +219,38 @@ export default function TrustUs() {
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
+      const autoplay = api?.plugins()?.autoplay;
+      if (!autoplay) return;
+      const reset = autoplay.reset;
+      reset();
     });
   }, [api]);
   return (
     <div className=" main-container py-[50px] sm:pb-[100px]">
       <div className=" open_sans">
         <p className=" font-bold text-[#FF9E29] text-center max-sm:text-sm">Why trust us?</p>
-        <h2 className=" text-display-xs sm:text-2xl font-bold mb-2 text-center text-gray-950">Why should you trust us with your money?</h2>
+        <h2 className=" text-display-xs sm:text-2xl font-bold mb-2 text-center text-gray-950">
+          Why should you trust us with your money?
+        </h2>
         <p className=" text-sm sm:text-lg text-gray-600 sm:mb-10 text-center">
           Trust is an investment, earned with honesty, paid in consistency, and yielding dividends of reliability.
         </p>
         <div className=" mt-6 sm:mt-10 flex flex-col">
           <Carousel
-          className=" order-2 sm:order-1"
+            onMouseEnter={() => {
+              api?.plugins()?.autoplay.stop();
+              setIsPlaying(false)
+                 }}
+            onMouseLeave={() => {
+              api?.plugins()?.autoplay.play();
+              setIsPlaying(true)
+               }}
+            className=" order-2 sm:order-1 cursor-[url(/carousel-pause-icon.svg),auto]"
             plugins={[
               Autoplay({
                 delay: 6000,
+                // stopOnMouseEnter:true,
+                // stopOnInteraction:false,
               }),
             ]}
             setApi={setApi}

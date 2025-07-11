@@ -1,3 +1,4 @@
+'use client';
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import React, { useEffect, useState } from "react";
@@ -11,8 +12,9 @@ import { PlanTooltip } from "@/components.v2/payments";
 import ToPayTooltip from "./ToPayTooltip";
 import { PLAN } from "@/constants/pricing/plans";
 import { abbreviateTimeForPlan } from "@/lib/date-formatter";
-import Lottie from "lottie-react";
-import POPPER_JSON from '../../../../public/assets/popper.json';
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import POPPER_JSON from '../../../../public/assets/popper.json';
 export default function ReviewSection({
   setActiveTab,
 }: {

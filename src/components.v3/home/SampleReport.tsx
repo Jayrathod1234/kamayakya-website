@@ -79,7 +79,11 @@ export default function SampleReport() {
     setCompanySelected(companyData)
   }
 
-  console.log("COMPANY", companySelected)
+  useEffect(()=>{
+    if(Array.isArray(data?.data) && data?.data.length  > 0){
+      setCompanySelected(data?.data[0])
+    }
+  },[data])
 
   return (
     <div className=" main-container ">

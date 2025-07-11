@@ -10,8 +10,8 @@ import WeEatDrink from "./icons/WeEatDrink";
 const teams = [
   {
     img: "/landing/dhiren_shah.png",
-    social1: "",
-    social2: "",
+    social1: "https://x.com/dhirenshah64",
+    social2: "https://www.linkedin.com/in/dhiren-shah-2b34771/",
     name: "Dhiren Shah",
     designation: "Director & Co-Founder",
     description: (
@@ -35,8 +35,8 @@ const teams = [
   },
   {
     img: "/landing/nitya_shah.png",
-    social1: "",
-    social2: "",
+    social2: "https://www.linkedin.com/in/nitya-shah-25ba53187/",
+    social1: "https://x.com/NityaShah2000",
     name: "Nitya Shah",
     designation: "Director & Co-Founder",
     description: (
@@ -59,8 +59,8 @@ const teams = [
   },
   {
     img: "/landing/aniket_kulkarni.png",
-    social1: "",
-    social2: "",
+    social1: "https://x.com/smallcaphunter9",
+    social2: "https://www.linkedin.com/in/aniket-kulkarni-equity-research/",
     name: "Aniket Kulkarni",
     designation: "Director & Co-Founder",
     description: (
@@ -82,52 +82,52 @@ const teams = [
       </>
     ),
   },
-  {
-    img: "/landing/manan_madlani.png",
-    social1: "",
-    social2: "",
-    name: "Manan Madlani",
-    designation: "Equity Research Analyst",
-    description: (
-      <>
-        {" "}
-        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
-          <li>
-            <strong>Strong Academic Foundation:</strong> B.Com in Advanced Accounting & Auditing, CFA Level 2 candidate.
-          </li>
-          <li>
-            <strong>Certified Analyst:</strong> Holds the NISM Research Analyst Certification.
-          </li>
-          <li>
-            <strong>Sector Specialist:</strong> 5+ years of equity research experience across Building Materials, BFSI,
-            Textile, Consumer Staples, and Discretionary.
-          </li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    img: "/landing/pratik_kulkarni.png",
-    social1: "",
-    social2: "",
-    name: "Pratik Kulkarni",
-    designation: "Equity Research Analyst",
-    description: (
-      <>
-        {" "}
-        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
-          <li>
-            <strong>Equity Research Experience:</strong> 4+ years of fundamental research across Automobiles, Capital
-            Goods, Chemicals, FMCG, and Engineering.
-          </li>
-          <li>
-            <strong>Educational Background:</strong> B.Tech in Engineering and MBA, combining technical understanding
-            with business fundamentals.
-          </li>
-        </ul>
-      </>
-    ),
-  },
+  // {
+  //   img: "/landing/manan_madlani.png",
+  //   social1: "https://x.com/MadlaniManan",
+  //   social2: "https://www.linkedin.com/in/mananmadlani1999/",
+  //   name: "Manan Madlani",
+  //   designation: "Equity Research Analyst",
+  //   description: (
+  //     <>
+  //       {" "}
+  //       <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+  //         <li>
+  //           <strong>Strong Academic Foundation:</strong> B.Com in Advanced Accounting & Auditing, CFA Level 2 candidate.
+  //         </li>
+  //         <li>
+  //           <strong>Certified Analyst:</strong> Holds the NISM Research Analyst Certification.
+  //         </li>
+  //         <li>
+  //           <strong>Sector Specialist:</strong> 5+ years of equity research experience across Building Materials, BFSI,
+  //           Textile, Consumer Staples, and Discretionary.
+  //         </li>
+  //       </ul>
+  //     </>
+  //   ),
+  // },
+  // {
+  //   img: "/landing/pratik_kulkarni.png",
+  //   social1: "",
+  //   social2: "https://www.linkedin.com/in/pratik-kulkarni-9ba636148/",
+  //   name: "Pratik Kulkarni",
+  //   designation: "Equity Research Analyst",
+  //   description: (
+  //     <>
+  //       {" "}
+  //       <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+  //         <li>
+  //           <strong>Equity Research Experience:</strong> 4+ years of fundamental research across Automobiles, Capital
+  //           Goods, Chemicals, FMCG, and Engineering.
+  //         </li>
+  //         <li>
+  //           <strong>Educational Background:</strong> B.Tech in Engineering and MBA, combining technical understanding
+  //           with business fundamentals.
+  //         </li>
+  //       </ul>
+  //     </>
+  //   ),
+  // },
 ];
 
 export default function Team() {
@@ -139,23 +139,23 @@ export default function Team() {
   };
 
   return (
-    <div className=" md:main-container">
-      <div className=" pb-[38px] md:py-[50px] bg-[rgba(13,65,57,1)] open_sans px-5 md:px-[60px] md:rounded-t-xl">
-        <p className=" text-[#FF9E29] font-bold text-center">TEAM</p>
+    <div className=" md:main-container max-md:bg-[rgba(13,65,57,1)]">
+      <div className=" pb-[38px] pt-[50px] md:py-[50px] bg-[rgba(13,65,57,1)] open_sans px-5 md:px-[60px] md:rounded-t-xl">
+        <p className=" text-[#FF9E29] font-bold text-center">LEADERSHIP TEAM</p>
         <h3 className=" text-display-md font-bold mt-[6px] mb-0 text-center text-white">Meet the team!</h3>
         <p className=" text-lg text-gray-150 mt-3 text-center">
           Meet our team of seasoned equity research analysts, trusted by clients worldwide for delivering value through
           a powerful blend of decades of experience and deep expertise.
         </p>
         <Carousel setApi={setApi} plugins={[Autoplay({ delay: 2000 })]} className=" mt-[38px] w-full">
-          <CarouselContent className="">
+          <CarouselContent className=" ">
             {teams.map((team) => (
-              <CarouselItem key={team.name} className=" basis-auto">
+              <CarouselItem key={team.img} className="basis-auto lg:basis-1/3">
                 <TeamCard {...team} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center ">
+          <div className="lg:hidden h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pl-4 md:px-0 ">
             <div>
               <ButtonnArrow
                 onClick={() => handlePrevNext(onPrevButtonClick)}
@@ -165,7 +165,7 @@ export default function Team() {
               ></ButtonnArrow>
             </div>
           </div>
-          <div className=" -right-6  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center">
+          <div className="lg:hidden -right-6  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pr-4 md:px-0">
             <div>
               <ButtonnArrow
                 onClick={() => handlePrevNext(onNextButtonClick)}

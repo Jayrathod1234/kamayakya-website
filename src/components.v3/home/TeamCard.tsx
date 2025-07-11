@@ -11,11 +11,12 @@ interface TeamCardParams {
 
 export default function TeamCard({ name, designation, description, social1, social2, img }: TeamCardParams) {
   const [display, setDisplay] = useState(false);
+  console.log("DISPLAY ",name,display)
   return (
-    <div className="group/team">
+    <div className={`group/team`}>
       <div
-        style={{ display: display ? "none" : "flex" }}
-        className="   w-[300px] h-[400px] bg-[rgba(243,255,253,1)] overflow-hidden before:absolute before:h-full before:w-full before:top-0 before:z-10 before:bg-[linear-gradient(to_top,black,transparent)] rounded-xl relative pt-4 pb-6  flex flex-col justify-between"
+        // style={{ display: display ? "none" : "flex" }}
+        className={`   w-[300px] h-[400px] bg-[rgba(243,255,253,1)] overflow-hidden before:absolute before:h-full before:w-full before:top-0 before:z-10 before:bg-[linear-gradient(to_top,black,transparent)] rounded-xl relative pt-4 pb-6  flex flex-col justify-between ${display ? " hidden" : "flex"}`}
       >
         <button
           onClick={() => setDisplay((prev) => !prev)}
@@ -23,7 +24,7 @@ export default function TeamCard({ name, designation, description, social1, soci
             display ? "h-[50px] w-[50px] top-[9px] right-[9px]" : "h-10 w-10 top-[14px] right-[14px]"
           } rounded-xl absolute bg-white  z-30 group-hover/team:scale-110`}
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className=" " width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M14.8571 9.14286H9.14286V14.8571C9.14286 15.1602 9.02245 15.4509 8.80812 15.6653C8.59379 15.8796 8.30311 16 8 16C7.6969 16 7.40621 15.8796 7.19188 15.6653C6.97755 15.4509 6.85714 15.1602 6.85714 14.8571V9.14286H1.14286C0.839753 9.14286 0.549063 9.02245 0.334735 8.80812C0.120408 8.59379 0 8.30311 0 8C0 7.6969 0.120408 7.40621 0.334735 7.19188C0.549063 6.97755 0.839753 6.85714 1.14286 6.85714H6.85714V1.14286C6.85714 0.839753 6.97755 0.549062 7.19188 0.334735C7.40621 0.120407 7.6969 0 8 0C8.30311 0 8.59379 0.120407 8.80812 0.334735C9.02245 0.549062 9.14286 0.839753 9.14286 1.14286V6.85714H14.8571C15.1602 6.85714 15.4509 6.97755 15.6653 7.19188C15.8796 7.40621 16 7.6969 16 8C16 8.30311 15.8796 8.59379 15.6653 8.80812C15.4509 9.02245 15.1602 9.14286 14.8571 9.14286Z"
               fill="url(#paint0_linear_18061_93362)"
@@ -45,12 +46,12 @@ export default function TeamCard({ name, designation, description, social1, soci
         </button>
         <img src={img} alt={name} className=" absolute left-0 bottom-0 z-[1] " />
         <div className=" flex items-center z-10 pl-4 gap-x-[10px] opacity-0 group-hover/team:opacity-100 transition-all duration-300 ">
-          <button>
+          {social1 && <a href={social1} target="_blank">
             <img src="/landing/Twitter.png" alt="twitter" />
-          </button>
-          <button>
+          </a>}
+          {social2 && <a href={social2} target="_blank">
             <img src="/landing/Linkedin.png" alt="linkedin" />
-          </button>
+          </a>}
         </div>
         <div className=" relative z-30 px-6 text-white open_sans">
           <h3 className=" mb-0 font-bold text-display-xs">{name}</h3>
@@ -58,8 +59,8 @@ export default function TeamCard({ name, designation, description, social1, soci
         </div>
       </div>
       <div
-        style={{ display: display ? "flex" : "none" }}
-        className="  w-[300px] h-[400px] bg-transparent rounded-xl   relative transition-all    flex flex-col justify-between"
+        // style={{ display: display ? "flex" : "none" }}
+        className={` ${display ? "flex" : "hidden"} w-[300px] h-[400px] bg-transparent rounded-xl   relative transition-all    flex flex-col justify-between`}
       >
         <button
           onClick={() => setDisplay((prev) => !prev)}
@@ -88,14 +89,14 @@ export default function TeamCard({ name, designation, description, social1, soci
           </svg>
         </button>
 
-        <div className="relative bg-[#fff] pt-2 pb-[9px] rounded-t-xl w-[78%] after:absolute after:bottom-[-1px] after:w-5 after:h-5 after:bg-transparent after:rounded-full after:z-0 after:right-[-20px]  after:shadow-[-6px_8px_0px_rgba(255,255,255,1)] ">
+        <div className="relative bg-[#fff] pt-2 pb-[10px] rounded-t-xl w-[78%] after:absolute after:bottom-[-1px] after:w-5 after:h-5 after:bg-transparent after:rounded-full after:z-0 after:right-[-20px]  after:shadow-[-6px_8px_0px_rgba(255,255,255,1)] ">
           <div className=" flex items-center z-10 pl-[14px] gap-x-[10px] opacity-100 transition-all duration-300">
-            <button>
+            { social1 && <a href={social1} target="_blank">
               <img className=" object-contain" height={52} width={52} src="/landing/Twitter-dark.png" alt="twitter" />
-            </button>
-            <button>
+            </a>}
+            {social2 && <a href={social2} target="_blank">
               <img className=" object-contain" height={52} width={52} src="/landing/Linkedin-dark.png" alt="twitter" />
-            </button>
+            </a>}
           </div>
         </div>
         <div className="relative z-30 px-[10px] bg-[#fff] h-full rounded-b-xl rounded-tr-xl open_sans">

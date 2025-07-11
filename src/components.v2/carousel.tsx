@@ -14,7 +14,7 @@ import { ButtonnArrow } from "./button";
 import { ButtonVariant } from "./button/button";
 import CarouselIndicator from "@/components.v3/common/CarouselIndicator";
 
-const carouselItem = [
+const CAROUSEL_ITEM = [
   <TestimonialsCard
     testimony={
       "I have been investing with KamayaKya since over a year now and I only have good things to say. Very good returns, transparency and a team of market experts with amazing investment strategies. I plan to invest with the firm for a long time and I would highly recommend it too."
@@ -176,7 +176,7 @@ const TWEEN_FACTOR_BASE = 0.1;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
 
-export function Carousel({ className }: { className?: string }) {
+export function Carousel({ className, carouselItem=CAROUSEL_ITEM }: { className?: string;carouselItem?:any }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       // startIndex: 1,

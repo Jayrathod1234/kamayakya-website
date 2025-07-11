@@ -39,6 +39,10 @@ function Steps({
 
   const onClick = () => {
     api?.scrollTo(index);
+    const autoplay = api?.plugins()?.autoplay;
+    if (!autoplay) return;
+    const reset = autoplay.reset;
+    reset();
   };
 
   useEffect(() => {
@@ -49,7 +53,7 @@ function Steps({
   }, [isPlaying, animationDuration]);
   return (
     <div
-      className={` py-6 px-4 relative overflow-hidden  ${
+      className={` pt-2 pb-3 px-2 md:py-6 md:px-4 relative overflow-hidden  ${
         index + 1 === selectedIndex
           ? "border border-brand-300 rounded-xl"
           : " border-b border-b-gray-200 max-md:border max-md:border-brand-300 max-md:rounded-xl"
@@ -60,18 +64,18 @@ function Steps({
         height={235}
         autoPlay
         muted
-        className=" h-full w-full max-w-[342px] max-h-[235px] mx-auto object-cover mb-[10px] rounded-xl md:hidden"
+        className=" h-full w-full max-w-[342px] max-md:max-w-full max-h-[235px] mx-auto object-cover mb-[10px] rounded-xl md:hidden"
         src={video}
       />
-      <div className={` relative flex items-start gap-x-[10px]    `}>
-        <div className=" pt-[4px]">
+      <div onClick={onClick} className={` relative flex items-start gap-x-[10px]    `}>
+        <div className=" pt-[4px] flex-shrink-0">
           {icon}
           {/* <LucideMessageCircleMore /> */}
         </div>
         <div>
           <div className=" flex flex-col sm:flex-row  flex-wrap sm:items-center gap-x-[6px]">
             <p className=" sm:text-lg font-semibold text-gray-950">{title}</p>
-            <p className=" sm:mt-[4.5px] text-3xs font-bold text-gray-500 p-[6px] bg-gray-50 rounded-[4px]">{label}</p>
+            <p className=" sm:mt-[4.5px] text-3xs font-bold text-gray-500 p-[6px] bg-gray-50 rounded-[4px] max-md:w-fit">{label}</p>
           </div>
           {index + 1 == selectedIndex ? (
             <p className=" text-sm text-gray-600">{description}</p>
@@ -118,9 +122,22 @@ export default function How() {
     if (!api) return;
 
     setCurrent(api.selectedScrollSnap() + 1);
+    api.on("scroll", () => {
+      // console.log(api.selectedScrollSnap())
+      setCurrent(api.selectedScrollSnap() + 1);
+      const autoplay = api?.plugins()?.autoplay;
+      if (!autoplay) return;
+      const reset = autoplay.reset;
+      reset();
+      autoplay.play();
+    });
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
+      const autoplay = api?.plugins()?.autoplay;
+      if (!autoplay) return;
+      const reset = autoplay.reset;
+      reset();
     });
   }, [api]);
 
@@ -212,7 +229,9 @@ export default function How() {
               }
               label={"Performance Track Record"}
               title={"We promise 100% transparency"}
-              description={""}
+              description={
+                "Our entire philosophy is based on celebrating wins and learning from losses. We want you to have access to our entire track record."
+              }
               video="/how_vid1.mp4"
               api={api}
               selectedIndex={current}
@@ -246,7 +265,9 @@ export default function How() {
               }
               label={"360° View"}
               title={"Understand your investments"}
-              description={""}
+              description={
+                "Investing without understanding? That’s like driving without GPS in a new city. With KamayaKya, you’ll have all the information you need - market trends, company performance, and key details, to navigate your investment journey confidently."
+              }
               video="/how_vid1.mp4"
               api={api}
               selectedIndex={current}
@@ -254,6 +275,7 @@ export default function How() {
               index={2}
             />
           </div>
+          {/* MOBILE VIEW */}
           <Carousel
             setApi={setApi2}
             className=" mt-6 md:hidden w-full"
@@ -264,14 +286,95 @@ export default function How() {
             ]}
           >
             <CarouselContent>
-              <CarouselItem>
-                <Steps video="/how_vid1.mp4" api={api} selectedIndex={current} isPlaying={isPlaying} index={0} />
+              <CarouselItem className="">
+                <Steps
+                  icon={
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                      <path
+                        d="M6.66602 10.2609H6.67435M9.99935 10.2609H10.0077M13.3327 10.2609H13.341M6.58268 16.9276C8.17316 17.7435 10.0028 17.9645 11.7418 17.5508C13.4808 17.137 15.0148 16.1158 16.0675 14.6711C17.1201 13.2264 17.6222 11.4532 17.4832 9.67108C17.3441 7.88895 16.5732 6.21509 15.3092 4.9511C14.0452 3.68712 12.3713 2.91615 10.5892 2.77712C8.80709 2.63809 7.03391 3.14015 5.5892 4.19282C4.14449 5.24548 3.12326 6.77954 2.70953 8.51854C2.29581 10.2575 2.5168 12.0871 3.33268 13.6776L1.66602 18.5943L6.58268 16.9276Z"
+                        stroke="url(#paint0_linear_16075_24171)"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <defs>
+                        <linearGradient
+                          id="paint0_linear_16075_24171"
+                          x1="17.1327"
+                          y1="16.9042"
+                          x2="-0.0194646"
+                          y2="0.192999"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <stop stop-color="#12ADB7" />
+                          <stop offset="1" stop-color="#125B54" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  }
+                  label={"KamayaKya recommendations"}
+                  title={"Subscribe to our best picks"}
+                  description={
+                    "We only recommend stocks that we personally are willing to invest in. We research rigorously, so you don't have to."
+                  }
+                  video="/how_vid1.mp4"
+                  api={api}
+                  selectedIndex={current}
+                  isPlaying={isPlaying}
+                  index={0}
+                />
               </CarouselItem>
               <CarouselItem>
-                <Steps video="/how_vid1.mp4" api={api} selectedIndex={current} isPlaying={isPlaying} index={1} />
+                <Steps
+                  icon={
+                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.5 2.5V17.5H17.5M15 14.1667V7.5M10.8333 14.1667V4.16667M6.66667 14.1667V11.6667" stroke="url(#paint0_linear_18257_93015)" stroke-width="1.42857" stroke-linecap="round" stroke-linejoin="round"/>
+<defs>
+<linearGradient id="paint0_linear_18257_93015" x1="17.1466" y1="15.8995" x2="0.903889" y2="0.074418" gradientUnits="userSpaceOnUse">
+<stop stop-color="#12ADB7"/>
+<stop offset="1" stop-color="#125B54"/>
+</linearGradient>
+</defs>
+</svg>
+
+                  }
+                  label={"Performance Track Record"}
+                  title={"We promise 100% transparency"}
+                  description={
+                    "Our entire philosophy is based on celebrating wins and learning from losses. We want you to have access to our entire track record."
+                  }
+                  video="/how_vid1.mp4"
+                  api={api}
+                  selectedIndex={current}
+                  isPlaying={isPlaying}
+                  index={1}
+                />
               </CarouselItem>
               <CarouselItem>
-                <Steps video="/how_vid1.mp4" api={api} selectedIndex={current} isPlaying={isPlaying} index={2} />
+                <Steps
+                  icon={
+                    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.9494 13.0721H14.166C13.724 13.0721 13.3001 13.2477 12.9875 13.5603C12.6749 13.8728 12.4993 14.2967 12.4993 14.7388V18.5221M5.83268 3.35544V4.73877C5.83268 5.40181 6.09607 6.0377 6.56492 6.50654C7.03376 6.97538 7.66964 7.23877 8.33268 7.23877C8.77471 7.23877 9.19863 7.41436 9.51119 7.72693C9.82375 8.03949 9.99935 8.46341 9.99935 8.90544C9.99935 9.8221 10.7493 10.5721 11.666 10.5721C12.108 10.5721 12.532 10.3965 12.8445 10.0839C13.1571 9.77139 13.3327 9.34746 13.3327 8.90544C13.3327 7.98877 14.0827 7.23877 14.9993 7.23877H17.641M9.16602 18.8638V15.5721C9.16602 15.1301 8.99042 14.7062 8.67786 14.3936C8.3653 14.081 7.94138 13.9054 7.49935 13.9054C7.05732 13.9054 6.6334 13.7298 6.32084 13.4173C6.00828 13.1047 5.83268 12.6808 5.83268 12.2388V11.4054C5.83268 10.9634 5.65709 10.5395 5.34453 10.2269C5.03197 9.91436 4.60804 9.73877 4.16602 9.73877H1.70768M18.3327 10.5721C18.3327 15.1745 14.6017 18.9054 9.99935 18.9054C5.39698 18.9054 1.66602 15.1745 1.66602 10.5721C1.66602 5.96973 5.39698 2.23877 9.99935 2.23877C14.6017 2.23877 18.3327 5.96973 18.3327 10.5721Z" stroke="url(#paint0_linear_18257_93017)" stroke-width="1.42857" stroke-linecap="round" stroke-linejoin="round"/>
+<defs>
+<linearGradient id="paint0_linear_18257_93017" x1="17.94" y1="17.1271" x2="-0.107441" y2="-0.456322" gradientUnits="userSpaceOnUse">
+<stop stop-color="#12ADB7"/>
+<stop offset="1" stop-color="#125B54"/>
+</linearGradient>
+</defs>
+</svg>
+
+                  }
+                  label={"360° View"}
+                  title={"Understand your investments"}
+                  description={
+                    "Investing without understanding? That’s like driving without GPS in a new city. With KamayaKya, you’ll have all the information you need - market trends, company performance, and key details, to navigate your investment journey confidently."
+                  }
+                  video="/how_vid1.mp4"
+                  api={api}
+                  selectedIndex={current}
+                  isPlaying={isPlaying}
+                  index={2}
+                />
               </CarouselItem>
             </CarouselContent>
             <div className=" flex gap-4 mt-[10px] justify-center items-center">
@@ -301,6 +404,8 @@ export default function How() {
           plugins={[
             Autoplay({
               delay: 6000,
+              stopOnMouseEnter: true,
+              stopOnInteraction: false,
             }),
           ]}
           setApi={setApi}

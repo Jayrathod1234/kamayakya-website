@@ -2267,3 +2267,60 @@ header > div > div {
     }
   }
 }
+
+
+.scroll-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  will-change: transform;
+}
+
+.scroll-container .ghost {
+  width: 100vw;
+}
+
+.thumbnails-container {
+  position: relative;
+  height: 100vh;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  padding: 0 160px;
+  background-color: black;
+  border: 40px solid yellowgreen;
+}
+
+.thumbnails-container .thumbnails {
+  position: relative;
+  display: flex;
+  border: 20px solid yellow;
+}
+
+.thumbnails-container .thumbnails > *:not(:last-child) {
+  margin-right: 45px;
+}
+
+.thumbnails-container .thumbnails .thumbnail {
+  height: 40vh;
+  width: 700px;
+  background-color: royalblue;
+  border: 15px solid magenta;
+}
+
+
+.news__carousel:not(.is-snapped){
+  opacity:0.16;
+}
+
+.news__carousel:not(.is-snapped) .channel_name{
+  display:none;
+}
+
+.news__carousel.is-snapped{
+  flex-basis:1.2;
+}
+
+/* *{
+  outline:1px solid black;
+} */

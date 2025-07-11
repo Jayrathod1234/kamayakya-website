@@ -56,18 +56,18 @@ const items = [
 
 // Optional: Helper to generate safe filenames (convert spaces, special chars)
 function getImageName(text: string) {
-  return "./landing/" + text.replace(/ - /g, "_") + ".png";
+  return "./landing/" + text.replace(/ - /g, "_") + ".jpg";
 }
 
 export default function OnGroundVerification() {
   return (
-    <div className="sm:px-5">
-      <div className="py-[50px] sm:py-20 bg-[#01272E] open_sans sm:rounded-[28px]">
-        <p className="font-bold text-[#FF9E29] text-center max-sm:text-sm max-sm:px-4">ON-GROUND VERIFICATION</p>
-        <h2 className="text-display-xs sm:text-2xl font-bold mb-2 text-center text-white max-sm:px-4">
+    <div className="md:px-5">
+      <div className="py-[50px] md:py-20 bg-[#01272E] open_sans md:rounded-[28px]">
+        <p className="font-bold text-[#FF9E29] text-center max-md:text-sm max-md:px-4">ON-GROUND VERIFICATION</p>
+        <h2 className="text-display-xs md:text-2xl font-bold mb-2 text-center text-white max-md:px-4">
           The Power of Scuttlebutt - Where Research Meets Reality
         </h2>
-        <p className="text-sm sm:text-lg text-[#FFFFFFB2] mb-10 text-center max-sm:px-4">
+        <p className="text-sm sm:text-lg text-[#FFFFFFB2] mb-10 text-center max-md:px-4">
           We go the extra mile to validate our research on the ground, delivering insights you can count on. Because
           real-world validation is the backbone of smart investing.
         </p>
@@ -84,7 +84,7 @@ export default function OnGroundVerification() {
           className="w-full max-sm:mt-7"
         >
           <CarouselContent> */}
-        <Marquee pauseOnHover className="[--duration:80s]">
+        <Marquee pauseOnHover className="[--duration:80s] cursor-[url(/carousel-pause-icon.svg),auto]">
           {items.map((item, idx) => {
             if (Array.isArray(item)) {
               const [img1, img2] = item;
@@ -92,44 +92,30 @@ export default function OnGroundVerification() {
               const img2Path = getImageName(img2);
 
               return (
-                // <CarouselItem className=" basis-auto">
-                <div key={idx} className="flex flex-col space-y-4 h-full">
-                  <div className=" rounded-xl overflow-hidden flex flex-col">
-                    <img
-                      className="min-w-full h-full max-h-[116px] sm:max-h-[294px] object-contain max-w-[300px]"
-                      src={img1Path}
-                      alt={img1}
-                    />
-                    <p className=" bg-[#003336] py-[5.5px] font-semibold text-center text-4xs text-gray-25">{img1}</p>
+                <div key={idx} className="flex flex-col space-y-4 h-full max-h-[480px] w-[300px]">
+                  <div className="rounded-xl flex-1 overflow-hidden flex flex-col min-h-0">
+                    <img className="w-full flex-1 object-cover min-h-[200px]" src={img1Path} alt={img1} />
+                    <p className="bg-[#003336] py-[5.5px] font-semibold text-center text-xs text-gray-25 flex-shrink-0">
+                      {img1}
+                    </p>
                   </div>
-                  <div className=" rounded-xl overflow-hidden flex flex-col">
-                    <img
-                      className="min-w-full h-full max-h-[116px] sm:max-h-[294px] object-contain max-w-[300px]"
-                      src={img2Path}
-                      alt={img2}
-                    />
-                    <p className=" bg-[#003336] py-[5.5px] font-semibold text-center text-4xs text-gray-25">{img2}</p>
+                  <div className="rounded-xl flex-1 overflow-hidden flex flex-col min-h-0">
+                    <img className="w-full flex-1 object-cover min-h-[200px]" src={img2Path} alt={img2} />
+                    <p className="bg-[#003336] py-[5.5px] font-semibold text-center text-xs text-gray-25 flex-shrink-0">
+                      {img2}
+                    </p>
                   </div>
                 </div>
-
-                // </CarouselItem>
               );
             } else {
               const imgPath = getImageName(item);
               return (
-                // <CarouselItem className=" basis-auto">
-                <div key={idx} className="h-full">
-                  <div className=" rounded-xl overflow-hidden flex flex-col">
-                    <img
-                      key={idx}
-                      className="min-w-full max-h-[241px] h-full sm:max-h-[604px] object-contain max-w-[300px]"
-                      src={imgPath}
-                      alt={item}
-                    />
-                    <p className=" bg-[#003336] py-[5.5px] font-semibold text-center text-4xs text-gray-25">{item}</p>
-                  </div>
+                <div key={idx} className="h-full max-h-[480px] w-[300px] rounded-xl flex flex-col overflow-hidden">
+                  <img className="w-full flex-1 object-cover min-h-[400px]" src={imgPath} alt={item} />
+                  <p className="bg-[#003336] py-[5.5px] font-semibold text-center text-xs text-gray-25 flex-shrink-0">
+                    {item}
+                  </p>
                 </div>
-                // </CarouselItem>
               );
             }
           })}

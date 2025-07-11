@@ -242,3 +242,18 @@ export const getDigioIdandSendPdf = async (params)=>{
     throw error;
   }
 }
+
+
+
+export const getRazorpayPayload = async (params)=>{
+  try {
+    const URL = `/user/userDetails/`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL+params);
+    return response.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}

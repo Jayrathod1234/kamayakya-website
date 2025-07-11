@@ -1,34 +1,31 @@
 "use client";
+import { getRazorpayPayload } from "@/api/payment";
+import { axiosApi } from "@/utils/axios";
 import { Home, Loader2, XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-
 interface DocumentSigningFailedProps {
-  errorMessage?: string
-  redirectDelay?: number
-  onRetry?: () => void
+  errorMessage?: string;
+  redirectDelay?: number;
+  onRetry?: () => void;
 }
-
 
 interface LoadingPaymentGatewayProps {
-  amount?: number
-  planName?: string
+  amount?: number;
+  planName?: string;
 }
 
-export function LoadingPaymentGateway({
-  amount = 2999,
-  planName = "Premium Plan",
-}: LoadingPaymentGatewayProps) {
-  const [dots, setDots] = useState("")
+export function LoadingPaymentGateway({ amount = 2999, planName = "Premium Plan" }: LoadingPaymentGatewayProps) {
+  const [dots, setDots] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDots((prev) => (prev.length >= 3 ? "" : prev + "."))
-    }, 500)
+      setDots((prev) => (prev.length >= 3 ? "" : prev + "."));
+    }, 500);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="bg-gray-200 open_sans min-h-screen flex items-center justify-center p-4">
@@ -108,35 +105,34 @@ export function LoadingPaymentGateway({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-
-export  function DocumentSigningFailed({
+export function DocumentSigningFailed({
   errorMessage = "Document signing failed due to a technical error. Please try again.",
   redirectDelay = 10,
   onRetry,
 }: DocumentSigningFailedProps) {
-  const [countdown, setCountdown] = useState(redirectDelay)
-  const router = useRouter()
+  const [countdown, setCountdown] = useState(redirectDelay);
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          router.replace("/")
-          return 0
+          router.replace("/");
+          return 0;
         }
-        return prev - 1
-      })
-    }, 1000)
+        return prev - 1;
+      });
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [router])
+    return () => clearInterval(timer);
+  }, [router]);
 
   const handleGoHome = () => {
-    router.push("/")
-  }
+    router.push("/");
+  };
 
   return (
     <div className="bg-gray-200 open_sans min-h-screen flex items-center justify-center p-4">
@@ -214,39 +210,80 @@ export  function DocumentSigningFailed({
         </div>
       </div>
     </div>
-  )
+  );
 }
-
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
   const [signingStatus, setSigningStatus] = useState("");
-  const [orderDetails,setOrderDetails] =useState({})
+  const [orderDetails, setOrderDetails] = useState({});
   const router = useRouter();
   const params = useSearchParams();
 
-  const loadRazorpayScript = () => {
-    return new Promise((resolve, reject) => {
-      if (typeof window === "undefined") return reject("Not in browser");
+  // const loadRazorpayScript = () => {
+  //   return new Promise((resolve, reject) => {
+  //     if (typeof window === "undefined") return reject("Not in browser");
 
-      if (document.getElementById("razorpay-script")) {
-        return resolve(true); // Already loaded
+  //     if (document.getElementById("razorpay-script")) {
+  //       return resolve(true); // Already loaded
+  //     }
+  //     const script = document.createElement("script");
+  //     script.id = "razorpay-script";
+  //     script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  //     script.onload = () => resolve(true);
+  //     script.onerror = () => reject("Razorpay SDK failed to load");
+  //     document.body.appendChild(script);
+  //   });
+  // };
+
+  const loadRazorpayScript = (retryCount = 0) => {
+  return new Promise((resolve, reject) => {
+    if (typeof window === "undefined") return reject("Not in browser");
+    
+    if (window.Razorpay) return resolve(true);
+    
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    
+    const timeout = setTimeout(() => {
+      script.remove();
+      if (retryCount < 2) {
+        loadRazorpayScript(retryCount + 1).then(resolve).catch(reject);
+      } else {
+        reject("Razorpay SDK load timeout after retries");
       }
-
-      const script = document.createElement("script");
-      script.id = "razorpay-script";
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => resolve(true);
-      script.onerror = () => reject("Razorpay SDK failed to load");
-      document.body.appendChild(script);
-    });
-  };
+    }, 10000); // 10 second timeout
+    
+    script.onload = () => {
+      clearTimeout(timeout);
+      if (window.Razorpay) {
+        resolve(true);
+      } else {
+        reject("Razorpay object not available");
+      }
+    };
+    
+    script.onerror = () => {
+      clearTimeout(timeout);
+      script.remove();
+      if (retryCount < 2) {
+        loadRazorpayScript(retryCount + 1).then(resolve).catch(reject);
+      } else {
+        reject("Razorpay SDK failed to load after retries");
+      }
+    };
+    
+    document.head.appendChild(script);
+  });
+};
 
   const handleRazorpayScreen = (options: any) => {
     const paymentObject = new window.Razorpay(options);
     let paymentFailed = false;
 
     paymentObject.on("payment.failed", function (response: any) {
+      console.log(response)
       if (!paymentFailed) {
         paymentFailed = true;
         alert(response.error.description);
@@ -270,7 +307,8 @@ export default function Index() {
       image: "https://example.com/your_logo",
       order_id: orderId,
       handler: function (response: unknown) {
-        console.log(response)
+        console.log("RZP RESPONSE ",response);
+         localStorage.removeItem("razorpayData");
         router.push("/payments/successful");
       },
       prefill: {
@@ -283,41 +321,102 @@ export default function Index() {
       },
       theme: {
         color: "#0b3a36",
-        backdrop_color: "#ea3546",
+        backdrop_color: "#fff",
       },
+      modal:{
+        ondismiss:()=>{
+          router.replace("/pricing")
+        }
+      }
     };
 
     handleRazorpayScreen(options);
   };
-
-  useEffect(() => {
+const getStorageData = () => {
+  try {
     const rawData = sessionStorage.getItem("razorpayData");
-    const status = params.get("status");
-    if (status) {
-      setLoading(false);
-      setSigningStatus(status);
-    }
-    if (rawData && status === "success") {
-      const { name, email, phone, order_id, amount } = JSON.parse(rawData);
-      setOrderDetails({name, email, phone, order_id, amount})
-      loadRazorpayScript()
-        .then(() => {
-          if (typeof window !== "undefined" && window.Razorpay) {
-            makePayment(name, email, phone, order_id, amount);
-          } else {
-            alert("Razorpay SDK not available");
-          }
-        })
-        .catch((err) => {
-          console.error("Razorpay SDK load error:", err);
-          alert("Failed to load Razorpay SDK");
-        });
-    }
-  }, [params]);
+    return rawData ? JSON.parse(rawData) : null;
+  } catch (error) {
+    console.error("SessionStorage error:", error);
+    return null;
+  }
+};
+  // useEffect(() => {
+  //   const rawData = sessionStorage.getItem("razorpayData");
+  //   const status = params.get("status");
+  //   if (status) {
+  //     setLoading(false);
+  //     setSigningStatus(status);
+  //   }
+  //   if (rawData && status === "success") {
+  //     const { name, email, phone, order_id, amount } = JSON.parse(rawData);
+  //     setOrderDetails({ name, email, phone, order_id, amount });
+  //     loadRazorpayScript()
+  //       .then(() => {
+  //         if (typeof window !== "undefined" && window.Razorpay) {
+  //           makePayment(name, email, phone, order_id, amount);
+  //         } else {
+  //           alert("Razorpay SDK not available");
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.error("Razorpay SDK load error:", err);
+  //         alert("Failed to load Razorpay SDK");
+  //       });
+  //   }
+  // }, [params, router]);
 
-  if (signingStatus === "success" || loading) {
-    return <LoadingPaymentGateway amount={orderDetails.amount}/>;
+  const getPayload = async(digioId)=>{
+    try{
+      const res = await getRazorpayPayload(digioId);
+      console.log("RESPONSE PAYLOAD",res )
+      return res
+    }catch(e){
+      console.error(e)
+      throw new Error("Unable to fetch payment details. Please try again.");
+    }
   }
 
-  if (signingStatus !== "success" && signingStatus.length !== 0 && !loading) return <DocumentSigningFailed/>;
+  useEffect(() => {
+  const initializePayment = async () => {
+    try {
+      // const rawData = getStorageData();
+      const status = params?.get("status");
+      const digioId = params?.get("digio_doc_id")
+      let response
+      if (status && digioId) {
+        setLoading(false);
+        setSigningStatus(status);
+       response = await getPayload(digioId)    
+      }
+      
+      if (response && status === "success") {
+        const { name, email, phone, order_id, amount } = response;
+        setOrderDetails({ name, email, phone, order_id, amount });
+        
+        await loadRazorpayScript();
+        
+        if (typeof window !== "undefined" && window.Razorpay) {
+          makePayment(name, email, phone, order_id, amount);
+        } else {
+          throw new Error("Razorpay SDK not available after loading");
+        }
+      }
+    } catch (error) {
+      console.error("Payment initialization error:", error);
+      // Show user-friendly error message
+      alert("Unable to load payment gateway. Please try again or contact support.");
+      // Optionally redirect to error page
+      router.push("/pricing")
+    }
+  };
+  
+  initializePayment();
+}, [params, router]);
+
+  if (signingStatus === "success" || loading) {
+    return <LoadingPaymentGateway amount={orderDetails.amount} />;
+  }
+
+  if (signingStatus !== "success" && signingStatus.length !== 0 && !loading) return <DocumentSigningFailed />;
 }
