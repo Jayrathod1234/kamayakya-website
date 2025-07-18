@@ -247,10 +247,12 @@ investors</h3>
 
         <h4>Don’ts</h4>
         <ul>
-          <li>Don’t give funds to the Research Analyst</li>
-          <li>Don’t fall for advertisements or rumors</li>
-          <li>Don’t be influenced by gifts or discounts</li>
-          <li>Never share your trading/demat/bank account credentials</li>
+          <li>Do not provide funds for investment to the Research Analyst.</li>
+          <li>Don’t fall prey to luring advertisements or market rumors.</li>
+          <li>Do not get attracted to limited period discount or other incentive, gifts, etc. offered by
+Research Analyst.</li>
+          <li>Do not share login credential and password of your trading, demat or bank accounts with
+the Research Analyst.</li>
         </ul>
       </div>
 
