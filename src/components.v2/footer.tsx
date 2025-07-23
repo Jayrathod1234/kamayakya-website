@@ -263,7 +263,7 @@ export function Footer() {
             </div>
             <p className=" text-sm text-center">
               Investment in securities market are subject to market risks. Read all the related documents carefully
-              before investing. Registration granted by SEBI and certification from NISM in no way guarantee performance
+              before investing. Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee performance
               of the intermediary or provide any assurance of returns to investors.<br/>BSE Enlistment No : 5583 <br/>
             </p>
             <div className=" flex flex-col gap-y-5 md:gap-y-12">

@@ -1317,7 +1317,12 @@ header > div > div {
 }
 
 .pricing *,.open_sans *,.open_sans {
-  @apply font-open_sans !important;
+  @apply font-open_sans;
+  letter-spacing: normal !important;
+}
+
+.open_sans_italic *,.open_sans_italic {
+  @apply font-open_sans_italic;
   letter-spacing: normal !important;
 }
 

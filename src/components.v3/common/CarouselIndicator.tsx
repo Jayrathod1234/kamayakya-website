@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { EmblaCarouselType } from "embla-carousel";
 
 type TCarouselIndicator = {
-  emblaApi:EmblaCarouselType;
+  emblaApi?: EmblaCarouselType;
   onClick: () => void;
   index: number;
   selectedIndex: number;
   animationDuration?: string;
   isPlaying?: boolean;
+  className?: string;
 };
 
 export default function CarouselIndicator({
@@ -17,6 +18,7 @@ export default function CarouselIndicator({
   selectedIndex,
   animationDuration,
   isPlaying,
+  className
 }: TCarouselIndicator) {
   const [currentAnimationTime, setCurrentAnimationTime] = useState(0);
   const progressRef = useRef<HTMLDivElement | null>(null);
@@ -43,23 +45,23 @@ export default function CarouselIndicator({
   }, [isPlaying, animationDuration]);
 
   useEffect(() => {
-    if (currentAnimationTime > 5890) {
-      emblaApi?.scrollNext();
+    if (currentAnimationTime > 5890 && emblaApi) {
+      emblaApi.scrollNext();
       const autoplay = emblaApi?.plugins()?.autoplay;
       if (!autoplay) return;
       const reset = autoplay.reset;
       reset();
     }
-  }, [currentAnimationTime]);
+  }, [currentAnimationTime, emblaApi]);
   // console.log(currentAnimationTime)
 
   return (
     <div
       onClick={onClick}
       key={index}
-      className={` ${
+      className={`  ${
         index === selectedIndex ? " !w-6 " : " w-[10px] "
-      } h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden cursor-pointer relative`}
+      }  h-[10px]  bg-gray-200 rounded-full transition-all duration-300 overflow-hidden cursor-pointer relative ${className}`}
     >
       <div
         ref={progressRef}

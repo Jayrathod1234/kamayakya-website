@@ -41,7 +41,7 @@ export default function FAQS() {
     <div className="  open_sans bg-[#F2F4F7] pt-[50px] pb-[100px]">
       <p className=" font-bold text-[#FF9E29] text-center max-md:text-sm">FAQS</p>
       <h2 className=" max-md:text-display-xs text-2xl font-bold mb-2 text-center text-gray-950">
-        Everything you need to know about the product and billing!
+        Everything you need to know about the <span className=" open_sans_italic">product and billing</span>!
       </h2>
       <Tabs defaultValue="getting_started" className="mt-10 main-container">
         <TabsList className="flex justify-center mb-6">

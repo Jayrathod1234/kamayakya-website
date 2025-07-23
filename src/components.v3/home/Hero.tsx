@@ -24,7 +24,7 @@ export default function Hero() {
   
   return (
     <div className=" ">
-      <div className=" min-h-[80vh] open_sans">
+      <div className=" lg:min-h-screen open_sans ">
         <div className="main-container mx-auto px-4  py-16 pt-[57.5px] lg:pt-[167px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center justify-center gap-12 lg:gap-16 xl:gap-20">
             {/* Left Content - Desktop First Column, Mobile Second */}
@@ -34,7 +34,7 @@ export default function Hero() {
                   <p className=" text-sm font-semibold text-brand-500">SEBI Registered: INH000009843</p>
                 </div>
                 <h1 className="font-medium text-gray-950 text-display-sm lg:text-[62px] leading-[110%]  tracing-[-3%] max-lg:mt-[10px]">
-                  Financial <span className=" text-brand-400 font-bold">Freedom</span> Starts Here!
+                  Financial <span className=" text-brand-400 font-bold open_sans_italic">Freedom</span> Starts Here!
                 </h1>
 
                 <p className=" text-xs lg:text-lg text-gray-800 max-w-2xl mx-auto lg:mx-0 max-lg:mt-2 ">

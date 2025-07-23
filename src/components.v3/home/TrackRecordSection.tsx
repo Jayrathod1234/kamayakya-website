@@ -23,8 +23,8 @@ export const TrackRecordSection = () => {
   return (
     <div className=" sm:main-container sm:py-[50px]">
       <div
-        className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px] sm:rounded-[28px] flex flex-col lg:flex-row  gap-x-[46px] ${
-          isLoggedIn ? "sm:flex-col text-center" : ""
+        className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px] sm:rounded-[28px] flex flex-col   gap-x-[46px] ${
+          isLoggedIn ? "sm:flex-col text-center" : " lg:flex-row"
         }`}
       >
         <div className="lg:flex-[0.6] max-lg:text-center open_sans lg:px-12 xl:px-20 ">

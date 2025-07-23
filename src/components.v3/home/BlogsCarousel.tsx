@@ -37,7 +37,7 @@ export default function BlogsCarousel() {
   return (
     <div className=" py-[50px] bg-gray-100 open_sans relative ">
       <p className=" font-bold text-[#FF9E29] text-center max-md:text-sm">BLOGS</p>
-      <h2 className=" text-display-xs md:text-2xl font-bold mb-0 md:mb-2 text-center text-gray-950">Deep dives into market trends and data</h2>
+      <h2 className=" text-display-xs md:text-2xl font-bold mb-0 md:mb-2 text-center text-gray-950">Deep dives into <span className=" open_sans_italic">market trends and data</span></h2>
       <Carousel className=" w-full relative pt-6 md:pt-10 pb-[50px]" setApi={setApi}>
         <CarouselContent>
           {blogs.map((blog: TBlog) => (

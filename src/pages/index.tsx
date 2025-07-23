@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Navbar, Footer, FeelingLost, Newsletter, Testimonials } from "@/components.v2/index.components";
 import "chartjs-adapter-date-fns";
 import ExpandableCardGroup from "@/components.v3/home/ExpandableCardGroup";
@@ -12,22 +12,50 @@ import FeaturedNews from "@/components.v3/home/FeaturedNews";
 import How from "@/components.v3/home/How";
 import Service from "@/components.v3/home/Service";
 import Team from "@/components.v3/home/Team";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion, useMotionValue, animate } from "framer-motion";
 import { TrackRecordSection } from "@/components.v3/home/TrackRecordSection";
 import { StockPickSection } from "@/components.v3/home/StockPicksSection";
 import Hero from "@/components.v3/home/Hero";
 import Stat from "@/components.v3/home/Stat";
+import { useMotionValueEvent } from "framer-motion";
 
 const Home: NextPage = () => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Create refs for each section
-  const sampleReportRef = useRef(null);
-  const trackRecordRef = useRef(null);
-  const trustUsRef = useRef(null);
-  const teamRef = useRef(null);
-  const howRef = useRef(null);
-  const stockPickRef = useRef(null);
+  const sampleReportRef = useRef<HTMLDivElement>(null);
+  const trackRecordRef = useRef<HTMLDivElement>(null);
+  const trustUsRef = useRef<HTMLDivElement>(null);
+  const teamRef = useRef<HTMLDivElement>(null);
+  const howRef = useRef<HTMLDivElement>(null);
+  const stockPickRef = useRef<HTMLDivElement>(null);
+
+  // New: Store section heights
+  const [sectionHeights, setSectionHeights] = React.useState({
+    sample: 1,
+    track: 1,
+    trust: 1,
+    team: 1,
+    how: 1,
+    stock: 1,
+    total: 6,
+  });
+
+  React.useEffect(() => {
+    function updateHeights() {
+      const sample = sampleReportRef.current?.offsetHeight || 1;
+      const track = trackRecordRef.current?.offsetHeight || 1;
+      const trust = trustUsRef.current?.offsetHeight || 1;
+      const team = teamRef.current?.offsetHeight || 1;
+      const how = howRef.current?.offsetHeight || 1;
+      const stock = stockPickRef.current?.offsetHeight || 1;
+      const total = sample + track + trust + team + how + stock;
+      setSectionHeights({ sample, track, trust, team, how, stock, total });
+    }
+    updateHeights();
+    window.addEventListener('resize', updateHeights);
+    return () => window.removeEventListener('resize', updateHeights);
+  }, []);
 
   // Get scroll progress for the entire container
   const { scrollYProgress } = useScroll({
@@ -66,24 +94,52 @@ const Home: NextPage = () => {
     offset: ["start center", "end center"],
   });
 
-  // Calculate cumulative progress based on which sections are in view
-  const pathLength = useTransform(
+  // Use a motion value for smooth path fill
+  const rawPathLength = useTransform(
     [sampleReportProgress, trackRecordProgress, trustUsProgress, teamProgress, howProgress, stockPickProgress],
     ([sample, track, trust, team, how, stock]) => {
       let progress = 0;
-      const sectionWeight = 1 / 6; // Each section represents 1/6 of the total path
-
-      // Add progress for each section that's in view
-      if (sample > 0) progress += sectionWeight * Math.min(sample, 1);
-      if (track > 0) progress += sectionWeight * Math.min(track, 1);
-      if (trust > 0) progress += sectionWeight * Math.min(trust, 1);
-      if (team > 0) progress += sectionWeight * Math.min(team, 1);
-      if (how > 0) progress += sectionWeight * Math.min(how, 1);
-      if (stock > 0) progress += sectionWeight * Math.min(stock, 1);
-
+      const wSample =1/5;
+      const wTrack =1/5;
+      const wTrust = 1/5;
+      const wTeam = 1/5;
+      const wHow =1/5;
+      const wStock = 1/5;
+      if (typeof sample === 'number' && sample > 0) progress += wSample * Math.min(sample, 1);
+      if (typeof track === 'number' && track > 0) progress += wTrack * Math.min(track, 1);
+      if (typeof trust === 'number' && trust > 0) progress += wTrust * Math.min(trust, 1);
+      if (typeof team === 'number' && team > 0) progress += wTeam * Math.min(team, 1);
+      if (typeof how === 'number' && how > 0) progress += wHow * Math.min(how, 1);
+      if (typeof stock === 'number' && stock > 0) progress += wStock * Math.min(stock, 1);
       return Math.min(progress, 1);
     }
   );
+  const pathLength = useMotionValue(0);
+  useEffect(() => {
+    const unsubscribe = rawPathLength.onChange((v) => {
+      animate(pathLength, v, { type: 'spring', stiffness: 200, damping: 30 });
+    });
+    // Set initial value
+    pathLength.set(rawPathLength.get());
+    return () => unsubscribe && unsubscribe();
+  }, [rawPathLength]);
+
+  const pathRef = useRef<SVGPathElement>(null);
+  const [circlePos, setCirclePos] = useState({ x: 0, y: 0 });
+  const motionX = useMotionValue(0);
+  const motionY = useMotionValue(0);
+
+  // Use useMotionValueEvent to sync circle position to the *actual* animated value of pathLength
+  useMotionValueEvent(pathLength, "change", (v) => {
+    if (!pathRef.current) return;
+    const pathEl = pathRef.current;
+    const totalLength = pathEl.getTotalLength();
+    const currentLength = v * totalLength;
+    const { x, y } = pathEl.getPointAtLength(currentLength);
+    setCirclePos({ x, y });
+    animate(motionX, x, { type: 'spring', stiffness: 200, damping: 30 });
+    animate(motionY, y, { type: 'spring', stiffness: 200, damping: 30 });
+  });
 
   return (
     <>
@@ -99,8 +155,9 @@ const Home: NextPage = () => {
       >
         <img className=" h-full w-full max-h-[56px] max-w-[56px] lg:max-h-[88px] lg:max-w-[88px]" height={88} width={88} src="/landing/float.png" alt="float"  />
       </motion.div>
-      <div className=" bg-[#F4FFFF]">
-        <Navbar className=" open_sans" />
+      <Navbar className=" open_sans bg-[#F4FFFF]" />
+
+      <div className=" bg-[#F4FFFF] bg-[url('/landing/hero_grid.png')] bg-cover bg-center">
         <Hero />
       </div>
       <Stat />
@@ -115,7 +172,7 @@ const Home: NextPage = () => {
         {/* <svg
         className="absolute left-[0%] w-full pointer-events-none"
         width="1380"
-        height="3835"
+        height={containerRef.current ? containerRef.current.clientHeight : 3835}
         viewBox="0 0 1380 3914"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -129,22 +186,29 @@ const Home: NextPage = () => {
       <svg
         className="absolute left-[0%] w-full pointer-events-none"
         width="1380"
-        height="3835"
+        height={containerRef.current ? containerRef.current.clientHeight : 3835}
         viewBox="0 0 1380 3914"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <motion.path
+          ref={pathRef}
           d="M661 0V43.0V43.0129C661 49.6403 655.627 55.0048 649 55.0129H13C6.37257 55.0129 1 60.3855 1 67.0048V3842.96C1 3849.59 6.37258 3854.96 13 3854.96H649C655.627 3854.96 661 3860.33 661 3866.96V3914"
           stroke="#12B76A"
           strokeWidth="2"
           strokeDasharray="5300"
           strokeDashoffset="0"
-          style={{
-            pathLength,
-          }}
+          style={{ pathLength }}
+        />
+        <motion.circle
+          cx={motionX}
+          cy={motionY}
+          r={8}
+          fill="#75CDC5"
+          stroke="#12B76A"
         />
       </svg> */}
+     
 
         {/* Add refs to each section */}
         <div ref={sampleReportRef}>
@@ -162,16 +226,17 @@ const Home: NextPage = () => {
         <div ref={howRef}>
           <How />
         </div>
-        <div ref={stockPickRef}>
+       
+      </div>
+      <div ref={stockPickRef}>
           <StockPickSection />
         </div>
-      </div>
       <div id="testimonials" className="pt-[60px] pb-[52px] md:py-[60px] bg-gray-100 relative ">
         <Testimonials />
       </div>
       <FeaturedNews />
       <BlogsCarousel />
-      <FAQS />
+      {/* <FAQS /> */}
       <div id="feeling-lost" className=" bg-gray-100">
         <FeelingLost />
       </div>

@@ -62,67 +62,81 @@ function getImageName(text: string) {
 export default function OnGroundVerification() {
   return (
     <div className="md:px-5">
-      <div className="py-[50px] md:py-20 bg-[#01272E] open_sans md:rounded-[28px]">
-        <p className="font-bold text-[#FF9E29] text-center max-md:text-sm max-md:px-4">ON-GROUND VERIFICATION</p>
-        <h2 className="text-display-xs md:text-2xl font-bold mb-2 text-center text-white max-md:px-4">
-          The Power of Scuttlebutt - Where Research Meets Reality
-        </h2>
-        <p className="text-sm sm:text-lg text-[#FFFFFFB2] mb-10 text-center max-md:px-4">
-          We go the extra mile to validate our research on the ground, delivering insights you can count on. Because
-          real-world validation is the backbone of smart investing.
-        </p>
+      <div className="relative py-[50px] md:py-20 bg-[#01272E] open_sans md:rounded-[28px] overflow-hidden">
+        {/* Background image using <img> */}
+        <img
+          src="/landing/visit-bg.png"
+          alt="On-ground verification background"
+          className="absolute inset-0 w-full h-full object-cover opacity-50 top-[-60px]"
+          style={{ zIndex: 0 }}
+        />
 
-        {/* <Carousel
-          opts={{
-            loop:true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-            }),
-          ]}
-          className="w-full max-sm:mt-7"
-        >
-          <CarouselContent> */}
-        <Marquee pauseOnHover className="[--duration:80s] cursor-[url(/carousel-pause-icon.svg),auto]">
-          {items.map((item, idx) => {
-            if (Array.isArray(item)) {
-              const [img1, img2] = item;
-              const img1Path = getImageName(img1);
-              const img2Path = getImageName(img2);
+        {/* Content */}
+        <div className="relative z-10">
+          <p className="font-bold text-[#FF9E29] text-center max-md:text-sm max-lg:px-4">ON-GROUND VERIFICATION</p>
+          <h2 className="text-display-xs sm:text-display-md font-bold mb-2 text-center text-white max-lg:px-4">
+            The Power of <span className=" open_sans_italic">Scuttlebutt</span>
+          </h2>
+          <p className="text-sm sm:text-xl text-[#FFFFFFB2] mb-10 text-center max-lg:px-4">
+            Where Research Meets Reality
+          </p>
 
-              return (
-                <div key={idx} className="flex flex-col space-y-4 h-full max-h-[480px] w-[300px]">
-                  <div className="rounded-xl flex-1 overflow-hidden flex flex-col min-h-0">
-                    <img className="w-full flex-1 object-cover min-h-[200px]" src={img1Path} alt={img1} />
+          {/* <Carousel
+            opts={{
+              loop:true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 2000,
+              }),
+            ]}
+            className="w-full max-sm:mt-7"
+          >
+            <CarouselContent> */}
+          <Marquee pauseOnHover className="[--duration:80s] cursor-[url(/carousel-pause-icon.svg),auto]">
+            {items.map((item, idx) => {
+              if (Array.isArray(item)) {
+                const [img1, img2] = item;
+                const img1Path = getImageName(img1);
+                const img2Path = getImageName(img2);
+
+                return (
+                  <div key={idx} className="flex flex-col space-y-4 h-full max-h-[480px] w-[300px]">
+                    <div className="rounded-xl flex-1 overflow-hidden flex flex-col min-h-0">
+                      <img className="w-full flex-1 object-cover min-h-[200px]" src={img1Path} alt={img1} />
+                      <p className="bg-[#003336] py-[5.5px] font-semibold text-center text-xs text-gray-25 flex-shrink-0">
+                        {img1}
+                      </p>
+                    </div>
+                    <div className="rounded-xl flex-1 overflow-hidden flex flex-col min-h-0">
+                      <img className="w-full flex-1 object-cover min-h-[200px]" src={img2Path} alt={img2} />
+                      <p className="bg-[#003336] py-[5.5px] font-semibold text-center text-xs text-gray-25 flex-shrink-0">
+                        {img2}
+                      </p>
+                    </div>
+                  </div>
+                );
+              } else {
+                const imgPath = getImageName(item);
+                return (
+                  <div key={idx} className="h-full max-h-[480px] w-[300px] rounded-xl flex flex-col overflow-hidden">
+                    <img className="w-full flex-1 object-cover min-h-[400px]" src={imgPath} alt={item} />
                     <p className="bg-[#003336] py-[5.5px] font-semibold text-center text-xs text-gray-25 flex-shrink-0">
-                      {img1}
+                      {item}
                     </p>
                   </div>
-                  <div className="rounded-xl flex-1 overflow-hidden flex flex-col min-h-0">
-                    <img className="w-full flex-1 object-cover min-h-[200px]" src={img2Path} alt={img2} />
-                    <p className="bg-[#003336] py-[5.5px] font-semibold text-center text-xs text-gray-25 flex-shrink-0">
-                      {img2}
-                    </p>
-                  </div>
-                </div>
-              );
-            } else {
-              const imgPath = getImageName(item);
-              return (
-                <div key={idx} className="h-full max-h-[480px] w-[300px] rounded-xl flex flex-col overflow-hidden">
-                  <img className="w-full flex-1 object-cover min-h-[400px]" src={imgPath} alt={item} />
-                  <p className="bg-[#003336] py-[5.5px] font-semibold text-center text-xs text-gray-25 flex-shrink-0">
-                    {item}
-                  </p>
-                </div>
-              );
-            }
-          })}
-        </Marquee>
-
-        {/* </CarouselContent>
-        </Carousel> */}
+                );
+              }
+            })}
+          </Marquee>
+          <p className="text-sm sm:text-md text-[#FFFFFFB2] mb-10 text-center max-lg:px-4 pt-[60px]">
+            We go the extra mile to <span className=" font-bold text-[#E5F4F6]">validate our research on the ground</span>,
+            delivering insights you can count on. Because real-world validation is the backbone of{" "}
+            <span className=" font-bold text-[#E5F4F6]">smart investing</span>.{" "}
+          </p>
+          {/* </CarouselContent>
+          </Carousel> */}
+        </div>
       </div>
     </div>
   );

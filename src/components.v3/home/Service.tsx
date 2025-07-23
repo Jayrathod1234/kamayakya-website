@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { AnimatedList } from "@/components.v2/magicui/animated-list";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@mui/material";
@@ -93,7 +93,7 @@ const ServiceCard = ({ hero, title, description, className }: IServiceCard) => {
 let SERVICE_DATA = [
   {
     title: "📈 Smart Stock Recommendations",
-    description: "From Main Board to SMEs—curated stock picks with clear Buy/Hold/Sell alerts.",
+    description: "From Main Board to SMEs-curated stock picks with clear Buy/Hold/Sell alerts.",
     hero: (
       <div className="relative flex flex-row items-center justify-center gap-x-[65px] h-full max-h-[220px] overflow-hidden">
         <div className=" p-2 flex items-center border border-white/50 bg-white/25 rounded-full absolute backdrop-blur-md z-10">
@@ -107,22 +107,22 @@ let SERVICE_DATA = [
           </svg>
           <p className=" text-xs text-white font-medium ml-2">More than 5000 listed companies</p>
         </div>
-        <Marquee className="flex-shrink-0" vertical>
+        <Marquee className="flex-shrink-0 [--duration:8s]" vertical>
           {new Array(5).fill(0).map((item, index) => (
             <img key={index} className="rounded-full" height={44} width={44} src={`/landing/listed/${index + 1}.png`} />
           ))}
         </Marquee>
-        <Marquee className="flex-shrink-0" vertical reverse>
+        <Marquee className="flex-shrink-0 [--duration:8s]" vertical reverse>
           {new Array(5).fill(0).map((item, index) => (
             <img key={index} className="rounded-full" height={44} width={44} src={`/landing/listed/${index + 1}.png`} />
           ))}
         </Marquee>
-        <Marquee className="flex-shrink-0" vertical>
+        <Marquee className="flex-shrink-0 [--duration:8s]" vertical>
           {new Array(5).fill(0).map((item, index) => (
             <img key={index} className="rounded-full" height={44} width={44} src={`/landing/listed/${index + 1}.png`} />
           ))}
         </Marquee>
-        <Marquee className="flex-shrink-0" vertical reverse>
+        <Marquee className="flex-shrink-0 [--duration:8s]" vertical reverse>
           {new Array(5).fill(0).map((item, index) => (
             <img key={index} className="rounded-full" height={44} width={44} src={`/landing/listed/${index + 1}.png`} />
           ))}
@@ -146,19 +146,19 @@ let SERVICE_DATA = [
     hero: (
       <div className="flex items-center justify-center">
         <Lottie
-          className="  h-[220px] xl:h-[228px] block object-contain"
+          className="  h-[220px] block object-contain"
           autoPlay
-          loop={false}
+          loop={true}
           animationData={FUNNEL}
         />
       </div>
     ),
     className: " sm:row-span-2 sm:col-start-2",
-    serviceClassName: "",
+    serviceClassName: "py-0 p-0",
   },
   {
     title: "🔔 Real-Time Notifications",
-    description: "Get instant alerts (Email/WhatsApp) when it’s time to act—no second-guessing.",
+    description: "Get instant alerts (Email/WhatsApp) when it’s time to act-no second-guessing.",
     hero: (
       <div className="relative flex w-full flex-col overflow-hidden p-6 px-4 lg:p-8 pb-0 h-[80%]">
         <div className=" absolute z-20 -bottom-1 lg:bottom-0 left-0 w-full h-[150px] bg-[linear-gradient(0deg,#053C3A_10.37%,rgba(5,59,58,0.00)_100%)]"></div>
@@ -175,7 +175,7 @@ let SERVICE_DATA = [
   {
     title: "🧺 Model Portfolios (Stock Baskets)",
     description:
-      "Diversify effortlessly with pre-built model portfolios on smallcase and Starfolio by Trendlyne—invest smart, stay relaxed.",
+      "Diversify effortlessly with pre-built model portfolios on smallcase and Starfolio by Trendlyne-invest smart, stay relaxed.",
     hero: (
       <video
         // height={233}
@@ -219,25 +219,46 @@ interface MobileServiceCardListParams {
 
 const MobileServiceCardList = ({ scrollYProgress, targetRef }: MobileServiceCardListParams) => {
   const isMobile = useMediaQuery("(max-width:640px)");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(375);
 
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", isMobile ? "-301%" : "-120%"]);
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  // Calculate the total width of all cards plus gaps
+  const cardWidth = 317;
+  const gap = 16;
+  const totalCards = SERVICE_DATA.length;
+  const totalWidth = (cardWidth * totalCards) + (gap * (totalCards - 1));
+  
+  // Calculate scroll distance based on actual container width
+  const scrollDistance = -(totalWidth - containerWidth + 32);
+  
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", `${scrollDistance}px`]);
+  
   return (
-    // <section ref={targetRef} className="relative h-[300vh] bg-neutral-900">
-    // <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-    <motion.div style={{ x }} className="flex gap-4 mt-10">
-      {SERVICE_DATA.map((data) => (
-        // <CarouselItem>
-        <ServiceCard
-          className="min-w-[317px] w-[317px] max-md:max-w-[317px]"
-          title={data.title}
-          description={data.description}
-          hero={data.hero}
-        />
-        // </CarouselItem>
-      ))}
-    </motion.div>
-    //  </div>
-    //  </section>
+    <div ref={containerRef} className="lg:hidden overflow-hidden px-4">
+      <motion.div style={{ x }} className="flex gap-4 mt-10">
+        {SERVICE_DATA.map((data, index) => (
+          <ServiceCard
+            key={`${data.title}-${index}`}
+            className="min-w-[317px] w-[317px] max-md:max-w-[317px] flex-shrink-0"
+            title={data.title}
+            description={data.description}
+            hero={data.hero}
+          />
+        ))}
+      </motion.div>
+    </div>
   );
 };
 
@@ -245,26 +266,46 @@ export default function Service() {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    offset: ["start start", "end end"]
   });
 
   return (
-    <div ref={targetRef} className="lg:px-5 max-sm:relative max-lg:h-[300vh] max-lg:bg-[#01272E]">
-      {/* SERVICES START */}
-      <div className="px-4 py-[50px] lg:p-20 bg-[#01272E] lg:rounded-[28px] open_sans relative max-lg:sticky max-lg:top-0 ">
-        <div className="main-container max-h-[800px] ">
-          <p className="text-[#FF9E29] font-semibold sm:font-bold text-center max-sm:text-sm">SERVICES</p>
-          <p className=" text-display-xs sm:text-display-md font-bold text-center mt-3 text-white">
-            Smart Investment Solutions
-          </p>
-          <DesktopServiceCardList />
-          <MobileServiceCardList targetRef={targetRef} scrollYProgress={scrollYProgress} />
+    <div className="bg-[#01272E]">
+      {/* Mobile scroll container */}
+      <div ref={targetRef} className="lg:hidden h-[300vh] relative">
+        {/* Sticky content container */}
+        <div className="sticky top-0 h-screen flex items-center overflow-hidden sticky_container">
+          <div className="w-full">
+            {/* SERVICES START */}
+            <div className="py-[50px] bg-[#01272E] open_sans">
+              <div className="main-container">
+                <p className="text-[#FF9E29] font-semibold sm:font-bold text-center max-sm:text-sm">SERVICES</p>
+                <p className="text-display-xs sm:text-display-md font-bold text-center mt-3 text-white">
+                  Smart <span className="open_sans_italic">Investment</span> Solutions
+                </p>
+                <MobileServiceCardList targetRef={targetRef} scrollYProgress={scrollYProgress} />
+              </div>
+            </div>
+            {/* SERVICES END */}
+          </div>
         </div>
-        <p className=" open_sans text-center text-white max-lg:hidden ">
-          **The stocks shown are for representation only. These are past recommendations and may no longer be part of
-          our active investments. They are not current buy recommendations.**
-        </p>
       </div>
-      {/* SERVICES END */}
+
+      {/* Desktop layout */}
+      <div className="hidden lg:block">
+        <div className="py-[50px] lg:p-20 bg-[#01272E] open_sans relative">
+          <div className="main-container max-h-[800px]">
+            <p className="text-[#FF9E29] font-semibold sm:font-bold text-center max-sm:text-sm">SERVICES</p>
+            <p className="text-display-xs sm:text-display-md font-bold text-center mt-3 text-white">
+              Smart <span className="open_sans_italic">Investment</span> Solutions
+            </p>
+            <DesktopServiceCardList />
+          </div>
+          <p className="open_sans open_sans_italic text-center text-white text-sm pt-10 text-[#BBD4D7CC]">
+          <span className="font-bold">Note :</span> The stocks shown are for representation only. These are past recommendations and may no longer be part of our active investments. They are not current buy recommendations.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

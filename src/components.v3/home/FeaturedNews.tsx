@@ -113,8 +113,8 @@ interface INewsReview {
 function NewsReview({ channelName, review }: INewsReview) {
   return (
     <>
-      <p className=" text-[#FFFFFFE0] md:text-display-xs font-medium italic text-center px-4">{review}</p>
-      <p className=" max-md:text-xs text-[#FFFFFFAD] text-center">- {channelName}</p>
+      <p className=" text-[#FFFFFFE0] md:text-display-xs font-medium open_sans_italic text-center px-4">{review}</p>
+      <p className=" max-md:text-xs text-[#FFFFFFAD] text-center mt-5">- {channelName}</p>
     </>
   );
 }
@@ -132,7 +132,7 @@ const DesktopCarousel = ({
       setApi={setMainApi}
       plugins={[
         Autoplay({
-          delay: 2000,
+          delay: 4000,
           stopOnMouseEnter: true,
           stopOnInteraction: false,
         }),
@@ -156,9 +156,10 @@ interface MobileCarouselProps {
   thumbApi: EmblaCarouselType | null | undefined;
   current: number;
   setCurrent:React.Dispatch<React.SetStateAction<number>>;
+  mainApi: EmblaCarouselType | null | undefined;
 }
 
-const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent }: MobileCarouselProps) => {
+const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent, mainApi }: MobileCarouselProps) => {
   const [isPlaying,setIsPlaying] = useState(false);
   const isMobile = useMediaQuery("(max-width:1024px)");
   const { scrollSnaps, onDotButtonClick } = useDotButton(thumbApi as EmblaCarouselType);
@@ -166,6 +167,9 @@ const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent 
   if (!isMobile) return;
   const handlePrevNext = (cb: () => void) => {
     cb();
+    if (mainApi?.plugins()?.autoplay?.reset) {
+      mainApi.plugins().autoplay.reset();
+    }
   };
   return (
     <div className=" lg:hidden w-full flex flex-col justify-center items-center">
@@ -176,7 +180,7 @@ const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent 
         opts={{ loop: true }}
         plugins={[
           Autoplay({
-            delay: 2000,
+            delay: 4000,
             stopOnMouseEnter: true,
             stopOnInteraction: false,
           }),
@@ -365,11 +369,11 @@ export default function FeaturedNews() {
   return (
     <div className="bg-gray-100 ">
       <div className="main-container md:py-[50px] ">
-        <div className=" max-md:px-3 py-7 md:py-[100px] flex flex-col items-center justify-center bg-[#01272E] rounded-[28px] open_sans">
+        <div className=" max-md:px-3 py-7 md:py-[100px] flex flex-col items-center justify-center bg-[#01272E] lg:bg-[url('/landing/featured_news_grid.png')] bg-cover rounded-[28px] open_sans">
           <p className=" max-md:text-sm text-[#F98800] font-bold">FEATURED</p>
-          <h2 className=" max-md:text-display-xs text-display-md font-bold text-gray-25">Featured in the News</h2>
+          <h2 className=" max-md:text-display-xs text-display-md font-bold text-gray-25">Featured in the <span className=" open_sans_italic">News</span></h2>
           <DesktopCarousel setMainApi={setMainApi} />
-          <MobileCarousel setMainApi={setMainApi} setThumbApi={setThumbApi} thumbApi={thumbApi} current={current} setCurrent={setCurrent} />
+          <MobileCarousel setMainApi={setMainApi} setThumbApi={setThumbApi} thumbApi={thumbApi} current={current} setCurrent={setCurrent} mainApi={mainApi} />
           <div className="hidden lg:flex items-center justify-center bg-brand-700 p-3 pb-4 md:p-[26.37px] md:pb-[27.78px] rounded-[28px]">
             {NEWS_CHANNELS.map((news, idx) => (
               <div

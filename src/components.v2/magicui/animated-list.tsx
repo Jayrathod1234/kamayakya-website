@@ -12,7 +12,7 @@ import React, {
 export function AnimatedListItem({ children }: { children: React.ReactNode }) {
   const animations = {
     initial: { scale: 0, opacity: 0 },
-    animate: { scale: 1, opacity: 1, originY: 0 },
+    animate: { scale: 1, opacity: 1, originY: 0, repeat: Infinity },
     exit: { scale: 0, opacity: 0 },
     transition: { type: "spring", stiffness: 350, damping: 40 },
   };
@@ -38,13 +38,18 @@ export const AnimatedList = React.memo(
     );
 
     useEffect(() => {
-      if (index < childrenArray.length - 1) {
-        const timeout = setTimeout(() => {
-          setIndex((prevIndex) => (prevIndex + 1) % childrenArray.length);
-        }, delay);
+      const timeout = setTimeout(() => {
+        setIndex((prevIndex) => (prevIndex + 1) % childrenArray.length);
+      }, delay);
+      return () => clearTimeout(timeout);
+    
+      // if (index < childrenArray.length - 1) {
+      //   const timeout = setTimeout(() => {
+      //     setIndex((prevIndex) => (prevIndex + 1) % childrenArray.length);
+      //   }, delay);
 
-        return () => clearTimeout(timeout);
-      }
+      //   return () => clearTimeout(timeout);
+      // }
     }, [index, delay, childrenArray.length]);
 
     const itemsToShow = useMemo(() => {

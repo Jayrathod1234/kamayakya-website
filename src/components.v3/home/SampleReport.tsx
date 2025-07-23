@@ -88,14 +88,14 @@ export default function SampleReport() {
   return (
     <div className=" main-container ">
       <div className=" py-[50px] sm:py-[100px] open_sans rounded-[28px]">
-        <p className=" font-bold text-[#FF9E29] text-center max-sm:text-sm">KamayaKya’s Philosophy</p>
-        <h2 className=" text-display-xs sm:text-2xl font-bold mb-2 text-center text-gray-950">
-          Sample Reports - It’s FREE!
+        <p className=" font-bold text-[#FF9E29] text-center max-sm:text-sm">Reports</p>
+        <h2 className=" text-display-xs sm:text-display-md font-bold mb-2 text-center text-gray-950">
+          Sample Reports - It’s <span className=" open_sans_italic">FREE</span>!
         </h2>
         <p className=" text-sm sm:text-lg text-gray-600 sm:mb-10 text-center">
           Knowledge is power - Discover the reports that empower your investment decisions
         </p>
-        <div className=" pt-[46px] sm:pt-10">
+        <div className=" pt-[46px] sm:pt-0">
          {/* <div className=" flex items-center justify-center gap-x-3"> */}
           <Carousel className=" flex justify-center">
             <CarouselContent className="">
