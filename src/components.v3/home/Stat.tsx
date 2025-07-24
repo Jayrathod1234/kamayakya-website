@@ -33,10 +33,12 @@ export function StatsCard() {
 export default function Stat() {
  
   return (
-    <motion.div  initial={{ opacity: 0, y: 100 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.4 }}
-    transition={{ duration: 0.7, ease: 'easeOut' }}  className=' max-lg:hidden py-[71px] relative overflow-hidden bg-[url("/landing/stat_grid.png")] bg-cover'>
+    <motion.div 
+    //  initial={{ opacity: 0, y: 100 }}
+    // whileInView={{ opacity: 1, y: 0 }}
+    // viewport={{ once: true, amount: 0.4 }}
+    transition={{ duration: 0.7, ease: 'easeOut' }} 
+     className=' max-lg:hidden py-[71px] relative overflow-hidden bg-[url("/landing/stat_grid.png")] bg-cover'>
       <div className=' h-full '>
         <div className=''>
           <div >

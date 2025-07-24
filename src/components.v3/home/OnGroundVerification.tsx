@@ -67,8 +67,8 @@ export default function OnGroundVerification() {
         <img
           src="/landing/ongroud_bg.webp"
           alt="On-ground verification background"
-          className="absolute inset-0 w-full h-full object-cover opacity-50 top-[100px]"
-          style={{ zIndex: 0 }}
+          className="absolute inset-0 w-full h-full object-contain opacity-100"
+          style={{ zIndex: 0, position: "absolute", top: "-300px" }}
         />
 
         {/* Content */}

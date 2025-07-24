@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import {HotStockSectionBlurVertical} from "./HotStockSectionBlur";
+import HotStockSectionBlur, {HotStockSectionBlurVertical} from "./HotStockSectionBlur";
 import HotStockSectionSlider, { HotStockSectionSliderVertical } from "./HotStockSectionSlider";
 import StockCardSkeleton from "./skeletons/StockCardSkeleton";
 import { Skeleton, useMediaQuery } from "@mui/material";
@@ -42,7 +42,7 @@ const HotStockSection = ({ items, isLimitedView, isLoading, error }) => {
         </div>
       ) : isLimitedView ? (
         <>
-          <HotStockSectionBlurVertical items={items} />
+          <HotStockSectionBlur items={items} />
         </>
       ) : (
         <>
