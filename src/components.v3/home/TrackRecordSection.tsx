@@ -30,7 +30,7 @@ export const TrackRecordSection = () => {
         <div className="lg:flex-[0.6] max-lg:text-center open_sans lg:px-12 xl:px-20 ">
           <p className=" text-[#F98800] text-sm lg:text-md font-semibold ">OUR TRACK RECORD</p>
           <h2 className=" max-lg:px-4 mb-0 font-bold text-display-xs lg:text-display-md text-[#FFFFFF]">
-            But first, why don’t you check out <span className=" text-brand-300">our performance</span> so far?
+            But first, why don’t you check out <span className=" text-brand-300 open_sans_italic">our performance</span> so far?
           </h2>
           <p className={` text-[rgba(255,255,255,0.8)] max-lg:text-sm max-lg:px-5 ${isLoggedIn ? "mt-3" : " mt-7"}`}>
             See our hits, our misses - all in the open. Your trust is earned by delivering results, because what we do
@@ -108,7 +108,7 @@ export const TrackRecordSection = () => {
                 <div className=" relative flex-1 max-lg:hidden  ">
                   <div className=" relative z-10 h-[70%] w-[90%] lg:right-20 xl:right-0">
                     <TrackRecordHeroCard
-                      className=''
+                      className=' border'
                       {...trackRecordDashboardStats}
                       type={"LIVE"}
                       recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
@@ -126,6 +126,7 @@ export const TrackRecordSection = () => {
                   </div>
                   <div className=" absolute -top-9 right-28 xl:right-12 z-[2] h-[80%]  w-[85%]">
                     <TrackRecordHeroCard
+                      className=' border'
                       {...trackRecordDashboardStats}
                       type={"EXIT"}
                       recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}

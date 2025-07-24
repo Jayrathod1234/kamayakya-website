@@ -140,14 +140,14 @@ export default function Team() {
 
   return (
     <div className=" md:main-container max-md:bg-[rgba(13,65,57,1)]">
-      <div className=" pb-[38px] pt-[50px] md:py-[50px] bg-[rgba(13,65,57,1)] open_sans px-5 md:px-[60px] md:rounded-t-xl">
+      <div className=" pb-[38px] pt-[50px] md:py-[50px] bg-[rgba(13,65,57,1)] open_sans px-5 md:px-[60px] md:rounded-t-[28px]">
         <p className=" text-[#FF9E29] font-bold text-center">LEADERSHIP TEAM</p>
         <h3 className=" text-display-md font-bold mt-[6px] mb-0 text-center text-white">Meet the <span className=" open_sans_italic">team</span>!</h3>
         <p className=" text-lg text-gray-150 mt-3 text-center">
           Meet our team, trusted by clients worldwide for delivering value through
           a powerful blend of decades of experience and deep expertise.
         </p>
-        <Carousel align="center" setApi={setApi} plugins={[Autoplay({ delay: 2000 })]} className=" mt-[38px] ">
+        <Carousel align="center" setApi={setApi} plugins={[Autoplay({ delay: 2000 })]} className=" mt-[38px]  xl:max-w-[85%] lg:mx-auto ">
           <CarouselContent className=" ">
             {teams.map((team) => (
               <CarouselItem key={team.img} className="basis-auto lg:basis-1/3">
@@ -177,7 +177,7 @@ export default function Team() {
           </div>
         </Carousel>
       </div>
-      <div className=" max-md:pb-[50px] flex px-5 md:p-[60px] pt-0 bg-[rgba(13,65,57,1)] md:rounded-b-xl justify-center">
+      <div className=" max-md:pb-[50px] flex px-5 md:p-[60px] pt-0 md:pt-0 bg-[rgba(13,65,57,1)] md:rounded-b-[28px] justify-center">
         <WeEatDrink/>
       </div>
     </div>

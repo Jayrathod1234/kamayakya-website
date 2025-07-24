@@ -1,7 +1,7 @@
 import { useDotButton } from "@/components.v2/carousel";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components.v2/ui/carousel";
 import { cn } from "@/lib/utils";
-import Autoplay from "embla-carousel-autoplay";
+import Autoplay, { AutoplayType } from "embla-carousel-autoplay";
 import React, { useEffect, useState, useRef } from "react";
 import { EmblaCarouselType } from "embla-carousel";
 
@@ -18,7 +18,7 @@ interface ITrustIndicator {
 
 function GradientLine() {
   return (
-    <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0  bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
+    <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0  bg-gray-300"></div>
   );
 }
 
@@ -62,19 +62,22 @@ function TrustIndicator({
       const intervalId = setInterval(calculateAnimationProgress, 100);
       return () => clearInterval(intervalId);
     }
-  }, [api,animationDuration]);
+  }, []);
 
-  useEffect(() => {
-    if (currentAnimationTime > 5890 && api) {
-      api.scrollNext();
-      const autoplay = api?.plugins()?.autoplay;
-      if (!autoplay) return;
+  // useEffect(() => {
+  //   if (currentAnimationTime > 5890 && api) {
+  //     api.scrollNext();
+  //     // setCurrentAnimationTime(0)
+      
+  //     const autoplay = api?.plugins()?.autoplay as AutoplayType;
+  //     if (!autoplay) return;
     
-      const reset = autoplay.reset;
-      reset();
-    }
-  }, [currentAnimationTime, api]);
+  //     const reset = autoplay.reset;
+  //     reset();
+  //   }
+  // }, [currentAnimationTime, api]);
 
+  console.log("INDEX TRUST",index, selectedIndex)
 
 
 
@@ -115,8 +118,8 @@ function TrustIndicator({
         // onClick={onClick}
         key={index}
         className={` ${
-          index+1 === selectedIndex ? " !w-full " : index+1 <= selectedIndex ? "w-full" : " w-[10px] "
-        } h-[4px] absolute left-0 bottom-0  bg-transparent transition-all duration-300 overflow-hidden cursor-pointer `}
+          index+1 === selectedIndex ? " !w-full opacity-100" : index+1 <= selectedIndex ? "w-full" : " w-[10px] "
+        } h-[4px] absolute left-0 bottom-0  bg-transparent transition-transform duration-300 overflow-hidden cursor-pointer opacity-0 `}
       >
         <div
           ref={progressRef}
@@ -142,11 +145,11 @@ function Ele1() {
   return (
     <div className="flex flex-col lg:flex-row gap-x-7">
       <div className=" flex-1 max-lg:flex justify-center items-center">
-        <video className=" w-[663px] h-full rounded-[28px]" muted autoPlay src="/trust_vid1.mp4"></video>
+        <video loop className=" w-[663px] h-full rounded-[28px]" muted autoPlay src="/trust_vid1.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-[10px] sm:gap-y-10">
         <div className=" flex gap-x-5">
-          <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0 bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
+          <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0 bg-gray-300"></div>
           <p className=" max-md:text-sm text-gray-950">
             This means we're held to the highest standards of compliance and transparency, so you can rest assured your
             stock research reports are in safe hands. Unlike your well-meaning but misguided uncle with his 'hot stock
@@ -154,7 +157,7 @@ function Ele1() {
           </p>
         </div>
         <div className=" flex gap-x-5 sm:items-center">
-          <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0  bg-[linear-gradient(to_top,#2CF034,#38F762,#45FF9B,#4DFBE6,#B0FFDE)]"></div>
+          <div className=" min-h-0 max-h-full sm:h-[58px] w-1 sm:!w-[4px] flex-shrink-0 flex-grow-0  bg-gray-300"></div>
           <p className=" m-0 text-gray-950 sm:text-lg font-bold">SEBI Registered: INH000009843 </p>
         </div>
         <div>
@@ -178,7 +181,7 @@ function Ele2() {
   return (
     <div className="flex flex-col lg:flex-row gap-x-7">
       <div className=" flex-1 max-lg:flex justify-center items-center">
-        <video className=" w-[663px] h-full rounded-[28px]" muted autoPlay src="/trust_vid2.mp4"></video>
+        <video className=" w-[663px] h-full rounded-[28px]" loop muted autoPlay src="/trust_vid2.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-10">
         <div className=" flex gap-x-5">
@@ -204,7 +207,7 @@ function Ele3() {
   return (
     <div className="flex flex-col lg:flex-row gap-x-7">
       <div className=" flex-1 max-lg:flex justify-center items-center">
-        <video className=" w-[663px] h-full rounded-[28px]" muted autoPlay src="/landing/kmk-starsTeam.mp4"></video>
+        <video className=" w-[663px] h-full rounded-[28px]" loop muted autoPlay src="/landing/kmk-starsTeam.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-10">
         <div className=" flex gap-x-5">

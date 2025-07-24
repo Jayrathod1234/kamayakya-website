@@ -26,7 +26,7 @@ export default function Hero() {
     <div className=" ">
       <div className=" lg:min-h-screen open_sans ">
         <div className="main-container mx-auto px-4  py-16 pt-[57.5px] lg:pt-[167px]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 items-center justify-center gap-12 lg:gap-16 xl:gap-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[.75fr_1fr] items-center justify-center gap-12 lg:gap-16 xl:gap-20">
             {/* Left Content - Desktop First Column, Mobile Second */}
             <div className="order-2 lg:order-1 text-center lg:text-left space-y-8">
               <div className=" max-lg:flex max-lg:flex-col max-lg:items-center">
@@ -42,21 +42,10 @@ export default function Hero() {
                   you truly deserve.
                 </p>
               </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-lg:mt-6 mt-[33px]">
-                 <Button onClick={()=>router.push("/pricing")} variant={ButtonVariant.primary}>
-                  <p className=" font-medium text-md">
-                    Get Started- <span className=" font-normal">It's Free</span>
-                  </p>
-                </Button>
-              </div>
-            </div>
-
-            {/* Right Video - Desktop Second Column, Mobile First */}
-            <div className="order-1 lg:order-2 w-full max-w-2xl mx-auto lg:mx-0">
+              <div className="order-1 lg:order-2 w-full max-w-2xl mx-auto lg:mx-0">
               <div className="relative group">
                 {/* Video Container */}
-                <div className="relative rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500">
+                <div className=" lg:hidden relative rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500">
                   <div className="aspect-video xl:w-[640px] xl:h-[400px] flex items-center justify-center">
                     <video
                       className="w-full h-full object-cover"
@@ -65,6 +54,39 @@ export default function Hero() {
                       autoPlay
                       loop
                       muted
+                      poster="/landing/KMKhero.png"
+                    >
+                      <source src="/landing/KMKhero.webm" type="video/webm" />
+                    </video>
+                  </div>
+
+                  {/* Decorative Elements */}
+                </div>
+              </div>
+            </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-lg:mt-6 mt-[33px]">
+                 <Button onClick={()=>router.push("/pricing")} variant={ButtonVariant.primary}>
+                  <p className=" font-medium text-md">
+                    Get Started - <span className=" font-normal">It's Free</span>
+                  </p>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Video - Desktop Second Column, Mobile First */}
+            <div className=" lg:block hidden order-1 lg:order-2 w-full max-w-2xl mx-auto lg:mx-0">
+              <div className="relative group">
+                {/* Video Container */}
+                <div className="relative  xl:scale-110 duration-500">
+                  <div className=" xl:w-[640px] xl:h-[400px] flex items-center justify-center rounded-2xl overflow-hidden ">
+                    <video
+                      className="w-full h-full object-cover"
+                      // poster="/path-to-your-poster-image.jpg"
+                      // controls
+                      autoPlay
+                      loop
+                      muted
+                      poster="/landing/KMKhero.png"
                     >
                       <source src="/landing/KMKhero.webm" type="video/webm" />
                     </video>
@@ -83,7 +105,7 @@ export default function Hero() {
         <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-pink-600/10 to-transparent rounded-full blur-3xl"></div>
       </div> */}
       </div>
-      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden open_sans max-lg:hidden">
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden open_sans ">
         <p className=" pb-3 font-semibold text-gray-700">Our members include leaders from</p>
         <Marquee pauseOnHover className="[--duration:20s] [--gap:0rem]">
           {COMPANY_LIST.map((company) => (

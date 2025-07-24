@@ -65,9 +65,9 @@ export default function OnGroundVerification() {
       <div className="relative py-[50px] md:py-20 bg-[#01272E] open_sans md:rounded-[28px] overflow-hidden">
         {/* Background image using <img> */}
         <img
-          src="/landing/visit-bg.png"
+          src="/landing/ongroud_bg.webp"
           alt="On-ground verification background"
-          className="absolute inset-0 w-full h-full object-cover opacity-50 top-[-60px]"
+          className="absolute inset-0 w-full h-full object-cover opacity-50 top-[100px]"
           style={{ zIndex: 0 }}
         />
 

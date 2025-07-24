@@ -1,4 +1,6 @@
 import { getStockReports } from "@/api/shared";
+import { Button } from "@/components.v2/button";
+import { ButtonVariant } from "@/components.v2/button/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components.v2/ui/carousel";
 import { axiosApi } from "@/utils/axios";
 import { useQuery } from "@tanstack/react-query";
@@ -10,16 +12,18 @@ import React, { useEffect, useState } from "react";
 interface CompanyPillParams{
   logo:string;
   companyName:string;
+  onClick:()=>void;
+  isSelected:boolean;
 }
 
 function CompanyPill({logo,companyName,onClick,isSelected}:CompanyPillParams) {
   return (
-    <button onClick={onClick} className={` border ${isSelected ? " border-brand-400 bg-brand-400 ":" border-gray-300"} flex  items-center gap-x-[6px] pl-[6px] py-[6px] sm:pl-2 rounded-full w-fit max-w-[242px]`}>
+    <Button variant={ButtonVariant.custom} onClick={onClick} className={` border ${isSelected ? " border-brand-400 bg-brand-400 hover:bg-brand-400 ":" border-gray-300 bg-transparent hover:bg-transparent"} flex  items-center gap-x-[6px] !pl-[6px] py-[6px] sm:!pl-2 rounded-full !w-fit !max-w-[242px] !min-w-0`}>
       <div className=" flex-shrink-0">
         <img className="rounded-full object-cover max-h-7 max-w-7 w-full h-fullz" height={28} width={28} src={logo ?? "/ion_logo.png"} alt="company-logo" />
       </div>
       <p className={` truncate  max-sm:font-semibold max-sm:text-sm pr-4 ${isSelected ? "text-white font-bold":" text-gray-800"} `}>{companyName}</p>
-    </button>
+    </Button>
   );
 }
 
@@ -49,7 +53,7 @@ function Timeline({targets}) {
                   <div className={` h-[2px] flex-1 w-full bg-[#32D583] origin-left  transition-all`}></div>
                 ) : null}
               </div>
-              <div className=" px-3 py-5 mt-3 w-full bg-white max-w-[224px] rounded-2xl">
+              <div className=" px-3 py-5 mt-3 w-full bg-white max-w-[224px] rounded-2xl border">
                 <p className=" text-2xs font-semibold truncate max-w-full">{target.report_action_text ?? 'Video Released'}</p>
                 <p className=" text-sm font-bold truncate max-w-full">{target.report_name ?? target.youtube_title}</p>
                 <button onClick={()=>window.open(target.document ?? target.youtube_link,"_")} className=" mt-3  w-full py-[7px] pl-3 pr-[14px] border border-gray-200 rounded-[4px] flex items-center justify-center gap-x-1">

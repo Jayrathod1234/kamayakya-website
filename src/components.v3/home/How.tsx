@@ -93,6 +93,7 @@ function Steps({
         muted
         className=" h-full w-full max-w-[342px] max-lg:max-w-full max-h-[300px] md:max-h-[400px] mx-auto object-cover mb-[10px] rounded-xl lg:hidden"
         src={video}
+        loop
       />
       <div onClick={onClick} className={` relative flex items-start gap-x-[10px]    `}>
         <div className=" pt-[4px] flex-shrink-0">
@@ -260,7 +261,7 @@ export default function How() {
               description={
                 "We only recommend stocks that we personally are willing to invest in. We research rigorously, so you don't have to."
               }
-              video="/how_vid1.mp4"
+              video="/landing/how_1.mp4"
               api={api}
               selectedIndex={current}
               isPlaying={isPlaying && !isPaused}
@@ -299,7 +300,7 @@ export default function How() {
               description={
                 "Our entire philosophy is based on celebrating wins and learning from losses. We want you to have access to our entire track record."
               }
-              video="/how_vid1.mp4"
+              video="/landing/how_2.mp4"
               api={api}
               selectedIndex={current}
               isPlaying={isPlaying && !isPaused}
@@ -338,7 +339,7 @@ export default function How() {
               description={
                 "Investing without understanding? That’s like driving without GPS in a new city. With KamayaKya, you’ll have all the information you need - market trends, company performance, and key details, to navigate your investment journey confidently."
               }
-              video="/how_vid1.mp4"
+              video="/landing/how_3.mp4"
               api={api}
               selectedIndex={current}
               isPlaying={isPlaying && !isPaused}
@@ -395,7 +396,7 @@ export default function How() {
                   description={
                     "We only recommend stocks that we personally are willing to invest in. We research rigorously, so you don't have to."
                   }
-                  video="/how_vid1.mp4"
+                  video="/landing/how_1.mp4"
                   api={api}
                   selectedIndex={current}
                   isPlaying={isPlaying && !isPaused}
@@ -436,7 +437,7 @@ export default function How() {
                   description={
                     "Our entire philosophy is based on celebrating wins and learning from losses. We want you to have access to our entire track record."
                   }
-                  video="/how_vid1.mp4"
+                  video="/landing/how_2.mp4"
                   api={api}
                   selectedIndex={current}
                   isPlaying={isPlaying && !isPaused}
@@ -477,7 +478,7 @@ export default function How() {
                   description={
                     "Investing without understanding? That’s like driving without GPS in a new city. With KamayaKya, you’ll have all the information you need - market trends, company performance, and key details, to navigate your investment journey confidently."
                   }
-                  video="/how_vid1.mp4"
+                  video="/landing/how_3.mp4"
                   api={api}
                   selectedIndex={current}
                   isPlaying={isPlaying && !isPaused}
@@ -526,9 +527,10 @@ export default function How() {
                   className=" w-full h-full object-cover min-h-full"
                   width={620}
                   height="100%"
-                  src="/how_vid1.mp4"
+                  src="/landing/how_1.mp4"
                   muted
                   autoPlay
+                  loop
                 />
               </div>
             </CarouselItem>
@@ -538,9 +540,10 @@ export default function How() {
                   className=" w-full h-full object-cover min-h-full"
                   width={620}
                   height="100%"
-                  src="/how_vid1.mp4"
+                  src="/landing/how_2.mp4"
                   muted
                   autoPlay
+                  loop
                 />
               </div>
             </CarouselItem>
@@ -550,9 +553,10 @@ export default function How() {
                   className=" w-full h-full object-cover min-h-full"
                   width={620}
                   height="100%"
-                  src="/how_vid1.mp4"
+                  src="/landing/how_3.mp4"
                   muted
                   autoPlay
+                  loop
                 />
               </div>
             </CarouselItem>

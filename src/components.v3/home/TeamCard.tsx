@@ -17,7 +17,7 @@ export default function TeamCard({ name, designation, description, social1, soci
         <div className="w-[300px] h-[400px] bg-[rgba(243,255,253,1)] overflow-hidden before:absolute before:h-full before:w-full before:top-0 before:z-10 before:bg-[linear-gradient(to_top,black,transparent)] rounded-xl relative pt-4 pb-6 flex flex-col justify-between ">
           <button
             onClick={() => setDisplay((prev) => !prev)}
-            className="pointer-events-auto border border-brand-300 transition-transform delay-75 duration-300 flex items-center justify-center h-10 w-10 top-[14px] right-[14px] rounded-xl absolute bg-white z-30 group-hover/team:scale-110"
+            className="pointer-events-auto border border-brand-300 hover:border-brand-400 transition-transform delay-75 duration-300 flex items-center justify-center h-10 w-10 top-[14px] right-[14px] rounded-xl absolute bg-white hover:bg-white/50 z-30 group-hover/team:scale-110 hover:shadow-md"
           >
             <svg className=" " width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -41,16 +41,17 @@ export default function TeamCard({ name, designation, description, social1, soci
           </button>
           <img src={img} alt={name} className="absolute left-0 bottom-0 z-[1]" />
           <div className="flex items-center z-10 pl-4 gap-x-[10px] opacity-0 group-hover/team:opacity-100 transition-opacity duration-300">
-            {social1 && <a href={social1} target="_blank">
+            {social1 && <a href={social1} target="_blank" className="hover:scale-90 transition-all duration-300">
               <img src="/landing/Twitter.png" alt="twitter" />
             </a>}
-            {social2 && <a href={social2} target="_blank">
+            {social2 && <a href={social2} target="_blank" className="hover:scale-90 transition-all duration-300">
               <img src="/landing/Linkedin.png" alt="linkedin" />
             </a>}
           </div>
           <div className="relative z-30 px-6 text-white open_sans text-left">
-            <h3 className="mb-0 font-bold text-display-xs">{name}</h3>
-            <p className="mt-[17px] font-semibold">{designation}</p>
+          {/* text-[2.5rem] leading-[2.6rem] */}
+            <h3 className="mb-0 font-bold ">{name}</h3>
+            <p className="mt-[14px] font-semibold opacity-85">{designation}</p>
           </div>
         </div>
       ) : (
@@ -82,10 +83,10 @@ export default function TeamCard({ name, designation, description, social1, soci
 
           <div className="relative bg-[#fff] pt-2 pb-[10px] rounded-t-xl w-[78%] after:absolute after:bottom-[-1px] after:w-5 after:h-5 after:bg-transparent after:rounded-full after:z-0 after:right-[-20px] after:shadow-[-6px_8px_0px_rgba(255,255,255,1)]">
             <div className="flex items-center z-10 pl-[14px] gap-x-[10px] transition-opacity duration-300">
-              {social1 && <a href={social1} target="_blank">
+              {social1 && <a href={social1} target="_blank" className="hover:scale-90 transition-all duration-300">
                 <img className="object-contain" height={52} width={52} src="/landing/Twitter-dark.png" alt="twitter" />
               </a>}
-              {social2 && <a href={social2} target="_blank">
+              {social2 && <a href={social2} target="_blank" className="hover:scale-90 transition-all duration-300">
                 <img className="object-contain" height={52} width={52} src="/landing/Linkedin-dark.png" alt="twitter" />
               </a>}
             </div>

@@ -1,5 +1,5 @@
 import { NumberTicker } from '@/components.v2/magicui/number-ticker';
-import { useScroll, useTransform, motion } from 'framer-motion'
+import { useScroll, useTransform, motion } from 'motion/react'
 import React, { useRef } from 'react'
 
 
@@ -31,14 +31,12 @@ export function StatsCard() {
 }
 
 export default function Stat() {
-  const container = useRef(null)
-  const {scrollYProgress} = useScroll({
-    target:container,
-    offset:['start start', 'end end']
-  })
-  const scale = useTransform(scrollYProgress, [0,1],[1,2])
+ 
   return (
-    <div ref={container} className=' max-lg:hidden py-[71px] relative overflow-hidden bg-[url("/landing/stat_grid.png")] bg-cover'>
+    <motion.div  initial={{ opacity: 0, y: 100 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.4 }}
+    transition={{ duration: 0.7, ease: 'easeOut' }}  className=' max-lg:hidden py-[71px] relative overflow-hidden bg-[url("/landing/stat_grid.png")] bg-cover'>
       <div className=' h-full '>
         <div className=''>
           <div >
@@ -49,6 +47,6 @@ export default function Stat() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
