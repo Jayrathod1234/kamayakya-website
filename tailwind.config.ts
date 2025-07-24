@@ -231,7 +231,15 @@ const config = {
           to :{
             width: "100%"
           }
-        }
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

@@ -90,6 +90,29 @@ const ServiceCard = ({ hero, title, description, className }: IServiceCard) => {
   );
 };
 
+const companyLogos = [
+  "acrysil-ltd--big 1.png",
+  "amber-enterprises-india--big 1.png",
+  "ccl-products-ind--big.png",
+  "cl-educate-ltd--big.png",
+  "dhanuka-agritech--big.png",
+  "fidel-softech-ltd--big.png",
+  "gravita-india--big 1.png",
+  "gufic-biosciences--big.png",
+  "gujarat-fluorochem-ltd--big.png",
+  "h-g-infra-engineering--big.png",
+  "ion-exchange-india-ltd--big 1.png",
+  "jupiter-wagons-ltd--big 1.png",
+  "mps-ltd--big.png",
+  "praj-industries--big.png",
+  "Privi Speciality.png",
+  "srf--big.png",
+  "tata--big.png",
+  "va-tech-wabag--big 1.png",
+  "vinati-organics--big.png",
+  "virtuoso-optoelectronics-limit--big.png"
+];
+
 let SERVICE_DATA = [
   {
     title: "📈 Smart Stock Recommendations",
@@ -107,26 +130,27 @@ let SERVICE_DATA = [
           </svg>
           <p className=" text-xs text-white font-medium ml-2">More than 5000 listed companies</p>
         </div>
-        <Marquee className="flex-shrink-0 [--duration:8s]" vertical>
-          {new Array(5).fill(0).map((item, index) => (
-            <img key={index} className="rounded-full" height={44} width={44} src={`/landing/listed/${index + 1}.png`} />
+        <div className="grid grid-cols-4 gap-4 w-full place-items-center">
+      {[false, true, false, true].map((reverse, colIndex) => (
+        <Marquee
+          key={colIndex}
+          className="flex-shrink-0 [--duration:12s]"
+          vertical
+          {...(reverse ? { reverse: true } : {})}
+        >
+          {companyLogos.map((filename, index) => (
+            <img
+              key={index}
+              className="rounded-full"
+              height={44}
+              width={44}
+              src={`/landing/SmartStock/${filename}`}
+              alt={filename.replace(/[-_]/g, ' ').replace(/\..+$/, '')}
+            />
           ))}
         </Marquee>
-        <Marquee className="flex-shrink-0 [--duration:8s]" vertical reverse>
-          {new Array(5).fill(0).map((item, index) => (
-            <img key={index} className="rounded-full" height={44} width={44} src={`/landing/listed/${index + 1}.png`} />
-          ))}
-        </Marquee>
-        <Marquee className="flex-shrink-0 [--duration:8s]" vertical>
-          {new Array(5).fill(0).map((item, index) => (
-            <img key={index} className="rounded-full" height={44} width={44} src={`/landing/listed/${index + 1}.png`} />
-          ))}
-        </Marquee>
-        <Marquee className="flex-shrink-0 [--duration:8s]" vertical reverse>
-          {new Array(5).fill(0).map((item, index) => (
-            <img key={index} className="rounded-full" height={44} width={44} src={`/landing/listed/${index + 1}.png`} />
-          ))}
-        </Marquee>
+      ))}
+    </div>
       </div>
 
       // <img

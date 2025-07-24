@@ -2244,16 +2244,16 @@ header > div > div {
 /*---break---*/
 
 @layer base {
-  .theme {
+  /* .theme {
     --animate-marquee:marquee var(--duration) infinite linear;
     --animate-marquee-vertical:marquee-vertical var(--duration) linear infinite;
-  }
+  } */
 }
 
 /*---break---*/
 
 @theme inline {
-    --animate-marquee:marquee var(--duration) infinite linear;
+    /* --animate-marquee:marquee var(--duration) infinite linear;
     --animate-marquee-vertical:marquee-vertical var(--duration) linear infinite;
   @keyframes marquee {
   from {
@@ -2270,7 +2270,7 @@ header > div > div {
   to {
     transform:translateY(calc(-100% - var(--gap)));
     }
-  }
+  } */
 }
 
 

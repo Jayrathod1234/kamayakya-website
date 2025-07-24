@@ -72,11 +72,20 @@ function Timeline({targets}) {
   );
 }
 
+
+const logoMap = {
+  "Ion Exchange (India) Ltd.":"/ion_logo.png",
+  "H.G. Infra Engineering Ltd.":"/hg_logo.png",
+  "Gravita India Ltd.":"/gravita_logo.png",
+  "Gufic BioSciences Ltd.":"/gufic_logo.png",
+  "Virtuoso Optoelectronics Ltd.":"/virtuoso_logo.png",
+}
+
 export default function SampleReport() {
   const [companySelected, setCompanySelected] = useState({});
   const { data, isLoading } = useQuery({
     queryKey: ["landingReports"],
-    queryFn: () => getStockReports({stock_names:["Insolation Energy Ltd.","Indian Renewable Energy Development Agency Ltd."]}),
+    queryFn: () => getStockReports({stock_names:["Ion Exchange (India) Ltd.","H.G. Infra Engineering Ltd.","Gravita India Ltd.","Gufic BioSciences Ltd.","Virtuoso Optoelectronics Ltd."]}),
   });
 
   function selectCompany(companyData){
@@ -104,7 +113,7 @@ export default function SampleReport() {
           <Carousel className=" flex justify-center">
             <CarouselContent className="">
             {
-            Array.isArray(data?.data) && data?.data.length  > 0 ? data?.data.map(item=> <CarouselItem key={item.stock} className=" basis-auto"> <CompanyPill isSelected={item.stock === companySelected.stock} onClick={()=>selectCompany(item)} logo={undefined} companyName={item.stock} /></CarouselItem>):null
+            Array.isArray(data?.data) && data?.data.length  > 0 ? data?.data.map(item=> <CarouselItem key={item.stock} className=" basis-auto"> <CompanyPill isSelected={item.stock === companySelected.stock} onClick={()=>selectCompany(item)} logo={logoMap[item.stock]} companyName={item.stock} /></CarouselItem>):null
           }
           </CarouselContent>
           </Carousel>

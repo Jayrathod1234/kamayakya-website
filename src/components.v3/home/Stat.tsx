@@ -42,7 +42,7 @@ export default function Stat() {
       <div className=' h-full '>
         <div className=''>
           <div >
-            <video autoPlay loop muted className='h-full w-full max-h-[665px] max-w-[975px] mx-auto shadow-md rounded-[70px] ' height={665} width={975} src="/hero_company/KMK-V1 (1).mp4"></video>
+            <video poster="/landing/stat_poster.png" autoPlay loop muted className='h-full w-full max-h-[665px] max-w-[975px] mx-auto shadow-md rounded-[70px] ' height={665} width={975} src="/hero_company/KMK-V1 (1).mp4"></video>
           </div>
           <div className=''>
             <StatsCard/>
