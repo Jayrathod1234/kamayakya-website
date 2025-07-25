@@ -75,7 +75,7 @@ const ServiceCard = ({ hero, title, description, className }: IServiceCard) => {
   return (
     <div
       className={cn(
-        ` rounded-[20px] bg-[rgba(9,110,87,0.3)] border border-[rgba(9,110,87,0.3)] p-2 pb-5 h-full flex flex-col overflow-hidden min-h-0`,
+        ` rounded-[20px] bg-[#083838] border border-[rgba(9,110,87,0.3)] p-2 pb-5 h-full flex flex-col overflow-hidden min-h-0`,
         className
       )}
     >
@@ -134,7 +134,7 @@ let SERVICE_DATA = [
       {[false, true, false, true].map((reverse, colIndex) => (
         <Marquee
           key={colIndex}
-          className="flex-shrink-0 [--duration:12s]"
+          className="flex-shrink-0 [--duration:30s]"
           vertical
           {...(reverse ? { reverse: true } : {})}
         >
@@ -185,7 +185,7 @@ let SERVICE_DATA = [
     description: "Get instant alerts (Email/WhatsApp) when it’s time to act-no second-guessing.",
     hero: (
       <div className="relative flex w-full flex-col overflow-hidden p-6 px-4 lg:p-8 pb-0 h-[80%]">
-        <div className=" absolute z-20 -bottom-1 lg:bottom-0 left-0 w-full h-[150px] bg-[linear-gradient(0deg,#053C3A_10.37%,rgba(5,59,58,0.00)_100%)]"></div>
+        <div className=" absolute z-20 -bottom-1 lg:bottom-0 left-0 w-full h-[150px] bg-[linear-gradient(0deg,#083838_10.37%,rgba(5,59,58,0.00)_100%)]"></div>
         <AnimatedList className="max-h-[220px]">
           {notifications.map((item, idx) => (
             <Notification {...item} key={idx} />
@@ -267,15 +267,23 @@ const MobileServiceCardList = ({ scrollYProgress, targetRef }: MobileServiceCard
   // Calculate scroll distance based on actual container width
   const scrollDistance = -(totalWidth - containerWidth + 32);
   
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", `${scrollDistance}px`]);
+  const x = useTransform(
+    scrollYProgress, 
+    [0, 1], 
+    ["0%", `${scrollDistance}px`]
+  );
   
   return (
     <div ref={containerRef} className="lg:hidden overflow-hidden px-4">
-      <motion.div style={{ x }} className="flex gap-4 mt-10">
+      <motion.div 
+        style={{ x }} 
+        className="flex gap-4 mt-10"
+        transition={{ type: "spring", stiffness: 100, damping: 30 }}
+      >
         {SERVICE_DATA.map((data, index) => (
           <ServiceCard
             key={`${data.title}-${index}`}
-            className="min-w-[317px] w-[317px] max-md:max-w-[317px] flex-shrink-0"
+            className="min-w-[317px] w-[317px] max-md:max-w-[317px] max-lg:h-[418px] flex-shrink-0"
             title={data.title}
             description={data.description}
             hero={data.hero}
@@ -296,7 +304,7 @@ export default function Service() {
   return (
     <div className="bg-[#01272E]">
       {/* Mobile scroll container */}
-      <div ref={targetRef} className="lg:hidden h-[300vh] relative">
+      <div ref={targetRef} className="lg:hidden h-[300vh] relative" style={{ scrollBehavior: 'smooth' }}>
         {/* Sticky content container */}
         <div className="sticky top-0 h-screen flex items-center overflow-hidden sticky_container">
           <div className="w-full">

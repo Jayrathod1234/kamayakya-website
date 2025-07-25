@@ -348,6 +348,7 @@ export default function How() {
           </div>
           {/* MOBILE VIEW */}
           <Carousel
+            opts={{ loop: true }}
             setApi={setApi2}
             className=" mt-6 lg:hidden w-full cursor-[url(/carousel-pause-icon.svg),auto]"
             plugins={[
