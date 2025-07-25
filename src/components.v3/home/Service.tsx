@@ -131,25 +131,33 @@ let SERVICE_DATA = [
           <p className=" text-xs text-white font-medium ml-2">More than 5000 listed companies</p>
         </div>
         <div className="grid grid-cols-4 gap-4 w-full place-items-center">
-      {[false, true, false, true].map((reverse, colIndex) => (
-        <Marquee
-          key={colIndex}
-          className="flex-shrink-0 [--duration:30s]"
-          vertical
-          {...(reverse ? { reverse: true } : {})}
-        >
-          {companyLogos.map((filename, index) => (
-            <img
-              key={index}
-              className="rounded-full"
-              height={44}
-              width={44}
-              src={`/landing/SmartStock/${filename}`}
-              alt={filename.replace(/[-_]/g, ' ').replace(/\..+$/, '')}
-            />
-          ))}
-        </Marquee>
-      ))}
+      {[false, true, false, true].map((reverse, colIndex) => {
+        // Divide companyLogos into 4 equal parts
+        const logosPerColumn = Math.ceil(companyLogos.length / 4);
+        const startIndex = colIndex * logosPerColumn;
+        const endIndex = Math.min(startIndex + logosPerColumn, companyLogos.length);
+        const columnLogos = companyLogos.slice(startIndex, endIndex);
+        
+        return (
+          <Marquee
+            key={colIndex}
+            className="flex-shrink-0 [--duration:12s]"
+            vertical
+            {...(reverse ? { reverse: true } : {})}
+          >
+            {columnLogos.map((filename, index) => (
+              <img
+                key={index}
+                className="rounded-full"
+                height={44}
+                width={44}
+                src={`/landing/SmartStock/${filename}`}
+                alt={filename.replace(/[-_]/g, ' ').replace(/\..+$/, '')}
+              />
+            ))}
+          </Marquee>
+        );
+      })}
     </div>
       </div>
 
@@ -163,6 +171,27 @@ let SERVICE_DATA = [
     ),
     className: " sm:row-span-2 ",
     serviceClassName: "py-0 p-0 overflow-hidden ",
+  },
+  {
+    title: "🧺 Model Portfolios (Stock Baskets)",
+    description:
+      "Diversify effortlessly with pre-built model portfolios on smallcase and Starfolio by Trendlyne-invest smart, stay relaxed.",
+    hero: (
+      <video
+        // height={233}
+        // width={294.6371765136719}
+        autoPlay
+        loop
+        muted
+        className="max-w-[294.6371765136719px] h-[200px] lg:h-[120px] xl:max-h-[220px]  xl:h-full w-full object-contain"
+        // src="/modalportfolio.png"
+        // alt="model_portfolio"
+      >
+        <source src="/landing/kmkbasket.webm" type="video/webm" />{" "}
+      </video>
+    ),
+    className: "sm:row-start-3 sm:col-span-2 ",
+    serviceClassName: "flex flex-row items-center justify-center",
   },
   {
     title: "📋 Fundamental Research Reports & Videos",
@@ -196,27 +225,7 @@ let SERVICE_DATA = [
     className: "sm:row-span-full sm:col-start-3",
     serviceClassName: " xl:min-h-0",
   },
-  {
-    title: "🧺 Model Portfolios (Stock Baskets)",
-    description:
-      "Diversify effortlessly with pre-built model portfolios on smallcase and Starfolio by Trendlyne-invest smart, stay relaxed.",
-    hero: (
-      <video
-        // height={233}
-        // width={294.6371765136719}
-        autoPlay
-        loop
-        muted
-        className="max-w-[294.6371765136719px] h-[200px] lg:h-[120px] xl:max-h-[220px]  xl:h-full w-full object-contain"
-        // src="/modalportfolio.png"
-        // alt="model_portfolio"
-      >
-        <source src="/landing/kmkbasket.webm" type="video/webm" />{" "}
-      </video>
-    ),
-    className: "sm:row-start-3 sm:col-span-2 ",
-    serviceClassName: "flex flex-row items-center justify-center",
-  },
+ 
 ];
 
 const DesktopServiceCardList = () => {

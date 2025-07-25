@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components.v2/ui/dialog";
 import React, { useContext, useEffect, useState } from "react";
 import PhoneInput, { isPossiblePhoneNumber, isValidPhoneNumber, getCountryCallingCode } from "react-phone-number-input";
@@ -7,7 +7,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Line } from "@/components.v2/blogs/blog-card-sm";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, X } from "lucide-react";
 import OTPInput from "react-otp-input";
 import { useMediaQuery } from "@mui/material";
 import { blockInvalidChar } from "@/components/LoginCard";
@@ -17,9 +17,10 @@ import AuthContext from "@/components/AuthContext";
 import { toast } from "@/components.v2/ui/use-toast";
 import Link from "next/link";
 import { axiosApi } from "@/utils/axios";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import ONBOARDING_LOTTIE from "../../../public/assets/onboarding_signup.json";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+import ONBOARDING_LOTTIE from "../../../public/assets/onboarding_signup.json";
 
 interface ILoginPrompt {
   triggerEle: React.ReactNode;
@@ -225,7 +226,14 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
             <span className="inline-flex items-center">
               {" "}
               your{" "}
-              <svg className=" mx-1 " width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className=" mx-1 "
+                width="20"
+                height="21"
+                viewBox="0 0 20 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M2.02832 18.5862L3.15082 14.4883C2.45832 13.2891 2.09415 11.9283 2.09457 10.5345C2.09665 6.17409 5.64499 2.62659 10.0058 2.62659C12.1221 2.62742 14.1079 3.45117 15.6017 4.94575C17.095 6.44075 17.9175 8.42742 17.9167 10.5408C17.915 14.9012 14.3658 18.4491 10.0058 18.4491H10.0025C8.67874 18.4487 7.37749 18.1166 6.22207 17.4862L2.02832 18.5862Z"
                   fill="white"
@@ -516,7 +524,17 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
               </div>
               <Lottie className=" hidden sm:block" autoPlay loop={false} animationData={ONBOARDING_LOTTIE} />
             </div>
-            <div className=" sm:order-3 flex-1">
+            <div className=" sm:order-3 flex-1 relative">
+              <Button
+                variant={ButtonVariant.secondary}
+                className={
+                  "absolute right-2 top-2 !p-[8px] rounded-full opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-0 focus:ring-slate-950 focus:ring-offset-0 disabled:pointer-events-none data-[state=open]:bg-slate-100 data-[state=open]:text-slate-500 dark:ring-offset-0 dark:focus:ring-0 dark:data-[state=open]:bg-slate-800 dark:data-[state=open]:text-slate-400 bg-white border border-[#E4E7EC]"
+                }
+                onClick={() => setShowLoginModal(false)}
+              >
+                <X className="h-6 w-6" />
+                <span className="sr-only">Close</span>
+              </Button>
               <SignUpContent
                 displayExistingUserModal={displayExistingUserModal}
                 setDisplayExistingUserModal={setDisplayExistingUserModal}

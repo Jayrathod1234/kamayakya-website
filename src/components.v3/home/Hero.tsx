@@ -15,8 +15,9 @@ const COMPANY_LIST = [
   "/hero_company/image 47.png",
   "/hero_company/image 46.png",
   "/hero_company/image 45.png",
-  "/hero_company/Frame.png",
   "/hero_company/apollo-hospitals-seeklogo 1.png",
+  "/hero_company/swan.png",
+  "/hero_company/kirana.png",
 ];
 export default function Hero() {
     const { isLoggedIn,setShowLoginModal, showLoginModal } = useContext(AuthContext);
@@ -109,8 +110,8 @@ export default function Hero() {
         <p className=" pb-3 font-semibold text-gray-700">Our members include leaders from</p>
         <Marquee pauseOnHover className="[--duration:20s] [--gap:0rem]">
           {COMPANY_LIST.map((company) => (
-            <div className=" h-[44px] mr-[50px] overflow-hidden flex items-center justify-center" key={company}>
-              <img className=" object-contain" height={44} key={company} src={company} />
+            <div className=" h-[44px] mr-[50px] object-contain overflow-hidden flex items-center justify-center" key={company}>
+              <img className=" object-contain w-full h-full" height={44} key={company} src={company} />
             </div>
           ))}
         </Marquee>

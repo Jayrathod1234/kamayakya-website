@@ -42,7 +42,7 @@ export default function BlogsCarousel() {
         <CarouselContent>
           {blogs.map((blog: TBlog) => (
             <CarouselItem className=" basis-auto">
-              <BlogCardSm key={blog.id} blog={blog} />
+              <BlogCardSm className= "max-md:max-w-[348px]" key={blog.id} blog={blog} />
             </CarouselItem>
           ))}
         </CarouselContent>

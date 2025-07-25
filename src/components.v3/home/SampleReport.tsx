@@ -44,7 +44,7 @@ function Timeline({targets}) {
                 ) : null}
                 <div
                   className={`${
-                    index === 0 ? " flex-1 flex justify-end" : index === targets.length - 1 ? " flex-1 " : null
+                    index === 0 && targets.length > 1 ? " flex-1 flex justify-end" : index === targets.length - 1 && targets.length > 1 ? " flex-1 " : targets.length === 1 ? " flex-1 flex justify-center" : null 
                   }`}
                 >
                   <div className=" border-[2px] border-brand-400 h-[10px] w-[10px] rounded-full"></div>
@@ -66,14 +66,15 @@ function Timeline({targets}) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className=" h-6 w-6 p-1 left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
-      <CarouselNext className=" h-6 w-6 p-1 right-[16px] top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+      <CarouselPrevious className=" h-6 w-6 p-1 left-[-16px] top-[64%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+      <CarouselNext className=" h-6 w-6 p-1 right-[-16px] top-[64%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
     </Carousel>
   );
 }
 
 
 const logoMap = {
+  "ION exchange":"/ion_logo.png",
   "Ion Exchange (India) Ltd.":"/ion_logo.png",
   "H.G. Infra Engineering Ltd.":"/hg_logo.png",
   "Gravita India Ltd.":"/gravita_logo.png",
@@ -85,7 +86,7 @@ export default function SampleReport() {
   const [companySelected, setCompanySelected] = useState({});
   const { data, isLoading } = useQuery({
     queryKey: ["landingReports"],
-    queryFn: () => getStockReports({stock_names:["Ion Exchange (India) Ltd.","H.G. Infra Engineering Ltd.","Gravita India Ltd.","Gufic BioSciences Ltd.","Virtuoso Optoelectronics Ltd."]}),
+    queryFn: () => getStockReports({stock_names:["Sbi Bank Ltd.","Ion Exchange (India) Ltd.","H.G. Infra Engineering Ltd.","Gravita India Ltd.","Gufic BioSciences Ltd.","Virtuoso Optoelectronics Ltd."]}),
   });
 
   function selectCompany(companyData){
@@ -121,7 +122,7 @@ export default function SampleReport() {
           <div className="  mt-5 border border-gray-100 bg-gray-50 rounded-xl p-9">
             {/* <h2 className=" text-[17px] font-bold sm:text-lg text-gray-950 text-c">{companySelected.stock}</h2> */}
             <div className="">
-              <Timeline targets={companySelected.timeline} />
+              <Timeline targets={companySelected.timeline?.slice(0,1)} />
             </div>
           </div>
          
