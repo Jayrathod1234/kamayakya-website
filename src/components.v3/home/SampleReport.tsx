@@ -86,7 +86,7 @@ export default function SampleReport() {
   const [companySelected, setCompanySelected] = useState({});
   const { data, isLoading } = useQuery({
     queryKey: ["landingReports"],
-    queryFn: () => getStockReports({stock_names:["Sbi Bank Ltd.","Ion Exchange (India) Ltd.","H.G. Infra Engineering Ltd.","Gravita India Ltd.","Gufic BioSciences Ltd.","Virtuoso Optoelectronics Ltd."]}),
+    queryFn: () => getStockReports({stock_names:["Ion Exchange (India) Ltd.","H.G. Infra Engineering Ltd.","Gravita India Ltd.","Gufic BioSciences Ltd.","Virtuoso Optoelectronics Ltd."]}),
   });
 
   function selectCompany(companyData){
@@ -122,7 +122,7 @@ export default function SampleReport() {
           <div className="  mt-5 border border-gray-100 bg-gray-50 rounded-xl p-9">
             {/* <h2 className=" text-[17px] font-bold sm:text-lg text-gray-950 text-c">{companySelected.stock}</h2> */}
             <div className="">
-              <Timeline targets={companySelected.timeline?.slice(0,1)} />
+              <Timeline targets={companySelected.timeline} />
             </div>
           </div>
          
