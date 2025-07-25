@@ -82,6 +82,80 @@ const teams = [
       </>
     ),
   },
+  {
+    img: "/landing/dhiren_shah.png",
+    social1: "https://x.com/dhirenshah64",
+    social2: "https://www.linkedin.com/in/dhiren-shah-2b34771/",
+    name: "Dhiren Shah",
+    designation: "Director & Co-Founder",
+    description: (
+      <>
+        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+          <li>
+            <strong>Experienced Investor:</strong> Over 30 years of active equity investing, successfully navigating
+            multiple market cycles.
+          </li>
+          <li>
+            <strong>Small-cap Specialist:</strong> Deep expertise in identifying and investing in promising small-cap
+            stocks.
+          </li>
+          <li>
+            <strong>Proven Business Acumen:</strong> Successfully manages established businesses in: E-Commerce,
+            Distribution of technology products, and media & entertainment software.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    img: "/landing/nitya_shah.png",
+    social2: "https://www.linkedin.com/in/nitya-shah-25ba53187/",
+    social1: "https://x.com/NityaShah2000",
+    name: "Nitya Shah",
+    designation: "Director & Co-Founder",
+    description: (
+      <>
+        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+          <li>
+            <strong>Qualified Analyst:</strong> CFA Level 1 cleared, M.Com from Pune University, NISM RA certified.
+            Currently pursuing MS Investment Management at Bayes Business School, London.
+          </li>
+          <li>
+            <strong>Investment Experience:</strong> 5+ years in equity investing with a focus on fundamentals.
+          </li>
+          <li>
+            <strong>Product & Research Expertise:</strong> 2 years in product development and research at a SEBI RIA
+            firm.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    img: "/landing/aniket_kulkarni.png",
+    social1: "https://x.com/smallcaphunter9",
+    social2: "https://www.linkedin.com/in/aniket-kulkarni-equity-research/",
+    name: "Aniket Kulkarni",
+    designation: "Director & Co-Founder",
+    description: (
+      <>
+        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+          <li>
+            <strong>Entrepreneurial Leader:</strong> 13+ years building businesses across sports, e-commerce, and
+            internet sectors.
+          </li>
+          <li>
+            <strong>Investment Experience:</strong> 9+ years of investing experience, including 5 years in deep-dive
+            fundamental equity research with a focus on small-cap stocks.
+          </li>
+          <li>
+            <strong>Product-Led Thinking:</strong> GrowthX alumnus, bringing a strong product mindset to investment
+            research and digital innovation.
+          </li>
+        </ul>
+      </>
+    ),
+  },
   // {
   //   img: "/landing/manan_madlani.png",
   //   social1: "https://x.com/MadlaniManan",
@@ -147,15 +221,15 @@ export default function Team() {
           Meet our team, trusted by clients worldwide for delivering value through
           a powerful blend of decades of experience and deep expertise.
         </p>
-        <Carousel align="center" setApi={setApi} plugins={[Autoplay({ delay: 2000 })]} className=" mt-[38px]  xl:max-w-[85%] lg:mx-auto ">
+        <Carousel opts={{ loop: true }} setApi={setApi} plugins={[Autoplay({ delay: 2000 })]} className=" mt-[38px]  xl:max-w-[85%] lg:mx-auto ">
           <CarouselContent className=" ">
-            {teams.map((team) => (
-              <CarouselItem key={team.img} className="basis-auto lg:basis-1/3">
+            {teams.map((team,index) => (
+              <CarouselItem key={team.img+index} className="basis-auto lg:basis-1/3">
                 <TeamCard {...team} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="lg:hidden h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pl-4 md:px-0 ">
+          <div className=" h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pl-4 md:px-0 ">
             <div>
               <ButtonnArrow
                 onClick={() => handlePrevNext(onPrevButtonClick)}
@@ -165,7 +239,7 @@ export default function Team() {
               ></ButtonnArrow>
             </div>
           </div>
-          <div className="lg:hidden -right-6  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pr-4 md:px-0">
+          <div className=" -right-6 lg:-right-[12px]  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pr-4 md:px-0">
             <div>
               <ButtonnArrow
                 onClick={() => handlePrevNext(onNextButtonClick)}

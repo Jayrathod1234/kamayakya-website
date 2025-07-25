@@ -11,6 +11,7 @@ interface TeamCardParams {
 
 export default function TeamCard({ name, designation, description, social1, social2, img }: TeamCardParams) {
   const [display, setDisplay] = useState(false);
+  console.log(name,designation,description,social1,social2,img,"team card",display);
   return (
     <div className={`group/team relative w-[300px] h-[400px]`}>
       {!display ? (
