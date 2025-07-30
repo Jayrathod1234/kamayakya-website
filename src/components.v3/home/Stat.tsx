@@ -16,14 +16,14 @@ const stats: StatItem[] = [
 
 export function StatsCard() {
   return (
-    <div className="mx-auto max-w-[600px] open_sans rounded-2xl bg-white shadow-md flex flex-col md:flex-row justify-between items-center px-6 py-[25px] space-y-6 md:space-y-0 md:space-x-6 -mt-16 z-20 relative">
+    <div className="mx-auto max-w-[600px] open_sans rounded-2xl bg-white shadow-md flex  justify-between items-center px-6 py-[25px] space-y-6 md:space-y-0 md:space-x-6 -mt-16 z-20 relative">
       {stats.map((stat, index) => (
         <div
           key={index}
           className="flex flex-1 w-full flex-col items-center text-center border-gray-200 md:border-r md:border-l first:md:border-none  last:md:border-none px-4 first:md:px-0 last:md:px-0"
         >
-          <span className='text-[46px] text-[#062D24E5] font-bold'><NumberTicker className="text-[46px] text-[#062D24E5] font-bold" value={stat.value} startValue={stat.value-60} decimalPlaces={0} />+</span>
-          <span className="text-[13px] text-gray-950 font-semibold">{stat.label}</span>
+          <span className='text-[24px] lg:text-[46px] text-[#062D24E5] font-bold'><NumberTicker className=" text-[24px] lg:text-[46px] text-[#062D24E5] font-bold" value={stat.value} startValue={stat.value-60} decimalPlaces={0} />+</span>
+          <span className="text-[13px] lg:text-[16px] text-gray-950 font-semibold">{stat.label}</span>
         </div>
       ))}
     </div>
@@ -38,7 +38,8 @@ export default function Stat() {
     // whileInView={{ opacity: 1, y: 0 }}
     // viewport={{ once: true, amount: 0.4 }}
     transition={{ duration: 0.7, ease: 'easeOut' }} 
-     className=' max-lg:hidden py-[71px] relative overflow-hidden bg-[url("/landing/stat_grid.png")] bg-cover'>
+    // max-lg:hidden py-[71px]
+     className='  relative overflow-hidden bg-[url("/landing/stat_grid.png")] bg-cover'>
       <div className=' h-full '>
         <div className=''>
           <div >

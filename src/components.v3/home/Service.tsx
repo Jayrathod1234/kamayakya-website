@@ -29,12 +29,42 @@ let notifications = [
     name: "New Stock  Alert!",
     description: "Buy xyz at ₹234",
     time: "5 min ago",
+    icon: <Gmail />,
+  },
+  {
+    name: "Target Met!",
+    description: " Stock XYZ hit Target 1 (₹260) - up 30% 🚀",
+    time: "5 min ago",
     icon: <WhatsApp />,
   },
   {
-    name: "New Stock  Alert!",
-    description: "Buy xyz at ₹234",
-    time: "5 min ago",
+    name: "🔥 Hot Stock Update!",
+    description: "2 new stocks added to the HOT list - explore now",
+    time: "40 min ago",
+    icon: <WhatsApp />,
+  },
+  {
+    name: "Action Update: SELL Triggered",
+    description: " Exited stock XYZ at ₹280 with 40% returns 🏁",
+    time: "25 min ago",
+    icon: <Gmail />,
+  },
+  {
+    name: "New Report Released",
+    description: " Deep-dive report on stock XYZ is live - check it out",
+    time: "30 min ago",
+    icon: <WhatsApp />,
+  },
+  {
+    name: "🎥 New Video Insight",
+    description: " Watch fresh insights on stock XYZ now",
+    time: "35 min ago",
+    icon: <Gmail />,
+  },
+  {
+    name: "Target Price Revised",
+    description: " Stock XYZ target raised to ₹300 - track the upside",
+    time: "15 min ago",
     icon: <Gmail />,
   },
 ];
@@ -60,11 +90,11 @@ const Notification = ({ name, description, icon, time }: INotification) => {
         </div>
         <div className="flex flex-col overflow-hidden open-sans">
           <figcaption className="flex flex-row items-center whitespace-pre text-lg font-medium dark:text-white ">
-            <span className="text-sm sm:text-lg">{name}</span>
+            <span className="text-sm font-semibold">{name}</span>
             <span className="mx-[9px]  text-gray-500">·</span>
-            <span className="text-xs text-gray-500">{time}</span>
+            <span className="text-2xs text-gray-500">{time}</span>
           </figcaption>
-          <p className="text-sm font-normal dark:text-white/60">{description}</p>
+          <p className="text-2xs font-normal dark:text-white/60">{description}</p>
         </div>
       </div>
     </figure>

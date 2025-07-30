@@ -6,6 +6,7 @@ import React, { useContext } from "react";
 import LoginPrompt from "../common/LoginPrompt";
 import AuthContext from "@/components/AuthContext";
 import { useRouter } from "next/router";
+import Stat from "./Stat";
 
 const COMPANY_LIST = [
   "/hero_company/image 201.png",
@@ -48,7 +49,7 @@ export default function Hero() {
                 {/* Video Container */}
                 <div className=" lg:hidden relative rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500">
                   <div className="aspect-video xl:w-[640px] xl:h-[400px] flex items-center justify-center">
-                    <video
+                    {/* <video
                       className="w-full h-full object-cover"
                       // poster="/path-to-your-poster-image.jpg"
                       // controls
@@ -58,7 +59,8 @@ export default function Hero() {
                       poster="/landing/KMKhero.png"
                     >
                       <source src="/landing/KMKhero.webm" type="video/webm" />
-                    </video>
+                    </video> */}
+                    <Stat/>
                   </div>
 
                   {/* Decorative Elements */}
@@ -78,9 +80,9 @@ export default function Hero() {
             <div className=" lg:block hidden order-1 lg:order-2 w-full max-w-2xl mx-auto lg:mx-0">
               <div className="relative group">
                 {/* Video Container */}
-                <div className="relative  xl:scale-110 duration-500">
-                  <div className=" xl:w-[640px] xl:h-[400px] flex items-center justify-center rounded-2xl overflow-hidden ">
-                    <video
+                <div className="relative  xl:scale-110 duration-500 flex items-center ">
+                  <div className=" xl:w-[640px] flex items-center justify-center rounded-2xl overflow-hidden ">
+                    {/* <video
                       className="w-full h-full object-cover"
                       // poster="/path-to-your-poster-image.jpg"
                       // controls
@@ -90,7 +92,8 @@ export default function Hero() {
                       poster="/landing/KMKhero.png"
                     >
                       <source src="/landing/KMKhero.webm" type="video/webm" />
-                    </video>
+                    </video> */}
+                    <Stat/>
                   </div>
 
                   {/* Decorative Elements */}

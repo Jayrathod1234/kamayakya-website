@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { Navbar, Footer, FeelingLost, Newsletter, Testimonials } from "@/components.v2/index.components";
 import "chartjs-adapter-date-fns";
 import ExpandableCardGroup from "@/components.v3/home/ExpandableCardGroup";
@@ -18,7 +18,8 @@ import { StockPickSection } from "@/components.v3/home/StockPicksSection";
 import Hero from "@/components.v3/home/Hero";
 import Stat from "@/components.v3/home/Stat";
 import { useMotionValueEvent } from "framer-motion";
-
+import { useRouter } from "next/router";
+import  AuthContext  from "../components/AuthContext";
 const Home: NextPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -143,24 +144,13 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <motion.div
-        
-        className=" fixed right-[20px] bottom-[20px] z-[1000]"
-        animate={{ rotate: 360 }}
-        transition={{
-          duration: 10,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "linear",
-        }}
-      >
-        <img className=" h-full w-full max-h-[56px] max-w-[56px] lg:max-h-[88px] lg:max-w-[88px]" height={88} width={88} src="/landing/float.png" alt="float"  />
-      </motion.div>
+    <Floater />
       <Navbar className=" open_sans bg-[#F4FFFF]" />
 
       <div className=" bg-[#F4FFFF] bg-[url('/landing/hero_grid.png')] bg-cover bg-center">
         <Hero />
       </div>
-      <Stat />
+      {/* <Stat /> */}
       <Service />
       <div>
         <ExpandableCardGroup />
@@ -247,5 +237,25 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+const Floater = ()=>{
+  const{isLoggedIn,setShowLoginModal} = useContext(AuthContext);
+  if(isLoggedIn){
+    return null;
+  }
+  return <motion.div
+      onClick={()=>setShowLoginModal(true)}
+      className=" fixed right-[20px] bottom-[20px] z-[1000] cursor-pointer"
+      animate={{ rotate: 360 }}
+      transition={{
+        duration: 10,
+        repeat: Number.POSITIVE_INFINITY,
+        ease: "linear",
+      }}
+    >
+      <img className=" h-full w-full max-h-[56px] max-w-[56px] lg:max-h-[88px] lg:max-w-[88px]" height={88} width={88} src="/landing/float.png" alt="float"  />
+    </motion.div>
+  
+}
 
 export default Home;

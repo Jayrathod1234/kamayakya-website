@@ -14,31 +14,36 @@ const NEWS_CHANNELS = [
     id: "news-1",
     img: "/money_control.png",
     review: "Budget 2025: Infrastructure focus may propel cement stocks like UltraTech, Ambuja, ACC",
-    channelName: "Money Control",
+    channelName: "Moneycontrol",
+    link:'https://www.moneycontrol.com/budget/budget-2025-infrastructure-focus-may-propel-cement-stocks-like-ultratech-ambuja-acc-article-12914586.html'
   },
   {
     id: "news-2",
     img: "/economic_times.png",
     review: "IPL Portfolio: Smallcase manager Nitya Shah expects 2 themes to perform like Mayank Yadav",
     channelName: "Economic Times",
+    link:'https://economictimes.indiatimes.com/markets/expert-view/ipl-portfolio-smallcase-manager-nitya-shah-expects-2-themes-to-perform-like-mayank-yadav/articleshow/109997836.cms?from=mdr'
   },
   {
     id: "news-3",
     img: "/money_control.png",
     review: "Budget 2025: Allocation for railways expected to touch a whopping Rs 3 lakh crore",
-    channelName: "Money Control",
+    channelName: "Moneycontrol",
+    link:"https://www.moneycontrol.com/news/business/markets/budget-2025-allocation-for-railways-expected-to-touch-a-whopping-rs-3-lakh-crore-12912792.html"
   },
   {
     id: "news-4",
     img: "/et_now.png",
     review: "Most Promising Leaders of 2025: The Brains Behind the Next Gen Brands",
     channelName: "ET NOW",
+    link:"https://www.etnownews.com/brand-stories/most-promising-leaders-of-2025-the-brains-behind-the-next-gen-brands-article-151566050"
   },
   {
     id: "news-5",
     img: "/sme_futures.png",
     review: "2024 industry trends: MSME sector to remain crucial growth catalyst",
     channelName: "SME Futures",
+    link:"https://smefutures.com/2024-industry-trends-msme-sector-to-remain-crucial-growth-catalyst-3/"
   },
 ];
 
@@ -47,70 +52,81 @@ const NEWS_CHANNELS_MOBILE = [
     id: "news-1",
     img: "/money_control.png",
     review: "Budget 2025: Infrastructure focus may propel cement stocks like UltraTech, Ambuja, ACC",
-    channelName: "Money Control",
+    channelName: "Moneycontrol",
+    link:"https://www.moneycontrol.com/budget/budget-2025-infrastructure-focus-may-propel-cement-stocks-like-ultratech-ambuja-acc-article-12914586.html"
   },
   {
     id: "news-2",
     img: "/economic_times.png",
     review: "IPL Portfolio: Smallcase manager Nitya Shah expects 2 themes to perform like Mayank Yadav",
     channelName: "Economic Times",
+    link:"https://economictimes.indiatimes.com/markets/expert-view/ipl-portfolio-smallcase-manager-nitya-shah-expects-2-themes-to-perform-like-mayank-yadav/articleshow/109997836.cms?from=mdr"
   },
   {
     id: "news-3",
     img: "/money_control.png",
     review: "Budget 2025: Allocation for railways expected to touch a whopping Rs 3 lakh crore",
-    channelName: "Money Control",
+    channelName: "Moneycontrol",
+    link:"https://www.moneycontrol.com/news/business/markets/budget-2025-allocation-for-railways-expected-to-touch-a-whopping-rs-3-lakh-crore-12912792.html"
   },
   {
     id: "news-4",
     img: "/et_now.png",
     review: "Most Promising Leaders of 2025: The Brains Behind the Next Gen Brands",
     channelName: "ET NOW",
+    link:"https://www.etnownews.com/brand-stories/most-promising-leaders-of-2025-the-brains-behind-the-next-gen-brands-article-151566050"
   },
   {
     id: "news-5",
     img: "/business_today.png",
     review: "2024 industry trends: MSME sector to remain crucial growth catalyst",
     channelName: "SME Futures",
+    link:"https://smefutures.com/2024-industry-trends-msme-sector-to-remain-crucial-growth-catalyst-3/"
   },
   {
     id: "news-6",
     img: "/money_control.png",
     review: "Budget 2025: Infrastructure focus may propel cement stocks like UltraTech, Ambuja, ACC",
-    channelName: "Money Control",
+    channelName: "Moneycontrol",
+    link:"https://www.moneycontrol.com/budget/budget-2025-infrastructure-focus-may-propel-cement-stocks-like-ultratech-ambuja-acc-article-12914586.html"
   },
   {
     id: "news-7",
     img: "/economic_times.png",
     review: "IPL Portfolio: Smallcase manager Nitya Shah expects 2 themes to perform like Mayank Yadav",
     channelName: "Economic Times",
+    link:"https://economictimes.indiatimes.com/markets/expert-view/ipl-portfolio-smallcase-manager-nitya-shah-expects-2-themes-to-perform-like-mayank-yadav/articleshow/109997836.cms?from=mdr"
   },
   {
     id: "news-8",
     img: "/money_control.png",
     review: "Budget 2025: Allocation for railways expected to touch a whopping Rs 3 lakh crore",
-    channelName: "Money Control",
+    channelName: "Moneycontrol",
+    link:"https://www.moneycontrol.com/news/business/markets/budget-2025-allocation-for-railways-expected-to-touch-a-whopping-rs-3-lakh-crore-12912792.html"
   },
   {
     id: "news-9",
     img: "/et_now.png",
     review: "Most Promising Leaders of 2025: The Brains Behind the Next Gen Brands",
     channelName: "ET NOW",
+    link:"https://www.etnownews.com/brand-stories/most-promising-leaders-of-2025-the-brains-behind-the-next-gen-brands-article-151566050"
   },
   {
     id: "news-10",
     img: "/sme_futures.png",
     review: "2024 industry trends: MSME sector to remain crucial growth catalyst",
     channelName: "SME Futures",
+    link:"https://smefutures.com/2024-industry-trends-msme-sector-to-remain-crucial-growth-catalyst-3/"
   },
 ];
 
 interface INewsReview {
+  link: string;
   channelName: string;
   review: string;
 }
 
-function NewsReview({ channelName, review }: INewsReview) {
+function NewsReview({ link, channelName, review }: INewsReview) {
   return (
     <>
       <p className=" text-[#FFFFFFE0] md:text-display-xs font-medium open_sans_italic text-center px-4">{review}</p>
@@ -141,8 +157,8 @@ const DesktopCarousel = ({
     >
       <CarouselContent>
         {NEWS_CHANNELS.map((news) => (
-          <CarouselItem key={news.id} className="flex flex-col items-center justify-center">
-            <NewsReview channelName={news.channelName} review={news.review} />
+          <CarouselItem onClick={()=>{window.open(news.link,'_blank')}} key={news.id} className="flex flex-col items-center justify-center cursor-pointer">
+            <NewsReview link={news.link} channelName={news.channelName} review={news.review} />
           </CarouselItem>
         ))}
       </CarouselContent>
@@ -189,8 +205,8 @@ const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent,
       >
         <CarouselContent className=" px-4">
           {NEWS_CHANNELS_MOBILE.map((news) => (
-            <CarouselItem key={news.id} className="flex flex-col items-center justify-center w-full">
-              <NewsReview channelName={news.channelName} review={news.review} />
+            <CarouselItem onClick={()=>{window.open(news.link,'_blank')}} key={news.id} className="flex flex-col items-center justify-center w-full cursor-pointer">
+              <NewsReview link={news.link} channelName={news.channelName} review={news.review} />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -204,7 +220,7 @@ const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent,
       >
         <CarouselContent className="w-[30%] mx-auto">
           {NEWS_CHANNELS_MOBILE.map((news) => (
-            <CarouselItem key={news.id} className="flex flex-col items-center justify-center news__carousel">
+            <CarouselItem onClick={()=>{window.open(news.link,'_blank')}} key={news.id} className="flex flex-col items-center justify-center news__carousel">
               <div className=" rounded-[18.4px] overflow-hidden block lg:hidden embla__slide__number">
                 <img
                   height={107}
@@ -378,13 +394,14 @@ export default function FeaturedNews() {
             {NEWS_CHANNELS.map((news, idx) => (
               <div
                 onClick={() => {
+                  window.open(news.link,'_blank')
                   mainApi?.scrollTo(idx);
                   const autoplay = mainApi?.plugins()?.autoplay;
                   if (!autoplay) return;
                   const reset = autoplay.reset;
                   reset();
                 }}
-                className=" relative flex flex-col items-center"
+                className=" relative flex flex-col items-center cursor-pointer"
                 key={news.id}
               >
                 <div
