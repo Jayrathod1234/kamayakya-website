@@ -20,7 +20,7 @@ function CompanyPill({logo,companyName,onClick,isSelected}:CompanyPillParams) {
   return (
     <Button variant={ButtonVariant.custom} onClick={onClick} className={` border ${isSelected ? " border-brand-400 bg-brand-400 hover:bg-brand-400 ":" border-gray-300 bg-transparent hover:bg-transparent"} flex  items-center gap-x-[6px] !pl-[6px] py-[6px] sm:!pl-2 rounded-full !w-fit !max-w-[242px] !min-w-0`}>
       <div className=" flex-shrink-0">
-        <img className="rounded-full object-cover max-h-7 max-w-7 w-full h-fullz" height={28} width={28} src={logo ?? "/ion_logo.png"} alt="company-logo" />
+        <img className="rounded-full object-cover max-h-7 max-w-7 w-full h-fullz" height={28} width={28} src={logo} alt="company-logo" />
       </div>
       <p className={` truncate  max-sm:font-semibold max-sm:text-sm pr-4 ${isSelected ? "text-white font-bold":" text-gray-800"} `}>{companyName}</p>
     </Button>

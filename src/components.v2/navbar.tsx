@@ -192,8 +192,9 @@ export function Navbar({
                     <ul
                       className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
                         isLoggedIn ? "grid-rows-4" : "grid-rows-4"
-                      } gap-3 m-0 p-6  ${isLoggedIn ? "lg:w-[700px]" : "md:w-[620px] lg:w-[900px]"}  `}
+                      } gap-3 m-0 p-6  ${isLoggedIn ? "md:w-[620px] lg:w-[900px]" : "md:w-[620px] lg:w-[900px]"}  `}
                     >
+                      {/* lg:w-[700px] */}
                       {HOME_OPTIONS.filter((options) =>
                         isLoggedIn
                           ? options.title !== "Sample Reports" &&
