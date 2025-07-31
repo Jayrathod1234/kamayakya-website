@@ -941,58 +941,58 @@ export const HOME_OPTIONS = [
       }
     }
   },
-  {
-    title: "FAQ",
-    subtitle: "Find answers to common questions.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-          fill="url(#paint0_linear_5180_241605)"
-          stroke="url(#paint1_linear_5180_241605)"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M9.20703 9.11961C9.43273 8.47801 9.87822 7.93699 10.4646 7.59238C11.051 7.24776 11.7404 7.12179 12.4107 7.23677C13.0811 7.35176 13.6891 7.70027 14.1271 8.2206C14.5651 8.74092 14.8048 9.39947 14.8038 10.0796C14.8038 11.9996 11.9238 12.9596 11.9238 12.9596M12.0006 16.7996H12.0102"
-          stroke="white"
-          strokeWidth="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <defs>
-          <linearGradient
-            id="paint0_linear_5180_241605"
-            x1="20.5759"
-            y1="19.0794"
-            x2="1.08467"
-            y2="0.0893016"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#125B54" />
-            <stop offset="1" stop-color="#12ADB7" />
-          </linearGradient>
-          <linearGradient
-            id="paint1_linear_5180_241605"
-            x1="20.5759"
-            y1="19.0794"
-            x2="1.08467"
-            y2="0.0893016"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#125B54" />
-            <stop offset="1" stop-color="#12ADB7" />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-    link: "/#FAQs",
-    id:"#FAQs",
-    mixpanel:{
-      event:"faq_clicked",
-      property:{
-        page:"Pricing_Page"
-      }
-    }
-  },
+  // {
+  //   title: "FAQ",
+  //   subtitle: "Find answers to common questions.",
+  //   icon: (
+  //     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  //       <path
+  //         d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+  //         fill="url(#paint0_linear_5180_241605)"
+  //         stroke="url(#paint1_linear_5180_241605)"
+  //         stroke-linecap="round"
+  //         stroke-linejoin="round"
+  //       />
+  //       <path
+  //         d="M9.20703 9.11961C9.43273 8.47801 9.87822 7.93699 10.4646 7.59238C11.051 7.24776 11.7404 7.12179 12.4107 7.23677C13.0811 7.35176 13.6891 7.70027 14.1271 8.2206C14.5651 8.74092 14.8048 9.39947 14.8038 10.0796C14.8038 11.9996 11.9238 12.9596 11.9238 12.9596M12.0006 16.7996H12.0102"
+  //         stroke="white"
+  //         strokeWidth="1.5"
+  //         stroke-linecap="round"
+  //         stroke-linejoin="round"
+  //       />
+  //       <defs>
+  //         <linearGradient
+  //           id="paint0_linear_5180_241605"
+  //           x1="20.5759"
+  //           y1="19.0794"
+  //           x2="1.08467"
+  //           y2="0.0893016"
+  //           gradientUnits="userSpaceOnUse"
+  //         >
+  //           <stop stop-color="#125B54" />
+  //           <stop offset="1" stop-color="#12ADB7" />
+  //         </linearGradient>
+  //         <linearGradient
+  //           id="paint1_linear_5180_241605"
+  //           x1="20.5759"
+  //           y1="19.0794"
+  //           x2="1.08467"
+  //           y2="0.0893016"
+  //           gradientUnits="userSpaceOnUse"
+  //         >
+  //           <stop stop-color="#125B54" />
+  //           <stop offset="1" stop-color="#12ADB7" />
+  //         </linearGradient>
+  //       </defs>
+  //     </svg>
+  //   ),
+  //   link: "/#FAQs",
+  //   id:"#FAQs",
+  //   mixpanel:{
+  //     event:"faq_clicked",
+  //     property:{
+  //       page:"Pricing_Page"
+  //     }
+  //   }
+  // },
 ];
