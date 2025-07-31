@@ -7,6 +7,7 @@ import LoginPrompt from "../common/LoginPrompt";
 import AuthContext from "@/components/AuthContext";
 import { useRouter } from "next/router";
 import Stat from "./Stat";
+import { TypeAnimation } from "react-type-animation";
 
 const COMPANY_LIST = [
   "/hero_company/image 201.png",
@@ -35,14 +36,34 @@ export default function Hero() {
                 <div className=" bg-white border border-[#75CDC566] px-[14px] py-2 rounded-full w-fit">
                   <p className=" text-sm font-semibold text-brand-500">SEBI Registered: INH000009843</p>
                 </div>
-                <h1 className="font-medium text-gray-950 text-display-sm lg:text-[62px] leading-[110%]  tracing-[-3%] max-lg:mt-[10px]">
-                  Financial <span className=" text-brand-400 font-bold open_sans_italic">Freedom</span> Starts Here!
+                 <h1 className="font-medium text-gray-950 text-display-sm lg:text-[62px] leading-[110%]  tracing-[-3%] max-lg:mt-[10px]">
+                 Grow your money by investing in  <TypeAnimation
+            preRenderFirstString={true}
+        
+            sequence={[
+              5000,
+              'SME, Microcap and Smallcap stocks',
+              
+              3000,
+              "ideas with Big Potential",
+              3000,
+              "potential Multibaggers",
+              5000,
+            ]}
+            speed={60}
+            deletionSpeed={60}
+            // style={{ fontSize: "80px" }}
+            repeat={Infinity}
+            className="text-brand-400 font-bold open_sans_italic max-lg:text-center text-display-sm lg:text-[58px] leading-[110%]  tracing-[-3%] max-lg:mt-[10px]"
+          />
+                  {/* <span className=" text-brand-400 font-bold open_sans_italic">Freedom</span> Starts Here! */}
                 </h1>
 
-                <p className=" text-xs lg:text-lg text-gray-800 max-w-2xl mx-auto lg:mx-0 max-lg:mt-2 ">
+                {/*<p className=" text-xs lg:text-lg text-gray-800 max-w-2xl mx-auto lg:mx-0 max-lg:mt-2 ">
                   Invest confidently in hidden opportunities within SMEs, Microcaps & Smallcaps, and build the future
                   you truly deserve.
-                </p>
+                </p> */}
+               
               </div>
               <div className="order-1 lg:order-2 w-full max-w-2xl mx-auto lg:mx-0">
               <div className="relative group">

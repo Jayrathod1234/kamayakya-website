@@ -295,7 +295,7 @@ export default function Team() {
   };
 
   return (
-    <div className=" md:main-container max-md:bg-[rgba(13,65,57,1)]">
+    <div className=" md:main-container max-md:bg-[rgba(13,65,57,1)] pt-[50px] sm:pt-[100px]">
       <div className=" pb-[38px] pt-[50px] md:py-[50px] bg-[rgba(13,65,57,1)] open_sans px-5 md:px-[60px] md:rounded-t-[28px]">
         <p className=" text-[#FF9E29] font-bold text-center">LEADERSHIP TEAM</p>
         <h3 className=" text-display-md font-bold mt-[6px] mb-0 text-center text-white">Meet the <span className=" open_sans_italic">team</span>!</h3>
@@ -303,7 +303,7 @@ export default function Team() {
           Meet our team, trusted by clients worldwide for delivering value through
           a powerful blend of decades of experience and deep expertise.
         </p>
-        <Carousel opts={{ loop: true }} setApi={setApi} plugins={[Autoplay({ delay: 4000 ,stopOnMouseEnter:true,stopOnInteraction:false})]} className=" mt-[38px] md:max-w-[100%]  xl:max-w-[85%] lg:mx-auto ">
+        <Carousel opts={{ loop: true }} setApi={setApi} plugins={[Autoplay({ delay: 5000 ,stopOnMouseEnter:true,stopOnInteraction:false})]} className=" mt-[38px] md:max-w-[100%]  xl:max-w-[85%] lg:mx-auto ">
          {/* desktop */}
           <CarouselContent className={`${!isMobile ? "justify-center" : ""}`}>
             {teams.map((team,index) => (

@@ -8,6 +8,7 @@ import Gmail from "./icons/gmail";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import dynamic from "next/dynamic";
 import FUNNEL from "../../../public/landing/kmkfunnel.json";
+import SCROLL from "../../../public/landing/Scrolldown.json";
 import { Marquee } from "@/components.v2/magicui/marquee";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 interface INotification {
@@ -341,7 +342,7 @@ export default function Service() {
   });
 
   return (
-    <div className="bg-[#01272E]">
+    <div id="services"  className="bg-[#01272E]">
       {/* Mobile scroll container */}
       <div ref={targetRef} className="lg:hidden h-[300vh] relative" style={{ scrollBehavior: 'smooth' }}>
         {/* Sticky content container */}
@@ -354,6 +355,14 @@ export default function Service() {
                 <p className="text-display-xs sm:text-display-md font-bold text-center mt-3 text-white">
                   Smart <span className="open_sans_italic">Investment</span> Solutions
                 </p>
+              
+          <div className="flex items-center justify-center mt-2 gap-2 border border-white/80 rounded-full w-fit p-2 mx-auto">
+          <Lottie className=" h-7 w-7 block object-contain bg-white rounded-full" autoPlay loop={true} animationData={SCROLL} />
+
+          <p className="open_sans open_sans_italic text-center text-white text-xs text-[#BBD4D7CC]">
+           Keep scrolling down to view all services.
+          </p> 
+          </div>
                 <MobileServiceCardList targetRef={targetRef} scrollYProgress={scrollYProgress} />
               </div>
             </div>

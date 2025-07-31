@@ -380,7 +380,7 @@ export default function ExpandableCardGroup() {
   };
 
   return (
-    <div className="mx-auto py-[50px] sm:py-[110px] open_sans">
+    <div id="philosophy" className="mx-auto py-[50px] sm:py-[110px] open_sans">
       <p className="font-semibold sm:font-bold text-[#FF9E29] text-center max-sm:text-sm">PHILOSOPHY</p>
       <h2 className="text-display-xs sm:text-display-md font-bold mb-2 text-center">Our Investing <span className=" open_sans_italic">Philosophy</span></h2>
       <p className="max-sm:mt-3 text-sm sm:text-lg text-gray-500 mb-7 sm:mb-10 text-center">

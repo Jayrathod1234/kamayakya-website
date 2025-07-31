@@ -762,10 +762,10 @@ header > div > div {
 }
 
 .homePage-text-animated {
-  font-size: 80px !important;
+  /* font-size: 80px !important; */
   /*letter-spacing: -3px !important;*/
   /*word-spacing: -3.5px !important;*/
-  color: #010705 !important;
+  /* color: #010705 !important; */
 }
 
 @media only screen and (max-width: 768px) {

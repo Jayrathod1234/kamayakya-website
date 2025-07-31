@@ -201,24 +201,24 @@ const Home: NextPage = () => {
      
 
         {/* Add refs to each section */}
-        <div ref={sampleReportRef}>
+        <div id="sample-report" ref={sampleReportRef}>
           <SampleReport />
         </div>
-        <div ref={trackRecordRef}>
+        <div id="track-record" ref={trackRecordRef}>
           <TrackRecordSection />
         </div>
-        <div ref={trustUsRef}>
+        <div id="trust-us" ref={trustUsRef}>
           <TrustUs />
         </div>
-        <div ref={teamRef}>
+        <div id="team" ref={teamRef}>
           <Team />
         </div>
-        <div ref={howRef}>
+        <div id="how" ref={howRef}>
           <How />
         </div>
        
       </div>
-      <div ref={stockPickRef}>
+      <div id="stock-picks" ref={stockPickRef}>
           <StockPickSection />
         </div>
       <div id="testimonials" className="pt-[60px] pb-[52px] md:py-[60px] bg-gray-100 relative ">

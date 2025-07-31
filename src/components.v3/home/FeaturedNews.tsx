@@ -383,7 +383,7 @@ export default function FeaturedNews() {
   }, [mainApi]);
   console.log("INDEX", current);
   return (
-    <div className="bg-gray-100 ">
+    <div id="news" className="bg-gray-100 ">
       <div className="main-container md:py-[50px] ">
         <div className=" max-md:px-3 py-7 md:py-[100px] flex flex-col items-center justify-center bg-[#01272E] lg:bg-[url('/landing/featured_news_grid.png')] bg-cover rounded-[28px] open_sans">
           <p className=" max-md:text-sm text-[#F98800] font-bold">FEATURED</p>

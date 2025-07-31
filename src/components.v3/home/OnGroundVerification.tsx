@@ -61,7 +61,7 @@ function getImageName(text: string) {
 
 export default function OnGroundVerification() {
   return (
-    <div className="md:px-5">
+    <div id="on-ground-verification" className="md:px-5">
       <div className="relative py-[50px] md:py-20 bg-[#01272E] open_sans md:rounded-[28px] overflow-hidden">
         {/* Background image using <img> */}
         <img
@@ -93,7 +93,7 @@ export default function OnGroundVerification() {
             className="w-full max-sm:mt-7"
           >
             <CarouselContent> */}
-          <Marquee pauseOnHover className="[--duration:80s] cursor-[url(/carousel-pause-icon.svg),auto]">
+          <Marquee pauseOnHover className="[--duration:100s] cursor-[url(/carousel-pause-icon.svg),auto]">
             {items.map((item, idx) => {
               if (Array.isArray(item)) {
                 const [img1, img2] = item;

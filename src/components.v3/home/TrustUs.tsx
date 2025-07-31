@@ -286,7 +286,7 @@ export default function TrustUs() {
   }, [api]);
 
   return (
-    <div className=" main-container py-[50px] sm:pb-[100px]">
+    <div className=" main-container pt-[50px] ">
       <div className=" open_sans">
         <p className=" font-bold text-[#FF9E29] text-center max-sm:text-sm">Why trust us?</p>
         <h2 className=" text-display-xs sm:text-display-md  font-bold mb-2 text-center text-gray-950">
@@ -348,7 +348,7 @@ export default function TrustUs() {
               index={2}
               selectedIndex={current}
               api={api}
-              text="Our team is packed with ⭐️s"
+              text="Our team. Our edge."
             />
           </div>
         </div>

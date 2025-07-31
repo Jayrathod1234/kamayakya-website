@@ -191,7 +191,7 @@ export function Navbar({
                     {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
                     <ul
                       className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
-                        isLoggedIn ? "grid-rows-4" : "grid-rows-3"
+                        isLoggedIn ? "grid-rows-4" : "grid-rows-4"
                       } gap-3 m-0 p-6  ${isLoggedIn ? "lg:w-[700px]" : "md:w-[620px] lg:w-[900px]"}  `}
                     >
                       {HOME_OPTIONS.filter((options) =>
@@ -203,7 +203,7 @@ export function Navbar({
                       ).map((option) => (
                         <ListItem
                           onClick={(e) =>
-                            option.title === "Sample Reports" ? handleSampleReports(e) : handleNavigation(option, e)
+                          handleNavigation(option, e)
                           }
                           key={option.title}
                           className=" hover:bg-gray-50 relative "

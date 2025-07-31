@@ -179,9 +179,9 @@ export default function SideNav({ handleLogin }: TSideNav) {
                                   setOpen(false);
                                   setId(options.id);
                                   e.preventDefault();
-                                  if (options.title === "Sample Reports") {
-                                    setVisible(true);
-                                  }
+                                  // if (options.title === "Sample Reports") {
+                                  //   setVisible(true);
+                                  // }
                                   // if (pathname.includes("pricing") && options.id.includes("testimonials")) {
                                   //   let ele = document.querySelector(options.id);
                                   //   ele?.scrollIntoView({ behavior: "smooth" });
