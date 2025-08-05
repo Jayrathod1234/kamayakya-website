@@ -45,7 +45,7 @@ export default function Hero() {
               'SME, Microcap and Smallcap stocks',
               
               3000,
-              "ideas with Big Potential",
+              "companies with big potential",
               3000,
               "potential Multibaggers",
               5000,
@@ -54,7 +54,7 @@ export default function Hero() {
             deletionSpeed={60}
             // style={{ fontSize: "80px" }}
             repeat={Infinity}
-            className="text-brand-400 font-bold open_sans_italic max-lg:text-center text-display-sm lg:text-[58px] leading-[110%]  tracing-[-3%] max-lg:mt-[10px]"
+            className="text-brand-400 font-bold max-lg:text-center text-display-sm lg:text-[58px] leading-[110%]  tracing-[-3%] max-lg:mt-[10px]"
           />
                   {/* <span className=" text-brand-400 font-bold open_sans_italic">Freedom</span> Starts Here! */}
                 </h1>

@@ -214,7 +214,9 @@ let SERVICE_DATA = [
         autoPlay
         loop
         muted
-        className="max-w-[294.6371765136719px] h-[200px] lg:h-[120px] xl:max-h-[220px]  xl:h-full w-full object-contain"
+        playsInline
+        preload='auto'
+        className=" pointer-events-none user-select-none max-w-[294.6371765136719px] h-[200px] lg:h-[120px] xl:max-h-[220px]  xl:h-full w-full object-contain"
         // src="/modalportfolio.png"
         // alt="model_portfolio"
       >

@@ -91,9 +91,12 @@ function Steps({
         height={235}
         autoPlay
         muted
-        className=" h-full w-full max-w-[342px] max-lg:max-w-full max-h-[300px] md:max-h-[400px] mx-auto object-cover mb-[10px] rounded-xl lg:hidden"
+        className=" pointer-events-none user-select-none h-full w-full max-w-[342px] max-lg:max-w-full max-h-[300px] md:max-h-[400px] mx-auto object-cover mb-[10px] rounded-xl lg:hidden"
         src={video}
         loop
+        playsInline
+        preload='auto'
+        controls={false}
       />
       <div onClick={onClick} className={` relative flex items-start gap-x-[10px]    `}>
         <div className=" pt-[4px] flex-shrink-0">
@@ -525,39 +528,48 @@ export default function How() {
             <CarouselItem className=" h-full">
               <div className=" rounded-[28px] h-full overflow-hidden max-w-[620px] w-full flex items-center justify-center">
                 <video
-                  className=" w-full h-full object-cover min-h-full"
+                  className=" pointer-events-none user-select-none w-full h-full object-cover min-h-full"
                   width={620}
                   height="100%"
                   src="/landing/how_1.mp4"
                   muted
                   autoPlay
                   loop
+                  playsInline
+                  preload='auto'
+                  controls={false}
                 />
               </div>
             </CarouselItem>
             <CarouselItem className=" h-full">
               <div className=" rounded-[28px] overflow-hidden max-w-[620px] h-full w-full flex items-center justify-center">
                 <video
-                  className=" w-full h-full object-cover min-h-full"
+                  className=" pointer-events-none user-select-none w-full h-full object-cover min-h-full"
                   width={620}
                   height="100%"
                   src="/landing/how_2.mp4"
                   muted
                   autoPlay
                   loop
+                  playsInline
+                  preload='auto'
+                  controls={false}
                 />
               </div>
             </CarouselItem>
             <CarouselItem className=" h-full">
               <div className=" rounded-[28px] overflow-hidden max-w-[620px] h-full w-full flex items-center justify-center">
                 <video
-                  className=" w-full h-full object-cover min-h-full"
+                  className=" pointer-events-none user-select-none w-full h-full object-cover min-h-full"
                   width={620}
                   height="100%"
                   src="/landing/how_3.mp4"
                   muted
                   autoPlay
                   loop
+                  playsInline
+                  preload='auto'
+                  controls={false}
                 />
               </div>
             </CarouselItem>

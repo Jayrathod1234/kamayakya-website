@@ -145,7 +145,7 @@ function Ele1() {
   return (
     <div className="flex flex-col lg:flex-row gap-x-7">
       <div className=" flex-1 max-lg:flex justify-center items-center">
-        <video loop className=" w-[663px] h-full rounded-[28px]" muted autoPlay src="/trust_vid1.mp4"></video>
+        <video loop playsInline preload='auto' controls={false} className=" pointer-events-none user-select-none w-[663px] h-full rounded-[28px]" muted autoPlay src="/trust_vid1.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-[10px] sm:gap-y-10">
         <div className=" flex gap-x-5">
@@ -181,7 +181,7 @@ function Ele2() {
   return (
     <div className="flex flex-col lg:flex-row gap-x-7">
       <div className=" flex-1 max-lg:flex justify-center items-center">
-        <video className=" w-[663px] h-full rounded-[28px]" loop muted autoPlay src="/trust_vid2.mp4"></video>
+        <video className=" pointer-events-none user-select-none w-[663px] h-full rounded-[28px]" playsInline preload='auto' controls={false} loop muted autoPlay src="/trust_vid2.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-10">
         <div className=" flex gap-x-5">
@@ -207,7 +207,7 @@ function Ele3() {
   return (
     <div className="flex flex-col lg:flex-row gap-x-7">
       <div className=" flex-1 max-lg:flex justify-center items-center">
-        <video className=" w-[663px] h-full rounded-[28px]" loop muted autoPlay src="/landing/kmk-starsTeam.mp4"></video>
+        <video className=" pointer-events-none user-select-none w-[663px] h-full rounded-[28px]" playsInline preload='auto' controls={false} loop muted autoPlay src="/landing/kmk-starsTeam.mp4"></video>
       </div>
       <div className="py-5 flex-1 flex flex-col gap-y-10">
         <div className=" flex gap-x-5">
