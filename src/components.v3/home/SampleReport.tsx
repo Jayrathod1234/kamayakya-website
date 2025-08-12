@@ -78,7 +78,7 @@ const logoMap = {
   "Ion Exchange (India) Ltd.":"/ion_logo.png",
   "Vimta Labs Ltd.":"/vimta.png",
   "Gravita India Ltd.":"/gravita_logo.png",
-  "Gufic BioSciences Ltd.":"/gufic_logo.png",
+  "Gufic Biosciences Ltd.":"/gufic_logo.png",
   "Virtuoso Optoelectronics Ltd.":"/virtuoso_logo.png",
 }
 
@@ -86,7 +86,7 @@ export default function SampleReport() {
   const [companySelected, setCompanySelected] = useState({});
   const { data, isLoading } = useQuery({
     queryKey: ["landingReports"],
-    queryFn: () => getStockReports({stock_names:["Ion Exchange (India) Ltd.","Vimta Labs Ltd.","Gravita India Ltd.","Gufic BioSciences Ltd.","Virtuoso Optoelectronics Ltd."]}),
+    queryFn: () => getStockReports({stock_names:["Ion Exchange (India) Ltd.","Vimta Labs Ltd.","Gravita India Ltd.","Gufic Biosciences Ltd.","Virtuoso Optoelectronics Ltd."]}),
   });
 
   function selectCompany(companyData){
