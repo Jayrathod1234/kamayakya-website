@@ -22,7 +22,7 @@ export function  StatsCard() {
           key={index}
           className="flex flex-1 w-full flex-col items-center text-center border-gray-200 md:border-r md:border-l first:md:border-none  last:md:border-none px-2 md:px-4 first:md:px-0 last:md:px-0"
         >
-          <span className=' text-[18px] md:text-[24px] lg:text-[46px] text-[#062D24E5] font-bold whitespace-nowrap'><NumberTicker className=" text-[18px] md:text-[24px] lg:text-[46px] text-[#062D24E5] font-bold" value={stat.value} startValue={stat.value-60} decimalPlaces={0} />+</span>
+          <span className=' text-[18px] md:text-[24px] lg:text-[46px] text-[#062D24E5] font-bold whitespace-nowrap'><span className=" text-[18px] md:text-[24px] lg:text-[46px] text-[#062D24E5] font-bold">{stat.value}</span>+</span>
           <span className=" text-[10px]  md:text-[13px] lg:text-[16px] xl:text-[18px] text-gray-950 font-semibold">{stat.label}</span>
         </div>
       ))}
