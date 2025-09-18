@@ -87,7 +87,7 @@ const Notification = ({ name, description, icon, time }: INotification) => {
     >
       <div className="flex flex-row items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-2xl">
-          <span className="text-lg">{icon}</span>
+          <span className="text-lg flex-shrink-0 w-[32px] h-[32px]">{icon}</span>
         </div>
         <div className="flex flex-col overflow-hidden open-sans">
           <figcaption className="flex flex-row items-center whitespace-pre text-lg font-medium dark:text-white ">

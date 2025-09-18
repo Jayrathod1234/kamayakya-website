@@ -178,25 +178,27 @@ export const getPaymentReceipt = async(params)=>{
 
 export const getAddressFromPincode = async (pincode) => {
   try {
-    const URL = `https://api.postalpincode.in/pincode/${pincode}`;
+    const URL = `https://pinlookup.in/api/pincode?pincode=${pincode}`;
     const response = await axios.get(URL);
     const data = response.data;
-
-    if (Array.isArray(data) && data[0]?.Status === "Success") {
-      const postOffices = data[0]?.PostOffice;
-      if (Array.isArray(postOffices) && postOffices.length > 0) {
+    if(data?.error){
+      return { verified: false, address: null };
+    }
+    // if (Array.isArray(data) && data[0]?.Status === "Success") {
+    //   const postOffices = data[0]?.PostOffice;
+    //   if (Array.isArray(postOffices) && postOffices.length > 0) {
         // You can pick the first one or return all addresses if needed
-        const address = postOffices[0];
+        const address =data?.data;
         // const formatted = `${address.Name}, ${address.Block}, ${address.District}, ${address.State}, ${address.Country} - ${address.Pincode}`;
-        const formatted = `${address.Block}, ${address.State}, ${address.Country} - ${address.Pincode}`
+        const formatted = `${address.taluk}, ${address.district_name}, ${address.state_name} - ${address.pincode}`
         return {
           verified: true,
           address: formatted,
         };
-      }
-    }
+      // }
+    // }
 
-    return { verified: false, address: null };
+    // return { verified: false, address: null };
   } catch (error) {
     console.error("Error fetching address:", error);
     return { verified: false, address: null };
