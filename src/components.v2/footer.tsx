@@ -6,6 +6,7 @@ import React from "react";
 import { BlogSocial } from "./blogs/blog-social-list";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTelegram, FaTelegramPlane } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import Audit from "./audit";
 
 function FooterLinks({ href, label, event, ...rest }: Record<string, string>) {
   const handleEvent = () => {
@@ -266,6 +267,7 @@ export function Footer() {
               before investing. Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee performance
               of the intermediary or provide any assurance of returns to investors.<br/>BSE Enlistment No : 5583 <br/>
             </p>
+            <Audit />
             <div className=" flex flex-col gap-y-5 md:gap-y-12">
               <div className=" text-white flex flex-wrap gap-x-5 items-center justify-center flex-shrink-0 content-center whitespace-nowrap max-md:text-2xs ">
                 <FooterLinks event="tnc_clicked" href="terms-conditions" label="Terms & Conditions" />

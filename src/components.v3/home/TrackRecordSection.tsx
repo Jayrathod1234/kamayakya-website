@@ -9,10 +9,11 @@ import HeroCardSection from "@/pages/track-record/components/HeroCardSection";
 import TrackRecordHeroCard from "@/pages/track-record/components/TrackRecordHeroCard";
 import { useQuery } from "@tanstack/react-query";
 import Autoplay from "embla-carousel-autoplay";
+import router from "next/router";
 import { useContext } from "react";
 
 export const TrackRecordSection = () => {
-  const { isLoggedIn } = useContext(AuthProvider);
+  const { isLoggedIn, setShowLoginModal } = useContext(AuthProvider);
 
   //track record api
   const { data: trackRecordDashboardStats = [] } = useQuery({
@@ -41,6 +42,9 @@ export const TrackRecordSection = () => {
               strokeStyle=" stroke-gray-950"
               className=" max-lg:hidden mt-10"
               variant={ButtonVariant.secondary}
+              onClick={() => {
+                setShowLoginModal(true);
+              }}
             >
               <p className=" text-gray-950 font-medium"> Unlock Now for Free</p>
             </ButtonnArrow>
@@ -58,6 +62,9 @@ export const TrackRecordSection = () => {
                       strokeStyle=" mt-[46px] stroke-gray-950"
                       className=" mt-10"
                       variant={ButtonVariant.secondary}
+                      onClick={() => {
+                        router.push("/track-record");
+                      }}
                     >
                       <p className=" text-gray-950 font-medium">Go to Track Record</p>
                     </ButtonnArrow>

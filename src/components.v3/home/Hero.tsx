@@ -89,7 +89,13 @@ export default function Hero() {
               </div>
             </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-lg:mt-6 mt-[33px]">
-                 <Button onClick={()=>router.push("/pricing")} variant={ButtonVariant.primary}>
+                 <Button onClick={()=>{
+                  if(isLoggedIn){
+                    router.push("/pricing");
+                  }else{
+                    setShowLoginModal(true);
+                  }
+                 }} variant={ButtonVariant.primary}>
                   <p className=" font-medium text-md">
                     Get Started - <span className=" font-normal">It's Free</span>
                   </p>
