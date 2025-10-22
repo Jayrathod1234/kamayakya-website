@@ -53,7 +53,7 @@ export function Navbar({
   className?: string;
   navigationLinkClassName?: string;
 }) {
-  const { isLoggedIn,setShowLoginModal, showLoginModal } = useContext(AuthContext);
+  const { isLoggedIn,setShowLoginModal, showLoginModal,isSubscribed } = useContext(AuthContext);
   const { showFilterHeader } = useNavBar();
   const router = useRouter();
   const pathname = router.pathname;
@@ -144,9 +144,12 @@ export function Navbar({
 
   return (
     <>
-    <Marquee pauseOnHover className="[--duration:20s]">
-      <p className=" text-lg font-open_sans mr-8 py-1 flex items-center"><span className=" whitespace-nowrap"> ✨ Diwali Dhamaka Offer! Flat <span className=" font-semibold ">25% OFF</span> — use code{" "}<span className=" font-semibold text-brand-400 ">DIWALI25</span>. Limited time (till 31st Oct). T&Cs apply.</span></p>
-</Marquee>
+    {
+      !isSubscribed && (<Marquee pauseOnHover className="[--duration:20s]">
+        <p className=" text-lg font-open_sans mr-8 py-1 flex items-center"><span className=" whitespace-nowrap"> ✨ Diwali Dhamaka Offer! Flat <span className=" font-semibold ">25% OFF</span> — use code{" "}<span className=" font-semibold text-brand-400 ">DIWALI25</span>. Limited time (till 31st Oct). T&Cs apply.</span></p>
+  </Marquee>)
+    }
+    
     <div
       ref={ref}
       className={cn(
