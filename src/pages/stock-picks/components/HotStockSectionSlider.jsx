@@ -26,8 +26,8 @@ const HotStockSectionSlider = ({ items }) => {
               <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-gray-950">
                 Hot Stocks ({items?.length})
               </h2>
-              <p className="pt-3 font-normal text-md text-gray-600 pb-6 text-[16px] font-open_sans">
-                Top stocks to invest in right NOW!
+              <p className="pt-3 font-medium text-md text-gray-600 pb-6 text-[18px] font-open_sans">
+              Top stock recommendations with the highest conviction that you may buy at today’s price.
               </p>
               {(isMobile && items.length <= 1) ||
               (!isMobile && items.length <= 2) ? (
@@ -76,8 +76,8 @@ export const HotStockSectionSliderVertical = ({ items }) => {
               <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 text-gray-950">
                 Hot Stocks ({items?.length})
               </h2>
-              <p className="pt-3 font-normal text-md text-gray-600 pb-6 text-[16px] font-open_sans">
-                Top stocks to invest in right NOW!
+              <p className="pt-3 font-medium text-md text-gray-600 pb-6 text-[18px] font-open_sans">
+              Top stock recommendations with the highest conviction that you may buy at today’s price.
               </p>
               {(isMobile && items.length <= 1) ||
               (!isMobile && items.length <= 2) ? (

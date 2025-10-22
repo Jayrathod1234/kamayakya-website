@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getHotStockListApi } from "@/api/stock-picks";
 import { useMediaQuery } from "@mui/material";
 import SearchPage from "../../components.v3/common/SearchPage";
+import ContactUsBtn from "@/components.v2/contact-us-btn";
 
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -98,6 +99,7 @@ export default function StockPicksPage() {
   return (
     <StockPicksProvider>
       <StockPicks />
+      <ContactUsBtn />
     </StockPicksProvider>
   );
 }

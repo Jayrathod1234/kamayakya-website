@@ -37,8 +37,8 @@ const HotStockSection = ({ items }) => {
                 <h2 className="text-display-xs font-bold leading-8 font-open_sans m-0 sm:block hidden text-gray-950">
                   Hot Stocks ({items?.length})
                 </h2>
-                <p className="pt-3 font-normal text-md text-gray-500 pb-10 sm:block hidden font-open_sans">
-                  Top stocks to invest in right NOW!
+                <p className="pt-3 font-medium text-md text-gray-500 pb-10 sm:block hidden font-open_sans">
+                Top stock recommendations with the highest conviction that you may buy at today’s price.
                 </p>
                 <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:pl-[41px] pr-20  sm:flex  items-center  rounded-[10px]">
                   <div className="flex-1 w-full sm:pt-0 pt-5">

@@ -18,6 +18,8 @@ import TestimonialSection from "./components/TestimonialSection";
 import { getTrackRecordStats } from "@/api/payment";
 import KycPrivacyNotice, { PopupNotice } from "./components/KycPrivacyNotice";
 import axios from "axios";
+import ContactUsBtn from "@/components.v2/contact-us-btn";
+import { Headset, Phone } from "lucide-react";
 // import { DialogContent } from "@radix-ui/react-dialog";
 
 export default function Index() {
@@ -117,6 +119,7 @@ export default function Index() {
 
   return (
     <PaymentContextProvider>
+      <>
       <div className=" bg-white open_sans pb-6">
         <PaymentIssue />
         <Header className={headerBg} callIncompletePayment = {callIncompletePayment} />
@@ -240,9 +243,12 @@ export default function Index() {
               {/* stepper component end */}
 
               <div className=" flex flex-col sm:flex-row justify-center items-center sm:items-start mt-3">
-                <img height={24} width={24} src="/assets/help.svg" alt="help" />
-                <p className=" ml-1 pt-2 text-2xs text-gray-500 text-center">
+                {/* <img height={24} width={24} src="/assets/help.svg" alt="help" /> */}
+                {/* <Phone className="w-3 h-3 relative z-10" /> */}
+               
+                <p className=" ml-1 pt-2 text-sm text-gray-500 text-center">
                   {/* Check <FaqModal /> */}
+                  <Headset className="w-5 h-5 relative z-10 text-gray-500 inline-block" /> {" "}
                   Got any doubts? Call us at +91 9175939641 or send a WhatsApp message on +91 9175939641
                 </p>
               </div>
@@ -313,6 +319,8 @@ export default function Index() {
           </div>
         </div>
       </div>
+      <ContactUsBtn />
+      </>
     </PaymentContextProvider>
   );
 }

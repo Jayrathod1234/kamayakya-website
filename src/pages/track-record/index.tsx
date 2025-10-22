@@ -10,6 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Modal } from "@nextui-org/react";
 import AuthContext from "@/components/AuthContext";
 import TrackRecordMain from "./components/TrackRecordMain";
+import ContactUsBtn from "@/components.v2/contact-us-btn";
 const MyObserver = () => {
   const { fetchNextPage } = useTrackRecord();
   const myObserver = useRef();
@@ -67,6 +68,7 @@ export default function TrackRecord() {
           </Modal.Body>
         </Modal> */}
         {/* </StockPicksProvider> */}
+        <ContactUsBtn />
       </TrackRecordProvider>
     </TrackRecordCommonProvider>
   );

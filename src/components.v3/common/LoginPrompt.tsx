@@ -7,7 +7,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Line } from "@/components.v2/blogs/blog-card-sm";
-import { Mail, Phone, X } from "lucide-react";
+import { Headset, Mail, Phone, X } from "lucide-react";
 import OTPInput from "react-otp-input";
 import { useMediaQuery } from "@mui/material";
 import { blockInvalidChar } from "@/components/LoginCard";
@@ -438,6 +438,11 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
           )}
         </Button>
       </div>
+      <p className=" pt-4 text-xs text-gray-500 text-center">
+        {/* Check <FaqModal /> */}
+        <Headset className="w-5 h-5 relative z-10 text-gray-500 inline-block" /> Have questions? We're here to help!
+        Call us at <span className=" font-medium whitespace-nowrap"> +91 9175939641</span> or email us at <span className=" font-medium whitespace-nowrap"> contact@kamayakya.com</span>
+      </p>
     </div>
   );
 };

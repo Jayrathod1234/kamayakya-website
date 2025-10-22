@@ -1,6 +1,7 @@
 import { verifyCoupon } from "@/api/payment";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
+import { AnimatedShinyText } from "@/components.v2/ui/animated-shiny-text";
 import { Checkbox } from "@/components.v2/ui/checkbox";
 import {
   Dialog,
@@ -11,6 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components.v2/ui/dialog";
+import { RainbowButton } from "@/components.v2/ui/rainbow-button";
+import { ShimmerButton } from "@/components.v2/ui/shimmer-button";
 import { toast } from "@/components.v2/ui/use-toast";
 import Tooltip from "@/components.v3/common/Tooltip";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
@@ -124,11 +127,29 @@ export default function CouponModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className=" w-full">
-        <div className=" flex items-center rounded-lg mt-2 py-3 px-[11px] border border-[#0000000F]">
+      <DialogTrigger asChild className=" w-full">
+        {/* <div className=" relative w-full space-y-10"> */}
+      {/* <ShimmerButton shimmerSize="  0.08em"  shimmerColor="#17756c" background="#FFF" className="w-full rounded-lg mt-2 py-3 px-[11px] border border-[#0000000F] !bg-white" >
+        <div className=" flex items-center">
           <img src="/assets/badge-percent.svg" alt="badge" height={22} width={22} />
           <p className=" ml-[10px] text-gray-950 text-sm font-medium">Apply Coupon</p>
         </div>
+        </ShimmerButton>
+        <RainbowButton variant={"outline"}  className="w-full rounded-lg mt-2 py-3 px-[11px] border border-[#0000000F] !bg-white" >
+        <div className=" flex items-center">
+          <img src="/assets/badge-percent.svg" alt="badge" height={22} width={22} />
+          <p className=" ml-[10px] text-gray-950 text-sm font-medium">Apply Coupon</p>
+        </div>
+        </RainbowButton>
+        <div className=" flex items-center !mt-10 rounded-lg py-3 px-[11px] border border-[#0000000F]">
+          <img src="/assets/badge-percent.svg" alt="badge" height={22} width={22} />
+          <AnimatedShinyText  className=" ml-[10px] text-sm font-medium">Apply Coupon</AnimatedShinyText>
+        </div> */}
+        <div className=" mt-2 flex items-center rounded-lg py-3 px-[11px] bg-[#cbf3f0] border border-[#0000000F]">
+          <img src="/assets/badge-percent.svg" alt="badge" height={22} width={22} />
+          <p className=" ml-[10px] text-sm font-medium">Apply Coupon</p>
+        </div>
+        {/* </div> */}
       </DialogTrigger>
       <DialogContent
         closeClassName=" -right-2 -top-[12px] opacity-100"

@@ -38,6 +38,7 @@ import LoginPrompt from "@/components.v3/common/LoginPrompt";
 import dynamic from 'next/dynamic';
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import VIP_LOTTIE from "../../public/assets/New.json";
+import { Marquee } from "./magicui/marquee";
 
 /*
 For pages with white background give className=bg-white to get the green hover effect
@@ -142,6 +143,10 @@ export function Navbar({
   if(isLoading) return null
 
   return (
+    <>
+    <Marquee pauseOnHover className="[--duration:20s]">
+      <p className=" text-lg font-open_sans mr-8 py-1 flex items-center"><span className=" whitespace-nowrap"> ✨ Diwali Dhamaka Offer! Flat <span className=" font-semibold ">25% OFF</span> — use code{" "}<span className=" font-semibold text-brand-400 ">DIWALI25</span>. Limited time (till 31st Oct). T&Cs apply.</span></p>
+</Marquee>
     <div
       ref={ref}
       className={cn(
@@ -377,6 +382,7 @@ export function Navbar({
         <SampleReportsModal setVisible={setVisible} bindings={bindings} />
       </div>
     </div>
+    </>
   );
 }
 
