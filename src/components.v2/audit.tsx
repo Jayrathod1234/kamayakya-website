@@ -25,12 +25,18 @@ export default function ComplianceAuditPage() {
           <tbody>
             <tr className="hover:bg-muted/50 transition-colors">
               <td className="border border-border px-4 py-3 text-foreground">1</td>
-              <td className="border border-border px-4 py-3 text-foreground">FY 2023-24</td>
+              <td className="border border-border px-4 py-3 text-foreground">FY 2022-23</td>
               <td className="border border-border px-4 py-3 text-foreground">Conducted</td>
               <td className="border border-border px-4 py-3 text-foreground">N/A</td>
             </tr>
             <tr className="hover:bg-muted/50 transition-colors">
               <td className="border border-border px-4 py-3 text-foreground">2</td>
+              <td className="border border-border px-4 py-3 text-foreground">FY 2023-24</td>
+              <td className="border border-border px-4 py-3 text-foreground">Conducted</td>
+              <td className="border border-border px-4 py-3 text-foreground">N/A</td>
+            </tr>
+            <tr className="hover:bg-muted/50 transition-colors">
+              <td className="border border-border px-4 py-3 text-foreground">3</td>
               <td className="border border-border px-4 py-3 text-foreground">FY 2024-25</td>
               <td className="border border-border px-4 py-3 text-foreground">Conducted</td>
               <td className="border border-border px-4 py-3 text-foreground">N/A</td>
@@ -42,8 +48,9 @@ export default function ComplianceAuditPage() {
       {/* Mobile Card View */}
       <div className="md:hidden space-y-4">
         {[
-          { sr: "1", year: "FY 2023-24", status: "Conducted", remarks: "N/A" },
-          { sr: "2", year: "FY 2024-25", status: "Conducted", remarks: "N/A" },
+          { sr: "1", year: "FY 2022-23", status: "Conducted", remarks: "N/A" },
+          { sr: "2", year: "FY 2023-24", status: "Conducted", remarks: "N/A" },
+          { sr: "3", year: "FY 2024-25", status: "Conducted", remarks: "N/A" },
         ].map((row, idx) => (
           <div
             key={idx}

@@ -35,9 +35,10 @@ import { ScrollProgress } from "./scroll-progress";
 import SampleReportsModal from "./sample-reports-modal";
 import { cn } from "@/lib/utils";
 import LoginPrompt from "@/components.v3/common/LoginPrompt";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import VIP_LOTTIE from "../../public/assets/New.json";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+import VIP_LOTTIE from "../../public/assets/New.json";
 import { Marquee } from "./magicui/marquee";
 
 /*
@@ -53,7 +54,7 @@ export function Navbar({
   className?: string;
   navigationLinkClassName?: string;
 }) {
-  const { isLoggedIn,setShowLoginModal, showLoginModal,isSubscribed } = useContext(AuthContext);
+  const { isLoggedIn, setShowLoginModal, showLoginModal, isSubscribed } = useContext(AuthContext);
   const { showFilterHeader } = useNavBar();
   const router = useRouter();
   const pathname = router.pathname;
@@ -61,7 +62,7 @@ export function Navbar({
   const [showModal, setShowModal] = useState(false);
   const { setVisible, bindings } = useModal();
   const [isSticky, setIsSticky] = useState(pathname == "/stock-picks");
-  const [isLoading,setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
     mp.track(event, properties);
@@ -70,7 +71,7 @@ export function Navbar({
   const handleLogin = (e) => {
     handleEvent("login_clicked", { page: "Pricing_Page" });
     // setShowModal(true);
-    setShowLoginModal(true)
+    setShowLoginModal(true);
   };
 
   const handleNavigation = (
@@ -136,209 +137,221 @@ export function Navbar({
     };
   }, []);
 
-  useEffect(()=>{
-    setIsLoading(false)
-  },[isLoggedIn])
+  useEffect(() => {
+    setIsLoading(false);
+  }, [isLoggedIn]);
 
-  if(isLoading) return null
+  if (isLoading) return null;
 
   return (
     <>
-    {
-      !isSubscribed && (<Marquee pauseOnHover className="[--duration:20s]">
-        <p className=" text-lg font-open_sans mr-8 py-1 flex items-center"><span className=" whitespace-nowrap"> ✨ Diwali Dhamaka Offer! Flat <span className=" font-semibold ">25% OFF</span> — use code{" "}<span className=" font-semibold text-brand-400 ">DIWALI25</span>. Limited time (till 31st Oct). T&Cs apply.</span></p>
-  </Marquee>)
-    }
-    
-    <div
-      ref={ref}
-      className={cn(
-        ` group/nav sticky left-0 right-0 top-0 hover:z-[52] z-[50] hover:shadow-none overflow-visible pricing`,
-        className
-      )}
-    >
-      <ScrollProgress />
-      <div className="flex py-2 justify-between items-center main-container overflow-visible">
-        <div className=" flex flex-row items-center justify-center">
-          <div className=" mb-1 mr-3 lg:mr-10">
-            <Link onClick={() => handleEvent("Kamayakya_logo_clicked", { page: "Pricing_Page" })} href={"/"}>
-              <Image
-                className=" inline-block md:hidden h-full w-full"
-                src="/KKLogoK.svg"
-                alt="KamayaKya-logo"
-                width={20}
-                height={25}
-                priority
-              />
-              <Image
-                className=" hidden md:inline-block"
-                src="/KKLogo.svg"
-                alt="KamayaKya-logo"
-                width={125.54}
-                height={24}
-                priority
-              />
-            </Link>
-          </div>
-          <div className="relative">
-            <NavigationMenu delayDuration={0} className="z-[30000] ">
-              <NavigationMenuList className=" m-0 ">
-                <NavigationMenuItem className=" m-0 hidden lg:flex">
-                  <NavigationMenuTrigger
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (pathname !== "/") {
-                        router.push("/");
-                      }
-                    }}
-                    className={cn(" text-gray-950 font-semibold", navigationLinkClassName)}
-                  >
-                    About Us
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className=" w-auto">
-                    {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
-                    <ul
-                      className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
-                        isLoggedIn ? "grid-rows-4" : "grid-rows-4"
-                      } gap-3 m-0 p-6  ${isLoggedIn ? "md:w-[620px] lg:w-[900px]" : "md:w-[620px] lg:w-[900px]"}  `}
+      {/* {!isSubscribed && (
+        <Marquee pauseOnHover className="[--duration:20s]">
+          <p className=" text-lg font-open_sans mr-8 py-1 flex items-center">
+            <span className=" whitespace-nowrap">
+              {" "}
+              ✨ Diwali Dhamaka Offer! Flat <span className=" font-semibold ">25% OFF</span> — use code{" "}
+              <span className=" font-semibold text-brand-400 ">DIWALI25</span>. Limited time (till 31st Oct). T&Cs
+              apply.
+            </span>
+          </p>
+        </Marquee>
+      )} */}
+
+      <div
+        ref={ref}
+        className={cn(
+          ` group/nav sticky left-0 right-0 top-0 hover:z-[52] z-[50] hover:shadow-none overflow-visible pricing`,
+          className
+        )}
+      >
+        <ScrollProgress />
+        <div className="flex py-2 justify-between items-center main-container overflow-visible">
+          <div className=" flex flex-row items-center justify-center">
+            <div className=" mb-1 mr-3 lg:mr-10">
+              <Link onClick={() => handleEvent("Kamayakya_logo_clicked", { page: "Pricing_Page" })} href={"/"}>
+                <Image
+                  className=" inline-block md:hidden h-full w-full"
+                  src="/KKLogoK.svg"
+                  alt="KamayaKya-logo"
+                  width={20}
+                  height={25}
+                  priority
+                />
+                <Image
+                  className=" hidden md:inline-block"
+                  src="/KKLogo.svg"
+                  alt="KamayaKya-logo"
+                  width={125.54}
+                  height={24}
+                  priority
+                />
+              </Link>
+            </div>
+            <div className="relative">
+              <NavigationMenu delayDuration={0} className="z-[30000] ">
+                <NavigationMenuList className=" m-0 ">
+                  <NavigationMenuItem className=" m-0 hidden lg:flex">
+                    <NavigationMenuTrigger
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (pathname !== "/") {
+                          router.push("/");
+                        }
+                      }}
+                      className={cn(" text-gray-950 font-semibold", navigationLinkClassName)}
                     >
-                      {/* lg:w-[700px] */}
-                      {HOME_OPTIONS.filter((options) =>
-                        isLoggedIn
-                          ? options.title !== "Sample Reports" &&
-                            options.title !== "Performance" &&
-                            options.title !== "Hot Stocks"
-                          : true
-                      ).map((option) => (
-                        <ListItem
-                          onClick={(e) =>
-                          handleNavigation(option, e)
-                          }
-                          key={option.title}
-                          className=" hover:bg-gray-50 relative "
-                          href={option.link}
-                          icon={option.icon}
-                          title={option.title}
-                          id={option?.id}
-                          // endIcon={option?.endIcon}
-                        >
-                          {option.subtitle}
-                        </ListItem>
-                      ))}
-                      <li className={`hidden lg:block  row-span-full row-start-1`}>
-                        <Image
-                          className=" object-cover h-full w-full rounded-xl"
-                          src={"/pricing/home-hover.png"}
-                          height={284}
-                          width={284}
-                          alt="nav-img"
-                        />
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                {NAVBAR_LINKS.map((navigationOption) => (
-                  <NavigationMenuItem
-                    onClick={() => {
-                      if (navigationOption.title?.includes("SME")) {
-                        sessionStorage.setItem("sebiBoardType", "sme");
-                      } else {
-                        sessionStorage.setItem("sebiBoardType", "mainboard");
-                      }
-                    }}
-                    className={` m-0 ${
-                      (navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to Buy") ||
-                      !isLoggedIn
-                        ? navigationOption.title === "Stocks to Buy"
-                          ? "hidden"
-                          : "hidden lg:flex"
-                        : navigationOption.title === "Stocks to Buy"
-                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-[rgba(246,135,0,1)] hover:bg-[#E26103] !text-[rgba(246,135,0,1)] hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
-                        : ""
-                    } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
-                  >
-                    <Link
-                      className=" !text-inherit"
+                      About Us
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className=" w-auto">
+                      {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
+                      <ul
+                        className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
+                          isLoggedIn ? "grid-rows-4" : "grid-rows-4"
+                        } gap-3 m-0 p-6  ${isLoggedIn ? "md:w-[620px] lg:w-[900px]" : "md:w-[620px] lg:w-[900px]"}  `}
+                      >
+                        {/* lg:w-[700px] */}
+                        {HOME_OPTIONS.filter((options) =>
+                          isLoggedIn
+                            ? options.title !== "Sample Reports" &&
+                              options.title !== "Performance" &&
+                              options.title !== "Hot Stocks"
+                            : true
+                        ).map((option) => (
+                          <ListItem
+                            onClick={(e) => handleNavigation(option, e)}
+                            key={option.title}
+                            className=" hover:bg-gray-50 relative "
+                            href={option.link}
+                            icon={option.icon}
+                            title={option.title}
+                            id={option?.id}
+                            // endIcon={option?.endIcon}
+                          >
+                            {option.subtitle}
+                          </ListItem>
+                        ))}
+                        <li className={`hidden lg:block  row-span-full row-start-1`}>
+                          <Image
+                            className=" object-cover h-full w-full rounded-xl"
+                            src={"/pricing/home-hover.png"}
+                            height={284}
+                            width={284}
+                            alt="nav-img"
+                          />
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  {NAVBAR_LINKS.map((navigationOption) => (
+                    <NavigationMenuItem
                       onClick={() => {
-                        console.log(navigationOption);
                         if (navigationOption.title?.includes("SME")) {
                           sessionStorage.setItem("sebiBoardType", "sme");
                         } else {
                           sessionStorage.setItem("sebiBoardType", "mainboard");
                         }
-                        handleEvent(navigationOption.mixpanel.event, navigationOption.mixpanel.property);
                       }}
-                      href={navigationOption.link}
-                      legacyBehavior
-                      passHref
+                      className={` m-0 ${
+                        (navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to Buy") ||
+                        !isLoggedIn
+                          ? navigationOption.title === "Stocks to Buy"
+                            ? "hidden"
+                            : "hidden lg:flex"
+                          : navigationOption.title === "Stocks to Buy"
+                          ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-[rgba(246,135,0,1)] hover:bg-[#E26103] !text-[rgba(246,135,0,1)] hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
+                          : ""
+                      } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                     >
-                      <NavigationMenuLink
-                        className={cn(
-                          `${navigationMenuTriggerStyle()} font-semibold text-inherit ${
-                            navigationOption.title === "Stocks to Buy"
-                              ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] data-[active]:border-none"
-                              : ""
-                          }`,
-                          navigationLinkClassName
-                        )}
-                        active={
-                          !pathname.includes("stock-picks")
-                            ? pathname === navigationOption.link
-                            : sessionStorage.getItem("sebiBoardType") === "sme" && pathname === navigationOption.link
-                            ? true
-                            : false
-                        }
+                      <Link
+                        className=" !text-inherit"
+                        onClick={() => {
+                          console.log(navigationOption);
+                          if (navigationOption.title?.includes("SME")) {
+                            sessionStorage.setItem("sebiBoardType", "sme");
+                          } else {
+                            sessionStorage.setItem("sebiBoardType", "mainboard");
+                          }
+                          handleEvent(navigationOption.mixpanel.event, navigationOption.mixpanel.property);
+                        }}
+                        href={navigationOption.link}
+                        legacyBehavior
+                        passHref
                       >
-                        {navigationOption.title}{navigationOption.title?.includes("VIP") ? <span className=" ml-1">
-                          
-                          <Lottie className=" h-7 w-7 block object-contain" autoPlay loop={false} animationData={VIP_LOTTIE} />
-                        </span>:null}
-                      </NavigationMenuLink>
-                    </Link>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+                        <NavigationMenuLink
+                          className={cn(
+                            `${navigationMenuTriggerStyle()} font-semibold text-inherit ${
+                              navigationOption.title === "Stocks to Buy"
+                                ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] data-[active]:border-none"
+                                : ""
+                            }`,
+                            navigationLinkClassName
+                          )}
+                          active={
+                            !pathname.includes("stock-picks")
+                              ? pathname === navigationOption.link
+                              : sessionStorage.getItem("sebiBoardType") === "sme" && pathname === navigationOption.link
+                              ? true
+                              : false
+                          }
+                        >
+                          {navigationOption.title}
+                          {navigationOption.title?.includes("VIP") ? (
+                            <span className=" ml-1">
+                              <Lottie
+                                className=" h-7 w-7 block object-contain"
+                                autoPlay
+                                loop={false}
+                                animationData={VIP_LOTTIE}
+                              />
+                            </span>
+                          ) : null}
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+                  ))}
+                </NavigationMenuList>
+              </NavigationMenu>
+            </div>
           </div>
-        </div>
-        <div className={`flex items-center justify-center gap-x-4 lg:hidden `}>
-          {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin}/>}
-          <SideNav handleLogin={handleLogin} />
-        </div>
-        <div className="hidden px-2 lg:flex items-center">
-          <Link
-            onClick={() => {
-              sessionStorage.setItem("sebiBoardType", "mainboard");
-            }}
-            href={"/stock-picks"}
-          >
-            <Button
-              variant={ButtonVariant.custom}
-              className={`!text-sm  border pricing border-[rgba(246,135,0,1)]  ${
-                isLoggedIn
-                  ? "bg-[rgba(246,135,0,1)] text-white  hover:bg-[rgba(247,117,4,1)] mr-6 "
-                  : " text-[rgba(246,135,0,1)] hover:text-[rgba(247,117,4,1)] hover:border-[rgba(247,117,4,1)] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
-              }  !px-4 !py-[10px] rounded-[6px]`}
+          <div className={`flex items-center justify-center gap-x-4 lg:hidden `}>
+            {!isLoggedIn && <LoginBtnNav handleLogin={handleLogin} />}
+            <SideNav handleLogin={handleLogin} />
+          </div>
+          <div className="hidden px-2 lg:flex items-center">
+            <Link
+              onClick={() => {
+                sessionStorage.setItem("sebiBoardType", "mainboard");
+              }}
+              href={"/stock-picks"}
             >
-              Stocks to Buy
-            </Button>
-          </Link>
+              <Button
+                variant={ButtonVariant.custom}
+                className={`!text-sm  border pricing border-[rgba(246,135,0,1)]  ${
+                  isLoggedIn
+                    ? "bg-[rgba(246,135,0,1)] text-white  hover:bg-[rgba(247,117,4,1)] mr-6 "
+                    : " text-[rgba(246,135,0,1)] hover:text-[rgba(247,117,4,1)] hover:border-[rgba(247,117,4,1)] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+                }  !px-4 !py-[10px] rounded-[6px]`}
+              >
+                Stocks to Buy
+              </Button>
+            </Link>
 
-          {isLoggedIn ? (
-            <NavbarDropdownCard
-              triggerElement={
-                <Avatar
-                  className=" transition-all border-[1.38px] border-[#EDF0F5] hover:border-[4px] hover:scale-[1.05]"
-                  variant={AvatarVariant.md}
-                />
-              }
-              userCard={true}
-            />
-          ) : (
-            <LoginBtnNav handleLogin={handleLogin} arrow />
-          )}
-        </div>
-        {/* <Modal
+            {isLoggedIn ? (
+              <NavbarDropdownCard
+                triggerElement={
+                  <Avatar
+                    className=" transition-all border-[1.38px] border-[#EDF0F5] hover:border-[4px] hover:scale-[1.05]"
+                    variant={AvatarVariant.md}
+                  />
+                }
+                userCard={true}
+              />
+            ) : (
+              <LoginBtnNav handleLogin={handleLogin} arrow />
+            )}
+          </div>
+          {/* <Modal
           width="450px"
           blur
           open={showModal}
@@ -382,9 +395,9 @@ export function Navbar({
             <Login />
           </Modal.Body>
         </Modal> */}
-        <SampleReportsModal setVisible={setVisible} bindings={bindings} />
+          <SampleReportsModal setVisible={setVisible} bindings={bindings} />
+        </div>
       </div>
-    </div>
     </>
   );
 }
