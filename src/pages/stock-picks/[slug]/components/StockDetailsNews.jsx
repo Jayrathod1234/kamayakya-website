@@ -101,7 +101,7 @@ const StockDetailsNews = ({ stock_id, type }) => {
   const total_pages = response?.pages[0]?.total_count;
 
   // const items = response?.data;
-  // console.log(items,response)
+  // console.log("items", items, "response", response);
 
   if (!items || items?.length === 0) {
     return (
@@ -145,11 +145,27 @@ const StockDetailsNews = ({ stock_id, type }) => {
                     return sentimentValues[item.sentiment]?.[item.impact] ?? 1000;
                   })()}
                 />
-                <p className={`capitalize font-semibold text-3xs sm:text-2xs text-center ${item.sentiment === "bullish" ? "text-[#12B76A]" : item.sentiment === "bearish" ? "text-[#F04438]" : "text-[#dc9600]"} max-sm:pb-2 mt-[4px] sm:mt-[4px]`}>
+                <p
+                  className={`capitalize font-semibold text-3xs sm:text-2xs text-center ${
+                    item.sentiment === "bullish"
+                      ? "text-[#12B76A]"
+                      : item.sentiment === "bearish"
+                      ? "text-[#F04438]"
+                      : "text-[#dc9600]"
+                  } max-sm:pb-2 mt-[4px] sm:mt-[4px]`}
+                >
                   {item.sentiment}
                 </p>
               </div>
-              <p className={` w-full max-sm:hidden capitalize rounded-b-xl mt-auto flex items-center justify-center gap-x-1 text-[#475467] ${item.sentiment === "bullish" ? "bg-[#DDF9E7] " : item.sentiment === "bearish" ? "bg-[#FFE8E4] " : "bg-[#FCF4DD] "} text-center text-4xs font-semibold py-[2px]`}>
+              <p
+                className={` w-full max-sm:hidden capitalize rounded-b-xl mt-auto flex items-center justify-center gap-x-1 text-[#475467] ${
+                  item.sentiment === "bullish"
+                    ? "bg-[#DDF9E7] "
+                    : item.sentiment === "bearish"
+                    ? "bg-[#FFE8E4] "
+                    : "bg-[#FCF4DD] "
+                } text-center text-4xs font-semibold py-[2px]`}
+              >
                 <span>
                   <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_17102_208756)">
@@ -175,14 +191,18 @@ const StockDetailsNews = ({ stock_id, type }) => {
                 {item?.title}
               </h4>
               <p className=" max-sm:order-1 text-3xs text-[#667085] mt-0">
-                {formatDistanceToNow(new Date(item.created),{addSuffix: true})}
+                {formatDistanceToNow(new Date(item.publish_date), { addSuffix: true })}
               </p>
             </div>
             <div className=" col-start-1 col-span-full sm:col-start-2 sm:row-start-2 w-full flex flex-col">
               <div className="  p-2 sm:pt-3 bg-[#FFFBF6] border border-[#FEF0DF] rounded-lg max-sm:rounded-tl-none mt-7 relative">
                 <div className=" gap-x-1 bg-[#FEDF89] flex items-center rounded-[30px] w-fit pr-2 pl-1 py-[2px] absolute max-sm:rounded-t-[8px] max-sm:rounded-b-none -top-5 sm:-top-3 left-[-1px] sm:left-0">
-                    <img src="/assets/avatar_lion.webp" alt="avatar" className=" max-sm:h-[14px] max-sm:w-[14px] h-4 w-4 object-cover bg-white rounded-full" />
-                  
+                  <img
+                    src="/assets/avatar_lion.webp"
+                    alt="avatar"
+                    className=" max-sm:h-[14px] max-sm:w-[14px] h-4 w-4 object-cover bg-white rounded-full"
+                  />
+
                   <p className=" text-4xs sm:text-3xs font-semibold text-[#93370D]">Analyst View</p>
                 </div>
                 <p className=" text-xs text-[#4E1D09] ">{item?.analysis_content}</p>
@@ -193,7 +213,11 @@ const StockDetailsNews = ({ stock_id, type }) => {
                     <div className="p-2 sm:pt-3 bg-[#FCFDFF] border border-[#E3F2FF] rounded-lg max-sm:rounded-tl-none relative">
                       <div className=" gap-x-1 bg-[#E5F2FD] flex items-center rounded-[30px] w-fit pr-2 pl-1 py-[2px] absolute max-sm:rounded-t-[8px] max-sm:rounded-b-none -top-5 sm:-top-3 left-[-1px] sm:left-0">
                         <div className="bg-white max-sm:h-[14px] max-sm:w-[14px] h-4 w-4 object-cover rounded-full flex items-center justify-center">
-                          <img src="/assets/news_icon.png" alt="news" className=" max-sm:h-[10px] max-sm:w-[10px] h-3 w-3 object-cover" />
+                          <img
+                            src="/assets/news_icon.png"
+                            alt="news"
+                            className=" max-sm:h-[10px] max-sm:w-[10px] h-3 w-3 object-cover"
+                          />
                         </div>
                         <p className=" text-4xs sm:text-3xs font-semibold text-[#0079EF]">News</p>
                       </div>
