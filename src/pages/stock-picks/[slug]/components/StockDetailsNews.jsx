@@ -197,7 +197,7 @@ const StockDetailsNews = ({ stock_id, type }) => {
                 {item?.title}
               </h4>
               <p className=" max-sm:order-1 text-3xs text-[#667085] mt-0">
-                {formatDistanceToNow(new Date(item.created), { addSuffix: true })}
+                {formatDistanceToNow(new Date(item.publish_date), { addSuffix: true })}
               </p>
             </div>
             <div className=" col-start-1 col-span-full sm:col-start-2 sm:row-start-2 w-full flex flex-col">

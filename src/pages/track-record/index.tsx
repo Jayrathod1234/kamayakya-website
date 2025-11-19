@@ -16,6 +16,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
 
+import ContactUsBtn from "@/components.v2/contact-us-btn";
 const MyObserver = () => {
   const { fetchNextPage } = useTrackRecord();
   const myObserver = useRef();
@@ -170,6 +171,7 @@ export default function TrackRecord() {
           </Modal.Body>
         </Modal> */}
         {/* </StockPicksProvider> */}
+        <ContactUsBtn />
       </TrackRecordProvider>
     </TrackRecordCommonProvider>
   );

@@ -14,7 +14,7 @@ import { ButtonnArrow } from "./button";
 import { ButtonVariant } from "./button/button";
 import CarouselIndicator from "@/components.v3/common/CarouselIndicator";
 
-const carouselItem = [
+const CAROUSEL_ITEM = [
   <TestimonialsCard
     testimony={
       "I have been investing with KamayaKya since over a year now and I only have good things to say. Very good returns, transparency and a team of market experts with amazing investment strategies. I plan to invest with the firm for a long time and I would highly recommend it too."
@@ -176,7 +176,7 @@ const TWEEN_FACTOR_BASE = 0.1;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
 
-export function Carousel({ className }: { className?: string }) {
+export function Carousel({ className, carouselItem=CAROUSEL_ITEM }: { className?: string;carouselItem?:any }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       // startIndex: 1,
@@ -275,7 +275,7 @@ export function Carousel({ className }: { className?: string }) {
   return (
     <div className={`relative w-screen m-auto`}>
       {/* gradient */}
-      <div className="h-full left-4 md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center items-center ">
+      <div className="h-full left-[10px] md:left-0  md:w-1/3 max-w-[261px] absolute md:bg-gradient-to-r from-gray-100 to-transparent z-20 flex flex-col justify-center items-center ">
         <div>
           <ButtonnArrow
             onClick={() => handlePrevNext(onPrevButtonClick)}
@@ -284,7 +284,7 @@ export function Carousel({ className }: { className?: string }) {
           ></ButtonnArrow>
         </div>
       </div>
-      <div className=" right-4 md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-gray-100 to-transparent z-20 flex flex-col justify-center items-center">
+      <div className=" right-[10px] md:right-0 h-full max-w-[261px] md:w-1/3  absolute md:bg-gradient-to-l from-gray-100 to-transparent z-20 flex flex-col justify-center items-center">
         <div>
           <ButtonnArrow
             onClick={() => handlePrevNext(onNextButtonClick)}

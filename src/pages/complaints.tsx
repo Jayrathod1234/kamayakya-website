@@ -8,6 +8,7 @@ import {Text} from "@nextui-org/react";
 import {Box} from "@mui/material";
 import Head from "next/head";
 import { Navbar } from "@/components.v2/navbar";
+import Audit from "@/components.v2/audit";
 
 const Complaints = () => {
     const {isLoggedIn} = useContext(AuthContext);
@@ -89,11 +90,14 @@ const Complaints = () => {
                 {/*    },*/}
                 {/*  }}*/}
                 {/*>*/}
+                <div className=" py-4 w-full flex justify-center items-center">
+                <Audit />
+                </div>
                 <Box
                     sx={{
                         display: "flex",
                         justifyContent: "center",
-                        padding: "50px 0px",
+                        padding: "60px 0px",
                     }}
                 >
                     <iframe

@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import React, { useContext, useEffect, useState } from "react";
@@ -11,10 +12,13 @@ import { PlanTooltip } from "@/components.v2/payments";
 import ToPayTooltip from "./ToPayTooltip";
 import { PLAN } from "@/constants/pricing/plans";
 import { abbreviateTimeForPlan } from "@/lib/date-formatter";
-import Lottie from "lottie-react";
-import POPPER_JSON from "../../../../public/assets/popper.json";
+
 import { getMixPanelClient } from "@/externals/mixpanel";
 import AuthContext from "@/components/AuthContext";
+import dynamic from "next/dynamic";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+import POPPER_JSON from "../../../../public/assets/popper.json";
 export default function ReviewSection({
   setActiveTab,
 }: {
@@ -28,12 +32,11 @@ export default function ReviewSection({
   const removeDiscount = () => {
     setPlanDetails((prev) => ({ ...prev, discount: "", discountCode: "" }));
   };
-  let saveText = PLAN[(currentPlan.planName?.toLowerCase())]?.tooltip[(currentPlan?.planDuration) as any]?.saveText
-  let rupeePartOfSave = ''
-  if(saveText){
-    saveText = saveText.split(" ")
-    rupeePartOfSave = saveText[3]
-
+  let saveText = PLAN[currentPlan.planName?.toLowerCase()]?.tooltip[currentPlan?.planDuration as any]?.saveText;
+  let rupeePartOfSave = "";
+  if (saveText) {
+    saveText = saveText.split(" ");
+    rupeePartOfSave = saveText[3];
   }
 
   return (
@@ -42,13 +45,12 @@ export default function ReviewSection({
       <Dialog
         open={open}
         onOpenChange={(openChange) => {
-          if(openChange){
-          mp.track("editplan_clicked",{
-            planDuration:currentPlan.planDuration,
-            planTypeSelected:currentPlan.planName,
-            userType: isSubscribed ? "Paid":"Free"
-          })
-
+          if (openChange) {
+            mp.track("editplan_clicked", {
+              planDuration: currentPlan.planDuration,
+              planTypeSelected: currentPlan.planName,
+              userType: isSubscribed ? "Paid" : "Free",
+            });
           }
           setOpen(openChange);
         }}
@@ -65,7 +67,7 @@ export default function ReviewSection({
               </DialogTrigger>
             </div>
             <p className=" text-gray-950 mt-[6px] text-sm font-semibold">
-              {PLAN[(currentPlan.planName?.toLowerCase()) as keyof typeof PLAN]?.paymentPageLabel} (
+              {PLAN[currentPlan.planName?.toLowerCase() as keyof typeof PLAN]?.paymentPageLabel} (
               {abbreviateTimeForPlan(currentPlan?.planDuration)})
             </p>
           </div>

@@ -5,20 +5,20 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "@/components.v2/ui/use-toast";
 import { VerifyEmailOtpDialog } from "./VerifyEmailOtpDialog";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 interface IEmailModal {
   email: string;
- 
 }
 
-interface IGetOtp{
-  email?:string;
-  phone?:string;
+interface IGetOtp {
+  email?: string;
+  phone?: string;
 }
 
 interface IEmailChangeDialog {
   closeDialog: () => void;
-  dialogStatus:boolean;
+  dialogStatus: boolean;
 }
 
 export async function getOtp(data: IGetOtp) {
@@ -57,6 +57,10 @@ export const EmailChangeDialog = ({ closeDialog, dialogStatus }: IEmailChangeDia
   async function handleGetOtp(data: IEmailModal) {
     try {
       setSendingOtp(true);
+      const mp = getMixPanelClient();
+      mp.track("getotpemail_clicked", {
+        page: "profile_page",
+      });
       const hasSentOtp = await getOtp(data);
       if (hasSentOtp) {
         setDisplayVerifyDialog(true);
@@ -71,12 +75,18 @@ export const EmailChangeDialog = ({ closeDialog, dialogStatus }: IEmailChangeDia
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     //if user closes verify dialog, reset dialog to show email input section , if dialog is opened again
-    if(!dialogStatus){
-      setDisplayVerifyDialog(false)
+    if (!dialogStatus) {
+      setDisplayVerifyDialog(false);
+    } else if (dialogStatus) {
+      // Track dialog load event
+      const mp = getMixPanelClient();
+      mp.track("editemaildialog_loaded", {
+        page: "profile_page",
+      });
     }
-  },[dialogStatus])
+  }, [dialogStatus]);
 
   return displayVerifyDialog ? (
     <VerifyEmailOtpDialog
@@ -87,7 +97,10 @@ export const EmailChangeDialog = ({ closeDialog, dialogStatus }: IEmailChangeDia
       closeDialog={closeDialog}
     />
   ) : (
-    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-0 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans">
+    <DialogContent
+      closeClassName="-right-2 -top-[12px] opacity-100"
+      className=" flex flex-col p-6 gap-0 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans"
+    >
       <h4 className=" text-[20px] font-semibold text-gray-900">Edit Email</h4>
       <p className=" text-xs text-gray-500 mb-1">
         Email <span className=" text-error-500">*</span>
@@ -122,7 +135,17 @@ export const EmailChangeDialog = ({ closeDialog, dialogStatus }: IEmailChangeDia
       </div>
       <p className=" text-xs text-error-500 mt-1">{errors?.email?.message || <span> &nbsp;</span>}</p>
       <div className=" mt-1 flex items-center justify-end gap-x-4">
-        <Button onClick={closeDialog} className=" !py-3" variant={ButtonVariant.tertiary}>
+        <Button
+          onClick={() => {
+            const mp = getMixPanelClient();
+            mp.track("getotpemail_cancelled", {
+              page: "profile_page",
+            });
+            closeDialog();
+          }}
+          className=" !py-3"
+          variant={ButtonVariant.tertiary}
+        >
           <p className=" text-sm">Cancel</p>
         </Button>
         <Button
@@ -139,4 +162,4 @@ export const EmailChangeDialog = ({ closeDialog, dialogStatus }: IEmailChangeDia
   );
 };
 
-export default EmailChangeDialog
+export default EmailChangeDialog;

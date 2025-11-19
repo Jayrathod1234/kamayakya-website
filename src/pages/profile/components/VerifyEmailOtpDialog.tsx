@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useResend } from "../../../../hooks/useResend";
 import { getOtp } from "./EmailChangDialog";
 import { toast } from "@/components.v2/ui/use-toast";
@@ -10,6 +10,7 @@ import OTPInput from "react-otp-input";
 import { blockInvalidChar } from "@/components/LoginCard";
 import { Button } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 interface IVerifyEmailOtpDialog {
   email: string;
@@ -24,6 +25,13 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width:600px)");
   const verySmallScreen = useMediaQuery("(max-width:400px)");
+
+  useEffect(() => {
+    const mp = getMixPanelClient();
+    mp.track("verifyemaildialog_loaded", {
+      page: "profile_page",
+    });
+  }, []);
 
   async function handleResend() {
     try {
@@ -46,6 +54,10 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
   async function handleVerifyOtp() {
     try {
       setVerifyingOtp(true);
+      const mp = getMixPanelClient();
+      mp.track("verifyotp_confirmed", {
+        page: "profile_page",
+      });
       const res = await verifyUserProfileOtp({
         type: "email",
         email,
@@ -68,7 +80,10 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
   }
 
   return (
-    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-y-6 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans">
+    <DialogContent
+      closeClassName="-right-2 -top-[12px] opacity-100"
+      className=" flex flex-col p-6 gap-y-6 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans"
+    >
       <h4 className=" text-[20px] font-semibold text-gray-900 mb-0">Verify your email</h4>
       <p className=" text-sm text-gray-500">
         Please enter the OTP sent to {email}.{" "}
@@ -100,21 +115,31 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
           shouldAutoFocus={true}
           // disabled={isLoading}
         />
-         <p className=" text-2xs mt-5">
-        {" "}
-        Haven’t received the OTP?{" "}
-        {secondsRemaining === 0 ? (
-          <button onClick={handleResend} className=" text-[#1D4040] text-2xs font-semibold">
-            Resend
-          </button>
-        ) : (
-          `${secondsRemaining} seconds`
-        )}
-      </p>
+        <p className=" text-2xs mt-5">
+          {" "}
+          Haven’t received the OTP?{" "}
+          {secondsRemaining === 0 ? (
+            <button onClick={handleResend} className=" text-[#1D4040] text-2xs font-semibold">
+              Resend
+            </button>
+          ) : (
+            `${secondsRemaining} seconds`
+          )}
+        </p>
       </div>
-     
+
       <div className=" mt-1 flex items-center justify-end gap-x-4">
-        <Button onClick={closeDialog} className=" !py-3" variant={ButtonVariant.tertiary}>
+        <Button
+          onClick={() => {
+            const mp = getMixPanelClient();
+            mp.track("verifyotp_cancelled", {
+              page: "profile_page",
+            });
+            closeDialog();
+          }}
+          className=" !py-3"
+          variant={ButtonVariant.tertiary}
+        >
           <p className=" text-sm">Cancel</p>
         </Button>
         <Button
@@ -131,4 +156,4 @@ export const VerifyEmailOtpDialog = ({ email, goBack, closeDialog }: IVerifyEmai
   );
 };
 
-export default VerifyEmailOtpDialog
+export default VerifyEmailOtpDialog;

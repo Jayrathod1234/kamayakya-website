@@ -12,6 +12,7 @@ import { EmailChangeDialog } from "./EmailChangDialog";
 import { PhoneChangeDialog } from "./PhoneChangeDialog";
 import { useActivePlanContext } from "@/components/PlanContext";
 import { useMediaQuery } from "@mui/material";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 enum EDialogContent {
   EMAIL = "EMAIL",
@@ -32,6 +33,20 @@ const ContactInfo = ({ contactField, contactValue, dialogContent }: IContactInfo
   function closeDialog() {
     setOpen(false);
   }
+
+  const handleEditClick = () => {
+    const mp = getMixPanelClient();
+    if (dialogContent === EDialogContent.EMAIL) {
+      mp.track("emailedit_clicked", {
+        page: "profile_page",
+      });
+    } else if (dialogContent === EDialogContent.PHONE) {
+      mp.track("mobileedit_clicked", {
+        page: "profile_page",
+      });
+    }
+    setOpen(true);
+  };
 
   function getDialog(content: EDialogContent) {
     switch (content) {
@@ -54,7 +69,7 @@ const ContactInfo = ({ contactField, contactValue, dialogContent }: IContactInfo
           <p className=" mt-2 text-sm sm:text-md text-gray-900">{contactValue}</p>
         </div>
         <DialogTrigger>
-          <Button className=" !px-[18px] !py-2" variant={ButtonVariant.tertiary}>
+          <Button onClick={handleEditClick} className=" !px-[18px] !py-2" variant={ButtonVariant.tertiary}>
             <p className=" text-sm font-medium">Edit</p>
           </Button>
         </DialogTrigger>
@@ -66,8 +81,8 @@ const ContactInfo = ({ contactField, contactValue, dialogContent }: IContactInfo
 
 export default function PersonalInfo() {
   const { user } = useContext(AuthContext);
-  const isMobile = useMediaQuery("(max-width:640px)")
-  const activePlan  = useActivePlanContext();
+  const isMobile = useMediaQuery("(max-width:640px)");
+  const activePlan = useActivePlanContext();
 
   return (
     <div id="personal-info">
@@ -79,12 +94,17 @@ export default function PersonalInfo() {
               <div className=" flex items-center gap-x-3 ">
                 <Avatar imgClassName=" max-sm:h-12 max-sm:w-14" variant={"custom"} customImgSize={80} />
                 <div className=" flex max-sm:flex-col sm:items-center sm:justify-between w-full">
-                <h3 className="sm:p-[10px] font-semibold sm:font-medium text-md sm:text-display-xs text-[#020816] mb-0">{user?.username}</h3>
-                <PlanBadge iconSize={ isMobile ? 10: 16} labelClassName="  text-4xs font-semibold sm:text-xs sm:font-bold" className=" h-fit max-sm:mt-1" plan={activePlan.activePlan.plan} />
+                  <h3 className="sm:p-[10px] font-semibold sm:font-medium text-md sm:text-display-xs text-[#020816] mb-0">
+                    {user?.username}
+                  </h3>
+                  <PlanBadge
+                    iconSize={isMobile ? 10 : 16}
+                    labelClassName="  text-4xs font-semibold sm:text-xs sm:font-bold"
+                    className=" h-fit max-sm:mt-1"
+                    plan={activePlan.activePlan.plan}
+                  />
                 </div>
-               
               </div>
-             
             </div>
           </div>
         </div>

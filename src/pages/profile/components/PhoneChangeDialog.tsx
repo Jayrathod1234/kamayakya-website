@@ -8,19 +8,20 @@ import PhoneInput, { isPossiblePhoneNumber, getCountryCallingCode, isValidPhoneN
 import "react-phone-number-input/style.css";
 import { useForm, Controller } from "react-hook-form";
 import { VerifyPhoneDialog } from "./VerifyPhoneDialog";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 interface IPhoneModal {
   phone: string;
 }
 
-interface IGetOtp{
-  phone:string;
-  countryCode:string
+interface IGetOtp {
+  phone: string;
+  countryCode: string;
 }
 
 interface IPhoneChangeDialog {
   closeDialog: () => void;
-  dialogStatus:boolean;
+  dialogStatus: boolean;
 }
 
 export async function getOtp(data: IGetOtp) {
@@ -28,7 +29,7 @@ export async function getOtp(data: IGetOtp) {
     const params = {
       type: "mobile",
       mobile: data.phone?.trim(),
-      country_code:`+${data.countryCode}`
+      country_code: `+${data.countryCode}`,
     };
     const res = await getUserProfileOtp(params);
     if (res?.status_code) {
@@ -61,7 +62,11 @@ export const PhoneChangeDialog = ({ closeDialog, dialogStatus }: IPhoneChangeDia
   async function handleGetOtp(data: IPhoneModal) {
     try {
       setSendingOtp(true);
-      const hasSentOtp = await getOtp({...data,countryCode});
+      const mp = getMixPanelClient();
+      mp.track("getotpmobile_clicked", {
+        page: "profile_page",
+      });
+      const hasSentOtp = await getOtp({ ...data, countryCode });
       if (hasSentOtp) {
         setDisplayVerifyDialog(true);
       }
@@ -75,12 +80,18 @@ export const PhoneChangeDialog = ({ closeDialog, dialogStatus }: IPhoneChangeDia
     }
   }
 
-  useEffect(()=>{
-      //if user closes verify dialog, reset dialog to show phone input section , if dialog is opened again
-      if(!dialogStatus){
-        setDisplayVerifyDialog(false)
-      }
-    },[dialogStatus])
+  useEffect(() => {
+    //if user closes verify dialog, reset dialog to show phone input section , if dialog is opened again
+    if (!dialogStatus) {
+      setDisplayVerifyDialog(false);
+    } else if (dialogStatus) {
+      // Track dialog load event
+      const mp = getMixPanelClient();
+      mp.track("editmobiledialog_loaded", {
+        page: "profile_page",
+      });
+    }
+  }, [dialogStatus]);
 
   return displayVerifyDialog ? (
     <VerifyPhoneDialog
@@ -92,7 +103,10 @@ export const PhoneChangeDialog = ({ closeDialog, dialogStatus }: IPhoneChangeDia
       closeDialog={closeDialog}
     />
   ) : (
-    <DialogContent closeClassName='-right-2 -top-[12px] opacity-100' className=" flex flex-col p-6 gap-0 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans">
+    <DialogContent
+      closeClassName="-right-2 -top-[12px] opacity-100"
+      className=" flex flex-col p-6 gap-0 !rounded-[20px] w-[calc(100%-32px)]  max-w-[624px] open_sans"
+    >
       <h4 className=" text-[20px] font-semibold text-gray-900">Edit Mobile Number</h4>
       <p className=" text-xs text-gray-500 mb-1">
         Mobile Number <span className=" text-error-500">*</span>
@@ -134,7 +148,17 @@ export const PhoneChangeDialog = ({ closeDialog, dialogStatus }: IPhoneChangeDia
       </div>
       <p className=" text-xs text-error-500 mt-1">{errors?.phone?.message || <span> &nbsp;</span>}</p>
       <div className=" mt-1 flex items-center justify-end gap-x-4">
-        <Button onClick={closeDialog} className=" !py-3" variant={ButtonVariant.tertiary}>
+        <Button
+          onClick={() => {
+            const mp = getMixPanelClient();
+            mp.track("getotpmobile_cancelled", {
+              page: "profile_page",
+            });
+            closeDialog();
+          }}
+          className=" !py-3"
+          variant={ButtonVariant.tertiary}
+        >
           <p className=" text-sm">Cancel</p>
         </Button>
         <Button
@@ -151,4 +175,4 @@ export const PhoneChangeDialog = ({ closeDialog, dialogStatus }: IPhoneChangeDia
   );
 };
 
-export default PhoneChangeDialog
+export default PhoneChangeDialog;

@@ -14,6 +14,8 @@ import { useMediaQuery } from "@mui/material";
 import SearchPage from "../../components.v3/common/SearchPage";
 import { ACTIVE_PLAN_URL, GET_USER } from "../api/URLs";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import ContactUsBtn from "@/components.v2/contact-us-btn";
+import { useEffect } from "react";
 
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -196,6 +198,7 @@ export default function StockPicksPage() {
   return (
     <StockPicksProvider>
       <StockPicks />
+      <ContactUsBtn />
     </StockPicksProvider>
   );
 }

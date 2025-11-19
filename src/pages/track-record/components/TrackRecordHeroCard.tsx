@@ -53,12 +53,13 @@ export const TrackRecordHeroCard = ({
   start_date_gainer,
   entry_price_loser,
   start_date_loser,
+  className,
 }: TTrackRecordHeroCard) => {
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const recommendationLabel =
     type === "LIVE" ? `${recommendation} Live Recommendations` : `${recommendation} Exits (past)`;
   return (
-    <div className=" p-4 bg-gray-50 rounded-[10px] w-full  z-10 relative ">
+    <div className={" p-4 bg-gray-50 rounded-[10px] w-full lg:min-w-[517px]  z-10 relative "+ className}>
       {!isLoggedIn ? (
         <div onClick={handleLogin} className="   h-[90%] w-full absolute flex items-center justify-center bottom-0 left-0 z-40">
           <div className="group/lock cursor-pointer shadow-[0px_0px_40px_-9px_rgba(19,135,137,0.46),0px_4px_40px_12px_rgba(118,237,223,0.05)]  overflow-hidden  flex items-center gap-x-[10px] transition-[width] duration-300 h-[56px] w-[56px] hover:w-[234px]   bg-[rgba(255,255,255,1)] rounded-[10px] border border-brand-300">

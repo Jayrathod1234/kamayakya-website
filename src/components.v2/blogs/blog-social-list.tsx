@@ -172,8 +172,9 @@ export function CopyBlogLink({ url, size, disableTooltip }: TCopyBlogLink) {
 }
 
 export function BlogSocialList({ blog, size = 20, disabled }: { blog: TBlog; size?: number; disabled?: boolean }) {
-  const url = process.env.NEXT_PUBLIC_CLIENT_URL;
-
+  const currentUrl = window.location.href.split("?")[0];
+  const currentDomain = currentUrl.split("/")[2];
+   const url = `https://${currentDomain}/`
   return (
     <>
       <BlogSocial

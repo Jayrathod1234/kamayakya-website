@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext, useEffect, useState } from "react";
 import {
   Sheet,
@@ -26,8 +27,9 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import { usePathname, useRouter } from "next/navigation";
 import { useModal } from "@nextui-org/react";
 import SampleReportsModal from "./sample-reports-modal";
-import Lottie from "lottie-react";
-import VIP_LOTTIE from "../../public/assets/New.json";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import VIP_LOTTIE from "../../public/assets/New.json";
 type TSideNav = {
   handleLogin: () => void;
 };
@@ -177,9 +179,9 @@ export default function SideNav({ handleLogin }: TSideNav) {
                                   setOpen(false);
                                   setId(options.id);
                                   e.preventDefault();
-                                  if (options.title === "Sample Reports") {
-                                    setVisible(true);
-                                  }
+                                  // if (options.title === "Sample Reports") {
+                                  //   setVisible(true);
+                                  // }
                                   // if (pathname.includes("pricing") && options.id.includes("testimonials")) {
                                   //   let ele = document.querySelector(options.id);
                                   //   ele?.scrollIntoView({ behavior: "smooth" });
@@ -227,9 +229,31 @@ export default function SideNav({ handleLogin }: TSideNav) {
                         nav.title === "About Us" ? "!hidden" : ""
                       }`}
                     >
-                      <p className={` text-[#475467] ${ !pathname?.includes("stock-picks") ? (pathname?.includes(nav.link) ? "text-black" : "") : sessionStorage.getItem("sebiBoardType") === "sme" && nav.title?.includes("SME") ? "text-black" :  sessionStorage.getItem("sebiBoardType") === "mainboard" && nav.title?.includes("Stocks") ?"text-black" :""} ${nav.title?.includes("Vip") ? "flex items-center gap-x-[3px]" : ""}`}>
-                      {nav.title}{nav.title?.includes("VIP") ?  <span className=" ml-1">                          <Lottie className=" h-7 w-7 block object-contain" autoPlay loop={false} animationData={VIP_LOTTIE} />
-                      </span>:null}
+                      <p
+                        className={` text-[#475467] ${
+                          !pathname?.includes("stock-picks")
+                            ? pathname?.includes(nav.link)
+                              ? "text-black"
+                              : ""
+                            : sessionStorage.getItem("sebiBoardType") === "sme" && nav.title?.includes("SME")
+                            ? "text-black"
+                            : sessionStorage.getItem("sebiBoardType") === "mainboard" && nav.title?.includes("Stocks")
+                            ? "text-black"
+                            : ""
+                        } ${nav.title?.includes("VIP") ? "flex items-center gap-x-[3px] flex-1" : ""}`}
+                      >
+                       <span className="inline-block">{nav.title}</span>
+                        {nav.title?.includes("VIP") ? (
+                          <span className=" inline-block">
+                            {" "}
+                            <Lottie
+                              className=" h-7 w-7 block object-contain"
+                              autoPlay
+                              loop={false}
+                              animationData={VIP_LOTTIE}
+                            />
+                          </span>
+                        ) : null}
                       </p>
                       {stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"] ? (
                         <NewStockbadge label={stockRecommendation[nav.title as "Stocks to Buy" | "Track Record"]} />

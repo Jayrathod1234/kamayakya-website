@@ -33,6 +33,7 @@ import { useActivePlanContext } from "@/components/PlanContext";
 import { Mail, Phone } from "lucide-react";
 import AuthContext from "@/components/AuthContext";
 import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal";
+import ContactUsBtn from "@/components.v2/contact-us-btn";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -279,6 +280,7 @@ export default function Page() {
       <div className="   mt-[-10%]">
         <Footer />
       </div>
+      <ContactUsBtn />
     </div>
   );
 }

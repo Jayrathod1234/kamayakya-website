@@ -1,9 +1,11 @@
+'use client';
 import { ButtonnArrow } from "@/components.v2/button";
 import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import { DEEP_RESEARCH_INVESTOR_FEATURES, EFFORTLESS_INVESTOR_FEATURES } from "@/constants/index.constants";
 import { getMixPanelClient } from "@/externals/mixpanel";
-import Lottie from "lottie-react";
-import { useEffect, useRef, useState } from "react";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });import { useEffect, useRef, useState } from "react";
 import * as DEEP_RESEARCH_LOTTIE from "../../../public/pricing/deep-research-investor.json";
 import * as EFFORTLESS_LOTTIE from "../../../public/pricing/effortless-investor.json";
 import { FeatureListDesktop } from "./feature-list-desktop";

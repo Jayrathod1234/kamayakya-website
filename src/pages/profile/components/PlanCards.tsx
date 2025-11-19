@@ -16,6 +16,7 @@ import ToPayTooltip from "@/pages/payments/components/ToPayTooltip";
 import { format } from "date-fns";
 import { ShoppingBag } from "lucide-react";
 import React from "react";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 const ADVANCED_ICON = (
   <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -248,24 +249,31 @@ export default function PlanCards({ plan }) {
               ) : null}
             </div>
           </div>
-          {plan?.invoice && <Button
-            onClick={() => window.open(plan.invoice, "_blank")}
-            className=" border-[#0000001A] gap-x-[6px] mx-auto !w-fit"
-            variant={ButtonVariant.primary}
-          >
-            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M6.50016 7.92902V11.929M6.50016 11.929L7.8335 10.5957M6.50016 11.929L5.16683 10.5957M15.1668 7.26235V10.5957C15.1668 13.929 13.8335 15.2623 10.5002 15.2623H6.50016C3.16683 15.2623 1.8335 13.929 1.8335 10.5957V6.59568C1.8335 3.26235 3.16683 1.92902 6.50016 1.92902H9.8335M15.1668 7.26235H12.5002C10.5002 7.26235 9.8335 6.59568 9.8335 4.59568V1.92902M15.1668 7.26235L9.8335 1.92902"
-                stroke="white"
-                stroke-width="1.3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+          {plan?.invoice && (
+            <Button
+              onClick={() => {
+                const mp = getMixPanelClient();
+                mp.track("invoice_download", {
+                  page: "profile_page",
+                });
+                window.open(plan.invoice, "_blank");
+              }}
+              className=" border-[#0000001A] gap-x-[6px] mx-auto !w-fit"
+              variant={ButtonVariant.primary}
+            >
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M6.50016 7.92902V11.929M6.50016 11.929L7.8335 10.5957M6.50016 11.929L5.16683 10.5957M15.1668 7.26235V10.5957C15.1668 13.929 13.8335 15.2623 10.5002 15.2623H6.50016C3.16683 15.2623 1.8335 13.929 1.8335 10.5957V6.59568C1.8335 3.26235 3.16683 1.92902 6.50016 1.92902H9.8335M15.1668 7.26235H12.5002C10.5002 7.26235 9.8335 6.59568 9.8335 4.59568V1.92902M15.1668 7.26235L9.8335 1.92902"
+                  stroke="white"
+                  stroke-width="1.3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
 
-            <p className=" text-sm ">Download Invoice</p>
-          </Button>}
-          
+              <p className=" text-sm ">Download Invoice</p>
+            </Button>
+          )}
         </div>
       </DrawerContent>
     </Drawer>

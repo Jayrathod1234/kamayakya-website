@@ -7,7 +7,7 @@ import FaqsNew from "./screens/FaqsNew";
 // import Footer from "./screens/Footer";
 import AuthContext from "../components/AuthContext";
 import BlogSection2 from "./BlogsPages/BlogSection2";
-import { Footer, Navbar } from "../components.v2/index.components";
+import { Footer, Navbar, Newsletter } from "../components.v2/index.components";
 import { ACTIVE_PLAN_URL, GET_BLOGS, GET_USER } from "./api/URLs";
 import { TBlog } from "@/types";
 import { getMixPanelClient } from "@/externals/mixpanel";
@@ -127,10 +127,11 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
           </div>
         </div>
       <Navbar/>
-      <main className="  main-container relative z-10">
+      <main className="  main-container pb-10 relative z-10">
         <BlogSection2  />
         {/* <FaqsNew /> */}
       </main>
+      <Newsletter page="Blogs" />
       <Footer />
     </div>
   );

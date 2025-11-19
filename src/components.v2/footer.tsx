@@ -6,6 +6,7 @@ import React from "react";
 import { BlogSocial } from "./blogs/blog-social-list";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTelegram, FaTelegramPlane } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import Audit from "./audit";
 
 function FooterLinks({ href, label, event, ...rest }: Record<string, string>) {
   const handleEvent = () => {
@@ -17,7 +18,12 @@ function FooterLinks({ href, label, event, ...rest }: Record<string, string>) {
     });
   };
   return (
-    <Link onClick={handleEvent} {...rest} href={href} className=" text-inherit hover:scale-[.98] hover:text-orange-500 duration-200 transition-all">
+    <Link
+      onClick={handleEvent}
+      {...rest}
+      href={href}
+      className=" text-inherit hover:scale-[.98] hover:text-orange-500 duration-200 transition-all"
+    >
       <p className=" m-0 font-medium text-2xs md:text-md">{label}</p>
     </Link>
   );
@@ -39,12 +45,11 @@ function Socials({ href, imgSrc, alt, event }: Record<string, string>) {
 }
 
 export function Footer() {
-  
   return (
     // sm:mt-0 mt-[12%]
     <div className="bg-gradient-to-b from-[15%] from-[transparent] md:from-20% via-[#182E35] via-5% to-[#182E35] to-90%">
       <div className="h-[calc(286px+10%)] overflow-hidden w-full z-10">
-      {/* 491 */}
+        {/* 491 */}
         <Image alt="footer-bg" src={"/footer.webp"} width={1440} height={300} className=" w-full h-full" />
       </div>
       <div className=" bg-[#182E35]">
@@ -218,7 +223,48 @@ export function Footer() {
             {/* <div className=" flex gap-[10px] flex-wrap content-center items-center justify-between max-md:justify-center"> */}
             <div className=" grid grid-cols-[repeat(auto-fit,_minmax(149px,0.5fr))] gap-[10px] justify-between place-content-center max-phone:place-content-center">
               <div className=" max-phone:place-self-center place-self-start">
-                <Link href="/Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1" target="_blank">
+                <Link
+                  href="/Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1"
+                  target="_blank"
+                  onClick={() => {
+                    const mp = getMixPanelClient();
+                    const refreshToken = typeof window !== "undefined" ? localStorage.getItem("refresh") : null;
+                    const getUserType = async () => {
+                      if (!refreshToken) return null;
+                      try {
+                        const { GET_USER, ACTIVE_PLAN_URL } = await import("@/pages/api/URLs");
+                        const userResponse = await fetch(GET_USER, {
+                          method: "GET",
+                          headers: {
+                            Authorization: `Token ${refreshToken}`,
+                          },
+                        });
+                        const user = await userResponse.json();
+                        if (user?.id) {
+                          const axios = (await import("axios")).default;
+                          const planResponse = await axios.get(ACTIVE_PLAN_URL, {
+                            headers: {
+                              Authorization: `token ${refreshToken}`,
+                            },
+                          });
+                          if (planResponse.data?.current_active_subscription) {
+                            const plan = planResponse.data.current_active_subscription.plan;
+                            return plan ? (plan.toLowerCase() === "free" ? "Free" : "Paid") : null;
+                          }
+                        }
+                      } catch (e) {
+                        return null;
+                      }
+                      return null;
+                    };
+                    getUserType().then((usertype) => {
+                      mp.track("sebireg_clicked", {
+                        page: "Homepage",
+                        usertype: usertype,
+                      });
+                    });
+                  }}
+                >
                   <Image
                     className=" inline-block max-md:hidden h-full w-full max-w-[252px] "
                     width={252}
@@ -263,9 +309,12 @@ export function Footer() {
             </div>
             <p className=" text-sm text-center">
               Investment in securities market are subject to market risks. Read all the related documents carefully
-              before investing. Registration granted by SEBI and certification from NISM in no way guarantee performance
-              of the intermediary or provide any assurance of returns to investors.<br/>BSE Enlistment No : 5583 <br/>
+              before investing. Registration granted by SEBI, membership of BSE and certification from NISM in no way
+              guarantee performance of the intermediary or provide any assurance of returns to investors.
+              <br />
+              BSE Enlistment No : 5583 <br />
             </p>
+            <Audit />
             <div className=" flex flex-col gap-y-5 md:gap-y-12">
               <div className=" text-white flex flex-wrap gap-x-5 items-center justify-center flex-shrink-0 content-center whitespace-nowrap max-md:text-2xs ">
                 <FooterLinks event="tnc_clicked" href="terms-conditions" label="Terms & Conditions" />

@@ -1,10 +1,11 @@
+"use client";
 import { Button, ButtonnArrow } from "@/components.v2/button";
 import { ButtonVariant } from "@/components.v2/button/button";
 import { Dialog, DialogContent } from "@/components.v2/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components.v2/ui/tabs";
 import { blockInvalidChar } from "@/components/LoginCard";
 import { useMediaQuery } from "@mui/material";
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import OTPInput from "react-otp-input";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
@@ -15,12 +16,15 @@ import PhoneInput, { getCountryCallingCode, isPossiblePhoneNumber, isValidPhoneN
 import { toast } from "@/components.v2/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { axiosApi } from "@/utils/axios";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import POPPER_JSON from "../../../public/assets/popper.json";
 import SUCCESS_LOTTIE from "../../../public/assets/success_onboarding.json";
 import CONFETTIE from "../../../public/assets/onboarding_confetti.json";
 import { ContactModal } from "@/components.v2/payments/contact-modal";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import axios from "axios";
 
 const Step1 = ({ setActiveTab, activeTab }) => {
   return (
@@ -303,23 +307,23 @@ interface IFormEmailInput {
   phone: string;
 }
 
-interface IVerifyOtpParams{
-  type:string;
-  otp:string;
-  user_id:string;
-  full_name:string;
-  email?:string;
-  mobile?:string;
-  country_code?:string;
+interface IVerifyOtpParams {
+  type: string;
+  otp: string;
+  user_id: string;
+  full_name: string;
+  email?: string;
+  mobile?: string;
+  country_code?: string;
 }
 
-interface IStep4{
-  fullname:string;
-  setOnboardingCompleted:React.Dispatch<React.SetStateAction<boolean>>;
-  activeTab:string;
-  setActiveTab:React.Dispatch<React.SetStateAction<string>>;
-  email:string;
-  phone:string;
+interface IStep4 {
+  fullname: string;
+  setOnboardingCompleted: React.Dispatch<React.SetStateAction<boolean>>;
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  email: string;
+  phone: string;
 }
 
 const Step4 = ({
@@ -329,7 +333,7 @@ const Step4 = ({
   setActiveTab,
   email: preExistinEmail,
   phone: preExistingPhone,
-}:IStep4) => {
+}: IStep4) => {
   const {
     register,
     handleSubmit,
@@ -362,7 +366,7 @@ const Step4 = ({
       let params = {
         type: loginMethod === "mobile" ? "email" : "mobile",
 
-        user_id: user?.id ? user?.id : sessionStorage.getItem("user_id") as string,
+        user_id: user?.id ? user?.id : (sessionStorage.getItem("user_id") as string),
       };
       if (loginMethod === "mobile") {
         sessionStorage.setItem("email", data.email);
@@ -401,8 +405,8 @@ const Step4 = ({
       let params: IVerifyOtpParams = {
         type: loginMethod === "mobile" ? "email" : "mobile",
         otp,
-        user_id: user?.id ? user?.id : sessionStorage.getItem("user_id") as string,
-        full_name: fullname ? fullname : sessionStorage.getItem("fullname") as string,
+        user_id: user?.id ? user?.id : (sessionStorage.getItem("user_id") as string),
+        full_name: fullname ? fullname : (sessionStorage.getItem("fullname") as string),
       };
       if (loginMethod === "mobile") {
         params = { ...params, email: email?.toLowerCase() };
@@ -425,9 +429,9 @@ const Step4 = ({
         // }
       }
     } catch (e) {
-      mp.track("invalid_otp_onboarding",{
-        page:"Onboading_Page"
-      })
+      mp.track("invalid_otp_onboarding", {
+        page: "Onboading_Page",
+      });
       toast({
         variant: "warn",
         description: e?.response?.data?.message || "Something went wrong.",
@@ -477,7 +481,7 @@ const Step4 = ({
 
   useEffect(() => {
     const savedEmailPhone = sessionStorage.getItem(loginMethod === "mobile" ? "email" : "mobile");
-    
+
     if (loginMethod === "mobile") {
       if (preExistinEmail) {
         setValue("email", preExistinEmail);
@@ -524,39 +528,48 @@ const Step4 = ({
             Verify your {loginMethod === "mobile" ? "email" : "Mobile number"}
           </h3>
           <p className=" mt-1 text-sm text-gray-500">
-            Please enter the OTP sent to   {loginMethod !== "mobile" && countryCode !== "91" ? (
-            <span className="inline-flex items-center">
-              {" "}
-              your{" "}
-              <svg className=" mx-1 " width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M2.02832 18.5862L3.15082 14.4883C2.45832 13.2891 2.09415 11.9283 2.09457 10.5345C2.09665 6.17409 5.64499 2.62659 10.0058 2.62659C12.1221 2.62742 14.1079 3.45117 15.6017 4.94575C17.095 6.44075 17.9175 8.42742 17.9167 10.5408C17.915 14.9012 14.3658 18.4491 10.0058 18.4491H10.0025C8.67874 18.4487 7.37749 18.1166 6.22207 17.4862L2.02832 18.5862Z"
-                  fill="white"
-                />
-                <path
-                  d="M2.02822 18.7945C1.97322 18.7945 1.91989 18.7728 1.8803 18.7328C1.82822 18.6799 1.8078 18.6028 1.82739 18.5315L2.92697 14.5165C2.2453 13.3057 1.88572 11.9307 1.88655 10.5349C1.88822 6.05905 5.5303 2.41821 10.0057 2.41821C12.1766 2.41905 14.2161 3.26446 15.7491 4.79863C17.282 6.33321 18.1257 8.37238 18.1249 10.5407C18.1232 15.0161 14.4807 18.6574 10.0057 18.6574C8.67697 18.657 7.36239 18.329 6.19572 17.7086L2.08114 18.7874C2.06364 18.7924 2.04614 18.7945 2.02822 18.7945Z"
-                  fill="white"
-                />
-                <path
-                  d="M10.0059 2.62651C12.1222 2.62734 14.108 3.45109 15.6017 4.94567C17.0951 6.44067 17.9176 8.42734 17.9167 10.5407C17.9151 14.9011 14.3659 18.449 10.0059 18.449H10.0026C8.67883 18.4486 7.37758 18.1165 6.22216 17.4861L2.02841 18.5861L3.15091 14.4882C2.45841 13.289 2.09424 11.9282 2.09466 10.5344C2.09674 6.174 5.64508 2.62651 10.0059 2.62651ZM10.0059 2.20984C5.41591 2.20984 1.68008 5.944 1.67799 10.5344C1.67758 11.9373 2.03174 13.3198 2.70341 14.5436L1.62633 18.4765C1.58716 18.6203 1.62716 18.7736 1.73216 18.8794C1.81133 18.9594 1.91841 19.0032 2.02841 19.0032C2.06383 19.0032 2.09924 18.9986 2.13424 18.9894L6.17049 17.9311C7.34883 18.5428 8.66966 18.8657 10.0026 18.8661C14.5959 18.8661 18.3317 15.1315 18.3338 10.5411C18.3347 8.3165 17.4692 6.22484 15.8972 4.6515C14.3242 3.07776 12.2322 2.21067 10.0059 2.20984Z"
-                  fill="#CFD8DC"
-                />
-                <path
-                  d="M14.6566 5.8899C13.4149 4.6474 11.7645 3.96282 10.0078 3.9624C6.38118 3.9624 3.4316 6.91073 3.42993 10.5349C3.42952 11.777 3.77702 12.9861 4.43535 14.0332L4.59201 14.282L3.92743 16.7074L6.41618 16.0549L6.6566 16.1974C7.66576 16.7966 8.82326 17.1132 10.0033 17.1137H10.0058C13.6299 17.1137 16.5795 14.1649 16.5808 10.5403C16.5812 8.78407 15.8983 7.1324 14.6566 5.8899Z"
-                  fill="#40C351"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M8.02827 7.22858C7.88035 6.89942 7.72452 6.89275 7.58327 6.88692C7.46785 6.88192 7.33619 6.88233 7.20452 6.88233C7.07285 6.88233 6.85868 6.93192 6.67743 7.12983C6.49618 7.32775 5.98535 7.80567 5.98535 8.77817C5.98535 9.75067 6.69369 10.6907 6.79244 10.8223C6.89119 10.954 8.15994 13.0136 10.1691 13.8061C11.8387 14.4644 12.1787 14.3336 12.5412 14.3007C12.9037 14.2677 13.7108 13.8227 13.8754 13.3611C14.0399 12.8994 14.0399 12.504 13.9908 12.4215C13.9412 12.339 13.8095 12.2898 13.612 12.1907C13.4145 12.0915 12.4424 11.6136 12.2612 11.5477C12.0799 11.4819 11.9483 11.449 11.8162 11.6469C11.6845 11.8444 11.3058 12.2898 11.1904 12.4215C11.0749 12.5536 10.9595 12.5702 10.762 12.4711C10.5645 12.3719 9.92785 12.1636 9.17244 11.4902C8.58494 10.9665 8.18827 10.3194 8.07285 10.1215C7.95744 9.924 8.06035 9.81692 8.15952 9.71817C8.24827 9.62942 8.35702 9.48733 8.45619 9.37192C8.55494 9.2565 8.58785 9.174 8.65368 9.04233C8.71952 8.91025 8.6866 8.79483 8.63702 8.69608C8.58827 8.59692 8.2041 7.61942 8.02827 7.22858Z"
-                  fill="white"
-                />
-              </svg>
-              WhatsApp number
-            </span>
-          ) : (
-            ""
-          )} {loginMethod === "mobile" ? email : phone}.{" "}
+            Please enter the OTP sent to{" "}
+            {loginMethod !== "mobile" && countryCode !== "91" ? (
+              <span className="inline-flex items-center">
+                {" "}
+                your{" "}
+                <svg
+                  className=" mx-1 "
+                  width="20"
+                  height="21"
+                  viewBox="0 0 20 21"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.02832 18.5862L3.15082 14.4883C2.45832 13.2891 2.09415 11.9283 2.09457 10.5345C2.09665 6.17409 5.64499 2.62659 10.0058 2.62659C12.1221 2.62742 14.1079 3.45117 15.6017 4.94575C17.095 6.44075 17.9175 8.42742 17.9167 10.5408C17.915 14.9012 14.3658 18.4491 10.0058 18.4491H10.0025C8.67874 18.4487 7.37749 18.1166 6.22207 17.4862L2.02832 18.5862Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M2.02822 18.7945C1.97322 18.7945 1.91989 18.7728 1.8803 18.7328C1.82822 18.6799 1.8078 18.6028 1.82739 18.5315L2.92697 14.5165C2.2453 13.3057 1.88572 11.9307 1.88655 10.5349C1.88822 6.05905 5.5303 2.41821 10.0057 2.41821C12.1766 2.41905 14.2161 3.26446 15.7491 4.79863C17.282 6.33321 18.1257 8.37238 18.1249 10.5407C18.1232 15.0161 14.4807 18.6574 10.0057 18.6574C8.67697 18.657 7.36239 18.329 6.19572 17.7086L2.08114 18.7874C2.06364 18.7924 2.04614 18.7945 2.02822 18.7945Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M10.0059 2.62651C12.1222 2.62734 14.108 3.45109 15.6017 4.94567C17.0951 6.44067 17.9176 8.42734 17.9167 10.5407C17.9151 14.9011 14.3659 18.449 10.0059 18.449H10.0026C8.67883 18.4486 7.37758 18.1165 6.22216 17.4861L2.02841 18.5861L3.15091 14.4882C2.45841 13.289 2.09424 11.9282 2.09466 10.5344C2.09674 6.174 5.64508 2.62651 10.0059 2.62651ZM10.0059 2.20984C5.41591 2.20984 1.68008 5.944 1.67799 10.5344C1.67758 11.9373 2.03174 13.3198 2.70341 14.5436L1.62633 18.4765C1.58716 18.6203 1.62716 18.7736 1.73216 18.8794C1.81133 18.9594 1.91841 19.0032 2.02841 19.0032C2.06383 19.0032 2.09924 18.9986 2.13424 18.9894L6.17049 17.9311C7.34883 18.5428 8.66966 18.8657 10.0026 18.8661C14.5959 18.8661 18.3317 15.1315 18.3338 10.5411C18.3347 8.3165 17.4692 6.22484 15.8972 4.6515C14.3242 3.07776 12.2322 2.21067 10.0059 2.20984Z"
+                    fill="#CFD8DC"
+                  />
+                  <path
+                    d="M14.6566 5.8899C13.4149 4.6474 11.7645 3.96282 10.0078 3.9624C6.38118 3.9624 3.4316 6.91073 3.42993 10.5349C3.42952 11.777 3.77702 12.9861 4.43535 14.0332L4.59201 14.282L3.92743 16.7074L6.41618 16.0549L6.6566 16.1974C7.66576 16.7966 8.82326 17.1132 10.0033 17.1137H10.0058C13.6299 17.1137 16.5795 14.1649 16.5808 10.5403C16.5812 8.78407 15.8983 7.1324 14.6566 5.8899Z"
+                    fill="#40C351"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8.02827 7.22858C7.88035 6.89942 7.72452 6.89275 7.58327 6.88692C7.46785 6.88192 7.33619 6.88233 7.20452 6.88233C7.07285 6.88233 6.85868 6.93192 6.67743 7.12983C6.49618 7.32775 5.98535 7.80567 5.98535 8.77817C5.98535 9.75067 6.69369 10.6907 6.79244 10.8223C6.89119 10.954 8.15994 13.0136 10.1691 13.8061C11.8387 14.4644 12.1787 14.3336 12.5412 14.3007C12.9037 14.2677 13.7108 13.8227 13.8754 13.3611C14.0399 12.8994 14.0399 12.504 13.9908 12.4215C13.9412 12.339 13.8095 12.2898 13.612 12.1907C13.4145 12.0915 12.4424 11.6136 12.2612 11.5477C12.0799 11.4819 11.9483 11.449 11.8162 11.6469C11.6845 11.8444 11.3058 12.2898 11.1904 12.4215C11.0749 12.5536 10.9595 12.5702 10.762 12.4711C10.5645 12.3719 9.92785 12.1636 9.17244 11.4902C8.58494 10.9665 8.18827 10.3194 8.07285 10.1215C7.95744 9.924 8.06035 9.81692 8.15952 9.71817C8.24827 9.62942 8.35702 9.48733 8.45619 9.37192C8.55494 9.2565 8.58785 9.174 8.65368 9.04233C8.71952 8.91025 8.6866 8.79483 8.63702 8.69608C8.58827 8.59692 8.2041 7.61942 8.02827 7.22858Z"
+                    fill="white"
+                  />
+                </svg>
+                WhatsApp number
+              </span>
+            ) : (
+              ""
+            )}{" "}
+            {loginMethod === "mobile" ? email : phone}.{" "}
             <button
               onClick={handleEditEmail}
               aria-label="button"
@@ -683,9 +696,7 @@ const Step4 = ({
               rules={{
                 required: loginMethod === "email" ? "Enter phone to continue" : false,
                 validate: (value) => {
-                  return isValidPhoneNumber(value)
-                    ? true
-                    : "Enter valid mobile number";
+                  return isValidPhoneNumber(value) ? true : "Enter valid mobile number";
                 },
               }}
               render={({ field: { value, onChange } }) => (
@@ -746,13 +757,116 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
   const [email, setEmail] = useState("");
   const { user } = useContext(AuthContext);
   const [secondsRemaining, setSecondsRemaining] = useState(15);
+
+  // Track if API call has been made to prevent duplicate calls
+  const apiCallMadeRef = useRef(false);
+  const onboardingCompletedRef = useRef(onboardingCompleted);
+  const activeTabRef = useRef(activeTab);
   const router = useRouter();
   const mp = getMixPanelClient();
+
+  // Function to call API for incomplete onboarding
+  const callIncompleteOnboardingAPI = async () => {
+    if (apiCallMadeRef.current) return; // Prevent duplicate calls
+    const params = {
+      type: sessionStorage.getItem("login_method") === "mobile" ? "mobile" : "email",
+      value: sessionStorage.getItem("login_method") === "mobile" ? user.mobile : user.email,
+      full_name: fullname ? fullname : (sessionStorage.getItem("fullname") as string),
+    };
+    try {
+      apiCallMadeRef.current = true;
+      await axios.post(`${process.env.NEXT_PUBLIC_BASEPATH}/user/incompleteOnboardNotifications`, params);
+      console.log("Incomplete onboarding API called");
+    } catch (error) {
+      console.error("Error calling incomplete onboarding API:", error);
+      apiCallMadeRef.current = false; // Reset on error to allow retry
+    }
+  };
+
+  // Check if onboarding is incomplete
+  const isOnboardingIncomplete = () => {
+    return !onboardingCompletedRef.current;
+  };
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (isOnboardingIncomplete()) {
+        callIncompleteOnboardingAPI();
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  // Handle page unload (refresh, close tab, navigate away)
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (isOnboardingIncomplete()) {
+        // Use sendBeacon for reliable API calls during page unload
+        const data = new URLSearchParams();
+        data.append("type", "incomplete_payment");
+
+        navigator.sendBeacon(`${process.env.NEXT_PUBLIC_BASEPATH}/user/userActionNotifications`, data);
+      }
+    };
+
+    const handleUnload = () => {
+      if (isOnboardingIncomplete()) {
+        // Fallback for browsers that don't support sendBeacon
+        callIncompleteOnboardingAPI();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("unload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("unload", handleUnload);
+    };
+  }, []);
+
+  // // Handle Next.js route changes
+  // useEffect(() => {
+  //   const handleRouteChangeStart = (url) => {
+  //     // Only call API if navigating away from onboarding and it's incomplete
+  //     if (url !== router.asPath && isOnboardingIncomplete()) {
+  //       callIncompleteOnboardingAPI();
+  //     }
+  //   };
+
+  //   router.events.on('routeChangeStart', handleRouteChangeStart);
+
+  //   return () => {
+  //     router.events.off('routeChangeStart', handleRouteChangeStart);
+  //   };
+  // }, [router]);
+
+  // Cleanup effect - calls API when component unmounts if onboarding incomplete
+  useEffect(() => {
+    return () => {
+      if (isOnboardingIncomplete()) {
+        callIncompleteOnboardingAPI();
+      }
+    };
+  }, []);
+  // Update refs when state changes
+  useEffect(() => {
+    onboardingCompletedRef.current = onboardingCompleted;
+  }, [onboardingCompleted]);
+
+  useEffect(() => {
+    activeTabRef.current = activeTab;
+  }, [activeTab]);
 
   useEffect(() => {
     let timeout;
     if (onboardingCompleted) {
-      mp.track("onboarding_successful")
+      mp.track("onboarding_successful");
       timeout = setTimeout(() => {
         router.replace("/stock-picks");
       }, 1000 * 15);
@@ -861,9 +975,9 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
         </div>
         <div
           onClick={() => {
-            mp.track("trackrecord_clicked",{
-              page:"Onboarding_Page"
-            })
+            mp.track("trackrecord_clicked", {
+              page: "Onboarding_Page",
+            });
             router.replace("/track-record");
           }}
           className="min-h-[100px] flex items-center justify-between cursor-pointer py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl"
@@ -1084,12 +1198,15 @@ export default function Onboarding() {
           }}
           className=" flex flex-col px-11 gap-y-4 "
         >
-          <div onClick={()=>{
-            mp.track("stockstobuy_clicked",{
-              page:"Onboarding_Page"
-            })
-            router.replace("/stock-picks")
-          }} className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl">
+          <div
+            onClick={() => {
+              mp.track("stockstobuy_clicked", {
+                page: "Onboarding_Page",
+              });
+              router.replace("/stock-picks");
+            }}
+            className="h-[100px] p-[2px] bg-[linear-gradient(93.19deg,#5AFBD3_2.64%,#35957D_107.97%)] rounded-xl"
+          >
             <div className=" h-full flex justify-between items-center py-4 px-[26px] bg-[#F1FFFB] rounded-[10px]">
               <div>
                 <p className=" text-brand-400 font-bold text-md">Stocks to Buy</p>
@@ -1108,12 +1225,15 @@ export default function Onboarding() {
               </svg>
             </div>
           </div>
-          <div onClick={()=>{
-              mp.track("trackrecord_clicked",{
-                page:"Onboarding_Page"
-              })
-            router.replace("/track-record")
-          }} className="min-h-[100px] flex items-center justify-between py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl">
+          <div
+            onClick={() => {
+              mp.track("trackrecord_clicked", {
+                page: "Onboarding_Page",
+              });
+              router.replace("/track-record");
+            }}
+            className="min-h-[100px] flex items-center justify-between py-4 px-[26px] border border-gray-200 bg-gray-25 rounded-xl"
+          >
             <div>
               <p className=" text-gray-700 font-bold text-md">Track Record</p>
               <p className=" text-sm text-[#667085]">
