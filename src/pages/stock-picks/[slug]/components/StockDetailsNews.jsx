@@ -205,7 +205,11 @@ const StockDetailsNews = ({ stock_id, type }) => {
 
                   <p className=" text-4xs sm:text-3xs font-semibold text-[#93370D]">Analyst View</p>
                 </div>
-                <p className=" text-xs text-[#4E1D09] ">{item?.analysis_content}</p>
+                <div
+                  className={`prose   !max-w-none  !text-xs !text-[#4E1D09] `}
+                  dangerouslySetInnerHTML={{ __html: item?.analysis_content }}
+                ></div>
+                {/* <p className="  ">{}</p> */}
               </div>
               <Accordion className=" mt-3" collapsible>
                 <AccordionItem value="item-1" className=" border-b-0">
@@ -221,7 +225,11 @@ const StockDetailsNews = ({ stock_id, type }) => {
                         </div>
                         <p className=" text-4xs sm:text-3xs font-semibold text-[#0079EF]">News</p>
                       </div>
-                      <p className=" text-xs text-gray-600">{item.updates_content}</p>
+                      <div
+                        className={`prose   !max-w-none  !text-xs !text-gray-600 `}
+                        dangerouslySetInnerHTML={{ __html: item?.updates_content }}
+                      ></div>
+                      {/* <p className=" ">{item.updates_content}</p> */}
                     </div>
                   </AccordionContent>
                   <AccordionTrigger
