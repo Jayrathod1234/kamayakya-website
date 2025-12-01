@@ -38,7 +38,7 @@ const HotStockSection = ({ items }) => {
                   Hot Stocks ({items?.length})
                 </h2>
                 <p className="pt-3 font-medium text-md text-gray-500 pb-10 sm:block hidden font-open_sans">
-                Top stock recommendations with the highest conviction that you may buy at today’s price.
+                Top stock recommendations that you may buy at today’s price.
                 </p>
                 <div className="bg-white bg-[url('/assets/grid.png')] bg-cover sm:py-[74px] sm:pl-[41px] pr-20  sm:flex  items-center  rounded-[10px]">
                   <div className="flex-1 w-full sm:pt-0 pt-5">
