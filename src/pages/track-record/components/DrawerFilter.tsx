@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 
 import {
   Box,
@@ -32,6 +32,47 @@ import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import { useTrackRecordCommon } from "@/contexts/TrackRecordCommonContext";
 import { getMixPanelClient } from "@/externals/mixpanel";
 
+// Styled components (moved outside to prevent recreation on every render)
+const CustomSlider = styled(Slider)({
+  color: "#125B54",
+  height: 4,
+  "& .MuiSlider-thumb": {
+    height: 24,
+    width: 24,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+    "&:hover": {
+      boxShadow: "0 0 0 8px rgba(0, 77, 64, 0.16)",
+    },
+    "&:focus, &:active": {
+      boxShadow: "0 0 0 14px rgba(0, 77, 64, 0.16)",
+    },
+    zIndex: 2,
+  },
+  "& .MuiSlider-rail": {
+    color: "#E4E7EC",
+    opacity: 1,
+  },
+  "& .MuiSlider-track": {
+    border: "none",
+    color: "#125B54",
+    zIndex: 1,
+  },
+  "& .MuiSlider-mark": {
+    width: "9px",
+    height: "9px",
+    borderRadius: "50%",
+    backgroundColor: "#E4E7EC",
+    zIndex: 0,
+  },
+  "& .MuiSlider-valueLabel": {
+    zIndex: 1000,
+    "&.MuiSlider-valueLabelOpen": {
+      zIndex: 1000,
+    },
+  },
+});
+
 // fixed drawer
 const CustomTabPanel = styled(Box)(({ theme }) => ({
   height: "100%",
@@ -58,9 +99,9 @@ function TabPanel(props) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      <Box sx={{ p: 3 }}>
+      <div className="p-3">
         <Typography style={{ color: "#2A837B" }}>{children}</Typography> {/* Match text color */}
-      </Box>
+      </div>
     </CustomTabPanel>
   );
 }
@@ -115,7 +156,7 @@ function DrawerFilter() {
     setActionCall,
     actionCall,
   } = useTrackRecord();
-  console.log("SEBI BOARD TYPE", sebiBoardType)
+  console.log("SEBI BOARD TYPE", sebiBoardType);
   const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState("");
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -162,20 +203,20 @@ function DrawerFilter() {
     handleApplyFilters(true);
     setActionCall(tempActionCall);
     // console.log("Drawer filter used",tempStrategyTag, tempUpsideLeft, tempMarketCapType, tempRecency, tempTimeLeft, tempReturns, tempRisk, tempSector)
-    trackEvents("filter_clicked",{
-      page:"TrackRecord_pagefilter_source:drawer_filter",
-      filtersused:{
-        strategy_tag:tempStrategyTag,
-        upside_left:tempUpsideLeft,
-        market_cap_type:tempMarketCapType,
-        recency:tempRecency,
-        time_left:tempTimeLeft,
-        returns:tempReturns,
-        risk:tempRisk,
-        sector:tempSector,
-        action_call:tempActionCall
-      }
-    })
+    trackEvents("filter_clicked", {
+      page: "TrackRecord_pagefilter_source:drawer_filter",
+      filtersused: {
+        strategy_tag: tempStrategyTag,
+        upside_left: tempUpsideLeft,
+        market_cap_type: tempMarketCapType,
+        recency: tempRecency,
+        time_left: tempTimeLeft,
+        returns: tempReturns,
+        risk: tempRisk,
+        sector: tempSector,
+        action_call: tempActionCall,
+      },
+    });
   };
 
   const handleSelectAllStrategies = () => {
@@ -208,122 +249,84 @@ function DrawerFilter() {
     setAnchor(anchorVal);
   };
 
-  function trackEvents(eventName:string,eventProps:any){
-    const mp = getMixPanelClient()
-    mp.track(eventName,eventProps)
+  function trackEvents(eventName: string, eventProps: any) {
+    const mp = getMixPanelClient();
+    mp.track(eventName, eventProps);
   }
 
   /**
    * Stock price slider filter
    * Onchange event
+   * Wrapped in useCallback to prevent recreation on every render
    */
-  const handleUpsideLeftSliderChange = (event, newValue) => {
-  
+  const handleUpsideLeftSliderChange = useCallback((event, newValue) => {
     setTempUpsideLeft(newValue);
-  };
+  }, []);
 
-  const handleUpsideLeftInputChange = (event, type) => {
+  const handleUpsideLeftInputChange = useCallback((event, type) => {
     let inputValue = event?.target?.value;
     if (type == "min") {
-      setTempUpsideLeft([inputValue, tempUpsideLeft[1]]);
+      setTempUpsideLeft((prev) => [inputValue, prev[1]]);
     } else {
-      setTempUpsideLeft([tempUpsideLeft[0], inputValue]);
+      setTempUpsideLeft((prev) => [prev[0], inputValue]);
     }
-  };
+  }, []);
 
   // // returns
-  const handleReturnsSliderChange = (event, newValue) => {
+  const handleReturnsSliderChange = useCallback((event, newValue) => {
     setTempReturns(newValue);
-  };
+  }, []);
 
-  const handleReturnsInputChange = (event, type) => {
+  const handleReturnsInputChange = useCallback((event, type) => {
     let inputValue = event?.target?.value;
     if (type == "min") {
-      setTempReturns([inputValue, tempUpsideLeft[1]]);
+      setTempReturns((prev) => [inputValue, prev[1]]);
     } else {
-      setTempReturns([tempUpsideLeft[0], inputValue]);
+      setTempReturns((prev) => [prev[0], inputValue]);
     }
-  };
+  }, []);
 
-  const handleChangeRecency = (event) => {
-    setTempRecency({
-      ...tempRecency,
+  const handleChangeRecency = useCallback((event) => {
+    setTempRecency((prev) => ({
+      ...prev,
       [event.target.name]: event.target.checked,
-    });
-  };
+    }));
+  }, []);
 
-  const handleChangeTimeLeft = (event) => {
-    setTempTimeLeft({
-      ...tempTimeLeft,
+  const handleChangeTimeLeft = useCallback((event) => {
+    setTempTimeLeft((prev) => ({
+      ...prev,
       [event.target.name]: event.target.checked,
-    });
-  };
+    }));
+  }, []);
 
-  const handleChangestrategyTag = (event) => {
-    const { name, checked } = event.target;
-    checked ? addPopularStrategies(name) : removePopularStrategies(name);
-    setTempStrategyTag((prev) => (checked ? [...prev, name] : prev.filter((tag) => tag !== name)));
-  };
-  const handleMarketCap = (value) => {
+  const handleChangestrategyTag = useCallback(
+    (event) => {
+      const { name, checked } = event.target;
+      checked ? addPopularStrategies(name) : removePopularStrategies(name);
+      setTempStrategyTag((prev) => (checked ? [...prev, name] : prev.filter((tag) => tag !== name)));
+    },
+    [addPopularStrategies, removePopularStrategies]
+  );
+
+  const handleMarketCap = useCallback((value) => {
     setTempMarketCapType((prev) => {
-      // console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
       return prev.includes(value) ? [...prev.filter((val) => val != value)] : [...prev, value];
     });
-  };
+  }, []);
 
-  const handleRisk = (value) => {
+  const handleRisk = useCallback((value) => {
     setTempRisk((prev) => {
-      // console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
       return prev.includes(value) ? [...prev.filter((val) => val != value)] : [...prev, value];
     });
-  };
+  }, []);
 
-  const handleActioCall = (value) => {
+  const handleActioCall = useCallback((value) => {
     setTempActionCall((prev) => {
-      // console.log(prev.includes(value), [...prev.filter((val) => val != value)], [...prev, value]);
       return prev.includes(value) ? [...prev.filter((val) => val != value)] : [...prev, value];
     });
-  };
+  }, []);
 
-  const CustomSlider = styled(Slider)({
-    color: "#125B54", // Main color for the rail and thumb border
-    height: 4, // Thickness of the slider rail
-    "& .MuiSlider-thumb": {
-      height: 24,
-      width: 24,
-      backgroundColor: "#fff",
-      border: "2px solid currentColor",
-      "&:hover": {
-        boxShadow: "0 0 0 8px rgba(0, 77, 64, 0.16)", // Light shadow on hover
-      },
-      "&:focus, &:active": {
-        boxShadow: "0 0 0 14px rgba(0, 77, 64, 0.16)", // Larger shadow on active or focus
-      },
-      zIndex: 2,
-    },
-    "& .MuiSlider-rail": {
-      color: "#E4E7EC",
-      opacity: 1,
-    },
-    "& .MuiSlider-track": {
-      border: "none",
-      color: "#125B54",
-      zIndex: 1,
-    },
-    "& .MuiSlider-mark": {
-      width: "9px",
-      height: "9px",
-      borderRadius: "50%",
-      backgroundColor: "#E4E7EC", // Dot color when not active
-      zIndex: 0,
-    },
-    "& .MuiSlider-valueLabel": {
-      zIndex: 1000,
-      "&.MuiSlider-valueLabelOpen": {
-        zIndex: 1000,
-      },
-    },
-  });
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -341,9 +344,13 @@ function DrawerFilter() {
     return marksArray;
   };
 
-  const upside_left_marks = generateMarks(min_upside_left, max_upside_left, 5);
+  // Memoize expensive calculations to prevent recalculation on every render
+  const upside_left_marks = useMemo(
+    () => generateMarks(min_upside_left, max_upside_left, 5),
+    [min_upside_left, max_upside_left]
+  );
 
-  const returns_marks = generateMarks(min_returns, max_returns, 5);
+  const returns_marks = useMemo(() => generateMarks(min_returns, max_returns, 5), [min_returns, max_returns]);
 
   return (
     <>
@@ -376,7 +383,7 @@ function DrawerFilter() {
               },
             }}
           >
-            <Box sx={{ width: 400 }} role="presentation" onClick={(e) => e.stopPropagation()}>
+            <div className="w-[400px]" role="presentation" onClick={(e) => e.stopPropagation()}>
               {/* topbar  */}
               <div className="pt-4 pb-2 px-6  sticky top-0 bg-white z-50  ">
                 <div className="justify-between absolute flex items-center w-auto gap-2 ">
@@ -405,7 +412,7 @@ function DrawerFilter() {
                     id="recency-header"
                     sx={{ paddingRight: 0 }}
                   >
-                    <Box display="flex" alignItems="center">
+                    <div className="flex items-center">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M6.58366 16.6664C8.17414 17.4823 10.0037 17.7033 11.7427 17.2895C13.4817 16.8758 15.0158 15.8546 16.0685 14.4099C17.1211 12.9652 17.6232 11.192 17.4841 9.40985C17.3451 7.62772 16.5741 5.95385 15.3102 4.68987C14.0462 3.42589 12.3723 2.65492 10.5902 2.51589C8.80807 2.37686 7.03489 2.87892 5.59018 3.93159C4.14547 4.98425 3.12424 6.51831 2.71051 8.25731C2.29679 9.99631 2.51778 11.8259 3.33366 13.4164L1.66699 18.333L6.58366 16.6664Z"
@@ -429,7 +436,7 @@ function DrawerFilter() {
                       >
                         Action Call
                       </Typography>
-                    </Box>
+                    </div>
                   </AccordionSummary>
 
                   <div className="flex pl-11 gap-4 pb-4">
@@ -463,7 +470,7 @@ function DrawerFilter() {
                   }}
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ paddingRight: 0 }}>
-                    <Box display="flex" alignItems="center">
+                    <div className="flex items-center">
                       <img src="/assets/solar_graph-down-new-broken.svg" alt="Total Returns" />
                       <div className=" flex">
                         <Typography
@@ -480,7 +487,7 @@ function DrawerFilter() {
                           Total Returns
                         </Typography>
                       </div>
-                    </Box>
+                    </div>
                   </AccordionSummary>
                   <AccordionDetails>
                     <div className="pl-11">
@@ -561,7 +568,7 @@ function DrawerFilter() {
                     id="recency-header"
                     sx={{ paddingRight: 0 }}
                   >
-                    <Box display="flex" alignItems="center">
+                    <div className="flex items-center">
                       <img src="/assets/hourglass-02.svg" />
                       <Typography
                         variant="subtitle1"
@@ -579,7 +586,7 @@ function DrawerFilter() {
                       {/* <IconButton size="small">
                     <InfoOutlinedIcon fontSize="small" />
                   </IconButton> */}
-                    </Box>
+                    </div>
                   </AccordionSummary>
                   <div className="pl-7 ">
                     <AccordionDetails>
@@ -628,7 +635,7 @@ function DrawerFilter() {
                     id="recency-header"
                     sx={{ paddingRight: 0 }}
                   >
-                    <Box display="flex" alignItems="center">
+                    <div className="flex items-center">
                       <AccessTimeIcon fontSize="small" />
                       <Typography
                         variant="subtitle1"
@@ -668,7 +675,7 @@ function DrawerFilter() {
                           </div>
                         </span>
                       </div>
-                    </Box>
+                    </div>
                   </AccordionSummary>
                   <div className="pl-7">
                     <AccordionDetails>
@@ -712,7 +719,7 @@ function DrawerFilter() {
                     id="panel1a-header"
                     sx={{ paddingRight: 0 }}
                   >
-                    <Box display="flex" alignItems="center">
+                    <div className="flex items-center">
                       <img src="/assets/solar_graph-down-new-broken.svg" alt="Upside Left" />
                       <div className=" flex">
                         <Typography
@@ -761,7 +768,7 @@ function DrawerFilter() {
                           </div>
                         </IconButton>
                       </div>
-                    </Box>
+                    </div>
                   </AccordionSummary>
                   <AccordionDetails>
                     <div className="pl-11">
@@ -846,7 +853,7 @@ function DrawerFilter() {
                       aria-controls="recency-content"
                       id="recency-header"
                     >
-                      <Box display="flex" alignItems="center">
+                      <div className="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                           <path
                             d="M5.99992 16.6654V4.66536C5.99992 4.31174 6.14039 3.9726 6.39044 3.72256C6.64049 3.47251 6.97963 3.33203 7.33325 3.33203H12.6666C13.0202 3.33203 13.3593 3.47251 13.6094 3.72256C13.8594 3.9726 13.9999 4.31174 13.9999 4.66536V16.6654M5.99992 16.6654H13.9999M5.99992 16.6654H4.66659C4.31296 16.6654 3.97382 16.5249 3.72378 16.2748C3.47373 16.0248 3.33325 15.6857 3.33325 15.332V11.332C3.33325 10.9784 3.47373 10.6393 3.72378 10.3892C3.97382 10.1392 4.31296 9.9987 4.66659 9.9987H5.99992M13.9999 16.6654H15.3333C15.6869 16.6654 16.026 16.5249 16.2761 16.2748C16.5261 16.0248 16.6666 15.6857 16.6666 15.332V9.33203C16.6666 8.97841 16.5261 8.63927 16.2761 8.38922C16.026 8.13917 15.6869 7.9987 15.3333 7.9987H13.9999M8.66659 5.9987H11.3333M8.66659 8.66536H11.3333M8.66659 11.332H11.3333M8.66659 13.9987H11.3333"
@@ -869,7 +876,7 @@ function DrawerFilter() {
                         >
                           Market Cap
                         </Typography>
-                      </Box>
+                      </div>
                     </AccordionSummary>
                     {/* <SizeSelector /> */}
                     <div className="flex pl-11 gap-4 pb-4">
@@ -909,7 +916,7 @@ function DrawerFilter() {
                     id="recency-header"
                     sx={{ paddingRight: 0 }}
                   >
-                    <Box display="flex" alignItems="center">
+                    <div className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <g clip-path="url(#clip0_9195_356175)">
                           <path
@@ -937,7 +944,7 @@ function DrawerFilter() {
                       >
                         Sectors
                       </Typography>
-                    </Box>
+                    </div>
                   </AccordionSummary>
                   <SectorFilter2 tempSector={tempSector} setTempSector={setTempSector} isMobile={isMobile} />
                 </Accordion>
@@ -959,7 +966,7 @@ function DrawerFilter() {
                     id="recency-header"
                     sx={{ paddingRight: 0 }}
                   >
-                    <Box display="flex" alignItems="center">
+                    <div className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path
                           d="M6.66667 13.334L5.46083 13.9373C5.32243 14.0065 5.20602 14.1128 5.12463 14.2444C5.04324 14.376 5.00008 14.5276 5 14.6823V16.6673H15V14.6823C14.9999 14.5276 14.9568 14.376 14.8754 14.2444C14.794 14.1128 14.6776 14.0065 14.5392 13.9373L13.3333 13.334M6.66667 13.334H13.3333M6.66667 13.334L7.5 5.83398H12.5L13.3333 13.334M5 3.33398L5.41667 5.83398H14.5833L15 3.33398M8.33333 3.33398V5.83398M11.6667 3.33398V5.83398"
@@ -982,7 +989,7 @@ function DrawerFilter() {
                       >
                         Strategies
                       </Typography>
-                    </Box>
+                    </div>
                   </AccordionSummary>
                   <div className="pl-7">
                     <AccordionDetails>
@@ -1028,7 +1035,7 @@ function DrawerFilter() {
                     id="recency-header"
                     sx={{ paddingRight: 0 }}
                   >
-                    <Box display="flex" alignItems="center">
+                    <div className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <g clip-path="url(#clip0_9195_356396)">
                           <path
@@ -1063,7 +1070,7 @@ function DrawerFilter() {
                       >
                         Risk
                       </Typography>
-                    </Box>
+                    </div>
                   </AccordionSummary>
 
                   <div className="flex pl-11 gap-4 pb-4">
@@ -1101,7 +1108,7 @@ function DrawerFilter() {
                   </button>
                 </div>
               </div>
-            </Box>
+            </div>
           </Drawer>
         </>
       ) : (
@@ -1141,12 +1148,7 @@ function DrawerFilter() {
               },
             }}
           >
-            <Box
-              className=" !rounded-xl"
-              sx={{ height: 597, bgcolor: "white" }}
-              role="presentation"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="rounded-xl h-[597px] bg-white" role="presentation" onClick={(e) => e.stopPropagation()}>
               {/* topbar  */}
               <div className="pt-4   sticky top-0 bg-white z-50 rounded-t-2xl ">
                 <div className=" px-6 justify-between absolute flex items-center w-full gap-x-2 ">
@@ -1178,20 +1180,7 @@ function DrawerFilter() {
                 </div>
                 <div className="border-b-2 border-[#F2F4F7] mt-11"></div>
               </div>
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  bgcolor: "background.paper",
-                  display: "flex",
-                  position: "fixed",
-                  alignItems: "start !important",
-                  justifyContent: "start !important",
-                  // width: "144px !important",
-                  height: "100%", // Set a fixed height to make sure scrolling works
-                  width: "100%",
-                  zIndex: 60,
-                }}
-              >
+              <div className="flex-grow bg-white flex fixed items-start justify-start h-full w-full z-[60]">
                 <Tabs
                   centered={false}
                   orientation="vertical"
@@ -1227,19 +1216,19 @@ function DrawerFilter() {
                     }}
                     label={
                       <>
-                        <Box className="items-start !important font-open_sans capitalize flex">
+                        <div className="items-start font-open_sans capitalize flex">
                           Action Call
                           {!!Object.keys(actionCall).filter((key) => actionCall[key]).length && (
                             <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                               {Object.keys(actionCall).filter((key) => actionCall[key]).length}
                             </div>
                           )}
-                        </Box>
+                        </div>
                       </>
                     }
                     {...a11yProps(8)}
                   />
-                   <Tab
+                  <Tab
                     sx={{
                       display: "flex",
                       alignItems: "start !important",
@@ -1253,7 +1242,7 @@ function DrawerFilter() {
                     }}
                     // Total Returns
                     label={
-                      <Box className="items-start !important font-open_sans capitalize flex">
+                      <div className="items-start font-open_sans capitalize flex">
                         Total Returns
                         {!(returns[0] === min_returns && returns[1] === max_returns) && (
                           <>
@@ -1276,11 +1265,11 @@ function DrawerFilter() {
                             </div>
                           </>
                         )}
-                      </Box>
+                      </div>
                     }
                     {...a11yProps(3)}
                   />
-                    <Tab
+                  <Tab
                     sx={{
                       display: "flex",
                       alignItems: "start !important",
@@ -1293,19 +1282,19 @@ function DrawerFilter() {
                     }}
                     label={
                       <>
-                        <Box className="items-start !important font-open_sans capitalize flex">
+                        <div className="items-start font-open_sans capitalize flex">
                           Time Left
                           {!!Object.keys(timeLeft).filter((key) => timeLeft[key]).length && (
                             <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                               {Object.keys(timeLeft).filter((key) => timeLeft[key]).length}
                             </div>
                           )}
-                        </Box>
+                        </div>
                       </>
                     }
                     {...a11yProps(2)}
                   />
-                   <Tab
+                  <Tab
                     sx={{
                       display: "flex",
                       alignItems: "start !important",
@@ -1318,14 +1307,14 @@ function DrawerFilter() {
                     }}
                     label={
                       <>
-                        <Box className="items-start !important font-open_sans capitalize flex">
+                        <div className="items-start font-open_sans capitalize flex">
                           Recency
                           {!!Object.keys(recency).filter((key) => recency[key]).length && (
                             <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                               {Object.keys(recency).filter((key) => recency[key]).length}
                             </div>
                           )}
-                        </Box>
+                        </div>
                       </>
                     }
                     {...a11yProps(1)}
@@ -1340,7 +1329,7 @@ function DrawerFilter() {
                       width: "100%",
                     }}
                     label={
-                      <Box className="items-start !important font-open_sans capitalize flex">
+                      <div className="items-start font-open_sans capitalize flex">
                         Upside Left
                         {!(upsideLeft[0] === min_upside_left && upsideLeft[1] === max_upside_left) && (
                           <>
@@ -1363,14 +1352,11 @@ function DrawerFilter() {
                             </div>
                           </>
                         )}
-                      </Box>
+                      </div>
                     }
                     {...a11yProps(0)}
                   />
 
-                 
-                
-                 
                   {sebiBoardType == "mainboard" && (
                     <Tab
                       sx={{
@@ -1384,7 +1370,7 @@ function DrawerFilter() {
                         width: "100%",
                       }}
                       label={
-                        <Box className="items-start !important font-open_sans capitalize flex">
+                        <div className="items-start font-open_sans capitalize flex">
                           Market Cap
                           {marketCapType?.length > 0 && (
                             <>
@@ -1407,7 +1393,7 @@ function DrawerFilter() {
                               </div>
                             </>
                           )}
-                        </Box>
+                        </div>
                       }
                       {...a11yProps(4)}
                     />
@@ -1425,14 +1411,14 @@ function DrawerFilter() {
                     }}
                     label={
                       <>
-                        <Box className="items-start !important font-open_sans capitalize flex">
+                        <div className="items-start font-open_sans capitalize flex">
                           Sectors
                           {!!sector.length && (
                             <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                               {sector.length}
                             </div>
                           )}
-                        </Box>
+                        </div>
                       </>
                     }
                     {...a11yProps(5)}
@@ -1450,14 +1436,14 @@ function DrawerFilter() {
                     }}
                     label={
                       <>
-                        <Box className="items-start !important font-open_sans capitalize flex">
+                        <div className="items-start font-open_sans capitalize flex">
                           Strategies
                           {!!changablestrategyTags.length && (
                             <div className=" bg-[#135B54] text-white px-2 text-xs font-bold rounded-full w-6  h-6 justify-center items-center flex ml-1 font-open_sans">
                               {changablestrategyTags.length}
                             </div>
                           )}
-                        </Box>
+                        </div>
                       </>
                     }
                     {...a11yProps(6)}
@@ -1474,7 +1460,7 @@ function DrawerFilter() {
                       width: "100%",
                     }}
                     label={
-                      <Box className="items-start !important font-open_sans capitalize flex">
+                      <div className="items-start font-open_sans capitalize flex">
                         Risk
                         {risk?.length > 0 && (
                           <>
@@ -1497,18 +1483,12 @@ function DrawerFilter() {
                             </div>
                           </>
                         )}
-                      </Box>
+                      </div>
                     }
                     {...a11yProps(7)}
                   />
                 </Tabs>
-                <Box
-                  sx={{
-                    flexGrow: 1,
-                    bgcolor: "white",
-                    width: "246px !important",
-                  }}
-                >
+                <div className="flex-grow bg-white w-[246px]">
                   <TabPanel value={value} index={8}>
                     {/* action call  */}
                     <div className=" overflow-x-hidden">
@@ -2064,8 +2044,8 @@ function DrawerFilter() {
                       </Accordion>
                     </div>
                   </TabPanel>
-                </Box>
-              </Box>
+                </div>
+              </div>
               {/* button  */}
               <div className=" fixed bottom-0 w-full z-[60]">
                 <div className="flex gap-x-3 py-3 px-3  border-t-2 border-[#F2F4F7]  bg-white  justify-between  ">
@@ -2083,7 +2063,7 @@ function DrawerFilter() {
                   </button>
                 </div>
               </div>
-            </Box>
+            </div>
           </Drawer>
         </>
       )}

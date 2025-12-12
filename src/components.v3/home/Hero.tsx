@@ -82,7 +82,18 @@ export default function Hero() {
             {/* Left Content - Desktop First Column, Mobile Second */}
             <div className="order-2 lg:order-1 text-center lg:text-left space-y-8">
               <div className=" max-lg:flex max-lg:flex-col max-lg:items-center">
-                <div className=" bg-white border border-[#75CDC566] px-[14px] py-2 rounded-full w-fit">
+                <div
+                  className=" bg-white border border-[#75CDC566] px-[14px] py-2 rounded-full w-fit cursor-pointer hover:bg-gray-50 transition-colors"
+                  onClick={async () => {
+                    const mp = getMixPanelClient();
+                    const usertype = await getUserType();
+                    mp.track("sebireg_clicked", {
+                      page: "Homepage",
+                      usertype: usertype,
+                    });
+                    window.open("Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1", "_blank", "fullscreen=yes");
+                  }}
+                >
                   <p className=" text-sm font-semibold text-brand-500">SEBI Registered: INH000009843</p>
                 </div>
                 <h1 className="font-medium text-gray-950 text-display-sm lg:text-[62px] leading-[110%]  tracing-[-3%] max-lg:mt-[10px]">

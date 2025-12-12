@@ -13,6 +13,7 @@ import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useNavBar } from "@/contexts/NavBarContext.js";
 import { Button, ButtonVariant } from "@/components.v2/button/button";
+import { getMixPanelClient } from "@/externals/mixpanel";
 function AllBoardStockSection() {
   const { searchStock, setSearchStock, response, isLoading, error, fetchNextPage, isFetchingNextPage } =
     useAllBoardStock();
@@ -27,6 +28,16 @@ function AllBoardStockSection() {
   const items = response?.pages?.flatMap((page) => page.data) ?? [];
   const currentPage = Array.isArray(response?.pages) ? response?.pages?.length : 0;
   const totalPages = Array.isArray(response?.pages) ? response?.pages[0]?.total_pages : 0;
+
+  // Track search results loaded
+  useEffect(() => {
+    if (searchStock && items.length > 0 && !isLoading) {
+      const mp = getMixPanelClient();
+      mp.track("searchstocks_loaded", {
+        page: "StockPicks_page",
+      });
+    }
+  }, [searchStock, items.length, isLoading]);
 
   // Scroll Function
   useEffect(() => {
@@ -148,18 +159,19 @@ function AllBoardStockSection() {
               </>
             )}
           </div>
-          {items?.length > 0 && currentPage < totalPages ?  <div className=" mt-6 col-span-full justify-center items-center">
-            <Button
-              loading={isFetchingNextPage}
-              onClick={fetchNextPage}
-              className=" mx-auto hover:bg-white w-fit bg-white border border-gray-300"
-              variant={ButtonVariant.custom}
-            >
-            <p className="  font-semibold text-brand-500">
-              Load More</p>
-            </Button>
-          </div>:null}
-         
+          {items?.length > 0 && currentPage < totalPages ? (
+            <div className=" mt-6 col-span-full justify-center items-center">
+              <Button
+                loading={isFetchingNextPage}
+                onClick={fetchNextPage}
+                className=" mx-auto hover:bg-white w-fit bg-white border border-gray-300"
+                variant={ButtonVariant.custom}
+              >
+                <p className="  font-semibold text-brand-500">Load More</p>
+              </Button>
+            </div>
+          ) : null}
+
           {/* <div ref={myObserver} className="h-1"></div> */}
           {/* Blur Rectangle  */}
           {/* <div className="absolute bottom-[440px] z-[1] max-h-[400px] w-full">

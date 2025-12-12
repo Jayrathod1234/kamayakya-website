@@ -67,10 +67,10 @@ function StockCard({
     setIsModalOpen(false);
   };
 
-  const handleEvent = (eventName, eventDetails)=>{
-    const mp = getMixPanelClient()
-    mp.track(eventName, eventDetails)
-  }
+  const handleEvent = (eventName, eventDetails) => {
+    const mp = getMixPanelClient();
+    mp.track(eventName, eventDetails);
+  };
 
   return (
     <>
@@ -113,10 +113,15 @@ function StockCard({
               </div>
             ) : (
               <div className="pt-[20px] px-[20px] flex items-center justify-between overflow-hidden">
-                <Link onClick={()=>handleEvent("stockname_clicked",{
-                  page:"StockPicks_page",
-                  stockname:stock_name
-                })} href={`/stock-picks/${id}`}>
+                <Link
+                  onClick={() =>
+                    handleEvent("stockname_clicked", {
+                      page: "StockPicks_page",
+                      stockname: stock_name,
+                    })
+                  }
+                  href={`/stock-picks/${id}`}
+                >
                   <p
                     className={`text-gray-950 text-md font-bold leading-7  font-open_sans line-clamp-1  text-left hover:text-[#1e555c] transition-all duration-500 ease-in-out ${
                       latest_youtube_video?.youtube_link
@@ -167,13 +172,13 @@ function StockCard({
                       `}
                     >
                       <a
-                        onClick={()=>handleEvent("watchvideo_clicked",{
-                          page:"StockPicks_page",
-                          stockname:stock_name,
-                          pagegroup : "Hot Stocks/Latest Releases/mainboard"
-
-                          
-,                        })}
+                        onClick={() =>
+                          handleEvent("watchvideo_clicked", {
+                            page: "StockPicks_page",
+                            stockname: stock_name,
+                            pagegroup: "Hot Stocks/Latest Releases/mainboard",
+                          })
+                        }
                         href={latest_youtube_video?.youtube_link}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -364,7 +369,16 @@ function StockCard({
               <>
                 <div className="p-5 text-center">
                   {/* btn  */}
-                  <button className="button-82-pushable group  " role="button" onClick={handleLogin}>
+                  <button
+                    className="button-82-pushable group  "
+                    role="button"
+                    onClick={() => {
+                      handleEvent("subscribe_clicked", {
+                        page: "StockPicks_page",
+                      });
+                      handleLogin();
+                    }}
+                  >
                     <span className="button-82-shadow"></span>
                     <span className="button-82-edge"></span>
                     <span className="button-82-front button-82-front2 text flex items-center">
@@ -417,11 +431,16 @@ function StockCard({
             ) : (
               <>
                 <div className="p-5 text-center">
-                  <Link onClick={()=>handleEvent("viewdetails_clicked",{
-                    page:"StockPicks_page",
-                    pagegroup:"Hot Stocks/Latest Releases/mainboard",
-                    stockname:stock_name
-                  })} href={`/stock-picks/${id}`}>
+                  <Link
+                    onClick={() =>
+                      handleEvent("viewdetails_clicked", {
+                        page: "StockPicks_page",
+                        pagegroup: "Hot Stocks/Latest Releases/mainboard",
+                        stockname: stock_name,
+                      })
+                    }
+                    href={`/stock-picks/${id}`}
+                  >
                     <button className="button-82-pushable group relative" role="button">
                       <span className="button-82-shadow"></span>
                       <span className="button-82-edge"></span>

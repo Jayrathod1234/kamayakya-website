@@ -77,7 +77,7 @@ export default function CouponModal() {
     setLoading(true);
     try {
       mp.track("couponcheck_clicked", {
-        couponvalue: currentDiscountSelected,
+        couponvalue: discountCode || "",
       });
       let params = {
         discount_code: discountCode,

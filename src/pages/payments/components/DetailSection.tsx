@@ -485,7 +485,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
     }
     setCheckoutLoading(true);
     mp.track("proceedcheckout_clicked", {
-      aadhar: aadhar,
+      // aadhar: aadhar,
       phone: data.phone.slice(3),
       email: data.email,
       name: data.fullname,

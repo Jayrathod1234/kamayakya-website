@@ -1,5 +1,5 @@
 import { format, parse } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { Line } from "react-chartjs-2";
 import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import {
@@ -28,6 +28,37 @@ ChartJS.register({
   TimeSeriesScale,
 });
 
+// Move formatData outside component to prevent recreation
+const formatData = (item: any) => {
+  const dateTimeString = `${item.date} ${item.time}`;
+  const parsedDate = parse(dateTimeString, "yyyy-MM-dd HH:mm:ss", new Date());
+  const formattedDate = format(parsedDate, "yyyy-MM-dd HH:mm:ss");
+  return formattedDate;
+};
+
+// Static chart options to prevent recreation on every render
+const CHART_OPTIONS = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      enabled: false,
+    },
+  },
+  scales: {
+    x: {
+      type: "timeseries" as const,
+      display: false,
+    },
+    y: {
+      display: false,
+    },
+  },
+};
+
 function TopGainerLoserChart({
   stock_live_prices,
   entry_price,
@@ -37,120 +68,85 @@ function TopGainerLoserChart({
   entry_price?: string;
   start_date?: string;
 }) {
-  const [markerAnnotation, setMarkerAnnotaion] = useState([]);
-  const entry_img = new Image();
-  entry_img.height = 8;
-  entry_img.width = 8;
-  entry_img.src = "/assets/entry point.svg";
+  // Memoize annotation to prevent recreation unless entry_price changes
+  const markerAnnotation = useMemo(() => {
+    if (!entry_price) return {};
 
-  const formatData = (item) => {
-    const dateTimeString = `${item.date} ${item.time}`;
+    return {
+      entryLine: {
+        type: "line" as const,
+        borderColor: "#EDF0F5",
+        borderWidth: 1,
+        borderDash: [2, 2],
+        scaleID: "y",
+        value: entry_price,
+      },
+    };
+  }, [entry_price]);
 
-    // Parse the combined date-time string
-    const parsedDate = parse(dateTimeString, "yyyy-MM-dd HH:mm:ss", new Date());
-
-    // Format the parsed date (optional)
-    const formattedDate = format(parsedDate, "yyyy-MM-dd HH:mm:ss");
-    // console.log(formattedDate);
-    return formattedDate;
-  };
-
-  useEffect(() => {
-    const arr = [];
-    if(!entry_price) return
-    // Entry point annotation
-    // arr.push({
-    //   type: "point",
-    //   xValue: new Date(start_date).getTime(), // Convert to timestamp
-    //   yValue: entry_price,
-    //   backgroundColor: "transparent",
-    //   borderColor: "transparent",
-    //   pointStyle: entry_img,
-    //   radius: 8,
-    //   // enter: handleAnnotationTooltip,
-    //   // leave: (context) => {
-    //   //   const tooltipEl = document.getElementById("annotation-tooltip");
-    //   //   if (tooltipEl) tooltipEl.style.opacity = "0";
-    //   // },
-    // });
-    arr.push({
-      type: "line",
-      borderColor:"#EDF0F5",
-      borderWidth: 1,
-      borderDash: [2, 2],
-      scaleID: "y",
-      value: entry_price,
-    });
-
-    setMarkerAnnotaion(arr);
-  }, [stock_live_prices,entry_price]);
-
-  return (
-    <Line
-      className=""
-      options={{
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
+  // Memoize chart options with annotations
+  const chartOptions = useMemo(
+    () => ({
+      ...CHART_OPTIONS,
+      plugins: {
+        ...CHART_OPTIONS.plugins,
+        annotation: {
+          clip: false,
+          common: {
+            drawTime: "afterDraw" as const,
           },
-          annotation: {
-            clip: false,
-            common: {
-              drawTime: "afterDraw", // Important: Draw annotations after the chart
-            },
-            annotations: {
-              ...markerAnnotation,
-              // targetIconAnnotation,
-            },
-          },
-          tooltip: {
-            enabled: false,
-            // position: "nearest",
-            // external: externalTooltipHandler,
-          },
+          annotations: markerAnnotation,
         },
-        scales: {
-          x: {
-            type: "timeseries", // Use time scale
-
-            // time: {
-            //   unit: "hour",
-            //   displayFormats: {
-            //     day: "MMM d",
-            //     hour: "HH:mm",
-            //   },
-            // },
-
-            display: false,
-          },
-          y: {
-            display: false,
-          },
-        },
-      }}
-      data={{
-        labels: stock_live_prices
-          .filter((x) => x && x.date)
-          .map((x) => {
-            const date = formatData(x);
-            return new Date(date).getTime();
-          }),
-        datasets: [
-          {
-            fill: false,
-            data: stock_live_prices.filter((row) => row && row.price).map((row) => row?.price),
-            borderColor: "#00645A",
-            pointStyle: false,
-            tension: 0,
-            borderWidth: 1,
-          },
-        ],
-      }}
-    />
+      },
+    }),
+    [markerAnnotation]
   );
+
+  // Memoize labels calculation (expensive date parsing)
+  const chartLabels = useMemo(
+    () =>
+      stock_live_prices
+        .filter((x) => x && x.date)
+        .map((x) => {
+          const date = formatData(x);
+          return new Date(date).getTime();
+        }),
+    [stock_live_prices]
+  );
+
+  // Memoize dataset calculation
+  const chartData = useMemo(
+    () => stock_live_prices.filter((row) => row && row.price).map((row) => row?.price),
+    [stock_live_prices]
+  );
+
+  // Memoize complete chart data object
+  const data = useMemo(
+    () => ({
+      labels: chartLabels,
+      datasets: [
+        {
+          fill: false,
+          data: chartData,
+          borderColor: "#00645A",
+          pointStyle: false as const,
+          tension: 0,
+          borderWidth: 1,
+        },
+      ],
+    }),
+    [chartLabels, chartData]
+  );
+
+  return <Line className="" options={chartOptions} data={data} />;
 }
 
-
-export default React.memo(TopGainerLoserChart)
+// Wrap in React.memo with custom comparison for better performance
+export default React.memo(TopGainerLoserChart, (prevProps, nextProps) => {
+  // Only re-render if these specific props change
+  return (
+    prevProps.entry_price === nextProps.entry_price &&
+    prevProps.start_date === nextProps.start_date &&
+    prevProps.stock_live_prices === nextProps.stock_live_prices
+  );
+});

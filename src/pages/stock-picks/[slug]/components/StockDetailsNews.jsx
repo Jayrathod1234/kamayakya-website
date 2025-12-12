@@ -193,7 +193,12 @@ const StockDetailsNews = ({ stock_id, type }) => {
               </p>
             </div>
             <div className=" max-sm:py-3 max-sm:rounded-r-xl max-sm:bg-[#F9FAFB]  sm:col-start-2 flex flex-col ">
-              <h4 className=" max-sm:order-2 text-xs sm:text-md font-bold sm:font-semibold text-gray-950 m-0">
+              <h4
+                className=" max-sm:order-2 text-xs sm:text-md font-bold sm:font-semibold text-gray-950 m-0 cursor-pointer hover:text-[#125B54]"
+                onClick={() => {
+                  // Event tracking should be triggered when user clicks "Read More" instead.
+                }}
+              >
                 {item?.title}
               </h4>
               <p className=" max-sm:order-1 text-3xs text-[#667085] mt-0">
@@ -211,7 +216,11 @@ const StockDetailsNews = ({ stock_id, type }) => {
 
                   <p className=" text-4xs sm:text-3xs font-semibold text-[#93370D]">Analyst View</p>
                 </div>
-                <p className=" text-xs text-[#4E1D09] ">{item?.analysis_content}</p>
+                <div
+                  className={`prose   !max-w-none  !text-xs !text-[#4E1D09] `}
+                  dangerouslySetInnerHTML={{ __html: item?.analysis_content }}
+                ></div>
+                {/* <p className="  ">{}</p> */}
               </div>
               <Accordion className=" mt-3" collapsible>
                 <AccordionItem value="item-1" className=" border-b-0">
@@ -227,14 +236,27 @@ const StockDetailsNews = ({ stock_id, type }) => {
                         </div>
                         <p className=" text-4xs sm:text-3xs font-semibold text-[#0079EF]">News</p>
                       </div>
-                      <p className=" text-xs text-gray-600">{item.updates_content}</p>
+                      <div
+                        className={`prose   !max-w-none  !text-xs !text-gray-600 `}
+                        dangerouslySetInnerHTML={{ __html: item?.updates_content }}
+                      ></div>
+                      {/* <p className=" ">{item.updates_content}</p> */}
                     </div>
                   </AccordionContent>
                   <AccordionTrigger
                     className=" hover:no-underline py-0 [&[data-state=open]_svg]:rotate-180 [&[data-state=open]_.more]:hidden [&[data-state=closed]_.more]:inline-block [&[data-state=open]_.less]:inline-block [&[data-state=closed]_.less]:hidden"
                     chevron={false}
                   >
-                    <Button className=" !py-[5px] !px-3" variant={ButtonVariant.primary}>
+                    <Button
+                      className=" !py-[5px] !px-3"
+                      variant={ButtonVariant.primary}
+                      onClick={() => {
+                        handleEvent("newsarticle_readmore_clicked", {
+                          page: pathname.includes("track-record") ? "StockPickTR_Page" : "StockPick_DetailedPage",
+                          news_title: item?.title,
+                        });
+                      }}
+                    >
                       <p className=" text-2xs font-medium">
                         Read <span className="more">more</span>
                         <span className="less">less</span>

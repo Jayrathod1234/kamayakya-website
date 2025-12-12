@@ -1,22 +1,25 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 function Discovercard({ id, name, description, image, color, slug }) {
-  const {
-    setStrategyTag,
-    setIsChangeFilter,
-    addPopularStrategies,
-    allBoardStockRef,
-  } = useStockPicks();
-  const [active,setActive] = useState(false)
+  const { setStrategyTag, setIsChangeFilter, addPopularStrategies, allBoardStockRef } = useStockPicks();
+  const [active, setActive] = useState(false);
   return (
     <>
       <div className="sm:w-1/2 w-full discover_card_carousel">
         <a
-          className={`card  ${active ? "active ":""} group transition-all duration-500 education border border-gray-200 cursor-pointer `}
+          className={`card  ${
+            active ? "active " : ""
+          } group transition-all duration-500 education border border-gray-200 cursor-pointer `}
           onClick={async () => {
+            const mp = getMixPanelClient();
+            mp.track("stockstrategy_selected", {
+              page: "StockPicks_page",
+              strategy_name: name,
+            });
             await setStrategyTag((prevTags) => {
               // Check if the id is already in the array to avoid duplicates
               if (!prevTags.includes(id)) {
@@ -61,11 +64,7 @@ function Discovercard({ id, name, description, image, color, slug }) {
         </a>
 
         {/* Tooltip */}
-        <Tooltip
-          id={`tooltip-${id}`}
-          place="bottom-start"
-          style={{ zIndex: "99999", width: "200px" }}
-        />
+        <Tooltip id={`tooltip-${id}`} place="bottom-start" style={{ zIndex: "99999", width: "200px" }} />
       </div>
     </>
   );

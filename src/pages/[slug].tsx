@@ -81,7 +81,7 @@ const BlogPage = () => {
   const decoder = new TextDecoder("utf-8");
 
   const ref = useRef<HTMLDivElement | null>(null);
-  const url = "https://dev-website.kamayakya.in/";
+  const url = window.location.origin + "/";
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -123,7 +123,7 @@ const BlogPage = () => {
 
       observer.observe(ref.current);
     }
-  }, [ref.current,blog]);
+  }, [ref.current, blog]);
 
   if (!blog) {
     return (
@@ -148,7 +148,7 @@ const BlogPage = () => {
       </Box>
     );
   }
-  console.log(displayShare)
+  console.log(displayShare);
   // console.log(blog.slug, blog.slug, router.basePath, router.route);
   return (
     <div className="pricing" style={{ backgroundColor: "#fff" }}>
@@ -169,9 +169,7 @@ const BlogPage = () => {
         <meta property="twitter:description" content={blog.description.substring(10)} />
         <meta property="twitter:image" content={blog.image1} />
       </Head>
-      <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto">
-        
-      </div>
+      <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto"></div>
       <div ref={ref}>
         <BlogHero blog={blog} />
       </div>

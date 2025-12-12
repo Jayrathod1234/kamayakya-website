@@ -10,7 +10,7 @@ import {
   ArcElement,
 } from "chart.js";
 import annotationPlugin, { AnnotationOptions, LabelAnnotationOptions } from "chartjs-plugin-annotation";
-import { useContext } from "react";
+import React, { useContext, useMemo, useCallback } from "react";
 import AuthContext from "@/components/AuthContext";
 import { abbreviateTime } from "@/lib/date-formatter";
 import { TargetChip } from "@/components.v3/common/TargetChip";
@@ -91,33 +91,68 @@ export const TopGainerLoserCard = ({
   // setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
-  const isBlur = !isLoggedIn
-    ? stockStat?.action === "BUY"
-      ? true
-      : false
-    : stockStat?.action === "BUY" && isLoggedIn && (!isSubscribed || !stockStat?.stock_name);
-  let label = type === "LIVE" ? (isBest ? "Top Gainer" : "Top Loser") : "";
-  label = type === "EXIT" ? (isBest ? "Best Exit" : "Worst Exit") : label;
-  let actionImgSrc = stockStat
-    ? stockStat?.action === "BUY"
-      ? "./assets/BuyBubbleBluev2.webp"
-      : stockStat?.action === "SELL"
-      ? "./assets/SellBubbleRedv2.png"
-      : stockStat?.action === "HOLD"
-      ? "./assets/HoldBubbleYellow.png"
-      : null
-    : null;
   const router = useRouter();
   const { setOpenMembershipModal } = useTrackRecord();
 
-  
-  
+  // Memoize computed values to prevent recalculation on every render
+  const isBlur = useMemo(
+    () =>
+      !isLoggedIn
+        ? stockStat?.action === "BUY"
+        : stockStat?.action === "BUY" && isLoggedIn && (!isSubscribed || !stockStat?.stock_name),
+    [isLoggedIn, stockStat?.action, isSubscribed, stockStat?.stock_name]
+  );
+
+  const label = useMemo(() => {
+    if (type === "LIVE") return isBest ? "Top Gainer" : "Top Loser";
+    if (type === "EXIT") return isBest ? "Best Exit" : "Worst Exit";
+    return "";
+  }, [type, isBest]);
+
+  const actionImgSrc = useMemo(() => {
+    if (!stockStat) return null;
+    switch (stockStat?.action) {
+      case "BUY":
+        return "./assets/BuyBubbleBluev2.webp";
+      case "SELL":
+        return "./assets/SellBubbleRedv2.png";
+      case "HOLD":
+        return "./assets/HoldBubbleYellow.png";
+      default:
+        return null;
+    }
+  }, [stockStat?.action]);
+
+  // Memoize click handler to prevent recreation on every render
+  const handleClick = useCallback(() => {
+    if (stockStat?.id && stockStat?.stock_name) {
+      router.push(`/track-record/${stockStat?.id}`);
+    } else if (isLoggedIn) {
+      setOpenMembershipModal(true);
+    }
+  }, [stockStat?.id, stockStat?.stock_name, isLoggedIn, router, setOpenMembershipModal]);
+
+  // Memoize hasChart check
+  const hasChartData = useMemo(
+    () => Array.isArray(stock_live_prices) && stock_live_prices.length > 0,
+    [stock_live_prices]
+  );
+
+  // Memoize conditional class names
+  const gainLossColorClass = useMemo(
+    () => (stockStat?.is_gain_loss_positive ? "text-[rgba(18,183,106,1)]" : "text-[rgba(240,68,56,1)]"),
+    [stockStat?.is_gain_loss_positive]
+  );
+
+  const containerFlexClass = useMemo(
+    () => (stockStat && !stockStat?.stock_name ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row" : "flex-wrap"),
+    [stockStat?.stock_name]
+  );
+
   return (
     // <LoginPrompt>
     <div
-      onClick={() =>
-        stockStat?.id && stockStat?.stock_name ? router.push(`/track-record/${stockStat?.id}`) : isLoggedIn ? setOpenMembershipModal(true) : null
-      }
+      onClick={handleClick}
       className="group/gainer-loser transition-shadow duration-300 hover:shadow-[0px_8.2px_8.2px_-4.1px_rgba(16,24,40,0.04),0px_20.49px_24.59px_-4.1px_rgba(16,24,40,0.1)]
  flex flex-col bg-white rounded-[9px] p-4 h-fit sm:h-[176px] flex-1 relative cursor-pointer min-w-0 "
     >
@@ -158,7 +193,7 @@ export const TopGainerLoserCard = ({
           </svg>
         </div>
         <div className=" my-5 sm:my-0  h-10 w-[98px]">
-          {Array.isArray(stock_live_prices) && stock_live_prices.length > 0 ? (
+          {hasChartData ? (
             <TopGainerLoserChart
               entry_price={entry_price}
               start_date={start_date}
@@ -194,44 +229,43 @@ export const TopGainerLoserCard = ({
             src={stockStat?.is_gain_loss_positive ?? true ? "/assets/Polygon2.svg" : "/assets/Polygon 3.svg"}
             alt=""
           />
-          { (stockStat && (stockStat?.gain_loss === null || stockStat?.gain_loss === undefined)) ? (
+          {stockStat && (stockStat?.gain_loss === null || stockStat?.gain_loss === undefined) ? (
             <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
           ) : (
-            <p
-              className={` flex items-baseline text-display-xs font-bold  whitespace-nowrap ${
-                stockStat?.is_gain_loss_positive ? "text-[rgba(18,183,106,1)]" : "text-[rgba(240,68,56,1)]"
-              } `}
-            >
+            <p className={`flex items-baseline text-display-xs font-bold whitespace-nowrap ${gainLossColorClass}`}>
               {stockStat?.gain_loss && stockStat?.gain_loss}%{" "}
-              <div  className="  items-center ml-[6px] hidden sm:flex">
+              <div className="  items-center ml-[6px] hidden sm:flex">
                 {/* {stockStat?.return_time && `in ${abbreviateTime(stockStat?.return_time)}`} */}
                 {/* <p className=" !m-0 flex items-center gap-x-1 text-3xs font-semibold whitespace-nowrap text-white"> */}
-                <p className=" text-3xs font-semibold text-[rgba(73,70,70,1)]   ">in {stockStat?.return_time?.includes(",") ? abbreviateTime(stockStat?.return_time) : stockStat?.return_time}{" "}</p>
-                {stockStat?.return_time?.includes(",") &&  <Tooltip
-                  tooltipTrigger={
-                    <img
-                      className="!h-[14px] !w-[14px] object-contain bg-[rgba(255,255,255,0.6)] rounded-full"
-                      height={14}
-                      width={14}
-                      src="/assets/blackinfo.svg"
-                    />
-                  }
-                  tooltipContent={<p className="text-2xs text-gray-600 font-normal">{stockStat?.return_time}</p>}
-                />}
-               
-              {/* </p> */}
+                <p className=" text-3xs font-semibold text-[rgba(73,70,70,1)]   ">
+                  in{" "}
+                  {stockStat?.return_time?.includes(",")
+                    ? abbreviateTime(stockStat?.return_time)
+                    : stockStat?.return_time}{" "}
+                </p>
+                {stockStat?.return_time?.includes(",") && (
+                  <Tooltip
+                    tooltipTrigger={
+                      <img
+                        className="!h-[14px] !w-[14px] object-contain bg-[rgba(255,255,255,0.6)] rounded-full"
+                        height={14}
+                        width={14}
+                        src="/assets/blackinfo.svg"
+                      />
+                    }
+                    tooltipContent={<p className="text-2xs text-gray-600 font-normal">{stockStat?.return_time}</p>}
+                  />
+                )}
+
+                {/* </p> */}
               </div>
             </p>
           )}
         </div>
         <div
-          className={`flex items-center gap-y-[10px] ${
-             (stockStat && !stockStat?.stock_name)
-              ? "flex-wrap sm:flex-nowrap flex-col sm:flex-row"
-              : "flex-wrap "
-          }  gap-x-[8px]  justify-center sm:justify-between`}
+          className={`flex items-center gap-y-[10px] ${containerFlexClass} gap-x-[8px] justify-center sm:justify-between`}
         >
-          {(stockStat && !stockStat?.stock_name) ? (
+          {stockStat && !stockStat?.stock_name ? (
             <div className=" min-w-0 w-full max-w-[120px] h-[18px] flex items-center justify-center sm:m-0">
               <img
                 className=" object-contain inline-block h-[18px] w-[18px]"
@@ -247,7 +281,7 @@ export const TopGainerLoserCard = ({
               {stockStat?.stock_name}
             </p>
           )}
-          {stockStat?.target_status === "active" && stockStat?.action!=="SELL" ? (
+          {stockStat?.target_status === "active" && stockStat?.action !== "SELL" ? (
             <TargetChip active target_number={stockStat?.target_number} />
           ) : (
             <TargetChip active={false} />
@@ -259,4 +293,5 @@ export const TopGainerLoserCard = ({
   );
 };
 
-export default TopGainerLoserCard;
+// Wrap in React.memo to prevent unnecessary re-renders when props haven't changed
+export default React.memo(TopGainerLoserCard);

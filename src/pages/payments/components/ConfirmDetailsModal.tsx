@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { CustomTextField } from "./DetailSection";
 import { InputAdornment } from "@mui/material";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 export default function ConfirmDetailsModal({
   setOpenDialog,
@@ -23,6 +24,10 @@ export default function ConfirmDetailsModal({
   };
 
   const handleConfirm = () => {
+    const mp = getMixPanelClient();
+    mp.track("confirmotpwindow_clicked", {
+      page: "InvoiceDetails_Page",
+    });
     if (address) {
       setUserDetails((prev) => ({ ...prev, address }));
     }

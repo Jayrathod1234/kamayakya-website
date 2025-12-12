@@ -42,10 +42,10 @@ export default function StockCardProgressBarSection({
     endIndex,
   });
 
-  const handleEvent = (eventName:string, eventDetails:any)=>{
+  const handleEvent = (eventName: string, eventDetails: any) => {
     const mp = getMixPanelClient();
-    mp.track(eventName, eventDetails)
-  }
+    mp.track(eventName, eventDetails);
+  };
 
   // const [position,setPosition] = useState(0)
   // const calculateLivePricePosition = ()=>{
@@ -192,16 +192,25 @@ export default function StockCardProgressBarSection({
          */}
         </CarouselContent>
         <CarouselPrevious
-          // onClick={(e) =>
-          //   handleEvent("StockGraph_arrow_clicked", {
-          //     page: "StockPicks_page",
-          //     pagegroup: "Hot Stocks/Latest Releases/mainboard",
-          //     // stockname: stock_na,
-          //   })
-          // }
+          onClick={(e) =>
+            handleEvent("StockGraph_arrow_clicked", {
+              page: "StockPicks_page",
+              pagegroup: "Hot Stocks/Latest Releases/mainboard",
+              stockname: "",
+            })
+          }
           className=" h-6 w-6 p-1 left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]"
         />
-        <CarouselNext className=" h-6 w-6 p-1 right-[16px] top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]" />
+        <CarouselNext
+          onClick={(e) =>
+            handleEvent("StockStrategy_dropdown", {
+              page: "StockPicks_page",
+              pagegroup: "Hot Stocks/Latest Releases/mainboard",
+              stockname: "",
+            })
+          }
+          className=" h-6 w-6 p-1 right-[16px] top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]"
+        />
       </Carousel>
     </div>
   );

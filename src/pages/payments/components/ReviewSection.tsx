@@ -47,9 +47,9 @@ export default function ReviewSection({
         onOpenChange={(openChange) => {
           if (openChange) {
             mp.track("editplan_clicked", {
-              planDuration: currentPlan.planDuration,
-              planTypeSelected: currentPlan.planName,
-              userType: isSubscribed ? "Paid" : "Free",
+              plan_duration: currentPlan.planDuration,
+              planType_selected: currentPlan.planName,
+              usertype: isSubscribed ? "Paid" : "Free",
             });
           }
           setOpen(openChange);
@@ -189,7 +189,7 @@ export default function ReviewSection({
               page: "InvoiceDetails_Page",
               plan_duration: currentPlan.planDuration,
               planType_selected: currentPlan.planName,
-              userType: isSubscribed ? "Paid" : "Free",
+              usertype: isSubscribed ? "Paid" : "Free",
             });
             if (planDetails?.totalPayable) setActiveTab("details");
           }}

@@ -4,6 +4,7 @@ import { axiosApi } from "@/utils/axios";
 import { Home, Loader2, XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 interface DocumentSigningFailedProps {
   errorMessage?: string;
@@ -237,55 +238,66 @@ export default function Index() {
   // };
 
   const loadRazorpayScript = (retryCount = 0) => {
-  return new Promise((resolve, reject) => {
-    if (typeof window === "undefined") return reject("Not in browser");
-    
-    if (window.Razorpay) return resolve(true);
-    
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.async = true;
-    
-    const timeout = setTimeout(() => {
-      script.remove();
-      if (retryCount < 2) {
-        loadRazorpayScript(retryCount + 1).then(resolve).catch(reject);
-      } else {
-        reject("Razorpay SDK load timeout after retries");
-      }
-    }, 10000); // 10 second timeout
-    
-    script.onload = () => {
-      clearTimeout(timeout);
-      if (window.Razorpay) {
-        resolve(true);
-      } else {
-        reject("Razorpay object not available");
-      }
-    };
-    
-    script.onerror = () => {
-      clearTimeout(timeout);
-      script.remove();
-      if (retryCount < 2) {
-        loadRazorpayScript(retryCount + 1).then(resolve).catch(reject);
-      } else {
-        reject("Razorpay SDK failed to load after retries");
-      }
-    };
-    
-    document.head.appendChild(script);
-  });
-};
+    return new Promise((resolve, reject) => {
+      if (typeof window === "undefined") return reject("Not in browser");
+
+      if (window.Razorpay) return resolve(true);
+
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.async = true;
+
+      const timeout = setTimeout(() => {
+        script.remove();
+        if (retryCount < 2) {
+          loadRazorpayScript(retryCount + 1)
+            .then(resolve)
+            .catch(reject);
+        } else {
+          reject("Razorpay SDK load timeout after retries");
+        }
+      }, 10000); // 10 second timeout
+
+      script.onload = () => {
+        clearTimeout(timeout);
+        if (window.Razorpay) {
+          resolve(true);
+        } else {
+          reject("Razorpay object not available");
+        }
+      };
+
+      script.onerror = () => {
+        clearTimeout(timeout);
+        script.remove();
+        if (retryCount < 2) {
+          loadRazorpayScript(retryCount + 1)
+            .then(resolve)
+            .catch(reject);
+        } else {
+          reject("Razorpay SDK failed to load after retries");
+        }
+      };
+
+      document.head.appendChild(script);
+    });
+  };
 
   const handleRazorpayScreen = (options: any) => {
+    const mp = getMixPanelClient();
     const paymentObject = new window.Razorpay(options);
     let paymentFailed = false;
 
     paymentObject.on("payment.failed", function (response: any) {
-      console.log(response)
+      console.log(response);
       if (!paymentFailed) {
         paymentFailed = true;
+        mp.track("PaymentFailed", {
+          payment_method: "Razorpay",
+          payment_amount: options.amount,
+          timestamp: new Date().toISOString(),
+          ip: "",
+        });
         alert(response.error.description);
 
         setTimeout(() => {
@@ -307,8 +319,8 @@ export default function Index() {
       image: "https://example.com/your_logo",
       order_id: orderId,
       handler: function (response: unknown) {
-        console.log("RZP RESPONSE ",response);
-         localStorage.removeItem("razorpayData");
+        console.log("RZP RESPONSE ", response);
+        localStorage.removeItem("razorpayData");
         router.push("/payments/successful");
       },
       prefill: {
@@ -323,24 +335,31 @@ export default function Index() {
         color: "#0b3a36",
         backdrop_color: "#fff",
       },
-      modal:{
-        ondismiss:()=>{
-          router.replace("/pricing")
-        }
-      }
+      modal: {
+        ondismiss: () => {
+          const mp = getMixPanelClient();
+          mp.track("Payment_cancelled", {
+            payment_method: "Razorpay",
+            payment_amount: amount,
+            timestamp: new Date().toISOString(),
+            ip: "",
+          });
+          router.replace("/pricing");
+        },
+      },
     };
 
     handleRazorpayScreen(options);
   };
-const getStorageData = () => {
-  try {
-    const rawData = sessionStorage.getItem("razorpayData");
-    return rawData ? JSON.parse(rawData) : null;
-  } catch (error) {
-    console.error("SessionStorage error:", error);
-    return null;
-  }
-};
+  const getStorageData = () => {
+    try {
+      const rawData = sessionStorage.getItem("razorpayData");
+      return rawData ? JSON.parse(rawData) : null;
+    } catch (error) {
+      console.error("SessionStorage error:", error);
+      return null;
+    }
+  };
   // useEffect(() => {
   //   const rawData = sessionStorage.getItem("razorpayData");
   //   const status = params.get("status");
@@ -366,53 +385,53 @@ const getStorageData = () => {
   //   }
   // }, [params, router]);
 
-  const getPayload = async(digioId)=>{
-    try{
+  const getPayload = async (digioId) => {
+    try {
       const res = await getRazorpayPayload(digioId);
-      console.log("RESPONSE PAYLOAD",res )
-      return res
-    }catch(e){
-      console.error(e)
+      console.log("RESPONSE PAYLOAD", res);
+      return res;
+    } catch (e) {
+      console.error(e);
       throw new Error("Unable to fetch payment details. Please try again.");
     }
-  }
+  };
 
   useEffect(() => {
-  const initializePayment = async () => {
-    try {
-      // const rawData = getStorageData();
-      const status = params?.get("status");
-      const digioId = params?.get("digio_doc_id")
-      let response
-      if (status && digioId) {
-        setLoading(false);
-        setSigningStatus(status);
-       response = await getPayload(digioId)    
-      }
-      
-      if (response && status === "success") {
-        const { name, email, phone, order_id, amount } = response;
-        setOrderDetails({ name, email, phone, order_id, amount });
-        
-        await loadRazorpayScript();
-        
-        if (typeof window !== "undefined" && window.Razorpay) {
-          makePayment(name, email, phone, order_id, amount);
-        } else {
-          throw new Error("Razorpay SDK not available after loading");
+    const initializePayment = async () => {
+      try {
+        // const rawData = getStorageData();
+        const status = params?.get("status");
+        const digioId = params?.get("digio_doc_id");
+        let response;
+        if (status && digioId) {
+          setLoading(false);
+          setSigningStatus(status);
+          response = await getPayload(digioId);
         }
+
+        if (response && status === "success") {
+          const { name, email, phone, order_id, amount } = response;
+          setOrderDetails({ name, email, phone, order_id, amount });
+
+          await loadRazorpayScript();
+
+          if (typeof window !== "undefined" && window.Razorpay) {
+            makePayment(name, email, phone, order_id, amount);
+          } else {
+            throw new Error("Razorpay SDK not available after loading");
+          }
+        }
+      } catch (error) {
+        console.error("Payment initialization error:", error);
+        // Show user-friendly error message
+        alert("Unable to load payment gateway. Please try again or contact support.");
+        // Optionally redirect to error page
+        router.push("/pricing");
       }
-    } catch (error) {
-      console.error("Payment initialization error:", error);
-      // Show user-friendly error message
-      alert("Unable to load payment gateway. Please try again or contact support.");
-      // Optionally redirect to error page
-      router.push("/pricing")
-    }
-  };
-  
-  initializePayment();
-}, [params, router]);
+    };
+
+    initializePayment();
+  }, [params, router]);
 
   if (signingStatus === "success" || loading) {
     return <LoadingPaymentGateway amount={orderDetails.amount} />;

@@ -33,27 +33,25 @@ export default function StockDetailsTimeline({ timeline }) {
     if (step.type == "report") {
       const currentTime = new Date().getTime();
       setOpenReportTime(currentTime); // Set the open time
-      mp.track(
-        step?.report_name?.includes("One Page Report")
-          ? "OnePageReport_clicked"
-          : step?.report_name?.includes("Detailed Report")
-          ? "detailedreport_clicked"
-          : "stock_report_clicked",
-        {
-          page: pathname.includes("track-record") ? "StockPickTR_Page" : "StockPicksDetail_Page",
-          report_details: step,
-        }
-      );
+      // Create reportname by concatenating report name and headline
+      const reportname = step?.report_name
+        ? `${step.report_name}${step?.headline ? `_${step.headline}` : ""}`
+        : "Unknown Report";
+
+      mp.track("stockreport_Clicked", {
+        page: pathname.includes("track-record") ? "StockPickTR_Page" : "StockPick_DetailedPage",
+        reportname: reportname,
+      });
       console.log("LINK ", step.document);
       window.open(step?.document, "_blank");
       setReportDetail(step); // Set the PDF URL
       // setReportOpen(true); // Open the modal
     } else {
-      mp.track(pathname.includes("track-record") ? "watchvideo_clicked" : "youtube_video_clicked", {
-        page: pathname.includes("track-record") ? "StockPickTR_Page" : "StockPicksDetail_Page",
-        youtube_details: step,
+      mp.track("watchvideo_clicked", {
+        page: pathname.includes("track-record") ? "StockPickTR_Page" : "StockPick_DetailedPage",
         pagegroup: "Timeline_Reports",
         stockname: "",
+        video_name: step?.youtube_title || "Latest",
       });
       window.open(step.youtube_link, "_blank");
     }

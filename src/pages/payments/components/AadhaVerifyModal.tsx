@@ -8,7 +8,7 @@ import { blockInvalidChar } from "@/components/LoginCard";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { useMediaQuery } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import OTPInput from "react-otp-input";
 
 export default function AadhaVerifyModal({
@@ -38,19 +38,21 @@ export default function AadhaVerifyModal({
   const [fetchAadharFailed, setFetchAadharFailed] = useState(false);
   const isMobile = useMediaQuery("(max-width:640px)");
   const verySmallScreen = useMediaQuery("(max-width:400px)");
-  const mp =getMixPanelClient();
-
+  const mp = getMixPanelClient();
 
   const handleVerifyAadharOtp = async () => {
     // setLoading(true)
     // return
     try {
       setLoading(true);
+      mp.track("verifyotp_clicked", {
+        page: "InvoiceDetails_Page",
+      });
 
       let res = await postAadharOtp({ aadhar, request_id: requestId, otp });
 
       let address = res?.address;
-     
+
       if (res?.is_aadhar_verified && res?.is_aadhar_vintage) {
         // setOpenDialog(false);
         // toast({
@@ -67,7 +69,7 @@ export default function AadhaVerifyModal({
           maskedPan: res?.masked_pan_number,
         }));
         setDisplayModal("CONFIRM");
-      }else{
+      } else {
         setFetchAadharFailed(true);
       }
 
@@ -84,6 +86,14 @@ export default function AadhaVerifyModal({
       if (e?.response?.data?.message === "Source down") {
         setFetchAadharFailed(true);
         return;
+      } else if (e?.response?.data?.message?.includes("Invalid OTP") || e?.response?.data?.message?.includes("OTP")) {
+        mp.track("invalid_otp_aadhar", {
+          page: "InvoiceDetails_Page",
+        });
+        toast({
+          variant: "warn",
+          description: e?.response?.data?.message,
+        });
       } else {
         toast({
           variant: "warn",
@@ -98,9 +108,9 @@ export default function AadhaVerifyModal({
   const handleAadharOtp = async () => {
     try {
       // setAadharOtpLoading(true);
-      mp.track("sendotp_clicked",{
-        page:"InvoiceDetails_Page"
-      })
+      mp.track("sendotp_clicked", {
+        page: "InvoiceDetails_Page",
+      });
       setResendOtp(true);
       const res = await getAadharOtp({ aadhaar: aadhar });
       // { result: { requestId: "dklsjfklsdlkfjdf" } };
@@ -169,16 +179,18 @@ export default function AadhaVerifyModal({
     }
   }, [openDialog]);
 
-  if(loading){
-    return  <DialogContent
-    closeClassName=" -right-2 -top-[12px] opacity-100"
-    className=" !p-6 !rounded-[20px]  w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px]"
-  >
-    <div className=" flex flex-col justify-center items-center min-w-0 open_sans">
-     <h2>Loading</h2>
-     <p>Hang tight! we are fetching your Aadhaar details</p>
-    </div>
-  </DialogContent>
+  if (loading) {
+    return (
+      <DialogContent
+        closeClassName=" -right-2 -top-[12px] opacity-100"
+        className=" !p-6 !rounded-[20px]  w-[calc(100%-32px)] mx-auto md:min-w-[624px] max-w-[784px]"
+      >
+        <div className=" flex flex-col justify-center items-center min-w-0 open_sans">
+          <h2>Loading</h2>
+          <p>Hang tight! we are fetching your Aadhaar details</p>
+        </div>
+      </DialogContent>
+    );
   }
 
   if (fetchAadharFailed) {
@@ -218,6 +230,16 @@ export default function AadhaVerifyModal({
       </DialogContent>
     );
   }
+
+  const prevOpenDialogRef = useRef(openDialog);
+  useEffect(() => {
+    if (prevOpenDialogRef.current && !openDialog) {
+      mp.track("closeotp_window", {
+        page: "InvoiceDetails_Page",
+      });
+    }
+    prevOpenDialogRef.current = openDialog;
+  }, [openDialog]);
 
   return (
     <DialogContent

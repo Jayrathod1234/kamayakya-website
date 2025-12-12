@@ -4,19 +4,18 @@ import StockCard from "@/components.v3/common/StockCard.jsx";
 import { useMediaQuery } from "@mui/material";
 import { useStockPicks } from "../../../contexts/StockPicksContext";
 const HotStockSectionSlider = ({ items }) => {
-  const [carouselItem,setCarouselItems] = useState(items)
-  const {sebiBoardType} = useStockPicks()
+  const [carouselItem, setCarouselItems] = useState(items);
+  const { sebiBoardType } = useStockPicks();
   const isMobile = useMediaQuery("(max-width:600px)");
 
-  useEffect(()=>{
-
-    if(items.length <=3){
-      setCarouselItems([...items,...items])
-    }else{
-      setCarouselItems(items)
+  useEffect(() => {
+    if (items.length <= 3) {
+      setCarouselItems([...items, ...items]);
+    } else {
+      setCarouselItems(items);
     }
-  },[items,sebiBoardType])
-  
+  }, [items, sebiBoardType]);
+
   return (
     <div className="relative z-[2] sm:pb-[0px]  sm:mt-5  mt-6">
       <div className="sm:container sm:mx-auto mx-0">
@@ -27,22 +26,22 @@ const HotStockSectionSlider = ({ items }) => {
                 Hot Stocks ({items?.length})
               </h2>
               <p className="pt-3 font-medium text-md text-gray-600 pb-6 text-[18px] font-open_sans">
-              Top stock recommendations with the highest conviction that you may buy at today’s price.
+                Top stock recommendations that you may buy at today’s price.
               </p>
-              {(isMobile && items.length <= 1) ||
-              (!isMobile && items.length <= 2) ? (
+              {(isMobile && items.length <= 1) || (!isMobile && items.length <= 2) ? (
                 <div className="flex justify-center gap-5">
-                  {items && items.map((value) => (
-                    <StockCard key={value.id} {...value} isCarousal={true} />
-                  ))}
+                  {items && items.map((value) => <StockCard key={value.id} {...value} isCarousal={true} />)}
                 </div>
               ) : (
                 <div className="w-full max-w-[1280px] mx-auto">
-                  {carouselItem && carouselItem.length > 0 && <HotSlider>
-                    {carouselItem && carouselItem.map((value,index) => (
-                      <StockCard key={value.id+index} {...value} isCarousal={true} />
-                    ))}
-                  </HotSlider>}
+                  {carouselItem && carouselItem.length > 0 && (
+                    <HotSlider>
+                      {carouselItem &&
+                        carouselItem.map((value, index) => (
+                          <StockCard key={value.id + index} {...value} isCarousal={true} />
+                        ))}
+                    </HotSlider>
+                  )}
                 </div>
               )}
             </div>
@@ -54,19 +53,18 @@ const HotStockSectionSlider = ({ items }) => {
 };
 
 export const HotStockSectionSliderVertical = ({ items }) => {
-  const [carouselItem,setCarouselItems] = useState(items)
-  const {sebiBoardType} = useStockPicks()
+  const [carouselItem, setCarouselItems] = useState(items);
+  const { sebiBoardType } = useStockPicks();
   const isMobile = useMediaQuery("(max-width:600px)");
 
-  useEffect(()=>{
-
-    if(items.length <=3){
-      setCarouselItems([...items,...items])
-    }else{
-      setCarouselItems(items)
+  useEffect(() => {
+    if (items.length <= 3) {
+      setCarouselItems([...items, ...items]);
+    } else {
+      setCarouselItems(items);
     }
-  },[items,sebiBoardType])
-  
+  }, [items, sebiBoardType]);
+
   return (
     <div className="relative z-[2] sm:pb-[0px]  sm:mt-5  mt-6">
       <div className="sm:container sm:mx-auto mx-0">
@@ -77,22 +75,22 @@ export const HotStockSectionSliderVertical = ({ items }) => {
                 Hot Stocks ({items?.length})
               </h2>
               <p className="pt-3 font-medium text-md text-gray-600 pb-6 text-[18px] font-open_sans">
-              Top stock recommendations with the highest conviction that you may buy at today’s price.
+                Top stock recommendations that you may buy at today’s price.
               </p>
-              {(isMobile && items.length <= 1) ||
-              (!isMobile && items.length <= 2) ? (
+              {(isMobile && items.length <= 1) || (!isMobile && items.length <= 2) ? (
                 <div className="flex justify-center gap-5">
-                  {items && items.map((value) => (
-                    <StockCard key={value.id} {...value} isCarousal={true} />
-                  ))}
+                  {items && items.map((value) => <StockCard key={value.id} {...value} isCarousal={true} />)}
                 </div>
               ) : (
                 <div className="w-full max-w-[1280px] mx-auto">
-                  {carouselItem && carouselItem.length > 0 && <HotSlider>
-                    {carouselItem && carouselItem.map((value,index) => (
-                      <StockCard key={value.id+index} {...value} isCarousal={true} />
-                    ))}
-                  </HotSlider>}
+                  {carouselItem && carouselItem.length > 0 && (
+                    <HotSlider>
+                      {carouselItem &&
+                        carouselItem.map((value, index) => (
+                          <StockCard key={value.id + index} {...value} isCarousal={true} />
+                        ))}
+                    </HotSlider>
+                  )}
                 </div>
               )}
             </div>

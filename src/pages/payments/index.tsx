@@ -75,52 +75,108 @@ export default function Index() {
     }
   };
 
+  const getUTMParams = () => {
+    if (typeof window === "undefined")
+      return { utm_campaign: "", utm_content: "", utm_source: "", utm_medium: "", utm_terms: "" };
+    const params = new URLSearchParams(window.location.search);
+    return {
+      utm_campaign: params.get("utm_campaign") || "",
+      utm_content: params.get("utm_content") || "",
+      utm_source: params.get("utm_source") || "",
+      utm_medium: params.get("utm_medium") || "",
+      utm_terms: params.get("utm_terms") || "",
+    };
+  };
+
   const handlePageLoadEvent = async () => {
     const mp = getMixPanelClient();
+    const utmParams = getUTMParams();
+    const sourcePage = typeof document !== "undefined" ? document.referrer : "";
+    const currentUrl = typeof window !== "undefined" ? window.location.href : pathname || "";
 
     const user = await fetchUser();
     const activePlan = await fetchActivePlan();
+
+    // Get plan details from sessionStorage
+    const planName = sessionStorage.getItem("planName") || "";
+    const planDuration = sessionStorage.getItem("planDuration") || "";
+    const planId = sessionStorage.getItem("planId") || "";
+
+    // Get plan amount from context (will be available after context loads)
+    const planAmount = ""; // This will be populated from PaymentContext
+
+    const baseProps = {
+      id: uuidv4(),
+      Session_id: "",
+      time: new Date().toUTCString(),
+      Device_ID: "",
+      source_page: sourcePage,
+      current_url: currentUrl,
+      IP: "",
+      browser_version: "",
+      browser_name: "",
+      device_type: "",
+      device_name: "",
+      "OS Version": "",
+      ...utmParams,
+    };
+
     if (user && activePlan) {
       mp.track("Invoice_page_loaded", {
-        id: uuidv4(),
-        Session_id: "",
-        time: new Date().toUTCString(),
-        source_page: "",
-        current_url: pathname,
+        ...baseProps,
         account_created_at: user.created,
         customer_id: user?.id,
+        PlanName_purchasing: planName,
+        plan_duration: planDuration,
+        plan_amount: planAmount,
+        planType_selected: planName,
         Curr_Subscription_Type: activePlan.plan,
         Curr_Plan_Duration: activePlan.duration,
         Curr_Subscription_Start_date: activePlan.start_date,
         Curr_Subscription_End_date: activePlan.end_date,
         usertype: activePlan.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
-        browser_version: "",
-        browser_name: "",
-        device_type: "",
-        device_name: "",
-        utm_campaign: "",
-        utm_content: "",
-        utm_source: "",
-        utm_medium: "",
-        utm_terms: "",
+      });
+    } else {
+      mp.track("Invoice_page_loaded", {
+        ...baseProps,
+        account_created_at: null,
+        customer_id: null,
+        PlanName_purchasing: planName,
+        plan_duration: planDuration,
+        plan_amount: planAmount,
+        planType_selected: planName,
+        Curr_Subscription_Type: null,
+        Curr_Plan_Duration: null,
+        Curr_Subscription_Start_date: null,
+        Curr_Subscription_End_date: null,
+        usertype: null,
       });
     }
   };
 
   useEffect(() => {
-    const mp = getMixPanelClient();
-
     if (isLoggedIn) {
       handlePageLoadEvent();
     } else if (!isLoggedIn && !refreshToken) {
-      mp.track("Pricing_page_loaded", {
+      const mp = getMixPanelClient();
+      const utmParams = getUTMParams();
+      const sourcePage = typeof document !== "undefined" ? document.referrer : "";
+      const currentUrl = typeof window !== "undefined" ? window.location.href : pathname || "";
+
+      mp.track("Invoice_page_loaded", {
         id: uuidv4(),
         Session_id: "",
         time: new Date().toUTCString(),
-        source_page: "",
-        current_url: pathname,
+        Device_ID: "",
+        source_page: sourcePage,
+        current_url: currentUrl,
+        IP: "",
         account_created_at: null,
         customer_id: null,
+        PlanName_purchasing: sessionStorage.getItem("planName") || "",
+        plan_duration: sessionStorage.getItem("planDuration") || "",
+        plan_amount: "",
+        planType_selected: sessionStorage.getItem("planName") || "",
         Curr_Subscription_Type: null,
         Curr_Plan_Duration: null,
         Curr_Subscription_Start_date: null,
@@ -130,11 +186,8 @@ export default function Index() {
         browser_name: "",
         device_type: "",
         device_name: "",
-        utm_campaign: "",
-        utm_content: "",
-        utm_source: "",
-        utm_medium: "",
-        utm_terms: "",
+        "OS Version": "",
+        ...utmParams,
       });
     }
   }, [isLoggedIn]);

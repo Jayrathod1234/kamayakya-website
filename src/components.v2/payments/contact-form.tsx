@@ -99,13 +99,24 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
         toast({
           description: "Your query has been sent!",
         });
+        const currentPage = typeof window !== "undefined" ? window.location.pathname : "";
+        const isHomepage = currentPage === "/" || currentPage === "";
+
         mp.track("sendmessage_clicked", {
-          page: "Pricing_Page",
+          page: isHomepage ? "Homepage" : "Pricing_Page",
           name: name,
           email: email,
           phone: phone,
           message: otherQuery,
         });
+
+        // Track sendemail_clicked for homepage
+        if (isHomepage) {
+          mp.track("sendemail_clicked", {
+            page: "Homepage",
+          });
+        }
+
         closeModal();
       }
     } catch (e) {
@@ -254,18 +265,20 @@ export function ContactForm({ closeModal }: { closeModal: () => void }) {
             }}
           >
             <SelectTrigger className=" pricing px-[14px] py-[10px] max-h-11 lg:h-11 text-md data-[placeholder]:text-gray-400 placeholder:text-gray-400 placeholder:text-md focus:outline-none  focus:ring-0  ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
-              <SelectValue placeholder="Select your query"   />
+              <SelectValue placeholder="Select your query" />
             </SelectTrigger>
             <SelectContent className="pricing text-sm font-medium ">
               <SelectItem className=" text-inherit" value="Product Information">
                 Product Information
               </SelectItem>
-              <SelectItem className=" font-normal" value="Pricing">Pricing</SelectItem>
+              <SelectItem className=" font-normal" value="Pricing">
+                Pricing
+              </SelectItem>
               <SelectItem value="Billing & Payment">Billing & Payment</SelectItem>
               <SelectItem value="Technical support">Technical support</SelectItem>
               <SelectItem value="Parterships">Partnerships</SelectItem>
               <SelectItem value="Media/Press">Media/Press</SelectItem>
-              <Separator/>
+              <Separator />
               <SelectItem value="Feedback">Feedback</SelectItem>
               <SelectItem value="Schedule a consultation">Schedule a consultation</SelectItem>
               <SelectItem value="Other">Other</SelectItem>

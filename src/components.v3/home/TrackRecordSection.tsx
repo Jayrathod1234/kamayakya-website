@@ -11,15 +11,46 @@ import { useQuery } from "@tanstack/react-query";
 import Autoplay from "embla-carousel-autoplay";
 import router from "next/router";
 import { useContext } from "react";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import { ACTIVE_PLAN_URL, GET_USER } from "@/pages/api/URLs";
+import axios from "axios";
 
 export const TrackRecordSection = () => {
   const { isLoggedIn, setShowLoginModal } = useContext(AuthProvider);
+  const refreshToken = typeof window !== "undefined" ? localStorage.getItem("refresh") : null;
 
   //track record api
   const { data: trackRecordDashboardStats = [] } = useQuery({
     queryKey: ["trackRecordDashboard"],
     queryFn: getTrackRecordDashboard,
   });
+
+  const getUserType = async () => {
+    if (!isLoggedIn || !refreshToken) return null;
+    try {
+      const userResponse = await fetch(GET_USER, {
+        method: "GET",
+        headers: {
+          Authorization: `Token ${refreshToken}`,
+        },
+      });
+      const user = await userResponse.json();
+      if (user?.id) {
+        const planResponse = await axios.get(ACTIVE_PLAN_URL, {
+          headers: {
+            Authorization: `token ${refreshToken}`,
+          },
+        });
+        if (planResponse.data?.current_active_subscription) {
+          const plan = planResponse.data.current_active_subscription.plan;
+          return plan ? (plan.toLowerCase() === "free" ? "Free" : "Paid") : null;
+        }
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
+  };
 
   return (
     <div className=" sm:main-container sm:py-[50px]">
@@ -31,7 +62,8 @@ export const TrackRecordSection = () => {
         <div className="lg:flex-[0.6] max-lg:text-center open_sans lg:px-12 xl:px-20 ">
           <p className=" text-[#F98800] text-sm lg:text-md font-semibold ">OUR TRACK RECORD</p>
           <h2 className=" max-lg:px-4 mb-0 font-bold text-display-xs lg:text-display-md text-[#FFFFFF]">
-            But first, why don’t you check out <span className=" text-brand-300 open_sans_italic">our performance</span> so far?
+            But first, why don’t you check out <span className=" text-brand-300 open_sans_italic">our performance</span>{" "}
+            so far?
           </h2>
           <p className={` text-[rgba(255,255,255,0.8)] max-lg:text-sm max-lg:px-5 ${isLoggedIn ? "mt-3" : " mt-7"}`}>
             See our hits, our misses - all in the open. Your trust is earned by delivering results, because what we do
@@ -42,7 +74,13 @@ export const TrackRecordSection = () => {
               strokeStyle=" stroke-gray-950"
               className=" max-lg:hidden mt-10"
               variant={ButtonVariant.secondary}
-              onClick={() => {
+              onClick={async () => {
+                const mp = getMixPanelClient();
+                const usertype = await getUserType();
+                mp.track("unlocknowforfree_clicked", {
+                  page: "Homepage",
+                  usertype: usertype,
+                });
                 setShowLoginModal(true);
               }}
             >
@@ -62,7 +100,13 @@ export const TrackRecordSection = () => {
                       strokeStyle=" mt-[46px] stroke-gray-950"
                       className=" mt-10"
                       variant={ButtonVariant.secondary}
-                      onClick={() => {
+                      onClick={async () => {
+                        const mp = getMixPanelClient();
+                        const usertype = await getUserType();
+                        mp.track("goto_trackrecord_clicked", {
+                          page: "Homepage",
+                          usertype: usertype,
+                        });
                         router.push("/track-record");
                       }}
                     >
@@ -115,7 +159,7 @@ export const TrackRecordSection = () => {
                 <div className=" relative flex-1 max-lg:hidden  ">
                   <div className=" relative z-10 h-[70%] w-[90%] lg:right-20 xl:right-0">
                     <TrackRecordHeroCard
-                      className=' border'
+                      className=" border"
                       {...trackRecordDashboardStats}
                       type={"LIVE"}
                       recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
@@ -133,7 +177,7 @@ export const TrackRecordSection = () => {
                   </div>
                   <div className=" absolute -top-9 right-28 xl:right-12 z-[2] h-[80%]  w-[85%]">
                     <TrackRecordHeroCard
-                      className=' border'
+                      className=" border"
                       {...trackRecordDashboardStats}
                       type={"EXIT"}
                       recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
