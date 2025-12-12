@@ -16,6 +16,7 @@ import { ACTIVE_PLAN_URL, GET_USER } from "../api/URLs";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import ContactUsBtn from "@/components.v2/contact-us-btn";
 import { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
