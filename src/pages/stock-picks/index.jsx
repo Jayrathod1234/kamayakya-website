@@ -17,11 +17,12 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 import ContactUsBtn from "@/components.v2/contact-us-btn";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-
+import { usePathname } from "next/navigation";
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
   const { sebiBoardType, searchPageOpen } = useStockPicks();
   const isMobile = useMediaQuery("(max-width:600px)");
+  const pathname = usePathname();
   // Use react-query to fetch
   const {
     data: { data: items = [], is_limited_view: isLimitedView = false } = {},
