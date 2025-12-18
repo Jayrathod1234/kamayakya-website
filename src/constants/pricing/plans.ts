@@ -6,7 +6,7 @@ type TPlan = {
   className: string;
   subtext: string;
   label: string;
-  paymentPageLabel:string;
+  paymentPageLabel: string;
   priceStrikeThrough: string;
   gstLabel: boolean;
   featureHead: string;
@@ -23,7 +23,7 @@ export const FREE_PLAN: TPlan = {
   className: " md:row-start-1 md:justify-self-end order-1  lg:rounded-l-xl",
   subtext: "",
   label: "",
-  paymentPageLabel:"",
+  paymentPageLabel: "",
   priceStrikeThrough: "1,500",
   gstLabel: false,
   featureHead:
@@ -52,7 +52,7 @@ export const CORE_PLAN: TPlan = {
   className: " md:row-start-1 md:col-start-2 md:justify-self-start order-2",
   subtext: "",
   priceStrikeThrough: "1,100",
-  paymentPageLabel:"CORE -  Main Board",
+  paymentPageLabel: "CORE -  Main Board",
   label: "MAIN BOARD",
   gstLabel: true,
   featureHead:
@@ -62,7 +62,7 @@ export const CORE_PLAN: TPlan = {
       icon: "/icons/check_only.svg",
       feature: "20+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
     },
-    { icon: "/icons/check_only.svg", feature: "2-4 new stock picks every month" },
+    { icon: "/icons/check_only.svg", feature: "1-2 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
     { icon: "/icons/close_only.svg", feature: "No SME board stock picks" },
@@ -98,13 +98,13 @@ export const ADVANCED_PLAN: TPlan = {
   subtext: "",
   priceStrikeThrough: "1,000",
   label: "SME BOARD",
-  paymentPageLabel:"ADVANCED -  SME Board",
+  paymentPageLabel: "ADVANCED -  SME Board",
   gstLabel: true,
   featureHead:
     "Designed for long-term, high-risk, high-reward investors targeting high volatility stocks with a minimum investment of ₹1L per stock.",
   featureList: [
     { icon: "/icons/check_only.svg", feature: "10+ SME board Stocks to Buy and Research Reports every year (NSE+BSE)" },
-    { icon: "/icons/check_only.svg", feature: "1-2 new stock picks every month" },
+    { icon: "/icons/check_only.svg", feature: "1 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
     { icon: "/icons/close_only.svg", feature: "No Main Board stock picks" },
@@ -116,9 +116,9 @@ export const ADVANCED_PLAN: TPlan = {
   popular: false,
   btnVariant: ButtonVariant.secondary,
   tooltip: {
-    "3months":{
-      price:"₹3389.8",
-      gst:"₹610.2"
+    "3months": {
+      price: "₹3389.8",
+      gst: "₹610.2",
     },
     "1year": {
       price: "₹10,169.5",
@@ -137,7 +137,7 @@ export const VIP_PLAN: TPlan = {
   subtext: "",
   priceStrikeThrough: "1,667",
   label: "MAIN Board + SME Board",
-  paymentPageLabel:"VIP -  Main Board & SME Board",
+  paymentPageLabel: "VIP -  Main Board & SME Board",
   gstLabel: true,
   featureHead:
     "Perfect for seasoned investors looking to diversify their portfolio across Main Board and SME stocks with comprehensive support and updates.",
@@ -147,7 +147,7 @@ export const VIP_PLAN: TPlan = {
       feature: "20+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
     },
     { icon: "/icons/check_only.svg", feature: "10+ SME board stocks to buy every year" },
-    { icon: "/icons/check_only.svg", feature: "3-5 new stock picks every month" },
+    { icon: "/icons/check_only.svg", feature: "2-3 new stock picks every month" },
     { icon: "/icons/check_only.svg", feature: "Regular Updates via WhatsApp" },
     { icon: "/icons/check_only.svg", feature: "Email Updates" },
 
@@ -185,9 +185,8 @@ export const PLAN = {
   vip: VIP_PLAN,
 };
 
-
 export const PLAN_FREQUENCY_MAP = {
   90: "Quarterly",
   365: "Yearly",
-  1095: "3 Years" // 365 * 3
-}
+  1095: "3 Years", // 365 * 3
+};

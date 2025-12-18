@@ -20,8 +20,7 @@ function LatestReleases({ isLimitedView }) {
     error,
   } = useQuery({
     queryKey: ["latestReleasesStock", sebiBoardType, isLoggedIn],
-    queryFn: () =>
-      getLatestReleasesStockListApi({ isLoggedIn, type: sebiBoardType }),
+    queryFn: () => getLatestReleasesStockListApi({ isLoggedIn, type: sebiBoardType }),
   });
 
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -44,15 +43,11 @@ function LatestReleases({ isLimitedView }) {
   return (
     <>
       <div
-        className={`sm:pb-[100px] pb-[58px] sm:pt-[68px] pt-[26px]  ${
-          isLimitedView ? "sm:pt-[200px] pt-[0px]" : ""
-        }`}
+        className={`sm:pb-[100px] pb-[58px] sm:pt-[68px] pt-[26px]  ${isLimitedView ? "sm:pt-[200px] pt-[0px]" : ""}`}
       >
         {items.length === 0 ? (
           <div className="pt-5 w-full flex flex-col items-center justify-center text-center">
-            <p className="text-display-xs text-gray-950 font-bold">
-              Latest Releases ({items.length})
-            </p>
+            <p className="text-display-xs text-gray-950 font-bold">Latest Releases ({items.length})</p>
             <p className="text-md font-normal text-gray-600 text-center pt-3 font-open_sans">
               New Stocks released in the last 60 days
             </p>
@@ -67,15 +62,10 @@ function LatestReleases({ isLimitedView }) {
           </div>
         ) : (
           <div className="relative flex flex-col items-center justify-center text-center bg-cover before:content-[''] before:bg-[url(/testimonials_texture.png)] before:absolute before:w-full before:h-full before:opacity-25">
-            <p className="text-display-xs text-gray-950 font-bold">
-              Latest Releases ({items.length})
-            </p>
+            <p className="text-display-xs text-gray-950 font-bold">Latest Releases ({items.length})</p>
             <p
               className={`text-md font-normal text-gray-600 text-center pt-3 font-open_sans ${
-                (isMobile && items.length <= 1) ||
-                (!isMobile && items.length <= 5)
-                  ? "mb-6"
-                  : ""
+                (isMobile && items.length <= 1) || (!isMobile && items.length <= 5) ? "mb-6" : ""
               }`}
             >
               New Stocks released in the last 60 days
@@ -84,10 +74,7 @@ function LatestReleases({ isLimitedView }) {
             {items.length <= cardsToShow ? (
               <div className="flex justify-center gap-5">
                 {isLoading || error ? (
-                  <StockCardSkeleton
-                    className="sm:w-[404px] w-[358px]"
-                    length={cardsToShow}
-                  />
+                  <StockCardSkeleton className="sm:w-[404px] w-[358px]" length={cardsToShow} />
                 ) : (
                   items.map((value) => <StockCard key={value.id} {...value} />)
                 )}
@@ -96,24 +83,21 @@ function LatestReleases({ isLimitedView }) {
               <div className="w-full">
                 {isLoading || error ? (
                   <div className="flex pb-12 !pt-[40px] carousel__container justify-center gap-5">
-                    <StockCardSkeleton
-                      className="sm:w-[404px] w-[358px]"
-                      length={cardsToShow}
-                    />
+                    <StockCardSkeleton className="sm:w-[404px] w-[358px]" length={cardsToShow} />
                   </div>
                 ) : (
                   items.length > 0 && (
                     <div className=" w-full max-w-[1260px]  mx-auto">
-                    <Slider>
-                      {items.map((value) => (
-                        <StockCard
-                          // className="w-[330px]"
-                          key={value.id}
-                          {...value}
-                          isCarousal={true}
-                        />
-                      ))}
-                    </Slider>
+                      <Slider>
+                        {items.map((value) => (
+                          <StockCard
+                            // className="w-[330px]"
+                            key={value.id}
+                            {...value}
+                            isCarousal={true}
+                          />
+                        ))}
+                      </Slider>
                     </div>
                   )
                 )}

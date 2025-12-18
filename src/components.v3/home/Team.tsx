@@ -44,8 +44,8 @@ const desktopTeams = [
       <>
         <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
           <li>
-            <strong>Qualified Analyst:</strong> CFA Level 1 cleared, M.Com from Pune University, NISM RA certified.
-            Currently pursuing MS Investment Management at Bayes Business School, London.
+            <strong>Qualified Analyst:</strong> Graduated with merit in Msc Investment Management from Bayes Business
+            School, London (Cass), CFA Level 1 cleared, M.Com from Pune University and cleared NISM RA and PMS exams.
           </li>
           <li>
             <strong>Investment Experience:</strong> 5+ years in equity investing with a focus on fundamentals.
@@ -83,7 +83,7 @@ const desktopTeams = [
       </>
     ),
   },
- 
+
   // {
   //   img: "/landing/manan_madlani.png",
   //   social1: "https://x.com/MadlaniManan",
@@ -168,8 +168,8 @@ const mobileTeams = [
       <>
         <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
           <li>
-            <strong>Qualified Analyst:</strong> CFA Level 1 cleared, M.Com from Pune University, NISM RA certified.
-            Currently pursuing MS Investment Management at Bayes Business School, London.
+            <strong>Qualified Analyst:</strong> Graduated with merit in Msc Investment Management from Bayes Business
+            School, London (Cass), CFA Level 1 cleared, M.Com from Pune University and cleared NISM RA and PMS exams.
           </li>
           <li>
             <strong>Investment Experience:</strong> 5+ years in equity investing with a focus on fundamentals.
@@ -242,8 +242,8 @@ const mobileTeams = [
       <>
         <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
           <li>
-            <strong>Qualified Analyst:</strong> CFA Level 1 cleared, M.Com from Pune University, NISM RA certified.
-            Currently pursuing MS Investment Management at Bayes Business School, London.
+            <strong>Qualified Analyst:</strong> Graduated with merit in Msc Investment Management from Bayes Business
+            School, London (Cass), CFA Level 1 cleared, M.Com from Pune University and cleared NISM RA and PMS exams.
           </li>
           <li>
             <strong>Investment Experience:</strong> 5+ years in equity investing with a focus on fundamentals.
@@ -281,9 +281,7 @@ const mobileTeams = [
       </>
     ),
   },
-  
 ];
-
 
 export default function Team() {
   const [api, setApi] = useState<CarouselApi>();
@@ -298,22 +296,33 @@ export default function Team() {
     <div className=" md:main-container max-md:bg-[rgba(13,65,57,1)] pt-[50px] sm:pt-[100px]">
       <div className=" pb-[38px] pt-[50px] md:py-[50px] bg-[rgba(13,65,57,1)] open_sans px-5 md:px-[60px] md:rounded-t-[28px]">
         <p className=" text-[#FF9E29] font-bold text-center">LEADERSHIP TEAM</p>
-        <h3 className=" text-display-md font-bold mt-[6px] mb-0 text-center text-white">Meet the <span className=" open_sans_italic">team</span>!</h3>
+        <h3 className=" text-display-md font-bold mt-[6px] mb-0 text-center text-white">
+          Meet the <span className=" open_sans_italic">team</span>!
+        </h3>
         <p className=" text-lg text-gray-150 mt-3 text-center">
-          Meet our team, trusted by clients worldwide for delivering value through
-          a powerful blend of decades of experience and deep expertise.
+          Meet our team, trusted by clients worldwide for delivering value through a powerful blend of decades of
+          experience and deep expertise.
         </p>
-        <Carousel opts={{ loop: true }} setApi={setApi} plugins={[Autoplay({ delay: 5000 ,stopOnMouseEnter:true,stopOnInteraction:false})]} className=" mt-[38px] md:max-w-[100%]  xl:max-w-[85%] lg:mx-auto ">
-         {/* desktop */}
+        <Carousel
+          opts={{ loop: true }}
+          setApi={setApi}
+          plugins={[Autoplay({ delay: 5000, stopOnMouseEnter: true, stopOnInteraction: false })]}
+          className=" mt-[38px] md:max-w-[100%]  xl:max-w-[85%] lg:mx-auto "
+        >
+          {/* desktop */}
           <CarouselContent className={`${!isMobile ? "justify-center" : ""}`}>
-            {teams.map((team,index) => (
-              <CarouselItem key={team.img+index} className="  basis-auto ">
+            {teams.map((team, index) => (
+              <CarouselItem key={team.img + index} className="  basis-auto ">
                 <TeamCard {...team} />
               </CarouselItem>
             ))}
           </CarouselContent>
-       
-          <div className={`${isMobile ? "flex" : "hidden"}  h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pl-4 md:px-0 `}>
+
+          <div
+            className={`${
+              isMobile ? "flex" : "hidden"
+            }  h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pl-4 md:px-0 `}
+          >
             <div>
               <ButtonnArrow
                 onClick={() => handlePrevNext(onPrevButtonClick)}
@@ -323,7 +332,11 @@ export default function Team() {
               ></ButtonnArrow>
             </div>
           </div>
-          <div className={`${isMobile ? "flex" : "hidden"}  -right-6 lg:-right-[12px]  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pr-4 md:px-0`}>
+          <div
+            className={`${
+              isMobile ? "flex" : "hidden"
+            }  -right-6 lg:-right-[12px]  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pr-4 md:px-0`}
+          >
             <div>
               <ButtonnArrow
                 onClick={() => handlePrevNext(onNextButtonClick)}
@@ -336,7 +349,7 @@ export default function Team() {
         </Carousel>
       </div>
       <div className=" max-md:pb-[50px] flex px-5 md:p-[60px] pt-0 md:pt-0 bg-[rgba(13,65,57,1)] md:rounded-b-[28px] justify-center">
-        <WeEatDrink/>
+        <WeEatDrink />
       </div>
     </div>
   );
