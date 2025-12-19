@@ -469,7 +469,14 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
       setCheckoutLoading(false);
     }
   };
-
+  console.log(
+    "IS SIGN DIABLED",
+    email?.length === 0 ||
+      mobile?.length === 0 ||
+      (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
+      (!isPanAlreadyVerified && !userDetails.maskedPan) ||
+      (isPanAlreadyVerified && !userDetails.address && !pincodeBasedAddress)
+  );
   const handleCheckout: SubmitHandler<IFormInput> = async (data) => {
     // if (!aadharVerified && !isAadharAlreadyVerified && !isAadharVintage) {
     //   setError2("aadhar", { message: "Verify Aadhar to continue" });
@@ -971,9 +978,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                   rules={{
                     required: "Enter phone to continue",
                     validate: (value) => {
-                      return isPossiblePhoneNumber(value) && value.slice(3).length === 10
-                        ? true
-                        : "Enter valid mobile number";
+                      return isPossiblePhoneNumber(value) ? true : "Enter valid mobile number";
                     },
                   }}
                   render={({ field: { value, onChange } }) => (
@@ -989,7 +994,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                         className=" border-green-400 text-sm"
                       />
                       <InputAdornment position="end">
-                        {errors.phone?.message || !isPossiblePhoneNumber(value) || value.slice(3).length != 10 ? (
+                        {errors.phone?.message || !isPossiblePhoneNumber(value) ? (
                           <Tooltip
                             tooltipContent={
                               <p className=" text-2xs">{errors.phone?.message || "Enter valid phone number."}</p>
