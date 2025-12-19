@@ -12,6 +12,7 @@ import { Suspense } from "react";
 import { NavBarProvider } from "@/contexts/NavBarContext.js";
 import { TooltipProvider } from "@/components.v2/ui/tooltip";
 import LoginPrompt from "@/components.v3/common/LoginPrompt";
+import { DowntimeChecker } from "@/components.v2/ui/downtime-checker";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { isBrowser } = useSSR();
@@ -27,7 +28,15 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <AuthProvider>
                   <PlanProvider>
                     <Component {...pageProps} />
-                    <LoginPrompt/>
+                    <LoginPrompt />
+                    <DowntimeChecker
+                      healthCheckUrl="/api/health"
+                      checkInterval={300000000000000} // Check every 30 seconds
+                      autoShow={true} // Automatically show modal when downtime detected
+                      title="Service Temporarily Unavailable"
+                      message="We're currently experiencing technical difficulties. Our team is working to resolve this."
+                      estimatedTime="1-2 hours"
+                    />
                     <Head>
                       <title>
                         KamayaKya - SEBI Registered Research Analyst | Expert Microcap & Smallcap Stock Picks
@@ -96,7 +105,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                     gtag('config', 'G-4R949GS408');
                 `}
                     </Script>
-                  
 
                     <Script>
                       {`
@@ -122,7 +130,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                     </Script>
                     <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
                     <Script src={`${process.env.NEXT_PUBLIC_DIGIO_SCRIPT}`}></Script>
-                    
                   </PlanProvider>
                 </AuthProvider>
               </NavBarProvider>
