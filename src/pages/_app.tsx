@@ -29,14 +29,14 @@ function MyApp({ Component, pageProps }: AppProps) {
                   <PlanProvider>
                     <Component {...pageProps} />
                     <LoginPrompt />
-                    <DowntimeChecker
+                    {/* <DowntimeChecker
                       healthCheckUrl="/api/health"
                       checkInterval={300000000000000} // Check every 30 seconds
                       autoShow={true} // Automatically show modal when downtime detected
                       title="Service Temporarily Unavailable"
                       message="We're currently experiencing technical difficulties. Our team is working to resolve this."
                       estimatedTime="1-2 hours"
-                    />
+                    /> */}
                     <Head>
                       <title>
                         KamayaKya - SEBI Registered Research Analyst | Expert Microcap & Smallcap Stock Picks
