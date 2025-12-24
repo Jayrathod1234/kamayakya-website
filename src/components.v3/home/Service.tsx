@@ -141,7 +141,7 @@ const companyLogos = [
   "tata--big.png",
   "va-tech-wabag--big 1.png",
   "vinati-organics--big.png",
-  "virtuoso-optoelectronics-limit--big.png"
+  "virtuoso-optoelectronics-limit--big.png",
 ];
 
 let SERVICE_DATA = [
@@ -162,34 +162,34 @@ let SERVICE_DATA = [
           <p className=" text-xs text-white font-medium ml-2">More than 5000 listed companies</p>
         </div>
         <div className="grid grid-cols-4 gap-4 w-full place-items-center">
-      {[false, true, false, true].map((reverse, colIndex) => {
-        // Divide companyLogos into 4 equal parts
-        const logosPerColumn = Math.ceil(companyLogos.length / 4);
-        const startIndex = colIndex * logosPerColumn;
-        const endIndex = Math.min(startIndex + logosPerColumn, companyLogos.length);
-        const columnLogos = companyLogos.slice(startIndex, endIndex);
-        
-        return (
-          <Marquee
-            key={colIndex}
-            className="flex-shrink-0 [--duration:12s]"
-            vertical
-            {...(reverse ? { reverse: true } : {})}
-          >
-            {columnLogos.map((filename, index) => (
-              <img
-                key={index}
-                className="rounded-full"
-                height={44}
-                width={44}
-                src={`/landing/SmartStock/${filename}`}
-                alt={filename.replace(/[-_]/g, ' ').replace(/\..+$/, '')}
-              />
-            ))}
-          </Marquee>
-        );
-      })}
-    </div>
+          {[false, true, false, true].map((reverse, colIndex) => {
+            // Divide companyLogos into 4 equal parts
+            const logosPerColumn = Math.ceil(companyLogos.length / 4);
+            const startIndex = colIndex * logosPerColumn;
+            const endIndex = Math.min(startIndex + logosPerColumn, companyLogos.length);
+            const columnLogos = companyLogos.slice(startIndex, endIndex);
+
+            return (
+              <Marquee
+                key={colIndex}
+                className="flex-shrink-0 [--duration:12s]"
+                vertical
+                {...(reverse ? { reverse: true } : {})}
+              >
+                {columnLogos.map((filename, index) => (
+                  <img
+                    key={index}
+                    className="rounded-full"
+                    height={44}
+                    width={44}
+                    src={`/landing/SmartStock/${filename}`}
+                    alt={filename.replace(/[-_]/g, " ").replace(/\..+$/, "")}
+                  />
+                ))}
+              </Marquee>
+            );
+          })}
+        </div>
       </div>
 
       // <img
@@ -205,8 +205,7 @@ let SERVICE_DATA = [
   },
   {
     title: "🧺 Model Portfolios (Stock Baskets)",
-    description:
-      "Diversify effortlessly with pre-built model portfolios on smallcase and Starfolio by Trendlyne-invest smart, stay relaxed.",
+    description: "Diversify effortlessly with pre-built model portfolios on smallcase and stay relaxed.",
     hero: (
       <video
         // height={233}
@@ -215,7 +214,7 @@ let SERVICE_DATA = [
         loop
         muted
         playsInline
-        preload='auto'
+        preload="auto"
         className=" pointer-events-none user-select-none max-w-[294.6371765136719px] h-[200px] lg:h-[120px] xl:max-h-[220px]  xl:h-full w-full object-contain"
         // src="/modalportfolio.png"
         // alt="model_portfolio"
@@ -231,12 +230,7 @@ let SERVICE_DATA = [
     description: "Short + detailed analysis + video breakdowns - so you invest with confidence.",
     hero: (
       <div className="flex items-center justify-center">
-        <Lottie
-          className="  h-[220px] block object-contain"
-          autoPlay
-          loop={true}
-          animationData={FUNNEL}
-        />
+        <Lottie className="  h-[220px] block object-contain" autoPlay loop={true} animationData={FUNNEL} />
       </div>
     ),
     className: " sm:row-span-2 sm:col-start-2",
@@ -258,7 +252,6 @@ let SERVICE_DATA = [
     className: "sm:row-span-full sm:col-start-3",
     serviceClassName: " xl:min-h-0",
   },
- 
 ];
 
 const DesktopServiceCardList = () => {
@@ -296,29 +289,25 @@ const MobileServiceCardList = ({ scrollYProgress, targetRef }: MobileServiceCard
     };
 
     updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
   // Calculate the total width of all cards plus gaps
   const cardWidth = 317;
   const gap = 16;
   const totalCards = SERVICE_DATA.length;
-  const totalWidth = (cardWidth * totalCards) + (gap * (totalCards - 1));
-  
+  const totalWidth = cardWidth * totalCards + gap * (totalCards - 1);
+
   // Calculate scroll distance based on actual container width
   const scrollDistance = -(totalWidth - containerWidth + 32);
-  
-  const x = useTransform(
-    scrollYProgress, 
-    [0, 1], 
-    ["0%", `${scrollDistance}px`]
-  );
-  
+
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", `${scrollDistance}px`]);
+
   return (
     <div ref={containerRef} className="lg:hidden overflow-hidden px-4">
-      <motion.div 
-        style={{ x }} 
+      <motion.div
+        style={{ x }}
         className="flex gap-4 mt-10"
         transition={{ type: "spring", stiffness: 100, damping: 30 }}
       >
@@ -340,13 +329,13 @@ export default function Service() {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"],
   });
 
   return (
-    <div id="services"  className="bg-[#01272E]">
+    <div id="services" className="bg-[#01272E]">
       {/* Mobile scroll container */}
-      <div ref={targetRef} className="lg:hidden h-[300vh] relative" style={{ scrollBehavior: 'smooth' }}>
+      <div ref={targetRef} className="lg:hidden h-[300vh] relative" style={{ scrollBehavior: "smooth" }}>
         {/* Sticky content container */}
         <div className="sticky top-0 h-screen flex items-center overflow-hidden sticky_container">
           <div className="w-full">
@@ -357,14 +346,19 @@ export default function Service() {
                 <p className="text-display-xs sm:text-display-md font-bold text-center mt-3 text-white">
                   Smart <span className="open_sans_italic">Investment</span> Solutions
                 </p>
-              
-          <div className="flex items-center justify-center mt-2 gap-2 border border-white/80 rounded-full w-fit p-2 mx-auto">
-          <Lottie className=" h-7 w-7 block object-contain bg-white rounded-full" autoPlay loop={true} animationData={SCROLL} />
 
-          <p className="open_sans open_sans_italic text-center text-white text-xs text-[#BBD4D7CC]">
-           Keep scrolling down to view all services.
-          </p> 
-          </div>
+                <div className="flex items-center justify-center mt-2 gap-2 border border-white/80 rounded-full w-fit p-2 mx-auto">
+                  <Lottie
+                    className=" h-7 w-7 block object-contain bg-white rounded-full"
+                    autoPlay
+                    loop={true}
+                    animationData={SCROLL}
+                  />
+
+                  <p className="open_sans open_sans_italic text-center text-white text-xs text-[#BBD4D7CC]">
+                    Keep scrolling down to view all services.
+                  </p>
+                </div>
                 <MobileServiceCardList targetRef={targetRef} scrollYProgress={scrollYProgress} />
               </div>
             </div>
@@ -384,7 +378,9 @@ export default function Service() {
             <DesktopServiceCardList />
           </div>
           <p className="open_sans open_sans_italic text-center text-white text-sm pt-10 text-[#BBD4D7CC]">
-          <span className="font-bold">Note :</span> The stocks shown are for representation only. These are past recommendations and may no longer be part of our active investments. They are not current buy recommendations.
+            <span className="font-bold">Note :</span> The stocks shown are for representation only. These are past
+            recommendations and may no longer be part of our active investments. They are not current buy
+            recommendations.
           </p>
         </div>
       </div>

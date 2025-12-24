@@ -83,6 +83,80 @@ const desktopTeams = [
       </>
     ),
   },
+  {
+    img: "/landing/prasad_heda.png",
+    social1: "",
+    social2: "https://www.linkedin.com/in/prasad-heda-4196a8b0/",
+    name: "Prasad Heda",
+    designation: "Equity Research Analyst",
+    description: (
+      <>
+        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+          <li>
+            <strong>Investment Experience:</strong> Seven years of portfolio management and research experience across
+            Portfolio Management Companies and Family Offices and over the years has developed acumen in deep research
+            combined with on ground insights.
+          </li>
+          <li>
+            <strong>Overall Experience:</strong> Has also worked in domains like Statutory Audits, IT systems Audits
+            with reputed Indian companies.
+          </li>
+          <li>
+            <strong>Academic Background:</strong> Chartered Accountant, B.Com graduate and cleared CFA L-II.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    img: "/landing/yash_naik.png",
+    social1: "",
+    social2: "https://www.linkedin.com/in/yash-naik-cfal2/",
+    name: "Yash Naik",
+    designation: "Equity Research Analyst",
+    description: (
+      <>
+        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+          <li>
+            <strong>Public Markets Investor:</strong> Over three years of experience in small and micro-cap equities,
+            driven by a rigorous bottom-up investment approach.
+          </li>
+          <li>
+            <strong>Qualified Analyst:</strong> CFA Level III cleared, B.Tech in Information Technology, and NISM
+            Research Analyst certified.
+          </li>
+          <li>
+            <strong>Investment Research Expertise:</strong> More than a year of experience in equity research and
+            analysis, backed by a strong analytical and technical foundation from prior IT experience.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    img: "/landing/raghav_maheshwari.png",
+    social1: "",
+    social2: "https://www.linkedin.com/in/raghav-maheswari-583391187/",
+    name: "Raghav Maheswari",
+    designation: "Equity Research Analyst",
+    description: (
+      <>
+        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+          <li>
+            <strong>Public Markets Investor:</strong> Two years of experience in equity investing, driven by a
+            specialization in Economics, Research, and Statistics.
+          </li>
+          <li>
+            <strong>Academic Background:</strong> BSc in Economics (Hons.) and currently pursuing the CFA program.
+          </li>
+          <li>
+            <strong>Strategic Experience:</strong> A year of experience in Mergers & Acquisitions at Franchise India,
+            backed by a strong foundation in economic analysis.
+          </li>
+        </ul>
+      </>
+    ),
+  },
 
   // {
   //   img: "/landing/manan_madlani.png",
@@ -208,74 +282,74 @@ const mobileTeams = [
     ),
   },
   {
-    img: "/landing/dhiren_shah.png",
-    social1: "https://x.com/dhirenshah64",
-    social2: "https://www.linkedin.com/in/dhiren-shah-2b34771/",
-    name: "Dhiren Shah",
-    designation: "Director & Co-Founder",
+    img: "/landing/prasad_heda.png",
+    social1: "",
+    social2: "https://www.linkedin.com/in/prasad-heda-4196a8b0/",
+    name: "Prasad Heda",
+    designation: "Equity Research Analyst",
     description: (
       <>
         <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
           <li>
-            <strong>Experienced Investor:</strong> Over 30 years of active equity investing, successfully navigating
-            multiple market cycles.
+            <strong>Investment Experience:</strong> Seven years of portfolio management and research experience across
+            Portfolio Management Companies and Family Offices and over the years has developed acumen in deep research
+            combined with on ground insights.
           </li>
           <li>
-            <strong>Small-cap Specialist:</strong> Deep expertise in identifying and investing in promising small-cap
-            stocks.
+            <strong>Overall Experience:</strong> Has also worked in domains like Statutory Audits, IT systems Audits
+            with reputed Indian companies.
           </li>
           <li>
-            <strong>Proven Business Acumen:</strong> Successfully manages established businesses in: E-Commerce,
-            Distribution of technology products, and media & entertainment software.
+            <strong>Academic Background:</strong> Chartered Accountant, B.Com graduate and cleared CFA L-II.
           </li>
         </ul>
       </>
     ),
   },
   {
-    img: "/landing/nitya_shah.png",
-    social2: "https://www.linkedin.com/in/nitya-shah-25ba53187/",
-    social1: "https://x.com/NityaShah2000",
-    name: "Nitya Shah",
-    designation: "Director & Co-Founder",
+    img: "/landing/yash_naik.png",
+    social1: "",
+    social2: "https://www.linkedin.com/in/yash-naik-cfal2/",
+    name: "Yash Naik",
+    designation: "Equity Research Analyst",
     description: (
       <>
         <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
           <li>
-            <strong>Qualified Analyst:</strong> Graduated with merit in Msc Investment Management from Bayes Business
-            School, London (Cass), CFA Level 1 cleared, M.Com from Pune University and cleared NISM RA and PMS exams.
+            <strong>Public Markets Investor:</strong> Over three years of experience in small and micro-cap equities,
+            driven by a rigorous bottom-up investment approach.
           </li>
           <li>
-            <strong>Investment Experience:</strong> 5+ years in equity investing with a focus on fundamentals.
+            <strong>Qualified Analyst:</strong> CFA Level III cleared, B.Tech in Information Technology, and NISM
+            Research Analyst certified.
           </li>
           <li>
-            <strong>Product & Research Expertise:</strong> 2 years in product development and research at a SEBI RIA
-            firm.
+            <strong>Investment Research Expertise:</strong> More than a year of experience in equity research and
+            analysis, backed by a strong analytical and technical foundation from prior IT experience.
           </li>
         </ul>
       </>
     ),
   },
   {
-    img: "/landing/aniket_kulkarni.png",
-    social1: "https://x.com/smallcaphunter9",
-    social2: "https://www.linkedin.com/in/aniket-kulkarni-equity-research/",
-    name: "Aniket Kulkarni",
-    designation: "Director & Co-Founder",
+    img: "/landing/raghav_maheshwari.png",
+    social1: "",
+    social2: "https://www.linkedin.com/in/raghav-maheswari-583391187/",
+    name: "Raghav Maheswari",
+    designation: "Equity Research Analyst",
     description: (
       <>
         <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
           <li>
-            <strong>Entrepreneurial Leader:</strong> 13+ years building businesses across sports, e-commerce, and
-            internet sectors.
+            <strong>Public Markets Investor:</strong> Two years of experience in equity investing, driven by a
+            specialization in Economics, Research, and Statistics.
           </li>
           <li>
-            <strong>Investment Experience:</strong> 9+ years of investing experience, including 5 years in deep-dive
-            fundamental equity research with a focus on small-cap stocks.
+            <strong>Academic Background:</strong> BSc in Economics (Hons.) and currently pursuing the CFA program.
           </li>
           <li>
-            <strong>Product-Led Thinking:</strong> GrowthX alumnus, bringing a strong product mindset to investment
-            research and digital innovation.
+            <strong>Strategic Experience:</strong> A year of experience in Mergers & Acquisitions at Franchise India,
+            backed by a strong foundation in economic analysis.
           </li>
         </ul>
       </>
@@ -310,9 +384,9 @@ export default function Team() {
           className=" mt-[38px] md:max-w-[100%]  xl:max-w-[85%] lg:mx-auto "
         >
           {/* desktop */}
-          <CarouselContent className={`${!isMobile ? "justify-center" : ""}`}>
+          <CarouselContent className={`${!isMobile ? "" : ""}`}>
             {teams.map((team, index) => (
-              <CarouselItem key={team.img + index} className="  basis-auto ">
+              <CarouselItem key={team.img + index} className={"  basis-1/3 max-md:basis-auto "}>
                 <TeamCard {...team} />
               </CarouselItem>
             ))}
