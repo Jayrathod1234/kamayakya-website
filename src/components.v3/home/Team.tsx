@@ -394,7 +394,7 @@ export default function Team() {
 
           <div
             className={`${
-              isMobile ? "flex" : "hidden"
+              isMobile ? "flex" : "flex"
             }  h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pl-4 md:px-0 `}
           >
             <div>
@@ -408,7 +408,7 @@ export default function Team() {
           </div>
           <div
             className={`${
-              isMobile ? "flex" : "hidden"
+              isMobile ? "flex" : "flex"
             }  -right-6 lg:-right-[12px]  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pr-4 md:px-0`}
           >
             <div>
