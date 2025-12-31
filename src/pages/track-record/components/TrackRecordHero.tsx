@@ -3,17 +3,18 @@ import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import React from "react";
 import HeroCardSection from "./HeroCardSection";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import IndexedPerformanceChart from "./IndexedPerformanceChart";
 
 export default function TrackRecordHero() {
   const handleContactButton = () => {
     const mp = getMixPanelClient();
     mp.track("sebi_registered_clicked", {
       page: "TrackRecord_Page",
-      pagegroup:"main"
+      pagegroup: "main",
     });
     window.open("Kamayakya-SEBI-License.pdf#toolbar=0&fitH=1", "_blank", "fullscreen=yes");
   };
-  
+
   return (
     <div className=" relative h-full bg-[length:100vw_616px]">
       <div className=" w-full h-full  absolute overflow-hidden z-10 -top-[20%]">
@@ -38,6 +39,10 @@ export default function TrackRecordHero() {
         </p>
         {/* heading and subtext end  */}
       </div>
+      {/* CHART COMPONENT HERE */}
+      {/* <div className="px-5 md:px-[60px] pb-8 md:pb-12 relative z-10">
+        
+      </div> */}
       {/* hero text section end */}
       {/* hero chart section */}
       <HeroCardSection />

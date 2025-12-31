@@ -2,7 +2,7 @@ import { axiosApi } from "../../utils/axios";
 
 export const getTrackRecordDashboard = async () => {
   try {
-    const URL = '/user/trackRecordDashboard/';
+    const URL = "/user/trackRecordDashboard/";
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
     return response.data;
@@ -45,26 +45,23 @@ export const getAllTrackRecordStockListApi = async ({ params, body }) => {
     sort_value = "desc";
   }
   try {
-    const URL = `/user/trackRecord/allStocks`
+    const URL = `/user/trackRecord/allStocks`;
     // isLoggedIn ? `/user/allStocks` : `/user/allStocks/guest`;
     /* ----------------------------------- API ---------------------------------- */
-    const response = await axiosApi.post(
-      `${URL}?type=${type}&page=${page}&limit=${limit}`,
-      {
-        search,
-        sort_by,
-        sort_value,
-        recency_time,
-        time_left_with_time,
-        upside_left_range,
-        total_returns_with_range,
-        market_cap_type,
-        risk,
-        sector,
-        strategy_tags: changablestrategyTags,
-        action
-      }
-    );
+    const response = await axiosApi.post(`${URL}?type=${type}&page=${page}&limit=${limit}`, {
+      search,
+      sort_by,
+      sort_value,
+      recency_time,
+      time_left_with_time,
+      upside_left_range,
+      total_returns_with_range,
+      market_cap_type,
+      risk,
+      sector,
+      strategy_tags: changablestrategyTags,
+      action,
+    });
     return response.data;
   } catch (error) {
     // Handle errors if any
@@ -72,7 +69,6 @@ export const getAllTrackRecordStockListApi = async ({ params, body }) => {
     throw error;
   }
 };
-
 
 export const getTrackDetailApi = async ({ stockId }) => {
   try {
@@ -87,9 +83,8 @@ export const getTrackDetailApi = async ({ stockId }) => {
   }
 };
 
-export const getBseLivePrice = async(sebiBoardType,stockId)=>{
+export const getBseLivePrice = async (sebiBoardType, stockId) => {
   try {
-
     let URL = `/user/bseStocksLivePrice?type=${sebiBoardType}&stock_id=${stockId}`;
     /* ----------------------------------- API ---------------------------------- */
     const response = await axiosApi.get(URL);
@@ -100,9 +95,9 @@ export const getBseLivePrice = async(sebiBoardType,stockId)=>{
     console.error("Error fetching:", error);
     throw error;
   }
-}
+};
 
-export const getNseLivePrice = async(sebiBoardType,stockId)=>{
+export const getNseLivePrice = async (sebiBoardType, stockId) => {
   try {
     const URL = `/user/nseStocksLivePrice?type=${sebiBoardType}&stock_id=${stockId}`;
     /* ----------------------------------- API ---------------------------------- */
@@ -114,7 +109,7 @@ export const getNseLivePrice = async(sebiBoardType,stockId)=>{
     console.error("Error fetching:", error);
     throw error;
   }
-}
+};
 
 export const getTrackRecordCommonDetailsApi = async ({ type }) => {
   try {
@@ -125,6 +120,24 @@ export const getTrackRecordCommonDetailsApi = async ({ type }) => {
   } catch (error) {
     // Handle errors if any
     console.error("Error fetching:", error);
+    throw error;
+  }
+};
+
+export const getIndexedPerformanceChart = async ({ time_range, benchmark = "smallcap250" }) => {
+  try {
+    const URL = `/user/indexed_performance_chart/`;
+    /* ----------------------------------- API ---------------------------------- */
+    const response = await axiosApi.get(URL, {
+      params: {
+        time_range,
+        benchmark,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    // Handle errors if any
+    console.error("Error fetching indexed performance chart:", error);
     throw error;
   }
 };
