@@ -63,15 +63,13 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
       {/* pt-[324px] */}
       <div
         className={` relative p-6  z-10  translate-y-3 bg-white ${
-            isMobile ? "" : "group-hover/card:-translate-y-9"
-          } transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] `}
+          isMobile ? "" : "group-hover/card:-translate-y-9"
+        } transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] `}
       >
         {/* className={` translate-y-3 ${
             isMobile ? "" : "group-hover/card:-translate-y-9"
           } transition-all duration-300 ease-[cubic-bezier(0.175,0.0885,0,0.1)] `} */}
-        <div
-          
-        >
+        <div>
           <div className="flex items-center gap-x-3">
             <Meta icon={"Calendar"} label={format(new Date(blog?.created), "dd MMM, yyyy")} />
             <Line />
@@ -80,28 +78,26 @@ export function BlogCardSm({ blog, className }: { blog: TBlog; className?: strin
           <div className=" mt-4 ">
             <h2
               // onClick={handleReadMore}
-              className={` font-bold text-gray-950 text-lg w-full line-clamp-1 cursor-pointer mb-0 ${isMobile ? "":"group-hover/card:text-brand-500"} `}
+              className={` font-bold text-gray-950 text-lg w-full line-clamp-1 cursor-pointer mb-0 ${
+                isMobile ? "" : "group-hover/card:text-brand-500"
+              } `}
             >
               {blog.title}
             </h2>
-            <div
-
-              className=" mt-2 line-clamp-2 text-gray-950 opacity-60 h-[52px]"
-            >
-              <p>{blog.subtext}</p>
+            <div className=" mt-2 line-clamp-2 text-gray-950 opacity-60 h-[52px]">
+              <p>{blog.sub_title}</p>
             </div>
           </div>
           <div className=" mt-6">
-          <ButtonnArrow
-            className="border-0 bg-transparent hover:bg-transparent !px-0"
-            variant={ButtonVariant.secondary}
-            arrowStyle=" mt-[2px]"
-            strokeStyle=" stroke-brand-400"
-          >
-            <p className=" font-semibold">Read More</p>
-          </ButtonnArrow>
+            <ButtonnArrow
+              className="border-0 bg-transparent hover:bg-transparent !px-0"
+              variant={ButtonVariant.secondary}
+              arrowStyle=" mt-[2px]"
+              strokeStyle=" stroke-brand-400"
+            >
+              <p className=" font-semibold">Read More</p>
+            </ButtonnArrow>
           </div>
-          
         </div>
       </div>
     </div>

@@ -48,15 +48,33 @@ export function NavbarDropdownCard({
     router.push(href);
   };
 
+  const getPageName = () => {
+    const pathname = router.pathname;
+    if (pathname === "/") return "Home_Page";
+    if (pathname === "/pricing") return "Pricing_Page";
+    if (pathname === "/stock-picks") return "StockPicks_Page";
+    if (pathname.startsWith("/stock-picks/")) return "StockPicks_Page";
+    if (pathname === "/track-record") return "TrackRecord_Page";
+    if (pathname.startsWith("/track-record/")) return "TrackRecord_Page";
+    if (pathname === "/profile") return "Profile_Page";
+    if (pathname.startsWith("/profile/")) return "Profile_Page";
+    if (pathname === "/blogs-page") return "Blogs_Page";
+    if (pathname.startsWith("/blogs/")) return "Blogs_Page";
+    if (pathname === "/about-company") return "About_Page";
+    if (pathname.startsWith("/payments/")) return "Payments_Page";
+    if (pathname.startsWith("/onboarding/")) return "Onboarding_Page";
+    return "Unknown_Page";
+  };
+
   const handleLogoutClick = () => {
-    handleEvent("logout_clicked", { page: "Pricing_Page" });
+    const pageName = getPageName();
+    handleEvent("logout_clicked", { page: pageName });
     // delete axiosApi.defaults.headers.common["Authorization"] ;
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
-    window.location.href="/"
+    window.location.href = "/";
     // router.reload()
     // router.replace("/");
-    
   };
   // console.log(open)
   return (
@@ -87,17 +105,16 @@ export function NavbarDropdownCard({
         </DropdownMenuLabel>
         <DropdownMenuSeparator /> */}
         <div className=" px-2 my-2">
-        <DropdownMenuItem className="p-0">
-          <DropDownItemContent
-            onClick={() => {
-              handleEvent("myaccount_clicked", { page: "Pricing_Page" });
-              handleRouting("/profile");
-            }}
-            icon={<User size={16} />}
-            option="My Account"
-          />
-
-        </DropdownMenuItem>
+          <DropdownMenuItem className="p-0">
+            <DropDownItemContent
+              onClick={() => {
+                handleEvent("myaccount_clicked", { page: "Pricing_Page" });
+                handleRouting("/profile");
+              }}
+              icon={<User size={16} />}
+              option="My Account"
+            />
+          </DropdownMenuItem>
         </div>
         <DropdownMenuSeparator className="!my-0" />
         <div className=" p-2 flex flex-col">

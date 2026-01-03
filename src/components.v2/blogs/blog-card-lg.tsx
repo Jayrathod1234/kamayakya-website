@@ -40,19 +40,12 @@ export function BlogCardLg({ blog }: { blog: TBlog }) {
           >
             {blog.title}
           </h2>
-          <div
-            
-            className=" mt-2 line-clamp-2 md:line-clamp-[6] text-gray-950 opacity-60 max-h-[168px]"
-          >
-            <p>{blog.subtext}</p>
+          <div className=" mt-2 line-clamp-2 md:line-clamp-[6] text-gray-950 opacity-60 max-h-[168px]">
+            <p>{blog.sub_title}</p>
           </div>
         </div>
         <div className=" mt-auto">
-          <ButtonnArrow
-            onClick={handleReadMore}
-            strokeStyle=" stroke-brand-400"
-            variant={ButtonVariant.secondary}
-          >
+          <ButtonnArrow onClick={handleReadMore} strokeStyle=" stroke-brand-400" variant={ButtonVariant.secondary}>
             Read More
           </ButtonnArrow>
         </div>
