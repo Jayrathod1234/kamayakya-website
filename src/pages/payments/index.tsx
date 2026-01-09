@@ -8,6 +8,7 @@ import Autoplay from "embla-carousel-autoplay";
 import CouponModal from "./components/CouponModal";
 import ReviewSection from "./components/ReviewSection";
 import { v4 as uuidv4 } from "uuid";
+import { Marquee } from "../../components.v2/magicui/marquee";
 
 import { TabsContent, TabsList, TabsTrigger, Tabs } from "@/components.v2/ui/tabs";
 import DetailSection from "./components/DetailSection";
@@ -273,6 +274,18 @@ export default function Index() {
   return (
     <PaymentContextProvider>
       <>
+        {
+          <Marquee pauseOnHover className="[--duration:20s]">
+            <p className=" text-lg font-open_sans mr-8 py-1 flex items-center">
+              <span className=" whitespace-nowrap">
+                {" "}
+                🎆 NEW YEAR OFFER: Flat <span className=" font-semibold ">26% off</span> — use code{" "}
+                <span className=" font-semibold text-brand-400 ">NY26</span>. Limited time (till 30th Jan 26). T&Cs
+                apply.
+              </span>
+            </p>
+          </Marquee>
+        }
         <div className=" bg-white open_sans pb-6">
           <PaymentIssue />
           <Header className={headerBg} callIncompletePayment={callIncompletePayment} />

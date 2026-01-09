@@ -10,7 +10,7 @@ import { useStockPicks } from "@/contexts/StockPicksContext";
 import { HotSlider } from "../../../components.v3/common/HotSlider";
 
 // Mock data for testing - Set USE_MOCK_DATA to true to use mock data
-const USE_MOCK_DATA = true; // Change to true to use mock data
+const USE_MOCK_DATA = false; // Change to true to use mock data
 
 const MOCK_LATEST_RELEASES = [
   {

@@ -180,17 +180,17 @@ export function Navbar({
 
   return (
     <>
-      {!isSubscribed && (
+      {
         <Marquee pauseOnHover className="[--duration:20s]">
           <p className=" text-lg font-open_sans mr-8 py-1 flex items-center">
             <span className=" whitespace-nowrap">
               {" "}
               🎆 NEW YEAR OFFER: Flat <span className=" font-semibold ">26% off</span> — use code{" "}
-              <span className=" font-semibold text-brand-400 ">NY26</span>. Limited time (till 7th Jan 26). T&Cs apply.
+              <span className=" font-semibold text-brand-400 ">NY26</span>. Limited time (till 30th Jan 26). T&Cs apply.
             </span>
           </p>
         </Marquee>
-      )}
+      }
 
       <div
         ref={ref}
