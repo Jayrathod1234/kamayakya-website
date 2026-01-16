@@ -194,7 +194,7 @@ const StockDetailsNews = ({ stock_id, type }) => {
             </div>
             <div className=" max-sm:py-3 max-sm:rounded-r-xl max-sm:bg-[#F9FAFB]  sm:col-start-2 flex flex-col ">
               <h4
-                className=" max-sm:order-2 text-xs sm:text-md font-bold sm:font-semibold text-gray-950 m-0 cursor-pointer hover:text-[#125B54]"
+                className=" max-sm:order-2 text-xs sm:text-md font-bold sm:font-semibold text-gray-950 m-0 "
                 onClick={() => {
                   // Event tracking should be triggered when user clicks "Read More" instead.
                 }}

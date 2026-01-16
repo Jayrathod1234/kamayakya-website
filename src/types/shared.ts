@@ -27,7 +27,8 @@ export type TBlog = {
   is_drafted: boolean;
   slug: string;
   updated_at: string;
-  subtext:string;
+  subtext: string;
+  sub_title: string;
 };
 
 export type TStockCardProgressBar = {
@@ -45,5 +46,3 @@ export type TTarget = {
   price: number;
   label: string;
 };
-
-

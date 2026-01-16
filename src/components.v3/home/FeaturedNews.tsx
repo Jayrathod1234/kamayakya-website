@@ -12,111 +12,104 @@ import CarouselIndicator from "../common/CarouselIndicator";
 const NEWS_CHANNELS = [
   {
     id: "news-1",
-    img: "/money_control.png",
-    review: "Budget 2025: Infrastructure focus may propel cement stocks like UltraTech, Ambuja, ACC",
-    channelName: "Moneycontrol",
-    link:'https://www.moneycontrol.com/budget/budget-2025-infrastructure-focus-may-propel-cement-stocks-like-ultratech-ambuja-acc-article-12914586.html'
+    img: "/economic_times.png",
+    review: "ETMarkets Smart Talk: Gold, silver unlikely to repeat 2025 rally, geopolitics key in 2026",
+    channelName: "Economic Times",
+    link: "https://economictimes.indiatimes.com/markets/expert-view/etmarkets-smart-talk-gold-silver-unlikely-to-repeat-2025-rally-geopolitics-key-in-2026-dhiren-shah/articleshow/126200564.cms?from=mdr",
   },
   {
     id: "news-2",
     img: "/economic_times.png",
     review: "IPL Portfolio: Smallcase manager Nitya Shah expects 2 themes to perform like Mayank Yadav",
     channelName: "Economic Times",
-    link:'https://economictimes.indiatimes.com/markets/expert-view/ipl-portfolio-smallcase-manager-nitya-shah-expects-2-themes-to-perform-like-mayank-yadav/articleshow/109997836.cms?from=mdr'
+    link: "https://economictimes.indiatimes.com/markets/expert-view/ipl-portfolio-smallcase-manager-nitya-shah-expects-2-themes-to-perform-like-mayank-yadav/articleshow/109997836.cms?from=mdr",
   },
   {
     id: "news-3",
     img: "/money_control.png",
     review: "Budget 2025: Allocation for railways expected to touch a whopping Rs 3 lakh crore",
     channelName: "Moneycontrol",
-    link:"https://www.moneycontrol.com/news/business/markets/budget-2025-allocation-for-railways-expected-to-touch-a-whopping-rs-3-lakh-crore-12912792.html"
+    link: "https://www.moneycontrol.com/news/business/markets/budget-2025-allocation-for-railways-expected-to-touch-a-whopping-rs-3-lakh-crore-12912792.html",
   },
   {
     id: "news-4",
-    img: "/et_now.png",
-    review: "Most Promising Leaders of 2025: The Brains Behind the Next Gen Brands",
-    channelName: "ET NOW",
-    link:"https://www.etnownews.com/brand-stories/most-promising-leaders-of-2025-the-brains-behind-the-next-gen-brands-article-151566050"
+    img: "/money_control.png",
+    review: "Budget 2025: Infrastructure focus may propel cement stocks like UltraTech, Ambuja, ACC",
+    channelName: "Moneycontrol",
+    link: "https://www.moneycontrol.com/budget/budget-2025-infrastructure-focus-may-propel-cement-stocks-like-ultratech-ambuja-acc-article-12914586.html",
   },
   {
     id: "news-5",
+    img: "/economic_times.png",
+    review: "Nitya Shah on Financial Azaadi: How to build self-reliant portfolio in today's markets",
+    channelName: "Economic Times",
+    link: "https://economictimes.indiatimes.com/markets/stocks/news/nitya-shah-on-financial-azaadi-how-to-build-self-reliant-portfolio-in-todays-markets/articleshow/123296875.cms?from=mdr",
+  },
+  {
+    id: "news-6",
+    img: "/fortuneIndia.webp",
+    review: "Sensex above 80,000: ₹1 lakh in 1986 would have been ₹1 crore this Independence Day",
+    channelName: "Fortune India",
+    link: "https://www.fortuneindia.com/markets/sensex-above-80000-1-lakh-in-1986-would-have-been-1-crore-this-independence-day/125746",
+  },
+  {
+    id: "news-7",
     img: "/sme_futures.png",
     review: "2024 industry trends: MSME sector to remain crucial growth catalyst",
     channelName: "SME Futures",
-    link:"https://smefutures.com/2024-industry-trends-msme-sector-to-remain-crucial-growth-catalyst-3/"
+    link: "https://smefutures.com/2024-industry-trends-msme-sector-to-remain-crucial-growth-catalyst-3/",
   },
 ];
 
 const NEWS_CHANNELS_MOBILE = [
   {
     id: "news-1",
-    img: "/money_control.png",
-    review: "Budget 2025: Infrastructure focus may propel cement stocks like UltraTech, Ambuja, ACC",
-    channelName: "Moneycontrol",
-    link:"https://www.moneycontrol.com/budget/budget-2025-infrastructure-focus-may-propel-cement-stocks-like-ultratech-ambuja-acc-article-12914586.html"
+    img: "/economic_times.png",
+    review: "ETMarkets Smart Talk: Gold, silver unlikely to repeat 2025 rally, geopolitics key in 2026",
+    channelName: "Economic Times",
+    link: "https://economictimes.indiatimes.com/markets/expert-view/etmarkets-smart-talk-gold-silver-unlikely-to-repeat-2025-rally-geopolitics-key-in-2026-dhiren-shah/articleshow/126200564.cms?from=mdr",
   },
   {
     id: "news-2",
     img: "/economic_times.png",
     review: "IPL Portfolio: Smallcase manager Nitya Shah expects 2 themes to perform like Mayank Yadav",
     channelName: "Economic Times",
-    link:"https://economictimes.indiatimes.com/markets/expert-view/ipl-portfolio-smallcase-manager-nitya-shah-expects-2-themes-to-perform-like-mayank-yadav/articleshow/109997836.cms?from=mdr"
+    link: "https://economictimes.indiatimes.com/markets/expert-view/ipl-portfolio-smallcase-manager-nitya-shah-expects-2-themes-to-perform-like-mayank-yadav/articleshow/109997836.cms?from=mdr",
   },
   {
     id: "news-3",
     img: "/money_control.png",
     review: "Budget 2025: Allocation for railways expected to touch a whopping Rs 3 lakh crore",
     channelName: "Moneycontrol",
-    link:"https://www.moneycontrol.com/news/business/markets/budget-2025-allocation-for-railways-expected-to-touch-a-whopping-rs-3-lakh-crore-12912792.html"
+    link: "https://www.moneycontrol.com/news/business/markets/budget-2025-allocation-for-railways-expected-to-touch-a-whopping-rs-3-lakh-crore-12912792.html",
   },
   {
     id: "news-4",
-    img: "/et_now.png",
-    review: "Most Promising Leaders of 2025: The Brains Behind the Next Gen Brands",
-    channelName: "ET NOW",
-    link:"https://www.etnownews.com/brand-stories/most-promising-leaders-of-2025-the-brains-behind-the-next-gen-brands-article-151566050"
-  },
-  {
-    id: "news-5",
-    img: "/business_today.png",
-    review: "2024 industry trends: MSME sector to remain crucial growth catalyst",
-    channelName: "SME Futures",
-    link:"https://smefutures.com/2024-industry-trends-msme-sector-to-remain-crucial-growth-catalyst-3/"
-  },
-  {
-    id: "news-6",
     img: "/money_control.png",
     review: "Budget 2025: Infrastructure focus may propel cement stocks like UltraTech, Ambuja, ACC",
     channelName: "Moneycontrol",
-    link:"https://www.moneycontrol.com/budget/budget-2025-infrastructure-focus-may-propel-cement-stocks-like-ultratech-ambuja-acc-article-12914586.html"
+    link: "https://www.moneycontrol.com/budget/budget-2025-infrastructure-focus-may-propel-cement-stocks-like-ultratech-ambuja-acc-article-12914586.html",
+  },
+  {
+    id: "news-5",
+    img: "/economic_times.png",
+    review: "Nitya Shah on Financial Azaadi: How to build self-reliant portfolio in today's markets",
+    channelName: "Economic Times",
+    link: "https://economictimes.indiatimes.com/markets/stocks/news/nitya-shah-on-financial-azaadi-how-to-build-self-reliant-portfolio-in-todays-markets/articleshow/123296875.cms?from=mdr",
+  },
+  {
+    id: "news-6",
+    img: "/fortuneIndia.webp",
+    review: "Sensex above 80,000: ₹1 lakh in 1986 would have been ₹1 crore this Independence Day",
+    channelName: "Fortune India",
+    link: "https://www.fortuneindia.com/markets/sensex-above-80000-1-lakh-in-1986-would-have-been-1-crore-this-independence-day/125746",
   },
   {
     id: "news-7",
-    img: "/economic_times.png",
-    review: "IPL Portfolio: Smallcase manager Nitya Shah expects 2 themes to perform like Mayank Yadav",
-    channelName: "Economic Times",
-    link:"https://economictimes.indiatimes.com/markets/expert-view/ipl-portfolio-smallcase-manager-nitya-shah-expects-2-themes-to-perform-like-mayank-yadav/articleshow/109997836.cms?from=mdr"
-  },
-  {
-    id: "news-8",
-    img: "/money_control.png",
-    review: "Budget 2025: Allocation for railways expected to touch a whopping Rs 3 lakh crore",
-    channelName: "Moneycontrol",
-    link:"https://www.moneycontrol.com/news/business/markets/budget-2025-allocation-for-railways-expected-to-touch-a-whopping-rs-3-lakh-crore-12912792.html"
-  },
-  {
-    id: "news-9",
-    img: "/et_now.png",
-    review: "Most Promising Leaders of 2025: The Brains Behind the Next Gen Brands",
-    channelName: "ET NOW",
-    link:"https://www.etnownews.com/brand-stories/most-promising-leaders-of-2025-the-brains-behind-the-next-gen-brands-article-151566050"
-  },
-  {
-    id: "news-10",
     img: "/sme_futures.png",
     review: "2024 industry trends: MSME sector to remain crucial growth catalyst",
     channelName: "SME Futures",
-    link:"https://smefutures.com/2024-industry-trends-msme-sector-to-remain-crucial-growth-catalyst-3/"
+    link: "https://smefutures.com/2024-industry-trends-msme-sector-to-remain-crucial-growth-catalyst-3/",
   },
 ];
 
@@ -157,7 +150,13 @@ const DesktopCarousel = ({
     >
       <CarouselContent>
         {NEWS_CHANNELS.map((news) => (
-          <CarouselItem onClick={()=>{window.open(news.link,'_blank')}} key={news.id} className="flex flex-col items-center justify-center cursor-pointer">
+          <CarouselItem
+            onClick={() => {
+              window.open(news.link, "_blank");
+            }}
+            key={news.id}
+            className="flex flex-col items-center justify-center cursor-pointer"
+          >
             <NewsReview link={news.link} channelName={news.channelName} review={news.review} />
           </CarouselItem>
         ))}
@@ -171,12 +170,12 @@ interface MobileCarouselProps {
   setThumbApi: React.Dispatch<React.SetStateAction<EmblaCarouselType | null | undefined>>;
   thumbApi: EmblaCarouselType | null | undefined;
   current: number;
-  setCurrent:React.Dispatch<React.SetStateAction<number>>;
+  setCurrent: React.Dispatch<React.SetStateAction<number>>;
   mainApi: EmblaCarouselType | null | undefined;
 }
 
-const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent, mainApi }: MobileCarouselProps) => {
-  const [isPlaying,setIsPlaying] = useState(false);
+const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current, setCurrent, mainApi }: MobileCarouselProps) => {
+  const [isPlaying, setIsPlaying] = useState(false);
   const isMobile = useMediaQuery("(max-width:1024px)");
   const { scrollSnaps, onDotButtonClick } = useDotButton(thumbApi as EmblaCarouselType);
   const { onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(thumbApi as EmblaCarouselType);
@@ -205,7 +204,13 @@ const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent,
       >
         <CarouselContent className=" px-4">
           {NEWS_CHANNELS_MOBILE.map((news) => (
-            <CarouselItem onClick={()=>{window.open(news.link,'_blank')}} key={news.id} className="flex flex-col items-center justify-center w-full cursor-pointer">
+            <CarouselItem
+              onClick={() => {
+                window.open(news.link, "_blank");
+              }}
+              key={news.id}
+              className="flex flex-col items-center justify-center w-full cursor-pointer"
+            >
               <NewsReview link={news.link} channelName={news.channelName} review={news.review} />
             </CarouselItem>
           ))}
@@ -220,7 +225,13 @@ const MobileCarousel = ({ setMainApi, setThumbApi, thumbApi, current,setCurrent,
       >
         <CarouselContent className="w-[30%] mx-auto">
           {NEWS_CHANNELS_MOBILE.map((news) => (
-            <CarouselItem onClick={()=>{window.open(news.link,'_blank')}} key={news.id} className="flex flex-col items-center justify-center news__carousel">
+            <CarouselItem
+              onClick={() => {
+                window.open(news.link, "_blank");
+              }}
+              key={news.id}
+              className="flex flex-col items-center justify-center news__carousel"
+            >
               <div className=" rounded-[18.4px] overflow-hidden block lg:hidden embla__slide__number">
                 <img
                   height={107}
@@ -387,14 +398,23 @@ export default function FeaturedNews() {
       <div className="main-container md:py-[50px] ">
         <div className=" max-md:px-3 py-7 md:py-[100px] flex flex-col items-center justify-center bg-[#01272E] lg:bg-[url('/landing/featured_news_grid.png')] bg-cover rounded-[28px] open_sans">
           <p className=" max-md:text-sm text-[#F98800] font-bold">FEATURED</p>
-          <h2 className=" max-md:text-display-xs text-display-md font-bold text-gray-25">Featured in the <span className=" open_sans_italic">News</span></h2>
+          <h2 className=" max-md:text-display-xs text-display-md font-bold text-gray-25">
+            Featured in the <span className=" open_sans_italic">News</span>
+          </h2>
           <DesktopCarousel setMainApi={setMainApi} />
-          <MobileCarousel setMainApi={setMainApi} setThumbApi={setThumbApi} thumbApi={thumbApi} current={current} setCurrent={setCurrent} mainApi={mainApi} />
+          <MobileCarousel
+            setMainApi={setMainApi}
+            setThumbApi={setThumbApi}
+            thumbApi={thumbApi}
+            current={current}
+            setCurrent={setCurrent}
+            mainApi={mainApi}
+          />
           <div className="hidden lg:flex items-center justify-center bg-brand-700 p-3 pb-4 md:p-[26.37px] md:pb-[27.78px] rounded-[28px]">
             {NEWS_CHANNELS.map((news, idx) => (
               <div
                 onClick={() => {
-                  window.open(news.link,'_blank')
+                  window.open(news.link, "_blank");
                   mainApi?.scrollTo(idx);
                   const autoplay = mainApi?.plugins()?.autoplay;
                   if (!autoplay) return;
