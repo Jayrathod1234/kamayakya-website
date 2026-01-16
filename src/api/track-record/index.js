@@ -1,3 +1,4 @@
+import axios from "axios";
 import { axiosApi } from "../../utils/axios";
 
 export const getTrackRecordDashboard = async () => {
@@ -126,9 +127,9 @@ export const getTrackRecordCommonDetailsApi = async ({ type }) => {
 
 export const getIndexedPerformanceChart = async ({ time_range, benchmark = "smallcap250" }) => {
   try {
-    const URL = `/user/indexed_performance_chart/`;
+    const URL = `https://prod-api-server.kamayakya.com/user/indexed_performance_chart/`;
     /* ----------------------------------- API ---------------------------------- */
-    const response = await axiosApi.get(URL, {
+    const response = await axios.get(URL, {
       params: {
         time_range,
         benchmark,

@@ -6,9 +6,10 @@ import LiveStockPerformanceCardSkeleton from './LiveStockPerformanceCardSkeleton
 import TopGainerLoserCardSkeleton from './TopGainerLoserCardSkeleton'
 export default function TrackRecordHeroCardSkeleton() {
   return (
-    <div className=" p-4 bg-gray-50 rounded-[10px] w-full  z-10 relative ">
+    // p-4 bg-gray-50
+    <div className="  rounded-[10px] w-full  z-10 relative ">
     {/* top section */}
-    <div className=" flex justify-between">
+    {/* <div className=" flex justify-between">
       <div className=" flex items-center">
         <div className=" p-1 ml-1">
           <Skeleton animation="wave" variant="circular" height={16} width={16}/>
@@ -18,18 +19,19 @@ export default function TrackRecordHeroCardSkeleton() {
         <img height={20} width={20} src="/assets/pulse.gif" alt="" />
       </div>
       <TrackRecordHeroCardNewChipSkeleton/>
-    </div>
+    </div> */}
     {/* top section end */}
     {/* Middle Section */}
-    <div className=" flex flex-col md:flex-row mt-4 gap-3">
-       <AverageReturnCardSkeleton />
+    {/* mt-4  */}
+    <div className=" flex flex-col md:flex-row gap-3">
+       {/* <AverageReturnCardSkeleton /> */}
      <LiveStockPerformanceCardSkeleton />
     </div>
     {/* Middle Section end */}
     {/* Lower Section */}
     <div className=" flex mt-4 gap-3 basis-1/2">
-      <TopGainerLoserCardSkeleton/>
-      <TopGainerLoserCardSkeleton />
+      {/* <TopGainerLoserCardSkeleton/> */}
+      {/* <TopGainerLoserCardSkeleton /> */}
     </div>
     {/* Lower Section end */}
   </div>

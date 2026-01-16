@@ -20,7 +20,7 @@ interface IBestWorstStocks {
   [k: string]: string | number;
 }
 
-interface INewRecommendation {
+export interface INewRecommendation {
   id: string;
   stock_name: string;
   stock_image: string | null;
@@ -57,9 +57,12 @@ export const TrackRecordHeroCard = ({
 }: TTrackRecordHeroCard) => {
   const { isLoggedIn, handleLogin } = useContext(AuthContext);
   const recommendationLabel =
-    type === "LIVE" ? `${recommendation} Live Recommendations` : `${recommendation} Exits (past)`;
+    type === "LIVE" ? `${recommendation ?? ""} Live Recommendations` : `${recommendation ?? ""} Exits past`;
+
+  
   return (
-    <div className={" p-4 bg-gray-50 rounded-[10px] w-full lg:min-w-[517px]  z-10 relative "+ className}>
+    // p-4 bg-gray-50
+    <div className={"  rounded-[10px] w-full lg:min-w-[517px]  z-10 relative "+ className}>
       {!isLoggedIn ? (
         <div onClick={handleLogin} className="   h-[90%] w-full absolute flex items-center justify-center bottom-0 left-0 z-40">
           <div className="group/lock cursor-pointer shadow-[0px_0px_40px_-9px_rgba(19,135,137,0.46),0px_4px_40px_12px_rgba(118,237,223,0.05)]  overflow-hidden  flex items-center gap-x-[10px] transition-[width] duration-300 h-[56px] w-[56px] hover:w-[234px]   bg-[rgba(255,255,255,1)] rounded-[10px] border border-brand-300">
@@ -76,9 +79,9 @@ export const TrackRecordHeroCard = ({
           </div>
         </div>
       ) : null}
-
+      <div className=" py-3 w-full bg-white md:hidden"></div>
       {/* top section */}
-      <div className=" flex justify-between">
+      <div className=" flex px-4 py-4 md:hidden justify-between flex-wrap">
         <div className=" flex items-center">
           <div className=" p-1 ml-1">
             {type === "LIVE" ? (
@@ -94,24 +97,26 @@ export const TrackRecordHeroCard = ({
       </div>
       {/* top section end */}
       {/* Middle Section */}
-      <div className=" flex flex-col md:flex-row mt-4 gap-3">
-        <AverageReturnCard
+       {/* mt-4  */}
+      <div className=" flex flex-col md:flex-row gap-3 px-4 pb-4 md:px-0 md:pb-0">
+        {/* <AverageReturnCard
           tooltipContent={type==="LIVE" ? <AverageLiveReturnsTooltipContent/>:<AverageExitRetursTooltipContent/>}
           type={type}
           averageReturns={averageReturns}
-        />
-        <LiveStockPerformanceCard type={type} performance={stockPerformance} />
+        /> */}
+     
+        <LiveStockPerformanceCard type={type} performance={stockPerformance} newRecommendation={newRecommendation} recommendationLabel={recommendationLabel}/>
       </div>
       {/* Middle Section end */}
       {/* Lower Section */}
-      <div className=" flex mt-4 gap-3">
+      {/* <div className=" flex mt-4 gap-3">
         <LoginPrompt>
           <TopGainerLoserCard entry_price={entry_price_gainer} start_date={start_date_gainer}  stock_live_prices={ type==="LIVE" ? stock_live_prices?.top_gainer?.stock_live_prices:stock_live_prices?.best_exit?.stock_live_prices} type={type} isBest={true} stockStat={bestStocks} />
         </LoginPrompt>
         <LoginPrompt>
           <TopGainerLoserCard entry_price={entry_price_loser} start_date={start_date_loser}  stock_live_prices={ type==="LIVE" ? stock_live_prices?.top_loser?.stock_live_prices:stock_live_prices?.worst_exit?.stock_live_prices} type={type} isBest={false} stockStat={worstStocks} />
         </LoginPrompt>
-      </div>
+      </div> */}
       {/* Lower Section end */}
     </div>
   );

@@ -15,7 +15,7 @@ export function HeroCardSection() {
   });
 
   return (
-    <div className=" flex flex-col gap-y-[10px] sm:p-[10px] bg-gray-150 rounded-[20px] sm:main-container relative z-20">
+    <div className=" flex flex-col md:gap-y-[10px] sm:p-[10px] bg-gray-150 rounded-[20px] sm:main-container relative z-20">
       <div>
         <IndexedPerformanceChart />
       </div>

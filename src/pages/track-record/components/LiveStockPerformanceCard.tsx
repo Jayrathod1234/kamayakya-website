@@ -10,7 +10,8 @@ import {
   ArcElement,
 } from "chart.js";
 import AuthContext from "@/components/AuthContext";
-import { IStockPerformace } from "./TrackRecordHeroCard";
+import { INewRecommendation, IStockPerformace } from "./TrackRecordHeroCard";
+import TrackRecordHeroCardNewChip from "./TrackRecordHeroCardNewChip";
 ChartJS.register({
   // ChartTooltip,
   // Legend,
@@ -80,7 +81,7 @@ const Legends = ({
   );
 };
 
-export function LiveStockPerformanceCard({ type, performance }: { type: string; performance: IStockPerformace }) {
+export function LiveStockPerformanceCard({ type, performance, newRecommendation, recommendationLabel }: { type: string; performance: IStockPerformace; newRecommendation?: INewRecommendation[];recommendationLabel?:string }) {
   const { isLoggedIn } = useContext(AuthContext);
   const options = {
     responsive: true,
@@ -124,7 +125,19 @@ export function LiveStockPerformanceCard({ type, performance }: { type: string; 
 
   return (
     <div className=" p-4 pt-3 bg-white rounded-xl w-full">
-      <p className=" text-sm font-semibold">{label}</p>
+      <div className="flex items-center">
+         <div className=" p-1 ml-1 hidden md:block">
+            {type === "LIVE" ? (
+              <img height={16} width={16} src="/assets/entry point.svg" alt="entry-marker" />
+            ) : (
+              <img height={16} width={16} src="/assets/exit_icon.svg" alt="exit-marker" />
+            )}
+          </div>
+          <p className=" text-sm font-semibold">{label} <span className="text-brand-500 hidden md:inline-block">({recommendationLabel})</span></p>
+          <div className="ml-auto max-md:hidden">
+                <TrackRecordHeroCardNewChip type={type} newRecommendation={newRecommendation}/>
+</div>
+      </div>
       <div className=" mt-4 flex items-center justify-between gap-x-3">
         <div className=" h-[110px] max-w-full">
           <Doughnut data={data} options={options} />
