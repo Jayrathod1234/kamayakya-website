@@ -134,25 +134,23 @@ export default function IndexedPerformanceChart() {
 
       let innerHtml = `
         <div class="relative open_sans flex flex-col items-center h-full min-h-full">
-          <div class="flex flex-col h-full w-full bg-white rounded-lg shadow-lg p-2 border border-[#E4E7EC]">
+          <div class="flex flex-col h-full w-full bg-white rounded-lg shadow-lg p-2 border border-[#E4E7EC] w-[177px]">
             <div class="text-gray-400 whitespace-nowrap text-4xs mb-2">${formattedDate}</div>
             <div class="flex flex-col gap-y-1">
-              ${
-                portfolioPoint
-                  ? `<div class="font-bold text-xs text-gray-950 whitespace-nowrap">
-                <span class="inline-block w-2 h-2 rounded-full mr-2" style="background-color: #75CDC5;"></span>
-                ${portfolioLabel}: ₹${portfolioPoint.formattedValue}
+              ${portfolioPoint
+          ? `<div class="font-semibold text-xs text-[#108973] flex flex-row items-center">
+                <span class="inline-block w-2 h-2 rounded-full mr-2" style="background-color: #108973;"></span>
+                <span class="whitespace-nowrap truncate max-w-[50%] inline-block">${portfolioLabel}</span>: <span class="font-regular text-[#333]">₹${portfolioPoint.formattedValue}</span>
               </div>`
-                  : ""
-              }
-              ${
-                benchmarkPoint
-                  ? `<div class="font-bold text-xs text-gray-950 whitespace-nowrap">
+          : ""
+        }
+              ${benchmarkPoint
+          ? `<div class="font-semibold text-xs text-[#F97316]  flex flex-row items-center">
                 <span class="inline-block w-2 h-2 rounded-full mr-2" style="background-color: #F97316;"></span>
-                ${benchmarkLabel}: ₹${benchmarkPoint.formattedValue}
+               <span class="whitespace-nowrap truncate max-w-[50%] inline-block"> ${benchmarkLabel}</span>: <span class="font-regular text-[#333]">₹${benchmarkPoint.formattedValue}</span>
               </div>`
-                  : ""
-              }
+          : ""
+        }
             </div>
           </div>
           <svg class="absolute bottom-[-13px]" width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -172,6 +170,17 @@ export default function IndexedPerformanceChart() {
 
     const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
 
+    // Get the chart container's dimensions for proper clamping (viewport coordinates)
+    const chartContainer = chart.canvas.parentElement;
+    const containerRect = chartContainer?.getBoundingClientRect();
+    const containerLeft = containerRect?.left || 0;
+    const containerRight = containerRect?.right || window.innerWidth;
+
+    // Get canvas position in viewport coordinates for horizontal clamping
+    const canvasRect = chart.canvas.getBoundingClientRect();
+    const canvasLeft = canvasRect.left;
+    const tooltipViewportX = canvasLeft + tooltip.caretX;
+
     // Display, position, and set styles for font
     tooltipEl.style.opacity = "1";
     tooltipEl.style.left = positionX + tooltip.caretX + "px";
@@ -186,18 +195,26 @@ export default function IndexedPerformanceChart() {
     const tooltipWidth = tooltipEl.offsetWidth || 100;
     const tooltipHeight = tooltipEl.offsetHeight || 50;
     const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    let leftPos = parseFloat(tooltipEl.style.left);
-    let topPos = parseFloat(tooltipEl.style.top);
 
-    // Horizontal clamping (considering translate(-50%, -100%))
-    if (leftPos - tooltipWidth / 2 < 0) {
-      tooltipEl.style.left = tooltipWidth / 2 + 10 + "px";
-    } else if (leftPos + tooltipWidth / 2 > screenWidth) {
-      tooltipEl.style.left = screenWidth - tooltipWidth / 2 - 10 + "px";
+    // Calculate boundaries (use container for desktop, window for mobile)
+    const rightBoundary = isMobile ? screenWidth : containerRight;
+    const leftBoundary = isMobile ? 0 : containerLeft;
+
+    // Horizontal clamping in viewport coordinates, then convert back
+    const parentRect = chartContainer?.getBoundingClientRect();
+    const parentLeft = parentRect?.left || 0;
+    let clampedViewportX = tooltipViewportX;
+
+    if (tooltipViewportX - tooltipWidth / 2 < leftBoundary) {
+      clampedViewportX = leftBoundary + tooltipWidth / 2 + 10;
+      tooltipEl.style.left = (clampedViewportX - parentLeft) + "px";
+    } else if (tooltipViewportX + tooltipWidth / 2 > rightBoundary) {
+      clampedViewportX = rightBoundary - tooltipWidth / 2 - 10;
+      tooltipEl.style.left = (clampedViewportX - parentLeft) + "px";
     }
 
-    // Vertical clamping
+    // Vertical clamping (original logic)
+    let topPos = parseFloat(tooltipEl.style.top);
     if (topPos - tooltipHeight < 0) {
       tooltipEl.style.top = tooltipHeight + 10 + "px";
     }
@@ -247,7 +264,12 @@ export default function IndexedPerformanceChart() {
             autoSkipPadding: isMobile ? 10 : 20,
             callback: function (tickValue: any, index: number, ticks: any[]) {
               const date = new Date(tickValue);
-              return format(date, "MMM d");
+              if (timeRange === "1_month" || timeRange === "6_months") {
+                return format(date, "dd MMM"); // e.g., 22 Jul
+              } else {
+                console.log(date)
+                return format(date, "MMM ''yy"); // e.g., Nov '25
+              }
             },
             font: {
               family: "Open Sans",
@@ -281,7 +303,7 @@ export default function IndexedPerformanceChart() {
         },
       },
     }),
-    [isMobile],
+    [isMobile, timeRange],
   );
 
   const data = useMemo(
@@ -563,7 +585,7 @@ export default function IndexedPerformanceChart() {
             </p>
           </div>
         </div>
-        
+
       ) : null}
     </div>
   );
