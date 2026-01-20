@@ -488,7 +488,7 @@ export default function IndexedPerformanceChart() {
             ]}
             setSelectedOption={setTimeRange}
             activeValue={timeRange}
-            defaultOption={"maximum"}
+          // defaultOption={"maximum"}
           />
         </div>
       </div>
