@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Tabs as ShadCnTab, TabsContent, TabsList, TabsTrigger } from "@/components.v2/ui/tabs";
-import { getMixPanelClient } from "@/externals/mixpanel";
 import { TPlanDuration } from "@/types/components/payments";
 import AuthContext from "@/components/AuthContext";
 import { useActivePlanContext } from "@/components/PlanContext";
@@ -53,26 +52,18 @@ export function Tabs({
       : variant === TabsVariant.lg && responsive
       ? " px-4 py-2 text-sm sm:px-5 sm:py-3 sm:text-md"
       : "px-5 py-3 text-md";
-  const { isLoggedIn } = useContext(AuthContext);
-  const { activePlan } = useActivePlanContext();
+ 
 
   const onValueChange = (value: string) => {
     if (setSelectedOption) setSelectedOption(value as TPlanDuration);
-    const mp = getMixPanelClient();
-    mp.track("planduration_clicked", {
-      duration: value,
-      action_type:
-        isLoggedIn && (activePlan.plan === "core" || activePlan.plan === "advanced" || activePlan.plan === "vip")
-          ? "Upgrade"
-          : "New",
-    });
+    
     if(event){
       event(value)
     }
   };
 
 
- 
+ console.log("ACTIVE VALUE", activeValue, defaultOption);
 
   return (
     <ShadCnTab
@@ -110,7 +101,7 @@ export function Tabs({
               )}
               <span
                 className={`relative block text-black  ${
-                  activeValue === tabs.value ? "dark:text-white" : "dark:text-black"
+                  activeValue === tabs.value ? "dark:text-white " : "dark:text-black "
                 }  `}
               >
                 {tabs.label}

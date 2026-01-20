@@ -27,7 +27,7 @@ import { getMixPanelClient } from "@/externals/mixpanel";
 // }
 
 export function PlansSection() {
-  const { isLoggedIn,showLoginModal,setShowLoginModal } = useContext(AuthContext);
+  const { isLoggedIn, showLoginModal, setShowLoginModal } = useContext(AuthContext);
   const { activePlan } = useActivePlanContext();
   const [currentTab, setCurrentTab] = useState<"3months" | "1year" | "3year">("1year");
   const [currentPlanViewing, setCurrentPlanViewing] = useState("vip");
@@ -157,7 +157,6 @@ export function PlansSection() {
     <div>
       <div className=" relative flex justify-center mb-14 md:mb-0 pt-10 md:pb-14 pb-6">
         <div className="relative">
-          
           {/* <Image
             className=" block -right-5 -top-8 absolute bg-blend-multiply"
             height={40.75}
@@ -171,6 +170,17 @@ export function PlansSection() {
             defaultOption={currentTab}
             options={tabOptions}
             variant={TabsVariant.md}
+            event={(value) => {
+              const mp = getMixPanelClient();
+              mp.track("planduration_clicked", {
+                duration: value,
+                action_type:
+                  isLoggedIn &&
+                  (activePlan.plan === "core" || activePlan.plan === "advanced" || activePlan.plan === "vip")
+                    ? "Upgrade"
+                    : "New",
+              });
+            }}
           />
           {/* <Image className=" absolute left-[35%] top-10" height={28} width={94} src={"/save_25.png"} alt="save-25%" /> */}
         </div>
@@ -190,12 +200,12 @@ export function PlansSection() {
               selected={currentPlanViewing === "core"}
             />
             {/* {currentTab !== "3months" && ( */}
-              <PlansMobileTab
-                onClick={() => handlePlanSelect("advanced")}
-                plan="ADVANCED"
-                features={["SME Board"]}
-                selected={currentPlanViewing === "advanced"}
-              />
+            <PlansMobileTab
+              onClick={() => handlePlanSelect("advanced")}
+              plan="ADVANCED"
+              features={["SME Board"]}
+              selected={currentPlanViewing === "advanced"}
+            />
             {/* )} */}
             <PlansMobileTab
               onClick={() => handlePlanSelect("vip")}
@@ -243,9 +253,9 @@ export function PlansSection() {
                       `${
                         " "
                         // currentTab === "3months" && plan.name === "vip"
-                          // ? 
-                          // " md:!col-start-1 md:col-span-full md:justify-self-center "
-                          // : "" 
+                        // ?
+                        // " md:!col-start-1 md:col-span-full md:justify-self-center "
+                        // : ""
                       } ${plan.name.toLowerCase() === "free" ? "" : ""}${plan.name.toLowerCase() === "vip" ? " " : ""}`
                     }
                     subtext={""}
@@ -256,11 +266,11 @@ export function PlansSection() {
                       planName !== "free"
                         ? plan.duration_in_days > 365
                           ? `Billed ₹${new Intl.NumberFormat("en-IN").format(
-                              parseFloat(plan.amount.toFixed(2))
+                              parseFloat(plan.amount.toFixed(2)),
                             )} for 3 Years `
                           : plan.duration_in_days === 365
-                          ? `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} annually`
-                          : `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} for 3 Months`
+                            ? `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} annually`
+                            : `Billed ₹${new Intl.NumberFormat("en-IN").format(plan.amount)} for 3 Months`
                         : ""
                     }
                     label={PLAN[planName].label}

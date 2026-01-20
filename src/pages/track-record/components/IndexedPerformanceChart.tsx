@@ -21,7 +21,7 @@ import "chartjs-adapter-date-fns";
 import { format, parse, parseISO } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import { getIndexedPerformanceChart } from "@/api/track-record";
-import { useMediaQuery } from "@mui/material";
+import { Skeleton, useMediaQuery } from "@mui/material";
 import { Tabs, TabsVariant } from "@/components.v2/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components.v2/ui/select";
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "@/components.v2/ui/drawer";
@@ -42,22 +42,6 @@ ChartJS.register({
 
 type TimeRange = "1_month" | "6_months" | "1_year" | "2_year" | "maximum";
 type Benchmark = "nifty50" | "smallcap250";
-
-const TIME_RANGE_OPTIONS: { label: string; value: TimeRange }[] = [
-  { label: "1M", value: "1_month" },
-  { label: "6M", value: "6_months" },
-  { label: "1Y", value: "1_year" },
-  { label: "2Y", value: "2_year" },
-  { label: "Max", value: "maximum" },
-];
-
-const TIME_RANGE_TEXT: Record<TimeRange, string> = {
-  "1_month": "1 month",
-  "6_months": "6 months",
-  "1_year": "1 year",
-  "2_year": "2 years",
-  maximum: "inception",
-};
 
 const BENCHMARK_OPTIONS = [
   {
@@ -103,7 +87,7 @@ export default function IndexedPerformanceChart() {
   }, [chartData]);
 
   const getOrCreateTooltip = (
-    chart: ChartJS<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>
+    chart: ChartJS<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>,
   ) => {
     let tooltipEl = chart?.canvas?.parentNode?.querySelector("div");
 
@@ -142,7 +126,7 @@ export default function IndexedPerformanceChart() {
       const portfolioPoint = tooltip.dataPoints.find((point) => point.datasetIndex === 0);
       const benchmarkPoint = tooltip.dataPoints.find((point) => point.datasetIndex === 1);
 
-      const portfolioLabel = isMobile ? "Kamayakya" : "Kamayakya - Value bucket";
+      const portfolioLabel = isMobile ? "Kamayakya" : "Kamayakya - Stocks";
       const benchmarkOption = BENCHMARK_OPTIONS.find((opt) => opt.value === benchmark);
       const benchmarkLabel = isMobile
         ? benchmarkOption?.label.split(" (")[0] || "NIFTY"
@@ -164,7 +148,7 @@ export default function IndexedPerformanceChart() {
               ${
                 benchmarkPoint
                   ? `<div class="font-bold text-xs text-gray-950 whitespace-nowrap">
-                <span class="inline-block w-2 h-2 rounded-full mr-2" style="background-color: #FEB359;"></span>
+                <span class="inline-block w-2 h-2 rounded-full mr-2" style="background-color: #F97316;"></span>
                 ${benchmarkLabel}: ₹${benchmarkPoint.formattedValue}
               </div>`
                   : ""
@@ -297,7 +281,7 @@ export default function IndexedPerformanceChart() {
         },
       },
     }),
-    [isMobile]
+    [isMobile],
   );
 
   const data = useMemo(
@@ -305,7 +289,7 @@ export default function IndexedPerformanceChart() {
       labels: chartLabels,
       datasets: [
         {
-          label: "Kamayakya - Value bucket",
+          label: "Kamayakya - Stocks",
           data: portfolioData,
           borderColor: "#75CDC5", // Light blue
           backgroundColor: "rgba(96, 165, 250, 0.1)",
@@ -326,16 +310,30 @@ export default function IndexedPerformanceChart() {
         },
       ],
     }),
-    [chartLabels, portfolioData, benchmarkData, benchmark]
+    [chartLabels, portfolioData, benchmarkData, benchmark],
   );
+
+  const TIME_RANGE_OPTIONS: { label: string; value: TimeRange }[] = [
+    { label: "1M", value: "1_month" },
+    { label: "6M", value: "6_months" },
+    { label: "1Y", value: "1_year" },
+    { label: "2Y", value: "2_year" },
+    { label: "Max", value: "maximum" },
+  ];
 
   if (isLoading) {
     return (
       <div className="w-full bg-white rounded-[20px] p-6 md:p-8 shadow-sm">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
-          <div className="h-64 bg-gray-200 rounded"></div>
+        <div className="flex items-center justify-between md:mb-6">
+          <Skeleton height={32} className=" w-1/3 rounded-[6px]  md:p-2" variant="rectangular" />
+          <Skeleton height={32} className=" w-1/4 rounded-[6px]  md:p-2" variant="rectangular" />
         </div>
+        <div className="flex items-center space-x-4 md:mb-6">
+          <Skeleton height={32} className=" w-1/3 rounded-[6px]  md:p-2" variant="rectangular" />
+          <Skeleton height={32} className=" w-1/6 rounded-[6px]  md:p-2" variant="rectangular" />
+          <Skeleton height={32} className=" w-1/6 rounded-[6px]  md:p-2" variant="rectangular" />
+        </div>
+        <Skeleton height={180} className=" w-full rounded-[6px]  md:p-2" variant="rectangular" />
       </div>
     );
   }
@@ -457,13 +455,18 @@ export default function IndexedPerformanceChart() {
           <Tabs
             responsive={true}
             className="dark block"
-            tabTriggerClassname=""
+            tabTriggerClassname={` `}
             variant={TabsVariant.md}
-            options={TIME_RANGE_OPTIONS}
-            setSelectedOption={(value) => {
-              setTimeRange(value as TimeRange);
-            }}
+            options={[
+              { label: "1M", value: "1_month" },
+              { label: "6M", value: "6_months" },
+              { label: "1Y", value: "1_year" },
+              { label: "2Y", value: "2_year" },
+              { label: "Max", value: "maximum" },
+            ]}
+            setSelectedOption={setTimeRange}
             activeValue={timeRange}
+            defaultOption={"maximum"}
           />
         </div>
       </div>
@@ -505,8 +508,8 @@ export default function IndexedPerformanceChart() {
             </p>
           </div>
           <div className=" max-md:flex-1 max-md:w-full">
-            <p className="text-sm text-[#FEB359] md:font-semibold whitespace-nowrap max-md:truncate max-md:w-1/2 truncate">
-              <span className="w-[10px] h-[10px] bg-[#FEB359] rounded-full inline-block mr-[10px]"></span>
+            <p className="text-sm text-[#F97316] md:font-semibold whitespace-nowrap max-md:truncate max-md:w-1/2 truncate">
+              <span className="w-[10px] h-[10px] bg-[#F97316] rounded-full inline-block mr-[10px]"></span>
               {BENCHMARK_OPTIONS.find((opt) => opt.value === benchmark)?.label || "Equity smallcap"}
             </p>
             <p className="text-sm text-[#667085] pl-[20px]">
@@ -530,6 +533,7 @@ export default function IndexedPerformanceChart() {
             setTimeRange(value as TimeRange);
           }}
           activeValue={timeRange}
+          defaultOption={timeRange}
         />
       </div>
       {/* Disclaimer */}
@@ -559,6 +563,7 @@ export default function IndexedPerformanceChart() {
             </p>
           </div>
         </div>
+        
       ) : null}
     </div>
   );

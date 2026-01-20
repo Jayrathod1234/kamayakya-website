@@ -131,7 +131,7 @@ export default function TrackRecordMain() {
           <div className="px-4 pb-4">
             <div className="relative w-full bg-black rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
               <video controls className="w-full h-full" style={{ objectFit: "contain" }}>
-                <source src="https://kamayakya-mumbai.s3.ap-south-1.amazonaws.com/video_assets/Track+Record+.mp4" type="video/mp4" />
+                <source src="https://kamayakya-mumbai-public.s3.ap-south-1.amazonaws.com/video_assets/Track+Record+.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -141,8 +141,8 @@ export default function TrackRecordMain() {
           <div className="px-4 pb-6 font-open_sans text-left">
             <h3 className="text-xl font-bold  mb-2">Welcome To Kamayakya: Your Guide To Track Records</h3>
             <p className="text-sm text-gray-400">
-              Lorem ipsum sit dolor, Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur.
+             {`Quick tour: Track Record page features\n
+Everything you need to interpret this page - returns, methodology, and metrics - in 10 mins`}
             </p>
           </div>
         </div>
