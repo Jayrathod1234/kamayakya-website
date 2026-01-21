@@ -1,76 +1,22 @@
-// import { useRouter } from "next/router";
-// import {  useState } from "react";
-// import axios from "axios";
-import { BASE_URL, GET_BLOGS, GET_SPECIFIC_BLOG } from "./api/URLs";
+import { GET_SPECIFIC_BLOG } from "./api/URLs";
 import { Box } from "@mui/material";
 import AuthContext from "../components/AuthContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import NavBar2 from "../components/Navbar2";
 import NavBar from "../components/Navbar";
 import FaqsNew from "./screens/FaqsNew";
-// import Footer from "./screens/Footer";
-import { Loading, Text } from "@nextui-org/react";
-import Markdown from "markdown-to-jsx";
+import { Loading } from "@nextui-org/react";
 import styles from "./blog.module.css";
 import { Navbar } from "@/components.v2/navbar";
 import { Footer } from "@/components.v2/footer";
-import { Line, Meta } from "@/components.v2/blogs/blog-card-sm";
-import { format } from "date-fns";
-import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter, BsWhatsapp } from "react-icons/bs";
-import { Link, Share, Share2, X } from "lucide-react";
-import { CustomCSSProperties, TBlog } from "@/types/shared";
+import { TBlog } from "@/types/shared";
 import Head from "next/head";
-import { GetStaticProps } from "next";
-import Image from "next/image";
-import { Avatar, AvatarVariant } from "@/components.v2/avatar";
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTrigger } from "@/components.v2/ui/drawer";
 import { Newsletter, BlogHero, BlogSocialList } from "@/components.v2/index.components";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { toast } from "@/components.v2/ui/use-toast";
 import { BlogShareDrawer } from "@/components.v2/blogs";
 import { useRouter } from "next/router";
-// import { ReactQuill } from "react-quill";
+import { getMixPanelClient } from "@/externals/mixpanel";
+import { v4 as uuidv4 } from "uuid";
 
-// import Markdown from "markdown-to-jsx";
-
-// export const getStaticPaths = async () => {
-//   const response = await fetch(`${GET_BLOGS}?limit=1000`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     next:{revalidate:500}
-//   });
-//   const data = await response.json();
-//   const paths = data.results.map((blog: TBlog) => ({
-//     params: { slug: blog.slug },
-//   }));
-//   // console.log(paths);
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
-
-// export const getStaticProps = (async (context) => {
-//   const response = await fetch(`${GET_SPECIFIC_BLOG}${context.params?.slug}`, {
-//     headers: {
-//       "Content-Type": "application/json",
-//       // Authorization: `Token ${refresh}`,
-//     },
-//     next: { revalidate: 500 },
-//   });
-//   const data = await response.arrayBuffer();
-//   const decoder = new TextDecoder("utf-8");
-//   const textData = decoder.decode(data);
-//   const jsonData = JSON.parse(textData);
-//   const blog = jsonData;
-
-//   return { props: { blog }, revalidate: 500 };
-// }) satisfies GetStaticProps<{
-//   blog: TBlog;
-// }>;
-// { blog }: { blog: TBlog }
 const BlogPage = () => {
   const router = useRouter();
   const { slug } = router.query;
@@ -125,6 +71,19 @@ const BlogPage = () => {
     }
   }, [ref.current, blog]);
 
+  useEffect(() => {
+    if (blog) {
+      const mp = getMixPanelClient();
+      mp.track("individual_blog_loaded", {
+        id: uuidv4(),
+        time: new Date().toUTCString(),
+        blog_title: blog.title,
+        blog_slug: blog.slug,
+        current_url: typeof window !== "undefined" ? window.location.href : "",
+      });
+    }
+  }, [blog]);
+
   if (!blog) {
     return (
       <Box
@@ -148,8 +107,6 @@ const BlogPage = () => {
       </Box>
     );
   }
-  console.log(displayShare);
-  // console.log(blog.slug, blog.slug, router.basePath, router.route);
   return (
     <div className="pricing" style={{ backgroundColor: "#fff" }}>
       {/* {isLoggedIn ? <NavBar2 /> : <NavBar />} */}

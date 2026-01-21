@@ -6,6 +6,7 @@ import { ButtonVariant } from "../button/button";
 import Image from "next/image";
 import { TBlog } from "@/types";
 import { useRouter } from "next/router";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 const Meta = ({ icon, label }: { icon: string; label: string }) => {
   const LucideIcon = icons[icon as keyof typeof icons];
@@ -20,7 +21,13 @@ const Meta = ({ icon, label }: { icon: string; label: string }) => {
 export function BlogCardLg({ blog }: { blog: TBlog }) {
   const router = useRouter();
 
-  const handleReadMore = () => router.push(`${blog.slug}`);
+  const handleReadMore = () => {
+    const mp = getMixPanelClient();
+    mp.track("readmore_clicked", {
+      page: "Blogs",
+    });
+    router.push(`${blog.slug}`);
+  };
 
   return (
     <div className="bg-white hidden md:flex col-span-full h-[500px] min-w-full border-[10px]  border-white rounded-[20px] overflow-hidden shadow-6xs max-md:hover:shadow-lg transition-shadow ">

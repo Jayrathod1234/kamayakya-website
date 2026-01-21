@@ -14,6 +14,7 @@ import { ButtonSize, ButtonVariant } from "@/components.v2/button/button";
 import axios from "axios";
 import LOADING_GIF from "../../../public/blogs/loading.json";
 import { debounce } from "@/lib/debounce";
+import { getMixPanelClient } from "@/externals/mixpanel";
 // { blogs, next, prev }: { blogs: Array<TBlog>; next: string | null; prev: string | null }
 const BlogSection2 = () => {
   const [blogs, setBlogs] = useState([]);
@@ -36,8 +37,18 @@ const BlogSection2 = () => {
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       // setIsLoadingBlogs(true)
-      setSearch(e.target.value);
-      const response = await axios.get(SEARCH_BLOG, { params: { title: e.target.value } });
+      const searchValue = e.target.value;
+      setSearch(searchValue);
+
+      if (searchValue.trim()) {
+        const mp = getMixPanelClient();
+        mp.track("searched_blog", {
+          page: "Blogs",
+          search_value: searchValue,
+        });
+      }
+
+      const response = await axios.get(SEARCH_BLOG, { params: { title: searchValue } });
       setBlogs(response.data);
     } catch (e) {
       console.error(e);
@@ -90,9 +101,9 @@ const BlogSection2 = () => {
     }
   }, [search]);
 
-  useEffect(()=>{
-    window.scrollTo(0,0)
-  },[nextPage,prevPage])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [nextPage, prevPage])
 
   // useEffect(() => {
   //   // fetchBlogs();
@@ -162,7 +173,7 @@ const BlogSection2 = () => {
             >
               Prev
             </ButtonnArrow>}
-            {nextPage &&  <ButtonnArrow
+            {nextPage && <ButtonnArrow
               disabled={!nextPage}
               onClick={() => handlePrevNext(nextPage as string)}
               endIcon={<ChevronRight size={16} />}
@@ -171,7 +182,7 @@ const BlogSection2 = () => {
             >
               Next
             </ButtonnArrow>}
-            
+
           </div>
         ) : null}
 

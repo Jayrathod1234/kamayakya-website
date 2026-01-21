@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { SmallcaseEmbed } from "./smallcase-embed";
-import { SmallcaseEmbed2, SmallcaseEmbed3 } from "./smallcase-embed";
+import { SmallcaseEmbed2, SmallcaseEmbed3, SmallcaseEmbed4 } from "./smallcase-embed";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import CarouselIndicator from "@/components.v3/common/CarouselIndicator";
@@ -65,6 +65,9 @@ export function SmallCaseCard() {
                 </CarouselItem>
                 <CarouselItem>
                   <SmallcaseEmbed3 />
+                </CarouselItem>
+                <CarouselItem>
+                  <SmallcaseEmbed4 />
                 </CarouselItem>
               </CarouselContent>
             </Carousel>

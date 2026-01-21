@@ -52,8 +52,24 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
     }
   };
 
+  const getUTMParams = () => {
+    if (typeof window === "undefined")
+      return { utm_campaign: "", utm_content: "", utm_source: "", utm_medium: "", utm_terms: "" };
+    const params = new URLSearchParams(window.location.search);
+    return {
+      utm_campaign: params.get("utm_campaign") || "",
+      utm_content: params.get("utm_content") || "",
+      utm_source: params.get("utm_source") || "",
+      utm_medium: params.get("utm_medium") || "",
+      utm_terms: params.get("utm_terms") || "",
+    };
+  };
+
   const handlePageLoadEvent = async () => {
     const mp = getMixPanelClient();
+    const utmParams = getUTMParams();
+    const sourcePage = typeof document !== "undefined" ? document.referrer : "";
+    const currentUrl = typeof window !== "undefined" ? window.location.href : pathname || "";
 
     const user = await fetchUser();
     const activePlan = await fetchActivePlan();
@@ -62,10 +78,12 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
         id: uuidv4(),
         Session_id: "",
         time: new Date().toUTCString(),
-        source_page: "",
-        current_url: pathname,
-        account_created_at: user.created,
+        Device_ID: "",
+        source_page: sourcePage,
+        current_url: currentUrl,
+        IP: "",
         customer_id: user?.id,
+        account_created_at: user.created,
         Curr_Subscription_Type: activePlan.plan,
         Curr_Plan_Duration: activePlan.duration,
         Curr_Subscription_Start_date: activePlan.start_date,
@@ -75,17 +93,17 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
         browser_name: "",
         device_type: "",
         device_name: "",
-        utm_campaign: "",
-        utm_content: "",
-        utm_source: "",
-        utm_medium: "",
-        utm_terms: "",
+        "OS Version": "",
+        ...utmParams,
       });
     }
   };
 
   useEffect(() => {
     const mp = getMixPanelClient();
+    const utmParams = getUTMParams();
+    const sourcePage = typeof document !== "undefined" ? document.referrer : "";
+    const currentUrl = typeof window !== "undefined" ? window.location.href : pathname || "";
 
     if (isLoggedIn) {
       handlePageLoadEvent();
@@ -94,10 +112,12 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
         id: uuidv4(),
         Session_id: "",
         time: new Date().toUTCString(),
-        source_page: "",
-        current_url: pathname,
-        account_created_at: null,
+        Device_ID: "",
+        source_page: sourcePage,
+        current_url: currentUrl,
+        IP: "",
         customer_id: null,
+        account_created_at: null,
         Curr_Subscription_Type: null,
         Curr_Plan_Duration: null,
         Curr_Subscription_Start_date: null,
@@ -107,28 +127,25 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
         browser_name: "",
         device_type: "",
         device_name: "",
-        utm_campaign: "",
-        utm_content: "",
-        utm_source: "",
-        utm_medium: "",
-        utm_terms: "",
+        "OS Version": "",
+        ...utmParams,
       });
     }
   }, [isLoggedIn]);
 
   return (
     <div className="relative bg-[#effffc] pricing  bg-[length:100vw] bg-no-repeat bg-[top_center]">
-       <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
-          <div className="  absolute right-1 lg:right-[40px] top-36 opacity-20 md:opacity-100">
-            <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />
-          </div>
-          <div className=" absolute lg:left-12 md:bottom-16 left-1 top-16 opacity-30 md:opacity-100">
-            <Image alt="rupee_icon" width={52} height={61.28} src={"/pricing/rupee_hero_icon.svg"} />
-          </div>
+      <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
+        <div className="  absolute right-1 lg:right-[40px] top-36 opacity-20 md:opacity-100">
+          <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />
         </div>
-      <Navbar/>
+        <div className=" absolute lg:left-12 md:bottom-16 left-1 top-16 opacity-30 md:opacity-100">
+          <Image alt="rupee_icon" width={52} height={61.28} src={"/pricing/rupee_hero_icon.svg"} />
+        </div>
+      </div>
+      <Navbar />
       <main className="  main-container pb-10 relative z-10">
-        <BlogSection2  />
+        <BlogSection2 />
         {/* <FaqsNew /> */}
       </main>
       <Newsletter page="Blogs" />

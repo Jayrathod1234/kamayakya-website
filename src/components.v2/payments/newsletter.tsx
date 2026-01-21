@@ -45,7 +45,7 @@ export function Newsletter({ page = "Pricing_Page" }) {
         const mp = getMixPanelClient();
         mp.track("newsletter_subscribed", {
           page: page,
-          pagegroup: "newsletter_subscribed",
+          pagegroup: "newsletter",
           email: email,
         });
       }
@@ -90,9 +90,8 @@ export function Newsletter({ page = "Pricing_Page" }) {
           <div>
             {/* EMAIL INPUT */}
             <div
-              className={` flex items-center bg-white p-2 pl-3 rounded-[6px] gap-[8px] mt-3 w-full max-h-[52px] max-w-[350px] md:max-w-[566px] mx-auto ${
-                emailError ? " border-[2px] border-[crimson_red] " : ""
-              }`}
+              className={` flex items-center bg-white p-2 pl-3 rounded-[6px] gap-[8px] mt-3 w-full max-h-[52px] max-w-[350px] md:max-w-[566px] mx-auto ${emailError ? " border-[2px] border-[crimson_red] " : ""
+                }`}
             >
               {/* <div className=" ml-[6px]"> */}
               <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
@@ -111,7 +110,7 @@ export function Newsletter({ page = "Pricing_Page" }) {
                 className="group  !py-2 md:py-[auto] flex items-center justify-center"
                 onClick={handleNewsLetterEmailSubmit}
                 variant={ButtonVariant.primary}
-                // size={ButtonSize.lg}
+              // size={ButtonSize.lg}
               >
                 <p className=" text-sm font-semibold">Subscribe</p>
               </ButtonnArrow>
