@@ -94,7 +94,7 @@ function LineChartMain({
   stock_targets: any[];
   stock_action: string;
   annotationSize?: number;
-  type?:string;
+  type?: string;
 }) {
   const { sebiBoardType } = useTrackRecordCommon();
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -276,7 +276,7 @@ function LineChartMain({
   //   },
   // };
 
-  const handleAnnotationTooltip = (context:any) => {
+  const handleAnnotationTooltip = (context: any) => {
     // Create the custom tooltip element
     let tooltipEl = document.getElementById("annotation-tooltip");
     if (!tooltipEl) {
@@ -318,10 +318,10 @@ function LineChartMain({
       targetIndex >= 0
         ? `Target ${stock_targets?.length - targetIndex}`
         : entry_price === price
-        ? "Entry Price"
-        : price === liveData[liveData.length - 1].price && stock_action === "SELL"
-        ? "Exit Price"
-        : "CMP";
+          ? "Entry Price"
+          : price === liveData[liveData.length - 1].price && stock_action === "SELL"
+            ? "Exit Price"
+            : "CMP";
     const targetItem = stock_targets && stock_targets.find((item) => item.target_price === price);
 
     const isTargetNotMet = targetItem && targetItem.target_met === null;
@@ -331,17 +331,15 @@ function LineChartMain({
         <div class="w-full ">
             <div class="text-gray-400 whitespace-nowrap text-4xs ">${format(new Date(title), "do MMM yyyy HH:mm")}</div>
             <div class="font-bold text-xs text-gray-950 whitespace-nowrap mt-2">₹${price}</div>
-            <div class="text-gray-500 font-medium whitespace-nowrap text-4xs">${targetLabel} ${
-      targetLabel && targetLabel.includes("Target")
-        ? `<span class=${` ${isTargetNotMet ? "text-[#F98800]" : "text-success-500"}`}>${
-            isTargetNotMet
-              ? new Date(stock_targets[targetIndex].target_date) < Date.now()
-                ? "Inactive"
-                : "Active"
-              : "Met"
-          }</span>`
+            <div class="text-gray-500 font-medium whitespace-nowrap text-4xs">${targetLabel} ${targetLabel && targetLabel.includes("Target")
+        ? `<span class=${` ${isTargetNotMet ? "text-[#F98800]" : "text-success-500"}`}>${isTargetNotMet
+          ? new Date(stock_targets[targetIndex].target_date) < Date.now()
+            ? "Inactive"
+            : "Active"
+          : "Met"
+        }</span>`
         : ""
-    }</div>
+      }</div>
            </div>
             <svg class="absolute bottom-[-10px]" width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M16.5 0H0.5L7.08579 6.58579C7.86684 7.36684 9.13317 7.36684 9.91421 6.58579L16.5 0Z" fill="white"/>
@@ -355,13 +353,11 @@ function LineChartMain({
         <div class="w-full ">
             <div class="text-brand-400 whitespace-nowrap italic text-4xs flex items-center gap-x-1 "><img height=12 width=12 src="/assets/noto_locked.png"/>Login to view</div>
             <div class="font-bold text-xs text-gray-950 whitespace-nowrap mt-2 h-[18px] bg-gray-150 w-[46px] rounded-full"></div>
-            <div class="text-gray-500 font-medium whitespace-nowrap text-4xs">${targetLabel} ${
-        targetLabel && targetLabel.includes("Target")
-          ? `<span class=${` ${isTargetNotMet ? "text-[#F98800]" : "text-success-500"}`}>${
-              isTargetNotMet ? (targetIndex !== 0 ? "Inactive" : "Active") : "Met"
-            }</span>`
+            <div class="text-gray-500 font-medium whitespace-nowrap text-4xs">${targetLabel} ${targetLabel && targetLabel.includes("Target")
+          ? `<span class=${` ${isTargetNotMet ? "text-[#F98800]" : "text-success-500"}`}>${isTargetNotMet ? (targetIndex !== 0 ? "Inactive" : "Active") : "Met"
+          }</span>`
           : ""
-      }</div>
+        }</div>
            </div>
             <svg class="absolute bottom-[-10px]" width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M16.5 0H0.5L7.08579 6.58579C7.86684 7.36684 9.13317 7.36684 9.91421 6.58579L16.5 0Z" fill="white"/>
@@ -393,7 +389,7 @@ function LineChartMain({
           position: "top",
         },
         enter: handleAnnotationTooltip,
-        leave: (context:any) => {
+        leave: (context: any) => {
           const tooltipEl = document.getElementById("annotation-tooltip");
           if (tooltipEl) tooltipEl.style.opacity = "0";
         },
@@ -415,7 +411,7 @@ function LineChartMain({
               pointStyle: target.target_met ? target_met_img : target_active_img,
               radius: 8,
               enter: handleAnnotationTooltip,
-              leave: (context:any) => {
+              leave: (context: any) => {
                 const tooltipEl = document.getElementById("annotation-tooltip");
                 if (tooltipEl) tooltipEl.style.opacity = "0";
               },
@@ -437,7 +433,7 @@ function LineChartMain({
           content: isMobile ? `T${stock_targets.length - i}` : `Target ${stock_targets.length - i}`,
           backgroundColor: "transparent",
           color: target.target_met || target_not_met || stock_action === "SELL" ? "#12B76A" : "#FF7F09",
-          xAdjust: (ctx:any) => {
+          xAdjust: (ctx: any) => {
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
             // console.log(chartWidth);
@@ -451,14 +447,14 @@ function LineChartMain({
           content: target.target_met
             ? check_mark
             : target_not_met
-            ? cross_mark
-            : stock_action !== "SELL"
-            ? target_active_img
-            : cross_mark,
+              ? cross_mark
+              : stock_action !== "SELL"
+                ? target_active_img
+                : cross_mark,
           backgroundColor: "transparent",
           color: target.target_met || target_not_met ? "#12B76A" : "#FF7F09",
           //   position: "end",
-          xAdjust: (ctx:any) => {
+          xAdjust: (ctx: any) => {
             // Get chart width and calculate xAdjust dynamically
             const chartWidth = ctx.chart.chartArea.width;
             return isMobile ? chartWidth / 2 + 26 : chartWidth / 2 + 50; // adjust this to position it properly
@@ -470,8 +466,8 @@ function LineChartMain({
           borderColor: target.target_met
             ? "#99D9D4"
             : target_not_met || stock_action === "SELL"
-            ? "#EDF0F5"
-            : "#FFD19A",
+              ? "#EDF0F5"
+              : "#FFD19A",
           borderWidth: 1,
           borderDash: [6, 6],
           scaleID: "y",
@@ -490,7 +486,7 @@ function LineChartMain({
         pointStyle: stock_action === "SELL" ? exit_mark : cmp_img,
         radius: 8,
         enter: handleAnnotationTooltip,
-        leave: (context:any) => {
+        leave: (context: any) => {
           const tooltipEl = document.getElementById("annotation-tooltip");
           if (tooltipEl) tooltipEl.style.opacity = "0";
         },
@@ -552,6 +548,14 @@ function LineChartMain({
   // console.log("YMIN==>", yMin);
   const yMax = Math.ceil(maxValue * 1.1);
   // console.log("DATA LENGTH",stock_id, liveData?.length)
+  // Convert markerAnnotation array to object format required by chartjs-plugin-annotation
+  const annotationsObject = Array.isArray(markerAnnotation) && markerAnnotation.length > 0
+    ? markerAnnotation.reduce((acc, item, index) => {
+      acc[`annotation_${index}`] = item;
+      return acc;
+    }, {} as Record<string, any>)
+    : {};
+
   return (
     <Line
       className=""
@@ -573,10 +577,7 @@ function LineChartMain({
             common: {
               drawTime: "afterDraw", // Important: Draw annotations after the chart
             },
-            annotations: {
-              ...markerAnnotation,
-              // targetIconAnnotation,
-            },
+            annotations: annotationsObject,
           },
           tooltip: {
             enabled: false,
@@ -679,7 +680,7 @@ function LineChart(props: {
   stock_targets: any[];
   stock_action: string;
   annotationSize?: number;
-  type?:string;
+  type?: string;
 }) {
   const { ref, inView, entry } = useInView({
     /* Optional options */

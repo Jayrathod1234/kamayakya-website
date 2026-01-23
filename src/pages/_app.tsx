@@ -13,6 +13,37 @@ import { NavBarProvider } from "@/contexts/NavBarContext.js";
 import { TooltipProvider } from "@/components.v2/ui/tooltip";
 import LoginPrompt from "@/components.v3/common/LoginPrompt";
 import { DowntimeChecker } from "@/components.v2/ui/downtime-checker";
+// Register Chart.js and annotation plugin globally
+import {
+  Chart as ChartJS,
+  LineElement,
+  Tooltip as ChartTooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  ArcElement,
+  TimeScale,
+  TimeSeriesScale,
+} from "chart.js";
+import annotationPlugin from "chartjs-plugin-annotation";
+import "chartjs-adapter-date-fns";
+
+// Register Chart.js components globally
+if (typeof window !== "undefined") {
+  ChartJS.register({
+    LineElement,
+    ChartTooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    ArcElement,
+    annotationPlugin,
+    TimeScale,
+    TimeSeriesScale,
+  });
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { isBrowser } = useSSR();
