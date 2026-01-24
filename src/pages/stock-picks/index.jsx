@@ -18,6 +18,7 @@ import ContactUsBtn from "@/components.v2/contact-us-btn";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
+import axios from "axios";
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
   const { sebiBoardType, searchPageOpen } = useStockPicks();
@@ -33,8 +34,23 @@ const StockPicks = () => {
     queryFn: () => getHotStockListApi({ isLoggedIn, type: sebiBoardType }),
   });
 
-  const refreshToken = localStorage.getItem("refresh");
+  const refreshToken = typeof window !== "undefined" ? localStorage.getItem("refresh") : null;
+  
+  const getUTMParams = () => {
+    if (typeof window === "undefined")
+      return { utm_campaign: "", utm_content: "", utm_source: "", utm_medium: "", utm_terms: "" };
+    const params = new URLSearchParams(window.location.search);
+    return {
+      utm_campaign: params.get("utm_campaign") || "",
+      utm_content: params.get("utm_content") || "",
+      utm_source: params.get("utm_source") || "",
+      utm_medium: params.get("utm_medium") || "",
+      utm_terms: params.get("utm_terms") || "",
+    };
+  };
+
   const fetchUser = async () => {
+    if (!refreshToken) return null;
     try {
       const response = await fetch(GET_USER, {
         method: "GET",
@@ -48,7 +64,9 @@ const StockPicks = () => {
       return null;
     }
   };
+  
   const fetchActivePlan = async () => {
+    if (!refreshToken) return null;
     try {
       const response = await axios.get(ACTIVE_PLAN_URL, {
         headers: {
@@ -63,22 +81,29 @@ const StockPicks = () => {
     } catch (e) {
       return null;
     }
+    return null;
   };
 
   const handlePageLoadEvent = async () => {
     const mp = getMixPanelClient();
+    const utmParams = getUTMParams();
+    const sourcePage = typeof document !== "undefined" ? document.referrer : "";
+    const currentUrl = typeof window !== "undefined" ? window.location.href : pathname || "";
 
     const user = await fetchUser();
     const activePlan = await fetchActivePlan();
+    
     if (user && activePlan) {
       mp.track("stockpicks_loaded", {
         id: uuidv4(),
         Session_id: "",
         time: new Date().toUTCString(),
-        source_page: "",
-        current_url: pathname,
-        account_created_at: user.created,
+        Device_ID: "",
+        source_page: sourcePage,
+        current_url: currentUrl,
+        IP: "",
         customer_id: user?.id,
+        account_created_at: user.created,
         Curr_Subscription_Type: activePlan.plan,
         Curr_Plan_Duration: activePlan.duration,
         Curr_Subscription_Start_date: activePlan.start_date,
@@ -88,29 +113,57 @@ const StockPicks = () => {
         browser_name: "",
         device_type: "",
         device_name: "",
-        utm_campaign: "",
-        utm_content: "",
-        utm_source: "",
-        utm_medium: "",
-        utm_terms: "",
+        "OS Version": "",
+        ...utmParams,
+      });
+    } else {
+      // Fire event even if user/plan fetch fails
+      mp.track("stockpicks_loaded", {
+        id: uuidv4(),
+        Session_id: "",
+        time: new Date().toUTCString(),
+        Device_ID: "",
+        source_page: sourcePage,
+        current_url: currentUrl,
+        IP: "",
+        customer_id: user?.id || null,
+        account_created_at: user?.created || null,
+        Curr_Subscription_Type: activePlan?.plan || null,
+        Curr_Plan_Duration: activePlan?.duration || null,
+        Curr_Subscription_Start_date: activePlan?.start_date || null,
+        Curr_Subscription_End_date: activePlan?.end_date || null,
+        usertype: activePlan?.plan ? (activePlan.plan.toLowerCase() === "free" ? "Free" : "Paid") : null,
+        browser_version: "",
+        browser_name: "",
+        device_type: "",
+        device_name: "",
+        "OS Version": "",
+        ...utmParams,
       });
     }
   };
 
   useEffect(() => {
     const mp = getMixPanelClient();
+    const utmParams = getUTMParams();
+    const sourcePage = typeof document !== "undefined" ? document.referrer : "";
+    const currentUrl = typeof window !== "undefined" ? window.location.href : pathname || "";
 
-    if (isLoggedIn) {
+    // Always fire the event, but fetch user/plan data if logged in
+    if (isLoggedIn && refreshToken) {
       handlePageLoadEvent();
-    } else if (!isLoggedIn && !refreshToken) {
+    } else {
+      // Fire event for non-logged-in users or when refreshToken is not available
       mp.track("stockpicks_loaded", {
         id: uuidv4(),
         Session_id: "",
         time: new Date().toUTCString(),
-        source_page: "",
-        current_url: pathname,
-        account_created_at: null,
+        Device_ID: "",
+        source_page: sourcePage,
+        current_url: currentUrl,
+        IP: "",
         customer_id: null,
+        account_created_at: null,
         Curr_Subscription_Type: null,
         Curr_Plan_Duration: null,
         Curr_Subscription_Start_date: null,
@@ -120,14 +173,11 @@ const StockPicks = () => {
         browser_name: "",
         device_type: "",
         device_name: "",
-        utm_campaign: "",
-        utm_content: "",
-        utm_source: "",
-        utm_medium: "",
-        utm_terms: "",
+        "OS Version": "",
+        ...utmParams,
       });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, pathname, refreshToken]);
 
   return (
     <>

@@ -9,23 +9,25 @@ export default function StocksTab() {
   const router = useRouter();
   const [value, setValue] = useState(sebiBoardType);
 
-  const handleChange = (index) => {
-    setValue(index);
-    handleSebiBoardTypeChange(index === 0 ? "mainboard" : "sme");
+  const handleChange = (newValue) => {
+    // Track event only when user clicks (value actually changes)
+    if (newValue !== value) {
+      const mp = getMixPanelClient();
+      if (newValue?.includes("mainboard")) {
+        mp.track("mainboard_clicked", {
+          page: "StockPicks_page"
+        });
+      } else if (newValue?.includes("sme")) {
+        mp.track("smeboard_clicked", {
+          page: "StockPicks_page"
+        });
+      }
+    }
+    
+    setValue(newValue);
   };
 
   useEffect(() => {
-    const mp =getMixPanelClient();
-    if(value?.includes("mainboard")){
-      mp.track("mainboard_clicked",{
-        page:"StockPicks_page"
-      })
-    }else if(value?.includes("sme")){
-      mp.track("smeboard_clicked",{
- page:"StockPicks_page"
-      })
-    }
-  
     const timeout = setTimeout(() => {
       handleSebiBoardTypeChange(value);
     }, 600);
@@ -84,7 +86,7 @@ export default function StocksTab() {
             value: "sme",
           },
         ]}
-        setSelectedOption={setValue}
+        setSelectedOption={handleChange}
        
       />
     </div>
