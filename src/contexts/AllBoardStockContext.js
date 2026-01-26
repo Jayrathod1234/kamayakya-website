@@ -32,7 +32,7 @@ export const AllBoardStockProvider = ({ children }) => {
   // State Management
   const [searchStock, setSearchStock] = useState("");
   const debouncedSearchStock = useDebounce(searchStock, 1000); // Apply debouncing
-  const [sortBy, setSortBy] = useState("upside_left");
+  const [sortBy, setSortBy] = useState("recency");
   const [sortValue, setSortValue] = useState("desc");
   const [recency, setRecency] = useState(initialFilterTime);
   const [timeLeft, setTimeLeft] = useState(initialFilterTime);

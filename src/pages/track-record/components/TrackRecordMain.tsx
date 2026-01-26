@@ -139,10 +139,9 @@ export default function TrackRecordMain() {
 
           {/* Title and Description */}
           <div className="px-4 pb-6 font-open_sans text-left">
-            <h3 className="text-xl font-bold  mb-2">Welcome To Kamayakya: Your Guide To Track Records</h3>
+            <h3 className="text-xl font-bold  mb-2">Quick tour: Track Record page features</h3>
             <p className="text-sm text-gray-400">
-             {`Quick tour: Track Record page features\n
-Everything you need to interpret this page - returns, methodology, and metrics - in 10 mins`}
+              Everything you need to interpret this page - returns, methodology, and metrics - in 10 mins
             </p>
           </div>
         </div>

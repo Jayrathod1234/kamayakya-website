@@ -49,7 +49,7 @@ export default function StocksTab() {
         // tabListClassname={"dark"}
         tabTriggerClassname={` px-8 sm:px-10 `}
         variant={TabsVariant.lg}
-        defaultOption={value}
+        // defaultOption={value}
         options={[
           {
             label: (

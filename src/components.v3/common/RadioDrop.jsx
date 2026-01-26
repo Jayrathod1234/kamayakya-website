@@ -43,7 +43,7 @@ export default function CustomSortMenu({ isLabel }) {
   }
   const isMobile = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedValue, setSelectedValue] = useState("upside_left_desc");
+  const [selectedValue, setSelectedValue] = useState("recency_desc");
   const handleClick = (event) => {
     // console.log(event.currentTarget);
     setAnchorEl(isMobile ? "bottom" : event.currentTarget);
@@ -189,6 +189,175 @@ export default function CustomSortMenu({ isLabel }) {
               },
             }}
           >
+            <Box px={2} py={1}>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                style={{
+                  fontWeight: 500,
+                  color: "#98A2B3",
+                  fontSize: "14px",
+                  fontFamily: "Open Sans",
+                }}
+              >
+                Recency
+              </Typography>
+              <RadioGroup
+                name="Recency"
+                value={selectedValue}
+                onChange={handleChange}
+              >
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
+                  <FormControlLabel
+                    value="recency_desc"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
+                          position: "absolute",
+                          left: "199px",
+                          padding: "0px",
+                        }}
+                      />
+                    }
+                    label={
+                      <Box display="flex" alignItems="center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M13.3125 11.375L10.5 10.4375V6.51739M18 9.5C18 5.35786 14.6421 2 10.5 2C6.35786 2 3 5.35786 3 9.5C3 13.6421 6.35786 17 10.5 17C10.9807 17 11.4507 16.9548 11.9063 16.8684"
+                            stroke={
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M18.5 14.5L15.875 17M15.875 17L13 14.5M15.875 17L15.875 11"
+                            stroke={
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color:
+                              selectedValue === "recency_desc"
+                                ? "#108973"
+                                : "#344054",
+                            fontWeight: 400,
+                            fontFamily: "Open Sans",
+                            fontSize: "14px",
+                          }}
+                        >
+                          Newest to Oldest
+                        </span>
+                      </Box>
+                    }
+                  />
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    marginBottom: "10px",
+                  }}
+                >
+                  <FormControlLabel
+                    value="recency_asc"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#E4E7EC",
+                          "&.Mui-checked": {
+                            color: "#108973",
+                          },
+                          position: "absolute",
+                          left: "199px",
+                          padding: "0px",
+                        }}
+                      />
+                    }
+                    label={
+                      <Box display="flex" alignItems="center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M13.3125 11.375L10.5 10.4375V6.51739M18 9.5C18 5.35786 14.6421 2 10.5 2C6.35786 2 3 5.35786 3 9.5C3 13.6421 6.35786 17 10.5 17C10.9807 17 11.4507 16.9548 11.9063 16.8684"
+                            stroke={
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M18.5 14.5L15.875 12M15.875 12L13 14.5M15.875 12L15.875 18"
+                            stroke={
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#344054"
+                            }
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span
+                          style={{
+                            marginLeft: "8px",
+                            color:
+                              selectedValue === "recency_asc"
+                                ? "#108973"
+                                : "#344054",
+                            fontWeight: 400,
+                            fontFamily: "Open Sans",
+                            fontSize: "14px",
+                          }}
+                        >
+                          Oldest to Newest
+                        </span>
+                      </Box>
+                    }
+                  />
+                </MenuItem>
+              </RadioGroup>
+            </Box>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="260"
+              height="2"
+              viewBox="0 0 260 2"
+              fill="none"
+            >
+              <path d="M0 1H260" stroke="#EDF0F5" />
+            </svg>
             <Box px={2} py={1}>
               <Typography
                 variant="subtitle1"
@@ -363,176 +532,9 @@ export default function CustomSortMenu({ isLabel }) {
                 </MenuItem>
               </RadioGroup>
             </Box>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="260"
-              height="2"
-              viewBox="0 0 260 2"
-              fill="none"
-            >
-              <path d="M0 1H260" stroke="#EDF0F5" />
-            </svg>
+           
 
-            <Box px={2} py={1}>
-              <Typography
-                variant="subtitle1"
-                gutterBottom
-                style={{
-                  fontWeight: 500,
-                  color: "#98A2B3",
-                  fontSize: "14px",
-                  fontFamily: "Open Sans",
-                }}
-              >
-                Recency
-              </Typography>
-              <RadioGroup
-                name="Recency"
-                value={selectedValue}
-                onChange={handleChange}
-              >
-                <MenuItem
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                >
-                  <FormControlLabel
-                    value="recency_desc"
-                    control={
-                      <Radio
-                        sx={{
-                          color: "#E4E7EC",
-                          "&.Mui-checked": {
-                            color: "#108973",
-                          },
-                          position: "absolute",
-                          left: "199px",
-                          padding: "0px",
-                        }}
-                      />
-                    }
-                    label={
-                      <Box display="flex" alignItems="center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                        >
-                          <path
-                            d="M13.3125 11.375L10.5 10.4375V6.51739M18 9.5C18 5.35786 14.6421 2 10.5 2C6.35786 2 3 5.35786 3 9.5C3 13.6421 6.35786 17 10.5 17C10.9807 17 11.4507 16.9548 11.9063 16.8684"
-                            stroke={
-                              selectedValue === "recency_desc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M18.5 14.5L15.875 17M15.875 17L13 14.5M15.875 17L15.875 11"
-                            stroke={
-                              selectedValue === "recency_desc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <span
-                          style={{
-                            marginLeft: "8px",
-                            color:
-                              selectedValue === "recency_desc"
-                                ? "#108973"
-                                : "#344054",
-                            fontWeight: 400,
-                            fontFamily: "Open Sans",
-                            fontSize: "14px",
-                          }}
-                        >
-                          Newest to Oldest
-                        </span>
-                      </Box>
-                    }
-                  />
-                </MenuItem>
-                <MenuItem
-                  sx={{
-                    marginBottom: "10px",
-                  }}
-                >
-                  <FormControlLabel
-                    value="recency_asc"
-                    control={
-                      <Radio
-                        sx={{
-                          color: "#E4E7EC",
-                          "&.Mui-checked": {
-                            color: "#108973",
-                          },
-                          position: "absolute",
-                          left: "199px",
-                          padding: "0px",
-                        }}
-                      />
-                    }
-                    label={
-                      <Box display="flex" alignItems="center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                        >
-                          <path
-                            d="M13.3125 11.375L10.5 10.4375V6.51739M18 9.5C18 5.35786 14.6421 2 10.5 2C6.35786 2 3 5.35786 3 9.5C3 13.6421 6.35786 17 10.5 17C10.9807 17 11.4507 16.9548 11.9063 16.8684"
-                            stroke={
-                              selectedValue === "recency_asc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M18.5 14.5L15.875 12M15.875 12L13 14.5M15.875 12L15.875 18"
-                            stroke={
-                              selectedValue === "recency_asc"
-                                ? "#108973"
-                                : "#344054"
-                            }
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <span
-                          style={{
-                            marginLeft: "8px",
-                            color:
-                              selectedValue === "recency_asc"
-                                ? "#108973"
-                                : "#344054",
-                            fontWeight: 400,
-                            fontFamily: "Open Sans",
-                            fontSize: "14px",
-                          }}
-                        >
-                          Oldest to Newest
-                        </span>
-                      </Box>
-                    }
-                  />
-                </MenuItem>
-              </RadioGroup>
-            </Box>
+          
             <Box px={2} py={1} borderTop="1px solid #E0E0E0">
               <Typography
                 variant="subtitle1"

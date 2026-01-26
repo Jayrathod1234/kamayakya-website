@@ -661,9 +661,8 @@ export default function CustomSortMenu({ isLabel }: { isLabel: boolean }) {
                         </svg>
 
                         <span
-                          className={`ml-2 ${
-                            selectedValue === "upside_left_desc" ? "text-[#108973]" : "text-[#344054] "
-                          } !font-normal text-sm/5 font-open_sans`}
+                          className={`ml-2 ${selectedValue === "upside_left_desc" ? "text-[#108973]" : "text-[#344054] "
+                            } !font-normal text-sm/5 font-open_sans`}
                         >
                           High to Low
                         </span>

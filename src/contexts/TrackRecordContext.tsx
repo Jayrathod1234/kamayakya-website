@@ -92,13 +92,13 @@ export const TrackRecordProvider = ({ children }: { children: React.ReactNode })
     actionCall.length;
 
   useEffect(() => {
-    if(!min_upside_left && !max_upside_left) return
+    if (!min_upside_left && !max_upside_left) return
     setUpsideLeft([min_upside_left, max_upside_left]);
   }, [min_upside_left, max_upside_left]);
 
   // Update upsideLeft whenever min_returns or max_returns change
   useEffect(() => {
-    if(!min_returns && !max_returns) return
+    if (!min_returns && !max_returns) return
     setReturns([min_returns, max_returns]);
   }, [min_returns, max_returns]);
 
