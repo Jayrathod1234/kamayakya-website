@@ -216,7 +216,7 @@ export default function Index() {
       try {
         const res = await getTrackRecordStats();
         setStockStats(res);
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
   const callIncompletePayment = () => {
@@ -227,7 +227,7 @@ export default function Index() {
         headers: { Authorization: "token " + refreshToken },
       });
       // You can trigger any logic here, like showing a modal or redirecting
-    } catch (e) {}
+    } catch (e) { }
   };
   useEffect(() => {
     const handlePopState = (event: PopStateEvent) => {
@@ -274,7 +274,7 @@ export default function Index() {
   return (
     <PaymentContextProvider>
       <>
-        {
+        {/* {
           <Marquee pauseOnHover className="[--duration:20s]">
             <p className=" text-lg font-open_sans mr-8 py-1 flex items-center">
               <span className=" whitespace-nowrap">
@@ -285,7 +285,7 @@ export default function Index() {
               </span>
             </p>
           </Marquee>
-        }
+        } */}
         <div className=" bg-white open_sans pb-6">
           <PaymentIssue />
           <Header className={headerBg} callIncompletePayment={callIncompletePayment} />
@@ -328,14 +328,12 @@ export default function Index() {
                         className="flex flex-col items-center "
                       >
                         <div
-                          className={` flex items-center justify-center border p-1 rounded-full ${
-                            activeTab === "review" ? "border-brand-300 bg-white" : "border-transparent"
-                          }`}
+                          className={` flex items-center justify-center border p-1 rounded-full ${activeTab === "review" ? "border-brand-300 bg-white" : "border-transparent"
+                            }`}
                         >
                           <div
-                            className={`${
-                              activeTab === "review" ? "bg-[#108973]" : "bg-[#108973]"
-                            } h-8 w-8 rounded-full  flex items-center justify-center border border-gray-200`}
+                            className={`${activeTab === "review" ? "bg-[#108973]" : "bg-[#108973]"
+                              } h-8 w-8 rounded-full  flex items-center justify-center border border-gray-200`}
                           >
                             <img src="/assets/Review.svg" alt="" />
                           </div>
@@ -354,14 +352,12 @@ export default function Index() {
                         className="flex flex-col items-center "
                       >
                         <div
-                          className={` flex items-center justify-center border p-1 rounded-full ${
-                            activeTab === "details" ? "border-brand-300 bg-white" : "border-transparent"
-                          }`}
+                          className={` flex items-center justify-center border p-1 rounded-full ${activeTab === "details" ? "border-brand-300 bg-white" : "border-transparent"
+                            }`}
                         >
                           <div
-                            className={`h-8 w-8 rounded-full flex items-center justify-center border border-gray-200 ${
-                              activeTab === "details" || activeTab === "payment" ? "bg-[#108973]" : "bg-white"
-                            }`}
+                            className={`h-8 w-8 rounded-full flex items-center justify-center border border-gray-200 ${activeTab === "details" || activeTab === "payment" ? "bg-[#108973]" : "bg-white"
+                              }`}
                           >
                             {activeTab === "details" || activeTab === "payment" ? (
                               <img src="/assets/detail-white.svg" alt="" />
@@ -385,9 +381,8 @@ export default function Index() {
                         className="flex flex-col items-center "
                       >
                         <div
-                          className={`h-8 w-8 rounded-full flex items-center justify-center border border-gray-200  ${
-                            activeTab === "payment" ? "bg-[#108973]" : "bg-white"
-                          }`}
+                          className={`h-8 w-8 rounded-full flex items-center justify-center border border-gray-200  ${activeTab === "payment" ? "bg-[#108973]" : "bg-white"
+                            }`}
                         >
                           <img src="/assets/payment.svg" alt="" />
                         </div>

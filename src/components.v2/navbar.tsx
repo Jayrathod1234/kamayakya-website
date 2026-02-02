@@ -180,7 +180,7 @@ export function Navbar({
 
   return (
     <>
-      {
+      {/* {
         <Marquee pauseOnHover className="[--duration:20s]">
           <p className=" text-lg font-open_sans mr-8 py-1 flex items-center">
             <span className=" whitespace-nowrap">
@@ -190,7 +190,7 @@ export function Navbar({
             </span>
           </p>
         </Marquee>
-      }
+      } */}
 
       <div
         ref={ref}
@@ -240,16 +240,15 @@ export function Navbar({
                     <NavigationMenuContent className=" w-auto">
                       {/* change to md:grid-cols-3 "grid-rows-3" for not logged in state */}
                       <ul
-                        className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${
-                          isLoggedIn ? "grid-rows-4" : "grid-rows-4"
-                        } gap-3 m-0 p-6  ${isLoggedIn ? "md:w-[620px] lg:w-[900px]" : "md:w-[620px] lg:w-[900px]"}  `}
+                        className={`nav__grid-container grid grid-cols-[repeat(auto-fit,minmax(170px,205px))] grid-flow-col max-h-[332px]  ${isLoggedIn ? "grid-rows-4" : "grid-rows-4"
+                          } gap-3 m-0 p-6  ${isLoggedIn ? "md:w-[620px] lg:w-[900px]" : "md:w-[620px] lg:w-[900px]"}  `}
                       >
                         {/* lg:w-[700px] */}
                         {HOME_OPTIONS.filter((options) =>
                           isLoggedIn
                             ? options.title !== "Sample Reports" &&
-                              options.title !== "Performance" &&
-                              options.title !== "Hot Stocks"
+                            options.title !== "Performance" &&
+                            options.title !== "Hot Stocks"
                             : true
                         ).map((option) => (
                           <ListItem
@@ -260,7 +259,7 @@ export function Navbar({
                             icon={option.icon}
                             title={option.title}
                             id={option?.id}
-                            // endIcon={option?.endIcon}
+                          // endIcon={option?.endIcon}
                           >
                             {option.subtitle}
                           </ListItem>
@@ -286,16 +285,15 @@ export function Navbar({
                           sessionStorage.setItem("sebiBoardType", "mainboard");
                         }
                       }}
-                      className={` m-0 ${
-                        (navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to Buy") ||
-                        !isLoggedIn
+                      className={` m-0 ${(navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to Buy") ||
+                          !isLoggedIn
                           ? navigationOption.title === "Stocks to Buy"
                             ? "hidden"
                             : "hidden lg:flex"
                           : navigationOption.title === "Stocks to Buy"
-                          ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-[rgba(246,135,0,1)] hover:bg-[#E26103] !text-[rgba(246,135,0,1)] hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
-                          : ""
-                      } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
+                            ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-[rgba(246,135,0,1)] hover:bg-[#E26103] !text-[rgba(246,135,0,1)] hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
+                            : ""
+                        } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                     >
                       <Link
                         className=" !text-inherit"
@@ -314,10 +312,9 @@ export function Navbar({
                       >
                         <NavigationMenuLink
                           className={cn(
-                            `${navigationMenuTriggerStyle()} font-semibold text-inherit ${
-                              navigationOption.title === "Stocks to Buy"
-                                ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] data-[active]:border-none"
-                                : ""
+                            `${navigationMenuTriggerStyle()} font-semibold text-inherit ${navigationOption.title === "Stocks to Buy"
+                              ? "!text-[rgba(246,135,0,1)] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] data-[active]:border-none"
+                              : ""
                             }`,
                             navigationLinkClassName
                           )}
@@ -325,8 +322,8 @@ export function Navbar({
                             !pathname.includes("stock-picks")
                               ? pathname === navigationOption.link
                               : sessionStorage.getItem("sebiBoardType") === "sme" && pathname === navigationOption.link
-                              ? true
-                              : false
+                                ? true
+                                : false
                           }
                         >
                           {navigationOption.title}
@@ -361,11 +358,10 @@ export function Navbar({
             >
               <Button
                 variant={ButtonVariant.custom}
-                className={`!text-sm  border pricing border-[rgba(246,135,0,1)]  ${
-                  isLoggedIn
+                className={`!text-sm  border pricing border-[rgba(246,135,0,1)]  ${isLoggedIn
                     ? "bg-[rgba(246,135,0,1)] text-white  hover:bg-[rgba(247,117,4,1)] mr-6 "
                     : " text-[rgba(246,135,0,1)] hover:text-[rgba(247,117,4,1)] hover:border-[rgba(247,117,4,1)] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
-                }  !px-4 !py-[10px] rounded-[6px]`}
+                  }  !px-4 !py-[10px] rounded-[6px]`}
               >
                 Stocks to Buy
               </Button>

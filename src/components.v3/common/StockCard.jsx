@@ -67,6 +67,13 @@ function StockCard({
     setIsModalOpen(false);
   };
 
+  const getPageName = () => {
+    if (typeof window !== "undefined" && window.location.pathname.includes("stock-picks")) {
+      return "StockPicks_page";
+    }
+    return "Home_Page";
+  };
+
   const handleEvent = (eventName, eventDetails) => {
     const mp = getMixPanelClient();
     mp.track(eventName, eventDetails);
@@ -116,7 +123,7 @@ function StockCard({
                 <Link
                   onClick={() =>
                     handleEvent("stockname_clicked", {
-                      page: "StockPicks_page",
+                      page: getPageName(),
                       stockname: stock_name,
                     })
                   }
@@ -174,7 +181,7 @@ function StockCard({
                       <a
                         onClick={() =>
                           handleEvent("watchvideo_clicked", {
-                            page: "StockPicks_page",
+                            page: getPageName(),
                             stockname: stock_name,
                             pagegroup: "Hot Stocks/Latest Releases/mainboard",
                           })
@@ -374,7 +381,7 @@ function StockCard({
                     role="button"
                     onClick={() => {
                       handleEvent("subscribe_clicked", {
-                        page: "StockPicks_page",
+                        page: getPageName(),
                       });
                       handleLogin();
                     }}
@@ -403,7 +410,15 @@ function StockCard({
             ) : is_blur ? (
               <>
                 <div className="p-5 text-center">
-                  <Link href={`/pricing`}>
+                  <Link
+                    href={`/pricing`}
+                    onClick={() =>
+                      handleEvent("become_member_clicked", {
+                        page: getPageName(),
+                        stockname: stock_name,
+                      })
+                    }
+                  >
                     {/* btn  */}
                     <button className="button-82-pushable group " role="button">
                       <span className="button-82-shadow"></span>
@@ -434,7 +449,7 @@ function StockCard({
                   <Link
                     onClick={() =>
                       handleEvent("viewdetails_clicked", {
-                        page: "StockPicks_page",
+                        page: getPageName(),
                         pagegroup: "Hot Stocks/Latest Releases/mainboard",
                         stockname: stock_name,
                       })

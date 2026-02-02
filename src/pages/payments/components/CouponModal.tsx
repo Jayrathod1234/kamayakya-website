@@ -38,7 +38,7 @@ const CouponListItem = ({
       <div className="grid gap-3 leading-none">
         <label
           htmlFor="terms1"
-          // className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        // className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
         >
           <Button
             onClick={onClick}
@@ -166,7 +166,7 @@ export default function CouponModal() {
           <img src="/assets/badge-percent.svg" alt="badge" height={22} width={22} />
           <AnimatedShinyText  className=" ml-[10px] text-sm font-medium">Apply Coupon</AnimatedShinyText>
         </div> */}
-        <div className=" mt-2 flex items-center rounded-lg py-3 px-[11px] bg-[#cbf3f0] border border-[#0000000F]">
+        <div className=" mt-2 flex items-center rounded-lg py-3 px-[11px] bg-[#cbf3f0] border border-[#0000000F] shadow-lg cursor-pointer">
           <img src="/assets/badge-percent.svg" alt="badge" height={22} width={22} />
           <p className=" ml-[10px] text-sm font-medium">Apply Coupon</p>
         </div>
@@ -180,9 +180,8 @@ export default function CouponModal() {
           <DialogTitle className=" text-xl font-semibold m-0 !text-left mb-5 ">Apply Coupon</DialogTitle>
           {/* INPUT SECTION */}
           <div
-            className={` py-2 px-[11px] border text-left !mt-0 ${
-              error ? " border-error-500" : "border-[#0000000F]"
-            } rounded-lg flex`}
+            className={` py-2 px-[11px] border text-left !mt-0 ${error ? " border-error-500" : "border-[#0000000F]"
+              } rounded-lg flex`}
           >
             <input
               disabled={loading}
