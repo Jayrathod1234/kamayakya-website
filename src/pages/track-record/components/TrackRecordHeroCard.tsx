@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AverageReturnCard } from "./AverageReturnCards";
-import { LiveStockPerformanceCard } from "./LiveStockPerformanceCard";
+import { LiveStockPerformanceCard, LiveStockPerformanceCardLanding } from "./LiveStockPerformanceCard";
 import { TopGainerLoserCard } from "./TopGainerLoserCard";
 import { TrackRecordHeroCardNewChip } from "./TrackRecordHeroCardNewChip";
 import AuthContext from "@/components/AuthContext";
@@ -182,7 +182,7 @@ export const TrackRecordHeroCardLanding = ({
           type={type}
           averageReturns={averageReturns}
         />
-        <LiveStockPerformanceCard type={type} performance={stockPerformance} />
+        <LiveStockPerformanceCardLanding type={type} performance={stockPerformance} />
       </div>
       {/* Middle Section end */}
       {/* Lower Section */}
