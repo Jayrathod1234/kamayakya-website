@@ -80,18 +80,17 @@ function Steps({
 
   return (
     <div
-      className={` pt-2 pb-3 px-2 md:py-6 md:px-4 relative overflow-hidden  ${
-        index + 1 === selectedIndex
-          ? "border border-brand-300 rounded-xl"
-          : " border-b border-b-gray-200 max-lg:border max-lg:border-brand-300 max-lg:rounded-xl"
-      }`}
+      className={` pt-2 pb-3 px-2 md:py-6 md:px-4 relative overflow-hidden h-full  ${index + 1 === selectedIndex
+        ? "border border-brand-300 rounded-xl"
+        : " border-b border-b-gray-200 max-lg:border max-lg:border-brand-300 max-lg:rounded-xl "
+        }`}
     >
       <video
         width={342}
         height={235}
         autoPlay
         muted
-        className=" pointer-events-none user-select-none h-full w-full max-w-[342px] max-lg:max-w-full max-h-[300px] md:max-h-[400px] mx-auto object-cover mb-[10px] rounded-xl lg:hidden"
+        className=" pointer-events-none user-select-none h-full w-full max-w-[342px] max-lg:max-w-full  max-h-[300px] md:max-h-[400px] mx-auto object-cover mb-[10px] rounded-xl lg:hidden"
         src={video}
         loop
         playsInline
@@ -121,20 +120,18 @@ function Steps({
         <div
           // onClick={onClick}
           key={index}
-          className={` ${
-            index + 1 === selectedIndex ? " !w-full " : index + 1 <= selectedIndex ? "w-full" : " w-[10px] "
-          } h-[4px] absolute left-0 bottom-0  bg-transparent transition-all duration-300 overflow-hidden cursor-pointer max-lg:hidden `}
+          className={` ${index + 1 === selectedIndex ? " !w-full " : index + 1 <= selectedIndex ? "w-full" : " w-[10px] "
+            } h-[4px] absolute left-0 bottom-0  bg-transparent transition-all duration-300 overflow-hidden cursor-pointer max-lg:hidden `}
         >
           <div
             ref={progressRef}
             style={{ animationDuration: "6000ms", animationPlayState: isPlaying ? "running" : "paused" }}
-            className={`bg-brand-300 w-full h-full relative ${
-              index + 1 === selectedIndex
-                ? "carousel-dot-animate"
-                : index + 1 <= selectedIndex
+            className={`bg-brand-300 w-full h-full relative ${index + 1 === selectedIndex
+              ? "carousel-dot-animate"
+              : index + 1 <= selectedIndex
                 ? "block scale-x-100 "
                 : " hidden"
-            }`}
+              }`}
           ></div>
         </div>
       ) : null}
@@ -358,12 +355,12 @@ export default function How() {
               Autoplay({
                 delay: 6000,
                 stopOnMouseEnter: true,
-                stopOnInteraction:false,
-                playOnInit:true
+                stopOnInteraction: false,
+                playOnInit: true
               }),
             ]}
-            // onMouseEnter={handleMouseEnter}
-            // onMouseLeave={handleMouseLeave}
+          // onMouseEnter={handleMouseEnter}
+          // onMouseLeave={handleMouseLeave}
           >
             <CarouselContent>
               <CarouselItem className="">
@@ -518,7 +515,7 @@ export default function How() {
           plugins={[
             Autoplay({
               delay: 6000,
-              loop:true,
+              loop: true,
             }),
           ]}
           setApi={setApi}
