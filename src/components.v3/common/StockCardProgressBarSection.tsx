@@ -192,7 +192,7 @@ export default function StockCardProgressBarSection({
          */}
         </CarouselContent>
         <CarouselPrevious
-          onClick={(e) =>
+          onClick={() =>
             handleEvent("StockGraph_arrow_clicked", {
               page: "StockPicks_page",
               pagegroup: "Hot Stocks/Latest Releases/mainboard",
@@ -202,7 +202,7 @@ export default function StockCardProgressBarSection({
           className=" h-6 w-6 p-1 left-0 top-[40%] disabled:hidden border border-[#F9FAFB] shadow-[0px_1px_3px_0px_rgba(16,24,40,0.10),0px_1px_2px_0px_rgba(16,24,40,0.06)]"
         />
         <CarouselNext
-          onClick={(e) =>
+          onClick={() =>
             handleEvent("StockStrategy_dropdown", {
               page: "StockPicks_page",
               pagegroup: "Hot Stocks/Latest Releases/mainboard",

@@ -150,12 +150,12 @@ Carousel.displayName = "Carousel"
 
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+  React.HTMLAttributes<HTMLDivElement> & { carouselContentParent?: string }
+>(({ className, carouselContentParent, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className={`overflow-hidden ${props.carouselContentParent}`}>
+    <div ref={carouselRef} className={`overflow-hidden ${carouselContentParent || ""}`}>
       <div
         ref={ref}
         className={cn(
@@ -195,7 +195,7 @@ CarouselItem.displayName = "CarouselItem"
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+>(({ className, variant = "outline", size = "icon", onClick, ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
   return (
@@ -211,7 +211,10 @@ const CarouselPrevious = React.forwardRef<
         className
       )}
       disabled={!canScrollPrev}
-      onClick={scrollPrev}
+      onClick={(e) => {
+        onClick?.(e);
+        scrollPrev()
+      }}
       {...props}
     >
       <ChevronLeft className="h-4 w-4" />
@@ -224,7 +227,7 @@ CarouselPrevious.displayName = "CarouselPrevious"
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+>(({ className, variant = "outline", size = "icon", onClick, ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
   return (
@@ -240,7 +243,10 @@ const CarouselNext = React.forwardRef<
         className
       )}
       disabled={!canScrollNext}
-      onClick={scrollNext}
+      onClick={(e) => {
+        onClick?.(e);
+        scrollNext()
+      }}
       {...props}
     >
       <ChevronRight className="h-4 w-4" />

@@ -204,7 +204,8 @@ function DrawerFilter() {
     setActionCall(tempActionCall);
     // console.log("Drawer filter used",tempStrategyTag, tempUpsideLeft, tempMarketCapType, tempRecency, tempTimeLeft, tempReturns, tempRisk, tempSector)
     trackEvents("filter_clicked", {
-      page: "TrackRecord_pagefilter_source:drawer_filter",
+      page: "TrackRecord_page",
+      filter_source: "drawer_filter",
       filtersused: {
         strategy_tag: tempStrategyTag,
         upside_left: tempUpsideLeft,
@@ -237,16 +238,35 @@ function DrawerFilter() {
   const handleReset = () => {
     setOpen(false);
     handleResetFilters();
+    trackEvents("filter_reset_clicked", {
+      page: "TrackRecord_page",
+      filter_source: "drawer_filter",
+    });
   };
 
   const handleCancel = () => {
     clearValues();
     setOpen(false);
+    trackEvents("filter_cancel_clicked", {
+      page: "TrackRecord_page",
+      filter_source: "drawer_filter",
+    });
   };
 
   const toggleDrawer = (anchorVal, openVal) => () => {
     setOpen(openVal);
     setAnchor(anchorVal);
+    if (openVal) {
+      trackEvents("filter_drawer_opened", {
+        page: "TrackRecord_page",
+        filter_source: "drawer_filter",
+      });
+    } else {
+      trackEvents("filter_drawer_closed", {
+        page: "TrackRecord_page",
+        filter_source: "drawer_filter",
+      });
+    }
   };
 
   function trackEvents(eventName: string, eventProps: any) {
@@ -375,6 +395,10 @@ function DrawerFilter() {
             anchor={anchor}
             onClose={() => {
               setOpen(false);
+              trackEvents("filter_drawer_closed", {
+                page: "TrackRecord_page",
+                filter_source: "drawer_filter",
+              });
             }}
             ModalProps={{
               keepMounted: true, // Keeps mounted so you can style it
@@ -442,11 +466,10 @@ function DrawerFilter() {
                   <div className="flex pl-11 gap-4 pb-4">
                     {["Buy", "Hold", "Sell"]?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          tempActionCall.includes(value.toUpperCase())
-                            ? "bg-[#E7F8F8] border-[#108973]"
-                            : "bg-white border-[#E4E7EC]"
-                        }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempActionCall.includes(value.toUpperCase())
+                          ? "bg-[#E7F8F8] border-[#108973]"
+                          : "bg-white border-[#E4E7EC]"
+                          }`}
                         key={index}
                         onClick={() => handleActioCall(value.toUpperCase())}
                       >
@@ -783,8 +806,8 @@ function DrawerFilter() {
                         defaultValue={50}
                         marks={upside_left_marks}
                         step={null}
-                        // min={0}
-                        // max={100}
+                      // min={0}
+                      // max={100}
                       />
                       <Grid container spacing={2} alignItems="center" pt={2}>
                         <Grid item xs={5}>
@@ -882,11 +905,10 @@ function DrawerFilter() {
                     <div className="flex pl-11 gap-4 pb-4">
                       {marketCapTypeList?.map((value, index) => (
                         <div
-                          className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                            tempMarketCapType.includes(value)
-                              ? "bg-[#E7F8F8] border-[#108973]"
-                              : "bg-white border-[#E4E7EC]"
-                          }`}
+                          className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempMarketCapType.includes(value)
+                            ? "bg-[#E7F8F8] border-[#108973]"
+                            : "bg-white border-[#E4E7EC]"
+                            }`}
                           key={index}
                           onClick={() => handleMarketCap(value)}
                         >
@@ -1076,9 +1098,8 @@ function DrawerFilter() {
                   <div className="flex pl-11 gap-4 pb-4">
                     {stockRiskList?.map((value, index) => (
                       <div
-                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                          tempRisk.includes(value) ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
-                        }`}
+                        className={`flex flex-col items-center cursor-pointer w-2/5  p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempRisk.includes(value) ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
+                          }`}
                         key={index}
                         onClick={() => handleRisk(value)}
                       >
@@ -1134,6 +1155,10 @@ function DrawerFilter() {
             anchor={anchor}
             onClose={() => {
               setOpen(false);
+              trackEvents("filter_drawer_closed", {
+                page: "TrackRecord_page",
+                filter_source: "drawer_filter",
+              });
             }}
             ModalProps={{
               keepMounted: true, // Keeps mounted so you can style it
@@ -1154,7 +1179,13 @@ function DrawerFilter() {
                 <div className=" px-6 justify-between absolute flex items-center w-full gap-x-2 ">
                   <div className=" flex items-center gap-x-3">
                     <svg
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        setOpen(false);
+                        trackEvents("filter_drawer_closed", {
+                          page: "TrackRecord_page",
+                          filter_source: "drawer_filter",
+                        });
+                      }}
                       xmlns="http://www.w3.org/2000/svg"
                       width="28"
                       height="28"
@@ -1502,11 +1533,10 @@ function DrawerFilter() {
                         <div className="sm:flex grid gap-4 pb-4">
                           {["Buy", "Hold", "Sell"]?.map((value, index) => (
                             <div
-                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                tempActionCall.includes(value.toUpperCase())
-                                  ? "bg-[#E7F8F8] border-[#108973]"
-                                  : "bg-white border-[#E4E7EC]"
-                              }`}
+                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempActionCall.includes(value.toUpperCase())
+                                ? "bg-[#E7F8F8] border-[#108973]"
+                                : "bg-white border-[#E4E7EC]"
+                                }`}
                               key={index}
                               onClick={() => handleActioCall(value.toUpperCase())}
                             >
@@ -1533,8 +1563,8 @@ function DrawerFilter() {
                         defaultValue={50}
                         marks={upside_left_marks}
                         step={null}
-                        // min={0}
-                        // max={100}
+                      // min={0}
+                      // max={100}
                       />
 
                       <Grid alignItems="center" overflowX="hidden">
@@ -1657,7 +1687,7 @@ function DrawerFilter() {
                                     }}
                                   >
                                     {Object.keys(tempRecency).length ===
-                                    Object.keys(tempRecency).filter((key) => tempRecency[key]).length
+                                      Object.keys(tempRecency).filter((key) => tempRecency[key]).length
                                       ? "Deselect"
                                       : "Select"}{" "}
                                     All
@@ -1758,7 +1788,7 @@ function DrawerFilter() {
                                     }}
                                   >
                                     {Object.keys(tempTimeLeft).length ===
-                                    Object.keys(tempTimeLeft).filter((key) => tempTimeLeft[key]).length
+                                      Object.keys(tempTimeLeft).filter((key) => tempTimeLeft[key]).length
                                       ? "Deselect"
                                       : "Select"}{" "}
                                     All
@@ -1890,11 +1920,10 @@ function DrawerFilter() {
                           <div className="sm:flex grid   gap-4 pb-4 ">
                             {marketCapTypeList?.map((value, index) => (
                               <div
-                                className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                  tempMarketCapType.includes(value)
-                                    ? "bg-[#E7F8F8] border-[#108973]"
-                                    : "bg-white border-[#E4E7EC]"
-                                }`}
+                                className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempMarketCapType.includes(value)
+                                  ? "bg-[#E7F8F8] border-[#108973]"
+                                  : "bg-white border-[#E4E7EC]"
+                                  }`}
                                 key={index}
                                 onClick={() => handleMarketCap(value)}
                               >
@@ -2029,9 +2058,8 @@ function DrawerFilter() {
                         <div className="sm:flex grid gap-4 pb-4">
                           {stockRiskList?.map((value, index) => (
                             <div
-                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${
-                                tempRisk.includes(value) ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
-                              }`}
+                              className={`flex flex-col items-center cursor-pointer sm:w-2/5 w-full p-4 rounded-[7px] border hover:bg-[#F9FAFB]  ${tempRisk.includes(value) ? "bg-[#E7F8F8] border-[#108973]" : "bg-white border-[#E4E7EC]"
+                                }`}
                               key={index}
                               onClick={() => handleRisk(value)}
                             >

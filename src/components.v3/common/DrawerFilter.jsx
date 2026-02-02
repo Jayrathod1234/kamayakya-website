@@ -32,6 +32,7 @@ import { BorderLeftRounded } from "@mui/icons-material";
 import { useStockPicks } from "@/contexts/StockPicksContext";
 import { useAllBoardStock } from "@/contexts/AllBoardStockContext";
 import { background } from "@chakra-ui/react";
+import { getMixPanelClient } from "@/externals/mixpanel";
 
 // fixed drawer
 const CustomTabPanel = styled(Box)(({ theme }) => ({
@@ -156,20 +157,20 @@ function DrawerFilter() {
     setSector(tempSector);
     setOpen(false);
     handleApplyFilters(true);
-    trackEvents("filter_clicked",{
-      page:"StockPicks_pagefilter_source:drawer_filter",
-      filtersused:{
-        strategy_tag:tempStrategyTag,
-        upside_left:tempUpsideLeft,
-        market_cap_type:tempMarketCapType,
-        recency:tempRecency,
-        time_left:tempTimeLeft,
-        returns:tempReturns,
-        risk:tempRisk,
-        sector:tempSector,
-      
-      }
-    })
+    trackEvents("filter_clicked", {
+      page: "StockPicks_page",
+      filter_source: "drawer_filter",
+      filtersused: {
+        strategy_tag: tempStrategyTag,
+        upside_left: tempUpsideLeft,
+        market_cap_type: tempMarketCapType,
+        recency: tempRecency,
+        time_left: tempTimeLeft,
+        returns: tempReturns,
+        risk: tempRisk,
+        sector: tempSector,
+      },
+    });
   };
 
   const handleSelectAllStrategies = () => {
@@ -190,16 +191,35 @@ function DrawerFilter() {
   const handleReset = () => {
     setOpen(false);
     handleResetFilters();
+    trackEvents("filter_reset_clicked", {
+      page: "StockPicks_page",
+      filter_source: "drawer_filter",
+    });
   };
 
   const handleCancel = () => {
     clearValues();
     setOpen(false);
+    trackEvents("filter_cancel_clicked", {
+      page: "StockPicks_page",
+      filter_source: "drawer_filter",
+    });
   };
 
   const toggleDrawer = (anchorVal, openVal) => () => {
     setOpen(openVal);
     setAnchor(anchorVal);
+    if (openVal) {
+      trackEvents("filter_drawer_opened", {
+        page: "StockPicks_page",
+        filter_source: "drawer_filter",
+      });
+    } else {
+      trackEvents("filter_drawer_closed", {
+        page: "StockPicks_page",
+        filter_source: "drawer_filter",
+      });
+    }
   };
 
   function trackEvents(eventName,eventProps){
@@ -359,6 +379,10 @@ function DrawerFilter() {
             anchor={anchor}
             onClose={() => {
               setOpen(false);
+              trackEvents("filter_drawer_closed", {
+                page: "StockPicks_page",
+                filter_source: "drawer_filter",
+              });
             }}
             ModalProps={{
               keepMounted: true, // Keeps mounted so you can style it
@@ -1170,6 +1194,10 @@ function DrawerFilter() {
             anchor={anchor}
             onClose={() => {
               setOpen(false);
+              trackEvents("filter_drawer_closed", {
+                page: "StockPicks_page",
+                filter_source: "drawer_filter",
+              });
             }}
             ModalProps={{
               keepMounted: true, // Keeps mounted so you can style it
@@ -1198,7 +1226,13 @@ function DrawerFilter() {
                 <div className=" px-6 justify-between absolute flex items-center w-full gap-x-2 ">
                   <div className=" flex items-center gap-x-3">
                   <svg
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      trackEvents("filter_drawer_closed", {
+                        page: "StockPicks_page",
+                        filter_source: "drawer_filter",
+                      });
+                    }}
                     xmlns="http://www.w3.org/2000/svg"
                     width="28"
                     height="28"
