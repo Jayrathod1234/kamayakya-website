@@ -14,6 +14,8 @@ import { useContext } from "react";
 import { getMixPanelClient } from "@/externals/mixpanel";
 import { ACTIVE_PLAN_URL, GET_USER } from "@/pages/api/URLs";
 import axios from "axios";
+import { HeroLandingCardSection } from "@/pages/track-record/components/HeroCardSection";
+import { TrackRecordHeroCardLanding } from "@/pages/track-record/components/TrackRecordHeroCard";
 
 export const TrackRecordSection = () => {
   const { isLoggedIn, setShowLoginModal } = useContext(AuthProvider);
@@ -55,9 +57,8 @@ export const TrackRecordSection = () => {
   return (
     <div className=" sm:main-container sm:py-[50px]">
       <div
-        className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px] sm:rounded-[28px] flex flex-col   gap-x-[46px] ${
-          isLoggedIn ? "sm:flex-col text-center" : " lg:flex-row"
-        }`}
+        className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px] sm:rounded-[28px] flex flex-col   gap-x-[46px] ${isLoggedIn ? "sm:flex-col text-center" : " lg:flex-row"
+          }`}
       >
         <div className="lg:flex-[0.6] max-lg:text-center open_sans lg:px-12 xl:px-20 ">
           <p className=" text-[#F98800] text-sm lg:text-md font-semibold ">OUR TRACK RECORD</p>
@@ -93,7 +94,7 @@ export const TrackRecordSection = () => {
             {isLoggedIn ? (
               <>
                 <div className=" hidden lg:block  mt-[46px] lg:px-20 ">
-                  <HeroCardSection />
+                  <HeroLandingCardSection />
 
                   <div className=" flex justify-center">
                     <ButtonnArrow
@@ -158,7 +159,7 @@ export const TrackRecordSection = () => {
               <>
                 <div className=" relative flex-1 max-lg:hidden  ">
                   <div className=" relative z-10 h-[70%] w-[90%] lg:right-20 xl:right-0">
-                    <TrackRecordHeroCard
+                    <TrackRecordHeroCardLanding
                       className=" border"
                       {...trackRecordDashboardStats}
                       type={"LIVE"}
@@ -176,7 +177,7 @@ export const TrackRecordSection = () => {
                     />
                   </div>
                   <div className=" absolute -top-9 right-28 xl:right-12 z-[2] h-[80%]  w-[85%]">
-                    <TrackRecordHeroCard
+                    <TrackRecordHeroCardLanding
                       className=" border"
                       {...trackRecordDashboardStats}
                       type={"EXIT"}
@@ -199,7 +200,7 @@ export const TrackRecordSection = () => {
                   <CarouselContent>
                     <CarouselItem className=" basis-11/12">
                       {" "}
-                      <TrackRecordHeroCard
+                      <TrackRecordHeroCardLanding
                         {...trackRecordDashboardStats}
                         type={"LIVE"}
                         recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
@@ -216,7 +217,7 @@ export const TrackRecordSection = () => {
                       />
                     </CarouselItem>
                     <CarouselItem className=" basis-11/12">
-                      <TrackRecordHeroCard
+                      <TrackRecordHeroCardLanding
                         {...trackRecordDashboardStats}
                         type={"EXIT"}
                         recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}

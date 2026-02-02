@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTrackRecordDashboard } from "@/api/track-record";
 import TrackRecordHeroCardSkeleton from "./skeleton/TrackRecordHeroCardSkeleton";
 import IndexedPerformanceChart from "./IndexedPerformanceChart";
+import { TrackRecordHeroCardLanding } from "./TrackRecordHeroCard";
 export function HeroCardSection() {
   const {
     data: trackRecordDashboardStats = [],
@@ -88,7 +89,7 @@ export function HeroLandingCardSection() {
       ) : (
         <>
           {" "}
-          <TrackRecordHeroCard
+          <TrackRecordHeroCardLanding
             {...trackRecordDashboardStats}
             type={"LIVE"}
             recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
@@ -103,7 +104,7 @@ export function HeroLandingCardSection() {
             entry_price_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.entry_price}
             start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
           />
-          <TrackRecordHeroCard
+          <TrackRecordHeroCardLanding
             {...trackRecordDashboardStats}
             type={"EXIT"}
             recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
