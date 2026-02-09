@@ -142,15 +142,15 @@ export default function IndexedPerformanceChart() {
                 <span class="inline-block w-2 h-2 rounded-full mr-2" style="background-color: #108973;"></span>
                 <span class="whitespace-nowrap truncate max-w-[50%] inline-block">${portfolioLabel}</span>: <span class="font-regular text-[#333]">₹${portfolioPoint.formattedValue}</span>
               </div>`
-                  : ""
-              }
+          : ""
+        }
               ${benchmarkPoint
           ? `<div class="font-semibold text-xs text-[#F97316]  flex flex-row items-center">
                 <span class="inline-block w-2 h-2 rounded-full mr-2" style="background-color: #F97316;"></span>
                <span class="whitespace-nowrap truncate max-w-[50%] inline-block"> ${benchmarkLabel}</span>: <span class="font-regular text-[#333]">₹${benchmarkPoint.formattedValue}</span>
               </div>`
-                  : ""
-              }
+          : ""
+        }
             </div>
           </div>
           <svg class="absolute bottom-[-13px]" width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -468,7 +468,7 @@ export default function IndexedPerformanceChart() {
               }
             />
 
-            <p className="text-white text-sm font-bold">Our CAGR since start: {chartData?.data?.xirr_percentage}%</p>
+            <p className="text-white text-sm font-bold">Our CAGR since start: <span className={`${isLoggedIn ? " " : "blur-md"}`}>{isLoggedIn ? chartData?.data?.xirr_percentage : 0}%</span></p>
           </div>
         </div>
 
@@ -557,7 +557,7 @@ export default function IndexedPerformanceChart() {
           activeValue={timeRange}
           defaultOption={timeRange}
         />
-        </div>
+      </div>
       {/* Disclaimer */}
       <p className="text-xs text-[#667085] mt-4">
         Note: Live performance includes recommendation changes (adds/exits). This is a model index built from our
