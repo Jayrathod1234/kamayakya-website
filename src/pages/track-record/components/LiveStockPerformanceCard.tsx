@@ -126,14 +126,14 @@ export function LiveStockPerformanceCard({ type, performance, newRecommendation,
   return (
     <div className=" p-4 pt-3 bg-white rounded-xl w-full">
       <div className="flex items-center">
-        <div className=" p-1 ml-1 hidden md:block">
+        <div className=" p-1 ml-1 hidden md:block shrink-0">
           {type === "LIVE" ? (
             <img height={16} width={16} src="/assets/entry point.svg" alt="entry-marker" />
           ) : (
             <img height={16} width={16} src="/assets/exit_icon.svg" alt="exit-marker" />
           )}
         </div>
-        <p className=" text-sm font-semibold">{label} <span className="text-brand-500 hidden md:inline-block">({recommendationLabel})</span></p>
+        <p className=" text-sm font-semibold text-left whitespace-nowrap  w-full flex items-center max-w-[55%]">{label}{"  "} <span className="text-brand-500 hidden md:inline-block whitespace-nowrap truncate ml-1">{" "}({recommendationLabel})</span></p>
         <div className="ml-auto max-md:hidden">
           <TrackRecordHeroCardNewChip type={type} newRecommendation={newRecommendation} />
         </div>

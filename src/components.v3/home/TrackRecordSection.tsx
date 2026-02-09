@@ -93,7 +93,7 @@ export const TrackRecordSection = () => {
           <TrackRecordProvider>
             {isLoggedIn ? (
               <>
-                <div className=" hidden lg:block  mt-[46px] lg:px-20 ">
+                <div className=" block  mt-[46px] lg:px-20 ">
                   <HeroLandingCardSection />
 
                   <div className=" flex justify-center">
@@ -115,11 +115,11 @@ export const TrackRecordSection = () => {
                     </ButtonnArrow>
                   </div>
                 </div>
-                <Carousel plugins={[Autoplay({ delay: 2000 })]} className=" lg:hidden w-full mt-6 px-2">
+                {/* <Carousel plugins={[Autoplay({ delay: 2000 })]} className=" xl:hidden w-full mt-6 px-2">
                   <CarouselContent>
                     <CarouselItem className=" basis-11/12">
                       {" "}
-                      <TrackRecordHeroCard
+                      <TrackRecordHeroCardLanding
                         {...trackRecordDashboardStats}
                         type={"LIVE"}
                         recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
@@ -136,7 +136,7 @@ export const TrackRecordSection = () => {
                       />
                     </CarouselItem>
                     <CarouselItem className=" basis-11/12">
-                      <TrackRecordHeroCard
+                      <TrackRecordHeroCardLanding
                         {...trackRecordDashboardStats}
                         type={"EXIT"}
                         recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
@@ -153,7 +153,7 @@ export const TrackRecordSection = () => {
                       />
                     </CarouselItem>
                   </CarouselContent>
-                </Carousel>
+                </Carousel> */}
               </>
             ) : (
               <>
