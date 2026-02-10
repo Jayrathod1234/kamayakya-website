@@ -137,6 +137,11 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
   return (
     <div className="relative bg-[#effffc] pricing  bg-[length:100vw] bg-no-repeat bg-[top_center]">
       <Head>
+        <title>Kamayakya Blog - Insights on Small Cap Stocks & Investing Tips</title>
+        <meta
+          name="description"
+          content="Read expert articles on small cap stocks to buy, long-term investing, and market insights. Stay updated with research-backed guidance to grow your wealth confidently."
+        />
         <link rel="canonical" href="https://www.kamayakya.com/blogs-page" />
       </Head>
       <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">

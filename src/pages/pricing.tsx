@@ -143,6 +143,11 @@ export default function Page() {
       className={` relative pricing pricing-body tracking-wide bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}
     >
       <Head>
+        <title>Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets</title>
+        <meta
+          name="description"
+          content="Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently."
+        />
         <link rel="canonical" href="https://www.kamayakya.com/pricing" />
       </Head>
       {/* gradeint bg */}

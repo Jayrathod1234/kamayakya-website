@@ -251,6 +251,11 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
+        <title>Kamayakya - Small Cap Stocks to Buy | Best Stock Recommendations Today</title>
+        <meta
+          name="description"
+          content="Kamayakya offers trusted stock advisory services in Pune with expert guidance on small cap stocks to buy, long-term stock picks, and under-valued stocks in India. Get reliable stock research today."
+        />
         <link rel="canonical" href="https://www.kamayakya.com/" />
       </Head>
       <Floater />

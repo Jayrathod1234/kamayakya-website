@@ -66,6 +66,11 @@ export default function Page() {
   return (
     <main className="open_sans bg-gray-50 bg-[length:100vw] bg-no-repeat bg-[top_center]">
       <Head>
+        <title>Kamayakya VIP Updates - Today's Small Cap Stock Insights</title>
+        <meta
+          name="description"
+          content="Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities."
+        />
         <link rel="canonical" href="https://www.kamayakya.com/vip-updates" />
       </Head>
       <div className=" absolute ">
@@ -94,13 +99,12 @@ export default function Page() {
           </div>
         ) : (
           <div
-            className={`mt-12 grid grid-cols-[.3fr_1fr_.4fr]  ${
-              years.length === 1
+            className={`mt-12 grid grid-cols-[.3fr_1fr_.4fr]  ${years.length === 1
                 ? "lg:grid-cols-[.099fr_1fr_.135fr] sm:grid-cols-[.3fr_1fr_.4fr]"
                 : years.length === 2
-                ? "lg:grid-cols-[.3fr_1fr_1fr_.4fr] sm:grid-cols-[.3fr_1fr_1fr_.4fr] "
-                : " sm:grid-cols-[.3fr_1fr_1fr_.4fr] lg:grid-cols-[.3fr_1fr_1fr_1fr_.4fr]"
-            } items-center place-content-center bg-white rounded-[20px] border border-gray-200 relative`}
+                  ? "lg:grid-cols-[.3fr_1fr_1fr_.4fr] sm:grid-cols-[.3fr_1fr_1fr_.4fr] "
+                  : " sm:grid-cols-[.3fr_1fr_1fr_.4fr] lg:grid-cols-[.3fr_1fr_1fr_1fr_.4fr]"
+              } items-center place-content-center bg-white rounded-[20px] border border-gray-200 relative`}
           >
             {isLoggedIn ? null : (
               <div className="absolute h-full w-full backdrop-blur-sm flex items-center justify-center">
@@ -177,9 +181,8 @@ export default function Page() {
             {QUARTERS.map((quarter) => (
               <React.Fragment key={quarter}>
                 <div
-                  className={`font-semibold py-9 ${
-                    quarter !== "Q1" ? " border-b border-b-gray-200 " : " "
-                  } w-full h-full text-center flex items-center justify-center`}
+                  className={`font-semibold py-9 ${quarter !== "Q1" ? " border-b border-b-gray-200 " : " "
+                    } w-full h-full text-center flex items-center justify-center`}
                 >
                   {quarter}
                 </div>
@@ -191,9 +194,8 @@ export default function Page() {
 
                   return (
                     <div
-                      className={` py-9 ${
-                        quarter !== "Q1" ? " border-b border-b-gray-200 " : " "
-                      } w-full h-full flex items-center justify-center flex-wrap gap-4`}
+                      className={` py-9 ${quarter !== "Q1" ? " border-b border-b-gray-200 " : " "
+                        } w-full h-full flex items-center justify-center flex-wrap gap-4`}
                       key={year}
                     >
                       {quarterYearData && quarterYearData.length > 0 ? (
