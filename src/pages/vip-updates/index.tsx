@@ -71,6 +71,14 @@ export default function Page() {
           name="description"
           content="Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities."
         />
+        <meta
+          property="og:title"
+          content="Kamayakya VIP Updates - Today's Small Cap Stock Insights"
+        />
+        <meta
+          property="og:description"
+          content="Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities."
+        />
         <link rel="canonical" href="https://www.kamayakya.com/vip-updates" />
       </Head>
       <div className=" absolute ">
@@ -100,10 +108,10 @@ export default function Page() {
         ) : (
           <div
             className={`mt-12 grid grid-cols-[.3fr_1fr_.4fr]  ${years.length === 1
-                ? "lg:grid-cols-[.099fr_1fr_.135fr] sm:grid-cols-[.3fr_1fr_.4fr]"
-                : years.length === 2
-                  ? "lg:grid-cols-[.3fr_1fr_1fr_.4fr] sm:grid-cols-[.3fr_1fr_1fr_.4fr] "
-                  : " sm:grid-cols-[.3fr_1fr_1fr_.4fr] lg:grid-cols-[.3fr_1fr_1fr_1fr_.4fr]"
+              ? "lg:grid-cols-[.099fr_1fr_.135fr] sm:grid-cols-[.3fr_1fr_.4fr]"
+              : years.length === 2
+                ? "lg:grid-cols-[.3fr_1fr_1fr_.4fr] sm:grid-cols-[.3fr_1fr_1fr_.4fr] "
+                : " sm:grid-cols-[.3fr_1fr_1fr_.4fr] lg:grid-cols-[.3fr_1fr_1fr_1fr_.4fr]"
               } items-center place-content-center bg-white rounded-[20px] border border-gray-200 relative`}
           >
             {isLoggedIn ? null : (

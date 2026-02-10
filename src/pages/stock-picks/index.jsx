@@ -188,6 +188,14 @@ const StockPicks = () => {
           name="description"
           content="Discover high-potential SME and microcap stocks selected through detailed research. Explore the best SME stocks with strong fundamentals and long-term growth potential."
         />
+        <meta
+          property="og:title"
+          content="Kamayakya Stock Picks - Best SME Stocks & Microcap Ideas"
+        />
+        <meta
+          property="og:description"
+          content="Discover high-potential SME and microcap stocks selected through detailed research. Explore the best SME stocks with strong fundamentals and long-term growth potential."
+        />
         <link rel="canonical" href="https://www.kamayakya.com/stock-picks" />
       </Head>
       {isMobile && searchPageOpen ? (

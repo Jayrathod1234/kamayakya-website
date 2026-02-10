@@ -148,6 +148,14 @@ export default function Page() {
           name="description"
           content="Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently."
         />
+        <meta
+          property="og:title"
+          content="Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets"
+        />
+        <meta
+          property="og:description"
+          content="Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently."
+        />
         <link rel="canonical" href="https://www.kamayakya.com/pricing" />
       </Head>
       {/* gradeint bg */}
