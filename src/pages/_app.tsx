@@ -69,23 +69,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                       estimatedTime="1-2 hours"
                     /> */}
                     <Head>
-                      <title>
-                        KamayaKya - SEBI Registered Research Analyst | Expert Microcap & Smallcap Stock Picks
-                      </title>
 
-                      <meta
-                        name="og:title"
-                        content="KamayaKya - SEBI Registered Research Analyst | Expert Microcap &
-              Smallcap Stock Picks"
-                      />
-                      <meta
-                        name="description"
-                        content="KamayaKya is your friendly investment guru who will assist you in finding the best SME, MicroCap and SmallCap stocks to invest, backed by solid research."
-                      />
-                      <meta
-                        name="og:description"
-                        content="KamayaKya is your friendly investment guru who will assist you in finding the best SME, MicroCap and SmallCap stocks to invest, backed by solid research."
-                      />
                       <meta
                         name="keywords"
                         content="stock market advisory, share market advisory, stock market advisory services, stock market advisory company, best stock market advisor, investment advisor, stock investment advisor, best trading advisory services, sebi registered stock market advisory company, top stock advisory services, share market investment advisor"
