@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import Head from "next/head";
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
   const { sebiBoardType, searchPageOpen } = useStockPicks();
@@ -181,6 +182,9 @@ const StockPicks = () => {
 
   return (
     <>
+      <Head>
+        <link rel="canonical" href="https://www.kamayakya.com/stock-picks" />
+      </Head>
       {isMobile && searchPageOpen ? (
         <AllBoardStockProvider>
           <SearchPage />

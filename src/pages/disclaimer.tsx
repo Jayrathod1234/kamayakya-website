@@ -19,6 +19,7 @@ const Disclaimer = () => {
                     name="description"
                     content="Read KamayaKya's disclaimer, which clearly explains the risks and responsibilities. Commit to clarity as you navigate your financial journey with us."
                 />
+                <link rel="canonical" href="https://www.kamayakya.com/disclaimer" />
             </Head>
             {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
             <Navbar className=" bg-white"/>

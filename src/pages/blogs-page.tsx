@@ -15,6 +15,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
+import Head from "next/head";
 
 const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | null; prev: string | null }) => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -135,6 +136,9 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
 
   return (
     <div className="relative bg-[#effffc] pricing  bg-[length:100vw] bg-no-repeat bg-[top_center]">
+      <Head>
+        <link rel="canonical" href="https://www.kamayakya.com/blogs-page" />
+      </Head>
       <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
         <div className="  absolute right-1 lg:right-[40px] top-36 opacity-20 md:opacity-100">
           <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />

@@ -19,6 +19,7 @@ const TermsAndCond = () => {
                     name="description"
                     content="Uncover KamayaKya's Terms and Conditions that reflect our commitment to transparency, trust and your financial success."
                 />
+                <link rel="canonical" href="https://www.kamayakya.com/terms-conditions" />
             </Head>
             {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
             <Navbar className=" bg-white"/>

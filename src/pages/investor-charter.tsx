@@ -19,6 +19,7 @@ const InvestorCharter = () => {
           name="description"
           content="Explore the Kamayakya's investor charter for unparalleled insights and expert guidance, empowering you to make informed financial decisions."
         />
+        <link rel="canonical" href="https://www.kamayakya.com/investor-charter" />
       </Head>
       {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
       <Navbar className=" bg-white open_sans" />

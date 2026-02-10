@@ -19,6 +19,7 @@ const PrivacyPolicy = () => {
                     name="description"
                     content="KamayKya is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, and protected by KamayaKya."
                 />
+                <link rel="canonical" href="https://www.kamayakya.com/privacy-policy" />
             </Head>
             {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
             <Navbar className=" bg-white"/>

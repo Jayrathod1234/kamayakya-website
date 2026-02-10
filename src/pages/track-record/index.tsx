@@ -15,6 +15,7 @@ import { ACTIVE_PLAN_URL, GET_USER } from "../api/URLs";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
+import Head from "next/head";
 
 import ContactUsBtn from "@/components.v2/contact-us-btn";
 const MyObserver = () => {
@@ -139,6 +140,9 @@ export default function TrackRecord() {
     <TrackRecordCommonProvider>
       <TrackRecordProvider>
         {/* <StockPicksProvider> */}
+        <Head>
+          <link rel="canonical" href="https://www.kamayakya.com/track-record" />
+        </Head>
         <div className=" relative open_sans">
           <TrackRecordMain />
         </div>

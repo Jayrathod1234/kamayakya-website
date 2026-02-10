@@ -25,6 +25,7 @@ import { ACTIVE_PLAN_URL, GET_USER } from "./api/URLs";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
+import Head from "next/head";
 const Home: NextPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -249,6 +250,9 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <link rel="canonical" href="https://www.kamayakya.com/" />
+      </Head>
       <Floater />
       <Navbar className=" open_sans bg-[#F4FFFF]" />
 

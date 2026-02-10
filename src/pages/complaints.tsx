@@ -21,6 +21,7 @@ const Complaints = () => {
                     name="description"
                     content="Check out our Complaints Page to provide feedback. We are committed to resolving issues promptly, ensuring a seamless experience for our valued clients."
                 />
+                <link rel="canonical" href="https://www.kamayakya.com/complaints" />
             </Head>
             {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
             <Navbar className=" bg-white"/>

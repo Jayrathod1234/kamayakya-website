@@ -10,6 +10,7 @@ import { Button, ButtonVariant } from "@/components.v2/button/button";
 import { Button as SButton } from "@/components.v2/ui/button";
 import { useActivePlanContext } from "@/components/PlanContext";
 import ElevateSection from "../stock-picks/components/ElevateSection";
+import Head from "next/head";
 const QUARTERS = ["Q4", "Q3", "Q2", "Q1"];
 
 export default function Page() {
@@ -64,6 +65,9 @@ export default function Page() {
 
   return (
     <main className="open_sans bg-gray-50 bg-[length:100vw] bg-no-repeat bg-[top_center]">
+      <Head>
+        <link rel="canonical" href="https://www.kamayakya.com/vip-updates" />
+      </Head>
       <div className=" absolute ">
         <img className=" h-[60vh] w-screen object-cover" src="/assets/vip-update-bg.png" alt="vip_bg" />
         <div className=" w-full bg-[linear-gradient(272deg,_#125B54_18.54%,_#092E2B_107.09%) h-[120px] -mt-[9rem] relative"></div>
