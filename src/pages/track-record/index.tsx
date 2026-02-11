@@ -143,14 +143,17 @@ export default function TrackRecord() {
         <Head>
           <title>Kamayakya Track Record - Top Small Cap Stocks & Performance</title>
           <meta
+            key="description"
             name="description"
             content="Review Kamayakya's track record featuring top small cap stocks to buy in India. Check performance history and see how our best performing smallcase-style picks have grown."
           />
           <meta
+            key="og:title"
             property="og:title"
             content="Kamayakya Track Record - Top Small Cap Stocks & Performance"
           />
           <meta
+            key="og:description"
             property="og:description"
             content="Review Kamayakya's track record featuring top small cap stocks to buy in India. Check performance history and see how our best performing smallcase-style picks have grown."
           />

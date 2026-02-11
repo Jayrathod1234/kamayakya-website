@@ -185,14 +185,17 @@ const StockPicks = () => {
       <Head>
         <title>Kamayakya Stock Picks - Best SME Stocks & Microcap Ideas</title>
         <meta
+          key="description"
           name="description"
           content="Discover high-potential SME and microcap stocks selected through detailed research. Explore the best SME stocks with strong fundamentals and long-term growth potential."
         />
         <meta
+          key="og:title"
           property="og:title"
           content="Kamayakya Stock Picks - Best SME Stocks & Microcap Ideas"
         />
         <meta
+          key="og:description"
           property="og:description"
           content="Discover high-potential SME and microcap stocks selected through detailed research. Explore the best SME stocks with strong fundamentals and long-term growth potential."
         />

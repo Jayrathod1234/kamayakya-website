@@ -68,14 +68,17 @@ export default function Page() {
       <Head>
         <title>Kamayakya VIP Updates - Today's Small Cap Stock Insights</title>
         <meta
+          key="description"
           name="description"
           content="Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities."
         />
         <meta
+          key="og:title"
           property="og:title"
           content="Kamayakya VIP Updates - Today's Small Cap Stock Insights"
         />
         <meta
+          key="og:description"
           property="og:description"
           content="Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities."
         />

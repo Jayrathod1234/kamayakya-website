@@ -139,14 +139,17 @@ const BlogsPage = ({ blogs, next, prev }: { blogs: Array<TBlog>; next: string | 
       <Head>
         <title>Kamayakya Blog - Insights on Small Cap Stocks & Investing Tips</title>
         <meta
+          key="description"
           name="description"
           content="Read expert articles on small cap stocks to buy, long-term investing, and market insights. Stay updated with research-backed guidance to grow your wealth confidently."
         />
         <meta
+          key="og:title"
           property="og:title"
           content="Kamayakya Blog - Insights on Small Cap Stocks & Investing Tips"
         />
         <meta
+          key="og:description"
           property="og:description"
           content="Read expert articles on small cap stocks to buy, long-term investing, and market insights. Stay updated with research-backed guidance to grow your wealth confidently."
         />

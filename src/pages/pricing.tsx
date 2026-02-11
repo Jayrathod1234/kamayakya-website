@@ -145,14 +145,17 @@ export default function Page() {
       <Head>
         <title>Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets</title>
         <meta
+          key="description"
           name="description"
           content="Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently."
         />
         <meta
+          key="og:title"
           property="og:title"
           content="Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets"
         />
         <meta
+          key="og:description"
           property="og:description"
           content="Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently."
         />
