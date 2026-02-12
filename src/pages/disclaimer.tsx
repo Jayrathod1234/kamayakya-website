@@ -7,6 +7,7 @@ import AuthContext from "@/components/AuthContext";
 import {Text} from "@nextui-org/react";
 import {Box} from "@mui/material";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import { Navbar } from "@/components.v2/navbar";
 
 const Disclaimer = () => {
@@ -14,12 +15,16 @@ const Disclaimer = () => {
     return (
         <div>
             <Head>
-                <title>KamayaKya | Disclaimer</title>
-                <meta
-                    name="description"
-                    content="Read KamayaKya's disclaimer, which clearly explains the risks and responsibilities. Commit to clarity as you navigate your financial journey with us."
-                />
-                <link rel="canonical" href="https://www.kamayakya.com/disclaimer" />
+                {generateNextSeo({
+                    title: "KamayaKya | Disclaimer",
+                    description: "Read KamayaKya's disclaimer, which clearly explains the risks and responsibilities. Commit to clarity as you navigate your financial journey with us.",
+                    canonical: "https://www.kamayakya.com/disclaimer",
+                    openGraph: {
+                        url: "https://www.kamayakya.com/disclaimer",
+                        title: "KamayaKya | Disclaimer",
+                        description: "Read KamayaKya's disclaimer, which clearly explains the risks and responsibilities. Commit to clarity as you navigate your financial journey with us.",
+                    },
+                })}
             </Head>
             {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
             <Navbar className=" bg-white"/>

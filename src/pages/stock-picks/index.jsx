@@ -20,6 +20,7 @@ import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
 import axios from "axios";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 const StockPicks = () => {
   const { isLoggedIn } = useContext(AuthContext);
   const { sebiBoardType, searchPageOpen } = useStockPicks();
@@ -183,23 +184,16 @@ const StockPicks = () => {
   return (
     <>
       <Head>
-        <title>Kamayakya Stock Picks - Best SME Stocks & Microcap Ideas</title>
-        <meta
-          key="description"
-          name="description"
-          content="Discover high-potential SME and microcap stocks selected through detailed research. Explore the best SME stocks with strong fundamentals and long-term growth potential."
-        />
-        <meta
-          key="og:title"
-          property="og:title"
-          content="Kamayakya Stock Picks - Best SME Stocks & Microcap Ideas"
-        />
-        <meta
-          key="og:description"
-          property="og:description"
-          content="Discover high-potential SME and microcap stocks selected through detailed research. Explore the best SME stocks with strong fundamentals and long-term growth potential."
-        />
-        <link rel="canonical" href="https://www.kamayakya.com/stock-picks" />
+        {generateNextSeo({
+          title: "Kamayakya Stock Picks - Best SME Stocks & Microcap Ideas",
+          description: "Discover high-potential SME and microcap stocks selected through detailed research. Explore the best SME stocks with strong fundamentals and long-term growth potential.",
+          canonical: "https://www.kamayakya.com/stock-picks",
+          openGraph: {
+            url: "https://www.kamayakya.com/stock-picks",
+            title: "Kamayakya Stock Picks - Best SME Stocks & Microcap Ideas",
+            description: "Discover high-potential SME and microcap stocks selected through detailed research. Explore the best SME stocks with strong fundamentals and long-term growth potential.",
+          },
+        })}
       </Head>
       {isMobile && searchPageOpen ? (
         <AllBoardStockProvider>

@@ -26,6 +26,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 const Home: NextPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -251,23 +252,16 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Kamayakya - Small Cap Stocks to Buy | Best Stock Recommendations Today</title>
-        <meta
-          key="description"
-          name="description"
-          content="Kamayakya offers trusted stock advisory services in Pune with expert guidance on small cap stocks to buy, long-term stock picks, and under-valued stocks in India. Get reliable stock research today."
-        />
-        <meta
-          key="og:title"
-          property="og:title"
-          content="Kamayakya - Small Cap Stocks to Buy | Best Stock Recommendations Today"
-        />
-        <meta
-          key="og:description"
-          property="og:description"
-          content="Kamayakya offers trusted stock advisory services in Pune with expert guidance on small cap stocks to buy, long-term stock picks, and under-valued stocks in India. Get reliable stock research today."
-        />
-        <link rel="canonical" href="https://www.kamayakya.com/" />
+        {generateNextSeo({
+          title: "Kamayakya - Small Cap Stocks to Buy | Best Stock Recommendations Today",
+          description: "Kamayakya offers trusted stock advisory services in Pune with expert guidance on small cap stocks to buy, long-term stock picks, and under-valued stocks in India. Get reliable stock research today.",
+          canonical: "https://www.kamayakya.com/",
+          openGraph: {
+            url: "https://www.kamayakya.com/",
+            title: "Kamayakya - Small Cap Stocks to Buy | Best Stock Recommendations Today",
+            description: "Kamayakya offers trusted stock advisory services in Pune with expert guidance on small cap stocks to buy, long-term stock picks, and under-valued stocks in India. Get reliable stock research today.",
+          },
+        })}
       </Head>
       <Floater />
       <Navbar className=" open_sans bg-[#F4FFFF]" />

@@ -8,18 +8,23 @@ import {Footer} from "../components.v2/footer";
 import {Text} from "@nextui-org/react";
 import {Box} from "@mui/material";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 
 const PrivacyPolicy = () => {
     const {isLoggedIn} = useContext(AuthContext);
     return (
         <div style={{backgroundColor: "#fff"}}>
             <Head>
-                <title>KamayaKya | Privacy Policy</title>
-                <meta
-                    name="description"
-                    content="KamayKya is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, and protected by KamayaKya."
-                />
-                <link rel="canonical" href="https://www.kamayakya.com/privacy-policy" />
+                {generateNextSeo({
+                    title: "KamayaKya | Privacy Policy",
+                    description: "KamayKya is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, and protected by KamayaKya.",
+                    canonical: "https://www.kamayakya.com/privacy-policy",
+                    openGraph: {
+                        url: "https://www.kamayakya.com/privacy-policy",
+                        title: "KamayaKya | Privacy Policy",
+                        description: "KamayKya is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, and protected by KamayaKya.",
+                    },
+                })}
             </Head>
             {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
             <Navbar className=" bg-white"/>

@@ -7,6 +7,7 @@ import AuthContext from "@/components/AuthContext";
 import {Text} from "@nextui-org/react";
 import {Box} from "@mui/material";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import { Navbar } from "@/components.v2/navbar";
 import Audit from "@/components.v2/audit";
 
@@ -16,12 +17,16 @@ const Complaints = () => {
     return (
         <div>
             <Head>
-                <title>KamayaKya | Complaints</title>
-                <meta
-                    name="description"
-                    content="Check out our Complaints Page to provide feedback. We are committed to resolving issues promptly, ensuring a seamless experience for our valued clients."
-                />
-                <link rel="canonical" href="https://www.kamayakya.com/complaints" />
+                {generateNextSeo({
+                    title: "KamayaKya | Complaints",
+                    description: "Check out our Complaints Page to provide feedback. We are committed to resolving issues promptly, ensuring a seamless experience for our valued clients.",
+                    canonical: "https://www.kamayakya.com/complaints",
+                    openGraph: {
+                        url: "https://www.kamayakya.com/complaints",
+                        title: "KamayaKya | Complaints",
+                        description: "Check out our Complaints Page to provide feedback. We are committed to resolving issues promptly, ensuring a seamless experience for our valued clients.",
+                    },
+                })}
             </Head>
             {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
             <Navbar className=" bg-white"/>

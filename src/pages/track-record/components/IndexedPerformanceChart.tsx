@@ -468,7 +468,7 @@ export default function IndexedPerformanceChart() {
               }
             />
 
-            <p className="text-white text-sm font-bold">Our CAGR since start: <span className={`${isLoggedIn ? " " : "blur-md"}`}>{isLoggedIn ? chartData?.data?.xirr_percentage : 0}%</span></p>
+            <p className="text-white text-sm font-bold flex items-center">Our CAGR since start: <span className={`${isLoggedIn ? " " : "inline-block  w-[16px] h-[16px] bg-[rgba(237,240,245,0.45)] backdrop-blur-md rounded-md ml-[2px]"}`}>{isLoggedIn ? chartData?.data?.xirr_percentage + "%" : ""}</span></p>
           </div>
         </div>
 

@@ -16,6 +16,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 
 import ContactUsBtn from "@/components.v2/contact-us-btn";
 const MyObserver = () => {
@@ -141,23 +142,16 @@ export default function TrackRecord() {
       <TrackRecordProvider>
         {/* <StockPicksProvider> */}
         <Head>
-          <title>Kamayakya Track Record - Top Small Cap Stocks & Performance</title>
-          <meta
-            key="description"
-            name="description"
-            content="Review Kamayakya's track record featuring top small cap stocks to buy in India. Check performance history and see how our best performing smallcase-style picks have grown."
-          />
-          <meta
-            key="og:title"
-            property="og:title"
-            content="Kamayakya Track Record - Top Small Cap Stocks & Performance"
-          />
-          <meta
-            key="og:description"
-            property="og:description"
-            content="Review Kamayakya's track record featuring top small cap stocks to buy in India. Check performance history and see how our best performing smallcase-style picks have grown."
-          />
-          <link rel="canonical" href="https://www.kamayakya.com/track-record" />
+          {generateNextSeo({
+            title: "Kamayakya Track Record - Top Small Cap Stocks & Performance",
+            description: "Review Kamayakya's track record featuring top small cap stocks to buy in India. Check performance history and see how our best performing smallcase-style picks have grown.",
+            canonical: "https://www.kamayakya.com/track-record",
+            openGraph: {
+              url: "https://www.kamayakya.com/track-record",
+              title: "Kamayakya Track Record - Top Small Cap Stocks & Performance",
+              description: "Review Kamayakya's track record featuring top small cap stocks to buy in India. Check performance history and see how our best performing smallcase-style picks have grown.",
+            },
+          })}
         </Head>
         <div className=" relative open_sans">
           <TrackRecordMain />

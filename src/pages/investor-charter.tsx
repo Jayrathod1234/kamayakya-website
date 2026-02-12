@@ -7,6 +7,7 @@ import AuthContext from "@/components/AuthContext";
 import { Text } from "@nextui-org/react";
 import { Box } from "@mui/material";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import { Navbar } from "@/components.v2/navbar";
 
 const InvestorCharter = () => {
@@ -14,12 +15,16 @@ const InvestorCharter = () => {
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Head>
-        <title>KamayaKya | Investor Charter</title>
-        <meta
-          name="description"
-          content="Explore the Kamayakya's investor charter for unparalleled insights and expert guidance, empowering you to make informed financial decisions."
-        />
-        <link rel="canonical" href="https://www.kamayakya.com/investor-charter" />
+        {generateNextSeo({
+          title: "KamayaKya | Investor Charter",
+          description: "Explore the Kamayakya's investor charter for unparalleled insights and expert guidance, empowering you to make informed financial decisions.",
+          canonical: "https://www.kamayakya.com/investor-charter",
+          openGraph: {
+            url: "https://www.kamayakya.com/investor-charter",
+            title: "KamayaKya | Investor Charter",
+            description: "Explore the Kamayakya's investor charter for unparalleled insights and expert guidance, empowering you to make informed financial decisions.",
+          },
+        })}
       </Head>
       {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
       <Navbar className=" bg-white open_sans" />

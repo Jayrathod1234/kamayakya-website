@@ -7,6 +7,7 @@ import FaqsNew from "./screens/FaqsNew";
 import {Footer} from "@/components.v2/footer";
 import {Box} from "@mui/material";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import { Navbar } from "@/components.v2/navbar";
 
 const TermsAndCond = () => {
@@ -14,12 +15,16 @@ const TermsAndCond = () => {
     return (
         <div style={{backgroundColor: "#fff"}}>
             <Head>
-                <title>KamayaKya | Terms and Conditions</title>
-                <meta
-                    name="description"
-                    content="Uncover KamayaKya's Terms and Conditions that reflect our commitment to transparency, trust and your financial success."
-                />
-                <link rel="canonical" href="https://www.kamayakya.com/terms-conditions" />
+                {generateNextSeo({
+                    title: "KamayaKya | Terms and Conditions",
+                    description: "Uncover KamayaKya's Terms and Conditions that reflect our commitment to transparency, trust and your financial success.",
+                    canonical: "https://www.kamayakya.com/terms-conditions",
+                    openGraph: {
+                        url: "https://www.kamayakya.com/terms-conditions",
+                        title: "KamayaKya | Terms and Conditions",
+                        description: "Uncover KamayaKya's Terms and Conditions that reflect our commitment to transparency, trust and your financial success.",
+                    },
+                })}
             </Head>
             {/* {isLoggedIn ? <NavBar2/> : <NavBar/>} */}
             <Navbar className=" bg-white"/>

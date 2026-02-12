@@ -22,6 +22,7 @@ import TopGainerLoserChart from "./TopGainerLoserChart";
 import { IStockPrices } from "@/types";
 import { useTrackRecord } from "@/contexts/TrackRecordContext";
 import Tooltip from "@/components.v3/common/Tooltip";
+import { Skeleton } from "@mui/material";
 ChartJS.register({
   LineElement,
   ChartTooltip,
@@ -79,17 +80,17 @@ export const TopGainerLoserCard = ({
   entry_price,
   start_date,
 }: // entry_price,
-// start_date,
-{
-  entry_price: string;
-  start_date: string;
-  action?: string;
-  type: string;
-  isBest: boolean;
-  stockStat: any;
-  stock_live_prices: IStockPrices[];
-  // setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+  // start_date,
+  {
+    entry_price: string;
+    start_date: string;
+    action?: string;
+    type: string;
+    isBest: boolean;
+    stockStat: any;
+    stock_live_prices: IStockPrices[];
+    // setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  }) => {
   const { isLoggedIn, isSubscribed } = useContext(AuthContext);
   const router = useRouter();
   const { setOpenMembershipModal } = useTrackRecord();
@@ -233,15 +234,15 @@ export const TopGainerLoserCard = ({
             <span className=" inline-block  h-6 w-[103px] bg-[rgba(237,240,245,1)] rounded-full"></span>
           ) : (
             <p className={`flex items-baseline text-display-xs font-bold whitespace-nowrap ${gainLossColorClass}`}>
-              {stockStat?.gain_loss && stockStat?.gain_loss}%{" "}
+              {stockStat?.gain_loss ? stockStat?.gain_loss : <span className="inline-block w-[20px] h-[24px] bg-[rgba(237,240,245,1)] rounded-md" />}%{" "}
               <div className="  items-center ml-[6px] hidden sm:flex">
                 {/* {stockStat?.return_time && `in ${abbreviateTime(stockStat?.return_time)}`} */}
                 {/* <p className=" !m-0 flex items-center gap-x-1 text-3xs font-semibold whitespace-nowrap text-white"> */}
                 <p className=" text-3xs font-semibold text-[rgba(73,70,70,1)]   ">
                   in{" "}
-                  {stockStat?.return_time?.includes(",")
+                  {stockStat?.return_time ? stockStat?.return_time?.includes(",")
                     ? abbreviateTime(stockStat?.return_time)
-                    : stockStat?.return_time}{" "}
+                    : stockStat?.return_time : <span className="inline-block w-[20px] h-[16px] bg-[rgba(237,240,245,1)] rounded-md" />}{" "}
                 </p>
                 {stockStat?.return_time?.includes(",") && (
                   <Tooltip

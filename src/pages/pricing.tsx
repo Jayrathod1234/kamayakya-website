@@ -35,6 +35,7 @@ import AuthContext from "@/components/AuthContext";
 import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal";
 import ContactUsBtn from "@/components.v2/contact-us-btn";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -143,23 +144,16 @@ export default function Page() {
       className={` relative pricing pricing-body tracking-wide bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}
     >
       <Head>
-        <title>Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets</title>
-        <meta
-          key="description"
-          name="description"
-          content="Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently."
-        />
-        <meta
-          key="og:title"
-          property="og:title"
-          content="Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets"
-        />
-        <meta
-          key="og:description"
-          property="og:description"
-          content="Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently."
-        />
-        <link rel="canonical" href="https://www.kamayakya.com/pricing" />
+        {generateNextSeo({
+          title: "Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets",
+          description: "Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently.",
+          canonical: "https://www.kamayakya.com/pricing",
+          openGraph: {
+            url: "https://www.kamayakya.com/pricing",
+            title: "Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets",
+            description: "Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently.",
+          },
+        })}
       </Head>
       {/* gradeint bg */}
       {/* <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40  ">

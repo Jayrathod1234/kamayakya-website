@@ -11,6 +11,7 @@ import { Button as SButton } from "@/components.v2/ui/button";
 import { useActivePlanContext } from "@/components/PlanContext";
 import ElevateSection from "../stock-picks/components/ElevateSection";
 import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 const QUARTERS = ["Q4", "Q3", "Q2", "Q1"];
 
 export default function Page() {
@@ -66,23 +67,16 @@ export default function Page() {
   return (
     <main className="open_sans bg-gray-50 bg-[length:100vw] bg-no-repeat bg-[top_center]">
       <Head>
-        <title>Kamayakya VIP Updates - Today's Small Cap Stock Insights</title>
-        <meta
-          key="description"
-          name="description"
-          content="Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities."
-        />
-        <meta
-          key="og:title"
-          property="og:title"
-          content="Kamayakya VIP Updates - Today's Small Cap Stock Insights"
-        />
-        <meta
-          key="og:description"
-          property="og:description"
-          content="Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities."
-        />
-        <link rel="canonical" href="https://www.kamayakya.com/vip-updates" />
+        {generateNextSeo({
+          title: "Kamayakya VIP Updates - Today's Small Cap Stock Insights",
+          description: "Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities.",
+          canonical: "https://www.kamayakya.com/vip-updates",
+          openGraph: {
+            url: "https://www.kamayakya.com/vip-updates",
+            title: "Kamayakya VIP Updates - Today's Small Cap Stock Insights",
+            description: "Access exclusive VIP updates with small cap stocks to buy today. Get timely research, alerts, and actionable insights to stay ahead of market opportunities.",
+          },
+        })}
       </Head>
       <div className=" absolute ">
         <img className=" h-[60vh] w-screen object-cover" src="/assets/vip-update-bg.png" alt="vip_bg" />
