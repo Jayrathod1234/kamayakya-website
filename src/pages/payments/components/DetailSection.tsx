@@ -472,10 +472,10 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
   console.log(
     "IS SIGN DIABLED",
     email?.length === 0 ||
-      mobile?.length === 0 ||
-      (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
-      (!isPanAlreadyVerified && !userDetails.maskedPan) ||
-      (isPanAlreadyVerified && !userDetails.address && !pincodeBasedAddress)
+    mobile?.length === 0 ||
+    (!Number.isNaN(Number(address)) && !pincodeBasedAddress) ||
+    (!isPanAlreadyVerified && !userDetails.maskedPan) ||
+    (isPanAlreadyVerified && !userDetails.address && !pincodeBasedAddress)
   );
   const handleCheckout: SubmitHandler<IFormInput> = async (data) => {
     // if (!aadharVerified && !isAadharAlreadyVerified && !isAadharVintage) {
@@ -516,7 +516,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
         user_contact: data.phone.slice(3),
       };
       if (pincodeBasedAddress) {
-        const [city, state, countryPincode] = pincodeBasedAddress.split(", "); //PINCODE ADDRESS FORMAT -> City, State, Country - Pincode
+        const [_name, city, _district, state, countryPincode] = pincodeBasedAddress.split(", "); //PINCODE ADDRESS FORMAT -> City, State, Country - Pincode
         const [country, pincode] = countryPincode.split(" - ");
         params = { ...params, pincode, city, state, country };
       }
@@ -741,9 +741,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                         value:
                           // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
                           (billingSameAsAadhar && !isPanAlreadyVerified) ||
-                          (isPanAlreadyVerified && preExistingAddress === userDetails.address)
+                            (isPanAlreadyVerified && preExistingAddress === userDetails.address)
                             ? // (isAadharAlreadyVerified && preExistingAddress === userDetails.address)
-                              /^[\s\S]*$/
+                            /^[\s\S]*$/
                             : /^\d{6}$/,
                         message: "Enter a valid pincode.",
                       },
@@ -768,9 +768,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                         type={
                           // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
                           (billingSameAsAadhar && !isPanAlreadyVerified) ||
-                          (isPanAlreadyVerified && field.value === userDetails.address)
+                            (isPanAlreadyVerified && field.value === userDetails.address)
                             ? // (isAadharAlreadyVerified && field.value === userDetails.address)
-                              "text"
+                            "text"
                             : "number"
                         }
                         variant="outlined"
@@ -790,7 +790,7 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                                 // (billingSameAsAadhar && !isAadharAlreadyVerified) ||
                                 // (isAadharAlreadyVerified && field.value === userDetails.address)
                                 (billingSameAsAadhar && !isPanAlreadyVerified) ||
-                                (isPanAlreadyVerified && field.value === userDetails.address) ? null : (
+                                  (isPanAlreadyVerified && field.value === userDetails.address) ? null : (
                                   <>
                                     {errors.address?.message && (
                                       <Tooltip
@@ -845,9 +845,8 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
                             </InputAdornment>
                           ),
                         }}
-                        className={`!mt-[6px]  ${
-                          pincodeBasedAddress ? " [&>.fieldset]:!rounded-t-lg pb-0" : " !rounded-[6.2px]"
-                        }    !border-[#0000000F]`}
+                        className={`!mt-[6px]  ${pincodeBasedAddress ? " [&>.fieldset]:!rounded-t-lg pb-0" : " !rounded-[6.2px]"
+                          }    !border-[#0000000F]`}
                       />
                     )}
                   />
@@ -965,11 +964,9 @@ export default function DetailSection({ activeTab, setActiveTab }: { setActiveTa
             </p>
             <div className="flex">
               <div
-                className={`  w-full !mt-[6px] flex items-center border hover:border-black ${
-                  phoneFocused ? " border-[1px] hover:border-[#00645A] border-[#00645A] border-collapse" : ""
-                }  ${
-                  errors.phone?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
-                }  rounded-[6.2px] py-[9px] px-[14px] pr-[11px] flex items-center "
+                className={`  w-full !mt-[6px] flex items-center border hover:border-black ${phoneFocused ? " border-[1px] hover:border-[#00645A] border-[#00645A] border-collapse" : ""
+                  }  ${errors.phone?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
+                  }  rounded-[6.2px] py-[9px] px-[14px] pr-[11px] flex items-center "
                 `}
               >
                 <Controller
