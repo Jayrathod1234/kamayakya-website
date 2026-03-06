@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { BlogSocial } from "./blogs/blog-social-list";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTelegram, FaTelegramPlane } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
+import { BsTwitter } from "react-icons/bs";
 import Audit from "./audit";
 
 function FooterLinks({ href, label, event, ...rest }: Record<string, string>) {
@@ -116,7 +116,7 @@ export function Footer() {
                 hoverBorderColor="#D6DBE5"
                 hoverBgColor="#1D2939"
                 social="X"
-                icon={<BsTwitterX size={16} className="text-gray-950 group-hover:text-white" />}
+                icon={<BsTwitter size={16} className="text-gray-950 group-hover:text-white" />}
               />
               <BlogSocial
                 className="h-8 aspect-square"

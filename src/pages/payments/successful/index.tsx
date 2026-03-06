@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import { Button, ButtonVariant } from "@/components.v2/button/button";
 import { IPaymentContext, usePaymentContext } from "@/contexts/PaymentContext";
@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { PLAN } from "@/constants/pricing/plans";
 import ToPayTooltip from "../components/ToPayTooltip";
 import { getMixPanelClient } from "@/externals/mixpanel";
+import { trackPurchase } from "@/externals/ga";
 
 const steps = [
   "30+ Main Board Stocks to Buy and Research Reports every year (NSE + BSE)",
@@ -52,11 +53,37 @@ export default function Successful() {
   });
   const router = useRouter();
   const mp = getMixPanelClient();
+  const gaPurchaseSent = useRef(false);
 
   const fetchPaymentReceipts = async () => {
     try {
       const res = await getPaymentReceipt({ order_id: sessionStorage.getItem("orderId") });
-      setPaymentDetails(res?.data);
+      const data = res?.data;
+      setPaymentDetails(data);
+
+      // Send GA4 purchase event once when receipt is available
+      if (data && !gaPurchaseSent.current) {
+        gaPurchaseSent.current = true;
+        const orderId = sessionStorage.getItem("orderId") || "";
+        const value = Number(data.total_payment) || 0;
+        const planLabel = PLAN[data?.subscription_name]?.paymentPageLabel || data.subscription_name || "Subscription";
+        trackPurchase({
+          transaction_id: orderId,
+          value,
+          currency: "INR",
+          tax: Number(data.tax_amount) || undefined,
+          coupon: data.discount_code || undefined,
+          items: [
+            {
+              item_id: data.subscription_name || "subscription",
+              item_name: planLabel,
+              price: value,
+              quantity: 1,
+              item_category: "Subscription",
+            },
+          ],
+        });
+      }
     } catch (e) {}
   };
 
