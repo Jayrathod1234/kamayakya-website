@@ -271,7 +271,7 @@ function LatestReleases({ isLimitedView }) {
   } else if (isminlaptop) {
     cardsToShow = 3;
   } else if (islaptop) {
-    cardsToShow = 4;
+    cardsToShow = 4
   }
 
   return (
@@ -305,35 +305,58 @@ function LatestReleases({ isLimitedView }) {
               New Stocks released in the last 60 days
             </p>
 
-            {displayItems.length <= cardsToShow ? (
-              <div className="flex justify-center gap-5">
-                {displayIsLoading || displayError ? (
+            {displayIsLoading || displayError ? (
+              displayItems.length <= cardsToShow ? (
+                <div className="flex justify-center gap-5">
                   <StockCardSkeleton className="sm:w-[404px] w-[358px]" length={cardsToShow} />
-                ) : (
-                  displayItems.map((value) => <StockCard key={value.id} {...value} />)
-                )}
+                </div>
+              ) : (
+                <div className="flex pb-12 !pt-[40px] carousel__container justify-center gap-5">
+                  <StockCardSkeleton className="sm:w-[404px] w-[358px]" length={cardsToShow} />
+                </div>
+              )
+            ) : displayItems.length <= 3 ? (
+              displayItems.length <= cardsToShow ? (
+                <div className="flex justify-center gap-5">
+                  <Slider disableScale>
+                    {displayItems.map((value) => (
+                      <StockCard key={value.id} {...value} />
+                    ))}
+                  </Slider>
+                </div>
+              ) : (
+                <div className="w-full">
+                  <div className=" w-full max-w-[1260px]  mx-auto">
+                    <Slider disableScale>
+                      {displayItems.map((value) => (
+                        <StockCard key={value.id} {...value} isCarousal={true} />
+                      ))}
+                    </Slider>
+                  </div>
+                </div>
+              )
+            ) : displayItems.length <= cardsToShow ? (
+              <div className="flex justify-center gap-5">
+                <Slider>
+                  {displayItems.map((value) => (
+                    <StockCard key={value.id} {...value} />
+                  ))}
+                </Slider>
               </div>
             ) : (
               <div className="w-full">
-                {displayIsLoading || displayError ? (
-                  <div className="flex pb-12 !pt-[40px] carousel__container justify-center gap-5">
-                    <StockCardSkeleton className="sm:w-[404px] w-[358px]" length={cardsToShow} />
+                {displayItems.length > 0 && (
+                  <div className=" w-full max-w-[1260px]  mx-auto">
+                    <Slider>
+                      {displayItems.map((value) => (
+                        <StockCard
+                          key={value.id}
+                          {...value}
+                          isCarousal={true}
+                        />
+                      ))}
+                    </Slider>
                   </div>
-                ) : (
-                  displayItems.length > 0 && (
-                    <div className=" w-full max-w-[1260px]  mx-auto">
-                      <Slider>
-                        {displayItems.map((value) => (
-                          <StockCard
-                            // className="w-[330px]"
-                            key={value.id}
-                            {...value}
-                            isCarousal={true}
-                          />
-                        ))}
-                      </Slider>
-                    </div>
-                  )
                 )}
               </div>
             )}

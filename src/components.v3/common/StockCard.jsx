@@ -83,10 +83,11 @@ function StockCard({
     <>
       {/* new stock card  */}
       <div
-        className={`relative   
-        ${className}  main_card_carousel ${
-          isCarousal ? "w-[clamp(320px,calc(100vw-16px),404px)] mx-auto  sm:w-[404px]" : "min-w-[330px]"
-        }`}
+        className={`relative main_card_carousel ${
+          isCarousal
+            ? "w-[clamp(320px,calc(100vw-16px),404px)] mx-auto  sm:w-[404px]"
+            : "w-full min-w-[min(330px,100%)] max-w-[404px] shrink-0"
+        } ${className}`}
       >
         <div className={`absolute top-[${newIconClass}] left-1/2 -translate-x-1/2 z-[1]`}>
           {tabImage && <img src={`/assets/${tabImage}.webp`} alt="" className="w-[210px] h-5 object-contain" />}

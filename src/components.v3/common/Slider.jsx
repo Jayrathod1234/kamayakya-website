@@ -119,7 +119,12 @@ export const CarouselItem = React.forwardRef(({ children, className }, ref) => {
 // ... other parts of the code ...
 const TWEEN_FACTOR_BASE = 0.1;
 
-export function Slider({ children }) {
+/**
+ * @param {object} props
+ * @param {React.ReactNode} props.children
+ * @param {boolean} [props.disableScale] - When true, slides keep uniform scale (no center/side zoom effect). Use for few items.
+ */
+export function Slider({ children, disableScale = false }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
@@ -208,51 +213,63 @@ export function Slider({ children }) {
     setIsPlaying(eventName === "autoplay:play" ? true : false)
   }
 
-  const tweenScale = useCallback((emblaApi, eventName) => {
-    const engine = emblaApi.internalEngine();
-    const scrollProgress = emblaApi.scrollProgress();
-    const slidesInView = emblaApi.slidesInView();
-    const isScrollEvent = eventName === "scroll";
+  const tweenScale = useCallback(
+    (emblaApi, eventName) => {
+      if (disableScale) {
+        emblaApi.slideNodes().forEach((slideNode) => {
+          const el = slideNode.querySelector(".main_card_carousel");
+          if (el) el.style.transform = "scale(1, 1)";
+        });
+        return;
+      }
 
-    emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
-      let diffToTarget = scrollSnap - scrollProgress;
-      const slidesInSnap = engine.slideRegistry[snapIndex];
+      const engine = emblaApi.internalEngine();
+      const scrollProgress = emblaApi.scrollProgress();
+      const slidesInView = emblaApi.slidesInView();
+      const isScrollEvent = eventName === "scroll";
 
-      slidesInSnap.forEach((slideIndex) => {
-        if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
+      emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+        let diffToTarget = scrollSnap - scrollProgress;
+        const slidesInSnap = engine.slideRegistry[snapIndex];
 
-        if (engine.options.loop) {
-          engine.slideLooper.loopPoints.forEach((loopItem) => {
-            const target = loopItem.target();
-            if (slideIndex === loopItem.index && target !== 0) {
-              const sign = Math.sign(target);
-              if (sign === -1) {
-                diffToTarget = scrollSnap - (1 + scrollProgress);
+        slidesInSnap.forEach((slideIndex) => {
+          if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
+
+          if (engine.options.loop) {
+            engine.slideLooper.loopPoints.forEach((loopItem) => {
+              const target = loopItem.target();
+              if (slideIndex === loopItem.index && target !== 0) {
+                const sign = Math.sign(target);
+                if (sign === -1) {
+                  diffToTarget = scrollSnap - (1 + scrollProgress);
+                }
+                if (sign === 1) {
+                  diffToTarget = scrollSnap + (1 - scrollProgress);
+                }
               }
-              if (sign === 1) {
-                diffToTarget = scrollSnap + (1 - scrollProgress);
-              }
-            }
-          });
-        }
+            });
+          }
 
-        // Stronger scaling effect for center/side differentiation
-        const tweenValue = 1 - Math.abs(diffToTarget * 1.5);
+          // Stronger scaling effect for center/side differentiation
+          const tweenValue = 1 - Math.abs(diffToTarget * 1.5);
 
-        // Set scale range for Y-axis (height) and X-axis (width) independently
-        const scaleY = numberWithinRange(tweenValue, 0.86, 1.5); // Smaller side cards height, larger center card
-        const scaleX = numberWithinRange(tweenValue, 0.86, 1.5); // Decrease side card width to 0.6, center card remains large
+          // Set scale range for Y-axis (height) and X-axis (width) independently
+          const scaleY = numberWithinRange(tweenValue, 0.86, 1.5); // Smaller side cards height, larger center card
+          const scaleX = numberWithinRange(tweenValue, 0.86, 1.5); // Decrease side card width to 0.6, center card remains large
 
-        const tweenNode = tweenNodes.current[slideIndex];
-        // Apply scaling to both X and Y axes
-        tweenNode.style.transform = `scale(${scaleX}, ${scaleY})`;
+          const tweenNode = tweenNodes.current[slideIndex];
+          if (!tweenNode) return;
+          // Apply scaling to both X and Y axes
+          tweenNode.style.transform = `scale(${scaleX}, ${scaleY})`;
 
-        // Keep consistent margin adjustments
-        // tweenNode.style.marginLeft = "14px";
-        // tweenNode.style.marginRight = "14px";
+          // Keep consistent margin adjustments
+          // tweenNode.style.marginLeft = "14px";
+          // tweenNode.style.marginRight = "14px";
+        });
       });
-    });
-  }, []);
+    },
+    [disableScale]
+  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -269,7 +286,7 @@ export function Slider({ children }) {
       .on("slideFocus", tweenScale)
       .on("autoplay:play", togglePlayingState)
       .on("autoplay:stop", togglePlayingState);
-  }, [emblaApi, tweenScale]);
+  }, [emblaApi, tweenScale, disableScale]);
 
   return (
     <div className={`relative w-full m-auto`}>
@@ -358,13 +375,13 @@ export function Slider({ children }) {
 
       <div ref={emblaRef} className={`max-w-[1200px] mx-auto overflow-hidden cursor-[url(/carousel-pause-icon.svg),auto]`}>
         <div
-          className="flex pb-12 pt-[40px] carousel__container"
+          className={`flex pb-12 pt-[40px] carousel__container ${disableScale ? "gap-5" : ""}`}
           style={{ backfaceVisibility: "hidden" }}
         >
           {children.map((carousel, index) => (
             <CarouselItem
               key={carousel.key}
-              className={`carousel embla__class-names`}
+              className={`carousel embla__class-names ${disableScale ? "shrink-0" : ""}`}
             >
               {/* {carousel(emblaApi)} */}
               {React.cloneElement(carousel, {
