@@ -112,7 +112,7 @@ function Steps({
           {index + 1 == selectedIndex ? (
             <p className=" text-sm text-gray-600">{description}</p>
           ) : (
-            <p className=" lg:hidden text-sm text-gray-600 pb-[46px]">{description}</p>
+            <p className=" lg:hidden text-sm text-gray-600 pb-[54px]">{description}</p>
           )}
         </div>
       </div>

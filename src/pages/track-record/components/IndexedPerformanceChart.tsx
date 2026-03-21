@@ -15,6 +15,7 @@ import {
   ChartTypeRegistry,
   BubbleDataPoint,
   Point,
+  ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
@@ -56,7 +57,114 @@ const BENCHMARK_OPTIONS = [
   },
 ];
 
-export default function IndexedPerformanceChart() {
+
+type MobileIndexedPerformanceProps = {
+  chartData: any;
+  portfolioData: number[];
+  benchmarkData: number[];
+  benchmark: Benchmark;
+  timeRange: TimeRange;
+  setTimeRange: (value: TimeRange) => void;
+  chartOptions: any;
+  isLoggedIn: boolean;
+  handleLogin: () => void;
+  backdropClassName?: string;
+}
+
+export function MobileIndexedPerformance({
+  chartData,
+  portfolioData,
+  benchmarkData,
+  benchmark,
+  timeRange,
+  setTimeRange,
+  chartOptions,
+  isLoggedIn,
+  handleLogin,
+  backdropClassName,
+}: MobileIndexedPerformanceProps) {
+  const TIME_RANGE_OPTIONS = [
+    { label: "1M", value: "1_month" },
+    { label: "6M", value: "6_months" },
+    { label: "1Y", value: "1_year" },
+    { label: "2Y", value: "2_year" },
+    { label: "Max", value: "maximum" },
+  ];
+
+  return (
+    <>
+      {/* Chart construction accordion */}
+     
+     { !isLoggedIn ? (
+        <div
+          onClick={handleLogin}
+          className={`h-[40%] w-full absolute flex items-center justify-center top-0 left-0 z-40 backdrop-blur-sm ${backdropClassName}`}
+        >
+          <div className="group/lock lg:hidden cursor-pointer shadow-[0px_0px_40px_-9px_rgba(19,135,137,0.46),0px_4px_40px_12px_rgba(118,237,223,0.05)] overflow-hidden flex items-center gap-x-[10px] transition-[width] duration-300 h-[56px] w-[56px] hover:w-[234px] bg-[rgba(255,255,255,1)] rounded-[10px] border border-brand-300">
+            <img
+              height={36}
+              width={36}
+              className="object-contain ml-[10px] h-9 w-9"
+              src="/assets/noto_locked.png"
+              alt="lock"
+            />
+            <p className="text-gray-950 font-semibold whitespace-nowrap opacity-0 group-hover/lock:opacity-100 transition-all duration-300">
+              Unlock Now for Free
+            </p>
+          </div>
+        </div>
+
+      ) : null}
+ 
+      {/* Legend */}
+      <div className="flex-1 flex flex-row items-center gap-x-[50px] overflow-hidden">
+        <div className="flex-1">
+          <p className="text-sm text-[#108973] truncate">
+            <span className="w-[10px] h-[10px] bg-[#75CDC5] rounded-full inline-block mr-[10px]" />
+            KamayaKya Stocks
+          </p>
+          <p className="text-sm text-[#667085] pl-[20px]">
+            ₹
+            {portfolioData.length
+              ? portfolioData[portfolioData.length - 1].toFixed(2)
+              : "0.00"}
+          </p>
+        </div>
+
+        <div className="flex-1">
+          <p className="text-sm text-[#F97316] truncate">
+            <span className="w-[10px] h-[10px] bg-[#F97316] rounded-full inline-block mr-[10px]" />
+            {BENCHMARK_OPTIONS.find((opt) => opt.value === benchmark)?.label}
+          </p>
+          <p className="text-sm text-[#667085] pl-[20px]">
+            ₹
+            {benchmarkData.length
+              ? benchmarkData[benchmarkData.length - 1].toFixed(2)
+              : "0.00"}
+          </p>
+        </div>
+      </div>
+      <div className="w-full" style={{ height: "120px" }}>
+        <Line options={chartOptions} data={chartData} />
+      </div>
+      {/* Time range tabs */}
+      <div className="flex items-center justify-center my-2">
+        <Tabs
+          responsive
+          className="dark block"
+          tabTriggerClassname=""
+          variant={TabsVariant.sm}
+          options={TIME_RANGE_OPTIONS}
+          setSelectedOption={(value) => setTimeRange(value as TimeRange)}
+          activeValue={timeRange}
+          defaultOption={timeRange}
+        />
+      </div>
+    </>
+  );
+}
+
+export default function IndexedPerformanceChart({ renderOnlyMobile, backdropClassName }: { renderOnlyMobile?: boolean, backdropClassName?: string }) {
   const [timeRange, setTimeRange] = useState<TimeRange>("maximum");
   const [benchmark, setBenchmark] = useState<Benchmark>("smallcap250");
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -346,16 +454,17 @@ export default function IndexedPerformanceChart() {
   if (isLoading) {
     return (
       <div className="w-full bg-white rounded-[20px] p-6 md:p-8 shadow-sm">
-        <div className="flex items-center justify-between md:mb-6">
+        {renderOnlyMobile ? null : <> <div className="flex items-center justify-between md:mb-6">
           <Skeleton height={32} className=" w-1/3 rounded-[6px]  md:p-2" variant="rectangular" />
           <Skeleton height={32} className=" w-1/4 rounded-[6px]  md:p-2" variant="rectangular" />
-        </div>
-        <div className="flex items-center space-x-4 md:mb-6">
+        </div></>}
+       
+        {renderOnlyMobile ? null : <div className="flex items-center space-x-4 md:mb-6">
           <Skeleton height={32} className=" w-1/3 rounded-[6px]  md:p-2" variant="rectangular" />
           <Skeleton height={32} className=" w-1/6 rounded-[6px]  md:p-2" variant="rectangular" />
           <Skeleton height={32} className=" w-1/6 rounded-[6px]  md:p-2" variant="rectangular" />
-        </div>
-        <Skeleton height={180} className=" w-full rounded-[6px]  md:p-2" variant="rectangular" />
+        </div>}
+        <Skeleton height={ renderOnlyMobile ? 120 : 180} className=" w-full rounded-[6px]  md:p-2" variant="rectangular" />
       </div>
     );
   }
@@ -365,6 +474,12 @@ export default function IndexedPerformanceChart() {
       <div className="w-full bg-white rounded-[20px] p-6 md:p-8 shadow-sm">
         <p className="text-red-500 text-center">Failed to load chart data</p>
       </div>
+    );
+  }
+
+  if (renderOnlyMobile) {
+    return (
+     <MobileIndexedPerformance chartOptions={chartOptions as ChartOptions} chartData={data} portfolioData={portfolioData} benchmarkData={benchmarkData} benchmark={benchmark} timeRange={timeRange} setTimeRange={setTimeRange} isLoggedIn={isLoggedIn} handleLogin={handleLogin} backdropClassName={backdropClassName} />
     );
   }
 
@@ -468,7 +583,7 @@ export default function IndexedPerformanceChart() {
               }
             />
 
-            <p className="text-white text-sm font-bold flex items-center">Our CAGR since start: {"  "}<span className={`${isLoggedIn ? " " : "inline-block  w-[16px] h-[16px] bg-[rgba(237,240,245,0.45)] backdrop-blur-md rounded-md ml-[4px]"}`}>{isLoggedIn ? chartData?.data?.xirr_percentage + "%" : ""}</span></p>
+            <p className="text-white text-sm font-bold flex items-center">CAGR since inception: {"  "}<span className={`${isLoggedIn ? " " : "inline-block  w-[16px] h-[16px] bg-[rgba(237,240,245,0.45)] backdrop-blur-md rounded-md "} ml-[4px]`}>{isLoggedIn ? chartData?.data?.xirr_percentage + "%" : ""}</span></p>
           </div>
         </div>
 

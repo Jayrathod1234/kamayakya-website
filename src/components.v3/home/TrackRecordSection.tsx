@@ -16,6 +16,8 @@ import { ACTIVE_PLAN_URL, GET_USER } from "@/pages/api/URLs";
 import axios from "axios";
 import { HeroLandingCardSection } from "@/pages/track-record/components/HeroCardSection";
 import { TrackRecordHeroCardLanding } from "@/pages/track-record/components/TrackRecordHeroCard";
+import { LiveStockPerformanceCardLanding } from "@/pages/track-record/components/LiveStockPerformanceCard";
+import IndexedPerformanceChart from "@/pages/track-record/components/IndexedPerformanceChart";
 
 export const TrackRecordSection = () => {
   const { isLoggedIn, setShowLoginModal } = useContext(AuthProvider);
@@ -57,7 +59,7 @@ export const TrackRecordSection = () => {
   return (
     <div className=" sm:main-container sm:py-[50px]">
       <div
-        className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px] sm:rounded-[28px] flex flex-col   gap-x-[46px] ${isLoggedIn ? "sm:flex-col text-center" : " lg:flex-row"
+        className={` bg-[rgb(1,39,46)] py-[50px] sm:py-[60px] sm:rounded-[28px] flex flex-col  ${isLoggedIn ? "sm:flex-col text-center" : " lg:flex-row"
           }`}
       >
         <div className="lg:flex-[0.6] max-lg:text-center open_sans lg:px-12 xl:px-20 ">
@@ -115,50 +117,11 @@ export const TrackRecordSection = () => {
                     </ButtonnArrow>
                   </div>
                 </div>
-                {/* <Carousel plugins={[Autoplay({ delay: 2000 })]} className=" xl:hidden w-full mt-6 px-2">
-                  <CarouselContent>
-                    <CarouselItem className=" basis-11/12">
-                      {" "}
-                      <TrackRecordHeroCardLanding
-                        {...trackRecordDashboardStats}
-                        type={"LIVE"}
-                        recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
-                        averageReturns={trackRecordDashboardStats?.live_recommendations?.average_live_returns}
-                        stockPerformance={trackRecordDashboardStats?.live_recommendations?.stock_performance}
-                        bestStocks={trackRecordDashboardStats?.live_recommendations?.top_gainer}
-                        worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
-                        newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_new_recommendations}
-                        stock_live_prices={trackRecordDashboardStats?.live_recommendations}
-                        entry_price_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.entry_price}
-                        start_date_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.start_date}
-                        entry_price_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.entry_price}
-                        start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
-                      />
-                    </CarouselItem>
-                    <CarouselItem className=" basis-11/12">
-                      <TrackRecordHeroCardLanding
-                        {...trackRecordDashboardStats}
-                        type={"EXIT"}
-                        recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
-                        averageReturns={trackRecordDashboardStats?.exits_stock?.average_exit_returns}
-                        stockPerformance={trackRecordDashboardStats?.exits_stock?.stock_performance}
-                        bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
-                        worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
-                        newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
-                        stock_live_prices={trackRecordDashboardStats?.exits_stock}
-                        entry_price_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.entry_price}
-                        start_date_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.start_date}
-                        entry_price_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.entry_price}
-                        start_date_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.start_date}
-                      />
-                    </CarouselItem>
-                  </CarouselContent>
-                </Carousel> */}
               </>
             ) : (
               <>
-                <div className=" relative flex-1 max-lg:hidden  ">
-                  <div className=" relative z-10 h-[70%] w-[90%] lg:right-20 xl:right-0">
+                <div className=" relative flex-1 max-lg:hidden max-w-1/2 mx-auto pr-[40px]  ">
+                  <div className=" relative ">
                     <TrackRecordHeroCardLanding
                       className=" border"
                       {...trackRecordDashboardStats}
@@ -174,34 +137,68 @@ export const TrackRecordSection = () => {
                       start_date_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.start_date}
                       entry_price_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.entry_price}
                       start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
+                      live_recommendations={
+
+                        <div className=" flex flex-row gap-3 max-w-1/2 mx-auto">
+                          {!isLoggedIn ? (
+                            <div onClick={() => setShowLoginModal(true)} className="   h-[90%] w-full absolute flex items-center justify-center bottom-0 left-0 z-40">
+                              <div className="group/lock cursor-pointer shadow-[0px_0px_40px_-9px_rgba(19,135,137,0.46),0px_4px_40px_12px_rgba(118,237,223,0.05)]  overflow-hidden  flex items-center gap-x-[10px] transition-[width] duration-300 h-[56px] w-[56px] hover:w-[234px]   bg-[rgba(255,255,255,1)] rounded-[10px] border border-brand-300">
+                                <img
+                                  height={36}
+                                  width={36}
+                                  className=" object-contain ml-[10px] h-9 w-9"
+                                  src="/assets/noto_locked.png"
+                                  alt="lock"
+                                />
+                                <p className=" text-gray-950 font-semibold whitespace-nowrap opacity-0 group-hover/lock:opacity-100 transition-all duration-300">
+                                  Unlock Now for Free
+                                </p>
+                              </div>
+                            </div>
+                          ) : null}
+                          <LiveStockPerformanceCardLanding hideDonut={true} className="w-1/2 [&_p]:text-[10px] [&_p]:w-full [&_p]:truncate [&_p]:whitespace-wrap" type={"LIVE"} recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
+                            averageReturns={trackRecordDashboardStats?.live_recommendations?.average_live_returns}
+                            stockPerformance={trackRecordDashboardStats?.live_recommendations?.stock_performance}
+                            bestStocks={trackRecordDashboardStats?.live_recommendations?.top_gainer}
+                            worstStocks={trackRecordDashboardStats?.live_recommendations?.top_loser}
+                            newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_new_recommendations}
+                            stock_live_prices={trackRecordDashboardStats?.live_recommendations}
+                            entry_price_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.entry_price}
+                            start_date_gainer={trackRecordDashboardStats?.live_recommendations?.top_gainer?.start_date}
+                            entry_price_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.entry_price}
+                            start_date_loser={trackRecordDashboardStats?.live_recommendations?.top_loser?.start_date}
+                          />
+                          <LiveStockPerformanceCardLanding hideDonut={true} className="w-1/2  [&_p]:text-[10px] [&_p]:w-full [&_p]:truncate [&_p]:whitespace-wrap" type={"EXIT"} recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
+                            averageReturns={trackRecordDashboardStats?.exits_stock?.average_exit_returns}
+                            stockPerformance={trackRecordDashboardStats?.exits_stock?.stock_performance}
+                            bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
+                            worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
+                            newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
+                            stock_live_prices={trackRecordDashboardStats?.exits_stock}
+                            // stock_live_prices = {trackRecordDashboardStats?.exits_stock?.worst_exit?.stock_live_prices}
+                            entry_price_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.entry_price}
+                            start_date_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.start_date}
+                            entry_price_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.entry_price}
+                            start_date_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.start_date}
+                          />
+
+                        </div>
+
+                      }
                     />
                   </div>
-                  <div className=" absolute -top-9 right-28 xl:right-12 z-[2] h-[80%]  w-[85%]">
-                    <TrackRecordHeroCardLanding
-                      className=" border"
-                      {...trackRecordDashboardStats}
-                      type={"EXIT"}
-                      recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}
-                      averageReturns={trackRecordDashboardStats?.exits_stock?.average_exit_returns}
-                      stockPerformance={trackRecordDashboardStats?.exits_stock?.stock_performance}
-                      bestStocks={trackRecordDashboardStats?.exits_stock?.best_exit}
-                      worstStocks={trackRecordDashboardStats?.exits_stock?.worst_exit}
-                      newRecommendation={trackRecordDashboardStats?.live_recommendations?.three_exits_stocks}
-                      stock_live_prices={trackRecordDashboardStats?.exits_stock}
-                      // stock_live_prices = {trackRecordDashboardStats?.exits_stock?.worst_exit?.stock_live_prices}
-                      entry_price_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.entry_price}
-                      start_date_gainer={trackRecordDashboardStats?.exits_stock?.best_exit?.start_date}
-                      entry_price_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.entry_price}
-                      start_date_loser={trackRecordDashboardStats?.exits_stock?.worst_exit?.start_date}
-                    />
-                  </div>
+
+                </div>
+                <div className=" block lg:hidden relative overflow-hidden w-full px-4">
+                <IndexedPerformanceChart backdropClassName=" h-[100%]" renderOnlyMobile={true} />
                 </div>
                 <Carousel plugins={[Autoplay({ delay: 2000 })]} className=" lg:hidden w-full mt-6 px-2">
                   <CarouselContent>
                     <CarouselItem className=" basis-11/12">
                       {" "}
-                      <TrackRecordHeroCardLanding
+                      <TrackRecordHeroCard
                         {...trackRecordDashboardStats}
+                        disableExternalLabel={true}
                         type={"LIVE"}
                         recommendation={trackRecordDashboardStats?.live_recommendations?.live_stock_count}
                         averageReturns={trackRecordDashboardStats?.live_recommendations?.average_live_returns}
@@ -217,7 +214,8 @@ export const TrackRecordSection = () => {
                       />
                     </CarouselItem>
                     <CarouselItem className=" basis-11/12">
-                      <TrackRecordHeroCardLanding
+                      <TrackRecordHeroCard
+                        disableExternalLabel={true}
                         {...trackRecordDashboardStats}
                         type={"EXIT"}
                         recommendation={trackRecordDashboardStats?.exits_stock?.exit_stock_count}

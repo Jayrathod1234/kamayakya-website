@@ -81,7 +81,7 @@ const Legends = ({
   );
 };
 
-export function LiveStockPerformanceCard({ type, performance, newRecommendation, recommendationLabel }: { type: string; performance: IStockPerformace; newRecommendation?: INewRecommendation[]; recommendationLabel?: string }) {
+export function LiveStockPerformanceCard({ type, performance, newRecommendation, recommendationLabel, className, hideDonut,disableExternalLabel }: { type: string; performance: IStockPerformace; newRecommendation?: INewRecommendation[]; recommendationLabel?: string; className?: string; hideDonut?: boolean; disableExternalLabel?: boolean}) {
   const { isLoggedIn } = useContext(AuthContext);
   const options = {
     responsive: true,
@@ -124,23 +124,23 @@ export function LiveStockPerformanceCard({ type, performance, newRecommendation,
   };
 
   return (
-    <div className=" p-4 pt-3 bg-white rounded-xl w-full">
+    <div className={` p-4 pt-3 bg-white rounded-xl w-full ${className}`}>
       <div className="flex items-center">
-        <div className=" p-1 ml-1 hidden md:block shrink-0">
+        <div className={` p-1  ${disableExternalLabel ? "block": "ml-1 hidden md:block"} shrink-0`}>
           {type === "LIVE" ? (
             <img height={16} width={16} src="/assets/entry point.svg" alt="entry-marker" />
           ) : (
             <img height={16} width={16} src="/assets/exit_icon.svg" alt="exit-marker" />
           )}
         </div>
-        <p className=" text-sm font-semibold text-left whitespace-nowrap  w-full flex items-center max-w-[55%]">{label}{"  "} <span className="text-brand-500 hidden md:inline-block whitespace-nowrap truncate ml-1">{" "}({recommendationLabel})</span></p>
+        <p className={` text-sm font-semibold text-left whitespace-nowrap  w-full flex items-center ${disableExternalLabel ? "max-w-[100%]": "max-w-[55%]"}`}>{label}{"  "} <span className={`text-brand-500 ${disableExternalLabel ? "inline-block": "hidden md:inline-block"} whitespace-nowrap truncate ml-1`}>{" "}({recommendationLabel})</span></p>
         <div className="ml-auto max-md:hidden">
-          <TrackRecordHeroCardNewChip type={type} newRecommendation={newRecommendation} />
+          {/* <TrackRecordHeroCardNewChip type={type} newRecommendation={newRecommendation} /> */}
         </div>
       </div>
       <div className=" mt-4 flex items-center justify-between gap-x-3">
         <div className=" h-[110px] max-w-full">
-          <Doughnut data={data} options={options} />
+          {!hideDonut ? <Doughnut data={data} options={options} /> : null}
         </div>
         <div className=" h-full flex flex-col gap-y-3 w-full">
           {chartData
@@ -160,7 +160,7 @@ export function LiveStockPerformanceCard({ type, performance, newRecommendation,
   );
 }
 
-export function LiveStockPerformanceCardLanding({ type, performance }: { type: string; performance: IStockPerformace }) {
+export function LiveStockPerformanceCardLanding({ type, performance, hideDonut, className }: { type: string; performance: IStockPerformace; hideDonut?: boolean; className?: string }) {
   const { isLoggedIn } = useContext(AuthContext);
   const options = {
     responsive: true,
@@ -203,11 +203,11 @@ export function LiveStockPerformanceCardLanding({ type, performance }: { type: s
   };
 
   return (
-    <div className=" p-4 pt-3 bg-white rounded-xl w-full">
+    <div className={` p-4 pt-3 bg-white rounded-xl w-full ${className}`}>
       <p className=" text-sm font-semibold">{label}</p>
       <div className=" mt-4 flex items-center justify-between gap-x-3">
         <div className=" h-[110px] max-w-full">
-          <Doughnut data={data} options={options} />
+          {!hideDonut ? <Doughnut data={data} options={options} /> : null}
         </div>
         <div className=" h-full flex flex-col gap-y-3 w-full">
           {chartData

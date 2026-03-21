@@ -6,6 +6,7 @@ import { useActivePlanContext } from "@/components/PlanContext";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 export enum TabsVariant {
+  sm,
   md,
   lg,
 }
@@ -41,17 +42,22 @@ export function Tabs({
   event,
 }: TTabs) {
   const parentPadding =
-    variant === TabsVariant.md
-      ? "p-1 "
-      : variant === TabsVariant.lg && responsive
-        ? " p-1 sm:py-2 sm:px-[2px]"
-        : "py-2 px-[2px]";
-  const childrenSize =
-    variant === TabsVariant.md
-      ? "px-4 py-2 text-sm "
-      : variant === TabsVariant.lg && responsive
-        ? " px-4 py-2 text-sm sm:px-5 sm:py-3 sm:text-md"
-        : "px-5 py-3 text-md";
+  variant === TabsVariant.sm
+    ? "p-[2px]"
+    : variant === TabsVariant.md
+    ? "p-1"
+    : variant === TabsVariant.lg && responsive
+    ? "p-1 sm:py-2 sm:px-[2px]"
+    : "py-2 px-[2px]";
+
+const childrenSize =
+  variant === TabsVariant.sm
+    ? "px-3 py-[6px] text-xs"
+    : variant === TabsVariant.md
+    ? "px-4 py-2 text-sm"
+    : variant === TabsVariant.lg && responsive
+    ? "px-4 py-2 text-sm sm:px-5 sm:py-3 sm:text-md"
+    : "px-5 py-3 text-md";
 
 
   const onValueChange = (value: string) => {
@@ -63,7 +69,6 @@ export function Tabs({
   };
 
 
-  console.log("ACTIVE VALUE", activeValue, defaultOption);
 
   return (
     <ShadCnTab
@@ -79,9 +84,6 @@ export function Tabs({
           options.map((tabs) => (
             <TabsTrigger
               key={tabs.value}
-              // style={{
-              //   transformStyle: "preserve-3d",
-              // }}
               className={cn(
                 ` ${childrenSize} group-tab dark:data-[state=active]:bg-transparent data-[state=active]:bg-transparent ${activeValue === tabs.value
                   ? "data-[state=active]:shadow-[0px_4px_6px_-2px_rgba(16,24,40,0.05),0px_12px_16px_-4px_rgba(16,24,40,0.1)]"
