@@ -52,6 +52,11 @@ export const GET_BLOGS = `${USER_URL}/all_blogs`;
 export const GET_SPECIFIC_BLOG = `${USER_URL}/blog/`;
 export const SEARCH_BLOG = `${USER_URL}/search_blog`;
 
+// Webinars (public landing + registration)
+export const WEBINAR_DETAILS = (slug) =>
+  `${USER_URL}/webinarDetails/${encodeURIComponent(slug)}`;
+export const REGISTER_WEBINAR = `${USER_URL}/register_webinar/`;
+
 //Track Records
 export const TRACK_RECORD_FOR_ALL = `${USER_URL}/getTrackRecordForAll`;
 export const TRACK_RECORD_FOR_USER = `${USER_URL}/getTrackRecordForUser`;
