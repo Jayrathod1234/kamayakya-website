@@ -1,3 +1,4 @@
+import { Footer } from "@/components.v2/index.components";
 import FeaturedNews from "@/components.v3/home/FeaturedNews";
 import { REGISTER_WEBINAR, WEBINAR_DETAILS } from "../api/URLs";
 import { Lato, Open_Sans } from "next/font/google";
@@ -17,20 +18,76 @@ type WebinarPayload = Record<string, unknown>;
 
 const SPEAKER_LINKEDIN = "https://www.linkedin.com/in/nitya-shah-25ba53187/";
 const SPEAKER_X = "https://x.com/NityaShah2000";
-const SPEAKER_IMAGE_URL = process.env.NEXT_PUBLIC_SPEAKER_IMAGE_URL ?? "";
+const SPEAKER_IMAGE_URL = "/itya.png" ?? "";
+
+function ordinalSuffix(n: number): string {
+  const j = n % 10;
+  const k = n % 100;
+  if (k >= 11 && k <= 13) return `${n}th`;
+  if (j === 1) return `${n}st`;
+  if (j === 2) return `${n}nd`;
+  if (j === 3) return `${n}rd`;
+  return `${n}th`;
+}
+
+const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+] as const;
+const WEEKDAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as const;
+
+function parseWebinarDate(raw?: string): Date | null {
+  if (!raw?.trim()) return null;
+  const s = raw.trim();
+  const iso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (iso) {
+    const y = parseInt(iso[1], 10);
+    const m = parseInt(iso[2], 10) - 1;
+    const d = parseInt(iso[3], 10);
+    const dt = new Date(y, m, d, 12, 0, 0, 0);
+    return isNaN(dt.getTime()) ? null : dt;
+  }
+  const dmy = s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);
+  if (dmy) {
+    const dt = new Date(parseInt(dmy[3], 10), parseInt(dmy[2], 10) - 1, parseInt(dmy[1], 10), 12, 0, 0, 0);
+    return isNaN(dt.getTime()) ? null : dt;
+  }
+  const parsed = new Date(s);
+  return isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function formatDateWithDay(dateStr?: string): string {
+  const d = parseWebinarDate(dateStr);
+  if (!d) return "";
+  const day = ordinalSuffix(d.getDate());
+  const month = MONTH_NAMES[d.getMonth()];
+  const year = d.getFullYear();
+  const dow = WEEKDAY_NAMES[d.getDay()];
+  return `${day} ${month}, ${year} - ${dow}`;
+}
 
 function formatTime(t?: string) {
   if (!t) return "";
-  const s = String(t).slice(0, 5);
-  return s;
+  return String(t).slice(0, 5);
 }
 
 function formatDateLine(dateStr?: string, start?: string, end?: string) {
-  if (!dateStr) return "Date & time TBA";
+  const formatted = formatDateWithDay(dateStr);
+  if (!formatted) return "Date & time TBA";
   const startT = formatTime(start);
   const endT = formatTime(end);
-  if (startT && endT) return `${dateStr} · ${startT} – ${endT} IST`;
-  return dateStr;
+  if (startT && endT) return `${formatted} · ${startT} – ${endT} IST`;
+  return formatted;
 }
 
 const AGENDA = [
@@ -206,6 +263,11 @@ function WebinarPublicPageInner() {
   }
 
   const eyebrow = formatDateLine(date, startTime, endTime);
+  const dateDisplay = formatDateWithDay(date) || "Date TBA";
+  const timeDisplay =
+    formatTime(startTime) && formatTime(endTime)
+      ? `${formatTime(startTime)} – ${formatTime(endTime)} IST`
+      : "Time TBA";
   const metaDesc =
     description.length > 10 ? description.substring(0, 160) : "Register for the Kamayakya webinar.";
 
@@ -221,372 +283,287 @@ function WebinarPublicPageInner() {
         <meta property="og:type" content="website" />
       </Head>
       <div className={`${styles.page} ${lato.className}`}>
-      <nav className={styles.nav}>
-        <a className={styles.navLogo} href="https://www.kamayakya.com" target="_blank" rel="noreferrer">
-          <span className={styles.k1}>Kamaya</span>
-          <span className={styles.k2}>Kya</span>
-        </a>
-        <div className={styles.navBadge}>Free Masterclass</div>
-      </nav>
-
-      <section className={styles.hero} id="top">
-        <div className={styles.heroLeft}>
-          <div className={`${styles.eyebrow} ${openSans.className}`}>{eyebrow}</div>
-          <h1 className={openSans.className}>
-            {heading}
-            {title ? (
-              <span className={styles.accent}>{title}</span>
-            ) : (
-              <span className={styles.accent}>Investing Masterclass</span>
-            )}
-          </h1>
-          <div className={styles.heroDivider} />
-          <p className={styles.heroSub}>
-            {description ||
-              "A free, live session on how to research and invest with conviction — the same playbook our analysts use every day. Open to all investors across India."}
-          </p>
-          <div className={styles.eventMeta}>
-            <div className={styles.metaItem}>
-              <div className={styles.metaIcon}>📅</div>
-              <div className={styles.metaText}>
-                <strong>{date || "Date TBA"}</strong>
-                <span>
-                  {formatTime(startTime) && formatTime(endTime)
-                    ? `${formatTime(startTime)} – ${formatTime(endTime)} IST`
-                    : "Time TBA"}
-                </span>
-              </div>
-            </div>
-            <div className={styles.metaItem}>
-              <div className={styles.metaIcon}>💻</div>
-              <div className={styles.metaText}>
-                <strong>Online — Live</strong>
-                <span>Details shared on registration</span>
-              </div>
-            </div>
-            <div className={styles.metaItem}>
-              <div className={styles.metaIcon}>🎓</div>
-              <div className={styles.metaText}>
-                <strong>{isFree ? "100% Free" : "Paid session"}</strong>
-                <span>{isFree ? "No cost, no catch" : ""}</span>
-              </div>
-            </div>
-          </div>
-          <a href="#learn" className={`${styles.ctaBtn} ${openSans.className}`}>
-            See What&apos;s Inside
+        <nav className={styles.nav}>
+          <a className={styles.navLogo} href="https://www.kamayakya.com" target="_blank" rel="noreferrer">
+            <span className={styles.k1}>Kamaya</span>
+            <span className={styles.k2}>Kya</span>
           </a>
-        </div>
+          <div className={styles.navBadge}>Free Masterclass</div>
+        </nav>
 
-        <div className={styles.heroRight}>
-          <div className={styles.heroFormWrap}>
-            {!done ? (
-              <div>
-                <p className={`${styles.formTitle} ${openSans.className}`}>Secure Your Spot</p>
-                <p className={styles.formSub}>{eyebrow}</p>
-                <form onSubmit={onSubmit}>
-                  <div className={styles.formGroup}>
-                    <label>
-                      Full Name <span>*</span>
-                    </label>
-                    <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" required />
-                  </div>
-                  <div className={styles.formRow}>
+        <section className={styles.hero} id="top">
+          <div className={styles.heroLeft}>
+            <div className={`${styles.eyebrow} ${openSans.className}`}>{eyebrow}</div>
+            <h1 className={openSans.className}>
+              {heading}
+              {title ? (
+                <span className={styles.accent}>{title}</span>
+              ) : (
+                <span className={styles.accent}>Investing Masterclass</span>
+              )}
+            </h1>
+            <div className={styles.heroDivider} />
+            <p className={styles.heroSub}>
+              {description ||
+                "A free, live session on how to research and invest with conviction — the same playbook our analysts use every day. Open to all investors across India."}
+            </p>
+            <div className={styles.eventMeta}>
+              <div className={styles.metaItem}>
+                <div className={styles.metaIcon}>📅</div>
+                <div className={styles.metaText}>
+                  <strong>{dateDisplay}</strong>
+                  <span>{timeDisplay}</span>
+                </div>
+              </div>
+              <div className={styles.metaItem}>
+                <div className={styles.metaIcon}>💻</div>
+                <div className={styles.metaText}>
+                  <strong>Online — Live</strong>
+                  <span>Details shared on registration</span>
+                </div>
+              </div>
+              <div className={styles.metaItem}>
+                <div className={styles.metaIcon}>🎓</div>
+                <div className={styles.metaText}>
+                  <strong>{isFree ? "100% Free" : "Paid session"}</strong>
+                  <span>{isFree ? "No cost, no catch" : ""}</span>
+                </div>
+              </div>
+            </div>
+            <a href="#learn" className={`${styles.ctaBtn} ${openSans.className}`}>
+              See What&apos;s Inside
+            </a>
+          </div>
+
+          <div className={styles.heroRight}>
+            <div className={styles.heroFormWrap}>
+              {!done ? (
+                <div>
+                  <p className={`${styles.formTitle} ${openSans.className}`}>Secure Your Spot</p>
+                  <p className={styles.formSub}>{eyebrow}</p>
+                  <form onSubmit={onSubmit}>
                     <div className={styles.formGroup}>
                       <label>
-                        Email <span>*</span>
+                        Full Name <span>*</span>
                       </label>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="you@email.com"
-                        required
-                      />
+                      <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" required />
                     </div>
-                    <div className={styles.formGroup}>
-                      <label>
-                        Mobile <span>*</span>
-                      </label>
-                      <div className={styles.phoneRow}>
-                        <span className={styles.phonePrefix}>+91</span>
+                    <div className={styles.formRow}>
+                      <div className={styles.formGroup}>
+                        <label>
+                          Email <span>*</span>
+                        </label>
                         <input
-                          className={styles.phoneInput}
-                          type="tel"
-                          inputMode="numeric"
-                          autoComplete="tel-national"
-                          value={phoneLocal}
-                          onChange={(e) => setPhoneLocal(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                          placeholder="98765 43210"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="you@email.com"
                           required
-                          aria-label="Mobile number (10 digits, India)"
                         />
                       </div>
+                      <div className={styles.formGroup}>
+                        <label>
+                          Mobile <span>*</span>
+                        </label>
+                        <div className={styles.phoneRow}>
+                          <span className={styles.phonePrefix}>+91</span>
+                          <input
+                            className={styles.phoneInput}
+                            type="tel"
+                            inputMode="numeric"
+                            autoComplete="tel-national"
+                            value={phoneLocal}
+                            onChange={(e) => setPhoneLocal(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                            placeholder="98765 43210"
+                            required
+                            aria-label="Mobile number (10 digits, India)"
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.formRow}>
-                    <div className={styles.formGroup}>
-                      <label>City</label>
-                      <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="Mumbai, Delhi…" />
+                    <div className={styles.formRow}>
+                      <div className={styles.formGroup}>
+                        <label>City</label>
+                        <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="Mumbai, Delhi…" />
+                      </div>
+                      <div className={styles.formGroup}>
+                        <label>Experience</label>
+                        <select value={experience} onChange={(e) => setExperience(e.target.value)}>
+                          <option value="">Select</option>
+                          <option>Just starting out</option>
+                          <option>1–3 years</option>
+                          <option>3–7 years</option>
+                          <option>7+ years</option>
+                        </select>
+                      </div>
                     </div>
                     <div className={styles.formGroup}>
-                      <label>Experience</label>
-                      <select value={experience} onChange={(e) => setExperience(e.target.value)}>
-                        <option value="">Select</option>
-                        <option>Just starting out</option>
-                        <option>1–3 years</option>
-                        <option>3–7 years</option>
-                        <option>7+ years</option>
+                      <label>How did you hear about us?</label>
+                      <select value={source} onChange={(e) => setSource(e.target.value)}>
+                        <option value="">Select a source</option>
+                        <option>Instagram / Facebook</option>
+                        <option>Google</option>
+                        <option>WhatsApp / Telegram</option>
+                        <option>Smallcase Platform</option>
+                        <option>Friend / Referral</option>
+                        <option>Other</option>
                       </select>
                     </div>
-                  </div>
-                  <div className={styles.formGroup}>
-                    <label>How did you hear about us?</label>
-                    <select value={source} onChange={(e) => setSource(e.target.value)}>
-                      <option value="">Select a source</option>
-                      <option>Instagram / Facebook</option>
-                      <option>Google</option>
-                      <option>WhatsApp / Telegram</option>
-                      <option>Smallcase Platform</option>
-                      <option>Friend / Referral</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                  <button type="submit" className={`${styles.formSubmit} ${openSans.className}`} disabled={submitting}>
-                    {submitting ? "Registering…" : "Register Free"}
-                  </button>
-                  <p className={styles.formDisclaimer}>
-                    We respect your privacy. Your details will only be used to send you the webinar link and relevant
-                    updates from Kamayakya Research.
-                  </p>
-                </form>
-              </div>
-            ) : (
-              <div className={styles.successBox}>
-                <div className={styles.successCheck}>✓</div>
-                <h3 className={`${openSans.className}`} style={{ fontSize: 18, fontWeight: 800, marginBottom: 8 }}>
-                  You&apos;re Registered!
-                </h3>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.65 }}>
-                  We&apos;ll send the webinar link to your email before the session. See you there!
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.learnSection}`} id="learn">
-        <div className={`${styles.sectionLabel} ${openSans.className}`}>Session Agenda</div>
-        <h2 className={`${styles.sectionTitle} ${openSans.className}`}>What You&apos;ll Learn</h2>
-        <p className={styles.sectionBody}>
-          {description ||
-            "A no-fluff, practical masterclass on the fundamentals of smart investing — from finding ideas to building conviction to managing a portfolio."}
-        </p>
-        <p className={styles.learnNote}>
-          Practical frameworks you can use immediately — no jargon, no fluff.
-        </p>
-        <div className={styles.learnGrid}>
-          {AGENDA.map((a) => (
-            <div key={a.n} className={styles.learnCard}>
-              <div className={`${styles.cardNum} ${openSans.className}`}>Agenda {a.n}</div>
-              <h3 className={openSans.className}>{a.t}</h3>
-              <p>{a.b}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.numbersSection}>
-        <div className={`${styles.sectionLabel} ${openSans.className}`}>By The Numbers</div>
-        <h2 className={`${styles.sectionTitle} ${openSans.className}`}>Numbers That Speak</h2>
-        <p className={styles.sectionBody} style={{ marginBottom: 0 }}>
-          Three years of rigorous research, ground-up analysis, and trust.
-        </p>
-        <div className={styles.numbersGrid}>
-          {[
-            { v: "6,000+", l: "Delighted Investors" },
-            { v: "80+", l: "Stock Recommendations" },
-            { v: "₹55 Cr+", l: "AUM on Smallcase" },
-            { v: "50+", l: "Plant Visits & 300+ Management Interactions" },
-          ].map((x) => (
-            <div key={x.l} className={styles.numberCard}>
-              <div className={`${styles.numberVal} ${openSans.className}`}>{x.v}</div>
-              <div className={styles.numberLabel}>{x.l}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.speakerSection}>
-        <div className={`${styles.sectionLabel} ${openSans.className}`}>About the Speaker</div>
-        <h2 className={`${styles.sectionTitle} ${openSans.className}`} style={{ marginBottom: 4 }}>
-          Meet Nitya Shah
-        </h2>
-        <p className={`${styles.speakerHeaderRole} ${openSans.className}`}>
-          Co-founder, Kamayakya Wealth Management Pvt. Ltd.
-        </p>
-        <div className={styles.speakerInner}>
-          <div className={styles.speakerLeftCol}>
-            <div className={styles.speakerPhotoFrame}>
-              {SPEAKER_IMAGE_URL ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={SPEAKER_IMAGE_URL} alt="Nitya Shah" className={styles.speakerPhoto} />
+                    <button type="submit" className={`${styles.formSubmit} ${openSans.className}`} disabled={submitting}>
+                      {submitting ? "Registering…" : "Register Free"}
+                    </button>
+                    <p className={styles.formDisclaimer}>
+                      We respect your privacy. Your details will only be used to send you the webinar link and relevant
+                      updates from Kamayakya Research.
+                    </p>
+                  </form>
+                </div>
               ) : (
-                <div className={styles.speakerPhotoPlaceholder}>NS</div>
+                <div className={styles.successBox}>
+                  <div className={styles.successCheck}>✓</div>
+                  <h3 className={`${openSans.className}`} style={{ fontSize: 18, fontWeight: 800, marginBottom: 8 }}>
+                    You&apos;re Registered!
+                  </h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.65 }}>
+                    We&apos;ll send the webinar link to your email before the session. See you there!
+                  </p>
+                </div>
               )}
             </div>
-            <div className={styles.speakerSocials}>
-              <a
-                href={SPEAKER_LINKEDIN}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.socialLogoLink}
-                title="Nitya on LinkedIn"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTAiIGZpbGw9IiMwQTY2QzIiLz48cmVjdCB4PSI5IiB5PSIxOCIgd2lkdGg9IjciIGhlaWdodD0iMjEiIHJ4PSIxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjEyLjUiIGN5PSIxMS41IiByPSI0IiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik0yMCAxOGg2LjV2M3MyLTMuNSA3LTMuNWM2IDAgOSA0IDkgMTB2MTEuNUgzNlYyOWMwLTMtMS41LTUtNC41LTVzLTUgMi01IDV2MTBIMjBWMTh6IiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg=="
-                  alt="LinkedIn"
-                  width={44}
-                  height={44}
-                  style={{ display: "block", borderRadius: 10 }}
-                />
-              </a>
-              <a href={SPEAKER_X} target="_blank" rel="noreferrer" className={styles.socialLogoLink} title="Nitya on X">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTAiIGZpbGw9IiMwMDAwMDAiLz48cGF0aCBkPSJNOSA5aDkuNWw3LjUgMTAuOEwzNC4yIDlINDJMMjkuNSAyMy41IDQzIDM5aC05LjVsLTguMi0xMS41TDE2IDM5SDguNUwyMS41IDI0eiIgZmlsbD0id2hpdGUiLz48L3N2Zz4="
-                  alt="X"
-                  width={44}
-                  height={44}
-                  style={{ display: "block", borderRadius: 10 }}
-                />
-              </a>
-            </div>
           </div>
-          <div className={styles.speakerBio}>
-            <div className={styles.bioItems}>
-              <div className={styles.bioItem}>
-                <div className={styles.bioIcon}>🎓</div>
-                <div>
-                  <p className={`${styles.bioItemTitle} ${openSans.className}`}>Qualified Analyst</p>
-                  <p className={styles.bioItemBody}>
-                    MSc Investment Management from Bayes Business School, London (Cass), CFA Level 1 cleared, M.Com from
-                    Pune University, NISM RA &amp; PMS exams cleared.
-                  </p>
+        </section>
+
+        <section className={`${styles.section} ${styles.learnSection}`} id="learn">
+          <div className={`${styles.sectionLabel} ${openSans.className}`}>Session Agenda</div>
+          <h2 className={`${styles.sectionTitle} ${openSans.className}`}>What You&apos;ll Learn</h2>
+          <p className={styles.sectionBody}>
+            {description ||
+              "A no-fluff, practical masterclass on the fundamentals of smart investing — from finding ideas to building conviction to managing a portfolio."}
+          </p>
+          <p className={styles.learnNote}>
+            Practical frameworks you can use immediately — no jargon, no fluff.
+          </p>
+          <div className={styles.learnGrid}>
+            {AGENDA.map((a) => (
+              <div key={a.n} className={styles.learnCard}>
+                <div className={`${styles.cardNum} ${openSans.className}`}>Agenda {a.n}</div>
+                <h3 className={`${openSans.className} text-center`}>{a.t}</h3>
+                <p className={"text-center "}>{a.b}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.numbersSection}>
+          <div className={`${styles.sectionLabel} ${openSans.className}`}>By The Numbers</div>
+          <h2 className={`${styles.sectionTitle} ${openSans.className}`}>Numbers That Speak</h2>
+          <p className={styles.sectionBody} style={{ marginBottom: 0 }}>
+            Three years of rigorous research, ground-up analysis, and trust.
+          </p>
+          <div className={styles.numbersGrid}>
+            {[
+              { v: "6,000+", l: "Delighted Investors" },
+              { v: "80+", l: "Stock Recommendations" },
+              { v: "₹55 Cr+", l: "AUM on Smallcase" },
+              { v: "50+", l: "Plant Visits & 300+ Management Interactions" },
+            ].map((x) => (
+              <div key={x.l} className={styles.numberCard}>
+                <div className={`${styles.numberVal} ${openSans.className}`}>{x.v}</div>
+                <div className={styles.numberLabel}>{x.l}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.speakerSection}>
+          <div className={`${styles.sectionLabel} ${openSans.className}`}>About the Speaker</div>
+          <h2 className={`${styles.sectionTitle} ${openSans.className}`} style={{ marginBottom: 4 }}>
+            Meet Nitya Shah
+          </h2>
+          <p className={`${styles.speakerHeaderRole} ${openSans.className}`}>
+            Co-founder, Kamayakya Wealth Management Pvt. Ltd.
+          </p>
+          <div className={styles.speakerInner}>
+            <div className={styles.speakerLeftCol}>
+              <div className={styles.speakerPhotoFrame}>
+                {SPEAKER_IMAGE_URL ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={SPEAKER_IMAGE_URL} alt="Nitya Shah" className={styles.speakerPhoto} />
+                ) : (
+                  <div className={styles.speakerPhotoPlaceholder}>NS</div>
+                )}
+              </div>
+              <div className={styles.speakerSocials}>
+                <a
+                  href={SPEAKER_LINKEDIN}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.socialLogoLink}
+                  title="Nitya on LinkedIn"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTAiIGZpbGw9IiMwQTY2QzIiLz48cmVjdCB4PSI5IiB5PSIxOCIgd2lkdGg9IjciIGhlaWdodD0iMjEiIHJ4PSIxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjEyLjUiIGN5PSIxMS41IiByPSI0IiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik0yMCAxOGg2LjV2M3MyLTMuNSA3LTMuNWM2IDAgOSA0IDkgMTB2MTEuNUgzNlYyOWMwLTMtMS41LTUtNC41LTVzLTUgMi01IDV2MTBIMjBWMTh6IiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg=="
+                    alt="LinkedIn"
+                    width={44}
+                    height={44}
+                    style={{ display: "block", borderRadius: 10 }}
+                  />
+                </a>
+                <a href={SPEAKER_X} target="_blank" rel="noreferrer" className={styles.socialLogoLink} title="Nitya on X">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTAiIGZpbGw9IiMwMDAwMDAiLz48cGF0aCBkPSJNOSA5aDkuNWw3LjUgMTAuOEwzNC4yIDlINDJMMjkuNSAyMy41IDQzIDM5aC05LjVsLTguMi0xMS41TDE2IDM5SDguNUwyMS41IDI0eiIgZmlsbD0id2hpdGUiLz48L3N2Zz4="
+                    alt="X"
+                    width={44}
+                    height={44}
+                    style={{ display: "block", borderRadius: 10 }}
+                  />
+                </a>
+              </div>
+            </div>
+            <div className={styles.speakerBio}>
+              <div className={styles.bioItems}>
+                <div className={styles.bioItem}>
+                  <div className={styles.bioIcon}>🎓</div>
+                  <div>
+                    <p className={`${styles.bioItemTitle} ${openSans.className}`}>Qualified Analyst</p>
+                    <p className={styles.bioItemBody}>
+                      MSc Investment Management from Bayes Business School, London (Cass), CFA Level 1 cleared, M.Com from
+                      Pune University, NISM RA &amp; PMS exams cleared.
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.bioItem}>
+                  <div className={styles.bioIcon}>📈</div>
+                  <div>
+                    <p className={`${styles.bioItemTitle} ${openSans.className}`}>Investment Experience</p>
+                    <p className={styles.bioItemBody}>
+                      5+ years in equity investing with a sharp focus on fundamental, ground-up research.
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.bioItem}>
+                  <div className={styles.bioIcon}>🔬</div>
+                  <div>
+                    <p className={`${styles.bioItemTitle} ${openSans.className}`}>Product &amp; Research Expertise</p>
+                    <p className={styles.bioItemBody}>
+                      2 years in product development and research at a SEBI RIA firm, building actionable investment
+                      frameworks.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div className={styles.bioItem}>
-                <div className={styles.bioIcon}>📈</div>
-                <div>
-                  <p className={`${styles.bioItemTitle} ${openSans.className}`}>Investment Experience</p>
-                  <p className={styles.bioItemBody}>
-                    5+ years in equity investing with a sharp focus on fundamental, ground-up research.
-                  </p>
-                </div>
-              </div>
-              <div className={styles.bioItem}>
-                <div className={styles.bioIcon}>🔬</div>
-                <div>
-                  <p className={`${styles.bioItemTitle} ${openSans.className}`}>Product &amp; Research Expertise</p>
-                  <p className={styles.bioItemBody}>
-                    2 years in product development and research at a SEBI RIA firm, building actionable investment
-                    frameworks.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <FeaturedNews />
+        <FeaturedNews />
 
-      <footer className={styles.footer}>
-        <div className={styles.footerTop}>
-          <div>
-            <a className={styles.navLogo} href="https://www.kamayakya.com" target="_blank" rel="noreferrer">
-              <span className={styles.k1} style={{ color: "rgba(255,255,255,0.8)" }}>
-                Kamaya
-              </span>
-              <span className={styles.k2}>Kya</span>
-            </a>
-            <div style={{ marginTop: 14, display: "flex", gap: 10, alignItems: "flex-start" }}>
-              <span style={{ fontSize: 16 }}>📍</span>
-              <p style={{ margin: 0, fontSize: 12, lineHeight: 1.75, maxWidth: 360 }}>
-                Flat No 6, New Nirmal Apartments, Balkrishna
-                <br />
-                Sakharam Dhole Patil Rd, near Akshay Complex Road,
-                <br />
-                Pune, Maharashtra 411001
-              </p>
-            </div>
-          </div>
-          <div style={{ textAlign: "right" }}>
-            <p style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8 }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z" />
-              </svg>
-              <a href="tel:+919175939641" style={{ color: "inherit" }}>
-                +91 9175939641
-              </a>
-            </p>
-            <p style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8 }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-              contact@kamayakya.com
-            </p>
-          </div>
-        </div>
+        <Footer />
 
-        <hr className={styles.footerDivider} />
-
-        <div className={styles.footerBadges}>
-          <div className={styles.badgeItem}>
-            <div className={styles.badgeLogo}>
-              SEBI
-              <span className={styles.sebiReg}>Registration No.</span>
-              <span className={styles.sebiNum}>INH000009843</span>
-            </div>
-          </div>
-          <div className={styles.badgeDividerV} />
-          <div className={styles.badgeItem}>
-            <div className={styles.badgeUdyamIcon}>🏛️</div>
-            <div>
-              <div className={styles.badgeText}>Udyam Registration No.</div>
-              <div className={styles.badgeText}>
-                <strong>UDYAM-MH-26-0204983</strong>
-              </div>
-            </div>
-          </div>
-          <div className={styles.badgeDividerV} />
-          <div className={styles.badgeItem}>
-            <div className={styles.badgeStartup}>
-              <span className={styles.badgeHash}>#startup</span>
-              <span className={styles.badgeIndia}>india</span>
-            </div>
-            <div>
-              <div className={styles.badgeText}>Certificate No.</div>
-              <div className={styles.badgeText}>
-                <strong>DIPP95081</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.footerDisclaimer}>
-          Investment in securities market are subject to market risks. Read all the related documents carefully before
-          investing. Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee
-          performance of the intermediary or provide any assurance of returns to investors.
-          <br />
-          BSE Enlistment No : 5583
-        </div>
-      </footer>
-
-      {toast ? <div className={`${styles.toast} ${styles.toastShow}`}>{toast}</div> : null}
-    </div>
+        {toast ? <div className={`${styles.toast} ${styles.toastShow}`}>{toast}</div> : null}
+      </div>
     </>
   );
 }
