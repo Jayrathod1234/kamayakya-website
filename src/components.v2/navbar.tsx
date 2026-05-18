@@ -286,13 +286,13 @@ export function Navbar({
                         }
                       }}
                       className={` m-0 ${(navigationOption.title !== "Track Record" && navigationOption.title !== "Stocks to Buy") ||
-                          !isLoggedIn
-                          ? navigationOption.title === "Stocks to Buy"
-                            ? "hidden"
-                            : "hidden lg:flex"
-                          : navigationOption.title === "Stocks to Buy"
-                            ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-[rgba(246,135,0,1)] hover:bg-[#E26103] !text-[rgba(246,135,0,1)] hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
-                            : ""
+                        !isLoggedIn
+                        ? navigationOption.title === "Stocks to Buy"
+                          ? "hidden"
+                          : "hidden lg:flex"
+                        : navigationOption.title === "Stocks to Buy"
+                          ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-[rgba(246,135,0,1)] hover:bg-[#E26103] !text-[rgba(246,135,0,1)] hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
+                          : ""
                         } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                     >
                       <Link
@@ -350,7 +350,7 @@ export function Navbar({
             <SideNav handleLogin={handleLogin} />
           </div>
           <div className="hidden px-2 lg:flex items-center">
-            <Link
+            {/* <Link
               onClick={() => {
                 sessionStorage.setItem("sebiBoardType", "mainboard");
               }}
@@ -364,6 +364,22 @@ export function Navbar({
                   }  !px-4 !py-[10px] rounded-[6px]`}
               >
                 Stocks to Buy
+              </Button>
+            </Link> */}
+            <Link
+              onClick={() => {
+                sessionStorage.setItem("sebiBoardType", "mainboard");
+              }}
+              href={"/all-stocks"}
+            >
+              <Button
+                variant={ButtonVariant.custom}
+                className={`!text-sm  border pricing border-[rgba(246,135,0,1)]  ${isLoggedIn
+                  ? "bg-[rgba(246,135,0,1)] text-white  hover:bg-[rgba(247,117,4,1)] mr-6 "
+                  : " text-[rgba(246,135,0,1)] hover:text-[rgba(247,117,4,1)] hover:border-[rgba(247,117,4,1)] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+                  }  !px-4 !py-[10px] rounded-[6px]`}
+              >
+                All Stocks
               </Button>
             </Link>
 

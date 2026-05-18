@@ -88,3 +88,9 @@ export const GET_RAZORPAY_PAYLOAD = `${USER_URL}/userDetails`
 
 //LANDING APIS
 export const LANDING_REPORTS_URL = `${USER_URL}/reportsForLandingPage`
+
+// Stock Stats API
+export const STOCK_NEW_STATS_URL = `${USER_URL}/stockNewStats/`;
+
+// Stock List API
+export const STOCK_NEW_LIST_URL = `${USER_URL}/stockNewList/`;
