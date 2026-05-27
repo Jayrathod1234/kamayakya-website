@@ -40,6 +40,7 @@ import dynamic from "next/dynamic";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import VIP_LOTTIE from "../../public/assets/New.json";
 import { Marquee } from "./magicui/marquee";
+import { useActivePlanContext } from "@/components/PlanContext";
 
 /*
 For pages with white background give className=bg-white to get the green hover effect
@@ -63,6 +64,9 @@ export function Navbar({
   const { setVisible, bindings } = useModal();
   const [isSticky, setIsSticky] = useState(pathname == "/stock-picks");
   const [isLoading, setIsLoading] = useState(true);
+  const {
+    activePlan: { plan },
+  } = useActivePlanContext();
   const handleEvent = (event: string, properties: Record<string, string>) => {
     const mp = getMixPanelClient();
     mp.track(event, properties);
@@ -276,7 +280,12 @@ export function Navbar({
                       </ul>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
-                  {NAVBAR_LINKS.map((navigationOption) => (
+                  {NAVBAR_LINKS.filter((option) => {
+                    if (option.title === "VIP Updates") {
+                      return isLoggedIn && plan?.toLowerCase() === "vip";
+                    }
+                    return true;
+                  }).map((navigationOption) => (
                     <NavigationMenuItem
                       onClick={() => {
                         if (navigationOption.title?.includes("SME")) {
@@ -366,7 +375,7 @@ export function Navbar({
                 Stocks to Buy
               </Button>
             </Link> */}
-            <Link
+            {isLoggedIn && <Link
               onClick={() => {
                 sessionStorage.setItem("sebiBoardType", "mainboard");
               }}
@@ -381,7 +390,7 @@ export function Navbar({
               >
                 All Stocks
               </Button>
-            </Link>
+            </Link>}
 
             {isLoggedIn ? (
               <NavbarDropdownCard

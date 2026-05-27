@@ -26,6 +26,7 @@ import {
 import { generateNextSeo } from "next-seo/pages";
 import { axiosApi } from "@/utils/axios";
 import { STOCK_NEW_STATS_URL, STOCK_NEW_LIST_URL } from "@/pages/api/URLs";
+import { useActivePlanContext } from "@/components/PlanContext";
 
 // Interface for Report History
 interface StatusChange {
@@ -65,10 +66,15 @@ interface StockPick {
 export default function AllStocksPage() {
   const { isLoggedIn } = useContext(AuthContext);
   const router = useRouter();
+  const {
+    activePlan: { plan },
+  } = useActivePlanContext();
+
+  console.log(plan, "plan....")
 
   // State Management
-  const [selectedExchange, setSelectedExchange] = useState<"All Boards" | "Mainboard" | "SME">("All Boards");
-  const [selectedAction, setSelectedAction] = useState<"All" | "Buy" | "Hold" | "Sell">("Buy");
+  const [selectedExchanges, setSelectedExchanges] = useState<string[]>([]);
+  const [selectedActions, setSelectedActions] = useState<string[]>(["BUY"]);
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"High to Low" | "Low to High" | "Newest to Oldest" | "Oldest to Newest">("High to Low");
@@ -93,10 +99,11 @@ export default function AllStocksPage() {
   // Dynamic stocks state
   const [stocks, setStocks] = useState<StockPick[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [stocksData, setStocksData] = useState<any>(null);
 
   // Pagination states
   const [page, setPage] = useState(1);
-  const [limit] = useState(10);
+  const [limit] = useState(9);
   const [hasMore, setHasMore] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -131,10 +138,16 @@ export default function AllStocksPage() {
         limit,
       };
 
-      params.exchange = selectedExchange === "All Boards" ? "All Boards" : selectedExchange.toUpperCase();
+      if (plan === "core") {
+        params.exchange = "Mainboard";
+      } else if (plan === "advanced") {
+        params.exchange = "SME";
+      } else if (selectedExchanges.length > 0) {
+        params.exchange = selectedExchanges.map(e => e).join(",");
+      }
 
-      if (selectedAction !== "All") {
-        params.action = selectedAction.toUpperCase();
+      if (selectedActions.length > 0) {
+        params.action = selectedActions.join(",");
       }
       if (debouncedSearchQuery.trim() !== "") {
         params.search = debouncedSearchQuery;
@@ -159,6 +172,7 @@ export default function AllStocksPage() {
       const count = typeof data === "object" && data !== null && "count" in data ? data.count : list.length;
       const nextUrl = typeof data === "object" && data !== null && "next" in data ? data.next : null;
 
+      setStocksData(data);
       setStocks(list);
       setTotalCount(count);
       setHasMore(!!nextUrl);
@@ -186,7 +200,7 @@ export default function AllStocksPage() {
     } else {
       setPage(1);
     }
-  }, [selectedExchange, selectedAction, debouncedSearchQuery, sortBy]);
+  }, [selectedExchanges, selectedActions, debouncedSearchQuery, sortBy]);
 
   // Smoothly scroll to the top of the stocks list container on page changes
   useEffect(() => {
@@ -195,6 +209,26 @@ export default function AllStocksPage() {
       element.scrollIntoView({ behavior: "smooth" });
     }
   }, [page]);
+
+  // Set initial selectedExchanges based on the active plan
+  useEffect(() => {
+    const planName = plan?.toLowerCase();
+    if (planName === "core") {
+      setSelectedExchanges(["Mainboard"]);
+    } else if (planName === "advanced") {
+      setSelectedExchanges(["SME"]);
+    }
+  }, [plan]);
+
+  // Back to top scroll state & effect
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  useEffect(() => {
+    const handleScrollVisibility = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScrollVisibility);
+    return () => window.removeEventListener("scroll", handleScrollVisibility);
+  }, []);
 
   // Dropdown UI states
   const [isExchangeOpen, setIsExchangeOpen] = useState(false);
@@ -329,193 +363,233 @@ export default function AllStocksPage() {
             </div>
           </div>
 
-          {/* High Conviction Warning Banner */}
-          <div className="flex items-center gap-3 bg-[#F4FAF6] border border-[#125B54]/10 border-l-4 border-l-[#125B54] p-4 rounded-xl shadow-3xs mb-4 text-sm text-gray-700">
-            <div className="flex-shrink-0 bg-[#125B54] text-white p-1 rounded-full w-5 h-5 flex items-center justify-center">
-              <Check size={12} className="stroke-[3]" />
+          {/* Sticky Container for Warning Banner & Filters */}
+          <div className="sticky top-[56px] lg:top-[62px] z-30 bg-[#FAF9F5] pb-1 mb-6">
+            {/* High Conviction Warning Banner */}
+            <div className="flex items-center gap-3 bg-[#F4FAF6] border border-[#125B54]/10 border-l-4 border-l-[#125B54] p-4 rounded-xl shadow-3xs mb-4 text-sm text-gray-700">
+              <div className="flex-shrink-0 bg-[#125B54] text-white p-1 rounded-full w-5 h-5 flex items-center justify-center">
+                <Check size={12} className="stroke-[3]" />
+              </div>
+              <p className="leading-relaxed">
+                Stocks with <span className="font-semibold text-gray-900">HIGH CONVICTION</span> should be bought on first priority before other recommendations
+              </p>
             </div>
-            <p className="leading-relaxed">
-              Stocks with <span className="font-semibold text-gray-900">HIGH CONVICTION</span> should be bought on first priority before other recommendations
-            </p>
-          </div>
 
-          {/* Interactive Filters Bar */}
-          <div className="bg-white rounded-2xl border border-gray-200/80 shadow-3xs px-6 py-3.5 mb-6">
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+            {/* Interactive Filters Bar */}
+            <div className="bg-white rounded-2xl border border-gray-200/80 shadow-3xs px-6 py-3.5 mb-0">
+              <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
 
-              <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
-                {/* Exchange Filter */}
-                <div className="flex items-center gap-3">
-                  <span className="text-[11px] font-black text-gray-700 uppercase tracking-wider">Exchange</span>
-                  <div className="relative" ref={exchangeRef}>
+                <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
+                  {/* Exchange Filter */}
+                  <div className="flex items-center gap-3">
+                    <span className="text-[11px] font-black text-gray-700 uppercase tracking-wider">Exchange</span>
+                    <div className="relative" ref={exchangeRef}>
+                      <button
+                        onClick={() => setIsExchangeOpen(!isExchangeOpen)}
+                        className="flex items-center gap-1.5 px-4 py-1.5 bg-white border border-gray-200 hover:border-gray-300 rounded-full text-xs font-semibold text-gray-700 transition-colors shadow-4xs"
+                      >
+                        <span>{selectedExchanges.length > 0 ? selectedExchanges.join(", ") : "Exchange"}</span>
+                        <ChevronDown size={12} className={`text-gray-500 transition-transform ${isExchangeOpen ? "rotate-180" : ""}`} />
+                      </button>
+
+                      <AnimatePresence>
+                        {isExchangeOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-2xl shadow-lg py-1.5 z-30 overflow-hidden"
+                          >
+                            {(["Mainboard", "SME"] as const).map((opt) => {
+                              const isSelected = selectedExchanges.includes(opt);
+                              const isDisabled =
+                                (opt === "Mainboard" && plan === "advanced") ||
+                                (opt === "SME" && plan === "core");
+                              const isLocked = plan === "core" || plan === "advanced";
+
+                              return (
+                                <button
+                                  key={opt}
+                                  disabled={isDisabled || isLocked}
+                                  onClick={() => {
+                                    setSelectedExchanges((prev) =>
+                                      prev.includes(opt)
+                                        ? prev.filter((item) => item !== opt)
+                                        : [...prev, opt]
+                                    );
+                                  }}
+                                  className={`w-full text-left px-4 py-2.5 text-xs transition-colors hover:bg-gray-50 flex items-center justify-between ${isDisabled
+                                    ? "opacity-50 cursor-not-allowed text-gray-400"
+                                    : isSelected
+                                      ? "text-[#125B54] font-bold bg-[#EAF5F4]"
+                                      : "text-gray-600"
+                                    } ${isLocked ? "cursor-default opacity-100" : ""}`}
+                                >
+                                  <span>{opt}</span>
+                                  {isSelected && <Check size={13} className="text-[#125B54]" />}
+                                </button>
+                              );
+                            })}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+
+                  <span className="hidden sm:inline-block w-[1px] h-5 bg-[#9ca3af] mx-1"></span>
+
+                  {/* Action Pills */}
+                  <div className="flex items-center gap-3">
+                    <span className="text-[11px] font-black text-gray-700 uppercase tracking-wider">Action</span>
+                    <div className="flex items-center gap-2">
+                      {(["Buy", "Hold", "Sell"] as const).map((act) => {
+                        const upper = act.toUpperCase();
+                        const isActive = selectedActions.includes(upper);
+                        let activeStyle = "";
+                        if (isActive) {
+                          if (act === "Buy") {
+                            activeStyle = "bg-[#0d8b6d] text-white shadow-3xs border border-transparent";
+                          } else if (act === "Hold") {
+                            activeStyle = "bg-[#b07800] text-white shadow-3xs border border-transparent";
+                          } else {
+                            activeStyle = "bg-[#b8412e] text-white shadow-3xs border border-transparent";
+                          }
+                        } else {
+                          activeStyle = "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:text-gray-900";
+                        }
+
+                        return (
+                          <button
+                            key={act}
+                            onClick={() => {
+                              setSelectedActions((prev) =>
+                                prev.includes(upper)
+                                  ? prev.filter((item) => item !== upper)
+                                  : [...prev, upper]
+                              );
+                            }}
+                            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${activeStyle}`}
+                          >
+                            {act}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Search input and Sort Dropdown */}
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+                  {/* Search */}
+                  <div className="relative w-full sm:w-72">
+                    <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    <input
+                      type="text"
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      placeholder="Search stock or sector..."
+                      className="w-full pl-10 pr-4 py-2 border border-gray-200/80 focus:border-[#125B54] focus:ring-1 focus:ring-[#125B54]/10 rounded-full text-xs bg-[#FAF9F5]/80 placeholder-gray-400 text-gray-800 transition-colors shadow-4xs"
+                    />
+                    {searchInput && (
+                      <button
+                        onClick={() => setSearchInput("")}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 p-0.5 rounded-full hover:bg-gray-100 text-gray-400"
+                      >
+                        <X size={12} />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Sort */}
+                  <div className="relative w-full sm:w-auto" ref={sortRef}>
                     <button
-                      onClick={() => setIsExchangeOpen(!isExchangeOpen)}
-                      className="flex items-center gap-1.5 px-4 py-1.5 bg-white border border-gray-200 hover:border-gray-300 rounded-full text-xs font-semibold text-gray-700 transition-colors shadow-4xs"
+                      onClick={() => setIsSortOpen(!isSortOpen)}
+                      className="w-full sm:w-auto flex items-center justify-between gap-1.5 px-4 py-1.5 bg-[#EAF5F4] border border-[#125B54]/10 hover:bg-[#DDF0ED] rounded-full text-xs font-semibold text-[#125B54] transition-colors"
                     >
-                      <span>{selectedExchange}</span>
-                      <ChevronDown size={12} className={`text-gray-500 transition-transform ${isExchangeOpen ? "rotate-180" : ""}`} />
+                      <SlidersHorizontal size={13} className="text-[#125B54]" />
+                      <span>{sortBy}</span>
+                      <ChevronDown size={12} className={`text-[#125B54]/70 transition-transform ${isSortOpen ? "rotate-180" : ""}`} />
                     </button>
 
                     <AnimatePresence>
-                      {isExchangeOpen && (
+                      {isSortOpen && (
                         <motion.div
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 8 }}
                           transition={{ duration: 0.15 }}
-                          className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-2xl shadow-lg py-1.5 z-30 overflow-hidden"
+                          className="absolute right-0 mt-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-xl p-3 z-30"
                         >
-                          {(["All Boards", "Mainboard", "SME"] as const).map((opt) => (
-                            <button
-                              key={opt}
-                              onClick={() => {
-                                setSelectedExchange(opt);
-                                setIsExchangeOpen(false);
-                              }}
-                              className={`w-full text-left px-4 py-2.5 text-xs transition-colors hover:bg-gray-50 flex items-center justify-between ${selectedExchange === opt ? "text-[#125B54] font-bold bg-[#EAF5F4]" : "text-gray-600"}`}
-                            >
-                              <span>{opt}</span>
-                              {selectedExchange === opt && <Check size={13} className="text-[#125B54]" />}
-                            </button>
-                          ))}
+                          {/* Conviction section */}
+                          <div>
+                            <span className="text-[10px] font-extrabold text-gray-400 tracking-wider uppercase mb-2 block">Conviction</span>
+                            <div className="space-y-1">
+                              {(["High to Low", "Low to High"] as const).map((opt) => {
+                                const isActive = sortBy === opt;
+                                return (
+                                  <button
+                                    key={opt}
+                                    onClick={() => {
+                                      setSortBy(opt);
+                                      setIsSortOpen(false);
+                                    }}
+                                    className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${isActive ? "bg-[#F2F4F7]/60 font-semibold text-gray-900" : "text-gray-700 hover:bg-gray-50 font-medium"
+                                      }`}
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <ArrowUpDown size={13} className={isActive ? "text-gray-750" : "text-gray-400"} />
+                                      <span>{opt}</span>
+                                    </div>
+                                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all bg-white ${isActive ? "border-[#125B54]" : "border-gray-200"
+                                      }`}>
+                                      {isActive && <div className="w-2 h-2 rounded-full bg-[#125B54]" />}
+                                    </div>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Divider */}
+                          <div className="border-t border-gray-100 my-3"></div>
+
+                          {/* Recency section */}
+                          <div>
+                            <span className="text-[10px] font-extrabold text-gray-400 tracking-wider uppercase mb-2 block">Recency</span>
+                            <div className="space-y-1">
+                              {(["Newest to Oldest", "Oldest to Newest"] as const).map((opt) => {
+                                const isActive = sortBy === opt;
+                                return (
+                                  <button
+                                    key={opt}
+                                    onClick={() => {
+                                      setSortBy(opt);
+                                      setIsSortOpen(false);
+                                    }}
+                                    className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${isActive ? "bg-[#F2F4F7]/60 font-semibold text-gray-900" : "text-gray-700 hover:bg-gray-50 font-medium"
+                                      }`}
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <Clock size={13} className={isActive ? "text-gray-750" : "text-gray-400"} />
+                                      <span>{opt}</span>
+                                    </div>
+                                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all bg-white ${isActive ? "border-[#125B54]" : "border-gray-200"
+                                      }`}>
+                                      {isActive && <div className="w-2 h-2 rounded-full bg-[#125B54]" />}
+                                    </div>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
                 </div>
 
-                <span className="hidden sm:inline-block w-[1px] h-5 bg-gray-200/80 mx-1"></span>
-
-                {/* Action Pills */}
-                <div className="flex items-center gap-3">
-                  <span className="text-[11px] font-black text-gray-700 uppercase tracking-wider">Action</span>
-                  <div className="flex items-center gap-2">
-                    {(["Buy", "Hold", "Sell"] as const).map((act) => (
-                      <button
-                        key={act}
-                        onClick={() => setSelectedAction(act === selectedAction ? "All" : act)}
-                        className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${selectedAction === act
-                          ? "bg-[#108973] text-white shadow-3xs border border-transparent"
-                          : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:text-gray-900"
-                          }`}
-                      >
-                        {act}
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
-
-              {/* Search input and Sort Dropdown */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-                {/* Search */}
-                <div className="relative w-full sm:w-72">
-                  <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                  <input
-                    type="text"
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    placeholder="Search stock or sector..."
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200/80 focus:border-[#125B54] focus:ring-1 focus:ring-[#125B54]/10 rounded-full text-xs bg-[#FAF9F5]/80 placeholder-gray-400 text-gray-800 transition-colors shadow-4xs"
-                  />
-                  {searchInput && (
-                    <button
-                      onClick={() => setSearchInput("")}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 p-0.5 rounded-full hover:bg-gray-100 text-gray-400"
-                    >
-                      <X size={12} />
-                    </button>
-                  )}
-                </div>
-
-                {/* Sort */}
-                <div className="relative w-full sm:w-auto" ref={sortRef}>
-                  <button
-                    onClick={() => setIsSortOpen(!isSortOpen)}
-                    className="w-full sm:w-auto flex items-center justify-between gap-1.5 px-4 py-1.5 bg-[#EAF5F4] border border-[#125B54]/10 hover:bg-[#DDF0ED] rounded-full text-xs font-semibold text-[#125B54] transition-colors"
-                  >
-                    <SlidersHorizontal size={13} className="text-[#125B54]" />
-                    <span>{sortBy}</span>
-                    <ChevronDown size={12} className={`text-[#125B54]/70 transition-transform ${isSortOpen ? "rotate-180" : ""}`} />
-                  </button>
-
-                  <AnimatePresence>
-                    {isSortOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 8 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute right-0 mt-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-xl p-3 z-30"
-                      >
-                        {/* Conviction section */}
-                        <div>
-                          <span className="text-[10px] font-extrabold text-gray-400 tracking-wider uppercase mb-2 block">Conviction</span>
-                          <div className="space-y-1">
-                            {(["High to Low", "Low to High"] as const).map((opt) => {
-                              const isActive = sortBy === opt;
-                              return (
-                                <button
-                                  key={opt}
-                                  onClick={() => {
-                                    setSortBy(opt);
-                                    setIsSortOpen(false);
-                                  }}
-                                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${isActive ? "bg-[#F2F4F7]/60 font-semibold text-gray-900" : "text-gray-700 hover:bg-gray-50 font-medium"
-                                    }`}
-                                >
-                                  <div className="flex items-center gap-2">
-                                    <ArrowUpDown size={13} className={isActive ? "text-gray-750" : "text-gray-400"} />
-                                    <span>{opt}</span>
-                                  </div>
-                                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all bg-white ${isActive ? "border-[#125B54]" : "border-gray-200"
-                                    }`}>
-                                    {isActive && <div className="w-2 h-2 rounded-full bg-[#125B54]" />}
-                                  </div>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-
-                        {/* Divider */}
-                        <div className="border-t border-gray-100 my-3"></div>
-
-                        {/* Recency section */}
-                        <div>
-                          <span className="text-[10px] font-extrabold text-gray-400 tracking-wider uppercase mb-2 block">Recency</span>
-                          <div className="space-y-1">
-                            {(["Newest to Oldest", "Oldest to Newest"] as const).map((opt) => {
-                              const isActive = sortBy === opt;
-                              return (
-                                <button
-                                  key={opt}
-                                  onClick={() => {
-                                    setSortBy(opt);
-                                    setIsSortOpen(false);
-                                  }}
-                                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${isActive ? "bg-[#F2F4F7]/60 font-semibold text-gray-900" : "text-gray-700 hover:bg-gray-50 font-medium"
-                                    }`}
-                                >
-                                  <div className="flex items-center gap-2">
-                                    <Clock size={13} className={isActive ? "text-gray-750" : "text-gray-400"} />
-                                    <span>{opt}</span>
-                                  </div>
-                                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all bg-white ${isActive ? "border-[#125B54]" : "border-gray-200"
-                                    }`}>
-                                    {isActive && <div className="w-2 h-2 rounded-full bg-[#125B54]" />}
-                                  </div>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-
             </div>
           </div>
 
@@ -523,7 +597,7 @@ export default function AllStocksPage() {
           <div className="flex items-center gap-2 text-xs font-bold text-gray-400 tracking-wider mb-6">
             <span>Showing <span className="text-black font-bold"> {stocks.length} </span>{stocks.length === 1 ? "recommendation" : "recommendations"}</span>
             <span className="w-1.5 h-1.5 bg-gray-300 rounded-full mx-1"></span>
-            <span>Last updated 14 May 2026</span>
+            <span>{`Last updated ${stocksData?.last_updated_date}`}</span>
           </div>
 
           {/* Cards Grid */}
@@ -545,9 +619,9 @@ export default function AllStocksPage() {
                       : "Low Conviction";
 
                 const getAccentColor = (act: "Buy" | "Hold" | "Sell") => {
-                  if (act === "Buy") return "bg-[#108973]";
-                  if (act === "Hold") return "bg-[#F79009]";
-                  return "bg-[#B93815]";
+                  if (act === "Buy") return "linear-gradient(90deg, #125b54 0%, #7fd28c 100%)";
+                  if (act === "Hold") return "linear-gradient(90deg, #b07800 0%, #f0c060 100%)";
+                  return "linear-gradient(90deg, #b8412e 0%, #d96c5b 100%)";
                 };
 
                 return (
@@ -557,11 +631,11 @@ export default function AllStocksPage() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="bg-white rounded-[24px] border border-gray-200/80 shadow-3xs p-6 pt-7 pb-6 relative overflow-hidden transition-all duration-300 flex flex-col justify-between hover:shadow-md hover:border-gray-300/80"
+                    whileHover={{ y: -3 }}
+                    className="bg-white rounded-[24px] border border-gray-200/80 shadow-3xs p-6 pt-7 pb-6 relative overflow-hidden transition-all flex flex-col justify-between hover:shadow-[0_24px_60px_-20px_rgba(18,91,84,0.22),0_8px_20px_-8px_rgba(18,91,84,0.12)] hover:border-[rgba(18,91,84,0.18)]"
                   >
                     {/* Dynamic accent top bar */}
-                    <div className={`h-[4px] w-full absolute top-0 left-0 right-0 ${getAccentColor(action)}`} />
+                    <div className="h-[4px] w-full absolute top-0 left-0 right-0" style={{ background: getAccentColor(action) }} />
 
                     <div>
                       {/* Header */}
@@ -572,24 +646,24 @@ export default function AllStocksPage() {
                             {stock.sector && <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-lg tracking-wider uppercase">
                               {stock.sector}
                             </span>}
-                            {stock.mcapLabel && <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-lg tracking-wider uppercase">
-                              {stock.mcapLabel}
+                            {<span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-lg tracking-wider uppercase">
+                              {stock.mcapLabel || stock.exchange}
                             </span>}
                           </div>
                         </div>
 
                         {/* Action Badge */}
                         <span className={`text-[11px] font-extrabold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 tracking-wider ${action === "Buy"
-                          ? "bg-[#EAF5F4] text-[#125B54]"
+                          ? "bg-[#e6f5ef] text-[#0d8b6d]"
                           : action === "Hold"
-                            ? "bg-[#FFF9EB] text-[#B25E00]"
-                            : "bg-[#FEF3F2] text-[#B93815]"
+                            ? "bg-[#fef3e0] text-[#b07800]"
+                            : "bg-[#fbece8] text-[#b8412e]"
                           }`}>
                           <span className={`w-1.5 h-1.5 rounded-full ${action === "Buy"
-                            ? "bg-[#125B54]"
+                            ? "bg-[#0d8b6d]"
                             : action === "Hold"
-                              ? "bg-[#B25E00]"
-                              : "bg-[#B93815]"
+                              ? "bg-[#b07800]"
+                              : "bg-[#b8412e]"
                             }`}></span>
                           <span>{action.toUpperCase()}</span>
                         </span>
@@ -602,13 +676,13 @@ export default function AllStocksPage() {
                             ? "bg-[#ECFDF5] text-[#107569] border-[#A6F4C5]"
                             : convictionLabel === "Medium Conviction"
                               ? "bg-[#FEF6E9] text-[#B25E00] border-[#FEDF89]"
-                              : "bg-[#F2F4F7] text-gray-700 border-gray-200"
+                              : "bg-[#FEF3F2] text-[#B93815] border-[#FECDCA]"
                             }`}>
                             <span className={`w-1.5 h-1.5 rounded-full ${convictionLabel === "High Conviction"
                               ? "bg-[#107569]"
                               : convictionLabel === "Medium Conviction"
                                 ? "bg-[#B25E00]"
-                                : "bg-gray-500"
+                                : "bg-[#B93815]"
                               }`}></span>
                             {convictionLabel}
                           </span>
@@ -640,7 +714,7 @@ export default function AllStocksPage() {
                       {action === "Sell" && (
                         <>
                           <div className="border-t border-dashed border-gray-200 my-4"></div>
-                          <div className="grid grid-cols-3 gap-4 mb-2 items-center">
+                          <div className="grid grid-cols-3 gap-4 items-center">
                             <div>
                               <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">Exit Date</div>
                               <div className="text-[14px] font-bold text-gray-900 mt-1">{stock.exitDate || "-"}</div>
@@ -661,17 +735,6 @@ export default function AllStocksPage() {
                                   return isNaN(parsed) ? 0 : parsed;
                                 };
 
-                                const calculateDurationMonths = (start: string, end: string): string => {
-                                  const startDate = new Date(Date.parse(start));
-                                  const endDate = new Date(Date.parse(end));
-                                  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                                    return "0M";
-                                  }
-                                  const diffYears = endDate.getFullYear() - startDate.getFullYear();
-                                  const diffMonths = endDate.getMonth() - startDate.getMonth() + (diffYears * 12);
-                                  return `${Math.max(0, diffMonths)}M`;
-                                };
-
                                 const entryVal = Number(stock.initPriceRaw || parsePriceRaw(stock.initPrice));
                                 const exitVal = parsePriceRaw(stock.exitPrice || 60);
                                 let returnsPct = 0;
@@ -679,13 +742,12 @@ export default function AllStocksPage() {
                                   returnsPct = ((exitVal - entryVal) / entryVal) * 100;
                                 }
 
-                                const duration = calculateDurationMonths(stock.initDate, stock.exitDate || "8 May 2026");
                                 const isPositive = returnsPct >= 0;
 
                                 return (
                                   <div className={`px-1.5 py-1.5 rounded-2xl flex flex-col justify-center items-center ${isPositive ? "bg-[#ECFDF5] border border-[#ECFDF5]" : "bg-[#FEF3F2] border border-[#FEF3F2]"
                                     }`}>
-                                    <div className="text-[11px] font-extrabold text-gray-400 uppercase tracking-wider text-center">{duration} RETURNS</div>
+                                    <div className="text-[11px] font-extrabold text-gray-400 tracking-wider text-center">Abs. Returns</div>
                                     <div className={`text-sm font-black mt-0.5 flex items-center gap-0.5 ${isPositive ? "text-[#107569]" : "text-[#B93815]"
                                       }`}>
                                       <span>{isPositive ? "▲" : "▼"}</span>
@@ -703,10 +765,10 @@ export default function AllStocksPage() {
                     {/* View Details Action */}
                     <button
                       onClick={() => setSelectedStock(stock)}
-                      className="w-full py-2.5 bg-[#EAF7F6] hover:bg-[#D6F0ED] active:translate-y-[1px] text-[#125B54] font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-[0_3px_0_0_rgba(18,91,84,0.15)] hover:shadow-[0_2px_0_0_rgba(18,91,84,0.15)] group mt-1 cursor-pointer"
+                      className="w-full mt-4 border-[1.5px] border-[#a8ddd8] border-b-4 border-b-[#7ccbc4] rounded-xl bg-[#dff7f4] cursor-pointer flex items-center justify-center gap-2 py-[9px] px-[20px] text-[13.5px] font-bold text-[#082a26] normal-case tracking-normal [transition:0.28s_cubic-bezier(0.4,0,0.2,1)] hover:bg-[#c8f0ec] hover:border-[#7ccbc4] hover:border-b-[#4aada6] group active:translate-y-[1px]"
                     >
                       <span>View Reports & Details</span>
-                      <ChevronRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                      <ChevronRight size={13} className="transition-transform group-hover:translate-x-1 duration-300" />
                     </button>
                   </motion.div>
                 );
@@ -816,6 +878,8 @@ export default function AllStocksPage() {
               >
                 {/* Header area */}
                 <div className="p-6 md:p-8 bg-white border-b border-gray-200/80 relative">
+                  {/* Top Accent Line */}
+                  <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #125b54 0%, #ff9e29 100%)" }} />
 
                   {/* Small close button top right */}
                   <button
@@ -864,7 +928,7 @@ export default function AllStocksPage() {
                           }`} />
 
                         {/* Timeline Content Card */}
-                        <div className="bg-white rounded-2xl border border-[#FFEED9] py-4 px-5 relative hover:shadow-sm transition-all duration-300 ease-in-out">
+                        <div className="bg-white rounded-2xl border border-[#FFEED9] py-4 px-5 relative hover:shadow-sm hover:translate-x-[4px] transition-all duration-300 ease-in-out">
 
                           {/* Title & Date */}
                           <div className="flex items-start justify-between gap-3 mb-2">
@@ -909,10 +973,10 @@ export default function AllStocksPage() {
                                 window.open(report.link, "_blank");
                               }
                             }}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#125B54] hover:text-[#107569] transition-colors"
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#125B54] hover:text-[#F68700] transition-colors group"
                           >
                             <span>OPEN REPORT</span>
-                            <ArrowRight size={12} className="stroke-[2.5]" />
+                            <ArrowRight size={12} className="stroke-[2.5] transition-transform group-hover:translate-x-1 duration-300" />
                           </a>
 
                         </div>
@@ -922,6 +986,22 @@ export default function AllStocksPage() {
                 </div>
               </motion.div>
             </>
+          )}
+        </AnimatePresence>
+
+        {/* Back to Top Button */}
+        <AnimatePresence>
+          {showScrollTop && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="fixed bottom-8 right-8 z-50 p-3.5 bg-[#125B54] hover:bg-[#107569] text-white rounded-full shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200 cursor-pointer border border-[#125B54]/20 flex items-center justify-center"
+              aria-label="Back to top"
+            >
+              <ArrowUp size={20} className="stroke-[2.5]" />
+            </motion.button>
           )}
         </AnimatePresence>
       </div>

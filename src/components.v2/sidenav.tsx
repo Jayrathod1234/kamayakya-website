@@ -209,7 +209,12 @@ export default function SideNav({ handleLogin }: TSideNav) {
                     </AccordionItem>
                   </Accordion>
                 </li>
-                {NAVBAR_LINKS.map((nav) => (
+                {NAVBAR_LINKS.filter((nav) => {
+                  if (nav.title === "VIP Updates") {
+                    return isLoggedIn && plan?.toLowerCase() === "vip";
+                  }
+                  return true;
+                }).map((nav) => (
                   <Link
                     onClick={() => {
                       if (nav.title?.includes("SME")) {

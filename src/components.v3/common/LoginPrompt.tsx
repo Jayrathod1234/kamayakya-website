@@ -31,14 +31,14 @@ interface ILoginPrompt {
 
 type LoginParams =
   | {
-      type: "mobile";
-      mobile: string;
-      country_code: string;
-    }
+    type: "mobile";
+    mobile: string;
+    country_code: string;
+  }
   | {
-      type: "email";
-      email: string;
-    };
+    type: "email";
+    email: string;
+  };
 
 const NewUserList = ({ label }: { label: string }) => {
   return (
@@ -341,7 +341,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
                 onChange={setOtp}
                 renderSeparator={<span></span>}
                 shouldAutoFocus={true}
-                // disabled={isLoading}
+              // disabled={isLoading}
               />
             </div>
             <p className=" text-2xs mt-2">
@@ -584,15 +584,9 @@ export default function LoginPrompt({ triggerEle }: ILoginPrompt) {
       >
         <div className=" mx-auto">
           <div className="flex flex-col sm:flex-row !rounded-[20px] overflow-hidden bg-white">
-            <div className="new__user-container max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] block flex-1 order-2 ">
-              <div className=" flex flex-col max-sm:items-start items-center min-w-0">
-                <img className=" hidden sm:block" width={26} height={32} src="/KKLogoK.svg" alt="kklogo" />
-                <div className="  sm:p-4  rounded-lg sm:border sm:border-[#FFFFFF] sm:bg-[#FFFFFF66] sm:mt-[14px] min-w-0 flex flex-col max-sm:items-start gap-y-3">
-                  <p className=" text-gray-700 font-semibold sm:font-bold text-sm md:text-md">New User?</p>
-                  <NewUserList label="Get 3 Hot Stocks for Free" />
-                  <NewUserList label="Unlock KamayaKya’s Track Record" />
-                  <NewUserList label="Get WhatsApp & Email Notifications" />
-                </div>
+            <div className="new__user-container max-sm:px-6 py-4 sm:py-10 pb-4 bg-[#FFECDB] sm:max-w-[352px] flex-1 order-2 flex flex-col items-center justify-between">
+              <div className="flex-1 flex flex-col items-center justify-center min-w-0 w-full">
+                <img className="block mx-auto" width={70} height={90} src="/KKLogoK.svg" alt="kklogo" />
               </div>
               <Lottie className=" hidden sm:block" autoPlay loop={false} animationData={ONBOARDING_LOTTIE} />
             </div>
