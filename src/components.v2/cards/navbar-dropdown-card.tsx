@@ -72,6 +72,9 @@ export function NavbarDropdownCard({
     // delete axiosApi.defaults.headers.common["Authorization"] ;
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("smallcase_popup_dismissed");
+    }
     window.location.href = "/";
     // router.reload()
     // router.replace("/");

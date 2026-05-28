@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { Navbar, Footer, FeelingLost, Newsletter, Testimonials } from "@/components.v2/index.components";
+import { SmallcasePopup } from "@/components.v3/common/SmallcasePopup";
+import { useActivePlanContext } from "@/components/PlanContext";
 import "chartjs-adapter-date-fns";
 import ExpandableCardGroup from "@/components.v3/home/ExpandableCardGroup";
 import OnGroundVerification from "@/components.v3/home/OnGroundVerification";
@@ -32,7 +34,30 @@ const Home: NextPage = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { isLoggedIn } = useContext(AuthContext);
+  const { activePlan, loading } = useActivePlanContext();
   const refreshToken = typeof window !== "undefined" ? localStorage.getItem("refresh") : null;
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  useEffect(() => {
+    if (isLoggedIn && !loading) {
+      const planName = activePlan?.plan?.toLowerCase() || "";
+      const hasPaidPlan = planName !== "" && planName !== "free";
+
+      if (!hasPaidPlan && sessionStorage.getItem("smallcase_popup_dismissed") !== "true") {
+        setIsPopupOpen(true);
+      } else {
+        setIsPopupOpen(false);
+      }
+    } else {
+      setIsPopupOpen(false);
+    }
+  }, [isLoggedIn, activePlan, loading]);
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    sessionStorage.setItem("smallcase_popup_dismissed", "true");
+  };
 
   const fetchUser = async () => {
     try {
@@ -270,7 +295,7 @@ const Home: NextPage = () => {
         <Hero />
       </div>
       {/* <Stat /> */}
-      <Service />
+      {/* <Service /> */}
       <div>
         <ExpandableCardGroup />
       </div>
@@ -322,9 +347,9 @@ const Home: NextPage = () => {
         <div id="sample-report" ref={sampleReportRef}>
           <SampleReport />
         </div>
-        <div id="track-record" ref={trackRecordRef}>
+        {/* <div id="track-record" ref={trackRecordRef}>
           <TrackRecordSection />
-        </div>
+        </div> */}
         <div id="trust-us" ref={trustUsRef}>
           <TrustUs />
         </div>
@@ -335,9 +360,9 @@ const Home: NextPage = () => {
           <How />
         </div>
       </div>
-      <div id="stock-picks" ref={stockPickRef}>
+      {/* <div id="stock-picks" ref={stockPickRef}>
         <StockPickSection />
-      </div>
+      </div> */}
       <div id="testimonials" className="pt-[60px] pb-[52px] md:py-[60px] bg-gray-100 relative ">
         <Testimonials />
       </div>
@@ -351,6 +376,7 @@ const Home: NextPage = () => {
         <Newsletter />
       </div>
       <Footer />
+      <SmallcasePopup isOpen={isPopupOpen} onClose={handleClosePopup} />
     </>
   );
 };

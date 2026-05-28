@@ -220,7 +220,7 @@ const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
       sessionStorage.setItem("fullname", data?.fullname);
       setFullname(data?.fullname);
       setActiveTab("step4");
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -267,9 +267,8 @@ const Step3 = ({ setFullname, activeTab, setActiveTab, fullname }) => {
                 required: "Enter Full Name to continue",
                 minLength: { value: 3, message: "Enter Full Name to continue (minimum 3 characters)" },
               })}
-              className={` text-sm py-2 px-[10px] border ${
-                errors.fullname?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
-              }  rounded-lg bg-transparent`}
+              className={` text-sm py-2 px-[10px] border ${errors.fullname?.message ? "border-[#FDA29B]" : "border-[#0000000F]"
+                }  rounded-lg bg-transparent`}
               placeholder="Enter your Full Name"
               type="text"
             />
@@ -604,7 +603,7 @@ const Step4 = ({
                 onChange={setOtp}
                 renderSeparator={<span></span>}
                 shouldAutoFocus={true}
-                // disabled={isLoading}
+              // disabled={isLoading}
               />
             </div>
             <p className=" text-2xs mt-5">
@@ -661,8 +660,8 @@ const Step4 = ({
               ? "Just one last step! Add and verify your Email ID to get your 3 HOT stock picks for FREE."
               : "Just one last step! Verify your Email ID to regain access to your membership and continue your smart investing journey."
             : user?.is_new
-            ? "Just one last step! Add and verify your Mobile number to get your 3 HOT stock picks for FREE."
-            : "Just one last step! Verify your mobile number to regain access to your membership and continue your smart investing journey."}
+              ? "Just one last step! Add and verify your Mobile number to get your 3 HOT stock picks for FREE."
+              : "Just one last step! Verify your mobile number to regain access to your membership and continue your smart investing journey."}
         </p>
       </div>
       <div className="flex flex-col mt-8 pb-[54px] px-5 sm:px-9">
@@ -670,11 +669,10 @@ const Step4 = ({
           {loginMethod === "mobile" ? "Email" : "Mobile no."} <span className=" text-[#F04438]">*</span>
         </p>
         <div
-          className={`py-[9px] pl-[12px] pr-[6px] max-h-[44px] border ${
-            (loginMethod === "mobile" ? errors.email?.message : errors.phone?.message)
+          className={`py-[9px] pl-[12px] pr-[6px] max-h-[44px] border ${(loginMethod === "mobile" ? errors.email?.message : errors.phone?.message)
               ? "border-[#FDA29B]"
               : "border-[#0000000F]"
-          }   rounded-lg bg-transparent flex items-center `}
+            }   rounded-lg bg-transparent flex items-center `}
         >
           {loginMethod === "mobile" ? (
             <input
@@ -1028,24 +1026,21 @@ const MainContent = ({ onboardingCompleted, setOnboardingCompleted, activeTab, s
         <TabsList className=" flex justify-between bg-transparent relative z-10 space-x-4 h-fit p-0 pt-5 sm:pt-10">
           <TabsTrigger
             disabled
-            className={` !p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${
-              ["step2", "step3", "step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
-            }  shadow-none data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
+            className={` !p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${["step2", "step3", "step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
+              }  shadow-none data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
             value="step1"
           ></TabsTrigger>
           <TabsTrigger
             disabled
-            className={`!p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${
-              ["step3", "step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
-            }  data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
+            className={`!p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${["step3", "step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
+              }  data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
             value="step2"
           ></TabsTrigger>
           <TabsTrigger
             disabled
             value="step3"
-            className={` !p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${
-              ["step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
-            } disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
+            className={` !p-0  h-[4px] w-full rounded-full disabled:opacity-100 ${["step4"].includes(activeTab) ? "bg-[#0E6C63]" : "bg-[#E9EBEA]"
+              } disabled:opacity-100 data-[state=active]:bg-[#75CDC5] data-[state=active]:shadow-none`}
           ></TabsTrigger>
           <TabsTrigger
             disabled
@@ -1132,9 +1127,7 @@ export default function Onboarding() {
   }, [activeTab]);
 
   useLayoutEffect(() => {
-    if (user?.is_onboard) {
-      router.replace("/");
-    }
+    router.replace("/");
   }, [user]);
 
   useEffect(() => {
@@ -1301,16 +1294,15 @@ export default function Onboarding() {
           />
         </div>
       ) : // <Lottie className=" absolute left-0  pointer-events-none" autoPlay loop={false} animationData={POPPER_JSON} />
-      null}
+        null}
       <Header className=" h-auto max-sm:[&>div]:pb-3 bg-transparent" />
       {/* <Dialog open={isMobile ? false:true}> */}
       <div className=" z-30 flex items-center justify-center">
         <div
-          className={` transition-all duration-300 hidden p-0 z-30  !rounded-[20px] bg-white overflow-hidden sm:flex flex-col w-[calc(100%-32px)] ${
-            (activeTab === "step1" || activeTab === "step2") && !onboardingCompleted
+          className={` transition-all duration-300 hidden p-0 z-30  !rounded-[20px] bg-white overflow-hidden sm:flex flex-col w-[calc(100%-32px)] ${(activeTab === "step1" || activeTab === "step2") && !onboardingCompleted
               ? " max-w-[1278px]"
               : "  max-w-[520px]"
-          }`}
+            }`}
           overlayClassName="bg-transparent open_sans"
           closeClassName="hidden"
         >

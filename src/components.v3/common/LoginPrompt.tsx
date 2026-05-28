@@ -167,26 +167,13 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
           is_onboard: res?.is_onboard,
           is_new: res?.is_new_user,
         }));
-        if (!res?.is_onboard) {
-          setShowLoginModal(false);
-          sessionStorage.setItem("user_id", res?.user_id);
-          sessionStorage.setItem("email", res?.email);
-          sessionStorage.setItem("mobile", res?.mobile);
-          sessionStorage.setItem("fullname", res?.full_name);
-          if (!res?.is_new_user) {
-            setDisplayExistingUserModal(true);
-            return;
-          }
-
-          router.push("/onboarding");
-        } else {
+        if (res.access && res.refresh) {
           localStorage.setItem("access", res.access);
           localStorage.setItem("refresh", res.refresh);
           axiosApi.defaults.headers.common["Authorization"] = `token ${res?.access}`;
-
-          router.reload();
-          setShowLoginModal(false);
         }
+        router.reload();
+        setShowLoginModal(false);
       }
     } catch (e) {
       if (axios.isAxiosError(e)) {

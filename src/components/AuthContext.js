@@ -61,6 +61,9 @@ export const AuthProvider = ({ children }) => {
       if (hasToken && hasManuallyLoggedOut !== "true") {
         localStorage.removeItem("refresh");
         localStorage.removeItem("access");
+        if (typeof window !== "undefined") {
+          sessionStorage.removeItem("smallcase_popup_dismissed");
+        }
         localStorage.setItem("hasManuallyLoggedOut", "true");
       }
   },[])
