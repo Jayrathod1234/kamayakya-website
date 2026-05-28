@@ -8,3 +8,5 @@ export { SmallCaseCard } from "./smallcase";
 export { TestimonialsCard } from "./testimonials-card";
 export { Newsletter } from "./newsletter";
 export { PlanTooltip } from "./plan-tooltip";
+export { ResearchSection } from "./research-section";
+

@@ -36,6 +36,9 @@ import { MainSmeBoardModal } from "@/components.v2/payments/main-sme-board-modal
 import ContactUsBtn from "@/components.v2/contact-us-btn";
 import Head from "next/head";
 import { generateNextSeo } from "next-seo/pages";
+import { SmallcaseCarousel } from "@/components.v2/payments/smallcase-carousel";
+import HowItWorks from "@/components.v2/payments/how-it-works";
+import { ResearchSection } from "@/components.v2/payments";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -141,157 +144,56 @@ export default function Page() {
 
   return (
     <div
-      className={` relative pricing pricing-body tracking-wide bg-white bg-[linear-gradient(to_top,rgba(255,255,255,0.4),rgba(255,255,255,0)),radial-gradient(126.67%_325.03%_at_-1.18%_22.73%,rgba(241,252,255,0.4)_0%,rgba(202,242,255,0.4)_19%,rgba(193,240,255,0.4)_39%,rgba(193,255,236,0.4)_57.07%,rgba(203,255,224,0.4)_69.37%,rgba(229,255,223,0.4)_79.3%,rgba(246,255,244,0.4)_100%)] bg-[length:auto_1200px] bg-no-repeat`}
+      className={`relative pricing pricing-body tracking-wide bg-white `}
     >
       <Head>
         {generateNextSeo({
           title: "Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets",
           description: "Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently.",
-          canonical: "https://www.kamayakya.com/pricing",
+          canonical: "https://www.kamayakya.com/pricing-new",
           openGraph: {
-            url: "https://www.kamayakya.com/pricing",
+            url: "https://www.kamayakya.com/pricing-new",
             title: "Kamayakya Pricing - Plans for Model Portfolios & Stock Baskets",
             description: "Explore pricing for Kamayakya's best model portfolios and stock baskets in India. Choose a plan that fits your investment style and start building wealth confidently.",
           },
         })}
       </Head>
-      {/* gradeint bg */}
-      {/* <div className=" absolute top-0 left-0 h-[817px] md:h-[1200px] w-full object-cover opacity-40  ">
-        <div className=" h-full w-full  "></div>
-      </div> */}
-
-      {/* <div className=" absolute h-[1200px] mix-blend-color-burn  w-full pointer-events-none">
-        <video className=" h-full w-full object-cover z-40 pointer-events-none" src="/pricing/hero_bg.webm" autoPlay muted loop></video>
-      </div> */}
       <Navbar />
-      <div className="relative ">
-        <div className="relative  w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto max-h-[700px]  md:max-h-[950px]">
-          <div className="hidden lg:block  absolute lg:right-[60px] top-52">
-            <Image alt="rupee_icon" width={81} height={93} src={"/pricing/rupee_hero_icon.svg"} />
-          </div>
-          <div className=" absolute lg:left-12 md:bottom-16 -left-1 bottom-20">
-            <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
-          </div>
-          <div className=" lg:hidden absolute right-0 top-48 -rotate-[75deg]">
-            <Image alt="rupee_icon" width={85} height={85} src={"/pricing/rupee_hero_icon_left.svg"} />
-          </div>
 
-          <div className=" mt-[1.875rem] md:mt-9 text-center">
-            <h1 className=" text-display-xs md:text-display-lg font-bold">
-              What type of <span className=" text-brand-400">investor</span> are you?
-            </h1>
-            <p className=" text-md md:text-lg mt-3 text-gray-600 mb-9">
-              Get the Right Fit : Because a good plan is like a good pair of shoes
-            </p>
-          </div>
-          <div className=" md:mt-14 grid grid-cols-2 grid-rows-6 md:grid-rows-[auto] mt-[30px] gap-4 md:grid-cols-1 place-items-center max-h-full">
-            <UserTypeDesktopCard />
-            <div className=" justify-self-end col-start-1 row-span-4 md:hidden">
-              <UserTypeCard
-                icon="/icons/deep-research-active-icon.svg"
-                imgSrc="/pricing/deep_investor_mob.webp"
-                title="Deep Research Investor"
-                attributes={[
-                  <span>
-                    <Semibold>Time</Semibold> & <Semibold>knowledge</Semibold> for own investment decisions
-                  </span>,
-                  <span>
-                    {" "}
-                    Enjoys <Semibold>research</Semibold>
-                  </span>,
-                  <span>
-                    <Semibold>Thrill</Semibold> & <Semibold>learning</Semibold> by taking control of your wealth
-                  </span>,
-                ]}
-                btnText="Membership"
-              />
-            </div>
-            <div className=" justify-self-start col-start-2 row-start-1 row-span-5 md:hidden mt-[-3.8rem]">
-              <UserTypeCard
-                icon="/icons/effortless-active-icon.svg"
-                imgSrc="/pricing/effortless_investor_mob.webp"
-                title="Effortless Investor"
-                attributes={[
-                  <span>
-                    <Semibold>Less time</Semibold> / <Semibold>knowledge</Semibold> for investment decisions
-                  </span>,
-                  <span>
-                    Prefers <Semibold>readymade</Semibold> solutions
-                  </span>,
-                ]}
-                btnText="Basket"
-              />
-            </div>
-          </div>
-        </div>
-        {/* <div className=" h-[100px] md:h-[200px] w-full bg-gradient-to-t from-white to-transparent"></div> */}
-      </div>
-      <div className="bg-[linear-gradient(0deg,white_97.6%,transparent)] md:bg-[linear-gradient(0deg,white_95%,transparent)]">
-        <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] min-h-screen mx-auto ">
-          {/* WEBSITE PLAN */}
-          <div className="py-[60px] lg:mt-[60px]">
-            <div className=" flex flex-col items-center text-center gap-3 md:gap-0">
-              <p
-                id="deepresearch-section"
-                className=" text-sm md:text-md text-[#F98800] font-semibold uppercase relative z-20"
-              >
-                KamayaKya Membership Plans
-              </p>
-              <p className=" text-display-xs md:text-display-md text-gray-900 font-bold relative z-20">
-                For Deep Research Investors
-              </p>
-              <p className=" text-sm md:text-md text-gray-700 md:mt-3  z-20">
-                Find a plan that works for YOU.{" "}
-                <MainSmeBoardModal
-                  trigger={
-                    <span className=" cursor-pointer whitespace-nowrap text-brand-400 font-semibold underline decoration-dotted underline-offset-4 hover:text-[#0B3A36]">
-                      What does Main Board and SME Board mean?
-                    </span>
-                  }
-                />
-              </p>
-            </div>
-            {/* PLAN SECTION */}
-            <section id="plan-section" className="">
-              <PlansSection />
-            </section>
-          </div>
+      <SmallcaseCarousel />
+      <HowItWorks />
+      <ResearchSection />
 
-          <div className=" pt-10 pb-[60px]">
-            <SmallCaseCard />
-          </div>
-          <div className="py-[60px] md:py-[100px]">
-            <EnterpriseCard />
-          </div>
+
+      {/* Testimonials */}
+      <div id="testimonials" className="py-[60px] bg-gray-100 relative">
+        <div className="absolute w-screen">
+          <svg className="w-full h-full" viewBox="0 0 1440 236" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_5060_262281)">
+              <path
+                d="M-72.6057 7.86867C708.139 106.745 1675.87 7.86867 1675.87 7.86867C1675.87 7.86867 2312.13 952.554 1675.87 814.365C1039.62 676.177 410.655 854.869 -72.6057 814.365C-555.866 773.862 -853.35 -91.0076 -72.6057 7.86867Z"
+                fill="#F2F4F7"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_5060_262281">
+                <rect width="1440" height="236" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
         </div>
-        <div id="testimonials" className=" py-[60px] bg-gray-100 relative ">
-          <div className=" absolute top-[-5%] md:top-[-10%] w-screen">
-            <svg className=" w-full h-full" viewBox="0 0 1440 236" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_5060_262281)">
-                <path
-                  d="M-72.6057 7.86867C708.139 106.745 1675.87 7.86867 1675.87 7.86867C1675.87 7.86867 2312.13 952.554 1675.87 814.365C1039.62 676.177 410.655 854.869 -72.6057 814.365C-555.866 773.862 -853.35 -91.0076 -72.6057 7.86867Z"
-                  fill="#F2F4F7"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_5060_262281">
-                  <rect width="1440" height="236" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-          </div>
-          <Testimonials />
-        </div>
+        <Testimonials />
       </div>
 
-      <div id="feeling-lost" className=" bg-gray-100">
+      {/* Bottom sections */}
+      <div id="feeling-lost" className="bg-gray-100">
         <FeelingLost />
       </div>
-      <div className=" md:mt-[-15rem]  lg:mt-[-15rem]">
+      <div className="md:mt-[-15rem] lg:mt-[-15rem]">
         <Newsletter />
       </div>
 
-      <div className="   mt-[-10%]">
+      <div className="mt-[-10%]">
         <Footer />
       </div>
       <ContactUsBtn />

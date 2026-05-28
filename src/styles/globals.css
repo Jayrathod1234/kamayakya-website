@@ -2382,3 +2382,447 @@ header > div > div {
 /* *{
   outline:1px solid black;
 } */
+
+/* =====================================================
+   HOW IT WORKS SECTION — global CSS
+   (keyframes, pseudo-elements, complex selectors)
+   Layout / colour / spacing → Tailwind classes in TSX
+   ===================================================== */
+
+/* Animated rail glow behind stepper pills */
+@keyframes railFlow {
+  from { background-position-x: -50%; }
+  to   { background-position-x: 150%; }
+}
+
+.hiw-pills {
+  position: relative;
+}
+.hiw-pills::before {
+  content: "";
+  position: absolute;
+  top: 25px;  /* (52px circle height / 2) - (2px line height / 2) = 26 - 1 = 25 */
+  left: 26px;
+  right: 26px;
+  height: 2px;
+  background: rgba(18, 91, 84, 0.18);
+  z-index: 0;
+  pointer-events: none;
+}
+.hiw-pills::after {
+  content: "";
+  position: absolute;
+  top: 23px;  /* (52px circle height / 2) - (6px glow height / 2) = 26 - 3 = 23 */
+  left: 26px;
+  right: 26px;
+  height: 6px;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 158, 41, 0) 20%,
+    rgba(255, 158, 41, 0.35) 50%,
+    rgba(255, 158, 41, 0) 80%,
+    transparent 100%
+  );
+  background-size: 35% 100%;
+  background-repeat: no-repeat;
+  background-position-x: -50%;
+  filter: blur(1.5px);
+  animation: railFlow 6s linear infinite;
+}
+@media (max-width: 600px) {
+  /* 44px mobile circles → center at 22px */
+  .hiw-pills::before { top: 21px; left: 22px; right: 22px; }
+  .hiw-pills::after  { top: 19px; left: 22px; right: 22px; }
+}
+
+/* Pill button states */
+.hiw-pill .hiw-pill-num {
+  transition:
+    background 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hiw-pill .hiw-pill-label {
+  transition:
+    color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    font-weight 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hiw-pill:hover { transform: translateY(-2px); }
+.hiw-pill:hover .hiw-pill-num {
+  border-color: #125b54;
+  box-shadow: 0 6px 14px -6px rgba(18, 91, 84, 0.28);
+}
+.hiw-pill:hover .hiw-pill-label { color: #1a3530; }
+.hiw-pill[aria-selected="true"] .hiw-pill-num {
+  background: #125b54;
+  border-color: #125b54;
+  color: #fff;
+  box-shadow:
+    0 0 0 4px rgba(127, 210, 140, 0.20),
+    0 4px 12px -4px rgba(18, 91, 84, 0.30);
+}
+.hiw-pill[aria-selected="true"] .hiw-pill-label {
+  color: #125b54;
+  font-weight: 700;
+}
+.hiw-pill[aria-selected="true"] { cursor: default; }
+.hiw-pill[aria-selected="true"]:hover { transform: none; }
+.hiw-pill:focus-visible { outline: 0; }
+.hiw-pill:focus-visible .hiw-pill-num {
+  outline: 2px solid #ff9e29;
+  outline-offset: 3px;
+}
+
+/* Phase-in animation */
+@keyframes phaseIn {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.phase-is-active {
+  animation: phaseIn 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Step enter animation */
+@keyframes stepEnter {
+  to { opacity: 1; transform: translateY(0); }
+}
+.step-enter-anim {
+  animation: stepEnter 460ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Step vertical timeline line */
+.step-line-normal::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent 0%, #e8dfc9 10%, #e8dfc9 90%, transparent 100%);
+}
+.step-line-last::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent 0%, #e8dfc9 10%, transparent 60%);
+}
+
+/* Step number dot */
+.step-num {
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #e8dfc9;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #5a6e6a;
+  z-index: 1;
+  line-height: 1;
+  transition:
+    border-color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.step.is-active .step-num,
+.step.has-been-active .step-num {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.step.is-active .step-num {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 6px var(--accent-glow);
+}
+@media (max-width: 1023px) {
+  .step-num { width: 34px; height: 34px; font-size: 12px; top: 18px; }
+}
+
+/* Step title colour changes with active phase */
+.storyline[data-active="2"] .step-title,
+.storyline[data-active="3"] .step-title { color: #142d51; }
+
+.storyline[data-active="2"] .phase-head-title,
+.storyline[data-active="3"] .phase-head-title { color: #142d51; }
+
+/* Hide custom scrollbar + fades on mobile */
+@media (max-width: 1023px) {
+  .phase-trail-fade-top,
+  .phase-trail-fade-bot,
+  .phase-scrollbar { display: none !important; }
+}
+
+/* Hide scrollbar on the trail container */
+.phase-trail {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.phase-trail::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Scrollbar thumb hover/active */
+.phase-scrollbar-thumb:hover { filter: brightness(0.92); }
+.phase-scrollbar-thumb:active { cursor: grabbing; }
+
+/* Stage background gradient */
+.phase-stage {
+  background:
+    radial-gradient(120% 80% at 30% 20%, var(--accent-soft), transparent 60%),
+    radial-gradient(120% 80% at 80% 90%, var(--accent-glow), transparent 55%),
+    #f8f2e7;
+}
+
+/* ---- SVG Keyframes ---- */
+.s1-card-group {
+  transform-origin: center;
+  animation: s1CardFloat 6s ease-in-out infinite;
+}
+@keyframes s1CardFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-6px) rotate(-0.4deg); }
+}
+
+.s1-shine { animation: s1Shine 5s linear infinite; }
+@keyframes s1Shine {
+  0%   { transform: translateX(-180px); opacity: 0; }
+  20%  { opacity: 0.7; }
+  60%  { transform: translateX(300px); opacity: 0; }
+  100% { transform: translateX(300px); opacity: 0; }
+}
+
+.s1-tick {
+  opacity: 0;
+  animation: s1Tick 3.6s ease-out infinite;
+  transform-origin: center;
+}
+.s1-tick--2 { animation-delay: 0.5s; }
+@keyframes s1Tick {
+  0%   { opacity: 0; transform: scale(0.6); }
+  20%  { opacity: 1; transform: scale(1); }
+  80%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+.s2-vault { animation: s2VaultPulse 5s ease-in-out infinite; }
+@keyframes s2VaultPulse {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+
+.s2-token {
+  animation: s2TokenBob 3.5s ease-in-out infinite;
+  transform-origin: center;
+}
+.s2-token--1 { animation-delay: 0s; }
+.s2-token--2 { animation-delay: 0.6s; }
+.s2-token--3 { animation-delay: 1.2s; }
+.s2-token--4 { animation-delay: 1.8s; }
+@keyframes s2TokenBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-3px) rotate(1.5deg); }
+}
+
+.s2-incoming {
+  animation: s2Incoming 4s ease-in-out infinite;
+  opacity: 0;
+}
+@keyframes s2Incoming {
+  0%   { opacity: 0; transform: translate(-50px, -36px) scale(0.6); }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; transform: translate(0, 0) scale(1); }
+  85%  { opacity: 0; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50px, -36px) scale(0.6); }
+}
+
+.s2-broker {
+  animation: s2BrokerPing 5s ease-in-out infinite;
+  transform-origin: center;
+}
+.s2-broker--2 { animation-delay: 0.9s; }
+.s2-broker--3 { animation-delay: 1.8s; }
+.s2-broker--4 { animation-delay: 2.7s; }
+@keyframes s2BrokerPing {
+  0%, 90%, 100% { fill-opacity: 0.95; }
+  45%           { fill-opacity: 0.55; }
+}
+
+.s2-line {
+  stroke-dasharray: 4 6;
+  animation: s2LineFlow 3s linear infinite;
+}
+@keyframes s2LineFlow {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -20; }
+}
+
+.s3-dial {
+  transform-origin: 250px 270px;
+  animation: s3DialRotate 36s linear infinite;
+}
+@keyframes s3DialRotate {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.s3-wedge--out { animation: s3WedgeOut 7s ease-in-out infinite; }
+@keyframes s3WedgeOut {
+  0%, 100% { transform: translate(0, 0); opacity: 1; }
+  35%       { transform: translate(38px, -28px); opacity: 0; }
+  60%       { transform: translate(38px, -28px); opacity: 0; }
+  85%       { opacity: 1; transform: translate(0, 0); }
+}
+
+.s3-wedge--in { animation: s3WedgeIn 7s ease-in-out infinite; }
+@keyframes s3WedgeIn {
+  0%, 100% { transform: translate(-38px, -28px); opacity: 0; }
+  40%       { transform: translate(-38px, -28px); opacity: 0; }
+  55%, 85%  { transform: translate(0, 0); opacity: 1; }
+}
+
+.s3-notif {
+  animation: s3NotifPop 7s ease-in-out infinite;
+  transform-origin: top left;
+}
+@keyframes s3NotifPop {
+  0%, 8%    { transform: translate(30px, 12px) scale(0.92); opacity: 0; }
+  22%, 78%  { transform: translate(30px, 28px) scale(1);    opacity: 1; }
+  92%, 100% { transform: translate(30px, 12px) scale(0.92); opacity: 0; }
+}
+
+.s3-clock-tick {
+  transform-origin: 250px 270px;
+  animation: s3ClockTick 14s steps(12) infinite;
+}
+@keyframes s3ClockTick {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mini card bar / fade animations */
+.step .mini-bar  { transform-origin: left center; transform: scaleX(1); }
+.step .mini-fade { opacity: 1; }
+
+.step.has-been-active .mini-bar  { animation: miniBarFill 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.step.has-been-active .mini-fade { animation: miniFade 700ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.mini-pulse {
+  animation: miniPulse 1.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes miniBarFill { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+@keyframes miniFade {
+  0%   { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes miniPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.08); }
+}
+
+/* ============================================================ */
+/*  SECTION 3 — SVG animations (pure CSS, always-on, no scroll  */
+/*  gating, so they cannot get "stuck" mid-state).              */
+/* ============================================================ */
+
+/* --- SME card --- */
+.sme-doc { transform-box: fill-box; transform-origin: center; animation: smeDocBob 6.5s ease-in-out infinite; }
+@keyframes smeDocBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+.sme-line { transform-box: fill-box; transform-origin: left center; }
+.sme-line--1 { animation: smeLine 5s ease-in-out infinite; }
+.sme-line--2 { animation: smeLine 5s ease-in-out infinite 0.5s; }
+.sme-line--3 { animation: smeLine 5s ease-in-out infinite 1.0s; }
+@keyframes smeLine {
+  0%, 22%   { opacity: 0.28; transform: scaleX(0.4); }
+  35%, 100% { opacity: 0.6;  transform: scaleX(1); }
+}
+.sme-bar { transform-box: fill-box; transform-origin: bottom center; }
+.sme-bar--1 { animation: smeBar 4.8s ease-in-out infinite 0.0s; }
+.sme-bar--2 { animation: smeBar 4.8s ease-in-out infinite 0.18s; }
+.sme-bar--3 { animation: smeBar 4.8s ease-in-out infinite 0.36s; }
+.sme-bar--4 { animation: smeBar 4.8s ease-in-out infinite 0.54s; }
+.sme-bar--5 { animation: smeBar 4.8s ease-in-out infinite 0.72s; }
+.sme-bar--6 { animation: smeBar 4.8s ease-in-out infinite 0.90s; }
+@keyframes smeBar {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(0.55); }
+}
+.sme-stamp { transform-box: fill-box; transform-origin: center; animation: smeStamp 5.5s ease-in-out infinite; }
+@keyframes smeStamp {
+  0%, 60% { opacity: 0; transform: rotate(-8deg) scale(0.6); }
+  72%     { opacity: 1; transform: rotate(-12deg) scale(1.18); }
+  82%, 100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+}
+.sme-lens { transform-box: fill-box; transform-origin: 62px 142px; animation: smeLens 7s linear infinite; }
+@keyframes smeLens {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(8px, -6px) rotate(8deg); }
+  50%  { transform: translate(0, -12px) rotate(0deg); }
+  75%  { transform: translate(-8px, -6px) rotate(-8deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.sme-pen { transform-box: fill-box; transform-origin: center; animation: smePen 4.2s ease-in-out infinite; }
+@keyframes smePen {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* --- Plant Visit card --- */
+.plant-puff { transform-box: fill-box; transform-origin: center; opacity: 0; }
+.plant-puff--a { animation: plantPuff 3.8s ease-out infinite 0.0s; }
+.plant-puff--b { animation: plantPuff 3.8s ease-out infinite 0.6s; }
+.plant-puff--c { animation: plantPuff 4.2s ease-out infinite 0.3s; }
+.plant-puff--d { animation: plantPuff 4.2s ease-out infinite 0.9s; }
+@keyframes plantPuff {
+  0%   { opacity: 0;    transform: translateY(0)   scale(0.6); }
+  25%  { opacity: 0.4;  transform: translateY(-6px) scale(0.85); }
+  60%  { opacity: 0.22; transform: translateY(-18px) scale(1.05); }
+  100% { opacity: 0;    transform: translateY(-34px) scale(1.25); }
+}
+.plant-walker { transform-box: fill-box; transform-origin: center; animation: plantWalk 9s linear infinite; }
+@keyframes plantWalk {
+  0%       { transform: translateX(50px);  opacity: 0; }
+  6%       { opacity: 1; }
+  44%      { transform: translateX(192px); opacity: 1; }
+  50%      { transform: translateX(200px); opacity: 0; }   /* enters door */
+  56%      { transform: translateX(50px);  opacity: 0; }   /* reset hidden */
+  62%      { transform: translateX(50px);  opacity: 1; }   /* re-emerge */
+  100%     { transform: translateX(192px); opacity: 1; }
+}
+.plant-note { transform-box: fill-box; transform-origin: center; opacity: 0; }
+.plant-note--1 { animation: plantNote 6s ease-in-out infinite 0.6s; }
+.plant-note--2 { animation: plantNote 6s ease-in-out infinite 3.0s; }
+@keyframes plantNote {
+  0%, 8%   { opacity: 0; transform: translateY(8px) scale(0.92); }
+  18%, 50% { opacity: 1; transform: translateY(0)   scale(1); }
+  62%, 100% { opacity: 0; transform: translateY(-4px) scale(0.96); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sme-doc, .sme-line, .sme-bar, .sme-stamp, .sme-lens, .sme-pen,
+  .plant-puff, .plant-walker, .plant-note {
+    animation: none;
+  }
+  .sme-stamp { opacity: 1; }
+  .plant-note { opacity: 1; }
+  .plant-puff { opacity: 0.2; }
+}
+
