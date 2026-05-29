@@ -170,11 +170,11 @@ export const SmallcaseCarousel = () => {
   };
 
   return (
-    <section className="pt-16 px-6 bg-white overflow-hidden" aria-label="Smallcases Section">
+    <section className="pt-8 xl:pt-12 px-6 bg-white overflow-hidden" aria-label="Smallcases Section">
       <div className="max-w-[1200px] mx-auto">
 
         {/* Section Header */}
-        <div className="text-center max-w-[760px] mx-auto mb-10">
+        <div className="text-center max-w-[760px] mx-auto mb-6">
           <p className="inline-flex items-center gap-3 text-xs md:text-sm font-bold tracking-[0.18em] uppercase text-[#ff9e29] mb-4">
             <span className="w-6 h-[1px] bg-[#ff9e29] opacity-50 shrink-0"></span>
             Hand-picked basket of stocks • You own them directly
@@ -333,7 +333,7 @@ export const SmallcaseCarousel = () => {
         </div>
 
         {/* Carousel Dots */}
-        <div className="flex justify-center items-center gap-2 mt-6" role="tablist" aria-label="Select a basket">
+        <div className="flex justify-center items-center gap-2" role="tablist" aria-label="Select a basket">
           {BASKETS.map((b, idx) => (
             <button
               key={b.scid}
@@ -348,7 +348,7 @@ export const SmallcaseCarousel = () => {
         </div>
 
         {/* For-You Section */}
-        <div className="text-center max-w-[620px] mx-auto mt-9 px-3">
+        <div className="text-center max-w-[620px] mx-auto mt-5 xl:mt-8 px-3">
           <div className="max-w-[560px] mx-auto p-4 md:p-5 bg-[#f8f2e7] border border-[#e8dfc9] rounded-2xl transition-all duration-300">
             <p className="text-lg md:text-xl font-bold text-[#125b54] mb-3 tracking-wide">
               FOR <span className="text-[#ff9e29]">YOU</span> IF
@@ -360,17 +360,14 @@ export const SmallcaseCarousel = () => {
         </div>
 
         {/* Explore All CTA */}
-        <div className="text-center mt-8">
+        <div className="text-center mt-5 xl:mt-8">
           <a
             href="https://kamayakya.smallcase.com"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-7 py-3.5 bg-[#eb8500] hover:bg-[#d27500] text-white font-semibold text-sm md:text-base rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
           >
-            Explore all smallcases
-            <svg viewBox="0 0 24 24" className="w-4 h-4 md:w-5 md:h-5 fill-none stroke-current stroke-[2.5]" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            Explore All Smallcases
           </a>
         </div>
 

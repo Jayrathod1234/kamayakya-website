@@ -17,6 +17,7 @@ import AuthContext from "@/components/AuthContext";
 import { toast } from "@/components.v2/ui/use-toast";
 import Link from "next/link";
 import { axiosApi } from "@/utils/axios";
+import { ACTIVE_PLAN_URL } from "@/pages/api/URLs";
 import dynamic from "next/dynamic";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
@@ -167,6 +168,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
           is_onboard: res?.is_onboard,
           is_new: res?.is_new_user,
         }));
+        let redirectPath = "";
         if (!res?.is_onboard) {
           sessionStorage.setItem("new_user", "true");
           sessionStorage.setItem("smallcase_popup_dismissed", "false");
@@ -175,8 +177,30 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
           localStorage.setItem("refresh", res.refresh);
           sessionStorage.setItem("smallcase_popup_dismissed", "false");
           axiosApi.defaults.headers.common["Authorization"] = `token ${res?.access}`;
+
+          try {
+            const planResponse = await axios.get(ACTIVE_PLAN_URL, {
+              headers: {
+                Authorization: `token ${res.refresh}`,
+              },
+            });
+            if (planResponse.data?.current_active_subscription) {
+              const plan = planResponse.data.current_active_subscription.plan;
+
+              if (plan && plan !== "Free") {
+                redirectPath = "/all-stocks";
+              }
+            }
+          } catch (planError) {
+            console.error("Error fetching plan on login:", planError);
+          }
         }
-        router.reload();
+
+        if (redirectPath) {
+          window.location.href = redirectPath;
+        } else {
+          router.reload();
+        }
         setShowLoginModal(false);
       }
     } catch (e) {

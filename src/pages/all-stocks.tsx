@@ -305,7 +305,7 @@ export default function AllStocksPage() {
           </div>
 
           {/* Stats Cards Section */}
-          <div className="relative bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden p-6 md:p-8 mb-6">
+          <div className="relative bg-white rounded-2xl border border-gray-200/80 overflow-hidden p-6 md:p-8">
             {/* The dual colored top bar (Green / Orange split) */}
             <div className="absolute top-0 left-0 right-0 h-[3px] flex">
               <div className="w-1/2 bg-[#125B54]" />
@@ -364,7 +364,7 @@ export default function AllStocksPage() {
           </div>
 
           {/* Sticky Container for Warning Banner & Filters */}
-          <div className="sticky top-[56px] lg:top-[62px] z-30 bg-[#FAF9F5] pb-1 mb-6">
+          <div className="sticky top-[56px] lg:top-[62px] z-30 bg-[#FAF9F5] pt-4 pb-1 mb-6">
             {/* High Conviction Warning Banner */}
             <div className="flex items-center gap-3 bg-[#F4FAF6] border border-[#125B54]/10 border-l-4 border-l-[#125B54] p-4 rounded-xl shadow-3xs mb-4 text-sm text-gray-700">
               <div className="flex-shrink-0 bg-[#125B54] text-white p-1 rounded-full w-5 h-5 flex items-center justify-center">
@@ -643,10 +643,10 @@ export default function AllStocksPage() {
                         <div>
                           <h3 className="text-xl font-bold text-gray-900 leading-tight tracking-tight">{stock.name}</h3>
                           <div className="flex flex-wrap gap-1.5 mt-2">
-                            {stock.sector && <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-lg tracking-wider uppercase">
+                            {stock.sector && <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
                               {stock.sector}
                             </span>}
-                            {!stock.mcapLabel || stock.mcapLabel === '' ? <span className="bg-[#fff4e0] text-[#e88410] border border-[#fddba0] text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
+                            {!stock.mcapLabel || stock.mcapLabel === '' ? <span className="bg-[#fff4e0] text-[#e88410] border border-[#fddba0] text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
                               {stock.exchange}
                             </span> :
                               <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
