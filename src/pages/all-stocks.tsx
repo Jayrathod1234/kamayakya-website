@@ -646,9 +646,12 @@ export default function AllStocksPage() {
                             {stock.sector && <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-lg tracking-wider uppercase">
                               {stock.sector}
                             </span>}
-                            {<span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-lg tracking-wider uppercase">
-                              {stock.mcapLabel || stock.exchange}
-                            </span>}
+                            {!stock.mcapLabel || stock.mcapLabel === '' ? <span className="bg-[#fff4e0] text-[#e88410] border border-[#fddba0] text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
+                              {stock.exchange}
+                            </span> :
+                              <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
+                                {stock.mcapLabel}
+                              </span>}
                           </div>
                         </div>
 

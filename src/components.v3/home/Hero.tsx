@@ -150,7 +150,7 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-lg:mt-6 mt-[33px]">
                 <Button onClick={handleGetFreeAccessClick} variant={ButtonVariant.primary}>
                   <p className=" font-medium text-md">
-                    Get Started - <span className=" font-normal">It's Free</span>
+                    Get Started
                   </p>
                 </Button>
               </div>

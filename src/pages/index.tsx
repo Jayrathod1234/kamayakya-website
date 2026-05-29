@@ -40,11 +40,12 @@ const Home: NextPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
-    if (isLoggedIn && !loading) {
+    if (!loading) {
       const planName = activePlan?.plan?.toLowerCase() || "";
       const hasPaidPlan = planName !== "" && planName !== "free";
+      const isNewUser = sessionStorage.getItem("new_user") === "true";
 
-      if (!hasPaidPlan && sessionStorage.getItem("smallcase_popup_dismissed") !== "true") {
+      if ((isLoggedIn && !hasPaidPlan && sessionStorage.getItem("smallcase_popup_dismissed") !== "true") || (isNewUser && sessionStorage.getItem("smallcase_popup_dismissed") !== "true")) {
         setIsPopupOpen(true);
       } else {
         setIsPopupOpen(false);
@@ -52,11 +53,12 @@ const Home: NextPage = () => {
     } else {
       setIsPopupOpen(false);
     }
-  }, [isLoggedIn, activePlan, loading]);
+  }, [activePlan, loading]);
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
     sessionStorage.setItem("smallcase_popup_dismissed", "true");
+    sessionStorage.removeItem("new_user");
   };
 
   const fetchUser = async () => {

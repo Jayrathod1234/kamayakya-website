@@ -734,7 +734,7 @@ export const HowItWorks = () => {
                 className="shrink-0 relative z-10 bg-[#eb8500] hover:bg-[#d27500] text-white border-0 py-3.5 px-6 rounded-full font-bold text-sm md:text-[14.5px] tracking-wide cursor-pointer flex items-center gap-2 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#125b54]"
                 type="button"
               >
-                Contact us
+                Request a call back
               </button>
             }
           />

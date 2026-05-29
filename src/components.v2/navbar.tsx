@@ -35,6 +35,7 @@ import { ScrollProgress } from "./scroll-progress";
 import SampleReportsModal from "./sample-reports-modal";
 import { cn } from "@/lib/utils";
 import LoginPrompt from "@/components.v3/common/LoginPrompt";
+import { SmallcasePopup } from "@/components.v3/common/SmallcasePopup";
 import dynamic from "next/dynamic";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
@@ -61,6 +62,7 @@ export function Navbar({
   const pathname = router.pathname;
   const ref = useRef<HTMLDivElement | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [isSmallcasePopupOpen, setIsSmallcasePopupOpen] = useState(false);
   const { setVisible, bindings } = useModal();
   const [isSticky, setIsSticky] = useState(pathname == "/stock-picks");
   const [isLoading, setIsLoading] = useState(true);
@@ -376,8 +378,14 @@ export function Navbar({
               </Button>
             </Link> */}
             {isLoggedIn && <Link
-              onClick={() => {
-                sessionStorage.setItem("sebiBoardType", "mainboard");
+              onClick={(e) => {
+                const planName = plan?.toLowerCase();
+                if (!planName || planName === "free") {
+                  e.preventDefault();
+                  setIsSmallcasePopupOpen(true);
+                } else {
+                  sessionStorage.setItem("sebiBoardType", "mainboard");
+                }
               }}
               href={"/all-stocks"}
             >
@@ -451,6 +459,7 @@ export function Navbar({
           </Modal.Body>
         </Modal> */}
           <SampleReportsModal setVisible={setVisible} bindings={bindings} />
+          <SmallcasePopup isOpen={isSmallcasePopupOpen} onClose={() => setIsSmallcasePopupOpen(false)} />
         </div>
       </div>
     </>

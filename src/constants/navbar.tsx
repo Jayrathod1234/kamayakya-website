@@ -13,7 +13,7 @@ export const NAVBAR_LINKS = [
   },
   {
     title: "Services",
-    link: "/pricing",
+    link: "/services",
     mixpanel: {
       event: "pricing_clicked",
       property: {

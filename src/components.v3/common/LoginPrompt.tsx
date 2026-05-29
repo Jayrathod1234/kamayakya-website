@@ -167,9 +167,13 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
           is_onboard: res?.is_onboard,
           is_new: res?.is_new_user,
         }));
-        if (res.access && res.refresh) {
+        if (!res?.is_onboard) {
+          sessionStorage.setItem("new_user", "true");
+          sessionStorage.setItem("smallcase_popup_dismissed", "false");
+        } else if (res.access && res.refresh) {
           localStorage.setItem("access", res.access);
           localStorage.setItem("refresh", res.refresh);
+          sessionStorage.setItem("smallcase_popup_dismissed", "false");
           axiosApi.defaults.headers.common["Authorization"] = `token ${res?.access}`;
         }
         router.reload();
