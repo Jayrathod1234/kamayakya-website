@@ -290,7 +290,7 @@ const Home: NextPage = () => {
           },
         })}
       </Head>
-      <Floater />
+      {/* <Floater /> */}
       <Navbar className=" open_sans bg-[#F4FFFF]" />
 
       <div className=" bg-[#F4FFFF] bg-[url('/landing/hero_grid.png')] bg-cover bg-center">
