@@ -172,6 +172,7 @@ const SignUpContent = ({ displayExistingUserModal, setDisplayExistingUserModal }
         if (!res?.is_onboard) {
           sessionStorage.setItem("new_user", "true");
           sessionStorage.setItem("smallcase_popup_dismissed", "false");
+          redirectPath = "/";
         } else if (res.access && res.refresh) {
           localStorage.setItem("access", res.access);
           localStorage.setItem("refresh", res.refresh);

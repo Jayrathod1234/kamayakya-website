@@ -27,6 +27,8 @@ import { generateNextSeo } from "next-seo/pages";
 import { axiosApi } from "@/utils/axios";
 import { STOCK_NEW_STATS_URL, STOCK_NEW_LIST_URL } from "@/pages/api/URLs";
 import { useActivePlanContext } from "@/components/PlanContext";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components.v2/ui/tooltip";
+
 
 // Interface for Report History
 interface StatusChange {
@@ -73,7 +75,7 @@ export default function AllStocksPage() {
   console.log(plan, "plan....")
 
   // State Management
-  const [selectedExchanges, setSelectedExchanges] = useState<string[]>([]);
+  const [selectedExchange, setSelectedExchange] = useState<string>("All Boards");
   const [selectedActions, setSelectedActions] = useState<string[]>(["BUY"]);
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
@@ -142,8 +144,8 @@ export default function AllStocksPage() {
         params.exchange = "Mainboard";
       } else if (plan === "advanced") {
         params.exchange = "SME";
-      } else if (selectedExchanges.length > 0) {
-        params.exchange = selectedExchanges.map(e => e).join(",");
+      } else if (selectedExchange && selectedExchange !== "All Boards") {
+        params.exchange = selectedExchange;
       }
 
       if (selectedActions.length > 0) {
@@ -200,7 +202,7 @@ export default function AllStocksPage() {
     } else {
       setPage(1);
     }
-  }, [selectedExchanges, selectedActions, debouncedSearchQuery, sortBy]);
+  }, [selectedExchange, selectedActions, debouncedSearchQuery, sortBy]);
 
   // Smoothly scroll to the top of the stocks list container on page changes
   useEffect(() => {
@@ -210,15 +212,26 @@ export default function AllStocksPage() {
     }
   }, [page]);
 
-  // Set initial selectedExchanges based on the active plan
+  // Set initial selectedExchange based on the active plan
   useEffect(() => {
     const planName = plan?.toLowerCase();
     if (planName === "core") {
-      setSelectedExchanges(["Mainboard"]);
+      setSelectedExchange("Mainboard");
     } else if (planName === "advanced") {
-      setSelectedExchanges(["SME"]);
+      setSelectedExchange("SME");
+    } else {
+      setSelectedExchange("All Boards");
     }
   }, [plan]);
+
+  // Automatically reset sortBy from conviction sort if only SELL is selected
+  useEffect(() => {
+    if (selectedActions.length === 1 && selectedActions[0] === "SELL") {
+      if (sortBy === "High to Low" || sortBy === "Low to High") {
+        setSortBy("Newest to Oldest");
+      }
+    }
+  }, [selectedActions, sortBy]);
 
   // Back to top scroll state & effect
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -233,6 +246,7 @@ export default function AllStocksPage() {
   // Dropdown UI states
   const [isExchangeOpen, setIsExchangeOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [isActionOpen, setIsActionOpen] = useState(false);
 
   // Drawer state
   const [selectedStock, setSelectedStock] = useState<StockPick | null>(null);
@@ -252,6 +266,7 @@ export default function AllStocksPage() {
   // Click outside handlers
   const exchangeRef = useRef<HTMLDivElement>(null);
   const sortRef = useRef<HTMLDivElement>(null);
+  const actionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -260,6 +275,9 @@ export default function AllStocksPage() {
       }
       if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
         setIsSortOpen(false);
+      }
+      if (actionRef.current && !actionRef.current.contains(event.target as Node)) {
+        setIsActionOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -379,16 +397,16 @@ export default function AllStocksPage() {
             <div className="bg-white rounded-2xl border border-gray-200/80 shadow-3xs px-6 py-3.5 mb-0">
               <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
 
-                <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
+                <div className="flex items-center justify-between sm:justify-start w-full lg:w-auto gap-4">
                   {/* Exchange Filter */}
                   <div className="flex items-center gap-3">
-                    <span className="text-[11px] font-black text-gray-700 uppercase tracking-wider">Exchange</span>
+                    <span className="hidden sm:inline-block text-[11px] font-black text-gray-700 uppercase tracking-wider">Exchange</span>
                     <div className="relative" ref={exchangeRef}>
                       <button
                         onClick={() => setIsExchangeOpen(!isExchangeOpen)}
                         className="flex items-center gap-1.5 px-4 py-1.5 bg-white border border-gray-200 hover:border-gray-300 rounded-full text-xs font-semibold text-gray-700 transition-colors shadow-4xs"
                       >
-                        <span>{selectedExchanges.length > 0 ? selectedExchanges.join(", ") : "Exchange"}</span>
+                        <span>{selectedExchange}</span>
                         <ChevronDown size={12} className={`text-gray-500 transition-transform ${isExchangeOpen ? "rotate-180" : ""}`} />
                       </button>
 
@@ -401,11 +419,12 @@ export default function AllStocksPage() {
                             transition={{ duration: 0.15 }}
                             className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-2xl shadow-lg py-1.5 z-30 overflow-hidden"
                           >
-                            {(["Mainboard", "SME"] as const).map((opt) => {
-                              const isSelected = selectedExchanges.includes(opt);
+                            {(["All Boards", "Mainboard", "SME"] as const).map((opt) => {
+                              const isSelected = selectedExchange === opt;
                               const isDisabled =
                                 (opt === "Mainboard" && plan === "advanced") ||
-                                (opt === "SME" && plan === "core");
+                                (opt === "SME" && plan === "core") ||
+                                (opt === "All Boards" && (plan === "core" || plan === "advanced"));
                               const isLocked = plan === "core" || plan === "advanced";
 
                               return (
@@ -413,11 +432,8 @@ export default function AllStocksPage() {
                                   key={opt}
                                   disabled={isDisabled || isLocked}
                                   onClick={() => {
-                                    setSelectedExchanges((prev) =>
-                                      prev.includes(opt)
-                                        ? prev.filter((item) => item !== opt)
-                                        : [...prev, opt]
-                                    );
+                                    setSelectedExchange(opt);
+                                    setIsExchangeOpen(false);
                                   }}
                                   className={`w-full text-left px-4 py-2.5 text-xs transition-colors hover:bg-gray-50 flex items-center justify-between ${isDisabled
                                     ? "opacity-50 cursor-not-allowed text-gray-400"
@@ -439,10 +455,12 @@ export default function AllStocksPage() {
 
                   <span className="hidden sm:inline-block w-[1px] h-5 bg-[#9ca3af] mx-1"></span>
 
-                  {/* Action Pills */}
+                  {/* Action Pills / Dropdown */}
                   <div className="flex items-center gap-3">
                     <span className="text-[11px] font-black text-gray-700 uppercase tracking-wider">Action</span>
-                    <div className="flex items-center gap-2">
+                    
+                    {/* Desktop View: Pills */}
+                    <div className="hidden sm:flex items-center gap-2">
                       {(["Buy", "Hold", "Sell"] as const).map((act) => {
                         const upper = act.toUpperCase();
                         const isActive = selectedActions.includes(upper);
@@ -476,13 +494,64 @@ export default function AllStocksPage() {
                         );
                       })}
                     </div>
+
+                    {/* Mobile View: Dropdown */}
+                    <div className="relative sm:hidden" ref={actionRef}>
+                      <button
+                        onClick={() => setIsActionOpen(!isActionOpen)}
+                        className="flex items-center gap-1.5 px-4 py-1.5 bg-white border border-gray-200 hover:border-gray-300 rounded-full text-xs font-semibold text-gray-700 transition-colors shadow-4xs"
+                      >
+                        <span>
+                          {selectedActions.length === 3 ? "All" : selectedActions.length === 0 ? "None" : selectedActions.map(a => a.charAt(0) + a.slice(1).toLowerCase()).join(", ")}
+                        </span>
+                        <ChevronDown size={12} className={`text-gray-500 transition-transform ${isActionOpen ? "rotate-180" : ""}`} />
+                      </button>
+
+                      <AnimatePresence>
+                        {isActionOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-2xl shadow-lg py-1.5 z-30 overflow-hidden"
+                          >
+                            {(["Buy", "Hold", "Sell"] as const).map((act) => {
+                              const upper = act.toUpperCase();
+                              const isSelected = selectedActions.includes(upper);
+
+                              return (
+                                <button
+                                  key={act}
+                                  onClick={() => {
+                                    setSelectedActions((prev) =>
+                                      prev.includes(upper)
+                                        ? prev.filter((item) => item !== upper)
+                                        : [...prev, upper]
+                                    );
+                                  }}
+                                  className={`w-full text-left px-4 py-2.5 text-xs transition-colors hover:bg-gray-50 flex items-center justify-between ${
+                                    isSelected
+                                      ? "text-[#125B54] font-bold bg-[#EAF5F4]"
+                                      : "text-gray-600"
+                                  }`}
+                                >
+                                  <span>{act}</span>
+                                  {isSelected && <Check size={13} className="text-[#125B54]" />}
+                                </button>
+                              );
+                            })}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 </div>
 
                 {/* Search input and Sort Dropdown */}
-                <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+                <div className="flex items-center justify-between gap-3 w-full lg:w-auto">
                   {/* Search */}
-                  <div className="relative w-full sm:w-72">
+                  <div className="relative flex-1 sm:w-72 sm:flex-none">
                     <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                     <input
                       type="text"
@@ -502,14 +571,14 @@ export default function AllStocksPage() {
                   </div>
 
                   {/* Sort */}
-                  <div className="relative w-full sm:w-auto" ref={sortRef}>
+                  <div className="relative" ref={sortRef}>
                     <button
                       onClick={() => setIsSortOpen(!isSortOpen)}
-                      className="w-full sm:w-auto flex items-center justify-between gap-1.5 px-4 py-1.5 bg-[#EAF5F4] border border-[#125B54]/10 hover:bg-[#DDF0ED] rounded-full text-xs font-semibold text-[#125B54] transition-colors"
+                      className="flex items-center justify-center gap-1.5 p-2 sm:px-4 sm:py-1.5 bg-[#EAF5F4] border border-[#125B54]/10 hover:bg-[#DDF0ED] rounded-full text-xs font-semibold text-[#125B54] transition-colors aspect-square sm:aspect-auto"
                     >
                       <SlidersHorizontal size={13} className="text-[#125B54]" />
-                      <span>{sortBy}</span>
-                      <ChevronDown size={12} className={`text-[#125B54]/70 transition-transform ${isSortOpen ? "rotate-180" : ""}`} />
+                      <span className="hidden sm:inline">{sortBy}</span>
+                      <ChevronDown size={12} className={`hidden sm:inline text-[#125B54]/70 transition-transform ${isSortOpen ? "rotate-180" : ""}`} />
                     </button>
 
                     <AnimatePresence>
@@ -522,37 +591,41 @@ export default function AllStocksPage() {
                           className="absolute right-0 mt-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-xl p-3 z-30"
                         >
                           {/* Conviction section */}
-                          <div>
-                            <span className="text-[10px] font-extrabold text-gray-400 tracking-wider uppercase mb-2 block">Conviction</span>
-                            <div className="space-y-1">
-                              {(["High to Low", "Low to High"] as const).map((opt) => {
-                                const isActive = sortBy === opt;
-                                return (
-                                  <button
-                                    key={opt}
-                                    onClick={() => {
-                                      setSortBy(opt);
-                                      setIsSortOpen(false);
-                                    }}
-                                    className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${isActive ? "bg-[#F2F4F7]/60 font-semibold text-gray-900" : "text-gray-700 hover:bg-gray-50 font-medium"
-                                      }`}
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      <ArrowUpDown size={13} className={isActive ? "text-gray-750" : "text-gray-400"} />
-                                      <span>{opt}</span>
-                                    </div>
-                                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all bg-white ${isActive ? "border-[#125B54]" : "border-gray-200"
-                                      }`}>
-                                      {isActive && <div className="w-2 h-2 rounded-full bg-[#125B54]" />}
-                                    </div>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
+                          {!(selectedActions.length === 1 && selectedActions[0] === "SELL") && (
+                            <>
+                              <div>
+                                <span className="text-[10px] font-extrabold text-gray-400 tracking-wider uppercase mb-2 block">Conviction</span>
+                                <div className="space-y-1">
+                                  {(["High to Low", "Low to High"] as const).map((opt) => {
+                                    const isActive = sortBy === opt;
+                                    return (
+                                      <button
+                                        key={opt}
+                                        onClick={() => {
+                                          setSortBy(opt);
+                                          setIsSortOpen(false);
+                                        }}
+                                        className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${isActive ? "bg-[#F2F4F7]/60 font-semibold text-gray-900" : "text-gray-700 hover:bg-gray-50 font-medium"
+                                          }`}
+                                      >
+                                        <div className="flex items-center gap-2">
+                                          <ArrowUpDown size={13} className={isActive ? "text-gray-750" : "text-gray-400"} />
+                                          <span>{opt}</span>
+                                        </div>
+                                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all bg-white ${isActive ? "border-[#125B54]" : "border-gray-200"
+                                          }`}>
+                                          {isActive && <div className="w-2 h-2 rounded-full bg-[#125B54]" />}
+                                        </div>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
 
-                          {/* Divider */}
-                          <div className="border-t border-gray-100 my-3"></div>
+                              {/* Divider */}
+                              <div className="border-t border-gray-100 my-3"></div>
+                            </>
+                          )}
 
                           {/* Recency section */}
                           <div>
@@ -594,9 +667,7 @@ export default function AllStocksPage() {
           </div>
 
           {/* Search/Count Indicator */}
-          <div className="flex items-center gap-2 text-xs font-bold text-gray-400 tracking-wider mb-6">
-            <span>Showing <span className="text-black font-bold"> {stocks.length} </span>{stocks.length === 1 ? "recommendation" : "recommendations"}</span>
-            <span className="w-1.5 h-1.5 bg-gray-300 rounded-full mx-1"></span>
+          <div className="text-xs font-bold text-gray-400 tracking-wider mb-6">
             <span>{`Last updated ${stocksData?.last_updated_date}`}</span>
           </div>
 
@@ -639,9 +710,18 @@ export default function AllStocksPage() {
 
                     <div>
                       {/* Header */}
-                      <div className="flex items-start justify-between gap-4 mb-4">
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900 leading-tight tracking-tight">{stock.name}</h3>
+                      <div className="flex items-start justify-between gap-4 mb-4 min-w-0">
+                        <div className="min-w-0 flex-1">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <h3 className="text-xl font-bold text-gray-900 leading-tight tracking-tight truncate cursor-pointer">
+                                {stock.name}
+                              </h3>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="font-semibold text-xs">{stock.name}</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <div className="flex flex-wrap gap-1.5 mt-2">
                             {stock.sector && <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
                               {stock.sector}
@@ -656,7 +736,8 @@ export default function AllStocksPage() {
                         </div>
 
                         {/* Action Badge */}
-                        <span className={`text-[11px] font-extrabold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 tracking-wider ${action === "Buy"
+                        <span className={`flex-shrink-0 text-[11px] font-extrabold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 tracking-wider ${action === "Buy"
+
                           ? "bg-[#e6f5ef] text-[#0d8b6d]"
                           : action === "Hold"
                             ? "bg-[#fef3e0] text-[#b07800]"
@@ -892,9 +973,18 @@ export default function AllStocksPage() {
                     <X size={18} />
                   </button>
 
-                  <div className="pr-12">
+                  <div className="pr-12 min-w-0">
                     <span className="text-xs font-semibold text-[#F79009] tracking-wider uppercase">Research Trail</span>
-                    <h2 className="text-display-sm font-semibold text-gray-900 mt-1 leading-tight">{selectedStock.name}</h2>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <h2 className="text-display-sm font-semibold text-gray-900 mt-1 leading-tight truncate cursor-pointer">
+                          {selectedStock.name}
+                        </h2>
+                      </TooltipTrigger>
+                      <TooltipContent className="z-[100]">
+                        <p className="font-semibold text-xs">{selectedStock.name}</p>
+                      </TooltipContent>
+                    </Tooltip>
                     <p className="text-xs font-semibold text-gray-400 tracking-wider uppercase mt-1">{selectedStock.exchange}</p>
 
                     <div className="flex flex-wrap gap-2 mt-4">
@@ -927,7 +1017,7 @@ export default function AllStocksPage() {
                       <div key={idx} className="relative">
 
                         {/* Timeline Node Dot */}
-                        <div className={`absolute -left-[37px] w-6 h-6 rounded-full border-4 border-[#FAF9F5] shadow-sm ${report.type.includes("Exit") ? "bg-[#B93815]" : "bg-[#107569]"
+                        <div className={`absolute -left-[37px] top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-4 border-[#FAF9F5] shadow-sm ${report.type.includes("Exit") ? "bg-[#B93815]" : "bg-[#107569]"
                           }`} />
 
                         {/* Timeline Content Card */}
