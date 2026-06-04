@@ -554,8 +554,8 @@ export default function AllStocksPage() {
                                     );
                                   }}
                                   className={`w-full text-left px-4 py-2.5 text-xs transition-colors hover:bg-gray-50 flex items-center justify-between ${isSelected
-                                      ? "text-[#125B54] font-bold bg-[#EAF5F4]"
-                                      : "text-gray-600"
+                                    ? "text-[#125B54] font-bold bg-[#EAF5F4]"
+                                    : "text-gray-600"
                                     }`}
                                 >
                                   <span>{act}</span>

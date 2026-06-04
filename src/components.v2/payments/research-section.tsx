@@ -7,7 +7,7 @@ export const ResearchSection = () => {
       <div className="max-w-[1200px] mx-auto">
 
         {/* Section Header */}
-        <header className="text-center max-w-[760px] mx-auto mb-12 md:mb-8">
+        <div className="text-center max-w-[760px] mx-auto mb-12 md:mb-8">
           <p className="font-sans text-[15px] max-md:text-[14px] font-semibold tracking-[0.28em] uppercase text-[#ff9e29] mb-[18px] flex items-center justify-center gap-[14px] max-md:gap-[10px] before:content-[''] before:inline-block before:w-[28px] max-md:before:w-[20px] before:h-[1.5px] before:bg-[#ff9e29] before:opacity-50 after:content-[''] after:inline-block after:w-[28px] max-md:after:w-[20px] after:h-[1.5px] after:bg-[#ff9e29] after:opacity-50">
             Beyond the baskets
           </p>
@@ -17,7 +17,7 @@ export const ResearchSection = () => {
           <p className="font-sans text-[clamp(15px,1.5vw,17px)] leading-[1.6] text-[#5a6e6a] max-w-[680px] mx-auto">
             Standard reports won&apos;t answer your question? We&apos;ll build a custom one: field visits, deep models, and answers specific to what you&apos;re investing in.
           </p>
-        </header>
+        </div>
 
         {/* Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[22px] lg:gap-[28px] items-stretch">
@@ -86,7 +86,7 @@ export const ResearchSection = () => {
             </div>
 
             <div className="p-[28px] px-[26px] max-md:p-[22px] max-md:px-[20px] flex-1 flex flex-col">
-              <p className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#ff9e29] mb-3">
+              <p className="font-sans text-[14px] font-bold tracking-[0.22em] uppercase text-[#ff9e29] mb-3">
                 Custom research
               </p>
               <h3 className="font-sans font-bold text-[clamp(22px,2.4vw,26px)] text-[#125b54] leading-[1.2] mb-3 tracking-[-0.005em] max-md:text-[21px]">
@@ -224,7 +224,7 @@ export const ResearchSection = () => {
             </div>
 
             <div className="p-[28px] px-[26px] max-md:p-[22px] max-md:px-[20px] flex-1 flex flex-col">
-              <p className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#ff9e29] mb-3">
+              <p className="font-sans text-[14px] font-bold uppercase text-[#ff9e29] mb-3" style={{ letterSpacing: "0.35rem !important" }}>
                 On-ground intelligence
               </p>
               <h3 className="font-sans font-bold text-[clamp(22px,2.4vw,26px)] text-[#125b54] leading-[1.2] mb-3 tracking-[-0.005em] max-md:text-[21px]">
@@ -236,7 +236,7 @@ export const ResearchSection = () => {
 
               <div className="mb-[26px] bg-[#f8f2e7] border border-[#e8dfc9] rounded-[14px] pt-[18px] pb-[18px] pl-[20px] pr-[20px] max-md:py-[14px] max-md:px-[16px]">
                 <div>
-                  <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase text-[#ff9e29] mb-1.5">
+                  <p className="font-sans text-[13.5px] font-bold tracking-[0.22em] uppercase text-[#125b54] mb-1.5">
                     On-demand
                   </p>
                   <p className="font-sans text-[13.5px] leading-[1.6] text-[#2c4945] m-0 max-md:text-[13px]">
@@ -247,11 +247,11 @@ export const ResearchSection = () => {
                 <div className="h-[1px] bg-[rgba(18,91,84,0.12)] my-[14px]" aria-hidden="true" />
 
                 <div>
-                  <p className="font-sans text-[10px] font-bold tracking-[0.22em] uppercase text-[#ff9e29] mb-1.5">
+                  <p className="font-sans text-[13.5px] font-bold tracking-[0.22em] uppercase text-[#125b54] mb-1.5">
                     Our coverage
                   </p>
                   <p className="font-sans text-[13.5px] leading-[1.6] text-[#2c4945] m-0 max-md:text-[13px]">
-                    We regularly visit factories of stocks we cover. Subscribers get the field notes: what we saw, what changed, and whether it shifts our view.
+                    We regularly visit factories of stocks we cover. you can get the field notes: what we saw, what changed, and whether it shifts our view.
                   </p>
                 </div>
               </div>
