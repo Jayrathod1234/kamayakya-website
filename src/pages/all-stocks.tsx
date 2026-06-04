@@ -68,11 +68,18 @@ interface StockPick {
 export default function AllStocksPage() {
   const { isLoggedIn } = useContext(AuthContext);
   const router = useRouter();
-  const {
-    activePlan: { plan },
-  } = useActivePlanContext();
+  const { activePlan, loading: planLoading } = useActivePlanContext();
+  const plan = activePlan?.plan;
 
-  console.log(plan, "plan....")
+  useEffect(() => {
+    if (!planLoading) {
+      const planName = plan?.toLowerCase();
+      if (!planName || planName === "free") {
+        router.replace("/");
+      }
+    }
+  }, [plan, planLoading, router]);
+
 
   // State Management
   const [selectedExchange, setSelectedExchange] = useState<string>("All Boards");
@@ -110,6 +117,8 @@ export default function AllStocksPage() {
   const [totalCount, setTotalCount] = useState(0);
 
   const fetchStats = async () => {
+    const planName = plan?.toLowerCase();
+    if (!planName || planName === "free") return;
     try {
       const refreshToken = localStorage.getItem("refresh");
       const headers = refreshToken ? { Authorization: `token ${refreshToken}` } : {};
@@ -130,6 +139,8 @@ export default function AllStocksPage() {
   };
 
   const fetchStocks = async () => {
+    const planName = plan?.toLowerCase();
+    if (!planName || planName === "free") return;
     try {
       setIsLoading(true);
       const refreshToken = localStorage.getItem("refresh");
@@ -188,11 +199,11 @@ export default function AllStocksPage() {
   // Load stats once, and stocks whenever page or login changes
   useEffect(() => {
     fetchStats();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, plan]);
 
   useEffect(() => {
     fetchStocks();
-  }, [isLoggedIn, page]);
+  }, [isLoggedIn, page, plan]);
 
   // Reset to first page when any filters change to preserve pagination integrity
   useEffect(() => {
@@ -293,6 +304,18 @@ export default function AllStocksPage() {
   const exitedCount = stats.exitedCount;
 
 
+
+  if (planLoading) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-[#FAF9F5]">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#125B54] border-t-transparent" />
+      </div>
+    );
+  }
+
+  if (!plan || plan.toLowerCase() === "free") {
+    return null;
+  }
 
   return (
     <>
@@ -458,7 +481,7 @@ export default function AllStocksPage() {
                   {/* Action Pills / Dropdown */}
                   <div className="flex items-center gap-3">
                     <span className="text-[11px] font-black text-gray-700 uppercase tracking-wider">Action</span>
-                    
+
                     {/* Desktop View: Pills */}
                     <div className="hidden sm:flex items-center gap-2">
                       {(["Buy", "Hold", "Sell"] as const).map((act) => {
@@ -530,11 +553,10 @@ export default function AllStocksPage() {
                                         : [...prev, upper]
                                     );
                                   }}
-                                  className={`w-full text-left px-4 py-2.5 text-xs transition-colors hover:bg-gray-50 flex items-center justify-between ${
-                                    isSelected
+                                  className={`w-full text-left px-4 py-2.5 text-xs transition-colors hover:bg-gray-50 flex items-center justify-between ${isSelected
                                       ? "text-[#125B54] font-bold bg-[#EAF5F4]"
                                       : "text-gray-600"
-                                  }`}
+                                    }`}
                                 >
                                   <span>{act}</span>
                                   {isSelected && <Check size={13} className="text-[#125B54]" />}
@@ -722,16 +744,42 @@ export default function AllStocksPage() {
                               <p className="font-semibold text-xs">{stock.name}</p>
                             </TooltipContent>
                           </Tooltip>
-                          <div className="flex flex-wrap gap-1.5 mt-2">
-                            {stock.sector && <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
-                              {stock.sector}
-                            </span>}
-                            {!stock.mcapLabel || stock.mcapLabel === '' ? <span className="bg-[#fff4e0] text-[#e88410] border border-[#fddba0] text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
-                              {stock.exchange}
-                            </span> :
-                              <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase">
-                                {stock.mcapLabel}
-                              </span>}
+                          <div className="flex flex-row items-center gap-1.5 mt-2 w-full min-w-0 overflow-hidden">
+                            {stock.sector && (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase inline-block truncate max-w-[50%] min-w-0 cursor-default">
+                                    {stock.sector}
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p className="font-semibold text-xs">{stock.sector}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            )}
+                            {!stock.mcapLabel || stock.mcapLabel === '' ? (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="bg-[#fff4e0] text-[#e88410] border border-[#fddba0] text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase inline-block truncate max-w-[50%] min-w-0 cursor-default">
+                                    {stock.exchange}
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p className="font-semibold text-xs">{stock.exchange}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            ) : (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="bg-white border border-gray-200 text-gray-500 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase inline-block truncate max-w-[50%] min-w-0 cursor-default">
+                                    {stock.mcapLabel}
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p className="font-semibold text-xs">{stock.mcapLabel}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            )}
                           </div>
                         </div>
 

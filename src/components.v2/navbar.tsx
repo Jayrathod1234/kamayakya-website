@@ -377,7 +377,7 @@ export function Navbar({
                 Stocks to Buy
               </Button>
             </Link> */}
-            {isLoggedIn && <Link
+            {isLoggedIn && plan && plan.toLowerCase() !== "free" && <Link
               onClick={(e) => {
                 const planName = plan?.toLowerCase();
                 if (!planName || planName === "free") {
