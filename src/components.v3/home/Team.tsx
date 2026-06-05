@@ -83,56 +83,56 @@ const desktopTeams = [
       </>
     ),
   },
-  {
-    img: "/landing/prasad_heda.png",
-    social1: "",
-    social2: "https://www.linkedin.com/in/prasad-heda-4196a8b0/",
-    name: "Prasad Heda",
-    designation: "Equity Research Analyst",
-    description: (
-      <>
-        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
-          <li>
-            <strong>Investment Experience:</strong> Seven years of portfolio management and research experience across
-            Portfolio Management Companies and Family Offices and over the years has developed acumen in deep research
-            combined with on ground insights.
-          </li>
-          <li>
-            <strong>Overall Experience:</strong> Has also worked in domains like Statutory Audits, IT systems Audits
-            with reputed Indian companies.
-          </li>
-          <li>
-            <strong>Academic Background:</strong> Chartered Accountant, B.Com graduate and cleared CFA L-II.
-          </li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    img: "/landing/yash_naik.png",
-    social1: "",
-    social2: "https://www.linkedin.com/in/yash-naik-cfal2/",
-    name: "Yash Naik",
-    designation: "Equity Research Analyst",
-    description: (
-      <>
-        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
-          <li>
-            <strong>Public Markets Investor:</strong> Over three years of experience in small and micro-cap equities,
-            driven by a rigorous bottom-up investment approach.
-          </li>
-          <li>
-            <strong>Qualified Analyst:</strong> CFA Level III cleared, B.Tech in Information Technology, and NISM
-            Research Analyst certified.
-          </li>
-          <li>
-            <strong>Investment Research Expertise:</strong> More than a year of experience in equity research and
-            analysis, backed by a strong analytical and technical foundation from prior IT experience.
-          </li>
-        </ul>
-      </>
-    ),
-  },
+  // {
+  //   img: "/landing/prasad_heda.png",
+  //   social1: "",
+  //   social2: "https://www.linkedin.com/in/prasad-heda-4196a8b0/",
+  //   name: "Prasad Heda",
+  //   designation: "Equity Research Analyst",
+  //   description: (
+  //     <>
+  //       <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+  //         <li>
+  //           <strong>Investment Experience:</strong> Seven years of portfolio management and research experience across
+  //           Portfolio Management Companies and Family Offices and over the years has developed acumen in deep research
+  //           combined with on ground insights.
+  //         </li>
+  //         <li>
+  //           <strong>Overall Experience:</strong> Has also worked in domains like Statutory Audits, IT systems Audits
+  //           with reputed Indian companies.
+  //         </li>
+  //         <li>
+  //           <strong>Academic Background:</strong> Chartered Accountant, B.Com graduate and cleared CFA L-II.
+  //         </li>
+  //       </ul>
+  //     </>
+  //   ),
+  // },
+  // {
+  //   img: "/landing/yash_naik.png",
+  //   social1: "",
+  //   social2: "https://www.linkedin.com/in/yash-naik-cfal2/",
+  //   name: "Yash Naik",
+  //   designation: "Equity Research Analyst",
+  //   description: (
+  //     <>
+  //       <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+  //         <li>
+  //           <strong>Public Markets Investor:</strong> Over three years of experience in small and micro-cap equities,
+  //           driven by a rigorous bottom-up investment approach.
+  //         </li>
+  //         <li>
+  //           <strong>Qualified Analyst:</strong> CFA Level III cleared, B.Tech in Information Technology, and NISM
+  //           Research Analyst certified.
+  //         </li>
+  //         <li>
+  //           <strong>Investment Research Expertise:</strong> More than a year of experience in equity research and
+  //           analysis, backed by a strong analytical and technical foundation from prior IT experience.
+  //         </li>
+  //       </ul>
+  //     </>
+  //   ),
+  // },
   {
     img: "/landing/raghav_maheshwari.png",
     social1: "",
@@ -281,56 +281,56 @@ const mobileTeams = [
       </>
     ),
   },
-  {
-    img: "/landing/prasad_heda.png",
-    social1: "",
-    social2: "https://www.linkedin.com/in/prasad-heda-4196a8b0/",
-    name: "Prasad Heda",
-    designation: "Equity Research Analyst",
-    description: (
-      <>
-        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
-          <li>
-            <strong>Investment Experience:</strong> Seven years of portfolio management and research experience across
-            Portfolio Management Companies and Family Offices and over the years has developed acumen in deep research
-            combined with on ground insights.
-          </li>
-          <li>
-            <strong>Overall Experience:</strong> Has also worked in domains like Statutory Audits, IT systems Audits
-            with reputed Indian companies.
-          </li>
-          <li>
-            <strong>Academic Background:</strong> Chartered Accountant, B.Com graduate and cleared CFA L-II.
-          </li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    img: "/landing/yash_naik.png",
-    social1: "",
-    social2: "https://www.linkedin.com/in/yash-naik-cfal2/",
-    name: "Yash Naik",
-    designation: "Equity Research Analyst",
-    description: (
-      <>
-        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
-          <li>
-            <strong>Public Markets Investor:</strong> Over three years of experience in small and micro-cap equities,
-            driven by a rigorous bottom-up investment approach.
-          </li>
-          <li>
-            <strong>Qualified Analyst:</strong> CFA Level III cleared, B.Tech in Information Technology, and NISM
-            Research Analyst certified.
-          </li>
-          <li>
-            <strong>Investment Research Expertise:</strong> More than a year of experience in equity research and
-            analysis, backed by a strong analytical and technical foundation from prior IT experience.
-          </li>
-        </ul>
-      </>
-    ),
-  },
+  // {
+  //   img: "/landing/prasad_heda.png",
+  //   social1: "",
+  //   social2: "https://www.linkedin.com/in/prasad-heda-4196a8b0/",
+  //   name: "Prasad Heda",
+  //   designation: "Equity Research Analyst",
+  //   description: (
+  //     <>
+  //       <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+  //         <li>
+  //           <strong>Investment Experience:</strong> Seven years of portfolio management and research experience across
+  //           Portfolio Management Companies and Family Offices and over the years has developed acumen in deep research
+  //           combined with on ground insights.
+  //         </li>
+  //         <li>
+  //           <strong>Overall Experience:</strong> Has also worked in domains like Statutory Audits, IT systems Audits
+  //           with reputed Indian companies.
+  //         </li>
+  //         <li>
+  //           <strong>Academic Background:</strong> Chartered Accountant, B.Com graduate and cleared CFA L-II.
+  //         </li>
+  //       </ul>
+  //     </>
+  //   ),
+  // },
+  // {
+  //   img: "/landing/yash_naik.png",
+  //   social1: "",
+  //   social2: "https://www.linkedin.com/in/yash-naik-cfal2/",
+  //   name: "Yash Naik",
+  //   designation: "Equity Research Analyst",
+  //   description: (
+  //     <>
+  //       <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+  //         <li>
+  //           <strong>Public Markets Investor:</strong> Over three years of experience in small and micro-cap equities,
+  //           driven by a rigorous bottom-up investment approach.
+  //         </li>
+  //         <li>
+  //           <strong>Qualified Analyst:</strong> CFA Level III cleared, B.Tech in Information Technology, and NISM
+  //           Research Analyst certified.
+  //         </li>
+  //         <li>
+  //           <strong>Investment Research Expertise:</strong> More than a year of experience in equity research and
+  //           analysis, backed by a strong analytical and technical foundation from prior IT experience.
+  //         </li>
+  //       </ul>
+  //     </>
+  //   ),
+  // },
   {
     img: "/landing/raghav_maheshwari.png",
     social1: "",
@@ -393,9 +393,8 @@ export default function Team() {
           </CarouselContent>
 
           <div
-            className={`${
-              isMobile ? "flex" : "flex"
-            }  h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pl-4 md:px-0 `}
+            className={`${isMobile ? "flex" : "flex"
+              }  h-full -left-6 max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pl-4 md:px-0 `}
           >
             <div>
               <ButtonnArrow
@@ -407,9 +406,8 @@ export default function Team() {
             </div>
           </div>
           <div
-            className={`${
-              isMobile ? "flex" : "flex"
-            }  -right-6 lg:-right-[12px]  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pr-4 md:px-0`}
+            className={`${isMobile ? "flex" : "flex"
+              }  -right-6 lg:-right-[12px]  h-full max-w-[261px] top-0 absolute z-20 flex flex-col justify-center items-center pr-4 md:px-0`}
           >
             <div>
               <ButtonnArrow

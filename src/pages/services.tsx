@@ -142,6 +142,31 @@ export default function Page() {
     }
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    const handleScrollToHash = () => {
+      if (typeof window !== "undefined" && window.location.hash === "#how-it-works") {
+        setTimeout(() => {
+          const element = document.getElementById("how-it-works");
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+            window.history.replaceState(
+              null,
+              "",
+              window.location.pathname + window.location.search
+            );
+          }
+        }, 500);
+      }
+    };
+
+    handleScrollToHash();
+
+    window.addEventListener("hashchange", handleScrollToHash);
+    return () => {
+      window.removeEventListener("hashchange", handleScrollToHash);
+    };
+  }, []);
+
   return (
     <div
       className={`relative pricing pricing-body tracking-wide bg-white `}
