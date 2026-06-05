@@ -357,48 +357,48 @@ export default function AllStocksPage() {
 
               {/* Total Stocks */}
               <div className="flex flex-col justify-between pr-4">
-                <div className="flex items-center gap-1.5 text-gray-400 text-xs font-semibold tracking-wider uppercase mb-2">
+                <div className="flex items-center gap-1.5 text-gray-900 text-xs font-bold tracking-wider uppercase mb-2">
                   <TrendingUp size={14} className="text-gray-400" />
                   <span>Total Stocks</span>
                 </div>
                 <span className="text-display-sm md:text-display-lg font-semibold text-gray-900 tracking-tight leading-none">{totalStocksCount}</span>
-                <div className="text-gray-400 text-xs mt-2">across mainboard & SME</div>
+                <div className="text-gray-900 text-xs mt-2">across mainboard & SME</div>
               </div>
 
               {/* Active Buy */}
               <div className="flex flex-col justify-between md:pl-6 pr-4">
-                <div className="flex items-center gap-1.5 text-gray-400 text-xs font-semibold tracking-wider uppercase mb-2">
+                <div className="flex items-center gap-1.5 text-gray-900 text-xs font-bold tracking-wider uppercase mb-2">
                   <ArrowUp size={14} className="text-[#107569]" />
                   <span>Active Buy</span>
                 </div>
                 <div>
                   <span className="text-display-sm md:text-display-lg font-semibold text-[#107569] tracking-tight leading-none">{activeBuyCount}</span>
                 </div>
-                <div className="text-gray-400 text-xs mt-2">currently recommended</div>
+                <div className="text-gray-900 text-xs mt-2">currently recommended</div>
               </div>
 
               {/* On Hold */}
               <div className="flex flex-col justify-between md:pl-6 pr-4">
-                <div className="flex items-center gap-1.5 text-gray-400 text-xs font-semibold tracking-wider uppercase mb-2">
+                <div className="flex items-center gap-1.5 text-gray-900 text-xs font-bold tracking-wider uppercase mb-2">
                   <Pause size={14} className="text-[#D48C00]" />
                   <span>On Hold</span>
                 </div>
                 <div>
                   <span className="text-display-sm md:text-display-lg font-semibold text-[#D48C00] tracking-tight leading-none">{onHoldCount}</span>
                 </div>
-                <div className="text-gray-400 text-xs mt-2">based on current valuation</div>
+                <div className="text-gray-900 text-xs mt-2">based on current valuation</div>
               </div>
 
               {/* Exited */}
               <div className="flex flex-col justify-between md:pl-6">
-                <div className="flex items-center gap-1.5 text-gray-400 text-xs font-semibold tracking-wider uppercase mb-2">
+                <div className="flex items-center gap-1.5 text-gray-900 text-xs font-bold tracking-wider uppercase mb-2">
                   <LogOut size={14} className="text-gray-500" />
                   <span>Exited</span>
                 </div>
                 <div>
                   <span className="text-display-sm md:text-display-lg font-semibold text-gray-700 tracking-tight leading-none">{exitedCount}</span>
                 </div>
-                <div className="text-gray-400 text-xs mt-2">closed positions</div>
+                <div className="text-gray-900 text-xs mt-2">closed positions</div>
               </div>
 
             </div>

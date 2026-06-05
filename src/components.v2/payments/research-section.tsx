@@ -251,7 +251,7 @@ export const ResearchSection = () => {
                     Our coverage
                   </p>
                   <p className="font-sans text-[13.5px] leading-[1.6] text-[#2c4945] m-0 max-md:text-[13px]">
-                    We regularly visit factories of stocks we cover. you can get the field notes: what we saw, what changed, and whether it shifts our view.
+                    We regularly visit factories of stocks we cover. You can get the field notes: what we saw, what changed, and whether it shifts our view.
                   </p>
                 </div>
               </div>

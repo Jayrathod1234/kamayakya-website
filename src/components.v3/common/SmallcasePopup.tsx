@@ -182,16 +182,26 @@ export const SmallcasePopup: React.FC<SmallcasePopupProps> = ({ isOpen, onClose 
             how it works.
           </p>
 
-          <div className="mt-1.5 max-md:w-full">
+          <div className="mt-1.5 w-full flex sm:flex-row flex-col gap-2">
+            <button
+              onClick={() => {
+                window.open("https://kamayakya.smallcase.com/", "_blank");
+                sessionStorage.removeItem("smallcase_popup_dismissed");
+                sessionStorage.removeItem("new_user");
+              }}
+              className="inline-flex items-center gap-2.5 p-[14px_20px] bg-[#eb8500] hover:bg-[#d27500] text-white font-sans font-semibold text-[15px] rounded-[10px] cursor-pointer transition-all duration-200 shadow-[0_4px_12px_-4px_rgba(235,133,0,0.45)] hover:shadow-[0_6px_16px_-4px_rgba(235,133,0,0.6)] hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#eb8500] focus-visible:outline-offset-[3px] self-start max-md:w-full max-md:justify-center max-md:self-stretch text-center"
+            >
+              Explore Our Services
+            </button>
             <button
               onClick={() => {
                 router.push("/services")
                 sessionStorage.removeItem("smallcase_popup_dismissed");
                 sessionStorage.removeItem("new_user");
               }}
-              className="inline-flex items-center gap-2.5 p-[14px_28px] bg-[#eb8500] hover:bg-[#d27500] text-white font-sans font-semibold text-[15px] rounded-[10px] cursor-pointer transition-all duration-200 shadow-[0_4px_12px_-4px_rgba(235,133,0,0.45)] hover:shadow-[0_6px_16px_-4px_rgba(235,133,0,0.6)] hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#eb8500] focus-visible:outline-offset-[3px] self-start max-md:w-full max-md:justify-center max-md:self-stretch text-center"
+              className="inline-flex items-center gap-2.5 p-[14px_20px] bg-[#eb8500] hover:bg-[#d27500] text-white font-sans font-semibold text-[15px] rounded-[10px] cursor-pointer transition-all duration-200 shadow-[0_4px_12px_-4px_rgba(235,133,0,0.45)] hover:shadow-[0_6px_16px_-4px_rgba(235,133,0,0.6)] hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#eb8500] focus-visible:outline-offset-[3px] self-start max-md:w-full max-md:justify-center max-md:self-stretch text-center"
             >
-              Explore Our Services
+              How It Works?
             </button>
           </div>
         </section>
