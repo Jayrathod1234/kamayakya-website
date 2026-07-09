@@ -58,31 +58,31 @@ const desktopTeams = [
       </>
     ),
   },
-  {
-    img: "/landing/aniket_kulkarni.png",
-    social1: "https://x.com/smallcaphunter9",
-    social2: "https://www.linkedin.com/in/aniket-kulkarni-equity-research/",
-    name: "Aniket Kulkarni",
-    designation: "Director & Co-Founder",
-    description: (
-      <>
-        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
-          <li>
-            <strong>Entrepreneurial Leader:</strong> 13+ years building businesses across sports, e-commerce, and
-            internet sectors.
-          </li>
-          <li>
-            <strong>Investment Experience:</strong> 9+ years of investing experience, including 5 years in deep-dive
-            fundamental equity research with a focus on small-cap stocks.
-          </li>
-          <li>
-            <strong>Product-Led Thinking:</strong> GrowthX alumnus, bringing a strong product mindset to investment
-            research and digital innovation.
-          </li>
-        </ul>
-      </>
-    ),
-  },
+  // {
+  //   img: "/landing/aniket_kulkarni.png",
+  //   social1: "https://x.com/smallcaphunter9",
+  //   social2: "https://www.linkedin.com/in/aniket-kulkarni-equity-research/",
+  //   name: "Aniket Kulkarni",
+  //   designation: "Director & Co-Founder",
+  //   description: (
+  //     <>
+  //       <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+  //         <li>
+  //           <strong>Entrepreneurial Leader:</strong> 13+ years building businesses across sports, e-commerce, and
+  //           internet sectors.
+  //         </li>
+  //         <li>
+  //           <strong>Investment Experience:</strong> 9+ years of investing experience, including 5 years in deep-dive
+  //           fundamental equity research with a focus on small-cap stocks.
+  //         </li>
+  //         <li>
+  //           <strong>Product-Led Thinking:</strong> GrowthX alumnus, bringing a strong product mindset to investment
+  //           research and digital innovation.
+  //         </li>
+  //       </ul>
+  //     </>
+  //   ),
+  // },
   // {
   //   img: "/landing/prasad_heda.png",
   //   social1: "",
@@ -256,31 +256,31 @@ const mobileTeams = [
       </>
     ),
   },
-  {
-    img: "/landing/aniket_kulkarni.png",
-    social1: "https://x.com/smallcaphunter9",
-    social2: "https://www.linkedin.com/in/aniket-kulkarni-equity-research/",
-    name: "Aniket Kulkarni",
-    designation: "Director & Co-Founder",
-    description: (
-      <>
-        <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
-          <li>
-            <strong>Entrepreneurial Leader:</strong> 13+ years building businesses across sports, e-commerce, and
-            internet sectors.
-          </li>
-          <li>
-            <strong>Investment Experience:</strong> 9+ years of investing experience, including 5 years in deep-dive
-            fundamental equity research with a focus on small-cap stocks.
-          </li>
-          <li>
-            <strong>Product-Led Thinking:</strong> GrowthX alumnus, bringing a strong product mindset to investment
-            research and digital innovation.
-          </li>
-        </ul>
-      </>
-    ),
-  },
+  // {
+  //   img: "/landing/aniket_kulkarni.png",
+  //   social1: "https://x.com/smallcaphunter9",
+  //   social2: "https://www.linkedin.com/in/aniket-kulkarni-equity-research/",
+  //   name: "Aniket Kulkarni",
+  //   designation: "Director & Co-Founder",
+  //   description: (
+  //     <>
+  //       <ul className="list-disc space-y-2 [&_*]:text-[14px] [&_strong]:font-bold [&_*]:leading-[150%]">
+  //         <li>
+  //           <strong>Entrepreneurial Leader:</strong> 13+ years building businesses across sports, e-commerce, and
+  //           internet sectors.
+  //         </li>
+  //         <li>
+  //           <strong>Investment Experience:</strong> 9+ years of investing experience, including 5 years in deep-dive
+  //           fundamental equity research with a focus on small-cap stocks.
+  //         </li>
+  //         <li>
+  //           <strong>Product-Led Thinking:</strong> GrowthX alumnus, bringing a strong product mindset to investment
+  //           research and digital innovation.
+  //         </li>
+  //       </ul>
+  //     </>
+  //   ),
+  // },
   // {
   //   img: "/landing/prasad_heda.png",
   //   social1: "",
