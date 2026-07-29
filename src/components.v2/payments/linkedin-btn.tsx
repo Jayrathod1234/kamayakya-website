@@ -22,7 +22,7 @@ export function LinkedinBtn({page}:Record<string,string>) {
         target="_blank"
       >
         <Image height={32} width={32} src={"/icons/Linkedin.svg"} alt="linkedin-icon" />
-        <p className=" font-medium">KamayaKya’s Linkedin</p>
+        <p className=" font-medium text-white">KamayaKya’s Linkedin</p>
         <Image height={18} width={18} src={"/icons/open-link.svg"} alt="open-link-icon" />
       </Link>
     </Button>

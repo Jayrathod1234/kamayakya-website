@@ -126,23 +126,25 @@ const BlogPage = () => {
         <meta property="twitter:description" content={blog.description.substring(10)} />
         <meta property="twitter:image" content={blog.image1} />
       </Head>
-      <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto"></div>
-      <div ref={ref}>
-        <BlogHero blog={blog} />
-      </div>
-      <div className=" relative ">
-        <div className=" hidden lg:flex  z-30 sticky lg:top-[25dvh] ml-6 flex-col items-center  justify-center w-fit float-left gap-3 h-fit">
-          <BlogSocialList blog={blog} />
+      <main id="main-content">
+        <div className=" w-[min(1280px,calc(100%-32px))] min-w-[328px] mx-auto"></div>
+        <div ref={ref}>
+          <BlogHero blog={blog} />
         </div>
-        {displayShare && <BlogShareDrawer blog={blog} />}
-        <div className="w-[min(840px,calc(100%-32px))] min-w-[328px] mx-auto relative">
-          <div
-            className={`prose pricing blog !max-w-none pb-[10%] ${styles.blog}`}
-            dangerouslySetInnerHTML={{ __html: blog.description }}
-          ></div>
+        <div className=" relative ">
+          <div className=" hidden lg:flex  z-30 sticky lg:top-[25dvh] ml-6 flex-col items-center  justify-center w-fit float-left gap-3 h-fit">
+            <BlogSocialList blog={blog} />
+          </div>
+          {displayShare && <BlogShareDrawer blog={blog} />}
+          <div className="w-[min(840px,calc(100%-32px))] min-w-[328px] mx-auto relative">
+            <div
+              className={`prose pricing blog !max-w-none pb-[10%] ${styles.blog}`}
+              dangerouslySetInnerHTML={{ __html: blog.description }}
+            ></div>
+          </div>
         </div>
-      </div>
-      <Newsletter page="Blogs" />
+        <Newsletter page="Blogs" />
+      </main>
       <Footer />
     </div>
   );

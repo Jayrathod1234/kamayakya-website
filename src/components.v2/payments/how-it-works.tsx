@@ -8,7 +8,7 @@ const PHASE_THEMES = {
     accentGlow: "rgba(18, 91, 84, 0.18)",
   },
   2: {
-    accent: "#ff9e29",
+    accent: "#B35300",
     accentSoft: "rgba(255, 158, 41, 0.1)",
     accentGlow: "rgba(255, 158, 41, 0.22)",
   },
@@ -349,19 +349,19 @@ export const HowItWorks = () => {
 
         {/* Header */}
         <div className="text-center max-w-[760px] mx-auto mb-7">
-          <p className="inline-flex items-center gap-3 text-xs md:text-sm font-semibold tracking-[0.22em] uppercase text-[#ff9e29] mb-6">
-            <span className="w-8 h-[1.5px] bg-[#ff9e29] opacity-50 shrink-0" />
+          <p className="inline-flex items-center gap-3 text-xs md:text-sm font-semibold tracking-[0.22em] uppercase text-[#B35300] mb-6">
+            <span className="w-8 h-[1.5px] bg-[#B35300] opacity-50 shrink-0" />
             Subscribe · Invest · Rebalance
-            <span className="w-8 h-[1.5px] bg-[#ff9e29] opacity-50 shrink-0" />
+            <span className="w-8 h-[1.5px] bg-[#B35300] opacity-50 shrink-0" />
           </p>
           <h2
             id="hiw-title-text"
             className="text-3xl md:text-5xl font-bold tracking-tight text-[#125b54] mb-4"
           >
             How it{" "}
-            <span className="text-[#ff9e29] relative inline-block">
+            <span className="text-[#B35300] relative inline-block">
               works?
-              <span className="absolute left-0 right-0 bottom-[-3px] h-[2px] bg-[#ff9e29] opacity-30 rounded" />
+              <span className="absolute left-0 right-0 bottom-[-3px] h-[2px] bg-[#B35300] opacity-30 rounded" />
             </span>
           </h2>
           <p className="text-base md:text-[17px] text-[#5a6e6a] leading-relaxed">
@@ -731,7 +731,7 @@ export const HowItWorks = () => {
           <ContactModal
             trigger={
               <button
-                className="shrink-0 relative z-10 bg-[#eb8500] hover:bg-[#d27500] text-white border-0 py-3.5 px-6 rounded-full font-bold text-sm md:text-[14.5px] tracking-wide cursor-pointer flex items-center gap-2 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#125b54]"
+                className="shrink-0 relative z-10 bg-[#c05600] hover:bg-[#9e4700] text-white border-0 py-3.5 px-6 rounded-full font-bold text-sm md:text-[14.5px] tracking-wide cursor-pointer flex items-center gap-2 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#125b54]"
                 type="button"
               >
                 Request a call back

@@ -171,7 +171,7 @@ export default function BillingHistory() {
       const res = await getUserProfilePaymentHistory();
 
       setData(res?.data);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -194,7 +194,7 @@ export default function BillingHistory() {
             placeholder="Search plans..."
             value={(table.getColumn("subscription_name")?.getFilterValue() as string) ?? ""}
             onChange={(event) => table.getColumn("subscription_name")?.setFilterValue(event.target.value)}
-            className="max-w-sm"
+            className="max-w-sm border-gray-500"
           />
           {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>

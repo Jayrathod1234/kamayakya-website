@@ -93,7 +93,7 @@ const cards: ExpandableCard[] = [
 const DesktopExpandedCards = ({ expandedCardId, toggleCard, onMouseEnter, onMouseLeave }: IDesktopExpandedCards) => {
   return (
     <div onMouseEnter={onMouseEnter}
-    onMouseLeave={onMouseLeave} className="flex justify-center items-center max-xl:hidden h-[200px] cursor-[url(/carousel-pause-icon.svg),auto]">
+      onMouseLeave={onMouseLeave} className="flex justify-center items-center max-xl:hidden h-[200px] cursor-[url(/carousel-pause-icon.svg),auto]">
       {cards.map((card, idx) => (
         <motion.div
           key={card.id}
@@ -220,7 +220,7 @@ const MobileExpandedCards = ({
                 <CarouselIndicator
                   key={card.id + "-progress"}
                   isPlaying={!isPaused}
-                  onClick={() => {}} // No action needed for progress bar
+                  onClick={() => { }} // No action needed for progress bar
                   index={index}
                   selectedIndex={currentIndex}
                   animationDuration={`${autoPlayInterval}ms`}
@@ -255,9 +255,9 @@ const MobileExpandedCards = ({
                   ease: "easeOut",
                 }}
               >
-                <img 
-                  className="h-14 w-14 mb-2" 
-                  src={subcard.img} 
+                <img
+                  className="h-14 w-14 mb-2"
+                  src={subcard.img}
                   alt={subcard.content}
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
@@ -381,18 +381,18 @@ export default function ExpandableCardGroup() {
 
   return (
     <div id="philosophy" className="mx-auto py-[50px] sm:py-[110px] open_sans">
-      <p className="font-semibold sm:font-bold text-[#FF9E29] text-center max-sm:text-sm">PHILOSOPHY</p>
+      <p className="font-semibold sm:font-bold text-[#B35300] text-center max-sm:text-sm">PHILOSOPHY</p>
       <h2 className="text-display-xs sm:text-display-md font-bold mb-2 text-center">Our Investing <span className=" open_sans_italic">Philosophy</span></h2>
       <p className="max-sm:mt-3 text-sm sm:text-lg text-gray-500 mb-7 sm:mb-10 text-center">
         Behind every stock is a company. We find out what it's doing and why.
       </p>
       <div
         className="w-fit mx-auto "
-        
+
       >
         <div>
           <DesktopExpandedCards onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave} toggleCard={toggleCard} expandedCardId={expandedCardId as string} />
+            onMouseLeave={handleMouseLeave} toggleCard={toggleCard} expandedCardId={expandedCardId as string} />
           {/* Carousel Indicators */}
           <div className="flex gap-4 justify-center items-center mt-10 max-xl:hidden">
             {cards.map((_, index) => (

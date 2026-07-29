@@ -185,38 +185,40 @@ export default function Page() {
       </Head>
       <Navbar />
 
-      <SmallcaseCarousel />
-      <HowItWorks />
-      <ResearchSection />
+      <main id="main-content">
+        <SmallcaseCarousel />
+        <HowItWorks />
+        <ResearchSection />
 
 
-      {/* Testimonials */}
-      <div id="testimonials" className="py-[60px] bg-gray-100 relative">
-        <div className="absolute w-screen">
-          <svg className="w-full h-full" viewBox="0 0 1440 236" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_5060_262281)">
-              <path
-                d="M-72.6057 7.86867C708.139 106.745 1675.87 7.86867 1675.87 7.86867C1675.87 7.86867 2312.13 952.554 1675.87 814.365C1039.62 676.177 410.655 854.869 -72.6057 814.365C-555.866 773.862 -853.35 -91.0076 -72.6057 7.86867Z"
-                fill="#F2F4F7"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_5060_262281">
-                <rect width="1440" height="236" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+        {/* Testimonials */}
+        <div id="testimonials" className="py-[60px] bg-gray-100 relative">
+          <div className="absolute w-screen">
+            <svg className="w-full h-full" viewBox="0 0 1440 236" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clipPath="url(#clip0_5060_262281)">
+                <path
+                  d="M-72.6057 7.86867C708.139 106.745 1675.87 7.86867 1675.87 7.86867C1675.87 7.86867 2312.13 952.554 1675.87 814.365C1039.62 676.177 410.655 854.869 -72.6057 814.365C-555.866 773.862 -853.35 -91.0076 -72.6057 7.86867Z"
+                  fill="#F2F4F7"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_5060_262281">
+                  <rect width="1440" height="236" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <Testimonials />
         </div>
-        <Testimonials />
-      </div>
 
-      {/* Bottom sections */}
-      <div id="feeling-lost" className="bg-gray-100">
-        <FeelingLost />
-      </div>
-      <div className="md:mt-[-15rem] lg:mt-[-15rem]">
-        <Newsletter />
-      </div>
+        {/* Bottom sections */}
+        <div id="feeling-lost" className="bg-gray-100">
+          <FeelingLost />
+        </div>
+        <div className="md:mt-[-15rem] lg:mt-[-15rem]">
+          <Newsletter />
+        </div>
+      </main>
 
       <div className="mt-[-10%]">
         <Footer />

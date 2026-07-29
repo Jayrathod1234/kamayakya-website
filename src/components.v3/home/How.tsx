@@ -215,7 +215,7 @@ export default function How() {
     <div className=" main-container open_sans py-[50px] sm:py-[100px]">
       <div className="sm:flex sm:space-x-10 sm:w-full sm:min-h-[600px] lg:h-[600px]">
         <div className=" flex-1">
-          <p className=" font-semibold text-[#F98800] max-md:text-center max-sm:text-sm">HOW?</p>
+          <p className=" font-semibold text-[#B35300] max-md:text-center max-sm:text-sm">HOW?</p>
           <h2 className=" text-gray-950 text-display-xs sm:text-display-md font-bold max-md:text-center">
             Welcome to the <span className=" open_sans_italic">future</span> of value investing?
           </h2>

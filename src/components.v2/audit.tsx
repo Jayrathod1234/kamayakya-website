@@ -14,12 +14,12 @@ export default function ComplianceAuditPage() {
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-muted">
-              <th className="border border-border px-4 py-3 text-left font-bold text-foreground">Sr. no</th>
-              <th className="border border-border px-4 py-3 text-left font-bold text-foreground">Financial Year</th>
-              <th className="border border-border px-4 py-3 text-left font-bold text-foreground">
+              <th scope="col" className="border border-border px-4 py-3 text-left font-bold text-foreground">Sr. no</th>
+              <th scope="col" className="border border-border px-4 py-3 text-left font-bold text-foreground">Financial Year</th>
+              <th scope="col" className="border border-border px-4 py-3 text-left font-bold text-foreground">
                 Compliance Audit Status
               </th>
-              <th className="border border-border px-4 py-3 text-left font-bold text-foreground">Remarks, If any</th>
+              <th scope="col" className="border border-border px-4 py-3 text-left font-bold text-foreground">Remarks, If any</th>
             </tr>
           </thead>
           <tbody>

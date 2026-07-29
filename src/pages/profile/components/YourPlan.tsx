@@ -159,6 +159,7 @@ export default function YourPlan() {
           <Link
             className=" text-inherit max-sm:hidden"
             href={"/pricing#plan-section"}
+            aria-label="Renew or upgrade plan"
             onClick={() => {
               const mp = getMixPanelClient();
               mp.track("renew_clicked", {
@@ -174,6 +175,7 @@ export default function YourPlan() {
           <Link
             className=" text-inherit"
             href={"/pricing#plan-section"}
+            aria-label="Renew or upgrade plan"
             onClick={() => {
               const mp = getMixPanelClient();
               mp.track("renew_clicked", {

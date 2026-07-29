@@ -343,7 +343,7 @@ export function PlansSection() {
             alignItems: "center",
           }}
         >
-          <img src="kmk-k.png" style={{ width: "50px" }} />
+          <img src="kmk-k.png" style={{ width: "50px" }} alt="KamayaKya logo" />
           <IconButton
             sx={{
               width: "40px",

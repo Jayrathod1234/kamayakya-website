@@ -84,7 +84,7 @@ export default function Page() {
       </div>
       <Navbar />
       <section className="mt-8 sm:mt-[55px] main-container relative z-10">
-        <h2 className="text-display-xs sm:text-display-md font-bold text-center">Quarterly Updates</h2>
+        <h1 className="text-display-xs sm:text-display-md font-bold text-center">Quarterly Updates</h1>
         {isLoading ? (
           <div>
             <div className=" flex items-center justify-center flex-wrap gap-y-1 max-sm:py-3 max-sm:pb-7 sm:gap-6">
@@ -217,7 +217,7 @@ export default function Page() {
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-x-2 text-inherit text-md text-gray-950"
                               >
-                                <img height={20} width={20} src={"/assets/pdf.svg"} className=" object-cover" />
+                                <img height={20} width={20} src={"/assets/pdf.svg"} className=" object-cover" alt="PDF icon" />
                                 <p className="text-inherit text-md !text-gray-950">Presentation</p>
                                 <ChevronRight color="#D0D5DD" size={16} />
                               </a>
@@ -233,7 +233,7 @@ export default function Page() {
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-x-2 text-inherit text-md text-gray-950"
                               >
-                                <img height={20} width={20} src={"/assets/play.svg"} className=" object-cover" />
+                                <img height={20} width={20} src={"/assets/play.svg"} className=" object-cover" alt="Play icon" />
                                 <p className="text-inherit text-md !text-gray-950">Video</p>
                                 <ChevronRight color="#D0D5DD" size={16} />
                               </a>

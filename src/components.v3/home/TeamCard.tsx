@@ -49,8 +49,14 @@ export default function TeamCard({ name, designation, description, social1, soci
               <img src="/landing/Linkedin.png" alt="linkedin" />
             </a>}
           </div>
-          <div className="relative z-30 px-6 text-white open_sans text-left">
-          {/* text-[2.5rem] leading-[2.6rem] */}
+          <div
+            className="relative z-30 px-6 pb-6 pt-10 text-white open_sans text-left rounded-b-xl"
+            style={{
+              background: "linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%)",
+              backgroundColor: "rgba(0, 0, 0, 0.65)",
+            }}
+          >
+            {/* text-[2.5rem] leading-[2.6rem] */}
             <h3 className="mb-0 font-bold ">{name}</h3>
             <p className="mt-[14px] font-semibold opacity-85">{designation}</p>
           </div>

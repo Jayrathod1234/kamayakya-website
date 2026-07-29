@@ -380,11 +380,11 @@ export default function AllStocksPage() {
               {/* On Hold */}
               <div className="flex flex-col justify-between md:pl-6 pr-4">
                 <div className="flex items-center gap-1.5 text-gray-900 text-xs font-bold tracking-wider uppercase mb-2">
-                  <Pause size={14} className="text-[#D48C00]" />
+                  <Pause size={14} className="text-[#C27A00]" />
                   <span>On Hold</span>
                 </div>
                 <div>
-                  <span className="text-display-sm md:text-display-lg font-semibold text-[#D48C00] tracking-tight leading-none">{onHoldCount}</span>
+                  <span className="text-display-sm md:text-display-lg font-semibold text-[#C27A00] tracking-tight leading-none">{onHoldCount}</span>
                 </div>
                 <div className="text-gray-900 text-xs mt-2">based on current valuation</div>
               </div>
@@ -490,7 +490,7 @@ export default function AllStocksPage() {
                         let activeStyle = "";
                         if (isActive) {
                           if (act === "Buy") {
-                            activeStyle = "bg-[#0d8b6d] text-white shadow-3xs border border-transparent";
+                            activeStyle = "bg-[#107569] text-white shadow-3xs border border-transparent";
                           } else if (act === "Hold") {
                             activeStyle = "bg-[#b07800] text-white shadow-3xs border border-transparent";
                           } else {
@@ -580,7 +580,7 @@ export default function AllStocksPage() {
                       value={searchInput}
                       onChange={(e) => setSearchInput(e.target.value)}
                       placeholder="Search stock or sector..."
-                      className="w-full pl-10 pr-4 py-2 border border-gray-200/80 focus:border-[#125B54] focus:ring-1 focus:ring-[#125B54]/10 rounded-full text-xs bg-[#FAF9F5]/80 placeholder-gray-400 text-gray-800 transition-colors shadow-4xs"
+                      className="w-full pl-10 pr-4 py-2 border border-[#667085] focus:border-[#125B54] focus:ring-1 focus:ring-[#125B54]/10 rounded-full text-xs bg-[#FAF9F5]/80 placeholder-gray-400 text-gray-800 transition-colors shadow-4xs"
                     />
                     {searchInput && (
                       <button
@@ -689,7 +689,7 @@ export default function AllStocksPage() {
           </div>
 
           {/* Search/Count Indicator */}
-          <div className="text-xs font-bold text-gray-400 tracking-wider mb-6">
+          <div className="text-xs font-bold text-gray-500 tracking-wider mb-6">
             <span>{`Last updated ${stocksData?.last_updated_date}`}</span>
           </div>
 
@@ -760,7 +760,7 @@ export default function AllStocksPage() {
                             {!stock.mcapLabel || stock.mcapLabel === '' ? (
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <span className="bg-[#fff4e0] text-[#e88410] border border-[#fddba0] text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase inline-block truncate max-w-[50%] min-w-0 cursor-default">
+                                  <span className="bg-[#fff4e0] text-[#b35300] border border-[#fddba0] text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase inline-block truncate max-w-[50%] min-w-0 cursor-default">
                                     {stock.exchange}
                                   </span>
                                 </TooltipTrigger>
@@ -785,14 +785,13 @@ export default function AllStocksPage() {
 
                         {/* Action Badge */}
                         <span className={`flex-shrink-0 text-[11px] font-extrabold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 tracking-wider ${action === "Buy"
-
-                          ? "bg-[#e6f5ef] text-[#0d8b6d]"
+                          ? "bg-[#e6f5ef] text-[#0f6c61]"
                           : action === "Hold"
                             ? "bg-[#fef3e0] text-[#b07800]"
                             : "bg-[#fbece8] text-[#b8412e]"
                           }`}>
                           <span className={`w-1.5 h-1.5 rounded-full ${action === "Buy"
-                            ? "bg-[#0d8b6d]"
+                            ? "bg-[#0f6c61]"
                             : action === "Hold"
                               ? "bg-[#b07800]"
                               : "bg-[#b8412e]"
@@ -827,15 +826,15 @@ export default function AllStocksPage() {
                       {/* Metrics Grid */}
                       <div className="grid grid-cols-3 gap-4">
                         <div>
-                          <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">Entry Date</div>
+                          <div className="text-[10px] font-bold text-gray-500 tracking-wider uppercase">Entry Date</div>
                           <div className="text-[14px] font-bold text-gray-900 mt-1">{stock.initDate}</div>
                         </div>
                         <div>
-                          <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">Entry Price</div>
+                          <div className="text-[10px] font-bold text-gray-500 tracking-wider uppercase">Entry Price</div>
                           <div className="text-[14px] font-bold text-gray-900 mt-1">{stock.initPrice}</div>
                         </div>
                         <div>
-                          <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">Mcap at Entry</div>
+                          <div className="text-[10px] font-bold text-gray-500 tracking-wider uppercase">Mcap at Entry</div>
                           <div className="text-[14px] font-bold text-gray-900 mt-1">
                             {stock.mcap ? `${stock.mcap} Cr.` : "24 Cr."}
                           </div>
@@ -848,11 +847,11 @@ export default function AllStocksPage() {
                           <div className="border-t border-dashed border-gray-200 my-4"></div>
                           <div className="grid grid-cols-3 gap-4 items-center">
                             <div>
-                              <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">Exit Date</div>
+                              <div className="text-[10px] font-bold text-gray-500 tracking-wider uppercase">Exit Date</div>
                               <div className="text-[14px] font-bold text-gray-900 mt-1">{stock.exitDate || "-"}</div>
                             </div>
                             <div>
-                              <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">Exit Price</div>
+                              <div className="text-[10px] font-bold text-gray-500 tracking-wider uppercase">Exit Price</div>
                               <div className="text-[14px] font-bold text-gray-900 mt-1">
                                 {stock.exitPrice ? (String(stock.exitPrice).startsWith("₹") ? stock.exitPrice : `₹${stock.exitPrice}`) : "-"}
                               </div>
@@ -879,7 +878,7 @@ export default function AllStocksPage() {
                                 return (
                                   <div className={`px-1.5 py-1.5 rounded-2xl flex flex-col justify-center items-center ${isPositive ? "bg-[#ECFDF5] border border-[#ECFDF5]" : "bg-[#FEF3F2] border border-[#FEF3F2]"
                                     }`}>
-                                    <div className="text-[11px] font-extrabold text-gray-400 tracking-wider text-center">Abs. Returns</div>
+                                    <div className="text-[11px] font-extrabold text-gray-500 tracking-wider text-center">Abs. Returns</div>
                                     <div className={`text-sm font-black mt-0.5 flex items-center gap-0.5 ${isPositive ? "text-[#107569]" : "text-[#B93815]"
                                       }`}>
                                       <span>{isPositive ? "▲" : "▼"}</span>
@@ -1033,7 +1032,7 @@ export default function AllStocksPage() {
                         <p className="font-semibold text-xs">{selectedStock.name}</p>
                       </TooltipContent>
                     </Tooltip>
-                    <p className="text-xs font-semibold text-gray-400 tracking-wider uppercase mt-1">{selectedStock.exchange}</p>
+                    <p className="text-xs font-semibold text-gray-500 tracking-wider uppercase mt-1">{selectedStock.exchange}</p>
 
                     <div className="flex flex-wrap gap-2 mt-4">
                       {/* Action Badge */}

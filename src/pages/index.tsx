@@ -293,90 +293,92 @@ const Home: NextPage = () => {
       {/* <Floater /> */}
       <Navbar className=" open_sans bg-[#F4FFFF]" />
 
-      <div className=" bg-[#F4FFFF] bg-[url('/landing/hero_grid.png')] bg-cover bg-center">
-        <Hero />
-      </div>
-      {/* <Stat /> */}
-      {/* <Service /> */}
-      <div>
-        <ExpandableCardGroup />
-      </div>
-      <div>
-        <OnGroundVerification />
-      </div>
-      <div ref={containerRef} className="relative">
-        {/* <svg
-        className="absolute left-[0%] w-full pointer-events-none"
-        width="1380"
-        height={containerRef.current ? containerRef.current.clientHeight : 3835}
-        viewBox="0 0 1380 3914"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M661 0V43.0048C661 49.6323 655.627 55.0048 649 55.0048H13C6.37257 55.0048 1 60.3774 1 67.0048V3842.96C1 3849.59 6.37258 3854.96 13 3854.96H649C655.627 3854.96 661 3860.33 661 3866.96V3914"
-          stroke="#EDF0F5"
-          strokeWidth="2"
-        />
-      </svg>
-      <svg
-        className="absolute left-[0%] w-full pointer-events-none"
-        width="1380"
-        height={containerRef.current ? containerRef.current.clientHeight : 3835}
-        viewBox="0 0 1380 3914"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <motion.path
-          ref={pathRef}
-          d="M661 0V43.0V43.0129C661 49.6403 655.627 55.0048 649 55.0129H13C6.37257 55.0129 1 60.3855 1 67.0048V3842.96C1 3849.59 6.37258 3854.96 13 3854.96H649C655.627 3854.96 661 3860.33 661 3866.96V3914"
-          stroke="#12B76A"
-          strokeWidth="2"
-          strokeDasharray="5300"
-          strokeDashoffset="0"
-          style={{ pathLength }}
-        />
-        <motion.circle
-          cx={motionX}
-          cy={motionY}
-          r={8}
-          fill="#75CDC5"
-          stroke="#12B76A"
-        />
-      </svg> */}
+      <main id="main-content">
+        <div className=" bg-[#F4FFFF] bg-[url('/landing/hero_grid.png')] bg-cover bg-center">
+          <Hero />
+        </div>
+        {/* <Stat /> */}
+        {/* <Service /> */}
+        <div>
+          <ExpandableCardGroup />
+        </div>
+        <div>
+          <OnGroundVerification />
+        </div>
+        <div ref={containerRef} className="relative">
+          {/* <svg
+          className="absolute left-[0%] w-full pointer-events-none"
+          width="1380"
+          height={containerRef.current ? containerRef.current.clientHeight : 3835}
+          viewBox="0 0 1380 3914"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M661 0V43.0048C661 49.6323 655.627 55.0048 649 55.0048H13C6.37257 55.0048 1 60.3774 1 67.0048V3842.96C1 3849.59 6.37258 3854.96 13 3854.96H649C655.627 3854.96 661 3860.33 661 3866.96V3914"
+            stroke="#EDF0F5"
+            strokeWidth="2"
+          />
+        </svg>
+        <svg
+          className="absolute left-[0%] w-full pointer-events-none"
+          width="1380"
+          height={containerRef.current ? containerRef.current.clientHeight : 3835}
+          viewBox="0 0 1380 3914"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <motion.path
+            ref={pathRef}
+            d="M661 0V43.0V43.0129C661 49.6403 655.627 55.0048 649 55.0129H13C6.37257 55.0129 1 60.3855 1 67.0048V3842.96C1 3849.59 6.37258 3854.96 13 3854.96H649C655.627 3854.96 661 3860.33 661 3866.96V3914"
+            stroke="#12B76A"
+            strokeWidth="2"
+            strokeDasharray="5300"
+            strokeDashoffset="0"
+            style={{ pathLength }}
+          />
+          <motion.circle
+            cx={motionX}
+            cy={motionY}
+            r={8}
+            fill="#75CDC5"
+            stroke="#12B76A"
+          />
+        </svg> */}
 
-        {/* Add refs to each section */}
-        <div id="sample-report" ref={sampleReportRef}>
-          <SampleReport />
+          {/* Add refs to each section */}
+          <div id="sample-report" ref={sampleReportRef}>
+            <SampleReport />
+          </div>
+          {/* <div id="track-record" ref={trackRecordRef}>
+            <TrackRecordSection />
+          </div> */}
+          <div id="trust-us" ref={trustUsRef}>
+            <TrustUs />
+          </div>
+          <div id="team" ref={teamRef}>
+            <Team />
+          </div>
+          <div id="how" ref={howRef}>
+            <How />
+          </div>
         </div>
-        {/* <div id="track-record" ref={trackRecordRef}>
-          <TrackRecordSection />
+        {/* <div id="stock-picks" ref={stockPickRef}>
+          <StockPickSection />
         </div> */}
-        <div id="trust-us" ref={trustUsRef}>
-          <TrustUs />
+        <div id="testimonials" className="pt-[60px] pb-[52px] md:py-[60px] bg-gray-100 relative ">
+          <Testimonials />
         </div>
-        <div id="team" ref={teamRef}>
-          <Team />
+        <FeaturedNews />
+        <BlogsCarousel />
+        {/* <FAQS /> */}
+        <div id="feeling-lost" className=" bg-gray-100">
+          <FeelingLost />
         </div>
-        <div id="how" ref={howRef}>
-          <How />
+        <div className=" md:mt-[-15rem]  lg:mt-[-15rem]">
+          <Newsletter />
         </div>
-      </div>
-      {/* <div id="stock-picks" ref={stockPickRef}>
-        <StockPickSection />
-      </div> */}
-      <div id="testimonials" className="pt-[60px] pb-[52px] md:py-[60px] bg-gray-100 relative ">
-        <Testimonials />
-      </div>
-      <FeaturedNews />
-      <BlogsCarousel />
-      {/* <FAQS /> */}
-      <div id="feeling-lost" className=" bg-gray-100">
-        <FeelingLost />
-      </div>
-      <div className=" md:mt-[-15rem]  lg:mt-[-15rem]">
-        <Newsletter />
-      </div>
+      </main>
       <Footer />
       <SmallcasePopup isOpen={isPopupOpen} onClose={handleClosePopup} />
     </>

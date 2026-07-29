@@ -68,16 +68,16 @@ function TrustIndicator({
   //   if (currentAnimationTime > 5890 && api) {
   //     api.scrollNext();
   //     // setCurrentAnimationTime(0)
-      
+
   //     const autoplay = api?.plugins()?.autoplay as AutoplayType;
   //     if (!autoplay) return;
-    
+
   //     const reset = autoplay.reset;
   //     reset();
   //   }
   // }, [currentAnimationTime, api]);
 
-  console.log("INDEX TRUST",index, selectedIndex)
+  console.log("INDEX TRUST", index, selectedIndex)
 
 
 
@@ -105,32 +105,29 @@ function TrustIndicator({
     <div
       onClick={onClick}
       className={cn(
-        ` px-4 h-[62px] sm:h-[78px] flex flex-col text-center items-center justify-center w-full relative overflow-hidden ${
-          index+1 === 1 ? "rounded-l-[20px] " : index+1 === 3 ? "rounded-r-[20px]" : ""
-        } ${index+1 === selectedIndex ? "bg-brand-400" : ""}`,
+        ` px-4 h-[62px] sm:h-[78px] flex flex-col text-center items-center justify-center w-full relative overflow-hidden ${index + 1 === 1 ? "rounded-l-[20px] " : index + 1 === 3 ? "rounded-r-[20px]" : ""
+        } ${index + 1 === selectedIndex ? "bg-brand-400" : ""}`,
         className
       )}
     >
-      <p className={`${index+1 === selectedIndex ? "text-white" : "text-gray-950"}  font-bold text-3xs sm:text-xl`}>
+      <p className={`${index + 1 === selectedIndex ? "text-white" : "text-gray-950"}  font-bold text-3xs sm:text-xl`}>
         {text}
       </p>
       <div
         // onClick={onClick}
         key={index}
-        className={` ${
-          index+1 === selectedIndex ? " !w-full opacity-100" : index+1 <= selectedIndex ? "w-full" : " w-[10px] "
-        } h-[4px] absolute left-0 bottom-0  bg-transparent transition-transform duration-300 overflow-hidden cursor-pointer opacity-0 `}
+        className={` ${index + 1 === selectedIndex ? " !w-full opacity-100" : index + 1 <= selectedIndex ? "w-full" : " w-[10px] "
+          } h-[4px] absolute left-0 bottom-0  bg-transparent transition-transform duration-300 overflow-hidden cursor-pointer opacity-0 `}
       >
         <div
           ref={progressRef}
           style={{ animationDuration: "6000ms", animationPlayState: isPlaying ? "running" : "paused" }}
-          className={`bg-brand-300 w-full h-full relative ${
-            index+1 === selectedIndex
+          className={`bg-brand-300 w-full h-full relative ${index + 1 === selectedIndex
               ? "carousel-dot-animate"
-              : index+1 <= selectedIndex
-              ? "block scale-x-100 "
-              : " hidden"
-          }`}
+              : index + 1 <= selectedIndex
+                ? "block scale-x-100 "
+                : " hidden"
+            }`}
         ></div>
       </div>
     </div>
@@ -279,8 +276,8 @@ export default function TrustUs() {
     });
 
     // Track autoplay state like main carousel
-    api.on("autoplay:play", ()=>setIsPlaying(true))
-    api.on("autoplay:stop", ()=>setIsPlaying(false))
+    api.on("autoplay:play", () => setIsPlaying(true))
+    api.on("autoplay:stop", () => setIsPlaying(false))
     // api.on("autoplay:play", () => setIsPlaying(true));
     // api.on("autoplay:stop", () => setIsPlaying(false));
   }, [api]);
@@ -288,19 +285,19 @@ export default function TrustUs() {
   return (
     <div className=" main-container pt-[50px] ">
       <div className=" open_sans">
-        <p className=" font-bold text-[#FF9E29] text-center max-sm:text-sm">Why trust us?</p>
+        <p className=" font-bold text-[#B35300] text-center max-sm:text-sm">Why trust us?</p>
         <h2 className=" text-display-xs sm:text-display-md  font-bold mb-2 text-center text-gray-950">
           Why should you <span className=" open_sans_italic">trust us</span> with your money?
         </h2>
         <p className=" text-sm sm:text-lg text-gray-600 sm:mb-10 text-center">
           Trust is an investment, earned with honesty, paid in consistency, and yielding dividends of reliability.
         </p>
-        <div  onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave} className=" mt-6 lg:mt-10 flex flex-col">
+        <div onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave} className=" mt-6 lg:mt-10 flex flex-col">
           <Carousel
             className=" order-2 lg:order-1 cursor-[url(/carousel-pause-icon.svg),auto]"
             plugins={[
-              
+
               Autoplay({
                 delay: 6000,
                 // stopOnMouseEnter: true,
@@ -308,7 +305,7 @@ export default function TrustUs() {
                 // playOnInit:true,
                 // loop:true,
               }),
-              
+
             ]}
             setApi={setApi}
           >
@@ -327,7 +324,7 @@ export default function TrustUs() {
           <div className=" order-1 lg:order-2 flex items-center justify-evenly max-lg:mb-5 sm:mt-4 rounded-[20px] border">
             <TrustIndicator
               isPlaying={isPlaying && !isPaused}
-              
+
               index={0}
               selectedIndex={current}
               api={api}
@@ -335,7 +332,7 @@ export default function TrustUs() {
             />
             <TrustIndicator
               isPlaying={isPlaying && !isPaused}
-            
+
               index={1}
               selectedIndex={current}
               api={api}
@@ -344,7 +341,7 @@ export default function TrustUs() {
             />
             <TrustIndicator
               isPlaying={isPlaying && !isPaused}
-          
+
               index={2}
               selectedIndex={current}
               api={api}

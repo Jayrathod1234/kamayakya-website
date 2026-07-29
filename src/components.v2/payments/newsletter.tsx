@@ -88,14 +88,14 @@ export function Newsletter({ page = "Pricing_Page" }) {
         <div className=" md:py-11 md:px-20 md:border rounded-[30px] md:border-[rgba(255,255,255,.25)] mt-[26px] md:mt-12 md:bg-[rgba(12,17,29,0.70)]">
           <p className=" text-center font-semibold text-lg mb-5 md:mb-9">Subscribe to our Newsletter</p>
           <div>
-            {/* EMAIL INPUT */}
             <div
-              className={` flex items-center bg-white p-2 pl-3 rounded-[6px] gap-[8px] mt-3 w-full max-h-[52px] max-w-[350px] md:max-w-[566px] mx-auto ${emailError ? " border-[2px] border-[crimson_red] " : ""
-                }`}
+              className={`relative flex items-center w-full h-[52px] max-w-[350px] md:max-w-[566px] mx-auto mt-3 ${
+                emailError ? "rounded-[6px] border-[2px] border-[crimson]" : ""
+              }`}
             >
-              {/* <div className=" ml-[6px]"> */}
-              <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
-              {/* </div> */}
+              <div className="absolute left-3 z-10 pointer-events-none flex items-center">
+                <Image src={"/icons/mail.svg"} alt="mail" height={20} width={20} />
+              </div>
               <Input
                 value={email}
                 onChange={(e) => {
@@ -103,17 +103,18 @@ export function Newsletter({ page = "Pricing_Page" }) {
                   setEmail(e.target.value);
                 }}
                 placeholder="Enter your email"
-                className="  px-0 py-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 bg-transparent ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
+                className="absolute inset-0 w-full h-full bg-white rounded-[6px] text-black pl-10 pr-[110px] py-0 text-md outline-none border-0 focus:outline-none focus:border-0 focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               />
-              <ButtonnArrow
-                loading={loading}
-                className="group  !py-2 md:py-[auto] flex items-center justify-center"
-                onClick={handleNewsLetterEmailSubmit}
-                variant={ButtonVariant.primary}
-              // size={ButtonSize.lg}
-              >
-                <p className=" text-sm font-semibold">Subscribe</p>
-              </ButtonnArrow>
+              <div className="absolute right-2 z-10 flex items-center">
+                <ButtonnArrow
+                  loading={loading}
+                  className="group !py-2 md:py-[auto] flex items-center justify-center"
+                  onClick={handleNewsLetterEmailSubmit}
+                  variant={ButtonVariant.primary}
+                >
+                  <p className="text-sm font-semibold">Subscribe</p>
+                </ButtonnArrow>
+              </div>
             </div>
             {emailError ? (
               <p className=" text-sm text-[rgba(240,68,56,1)] mt-[6px] text-left max-w-[350px] md:max-w-[566px] mx-auto">

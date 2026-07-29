@@ -391,9 +391,9 @@ export function Navbar({
             >
               <Button
                 variant={ButtonVariant.custom}
-                className={`!text-sm  border pricing border-[rgba(246,135,0,1)]  ${isLoggedIn
-                  ? "bg-[rgba(246,135,0,1)] text-white  hover:bg-[rgba(247,117,4,1)] mr-6 "
-                  : " text-[rgba(246,135,0,1)] hover:text-[rgba(247,117,4,1)] hover:border-[rgba(247,117,4,1)] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
+                className={`!text-sm  border pricing border-[#B35300]  ${isLoggedIn
+                  ? "bg-[#B35300] text-white  hover:bg-[#9E4700] mr-6 "
+                  : " text-[#B35300] hover:text-[#9E4700] hover:border-[#9E4700] bg-[rgba(255,158,41,0.06)] hover:bg-[rgba(255,158,41,0.06)] mr-4"
                   }  !px-4 !py-[10px] rounded-[6px]`}
               >
                 All Stocks
@@ -438,7 +438,7 @@ export function Navbar({
               alignItems: "center",
             }}
           >
-            <img src="kmk-k.png" style={{ width: "50px" }} />
+            <img src="kmk-k.png" style={{ width: "50px" }} alt="KamayaKya logo" />
             <IconButton
               sx={{
                 width: "40px",

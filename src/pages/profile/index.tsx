@@ -12,6 +12,8 @@ import { v4 as uuidv4 } from "uuid";
 import { usePathname } from "next/navigation";
 import AuthContext from "@/components/AuthContext";
 
+import Head from "next/head";
+
 export default function Profile() {
   const pathname = usePathname();
   const { isLoggedIn } = useContext(AuthContext);
@@ -115,12 +117,15 @@ export default function Profile() {
 
   return (
     <div className="bg-gray-100 ">
+      <Head>
+        <title>Kamayakya - Profile</title>
+      </Head>
       <Navbar className=" bg-white" />
       <div className=" main-container overflow-visible relative top-[41px]">
         <main className=" relative min-h-screen open_sans flex gap-x-6 lg:gap-x-11">
           <SideBar />
           <div className=" w-full">
-            <h2 className=" text-gray-900 font-bold text-[32px]">Your Account</h2>
+            <h1 className=" text-gray-900 font-bold text-[32px]">Your Account</h1>
             <div className=" flex flex-col gap-y-[60px] mt-10">
               <PersonalInfo />
               <YourPlan />

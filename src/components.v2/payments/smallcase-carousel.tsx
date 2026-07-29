@@ -175,16 +175,16 @@ export const SmallcaseCarousel = () => {
 
         {/* Section Header */}
         <div className="text-center max-w-[760px] mx-auto mb-6">
-          <p className="inline-flex items-center gap-3 text-xs md:text-sm font-bold tracking-[0.18em] uppercase text-[#ff9e29] mb-4">
-            <span className="w-6 h-[1px] bg-[#ff9e29] opacity-50 shrink-0"></span>
+          <p className="inline-flex items-center gap-3 text-xs md:text-sm font-bold tracking-[0.18em] uppercase text-[#B35300] mb-4">
+            <span className="w-6 h-[1px] bg-[#B35300] opacity-50 shrink-0"></span>
             Hand-picked basket of stocks • You own them directly
-            <span className="w-6 h-[1px] bg-[#ff9e29] opacity-50 shrink-0"></span>
+            <span className="w-6 h-[1px] bg-[#B35300] opacity-50 shrink-0"></span>
           </p>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#125b54] mb-4">
             Our{" "}
-            <span className="text-[#ff9e29] relative inline-block">
+            <span className="text-[#B35300] relative inline-block">
               Smallcases
-              <span className="absolute left-0 right-0 bottom-[-3px] h-[2px] bg-[#ff9e29] opacity-30 rounded"></span>
+              <span className="absolute left-0 right-0 bottom-[-3px] h-[2px] bg-[#B35300] opacity-30 rounded"></span>
             </span>
           </h2>
           <p className="text-base md:text-lg text-[#5a6e6a] leading-relaxed">
@@ -351,7 +351,7 @@ export const SmallcaseCarousel = () => {
         <div className="text-center max-w-[620px] mx-auto mt-5 xl:mt-8 px-3">
           <div className="max-w-[560px] mx-auto p-4 md:p-5 bg-[#f8f2e7] border border-[#e8dfc9] rounded-2xl transition-all duration-300">
             <p className="text-lg md:text-xl font-bold text-[#125b54] mb-3 tracking-wide">
-              FOR <span className="text-[#ff9e29]">YOU</span> IF
+              FOR <span className="text-[#B35300]">YOU</span> IF
             </p>
             <p className="text-sm md:text-base text-[#5a6e6a] leading-relaxed transition-opacity duration-300">
               {BASKETS[activeIdx].forYouIf}
@@ -365,7 +365,7 @@ export const SmallcaseCarousel = () => {
             href="https://kamayakya.smallcase.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-7 py-3.5 bg-[#eb8500] hover:bg-[#d27500] text-white font-semibold text-sm md:text-base rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-3 px-7 py-3.5 bg-[#c05600] hover:bg-[#9e4700] text-white font-semibold text-sm md:text-base rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
           >
             Explore All Smallcases
           </a>

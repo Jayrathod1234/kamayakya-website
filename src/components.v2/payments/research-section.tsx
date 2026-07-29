@@ -8,11 +8,11 @@ export const ResearchSection = () => {
 
         {/* Section Header */}
         <div className="text-center max-w-[760px] mx-auto mb-12 md:mb-8">
-          <p className="font-sans text-[15px] max-md:text-[14px] font-semibold tracking-[0.28em] uppercase text-[#ff9e29] mb-[18px] flex items-center justify-center gap-[14px] max-md:gap-[10px] before:content-[''] before:inline-block before:w-[28px] max-md:before:w-[20px] before:h-[1.5px] before:bg-[#ff9e29] before:opacity-50 after:content-[''] after:inline-block after:w-[28px] max-md:after:w-[20px] after:h-[1.5px] after:bg-[#ff9e29] after:opacity-50">
+          <p className="font-sans text-[15px] max-md:text-[14px] font-semibold tracking-[0.28em] uppercase text-[#B35300] mb-[18px] flex items-center justify-center gap-[14px] max-md:gap-[10px] before:content-[''] before:inline-block before:w-[28px] max-md:before:w-[20px] before:h-[1.5px] before:bg-[#B35300] before:opacity-50 after:content-[''] after:inline-block after:w-[28px] max-md:after:w-[20px] after:h-[1.5px] after:bg-[#B35300] after:opacity-50">
             Beyond the baskets
           </p>
           <h2 className="font-sans font-bold text-[clamp(32px,4.4vw,52px)] text-[#125b54] leading-[1.06] tracking-[-0.015em] mb-[18px]" id="svc-title">
-            Research, Built For <em className="not-italic text-[#ff9e29] border-b-[3px] border-[#ff9e29] pb-[2px]">You</em>
+            Research, Built For <em className="not-italic text-[#B35300] border-b-[3px] border-[#B35300] pb-[2px]">You</em>
           </h2>
           <p className="font-sans text-[clamp(15px,1.5vw,17px)] leading-[1.6] text-[#5a6e6a] max-w-[680px] mx-auto">
             Standard reports won&apos;t answer your question? We&apos;ll build a custom one: field visits, deep models, and answers specific to what you&apos;re investing in.
@@ -86,7 +86,7 @@ export const ResearchSection = () => {
             </div>
 
             <div className="p-[28px] px-[26px] max-md:p-[22px] max-md:px-[20px] flex-1 flex flex-col">
-              <p className="font-sans text-[14px] font-bold tracking-[0.22em] uppercase text-[#ff9e29] mb-3">
+              <p className="font-sans text-[14px] font-bold tracking-[0.22em] uppercase text-[#B35300] mb-3">
                 Custom research
               </p>
               <h3 className="font-sans font-bold text-[clamp(22px,2.4vw,26px)] text-[#125b54] leading-[1.2] mb-3 tracking-[-0.005em] max-md:text-[21px]">
@@ -126,7 +126,7 @@ export const ResearchSection = () => {
               <div className="mt-auto self-center">
                 <ContactModal
                   trigger={
-                    <button type="button" className="inline-flex items-center gap-[8px] self-center mt-auto py-[11px] px-[22px] border-0 rounded-full bg-[#eb8500] hover:bg-[#d27500] text-white font-sans font-bold text-[14px] tracking-[0.01em] cursor-pointer shadow-[0_8px_18px_-8px_rgba(235,133,0,0.45)] hover:shadow-[0_12px_22px_-8px_rgba(235,133,0,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#125b54] focus-visible:ring-offset-3 [-webkit-tap-highlight-color:transparent] max-md:transition-none max-md:hover:translate-y-0">
+                    <button type="button" className="inline-flex items-center gap-[8px] self-center mt-auto py-[11px] px-[22px] border-0 rounded-full bg-[#c05600] hover:bg-[#9e4700] text-white font-sans font-bold text-[14px] tracking-[0.01em] cursor-pointer shadow-[0_8px_18px_-8px_rgba(235,133,0,0.45)] hover:shadow-[0_12px_22px_-8px_rgba(235,133,0,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#125b54] focus-visible:ring-offset-3 [-webkit-tap-highlight-color:transparent] max-md:transition-none max-md:hover:translate-y-0">
                       <span>Enquire Now</span>
                     </button>
                   }
@@ -224,7 +224,7 @@ export const ResearchSection = () => {
             </div>
 
             <div className="p-[28px] px-[26px] max-md:p-[22px] max-md:px-[20px] flex-1 flex flex-col">
-              <p className="font-sans text-[14px] font-bold uppercase text-[#ff9e29] mb-3" style={{ letterSpacing: "0.35rem !important" }}>
+              <p className="font-sans text-[14px] font-bold uppercase text-[#B35300] mb-3" style={{ letterSpacing: "0.35rem !important" }}>
                 On-ground intelligence
               </p>
               <h3 className="font-sans font-bold text-[clamp(22px,2.4vw,26px)] text-[#125b54] leading-[1.2] mb-3 tracking-[-0.005em] max-md:text-[21px]">
@@ -259,7 +259,7 @@ export const ResearchSection = () => {
               <div className="mt-auto self-center">
                 <ContactModal
                   trigger={
-                    <button type="button" className="inline-flex items-center gap-[8px] self-center mt-auto py-[11px] px-[22px] border-0 rounded-full bg-[#eb8500] hover:bg-[#d27500] text-white font-sans font-bold text-[14px] tracking-[0.01em] cursor-pointer shadow-[0_8px_18px_-8px_rgba(235,133,0,0.45)] hover:shadow-[0_12px_22px_-8px_rgba(235,133,0,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#125b54] focus-visible:ring-offset-3 [-webkit-tap-highlight-color:transparent] max-md:transition-none max-md:hover:translate-y-0">
+                    <button type="button" className="inline-flex items-center gap-[8px] self-center mt-auto py-[11px] px-[22px] border-0 rounded-full bg-[#c05600] hover:bg-[#9e4700] text-white font-sans font-bold text-[14px] tracking-[0.01em] cursor-pointer shadow-[0_8px_18px_-8px_rgba(235,133,0,0.45)] hover:shadow-[0_12px_22px_-8px_rgba(235,133,0,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#125b54] focus-visible:ring-offset-3 [-webkit-tap-highlight-color:transparent] max-md:transition-none max-md:hover:translate-y-0">
                       <span>Enquire Now</span>
                     </button>
                   }

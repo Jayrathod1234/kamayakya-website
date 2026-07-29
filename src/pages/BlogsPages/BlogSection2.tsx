@@ -129,6 +129,7 @@ const BlogSection2 = () => {
           </div>
           <form
             // onSubmit={handleSubmit}
+            style={{ backgroundColor: "#737373", backgroundImage: "linear-gradient(#ffffff, #ffffff)" }}
             className=" shadow-2xs ease-out duration-200 transition-all focus-within:ring-4 focus-within:ring-brand-200 hover:ring-4 hover:ring-brand-200  mx-auto w-full max-w-[340px]  md:max-w-[426.67px] mb-10 py-[10px] px-[14px] border border-gray-200 bg-white rounded-[6px] flex items-center gap-x-2"
           >
             <Search size={24} color="#667085" />
@@ -143,7 +144,7 @@ const BlogSection2 = () => {
             <div className=" h-8 aspect-square">
               {/* {searchLoading && <Lottie className=" h-full" animationData={LOADING_GIF} />} */}
             </div>
-            {/* <Input className=" h-0 w-0" type="submit" value={""} /> */}
+            <button type="submit" className="sr-only">Search</button>
           </form>
 
           <div className=" px-2 overflow-x-visible place-content-center justify-items-center grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-y-8 gap-x-8 w-full pb-[3.75rem] ">

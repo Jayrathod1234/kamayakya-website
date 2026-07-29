@@ -13,16 +13,16 @@ import { ACTIVE_PLAN_URL, GET_USER } from "@/pages/api/URLs";
 import axios from "axios";
 
 const COMPANY_LIST = [
-  "/hero_company/image 201.png",
-  "/hero_company/image 200.png",
-  "/hero_company/image 199.png",
-  "/hero_company/image 198.png",
-  "/hero_company/image 47.png",
-  "/hero_company/image 46.png",
-  "/hero_company/image 45.png",
-  "/hero_company/apollo-hospitals-seeklogo 1.png",
-  "/hero_company/swan.png",
-  "/hero_company/kirana.png",
+  { src: "/hero_company/image 201.png", alt: "Wipro logo" },
+  { src: "/hero_company/image 200.png", alt: "TCS logo" },
+  { src: "/hero_company/image 199.png", alt: "Cisco logo" },
+  { src: "/hero_company/image 198.png", alt: "Google logo" },
+  { src: "/hero_company/image 47.png", alt: "Citi logo" },
+  { src: "/hero_company/image 46.png", alt: "HSBC logo" },
+  { src: "/hero_company/image 45.png", alt: "LIC logo" },
+  { src: "/hero_company/apollo-hospitals-seeklogo 1.png", alt: "Apollo Hospitals logo" },
+  { src: "/hero_company/swan.png", alt: "Swan Energy logo" },
+  { src: "/hero_company/kirana.png", alt: "Kirana Club logo" },
 ];
 export default function Hero() {
   const { isLoggedIn, setShowLoginModal, showLoginModal } = useContext(AuthContext);
@@ -68,7 +68,8 @@ export default function Hero() {
       usertype: usertype,
     });
     if (isLoggedIn) {
-      router.push("/pricing");
+      // router.push("/pricing");
+      router.push("/services");
     } else {
       setShowLoginModal(true);
     }
@@ -195,9 +196,9 @@ export default function Hero() {
           {COMPANY_LIST.map((company) => (
             <div
               className=" h-[44px] mr-[50px] object-contain overflow-hidden flex items-center justify-center"
-              key={company}
+              key={company.src}
             >
-              <img className=" object-contain w-full h-full" height={44} key={company} src={company} />
+              <img className=" object-contain w-full h-full" height={44} src={company.src} alt={company.alt} />
             </div>
           ))}
         </Marquee>

@@ -24,11 +24,10 @@ function CompanyPill({ logo, companyName, onClick, isSelected }: CompanyPillPara
     <Button
       variant={ButtonVariant.custom}
       onClick={onClick}
-      className={` border ${
-        isSelected
+      className={` border ${isSelected
           ? " border-brand-400 bg-brand-400 hover:bg-brand-400 "
           : " border-gray-300 bg-transparent hover:bg-transparent"
-      } flex  items-center gap-x-[6px] !pl-[6px] py-[6px] sm:!pl-2 rounded-full !w-fit !max-w-[242px] !min-w-0`}
+        } flex  items-center gap-x-[6px] !pl-[6px] py-[6px] sm:!pl-2 rounded-full !w-fit !max-w-[242px] !min-w-0`}
     >
       <div className=" flex-shrink-0">
         <img
@@ -40,9 +39,8 @@ function CompanyPill({ logo, companyName, onClick, isSelected }: CompanyPillPara
         />
       </div>
       <p
-        className={` truncate  max-sm:font-semibold max-sm:text-sm pr-4 ${
-          isSelected ? "text-white font-bold" : " text-gray-800"
-        } `}
+        className={` truncate  max-sm:font-semibold max-sm:text-sm pr-4 ${isSelected ? "text-white font-bold" : " text-gray-800"
+          } `}
       >
         {companyName}
       </p>
@@ -73,15 +71,14 @@ function Timeline({ targets, onReportClick }: TimelineProps) {
                     <div className={` h-[2px] flex-1 w-full bg-[#32D583] origin-left  transition-all`}></div>
                   ) : null}
                   <div
-                    className={`${
-                      index === 0 && targets.length > 1
+                    className={`${index === 0 && targets.length > 1
                         ? " flex-1 flex justify-end"
                         : index === targets.length - 1 && targets.length > 1
-                        ? " flex-1 "
-                        : targets.length === 1
-                        ? " flex-1 flex justify-center"
-                        : null
-                    }`}
+                          ? " flex-1 "
+                          : targets.length === 1
+                            ? " flex-1 flex justify-center"
+                            : null
+                      }`}
                   >
                     <div className=" border-[2px] border-brand-400 h-[10px] w-[10px] rounded-full"></div>
                   </div>
@@ -192,7 +189,7 @@ export default function SampleReport() {
   return (
     <div className=" main-container ">
       <div className=" py-[50px] sm:py-[100px] open_sans rounded-[28px]">
-        <p className=" font-bold text-[#FF9E29] text-center max-sm:text-sm">Reports</p>
+        <p className=" font-bold text-[#B35300] text-center max-sm:text-sm">Reports</p>
         <h2 className=" text-display-xs sm:text-display-md font-bold mb-2 text-center text-gray-950">
           Sample Reports - It’s <span className=" open_sans_italic">FREE</span>!
         </h2>
@@ -205,16 +202,16 @@ export default function SampleReport() {
             <CarouselContent className="">
               {Array.isArray(data?.data) && data?.data.length > 0
                 ? data?.data.map((item: any) => (
-                    <CarouselItem key={item.stock} className=" basis-auto">
-                      {" "}
-                      <CompanyPill
-                        isSelected={item.stock === companySelected?.stock}
-                        onClick={() => selectCompany(item)}
-                        logo={logoMap[item.stock as keyof typeof logoMap] || ""}
-                        companyName={item.stock}
-                      />
-                    </CarouselItem>
-                  ))
+                  <CarouselItem key={item.stock} className=" basis-auto">
+                    {" "}
+                    <CompanyPill
+                      isSelected={item.stock === companySelected?.stock}
+                      onClick={() => selectCompany(item)}
+                      logo={logoMap[item.stock as keyof typeof logoMap] || ""}
+                      companyName={item.stock}
+                    />
+                  </CarouselItem>
+                ))
                 : null}
             </CarouselContent>
           </Carousel>

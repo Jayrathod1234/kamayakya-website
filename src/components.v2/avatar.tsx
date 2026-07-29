@@ -13,10 +13,11 @@ type TAvatar = {
   imgSrc?: string;
   className?: string;
   imgClassName?: string;
-  customImgSize?:number
+  customImgSize?:number;
+  alt?: string;
 };
 
-export function Avatar({ variant = AvatarVariant.sm, imgSrc="/avatar-card.webp", className, imgClassName,customImgSize }: TAvatar) {
+export function Avatar({ variant = AvatarVariant.sm, imgSrc="/avatar-card.webp", className, imgClassName,customImgSize, alt = "User avatar" }: TAvatar) {
   const size =
     variant == AvatarVariant.sm
       ? " h-9 w-9"
@@ -46,6 +47,7 @@ export function Avatar({ variant = AvatarVariant.sm, imgSrc="/avatar-card.webp",
           height={imgSize}
           width={imgSize}
           src={imgSrc}
+          alt={alt}
         />
       )}
     </div>
