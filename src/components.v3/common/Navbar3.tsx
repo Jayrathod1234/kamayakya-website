@@ -177,7 +177,7 @@ export function Navbar({ className }: { className?: string }) {
                           ? "hidden"
                           : "hidden lg:flex"
                         : navigationOption.title === "Stocks to Buy"
-                        ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-orange-500 hover:bg-[#E26103] !text-orange-500 hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
+                        ? "hidden"
                         : ""
                     } ${
                       navigationOption.title === "About Us" ? "!hidden" : ""

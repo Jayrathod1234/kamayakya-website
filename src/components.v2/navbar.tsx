@@ -302,7 +302,7 @@ export function Navbar({
                           ? "hidden"
                           : "hidden lg:flex"
                         : navigationOption.title === "Stocks to Buy"
-                          ? "lg:hidden rounded-[6px] border pricing hover:scale-95 transition-all duration-200 border-[rgba(246,135,0,1)] hover:bg-[#E26103] !text-[rgba(246,135,0,1)] hover:text-[#E26103] !bg-[rgba(255,158,41,0.06)] hover:!bg-[rgba(255,158,41,0.06)] mr-4"
+                          ? "hidden"
                           : ""
                         } ${navigationOption.title === "About Us" ? "!hidden" : ""}`}
                     >
